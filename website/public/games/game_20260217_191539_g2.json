@@ -30429,7 +30429,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p8,p6"
+        "attackers": [
+          "p8",
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -30706,26 +30709,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         326,
         328,
-        329
+        329,
+        330,
+        331
       ],
       "subsequentActions": [
         "spectator2 has started watching",

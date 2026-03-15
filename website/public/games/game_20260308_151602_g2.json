@@ -116285,10 +116285,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "GPT53C Teach chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -116583,10 +116581,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "GPT53C Teach skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -116726,7 +116722,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 11,
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -117056,7 +117052,7 @@
         28
       ],
       "subsequentActions": [],
-      "actionSeq": 14,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -117201,10 +117197,8 @@
         27,
         30
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 15
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 10,
@@ -117346,7 +117340,7 @@
         36
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 20,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -117532,7 +117526,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 19
+      "actionSeq": 21
     },
     {
       "index": 12,
@@ -117712,7 +117706,7 @@
         34
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 22,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -117875,7 +117869,7 @@
         38
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 26,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -118020,10 +118014,8 @@
         37,
         40
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 20,
+      "subsequentActions": [],
+      "actionSeq": 27,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -118181,7 +118173,7 @@
         42
       ],
       "subsequentActions": [],
-      "actionSeq": 26,
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -118325,10 +118317,8 @@
         41,
         46
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 27,
+      "subsequentActions": [],
+      "actionSeq": 31,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -118494,7 +118484,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 30,
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -118668,7 +118658,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 31,
+      "actionSeq": 33,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -118838,7 +118828,7 @@
         50
       ],
       "subsequentActions": [],
-      "actionSeq": 33,
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -118999,7 +118989,7 @@
         56
       ],
       "subsequentActions": [],
-      "actionSeq": 34,
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -119165,10 +119155,8 @@
         55,
         58
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 32,
+      "subsequentActions": [],
+      "actionSeq": 39,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -119325,7 +119313,7 @@
         60
       ],
       "subsequentActions": [],
-      "actionSeq": 38,
+      "actionSeq": 42,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -119489,10 +119477,8 @@
         59,
         62
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 39,
+      "subsequentActions": [],
+      "actionSeq": 43,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -119661,7 +119647,7 @@
         70
       ],
       "subsequentActions": [],
-      "actionSeq": 42,
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -119866,7 +119852,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 43,
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -120077,7 +120063,7 @@
         66
       ],
       "subsequentActions": [],
-      "actionSeq": 45,
+      "actionSeq": 46,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -120261,10 +120247,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 46,
+      "subsequentActions": [],
+      "actionSeq": 50,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -120442,7 +120426,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 50,
+      "actionSeq": 54,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120616,11 +120600,8 @@
         71,
         74
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield",
-        "o3 Memoir casts Lightning Visionary from hand"
-      ],
-      "actionSeq": 44,
+      "subsequentActions": [],
+      "actionSeq": 55,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -120793,7 +120774,7 @@
         76
       ],
       "subsequentActions": [],
-      "actionSeq": 54,
+      "actionSeq": 57,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120967,10 +120948,8 @@
         75,
         78
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Lightning Visionary from stack onto the Battlefield"
-      ],
-      "actionSeq": 55,
+      "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121144,7 +121123,7 @@
         80
       ],
       "subsequentActions": [],
-      "actionSeq": 57
+      "actionSeq": 61
     },
     {
       "index": 33,
@@ -121315,10 +121294,8 @@
         79,
         82
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 58,
+      "subsequentActions": [],
+      "actionSeq": 62,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121504,7 +121481,7 @@
         92
       ],
       "subsequentActions": [],
-      "actionSeq": 61,
+      "actionSeq": 63,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -121697,7 +121674,7 @@
         84
       ],
       "subsequentActions": [],
-      "actionSeq": 62,
+      "actionSeq": 64,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121901,7 +121878,7 @@
         88
       ],
       "subsequentActions": [],
-      "actionSeq": 64,
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -122091,10 +122068,8 @@
         89,
         90
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 65,
+      "subsequentActions": [],
+      "actionSeq": 69,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -122282,7 +122257,7 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 69,
+      "actionSeq": 74,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -122474,11 +122449,8 @@
         93,
         100
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach casts Turntimber Basilisk from hand"
-      ],
-      "actionSeq": 63
+      "subsequentActions": [],
+      "actionSeq": 75
     },
     {
       "index": 40,
@@ -122879,10 +122851,8 @@
         101,
         104
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Turntimber Basilisk from stack onto the Battlefield"
-      ],
-      "actionSeq": 75
+      "subsequentActions": [],
+      "actionSeq": 78
     },
     {
       "index": 43,
@@ -123063,7 +123033,7 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 77
+      "actionSeq": 81
     },
     {
       "index": 44,
@@ -123276,7 +123246,7 @@
         116
       ],
       "subsequentActions": [],
-      "actionSeq": 81,
+      "actionSeq": 83,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -123725,7 +123695,7 @@
         118
       ],
       "subsequentActions": [],
-      "actionSeq": 85,
+      "actionSeq": 89,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -123916,10 +123886,8 @@
         117,
         122
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 83
+      "subsequentActions": [],
+      "actionSeq": 90
     },
     {
       "index": 49,
@@ -124133,7 +124101,7 @@
         120
       ],
       "subsequentActions": [],
-      "actionSeq": 89,
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -124337,7 +124305,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 91,
+      "actionSeq": 94,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -124527,10 +124495,8 @@
         123,
         126
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 90
+      "subsequentActions": [],
+      "actionSeq": 95
     },
     {
       "index": 52,
@@ -124729,7 +124695,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 94,
+      "actionSeq": 96,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -125207,7 +125173,7 @@
         138
       ],
       "subsequentActions": [],
-      "actionSeq": 96,
+      "actionSeq": 99,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -125440,7 +125406,7 @@
         134
       ],
       "subsequentActions": [],
-      "actionSeq": 98,
+      "actionSeq": 100,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -125662,10 +125628,8 @@
         135,
         136
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 100,
+      "subsequentActions": [],
+      "actionSeq": 104,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -125868,7 +125832,7 @@
         140
       ],
       "subsequentActions": [],
-      "actionSeq": 104,
+      "actionSeq": 108,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -126076,11 +126040,8 @@
         139,
         142
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack",
-        "GPT53C Teach casts Master's Rebuke targeting Turntimber Basilisk, Lightning Visionary from hand"
-      ],
-      "actionSeq": 99,
+      "subsequentActions": [],
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -126314,12 +126275,8 @@
         143,
         146
       ],
-      "subsequentActions": [
-        "Turntimber Basilisk deals 2 damage to Lightning Visionary",
-        "GPT53C Teach puts Master's Rebuke from stack into their graveyard",
-        "Lightning Visionary died"
-      ],
-      "actionSeq": 109,
+      "subsequentActions": [],
+      "actionSeq": 114,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -126550,7 +126507,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
@@ -126560,22 +126517,224 @@
         "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": "p23"
+        "choice": "no"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T4 Precombat Main/Precombat Main (o3 Memoir) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 7,
+            "graveyard": [
+              {
+                "name": "Lightning Visionary",
+                "rules": [
+                  "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
+                ],
+                "id": "p12"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p14"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p15"
+              }
+            ],
+            "name": "o3 Memoir",
+            "library_size": 29,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{5}{R}",
+                "name": "Chandra's Incinerator",
+                "rules": [
+                  "This spell costs {X} less to cast, where X is the total amount of noncombat damage dealt to your opponents this turn.",
+                  "Trample",
+                  "Whenever a source you control deals noncombat damage to an opponent, {this} deals that much damage to target creature or planeswalker that player controls."
+                ],
+                "power": "6",
+                "id": "p10",
+                "toughness": "6"
+              },
+              {
+                "mana_cost": "{3}{R}",
+                "name": "Goblin Wizardry",
+                "rules": [
+                  "Create two 1/1 red Goblin Wizard creature tokens with prowess."
+                ],
+                "id": "p29"
+              },
+              {
+                "mana_cost": "{3}{R}",
+                "name": "Kinetic Augur",
+                "rules": [
+                  "Trample",
+                  "{this}'s power is equal to the number of instant and sorcery cards in your graveyard.",
+                  "When {this} enters, discard up to two cards, then draw that many cards."
+                ],
+                "power": "0",
+                "id": "p11",
+                "toughness": "4"
+              },
+              {
+                "name": "Mountain",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p23",
+                "playable": true
+              },
+              {
+                "name": "Mountain",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p25",
+                "playable": true
+              },
+              {
+                "mana_cost": "{3}{R}{R}",
+                "name": "Pyroclastic Elemental",
+                "rules": [
+                  "{1}{R}{R}: {this} deals 1 damage to target player."
+                ],
+                "power": "5",
+                "id": "p16",
+                "toughness": "4"
+              },
+              {
+                "mana_cost": "{1}{R}",
+                "name": "Thrill of Possibility",
+                "rules": [
+                  "As an additional cost to cast this spell, discard a card.: ",
+                  "Draw two cards."
+                ],
+                "id": "p32",
+                "playable": true
+              }
+            ]
+          },
+          {
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Master's Rebuke",
+                "rules": [
+                  "Target creature you control deals damage equal to its power to target creature or planeswalker you don't control."
+                ],
+                "id": "p27"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p3"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": false,
+                "name": "Turntimber Basilisk",
+                "rules": [
+                  "Deathtouch",
+                  "Landfall &mdash; Whenever a land you control enters, you may have target creature block {this} this turn if able."
+                ],
+                "id": "p24",
+                "power": "2",
+                "toughness": "1",
+                "summoning_sick": false
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 30,
+            "life": 20
+          }
+        ],
+        "board_cursor": 17,
+        "choices": [
+          {
+            "name": "Mountain",
+            "index": 0,
+            "action": "land",
+            "id": "p23"
+          },
+          {
+            "name": "Mountain",
+            "index": 1,
+            "action": "land",
+            "id": "p25"
+          },
+          {
+            "mana_cost": "{1}{R}",
+            "name": "Thrill of Possibility",
+            "index": 2,
+            "action": "cast",
+            "id": "p32"
+          }
+        ],
+        "untapped_lands": 3,
         "game_seq": 116,
-        "error": "Object p23 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "land_drops_used": 0,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         146,
         147,
-        148
+        148,
+        149,
+        150
       ],
       "subsequentActions": [],
-      "actionSeq": 114,
+      "actionSeq": 116,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -126842,7 +127001,7 @@
         152
       ],
       "subsequentActions": [],
-      "actionSeq": 116,
+      "actionSeq": 117,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -127086,10 +127245,8 @@
         153,
         154
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 117,
+      "subsequentActions": [],
+      "actionSeq": 121,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -127336,7 +127493,7 @@
         158
       ],
       "subsequentActions": [],
-      "actionSeq": 121,
+      "actionSeq": 127,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -127573,11 +127730,8 @@
         157,
         160
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield",
-        "o3 Memoir casts Goblin Wizardry from hand"
-      ],
-      "actionSeq": 115,
+      "subsequentActions": [],
+      "actionSeq": 128,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -127817,7 +127971,7 @@
         162
       ],
       "subsequentActions": [],
-      "actionSeq": 127,
+      "actionSeq": 132,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -128054,12 +128208,8 @@
         161,
         164
       ],
-      "subsequentActions": [
-        "o3 Memoir creates a Goblin Wizard Token token",
-        "o3 Memoir creates a Goblin Wizard Token token",
-        "o3 Memoir puts Goblin Wizardry from stack into their graveyard"
-      ],
-      "actionSeq": 128,
+      "subsequentActions": [],
+      "actionSeq": 133,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -128300,7 +128450,7 @@
         166
       ],
       "subsequentActions": [],
-      "actionSeq": 132
+      "actionSeq": 136
     },
     {
       "index": 71,
@@ -128534,10 +128684,8 @@
         165,
         168
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 133,
+      "subsequentActions": [],
+      "actionSeq": 137,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -128796,7 +128944,7 @@
         178
       ],
       "subsequentActions": [],
-      "actionSeq": 136,
+      "actionSeq": 138,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -129419,10 +129567,8 @@
         175,
         176
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 140,
+      "subsequentActions": [],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -129693,7 +129839,7 @@
         182
       ],
       "subsequentActions": [],
-      "actionSeq": 144,
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -129954,11 +130100,8 @@
         181,
         190
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Turntimber Basilisk - Landfall — Whenever a land you control enters, you may have target creature block Turntimber Basilisk this turn if able. - targeting Goblin Wizard Token"
-      ],
-      "actionSeq": 138
+      "subsequentActions": [],
+      "actionSeq": 147
     },
     {
       "index": 78,
@@ -130242,7 +130385,7 @@
         184
       ],
       "subsequentActions": [],
-      "actionSeq": 146,
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -130523,7 +130666,7 @@
         188
       ],
       "subsequentActions": [],
-      "actionSeq": 148,
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -130796,7 +130939,7 @@
         192
       ],
       "subsequentActions": [],
-      "actionSeq": 149,
+      "actionSeq": 155,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -131072,10 +131215,8 @@
         191,
         200
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Garruk, Unleashed from hand"
-      ],
-      "actionSeq": 147
+      "subsequentActions": [],
+      "actionSeq": 156
     },
     {
       "index": 82,
@@ -131346,10 +131487,8 @@
         193,
         194
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Garruk, Unleashed from stack onto the Battlefield"
-      ],
-      "actionSeq": 155,
+      "subsequentActions": [],
+      "actionSeq": 158,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -131647,7 +131786,7 @@
         196
       ],
       "subsequentActions": [],
-      "actionSeq": 158,
+      "actionSeq": 159,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -131939,7 +132078,7 @@
         198
       ],
       "subsequentActions": [],
-      "actionSeq": 159,
+      "actionSeq": 160,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -132195,7 +132334,7 @@
         202
       ],
       "subsequentActions": [],
-      "actionSeq": 160,
+      "actionSeq": 162,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -132461,11 +132600,8 @@
         201,
         204
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Garruk, Unleashed from stack onto the Battlefield",
-        "GPT53C Teach activates: up to one target creature gets +3/+3 and gains trample until end of turn. from Garruk, Unleashed targeting Turntimber Basilisk"
-      ],
-      "actionSeq": 156
+      "subsequentActions": [],
+      "actionSeq": 163
     },
     {
       "index": 87,
@@ -132734,7 +132870,7 @@
         206
       ],
       "subsequentActions": [],
-      "actionSeq": 162,
+      "actionSeq": 164,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -133015,7 +133151,7 @@
         210
       ],
       "subsequentActions": [],
-      "actionSeq": 163
+      "actionSeq": 165
     },
     {
       "index": 89,
@@ -133301,7 +133437,7 @@
         208
       ],
       "subsequentActions": [],
-      "actionSeq": 164,
+      "actionSeq": 166,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -133574,7 +133710,7 @@
         214
       ],
       "subsequentActions": [],
-      "actionSeq": 166
+      "actionSeq": 170
     },
     {
       "index": 91,
@@ -133878,10 +134014,8 @@
         211,
         212
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks o3 Memoir with 1 creature"
-      ],
-      "actionSeq": 165
+      "subsequentActions": [],
+      "actionSeq": 171
     },
     {
       "index": 92,
@@ -134172,7 +134306,7 @@
         216
       ],
       "subsequentActions": [],
-      "actionSeq": 171,
+      "actionSeq": 172,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -134463,7 +134597,7 @@
         218
       ],
       "subsequentActions": [],
-      "actionSeq": 170
+      "actionSeq": 175
     },
     {
       "index": 94,
@@ -134724,10 +134858,8 @@
         217,
         236
       ],
-      "subsequentActions": [
-        "Attacker: Turntimber Basilisk (5/4) blocked by Goblin Wizard Token (1/1)"
-      ],
-      "actionSeq": 172
+      "subsequentActions": [],
+      "actionSeq": 176
     },
     {
       "index": 95,
@@ -135010,7 +135142,7 @@
         220
       ],
       "subsequentActions": [],
-      "actionSeq": 175
+      "actionSeq": 177
     },
     {
       "index": 96,
@@ -135908,12 +136040,8 @@
         237,
         238
       ],
-      "subsequentActions": [
-        "Goblin Wizard Token deals 1 damage to Turntimber Basilisk",
-        "Turntimber Basilisk deals 5 damage to Goblin Wizard Token",
-        "Goblin Wizard Token died"
-      ],
-      "actionSeq": 176
+      "subsequentActions": [],
+      "actionSeq": 187
     },
     {
       "index": 104,
@@ -136555,7 +136683,7 @@
         246
       ],
       "subsequentActions": [],
-      "actionSeq": 190,
+      "actionSeq": 193,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136813,12 +136941,8 @@
         247,
         248
       ],
-      "subsequentActions": [
-        "o3 Memoir discards Thriving Bluff (source: Thrill of Possibility)",
-        "o3 Memoir casts Thrill of Possibility from hand",
-        "o3 Memoir - Ability triggers: Goblin Wizard Token - Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
-      ],
-      "actionSeq": 193,
+      "subsequentActions": [],
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137112,7 +137236,7 @@
         250
       ],
       "subsequentActions": [],
-      "actionSeq": 199,
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137403,10 +137527,8 @@
         253,
         254
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Thrill of Possibility from stack into their graveyard"
-      ],
-      "actionSeq": 201,
+      "subsequentActions": [],
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -137703,10 +137825,8 @@
         255,
         256
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 204,
+      "subsequentActions": [],
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -137747,17 +137867,17 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p35",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p6"
       },
       "actionResult": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "message": "Select a player, planeswalker, or battle to attack",
-        "response_type": "index",
-        "respond_with": "choice=pN — must pick a target",
+        "action_type": "GAME_SELECT",
+        "message": "Select attackers",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "context": "T5 Combat/Declare Attackers (o3 Memoir)",
         "board": [
           {
@@ -137800,7 +137920,7 @@
             "is_you": true,
             "battlefield": [
               {
-                "tapped": false,
+                "tapped": true,
                 "name": "Goblin Wizard Token",
                 "rules": [
                   "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
@@ -137986,42 +138106,35 @@
             "life": 20
           }
         ],
-        "board_cursor": 33,
-        "choices": [
+        "board_cursor": 34,
+        "combat": [
           {
-            "controller": "GPT53C Teach",
-            "name": "Garruk, Unleashed",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p6"
-          },
-          {
-            "name": "GPT53C Teach",
-            "target_type": "player",
-            "index": 1,
-            "id": "p1"
+            "blocked": false,
+            "defending": "Garruk, Unleashed",
+            "attackers": [
+              {
+                "name": "Goblin Wizard Token",
+                "id": "p35",
+                "power": "2",
+                "toughness": "2"
+              }
+            ]
           }
         ],
         "untapped_lands": 3,
-        "game_seq": 208,
-        "required": true,
-        "can_cancel": false,
-        "action_taken": "batch_attack",
-        "success": false,
-        "declared": [
-          {
-            "id": "p35"
-          }
-        ],
-        "interrupted": true
+        "game_seq": 209,
+        "action_taken": "selected_target_0",
+        "success": true
       },
       "llmEventIndices": [
         256,
         257,
-        258
+        258,
+        259,
+        260
       ],
       "subsequentActions": [],
-      "actionSeq": 206,
+      "actionSeq": 209,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -138326,7 +138439,7 @@
         260
       ],
       "subsequentActions": [],
-      "actionSeq": 208,
+      "actionSeq": 209,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -138616,7 +138729,7 @@
         262
       ],
       "subsequentActions": [],
-      "actionSeq": 209,
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -138905,10 +139018,8 @@
         263,
         264
       ],
-      "subsequentActions": [
-        "o3 Memoir attacks Garruk, Unleashed with 1 creature"
-      ],
-      "actionSeq": 210,
+      "subsequentActions": [],
+      "actionSeq": 213,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -139197,10 +139308,8 @@
         265,
         266
       ],
-      "subsequentActions": [
-        "Attacker: Goblin Wizard Token (2/2) unblocked"
-      ],
-      "actionSeq": 213,
+      "subsequentActions": [],
+      "actionSeq": 217,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -139476,10 +139585,8 @@
         267,
         268
       ],
-      "subsequentActions": [
-        "Goblin Wizard Token deals 2 damage to Garruk, Unleashed"
-      ],
-      "actionSeq": 217,
+      "subsequentActions": [],
+      "actionSeq": 221,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -140168,10 +140275,8 @@
         277,
         278
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 225,
+      "subsequentActions": [],
+      "actionSeq": 229,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -140467,10 +140572,8 @@
         279,
         280
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Turntimber Basilisk - Landfall — Whenever a land you control enters, you may have target creature block Turntimber Basilisk this turn if able. - targeting Goblin Wizard Token"
-      ],
-      "actionSeq": 229,
+      "subsequentActions": [],
+      "actionSeq": 231,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -140785,7 +140888,7 @@
         282
       ],
       "subsequentActions": [],
-      "actionSeq": 231,
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -141109,7 +141212,7 @@
         284
       ],
       "subsequentActions": [],
-      "actionSeq": 233,
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -141425,7 +141528,7 @@
         286
       ],
       "subsequentActions": [],
-      "actionSeq": 234,
+      "actionSeq": 235,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -141744,7 +141847,7 @@
         288
       ],
       "subsequentActions": [],
-      "actionSeq": 235,
+      "actionSeq": 236,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -142040,10 +142143,8 @@
         289,
         290
       ],
-      "subsequentActions": [
-        "GPT53C Teach activates: up to one target creature gets +3/+3 and gains trample until end of turn. from Garruk, Unleashed targeting Turntimber Basilisk"
-      ],
-      "actionSeq": 236,
+      "subsequentActions": [],
+      "actionSeq": 238,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -142329,10 +142430,8 @@
         291,
         292
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Hunter's Insight targeting Turntimber Basilisk from hand"
-      ],
-      "actionSeq": 238,
+      "subsequentActions": [],
+      "actionSeq": 243,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -142606,10 +142705,8 @@
         293,
         294
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Hunter's Insight from stack into their graveyard"
-      ],
-      "actionSeq": 243,
+      "subsequentActions": [],
+      "actionSeq": 246,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -142900,7 +142997,7 @@
         296
       ],
       "subsequentActions": [],
-      "actionSeq": 246,
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -143208,7 +143305,7 @@
         298
       ],
       "subsequentActions": [],
-      "actionSeq": 248,
+      "actionSeq": 250,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -143495,10 +143592,8 @@
         299,
         300
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks o3 Memoir with 1 creature"
-      ],
-      "actionSeq": 250,
+      "subsequentActions": [],
+      "actionSeq": 254,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -143789,10 +143884,8 @@
         301,
         302
       ],
-      "subsequentActions": [
-        "Attacker: Turntimber Basilisk (5/4) unblocked"
-      ],
-      "actionSeq": 254,
+      "subsequentActions": [],
+      "actionSeq": 258,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -144130,11 +144223,8 @@
         303,
         304
       ],
-      "subsequentActions": [
-        "o3 Memoir loses 5 life at combat from Turntimber Basilisk",
-        "GPT53C Teach - Ability triggers: Hunter's Insight - Whenever this creature deals combat damage to a player or planeswalker, draw that many cards."
-      ],
-      "actionSeq": 258,
+      "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -144468,7 +144558,7 @@
         306
       ],
       "subsequentActions": [],
-      "actionSeq": 263,
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -144847,7 +144937,7 @@
         308
       ],
       "subsequentActions": [],
-      "actionSeq": 265,
+      "actionSeq": 267,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -145233,10 +145323,9 @@
         316
       ],
       "subsequentActions": [
-        "GPT53C Teach discards down to 7 hand cards",
         "GPT53C Teach discards Rumbling Baloth"
       ],
-      "actionSeq": 267,
+      "actionSeq": 271,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -145986,10 +146075,8 @@
         313,
         314
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 273,
+      "subsequentActions": [],
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -146309,7 +146396,7 @@
         318
       ],
       "subsequentActions": [],
-      "actionSeq": 277,
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -146663,12 +146750,8 @@
         317,
         320
       ],
-      "subsequentActions": [
-        "GPT53C Teach discards Rumbling Baloth",
-        "o3 Memoir puts Mountain from hand onto the Battlefield",
-        "o3 Memoir casts Kinetic Augur from hand"
-      ],
-      "actionSeq": 271,
+      "subsequentActions": [],
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -147011,7 +147094,7 @@
         322
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 287,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -147388,11 +147471,8 @@
         321,
         332
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Kinetic Augur from stack onto the Battlefield",
-        "o3 Memoir - Ability triggers: Kinetic Augur - When Kinetic Augur enters, discard up to two cards, then draw that many cards."
-      ],
-      "actionSeq": 284,
+      "subsequentActions": [],
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -147754,7 +147834,7 @@
         324
       ],
       "subsequentActions": [],
-      "actionSeq": 287,
+      "actionSeq": 289,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -148113,7 +148193,7 @@
         326
       ],
       "subsequentActions": [],
-      "actionSeq": 289,
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -148496,11 +148576,8 @@
         327,
         328
       ],
-      "subsequentActions": [
-        "o3 Memoir discards Double Vision (source: Kinetic Augur)",
-        "o3 Memoir discards Pyroclastic Elemental (source: Kinetic Augur)"
-      ],
-      "actionSeq": 290,
+      "subsequentActions": [],
+      "actionSeq": 293,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -148877,7 +148954,7 @@
         330
       ],
       "subsequentActions": [],
-      "actionSeq": 293,
+      "actionSeq": 294,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -149212,7 +149289,7 @@
         336
       ],
       "subsequentActions": [],
-      "actionSeq": 294,
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -149580,13 +149657,8 @@
         333,
         334
       ],
-      "subsequentActions": [
-        "o3 Memoir discards Double Vision (source: Kinetic Augur)",
-        "o3 Memoir discards Pyroclastic Elemental (source: Kinetic Augur)",
-        "o3 Memoir casts Pillar of Flame targeting Turntimber Basilisk from hand",
-        "o3 Memoir - Ability triggers: Goblin Wizard Token - Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
-      ],
-      "actionSeq": 288,
+      "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -149949,7 +150021,7 @@
         340
       ],
       "subsequentActions": [],
-      "actionSeq": 299,
+      "actionSeq": 302,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -150281,10 +150353,8 @@
         337,
         338
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Ranger's Guile targeting Turntimber Basilisk from hand"
-      ],
-      "actionSeq": 298,
+      "subsequentActions": [],
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -150615,7 +150685,7 @@
         342
       ],
       "subsequentActions": [],
-      "actionSeq": 303,
+      "actionSeq": 305,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -150972,10 +151042,8 @@
         341,
         344
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Ranger's Guile from stack into their graveyard"
-      ],
-      "actionSeq": 302,
+      "subsequentActions": [],
+      "actionSeq": 306,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -151301,7 +151369,7 @@
         346
       ],
       "subsequentActions": [],
-      "actionSeq": 305,
+      "actionSeq": 307,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -151655,7 +151723,7 @@
         348
       ],
       "subsequentActions": [],
-      "actionSeq": 306,
+      "actionSeq": 308,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -151997,7 +152065,7 @@
         352
       ],
       "subsequentActions": [],
-      "actionSeq": 307,
+      "actionSeq": 311,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -152365,11 +152433,8 @@
         351,
         360
       ],
-      "subsequentActions": [
-        "Pillar of Flame has been fizzled.",
-        "o3 Memoir puts Pillar of Flame from stack into their graveyard"
-      ],
-      "actionSeq": 308,
+      "subsequentActions": [],
+      "actionSeq": 312,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -152409,17 +152474,17 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p35",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p6"
       },
       "actionResult": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "message": "Select a player, planeswalker, or battle to attack",
-        "response_type": "index",
-        "respond_with": "choice=pN — must pick a target",
+        "action_type": "GAME_SELECT",
+        "message": "Select attackers",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "context": "T6 Combat/Declare Attackers (o3 Memoir)",
         "board": [
           {
@@ -152483,7 +152548,7 @@
             "is_you": true,
             "battlefield": [
               {
-                "tapped": false,
+                "tapped": true,
                 "name": "Goblin Wizard Token",
                 "rules": [
                   "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
@@ -152697,42 +152762,35 @@
             "life": 20
           }
         ],
-        "board_cursor": 46,
-        "choices": [
+        "board_cursor": 47,
+        "combat": [
           {
-            "controller": "GPT53C Teach",
-            "name": "Garruk, Unleashed",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p6"
-          },
-          {
-            "name": "GPT53C Teach",
-            "target_type": "player",
-            "index": 1,
-            "id": "p1"
+            "blocked": false,
+            "defending": "Garruk, Unleashed",
+            "attackers": [
+              {
+                "name": "Goblin Wizard Token",
+                "id": "p35",
+                "power": "2",
+                "toughness": "2"
+              }
+            ]
           }
         ],
         "untapped_lands": 1,
-        "game_seq": 313,
-        "required": true,
-        "can_cancel": false,
-        "action_taken": "batch_attack",
-        "success": false,
-        "declared": [
-          {
-            "id": "p35"
-          }
-        ],
-        "interrupted": true
+        "game_seq": 314,
+        "action_taken": "selected_target_0",
+        "success": true
       },
       "llmEventIndices": [
         352,
         353,
-        354
+        354,
+        355,
+        356
       ],
       "subsequentActions": [],
-      "actionSeq": 311,
+      "actionSeq": 314,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -153086,7 +153144,7 @@
         356
       ],
       "subsequentActions": [],
-      "actionSeq": 313,
+      "actionSeq": 314,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -153425,7 +153483,7 @@
         358
       ],
       "subsequentActions": [],
-      "actionSeq": 314,
+      "actionSeq": 315,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -153764,7 +153822,7 @@
         362
       ],
       "subsequentActions": [],
-      "actionSeq": 315,
+      "actionSeq": 318,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -154130,10 +154188,8 @@
         361,
         364
       ],
-      "subsequentActions": [
-        "o3 Memoir attacks Garruk, Unleashed with 1 creature"
-      ],
-      "actionSeq": 312,
+      "subsequentActions": [],
+      "actionSeq": 319,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -154472,7 +154528,7 @@
         366
       ],
       "subsequentActions": [],
-      "actionSeq": 318,
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -154838,10 +154894,8 @@
         365,
         368
       ],
-      "subsequentActions": [
-        "Attacker: Goblin Wizard Token (2/2) unblocked"
-      ],
-      "actionSeq": 319,
+      "subsequentActions": [],
+      "actionSeq": 323,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -155167,7 +155221,7 @@
         370
       ],
       "subsequentActions": [],
-      "actionSeq": 322,
+      "actionSeq": 326,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -155519,10 +155573,8 @@
         369,
         374
       ],
-      "subsequentActions": [
-        "Goblin Wizard Token deals 2 damage to Garruk, Unleashed"
-      ],
-      "actionSeq": 323,
+      "subsequentActions": [],
+      "actionSeq": 327,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -155974,7 +156026,7 @@
         376
       ],
       "subsequentActions": [],
-      "actionSeq": 327,
+      "actionSeq": 329,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -156387,7 +156439,7 @@
         378
       ],
       "subsequentActions": [],
-      "actionSeq": 329,
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -156772,10 +156824,8 @@
         379,
         380
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Zendikar's Roil from hand"
-      ],
-      "actionSeq": 330,
+      "subsequentActions": [],
+      "actionSeq": 339,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -157166,10 +157216,8 @@
         381,
         382
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Zendikar's Roil from stack onto the Battlefield"
-      ],
-      "actionSeq": 339,
+      "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -157582,10 +157630,8 @@
         383,
         384
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 342,
+      "subsequentActions": [],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -157986,10 +158032,8 @@
         385,
         386
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 344,
+      "subsequentActions": [],
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -158362,10 +158406,8 @@
         387,
         388
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Turntimber Basilisk - Landfall — Whenever a land you control enters, you may have target creature block Turntimber Basilisk this turn if able. - targeting Kinetic Augur"
-      ],
-      "actionSeq": 346,
+      "subsequentActions": [],
+      "actionSeq": 348,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -158733,7 +158775,7 @@
         390
       ],
       "subsequentActions": [],
-      "actionSeq": 348,
+      "actionSeq": 350,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -159117,7 +159159,7 @@
         392
       ],
       "subsequentActions": [],
-      "actionSeq": 350,
+      "actionSeq": 351,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -159975,7 +160017,7 @@
         398
       ],
       "subsequentActions": [],
-      "actionSeq": 354,
+      "actionSeq": 355,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -160394,7 +160436,7 @@
         400
       ],
       "subsequentActions": [],
-      "actionSeq": 355,
+      "actionSeq": 356,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -160767,10 +160809,8 @@
         401,
         402
       ],
-      "subsequentActions": [
-        "GPT53C Teach activates: up to one target creature gets +3/+3 and gains trample until end of turn. from Garruk, Unleashed targeting Turntimber Basilisk"
-      ],
-      "actionSeq": 356,
+      "subsequentActions": [],
+      "actionSeq": 358,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -161595,10 +161635,8 @@
         407,
         408
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks o3 Memoir with 1 creature"
-      ],
-      "actionSeq": 362,
+      "subsequentActions": [],
+      "actionSeq": 366,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -161998,10 +162036,8 @@
         409,
         410
       ],
-      "subsequentActions": [
-        "Attacker: Turntimber Basilisk (5/4) blocked by Kinetic Augur (3/4)"
-      ],
-      "actionSeq": 366,
+      "subsequentActions": [],
+      "actionSeq": 370,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -162405,7 +162441,7 @@
         412
       ],
       "subsequentActions": [],
-      "actionSeq": 370,
+      "actionSeq": 372,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -164040,13 +164076,8 @@
         431,
         432
       ],
-      "subsequentActions": [
-        "o3 Memoir loses 2 life at combat from Turntimber Basilisk",
-        "Kinetic Augur deals 3 damage to Turntimber Basilisk",
-        "Turntimber Basilisk deals 3 damage to Kinetic Augur",
-        "Kinetic Augur died"
-      ],
-      "actionSeq": 378,
+      "subsequentActions": [],
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -164088,7 +164119,7 @@
         434
       ],
       "subsequentActions": [],
-      "actionSeq": 384,
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -164986,7 +165017,7 @@
         440
       ],
       "subsequentActions": [],
-      "actionSeq": 388,
+      "actionSeq": 389,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -165046,7 +165077,7 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
@@ -165056,9 +165087,314 @@
         "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": "p6"
+        "choice": "p68"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_TARGET",
+        "message": "Select targets (selected 2 of 3, min 1) to divide 3 damage",
+        "response_type": "index",
+        "respond_with": "choice=pN, or choice=no to cancel",
+        "context": "T7 Precombat Main/Precombat Main (o3 Memoir) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Double Vision",
+                "rules": [
+                  "Whenever you cast your first instant or sorcery spell each turn, copy that spell. You may choose new targets for the copy."
+                ],
+                "id": "p44"
+              },
+              {
+                "name": "Goblin Wizardry",
+                "rules": [
+                  "Create two 1/1 red Goblin Wizard creature tokens with prowess."
+                ],
+                "id": "p29"
+              },
+              {
+                "name": "Kinetic Augur",
+                "rules": [
+                  "Trample",
+                  "{this}'s power is equal to the number of instant and sorcery cards in your graveyard.",
+                  "When {this} enters, discard up to two cards, then draw that many cards."
+                ],
+                "id": "p11"
+              },
+              {
+                "name": "Lightning Visionary",
+                "rules": [
+                  "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
+                ],
+                "id": "p12"
+              },
+              {
+                "name": "Pillar of Flame",
+                "rules": [
+                  "{this} deals 2 damage to any target. If a creature dealt damage this way would die this turn, exile it instead."
+                ],
+                "id": "p60"
+              },
+              {
+                "name": "Pyroclastic Elemental",
+                "rules": [
+                  "{1}{R}{R}: {this} deals 1 damage to target player."
+                ],
+                "id": "p16"
+              },
+              {
+                "name": "Thrill of Possibility",
+                "rules": [
+                  "As an additional cost to cast this spell, discard a card.: ",
+                  "Draw two cards."
+                ],
+                "id": "p32"
+              },
+              {
+                "name": "Thriving Bluff",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than red.",
+                  "{T}: Add {R}.",
+                  "{T}: Add one mana of the chosen color."
+                ],
+                "id": "p41"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Goblin Wizard Token",
+                "rules": [
+                  "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
+                ],
+                "id": "p35",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p14"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p23"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p25"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p45"
+              }
+            ],
+            "name": "o3 Memoir",
+            "library_size": 22,
+            "life": 13,
+            "hand": [
+              {
+                "mana_cost": "{5}{R}",
+                "name": "Chandra's Incinerator",
+                "rules": [
+                  "This spell costs {X} less to cast, where X is the total amount of noncombat damage dealt to your opponents this turn.",
+                  "Trample",
+                  "Whenever a source you control deals noncombat damage to an opponent, {this} deals that much damage to target creature or planeswalker that player controls."
+                ],
+                "power": "6",
+                "id": "p10",
+                "toughness": "6"
+              },
+              {
+                "mana_cost": "{1}{R}",
+                "name": "Chandra's Magmutt",
+                "rules": [
+                  "{T}: {this} deals 1 damage to target player or planeswalker."
+                ],
+                "power": "2",
+                "id": "p56",
+                "toughness": "2"
+              },
+              {
+                "mana_cost": "{3}{R}",
+                "name": "Living Lightning",
+                "rules": [
+                  "When {this} dies, return target instant or sorcery card from your graveyard to your hand."
+                ],
+                "power": "3",
+                "id": "p70",
+                "toughness": "2"
+              }
+            ]
+          },
+          {
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Hunter's Insight",
+                "rules": [
+                  "Choose target creature you control. Whenever that creature deals combat damage to a player or planeswalker this turn, draw that many cards."
+                ],
+                "id": "p7"
+              },
+              {
+                "name": "Master's Rebuke",
+                "rules": [
+                  "Target creature you control deals damage equal to its power to target creature or planeswalker you don't control."
+                ],
+                "id": "p27"
+              },
+              {
+                "name": "Ranger's Guile",
+                "rules": [
+                  "Target creature you control gets +1/+1 and gains hexproof until end of turn."
+                ],
+                "id": "p53"
+              },
+              {
+                "name": "Rumbling Baloth",
+                "id": "p54"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Elemental Token",
+                "id": "p68",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p3"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p36"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p46"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p51"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "loyalty": 3
+                },
+                "loyalty": "3",
+                "name": "Garruk, Unleashed",
+                "rules": [
+                  "+1: Up to one target creature gets +3/+3 and gains trample until end of turn.",
+                  "-2: Create a 3/3 green Beast creature token. Then if an opponent controls more creatures than you, put a loyalty counter on {this}.",
+                  "-7: You get an emblem with \"At the beginning of your end step, you may search your library for a creature card, put it onto the battlefield, then shuffle.\""
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": true,
+                "name": "Turntimber Basilisk",
+                "rules": [
+                  "Deathtouch",
+                  "Landfall &mdash; Whenever a land you control enters, you may have target creature block {this} this turn if able."
+                ],
+                "id": "p24",
+                "power": "2",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Zendikar's Roil",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, create a 2/2 green Elemental creature token."
+                ],
+                "id": "p55"
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 22,
+            "life": 20
+          }
+        ],
+        "board_cursor": 50,
         "choices": [
           {
             "is_you": true,
@@ -165068,18 +165404,9 @@
             "id": "p2"
           },
           {
-            "controller": "GPT53C Teach",
-            "name": "Elemental Token",
-            "target_type": "permanent",
-            "index": 1,
-            "power": "2",
-            "id": "p68",
-            "toughness": "2"
-          },
-          {
             "name": "Goblin Wizard Token",
             "target_type": "permanent",
-            "index": 2,
+            "index": 1,
             "power": "1",
             "id": "p35",
             "toughness": "1"
@@ -165087,7 +165414,7 @@
           {
             "name": "GPT53C Teach",
             "target_type": "player",
-            "index": 3,
+            "index": 2,
             "id": "p1"
           },
           {
@@ -165095,25 +165422,44 @@
             "controller": "GPT53C Teach",
             "name": "Turntimber Basilisk",
             "target_type": "permanent",
-            "index": 4,
+            "index": 3,
             "power": "2",
             "id": "p24",
             "toughness": "1"
           }
         ],
+        "stack": [
+          {
+            "name": "Flames of the Firebrand",
+            "targets": [
+              {
+                "name": "Garruk, Unleashed (GPT53C Teach's)",
+                "id": "p6"
+              },
+              {
+                "name": "Elemental Token (2/2) (GPT53C Teach's)",
+                "id": "p68"
+              }
+            ]
+          }
+        ],
+        "untapped_lands": 6,
         "game_seq": 390,
-        "error": "Object p6 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "land_drops_used": 0,
+        "required": false,
+        "can_cancel": true,
+        "action_taken": "selected_target_1",
+        "success": true
       },
       "llmEventIndices": [
         440,
         441,
-        442
+        442,
+        443,
+        444
       ],
       "subsequentActions": [],
-      "actionSeq": 389,
+      "actionSeq": 390,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -165525,7 +165871,7 @@
         446
       ],
       "subsequentActions": [],
-      "actionSeq": 390,
+      "actionSeq": 391,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -165895,7 +166241,7 @@
         448
       ],
       "subsequentActions": [],
-      "actionSeq": 391,
+      "actionSeq": 392,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -166258,11 +166604,8 @@
         449,
         450
       ],
-      "subsequentActions": [
-        "o3 Memoir casts Flames of the Firebrand targeting Garruk, Unleashed (2) Elemental Token (1) from hand",
-        "o3 Memoir - Ability triggers: Goblin Wizard Token - Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
-      ],
-      "actionSeq": 392,
+      "subsequentActions": [],
+      "actionSeq": 400,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -166630,7 +166973,7 @@
         452
       ],
       "subsequentActions": [],
-      "actionSeq": 400,
+      "actionSeq": 402,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -166990,12 +167333,8 @@
         453,
         454
       ],
-      "subsequentActions": [
-        "Flames of the Firebrand deals 2 damage to Garruk, Unleashed",
-        "Flames of the Firebrand deals 1 damage to Elemental Token",
-        "o3 Memoir puts Flames of the Firebrand from stack into their graveyard"
-      ],
-      "actionSeq": 402,
+      "subsequentActions": [],
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -167354,10 +167693,8 @@
         455,
         456
       ],
-      "subsequentActions": [
-        "o3 Memoir casts Chandra's Magmutt from hand"
-      ],
-      "actionSeq": 407,
+      "subsequentActions": [],
+      "actionSeq": 411,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -167730,10 +168067,8 @@
         459,
         460
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Chandra's Magmutt from stack onto the Battlefield"
-      ],
-      "actionSeq": 411,
+      "subsequentActions": [],
+      "actionSeq": 414,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -167774,17 +168109,17 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p35",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p6"
       },
       "actionResult": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "message": "Select a player, planeswalker, or battle to attack",
-        "response_type": "index",
-        "respond_with": "choice=pN — must pick a target",
+        "action_type": "GAME_SELECT",
+        "message": "Select attackers",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "context": "T7 Combat/Declare Attackers (o3 Memoir)",
         "board": [
           {
@@ -167875,7 +168210,7 @@
                 "summoning_sick": true
               },
               {
-                "tapped": false,
+                "tapped": true,
                 "name": "Goblin Wizard Token",
                 "rules": [
                   "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
@@ -168092,42 +168427,35 @@
             "life": 20
           }
         ],
-        "board_cursor": 55,
-        "choices": [
+        "board_cursor": 56,
+        "combat": [
           {
-            "controller": "GPT53C Teach",
-            "name": "Garruk, Unleashed",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p6"
-          },
-          {
-            "name": "GPT53C Teach",
-            "target_type": "player",
-            "index": 1,
-            "id": "p1"
+            "blocked": false,
+            "defending": "Garruk, Unleashed",
+            "attackers": [
+              {
+                "name": "Goblin Wizard Token",
+                "id": "p35",
+                "power": "2",
+                "toughness": "2"
+              }
+            ]
           }
         ],
         "untapped_lands": 1,
-        "game_seq": 416,
-        "required": true,
-        "can_cancel": false,
-        "action_taken": "batch_attack",
-        "success": false,
-        "declared": [
-          {
-            "id": "p35"
-          }
-        ],
-        "interrupted": true
+        "game_seq": 417,
+        "action_taken": "selected_target_0",
+        "success": true
       },
       "llmEventIndices": [
         460,
         461,
-        462
+        462,
+        463,
+        464
       ],
       "subsequentActions": [],
-      "actionSeq": 414,
+      "actionSeq": 417,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -168511,7 +168839,7 @@
         464
       ],
       "subsequentActions": [],
-      "actionSeq": 416,
+      "actionSeq": 417,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -168880,7 +169208,7 @@
         466
       ],
       "subsequentActions": [],
-      "actionSeq": 417,
+      "actionSeq": 418,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -169256,10 +169584,8 @@
         467,
         470
       ],
-      "subsequentActions": [
-        "o3 Memoir attacks Garruk, Unleashed with 1 creature"
-      ],
-      "actionSeq": 418,
+      "subsequentActions": [],
+      "actionSeq": 421,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -170027,7 +170353,7 @@
         474
       ],
       "subsequentActions": [],
-      "actionSeq": 421,
+      "actionSeq": 427,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -170393,10 +170719,8 @@
         473,
         476
       ],
-      "subsequentActions": [
-        "Attacker: Goblin Wizard Token (2/2) blocked by Elemental Token (2/2)"
-      ],
-      "actionSeq": 423,
+      "subsequentActions": [],
+      "actionSeq": 428,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -170731,7 +171055,7 @@
         478
       ],
       "subsequentActions": [],
-      "actionSeq": 427,
+      "actionSeq": 434,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -171090,13 +171414,8 @@
         477,
         480
       ],
-      "subsequentActions": [
-        "Elemental Token deals 2 damage to Goblin Wizard Token",
-        "Goblin Wizard Token deals 2 damage to Elemental Token",
-        "Goblin Wizard Token died",
-        "Elemental Token died"
-      ],
-      "actionSeq": 428,
+      "subsequentActions": [],
+      "actionSeq": 435,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -171452,7 +171771,7 @@
         492
       ],
       "subsequentActions": [],
-      "actionSeq": 434,
+      "actionSeq": 436,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -171888,7 +172207,7 @@
         482
       ],
       "subsequentActions": [],
-      "actionSeq": 435,
+      "actionSeq": 437,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -172337,7 +172656,7 @@
         484
       ],
       "subsequentActions": [],
-      "actionSeq": 437,
+      "actionSeq": 438,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -172757,10 +173076,8 @@
         487,
         488
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 438,
+      "subsequentActions": [],
+      "actionSeq": 442,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -173168,10 +173485,8 @@
         489,
         490
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 442,
+      "subsequentActions": [],
+      "actionSeq": 444,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -173555,7 +173870,7 @@
         494
       ],
       "subsequentActions": [],
-      "actionSeq": 444,
+      "actionSeq": 446,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -173963,7 +174278,7 @@
         496
       ],
       "subsequentActions": [],
-      "actionSeq": 446,
+      "actionSeq": 448,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -174404,7 +174719,7 @@
         498
       ],
       "subsequentActions": [],
-      "actionSeq": 448,
+      "actionSeq": 449,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -174849,10 +175164,8 @@
         499,
         500
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Elemental Token token"
-      ],
-      "actionSeq": 449,
+      "subsequentActions": [],
+      "actionSeq": 452,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -175280,7 +175593,7 @@
         502
       ],
       "subsequentActions": [],
-      "actionSeq": 452,
+      "actionSeq": 453,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -175706,7 +176019,7 @@
         504
       ],
       "subsequentActions": [],
-      "actionSeq": 453,
+      "actionSeq": 454,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -176139,10 +176452,8 @@
         505,
         506
       ],
-      "subsequentActions": [
-        "GPT53C Teach activates: up to one target creature gets +3/+3 and gains trample until end of turn. from Garruk, Unleashed targeting Turntimber Basilisk"
-      ],
-      "actionSeq": 454,
+      "subsequentActions": [],
+      "actionSeq": 456,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -176587,7 +176898,7 @@
         508
       ],
       "subsequentActions": [],
-      "actionSeq": 456,
+      "actionSeq": 458,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -177002,7 +177313,7 @@
         510
       ],
       "subsequentActions": [],
-      "actionSeq": 458,
+      "actionSeq": 459,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -177392,10 +177703,8 @@
         511,
         512
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Hunter's Edge targeting Turntimber Basilisk, Chandra's Magmutt from hand"
-      ],
-      "actionSeq": 459,
+      "subsequentActions": [],
+      "actionSeq": 465,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -177776,13 +178085,8 @@
         513,
         514
       ],
-      "subsequentActions": [
-        "Hunter's Edge: GPT53C Teach puts 1 +1/+1 counters on Turntimber Basilisk",
-        "Turntimber Basilisk deals 6 damage to Chandra's Magmutt",
-        "GPT53C Teach puts Hunter's Edge from stack into their graveyard",
-        "Chandra's Magmutt died"
-      ],
-      "actionSeq": 465,
+      "subsequentActions": [],
+      "actionSeq": 471,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -178163,10 +178467,8 @@
         515,
         516
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Garruk's Harbinger from hand"
-      ],
-      "actionSeq": 471,
+      "subsequentActions": [],
+      "actionSeq": 476,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -178559,10 +178861,8 @@
         517,
         522
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Garruk's Harbinger from stack onto the Battlefield"
-      ],
-      "actionSeq": 476,
+      "subsequentActions": [],
+      "actionSeq": 479,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -179358,7 +179658,7 @@
         524
       ],
       "subsequentActions": [],
-      "actionSeq": 479,
+      "actionSeq": 481,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -179749,7 +180049,7 @@
         528
       ],
       "subsequentActions": [],
-      "actionSeq": 481
+      "actionSeq": 485
     },
     {
       "index": 234,
@@ -180129,10 +180429,8 @@
         527,
         530
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks o3 Memoir with 1 creature"
-      ],
-      "actionSeq": 480,
+      "subsequentActions": [],
+      "actionSeq": 486,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -180523,7 +180821,7 @@
         532
       ],
       "subsequentActions": [],
-      "actionSeq": 485
+      "actionSeq": 489
     },
     {
       "index": 236,
@@ -180903,10 +181201,8 @@
         531,
         534
       ],
-      "subsequentActions": [
-        "Attacker: Turntimber Basilisk (6/5) unblocked"
-      ],
-      "actionSeq": 486,
+      "subsequentActions": [],
+      "actionSeq": 490,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -181284,7 +181580,7 @@
         536
       ],
       "subsequentActions": [],
-      "actionSeq": 489
+      "actionSeq": 493
     },
     {
       "index": 238,
@@ -181650,10 +181946,8 @@
         535,
         540
       ],
-      "subsequentActions": [
-        "o3 Memoir loses 6 life at combat from Turntimber Basilisk"
-      ],
-      "actionSeq": 490,
+      "subsequentActions": [],
+      "actionSeq": 494,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -182034,7 +182328,7 @@
         546
       ],
       "subsequentActions": [],
-      "actionSeq": 493,
+      "actionSeq": 495,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -182446,7 +182740,7 @@
         542
       ],
       "subsequentActions": [],
-      "actionSeq": 494,
+      "actionSeq": 496,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -182849,7 +183143,7 @@
         544
       ],
       "subsequentActions": [],
-      "actionSeq": 496,
+      "actionSeq": 497,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -183248,7 +183542,7 @@
         548
       ],
       "subsequentActions": [],
-      "actionSeq": 497,
+      "actionSeq": 503,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -183639,10 +183933,8 @@
         547,
         552
       ],
-      "subsequentActions": [
-        "o3 Memoir casts Young Pyromancer from hand"
-      ],
-      "actionSeq": 495
+      "subsequentActions": [],
+      "actionSeq": 504
     },
     {
       "index": 244,
@@ -184023,10 +184315,8 @@
         549,
         550
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Young Pyromancer from stack onto the Battlefield"
-      ],
-      "actionSeq": 503,
+      "subsequentActions": [],
+      "actionSeq": 506,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -184411,7 +184701,7 @@
         554
       ],
       "subsequentActions": [],
-      "actionSeq": 506,
+      "actionSeq": 512,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -184807,11 +185097,8 @@
         553,
         556
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Young Pyromancer from stack onto the Battlefield",
-        "o3 Memoir casts Living Lightning from hand"
-      ],
-      "actionSeq": 504
+      "subsequentActions": [],
+      "actionSeq": 513
     },
     {
       "index": 247,
@@ -185188,7 +185475,7 @@
         558
       ],
       "subsequentActions": [],
-      "actionSeq": 512,
+      "actionSeq": 515,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -185593,10 +185880,8 @@
         559,
         560
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 515
+      "subsequentActions": [],
+      "actionSeq": 519
     },
     {
       "index": 250,
@@ -185995,7 +186280,7 @@
         572
       ],
       "subsequentActions": [],
-      "actionSeq": 519,
+      "actionSeq": 521,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -186946,10 +187231,8 @@
         567,
         568
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 523,
+      "subsequentActions": [],
+      "actionSeq": 527,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -187418,10 +187701,8 @@
         569,
         570
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 527,
+      "subsequentActions": [],
+      "actionSeq": 529,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -187843,7 +188124,7 @@
         574
       ],
       "subsequentActions": [],
-      "actionSeq": 529,
+      "actionSeq": 531,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -188286,7 +188567,7 @@
         576
       ],
       "subsequentActions": [],
-      "actionSeq": 531,
+      "actionSeq": 533,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -188748,7 +189029,7 @@
         578
       ],
       "subsequentActions": [],
-      "actionSeq": 533,
+      "actionSeq": 534,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -189218,10 +189499,8 @@
         579,
         580
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Elemental Token token"
-      ],
-      "actionSeq": 534,
+      "subsequentActions": [],
+      "actionSeq": 537,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -189714,7 +189993,7 @@
         582
       ],
       "subsequentActions": [],
-      "actionSeq": 537,
+      "actionSeq": 538,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -190201,7 +190480,7 @@
         584
       ],
       "subsequentActions": [],
-      "actionSeq": 538,
+      "actionSeq": 539,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -190654,10 +190933,8 @@
         585,
         586
       ],
-      "subsequentActions": [
-        "GPT53C Teach activates: up to one target creature gets +3/+3 and gains trample until end of turn. from Garruk, Unleashed targeting Garruk's Harbinger"
-      ],
-      "actionSeq": 539,
+      "subsequentActions": [],
+      "actionSeq": 541,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -191139,7 +191416,7 @@
         592
       ],
       "subsequentActions": [],
-      "actionSeq": 541,
+      "actionSeq": 543,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -192083,7 +192360,7 @@
         594
       ],
       "subsequentActions": [],
-      "actionSeq": 543,
+      "actionSeq": 545,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -192555,7 +192832,7 @@
         600
       ],
       "subsequentActions": [],
-      "actionSeq": 545,
+      "actionSeq": 551,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -193033,10 +193310,8 @@
         597,
         598
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks o3 Memoir with 3 creatures"
-      ],
-      "actionSeq": 544
+      "subsequentActions": [],
+      "actionSeq": 552
     },
     {
       "index": 267,
@@ -193500,7 +193775,7 @@
         602
       ],
       "subsequentActions": [],
-      "actionSeq": 552,
+      "actionSeq": 553,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -194001,7 +194276,7 @@
         604
       ],
       "subsequentActions": [],
-      "actionSeq": 551,
+      "actionSeq": 560,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -194450,12 +194725,8 @@
         603,
         638
       ],
-      "subsequentActions": [
-        "Attacker: Turntimber Basilisk (3/2) blocked by Living Lightning (3/2)",
-        "Attacker: Garruk's Harbinger (7/6) blocked by Young Pyromancer (2/1)",
-        "Attacker: Elemental Token (2/2) unblocked"
-      ],
-      "actionSeq": 553
+      "subsequentActions": [],
+      "actionSeq": 561
     },
     {
       "index": 270,
@@ -195570,10 +195841,13 @@
         618,
         619,
         621,
-        622
+        622,
+        623,
+        625,
+        627
       ],
       "subsequentActions": [],
-      "actionSeq": 567,
+      "actionSeq": 569,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -196543,7 +196817,7 @@
         636
       ],
       "subsequentActions": [],
-      "actionSeq": 569,
+      "actionSeq": 571,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -196992,7 +197266,7 @@
         640
       ],
       "subsequentActions": [],
-      "actionSeq": 571,
+      "actionSeq": 573,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -197444,11 +197718,8 @@
         639,
         643
       ],
-      "subsequentActions": [
-        "Living Lightning deals 3 damage to Turntimber Basilisk",
-        "Turntimber Basilisk deals 3 damage to Living Lightning"
-      ],
-      "actionSeq": 561
+      "subsequentActions": [],
+      "actionSeq": 582
     },
     {
       "index": 281,
@@ -197486,14 +197757,8 @@
         641,
         642
       ],
-      "subsequentActions": [
-        "o3 Memoir loses 4 life at combat from Garruk's Harbinger",
-        "Young Pyromancer deals 2 damage to Garruk's Harbinger",
-        "Garruk's Harbinger deals 3 damage to Young Pyromancer",
-        "o3 Memoir loses 2 life at combat from Elemental Token",
-        "Turntimber Basilisk died"
-      ],
-      "actionSeq": 573,
+      "subsequentActions": [],
+      "actionSeq": 584,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -197912,10 +198177,8 @@
         645,
         646
       ],
-      "subsequentActions": [
-        "o3 Memoir - Ability triggers: Living Lightning - When Living Lightning dies, return target instant or sorcery card from your graveyard to your hand. - targeting Pillar of Flame"
-      ],
-      "actionSeq": 582
+      "subsequentActions": [],
+      "actionSeq": 585
     },
     {
       "index": 283,
@@ -198326,10 +198589,8 @@
         647,
         648
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Pillar of Flame from graveyard into their hand"
-      ],
-      "actionSeq": 585
+      "subsequentActions": [],
+      "actionSeq": 588
     },
     {
       "index": 284,
@@ -198709,13 +198970,8 @@
         649,
         650
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts a card from library to the bottom of their library (source: Garruk's Harbinger)",
-        "GPT53C Teach puts a card from library to the bottom of their library (source: Garruk's Harbinger)",
-        "GPT53C Teach puts a card from library to the bottom of their library (source: Garruk's Harbinger)",
-        "GPT53C Teach puts a card from library to the bottom of their library (source: Garruk's Harbinger)"
-      ],
-      "actionSeq": 588
+      "subsequentActions": [],
+      "actionSeq": 595
     },
     {
       "index": 285,
@@ -198779,7 +199035,7 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
@@ -198789,28 +199045,400 @@
         "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": "p60"
+        "choice": "p95"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_TARGET",
+        "message": "Select a creature",
+        "response_type": "index",
+        "respond_with": "choice=pN, or choice=no to cancel",
+        "context": "T9 Combat/Declare Attackers (o3 Memoir)",
+        "board": [
           {
-            "mana_cost": "{2}{R}",
-            "name": "Hungry Flames",
-            "index": 0,
-            "action": "cast",
-            "id": "p95"
+            "hand_size": 2,
+            "graveyard": [
+              {
+                "name": "Chandra's Magmutt",
+                "rules": [
+                  "{T}: {this} deals 1 damage to target player or planeswalker."
+                ],
+                "id": "p56"
+              },
+              {
+                "name": "Double Vision",
+                "rules": [
+                  "Whenever you cast your first instant or sorcery spell each turn, copy that spell. You may choose new targets for the copy."
+                ],
+                "id": "p44"
+              },
+              {
+                "name": "Flames of the Firebrand",
+                "rules": [
+                  "{this} deals 3 damage divided as you choose among one, two, or three targets."
+                ],
+                "id": "p59"
+              },
+              {
+                "name": "Goblin Wizardry",
+                "rules": [
+                  "Create two 1/1 red Goblin Wizard creature tokens with prowess."
+                ],
+                "id": "p29"
+              },
+              {
+                "name": "Kinetic Augur",
+                "rules": [
+                  "Trample",
+                  "{this}'s power is equal to the number of instant and sorcery cards in your graveyard.",
+                  "When {this} enters, discard up to two cards, then draw that many cards."
+                ],
+                "id": "p11"
+              },
+              {
+                "name": "Lightning Visionary",
+                "rules": [
+                  "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)"
+                ],
+                "id": "p12"
+              },
+              {
+                "name": "Living Lightning",
+                "rules": [
+                  "When {this} dies, return target instant or sorcery card from your graveyard to your hand."
+                ],
+                "id": "p70"
+              },
+              {
+                "name": "Pyroclastic Elemental",
+                "rules": [
+                  "{1}{R}{R}: {this} deals 1 damage to target player."
+                ],
+                "id": "p16"
+              },
+              {
+                "name": "Thrill of Possibility",
+                "rules": [
+                  "As an additional cost to cast this spell, discard a card.: ",
+                  "Draw two cards."
+                ],
+                "id": "p32"
+              },
+              {
+                "name": "Thriving Bluff",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than red.",
+                  "{T}: Add {R}.",
+                  "{T}: Add one mana of the chosen color."
+                ],
+                "id": "p41"
+              },
+              {
+                "name": "Young Pyromancer",
+                "rules": [
+                  "Whenever you cast an instant or sorcery spell, create a 1/1 red Elemental creature token."
+                ],
+                "id": "p81"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p14"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p23"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p25"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p45"
+              }
+            ],
+            "name": "o3 Memoir",
+            "library_size": 20,
+            "life": 1,
+            "hand": [
+              {
+                "mana_cost": "{5}{R}",
+                "name": "Chandra's Incinerator",
+                "rules": [
+                  "This spell costs {X} less to cast, where X is the total amount of noncombat damage dealt to your opponents this turn.",
+                  "Trample",
+                  "Whenever a source you control deals noncombat damage to an opponent, {this} deals that much damage to target creature or planeswalker that player controls."
+                ],
+                "power": "6",
+                "id": "p10",
+                "toughness": "6"
+              },
+              {
+                "mana_cost": "{R}",
+                "name": "Pillar of Flame",
+                "rules": [
+                  "{this} deals 2 damage to any target. If a creature dealt damage this way would die this turn, exile it instead."
+                ],
+                "id": "p60"
+              }
+            ]
+          },
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Hunter's Edge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. Then that creature deals damage equal to its power to target creature you don't control."
+                ],
+                "id": "p30"
+              },
+              {
+                "name": "Hunter's Insight",
+                "rules": [
+                  "Choose target creature you control. Whenever that creature deals combat damage to a player or planeswalker this turn, draw that many cards."
+                ],
+                "id": "p7"
+              },
+              {
+                "name": "Master's Rebuke",
+                "rules": [
+                  "Target creature you control deals damage equal to its power to target creature or planeswalker you don't control."
+                ],
+                "id": "p27"
+              },
+              {
+                "name": "Ranger's Guile",
+                "rules": [
+                  "Target creature you control gets +1/+1 and gains hexproof until end of turn."
+                ],
+                "id": "p53"
+              },
+              {
+                "name": "Rumbling Baloth",
+                "id": "p54"
+              },
+              {
+                "name": "Turntimber Basilisk",
+                "rules": [
+                  "Deathtouch",
+                  "Landfall &mdash; Whenever a land you control enters, you may have target creature block {this} this turn if able."
+                ],
+                "id": "p24"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Elemental Token",
+                "id": "p77",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elemental Token",
+                "id": "p87",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p3"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p36"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p46"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p51"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p74"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p84"
+              },
+              {
+                "tapped": true,
+                "name": "Garruk's Harbinger",
+                "rules": [
+                  "Hexproof from black (This creature can't be the target of black spells or abilities your opponents control.)",
+                  "Whenever {this} deals combat damage to a player or planeswalker, look at that many cards from the top of your library. You may reveal a creature card or Garruk planeswalker card from among them and put it into your hand. Put the rest on the bottom of your library in a random order."
+                ],
+                "id": "p52",
+                "power": "4",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "loyalty": 3
+                },
+                "loyalty": "3",
+                "name": "Garruk, Unleashed",
+                "rules": [
+                  "+1: Up to one target creature gets +3/+3 and gains trample until end of turn.",
+                  "-2: Create a 3/3 green Beast creature token. Then if an opponent controls more creatures than you, put a loyalty counter on {this}.",
+                  "-7: You get an emblem with \"At the beginning of your end step, you may search your library for a creature card, put it onto the battlefield, then shuffle.\""
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": false,
+                "name": "Zendikar's Roil",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, create a 2/2 green Elemental creature token."
+                ],
+                "id": "p55"
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 20,
+            "life": 20
           }
         ],
+        "board_cursor": 75,
+        "choices": [
+          {
+            "tapped": true,
+            "controller": "GPT53C Teach",
+            "name": "Elemental Token",
+            "target_type": "permanent",
+            "index": 0,
+            "power": "2",
+            "id": "p77",
+            "toughness": "2"
+          },
+          {
+            "controller": "GPT53C Teach",
+            "name": "Elemental Token",
+            "target_type": "permanent",
+            "index": 1,
+            "power": "2",
+            "id": "p87",
+            "toughness": "2"
+          },
+          {
+            "tapped": true,
+            "controller": "GPT53C Teach",
+            "name": "Garruk's Harbinger",
+            "target_type": "permanent",
+            "index": 2,
+            "power": "4",
+            "id": "p52",
+            "toughness": "3"
+          }
+        ],
+        "stack": [
+          {
+            "name": "Hungry Flames"
+          }
+        ],
+        "untapped_lands": 6,
         "game_seq": 603,
-        "error": "Object p60 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "required": false,
+        "can_cancel": true,
+        "action_taken": "selected_0",
+        "success": true
       },
       "llmEventIndices": [
         655,
         657,
-        658
+        658,
+        659,
+        660
       ],
       "subsequentActions": [],
       "actionSeq": 603,
@@ -199268,7 +199896,7 @@
         662
       ],
       "subsequentActions": [],
-      "actionSeq": 603,
+      "actionSeq": 604,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -199688,7 +200316,7 @@
         664
       ],
       "subsequentActions": [],
-      "actionSeq": 604,
+      "actionSeq": 605,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -200069,10 +200697,8 @@
         665,
         666
       ],
-      "subsequentActions": [
-        "o3 Memoir casts Hungry Flames targeting Elemental Token, GPT53C Teach from hand"
-      ],
-      "actionSeq": 605,
+      "subsequentActions": [],
+      "actionSeq": 610,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -200464,13 +201090,8 @@
         667,
         668
       ],
-      "subsequentActions": [
-        "Hungry Flames deals 3 damage to Elemental Token",
-        "GPT53C Teach loses 2 life from Hungry Flames",
-        "o3 Memoir puts Hungry Flames from stack into their graveyard",
-        "Elemental Token died"
-      ],
-      "actionSeq": 610,
+      "subsequentActions": [],
+      "actionSeq": 616,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -200901,7 +201522,7 @@
         670
       ],
       "subsequentActions": [],
-      "actionSeq": 616,
+      "actionSeq": 618,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -201331,7 +201952,7 @@
         672
       ],
       "subsequentActions": [],
-      "actionSeq": 618,
+      "actionSeq": 619,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -201725,10 +202346,8 @@
         673,
         674
       ],
-      "subsequentActions": [
-        "o3 Memoir casts Pillar of Flame targeting GPT53C Teach from hand"
-      ],
-      "actionSeq": 619,
+      "subsequentActions": [],
+      "actionSeq": 623,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -202130,11 +202749,8 @@
         675,
         686
       ],
-      "subsequentActions": [
-        "GPT53C Teach loses 2 life from Pillar of Flame",
-        "o3 Memoir puts Pillar of Flame from stack into their graveyard"
-      ],
-      "actionSeq": 623,
+      "subsequentActions": [],
+      "actionSeq": 627,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -203059,7 +203675,7 @@
         682
       ],
       "subsequentActions": [],
-      "actionSeq": 629,
+      "actionSeq": 630,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -203503,7 +204119,7 @@
         684
       ],
       "subsequentActions": [],
-      "actionSeq": 630,
+      "actionSeq": 631,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -203957,7 +204573,7 @@
         688
       ],
       "subsequentActions": [],
-      "actionSeq": 631,
+      "actionSeq": 635,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -204339,10 +204955,8 @@
         687,
         690
       ],
-      "subsequentActions": [
-        "GPT53C Teach activates: up to one target creature gets +3/+3 and gains trample until end of turn. from Garruk, Unleashed targeting Garruk's Harbinger"
-      ],
-      "actionSeq": 627,
+      "subsequentActions": [],
+      "actionSeq": 636,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -204814,7 +205428,7 @@
         692
       ],
       "subsequentActions": [],
-      "actionSeq": 635,
+      "actionSeq": 637,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -205229,7 +205843,7 @@
         696
       ],
       "subsequentActions": [],
-      "actionSeq": 636,
+      "actionSeq": 638,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -205696,7 +206310,7 @@
         694
       ],
       "subsequentActions": [],
-      "actionSeq": 637,
+      "actionSeq": 639,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -206133,7 +206747,7 @@
         698
       ],
       "subsequentActions": [],
-      "actionSeq": 639,
+      "actionSeq": 644,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -206540,10 +207154,8 @@
         697,
         700
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks o3 Memoir with 2 creatures"
-      ],
-      "actionSeq": 638,
+      "subsequentActions": [],
+      "actionSeq": 645,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -206585,7 +207197,7 @@
         704
       ],
       "subsequentActions": [],
-      "actionSeq": 644,
+      "actionSeq": 649,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -206630,13 +207242,11 @@
         702
       ],
       "subsequentActions": [
-        "Attacker: Garruk's Harbinger (7/6) unblocked",
-        "Attacker: Elemental Token (2/2) unblocked",
         "o3 Memoir loses 7 life at combat from Garruk's Harbinger",
         "o3 Memoir loses 2 life at combat from Elemental Token",
         "o3 Memoir has lost the game."
       ],
-      "actionSeq": 645,
+      "actionSeq": 650,
       "pilotContext": {
         "untappedLands": 2
       }

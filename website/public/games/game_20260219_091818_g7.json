@@ -41680,7 +41680,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -41734,7 +41736,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p3:p12"
+        "blockers": [
+          "p3:p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -42498,7 +42502,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -42668,20 +42674,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p5"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p5 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         190,
         191,
-        192
+        192,
+        193,
+        194
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -43863,15 +43872,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p7', 'blocks': 'p21'}"
+        "blockers": [
+          "p7:p21"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p7\",\"blocks\":\"p21\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "blocks": "p21",
+            "id": "p7"
+          }
+        ],
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         286,
         287,
-        288
+        288,
+        289,
+        291
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -44514,7 +44534,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7"
+        "attackers": [
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -45159,7 +45181,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7,p14"
+        "attackers": [
+          "p7",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -45213,7 +45238,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p6:p42"
+        "blockers": [
+          "p6:p42"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -45389,7 +45416,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p6"
+        "attackers": [
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47227,7 +47256,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7,p14,p25"
+        "attackers": [
+          "p7",
+          "p14",
+          "p25"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47328,19 +47361,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "index": 0
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_ASK requires answer=true (yes) or answer=false (no). Do not use index or id — this is a yes/no question."
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
       },
       "llmEventIndices": [
         466,
-        467
+        467,
+        468,
+        469
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -47530,7 +47566,8 @@
       },
       "llmEventIndices": [
         479,
-        480
+        480,
+        481
       ],
       "subsequentActions": [
         "spectator7 has started watching",

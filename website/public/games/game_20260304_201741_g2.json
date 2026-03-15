@@ -54264,20 +54264,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p14"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 113
       },
       "llmEventIndices": [
         114,
         115,
-        116
+        116,
+        117,
+        118,
+        119
       ],
-      "subsequentActions": [
-        "Sonnet Villain attacks Gem31P Teach with 1 creature"
-      ],
-      "actionSeq": 109,
+      "subsequentActions": [],
+      "actionSeq": 113,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -55288,22 +55294,29 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p14"
+        "choice": "0"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p14' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p14'"
+        "success": false,
+        "error": "Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.",
+        "error_code": "index_out_of_range",
+        "retryable": true,
+        "game_seq": 191
       },
       "llmEventIndices": [
         198,
         199,
-        200
+        200,
+        201,
+        202,
+        203,
+        204,
+        205
       ],
-      "subsequentActions": [
-        "Sonnet Villain attacks Gem31P Teach with 1 creature"
-      ],
-      "actionSeq": 187,
+      "subsequentActions": [],
+      "actionSeq": 191,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -55643,7 +55656,8 @@
       "llmEventIndices": [
         230,
         231,
-        232
+        232,
+        233
       ],
       "subsequentActions": [
         "Gem31P Teach attacks Sonnet Villain with 2 creatures"
@@ -55734,34 +55748,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p49:p20"
+        "blockers": "p49:p3"
       },
       "actionResult": {
         "success": false,
-        "action_taken": "batch_block",
-        "declared": [],
-        "failed": [
-          {
-            "id": "p49",
-            "reason": "unknown attacker ID: p20"
-          }
-        ],
-        "game_seq": 214,
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
+        "game_seq": 221
       },
       "llmEventIndices": [
         236,
         237,
-        242
+        242,
+        243,
+        245,
+        246,
+        247
       ],
-      "subsequentActions": [
-        "Attacker: Drowsing Tyrannodon (3/3) unblocked",
-        "Attacker: Garruk's Harbinger (4/3) unblocked"
-      ],
-      "actionSeq": 214,
+      "subsequentActions": [],
+      "actionSeq": 221,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -56833,20 +56840,42 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p17,p3"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 283,
+        "choices": [
+          {
+            "mana_cost": "{G}",
+            "name": "Ranger's Guile",
+            "index": 0,
+            "action": "cast",
+            "id": "p20"
+          },
+          {
+            "mana_cost": "{1}{U}",
+            "name": "Voyage's End",
+            "index": 1,
+            "action": "cast",
+            "id": "p22"
+          }
+        ]
       },
       "llmEventIndices": [
         320,
         321,
-        322
+        322,
+        323,
+        325,
+        327
       ],
-      "subsequentActions": [
-        "Gem31P Teach attacks Sonnet Villain with 2 creatures"
-      ],
-      "actionSeq": 279,
+      "subsequentActions": [],
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -57802,17 +57831,34 @@
         "attackers": "p14"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p14' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p14'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 331,
+        "choices": [
+          {
+            "mana_cost": "{3}{U}",
+            "name": "Capture Sphere",
+            "index": 0,
+            "action": "cast",
+            "id": "p10"
+          }
+        ]
       },
       "llmEventIndices": [
         395,
         396,
-        397
+        397,
+        398,
+        399,
+        400,
+        401,
+        403
       ],
-      "subsequentActions": [
-        "Sonnet Villain attacks Gem31P Teach with 1 creature"
-      ],
-      "actionSeq": 327,
+      "subsequentActions": [],
+      "actionSeq": 331,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -58247,20 +58293,42 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p17,p3"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 353,
+        "choices": [
+          {
+            "mana_cost": "{G}",
+            "name": "Ranger's Guile",
+            "index": 0,
+            "action": "cast",
+            "id": "p20"
+          },
+          {
+            "mana_cost": "{1}{U}",
+            "name": "Voyage's End",
+            "index": 1,
+            "action": "cast",
+            "id": "p22"
+          }
+        ]
       },
       "llmEventIndices": [
         428,
         429,
-        430
+        430,
+        431,
+        432,
+        433
       ],
-      "subsequentActions": [
-        "Gem31P Teach attacks Sonnet Villain with 2 creatures"
-      ],
-      "actionSeq": 349,
+      "subsequentActions": [],
+      "actionSeq": 353,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "attackers"

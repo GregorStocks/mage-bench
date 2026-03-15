@@ -13678,10 +13678,8 @@
         6,
         11
       ],
-      "subsequentActions": [
-        "Gem3P Coach chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -14005,10 +14003,8 @@
         12,
         13
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled"
-      ],
-      "actionSeq": 7
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -14178,10 +14174,8 @@
         14,
         15
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -14377,10 +14371,8 @@
         16,
         17
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled"
-      ],
-      "actionSeq": 12
+      "subsequentActions": [],
+      "actionSeq": 14
     },
     {
       "index": 6,
@@ -14564,10 +14556,8 @@
         18,
         19
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 14
+      "subsequentActions": [],
+      "actionSeq": 16
     },
     {
       "index": 7,
@@ -14687,10 +14677,8 @@
         20,
         21
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 16
+      "subsequentActions": [],
+      "actionSeq": 18
     },
     {
       "index": 8,
@@ -14820,10 +14808,8 @@
         24,
         25
       ],
-      "subsequentActions": [
-        "Gem3P Coach skips Draw step"
-      ],
-      "actionSeq": 18,
+      "subsequentActions": [],
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -14964,7 +14950,7 @@
         27
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 22,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -15097,7 +15083,7 @@
         29
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 23,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -15212,7 +15198,7 @@
         33
       ],
       "subsequentActions": [],
-      "actionSeq": 23,
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -15347,14 +15333,8 @@
         32,
         35
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled",
-        "Gem3P Coach puts a card from hand to the bottom of their library",
-        "Gem3P Coach's library is shuffled",
-        "Gem3P Coach puts a card from hand to the bottom of their library",
-        "Gem3P Coach puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 28
     },
     {
       "index": 13,
@@ -15463,7 +15443,7 @@
         37
       ],
       "subsequentActions": [],
-      "actionSeq": 27
+      "actionSeq": 31
     },
     {
       "index": 14,
@@ -15606,7 +15586,7 @@
         54
       ],
       "subsequentActions": [],
-      "actionSeq": 31,
+      "actionSeq": 33,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -15638,7 +15618,8 @@
       "llmEventIndices": [
         39,
         40,
-        41
+        41,
+        42
       ],
       "subsequentActions": [],
       "actionSeq": 34
@@ -15998,7 +15979,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 34,
+      "actionSeq": 35,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -16152,10 +16133,8 @@
         55,
         56
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 33
+      "subsequentActions": [],
+      "actionSeq": 40
     },
     {
       "index": 21,
@@ -16272,10 +16251,8 @@
         57,
         58
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 40
+      "subsequentActions": [],
+      "actionSeq": 44
     },
     {
       "index": 22,
@@ -16433,7 +16410,7 @@
         60
       ],
       "subsequentActions": [],
-      "actionSeq": 44
+      "actionSeq": 46
     },
     {
       "index": 23,
@@ -16615,7 +16592,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 46,
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -16783,10 +16760,8 @@
         63,
         64
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 47,
+      "subsequentActions": [],
+      "actionSeq": 51,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -16929,7 +16904,7 @@
         66
       ],
       "subsequentActions": [],
-      "actionSeq": 51,
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -17062,10 +17037,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Guardian Idol from hand"
-      ],
-      "actionSeq": 53,
+      "subsequentActions": [],
+      "actionSeq": 56,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -17196,10 +17169,8 @@
         69,
         70
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Guardian Idol from stack onto the Battlefield"
-      ],
-      "actionSeq": 56,
+      "subsequentActions": [],
+      "actionSeq": 59,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -17331,10 +17302,8 @@
         71,
         72
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 59
+      "subsequentActions": [],
+      "actionSeq": 63
     },
     {
       "index": 29,
@@ -17476,7 +17445,7 @@
         80
       ],
       "subsequentActions": [],
-      "actionSeq": 63,
+      "actionSeq": 65,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -17875,10 +17844,8 @@
         77,
         78
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 67,
+      "subsequentActions": [],
+      "actionSeq": 71,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -18058,11 +18025,8 @@
         81,
         82
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Dwynen's Elite from hand"
-      ],
-      "actionSeq": 65
+      "subsequentActions": [],
+      "actionSeq": 76
     },
     {
       "index": 34,
@@ -18209,10 +18173,8 @@
         83,
         84
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Dwynen's Elite from stack onto the Battlefield"
-      ],
-      "actionSeq": 76
+      "subsequentActions": [],
+      "actionSeq": 79
     },
     {
       "index": 35,
@@ -18359,10 +18321,8 @@
         85,
         86
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 79
+      "subsequentActions": [],
+      "actionSeq": 83
     },
     {
       "index": 36,
@@ -18566,7 +18526,7 @@
         88
       ],
       "subsequentActions": [],
-      "actionSeq": 83
+      "actionSeq": 85
     },
     {
       "index": 37,
@@ -18804,7 +18764,7 @@
         90
       ],
       "subsequentActions": [],
-      "actionSeq": 85,
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -19012,10 +18972,8 @@
         93,
         94
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 86,
+      "subsequentActions": [],
+      "actionSeq": 90,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -19404,10 +19362,8 @@
         100,
         101
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Celestial Enforcer from hand"
-      ],
-      "actionSeq": 92,
+      "subsequentActions": [],
+      "actionSeq": 96,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -19586,10 +19542,8 @@
         104,
         105
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Celestial Enforcer from stack onto the Battlefield"
-      ],
-      "actionSeq": 96,
+      "subsequentActions": [],
+      "actionSeq": 99,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -19775,10 +19729,8 @@
         106,
         107
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 99,
+      "subsequentActions": [],
+      "actionSeq": 103,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -19950,7 +19902,7 @@
         109
       ],
       "subsequentActions": [],
-      "actionSeq": 103,
+      "actionSeq": 105,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -20116,10 +20068,8 @@
         110,
         111
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Anointed Chorister from hand"
-      ],
-      "actionSeq": 105,
+      "subsequentActions": [],
+      "actionSeq": 109,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -20292,10 +20242,8 @@
         112,
         121
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Anointed Chorister from stack onto the Battlefield"
-      ],
-      "actionSeq": 109,
+      "subsequentActions": [],
+      "actionSeq": 112,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -20775,10 +20723,8 @@
         118,
         119
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 114,
+      "subsequentActions": [],
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,

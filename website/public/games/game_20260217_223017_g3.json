@@ -26328,12 +26328,21 @@
           1
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p8",
         "index": 5,
-        "mana_plan": "p1,p5:1,RED",
+        "mana_plan": [
+          "p1",
+          "p5:1",
+          "RED"
+        ],
         "pile": 1,
         "text": "example"
       },
@@ -26419,45 +26428,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 5,
+      "chosen": 0,
       "chosenArgs": {
-        "amount": 7,
-        "amounts": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          1
-        ],
-        "answer": false,
-        "attackers": "all",
-        "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p8",
-        "index": 5,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "example"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p8, ignored index=5",
-        "error_code": "invalid_choice",
-        "error": "Object p8 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. Cast Lotus Petal"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         49,
         50,
-        51
+        51,
+        52,
+        53
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -26506,7 +26493,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p2,p1"
+        "mana_plan": [
+          "p2",
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -26621,7 +26611,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p3",
-        "mana_plan": "p1,p8"
+        "mana_plan": [
+          "p1",
+          "p8"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -26818,7 +26811,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7"
+        "attackers": [
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -27206,7 +27201,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p39",
-        "mana_plan": "p1,p8,p30,p14"
+        "mana_plan": [
+          "p1",
+          "p8",
+          "p30",
+          "p14"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -27746,7 +27746,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p39,p7,p28,p45"
+        "attackers": [
+          "p39",
+          "p7",
+          "p28",
+          "p45"
+        ]
       },
       "actionResult": {
         "declared": [

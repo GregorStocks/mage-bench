@@ -110867,25 +110867,32 @@
         "auto_tap": true,
         "pile": 1,
         "mana_plan": "",
-        "attackers": "p31",
+        "attackers": "all",
         "blockers": "",
         "text": "",
         "choice": ""
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p31' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p31'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 94
       },
       "llmEventIndices": [
         97,
         98,
-        99
+        99,
+        100,
+        101,
+        102
       ],
       "subsequentActions": [
-        "GPT54 Worrier attacks Grok4F Tactic with 1 creature",
         "Attacker: Caustic Caterpillar (1/1) unblocked",
         "Grok4F Tactic loses 1 life at combat from Caustic Caterpillar"
       ],
-      "actionSeq": 90,
+      "actionSeq": 94,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -111197,7 +111204,8 @@
       "llmEventIndices": [
         122,
         123,
-        124
+        124,
+        125
       ],
       "subsequentActions": [
         "GPT54 Worrier attacks Grok4F Tactic with 1 creature"
@@ -111956,17 +111964,23 @@
         "attackers": "p15"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p15' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p15'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 218
       },
       "llmEventIndices": [
         193,
         194,
-        195
+        195,
+        196,
+        197,
+        198
       ],
-      "subsequentActions": [
-        "Grok4F Tactic attacks GPT54 Worrier with 1 creature"
-      ],
-      "actionSeq": 214,
+      "subsequentActions": [],
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -112671,22 +112685,27 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p15"
+        "choice": "p15"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p15' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p15'"
+        "success": false,
+        "error": "Object p15 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 282
       },
       "llmEventIndices": [
         254,
         255,
-        256
+        256,
+        257,
+        258,
+        259
       ],
-      "subsequentActions": [
-        "Grok4F Tactic attacks GPT54 Worrier with 1 creature"
-      ],
-      "actionSeq": 278,
+      "subsequentActions": [],
+      "actionSeq": 282,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -113381,32 +113400,38 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 1,
         "mana_plan": "",
-        "attackers": "p67",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p67"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p67' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p67'"
+        "success": false,
+        "error": "Object p67 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 361
       },
       "llmEventIndices": [
         322,
         323,
-        324
+        324,
+        325,
+        326,
+        327
       ],
       "subsequentActions": [
-        "GPT54 Worrier attacks Grok4F Tactic with 1 creature",
         "Attacker: Iridescent Hornbeetle (3/4) unblocked",
         "Grok4F Tactic loses 3 life at combat from Iridescent Hornbeetle"
       ],
-      "actionSeq": 357,
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -113962,7 +113987,8 @@
       "llmEventIndices": [
         376,
         377,
-        378
+        378,
+        379
       ],
       "subsequentActions": [
         "GPT54 Worrier attacks Grok4F Tactic with 1 creature"
@@ -114698,17 +114724,23 @@
         "attackers": "p65"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p65' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p65'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 488
       },
       "llmEventIndices": [
         438,
         439,
-        440
+        440,
+        442,
+        443,
+        444
       ],
-      "subsequentActions": [
-        "Grok4F Tactic attacks GPT54 Worrier with 1 creature"
-      ],
-      "actionSeq": 484,
+      "subsequentActions": [],
+      "actionSeq": 488,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -115336,22 +115368,37 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p65"
+        "choice": "p65"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p65' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p65'"
+        "success": false,
+        "error": "Object p65 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 551
       },
       "llmEventIndices": [
         493,
         494,
-        495
+        495,
+        497,
+        498,
+        499,
+        500,
+        502,
+        503,
+        504,
+        505,
+        506,
+        507,
+        509,
+        510,
+        511
       ],
-      "subsequentActions": [
-        "Grok4F Tactic attacks GPT54 Worrier with 1 creature"
-      ],
-      "actionSeq": 547,
+      "subsequentActions": [],
+      "actionSeq": 551,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -115589,23 +115636,47 @@
         "auto_tap": true,
         "pile": 1,
         "mana_plan": "",
-        "attackers": "all",
+        "attackers": "p67,p59,p86",
         "blockers": "",
         "text": "",
         "choice": ""
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 588,
+        "choices": [
+          {
+            "mana_cost": "{3}{W}",
+            "name": "Divine Verdict",
+            "index": 0,
+            "action": "cast",
+            "id": "p80"
+          },
+          {
+            "name": "Kami of Ancient Law",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "Sacrifice {this}: Destroy target enchantment."
+            ],
+            "id": "p59"
+          }
+        ]
       },
       "llmEventIndices": [
         526,
         527,
-        528
+        528,
+        529,
+        530,
+        531
       ],
-      "subsequentActions": [
-        "GPT54 Worrier attacks Grok4F Tactic with 3 creatures"
-      ],
-      "actionSeq": 584,
+      "subsequentActions": [],
+      "actionSeq": 588,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -116406,7 +116477,8 @@
       "llmEventIndices": [
         597,
         598,
-        599
+        599,
+        600
       ],
       "subsequentActions": [
         "GPT54 Worrier attacks Grok4F Tactic with 4 creatures",

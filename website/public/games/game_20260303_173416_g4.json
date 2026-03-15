@@ -69234,15 +69234,32 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "p46:p33"
+        "blockers": "p46:p33"
       },
       "actionResult": {
-        "error": "Unknown short ID: p46:p33"
+        "declared": [],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 412,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block",
+        "failed": [
+          {
+            "reason": "attacker p33 is not a valid block target",
+            "id": "p46"
+          }
+        ],
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         316,
         317,
-        318
+        318,
+        319,
+        320,
+        321,
+        324
       ],
       "subsequentActions": [
         "Attacker: Universal Automaton (5/3) unblocked",

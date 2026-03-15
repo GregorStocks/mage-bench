@@ -77644,11 +77644,13 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
       "actionResult": {
         "success": false,
-        "error": "Provide 'index' to play a card or 'answer: false' to pass priority",
+        "error": "Index 1 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -77672,7 +77674,10 @@
         270,
         272,
         274,
-        275
+        275,
+        277,
+        278,
+        280
       ],
       "subsequentActions": [
         "has started watching",

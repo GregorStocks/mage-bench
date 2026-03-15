@@ -1038,7 +1038,7 @@
         ],
         "success": true
       },
-      "actionSeq": 38,
+      "actionSeq": 42,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -1076,9 +1076,7 @@
       "responseType": "select",
       "snapshotIndex": 20,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Forest from hand onto the Battlefield"
-      ],
+      "subsequentActions": [],
       "turn": 3
     },
     {

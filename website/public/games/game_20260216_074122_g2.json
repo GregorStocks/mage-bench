@@ -73112,7 +73112,11 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p4:0,p8,p3",
+        "mana_plan": [
+          "p4:0",
+          "p8",
+          "p3"
+        ],
         "index": 0
       },
       "actionResult": {
@@ -74104,20 +74108,23 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "text": "Cave"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "'Cave' is not a valid choice"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_choice_0"
       },
       "llmEventIndices": [
         319,
         321,
-        322
+        322,
+        324,
+        325
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -75106,30 +75113,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {W}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {U}."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         481,
         483,
-        484
+        484,
+        486,
+        487
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -78164,7 +78164,11 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p18:1,p22:1,p4:0",
+        "mana_plan": [
+          "p18:1",
+          "p22:1",
+          "p4:0"
+        ],
         "id": "p27"
       },
       "actionResult": {
@@ -79282,7 +79286,11 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p24,p31:0,p9:1"
+        "mana_plan": [
+          "p24",
+          "p31:0",
+          "p9:1"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -79342,7 +79350,8 @@
       "llmEventIndices": [
         1040,
         1042,
-        1043
+        1043,
+        1045
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -79418,7 +79427,11 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p31",
-        "mana_plan": "p24,p14:0,p9:1"
+        "mana_plan": [
+          "p24",
+          "p14:0",
+          "p9:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -80146,7 +80159,11 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p24,p9:0,p44:1",
+        "mana_plan": [
+          "p24",
+          "p9:0",
+          "p44:1"
+        ],
         "id": "p6"
       },
       "actionResult": {
@@ -80252,7 +80269,11 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p31",
-        "mana_plan": "p14:1,p14:0,WHITE"
+        "mana_plan": [
+          "p14:1",
+          "p14:0",
+          "WHITE"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -80923,7 +80944,12 @@
       "isForced": false,
       "chosen": 5,
       "chosenArgs": {
-        "mana_plan": "p21,p40,p24,p6",
+        "mana_plan": [
+          "p21",
+          "p40",
+          "p24",
+          "p6"
+        ],
         "id": "p46"
       },
       "actionResult": {
@@ -81746,7 +81772,11 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p14:0,p14:1,p24",
+        "mana_plan": [
+          "p14:0",
+          "p14:1",
+          "p24"
+        ],
         "id": "p6"
       },
       "actionResult": {
@@ -81878,7 +81908,11 @@
       "isForced": false,
       "chosen": 8,
       "chosenArgs": {
-        "mana_plan": "WHITE,p40:1,p49",
+        "mana_plan": [
+          "WHITE",
+          "p40:1",
+          "p49"
+        ],
         "id": "p31"
       },
       "actionResult": {
@@ -82943,7 +82977,12 @@
       "chosen": 6,
       "chosenArgs": {
         "id": "p46",
-        "mana_plan": "p13,p15,p24,p49"
+        "mana_plan": [
+          "p13",
+          "p15",
+          "p24",
+          "p49"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -84599,7 +84638,10 @@
       "chosen": 9,
       "chosenArgs": {
         "id": "p54",
-        "mana_plan": "p1,p12"
+        "mana_plan": [
+          "p1",
+          "p12"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -91660,7 +91702,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p47"
+        "attackers": [
+          "p47"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -91785,7 +91829,7 @@
       ],
       "choiceCount": 10,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "id": "p78"
       },
@@ -92093,7 +92137,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p47"
+        "attackers": [
+          "p47"
+        ]
       },
       "actionResult": {
         "declared": [

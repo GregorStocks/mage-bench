@@ -42353,7 +42353,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p2"
+        "mana_plan": [
+          "p2"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -42462,7 +42464,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p2"
+        "mana_plan": [
+          "p2"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -42610,9 +42614,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -42775,9 +42779,11 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p3",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p3"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p9",
         "text": ""
       },
@@ -43052,7 +43058,9 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p2"
+        "mana_plan": [
+          "p2"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -43079,7 +43087,9 @@
         103,
         105,
         107,
-        108
+        108,
+        109,
+        111
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -43234,7 +43244,11 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p4",
-        "mana_plan": "p3,p2,p8:1"
+        "mana_plan": [
+          "p3",
+          "p2",
+          "p8:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -43452,9 +43466,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p13",
         "text": ""
       },
@@ -43520,9 +43534,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p21",
         "text": ""
       },
@@ -43586,9 +43600,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p22",
         "text": ""
       },
@@ -43668,7 +43682,12 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p18",
-        "mana_plan": "p2,p8:1,p3,p19:1"
+        "mana_plan": [
+          "p2",
+          "p8:1",
+          "p3",
+          "p19:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -43905,57 +43924,40 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
         "amounts": [],
         "auto_tap": false,
         "pile": 0,
-        "index": 1,
-        "mana_plan": "p3",
-        "attackers": "",
-        "blockers": "",
-        "id": "p8",
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [
+          "all"
+        ],
+        "blockers": [],
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p8, ignored index=1",
-        "error_code": "invalid_choice",
-        "error": "Object p8 not found in current choices",
-        "choices": [
-          {
-            "name": "Greasewrench Goblin",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p9",
-            "power": "3",
-            "toughness": "2"
-          },
-          {
-            "name": "Marauding Mako",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p10",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
       },
       "llmEventIndices": [
         261,
         262,
         266,
         268,
-        269
+        269,
+        270,
+        271
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -44010,9 +44012,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -44069,9 +44071,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -44274,7 +44276,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p19:1"
+        "mana_plan": [
+          "p19:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -44441,9 +44445,11 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p4",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p4"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p11",
         "text": ""
       },
@@ -44505,9 +44511,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p11",
         "text": ""
       },
@@ -44635,7 +44641,11 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": "p2,p8:1,p19:1"
+        "mana_plan": [
+          "p2",
+          "p8:1",
+          "p19:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -44730,7 +44740,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p3"
+        "mana_plan": [
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -44882,7 +44894,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p39",
-        "mana_plan": "p2,p19,p20"
+        "mana_plan": [
+          "p2",
+          "p19",
+          "p20"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -45106,9 +45122,13 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "p3,p4,p35",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p3",
+          "p4",
+          "p35"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p33",
         "text": ""
       },
@@ -45176,9 +45196,11 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "p13",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [
+          "p13"
+        ],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -45240,9 +45262,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -45441,7 +45463,13 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p2,p42,p8,p3,p1"
+        "mana_plan": [
+          "p2",
+          "p42",
+          "p8",
+          "p3",
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -45804,82 +45832,23 @@
       ],
       "choiceCount": 10,
       "isForced": false,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_TARGET requires index=N to select a target, or answer=false to cancel targeting. Call get_action_choices first to see available targets.",
-        "choices": [
-          {
-            "name": "Insatiable Avarice",
-            "target_type": "card",
-            "index": 0,
-            "id": "p7"
-          },
-          {
-            "name": "Insatiable Avarice",
-            "target_type": "card",
-            "index": 1,
-            "id": "p31"
-          },
-          {
-            "name": "Stock Up",
-            "target_type": "card",
-            "index": 2,
-            "id": "p39"
-          },
-          {
-            "name": "Swamp",
-            "target_type": "card",
-            "index": 3,
-            "id": "p15"
-          },
-          {
-            "name": "Winternight Stories",
-            "target_type": "card",
-            "index": 4,
-            "id": "p4"
-          },
-          {
-            "name": "Harvester of Misery",
-            "target_type": "card",
-            "index": 5,
-            "id": "p18"
-          },
-          {
-            "name": "Bitter Triumph",
-            "target_type": "card",
-            "index": 6,
-            "id": "p6"
-          },
-          {
-            "name": "Swamp",
-            "target_type": "card",
-            "index": 7,
-            "id": "p11"
-          },
-          {
-            "name": "Intimidation Tactics",
-            "target_type": "card",
-            "index": 8,
-            "id": "p22"
-          },
-          {
-            "name": "Deadly Cover-Up",
-            "target_type": "card",
-            "index": 9,
-            "id": "p40"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         521,
         522,
-        523
+        523,
+        524,
+        525
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -46209,9 +46178,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p27",
         "text": ""
       },

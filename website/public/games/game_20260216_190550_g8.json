@@ -106837,7 +106837,8 @@
       "llmEventIndices": [
         123,
         124,
-        125
+        125,
+        126
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -107478,26 +107479,11 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [
-          0
-        ],
-        "auto_tap": true,
-        "pile": 0,
-        "index": 3,
-        "mana_plan": "p3,p1,p4",
-        "attackers": "all",
-        "blockers": "p5:p1,p6:p2",
-        "id": "p45",
-        "text": "Champion of Wits"
+        "index": 3
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "warning": "Both id and index provided; used id=p45, ignored index=3",
-        "error_code": "missing_param",
-        "error": "mana_plan and auto_tap are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_3"
       },
       "llmEventIndices": [
         424,
@@ -107510,7 +107496,9 @@
         760,
         761,
         763,
-        764
+        764,
+        765,
+        779
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -107594,29 +107582,26 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}, Remove a charge counter from Vivid Creek: Add one mana of any color."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         483,
-        484
+        484,
+        485,
+        486,
+        487,
+        489,
+        491,
+        492
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -107644,7 +107629,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
         "pile": 2
       },

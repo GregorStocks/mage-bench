@@ -26467,16 +26467,13 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
-        "amounts": [
-          2,
-          3
-        ]
+        "index": 3
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
+        "error": "Index 3 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -26499,7 +26496,10 @@
       "llmEventIndices": [
         959,
         961,
-        962
+        962,
+        964,
+        965,
+        967
       ],
       "subsequentActions": [
         "has started watching",

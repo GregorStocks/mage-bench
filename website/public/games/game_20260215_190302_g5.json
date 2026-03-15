@@ -83525,12 +83525,21 @@
           2
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p3",
         "index": 0,
-        "mana_plan": "p1,p5:1,RED",
+        "mana_plan": [
+          "p1",
+          "p5:1",
+          "RED"
+        ],
         "pile": 1,
         "text": "some text"
       },
@@ -83540,7 +83549,8 @@
       "llmEventIndices": [
         54,
         55,
-        56
+        56,
+        57
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -83572,12 +83582,21 @@
           2
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p3",
         "index": 0,
-        "mana_plan": "p1,p5:1,RED",
+        "mana_plan": [
+          "p1",
+          "p5:1",
+          "RED"
+        ],
         "pile": 1,
         "text": "some text"
       },
@@ -83587,7 +83606,8 @@
       "llmEventIndices": [
         58,
         61,
-        62
+        62,
+        63
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -83657,12 +83677,21 @@
           2
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p3",
         "index": 0,
-        "mana_plan": "p1,p5:1,RED",
+        "mana_plan": [
+          "p1",
+          "p5:1",
+          "RED"
+        ],
         "pile": 1,
         "text": "some text"
       },
@@ -83672,7 +83701,8 @@
       "llmEventIndices": [
         72,
         73,
-        74
+        74,
+        75
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -83912,32 +83942,21 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p1",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "id": "p1"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "warning": "Both id and index provided; used id=p1, ignored index=0",
-        "error_code": "missing_param",
-        "error": "mana_plan and auto_tap are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         111,
         112,
-        113
+        113,
+        114,
+        115
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -83966,33 +83985,21 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p2",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "id": "p2"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "warning": "Both id and index provided; used id=p2, ignored index=0",
-        "error_code": "missing_param",
-        "error": "mana_plan and auto_tap are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         119,
         123,
         286,
-        287
+        287,
+        290,
+        291,
+        293,
+        304
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -84901,7 +84908,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p12",
-        "mana_plan": "p7,p8:0,p8:1"
+        "mana_plan": [
+          "p7",
+          "p8:0",
+          "p8:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -85490,58 +85501,16 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p13"
+        "id": "p7"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p13 not found in current choices",
-        "choices": [
-          {
-            "name": "Unknown (be626179)",
-            "index": 0,
-            "id": "p21"
-          },
-          {
-            "name": "Myriad Landscape",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice {this}: Search your library f..."
-            ],
-            "id": "p1"
-          },
-          {
-            "name": "Forest",
-            "index": 2,
-            "action": "land",
-            "id": "p7"
-          },
-          {
-            "name": "Blighted Woodland",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{3}{G}, {T}, Sacrifice {this}: Search your librar..."
-            ],
-            "id": "p3"
-          },
-          {
-            "name": "Selesnya Sanctuary",
-            "index": 4,
-            "action": "land",
-            "id": "p4"
-          },
-          {
-            "name": "Forest",
-            "index": 5,
-            "action": "land",
-            "id": "p22"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         390,
@@ -85549,7 +85518,9 @@
         493,
         496,
         499,
-        500
+        500,
+        505,
+        506
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -86314,34 +86285,26 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 3,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p3",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "id": "p5"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "warning": "Both id and index provided; used id=p3, ignored index=0",
-        "error_code": "missing_param",
-        "error": "mana_plan and auto_tap are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_3"
       },
       "llmEventIndices": [
         633,
         635,
-        636
+        636,
+        638,
+        639,
+        641,
+        642,
+        644,
+        645,
+        647,
+        656
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -86411,7 +86374,13 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p15",
-        "mana_plan": "GREEN,GREEN,COLORLESS,COLORLESS,COLORLESS"
+        "mana_plan": [
+          "GREEN",
+          "GREEN",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -86488,7 +86457,12 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p14",
-        "mana_plan": "p5,p8,p7,p25"
+        "mana_plan": [
+          "p5",
+          "p8",
+          "p7",
+          "p25"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -87103,7 +87077,13 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p6,p7,p25,p52,p8",
+        "mana_plan": [
+          "p6",
+          "p7",
+          "p25",
+          "p52",
+          "p8"
+        ],
         "id": "p15"
       },
       "actionResult": {
@@ -87698,12 +87678,21 @@
           2
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p18",
         "index": 0,
-        "mana_plan": "p1,p5:1,RED",
+        "mana_plan": [
+          "p1",
+          "p5:1",
+          "RED"
+        ],
         "pile": 1,
         "text": "some text"
       },
@@ -87717,7 +87706,11 @@
       "llmEventIndices": [
         1131,
         1133,
-        1134
+        1134,
+        1136,
+        1137,
+        1141,
+        1145
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -87744,34 +87737,31 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p18",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p18, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p18 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1146,
         1148,
-        1149
+        1149,
+        1151,
+        1152,
+        1154,
+        1155,
+        1157,
+        1158,
+        1160,
+        1161,
+        1163,
+        1164
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -88273,7 +88263,15 @@
       "isForced": false,
       "chosen": 5,
       "chosenArgs": {
-        "mana_plan": "p48,p55,p51,p53,p54,p56,p57",
+        "mana_plan": [
+          "p48",
+          "p55",
+          "p51",
+          "p53",
+          "p54",
+          "p56",
+          "p57"
+        ],
         "id": "p64"
       },
       "actionResult": {
@@ -88569,34 +88567,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": true,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p18",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "answer": true
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p18, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p18 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         1430,
         1437,
-        1438
+        1438,
+        1440,
+        1441,
+        1443,
+        1445
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -88623,34 +88612,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p18",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p18, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p18 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1448,
         1450,
-        1451
+        1451,
+        1455,
+        1457
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -88677,34 +88655,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p18",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p18, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p18 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1460,
         1462,
-        1463
+        1463,
+        1465,
+        1469
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -88728,34 +88695,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p18",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p18, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p18 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1472,
         1476,
-        1477
+        1477,
+        1480,
+        1484
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -88782,34 +88738,31 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p18",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "some text"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p18, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p18 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1487,
         1492,
-        1493
+        1493,
+        1495,
+        1496,
+        1498,
+        1499,
+        1501,
+        1502,
+        1504,
+        1505,
+        1507,
+        1508
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -89182,7 +89135,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -89646,47 +89601,26 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p45"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p45 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{1}{B}{G}",
-            "name": "Putrefy",
-            "index": 0,
-            "action": "cast",
-            "id": "p84"
-          },
-          {
-            "name": "Jarad, Golgari Lich Lord",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}{B}{G}, Sacrifice another creature: Each oppon..."
-            ],
-            "id": "p14"
-          },
-          {
-            "name": "High Market",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Sacrifice a creature: You gain 1 life."
-            ],
-            "id": "p52"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1779,
         1781,
-        1782
+        1782,
+        1784,
+        1787,
+        1788,
+        1790,
+        1791
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -89874,77 +89808,24 @@
       ],
       "choiceCount": 7,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "id": "p81"
+        "id": "p22"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p81 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{4}{B}{B}",
-            "name": "Extractor Demon",
-            "index": 0,
-            "action": "cast",
-            "id": "p16",
-            "power": "5",
-            "toughness": "5"
-          },
-          {
-            "mana_cost": "{4}",
-            "name": "Bonehoard",
-            "index": 1,
-            "action": "cast",
-            "id": "p22"
-          },
-          {
-            "name": "Jarad, Golgari Lich Lord",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}{B}{G}, Sacrifice another creature: Each oppon..."
-            ],
-            "id": "p14"
-          },
-          {
-            "name": "High Market",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Sacrifice a creature: You gain 1 life."
-            ],
-            "id": "p52"
-          },
-          {
-            "name": "Unknown (0a25bf6c)",
-            "index": 4,
-            "id": "p49"
-          },
-          {
-            "mana_cost": "{1}{B}{G}",
-            "name": "Putrefy",
-            "index": 5,
-            "action": "cast",
-            "id": "p84"
-          },
-          {
-            "mana_cost": "{5}{B}{B}",
-            "name": "Butcher of Malakir",
-            "index": 6,
-            "action": "cast",
-            "id": "p64",
-            "power": "5",
-            "toughness": "4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         1800,
         1802,
-        1803
+        1803,
+        1805,
+        1808,
+        1809
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -90149,7 +90030,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14,p15"
+        "attackers": [
+          "p14",
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [

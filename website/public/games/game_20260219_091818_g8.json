@@ -78656,7 +78656,9 @@
       "chosen": 0,
       "chosenArgs": {
         "index": 0,
-        "mana_plan": "p15:0"
+        "mana_plan": [
+          "p15:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -78709,7 +78711,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p8:0",
+        "mana_plan": [
+          "p8:0"
+        ],
         "auto_tap": false
       },
       "actionResult": {
@@ -79497,7 +79501,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p10",
-        "mana_plan": "p30:4"
+        "mana_plan": [
+          "p30:4"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -80279,7 +80285,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -80423,15 +80431,29 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p32', 'id': 'p10'}"
+        "blockers": [
+          "p10:p32"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p32\",\"id\":\"p10\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p10",
+            "blocks": "p32"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         314,
         315,
-        316
+        316,
+        317,
+        320
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -80946,7 +80968,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p18"
+        "attackers": [
+          "p5",
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -81091,7 +81116,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p10:p44"
+        "blockers": [
+          "p10:p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -81753,7 +81780,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p18"
+        "attackers": [
+          "p5",
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -82329,67 +82359,23 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p29"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p29 not found in current choices",
-        "choices": [
-          {
-            "name": "Bloodstained Mire",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p2"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Cling to Dust",
-            "index": 1,
-            "action": "cast",
-            "id": "p32"
-          },
-          {
-            "name": "Psychic Frog",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "Discard a card: Put a +1/+1 counter on {this}.",
-              "Exile three cards from your graveyard: {this} gai..."
-            ],
-            "id": "p5"
-          },
-          {
-            "name": "Psychic Frog",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "Discard a card: Put a +1/+1 counter on {this}.",
-              "Exile three cards from your graveyard: {this} gai..."
-            ],
-            "id": "p18"
-          },
-          {
-            "mana_cost": "{3}{B}{B}",
-            "name": "Street Wraith",
-            "index": 4,
-            "action": "cast",
-            "id": "p26",
-            "power": "3",
-            "toughness": "4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         432,
         433,
-        434
+        434,
+        435,
+        438
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -82908,7 +82894,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p18"
+        "attackers": [
+          "p5",
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -83022,15 +83011,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p32', 'id': 'p10'}"
+        "blockers": [
+          "p10:p32"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p32\",\"id\":\"p10\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p10",
+            "blocks": "p32"
+          }
+        ],
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         479,
         480,
-        481
+        481,
+        482,
+        484
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -84213,7 +84213,9 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p7:1",
-        "mana_plan": "p7:1"
+        "mana_plan": [
+          "p7:1"
+        ]
       },
       "actionResult": {
         "error": "Unknown short ID: p7:1"
@@ -84221,7 +84223,9 @@
       "llmEventIndices": [
         547,
         548,
-        549
+        549,
+        550,
+        552
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -84281,7 +84285,9 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p7:0",
+        "mana_plan": [
+          "p7:0"
+        ],
         "id": "p15"
       },
       "actionResult": {
@@ -84480,7 +84486,8 @@
       "llmEventIndices": [
         567,
         568,
-        569
+        569,
+        570
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -84778,42 +84785,28 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "id": "p46"
+        "attackers": [
+          "p5",
+          "p18"
+        ]
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p46 not found in current choices",
-        "choices": [
-          {
-            "name": "Psychic Frog",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p5",
-            "power": "1",
-            "toughness": "2"
-          },
-          {
-            "name": "Psychic Frog",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p18",
-            "power": "1",
-            "toughness": "2"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "declared": [
+          "p5",
+          "p18"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
       },
       "llmEventIndices": [
         581,
         582,
-        583
+        583,
+        586,
+        587
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -84867,7 +84860,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p10:p32,p15:p44"
+        "blockers": [
+          "p10:p32",
+          "p15:p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -85149,7 +85145,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -85584,77 +85582,23 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p5:p48"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "name": "Bloodstained Mire",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p2"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Cling to Dust",
-            "index": 1,
-            "action": "cast",
-            "id": "p32"
-          },
-          {
-            "name": "Polluted Delta",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p43"
-          },
-          {
-            "name": "Psychic Frog",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "Discard a card: Put a +1/+1 counter on {this}.",
-              "Exile three cards from your graveyard: {this} gai..."
-            ],
-            "id": "p5"
-          },
-          {
-            "name": "Psychic Frog",
-            "index": 4,
-            "action": "activate",
-            "playable_abilities": [
-              "Discard a card: Put a +1/+1 counter on {this}.",
-              "Exile three cards from your graveyard: {this} gai..."
-            ],
-            "id": "p18"
-          },
-          {
-            "mana_cost": "{3}{B}{B}",
-            "name": "Street Wraith",
-            "index": 5,
-            "action": "cast",
-            "id": "p47",
-            "power": "3",
-            "toughness": "4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         621,
         622,
-        623
+        623,
+        624,
+        625
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -86111,7 +86055,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p10:p32,p15:p44"
+        "blockers": [
+          "p10:p32",
+          "p15:p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -87102,7 +87049,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p18,p51"
+        "attackers": [
+          "p5",
+          "p18",
+          "p51"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -87173,16 +87124,35 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p10', 'blocks': 'p32'},{'id': 'p15', 'blocks': 'p44'}"
+        "blockers": [
+          "p10:p32",
+          "p15:p44"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p10\",\"blocks\":\"p32\"},{\"id\":\"p15\",\"blocks\":\"p44\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p10",
+            "blocks": "p32"
+          },
+          {
+            "id": "p15",
+            "blocks": "p44"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         702,
         703,
         706,
-        707
+        707,
+        708,
+        709
       ],
       "subsequentActions": [
         "spectator8 has started watching",
@@ -87429,7 +87399,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -87549,7 +87521,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p10:p32,p15:p44"
+        "blockers": [
+          "p10:p32",
+          "p15:p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -88176,7 +88151,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -88346,7 +88323,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p10:p57,p15:p60"
+        "blockers": [
+          "p10:p57",
+          "p15:p60"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -88723,7 +88703,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

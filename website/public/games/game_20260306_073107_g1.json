@@ -245684,10 +245684,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "GPT53C Hothead chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -245986,10 +245984,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "GPT53C Hothead skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -246134,7 +246130,7 @@
         20
       ],
       "subsequentActions": [],
-      "actionSeq": 11,
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -246277,11 +246273,8 @@
         19,
         22
       ],
-      "subsequentActions": [
-        "GPT53C Hothead skips Draw step",
-        "GPT53C Hothead puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 15
     },
     {
       "index": 6,
@@ -246417,7 +246410,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 14,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -246558,10 +246551,8 @@
         23,
         26
       ],
-      "subsequentActions": [
-        "GPT53C Hothead skip attack"
-      ],
-      "actionSeq": 15
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 8,
@@ -246706,7 +246697,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 20,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -246877,7 +246868,7 @@
         28
       ],
       "subsequentActions": [],
-      "actionSeq": 19
+      "actionSeq": 21
     },
     {
       "index": 10,
@@ -247044,7 +247035,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 22,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -247204,7 +247195,7 @@
         34
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 26,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -247352,10 +247343,8 @@
         33,
         36
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 20,
+      "subsequentActions": [],
+      "actionSeq": 27,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -247512,7 +247501,7 @@
         38
       ],
       "subsequentActions": [],
-      "actionSeq": 26,
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -247659,10 +247648,8 @@
         37,
         40
       ],
-      "subsequentActions": [
-        "GPT54 Valley skip attack"
-      ],
-      "actionSeq": 27,
+      "subsequentActions": [],
+      "actionSeq": 31,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -247830,7 +247817,7 @@
         50
       ],
       "subsequentActions": [],
-      "actionSeq": 30,
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -248014,7 +248001,7 @@
         42
       ],
       "subsequentActions": [],
-      "actionSeq": 31,
+      "actionSeq": 33,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -248206,7 +248193,7 @@
         44
       ],
       "subsequentActions": [],
-      "actionSeq": 33,
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -248402,7 +248389,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 34,
+      "actionSeq": 35,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -248587,7 +248574,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 35,
+      "actionSeq": 36,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -248754,7 +248741,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 36,
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -248922,11 +248909,8 @@
         51,
         56
       ],
-      "subsequentActions": [
-        "Thriving Heath: GPT53C Hothead has chosen Blue",
-        "GPT53C Hothead puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 32,
+      "subsequentActions": [],
+      "actionSeq": 42,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -249089,7 +249073,7 @@
         58
       ],
       "subsequentActions": [],
-      "actionSeq": 41,
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -249256,10 +249240,8 @@
         57,
         60
       ],
-      "subsequentActions": [
-        "GPT53C Hothead skip attack"
-      ],
-      "actionSeq": 42,
+      "subsequentActions": [],
+      "actionSeq": 46,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -249433,7 +249415,7 @@
         70
       ],
       "subsequentActions": [],
-      "actionSeq": 45,
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -249620,7 +249602,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 46,
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -249826,7 +249808,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 48,
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -250020,10 +250002,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 49,
+      "subsequentActions": [],
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -250205,7 +250185,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 53,
+      "actionSeq": 57,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -250384,11 +250364,8 @@
         71,
         74
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Plains from hand onto the Battlefield",
-        "GPT54 Valley casts Vodalian Arcanist from hand"
-      ],
-      "actionSeq": 47,
+      "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -250564,7 +250541,7 @@
         76
       ],
       "subsequentActions": [],
-      "actionSeq": 57,
+      "actionSeq": 60,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -250743,10 +250720,8 @@
         75,
         78
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Vodalian Arcanist from stack onto the Battlefield"
-      ],
-      "actionSeq": 58,
+      "subsequentActions": [],
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -250923,7 +250898,7 @@
         80
       ],
       "subsequentActions": [],
-      "actionSeq": 60
+      "actionSeq": 64
     },
     {
       "index": 33,
@@ -251099,10 +251074,8 @@
         79,
         82
       ],
-      "subsequentActions": [
-        "GPT54 Valley skip attack"
-      ],
-      "actionSeq": 61,
+      "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -251286,7 +251259,7 @@
         88
       ],
       "subsequentActions": [],
-      "actionSeq": 64,
+      "actionSeq": 66,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -251509,7 +251482,7 @@
         84
       ],
       "subsequentActions": [],
-      "actionSeq": 65,
+      "actionSeq": 67,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -251745,7 +251718,7 @@
         86
       ],
       "subsequentActions": [],
-      "actionSeq": 67,
+      "actionSeq": 68,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -251967,7 +251940,7 @@
         90
       ],
       "subsequentActions": [],
-      "actionSeq": 68,
+      "actionSeq": 72,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -252213,10 +252186,8 @@
         91,
         92
       ],
-      "subsequentActions": [
-        "GPT53C Hothead skip attack"
-      ],
-      "actionSeq": 72,
+      "subsequentActions": [],
+      "actionSeq": 76,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -252439,7 +252410,7 @@
         100
       ],
       "subsequentActions": [],
-      "actionSeq": 76,
+      "actionSeq": 78,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -252854,7 +252825,7 @@
         102
       ],
       "subsequentActions": [],
-      "actionSeq": 80,
+      "actionSeq": 86,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -253073,10 +253044,8 @@
         101,
         104
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Distinguished Conjurer from hand"
-      ],
-      "actionSeq": 78,
+      "subsequentActions": [],
+      "actionSeq": 87,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -253292,7 +253261,7 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 86,
+      "actionSeq": 89,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -253561,7 +253530,7 @@
         108
       ],
       "subsequentActions": [],
-      "actionSeq": 89,
+      "actionSeq": 91,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -253770,10 +253739,8 @@
         109,
         110
       ],
-      "subsequentActions": [
-        "GPT54 Valley attacks GPT53C Hothead with 1 creature"
-      ],
-      "actionSeq": 91
+      "subsequentActions": [],
+      "actionSeq": 95
     },
     {
       "index": 48,
@@ -253979,10 +253946,8 @@
         111,
         112
       ],
-      "subsequentActions": [
-        "Attacker: Vodalian Arcanist (1/3) unblocked"
-      ],
-      "actionSeq": 95
+      "subsequentActions": [],
+      "actionSeq": 99
     },
     {
       "index": 49,
@@ -254175,10 +254140,8 @@
         113,
         114
       ],
-      "subsequentActions": [
-        "GPT53C Hothead loses 1 life at combat from Vodalian Arcanist"
-      ],
-      "actionSeq": 99
+      "subsequentActions": [],
+      "actionSeq": 103
     },
     {
       "index": 50,
@@ -254388,7 +254351,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 103,
+      "actionSeq": 105,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -254897,7 +254860,7 @@
         122
       ],
       "subsequentActions": [],
-      "actionSeq": 107,
+      "actionSeq": 108,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -255164,7 +255127,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 108,
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -255415,11 +255378,8 @@
         125,
         126
       ],
-      "subsequentActions": [
-        "Thriving Heath: GPT53C Hothead has chosen Blue",
-        "GPT53C Hothead puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 109,
+      "subsequentActions": [],
+      "actionSeq": 114,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -255643,7 +255603,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 114,
+      "actionSeq": 117,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -255862,7 +255822,7 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 117,
+      "actionSeq": 120,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -256102,10 +256062,8 @@
         133,
         134
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Midnight Guard from stack onto the Battlefield"
-      ],
-      "actionSeq": 120,
+      "subsequentActions": [],
+      "actionSeq": 123,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -256319,10 +256277,8 @@
         135,
         136
       ],
-      "subsequentActions": [
-        "GPT53C Hothead skip attack"
-      ],
-      "actionSeq": 123
+      "subsequentActions": [],
+      "actionSeq": 127
     },
     {
       "index": 60,
@@ -256541,7 +256497,7 @@
         142
       ],
       "subsequentActions": [],
-      "actionSeq": 127,
+      "actionSeq": 129,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -257075,7 +257031,7 @@
         144
       ],
       "subsequentActions": [],
-      "actionSeq": 131,
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -257385,7 +257341,7 @@
         146
       ],
       "subsequentActions": [],
-      "actionSeq": 135,
+      "actionSeq": 137,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -257653,10 +257609,8 @@
         147,
         152
       ],
-      "subsequentActions": [
-        "GPT54 Valley attacks GPT53C Hothead with 1 creature"
-      ],
-      "actionSeq": 137,
+      "subsequentActions": [],
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -258164,7 +258118,7 @@
         154
       ],
       "subsequentActions": [],
-      "actionSeq": 143
+      "actionSeq": 144
     },
     {
       "index": 68,
@@ -258429,7 +258383,7 @@
         156
       ],
       "subsequentActions": [],
-      "actionSeq": 141,
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -258675,10 +258629,8 @@
         155,
         158
       ],
-      "subsequentActions": [
-        "Attacker: Vodalian Arcanist (1/3) blocked by Midnight Guard (2/3)"
-      ],
-      "actionSeq": 144
+      "subsequentActions": [],
+      "actionSeq": 148
     },
     {
       "index": 70,
@@ -258922,7 +258874,7 @@
         160
       ],
       "subsequentActions": [],
-      "actionSeq": 147,
+      "actionSeq": 152,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -259146,11 +259098,8 @@
         159,
         162
       ],
-      "subsequentActions": [
-        "Midnight Guard deals 2 damage to Vodalian Arcanist",
-        "Vodalian Arcanist deals 1 damage to Midnight Guard"
-      ],
-      "actionSeq": 148
+      "subsequentActions": [],
+      "actionSeq": 153
     },
     {
       "index": 72,
@@ -259398,7 +259347,7 @@
         172
       ],
       "subsequentActions": [],
-      "actionSeq": 152,
+      "actionSeq": 154,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -259951,7 +259900,7 @@
         168
       ],
       "subsequentActions": [],
-      "actionSeq": 156,
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -260191,7 +260140,7 @@
         170
       ],
       "subsequentActions": [],
-      "actionSeq": 159,
+      "actionSeq": 162,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -260431,7 +260380,7 @@
         176
       ],
       "subsequentActions": [],
-      "actionSeq": 162,
+      "actionSeq": 166,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -260694,10 +260643,8 @@
         175,
         178
       ],
-      "subsequentActions": [
-        "GPT53C Hothead casts Skyhunter Patrol from hand"
-      ],
-      "actionSeq": 154,
+      "subsequentActions": [],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -260934,7 +260881,7 @@
         180
       ],
       "subsequentActions": [],
-      "actionSeq": 166,
+      "actionSeq": 170,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -261191,11 +261138,8 @@
         179,
         182
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Skyhunter Patrol from stack onto the Battlefield",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 167,
+      "subsequentActions": [],
+      "actionSeq": 171,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -261448,7 +261392,7 @@
         187
       ],
       "subsequentActions": [],
-      "actionSeq": 170,
+      "actionSeq": 172,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -261721,7 +261665,7 @@
         191
       ],
       "subsequentActions": [],
-      "actionSeq": 171,
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -261991,7 +261935,7 @@
         189
       ],
       "subsequentActions": [],
-      "actionSeq": 172,
+      "actionSeq": 174,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -262238,7 +262182,7 @@
         195
       ],
       "subsequentActions": [],
-      "actionSeq": 174
+      "actionSeq": 178
     },
     {
       "index": 85,
@@ -262523,10 +262467,8 @@
         192,
         193
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks GPT54 Valley with 1 creature"
-      ],
-      "actionSeq": 173,
+      "subsequentActions": [],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -262809,7 +262751,7 @@
         197
       ],
       "subsequentActions": [],
-      "actionSeq": 179,
+      "actionSeq": 180,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_blockers",
@@ -263068,7 +263010,7 @@
         199
       ],
       "subsequentActions": [],
-      "actionSeq": 178
+      "actionSeq": 183
     },
     {
       "index": 88,
@@ -263336,10 +263278,8 @@
         198,
         201
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked"
-      ],
-      "actionSeq": 180,
+      "subsequentActions": [],
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -263576,7 +263516,7 @@
         203
       ],
       "subsequentActions": [],
-      "actionSeq": 183
+      "actionSeq": 187
     },
     {
       "index": 90,
@@ -263830,10 +263770,8 @@
         202,
         205
       ],
-      "subsequentActions": [
-        "GPT54 Valley loses 2 life at combat from Midnight Guard"
-      ],
-      "actionSeq": 184,
+      "subsequentActions": [],
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -264080,7 +264018,7 @@
         213
       ],
       "subsequentActions": [],
-      "actionSeq": 187,
+      "actionSeq": 189,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -264716,7 +264654,7 @@
         211
       ],
       "subsequentActions": [],
-      "actionSeq": 191,
+      "actionSeq": 192,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -264968,7 +264906,7 @@
         215
       ],
       "subsequentActions": [],
-      "actionSeq": 192,
+      "actionSeq": 200,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -265208,10 +265146,8 @@
         214,
         217
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Leave in the Dust targeting Skyhunter Patrol from hand"
-      ],
-      "actionSeq": 189
+      "subsequentActions": [],
+      "actionSeq": 201
     },
     {
       "index": 97,
@@ -265472,7 +265408,7 @@
         221
       ],
       "subsequentActions": [],
-      "actionSeq": 200,
+      "actionSeq": 204,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -265727,11 +265663,8 @@
         220,
         225
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Skyhunter Patrol from battlefield into its owner's hand (source: Leave in the Dust)",
-        "GPT54 Valley puts Leave in the Dust from stack into their graveyard"
-      ],
-      "actionSeq": 201
+      "subsequentActions": [],
+      "actionSeq": 205
     },
     {
       "index": 99,
@@ -266009,7 +265942,7 @@
         223
       ],
       "subsequentActions": [],
-      "actionSeq": 204,
+      "actionSeq": 206,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -266270,7 +266203,7 @@
         227
       ],
       "subsequentActions": [],
-      "actionSeq": 206
+      "actionSeq": 210
     },
     {
       "index": 101,
@@ -266521,10 +266454,8 @@
         226,
         229
       ],
-      "subsequentActions": [
-        "GPT54 Valley attacks GPT53C Hothead with 1 creature"
-      ],
-      "actionSeq": 205
+      "subsequentActions": [],
+      "actionSeq": 211
     },
     {
       "index": 102,
@@ -266782,7 +266713,7 @@
         231
       ],
       "subsequentActions": [],
-      "actionSeq": 210
+      "actionSeq": 214
     },
     {
       "index": 103,
@@ -267033,10 +266964,8 @@
         230,
         233
       ],
-      "subsequentActions": [
-        "Attacker: Distinguished Conjurer (1/2) unblocked"
-      ],
-      "actionSeq": 211
+      "subsequentActions": [],
+      "actionSeq": 215
     },
     {
       "index": 104,
@@ -267281,7 +267210,7 @@
         235
       ],
       "subsequentActions": [],
-      "actionSeq": 214
+      "actionSeq": 218
     },
     {
       "index": 105,
@@ -267518,10 +267447,8 @@
         234,
         237
       ],
-      "subsequentActions": [
-        "GPT53C Hothead loses 1 life at combat from Distinguished Conjurer"
-      ],
-      "actionSeq": 215
+      "subsequentActions": [],
+      "actionSeq": 219
     },
     {
       "index": 106,
@@ -268138,7 +268065,7 @@
         245
       ],
       "subsequentActions": [],
-      "actionSeq": 222,
+      "actionSeq": 225,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -268396,7 +268323,7 @@
         247
       ],
       "subsequentActions": [],
-      "actionSeq": 225,
+      "actionSeq": 228,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -268653,10 +268580,8 @@
         248,
         249
       ],
-      "subsequentActions": [
-        "GPT53C Hothead casts Skyhunter Patrol from hand"
-      ],
-      "actionSeq": 228,
+      "subsequentActions": [],
+      "actionSeq": 232,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -268907,11 +268832,8 @@
         250,
         251
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Skyhunter Patrol from stack onto the Battlefield",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 232,
+      "subsequentActions": [],
+      "actionSeq": 236,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -269179,7 +269101,7 @@
         253
       ],
       "subsequentActions": [],
-      "actionSeq": 236,
+      "actionSeq": 238,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -269464,7 +269386,7 @@
         255
       ],
       "subsequentActions": [],
-      "actionSeq": 238,
+      "actionSeq": 240,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -269728,10 +269650,8 @@
         256,
         257
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks GPT54 Valley with 1 creature"
-      ],
-      "actionSeq": 240
+      "subsequentActions": [],
+      "actionSeq": 244
     },
     {
       "index": 116,
@@ -269992,10 +269912,8 @@
         258,
         259
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked"
-      ],
-      "actionSeq": 244
+      "subsequentActions": [],
+      "actionSeq": 248
     },
     {
       "index": 117,
@@ -270243,10 +270161,8 @@
         260,
         261
       ],
-      "subsequentActions": [
-        "GPT54 Valley loses 2 life at combat from Midnight Guard"
-      ],
-      "actionSeq": 248
+      "subsequentActions": [],
+      "actionSeq": 252
     },
     {
       "index": 118,
@@ -270494,7 +270410,7 @@
         267
       ],
       "subsequentActions": [],
-      "actionSeq": 252,
+      "actionSeq": 254,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -271175,10 +271091,8 @@
         272,
         273
       ],
-      "subsequentActions": [
-        "GPT54 Valley skip attack"
-      ],
-      "actionSeq": 258,
+      "subsequentActions": [],
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -271519,7 +271433,7 @@
         275
       ],
       "subsequentActions": [],
-      "actionSeq": 262,
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -271875,10 +271789,9 @@
         293
       ],
       "subsequentActions": [
-        "GPT54 Valley discards down to 7 hand cards",
         "GPT54 Valley discards Prescient Chimera"
       ],
-      "actionSeq": 264,
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -272581,10 +272494,8 @@
         282,
         283
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 270,
+      "subsequentActions": [],
+      "actionSeq": 274,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -272909,7 +272820,7 @@
         287
       ],
       "subsequentActions": [],
-      "actionSeq": 274,
+      "actionSeq": 275,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -273203,7 +273114,7 @@
         289
       ],
       "subsequentActions": [],
-      "actionSeq": 275,
+      "actionSeq": 278,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -273485,7 +273396,7 @@
         291
       ],
       "subsequentActions": [],
-      "actionSeq": 278,
+      "actionSeq": 281,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -273767,7 +273678,7 @@
         299
       ],
       "subsequentActions": [],
-      "actionSeq": 281,
+      "actionSeq": 284,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -274099,12 +274010,8 @@
         294,
         295
       ],
-      "subsequentActions": [
-        "GPT54 Valley discards Prescient Chimera",
-        "GPT53C Hothead puts Plains from hand onto the Battlefield",
-        "GPT53C Hothead casts Knightly Valor targeting Skyhunter Patrol from hand"
-      ],
-      "actionSeq": 268,
+      "subsequentActions": [],
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -274428,7 +274335,7 @@
         297
       ],
       "subsequentActions": [],
-      "actionSeq": 285,
+      "actionSeq": 286,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -274717,7 +274624,7 @@
         303
       ],
       "subsequentActions": [],
-      "actionSeq": 286,
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -274995,10 +274902,8 @@
         300,
         301
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Flicker of Fate targeting Skyhunter Patrol from hand"
-      ],
-      "actionSeq": 284,
+      "subsequentActions": [],
+      "actionSeq": 291,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -275274,7 +275179,7 @@
         305
       ],
       "subsequentActions": [],
-      "actionSeq": 291,
+      "actionSeq": 296,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -275556,13 +275461,8 @@
         304,
         307
       ],
-      "subsequentActions": [
-        "GPT54 Valley moves Skyhunter Patrol from battlefield to the exile zone (source: Flicker of Fate)",
-        "GPT53C Hothead puts Skyhunter Patrol from exile zone onto the Battlefield (source: Flicker of Fate)",
-        "GPT54 Valley puts Flicker of Fate from stack into their graveyard",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 290,
+      "subsequentActions": [],
+      "actionSeq": 297,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -275838,7 +275738,7 @@
         309
       ],
       "subsequentActions": [],
-      "actionSeq": 296,
+      "actionSeq": 298,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -276121,7 +276021,7 @@
         311
       ],
       "subsequentActions": [],
-      "actionSeq": 297,
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -276413,7 +276313,7 @@
         313
       ],
       "subsequentActions": [],
-      "actionSeq": 298,
+      "actionSeq": 302,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -276709,11 +276609,8 @@
         312,
         317
       ],
-      "subsequentActions": [
-        "Knightly Valor has been fizzled.",
-        "GPT53C Hothead puts Knightly Valor from stack into their graveyard"
-      ],
-      "actionSeq": 299,
+      "subsequentActions": [],
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -277022,7 +276919,7 @@
         315
       ],
       "subsequentActions": [],
-      "actionSeq": 302,
+      "actionSeq": 304,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -277319,7 +277216,7 @@
         321
       ],
       "subsequentActions": [],
-      "actionSeq": 304
+      "actionSeq": 308
     },
     {
       "index": 143,
@@ -277978,7 +277875,7 @@
         325
       ],
       "subsequentActions": [],
-      "actionSeq": 308
+      "actionSeq": 314
     },
     {
       "index": 146,
@@ -278279,10 +278176,8 @@
         324,
         327
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) blocked by Vodalian Arcanist (1/3)"
-      ],
-      "actionSeq": 310,
+      "subsequentActions": [],
+      "actionSeq": 315,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -278558,7 +278453,7 @@
         329
       ],
       "subsequentActions": [],
-      "actionSeq": 314
+      "actionSeq": 319
     },
     {
       "index": 148,
@@ -278837,11 +278732,8 @@
         328,
         331
       ],
-      "subsequentActions": [
-        "Vodalian Arcanist deals 1 damage to Midnight Guard",
-        "Midnight Guard deals 2 damage to Vodalian Arcanist"
-      ],
-      "actionSeq": 315,
+      "subsequentActions": [],
+      "actionSeq": 320,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -279116,7 +279008,7 @@
         336
       ],
       "subsequentActions": [],
-      "actionSeq": 319,
+      "actionSeq": 321,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -279822,7 +279714,7 @@
         340
       ],
       "subsequentActions": [],
-      "actionSeq": 323,
+      "actionSeq": 325,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -280134,10 +280026,8 @@
         341,
         342
       ],
-      "subsequentActions": [
-        "GPT54 Valley skip attack"
-      ],
-      "actionSeq": 325,
+      "subsequentActions": [],
+      "actionSeq": 329,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -280464,7 +280354,7 @@
         354
       ],
       "subsequentActions": [],
-      "actionSeq": 329,
+      "actionSeq": 331,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -281112,7 +281002,7 @@
         350
       ],
       "subsequentActions": [],
-      "actionSeq": 333,
+      "actionSeq": 336,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -281406,7 +281296,7 @@
         352
       ],
       "subsequentActions": [],
-      "actionSeq": 336,
+      "actionSeq": 339,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -281700,7 +281590,7 @@
         358
       ],
       "subsequentActions": [],
-      "actionSeq": 339,
+      "actionSeq": 344,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -282013,10 +281903,8 @@
         355,
         356
       ],
-      "subsequentActions": [
-        "GPT53C Hothead casts Archon of Justice from hand"
-      ],
-      "actionSeq": 331,
+      "subsequentActions": [],
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -282330,7 +282218,7 @@
         362
       ],
       "subsequentActions": [],
-      "actionSeq": 345,
+      "actionSeq": 350,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -282620,10 +282508,8 @@
         359,
         360
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Exclude targeting Archon of Justice from hand"
-      ],
-      "actionSeq": 344,
+      "subsequentActions": [],
+      "actionSeq": 351,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -282938,7 +282824,7 @@
         366
       ],
       "subsequentActions": [],
-      "actionSeq": 351,
+      "actionSeq": 355,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -283274,12 +283160,8 @@
         365,
         370
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Archon of Justice from stack into their graveyard (source: Exclude)",
-        "Archon of Justice is countered by Exclude",
-        "GPT54 Valley puts Exclude from stack into their graveyard"
-      ],
-      "actionSeq": 350,
+      "subsequentActions": [],
+      "actionSeq": 356,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -283626,7 +283508,7 @@
         368
       ],
       "subsequentActions": [],
-      "actionSeq": 355,
+      "actionSeq": 357,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -283942,7 +283824,7 @@
         374
       ],
       "subsequentActions": [],
-      "actionSeq": 357
+      "actionSeq": 362
     },
     {
       "index": 167,
@@ -284299,10 +284181,8 @@
         371,
         372
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks GPT54 Valley with 2 creatures"
-      ],
-      "actionSeq": 356,
+      "subsequentActions": [],
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -284647,7 +284527,7 @@
         376
       ],
       "subsequentActions": [],
-      "actionSeq": 363,
+      "actionSeq": 364,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -284978,7 +284858,7 @@
         378
       ],
       "subsequentActions": [],
-      "actionSeq": 362
+      "actionSeq": 368
     },
     {
       "index": 170,
@@ -285310,11 +285190,8 @@
         377,
         380
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked",
-        "Attacker: Skyhunter Patrol (2/3) unblocked"
-      ],
-      "actionSeq": 364,
+      "subsequentActions": [],
+      "actionSeq": 369,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -285630,7 +285507,7 @@
         382
       ],
       "subsequentActions": [],
-      "actionSeq": 368
+      "actionSeq": 372
     },
     {
       "index": 172,
@@ -285962,10 +285839,8 @@
         381,
         384
       ],
-      "subsequentActions": [
-        "GPT54 Valley loses 2 life at combat from Skyhunter Patrol"
-      ],
-      "actionSeq": 369,
+      "subsequentActions": [],
+      "actionSeq": 373,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -286256,7 +286131,7 @@
         386
       ],
       "subsequentActions": [],
-      "actionSeq": 372
+      "actionSeq": 376
     },
     {
       "index": 174,
@@ -286562,10 +286437,8 @@
         385,
         388
       ],
-      "subsequentActions": [
-        "GPT54 Valley loses 2 life at combat from Midnight Guard"
-      ],
-      "actionSeq": 373,
+      "subsequentActions": [],
+      "actionSeq": 377,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -286871,7 +286744,7 @@
         402
       ],
       "subsequentActions": [],
-      "actionSeq": 376,
+      "actionSeq": 378,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -287666,10 +287539,8 @@
         399,
         400
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 380,
+      "subsequentActions": [],
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -288015,7 +287886,7 @@
         406
       ],
       "subsequentActions": [],
-      "actionSeq": 384,
+      "actionSeq": 391,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -288336,11 +288207,8 @@
         405,
         414
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Island from hand onto the Battlefield",
-        "GPT54 Valley casts Teferi, Master of Time from hand"
-      ],
-      "actionSeq": 378
+      "subsequentActions": [],
+      "actionSeq": 392
     },
     {
       "index": 181,
@@ -288683,10 +288551,8 @@
         409,
         410
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Teferi, Master of Time from stack onto the Battlefield"
-      ],
-      "actionSeq": 391,
+      "subsequentActions": [],
+      "actionSeq": 394,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -289025,7 +288891,7 @@
         412
       ],
       "subsequentActions": [],
-      "actionSeq": 394,
+      "actionSeq": 395,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -289411,7 +289277,7 @@
         416
       ],
       "subsequentActions": [],
-      "actionSeq": 395,
+      "actionSeq": 397,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -289733,11 +289599,8 @@
         415,
         422
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Teferi, Master of Time from stack onto the Battlefield",
-        "GPT54 Valley activates: draw a card, then discard a card. from Teferi, Master of Time"
-      ],
-      "actionSeq": 392
+      "subsequentActions": [],
+      "actionSeq": 398
     },
     {
       "index": 185,
@@ -290109,7 +289972,7 @@
         418
       ],
       "subsequentActions": [],
-      "actionSeq": 397,
+      "actionSeq": 399,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -290455,7 +290318,7 @@
         424
       ],
       "subsequentActions": [],
-      "actionSeq": 399,
+      "actionSeq": 401,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -290788,10 +290651,8 @@
         423,
         428
       ],
-      "subsequentActions": [
-        "GPT54 Valley discards Rambunctious Mutt (source: Teferi, Master of Time)"
-      ],
-      "actionSeq": 398
+      "subsequentActions": [],
+      "actionSeq": 402
     },
     {
       "index": 188,
@@ -291150,7 +291011,7 @@
         426
       ],
       "subsequentActions": [],
-      "actionSeq": 401,
+      "actionSeq": 403,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -291492,7 +291353,7 @@
         430
       ],
       "subsequentActions": [],
-      "actionSeq": 403
+      "actionSeq": 407
     },
     {
       "index": 190,
@@ -291822,10 +291683,8 @@
         429,
         432
       ],
-      "subsequentActions": [
-        "GPT54 Valley attacks GPT53C Hothead with 1 creature"
-      ],
-      "actionSeq": 402
+      "subsequentActions": [],
+      "actionSeq": 408
     },
     {
       "index": 191,
@@ -292164,7 +292023,7 @@
         434
       ],
       "subsequentActions": [],
-      "actionSeq": 407
+      "actionSeq": 411
     },
     {
       "index": 192,
@@ -292494,10 +292353,8 @@
         433,
         436
       ],
-      "subsequentActions": [
-        "Attacker: Distinguished Conjurer (1/2) unblocked"
-      ],
-      "actionSeq": 408
+      "subsequentActions": [],
+      "actionSeq": 412
     },
     {
       "index": 193,
@@ -292823,7 +292680,7 @@
         438
       ],
       "subsequentActions": [],
-      "actionSeq": 411
+      "actionSeq": 415
     },
     {
       "index": 194,
@@ -293139,10 +292996,8 @@
         437,
         443
       ],
-      "subsequentActions": [
-        "GPT53C Hothead loses 1 life at combat from Distinguished Conjurer"
-      ],
-      "actionSeq": 412
+      "subsequentActions": [],
+      "actionSeq": 416
     },
     {
       "index": 195,
@@ -293892,7 +293747,7 @@
         445
       ],
       "subsequentActions": [],
-      "actionSeq": 416
+      "actionSeq": 418
     },
     {
       "index": 198,
@@ -294302,7 +294157,7 @@
         447
       ],
       "subsequentActions": [],
-      "actionSeq": 418,
+      "actionSeq": 419,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -294685,10 +294540,8 @@
         450,
         451
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 419,
+      "subsequentActions": [],
+      "actionSeq": 423,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -295040,7 +294893,7 @@
         453
       ],
       "subsequentActions": [],
-      "actionSeq": 423,
+      "actionSeq": 426,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -295376,7 +295229,7 @@
         455
       ],
       "subsequentActions": [],
-      "actionSeq": 426,
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -295718,7 +295571,7 @@
         463
       ],
       "subsequentActions": [],
-      "actionSeq": 429,
+      "actionSeq": 433,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -296097,11 +295950,8 @@
         462,
         465
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield",
-        "GPT53C Hothead casts Magnanimous Magistrate from hand"
-      ],
-      "actionSeq": 417
+      "subsequentActions": [],
+      "actionSeq": 434
     },
     {
       "index": 204,
@@ -296439,7 +296289,7 @@
         473
       ],
       "subsequentActions": [],
-      "actionSeq": 433,
+      "actionSeq": 437,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -296815,11 +296665,8 @@
         466,
         467
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Magnanimous Magistrate from stack onto the Battlefield",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 434
+      "subsequentActions": [],
+      "actionSeq": 438
     },
     {
       "index": 206,
@@ -297185,7 +297032,7 @@
         471
       ],
       "subsequentActions": [],
-      "actionSeq": 438
+      "actionSeq": 439
     },
     {
       "index": 207,
@@ -297598,7 +297445,7 @@
         475
       ],
       "subsequentActions": [],
-      "actionSeq": 439
+      "actionSeq": 441
     },
     {
       "index": 208,
@@ -298030,7 +297877,7 @@
         477
       ],
       "subsequentActions": [],
-      "actionSeq": 441
+      "actionSeq": 443
     },
     {
       "index": 210,
@@ -298385,10 +298232,8 @@
         478,
         479
       ],
-      "subsequentActions": [
-        "GPT54 Valley discards Brightmare (source: Teferi, Master of Time)"
-      ],
-      "actionSeq": 443
+      "subsequentActions": [],
+      "actionSeq": 446
     },
     {
       "index": 211,
@@ -298457,17 +298302,17 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p30,p6",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p23"
       },
       "actionResult": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "message": "Select a player, planeswalker, or battle to attack",
-        "response_type": "index",
-        "respond_with": "choice=pN — must pick a target",
+        "action_type": "GAME_SELECT",
+        "message": "Select attackers",
+        "response_type": "select",
+        "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
         "context": "T9 Combat/Declare Attackers (GPT53C Hothead)",
         "board": [
           {
@@ -298510,7 +298355,7 @@
                 "summoning_sick": true
               },
               {
-                "tapped": false,
+                "tapped": true,
                 "name": "Midnight Guard",
                 "rules": [
                   "Whenever another creature enters, untap {this}."
@@ -298760,41 +298605,59 @@
             "life": 12
           }
         ],
-        "board_cursor": 74,
+        "board_cursor": 75,
         "choices": [
           {
-            "name": "GPT54 Valley",
-            "target_type": "player",
+            "name": "Skyhunter Patrol",
             "index": 0,
-            "id": "p2"
+            "choice_type": "attacker",
+            "id": "p6",
+            "power": "2",
+            "toughness": "3"
           },
           {
-            "controller": "GPT54 Valley",
-            "name": "Teferi, Master of Time",
-            "target_type": "permanent",
+            "name": "All attack",
             "index": 1,
-            "id": "p23"
+            "choice_type": "special",
+            "id": "all"
           }
         ],
-        "game_seq": 449,
-        "required": true,
-        "can_cancel": false,
-        "action_taken": "batch_attack",
-        "success": false,
-        "declared": [
+        "combat_phase": "declare_attackers",
+        "combat": [
           {
-            "id": "p30"
+            "blocked": false,
+            "defending": "Teferi, Master of Time",
+            "attackers": [
+              {
+                "name": "Midnight Guard",
+                "id": "p30",
+                "power": "2",
+                "toughness": "3"
+              }
+            ]
           }
         ],
-        "interrupted": true
+        "game_seq": 450,
+        "already_attacking": [
+          {
+            "name": "Midnight Guard",
+            "id": "p30",
+            "power": "2",
+            "toughness": "3"
+          }
+        ],
+        "action_taken": "selected_target_1",
+        "success": true
       },
       "llmEventIndices": [
         482,
         483,
-        484
+        484,
+        485,
+        486
       ],
       "subsequentActions": [],
-      "actionSeq": 449,
+      "actionSeq": 450,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -299186,7 +299049,7 @@
         486
       ],
       "subsequentActions": [],
-      "actionSeq": 449
+      "actionSeq": 450
     },
     {
       "index": 214,
@@ -299223,17 +299086,17 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p6",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p23"
       },
       "actionResult": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "message": "Select a player, planeswalker, or battle to attack",
-        "response_type": "index",
-        "respond_with": "choice=pN — must pick a target",
+        "action_type": "GAME_SELECT",
+        "message": "Select attackers",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "context": "T9 Combat/Declare Attackers (GPT53C Hothead)",
         "board": [
           {
@@ -299319,7 +299182,7 @@
                 "id": "p58"
               },
               {
-                "tapped": false,
+                "tapped": true,
                 "name": "Skyhunter Patrol",
                 "rules": [
                   "Flying",
@@ -299526,22 +299389,7 @@
             "life": 12
           }
         ],
-        "board_cursor": 75,
-        "choices": [
-          {
-            "name": "GPT54 Valley",
-            "target_type": "player",
-            "index": 0,
-            "id": "p2"
-          },
-          {
-            "controller": "GPT54 Valley",
-            "name": "Teferi, Master of Time",
-            "target_type": "permanent",
-            "index": 1,
-            "id": "p23"
-          }
-        ],
+        "board_cursor": 76,
         "combat": [
           {
             "blocked": false,
@@ -299554,27 +299402,33 @@
                 "toughness": "3"
               }
             ]
-          }
-        ],
-        "game_seq": 451,
-        "required": true,
-        "can_cancel": false,
-        "action_taken": "batch_attack",
-        "success": false,
-        "declared": [
+          },
           {
-            "id": "p6"
+            "blocked": false,
+            "defending": "Teferi, Master of Time",
+            "attackers": [
+              {
+                "name": "Skyhunter Patrol",
+                "id": "p6",
+                "power": "2",
+                "toughness": "3"
+              }
+            ]
           }
         ],
-        "interrupted": true
+        "game_seq": 452,
+        "action_taken": "selected_target_1",
+        "success": true
       },
       "llmEventIndices": [
         486,
         487,
-        488
+        488,
+        489,
+        490
       ],
       "subsequentActions": [],
-      "actionSeq": 450,
+      "actionSeq": 452,
       "pilotContext": {
         "combatPhase": "declare_attackers",
         "alreadyAttacking": [
@@ -299961,7 +299815,7 @@
         490
       ],
       "subsequentActions": [],
-      "actionSeq": 451
+      "actionSeq": 452
     },
     {
       "index": 216,
@@ -300323,7 +300177,7 @@
         492
       ],
       "subsequentActions": [],
-      "actionSeq": 452
+      "actionSeq": 453
     },
     {
       "index": 217,
@@ -300684,10 +300538,8 @@
         493,
         494
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks Teferi, Master of Time with 2 creatures"
-      ],
-      "actionSeq": 453
+      "subsequentActions": [],
+      "actionSeq": 456
     },
     {
       "index": 218,
@@ -301048,11 +300900,8 @@
         495,
         496
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked",
-        "Attacker: Skyhunter Patrol (2/3) unblocked"
-      ],
-      "actionSeq": 456
+      "subsequentActions": [],
+      "actionSeq": 461
     },
     {
       "index": 219,
@@ -301413,10 +301262,8 @@
         497,
         498
       ],
-      "subsequentActions": [
-        "Skyhunter Patrol deals 2 damage to Teferi, Master of Time"
-      ],
-      "actionSeq": 461
+      "subsequentActions": [],
+      "actionSeq": 465
     },
     {
       "index": 220,
@@ -301752,10 +301599,8 @@
         499,
         500
       ],
-      "subsequentActions": [
-        "Midnight Guard deals 2 damage to Teferi, Master of Time"
-      ],
-      "actionSeq": 465
+      "subsequentActions": [],
+      "actionSeq": 469
     },
     {
       "index": 221,
@@ -302109,7 +301954,7 @@
         516
       ],
       "subsequentActions": [],
-      "actionSeq": 469,
+      "actionSeq": 471,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -302972,7 +302817,7 @@
         508
       ],
       "subsequentActions": [],
-      "actionSeq": 473,
+      "actionSeq": 474,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -303435,7 +303280,7 @@
         510
       ],
       "subsequentActions": [],
-      "actionSeq": 474,
+      "actionSeq": 475,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -303885,11 +303730,8 @@
         511,
         512
       ],
-      "subsequentActions": [
-        "Thriving Isle: GPT54 Valley has chosen White",
-        "GPT54 Valley puts Thriving Isle from hand onto the Battlefield"
-      ],
-      "actionSeq": 475,
+      "subsequentActions": [],
+      "actionSeq": 480,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -304289,7 +304131,7 @@
         514
       ],
       "subsequentActions": [],
-      "actionSeq": 480,
+      "actionSeq": 481,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -304737,7 +304579,7 @@
         518
       ],
       "subsequentActions": [],
-      "actionSeq": 481,
+      "actionSeq": 483,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -305245,7 +305087,7 @@
         520
       ],
       "subsequentActions": [],
-      "actionSeq": 483,
+      "actionSeq": 485,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -305671,10 +305513,8 @@
         521,
         522
       ],
-      "subsequentActions": [
-        "GPT54 Valley discards Plains (source: Teferi, Master of Time)"
-      ],
-      "actionSeq": 485,
+      "subsequentActions": [],
+      "actionSeq": 487,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -306080,10 +305920,8 @@
         525,
         526
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Gallant Cavalry from hand"
-      ],
-      "actionSeq": 487,
+      "subsequentActions": [],
+      "actionSeq": 494,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -306487,10 +306325,8 @@
         527,
         528
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Gallant Cavalry from stack onto the Battlefield"
-      ],
-      "actionSeq": 494,
+      "subsequentActions": [],
+      "actionSeq": 497,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -306878,12 +306714,8 @@
         529,
         530
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Gallant Cavalry - When Gallant Cavalry enters, create a 2/2 white Knight creature token with vigilance.",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 497,
+      "subsequentActions": [],
+      "actionSeq": 501,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -307269,7 +307101,7 @@
         532
       ],
       "subsequentActions": [],
-      "actionSeq": 501,
+      "actionSeq": 503,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -307669,10 +307501,8 @@
         533,
         534
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 503,
+      "subsequentActions": [],
+      "actionSeq": 506,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -308069,12 +307899,8 @@
         535,
         536
       ],
-      "subsequentActions": [
-        "GPT54 Valley creates a Knight Token token",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 506,
+      "subsequentActions": [],
+      "actionSeq": 511,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -308467,7 +308293,7 @@
         538
       ],
       "subsequentActions": [],
-      "actionSeq": 511,
+      "actionSeq": 513,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -308872,10 +308698,8 @@
         539,
         540
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 513,
+      "subsequentActions": [],
+      "actionSeq": 516,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -309279,7 +309103,7 @@
         542
       ],
       "subsequentActions": [],
-      "actionSeq": 516,
+      "actionSeq": 518,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -309668,10 +309492,8 @@
         543,
         544
       ],
-      "subsequentActions": [
-        "GPT54 Valley skip attack"
-      ],
-      "actionSeq": 518
+      "subsequentActions": [],
+      "actionSeq": 521
     },
     {
       "index": 241,
@@ -310087,7 +309909,7 @@
         556
       ],
       "subsequentActions": [],
-      "actionSeq": 521,
+      "actionSeq": 523,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -311044,10 +310866,8 @@
         549,
         550
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 525,
+      "subsequentActions": [],
+      "actionSeq": 529,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -311521,7 +311341,7 @@
         552
       ],
       "subsequentActions": [],
-      "actionSeq": 529,
+      "actionSeq": 530,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -311938,7 +311758,7 @@
         554
       ],
       "subsequentActions": [],
-      "actionSeq": 530,
+      "actionSeq": 533,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -312357,7 +312177,7 @@
         564
       ],
       "subsequentActions": [],
-      "actionSeq": 533,
+      "actionSeq": 536,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -312785,11 +312605,8 @@
         559,
         560
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield",
-        "GPT53C Hothead casts Dub targeting Skyhunter Patrol from hand"
-      ],
-      "actionSeq": 523
+      "subsequentActions": [],
+      "actionSeq": 537
     },
     {
       "index": 248,
@@ -313202,7 +313019,7 @@
         562
       ],
       "subsequentActions": [],
-      "actionSeq": 537
+      "actionSeq": 538
     },
     {
       "index": 249,
@@ -313658,7 +313475,7 @@
         566
       ],
       "subsequentActions": [],
-      "actionSeq": 538
+      "actionSeq": 540
     },
     {
       "index": 250,
@@ -314073,10 +313890,8 @@
         565,
         568
       ],
-      "subsequentActions": [
-        "GPT54 Valley activates: draw a card, then discard a card. from Teferi, Master of Time"
-      ],
-      "actionSeq": 536,
+      "subsequentActions": [],
+      "actionSeq": 541,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -314532,7 +314347,7 @@
         570
       ],
       "subsequentActions": [],
-      "actionSeq": 540
+      "actionSeq": 542
     },
     {
       "index": 252,
@@ -314964,7 +314779,7 @@
         572
       ],
       "subsequentActions": [],
-      "actionSeq": 541,
+      "actionSeq": 544,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -315385,10 +315200,8 @@
         571,
         578
       ],
-      "subsequentActions": [
-        "GPT54 Valley discards Teferi's Ageless Insight (source: Teferi, Master of Time)"
-      ],
-      "actionSeq": 542
+      "subsequentActions": [],
+      "actionSeq": 545
     },
     {
       "index": 254,
@@ -315813,10 +315626,8 @@
         573,
         574
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Dub from stack onto the Battlefield"
-      ],
-      "actionSeq": 544,
+      "subsequentActions": [],
+      "actionSeq": 547,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -316235,7 +316046,7 @@
         576
       ],
       "subsequentActions": [],
-      "actionSeq": 547,
+      "actionSeq": 549,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -316662,7 +316473,7 @@
         580
       ],
       "subsequentActions": [],
-      "actionSeq": 549,
+      "actionSeq": 551,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -317094,11 +316905,8 @@
         579,
         582
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Dub from stack onto the Battlefield",
-        "GPT53C Hothead casts Gideon's Lawkeeper from hand"
-      ],
-      "actionSeq": 545
+      "subsequentActions": [],
+      "actionSeq": 552
     },
     {
       "index": 258,
@@ -317521,7 +317329,7 @@
         584
       ],
       "subsequentActions": [],
-      "actionSeq": 551,
+      "actionSeq": 555,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -317948,11 +317756,8 @@
         583,
         588
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Gideon's Lawkeeper from stack onto the Battlefield",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 552
+      "subsequentActions": [],
+      "actionSeq": 556
     },
     {
       "index": 260,
@@ -318397,7 +318202,7 @@
         592
       ],
       "subsequentActions": [],
-      "actionSeq": 555,
+      "actionSeq": 557,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -318940,17 +318745,17 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p30,p6,p24",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p2"
       },
       "actionResult": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "message": "Select a player, planeswalker, or battle to attack",
-        "response_type": "index",
-        "respond_with": "choice=pN — must pick a target",
+        "action_type": "GAME_SELECT",
+        "message": "Select attackers",
+        "response_type": "select",
+        "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
         "context": "T10 Combat/Declare Attackers (GPT53C Hothead)",
         "board": [
           {
@@ -319013,7 +318818,7 @@
                 "summoning_sick": false
               },
               {
-                "tapped": false,
+                "tapped": true,
                 "name": "Midnight Guard",
                 "rules": [
                   "Whenever another creature enters, untap {this}."
@@ -319302,42 +319107,68 @@
             "life": 14
           }
         ],
-        "board_cursor": 92,
+        "board_cursor": 93,
         "choices": [
           {
-            "name": "GPT54 Valley",
-            "target_type": "player",
+            "name": "Skyhunter Patrol",
             "index": 0,
-            "id": "p2"
+            "choice_type": "attacker",
+            "id": "p6",
+            "power": "4",
+            "toughness": "5"
           },
           {
-            "controller": "GPT54 Valley",
-            "name": "Teferi, Master of Time",
-            "target_type": "permanent",
+            "name": "Magnanimous Magistrate",
             "index": 1,
-            "id": "p23"
+            "choice_type": "attacker",
+            "id": "p24",
+            "power": "3",
+            "toughness": "4"
+          },
+          {
+            "name": "All attack",
+            "index": 2,
+            "choice_type": "special",
+            "id": "all"
+          }
+        ],
+        "combat_phase": "declare_attackers",
+        "combat": [
+          {
+            "blocked": false,
+            "defending": "GPT54 Valley",
+            "attackers": [
+              {
+                "name": "Midnight Guard",
+                "id": "p30",
+                "power": "2",
+                "toughness": "3"
+              }
+            ]
           }
         ],
         "untapped_lands": 3,
-        "game_seq": 559,
-        "required": true,
-        "can_cancel": false,
-        "action_taken": "batch_attack",
-        "success": false,
-        "declared": [
+        "game_seq": 560,
+        "already_attacking": [
           {
-            "id": "p30"
+            "name": "Midnight Guard",
+            "id": "p30",
+            "power": "2",
+            "toughness": "3"
           }
         ],
-        "interrupted": true
+        "action_taken": "selected_target_0",
+        "success": true
       },
       "llmEventIndices": [
         592,
         593,
-        594
+        594,
+        595,
+        596
       ],
       "subsequentActions": [],
-      "actionSeq": 557,
+      "actionSeq": 560,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -319798,7 +319629,7 @@
         596
       ],
       "subsequentActions": [],
-      "actionSeq": 559,
+      "actionSeq": 560,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -319846,17 +319677,17 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p6,p24",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p23"
       },
       "actionResult": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "message": "Select a player, planeswalker, or battle to attack",
-        "response_type": "index",
-        "respond_with": "choice=pN — must pick a target",
+        "action_type": "GAME_SELECT",
+        "message": "Select attackers",
+        "response_type": "select",
+        "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
         "context": "T10 Combat/Declare Attackers (GPT53C Hothead)",
         "board": [
           {
@@ -319970,7 +319801,7 @@
                 "id": "p73"
               },
               {
-                "tapped": false,
+                "tapped": true,
                 "name": "Skyhunter Patrol",
                 "rules": [
                   "Flying",
@@ -320208,22 +320039,24 @@
             "life": 14
           }
         ],
-        "board_cursor": 93,
+        "board_cursor": 94,
         "choices": [
           {
-            "name": "GPT54 Valley",
-            "target_type": "player",
+            "name": "Magnanimous Magistrate",
             "index": 0,
-            "id": "p2"
+            "choice_type": "attacker",
+            "id": "p24",
+            "power": "3",
+            "toughness": "4"
           },
           {
-            "controller": "GPT54 Valley",
-            "name": "Teferi, Master of Time",
-            "target_type": "permanent",
+            "name": "All attack",
             "index": 1,
-            "id": "p23"
+            "choice_type": "special",
+            "id": "all"
           }
         ],
+        "combat_phase": "declare_attackers",
         "combat": [
           {
             "blocked": false,
@@ -320236,28 +320069,48 @@
                 "toughness": "3"
               }
             ]
+          },
+          {
+            "blocked": false,
+            "defending": "Teferi, Master of Time",
+            "attackers": [
+              {
+                "name": "Skyhunter Patrol",
+                "id": "p6",
+                "power": "4",
+                "toughness": "5"
+              }
+            ]
           }
         ],
         "untapped_lands": 3,
-        "game_seq": 561,
-        "required": true,
-        "can_cancel": false,
-        "action_taken": "batch_attack",
-        "success": false,
-        "declared": [
+        "game_seq": 562,
+        "already_attacking": [
           {
-            "id": "p6"
+            "name": "Midnight Guard",
+            "id": "p30",
+            "power": "2",
+            "toughness": "3"
+          },
+          {
+            "name": "Skyhunter Patrol",
+            "id": "p6",
+            "power": "4",
+            "toughness": "5"
           }
         ],
-        "interrupted": true
+        "action_taken": "selected_target_1",
+        "success": true
       },
       "llmEventIndices": [
         596,
         597,
-        598
+        598,
+        599,
+        600
       ],
       "subsequentActions": [],
-      "actionSeq": 560,
+      "actionSeq": 562,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers",
@@ -320736,7 +320589,7 @@
         600
       ],
       "subsequentActions": [],
-      "actionSeq": 561,
+      "actionSeq": 562,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -320776,17 +320629,17 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p24",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p2"
       },
       "actionResult": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "message": "Select a player, planeswalker, or battle to attack",
-        "response_type": "index",
-        "respond_with": "choice=pN — must pick a target",
+        "action_type": "GAME_SELECT",
+        "message": "Select attackers",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "context": "T10 Combat/Declare Attackers (GPT53C Hothead)",
         "board": [
           {
@@ -320834,7 +320687,7 @@
                 "summoning_sick": true
               },
               {
-                "tapped": false,
+                "tapped": true,
                 "counters": {
                   "reprieve": 5
                 },
@@ -321138,22 +320991,7 @@
             "life": 14
           }
         ],
-        "board_cursor": 94,
-        "choices": [
-          {
-            "name": "GPT54 Valley",
-            "target_type": "player",
-            "index": 0,
-            "id": "p2"
-          },
-          {
-            "controller": "GPT54 Valley",
-            "name": "Teferi, Master of Time",
-            "target_type": "permanent",
-            "index": 1,
-            "id": "p23"
-          }
-        ],
+        "board_cursor": 95,
         "combat": [
           {
             "blocked": false,
@@ -321178,28 +321016,34 @@
                 "toughness": "5"
               }
             ]
+          },
+          {
+            "blocked": false,
+            "defending": "GPT54 Valley",
+            "attackers": [
+              {
+                "name": "Magnanimous Magistrate",
+                "id": "p24",
+                "power": "3",
+                "toughness": "4"
+              }
+            ]
           }
         ],
         "untapped_lands": 3,
-        "game_seq": 563,
-        "required": true,
-        "can_cancel": false,
-        "action_taken": "batch_attack",
-        "success": false,
-        "declared": [
-          {
-            "id": "p24"
-          }
-        ],
-        "interrupted": true
+        "game_seq": 564,
+        "action_taken": "selected_target_0",
+        "success": true
       },
       "llmEventIndices": [
         600,
         601,
-        602
+        602,
+        603,
+        604
       ],
       "subsequentActions": [],
-      "actionSeq": 562,
+      "actionSeq": 564,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers",
@@ -321665,7 +321509,7 @@
         604
       ],
       "subsequentActions": [],
-      "actionSeq": 563,
+      "actionSeq": 564,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -322112,7 +321956,7 @@
         606
       ],
       "subsequentActions": [],
-      "actionSeq": 564,
+      "actionSeq": 565,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -322581,7 +322425,7 @@
         627
       ],
       "subsequentActions": [],
-      "actionSeq": 565,
+      "actionSeq": 568,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -323092,10 +322936,8 @@
         609,
         610
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks GPT54 Valley, Teferi, Master of Time with 3 creatures"
-      ],
-      "actionSeq": 558
+      "subsequentActions": [],
+      "actionSeq": 569
     },
     {
       "index": 272,
@@ -324179,12 +324021,8 @@
         628,
         629
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked",
-        "Attacker: Skyhunter Patrol (4/5) unblocked",
-        "Attacker: Magnanimous Magistrate (3/4) blocked by Gallant Cavalry (2/2) Knight Token (2/2)"
-      ],
-      "actionSeq": 568,
+      "subsequentActions": [],
+      "actionSeq": 579,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -324724,7 +324562,7 @@
         631
       ],
       "subsequentActions": [],
-      "actionSeq": 579,
+      "actionSeq": 580,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -325251,7 +325089,7 @@
         633
       ],
       "subsequentActions": [],
-      "actionSeq": 580,
+      "actionSeq": 581,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -325703,7 +325541,7 @@
         641
       ],
       "subsequentActions": [],
-      "actionSeq": 581,
+      "actionSeq": 585,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -326188,13 +326026,8 @@
         640,
         643
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked",
-        "Attacker: Skyhunter Patrol (4/5) unblocked",
-        "Attacker: Magnanimous Magistrate (3/4) blocked by Gallant Cavalry (2/2) Knight Token (2/2)",
-        "GPT53C Hothead casts Valorous Stance (mode 1) targeting Magnanimous Magistrate from hand"
-      ],
-      "actionSeq": 570
+      "subsequentActions": [],
+      "actionSeq": 586
     },
     {
       "index": 279,
@@ -326638,7 +326471,7 @@
         645
       ],
       "subsequentActions": [],
-      "actionSeq": 585,
+      "actionSeq": 588,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -327116,10 +326949,8 @@
         644,
         648
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Valorous Stance from stack into their graveyard"
-      ],
-      "actionSeq": 586
+      "subsequentActions": [],
+      "actionSeq": 589
     },
     {
       "index": 281,
@@ -327158,7 +326989,7 @@
         647
       ],
       "subsequentActions": [],
-      "actionSeq": 588,
+      "actionSeq": 593,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -328285,10 +328116,8 @@
         660,
         661
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 607,
+      "subsequentActions": [],
+      "actionSeq": 611,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -328768,10 +328597,8 @@
         662,
         663
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Thraben Inspector from hand"
-      ],
-      "actionSeq": 611,
+      "subsequentActions": [],
+      "actionSeq": 615,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -329253,10 +329080,8 @@
         664,
         665
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Thraben Inspector from stack onto the Battlefield"
-      ],
-      "actionSeq": 615,
+      "subsequentActions": [],
+      "actionSeq": 618,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -329742,12 +329567,8 @@
         666,
         667
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Thraben Inspector - When Thraben Inspector enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 618,
+      "subsequentActions": [],
+      "actionSeq": 622,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -330228,7 +330049,7 @@
         669
       ],
       "subsequentActions": [],
-      "actionSeq": 622,
+      "actionSeq": 624,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -330747,10 +330568,8 @@
         670,
         671
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 624,
+      "subsequentActions": [],
+      "actionSeq": 627,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -331259,10 +331078,8 @@
         672,
         673
       ],
-      "subsequentActions": [
-        "GPT54 Valley creates a Clue Token token"
-      ],
-      "actionSeq": 627,
+      "subsequentActions": [],
+      "actionSeq": 630,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -331739,7 +331556,7 @@
         675
       ],
       "subsequentActions": [],
-      "actionSeq": 630,
+      "actionSeq": 631,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -332241,7 +332058,7 @@
         677
       ],
       "subsequentActions": [],
-      "actionSeq": 631,
+      "actionSeq": 632,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -332769,7 +332586,7 @@
         679
       ],
       "subsequentActions": [],
-      "actionSeq": 632,
+      "actionSeq": 633,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -333273,7 +333090,7 @@
         681
       ],
       "subsequentActions": [],
-      "actionSeq": 633,
+      "actionSeq": 634,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -333741,7 +333558,7 @@
         683
       ],
       "subsequentActions": [],
-      "actionSeq": 634,
+      "actionSeq": 639,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -334200,10 +334017,8 @@
         684,
         685
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Settle Beyond Reality (mode 1) targeting Skyhunter Patrol (mode 2) targeting Thraben Inspector from hand"
-      ],
-      "actionSeq": 639,
+      "subsequentActions": [],
+      "actionSeq": 642,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -334666,14 +334481,8 @@
         686,
         687
       ],
-      "subsequentActions": [
-        "GPT54 Valley moves Skyhunter Patrol from battlefield to the exile zone (source: Settle Beyond Reality)",
-        "GPT54 Valley moves Thraben Inspector from battlefield to the exile zone (source: Settle Beyond Reality)",
-        "GPT54 Valley puts Thraben Inspector from exile zone onto the Battlefield (source: Settle Beyond Reality)",
-        "GPT54 Valley puts Settle Beyond Reality from stack into their graveyard",
-        "Dub is put into graveyard from battlefield"
-      ],
-      "actionSeq": 642,
+      "subsequentActions": [],
+      "actionSeq": 649,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -335120,12 +334929,8 @@
         688,
         689
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Thraben Inspector - When Thraben Inspector enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 649,
+      "subsequentActions": [],
+      "actionSeq": 653,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -335570,7 +335375,7 @@
         691
       ],
       "subsequentActions": [],
-      "actionSeq": 653,
+      "actionSeq": 655,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -336018,10 +335823,8 @@
         692,
         693
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 655,
+      "subsequentActions": [],
+      "actionSeq": 658,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -336490,10 +336293,8 @@
         694,
         695
       ],
-      "subsequentActions": [
-        "GPT54 Valley creates a Clue Token token"
-      ],
-      "actionSeq": 658,
+      "subsequentActions": [],
+      "actionSeq": 661,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -336980,7 +336781,7 @@
         697
       ],
       "subsequentActions": [],
-      "actionSeq": 661,
+      "actionSeq": 663,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -337446,10 +337247,8 @@
         698,
         701
       ],
-      "subsequentActions": [
-        "GPT54 Valley attacks GPT53C Hothead with 1 creature"
-      ],
-      "actionSeq": 663
+      "subsequentActions": [],
+      "actionSeq": 667
     },
     {
       "index": 305,
@@ -338378,7 +338177,7 @@
         707
       ],
       "subsequentActions": [],
-      "actionSeq": 667
+      "actionSeq": 673
     },
     {
       "index": 307,
@@ -338808,10 +338607,8 @@
         706,
         709
       ],
-      "subsequentActions": [
-        "Attacker: Knight Token (2/2) blocked by Midnight Guard (2/3)"
-      ],
-      "actionSeq": 669,
+      "subsequentActions": [],
+      "actionSeq": 674,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -339245,7 +339042,7 @@
         711
       ],
       "subsequentActions": [],
-      "actionSeq": 673
+      "actionSeq": 679
     },
     {
       "index": 309,
@@ -339659,12 +339456,8 @@
         710,
         715
       ],
-      "subsequentActions": [
-        "Midnight Guard deals 2 damage to Knight Token",
-        "Knight Token deals 2 damage to Midnight Guard",
-        "Knight Token died"
-      ],
-      "actionSeq": 674,
+      "subsequentActions": [],
+      "actionSeq": 680,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -340595,7 +340388,7 @@
         717
       ],
       "subsequentActions": [],
-      "actionSeq": 680,
+      "actionSeq": 682,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -341064,7 +340857,7 @@
         719
       ],
       "subsequentActions": [],
-      "actionSeq": 682,
+      "actionSeq": 683,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -341573,10 +341366,8 @@
         720,
         721
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 683,
+      "subsequentActions": [],
+      "actionSeq": 687,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -342079,7 +341870,7 @@
         723
       ],
       "subsequentActions": [],
-      "actionSeq": 687,
+      "actionSeq": 688,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -342585,7 +342376,7 @@
         725
       ],
       "subsequentActions": [],
-      "actionSeq": 688,
+      "actionSeq": 689,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -343080,7 +342871,7 @@
         727
       ],
       "subsequentActions": [],
-      "actionSeq": 689,
+      "actionSeq": 690,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -343518,7 +343309,7 @@
         732
       ],
       "subsequentActions": [],
-      "actionSeq": 690,
+      "actionSeq": 693,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -343560,11 +343351,8 @@
         730,
         731
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield",
-        "GPT53C Hothead activates: tap target creature. from Gideon's Lawkeeper targeting Vodalian Arcanist"
-      ],
-      "actionSeq": 681
+      "subsequentActions": [],
+      "actionSeq": 694
     },
     {
       "index": 320,
@@ -344020,7 +343808,7 @@
         738
       ],
       "subsequentActions": [],
-      "actionSeq": 693,
+      "actionSeq": 695,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -344507,7 +344295,7 @@
         740
       ],
       "subsequentActions": [],
-      "actionSeq": 695,
+      "actionSeq": 697,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -344967,10 +344755,8 @@
         741,
         748
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks GPT54 Valley with 2 creatures"
-      ],
-      "actionSeq": 697,
+      "subsequentActions": [],
+      "actionSeq": 702,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -345932,7 +345718,7 @@
         752
       ],
       "subsequentActions": [],
-      "actionSeq": 702,
+      "actionSeq": 710,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -346394,11 +346180,8 @@
         751,
         754
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked",
-        "Attacker: Magnanimous Magistrate (3/4) blocked by Thraben Inspector (1/2)"
-      ],
-      "actionSeq": 704
+      "subsequentActions": [],
+      "actionSeq": 711
     },
     {
       "index": 326,
@@ -346828,7 +346611,7 @@
         756
       ],
       "subsequentActions": [],
-      "actionSeq": 710,
+      "actionSeq": 717,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -347264,13 +347047,8 @@
         755,
         760
       ],
-      "subsequentActions": [
-        "GPT54 Valley loses 2 life at combat from Midnight Guard",
-        "Thraben Inspector deals 1 damage to Magnanimous Magistrate",
-        "Magnanimous Magistrate deals 3 damage to Thraben Inspector",
-        "Thraben Inspector died"
-      ],
-      "actionSeq": 711
+      "subsequentActions": [],
+      "actionSeq": 718
     },
     {
       "index": 328,
@@ -347711,7 +347489,7 @@
         769
       ],
       "subsequentActions": [],
-      "actionSeq": 717,
+      "actionSeq": 719,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -348826,10 +348604,8 @@
         766,
         767
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 721,
+      "subsequentActions": [],
+      "actionSeq": 725,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -349345,7 +349121,7 @@
         771
       ],
       "subsequentActions": [],
-      "actionSeq": 725,
+      "actionSeq": 731,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -349798,11 +349574,8 @@
         770,
         773
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Plains from hand onto the Battlefield",
-        "GPT54 Valley casts Preston, the Vanisher from hand"
-      ],
-      "actionSeq": 719,
+      "subsequentActions": [],
+      "actionSeq": 732,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -350309,7 +350082,7 @@
         775
       ],
       "subsequentActions": [],
-      "actionSeq": 731,
+      "actionSeq": 736,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -350759,12 +350532,8 @@
         774,
         777
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Preston, the Vanisher from stack onto the Battlefield",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 732,
+      "subsequentActions": [],
+      "actionSeq": 737,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -351274,7 +351043,7 @@
         779
       ],
       "subsequentActions": [],
-      "actionSeq": 736,
+      "actionSeq": 738,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -351725,7 +351494,7 @@
         783
       ],
       "subsequentActions": [],
-      "actionSeq": 737,
+      "actionSeq": 739,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -352203,10 +351972,8 @@
         780,
         781
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 738,
+      "subsequentActions": [],
+      "actionSeq": 741,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -352695,7 +352462,7 @@
         785
       ],
       "subsequentActions": [],
-      "actionSeq": 741,
+      "actionSeq": 748,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -353181,11 +352948,8 @@
         784,
         789
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)",
-        "GPT54 Valley casts Talrand's Invocation from hand"
-      ],
-      "actionSeq": 739,
+      "subsequentActions": [],
+      "actionSeq": 749,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -353667,7 +353431,7 @@
         791
       ],
       "subsequentActions": [],
-      "actionSeq": 748,
+      "actionSeq": 757,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -354177,7 +353941,7 @@
         793
       ],
       "subsequentActions": [],
-      "actionSeq": 757,
+      "actionSeq": 759,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -354652,7 +354416,7 @@
         795
       ],
       "subsequentActions": [],
-      "actionSeq": 759,
+      "actionSeq": 761,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -355121,10 +354885,8 @@
         796,
         797
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 761,
+      "subsequentActions": [],
+      "actionSeq": 764,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -355609,10 +355371,8 @@
         798,
         799
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 764,
+      "subsequentActions": [],
+      "actionSeq": 767,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -356096,7 +355856,7 @@
         801
       ],
       "subsequentActions": [],
-      "actionSeq": 767,
+      "actionSeq": 769,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -356565,10 +356325,8 @@
         802,
         803
       ],
-      "subsequentActions": [
-        "GPT54 Valley skip attack"
-      ],
-      "actionSeq": 769
+      "subsequentActions": [],
+      "actionSeq": 772
     },
     {
       "index": 349,
@@ -357688,10 +357446,8 @@
         811,
         812
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 776,
+      "subsequentActions": [],
+      "actionSeq": 780,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1,
@@ -358258,7 +358014,7 @@
         814
       ],
       "subsequentActions": [],
-      "actionSeq": 780,
+      "actionSeq": 781,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -358761,7 +358517,7 @@
         816
       ],
       "subsequentActions": [],
-      "actionSeq": 781,
+      "actionSeq": 784,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -359275,10 +359031,8 @@
         817,
         818
       ],
-      "subsequentActions": [
-        "GPT53C Hothead casts Forced Worship targeting Drake Token from hand"
-      ],
-      "actionSeq": 784,
+      "subsequentActions": [],
+      "actionSeq": 786,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -359813,10 +359567,8 @@
         819,
         820
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Forced Worship from stack onto the Battlefield"
-      ],
-      "actionSeq": 786,
+      "subsequentActions": [],
+      "actionSeq": 789,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -360385,7 +360137,7 @@
         822
       ],
       "subsequentActions": [],
-      "actionSeq": 789,
+      "actionSeq": 791,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -360994,10 +360746,8 @@
         823,
         824
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks GPT54 Valley with 2 creatures"
-      ],
-      "actionSeq": 791,
+      "subsequentActions": [],
+      "actionSeq": 796,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -361601,7 +361351,7 @@
         826
       ],
       "subsequentActions": [],
-      "actionSeq": 796,
+      "actionSeq": 797,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -362130,10 +361880,8 @@
         827,
         828
       ],
-      "subsequentActions": [
-        "GPT53C Hothead activates: tap target creature. from Gideon's Lawkeeper targeting Preston, the Vanisher"
-      ],
-      "actionSeq": 797,
+      "subsequentActions": [],
+      "actionSeq": 800,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -362677,7 +362425,7 @@
         834
       ],
       "subsequentActions": [],
-      "actionSeq": 800,
+      "actionSeq": 802,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -363809,11 +363557,8 @@
         835,
         836
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked",
-        "Attacker: Magnanimous Magistrate (3/4) blocked by Drake Token (2/2) Drake Token (2/2)"
-      ],
-      "actionSeq": 802,
+      "subsequentActions": [],
+      "actionSeq": 812,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -364361,7 +364106,7 @@
         838
       ],
       "subsequentActions": [],
-      "actionSeq": 812,
+      "actionSeq": 814,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -364892,7 +364637,7 @@
         842
       ],
       "subsequentActions": [],
-      "actionSeq": 814,
+      "actionSeq": 818,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -365408,12 +365153,8 @@
         841,
         844
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked",
-        "Attacker: Magnanimous Magistrate (3/4) blocked by Drake Token (2/2) Drake Token (2/2)",
-        "GPT53C Hothead activates: return Forced Worship to its owner's hand. from Forced Worship"
-      ],
-      "actionSeq": 804
+      "subsequentActions": [],
+      "actionSeq": 819
     },
     {
       "index": 366,
@@ -365947,7 +365688,7 @@
         846
       ],
       "subsequentActions": [],
-      "actionSeq": 818,
+      "actionSeq": 821,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -366431,10 +366172,8 @@
         845,
         858
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Forced Worship from battlefield into their hand"
-      ],
-      "actionSeq": 819
+      "subsequentActions": [],
+      "actionSeq": 822
     },
     {
       "index": 368,
@@ -367990,7 +367729,7 @@
         862
       ],
       "subsequentActions": [],
-      "actionSeq": 827,
+      "actionSeq": 833,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -368459,14 +368198,8 @@
         861,
         868
       ],
-      "subsequentActions": [
-        "GPT54 Valley loses 2 life at combat from Midnight Guard",
-        "Drake Token deals 2 damage to Magnanimous Magistrate",
-        "Drake Token deals 2 damage to Magnanimous Magistrate",
-        "Magnanimous Magistrate deals 3 damage to Drake Token",
-        "Magnanimous Magistrate died"
-      ],
-      "actionSeq": 822
+      "subsequentActions": [],
+      "actionSeq": 834
     },
     {
       "index": 374,
@@ -368988,7 +368721,7 @@
         864
       ],
       "subsequentActions": [],
-      "actionSeq": 833,
+      "actionSeq": 835,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -369512,7 +369245,7 @@
         866
       ],
       "subsequentActions": [],
-      "actionSeq": 835,
+      "actionSeq": 836,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -369978,7 +369711,7 @@
         870
       ],
       "subsequentActions": [],
-      "actionSeq": 836,
+      "actionSeq": 841,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -370449,10 +370182,8 @@
         869,
         874
       ],
-      "subsequentActions": [
-        "GPT53C Hothead casts Forced Worship targeting Drake Token from hand"
-      ],
-      "actionSeq": 834
+      "subsequentActions": [],
+      "actionSeq": 842
     },
     {
       "index": 378,
@@ -370914,7 +370645,7 @@
         878
       ],
       "subsequentActions": [],
-      "actionSeq": 841,
+      "actionSeq": 844,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -371440,10 +371171,8 @@
         875,
         876
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Forced Worship from stack onto the Battlefield"
-      ],
-      "actionSeq": 842
+      "subsequentActions": [],
+      "actionSeq": 845
     },
     {
       "index": 380,
@@ -371995,7 +371724,7 @@
         880
       ],
       "subsequentActions": [],
-      "actionSeq": 845,
+      "actionSeq": 846,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -372502,7 +372231,7 @@
         884
       ],
       "subsequentActions": [],
-      "actionSeq": 844,
+      "actionSeq": 847,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -373098,7 +372827,7 @@
         882
       ],
       "subsequentActions": [],
-      "actionSeq": 846,
+      "actionSeq": 848,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -373686,7 +373415,7 @@
         886
       ],
       "subsequentActions": [],
-      "actionSeq": 848,
+      "actionSeq": 855,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -374191,10 +373920,8 @@
         885,
         889
       ],
-      "subsequentActions": [
-        "GPT54 Valley attacks GPT53C Hothead with 3 creatures"
-      ],
-      "actionSeq": 847,
+      "subsequentActions": [],
+      "actionSeq": 856,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -374760,13 +374487,11 @@
         893
       ],
       "subsequentActions": [
-        "Attacker: Vodalian Arcanist (1/3) unblocked",
-        "Attacker: Distinguished Conjurer (1/2) unblocked",
-        "Attacker: Preston, the Vanisher (2/5) unblocked",
         "GPT53C Hothead loses 1 life at combat from Vodalian Arcanist",
-        "GPT53C Hothead loses 1 life at combat from Distinguished Conjurer"
+        "GPT53C Hothead loses 1 life at combat from Distinguished Conjurer",
+        "GPT53C Hothead loses 2 life at combat from Preston, the Vanisher"
       ],
-      "actionSeq": 856,
+      "actionSeq": 862,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -375901,7 +375626,7 @@
         897
       ],
       "subsequentActions": [],
-      "actionSeq": 867,
+      "actionSeq": 869,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -376454,7 +376179,7 @@
         899
       ],
       "subsequentActions": [],
-      "actionSeq": 869,
+      "actionSeq": 870,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -377016,10 +376741,8 @@
         900,
         901
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Acrobatic Maneuver targeting Distinguished Conjurer from hand"
-      ],
-      "actionSeq": 870,
+      "subsequentActions": [],
+      "actionSeq": 876,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -377578,14 +377301,8 @@
         902,
         903
       ],
-      "subsequentActions": [
-        "GPT54 Valley moves Distinguished Conjurer from battlefield to the exile zone (source: Acrobatic Maneuver)",
-        "GPT54 Valley puts Distinguished Conjurer from exile zone onto the Battlefield (source: Acrobatic Maneuver)",
-        "GPT54 Valley puts Acrobatic Maneuver from stack into their graveyard",
-        "GPT54 Valley - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 876,
+      "subsequentActions": [],
+      "actionSeq": 883,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -378155,7 +377872,7 @@
         905
       ],
       "subsequentActions": [],
-      "actionSeq": 883,
+      "actionSeq": 885,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -378721,12 +378438,8 @@
         906,
         907
       ],
-      "subsequentActions": [
-        "GPT54 Valley creates a Distinguished Conjurer token",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 885,
+      "subsequentActions": [],
+      "actionSeq": 890,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -379295,7 +379008,7 @@
         909
       ],
       "subsequentActions": [],
-      "actionSeq": 890,
+      "actionSeq": 892,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -379846,10 +379559,8 @@
         910,
         911
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 892,
+      "subsequentActions": [],
+      "actionSeq": 895,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -380387,7 +380098,7 @@
         913
       ],
       "subsequentActions": [],
-      "actionSeq": 895,
+      "actionSeq": 896,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -380943,7 +380654,7 @@
         915
       ],
       "subsequentActions": [],
-      "actionSeq": 896,
+      "actionSeq": 897,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -381495,11 +381206,8 @@
         916,
         917
       ],
-      "subsequentActions": [
-        "Thriving Heath: GPT54 Valley has chosen Blue",
-        "GPT54 Valley puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 897,
+      "subsequentActions": [],
+      "actionSeq": 900,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -382033,7 +381741,7 @@
         919
       ],
       "subsequentActions": [],
-      "actionSeq": 900,
+      "actionSeq": 903,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -382577,11 +382285,8 @@
         920,
         921
       ],
-      "subsequentActions": [
-        "GPT54 Valley sacrificed Clue Token (source: Clue Token)",
-        "GPT54 Valley activates: draw a card. from Clue Token"
-      ],
-      "actionSeq": 903,
+      "subsequentActions": [],
+      "actionSeq": 906,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -383136,7 +382841,7 @@
         933
       ],
       "subsequentActions": [],
-      "actionSeq": 906,
+      "actionSeq": 908,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -384563,7 +384268,7 @@
         927
       ],
       "subsequentActions": [],
-      "actionSeq": 910,
+      "actionSeq": 911,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -385082,7 +384787,7 @@
         929
       ],
       "subsequentActions": [],
-      "actionSeq": 911,
+      "actionSeq": 914,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -385611,7 +385316,7 @@
         931
       ],
       "subsequentActions": [],
-      "actionSeq": 914,
+      "actionSeq": 917,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -386153,7 +385858,7 @@
         937
       ],
       "subsequentActions": [],
-      "actionSeq": 917,
+      "actionSeq": 921,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -386680,10 +386385,8 @@
         934,
         935
       ],
-      "subsequentActions": [
-        "GPT53C Hothead casts Faith's Fetters targeting Preston, the Vanisher from hand"
-      ],
-      "actionSeq": 908,
+      "subsequentActions": [],
+      "actionSeq": 922,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -387206,7 +386909,7 @@
         939
       ],
       "subsequentActions": [],
-      "actionSeq": 922,
+      "actionSeq": 925,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -387750,10 +387453,8 @@
         938,
         941
       ],
-      "subsequentActions": [
-        "GPT54 Valley casts Opt from hand"
-      ],
-      "actionSeq": 921,
+      "subsequentActions": [],
+      "actionSeq": 926,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -388283,7 +387984,7 @@
         943
       ],
       "subsequentActions": [],
-      "actionSeq": 925,
+      "actionSeq": 928,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -388834,10 +388535,8 @@
         942,
         945
       ],
-      "subsequentActions": [
-        "GPT54 Valley scries 1 (source: Opt)"
-      ],
-      "actionSeq": 926,
+      "subsequentActions": [],
+      "actionSeq": 931,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -389367,11 +389066,8 @@
         944,
         947
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts a card from library to the bottom of their library (source: Opt)",
-        "GPT54 Valley puts Opt from stack into their graveyard"
-      ],
-      "actionSeq": 928,
+      "subsequentActions": [],
+      "actionSeq": 932,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -389918,7 +389614,7 @@
         949
       ],
       "subsequentActions": [],
-      "actionSeq": 931,
+      "actionSeq": 935,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -390454,11 +390150,8 @@
         948,
         955
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Faith's Fetters from stack onto the Battlefield",
-        "GPT53C Hothead - Ability triggers: Faith's Fetters - When Faith's Fetters enters, you gain 4 life."
-      ],
-      "actionSeq": 932,
+      "subsequentActions": [],
+      "actionSeq": 936,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -391056,10 +390749,8 @@
         950,
         951
       ],
-      "subsequentActions": [
-        "GPT53C Hothead gains 4 life (source: Faith's Fetters)"
-      ],
-      "actionSeq": 935,
+      "subsequentActions": [],
+      "actionSeq": 938,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -391654,7 +391345,7 @@
         953
       ],
       "subsequentActions": [],
-      "actionSeq": 938,
+      "actionSeq": 939,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -392184,7 +391875,7 @@
         959
       ],
       "subsequentActions": [],
-      "actionSeq": 939,
+      "actionSeq": 942,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -392710,11 +392401,8 @@
         958,
         961
       ],
-      "subsequentActions": [
-        "GPT53C Hothead gains 4 life (source: Faith's Fetters)",
-        "GPT53C Hothead activates: tap target creature. from Gideon's Lawkeeper targeting Vodalian Arcanist"
-      ],
-      "actionSeq": 936,
+      "subsequentActions": [],
+      "actionSeq": 943,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -393248,7 +392936,7 @@
         963
       ],
       "subsequentActions": [],
-      "actionSeq": 942,
+      "actionSeq": 944,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -393788,7 +393476,7 @@
         967
       ],
       "subsequentActions": [],
-      "actionSeq": 943,
+      "actionSeq": 945,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -394340,7 +394028,7 @@
         965
       ],
       "subsequentActions": [],
-      "actionSeq": 944,
+      "actionSeq": 946,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -394883,7 +394571,7 @@
         975
       ],
       "subsequentActions": [],
-      "actionSeq": 946,
+      "actionSeq": 950,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -395456,10 +395144,8 @@
         968,
         969
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks GPT54 Valley with 1 creature"
-      ],
-      "actionSeq": 945,
+      "subsequentActions": [],
+      "actionSeq": 951,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -396635,7 +396321,7 @@
         979
       ],
       "subsequentActions": [],
-      "actionSeq": 950,
+      "actionSeq": 955,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -397173,10 +396859,8 @@
         978,
         981
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked"
-      ],
-      "actionSeq": 952,
+      "subsequentActions": [],
+      "actionSeq": 956,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -397705,7 +397389,7 @@
         983
       ],
       "subsequentActions": [],
-      "actionSeq": 955,
+      "actionSeq": 959,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -398229,10 +397913,8 @@
         982,
         987
       ],
-      "subsequentActions": [
-        "GPT54 Valley loses 2 life at combat from Midnight Guard"
-      ],
-      "actionSeq": 956,
+      "subsequentActions": [],
+      "actionSeq": 960,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -398774,7 +398456,7 @@
         995
       ],
       "subsequentActions": [],
-      "actionSeq": 959,
+      "actionSeq": 961,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -399364,7 +399046,7 @@
         989
       ],
       "subsequentActions": [],
-      "actionSeq": 960,
+      "actionSeq": 962,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -399988,7 +399670,7 @@
         991
       ],
       "subsequentActions": [],
-      "actionSeq": 962,
+      "actionSeq": 963,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -400590,10 +400272,8 @@
         992,
         993
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 963,
+      "subsequentActions": [],
+      "actionSeq": 967,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1,
@@ -401184,7 +400864,7 @@
         997
       ],
       "subsequentActions": [],
-      "actionSeq": 967,
+      "actionSeq": 971,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -401751,11 +401431,8 @@
         996,
         1015
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Island from hand onto the Battlefield",
-        "GPT54 Valley casts Sage's Row Savant from hand"
-      ],
-      "actionSeq": 961,
+      "subsequentActions": [],
+      "actionSeq": 972,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -402332,10 +402009,8 @@
         1000,
         1001
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Sage's Row Savant from stack onto the Battlefield"
-      ],
-      "actionSeq": 971,
+      "subsequentActions": [],
+      "actionSeq": 974,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -402928,10 +402603,8 @@
         1002,
         1003
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 974,
+      "subsequentActions": [],
+      "actionSeq": 976,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -403557,12 +403230,8 @@
         1004,
         1005
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Sage's Row Savant - When Sage's Row Savant enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 976,
+      "subsequentActions": [],
+      "actionSeq": 980,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -404177,7 +403846,7 @@
         1007
       ],
       "subsequentActions": [],
-      "actionSeq": 980,
+      "actionSeq": 981,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -404761,7 +404430,7 @@
         1009
       ],
       "subsequentActions": [],
-      "actionSeq": 981,
+      "actionSeq": 986,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -405347,10 +405016,8 @@
         1010,
         1011
       ],
-      "subsequentActions": [
-        "GPT54 Valley activates: exile another target creature you control, then return it to the battlefield under its owner's control. from Distinguished Conjurer targeting Sage's Row Savant"
-      ],
-      "actionSeq": 986,
+      "subsequentActions": [],
+      "actionSeq": 990,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -405916,7 +405583,7 @@
         1013
       ],
       "subsequentActions": [],
-      "actionSeq": 990,
+      "actionSeq": 992,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -406478,7 +406145,7 @@
         1017
       ],
       "subsequentActions": [],
-      "actionSeq": 992,
+      "actionSeq": 996,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -407041,14 +406708,8 @@
         1016,
         1023
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Sage's Row Savant from stack onto the Battlefield",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Valley - Ability triggers: Sage's Row Savant - When Sage's Row Savant enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 972,
+      "subsequentActions": [],
+      "actionSeq": 997,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -407630,7 +407291,7 @@
         1025
       ],
       "subsequentActions": [],
-      "actionSeq": 996,
+      "actionSeq": 998,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -408206,7 +407867,7 @@
         1047
       ],
       "subsequentActions": [],
-      "actionSeq": 997,
+      "actionSeq": 999,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -408812,11 +408473,8 @@
         1038,
         1039
       ],
-      "subsequentActions": [
-        "GPT54 Valley moves Sage's Row Savant from battlefield to the exile zone (source: Distinguished Conjurer)",
-        "GPT54 Valley puts Sage's Row Savant from exile zone onto the Battlefield (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 998,
+      "subsequentActions": [],
+      "actionSeq": 1002,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -409414,10 +409072,8 @@
         1040,
         1041
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 1002,
+      "subsequentActions": [],
+      "actionSeq": 1004,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -410003,10 +409659,8 @@
         1044,
         1045
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion."
-      ],
-      "actionSeq": 1004,
+      "subsequentActions": [],
+      "actionSeq": 1006,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -410576,7 +410230,7 @@
         1049
       ],
       "subsequentActions": [],
-      "actionSeq": 1006,
+      "actionSeq": 1010,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -411185,7 +410839,7 @@
         1053
       ],
       "subsequentActions": [],
-      "actionSeq": 1010,
+      "actionSeq": 1012,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -412338,7 +411992,7 @@
         1057
       ],
       "subsequentActions": [],
-      "actionSeq": 1012,
+      "actionSeq": 1015,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -412904,10 +412558,8 @@
         1056,
         1065
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 1013,
+      "subsequentActions": [],
+      "actionSeq": 1016,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -413497,10 +413149,8 @@
         1060,
         1061
       ],
-      "subsequentActions": [
-        "GPT54 Valley scries 2 (source: Sage's Row Savant)"
-      ],
-      "actionSeq": 1015,
+      "subsequentActions": [],
+      "actionSeq": 1018,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -414071,7 +413721,7 @@
         1063
       ],
       "subsequentActions": [],
-      "actionSeq": 1018,
+      "actionSeq": 1019,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -414660,7 +414310,7 @@
         1067
       ],
       "subsequentActions": [],
-      "actionSeq": 1019,
+      "actionSeq": 1022,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -415297,10 +414947,8 @@
         1068,
         1069
       ],
-      "subsequentActions": [
-        "GPT54 Valley creates a Sage's Row Savant token"
-      ],
-      "actionSeq": 1022,
+      "subsequentActions": [],
+      "actionSeq": 1025,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -415875,13 +415523,8 @@
         1070,
         1071
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Sage's Row Savant - When Sage's Row Savant enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 1025,
+      "subsequentActions": [],
+      "actionSeq": 1030,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -416454,7 +416097,7 @@
         1073
       ],
       "subsequentActions": [],
-      "actionSeq": 1030,
+      "actionSeq": 1032,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -417023,10 +416666,8 @@
         1074,
         1075
       ],
-      "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 1032,
+      "subsequentActions": [],
+      "actionSeq": 1035,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -417068,10 +416709,9 @@
         1077
       ],
       "subsequentActions": [
-        "GPT54 Valley gains 1 life (source: Distinguished Conjurer)",
         "GPT54 Valley scries 2 (source: Sage's Row Savant)"
       ],
-      "actionSeq": 1035,
+      "actionSeq": 1038,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -418422,10 +418062,8 @@
         1098,
         1099
       ],
-      "subsequentActions": [
-        "GPT53C Hothead puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 1072,
+      "subsequentActions": [],
+      "actionSeq": 1076,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -419068,7 +418706,7 @@
         1101
       ],
       "subsequentActions": [],
-      "actionSeq": 1076,
+      "actionSeq": 1077,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -419627,10 +419265,8 @@
         1102,
         1103
       ],
-      "subsequentActions": [
-        "GPT53C Hothead activates: tap target creature. from Gideon's Lawkeeper targeting Sage's Row Savant"
-      ],
-      "actionSeq": 1077,
+      "subsequentActions": [],
+      "actionSeq": 1080,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -420195,7 +419831,7 @@
         1107
       ],
       "subsequentActions": [],
-      "actionSeq": 1080,
+      "actionSeq": 1082,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -421343,7 +420979,7 @@
         1109
       ],
       "subsequentActions": [],
-      "actionSeq": 1082,
+      "actionSeq": 1084,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
@@ -421916,7 +421552,7 @@
         1115
       ],
       "subsequentActions": [],
-      "actionSeq": 1084,
+      "actionSeq": 1088,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -422526,10 +422162,8 @@
         1112,
         1113
       ],
-      "subsequentActions": [
-        "GPT53C Hothead attacks GPT54 Valley with 1 creature"
-      ],
-      "actionSeq": 1083
+      "subsequentActions": [],
+      "actionSeq": 1089
     },
     {
       "index": 477,
@@ -423127,7 +422761,7 @@
         1117
       ],
       "subsequentActions": [],
-      "actionSeq": 1089,
+      "actionSeq": 1090,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -423738,10 +423372,8 @@
         1118,
         1119
       ],
-      "subsequentActions": [
-        "Attacker: Midnight Guard (2/3) unblocked"
-      ],
-      "actionSeq": 1090
+      "subsequentActions": [],
+      "actionSeq": 1094
     },
     {
       "index": 480,
@@ -425593,10 +425225,8 @@
         1128,
         1129
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 1101,
+      "subsequentActions": [],
+      "actionSeq": 1105,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1,
@@ -426212,7 +425842,7 @@
         1133
       ],
       "subsequentActions": [],
-      "actionSeq": 1105,
+      "actionSeq": 1111,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -426816,11 +426446,8 @@
         1132,
         1145
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Plains from hand onto the Battlefield",
-        "GPT54 Valley casts Inspiring Overseer from hand"
-      ],
-      "actionSeq": 1099,
+      "subsequentActions": [],
+      "actionSeq": 1112,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -427443,10 +427070,8 @@
         1134,
         1135
       ],
-      "subsequentActions": [
-        "GPT54 Valley puts Inspiring Overseer from stack onto the Battlefield"
-      ],
-      "actionSeq": 1111,
+      "subsequentActions": [],
+      "actionSeq": 1114,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -428114,13 +427739,8 @@
         1136,
         1137
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card.",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT53C Hothead - Ability triggers: Midnight Guard - Whenever another creature enters, untap Midnight Guard."
-      ],
-      "actionSeq": 1114,
+      "subsequentActions": [],
+      "actionSeq": 1119,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -428783,7 +428403,7 @@
         1139
       ],
       "subsequentActions": [],
-      "actionSeq": 1119,
+      "actionSeq": 1120,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -429397,7 +429017,7 @@
         1141
       ],
       "subsequentActions": [],
-      "actionSeq": 1120,
+      "actionSeq": 1123,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -430001,7 +429621,7 @@
         1143
       ],
       "subsequentActions": [],
-      "actionSeq": 1123,
+      "actionSeq": 1127,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -430615,7 +430235,7 @@
         1147
       ],
       "subsequentActions": [],
-      "actionSeq": 1127,
+      "actionSeq": 1129,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -431293,11 +430913,8 @@
         1150,
         1151
       ],
-      "subsequentActions": [
-        "GPT54 Valley moves Inspiring Overseer from battlefield to the exile zone (source: Distinguished Conjurer)",
-        "GPT54 Valley puts Inspiring Overseer from exile zone onto the Battlefield (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 1129,
+      "subsequentActions": [],
+      "actionSeq": 1133,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -431923,10 +431540,8 @@
         1152,
         1153
       ],
-      "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card."
-      ],
-      "actionSeq": 1133,
+      "subsequentActions": [],
+      "actionSeq": 1135,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -431983,10 +431598,9 @@
         1157
       ],
       "subsequentActions": [
-        "GPT54 Valley - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
         "GPT54 Valley has lost the game."
       ],
-      "actionSeq": 1135,
+      "actionSeq": 1137,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1

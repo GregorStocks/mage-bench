@@ -15449,7 +15449,8 @@
       "llmEventIndices": [
         294,
         299,
-        300
+        300,
+        302
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -16162,7 +16163,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

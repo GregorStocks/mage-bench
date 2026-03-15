@@ -31353,7 +31353,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p9",
-        "mana_plan": "p3,p6"
+        "mana_plan": [
+          "p3",
+          "p6"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -32948,7 +32951,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p22",
-        "mana_plan": "p6,p29"
+        "mana_plan": [
+          "p6",
+          "p29"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -33481,7 +33487,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p31",
-        "mana_plan": "p6,p29"
+        "mana_plan": [
+          "p6",
+          "p29"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -33828,7 +33837,10 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": "p6,p29"
+        "mana_plan": [
+          "p6",
+          "p29"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -35236,36 +35248,30 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": 4,
+      "chosen": null,
       "chosenArgs": {
-        "id": "p38"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p38 not found in current choices",
-        "choices": [
-          {
-            "name": "Sire of Seven Deaths",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p7",
-            "power": "7",
-            "toughness": "7"
-          },
-          {
-            "name": "All attack",
-            "index": 1,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
       },
       "llmEventIndices": [
         317,
         319,
-        320
+        320,
+        321,
+        322,
+        323,
+        324
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -35361,15 +35367,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p12', 'blocks': 'p42'}"
+        "blockers": [
+          "p12:p42"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p12\",\"blocks\":\"p42\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "blocks": "p42",
+            "id": "p12"
+          }
+        ],
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         328,
         329,
-        330
+        330,
+        331,
+        333
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -36469,7 +36486,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -36539,18 +36558,29 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "id,p7,blocks,p31"
+        "blockers": [
+          "p7:p31"
+        ]
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_blockers",
-        "error": "Invalid blockers: blockers entry 0 must be \"blocker:attacker\", got: id. Expected: [\"blocker:attacker\",...]"
+        "declared": [
+          {
+            "id": "p7",
+            "blocks": "p31"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         440,
         441,
-        442
+        442,
+        443,
+        444
       ],
       "subsequentActions": [
         "spectator5 has started watching",

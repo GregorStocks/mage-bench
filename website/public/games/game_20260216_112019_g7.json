@@ -16280,7 +16280,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -17000,7 +17002,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9,p19"
+        "attackers": [
+          "p9",
+          "p19"
+        ]
       },
       "actionResult": {
         "declared": [

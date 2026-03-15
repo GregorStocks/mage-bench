@@ -63813,7 +63813,8 @@
         62,
         63,
         65,
-        66
+        66,
+        67
       ],
       "subsequentActions": [
         "GPT52 Brewer attacks QwCdr Stats with 1 creature"
@@ -64128,30 +64129,44 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p19",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p19"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p19' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p19'"
+        "success": false,
+        "error": "Object p19 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 115,
+        "choices": [
+          {
+            "mana_cost": "{1}{W}",
+            "name": "Feat of Resistance",
+            "index": 0,
+            "action": "cast",
+            "id": "p36"
+          }
+        ]
       },
       "llmEventIndices": [
         90,
         91,
-        92
+        92,
+        93,
+        94,
+        95
       ],
-      "subsequentActions": [
-        "GPT52 Brewer attacks QwCdr Stats with 1 creature"
-      ],
-      "actionSeq": 110,
+      "subsequentActions": [],
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -64409,21 +64424,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p32"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p32' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p32'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 139
       },
       "llmEventIndices": [
         112,
         113,
-        114
+        114,
+        115,
+        116,
+        117
       ],
-      "subsequentActions": [
-        "QwCdr Stats attacks GPT52 Brewer with 1 creature",
-        "QwCdr Stats - Ability triggers: Kari Zev, Skyship Raider - Whenever Kari Zev, Skyship Raider attacks, create Ragavan, a legendary 2/1 red Monkey creature token. Ragavan enters the battlefield tapped and attacking. Exile that token at end of combat."
-      ],
-      "actionSeq": 134,
+      "subsequentActions": [],
+      "actionSeq": 139,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -64866,23 +64886,27 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "all"
+        "choice": "p32"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "Object p32 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 208
       },
       "llmEventIndices": [
         152,
         153,
-        154
+        154,
+        155,
+        156,
+        157
       ],
-      "subsequentActions": [
-        "QwCdr Stats attacks GPT52 Brewer with 1 creature",
-        "QwCdr Stats - Ability triggers: Kari Zev, Skyship Raider - Whenever Kari Zev, Skyship Raider attacks, create Ragavan, a legendary 2/1 red Monkey creature token. Ragavan enters the battlefield tapped and attacking. Exile that token at end of combat."
-      ],
-      "actionSeq": 203,
+      "subsequentActions": [],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -65343,30 +65367,35 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p19,p20",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p19"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p20' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p20'"
+        "success": false,
+        "error": "Object p19 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 262
       },
       "llmEventIndices": [
         186,
         187,
-        188
+        188,
+        189,
+        190,
+        191
       ],
-      "subsequentActions": [
-        "GPT52 Brewer attacks QwCdr Stats with 2 creatures"
-      ],
-      "actionSeq": 257,
+      "subsequentActions": [],
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -65575,7 +65604,9 @@
       "llmEventIndices": [
         204,
         205,
-        206
+        206,
+        207,
+        208
       ],
       "subsequentActions": [
         "QwCdr Stats attacks GPT52 Brewer with 1 creature",
@@ -66143,30 +66174,51 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "all",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "\"all\" is not available in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 330,
+        "choices": [
+          {
+            "mana_cost": "{2}{W}",
+            "name": "Acrobatic Maneuver",
+            "index": 0,
+            "action": "cast",
+            "id": "p41"
+          },
+          {
+            "mana_cost": "{1}{W}",
+            "name": "Feat of Resistance",
+            "index": 1,
+            "action": "cast",
+            "id": "p36"
+          }
+        ]
       },
       "llmEventIndices": [
         239,
         240,
-        241
+        241,
+        242,
+        243,
+        244
       ],
-      "subsequentActions": [
-        "GPT52 Brewer attacks QwCdr Stats with 3 creatures"
-      ],
-      "actionSeq": 326,
+      "subsequentActions": [],
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -66522,23 +66574,29 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p32"
+        "choice": "p32"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p32' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p32'"
+        "success": false,
+        "error": "Object p32 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 367
       },
       "llmEventIndices": [
         265,
         266,
-        267
+        267,
+        268,
+        269,
+        270,
+        271,
+        272
       ],
-      "subsequentActions": [
-        "QwCdr Stats attacks GPT52 Brewer with 1 creature",
-        "QwCdr Stats - Ability triggers: Kari Zev, Skyship Raider - Whenever Kari Zev, Skyship Raider attacks, create Ragavan, a legendary 2/1 red Monkey creature token. Ragavan enters the battlefield tapped and attacking. Exile that token at end of combat."
-      ],
-      "actionSeq": 361,
+      "subsequentActions": [],
+      "actionSeq": 367,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -67056,31 +67114,51 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p19,p20,p33,p23",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p19"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p23' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][3]:\n    'p23'"
+        "success": false,
+        "error": "Object p19 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 408,
+        "choices": [
+          {
+            "mana_cost": "{2}{W}",
+            "name": "Acrobatic Maneuver",
+            "index": 0,
+            "action": "cast",
+            "id": "p41"
+          },
+          {
+            "mana_cost": "{1}{W}",
+            "name": "Feat of Resistance",
+            "index": 1,
+            "action": "cast",
+            "id": "p36"
+          }
+        ]
       },
       "llmEventIndices": [
         308,
         309,
-        310
+        310,
+        311,
+        312,
+        313
       ],
-      "subsequentActions": [
-        "GPT52 Brewer attacks QwCdr Stats with 4 creatures",
-        "GPT52 Brewer - Ability triggers: Siege Striker - Whenever Siege Striker attacks, you may tap any number of untapped creatures you control. Siege Striker gets +1/+1 until end of turn for each creature tapped this way."
-      ],
-      "actionSeq": 399,
+      "subsequentActions": [],
+      "actionSeq": 408,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"

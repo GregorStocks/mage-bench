@@ -51138,17 +51138,23 @@
         "attackers": "p18"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 95
       },
       "llmEventIndices": [
         81,
         82,
-        83
+        83,
+        84,
+        85,
+        86
       ],
-      "subsequentActions": [
-        "MstLg Critic attacks Kimi25 Story with 1 creature"
-      ],
-      "actionSeq": 90,
+      "subsequentActions": [],
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -51299,31 +51305,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "text": "As Thriving Bluff enters, choose a color other than red."
+        "choice": "1"
       },
       "actionResult": {
-        "success": false,
-        "error": "'As Thriving Bluff enters, choose a color other than red.' is not a valid choice",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_choice_1",
         "game_seq": 109,
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Bluff: Thriving Bluff enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Bluff: As Thriving Bluff enters, choose a color other than red."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "next_action_message": "Choose color",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         97,
         98,
-        99
+        99,
+        100,
+        101
       ],
       "subsequentActions": [],
       "actionSeq": 109,
@@ -51741,22 +51741,36 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p18"
+        "choice": "p18"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": false,
+        "error": "Object p18 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 149,
+        "choices": [
+          {
+            "mana_cost": "{2}{U}",
+            "name": "Frost Breath",
+            "index": 0,
+            "action": "cast",
+            "id": "p33"
+          }
+        ]
       },
       "llmEventIndices": [
         133,
         134,
-        135
+        135,
+        136,
+        137,
+        138
       ],
-      "subsequentActions": [
-        "MstLg Critic attacks Kimi25 Story with 1 creature"
-      ],
-      "actionSeq": 145,
+      "subsequentActions": [],
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -51950,31 +51964,27 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "success": false,
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "error_code": "missing_param",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_ability_0",
         "game_seq": 160,
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         155,
         156,
-        157
+        157,
+        158,
+        159,
+        162,
+        163
       ],
       "subsequentActions": [
         "MstLg Critic casts Frost Breath targeting Ilysian Caryatid Rhonas the Indomitable from hand",
@@ -52167,22 +52177,27 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p18"
+        "choice": "p18"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": false,
+        "error": "Object p18 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 209
       },
       "llmEventIndices": [
         183,
         184,
-        185
+        185,
+        186,
+        187,
+        188
       ],
-      "subsequentActions": [
-        "MstLg Critic attacks Kimi25 Story with 1 creature"
-      ],
-      "actionSeq": 205,
+      "subsequentActions": [],
+      "actionSeq": 209,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -52395,31 +52410,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "success": false,
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "error_code": "missing_param",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_ability_0",
         "game_seq": 234,
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         209,
         210,
-        211
+        211,
+        212,
+        213
       ],
       "subsequentActions": [
         "MstLg Critic casts Goldvein Pick from hand",
@@ -52674,22 +52683,29 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "attackers": "p30,p4"
+        "choice": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p4' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p4'"
+        "success": false,
+        "error": "\"all\" is not available in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 261
       },
       "llmEventIndices": [
         234,
         235,
-        236
+        236,
+        237,
+        238,
+        239,
+        240,
+        241
       ],
-      "subsequentActions": [
-        "Kimi25 Story attacks MstLg Critic with 2 creatures"
-      ],
-      "actionSeq": 256,
+      "subsequentActions": [],
+      "actionSeq": 261,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -52773,7 +52789,8 @@
       "llmEventIndices": [
         244,
         245,
-        248
+        248,
+        249
       ],
       "subsequentActions": [
         "Attacker: Rhonas the Indomitable (5/5) unblocked",
@@ -52890,31 +52907,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "text": "red"
+        "choice": "1"
       },
       "actionResult": {
-        "success": false,
-        "error": "'red' is not a valid choice",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_choice_1",
         "game_seq": 279,
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Isle: Thriving Isle enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Isle: As Thriving Isle enters, choose a color other than blue."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "next_action_message": "Choose color",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         258,
         259,
-        260
+        260,
+        261,
+        262
       ],
       "subsequentActions": [],
       "actionSeq": 279,
@@ -53017,22 +53028,32 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p18"
+        "choice": "no"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 291
       },
       "llmEventIndices": [
         268,
         269,
-        270
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        279,
+        281
       ],
-      "subsequentActions": [
-        "MstLg Critic attacks Kimi25 Story with 1 creature"
-      ],
-      "actionSeq": 287,
+      "subsequentActions": [],
+      "actionSeq": 291,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -53533,20 +53554,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p30,p5,p4"
+        "attackers": "p30"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p4' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][2]:\n    'p4'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 336
       },
       "llmEventIndices": [
         318,
         319,
-        320
+        320,
+        322,
+        323,
+        324
       ],
-      "subsequentActions": [
-        "Kimi25 Story attacks MstLg Critic with 3 creatures"
-      ],
-      "actionSeq": 330,
+      "subsequentActions": [],
+      "actionSeq": 336,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"

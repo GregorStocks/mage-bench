@@ -93864,7 +93864,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p26"
+        "attackers": [
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -94250,7 +94252,11 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p16",
-        "mana_plan": "p12,p15,p23"
+        "mana_plan": [
+          "p12",
+          "p15",
+          "p23"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -94431,7 +94437,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p26"
+        "attackers": [
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -94481,7 +94489,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p9:p26"
+        "blockers": [
+          "p9:p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -94652,7 +94662,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -95396,7 +95408,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -96763,7 +96777,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p13"
+        "attackers": [
+          "p13"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -97310,7 +97326,15 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p42",
-        "mana_plan": "p20,p21,p55,p32,p17,p18,p19"
+        "mana_plan": [
+          "p20",
+          "p21",
+          "p55",
+          "p32",
+          "p17",
+          "p18",
+          "p19"
+        ]
       },
       "actionResult": {
         "game_seq": 345,
@@ -98068,7 +98092,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p44"
+        "attackers": [
+          "p5",
+          "p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -98994,7 +99021,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p13"
+        "attackers": [
+          "p13"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -99806,7 +99835,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p13,p42,p14,p48"
+        "attackers": [
+          "p13",
+          "p42",
+          "p14",
+          "p48"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -99862,20 +99896,31 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": " id , p44 ,blocks,p13"
+        "blockers": [
+          "p44:p13"
+        ]
       },
       "actionResult": {
-        "retryable": false,
+        "declared": [
+          {
+            "blocks": "p13",
+            "id": "p44"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 528,
-        "success": false,
-        "error_code": "invalid_blockers",
-        "error": "Invalid blockers: blockers entry 0 must be \"blocker:attacker\", got:  id . Expected: [\"blocker:attacker\",...]"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         546,
         547,
         549,
-        550
+        550,
+        551,
+        552
       ],
       "subsequentActions": [
         "Attacker: Markov Warlord (5/4) blocked by Trusty Retriever (6/7)",

@@ -374,6 +374,18 @@ def _v2_choose_action(player: str, ts: str, args: dict, action_taken: str = "sel
     }
 
 
+def _v2_choose_action_with_result(player: str, ts: str, args: dict, result: dict) -> dict:
+    """Build a v2 choose_action tool_call event with an explicit result."""
+    return {
+        "type": "tool_call",
+        "tool": "choose_action",
+        "player": player,
+        "ts": ts,
+        "args": args,
+        "result": json.dumps(result),
+    }
+
+
 def _v2_llm_response(player: str, ts: str, reasoning: str = "thinking") -> dict:
     return {"type": "llm_response", "player": player, "ts": ts, "reasoning": reasoning}
 
@@ -689,6 +701,45 @@ class TestExtractDecisionsV2:
         assert len(decisions) == 1
         assert decisions[0]["message"] == "Choose a card"
 
+    def test_keeps_successful_retry_after_choose_action_error(self) -> None:
+        """A later successful retry should replace the earlier failed attempt."""
+        choices = [
+            {"description": "Blue", "index": 0},
+            {"description": "Black", "index": 1},
+        ]
+        events = [
+            _v2_pass_priority(
+                "Alice",
+                "T01",
+                choices,
+                message="Choose color",
+                action_type="GAME_CHOOSE_CHOICE",
+                response_type="index",
+            ),
+            _v2_llm_response("Alice", "T02", reasoning="black"),
+            _v2_choose_action_with_result(
+                "Alice",
+                "T03",
+                {"choice": "Black"},
+                {"error": "Unknown short ID: Black"},
+            ),
+            _v2_llm_response("Alice", "T04", reasoning="use text"),
+            _v2_choose_action_with_result(
+                "Alice",
+                "T05",
+                {"text": "Black"},
+                {"success": True, "action_taken": "selected_choice_text_Black"},
+            ),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 1
+        assert decisions[0]["chosen_args"] == {"text": "Black"}
+        assert decisions[0]["action_result"] == {
+            "success": True,
+            "action_taken": "selected_choice_text_Black",
+        }
+        assert decisions[0]["action_ts"] == "T05"
+
 
 class TestExtractDecisionsV1:
     def test_basic_v1_decision(self) -> None:
@@ -739,3 +790,64 @@ class TestExtractDecisionsV1:
         assert len(decisions) == 1
         assert decisions[0]["chosen"] == 0
         assert decisions[0]["reasoning"] == "bolt it"
+
+    def test_keeps_successful_retry_after_choose_action_error(self) -> None:
+        """A later successful retry should replace the earlier failed attempt."""
+        choices = [{"description": "Blue", "index": 0}, {"description": "Black", "index": 1}]
+        gac_result = json.dumps(
+            {
+                "action_pending": True,
+                "choices": choices,
+                "action_type": "GAME_CHOOSE_CHOICE",
+                "response_type": "index",
+                "message": "Choose color",
+            }
+        )
+        events = [
+            {
+                "type": "tool_call",
+                "tool": "get_action_choices",
+                "player": "Alice",
+                "ts": "T01",
+                "result": gac_result,
+            },
+            {"type": "llm_response", "player": "Alice", "ts": "T02", "reasoning": "black"},
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T03",
+                "args": {"choice": "Black"},
+                "result": json.dumps({"error": "Unknown short ID: Black"}),
+            },
+            {"type": "llm_response", "player": "Alice", "ts": "T04", "reasoning": "use text"},
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T05",
+                "args": {"text": "Black"},
+                "result": json.dumps({"success": True, "action_taken": "selected_choice_text_Black"}),
+            },
+        ]
+        data = {
+            "snapshots": [
+                {
+                    "ts": "T00",
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "players": [],
+                    "stack": [],
+                },
+            ],
+            "actions": [],
+            "llmEvents": events,
+        }
+        decisions = _extract_decisions_v1(data)
+        assert len(decisions) == 1
+        assert decisions[0]["chosen_args"] == {"text": "Black"}
+        assert decisions[0]["action_result"] == {
+            "success": True,
+            "action_taken": "selected_choice_text_Black",
+        }
+        assert decisions[0]["action_ts"] == "T05"

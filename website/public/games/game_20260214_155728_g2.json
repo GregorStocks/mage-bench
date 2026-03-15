@@ -75071,7 +75071,10 @@
       },
       "llmEventIndices": [
         80,
-        81
+        81,
+        82,
+        83,
+        84
       ],
       "subsequentActions": [
         "has started watching",
@@ -75584,28 +75587,22 @@
       "isForced": false,
       "chosen": 7,
       "chosenArgs": {
-        "amount": 7,
-        "answer": true,
-        "amounts": [],
-        "auto_tap": true,
-        "pile": 1,
-        "index": 7,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p21",
-        "text": ""
+        "index": 7
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_target_7"
       },
       "llmEventIndices": [
         155,
         157,
-        158
+        158,
+        160,
+        161,
+        163,
+        173
       ],
       "subsequentActions": [
         "has started watching",
@@ -75861,28 +75858,20 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 1,
-        "answer": true,
-        "amounts": [],
-        "auto_tap": true,
-        "pile": 1,
-        "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p8",
-        "text": ""
+        "index": 1
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         203,
         205,
-        206
+        206,
+        211,
+        212
       ],
       "subsequentActions": [
         "has started watching",
@@ -76015,28 +76004,22 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [],
-        "auto_tap": true,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p8",
-        "text": ""
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         227,
         229,
-        230
+        230,
+        232,
+        233,
+        235,
+        236
       ],
       "subsequentActions": [
         "has started watching",
@@ -76312,7 +76295,7 @@
       "chosenArgs": {
         "index": 0,
         "mana_plan": "[{\"tap\": \"p26\"}, {\"tap\": \"p15\"}]",
-        "attackers": ""
+        "attackers": []
       },
       "actionResult": {
         "retryable": true,
@@ -76323,7 +76306,8 @@
       "llmEventIndices": [
         278,
         280,
-        281
+        281,
+        283
       ],
       "subsequentActions": [
         "has started watching",
@@ -76529,28 +76513,18 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [],
-        "auto_tap": true,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p4",
-        "text": ""
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         308,
         310,
-        311
+        311,
+        313,
+        331
       ],
       "subsequentActions": [
         "has started watching",
@@ -77007,30 +76981,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": null,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "[{\"tap\": \"p26\"}, {\"tap\": \"p15\"}, {\"tap\": \"p11\"}]",
-        "attackers": "",
-        "blockers": "",
-        "id": "p26",
-        "text": ""
+        "mana_plan": "[{\"tap\": \"p26\"}, {\"tap\": \"p15\"}, {\"tap\": \"p11\"}]"
       },
       "actionResult": {
-        "retryable": false,
+        "retryable": true,
         "success": false,
         "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
       },
       "llmEventIndices": [
         369,
         371,
-        372
+        372,
+        374,
+        375,
+        377
       ],
       "subsequentActions": [
         "has started watching",
@@ -77625,7 +77592,8 @@
         456,
         458,
         460,
-        461
+        461,
+        463
       ],
       "subsequentActions": [
         "has started watching",
@@ -77793,7 +77761,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -78012,7 +77982,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4"
+        "attackers": [
+          "p4"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -78023,7 +77995,8 @@
       "llmEventIndices": [
         509,
         511,
-        512
+        512,
+        514
       ],
       "subsequentActions": [
         "has started watching",
@@ -78223,7 +78196,7 @@
         "pile": 1,
         "index": 5,
         "mana_plan": "[{\"tap\": \"p26\"}]",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -78416,7 +78389,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -78826,7 +78801,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -79093,7 +79070,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -79146,7 +79123,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4"
+        "attackers": [
+          "p4"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -79157,7 +79136,8 @@
       "llmEventIndices": [
         638,
         640,
-        641
+        641,
+        643
       ],
       "subsequentActions": [
         "has started watching",
@@ -79203,7 +79183,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -79485,7 +79465,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -79723,7 +79705,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4,p58"
+        "attackers": [
+          "p4",
+          "p58"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -79734,7 +79719,8 @@
       "llmEventIndices": [
         700,
         702,
-        703
+        703,
+        705
       ],
       "subsequentActions": [
         "has started watching",
@@ -79780,38 +79766,22 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "name": "Ugin's Labyrinth",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}: Return the exiled card to its owner's hand."
-            ],
-            "id": "p12"
-          },
-          {
-            "name": "Shifting Woodland",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "<i>Delirium</i> &mdash; {2}{G}{G}: {this} becomes..."
-            ],
-            "id": "p15"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         706,
         708,
-        709
+        709,
+        711,
+        712
       ],
       "subsequentActions": [
         "has started watching",
@@ -80075,7 +80045,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -80204,7 +80176,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -80264,7 +80236,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -80363,7 +80335,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -80461,7 +80433,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -80679,7 +80653,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -80906,7 +80880,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -81300,7 +81276,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -81774,7 +81752,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -82398,7 +82378,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -82823,7 +82805,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -83389,7 +83373,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -83825,7 +83811,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -84345,7 +84333,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -84445,7 +84435,7 @@
         "pile": 1,
         "index": 7,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -84505,7 +84495,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p1,p6"
+        "attackers": [
+          "p1",
+          "p6"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -84516,7 +84509,12 @@
       "llmEventIndices": [
         1233,
         1235,
-        1236
+        1236,
+        1238,
+        1246,
+        1251,
+        1253,
+        1379
       ],
       "subsequentActions": [
         "has started watching",
@@ -84837,140 +84835,22 @@
       ],
       "choiceCount": 14,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "id": "p20"
+        "id": "p89"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p20 not found in current choices",
-        "choices": [
-          {
-            "name": "Past in Flames",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {4}{R}"
-            ],
-            "id": "p56"
-          },
-          {
-            "mana_cost": "{1}{R}",
-            "name": "Grapeshot",
-            "index": 1,
-            "action": "cast",
-            "id": "p89"
-          },
-          {
-            "name": "Scalding Tarn",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p92"
-          },
-          {
-            "name": "Wooded Foothills",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p79"
-          },
-          {
-            "mana_cost": "{2}",
-            "name": "Ruby Medallion",
-            "index": 4,
-            "action": "cast",
-            "id": "p50"
-          },
-          {
-            "name": "Arid Mesa",
-            "index": 5,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p32"
-          },
-          {
-            "mana_cost": "{2}",
-            "name": "Ruby Medallion",
-            "index": 6,
-            "action": "cast",
-            "id": "p6"
-          },
-          {
-            "name": "Bloodstained Mire",
-            "index": 7,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p63"
-          },
-          {
-            "name": "Artist's Talent",
-            "index": 8,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}{R}: Level 2"
-            ],
-            "id": "p73"
-          },
-          {
-            "name": "Arid Mesa",
-            "index": 9,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p74"
-          },
-          {
-            "name": "Arid Mesa",
-            "index": 10,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p65"
-          },
-          {
-            "name": "Strike It Rich",
-            "index": 11,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {2}{R}"
-            ],
-            "id": "p10"
-          },
-          {
-            "mana_cost": "{2}",
-            "name": "Ruby Medallion",
-            "index": 12,
-            "action": "cast",
-            "id": "p45"
-          },
-          {
-            "name": "Wooded Foothills",
-            "index": 13,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p40"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         1257,
         1258,
-        1259
+        1259,
+        1260,
+        1261
       ],
       "subsequentActions": [
         "has started watching",
@@ -86201,7 +86081,8 @@
       "llmEventIndices": [
         1366,
         1368,
-        1369
+        1369,
+        1371
       ],
       "subsequentActions": [
         "has started watching",
@@ -86565,7 +86446,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -88362,7 +88243,8 @@
         1502,
         1504,
         1508,
-        1509
+        1509,
+        1511
       ],
       "subsequentActions": [
         "has started watching",
@@ -88651,175 +88533,23 @@
       ],
       "choiceCount": 23,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p108"
+        "index": 2
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p108 not found in current choices",
-        "choices": [
-          {
-            "name": "Past in Flames",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {4}{R}"
-            ],
-            "id": "p56"
-          },
-          {
-            "name": "Unknown (6d8d512a)",
-            "index": 1,
-            "id": "p117"
-          },
-          {
-            "name": "Unknown (7e9654aa)",
-            "index": 2,
-            "id": "p118"
-          },
-          {
-            "name": "Unknown (c667b13a)",
-            "index": 3,
-            "id": "p119"
-          },
-          {
-            "name": "Unknown (70af544c)",
-            "index": 4,
-            "id": "p120"
-          },
-          {
-            "name": "Unknown (12e6a8ff)",
-            "index": 5,
-            "id": "p121"
-          },
-          {
-            "name": "Wooded Foothills",
-            "index": 6,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p79"
-          },
-          {
-            "name": "Unknown (f88ba048)",
-            "index": 7,
-            "id": "p122"
-          },
-          {
-            "name": "Manamorphose",
-            "index": 8,
-            "action": "activate",
-            "playable_abilities": [
-              "Cast Manamorphose"
-            ],
-            "id": "p104"
-          },
-          {
-            "name": "Unknown (b13aedec)",
-            "index": 9,
-            "id": "p123"
-          },
-          {
-            "name": "Unknown (23f3fac3)",
-            "index": 10,
-            "id": "p124"
-          },
-          {
-            "name": "Unknown (75464a44)",
-            "index": 11,
-            "id": "p125"
-          },
-          {
-            "name": "Unknown (b6336646)",
-            "index": 12,
-            "id": "p126"
-          },
-          {
-            "mana_cost": "{2}",
-            "name": "Ruby Medallion",
-            "index": 13,
-            "action": "cast",
-            "id": "p6"
-          },
-          {
-            "name": "Artist's Talent",
-            "index": 14,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}{R}: Level 2"
-            ],
-            "id": "p73"
-          },
-          {
-            "name": "Arid Mesa",
-            "index": 15,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p74"
-          },
-          {
-            "name": "Unknown (20ba4878)",
-            "index": 16,
-            "id": "p127"
-          },
-          {
-            "name": "Unknown (2f253ef0)",
-            "index": 17,
-            "id": "p128"
-          },
-          {
-            "name": "Arid Mesa",
-            "index": 18,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p65"
-          },
-          {
-            "name": "Artist's Talent",
-            "index": 19,
-            "action": "activate",
-            "playable_abilities": [
-              "Cast Artist's Talent"
-            ],
-            "id": "p103"
-          },
-          {
-            "name": "Unknown (4d5dc838)",
-            "index": 20,
-            "id": "p129"
-          },
-          {
-            "name": "Strike It Rich",
-            "index": 21,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {2}{R}"
-            ],
-            "id": "p10"
-          },
-          {
-            "name": "Wooded Foothills",
-            "index": 22,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p40"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_AMOUNT",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         1524,
         1526,
-        1527
+        1527,
+        1529,
+        1532,
+        1533
       ],
       "subsequentActions": [
         "has started watching",
@@ -89536,7 +89266,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -89744,7 +89474,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -90247,7 +89977,8 @@
       "llmEventIndices": [
         1677,
         1679,
-        1680
+        1680,
+        1682
       ],
       "subsequentActions": [
         "has started watching",
@@ -90321,7 +90052,8 @@
       "llmEventIndices": [
         1686,
         1688,
-        1689
+        1689,
+        1691
       ],
       "subsequentActions": [
         "has started watching",
@@ -90396,7 +90128,8 @@
       "llmEventIndices": [
         1698,
         1700,
-        1701
+        1701,
+        1703
       ],
       "subsequentActions": [
         "has started watching",
@@ -90424,20 +90157,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 1,
+      "chosen": null,
       "chosenArgs": {
-        "index": 1
+        "id": "p108"
       },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 1 is out of range (no choices loaded). Call get_action_choices to see current options."
+        "error_code": "invalid_choice",
+        "error": "Object p108 not found in current choices"
       },
       "llmEventIndices": [
         1704,
         1706,
-        1707
+        1707,
+        1709,
+        1710,
+        1712
       ],
       "subsequentActions": [
         "has started watching",
@@ -90713,7 +90449,9 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "p55",
+        "attackers": [
+          "p55"
+        ],
         "blockers": "",
         "id": "",
         "text": ""
@@ -90786,7 +90524,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -91907,7 +91645,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -91966,7 +91704,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

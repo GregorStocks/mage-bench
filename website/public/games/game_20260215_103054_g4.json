@@ -31294,7 +31294,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -31493,30 +31493,36 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
         "amounts": [],
         "auto_tap": false,
         "pile": 0,
-        "index": 0,
+        "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p5",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         29,
         30,
-        31
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
       ],
       "subsequentActions": [
         "has started watching",
@@ -31788,7 +31794,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -32150,7 +32156,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -32289,7 +32295,7 @@
         "pile": 0,
         "index": 7,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -32558,7 +32564,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -32746,7 +32752,7 @@
         "pile": 0,
         "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -33067,18 +33073,29 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "{'tap': 'p1'},{'tap': 'p2'}",
-        "id": "p18"
+        "mana_plan": "[{\"tap\": \"p17\"}]",
+        "id": "p15"
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 2"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_2",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
       },
       "llmEventIndices": [
         195,
         197,
-        198
+        198,
+        200,
+        201,
+        203,
+        204,
+        206,
+        207
       ],
       "subsequentActions": [
         "has started watching",
@@ -33393,7 +33410,7 @@
         "pile": 0,
         "index": 4,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -33779,7 +33796,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p6,p18"
+        "attackers": [
+          "p6",
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -33935,7 +33955,7 @@
         "pile": 0,
         "index": 7,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -34039,7 +34059,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p18"
+        "attackers": [
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -34281,7 +34303,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -34337,7 +34359,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p18"
+        "attackers": [
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -34711,7 +34735,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -34962,7 +34986,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -35282,7 +35306,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -35379,7 +35403,7 @@
         "pile": 0,
         "index": 7,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -35718,16 +35742,20 @@
       "isForced": false,
       "chosen": 4,
       "chosenArgs": {
-        "mana_plan": "{'tap': 'p24'},{'tap': 'p38'},{'tap': 'p2'},{'tap': 'p3'},{'tap': 'p39'}",
         "id": "p7"
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 5"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_4"
       },
       "llmEventIndices": [
         584,
         586,
-        587
+        587,
+        589,
+        590
       ],
       "subsequentActions": [
         "has started watching",
@@ -35910,7 +35938,7 @@
         "pile": 0,
         "index": 7,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -36252,7 +36280,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""

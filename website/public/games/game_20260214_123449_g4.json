@@ -16667,7 +16667,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p13"
+        "attackers": [
+          "p13"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -17336,47 +17338,22 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_value": 2,
-            "mana_cost": "{1}{R}",
-            "name": "Lightning Strike",
-            "index": 0,
-            "action": "cast",
-            "id": "p11"
-          },
-          {
-            "mana_value": 5,
-            "mana_cost": "{3}{R}{R}",
-            "name": "Nova Hellkite",
-            "index": 1,
-            "action": "cast",
-            "id": "p15",
-            "power": "4",
-            "toughness": "5"
-          },
-          {
-            "name": "Rockface Village",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{R}, {T}: Target Lizard, Mouse, Otter, or Raccoon..."
-            ],
-            "id": "p14"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         258,
         260,
-        261
+        261,
+        263,
+        264
       ],
       "subsequentActions": [
         "has started watching",
@@ -17429,7 +17406,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -18240,7 +18219,25 @@
       "llmEventIndices": [
         441,
         443,
-        444
+        444,
+        446,
+        448,
+        450,
+        452,
+        454,
+        456,
+        458,
+        460,
+        462,
+        464,
+        466,
+        468,
+        470,
+        472,
+        474,
+        476,
+        477,
+        478
       ],
       "subsequentActions": [
         "has started watching",

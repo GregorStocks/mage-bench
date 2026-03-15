@@ -47006,16 +47006,23 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "{'tap': 'p5'}",
-        "id": "p14"
+        "id": "p14",
+        "mana_plan": "[{\"tap\": \"p5\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
       },
       "llmEventIndices": [
         107,
         109,
-        110
+        110,
+        112,
+        113
       ],
       "subsequentActions": [
         "has started watching",
@@ -48262,7 +48269,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -48756,7 +48765,8 @@
         321,
         323,
         325,
-        326
+        326,
+        328
       ],
       "subsequentActions": [
         "has started watching",
@@ -48928,7 +48938,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -49649,7 +49661,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p23'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p23"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -49657,7 +49674,22 @@
       "llmEventIndices": [
         443,
         447,
-        448
+        448,
+        450,
+        451,
+        453,
+        454,
+        456,
+        457,
+        459,
+        460,
+        465,
+        466,
+        468,
+        469,
+        471,
+        472,
+        474
       ],
       "subsequentActions": [
         "has started watching",
@@ -49826,7 +49858,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p23'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p23"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -49834,7 +49871,27 @@
       "llmEventIndices": [
         475,
         477,
-        478
+        478,
+        480,
+        481,
+        486,
+        487,
+        489,
+        490,
+        492,
+        493,
+        498,
+        499,
+        501,
+        502,
+        504,
+        505,
+        507,
+        508,
+        513,
+        514,
+        516,
+        519
       ],
       "subsequentActions": [
         "has started watching",
@@ -51646,22 +51703,24 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 5,
       "chosenArgs": {
-        "id": "p13",
-        "index": 0
+        "id": "p13"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_5"
       },
       "llmEventIndices": [
         697,
         699,
         701,
-        702
+        702,
+        704,
+        706,
+        707
       ],
       "subsequentActions": [
         "has started watching",
@@ -53964,7 +54023,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2"
+        "attackers": [
+          "p2"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -54851,17 +54912,30 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p46'}"
+        "answer": false
       },
       "actionResult": {
-        "error": "JsonObject"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1142,
         1145,
-        1146
+        1146,
+        1148,
+        1149,
+        1153,
+        1154,
+        1156,
+        1157,
+        1159,
+        1160,
+        1163,
+        1164
       ],
       "subsequentActions": [
         "has started watching",
@@ -56423,16 +56497,28 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p13', 'blocks': 'p44'}"
+        "blockers": "[{\"id\": \"p13\", \"blocks\": \"p44\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block",
+        "failed": [
+          {
+            "id": "p13",
+            "reason": "attacker p44 is not a valid block target"
+          }
+        ]
       },
       "llmEventIndices": [
         1355,
         1357,
         1359,
-        1360
+        1360,
+        1362,
+        1363
       ],
       "subsequentActions": [
         "has started watching",
@@ -57865,17 +57951,26 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "{'id': 'p13', 'blocks': 'p44'}"
+        "answer": false
       },
       "actionResult": {
-        "error": "JsonObject"
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1564,
         1566,
-        1567
+        1567,
+        1569,
+        1570,
+        1572,
+        1573,
+        1575,
+        1576,
+        1578,
+        1579
       ],
       "subsequentActions": [
         "has started watching",

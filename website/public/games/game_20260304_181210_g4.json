@@ -113070,30 +113070,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p38"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p38 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "passed_priority",
         "game_seq": 122,
-        "choices": [
-          {
-            "mana_cost": "{B}",
-            "name": "Innocent Blood",
-            "index": 0,
-            "action": "cast",
-            "id": "p40"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         86,
         87,
-        88
+        88,
+        89,
+        90
       ],
       "subsequentActions": [
         "GPT52 Snark skip attack"
@@ -113135,7 +113130,9 @@
       "llmEventIndices": [
         92,
         93,
-        94
+        94,
+        95,
+        97
       ],
       "subsequentActions": [
         "MiniMx Sarge skip attack"
@@ -114581,20 +114578,45 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p50"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p50' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p50'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 255,
+        "choices": [
+          {
+            "mana_cost": "{1}{B}",
+            "name": "Eliminate",
+            "index": 0,
+            "action": "cast",
+            "id": "p18"
+          },
+          {
+            "name": "Witch's Cauldron",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}{B}, {T}, Sacrifice a creature: You gain 1 lif..."
+            ],
+            "id": "p46"
+          }
+        ]
       },
       "llmEventIndices": [
         184,
         185,
-        186
+        186,
+        187,
+        188,
+        189,
+        191
       ],
-      "subsequentActions": [
-        "MiniMx Sarge attacks GPT52 Snark with 1 creature"
-      ],
-      "actionSeq": 251,
+      "subsequentActions": [],
+      "actionSeq": 255,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -114991,7 +115013,7 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
@@ -115001,20 +115023,23 @@
         "attackers": "p39",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "yes"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p39' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p39'"
+        "success": true,
+        "action_taken": "confirmed",
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 279
       },
       "llmEventIndices": [
         212,
         213,
-        214
+        214,
+        215,
+        217
       ],
-      "subsequentActions": [
-        "GPT52 Snark attacks MiniMx Sarge with 1 creature"
-      ],
-      "actionSeq": 274,
+      "subsequentActions": [],
+      "actionSeq": 279,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -115143,7 +115168,9 @@
       "llmEventIndices": [
         224,
         225,
-        226
+        226,
+        227,
+        229
       ],
       "subsequentActions": [],
       "actionSeq": 288,
@@ -115921,30 +115948,47 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p27",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p27"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p27' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p27'"
+        "success": false,
+        "error": "Object p27 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 354,
+        "choices": [
+          {
+            "name": "Aether Spellbomb",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}, Sacrifice {this}: Draw a card.",
+              "{U}, Sacrifice {this}: Return target creature to ..."
+            ],
+            "id": "p23"
+          }
+        ]
       },
       "llmEventIndices": [
         274,
         275,
-        276
+        276,
+        277,
+        278,
+        279
       ],
-      "subsequentActions": [
-        "GPT52 Snark attacks MiniMx Sarge with 1 creature"
-      ],
-      "actionSeq": 350,
+      "subsequentActions": [],
+      "actionSeq": 354,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -116261,22 +116305,33 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "attackers": "p13"
+        "amount": 1,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "mana_plan": "",
+        "attackers": "p13",
+        "blockers": "",
+        "text": "",
+        "choice": "yes"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p13' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p13'"
+        "success": true,
+        "action_taken": "confirmed",
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 394
       },
       "llmEventIndices": [
         302,
         303,
-        304
+        304,
+        305,
+        309
       ],
-      "subsequentActions": [
-        "MiniMx Sarge attacks GPT52 Snark with 1 creature"
-      ],
-      "actionSeq": 390,
+      "subsequentActions": [],
+      "actionSeq": 394,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -116610,30 +116665,24 @@
         "mana_plan": "",
         "attackers": "",
         "blockers": "",
-        "text": "As Thriving Moor enters, choose a color other than black.",
+        "text": "",
         "choice": "1"
       },
       "actionResult": {
-        "success": false,
-        "error": "'As Thriving Moor enters, choose a color other than black.' is not a valid choice",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_choice_1",
         "game_seq": 410,
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Moor: Thriving Moor enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Moor: As Thriving Moor enters, choose a color other than black."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "next_action_message": "Choose color",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         326,
         327,
-        328
+        328,
+        329,
+        330
       ],
       "subsequentActions": [
         "Thriving Moor: MiniMx Sarge has chosen Blue",
@@ -117313,22 +117362,26 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "attackers": "p38"
+        "choice": "yes"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p38' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p38'"
+        "success": true,
+        "action_taken": "confirmed",
+        "game_seq": 460
       },
       "llmEventIndices": [
         378,
         379,
-        380
+        380,
+        381,
+        382,
+        383,
+        385
       ],
-      "subsequentActions": [
-        "MiniMx Sarge attacks GPT52 Snark with 1 creature"
-      ],
-      "actionSeq": 456,
+      "subsequentActions": [],
+      "actionSeq": 460,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "attackers"
@@ -117601,7 +117654,8 @@
       "llmEventIndices": [
         402,
         403,
-        404
+        404,
+        405
       ],
       "subsequentActions": [],
       "actionSeq": 471,
@@ -117702,7 +117756,8 @@
       "llmEventIndices": [
         414,
         415,
-        416
+        416,
+        417
       ],
       "subsequentActions": [],
       "actionSeq": 475,
@@ -118487,7 +118542,7 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
@@ -118497,24 +118552,32 @@
         "attackers": "p24,p69",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "yes"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p69' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p69'"
+        "success": true,
+        "action_taken": "confirmed",
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 532,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         480,
         481,
-        482
+        482,
+        483,
+        484
       ],
       "subsequentActions": [
-        "GPT52 Snark attacks MiniMx Sarge with 2 creatures",
         "Attacker: Archaeomender (2/3) unblocked",
         "Attacker: Phyrexian Rager (2/2) unblocked",
         "MiniMx Sarge loses 2 life at combat from Archaeomender",
         "MiniMx Sarge loses 2 life at combat from Phyrexian Rager"
       ],
-      "actionSeq": 527,
+      "actionSeq": 532,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -119108,23 +119171,31 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p24,p69,p5",
+        "attackers": "all",
         "blockers": "",
         "text": "",
         "choice": ""
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p5' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][2]:\n    'p5'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 595
       },
       "llmEventIndices": [
         525,
         526,
-        527
+        527,
+        528,
+        529,
+        530,
+        531,
+        532
       ],
-      "subsequentActions": [
-        "GPT52 Snark attacks MiniMx Sarge with 3 creatures"
-      ],
-      "actionSeq": 589,
+      "subsequentActions": [],
+      "actionSeq": 595,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -119509,23 +119580,49 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p24,p4,p5",
+        "attackers": "p24,p4",
         "blockers": "",
         "text": "",
         "choice": ""
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p5' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][2]:\n    'p5'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 653,
+        "choices": [
+          {
+            "name": "Buried Ruin",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{2}, {T}, Sacrifice {this}: Return target artifac..."
+            ],
+            "id": "p74"
+          },
+          {
+            "name": "Lightning-Core Excavator",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "{5}, {T}, Sacrifice {this}: It deals 3 damage to ..."
+            ],
+            "id": "p27"
+          }
+        ]
       },
       "llmEventIndices": [
         563,
         564,
-        565
+        565,
+        566,
+        567,
+        568
       ],
-      "subsequentActions": [
-        "GPT52 Snark attacks MiniMx Sarge with 3 creatures"
-      ],
-      "actionSeq": 646,
+      "subsequentActions": [],
+      "actionSeq": 653,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "attackers"
@@ -119850,43 +119947,30 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p62:p69,p86:p68"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "action_taken": "batch_block",
-        "declared": [],
-        "failed": [
-          {
-            "id": "p62",
-            "reason": "attacker p69 is not a valid block target"
-          },
-          {
-            "id": "p86",
-            "reason": "unknown attacker ID: p68"
-          }
-        ],
-        "game_seq": 668,
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 678
       },
       "llmEventIndices": [
         585,
         586,
-        589
+        589,
+        590,
+        591,
+        592
       ],
       "subsequentActions": [
-        "Attacker: Archaeomender (2/3) unblocked",
-        "Attacker: Meteor Golem (3/3) unblocked",
-        "Attacker: Scholar of the Lost Trove (5/5) unblocked",
         "MiniMx Sarge loses 2 life at combat from Archaeomender",
-        "MiniMx Sarge loses 3 life at combat from Meteor Golem"
+        "MiniMx Sarge loses 3 life at combat from Meteor Golem",
+        "MiniMx Sarge loses 5 life at combat from Scholar of the Lost Trove",
+        "MiniMx Sarge has lost the game."
       ],
-      "actionSeq": 668,
+      "actionSeq": 678,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "blockers",

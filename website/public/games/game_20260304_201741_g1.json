@@ -77198,24 +77198,33 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "all"
+        "choice": "no"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 159,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         121,
         122,
-        123
+        123,
+        124,
+        125,
+        126,
+        127
       ],
       "subsequentActions": [
-        "GptOSS Vet attacks GPT52 Timmy with 1 creature",
         "Attacker: Tide Skimmer (2/3) unblocked",
         "GPT52 Timmy loses 2 life at combat from Tide Skimmer"
       ],
-      "actionSeq": 155,
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -77654,7 +77663,8 @@
       "llmEventIndices": [
         172,
         173,
-        174
+        174,
+        175
       ],
       "subsequentActions": [
         "GPT52 Timmy attacks GptOSS Vet with 1 creature"
@@ -77731,30 +77741,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "all"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "error_code": "missing_param",
-        "retryable": true,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "success": true,
+        "action_taken": "passed_priority",
         "game_seq": 195,
-        "choices": [
-          {
-            "mana_cost": "{U}",
-            "name": "Rookie Mistake",
-            "index": 0,
-            "action": "cast",
-            "id": "p39"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         178,
-        179
+        179,
+        182
       ],
       "subsequentActions": [
         "Attacker: Ardoz, Cobbler of War (3/1) unblocked",
@@ -78042,35 +78045,31 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p3"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "action_taken": "batch_attack",
-        "declared": [],
-        "failed": [
-          {
-            "reason": "not a valid attacker",
-            "id": "p3"
-          }
-        ],
-        "game_seq": 208,
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 212,
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
-        "next_action_message": "Play instants and activated abilities",
+        "next_action_message": "Play spells and abilities",
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         201,
-        202
+        202,
+        203,
+        204,
+        205,
+        206
       ],
       "subsequentActions": [
-        "GptOSS Vet skip attack",
         "GptOSS Vet discards down to 7 hand cards"
       ],
-      "actionSeq": 208,
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -78697,29 +78696,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p34"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p34 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "passed_priority",
         "game_seq": 239,
-        "choices": [
-          {
-            "mana_cost": "{1}{U}",
-            "name": "Unsubstantiate",
-            "index": 0,
-            "action": "cast",
-            "id": "p44"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         245,
-        246
+        246,
+        247
       ],
       "subsequentActions": [],
       "actionSeq": 239,
@@ -78766,30 +78759,35 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p3,p20",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p3"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p20' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p20'"
+        "success": false,
+        "error": "Object p3 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 247
       },
       "llmEventIndices": [
         248,
         249,
-        250
+        250,
+        253,
+        254,
+        256
       ],
-      "subsequentActions": [
-        "GPT52 Timmy attacks GptOSS Vet with 2 creatures"
-      ],
-      "actionSeq": 242,
+      "subsequentActions": [],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -80155,7 +80153,10 @@
       },
       "llmEventIndices": [
         338,
-        339
+        339,
+        340,
+        341,
+        342
       ],
       "subsequentActions": [],
       "actionSeq": 300
@@ -80197,7 +80198,9 @@
       },
       "llmEventIndices": [
         343,
-        344
+        344,
+        345,
+        346
       ],
       "subsequentActions": [
         "GptOSS Vet attacks GPT52 Timmy with 1 creature"
@@ -80814,7 +80817,8 @@
         389,
         390,
         393,
-        394
+        394,
+        395
       ],
       "subsequentActions": [],
       "actionSeq": 338,
@@ -80874,31 +80878,46 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "all",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "p3"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "Object p3 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 344,
+        "choices": [
+          {
+            "mana_cost": "{1}{R}",
+            "name": "Fiery Conclusion",
+            "index": 0,
+            "action": "cast",
+            "id": "p36"
+          }
+        ]
       },
       "llmEventIndices": [
         396,
         397,
-        398
+        398,
+        399,
+        400,
+        401,
+        402,
+        403
       ],
-      "subsequentActions": [
-        "GPT52 Timmy attacks GptOSS Vet with 3 creatures",
-        "GPT52 Timmy - Ability triggers: Bolt Hound - Whenever Bolt Hound attacks, other creatures you control get +1/+0 until end of turn."
-      ],
-      "actionSeq": 338,
+      "subsequentActions": [],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -81602,7 +81621,16 @@
         441,
         442,
         443,
-        444
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453
       ],
       "subsequentActions": [],
       "actionSeq": 355
@@ -81654,11 +81682,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "p54"
+        "choice": "p16"
       },
       "actionResult": {
         "success": false,
-        "error": "Object p54 not found in current choices",
+        "error": "Object p16 not found in current choices",
         "error_code": "invalid_choice",
         "retryable": true,
         "game_seq": 355,
@@ -81671,7 +81699,8 @@
       },
       "llmEventIndices": [
         455,
-        456
+        456,
+        457
       ],
       "subsequentActions": [],
       "actionSeq": 355
@@ -81713,7 +81742,11 @@
       },
       "llmEventIndices": [
         458,
-        459
+        459,
+        460,
+        461,
+        462,
+        464
       ],
       "subsequentActions": [],
       "actionSeq": 355
@@ -82368,27 +82401,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "success": false,
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "error_code": "missing_param",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_ability_0",
         "game_seq": 390,
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. Sacrifice a creature: Put a charge counter on Spawning Pit."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_message": "Select a creature (to sacrifice)",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         504,
         505,
-        506
+        506,
+        507,
+        508
       ],
       "subsequentActions": [],
       "actionSeq": 390,
@@ -82770,31 +82801,51 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 4,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p3,p20,p40,p57",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p57' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][3]:\n    'p57'"
+        "success": false,
+        "error": "\"all\" is not available in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 416,
+        "choices": [
+          {
+            "mana_cost": "{1}{R}",
+            "name": "Chandra's Pyrohelix",
+            "index": 0,
+            "action": "cast",
+            "id": "p66"
+          },
+          {
+            "mana_cost": "{1}{R}",
+            "name": "Fiery Conclusion",
+            "index": 1,
+            "action": "cast",
+            "id": "p36"
+          }
+        ]
       },
       "llmEventIndices": [
         533,
         534,
-        535
+        535,
+        536,
+        537,
+        538
       ],
-      "subsequentActions": [
-        "GPT52 Timmy attacks GptOSS Vet with 4 creatures",
-        "GPT52 Timmy - Ability triggers: Bolt Hound - Whenever Bolt Hound attacks, other creatures you control get +1/+0 until end of turn."
-      ],
-      "actionSeq": 407,
+      "subsequentActions": [],
+      "actionSeq": 416,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "attackers"

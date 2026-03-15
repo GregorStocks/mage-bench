@@ -38330,7 +38330,9 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p13",
-        "mana_plan": "p16"
+        "mana_plan": [
+          "p16"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -38688,7 +38690,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p10",
-        "mana_plan": "p16"
+        "mana_plan": [
+          "p16"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -38928,7 +38932,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p27",
-        "mana_plan": "BLACK,BLACK,BLACK"
+        "mana_plan": [
+          "BLACK",
+          "BLACK",
+          "BLACK"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -40735,51 +40743,22 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "id": "p69"
+        "index": 3
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 136,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p69 not found in current choices",
-        "choices": [
-          {
-            "name": "Brainstorm",
-            "target_type": "card",
-            "index": 0,
-            "id": "p51"
-          },
-          {
-            "name": "Lotus Petal",
-            "target_type": "card",
-            "index": 1,
-            "id": "p47"
-          },
-          {
-            "name": "Ponder",
-            "target_type": "card",
-            "index": 2,
-            "id": "p28"
-          },
-          {
-            "name": "Street Wraith",
-            "target_type": "card",
-            "index": 3,
-            "id": "p69"
-          },
-          {
-            "name": "Thassa's Oracle",
-            "target_type": "card",
-            "index": 4,
-            "id": "p78"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_3"
       },
       "llmEventIndices": [
         110,
         111,
-        112
+        112,
+        113,
+        114
       ],
       "subsequentActions": [
         "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)"
@@ -41251,7 +41230,9 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p33",
-        "mana_plan": "p16"
+        "mana_plan": [
+          "p16"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -41824,50 +41805,24 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p9"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
         "game_seq": 203,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p9 not found in current choices",
-        "choices": [
-          {
-            "name": "Aether Vial",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}: You may put a creature card with mana value ..."
-            ],
-            "id": "p3"
-          },
-          {
-            "name": "Bloodstained Mire",
-            "index": 1,
-            "action": "land",
-            "id": "p5"
-          },
-          {
-            "name": "Bloodstained Mire",
-            "index": 2,
-            "action": "land",
-            "id": "p6"
-          },
-          {
-            "name": "Cavern of Souls",
-            "index": 3,
-            "action": "land",
-            "id": "p90"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         185,
         186,
-        187
+        187,
+        189,
+        190
       ],
       "subsequentActions": [],
       "actionSeq": 203,
@@ -42342,19 +42297,40 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "text": ": "
+        "text": ": \"Goblin\"}"
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 221,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "': ' is not a valid choice"
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn."
       },
       "llmEventIndices": [
         221,
         222,
-        223
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245
       ],
       "subsequentActions": [
         "Cavern of Souls: KimiK2 Sport has chosen Scorpion",
@@ -42649,7 +42625,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": "p16"
+        "mana_plan": [
+          "p16"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,

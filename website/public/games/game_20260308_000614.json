@@ -50751,10 +50751,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "Opus Brewer chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -51039,10 +51037,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "Opus Brewer skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -51175,10 +51171,8 @@
         15,
         16
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 11,
+      "subsequentActions": [],
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -51314,7 +51308,7 @@
         20
       ],
       "subsequentActions": [],
-      "actionSeq": 14,
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51472,11 +51466,8 @@
         21,
         22
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Elven Bow from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Elven Bow - When Elven Bow enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach Elven Bow to it."
-      ],
-      "actionSeq": 17,
+      "subsequentActions": [],
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51603,7 +51594,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 23,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51728,10 +51719,8 @@
         25,
         26
       ],
-      "subsequentActions": [
-        "Opus Brewer did not pay for Elven Bow - Pay {2} and create a 1/1 green Elf Warrior creature token, then attach Elven Bow to it?"
-      ],
-      "actionSeq": 23,
+      "subsequentActions": [],
+      "actionSeq": 25,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52291,10 +52280,8 @@
         35,
         36
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 45,
+      "subsequentActions": [],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -52741,10 +52728,8 @@
         42,
         43
       ],
-      "subsequentActions": [
-        "QwCdr Diplom puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 64,
+      "subsequentActions": [],
+      "actionSeq": 68,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -53215,10 +53200,8 @@
         48,
         49
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 83,
+      "subsequentActions": [],
+      "actionSeq": 87,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -54328,10 +54311,8 @@
         68,
         69
       ],
-      "subsequentActions": [
-        "QwCdr Diplom puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 112,
+      "subsequentActions": [],
+      "actionSeq": 116,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -54627,7 +54608,7 @@
         71
       ],
       "subsequentActions": [],
-      "actionSeq": 116,
+      "actionSeq": 117,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -56090,10 +56071,8 @@
         88,
         89
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 149,
+      "subsequentActions": [],
+      "actionSeq": 153,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -57835,10 +57814,8 @@
         107,
         108
       ],
-      "subsequentActions": [
-        "QwCdr Diplom puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 204,
+      "subsequentActions": [],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -58136,7 +58113,7 @@
         110
       ],
       "subsequentActions": [],
-      "actionSeq": 208,
+      "actionSeq": 211,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -59561,10 +59538,8 @@
         129,
         130
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 243,
+      "subsequentActions": [],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -59893,7 +59868,7 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 247,
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -61831,10 +61806,8 @@
         152,
         153
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Elvish Archdruid from hand"
-      ],
-      "actionSeq": 316,
+      "subsequentActions": [],
+      "actionSeq": 323,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -61858,54 +61831,298 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "1"
+        "choice": "0"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T6 Precombat Main/Precombat Main (Opus Brewer) YOUR_MAIN",
+        "board": [
           {
-            "index": 0,
-            "description": "1. {T}: Create a 1/1 green Elf Warrior creature token."
+            "hand_size": 1,
+            "graveyard": [
+              {
+                "name": "Dwynen's Elite",
+                "rules": [
+                  "When {this} enters, if you control another Elf, create a 1/1 green Elf Warrior creature token."
+                ],
+                "id": "p30"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Elderleaf Mentor",
+                "modified": true,
+                "rules": [
+                  "When {this} enters, create a 1/1 green Elf Warrior creature token.",
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Canopy Stalker (Canopy Stalker)"
+                ],
+                "id": "p4",
+                "power": "3",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Elf Warrior Token",
+                "modified": true,
+                "rules": [
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Canopy Stalker (Canopy Stalker)"
+                ],
+                "id": "p34",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elf Warrior Token",
+                "modified": true,
+                "rules": [
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Canopy Stalker (Canopy Stalker)"
+                ],
+                "id": "p35",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elf Warrior Token",
+                "modified": true,
+                "rules": [
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Canopy Stalker (Canopy Stalker)"
+                ],
+                "id": "p43",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elf Warrior Token",
+                "modified": true,
+                "rules": [
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Canopy Stalker (Canopy Stalker)"
+                ],
+                "id": "p44",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elven Bow",
+                "rules": [
+                  "When {this} enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach {this} to it.",
+                  "Equipped creature gets +1/+2 and has reach.",
+                  "Equip {3}"
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Elvish Warmaster",
+                "modified": true,
+                "rules": [
+                  "Whenever one or more other Elves you control enter, create a 1/1 green Elf Warrior creature token. This ability triggers only once each turn.",
+                  "{5}{G}{G}: Elves you control get +2/+2 and gain deathtouch until end of turn.",
+                  "{T}: Create a 1/1 green Elf Warrior creature token."
+                ],
+                "id": "p6",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p8"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p26"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p39"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p50"
+              },
+              {
+                "tapped": false,
+                "name": "Presence of Gond",
+                "rules": [
+                  "Enchant creature",
+                  "Enchanted creature has \"{T}: Create a 1/1 green Elf Warrior creature token.\""
+                ],
+                "id": "p9"
+              }
+            ],
+            "name": "Opus Brewer",
+            "library_size": 28,
+            "life": 18,
+            "hand": [
+              {
+                "mana_cost": "{2}{G}",
+                "name": "Band Together",
+                "rules": [
+                  "Up to two target creatures you control each deal damage equal to their power to another target creature."
+                ],
+                "id": "p3"
+              }
+            ]
+          },
+          {
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Feral Prowler",
+                "rules": [
+                  "When {this} dies, draw a card."
+                ],
+                "id": "p12"
+              },
+              {
+                "name": "Initiate's Companion",
+                "rules": [
+                  "Whenever {this} deals combat damage to a player, untap target creature or land."
+                ],
+                "id": "p36"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Canopy Stalker",
+                "rules": [
+                  "{this} must be blocked if able.",
+                  "When {this} dies, you gain 1 life for each creature that died this turn.",
+                  ": ",
+                  "Creatures that died this turn: 0"
+                ],
+                "id": "p49",
+                "power": "4",
+                "toughness": "2",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p25"
+              },
+              {
+                "tapped": true,
+                "name": "Oathsworn Vampire",
+                "rules": [
+                  "{this} enters tapped.",
+                  "You may cast {this} from your graveyard if you gained life this turn.",
+                  ": ",
+                  "Life gained this turn: 0"
+                ],
+                "id": "p45",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p16"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p28"
+              }
+            ],
+            "name": "QwCdr Diplom",
+            "library_size": 27,
+            "life": 7
           }
         ],
+        "board_cursor": 32,
+        "stack": [
+          {
+            "name": "Ability"
+          },
+          {
+            "name": "Elvish Archdruid"
+          }
+        ],
+        "untapped_lands": 2,
         "game_seq": 324,
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "success": false,
-        "error_code": "index_out_of_range",
-        "retryable": true
+        "land_drops_used": 0,
+        "action_taken": "selected_ability_0",
+        "success": true
       },
       "llmEventIndices": [
         153,
         154,
-        155
-      ],
-      "subsequentActions": [],
-      "actionSeq": 323,
-      "pilotContext": {
-        "untappedLands": 2,
-        "landDropsUsed": 0
-      }
-    },
-    {
-      "index": 69,
-      "snapshotIndex": 181,
-      "player": "Opus Brewer",
-      "turn": 11,
-      "phase": "PRECOMBAT_MAIN",
-      "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
-      "message": "Play instants and activated abilities",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        157,
-        158
+        155,
+        156,
+        157
       ],
       "subsequentActions": [
         "Opus Brewer activates: create a 1/1 green Elf Warrior creature token. from Elvish Warmaster",
@@ -61921,7 +62138,7 @@
       }
     },
     {
-      "index": 70,
+      "index": 69,
       "snapshotIndex": 190,
       "player": "Opus Brewer",
       "turn": 11,
@@ -62358,7 +62575,7 @@
       }
     },
     {
-      "index": 71,
+      "index": 70,
       "snapshotIndex": 190,
       "player": "Opus Brewer",
       "turn": 11,
@@ -62386,7 +62603,7 @@
       }
     },
     {
-      "index": 72,
+      "index": 71,
       "snapshotIndex": 193,
       "player": "QwCdr Diplom",
       "turn": 11,
@@ -62865,7 +63082,7 @@
       }
     },
     {
-      "index": 73,
+      "index": 72,
       "snapshotIndex": 193,
       "player": "QwCdr Diplom",
       "turn": 11,

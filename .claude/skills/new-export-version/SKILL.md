@@ -29,6 +29,13 @@ Ask the user what fields are being added, removed, or modified. Determine:
 - Whether the `up()` migration needs external data or is purely derived from existing fields
 - Whether the `down()` migration is lossless (can we reconstruct N from N+1?)
 
+Before deciding on a version bump for a semantics-only fix, check whether the
+latest typed loaders (`load_game_export`, `load_built_game_export`) are used
+directly against committed exports in tests or scripts. If they only accept the
+newest version, a code-only version bump can break local consumers until the
+repo's game exports are migrated too. In that case, consider whether an
+in-place backfill on the existing version is the safer path.
+
 ## Step 2: Create the new schema file
 
 Copy `schemas/game-export-vN.schema.json` to `schemas/game-export-v{N+1}.schema.json`:

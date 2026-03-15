@@ -65640,7 +65640,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p30",
+        "mana_plan": [
+          "p30"
+        ],
         "id": "p11"
       },
       "actionResult": {
@@ -65852,7 +65854,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": "p30"
+        "mana_plan": [
+          "p30"
+        ]
       },
       "actionResult": {
         "game_seq": 124,
@@ -65899,7 +65903,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p30",
+        "mana_plan": [
+          "p30"
+        ],
         "id": "p11"
       },
       "actionResult": {
@@ -65944,7 +65950,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": "p30"
+        "mana_plan": [
+          "p30"
+        ]
       },
       "actionResult": {
         "game_seq": 128,
@@ -65988,7 +65996,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": "p30"
+        "mana_plan": [
+          "p30"
+        ]
       },
       "actionResult": {
         "game_seq": 130,
@@ -66079,7 +66089,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -66129,7 +66141,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p30",
+        "mana_plan": [
+          "p30"
+        ],
         "id": "p11"
       },
       "actionResult": {
@@ -66176,7 +66190,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p30",
+        "mana_plan": [
+          "p30"
+        ],
         "id": "p11"
       },
       "actionResult": {
@@ -66221,7 +66237,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": "p30"
+        "mana_plan": [
+          "p30"
+        ]
       },
       "actionResult": {
         "game_seq": 144,
@@ -66264,7 +66282,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p30",
+        "mana_plan": [
+          "p30"
+        ],
         "id": "p11"
       },
       "actionResult": {
@@ -66312,7 +66332,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p30",
+        "mana_plan": [
+          "p30"
+        ],
         "id": "p11"
       },
       "actionResult": {
@@ -66356,7 +66378,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p30",
+        "mana_plan": [
+          "p30"
+        ],
         "id": "p11"
       },
       "actionResult": {
@@ -66400,7 +66424,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p30",
+        "mana_plan": [
+          "p30"
+        ],
         "id": "p11"
       },
       "actionResult": {
@@ -66786,27 +66812,24 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
-        "index": 1
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 187,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}, Pay 1 life, Sacrifice Polluted Delta: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         238,
         239,
-        240
+        240,
+        244,
+        245
       ],
       "subsequentActions": [
         "Gem25P Lucky loses 1 life from Polluted Delta",
@@ -67452,7 +67475,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -67465,7 +67490,8 @@
       "llmEventIndices": [
         304,
         305,
-        306
+        306,
+        307
       ],
       "subsequentActions": [],
       "actionSeq": 244
@@ -68116,7 +68142,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9,p8"
+        "attackers": [
+          "p9",
+          "p8"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -69026,7 +69055,9 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p42",
+        "mana_plan": [
+          "p42"
+        ],
         "id": "p52"
       },
       "actionResult": {
@@ -69518,47 +69549,28 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": 3,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p103"
+        "id": "p29"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 411,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p103 not found in current choices",
-        "choices": [
-          {
-            "name": "Force of Will",
-            "target_type": "card",
-            "index": 0,
-            "id": "p78"
-          },
-          {
-            "name": "Lion's Eye Diamond",
-            "target_type": "card",
-            "index": 1,
-            "id": "p101"
-          },
-          {
-            "name": "Lotus Petal",
-            "target_type": "card",
-            "index": 2,
-            "id": "p29"
-          },
-          {
-            "name": "Thassa's Oracle",
-            "target_type": "card",
-            "index": 3,
-            "id": "p103"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
       },
       "llmEventIndices": [
         478,
         479,
-        480
+        480,
+        481,
+        482,
+        483,
+        484,
+        485,
+        486
       ],
       "subsequentActions": [
         "Gem25P Lucky puts a card from graveyard to the top of their library (source: Doomsday)"
@@ -69641,7 +69653,9 @@
       "llmEventIndices": [
         494,
         495,
-        496
+        496,
+        497,
+        499
       ],
       "subsequentActions": [],
       "actionSeq": 413,
@@ -69688,41 +69702,25 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 2,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p103"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 414,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p103 not found in current choices",
-        "choices": [
-          {
-            "name": "Force of Will",
-            "target_type": "card",
-            "index": 0,
-            "id": "p78"
-          },
-          {
-            "name": "Lion's Eye Diamond",
-            "target_type": "card",
-            "index": 1,
-            "id": "p101"
-          },
-          {
-            "name": "Thassa's Oracle",
-            "target_type": "card",
-            "index": 2,
-            "id": "p103"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "auto_selected_required_target",
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N."
       },
       "llmEventIndices": [
         500,
         501,
-        502
+        502,
+        503,
+        504
       ],
       "subsequentActions": [
         "Gem25P Lucky puts a card from library to the top of their library (source: Doomsday)"
@@ -69759,35 +69757,22 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p101"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 416,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p101 not found in current choices",
-        "choices": [
-          {
-            "name": "Lion's Eye Diamond",
-            "target_type": "card",
-            "index": 0,
-            "id": "p101"
-          },
-          {
-            "name": "Thassa's Oracle",
-            "target_type": "card",
-            "index": 1,
-            "id": "p103"
-          }
-        ]
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn."
       },
       "llmEventIndices": [
         506,
         507,
-        508
+        508,
+        509,
+        510
       ],
       "subsequentActions": [
         "Gem25P Lucky puts a card from library to the top of their library (source: Doomsday)",
@@ -70432,7 +70417,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p8"
+        "attackers": [
+          "p8"
+        ]
       },
       "actionResult": {
         "declared": [

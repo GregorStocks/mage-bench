@@ -30194,7 +30194,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -31235,7 +31237,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

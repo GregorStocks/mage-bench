@@ -86373,7 +86373,8 @@
       "llmEventIndices": [
         86,
         87,
-        88
+        88,
+        89
       ],
       "subsequentActions": [],
       "actionSeq": 102
@@ -86442,7 +86443,8 @@
       "llmEventIndices": [
         98,
         99,
-        100
+        100,
+        101
       ],
       "subsequentActions": [],
       "actionSeq": 109
@@ -86954,31 +86956,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "text": "Thriving Isle: As Thriving Isle enters, choose a color other than blue."
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
         "game_seq": 179,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "'Thriving Isle: As Thriving Isle enters, choose a color other than blue.' is not a valid choice",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Isle: Thriving Isle enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Isle: As Thriving Isle enters, choose a color other than blue."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_1",
+        "next_action_message": "Choose color"
       },
       "llmEventIndices": [
         146,
         147,
-        148
+        148,
+        149,
+        150
       ],
       "subsequentActions": [],
       "actionSeq": 179,
@@ -87017,39 +87013,25 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
-        "choice": "p15"
+        "choice": "3"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 180,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p15 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "White"
-          },
-          {
-            "index": 1,
-            "description": "Black"
-          },
-          {
-            "index": 2,
-            "description": "Red"
-          },
-          {
-            "index": 3,
-            "description": "Green"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_3",
+        "next_action_message": "Play spells and abilities"
       },
       "llmEventIndices": [
         152,
         153,
-        154
+        154,
+        155,
+        156
       ],
       "subsequentActions": [
         "Thriving Isle: GptOSS Snark has chosen Green",
@@ -88401,21 +88383,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p10"
+        "choice": "no"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 371,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p10 not found in current choices"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         274,
         275,
-        276
+        276,
+        277,
+        278
       ],
       "subsequentActions": [
         "GptOSS Snark puts Eternal Taskmaster from graveyard into their hand"
@@ -88562,21 +88548,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p48"
+        "choice": "no"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 396,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p48 not found in current choices"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority",
+        "next_action_message": "Play spells and abilities"
       },
       "llmEventIndices": [
         290,
         291,
-        292
+        292,
+        293,
+        294
       ],
       "subsequentActions": [
         "GptOSS Snark puts Eternal Taskmaster from stack onto the Battlefield",
@@ -88810,31 +88800,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "2"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 428,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         322,
         323,
-        324
+        324,
+        325,
+        326
       ],
       "subsequentActions": [
         "GptOSS Snark activates: Equip. from Malefic Scythe targeting Sentinels of Glen Elendra"

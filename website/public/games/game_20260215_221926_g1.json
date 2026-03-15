@@ -186753,9 +186753,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -186801,9 +186801,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -186997,9 +186997,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -187126,9 +187126,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -187569,9 +187569,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -187664,12 +187664,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p2",
         "index": 2,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -187824,12 +187824,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -188085,9 +188085,15 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p9,p12,WHITE,WHITE,BLUE",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p9",
+          "p12",
+          "WHITE",
+          "WHITE",
+          "BLUE"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p10",
         "text": ""
       },
@@ -188141,9 +188147,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -188325,21 +188331,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p7"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         224,
         226,
-        227
+        227,
+        229,
+        230
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -188645,12 +188653,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -188942,12 +188950,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -188990,9 +188998,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -189147,9 +189155,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p17",
         "text": ""
       },
@@ -189196,9 +189204,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -189244,9 +189252,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -189396,7 +189404,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7"
+        "attackers": [
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -189609,12 +189619,20 @@
           2
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "none",
+        "blockers": [
+          "none"
+        ],
         "id": "p4",
         "index": 0,
-        "mana_plan": "p8,p2,RED",
+        "mana_plan": [
+          "p8",
+          "p2",
+          "RED"
+        ],
         "pile": 9,
         "text": "None of the above"
       },
@@ -189796,35 +189814,27 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 7,
-        "amounts": [
-          7,
-          22,
-          2
-        ],
-        "answer": false,
-        "attackers": "all",
-        "auto_tap": false,
-        "blockers": "none",
-        "id": "p4",
-        "index": 0,
-        "mana_plan": "p8,p2,RED",
-        "pile": 9,
-        "text": "None of the above"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p4, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p4 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         470,
         472,
-        473
+        473,
+        475,
+        476,
+        478,
+        479,
+        481,
+        482
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -189951,9 +189961,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p6",
         "text": ""
       },
@@ -190006,9 +190016,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -190059,12 +190069,20 @@
           2
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:30",
+        "blockers": [
+          "p5:30"
+        ],
         "id": "p5",
         "index": 0,
-        "mana_plan": "p8,p2,RED",
+        "mana_plan": [
+          "p8",
+          "p2",
+          "RED"
+        ],
         "pile": 2,
         "text": "Block with Emry"
       },
@@ -190218,36 +190236,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 7,
-        "amounts": [
-          7,
-          2,
-          7,
-          2
-        ],
-        "answer": false,
-        "attackers": "all",
-        "auto_tap": false,
-        "blockers": "none",
-        "id": "p4",
-        "index": 0,
-        "mana_plan": "p8,p2,RED",
-        "pile": 2,
-        "text": "None of the above"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p4, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p4 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         635,
         637,
-        638
+        638,
+        640,
+        641,
+        643,
+        644
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -190315,35 +190322,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 7,
-        "amounts": [
-          7,
-          11,
-          1
-        ],
-        "answer": false,
-        "attackers": "all",
-        "auto_tap": false,
-        "blockers": "none",
-        "id": "p30",
-        "index": 0,
-        "mana_plan": "p8,p2,RED",
-        "pile": 5,
-        "text": "None of the above"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p30, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p30 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         656,
         658,
-        659
+        659,
+        661,
+        662
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -190835,9 +190830,11 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "p6",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [
+          "p6"
+        ],
+        "blockers": [],
         "id": "p1",
         "text": ""
       },
@@ -190887,9 +190884,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -191049,12 +191046,18 @@
           22
         ],
         "answer": false,
-        "attackers": "p5",
+        "attackers": [
+          "p5"
+        ],
         "auto_tap": false,
-        "blockers": "none",
+        "blockers": [
+          "none"
+        ],
         "id": "p5",
         "index": 0,
-        "mana_plan": "p20",
+        "mana_plan": [
+          "p20"
+        ],
         "pile": 1,
         "text": "Attack with Emry"
       },
@@ -191643,9 +191646,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p43",
         "text": ""
       },
@@ -192270,9 +192273,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -192319,9 +192322,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -193200,7 +193203,7 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
@@ -193208,9 +193211,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p71",
         "text": ""
       },
@@ -193266,7 +193269,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -193331,51 +193336,25 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 36,
-        "amounts": [
-          36
-        ],
-        "answer": false,
-        "attackers": "p7",
-        "auto_tap": true,
-        "blockers": "p44:p7",
-        "id": "p42",
-        "index": 1,
-        "mana_plan": "p2,p20,p49,p1,p8",
-        "pile": 1,
-        "text": "blah"
+        "index": 1
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p42, ignored index=1",
-        "error_code": "invalid_choice",
-        "error": "Object p42 not found in current choices",
-        "choices": [
-          {
-            "name": "GPT5m Rules",
-            "target_type": "player",
-            "index": 0,
-            "id": "p24"
-          },
-          {
-            "name": "Haiku Valley",
-            "target_type": "player",
-            "index": 1,
-            "id": "p25"
-          },
-          {
-            "name": "Kimi25 Dreamer",
-            "target_type": "player",
-            "index": 2,
-            "id": "p26"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_target_1"
       },
       "llmEventIndices": [
         1465,
         1467,
-        1468
+        1468,
+        1470,
+        1471,
+        1473,
+        1474,
+        1476,
+        1477
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -193409,12 +193388,22 @@
           36
         ],
         "answer": false,
-        "attackers": "p7",
+        "attackers": [
+          "p7"
+        ],
         "auto_tap": true,
-        "blockers": "p44:p7",
+        "blockers": [
+          "p44:p7"
+        ],
         "id": "p42",
         "index": 0,
-        "mana_plan": "p2,p20,p49,p1,p8",
+        "mana_plan": [
+          "p2",
+          "p20",
+          "p49",
+          "p1",
+          "p8"
+        ],
         "pile": 1,
         "text": "blah"
       },
@@ -193462,33 +193451,28 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 36,
-        "amounts": [
-          36
-        ],
-        "answer": false,
-        "attackers": "p7",
-        "auto_tap": true,
-        "blockers": "p44:p7",
-        "id": "p42",
-        "index": 0,
-        "mana_plan": "p2,p20,p49,p1,p8",
-        "pile": 1,
-        "text": "blah"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p42, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p42 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1498,
         1500,
-        1501
+        1501,
+        1503,
+        1504,
+        1506,
+        1507,
+        1509,
+        1581,
+        1582
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -193532,7 +193516,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p21"
+        "attackers": [
+          "p21"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -193643,12 +193629,22 @@
           36
         ],
         "answer": false,
-        "attackers": "p7",
+        "attackers": [
+          "p7"
+        ],
         "auto_tap": true,
-        "blockers": "p44:p7",
+        "blockers": [
+          "p44:p7"
+        ],
         "id": "p42",
         "index": 0,
-        "mana_plan": "p2,p20,p49,p1,p8",
+        "mana_plan": [
+          "p2",
+          "p20",
+          "p49",
+          "p1",
+          "p8"
+        ],
         "pile": 1,
         "text": "blah"
       },
@@ -193662,7 +193658,8 @@
       "llmEventIndices": [
         1591,
         1593,
-        1594
+        1594,
+        1596
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -193689,35 +193686,29 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 1,
       "chosenArgs": {
-        "amount": 36,
-        "amounts": [
-          36
-        ],
-        "answer": false,
-        "attackers": "p7",
-        "auto_tap": true,
-        "blockers": "p44:p7",
-        "id": "p42",
-        "index": 0,
-        "mana_plan": "p2,p20,p49,p1,p8",
-        "pile": 1,
-        "text": "blah"
+        "id": "p5"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "warning": "Both id and index provided; used id=p42, ignored index=0",
-        "error_code": "missing_param",
-        "error": "mana_plan and auto_tap are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         1597,
         1599,
         1771,
         1773,
-        1774
+        1774,
+        1776,
+        1777,
+        1779,
+        1780,
+        1782,
+        1783
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -194793,7 +194784,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -194936,9 +194929,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -195037,9 +195030,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 5,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p11",
         "text": ""
       },
@@ -195088,7 +195081,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p7,p6"
+        "attackers": [
+          "p5",
+          "p7",
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -195257,12 +195254,22 @@
           36
         ],
         "answer": false,
-        "attackers": "p7",
+        "attackers": [
+          "p7"
+        ],
         "auto_tap": true,
-        "blockers": "p44:p7",
+        "blockers": [
+          "p44:p7"
+        ],
         "id": "p42",
         "index": 0,
-        "mana_plan": "p2,p20,p49,p1,p8",
+        "mana_plan": [
+          "p2",
+          "p20",
+          "p49",
+          "p1",
+          "p8"
+        ],
         "pile": 1,
         "text": "blah"
       },
@@ -195431,7 +195438,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p21"
+        "attackers": [
+          "p21"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -196094,9 +196103,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 3,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -196163,9 +196172,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -196225,9 +196234,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p43",
         "text": ""
       },
@@ -196288,9 +196297,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -196340,9 +196349,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -196410,9 +196419,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p4",
         "text": ""
       },
@@ -196647,7 +196656,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p21,p93"
+        "attackers": [
+          "p21",
+          "p93"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -196768,7 +196780,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p93"
+        "attackers": [
+          "p93"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -197244,7 +197258,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p8"
+        "attackers": [
+          "p8"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -197520,9 +197536,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -197572,9 +197588,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -197722,9 +197738,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 4,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -198541,30 +198557,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "mana_plan": "WHITE",
-        "auto_tap": false
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{W}",
-            "name": "Swords to Plowshares",
-            "index": 0,
-            "action": "cast",
-            "id": "p100"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2539,
         2541,
-        2542
+        2542,
+        2544,
+        2545
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -198715,7 +198724,11 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p83",
-        "mana_plan": "WHITE,WHITE,WHITE"
+        "mana_plan": [
+          "WHITE",
+          "WHITE",
+          "WHITE"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -198888,9 +198901,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p132",
         "text": ""
       },
@@ -199245,9 +199258,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 6,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p6",
         "text": ""
       },
@@ -199512,9 +199525,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -199618,9 +199631,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 5,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },

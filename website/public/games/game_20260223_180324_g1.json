@@ -44979,33 +44979,22 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "id": "p37"
+        "index": 1
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 71,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p37 not found in current choices",
-        "choices": [
-          {
-            "name": "Moonshadow",
-            "target_type": "card",
-            "index": 0,
-            "id": "p39"
-          },
-          {
-            "name": "Swamp",
-            "target_type": "card",
-            "index": 1,
-            "id": "p37"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
       },
       "llmEventIndices": [
         127,
         128,
-        129
+        129,
+        130,
+        131
       ],
       "subsequentActions": [
         "Sonnet Critic puts a card from library to the bottom of their library (source: Expressive Iteration)",
@@ -46726,7 +46715,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47018,7 +47009,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47181,7 +47174,12 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p21",
-        "mana_plan": "p51,p51:1,p47,p47"
+        "mana_plan": [
+          "p51",
+          "p51:1",
+          "p47",
+          "p47"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -47419,7 +47417,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47581,7 +47581,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p51,p51:1,p47"
+        "mana_plan": [
+          "p51",
+          "p51:1",
+          "p47"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -47894,7 +47898,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": "p51"
+        "mana_plan": [
+          "p51"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,

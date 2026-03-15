@@ -64539,17 +64539,27 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p6"
+        "choice": "no"
       },
       "actionResult": {
-        "error": "Unknown short ID: p6"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 153,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority",
+        "next_action_message": "Play spells and abilities"
       },
       "llmEventIndices": [
         452,
         453,
-        454
+        454,
+        455,
+        456,
+        457,
+        458
       ],
       "subsequentActions": [],
       "actionSeq": 153,
@@ -65362,31 +65372,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "2"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 230,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         514,
         515,
-        516
+        516,
+        517,
+        518
       ],
       "subsequentActions": [
         "Llama4 Snark casts Celestial Enforcer from hand",
@@ -66215,16 +66219,16 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "p23"
+        "amount": 1
       },
       "actionResult": {
         "retryable": true,
         "game_seq": 314,
         "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p23 not found in current choices",
+        "error_code": "missing_param",
+        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
         "choices": [
           {
             "index": 0,
@@ -66239,7 +66243,10 @@
       "llmEventIndices": [
         576,
         578,
-        579
+        579,
+        580,
+        581,
+        583
       ],
       "subsequentActions": [],
       "actionSeq": 314,

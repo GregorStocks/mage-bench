@@ -130979,7 +130979,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -131131,7 +131131,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -131218,7 +131218,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -131268,7 +131268,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -131336,30 +131336,22 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1
-        ],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p2",
-        "index": 1,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p2"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         57,
         58,
-        59
+        59,
+        60,
+        61,
+        62,
+        63
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -131803,7 +131795,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -132140,15 +132132,20 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p5",
-        "mana_plan": "{'tap': 'c1'},{'tap': 'c2'}"
+        "auto_tap": true
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 2"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         153,
         154,
-        155
+        155,
+        156,
+        157
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -132374,7 +132371,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -132537,32 +132534,27 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": -1,
+      "chosen": 1,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1
-        ],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p3",
-        "index": -1,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p4"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         221,
         225,
-        226
+        226,
+        231,
+        232,
+        235,
+        236,
+        238,
+        241,
+        242
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -132773,30 +132765,20 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1
-        ],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p20",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         254,
         256,
-        257
+        257,
+        259,
+        260
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -132928,30 +132910,20 @@
       "isForced": false,
       "chosen": 7,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1
-        ],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p28",
-        "index": 7,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "index": 7
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_target_7"
       },
       "llmEventIndices": [
         263,
         265,
-        266
+        266,
+        268,
+        269
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -133859,7 +133831,7 @@
         "pile": 0,
         "index": 6,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -134058,25 +134030,25 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
-        "id": "p1",
+        "id": "",
         "index": 0,
         "mana_plan": "",
         "pile": 0,
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         416,
         418,
-        419
+        419,
+        421,
+        433
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -134791,7 +134763,7 @@
         "pile": 0,
         "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -134933,30 +134905,20 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1
-        ],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p10",
-        "index": 1,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p10"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         536,
         538,
-        539
+        539,
+        541,
+        542
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -134991,7 +134953,7 @@
           1
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "",
@@ -135190,7 +135152,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p32"
+        "attackers": [
+          "p32"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -136194,7 +136158,7 @@
         "pile": 0,
         "index": 6,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -136248,32 +136212,28 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": -1,
+      "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1
-        ],
-        "answer": true,
-        "attackers": "p10",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "",
-        "index": -1,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p10"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         739,
         753,
-        754
+        754,
+        756,
+        757,
+        759,
+        760,
+        762,
+        763,
+        765,
+        766
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -136407,7 +136367,7 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "",
@@ -136565,7 +136525,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p32,p44"
+        "attackers": [
+          "p32",
+          "p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -137892,7 +137855,7 @@
         "pile": 0,
         "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -138046,7 +138009,7 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "",
@@ -138220,7 +138183,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p33"
+        "attackers": [
+          "p33"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -138790,7 +138755,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -139339,20 +139304,22 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "attackers": "all"
+        "index": 2
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "special_special"
       },
       "llmEventIndices": [
         1240,
         1244,
-        1245
+        1245,
+        1247,
+        1248
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -139493,7 +139460,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -139554,7 +139521,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -139604,7 +139571,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -140426,7 +140393,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -140487,7 +140454,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p10",
+        "attackers": [
+          "p10"
+        ],
         "auto_tap": false,
         "blockers": "",
         "id": "",
@@ -140989,7 +140958,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -141107,7 +141076,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -141354,7 +141323,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -141410,7 +141379,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -141731,13 +141702,14 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "auto_tap": true
+        "auto_tap": true,
+        "id": "p79"
       },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "invalid_choice",
+        "error": "Object p79 not found in current choices",
         "choices": [
           {
             "name": "Oran-Rief, the Vastwood",
@@ -141760,7 +141732,10 @@
       "llmEventIndices": [
         1689,
         1691,
-        1692
+        1692,
+        1695,
+        1696,
+        1698
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -141836,7 +141811,8 @@
       "llmEventIndices": [
         1699,
         1701,
-        1702
+        1702,
+        1706
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -141912,7 +141888,8 @@
       "llmEventIndices": [
         1707,
         1710,
-        1711
+        1711,
+        1713
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -142545,7 +142522,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -144159,7 +144136,11 @@
       "llmEventIndices": [
         2037,
         2046,
-        2047
+        2047,
+        2101,
+        2104,
+        2106,
+        2111
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -144257,7 +144238,7 @@
         "pile": 0,
         "index": 7,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -144362,7 +144343,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -144421,7 +144402,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -144432,7 +144415,8 @@
       "llmEventIndices": [
         2068,
         2076,
-        2077
+        2077,
+        2079
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -144479,7 +144463,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -144582,7 +144566,8 @@
       "llmEventIndices": [
         2080,
         2091,
-        2092
+        2092,
+        2094
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -144754,7 +144739,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -145131,17 +145116,119 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "id": "p67",
-        "mana_plan": "{'tap': 'p4'},{'tap': 'p38'},{'tap': 'p3'}"
+        "auto_tap": true,
+        "id": "p67"
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 3"
+        "retryable": true,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p67 not found in current choices",
+        "choices": [
+          {
+            "name": "Command Beacon",
+            "index": 0,
+            "action": "land",
+            "id": "p88"
+          },
+          {
+            "name": "Mosswort Bridge",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "{G}, {T}: You may play the exiled card without pa..."
+            ],
+            "id": "p102"
+          },
+          {
+            "mana_cost": "{4}{G}",
+            "name": "Stingerfling Spider",
+            "index": 2,
+            "action": "cast",
+            "id": "p116",
+            "power": "2",
+            "toughness": "5"
+          },
+          {
+            "mana_cost": "{2}{G}{G}",
+            "name": "Chameleon Colossus",
+            "index": 3,
+            "action": "cast",
+            "id": "p120",
+            "power": "4",
+            "toughness": "4"
+          },
+          {
+            "mana_cost": "{G/U}{G/U}{G/U}",
+            "name": "Wistful Selkie",
+            "index": 4,
+            "action": "cast",
+            "id": "p56",
+            "power": "2",
+            "toughness": "2"
+          },
+          {
+            "mana_cost": "{2}{G}",
+            "name": "Beastmaster Ascension",
+            "index": 5,
+            "action": "cast",
+            "id": "p67"
+          },
+          {
+            "name": "Island",
+            "index": 6,
+            "action": "land",
+            "id": "p21"
+          },
+          {
+            "name": "Oran-Rief, the Vastwood",
+            "index": 7,
+            "action": "activate",
+            "playable_abilities": [
+              "{T}: Put a +1/+1 counter on each green creature t..."
+            ],
+            "id": "p7"
+          },
+          {
+            "name": "Island",
+            "index": 8,
+            "action": "land",
+            "id": "p24"
+          },
+          {
+            "name": "Unknown (815e0595)",
+            "index": 9,
+            "id": "p43"
+          },
+          {
+            "mana_cost": "{4}{U}{U}",
+            "name": "Synthetic Destiny",
+            "index": 10,
+            "action": "cast",
+            "id": "p31"
+          },
+          {
+            "name": "High Market",
+            "index": 11,
+            "action": "land",
+            "id": "p93"
+          },
+          {
+            "name": "Forest",
+            "index": 12,
+            "action": "land",
+            "id": "p28"
+          }
+        ]
       },
       "llmEventIndices": [
         2180,
         2184,
         2187,
-        2188
+        2188,
+        2191,
+        2192,
+        2194
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -145389,7 +145476,7 @@
         "pile": 0,
         "index": 4,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -145606,7 +145693,7 @@
         "pile": 0,
         "index": 11,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -145952,45 +146039,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "id": "p21"
+        "blockers": "[{\"id\": \"p105\", \"blocks\": \"p138\"}]"
       },
       "actionResult": {
-        "retryable": true,
+        "retryable": false,
         "success": false,
         "error_code": "invalid_choice",
-        "error": "Object p21 not found in current choices",
-        "choices": [
-          {
-            "name": "Mosswort Bridge",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{G}, {T}: You may play the exiled card without pa..."
-            ],
-            "id": "p102"
-          },
-          {
-            "name": "Command Beacon",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Sacrifice {this}: Put your commander into yo..."
-            ],
-            "id": "p88"
-          },
-          {
-            "mana_cost": "{4}{U}{U}",
-            "name": "Synthetic Destiny",
-            "index": 2,
-            "action": "cast",
-            "id": "p31"
-          }
-        ]
+        "error": "blockers parameter only valid during declare_blockers"
       },
       "llmEventIndices": [
         2269,
         2271,
-        2272
+        2272,
+        2274,
+        2277,
+        2280,
+        2281,
+        2283,
+        2284,
+        2286,
+        2287,
+        2289
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -146051,7 +146120,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p69,p70"
+        "attackers": [
+          "p69",
+          "p70"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -146345,7 +146417,7 @@
         "pile": 0,
         "index": 4,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -146401,31 +146473,24 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 3,
-        "amounts": [
-          2,
-          5
-        ],
-        "answer": true,
-        "attackers": "p10",
-        "auto_tap": false,
-        "blockers": "null",
-        "id": "null",
-        "index": 0,
-        "mana_plan": "null",
-        "pile": 0,
-        "text": "null"
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         2354,
         2362,
-        2363
+        2363,
+        2365,
+        2366,
+        2368,
+        2369,
+        2371,
+        2372
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -146581,7 +146646,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -147321,31 +147388,22 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 3,
-        "amounts": [
-          2,
-          5
-        ],
-        "answer": true,
-        "attackers": "p10",
-        "auto_tap": false,
-        "blockers": "null",
-        "id": "null",
-        "index": 0,
-        "mana_plan": "null",
-        "pile": 0,
-        "text": "null"
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         2476,
         2481,
-        2482
+        2482,
+        2484,
+        2485,
+        2487,
+        2488,
+        2490,
+        2493
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -147413,7 +147471,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

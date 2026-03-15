@@ -67707,10 +67707,8 @@
         9,
         16
       ],
-      "subsequentActions": [
-        "Grok4F ESPN chooses that GPT53C Teach take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -67863,10 +67861,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "GPT53C Teach skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68004,7 +68000,7 @@
         22
       ],
       "subsequentActions": [],
-      "actionSeq": 11,
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68294,7 +68290,7 @@
         26
       ],
       "subsequentActions": [],
-      "actionSeq": 14,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -68426,10 +68422,8 @@
         25,
         28
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 15
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 9,
@@ -68578,7 +68572,7 @@
         38
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 20,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68749,7 +68743,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 19
+      "actionSeq": 21
     },
     {
       "index": 11,
@@ -68925,7 +68919,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 22,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69101,10 +69095,8 @@
         33,
         34
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 22,
+      "subsequentActions": [],
+      "actionSeq": 26,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -69274,7 +69266,7 @@
         36
       ],
       "subsequentActions": [],
-      "actionSeq": 26,
+      "actionSeq": 27,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -69425,7 +69417,7 @@
         40
       ],
       "subsequentActions": [],
-      "actionSeq": 27,
+      "actionSeq": 30,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -69574,11 +69566,8 @@
         39,
         44
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield",
-        "Grok4F ESPN casts Pillar of Flame targeting GPT53C Teach from hand"
-      ],
-      "actionSeq": 20,
+      "subsequentActions": [],
+      "actionSeq": 31,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -69905,11 +69894,8 @@
         45,
         48
       ],
-      "subsequentActions": [
-        "GPT53C Teach loses 2 life from Pillar of Flame",
-        "Grok4F ESPN puts Pillar of Flame from stack into their graveyard"
-      ],
-      "actionSeq": 31,
+      "subsequentActions": [],
+      "actionSeq": 35,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70059,7 +70045,7 @@
         50
       ],
       "subsequentActions": [],
-      "actionSeq": 34
+      "actionSeq": 38
     },
     {
       "index": 20,
@@ -70205,10 +70191,8 @@
         49,
         52
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 35,
+      "subsequentActions": [],
+      "actionSeq": 39,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70370,7 +70354,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 38,
+      "actionSeq": 40,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -70388,7 +70372,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
@@ -70398,22 +70382,165 @@
         "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": "p4"
+        "choice": "no"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T2 Precombat Main/Precombat Main (GPT53C Teach) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p3"
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 32,
+            "life": 18,
+            "hand": [
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Brushstrider",
+                "rules": [
+                  "Vigilance"
+                ],
+                "power": "3",
+                "id": "p25",
+                "toughness": "1"
+              },
+              {
+                "name": "Forest",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p4",
+                "playable": true
+              },
+              {
+                "name": "Forest",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5",
+                "playable": true
+              },
+              {
+                "name": "Forest",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p6",
+                "playable": true
+              },
+              {
+                "mana_cost": "{2}{G}",
+                "name": "Garruk's Uprising",
+                "rules": [
+                  "When {this} enters, if you control a creature with power 4 or greater, draw a card.",
+                  "Creatures you control have trample.",
+                  "Whenever a creature you control with power 4 or greater enters, draw a card.",
+                  ": ",
+                  "ICON_BADYou control a creature with power 4+"
+                ],
+                "id": "p7"
+              },
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Khalni Heart Expedition",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, you may put a quest counter on {this}.",
+                  "Remove three quest counters from {this} and sacrifice it: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p8"
+              },
+              {
+                "mana_cost": "{2}{G}{G}",
+                "name": "Rumbling Baloth",
+                "power": "4",
+                "id": "p9",
+                "toughness": "4"
+              }
+            ]
+          },
+          {
+            "hand_size": 6,
+            "graveyard": [
+              {
+                "name": "Pillar of Flame",
+                "rules": [
+                  "{this} deals 2 damage to any target. If a creature dealt damage this way would die this turn, exile it instead."
+                ],
+                "id": "p16"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p13"
+              }
+            ],
+            "name": "Grok4F ESPN",
+            "library_size": 32,
+            "life": 20
+          }
+        ],
+        "board_cursor": 6,
+        "choices": [
+          {
+            "name": "Forest",
+            "index": 0,
+            "action": "land",
+            "id": "p4"
+          },
+          {
+            "name": "Forest",
+            "index": 1,
+            "action": "land",
+            "id": "p5"
+          },
+          {
+            "name": "Forest",
+            "index": 2,
+            "action": "land",
+            "id": "p6"
+          }
+        ],
+        "untapped_lands": 1,
         "game_seq": 41,
-        "error": "Object p4 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "land_drops_used": 0,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         52,
         53,
-        54
+        54,
+        55,
+        56
       ],
       "subsequentActions": [],
-      "actionSeq": 39,
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70613,7 +70740,7 @@
         58
       ],
       "subsequentActions": [],
-      "actionSeq": 41,
+      "actionSeq": 42,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -70790,10 +70917,8 @@
         59,
         60
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 42,
+      "subsequentActions": [],
+      "actionSeq": 46,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -70959,7 +71084,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 46,
+      "actionSeq": 50,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -71126,11 +71251,8 @@
         63,
         66
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach casts Brushstrider from hand"
-      ],
-      "actionSeq": 40
+      "subsequentActions": [],
+      "actionSeq": 51
     },
     {
       "index": 27,
@@ -71287,7 +71409,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 50,
+      "actionSeq": 53,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -71639,7 +71761,7 @@
         76
       ],
       "subsequentActions": [],
-      "actionSeq": 53
+      "actionSeq": 57
     },
     {
       "index": 31,
@@ -71803,10 +71925,8 @@
         75,
         78
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 54
+      "subsequentActions": [],
+      "actionSeq": 58
     },
     {
       "index": 32,
@@ -71976,7 +72096,7 @@
         89
       ],
       "subsequentActions": [],
-      "actionSeq": 57,
+      "actionSeq": 59,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -72392,10 +72512,8 @@
         86,
         87
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 61,
+      "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -72579,7 +72697,7 @@
         91
       ],
       "subsequentActions": [],
-      "actionSeq": 65,
+      "actionSeq": 69,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -72758,11 +72876,8 @@
         90,
         93
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield",
-        "Grok4F ESPN casts Dragon Hatchling from hand"
-      ],
-      "actionSeq": 59
+      "subsequentActions": [],
+      "actionSeq": 70
     },
     {
       "index": 38,
@@ -72938,7 +73053,7 @@
         95
       ],
       "subsequentActions": [],
-      "actionSeq": 69,
+      "actionSeq": 72,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -73117,10 +73232,8 @@
         94,
         97
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Dragon Hatchling from stack onto the Battlefield"
-      ],
-      "actionSeq": 70
+      "subsequentActions": [],
+      "actionSeq": 73
     },
     {
       "index": 40,
@@ -73297,7 +73410,7 @@
         99
       ],
       "subsequentActions": [],
-      "actionSeq": 72
+      "actionSeq": 76
     },
     {
       "index": 41,
@@ -73473,10 +73586,8 @@
         98,
         101
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 73
+      "subsequentActions": [],
+      "actionSeq": 77
     },
     {
       "index": 42,
@@ -73657,7 +73768,7 @@
         107
       ],
       "subsequentActions": [],
-      "actionSeq": 76,
+      "actionSeq": 78,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -73878,7 +73989,7 @@
         103
       ],
       "subsequentActions": [],
-      "actionSeq": 77
+      "actionSeq": 79
     },
     {
       "index": 44,
@@ -74086,7 +74197,7 @@
         105
       ],
       "subsequentActions": [],
-      "actionSeq": 79,
+      "actionSeq": 80,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -74305,7 +74416,7 @@
         109
       ],
       "subsequentActions": [],
-      "actionSeq": 80,
+      "actionSeq": 86,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -74505,10 +74616,8 @@
         108,
         113
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Khalni Heart Expedition from hand"
-      ],
-      "actionSeq": 78
+      "subsequentActions": [],
+      "actionSeq": 87
     },
     {
       "index": 47,
@@ -74718,10 +74827,8 @@
         110,
         111
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Khalni Heart Expedition from stack onto the Battlefield"
-      ],
-      "actionSeq": 86,
+      "subsequentActions": [],
+      "actionSeq": 89,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -74951,12 +75058,8 @@
         114,
         122
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Khalni Heart Expedition from stack onto the Battlefield",
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Khalni Heart Expedition - Landfall — Whenever a land you control enters, you may put a quest counter on Khalni Heart Expedition."
-      ],
-      "actionSeq": 87
+      "subsequentActions": [],
+      "actionSeq": 93
     },
     {
       "index": 50,
@@ -75357,7 +75460,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 94,
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -75571,7 +75674,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 93
+      "actionSeq": 96
     },
     {
       "index": 53,
@@ -75794,7 +75897,7 @@
         126
       ],
       "subsequentActions": [],
-      "actionSeq": 95,
+      "actionSeq": 97,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -76009,7 +76112,7 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 97,
+      "actionSeq": 101,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -76240,10 +76343,8 @@
         129,
         130
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks Grok4F ESPN with 1 creature"
-      ],
-      "actionSeq": 96
+      "subsequentActions": [],
+      "actionSeq": 102
     },
     {
       "index": 56,
@@ -76476,7 +76577,7 @@
         134
       ],
       "subsequentActions": [],
-      "actionSeq": 102,
+      "actionSeq": 103,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -76686,7 +76787,7 @@
         136
       ],
       "subsequentActions": [],
-      "actionSeq": 101,
+      "actionSeq": 107,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -76894,10 +76995,8 @@
         135,
         138
       ],
-      "subsequentActions": [
-        "Attacker: Brushstrider (3/1) blocked by Dragon Hatchling (0/1)"
-      ],
-      "actionSeq": 103
+      "subsequentActions": [],
+      "actionSeq": 108
     },
     {
       "index": 59,
@@ -77083,7 +77182,7 @@
         140
       ],
       "subsequentActions": [],
-      "actionSeq": 107,
+      "actionSeq": 112,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -77277,11 +77376,8 @@
         139,
         142
       ],
-      "subsequentActions": [
-        "Brushstrider deals 3 damage to Dragon Hatchling",
-        "Dragon Hatchling died"
-      ],
-      "actionSeq": 108
+      "subsequentActions": [],
+      "actionSeq": 113
     },
     {
       "index": 61,
@@ -77479,7 +77575,7 @@
         153
       ],
       "subsequentActions": [],
-      "actionSeq": 112,
+      "actionSeq": 114,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -77696,7 +77792,7 @@
         144
       ],
       "subsequentActions": [],
-      "actionSeq": 113
+      "actionSeq": 115
     },
     {
       "index": 63,
@@ -77919,7 +78015,7 @@
         147
       ],
       "subsequentActions": [],
-      "actionSeq": 115,
+      "actionSeq": 116,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -78133,10 +78229,8 @@
         148,
         149
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 116,
+      "subsequentActions": [],
+      "actionSeq": 120,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -78348,7 +78442,7 @@
         155
       ],
       "subsequentActions": [],
-      "actionSeq": 120,
+      "actionSeq": 125,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -78554,11 +78648,8 @@
         154,
         157
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield",
-        "Grok4F ESPN casts Dragonspeaker Shaman from hand"
-      ],
-      "actionSeq": 114,
+      "subsequentActions": [],
+      "actionSeq": 126,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -78764,7 +78855,7 @@
         159
       ],
       "subsequentActions": [],
-      "actionSeq": 125,
+      "actionSeq": 128,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -78998,10 +79089,8 @@
         160,
         161
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 128
+      "subsequentActions": [],
+      "actionSeq": 132
     },
     {
       "index": 70,
@@ -79217,7 +79306,7 @@
         167
       ],
       "subsequentActions": [],
-      "actionSeq": 132,
+      "actionSeq": 134,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -79701,7 +79790,7 @@
         170
       ],
       "subsequentActions": [],
-      "actionSeq": 136,
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -79920,11 +80009,8 @@
         168,
         176
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Khalni Heart Expedition - Landfall — Whenever a land you control enters, you may put a quest counter on Khalni Heart Expedition."
-      ],
-      "actionSeq": 134
+      "subsequentActions": [],
+      "actionSeq": 142
     },
     {
       "index": 74,
@@ -80170,7 +80256,7 @@
         172
       ],
       "subsequentActions": [],
-      "actionSeq": 141,
+      "actionSeq": 143,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -80413,7 +80499,7 @@
         174
       ],
       "subsequentActions": [],
-      "actionSeq": 143,
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -80638,7 +80724,7 @@
         179
       ],
       "subsequentActions": [],
-      "actionSeq": 144,
+      "actionSeq": 150,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -80859,10 +80945,8 @@
         177,
         181
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Rumbling Baloth from hand"
-      ],
-      "actionSeq": 142
+      "subsequentActions": [],
+      "actionSeq": 151
     },
     {
       "index": 78,
@@ -81094,7 +81178,7 @@
         190
       ],
       "subsequentActions": [],
-      "actionSeq": 150,
+      "actionSeq": 153,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -81606,7 +81690,7 @@
         192
       ],
       "subsequentActions": [],
-      "actionSeq": 153,
+      "actionSeq": 155,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -81846,7 +81930,7 @@
         203
       ],
       "subsequentActions": [],
-      "actionSeq": 155
+      "actionSeq": 159
     },
     {
       "index": 83,
@@ -81861,30 +81945,246 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p11:p25"
+        "choice": "no"
       },
       "actionResult": {
-        "game_seq": 160,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "recent_chat": [
-          "GPT53C Teach: Nice Hatchling start. I&rsquo;m setting up my mana engine here&mdash;should be an interesting midgame."
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Select blockers",
+        "response_type": "select",
+        "respond_with": "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)",
+        "context": "T4 Combat/Declare Blockers (GPT53C Teach)",
+        "board": [
+          {
+            "hand_size": 4,
+            "graveyard": [
+              {
+                "name": "Dragon Hatchling",
+                "rules": [
+                  "Flying",
+                  "{R}: {this} gets +1/+0 until end of turn."
+                ],
+                "id": "p10"
+              },
+              {
+                "name": "Pillar of Flame",
+                "rules": [
+                  "{this} deals 2 damage to any target. If a creature dealt damage this way would die this turn, exile it instead."
+                ],
+                "id": "p16"
+              }
+            ],
+            "is_active": false,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Dragonspeaker Shaman",
+                "rules": [
+                  "Dragon spells you cast cost {2} less to cast."
+                ],
+                "id": "p11",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p14"
+              },
+              {
+                "tapped": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p15"
+              }
+            ],
+            "name": "Grok4F ESPN",
+            "library_size": 30,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{4}{R}",
+                "name": "Coalborn Entity",
+                "rules": [
+                  "{2}{R}: {this} deals 1 damage to target creature token, player, or planeswalker."
+                ],
+                "power": "4",
+                "id": "p32",
+                "toughness": "4"
+              },
+              {
+                "mana_cost": "{3}{R}",
+                "name": "Goblin Researcher",
+                "rules": [
+                  "When {this} enters, exile the top card of your library. During any turn you attacked with {this}, you may play that card."
+                ],
+                "power": "3",
+                "id": "p12",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{4}{R}",
+                "name": "Lightning Shrieker",
+                "rules": [
+                  "Flying",
+                  "Trample",
+                  "Haste",
+                  "At the beginning of the end step, {this}'s owner shuffles it into their library."
+                ],
+                "power": "5",
+                "id": "p23",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{2}{R}{R}",
+                "name": "Wildfire Elemental",
+                "rules": [
+                  "Whenever an opponent is dealt noncombat damage, creatures you control get +1/+0 until end of turn."
+                ],
+                "power": "3",
+                "id": "p27",
+                "toughness": "3"
+              }
+            ]
+          },
+          {
+            "hand_size": 3,
+            "is_active": true,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Brushstrider",
+                "rules": [
+                  "Vigilance"
+                ],
+                "id": "p25",
+                "power": "3",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p3"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "quest": 2
+                },
+                "name": "Khalni Heart Expedition",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, you may put a quest counter on {this}.",
+                  "Remove three quest counters from {this} and sacrifice it: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p8"
+              },
+              {
+                "tapped": false,
+                "name": "Rumbling Baloth",
+                "id": "p9",
+                "power": "4",
+                "toughness": "4",
+                "summoning_sick": true
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 30,
+            "life": 18
+          }
         ],
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
+        "board_cursor": 25,
+        "choices": [
+          {
+            "name": "Dragonspeaker Shaman",
+            "index": 0,
+            "choice_type": "blocker",
+            "id": "p11",
+            "power": "2",
+            "toughness": "2"
+          }
+        ],
+        "combat_phase": "declare_blockers",
+        "combat": [
+          {
+            "blocked": false,
+            "defending": "Grok4F ESPN",
+            "attackers": [
+              {
+                "name": "Brushstrider",
+                "id": "p25",
+                "power": "3",
+                "toughness": "1"
+              }
+            ]
+          }
+        ],
+        "game_seq": 160,
+        "incoming_attackers": [
+          {
+            "name": "Brushstrider",
+            "id": "p25",
+            "power": "3",
+            "toughness": "1"
+          }
+        ],
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         194,
         195,
-        197
+        197,
+        198,
+        200
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks Grok4F ESPN with 1 creature"
-      ],
-      "actionSeq": 154
+      "subsequentActions": [],
+      "actionSeq": 160
     },
     {
       "index": 84,
@@ -82140,7 +82440,7 @@
         205
       ],
       "subsequentActions": [],
-      "actionSeq": 160,
+      "actionSeq": 161,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -82367,7 +82667,7 @@
         207
       ],
       "subsequentActions": [],
-      "actionSeq": 159
+      "actionSeq": 165
     },
     {
       "index": 86,
@@ -82586,10 +82886,8 @@
         206,
         209
       ],
-      "subsequentActions": [
-        "Attacker: Brushstrider (3/1) blocked by Dragonspeaker Shaman (2/2)"
-      ],
-      "actionSeq": 161
+      "subsequentActions": [],
+      "actionSeq": 166
     },
     {
       "index": 87,
@@ -82799,7 +83097,7 @@
         211
       ],
       "subsequentActions": [],
-      "actionSeq": 165
+      "actionSeq": 172
     },
     {
       "index": 88,
@@ -83011,13 +83309,8 @@
         210,
         213
       ],
-      "subsequentActions": [
-        "Dragonspeaker Shaman deals 2 damage to Brushstrider",
-        "Brushstrider deals 3 damage to Dragonspeaker Shaman",
-        "Brushstrider died",
-        "Dragonspeaker Shaman died"
-      ],
-      "actionSeq": 166
+      "subsequentActions": [],
+      "actionSeq": 173
     },
     {
       "index": 89,
@@ -83226,7 +83519,7 @@
         219
       ],
       "subsequentActions": [],
-      "actionSeq": 172,
+      "actionSeq": 174,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83452,7 +83745,7 @@
         216
       ],
       "subsequentActions": [],
-      "actionSeq": 173
+      "actionSeq": 175
     },
     {
       "index": 91,
@@ -83674,7 +83967,7 @@
         221
       ],
       "subsequentActions": [],
-      "actionSeq": 175,
+      "actionSeq": 176,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -83923,10 +84216,8 @@
         222,
         224
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 176,
+      "subsequentActions": [],
+      "actionSeq": 181,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -84164,7 +84455,7 @@
         233
       ],
       "subsequentActions": [],
-      "actionSeq": 181,
+      "actionSeq": 183,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -84656,7 +84947,7 @@
         236
       ],
       "subsequentActions": [],
-      "actionSeq": 185,
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -84893,11 +85184,8 @@
         234,
         246
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Khalni Heart Expedition - Landfall — Whenever a land you control enters, you may put a quest counter on Khalni Heart Expedition."
-      ],
-      "actionSeq": 183,
+      "subsequentActions": [],
+      "actionSeq": 191,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -85148,7 +85436,7 @@
         238
       ],
       "subsequentActions": [],
-      "actionSeq": 190,
+      "actionSeq": 192,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -85401,7 +85689,7 @@
         240
       ],
       "subsequentActions": [],
-      "actionSeq": 192,
+      "actionSeq": 193,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -85636,10 +85924,8 @@
         241,
         242
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Garruk's Uprising from hand"
-      ],
-      "actionSeq": 193,
+      "subsequentActions": [],
+      "actionSeq": 198,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -85859,7 +86145,7 @@
         244
       ],
       "subsequentActions": [],
-      "actionSeq": 198,
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -86120,7 +86406,7 @@
         251
       ],
       "subsequentActions": [],
-      "actionSeq": 199,
+      "actionSeq": 202,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -86371,12 +86657,8 @@
         249,
         257
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Garruk's Uprising from hand",
-        "GPT53C Teach sacrificed Khalni Heart Expedition (source: Khalni Heart Expedition)",
-        "GPT53C Teach activates: search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle. from Khalni Heart Expedition"
-      ],
-      "actionSeq": 191,
+      "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -86672,10 +86954,8 @@
         252,
         253
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Khalni Heart Expedition)"
-      ],
-      "actionSeq": 202,
+      "subsequentActions": [],
+      "actionSeq": 205,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -86940,7 +87220,7 @@
         255
       ],
       "subsequentActions": [],
-      "actionSeq": 205,
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -87185,7 +87465,7 @@
         260
       ],
       "subsequentActions": [],
-      "actionSeq": 206,
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -87450,13 +87730,8 @@
         258,
         262
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Khalni Heart Expedition)",
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Khalni Heart Expedition)",
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Khalni Heart Expedition)",
-        "GPT53C Teach's library is shuffled (source: Khalni Heart Expedition)"
-      ],
-      "actionSeq": 203,
+      "subsequentActions": [],
+      "actionSeq": 211,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -87703,7 +87978,7 @@
         265
       ],
       "subsequentActions": [],
-      "actionSeq": 210,
+      "actionSeq": 214,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -87963,11 +88238,8 @@
         263,
         267
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Garruk's Uprising from stack onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Garruk's Uprising - When Garruk's Uprising enters, if you control a creature with power 4 or greater, draw a card."
-      ],
-      "actionSeq": 211,
+      "subsequentActions": [],
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -88230,7 +88502,7 @@
         274
       ],
       "subsequentActions": [],
-      "actionSeq": 214,
+      "actionSeq": 216,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88812,7 +89084,7 @@
         276
       ],
       "subsequentActions": [],
-      "actionSeq": 216,
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -89073,7 +89345,7 @@
         281
       ],
       "subsequentActions": [],
-      "actionSeq": 218,
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -89346,10 +89618,8 @@
         279,
         283
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks Grok4F ESPN with 1 creature"
-      ],
-      "actionSeq": 217,
+      "subsequentActions": [],
+      "actionSeq": 223,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -89609,7 +89879,7 @@
         286
       ],
       "subsequentActions": [],
-      "actionSeq": 222,
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -89882,10 +90152,8 @@
         284,
         288
       ],
-      "subsequentActions": [
-        "Attacker: Rumbling Baloth (4/4) unblocked"
-      ],
-      "actionSeq": 223,
+      "subsequentActions": [],
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -90132,7 +90400,7 @@
         291
       ],
       "subsequentActions": [],
-      "actionSeq": 226,
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90391,10 +90659,8 @@
         289,
         293
       ],
-      "subsequentActions": [
-        "Grok4F ESPN loses 4 life at combat from Rumbling Baloth"
-      ],
-      "actionSeq": 227,
+      "subsequentActions": [],
+      "actionSeq": 231,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -90640,7 +90906,7 @@
         299
       ],
       "subsequentActions": [],
-      "actionSeq": 230,
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -90914,7 +91180,7 @@
         296
       ],
       "subsequentActions": [],
-      "actionSeq": 231,
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -91186,7 +91452,7 @@
         301
       ],
       "subsequentActions": [],
-      "actionSeq": 233,
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -91485,10 +91751,8 @@
         302,
         304
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 234,
+      "subsequentActions": [],
+      "actionSeq": 239,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -91773,7 +92037,7 @@
         313
       ],
       "subsequentActions": [],
-      "actionSeq": 239,
+      "actionSeq": 241,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -92334,10 +92598,8 @@
         310,
         311
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 243,
+      "subsequentActions": [],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -92604,7 +92866,7 @@
         318
       ],
       "subsequentActions": [],
-      "actionSeq": 247,
+      "actionSeq": 252,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -92903,11 +93165,8 @@
         316,
         320
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach casts Garruk's Harbinger from hand"
-      ],
-      "actionSeq": 241,
+      "subsequentActions": [],
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -93184,7 +93443,7 @@
         323
       ],
       "subsequentActions": [],
-      "actionSeq": 252,
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -93482,11 +93741,8 @@
         321,
         327
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Garruk's Harbinger from stack onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Garruk's Uprising - Whenever a creature you control with power 4 or greater enters, draw a card."
-      ],
-      "actionSeq": 253,
+      "subsequentActions": [],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -93757,7 +94013,7 @@
         325
       ],
       "subsequentActions": [],
-      "actionSeq": 256,
+      "actionSeq": 258,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -94039,7 +94295,7 @@
         330
       ],
       "subsequentActions": [],
-      "actionSeq": 258,
+      "actionSeq": 261,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -94352,10 +94608,8 @@
         328,
         336
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Adventuring Gear from hand"
-      ],
-      "actionSeq": 257,
+      "subsequentActions": [],
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -94656,10 +94910,8 @@
         331,
         332
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Adventuring Gear from stack onto the Battlefield"
-      ],
-      "actionSeq": 261,
+      "subsequentActions": [],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -94955,7 +95207,7 @@
         334
       ],
       "subsequentActions": [],
-      "actionSeq": 264,
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -95234,7 +95486,7 @@
         339
       ],
       "subsequentActions": [],
-      "actionSeq": 265,
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -95536,11 +95788,8 @@
         337,
         341
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Adventuring Gear from stack onto the Battlefield",
-        "GPT53C Teach activates: Equip. from Adventuring Gear targeting Rumbling Baloth"
-      ],
-      "actionSeq": 262,
+      "subsequentActions": [],
+      "actionSeq": 269,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -95833,7 +96082,7 @@
         344
       ],
       "subsequentActions": [],
-      "actionSeq": 268,
+      "actionSeq": 270,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -96150,7 +96399,7 @@
         348
       ],
       "subsequentActions": [],
-      "actionSeq": 269,
+      "actionSeq": 271,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -96450,7 +96699,7 @@
         346
       ],
       "subsequentActions": [],
-      "actionSeq": 270,
+      "actionSeq": 272,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -96731,7 +96980,7 @@
         351
       ],
       "subsequentActions": [],
-      "actionSeq": 272,
+      "actionSeq": 276,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -97046,10 +97295,8 @@
         349,
         353
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks Grok4F ESPN with 1 creature"
-      ],
-      "actionSeq": 271,
+      "subsequentActions": [],
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -97329,7 +97576,7 @@
         356
       ],
       "subsequentActions": [],
-      "actionSeq": 276,
+      "actionSeq": 280,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -97644,10 +97891,8 @@
         354,
         360
       ],
-      "subsequentActions": [
-        "Attacker: Rumbling Baloth (4/4) unblocked"
-      ],
-      "actionSeq": 277,
+      "subsequentActions": [],
+      "actionSeq": 281,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -97926,7 +98171,7 @@
         363
       ],
       "subsequentActions": [],
-      "actionSeq": 280,
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -98238,10 +98483,8 @@
         361,
         369
       ],
-      "subsequentActions": [
-        "Grok4F ESPN loses 4 life at combat from Rumbling Baloth"
-      ],
-      "actionSeq": 281,
+      "subsequentActions": [],
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -98544,7 +98787,7 @@
         365
       ],
       "subsequentActions": [],
-      "actionSeq": 284,
+      "actionSeq": 286,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -98841,7 +99084,7 @@
         367
       ],
       "subsequentActions": [],
-      "actionSeq": 286,
+      "actionSeq": 287,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -99120,7 +99363,7 @@
         372
       ],
       "subsequentActions": [],
-      "actionSeq": 287,
+      "actionSeq": 291,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -99422,10 +99665,8 @@
         370,
         374
       ],
-      "subsequentActions": [
-        "GPT53C Teach activates: Equip. from Adventuring Gear targeting Garruk's Harbinger"
-      ],
-      "actionSeq": 285,
+      "subsequentActions": [],
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -99714,7 +99955,7 @@
         397
       ],
       "subsequentActions": [],
-      "actionSeq": 291,
+      "actionSeq": 293,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -100402,7 +100643,7 @@
         384
       ],
       "subsequentActions": [],
-      "actionSeq": 294,
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -100445,30 +100686,299 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p77,p78,p80,p81:1",
+        "mana_plan": "p13,p14,p15,p79",
         "choice": "p27"
       },
       "actionResult": {
-        "game_seq": 299,
-        "error": "Mana plan references unknown permanent 'p77'. Check the board state for correct permanent IDs.",
-        "recent_chat": [
-          "GPT53C Teach: Good block last turn&mdash;trading off there was clean. I&rsquo;m going to try to leverage this Expedition/Uprising setup now.",
-          "GPT53C Teach: Nice, that Uprising draw chain is doing work. I&rsquo;m just trying to keep pressure up each combat."
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T6 Precombat Main/Precombat Main (Grok4F ESPN) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Dragon Hatchling",
+                "rules": [
+                  "Flying",
+                  "{R}: {this} gets +1/+0 until end of turn."
+                ],
+                "id": "p10"
+              },
+              {
+                "name": "Dragonspeaker Shaman",
+                "rules": [
+                  "Dragon spells you cast cost {2} less to cast."
+                ],
+                "id": "p11"
+              },
+              {
+                "name": "Pillar of Flame",
+                "rules": [
+                  "{this} deals 2 damage to any target. If a creature dealt damage this way would die this turn, exile it instead."
+                ],
+                "id": "p16"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p14"
+              },
+              {
+                "tapped": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p79"
+              }
+            ],
+            "name": "Grok4F ESPN",
+            "library_size": 27,
+            "life": 12,
+            "hand": [
+              {
+                "mana_cost": "{4}{R}",
+                "name": "Coalborn Entity",
+                "rules": [
+                  "{2}{R}: {this} deals 1 damage to target creature token, player, or planeswalker."
+                ],
+                "power": "4",
+                "id": "p32",
+                "toughness": "4"
+              },
+              {
+                "mana_cost": "{4}{R}",
+                "name": "Fiery Intervention",
+                "rules": [
+                  "Choose one &mdash;: &bull {this} deals 5 damage to target creature.: &bull Destroy target artifact.: "
+                ],
+                "id": "p37"
+              },
+              {
+                "mana_cost": "{3}{R}",
+                "name": "Goblin Researcher",
+                "rules": [
+                  "When {this} enters, exile the top card of your library. During any turn you attacked with {this}, you may play that card."
+                ],
+                "power": "3",
+                "id": "p12",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{4}{R}",
+                "name": "Lightning Shrieker",
+                "rules": [
+                  "Flying",
+                  "Trample",
+                  "Haste",
+                  "At the beginning of the end step, {this}'s owner shuffles it into their library."
+                ],
+                "power": "5",
+                "id": "p23",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{3}{R}{R}",
+                "name": "Terror of the Peaks",
+                "rules": [
+                  "Flying",
+                  "Spells your opponents cast that target {this} cost an additional 3 life to cast.",
+                  "Whenever another creature you control enters, {this} deals damage equal to that creature's power to any target."
+                ],
+                "power": "5",
+                "id": "p73",
+                "toughness": "4"
+              }
+            ]
+          },
+          {
+            "hand_size": 2,
+            "graveyard": [
+              {
+                "name": "Brushstrider",
+                "rules": [
+                  "Vigilance"
+                ],
+                "id": "p25"
+              },
+              {
+                "name": "Khalni Heart Expedition",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, you may put a quest counter on {this}.",
+                  "Remove three quest counters from {this} and sacrifice it: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p8"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Adventuring Gear",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, equipped creature gets +2/+2 until end of turn.",
+                  "Equip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+                ],
+                "id": "p43"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p3"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p29"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p38"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p53"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p55"
+              },
+              {
+                "tapped": false,
+                "name": "Garruk's Harbinger",
+                "rules": [
+                  "Hexproof from black (This creature can't be the target of black spells or abilities your opponents control.)",
+                  "Whenever {this} deals combat damage to a player or planeswalker, look at that many cards from the top of your library. You may reveal a creature card or Garruk planeswalker card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+                  "Trample"
+                ],
+                "id": "p34",
+                "power": "4",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "name": "Garruk's Uprising",
+                "rules": [
+                  "When {this} enters, if you control a creature with power 4 or greater, draw a card.",
+                  "Creatures you control have trample.",
+                  "Whenever a creature you control with power 4 or greater enters, draw a card.",
+                  ": ",
+                  "ICON_GOODYou control a creature with power 4+"
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Rumbling Baloth",
+                "rules": [
+                  "Trample"
+                ],
+                "id": "p9",
+                "power": "4",
+                "toughness": "4",
+                "summoning_sick": false
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 24,
+            "life": 18
+          }
         ],
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "retryable": true
+        "board_cursor": 45,
+        "stack": [
+          {
+            "name": "Wildfire Elemental"
+          }
+        ],
+        "game_seq": 299,
+        "land_drops_used": 1,
+        "action_taken": "selected_1",
+        "success": true,
+        "mana_plan_set": true,
+        "mana_plan_size": 4
       },
       "llmEventIndices": [
         384,
         385,
         387,
-        389
+        389,
+        390,
+        392,
+        394
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 295,
+      "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -100784,7 +101294,7 @@
         399
       ],
       "subsequentActions": [],
-      "actionSeq": 299,
+      "actionSeq": 305,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -101068,11 +101578,8 @@
         398,
         402
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield",
-        "Grok4F ESPN casts Wildfire Elemental from hand"
-      ],
-      "actionSeq": 293,
+      "subsequentActions": [],
+      "actionSeq": 306,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -101382,7 +101889,7 @@
         404
       ],
       "subsequentActions": [],
-      "actionSeq": 305,
+      "actionSeq": 308,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -101666,10 +102173,8 @@
         403,
         407
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Wildfire Elemental from stack onto the Battlefield"
-      ],
-      "actionSeq": 306,
+      "subsequentActions": [],
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -101980,7 +102485,7 @@
         409
       ],
       "subsequentActions": [],
-      "actionSeq": 308
+      "actionSeq": 312
     },
     {
       "index": 162,
@@ -102326,7 +102831,7 @@
         418
       ],
       "subsequentActions": [],
-      "actionSeq": 312,
+      "actionSeq": 314,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -103013,7 +103518,7 @@
         416
       ],
       "subsequentActions": [],
-      "actionSeq": 316,
+      "actionSeq": 317,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -103352,7 +103857,7 @@
         421
       ],
       "subsequentActions": [],
-      "actionSeq": 317,
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -103670,10 +104175,8 @@
         419,
         425
       ],
-      "subsequentActions": [
-        "GPT53C Teach activates: Equip. from Adventuring Gear targeting Rumbling Baloth"
-      ],
-      "actionSeq": 314
+      "subsequentActions": [],
+      "actionSeq": 323
     },
     {
       "index": 168,
@@ -103990,7 +104493,7 @@
         423
       ],
       "subsequentActions": [],
-      "actionSeq": 322,
+      "actionSeq": 324,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -104315,7 +104818,7 @@
         428
       ],
       "subsequentActions": [],
-      "actionSeq": 324,
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -104651,10 +105154,8 @@
         426,
         432
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Rampaging Growth from hand"
-      ],
-      "actionSeq": 323
+      "subsequentActions": [],
+      "actionSeq": 331
     },
     {
       "index": 171,
@@ -104988,10 +105489,8 @@
         429,
         430
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Rampaging Growth)"
-      ],
-      "actionSeq": 330,
+      "subsequentActions": [],
+      "actionSeq": 333,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -105325,7 +105824,7 @@
         435
       ],
       "subsequentActions": [],
-      "actionSeq": 333,
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -105667,14 +106166,8 @@
         433,
         441
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Rampaging Growth)",
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Rampaging Growth)",
-        "GPT53C Teach's library is shuffled (source: Rampaging Growth)",
-        "GPT53C Teach puts Rampaging Growth from stack into their graveyard",
-        "GPT53C Teach - Ability triggers: Adventuring Gear - Landfall — Whenever a land you control enters, equipped creature gets +2/+2 until end of turn."
-      ],
-      "actionSeq": 331
+      "subsequentActions": [],
+      "actionSeq": 339
     },
     {
       "index": 174,
@@ -106034,7 +106527,7 @@
         437
       ],
       "subsequentActions": [],
-      "actionSeq": 338,
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -106383,7 +106876,7 @@
         439
       ],
       "subsequentActions": [],
-      "actionSeq": 340,
+      "actionSeq": 341,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -106717,7 +107210,7 @@
         444
       ],
       "subsequentActions": [],
-      "actionSeq": 341,
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -107048,10 +107541,8 @@
         442,
         446
       ],
-      "subsequentActions": [
-        "GPT53C Teach activates: Equip. from Adventuring Gear targeting Forest"
-      ],
-      "actionSeq": 339
+      "subsequentActions": [],
+      "actionSeq": 345
     },
     {
       "index": 178,
@@ -107410,7 +107901,7 @@
         449
       ],
       "subsequentActions": [],
-      "actionSeq": 344,
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -107784,7 +108275,7 @@
         453
       ],
       "subsequentActions": [],
-      "actionSeq": 345
+      "actionSeq": 347
     },
     {
       "index": 180,
@@ -108162,7 +108653,7 @@
         451
       ],
       "subsequentActions": [],
-      "actionSeq": 346,
+      "actionSeq": 348,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -108516,7 +109007,7 @@
         459
       ],
       "subsequentActions": [],
-      "actionSeq": 348,
+      "actionSeq": 352,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -108915,10 +109406,8 @@
         454,
         456
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks Grok4F ESPN with 3 creatures"
-      ],
-      "actionSeq": 347
+      "subsequentActions": [],
+      "actionSeq": 353
     },
     {
       "index": 183,
@@ -109307,7 +109796,7 @@
         461
       ],
       "subsequentActions": [],
-      "actionSeq": 353,
+      "actionSeq": 354,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -109690,7 +110179,7 @@
         464
       ],
       "subsequentActions": [],
-      "actionSeq": 352,
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -110045,12 +110534,8 @@
         462,
         470
       ],
-      "subsequentActions": [
-        "Attacker: Rumbling Baloth (6/6) unblocked",
-        "Attacker: Garruk's Harbinger (4/3) unblocked",
-        "Attacker: Forest (4/3) blocked by Wildfire Elemental (3/3)"
-      ],
-      "actionSeq": 354
+      "subsequentActions": [],
+      "actionSeq": 362
     },
     {
       "index": 186,
@@ -110740,7 +111225,7 @@
         473
       ],
       "subsequentActions": [],
-      "actionSeq": 366,
+      "actionSeq": 373,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -111090,14 +111575,8 @@
         471,
         481
       ],
-      "subsequentActions": [
-        "Grok4F ESPN loses 6 life at combat from Rumbling Baloth",
-        "Grok4F ESPN loses 4 life at combat from Garruk's Harbinger",
-        "Grok4F ESPN loses 1 life at combat from Forest",
-        "Wildfire Elemental deals 3 damage to Forest",
-        "Forest deals 3 damage to Wildfire Elemental"
-      ],
-      "actionSeq": 362
+      "subsequentActions": [],
+      "actionSeq": 374
     },
     {
       "index": 190,
@@ -111441,7 +111920,7 @@
         475
       ],
       "subsequentActions": [],
-      "actionSeq": 373,
+      "actionSeq": 375,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -111791,7 +112270,7 @@
         479
       ],
       "subsequentActions": [],
-      "actionSeq": 375,
+      "actionSeq": 376,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -112122,7 +112601,7 @@
         484
       ],
       "subsequentActions": [],
-      "actionSeq": 376,
+      "actionSeq": 382,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -112454,14 +112933,8 @@
         482,
         490
       ],
-      "subsequentActions": [
-        "GPT53C Teach reveals Canopy Baloth (source: Garruk's Harbinger)",
-        "GPT53C Teach puts a card from library into their hand",
-        "GPT53C Teach puts a card from library to the bottom of their library (source: Garruk's Harbinger)",
-        "GPT53C Teach puts a card from library to the bottom of their library (source: Garruk's Harbinger)",
-        "GPT53C Teach puts a card from library to the bottom of their library (source: Garruk's Harbinger)"
-      ],
-      "actionSeq": 374
+      "subsequentActions": [],
+      "actionSeq": 383
     },
     {
       "index": 194,
@@ -112792,7 +113265,7 @@
         488
       ],
       "subsequentActions": [],
-      "actionSeq": 382,
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -113114,7 +113587,7 @@
         493
       ],
       "subsequentActions": [],
-      "actionSeq": 384,
+      "actionSeq": 388,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -113442,11 +113915,8 @@
         491,
         495
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Adventuring Gear - Landfall — Whenever a land you control enters, equipped creature gets +2/+2 until end of turn."
-      ],
-      "actionSeq": 383
+      "subsequentActions": [],
+      "actionSeq": 389
     },
     {
       "index": 197,
@@ -113839,7 +114309,7 @@
         498
       ],
       "subsequentActions": [],
-      "actionSeq": 389
+      "actionSeq": 391
     },
     {
       "index": 199,
@@ -114225,7 +114695,7 @@
         501
       ],
       "subsequentActions": [],
-      "actionSeq": 391,
+      "actionSeq": 392,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -114594,7 +115064,7 @@
         506
       ],
       "subsequentActions": [],
-      "actionSeq": 392,
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -114958,11 +115428,8 @@
         507,
         509
       ],
-      "subsequentActions": [
-        "Grok4F ESPN discards Coalborn Entity (source: Thrill of Possibility)",
-        "Grok4F ESPN casts Thrill of Possibility from hand"
-      ],
-      "actionSeq": 395,
+      "subsequentActions": [],
+      "actionSeq": 400,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -115328,10 +115795,8 @@
         510,
         512
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Thrill of Possibility from stack into their graveyard"
-      ],
-      "actionSeq": 400,
+      "subsequentActions": [],
+      "actionSeq": 403,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -115688,7 +116153,7 @@
         515
       ],
       "subsequentActions": [],
-      "actionSeq": 403,
+      "actionSeq": 405,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -116047,10 +116512,8 @@
         518,
         520
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 405,
+      "subsequentActions": [],
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -116403,7 +116866,7 @@
         525
       ],
       "subsequentActions": [],
-      "actionSeq": 409,
+      "actionSeq": 411,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -117176,7 +117639,7 @@
         532
       ],
       "subsequentActions": [],
-      "actionSeq": 411,
+      "actionSeq": 414,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -117558,7 +118021,7 @@
         530
       ],
       "subsequentActions": [],
-      "actionSeq": 413,
+      "actionSeq": 415,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
@@ -117913,7 +118376,7 @@
         535
       ],
       "subsequentActions": [],
-      "actionSeq": 415,
+      "actionSeq": 420,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -118291,10 +118754,8 @@
         533,
         537
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks Grok4F ESPN with 2 creatures"
-      ],
-      "actionSeq": 414,
+      "subsequentActions": [],
+      "actionSeq": 421,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -118336,7 +118797,7 @@
         542
       ],
       "subsequentActions": [],
-      "actionSeq": 420,
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -118374,13 +118835,11 @@
         540
       ],
       "subsequentActions": [
-        "Attacker: Rumbling Baloth (4/4) unblocked",
-        "Attacker: Garruk's Harbinger (4/3) unblocked",
         "Grok4F ESPN loses 4 life at combat from Rumbling Baloth",
         "Grok4F ESPN loses 4 life at combat from Garruk's Harbinger",
         "Grok4F ESPN has lost the game."
       ],
-      "actionSeq": 421,
+      "actionSeq": 426,
       "pilotContext": {
         "untappedLands": 2
       },

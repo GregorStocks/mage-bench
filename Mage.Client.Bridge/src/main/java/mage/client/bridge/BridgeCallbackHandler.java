@@ -219,6 +219,7 @@ public class BridgeCallbackHandler {
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
     private volatile int bridgeEventCursor = 0; // Pull cursor for bridge event log
     private final List<BridgeLogEntry> cachedBridgeEvents = new ArrayList<>(); // Client-side cache survives game cleanup
+    private static final long KEEPALIVE_CONCEDE_WAIT_SECONDS = 15;
 
     // Keep-alive multi-game support: latches for cross-thread signaling
     private volatile CountDownLatch gameStartLatch = new CountDownLatch(1);
@@ -329,11 +330,15 @@ public class BridgeCallbackHandler {
      * Write a bridge event to the JSONL dump file (data hoarding).
      * Each line is a compact JSON object with timestamp, callback method, and relevant data.
      */
-    private void logBridgeEvent(ClientCallbackMethod method, String summary) {
-        logBridgeEvent(method.name(), summary);
+    private void logBridgeEvent(String method, String summary) {
+        logBridgeEvent(method, currentGameId, summary);
     }
 
-    private void logBridgeEvent(String method, String summary) {
+    private void logBridgeEvent(ClientCallbackMethod method, UUID gameId, String summary) {
+        logBridgeEvent(method.name(), gameId, summary);
+    }
+
+    private void logBridgeEvent(String method, UUID gameId, String summary) {
         String path = bridgeLogPath;
         if (path == null) {
             return;
@@ -342,6 +347,9 @@ public class BridgeCallbackHandler {
             var sb = new StringBuilder();
             sb.append("{\"ts\":\"").append(ZonedDateTime.now(LOG_TZ).format(TIME_FMT)).append("\"");
             sb.append(",\"method\":\"").append(method).append("\"");
+            if (gameId != null) {
+                sb.append(",\"gameId\":\"").append(gameId).append("\"");
+            }
             if (summary != null && !summary.isEmpty()) {
                 // Escape JSON string
                 sb.append(",\"data\":").append(escapeJsonString(summary));
@@ -377,6 +385,79 @@ public class BridgeCallbackHandler {
         }
         sb.append("\"");
         return sb.toString();
+    }
+
+    private static String abbreviateForLog(String value, int maxChars) {
+        if (value == null) {
+            return "null";
+        }
+        String normalized = value.replace('\n', ' ').replace('\r', ' ');
+        if (normalized.length() <= maxChars) {
+            return normalized;
+        }
+        return normalized.substring(0, Math.max(0, maxChars - 3)) + "...";
+    }
+
+    private String summarizePendingAction(PendingAction action) {
+        if (action == null) {
+            return "none";
+        }
+        return "method=" + action.method().name()
+            + ",gameId=" + action.gameId()
+            + ",gameSeq=" + action.gameSeq()
+            + ",message=" + abbreviateForLog(action.message(), 120);
+    }
+
+    private String summarizeCallbackContext(UUID callbackGameId, String ignoreReason) {
+        PendingAction action = pendingAction;
+        boolean callbackActive = callbackGameId != null && activeGames.containsKey(callbackGameId);
+        var sb = new StringBuilder();
+        sb.append("callbackGameId=").append(callbackGameId);
+        sb.append(",currentGameId=").append(currentGameId);
+        sb.append(",callbackActive=").append(callbackActive);
+        sb.append(",pendingAction=").append(summarizePendingAction(action));
+        if (ignoreReason != null) {
+            sb.append(",ignoreReason=").append(ignoreReason);
+        }
+        return sb.toString();
+    }
+
+    private void logCallbackReceived(UUID callbackGameId, ClientCallbackMethod method, String ignoreReason) {
+        String summary = summarizeCallbackContext(callbackGameId, ignoreReason);
+        logger.debug("[" + client.getUsername() + "] Callback received: " + method + " (" + summary + ")");
+        logBridgeEvent("CALLBACK_RECEIVED", callbackGameId, method.name() + " | " + summary);
+    }
+
+    private String gameViewStep(GameView gameView) {
+        if (gameView == null || gameView.getStep() == null) {
+            return "null";
+        }
+        return gameView.getStep().toString();
+    }
+
+    private void logPassPriorityReturn(
+            String until,
+            int actionsPassed,
+            PendingAction action,
+            GameView gameView,
+            ActionResult result,
+            boolean returnedChoices) {
+        String actionMethod = action != null ? action.method().name() : "none";
+        String actionGameId = action != null ? String.valueOf(action.gameId()) : "null";
+        int callbackGameSeq = action != null ? action.gameSeq() : -1;
+        String step = gameViewStep(gameView);
+        String summary = "until=" + until
+            + ",stop_reason=" + result.stop_reason
+            + ",actionsPassed=" + actionsPassed
+            + ",callbackMethod=" + actionMethod
+            + ",callbackGameId=" + actionGameId
+            + ",callbackGameSeq=" + callbackGameSeq
+            + ",step=" + step
+            + ",autoPassedBeforeReturn=" + (actionsPassed > 0)
+            + ",returnedChoices=" + returnedChoices
+            + ",pendingAction=" + summarizePendingAction(pendingAction);
+        logger.info("[" + client.getUsername() + "] passPriority RETURN: " + summary);
+        logBridgeEvent("PASS_PRIORITY_RETURN", action != null ? action.gameId() : currentGameId, summary);
     }
 
     /**
@@ -2122,7 +2203,19 @@ public class BridgeCallbackHandler {
             if (next != null) {
                 result.game_seq = next.gameSeq();
                 mergeActionChoices(result, null, next);
+                String summary = "after=" + summarizePendingAction(action)
+                    + ",woke_to=" + summarizePendingAction(next)
+                    + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
+                logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+                logBridgeEvent("CHOOSE_ACTION_WAKEUP", next.gameId(), summary);
             } else {
+                String summary = "after=" + summarizePendingAction(action)
+                    + ",woke_to=game_over"
+                    + ",playerDead=" + playerDead
+                    + ",activeGames=" + activeGames.size()
+                    + ",clientRunning=" + client.isRunning();
+                logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+                logBridgeEvent("CHOOSE_ACTION_WAKEUP", action.gameId(), summary);
                 attachUnseenChat(result);
             }
         }
@@ -3091,9 +3184,15 @@ public class BridgeCallbackHandler {
         // handleGameOver fires gameFinishedLatch when the server confirms the game ended.
         if (keepAliveAfterGame) {
             try {
-                boolean finished = gameFinishedLatch.await(15, java.util.concurrent.TimeUnit.SECONDS);
+                boolean finished = gameFinishedLatch.await(
+                    KEEPALIVE_CONCEDE_WAIT_SECONDS,
+                    java.util.concurrent.TimeUnit.SECONDS
+                );
                 if (!finished) {
-                    logger.warn("[" + client.getUsername() + "] Concede sent but GAME_OVER not received within 15s");
+                    logger.warn(
+                        "[" + client.getUsername() + "] Concede sent but GAME_OVER not received within "
+                            + KEEPALIVE_CONCEDE_WAIT_SECONDS + "s"
+                    );
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -3238,6 +3337,7 @@ public class BridgeCallbackHandler {
                 if (gameId == null) {
                     var result = new ActionResult();
                     result.error = "No active game for yield";
+                    logPassPriorityReturn(until, actionsPassed, null, lastGameView, result, false);
                     return result;
                 }
                 // If a real non-priority decision is already pending, return it
@@ -3259,6 +3359,13 @@ public class BridgeCallbackHandler {
                     result.stop_reason = "non_priority_action";
                     attachUnseenChat(result);
                     mergeActionChoices(result, boardCursorParam, currentAction);
+                    logPassPriorityReturn(
+                        until,
+                        actionsPassed,
+                        currentAction,
+                        extractGameView(currentAction.data()),
+                        result,
+                        true);
                     return result;
                 }
                 // For stack_resolved: only arm the client-side yield when there
@@ -3306,6 +3413,7 @@ public class BridgeCallbackHandler {
                 var result = new ActionResult();
                 result.error = "Invalid until value: " + until
                     + ". Valid values: " + String.join(", ", allValues);
+                logPassPriorityReturn(until, actionsPassed, null, lastGameView, result, false);
                 return result;
             }
         }
@@ -3371,6 +3479,7 @@ public class BridgeCallbackHandler {
                     }
                     result.stop_reason = "step_not_reached";
                     attachUnseenChat(result);
+                    logPassPriorityReturn(until, actionsPassed, action, gvSnap, result, false);
                     return result;
                 }
 
@@ -3414,6 +3523,13 @@ public class BridgeCallbackHandler {
                     result.stop_reason = "non_priority_action";
                     attachUnseenChat(result);
                     mergeActionChoices(result, boardCursorParam, action);
+                    logPassPriorityReturn(
+                        until,
+                        actionsPassed,
+                        action,
+                        extractGameView(action.data()),
+                        result,
+                        true);
                     return result;
                 }
 
@@ -3429,6 +3545,13 @@ public class BridgeCallbackHandler {
                     result.stop_reason = "combat";
                     attachUnseenChat(result);
                     mergeActionChoices(result, boardCursorParam, action);
+                    logPassPriorityReturn(
+                        until,
+                        actionsPassed,
+                        action,
+                        extractGameView(action.data()),
+                        result,
+                        true);
                     return result;
                 }
 
@@ -3490,7 +3613,9 @@ public class BridgeCallbackHandler {
                     GameView gv = (action.data() instanceof GameClientMessage)
                         ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
                     if (!stackContains(gv, yieldUntilStackResolvedObjectId)) {
-                        return stackResolvedResult(action, boardCursorParam);
+                        ActionResult result = stackResolvedResult(action, boardCursorParam);
+                        logPassPriorityReturn(until, actionsPassed, action, gv, result, true);
+                        return result;
                     }
                     // A watched stack object is still present — keep auto-passing.
                 }
@@ -3511,6 +3636,7 @@ public class BridgeCallbackHandler {
                         result.stop_reason = "reached_step";
                         attachUnseenChat(result);
                         mergeActionChoices(result, boardCursorParam, action);
+                        logPassPriorityReturn(until, actionsPassed, action, gv, result, true);
                         return result;
                     }
                     // Not at target step: auto-pass (skip playable-cards check)
@@ -3573,6 +3699,7 @@ public class BridgeCallbackHandler {
                     result.stop_reason = "playable_cards";
                     attachUnseenChat(result);
                     mergeActionChoices(result, boardCursorParam, action);
+                    logPassPriorityReturn(until, actionsPassed, action, viewForPlayableCheck, result, true);
                     return result;
                 }
                 // If we found playable cards on the first pass, intentionally
@@ -3636,6 +3763,7 @@ public class BridgeCallbackHandler {
                     result.game_seq = gvSnap.getGameSeq();
                 }
                 attachUnseenChat(result);
+                logPassPriorityReturn(until, actionsPassed, null, gvSnap, result, false);
                 return result;
             }
 
@@ -3661,6 +3789,7 @@ public class BridgeCallbackHandler {
             result.game_seq = gvSnap.getGameSeq();
         }
         attachUnseenChat(result);
+        logPassPriorityReturn(until, actionsPassed, null, gvSnap, result, false);
         return result;
     }
 
@@ -4572,7 +4701,9 @@ public class BridgeCallbackHandler {
             callback.decompressData();
             UUID objectId = callback.getObjectId();
             ClientCallbackMethod method = callback.getMethod();
-            if (shouldIgnoreNonCurrentGameCallback(objectId, method)) {
+            String ignoreReason = nonCurrentGameCallbackIgnoreReason(objectId, method);
+            logCallbackReceived(objectId, method, ignoreReason);
+            if (shouldIgnoreNonCurrentGameCallback(objectId, method, ignoreReason)) {
                 return;
             }
             lastCallbackReceivedAt = System.currentTimeMillis();
@@ -4582,7 +4713,6 @@ public class BridgeCallbackHandler {
             ActionableCallbackOutcome actionableOutcome = ACTIONABLE_CALLBACKS.contains(method)
                     ? new ActionableCallbackOutcome(method)
                     : null;
-            logger.debug("[" + client.getUsername() + "] Callback received: " + method);
 
             // Bridge JSONL dump: log every callback
             if (bridgeLogPath != null) {
@@ -4598,7 +4728,7 @@ public class BridgeCallbackHandler {
                 } else if (method == ClientCallbackMethod.GAME_OVER) {
                     summary = "Game over";
                 }
-                logBridgeEvent(method, summary);
+                logBridgeEvent(method, objectId, summary);
             }
 
             switch (method) {
@@ -4861,9 +4991,18 @@ public class BridgeCallbackHandler {
             updateLastGameView(gv, "storePendingAction:" + method.name());
             gameSeq = gv.getGameSeq();
         }
+        PendingAction replacedAction = null;
+        PendingAction newAction = new PendingAction(gameId, method, data, message, gameSeq);
         synchronized (actionLock) {
-            pendingAction = new PendingAction(gameId, method, data, message, gameSeq);
+            replacedAction = pendingAction;
+            pendingAction = newAction;
             actionLock.notifyAll();
+        }
+        if (replacedAction != null) {
+            String summary = "old=" + summarizePendingAction(replacedAction)
+                + ",new=" + summarizePendingAction(newAction);
+            logger.warn("[" + client.getUsername() + "] Pending action replaced: " + summary);
+            logBridgeEvent("PENDING_ACTION_REPLACED", gameId, summary);
         }
         logger.debug("[" + client.getUsername() + "] Stored pending action: " + method + " - " + message);
     }
@@ -4901,9 +5040,9 @@ public class BridgeCallbackHandler {
      * for the current game and strand pass_priority/choose_action waiting on the
      * wrong game flow.
      */
-    private boolean shouldIgnoreNonCurrentGameCallback(UUID callbackGameId, ClientCallbackMethod method) {
+    private String nonCurrentGameCallbackIgnoreReason(UUID callbackGameId, ClientCallbackMethod method) {
         if (!mcpMode || callbackGameId == null) {
-            return false;
+            return null;
         }
 
         // START_GAME is intentionally excluded: it's the callback that
@@ -4914,30 +5053,49 @@ public class BridgeCallbackHandler {
                 || method == ClientCallbackMethod.GAME_UPDATE
                 || method == ClientCallbackMethod.GAME_UPDATE_AND_INFORM;
         if (!gameScoped) {
-            return false;
+            return null;
         }
 
         UUID gameId = currentGameId;
         if (gameId == null) {
-            // Expected window: after createFreshForNextGame() routes callbacks
-            // to this handler but before START_GAME fires to set currentGameId.
-            // GAME_UPDATE callbacks can arrive during this window and should be
-            // dropped — they're for the game that hasn't been established yet.
-            logger.warn("[" + client.getUsername() + "] Ignoring " + method
-                    + " for game " + callbackGameId + " (no currentGameId)");
-            return true;
+            return "no_current_game_id";
         }
         if (!gameId.equals(callbackGameId)) {
-            logger.warn("[" + client.getUsername() + "] Ignoring " + method
-                    + " for non-current game " + callbackGameId + " (currentGameId=" + gameId + ")");
-            return true;
+            return "non_current_game";
         }
         if (!activeGames.containsKey(callbackGameId)) {
-            logger.warn("[" + client.getUsername() + "] Ignoring " + method
-                    + " for inactive game " + callbackGameId + " (not in activeGames)");
-            return true;
+            return "inactive_game";
         }
-        return false;
+        return null;
+    }
+
+    private boolean shouldIgnoreNonCurrentGameCallback(
+            UUID callbackGameId,
+            ClientCallbackMethod method,
+            String ignoreReason) {
+        if (ignoreReason == null) {
+            return false;
+        }
+
+        String warnMessage;
+        if ("no_current_game_id".equals(ignoreReason)) {
+            warnMessage = "Ignoring " + method + " for game " + callbackGameId + " (no currentGameId)";
+        } else if ("non_current_game".equals(ignoreReason)) {
+            warnMessage = "Ignoring " + method + " for non-current game " + callbackGameId
+                + " (currentGameId=" + currentGameId + ")";
+        } else if ("inactive_game".equals(ignoreReason)) {
+            warnMessage = "Ignoring " + method + " for inactive game " + callbackGameId
+                + " (not in activeGames)";
+        } else {
+            warnMessage = "Ignoring " + method + " for game " + callbackGameId
+                + " (reason=" + ignoreReason + ")";
+        }
+        logger.warn("[" + client.getUsername() + "] " + warnMessage);
+        logBridgeEvent(
+            "CALLBACK_IGNORED",
+            callbackGameId,
+            method.name() + " | " + summarizeCallbackContext(callbackGameId, ignoreReason));
+        return true;
     }
 
     /**

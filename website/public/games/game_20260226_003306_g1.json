@@ -188705,12 +188705,16 @@
           2
         ],
         "answer": true,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
+        "blockers": [
+          "p2:p1"
+        ],
         "id": "p28",
         "index": 1,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "pay 2 life"
       },
@@ -188797,12 +188801,18 @@
           2
         ],
         "answer": true,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
+        "blockers": [
+          "p2:p1"
+        ],
         "id": "p35",
         "index": 1,
-        "mana_plan": "p28",
+        "mana_plan": [
+          "p28"
+        ],
         "pile": 1,
         "text": "casting emperor of bones"
       },
@@ -188817,7 +188827,8 @@
       "llmEventIndices": [
         50,
         51,
-        52
+        52,
+        53
       ],
       "subsequentActions": [],
       "actionSeq": 32,
@@ -188866,34 +188877,24 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": true,
       "chosenArgs": {
-        "amount": 2,
-        "amounts": [
-          2
-        ],
-        "answer": true,
-        "attackers": "p1",
-        "auto_tap": true,
-        "blockers": "p2:p1",
-        "id": "p35",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 1,
-        "text": "want to play a spell"
+        "answer": true
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 32,
-        "success": false,
-        "warning": "Both id and index provided; used id=p35, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p35 not found in current choices"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         56,
         57,
-        58
+        58,
+        59,
+        60
       ],
       "subsequentActions": [
         "Qwen3L Teach skip attack"
@@ -188917,34 +188918,24 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 2,
-        "amounts": [
-          2
-        ],
-        "answer": false,
-        "attackers": "p1",
-        "auto_tap": true,
-        "blockers": "p2:p1",
-        "id": "p35",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 1,
-        "text": "pass priority"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 35,
-        "success": false,
-        "warning": "Both id and index provided; used id=p35, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p35 not found in current choices"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         62,
         63,
-        64
+        64,
+        65,
+        66
       ],
       "subsequentActions": [],
       "actionSeq": 35,
@@ -188965,34 +188956,21 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": true,
       "chosenArgs": {
-        "amount": 2,
-        "amounts": [
-          2
-        ],
-        "answer": true,
-        "attackers": "p1",
-        "auto_tap": true,
-        "blockers": "p2:p1",
-        "id": "p35",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 1,
-        "text": "cast emperor of bones"
+        "answer": true
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 37,
-        "success": false,
-        "warning": "Both id and index provided; used id=p35, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p35 not found in current choices"
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         68,
         69,
-        70
+        70,
+        71,
+        73
       ],
       "subsequentActions": [],
       "actionSeq": 37,
@@ -189446,12 +189424,16 @@
           2
         ],
         "answer": false,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
+        "blockers": [
+          "p2:p1"
+        ],
         "id": "p25",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "pass priority"
       },
@@ -189597,12 +189579,16 @@
           2
         ],
         "answer": false,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
+        "blockers": [
+          "p2:p1"
+        ],
         "id": "p10",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "play bloodstained mire"
       },
@@ -189716,33 +189702,34 @@
           2
         ],
         "answer": true,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
-        "id": "p10",
+        "blockers": [
+          "p2:p1"
+        ],
+        "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "activate mire ability"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 81,
-        "success": false,
-        "warning": "Both id and index provided; used id=p10, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p10 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}, Pay 1 life, Sacrifice Bloodstained Mire: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "warning": "Ignored blockers parameter (not in declare_blockers phase)"
       },
       "llmEventIndices": [
         128,
         129,
-        130
+        130,
+        131,
+        132
       ],
       "subsequentActions": [
         "Qwen3L Teach loses 1 life from Bloodstained Mire",
@@ -189932,34 +189919,24 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 2,
-        "amounts": [
-          2
-        ],
-        "answer": false,
-        "attackers": "p1",
-        "auto_tap": true,
-        "blockers": "p2:p1",
-        "id": "p35",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 1,
-        "text": "pass priority"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 98,
-        "success": false,
-        "warning": "Both id and index provided; used id=p35, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p35 not found in current choices"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         142,
         143,
-        144
+        144,
+        145,
+        146
       ],
       "subsequentActions": [
         "Qwen3L Teach - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard.",
@@ -190604,12 +190581,16 @@
           2
         ],
         "answer": true,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
+        "blockers": [
+          "p2:p1"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "activate scalding tarn ability"
       },
@@ -190823,12 +190804,16 @@
           2
         ],
         "answer": false,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
+        "blockers": [
+          "p2:p1"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "pass priority"
       },
@@ -190884,7 +190869,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p35"
+        "attackers": [
+          "p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -190943,15 +190930,31 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p39', 'blocks': 'p35'}"
+        "blockers": [
+          "p39:p35"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p39\",\"blocks\":\"p35\"}]). Check the tool schema for correct parameter types."
+        "declared": [],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 167,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block",
+        "failed": [
+          {
+            "reason": "not a valid blocker",
+            "id": "p39"
+          }
+        ]
       },
       "llmEventIndices": [
         210,
         211,
-        212
+        212,
+        213,
+        214
       ],
       "subsequentActions": [
         "Attacker: Emperor of Bones (4/4) unblocked",
@@ -190991,12 +190994,16 @@
           2
         ],
         "answer": false,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
+        "blockers": [
+          "p2:p1"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "pass priority"
       },
@@ -191081,7 +191088,12 @@
       "chosen": 5,
       "chosenArgs": {
         "id": "p36",
-        "mana_plan": "p21,p22,p39,p39"
+        "mana_plan": [
+          "p21",
+          "p22",
+          "p39",
+          "p39"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -191237,56 +191249,24 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p36",
-        "mana_plan": "p21,p22,p39,p61"
+        "id": "p3"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 184,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p36 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{G}",
-            "name": "Delighted Halfling",
-            "index": 0,
-            "action": "cast",
-            "id": "p3",
-            "power": "1",
-            "toughness": "2"
-          },
-          {
-            "mana_cost": "{1}{G}",
-            "name": "Dredger's Insight",
-            "index": 1,
-            "action": "cast",
-            "id": "p18"
-          },
-          {
-            "mana_cost": "{X}{G}",
-            "name": "Green Sun's Zenith",
-            "index": 2,
-            "action": "cast",
-            "id": "p48"
-          },
-          {
-            "name": "Spymaster's Vault",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{B}, {T}: Target creature you control connives X,..."
-            ],
-            "id": "p22"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         232,
         233,
-        234
+        234,
+        235,
+        236
       ],
       "subsequentActions": [
         "MiniMx Rules casts Delighted Halfling from hand",
@@ -191344,7 +191324,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p18",
-        "mana_plan": "p61,p22"
+        "mana_plan": [
+          "p61",
+          "p22"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -191477,7 +191460,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p39,p53"
+        "attackers": [
+          "p39",
+          "p53"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -191720,12 +191706,16 @@
           2
         ],
         "answer": true,
-        "attackers": "p1",
+        "attackers": [
+          "p1"
+        ],
         "auto_tap": true,
-        "blockers": "p2:p1",
+        "blockers": [
+          "p2:p1"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "proceed with casting"
       },
@@ -192221,7 +192211,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p35"
+        "attackers": [
+          "p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -192272,7 +192264,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p3:p35"
+        "blockers": [
+          "p3:p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -192425,7 +192419,7 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 0,
         "answer": true,
@@ -192435,9 +192429,16 @@
         "auto_tap": true,
         "pile": 2,
         "index": 0,
-        "mana_plan": "p61,p21,p22,p39",
-        "attackers": "all",
-        "blockers": "",
+        "mana_plan": [
+          "p61",
+          "p21",
+          "p22",
+          "p39"
+        ],
+        "attackers": [
+          "all"
+        ],
+        "blockers": [],
         "id": "p36",
         "text": "p36"
       },
@@ -192721,21 +192722,26 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "index": 0
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 325,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options."
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         358,
         359,
-        360
+        360,
+        361,
+        362,
+        363,
+        364
       ],
       "subsequentActions": [
         "MiniMx Rules skip attack"
@@ -192950,34 +192956,21 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 2,
-        "answer": false,
-        "amounts": [
-          2
-        ],
-        "auto_tap": true,
-        "pile": 2,
-        "index": 0,
-        "mana_plan": "p84,p61",
-        "attackers": "all",
-        "blockers": "",
-        "id": "p19",
-        "text": "p19"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 339,
-        "success": false,
-        "warning": "Both id and index provided; used id=p19, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p19 not found in current choices"
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         376,
         379,
-        380
+        380,
+        381,
+        383
       ],
       "subsequentActions": [],
       "actionSeq": 339,
@@ -193154,7 +193147,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p35"
+        "attackers": [
+          "p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -193543,9 +193538,14 @@
         "auto_tap": true,
         "pile": 2,
         "index": 0,
-        "mana_plan": "p84,p21",
-        "attackers": "all",
-        "blockers": "",
+        "mana_plan": [
+          "p84",
+          "p21"
+        ],
+        "attackers": [
+          "all"
+        ],
+        "blockers": [],
         "id": "p93",
         "text": "p93"
       },
@@ -193695,34 +193695,26 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 2,
-        "answer": true,
-        "amounts": [
-          2
-        ],
-        "auto_tap": true,
-        "pile": 2,
-        "index": 0,
-        "mana_plan": "p61,p84",
-        "attackers": "all",
-        "blockers": "",
-        "id": "p19",
-        "text": "p19"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 384,
-        "success": false,
-        "warning": "Both id and index provided; used id=p19, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p19 not found in current choices"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         434,
         435,
-        436
+        436,
+        437,
+        438,
+        439,
+        440
       ],
       "subsequentActions": [],
       "actionSeq": 384,
@@ -194277,7 +194269,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p35"
+        "attackers": [
+          "p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -194977,96 +194971,21 @@
       ],
       "choiceCount": 9,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p74"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 454,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p74 not found in current choices",
-        "choices": [
-          {
-            "name": "Emperor of Bones",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
-            ],
-            "id": "p35"
-          },
-          {
-            "name": "Faithless Looting",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {2}{R}"
-            ],
-            "id": "p11"
-          },
-          {
-            "name": "Faithless Looting",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {2}{R}"
-            ],
-            "id": "p77"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Faithless Looting",
-            "index": 3,
-            "action": "cast",
-            "id": "p86"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Fatal Push",
-            "index": 4,
-            "action": "cast",
-            "id": "p26"
-          },
-          {
-            "name": "Polluted Delta",
-            "index": 5,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p13"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Ragavan, Nimble Pilferer",
-            "index": 6,
-            "action": "cast",
-            "id": "p104",
-            "power": "2",
-            "toughness": "1"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Thoughtseize",
-            "index": 7,
-            "action": "cast",
-            "id": "p97"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Unearth",
-            "index": 8,
-            "action": "cast",
-            "id": "p43"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         510,
         513,
-        514
+        514,
+        515,
+        518
       ],
       "subsequentActions": [],
       "actionSeq": 454,
@@ -195322,7 +195241,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p35"
+        "attackers": [
+          "p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -195373,15 +195294,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p36', 'blocks': 'p35'}"
+        "blockers": [
+          "p36:p35"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p36\",\"blocks\":\"p35\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "blocks": "p35",
+            "id": "p36"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 477,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         537,
         538,
-        539
+        539,
+        540,
+        541
       ],
       "subsequentActions": [
         "Attacker: Emperor of Bones (3/3) blocked by Yawgmoth, Thran Physician (2/4)",
@@ -195617,31 +195553,24 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 489,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {B}."
-          },
-          {
-            "index": 1,
-            "description": "2. {B}, {T}: Target creature you control connives X, where X is the number of creatures that died this turn."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         551,
         552,
-        553
+        553,
+        554,
+        555
       ],
       "subsequentActions": [],
       "actionSeq": 489,
@@ -195928,42 +195857,22 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "amounts": [
-          0
-        ],
-        "answer": false,
-        "attackers": "p35",
-        "auto_tap": false,
-        "blockers": "p5:p1",
-        "id": "p28",
-        "index": 0,
-        "mana_plan": "p28",
-        "pile": 0,
-        "text": "producing {U}"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 508,
-        "success": false,
-        "warning": "Both id and index provided; used id=p28, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p28 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {B}."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         571,
         572,
-        573
+        573,
+        574,
+        575
       ],
       "subsequentActions": [
         "Qwen3L Teach casts Psychic Frog from hand",
@@ -196261,12 +196170,17 @@
           0
         ],
         "answer": false,
-        "attackers": "p35,p111",
+        "attackers": [
+          "p35",
+          "p111"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1",
+        "blockers": [
+          "p5:p1"
+        ],
         "id": "p35",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": "attacking"
       },
@@ -196403,7 +196317,7 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
@@ -196414,9 +196328,15 @@
         "auto_tap": true,
         "pile": 1,
         "index": 1,
-        "mana_plan": "p84",
-        "attackers": "all",
-        "blockers": "p36:p35",
+        "mana_plan": [
+          "p84"
+        ],
+        "attackers": [
+          "all"
+        ],
+        "blockers": [
+          "p36:p35"
+        ],
         "id": "p36",
         "text": "second"
       },
@@ -196919,7 +196839,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p36,p108"
+        "attackers": [
+          "p36",
+          "p108"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -196996,15 +196919,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p111', 'blocks': 'p36'}"
+        "blockers": [
+          "p111:p36"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p111\",\"blocks\":\"p36\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p111",
+            "blocks": "p36"
+          }
+        ],
+        "game_seq": 580,
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         645,
         646,
-        647
+        647,
+        648,
+        650
       ],
       "subsequentActions": [
         "Attacker: Yawgmoth, Thran Physician (2/4) blocked by Psychic Frog (1/2)",
@@ -197769,7 +197704,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p35"
+        "attackers": [
+          "p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -197838,15 +197775,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p116', 'blocks': 'p35'}"
+        "blockers": [
+          "p116:p35"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p116\",\"blocks\":\"p35\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "blocks": "p35",
+            "id": "p116"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 622,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         687,
         688,
-        689
+        689,
+        690,
+        691
       ],
       "subsequentActions": [
         "Attacker: Emperor of Bones (3/3) blocked by Walking Ballista (2/2)",
@@ -198275,7 +198227,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -198592,9 +198546,17 @@
         "auto_tap": true,
         "pile": 1,
         "index": 0,
-        "mana_plan": "p84,p102",
-        "attackers": "p36,p108",
-        "blockers": "p116:p35",
+        "mana_plan": [
+          "p84",
+          "p102"
+        ],
+        "attackers": [
+          "p36",
+          "p108"
+        ],
+        "blockers": [
+          "p116:p35"
+        ],
         "id": "p106",
         "text": "Forest"
       },
@@ -198713,102 +198675,24 @@
       ],
       "choiceCount": 10,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p74"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 690,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p74 not found in current choices",
-        "choices": [
-          {
-            "name": "Emperor of Bones",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
-            ],
-            "id": "p35"
-          },
-          {
-            "mana_cost": "{1}{B}",
-            "name": "Emperor of Bones",
-            "index": 1,
-            "action": "cast",
-            "id": "p121",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "name": "Faithless Looting",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {2}{R}"
-            ],
-            "id": "p11"
-          },
-          {
-            "name": "Faithless Looting",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {2}{R}"
-            ],
-            "id": "p77"
-          },
-          {
-            "name": "Faithless Looting",
-            "index": 4,
-            "action": "activate",
-            "playable_abilities": [
-              "Flashback {2}{R}"
-            ],
-            "id": "p86"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Fatal Push",
-            "index": 5,
-            "action": "cast",
-            "id": "p26"
-          },
-          {
-            "name": "Polluted Delta",
-            "index": 6,
-            "action": "land",
-            "id": "p124"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Thoughtseize",
-            "index": 7,
-            "action": "cast",
-            "id": "p97"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Unearth",
-            "index": 8,
-            "action": "cast",
-            "id": "p16"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Unearth",
-            "index": 9,
-            "action": "cast",
-            "id": "p43"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         747,
         748,
-        749
+        749,
+        750,
+        751
       ],
       "subsequentActions": [],
       "actionSeq": 690,
@@ -198978,12 +198862,12 @@
           27
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p27",
         "index": 18,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": ""
       },
@@ -199045,7 +198929,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p35"
+        "attackers": [
+          "p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -199122,7 +199008,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p106:p35"
+        "blockers": [
+          "p106:p35"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -199631,7 +199519,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -200486,12 +200376,14 @@
           0
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p108",
         "index": 2,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -200567,12 +200459,14 @@
           0
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -200740,12 +200634,12 @@
           0
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p97",
         "index": 5,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -200893,42 +200787,24 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "id": "p150"
+        "index": 1
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
         "game_seq": 829,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p150 not found in current choices",
-        "choices": [
-          {
-            "name": "Spymaster's Vault",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{B}, {T}: Target creature you control connives X,..."
-            ],
-            "id": "p22"
-          },
-          {
-            "name": "Yawgmoth, Thran Physician",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "Pay 1 life, Sacrifice another creature: Put a -1/...",
-              "{B}{B}, Discard a card: Proliferate. <i>(Choose a..."
-            ],
-            "id": "p36"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         861,
         862,
-        863
+        863,
+        864,
+        865
       ],
       "subsequentActions": [
         "MiniMx Rules loses 1 life from Yawgmoth, Thran Physician",
@@ -201177,7 +201053,8 @@
       "llmEventIndices": [
         891,
         892,
-        893
+        893,
+        896
       ],
       "subsequentActions": [
         "MiniMx Rules has lost the game."

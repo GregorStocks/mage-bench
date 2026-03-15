@@ -85880,10 +85880,8 @@
         6,
         14
       ],
-      "subsequentActions": [
-        "Grok4F ESPN chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -86265,10 +86263,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "DSV3 Stoic's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -86393,7 +86389,7 @@
         18
       ],
       "subsequentActions": [],
-      "actionSeq": 10
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -86531,12 +86527,8 @@
         15,
         16
       ],
-      "subsequentActions": [
-        "DSV3 Stoic's library is shuffled",
-        "DSV3 Stoic puts a card from hand to the bottom of their library",
-        "Grok4F ESPN skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -86668,7 +86660,7 @@
         20
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -86796,11 +86788,8 @@
         19,
         22
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skips Draw step",
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 12
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 8,
@@ -86926,7 +86915,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 22,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -87094,7 +87083,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -87418,10 +87407,8 @@
         29,
         30
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 26,
+      "subsequentActions": [],
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -87567,7 +87554,7 @@
         36
       ],
       "subsequentActions": [],
-      "actionSeq": 30,
+      "actionSeq": 33,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -87716,11 +87703,8 @@
         35,
         38
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Plains from hand onto the Battlefield",
-        "DSV3 Stoic casts Pious Wayfarer from hand"
-      ],
-      "actionSeq": 24,
+      "subsequentActions": [],
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -87861,7 +87845,7 @@
         40
       ],
       "subsequentActions": [],
-      "actionSeq": 33,
+      "actionSeq": 36,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -88009,10 +87993,8 @@
         39,
         42
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Pious Wayfarer from stack onto the Battlefield"
-      ],
-      "actionSeq": 34,
+      "subsequentActions": [],
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -88154,7 +88136,7 @@
         44
       ],
       "subsequentActions": [],
-      "actionSeq": 36
+      "actionSeq": 40
     },
     {
       "index": 18,
@@ -88299,10 +88281,8 @@
         43,
         46
       ],
-      "subsequentActions": [
-        "DSV3 Stoic skip attack"
-      ],
-      "actionSeq": 37,
+      "subsequentActions": [],
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -88451,7 +88431,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 40,
+      "actionSeq": 42,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -88621,7 +88601,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 41,
+      "actionSeq": 43,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -88807,7 +88787,7 @@
         50
       ],
       "subsequentActions": [],
-      "actionSeq": 43,
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -89004,7 +88984,7 @@
         54
       ],
       "subsequentActions": [],
-      "actionSeq": 44,
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -89085,10 +89065,9 @@
         60
       ],
       "subsequentActions": [
-        "Grok4F ESPN skip attack",
         "Grok4F ESPN casts Draconic Roar targeting Pious Wayfarer from hand"
       ],
-      "actionSeq": 48,
+      "actionSeq": 52,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -89405,12 +89384,8 @@
         65,
         66
       ],
-      "subsequentActions": [
-        "Draconic Roar deals 3 damage to Pious Wayfarer",
-        "Grok4F ESPN puts Draconic Roar from stack into their graveyard",
-        "Pious Wayfarer died"
-      ],
-      "actionSeq": 57
+      "subsequentActions": [],
+      "actionSeq": 62
     },
     {
       "index": 27,
@@ -89578,7 +89553,7 @@
         75
       ],
       "subsequentActions": [],
-      "actionSeq": 62,
+      "actionSeq": 64,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -89949,10 +89924,8 @@
         72,
         73
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 66,
+      "subsequentActions": [],
+      "actionSeq": 70,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -90125,7 +90098,7 @@
         79
       ],
       "subsequentActions": [],
-      "actionSeq": 70,
+      "actionSeq": 74,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -90302,11 +90275,8 @@
         78,
         83
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Swamp from hand onto the Battlefield",
-        "DSV3 Stoic casts Black Cat from hand"
-      ],
-      "actionSeq": 64
+      "subsequentActions": [],
+      "actionSeq": 75
     },
     {
       "index": 32,
@@ -90472,7 +90442,7 @@
         85
       ],
       "subsequentActions": [],
-      "actionSeq": 74,
+      "actionSeq": 77,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -90648,10 +90618,8 @@
         84,
         87
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Black Cat from stack onto the Battlefield"
-      ],
-      "actionSeq": 75
+      "subsequentActions": [],
+      "actionSeq": 78
     },
     {
       "index": 34,
@@ -90817,7 +90785,7 @@
         89
       ],
       "subsequentActions": [],
-      "actionSeq": 77
+      "actionSeq": 81
     },
     {
       "index": 35,
@@ -90990,10 +90958,8 @@
         88,
         91
       ],
-      "subsequentActions": [
-        "DSV3 Stoic skip attack"
-      ],
-      "actionSeq": 78
+      "subsequentActions": [],
+      "actionSeq": 82
     },
     {
       "index": 36,
@@ -91173,7 +91139,7 @@
         104
       ],
       "subsequentActions": [],
-      "actionSeq": 81,
+      "actionSeq": 83,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -91372,7 +91338,7 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 82
+      "actionSeq": 84
     },
     {
       "index": 38,
@@ -91589,7 +91555,7 @@
         96
       ],
       "subsequentActions": [],
-      "actionSeq": 84,
+      "actionSeq": 85,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -91825,7 +91791,7 @@
         98
       ],
       "subsequentActions": [],
-      "actionSeq": 85,
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -92047,7 +92013,7 @@
         100
       ],
       "subsequentActions": [],
-      "actionSeq": 86,
+      "actionSeq": 87,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -92251,7 +92217,7 @@
         102
       ],
       "subsequentActions": [],
-      "actionSeq": 87,
+      "actionSeq": 88,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -92446,7 +92412,7 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 88,
+      "actionSeq": 94,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92627,10 +92593,8 @@
         105,
         108
       ],
-      "subsequentActions": [
-        "Grok4F ESPN casts Chandra's Pyrohelix targeting Black Cat (1) DSV3 Stoic (1) from hand"
-      ],
-      "actionSeq": 83
+      "subsequentActions": [],
+      "actionSeq": 95
     },
     {
       "index": 44,
@@ -92809,7 +92773,7 @@
         110
       ],
       "subsequentActions": [],
-      "actionSeq": 94,
+      "actionSeq": 102,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92988,14 +92952,8 @@
         109,
         113
       ],
-      "subsequentActions": [
-        "Chandra's Pyrohelix deals 1 damage to Black Cat",
-        "DSV3 Stoic loses 1 life from Chandra's Pyrohelix",
-        "Grok4F ESPN puts Chandra's Pyrohelix from stack into their graveyard",
-        "Black Cat died",
-        "DSV3 Stoic - Ability triggers: Black Cat - When Black Cat dies, target opponent discards a card at random. - targeting Grok4F ESPN"
-      ],
-      "actionSeq": 95
+      "subsequentActions": [],
+      "actionSeq": 103
     },
     {
       "index": 46,
@@ -93173,7 +93131,7 @@
         115
       ],
       "subsequentActions": [],
-      "actionSeq": 102,
+      "actionSeq": 105,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93379,10 +93337,8 @@
         116,
         117
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 105
+      "subsequentActions": [],
+      "actionSeq": 109
     },
     {
       "index": 49,
@@ -93572,7 +93528,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 109,
+      "actionSeq": 111,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -94002,7 +93958,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 113,
+      "actionSeq": 114,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -94215,7 +94171,7 @@
         126
       ],
       "subsequentActions": [],
-      "actionSeq": 114,
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -94410,7 +94366,7 @@
         131
       ],
       "subsequentActions": [],
-      "actionSeq": 115,
+      "actionSeq": 120,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -94603,11 +94559,8 @@
         129,
         133
       ],
-      "subsequentActions": [
-        "Thriving Moor: DSV3 Stoic has chosen White",
-        "DSV3 Stoic puts Thriving Moor from hand onto the Battlefield"
-      ],
-      "actionSeq": 111
+      "subsequentActions": [],
+      "actionSeq": 121
     },
     {
       "index": 55,
@@ -94796,7 +94749,7 @@
         135
       ],
       "subsequentActions": [],
-      "actionSeq": 120,
+      "actionSeq": 124,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -94988,10 +94941,8 @@
         134,
         137
       ],
-      "subsequentActions": [
-        "DSV3 Stoic skip attack"
-      ],
-      "actionSeq": 121
+      "subsequentActions": [],
+      "actionSeq": 125
     },
     {
       "index": 57,
@@ -95192,7 +95143,7 @@
         150
       ],
       "subsequentActions": [],
-      "actionSeq": 124,
+      "actionSeq": 126,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -95405,7 +95356,7 @@
         140
       ],
       "subsequentActions": [],
-      "actionSeq": 125
+      "actionSeq": 127
     },
     {
       "index": 59,
@@ -95624,7 +95575,7 @@
         143
       ],
       "subsequentActions": [],
-      "actionSeq": 127,
+      "actionSeq": 128,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -95834,10 +95785,8 @@
         146,
         148
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 128,
+      "subsequentActions": [],
+      "actionSeq": 132,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -96044,7 +95993,7 @@
         152
       ],
       "subsequentActions": [],
-      "actionSeq": 132,
+      "actionSeq": 137,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -96254,11 +96203,8 @@
         151,
         154
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield",
-        "Grok4F ESPN casts Chandra's Spitfire from hand"
-      ],
-      "actionSeq": 126,
+      "subsequentActions": [],
+      "actionSeq": 138,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -96460,7 +96406,7 @@
         156
       ],
       "subsequentActions": [],
-      "actionSeq": 137,
+      "actionSeq": 140,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -96670,10 +96616,8 @@
         155,
         159
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Chandra's Spitfire from stack onto the Battlefield"
-      ],
-      "actionSeq": 138,
+      "subsequentActions": [],
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -96876,7 +96820,7 @@
         161
       ],
       "subsequentActions": [],
-      "actionSeq": 140
+      "actionSeq": 144
     },
     {
       "index": 66,
@@ -97083,10 +97027,8 @@
         160,
         164
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 141,
+      "subsequentActions": [],
+      "actionSeq": 145,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -97307,7 +97249,7 @@
         174
       ],
       "subsequentActions": [],
-      "actionSeq": 144,
+      "actionSeq": 146,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -97546,7 +97488,7 @@
         166
       ],
       "subsequentActions": [],
-      "actionSeq": 145,
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -97802,7 +97744,7 @@
         168
       ],
       "subsequentActions": [],
-      "actionSeq": 147,
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -98056,10 +97998,8 @@
         169,
         170
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 148,
+      "subsequentActions": [],
+      "actionSeq": 152,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -98295,7 +98235,7 @@
         172
       ],
       "subsequentActions": [],
-      "actionSeq": 152,
+      "actionSeq": 156,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -98510,7 +98450,7 @@
         177
       ],
       "subsequentActions": [],
-      "actionSeq": 156,
+      "actionSeq": 159,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -98722,11 +98662,8 @@
         175,
         179
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Swamp from hand onto the Battlefield",
-        "DSV3 Stoic casts Strangling Spores targeting Chandra's Spitfire from hand"
-      ],
-      "actionSeq": 146
+      "subsequentActions": [],
+      "actionSeq": 160
     },
     {
       "index": 74,
@@ -98936,7 +98873,7 @@
         182
       ],
       "subsequentActions": [],
-      "actionSeq": 159,
+      "actionSeq": 163,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -99148,11 +99085,8 @@
         180,
         184
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Strangling Spores from stack into their graveyard",
-        "Chandra's Spitfire is put into graveyard from battlefield"
-      ],
-      "actionSeq": 160
+      "subsequentActions": [],
+      "actionSeq": 164
     },
     {
       "index": 76,
@@ -99363,7 +99297,7 @@
         186
       ],
       "subsequentActions": [],
-      "actionSeq": 163
+      "actionSeq": 167
     },
     {
       "index": 77,
@@ -99572,10 +99506,8 @@
         185,
         188
       ],
-      "subsequentActions": [
-        "DSV3 Stoic skip attack"
-      ],
-      "actionSeq": 164
+      "subsequentActions": [],
+      "actionSeq": 168
     },
     {
       "index": 78,
@@ -99799,7 +99731,7 @@
         198
       ],
       "subsequentActions": [],
-      "actionSeq": 167,
+      "actionSeq": 169,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -100033,7 +99965,7 @@
         191
       ],
       "subsequentActions": [],
-      "actionSeq": 168
+      "actionSeq": 170
     },
     {
       "index": 80,
@@ -100280,7 +100212,7 @@
         194
       ],
       "subsequentActions": [],
-      "actionSeq": 170,
+      "actionSeq": 171,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -100520,7 +100452,7 @@
         196
       ],
       "subsequentActions": [],
-      "actionSeq": 171,
+      "actionSeq": 174,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -100773,7 +100705,7 @@
         200
       ],
       "subsequentActions": [],
-      "actionSeq": 174,
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -101011,11 +100943,8 @@
         199,
         206
       ],
-      "subsequentActions": [
-        "Grok4F ESPN discards Dragonloft Idol (source: Thrill of Possibility)",
-        "Grok4F ESPN casts Thrill of Possibility from hand"
-      ],
-      "actionSeq": 169
+      "subsequentActions": [],
+      "actionSeq": 180
     },
     {
       "index": 84,
@@ -101260,10 +101189,8 @@
         201,
         203
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Thrill of Possibility from stack into their graveyard"
-      ],
-      "actionSeq": 179,
+      "subsequentActions": [],
+      "actionSeq": 182,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -101503,7 +101430,7 @@
         208
       ],
       "subsequentActions": [],
-      "actionSeq": 182,
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -101741,11 +101668,8 @@
         207,
         211
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Thrill of Possibility from stack into their graveyard",
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 180
+      "subsequentActions": [],
+      "actionSeq": 185
     },
     {
       "index": 87,
@@ -101978,7 +101902,7 @@
         213
       ],
       "subsequentActions": [],
-      "actionSeq": 184,
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -102215,10 +102139,8 @@
         212,
         216
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 185
+      "subsequentActions": [],
+      "actionSeq": 189
     },
     {
       "index": 89,
@@ -102455,7 +102377,7 @@
         224
       ],
       "subsequentActions": [],
-      "actionSeq": 188,
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -102728,7 +102650,7 @@
         218
       ],
       "subsequentActions": [],
-      "actionSeq": 189
+      "actionSeq": 191
     },
     {
       "index": 91,
@@ -102998,7 +102920,7 @@
         220
       ],
       "subsequentActions": [],
-      "actionSeq": 191,
+      "actionSeq": 192,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -103256,7 +103178,7 @@
         222
       ],
       "subsequentActions": [],
-      "actionSeq": 192,
+      "actionSeq": 196,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -103519,7 +103441,7 @@
         227
       ],
       "subsequentActions": [],
-      "actionSeq": 196,
+      "actionSeq": 200,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -103766,10 +103688,8 @@
         225,
         233
       ],
-      "subsequentActions": [
-        "DSV3 Stoic casts Devouring Swarm from hand"
-      ],
-      "actionSeq": 190,
+      "subsequentActions": [],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -103839,12 +103759,11 @@
       "llmEventIndices": [
         227,
         228,
-        229
+        229,
+        230
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Devouring Swarm from stack onto the Battlefield"
-      ],
-      "actionSeq": 200,
+      "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -104379,10 +104298,8 @@
         244,
         251
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Devouring Swarm from stack onto the Battlefield"
-      ],
-      "actionSeq": 201,
+      "subsequentActions": [],
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -104653,10 +104570,8 @@
         236,
         237
       ],
-      "subsequentActions": [
-        "DSV3 Stoic skip attack"
-      ],
-      "actionSeq": 203,
+      "subsequentActions": [],
+      "actionSeq": 207,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -104927,7 +104842,7 @@
         240
       ],
       "subsequentActions": [],
-      "actionSeq": 207,
+      "actionSeq": 209,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -105199,7 +105114,7 @@
         242
       ],
       "subsequentActions": [],
-      "actionSeq": 209,
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -105469,10 +105384,8 @@
         243,
         245
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 212,
+      "subsequentActions": [],
+      "actionSeq": 217,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -105777,7 +105690,7 @@
         247
       ],
       "subsequentActions": [],
-      "actionSeq": 217,
+      "actionSeq": 219,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -106107,7 +106020,7 @@
         249
       ],
       "subsequentActions": [],
-      "actionSeq": 219,
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -106423,7 +106336,7 @@
         255
       ],
       "subsequentActions": [],
-      "actionSeq": 220,
+      "actionSeq": 224,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -106761,7 +106674,7 @@
         257
       ],
       "subsequentActions": [],
-      "actionSeq": 224,
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -107054,10 +106967,8 @@
         258,
         259
       ],
-      "subsequentActions": [
-        "DSV3 Stoic attacks Grok4F ESPN with 1 creature"
-      ],
-      "actionSeq": 226,
+      "subsequentActions": [],
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -107349,10 +107260,8 @@
         260,
         261
       ],
-      "subsequentActions": [
-        "Attacker: Devouring Swarm (2/1) unblocked"
-      ],
-      "actionSeq": 230,
+      "subsequentActions": [],
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -107659,10 +107568,8 @@
         262,
         263
       ],
-      "subsequentActions": [
-        "Grok4F ESPN loses 2 life at combat from Devouring Swarm"
-      ],
-      "actionSeq": 234,
+      "subsequentActions": [],
+      "actionSeq": 238,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -107961,7 +107868,7 @@
         265
       ],
       "subsequentActions": [],
-      "actionSeq": 238,
+      "actionSeq": 240,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -108241,7 +108148,7 @@
         267
       ],
       "subsequentActions": [],
-      "actionSeq": 240,
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -108527,10 +108434,8 @@
         268,
         269
       ],
-      "subsequentActions": [
-        "DSV3 Stoic casts Plaguecrafter from hand"
-      ],
-      "actionSeq": 244,
+      "subsequentActions": [],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -108826,11 +108731,8 @@
         270,
         271
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Plaguecrafter from stack onto the Battlefield",
-        "DSV3 Stoic - Ability triggers: Plaguecrafter - When Plaguecrafter enters, each player sacrifices a creature or planeswalker of their choice. Each player who can't discards a card."
-      ],
-      "actionSeq": 247,
+      "subsequentActions": [],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -109114,7 +109016,7 @@
       "subsequentActions": [
         "DSV3 Stoic sacrificed Devouring Swarm (source: Plaguecrafter)"
       ],
-      "actionSeq": 251,
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -109683,10 +109585,8 @@
         277,
         289
       ],
-      "subsequentActions": [
-        "DSV3 Stoic sacrificed Devouring Swarm (source: Plaguecrafter)"
-      ],
-      "actionSeq": 253,
+      "subsequentActions": [],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -110333,10 +110233,8 @@
         284,
         286
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 259,
+      "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -110619,7 +110517,7 @@
         291
       ],
       "subsequentActions": [],
-      "actionSeq": 263,
+      "actionSeq": 270,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -110899,11 +110797,8 @@
         290,
         294
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield",
-        "Grok4F ESPN casts Coalborn Entity from hand"
-      ],
-      "actionSeq": 257,
+      "subsequentActions": [],
+      "actionSeq": 271,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -111180,7 +111075,7 @@
         296
       ],
       "subsequentActions": [],
-      "actionSeq": 270,
+      "actionSeq": 273,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -111460,10 +111355,8 @@
         295,
         299
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Coalborn Entity from stack onto the Battlefield"
-      ],
-      "actionSeq": 271,
+      "subsequentActions": [],
+      "actionSeq": 274,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -111741,7 +111634,7 @@
         301
       ],
       "subsequentActions": [],
-      "actionSeq": 273
+      "actionSeq": 277
     },
     {
       "index": 125,
@@ -112018,10 +111911,8 @@
         300,
         304
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 274,
+      "subsequentActions": [],
+      "actionSeq": 278,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -112309,7 +112200,7 @@
         312
       ],
       "subsequentActions": [],
-      "actionSeq": 277,
+      "actionSeq": 279,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -112622,7 +112513,7 @@
         306
       ],
       "subsequentActions": [],
-      "actionSeq": 278,
+      "actionSeq": 280,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -112943,7 +112834,7 @@
         308
       ],
       "subsequentActions": [],
-      "actionSeq": 280,
+      "actionSeq": 281,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -113251,7 +113142,7 @@
         310
       ],
       "subsequentActions": [],
-      "actionSeq": 281,
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -113558,7 +113449,7 @@
         315
       ],
       "subsequentActions": [],
-      "actionSeq": 285,
+      "actionSeq": 289,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -113857,10 +113748,8 @@
         313,
         317
       ],
-      "subsequentActions": [
-        "DSV3 Stoic casts Chains of Custody targeting Plaguecrafter from hand"
-      ],
-      "actionSeq": 279
+      "subsequentActions": [],
+      "actionSeq": 290
     },
     {
       "index": 132,
@@ -114150,7 +114039,7 @@
         320
       ],
       "subsequentActions": [],
-      "actionSeq": 289,
+      "actionSeq": 293,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -114436,11 +114325,8 @@
         318,
         322
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Chains of Custody from stack onto the Battlefield",
-        "DSV3 Stoic - Ability triggers: Chains of Custody - When Chains of Custody enters, exile target nonland permanent an opponent controls until Chains of Custody leaves the battlefield. - targeting Coalborn Entity"
-      ],
-      "actionSeq": 290
+      "subsequentActions": [],
+      "actionSeq": 294
     },
     {
       "index": 134,
@@ -114746,7 +114632,7 @@
         325
       ],
       "subsequentActions": [],
-      "actionSeq": 293,
+      "actionSeq": 296,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -115046,10 +114932,8 @@
         323,
         329
       ],
-      "subsequentActions": [
-        "DSV3 Stoic moves Coalborn Entity from battlefield to the exile zone (source: Chains of Custody)"
-      ],
-      "actionSeq": 294
+      "subsequentActions": [],
+      "actionSeq": 297
     },
     {
       "index": 136,
@@ -115372,7 +115256,7 @@
         327
       ],
       "subsequentActions": [],
-      "actionSeq": 296,
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -115679,7 +115563,7 @@
         332
       ],
       "subsequentActions": [],
-      "actionSeq": 298,
+      "actionSeq": 302,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -115978,10 +115862,8 @@
         330,
         334
       ],
-      "subsequentActions": [
-        "DSV3 Stoic attacks Grok4F ESPN with 1 creature"
-      ],
-      "actionSeq": 297
+      "subsequentActions": [],
+      "actionSeq": 303
     },
     {
       "index": 139,
@@ -116284,7 +116166,7 @@
         337
       ],
       "subsequentActions": [],
-      "actionSeq": 302,
+      "actionSeq": 306,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -116583,10 +116465,8 @@
         335,
         339
       ],
-      "subsequentActions": [
-        "Attacker: Plaguecrafter (3/2) unblocked"
-      ],
-      "actionSeq": 303
+      "subsequentActions": [],
+      "actionSeq": 307
     },
     {
       "index": 141,
@@ -116876,7 +116756,7 @@
         342
       ],
       "subsequentActions": [],
-      "actionSeq": 306,
+      "actionSeq": 310,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -117161,10 +117041,8 @@
         340,
         344
       ],
-      "subsequentActions": [
-        "Grok4F ESPN loses 3 life at combat from Plaguecrafter"
-      ],
-      "actionSeq": 307
+      "subsequentActions": [],
+      "actionSeq": 311
     },
     {
       "index": 143,
@@ -117466,7 +117344,7 @@
         356
       ],
       "subsequentActions": [],
-      "actionSeq": 310,
+      "actionSeq": 312,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -117785,7 +117663,7 @@
         347
       ],
       "subsequentActions": [],
-      "actionSeq": 311
+      "actionSeq": 313
     },
     {
       "index": 145,
@@ -118109,7 +117987,7 @@
         350
       ],
       "subsequentActions": [],
-      "actionSeq": 313,
+      "actionSeq": 314,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -118417,10 +118295,8 @@
         351,
         353
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 314,
+      "subsequentActions": [],
+      "actionSeq": 318,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -118724,7 +118600,7 @@
         358
       ],
       "subsequentActions": [],
-      "actionSeq": 318,
+      "actionSeq": 324,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -119035,11 +118911,8 @@
         357,
         361
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield",
-        "Grok4F ESPN casts Wildfire Elemental from hand"
-      ],
-      "actionSeq": 312,
+      "subsequentActions": [],
+      "actionSeq": 325,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -119338,7 +119211,7 @@
         363
       ],
       "subsequentActions": [],
-      "actionSeq": 324,
+      "actionSeq": 327,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -119649,10 +119522,8 @@
         362,
         366
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Wildfire Elemental from stack onto the Battlefield"
-      ],
-      "actionSeq": 325,
+      "subsequentActions": [],
+      "actionSeq": 328,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -119952,7 +119823,7 @@
         368
       ],
       "subsequentActions": [],
-      "actionSeq": 327,
+      "actionSeq": 331,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -120262,10 +120133,8 @@
         367,
         371
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 328,
+      "subsequentActions": [],
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -120577,7 +120446,7 @@
         381
       ],
       "subsequentActions": [],
-      "actionSeq": 331,
+      "actionSeq": 333,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -120917,7 +120786,7 @@
         373
       ],
       "subsequentActions": [],
-      "actionSeq": 332,
+      "actionSeq": 334,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121275,7 +121144,7 @@
         375
       ],
       "subsequentActions": [],
-      "actionSeq": 334,
+      "actionSeq": 335,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -121622,10 +121491,8 @@
         376,
         377
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 335,
+      "subsequentActions": [],
+      "actionSeq": 339,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -121952,7 +121819,7 @@
         379
       ],
       "subsequentActions": [],
-      "actionSeq": 339,
+      "actionSeq": 343,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -122278,7 +122145,7 @@
         384
       ],
       "subsequentActions": [],
-      "actionSeq": 343,
+      "actionSeq": 348,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -122601,11 +122468,8 @@
         382,
         386
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Plains from hand onto the Battlefield",
-        "DSV3 Stoic casts Massacre Wurm from hand"
-      ],
-      "actionSeq": 333,
+      "subsequentActions": [],
+      "actionSeq": 349,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -122925,7 +122789,7 @@
         389
       ],
       "subsequentActions": [],
-      "actionSeq": 348,
+      "actionSeq": 352,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -123243,11 +123107,8 @@
         387,
         391
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Massacre Wurm from stack onto the Battlefield",
-        "DSV3 Stoic - Ability triggers: Massacre Wurm - When Massacre Wurm enters, creatures your opponents control get -2/-2 until end of turn."
-      ],
-      "actionSeq": 349,
+      "subsequentActions": [],
+      "actionSeq": 353,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -123583,7 +123444,7 @@
         394
       ],
       "subsequentActions": [],
-      "actionSeq": 352,
+      "actionSeq": 354,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -123902,7 +123763,7 @@
         398
       ],
       "subsequentActions": [],
-      "actionSeq": 353,
+      "actionSeq": 355,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -124236,7 +124097,7 @@
         396
       ],
       "subsequentActions": [],
-      "actionSeq": 354,
+      "actionSeq": 356,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -124556,7 +124417,7 @@
         401
       ],
       "subsequentActions": [],
-      "actionSeq": 356
+      "actionSeq": 359
     },
     {
       "index": 166,
@@ -124871,10 +124732,8 @@
         399,
         403
       ],
-      "subsequentActions": [
-        "DSV3 Stoic skip attack"
-      ],
-      "actionSeq": 355,
+      "subsequentActions": [],
+      "actionSeq": 360,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -125204,7 +125063,7 @@
         422
       ],
       "subsequentActions": [],
-      "actionSeq": 359,
+      "actionSeq": 361,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -125542,7 +125401,7 @@
         406
       ],
       "subsequentActions": [],
-      "actionSeq": 360,
+      "actionSeq": 362,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -125887,7 +125746,7 @@
         413
       ],
       "subsequentActions": [],
-      "actionSeq": 362,
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -126255,7 +126114,7 @@
         416
       ],
       "subsequentActions": [],
-      "actionSeq": 363,
+      "actionSeq": 364,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -126614,7 +126473,7 @@
         419
       ],
       "subsequentActions": [],
-      "actionSeq": 364,
+      "actionSeq": 365,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -126938,7 +126797,7 @@
         424
       ],
       "subsequentActions": [],
-      "actionSeq": 365,
+      "actionSeq": 374,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -127260,10 +127119,8 @@
         423,
         427
       ],
-      "subsequentActions": [
-        "Grok4F ESPN casts Fiery Intervention (mode 1) targeting Massacre Wurm from hand"
-      ],
-      "actionSeq": 361
+      "subsequentActions": [],
+      "actionSeq": 375
     },
     {
       "index": 174,
@@ -127599,7 +127456,7 @@
         429
       ],
       "subsequentActions": [],
-      "actionSeq": 374,
+      "actionSeq": 379,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -127921,12 +127778,8 @@
         428,
         437
       ],
-      "subsequentActions": [
-        "Fiery Intervention deals 5 damage to Massacre Wurm",
-        "Grok4F ESPN puts Fiery Intervention from stack into their graveyard",
-        "Massacre Wurm died"
-      ],
-      "actionSeq": 375
+      "subsequentActions": [],
+      "actionSeq": 380
     },
     {
       "index": 176,
@@ -127956,17 +127809,17 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "no"
+        "choice": "no"
       },
       "actionResult": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "message": "Play instants and activated abilities",
+        "message": "Play spells and abilities",
         "response_type": "boolean",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
-        "context": "T9 Combat/Declare Attackers (Grok4F ESPN)",
+        "context": "T9 Postcombat Main/Postcombat Main (Grok4F ESPN) YOUR_MAIN",
         "board": [
           {
             "hand_size": 1,
@@ -128250,28 +128103,21 @@
         ],
         "board_cursor": 55,
         "untapped_lands": 1,
-        "game_seq": 381,
-        "error": "no: unknown short ID",
-        "action_taken": "batch_attack",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [],
-        "failed": [
-          {
-            "id": "no",
-            "reason": "unknown short ID"
-          }
-        ]
+        "game_seq": 384,
+        "land_drops_used": 0,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         429,
         430,
         432,
-        434
+        434,
+        435,
+        439
       ],
       "subsequentActions": [],
-      "actionSeq": 379,
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -128595,7 +128441,7 @@
         439
       ],
       "subsequentActions": [],
-      "actionSeq": 381,
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -128916,10 +128762,8 @@
         438,
         442
       ],
-      "subsequentActions": [
-        "Grok4F ESPN skip attack"
-      ],
-      "actionSeq": 380
+      "subsequentActions": [],
+      "actionSeq": 385
     },
     {
       "index": 179,
@@ -129243,7 +129087,7 @@
         452
       ],
       "subsequentActions": [],
-      "actionSeq": 384,
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -129598,7 +129442,7 @@
         444
       ],
       "subsequentActions": [],
-      "actionSeq": 385
+      "actionSeq": 387
     },
     {
       "index": 181,
@@ -129952,7 +129796,7 @@
         448
       ],
       "subsequentActions": [],
-      "actionSeq": 387,
+      "actionSeq": 388,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -130296,7 +130140,7 @@
         450
       ],
       "subsequentActions": [],
-      "actionSeq": 388,
+      "actionSeq": 392,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -130642,7 +130486,7 @@
         457
       ],
       "subsequentActions": [],
-      "actionSeq": 392,
+      "actionSeq": 398,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -130988,10 +130832,8 @@
         455,
         465
       ],
-      "subsequentActions": [
-        "DSV3 Stoic casts Captivating Unicorn from hand"
-      ],
-      "actionSeq": 386,
+      "subsequentActions": [],
+      "actionSeq": 399,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -131344,10 +131186,8 @@
         458,
         459
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Captivating Unicorn from stack onto the Battlefield"
-      ],
-      "actionSeq": 398,
+      "subsequentActions": [],
+      "actionSeq": 401,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -131715,7 +131555,7 @@
         461
       ],
       "subsequentActions": [],
-      "actionSeq": 401,
+      "actionSeq": 402,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -132073,7 +131913,7 @@
         463
       ],
       "subsequentActions": [],
-      "actionSeq": 402,
+      "actionSeq": 403,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -132430,7 +132270,7 @@
         468
       ],
       "subsequentActions": [],
-      "actionSeq": 403,
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -132789,12 +132629,8 @@
         466,
         472
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Captivating Unicorn from stack onto the Battlefield",
-        "Thriving Heath: DSV3 Stoic has chosen Black",
-        "DSV3 Stoic puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 399,
+      "subsequentActions": [],
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -133164,7 +133000,7 @@
         470
       ],
       "subsequentActions": [],
-      "actionSeq": 406,
+      "actionSeq": 408,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -133523,7 +133359,7 @@
         478
       ],
       "subsequentActions": [],
-      "actionSeq": 408,
+      "actionSeq": 412,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -133900,10 +133736,8 @@
         473,
         475
       ],
-      "subsequentActions": [
-        "DSV3 Stoic attacks Grok4F ESPN with 1 creature"
-      ],
-      "actionSeq": 407,
+      "subsequentActions": [],
+      "actionSeq": 413,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -134285,7 +134119,7 @@
         480
       ],
       "subsequentActions": [],
-      "actionSeq": 413,
+      "actionSeq": 414,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -134628,7 +134462,7 @@
         483
       ],
       "subsequentActions": [],
-      "actionSeq": 412,
+      "actionSeq": 418,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -134971,10 +134805,8 @@
         481,
         485
       ],
-      "subsequentActions": [
-        "Attacker: Plaguecrafter (3/2) blocked by Wildfire Elemental (3/3)"
-      ],
-      "actionSeq": 414,
+      "subsequentActions": [],
+      "actionSeq": 419,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -135302,7 +135134,7 @@
         488
       ],
       "subsequentActions": [],
-      "actionSeq": 418,
+      "actionSeq": 427,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -135638,14 +135470,8 @@
         486,
         490
       ],
-      "subsequentActions": [
-        "Wildfire Elemental deals 3 damage to Plaguecrafter",
-        "Plaguecrafter deals 3 damage to Wildfire Elemental",
-        "Plaguecrafter died",
-        "Chains of Custody is put into graveyard from battlefield",
-        "Wildfire Elemental died"
-      ],
-      "actionSeq": 419,
+      "subsequentActions": [],
+      "actionSeq": 428,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -135985,7 +135811,7 @@
         506
       ],
       "subsequentActions": [],
-      "actionSeq": 427,
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -136350,7 +136176,7 @@
         493
       ],
       "subsequentActions": [],
-      "actionSeq": 428,
+      "actionSeq": 430,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -136735,7 +136561,7 @@
         500
       ],
       "subsequentActions": [],
-      "actionSeq": 430,
+      "actionSeq": 431,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -137095,10 +136921,8 @@
         501,
         503
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 431,
+      "subsequentActions": [],
+      "actionSeq": 435,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -137447,7 +137271,7 @@
         508
       ],
       "subsequentActions": [],
-      "actionSeq": 435,
+      "actionSeq": 444,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -137793,11 +137617,8 @@
         507,
         511
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Mountain from hand onto the Battlefield",
-        "Grok4F ESPN casts Hellkite Punisher from hand"
-      ],
-      "actionSeq": 429,
+      "subsequentActions": [],
+      "actionSeq": 445,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -138158,7 +137979,7 @@
         513
       ],
       "subsequentActions": [],
-      "actionSeq": 444,
+      "actionSeq": 447,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -138518,10 +138339,8 @@
         512,
         519
       ],
-      "subsequentActions": [
-        "Grok4F ESPN puts Hellkite Punisher from stack onto the Battlefield"
-      ],
-      "actionSeq": 445,
+      "subsequentActions": [],
+      "actionSeq": 448,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -138899,7 +138718,7 @@
         516
       ],
       "subsequentActions": [],
-      "actionSeq": 447,
+      "actionSeq": 449,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -139257,7 +139076,7 @@
         522
       ],
       "subsequentActions": [],
-      "actionSeq": 449
+      "actionSeq": 453
     },
     {
       "index": 208,
@@ -139614,10 +139433,8 @@
         521,
         525
       ],
-      "subsequentActions": [
-        "Grok4F ESPN attacks DSV3 Stoic with 1 creature"
-      ],
-      "actionSeq": 448,
+      "subsequentActions": [],
+      "actionSeq": 455,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -139975,7 +139792,7 @@
         527
       ],
       "subsequentActions": [],
-      "actionSeq": 453
+      "actionSeq": 458
     },
     {
       "index": 210,
@@ -140332,10 +140149,8 @@
         526,
         530
       ],
-      "subsequentActions": [
-        "Attacker: Coalborn Entity (4/4) unblocked"
-      ],
-      "actionSeq": 455,
+      "subsequentActions": [],
+      "actionSeq": 459,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -140680,7 +140495,7 @@
         532
       ],
       "subsequentActions": [],
-      "actionSeq": 458
+      "actionSeq": 462
     },
     {
       "index": 212,
@@ -141023,10 +140838,8 @@
         531,
         535
       ],
-      "subsequentActions": [
-        "DSV3 Stoic loses 4 life at combat from Coalborn Entity"
-      ],
-      "actionSeq": 459,
+      "subsequentActions": [],
+      "actionSeq": 463,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -141378,7 +141191,7 @@
         541
       ],
       "subsequentActions": [],
-      "actionSeq": 462,
+      "actionSeq": 464,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -141750,7 +141563,7 @@
         537
       ],
       "subsequentActions": [],
-      "actionSeq": 463,
+      "actionSeq": 465,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -142116,7 +141929,7 @@
         539
       ],
       "subsequentActions": [],
-      "actionSeq": 465,
+      "actionSeq": 466,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -142483,7 +142296,7 @@
         546
       ],
       "subsequentActions": [],
-      "actionSeq": 466,
+      "actionSeq": 472,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -142843,10 +142656,8 @@
         544,
         548
       ],
-      "subsequentActions": [
-        "DSV3 Stoic casts Blight Keeper from hand"
-      ],
-      "actionSeq": 464
+      "subsequentActions": [],
+      "actionSeq": 473
     },
     {
       "index": 218,
@@ -143219,7 +143030,7 @@
         551
       ],
       "subsequentActions": [],
-      "actionSeq": 472,
+      "actionSeq": 475,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -143589,10 +143400,8 @@
         549,
         555
       ],
-      "subsequentActions": [
-        "DSV3 Stoic puts Blight Keeper from stack onto the Battlefield"
-      ],
-      "actionSeq": 473
+      "subsequentActions": [],
+      "actionSeq": 476
     },
     {
       "index": 220,
@@ -143982,7 +143791,7 @@
         553
       ],
       "subsequentActions": [],
-      "actionSeq": 475,
+      "actionSeq": 477,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -144364,7 +144173,7 @@
         561
       ],
       "subsequentActions": [],
-      "actionSeq": 477,
+      "actionSeq": 481,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -144752,10 +144561,8 @@
         556,
         558
       ],
-      "subsequentActions": [
-        "DSV3 Stoic attacks Grok4F ESPN with 1 creature"
-      ],
-      "actionSeq": 476
+      "subsequentActions": [],
+      "actionSeq": 482
     },
     {
       "index": 223,
@@ -145145,7 +144952,7 @@
         563
       ],
       "subsequentActions": [],
-      "actionSeq": 482,
+      "actionSeq": 483,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -145523,7 +145330,7 @@
         566
       ],
       "subsequentActions": [],
-      "actionSeq": 481,
+      "actionSeq": 487,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -145889,10 +145696,8 @@
         564,
         568
       ],
-      "subsequentActions": [
-        "Attacker: Captivating Unicorn (4/4) blocked by Hellkite Punisher (6/6)"
-      ],
-      "actionSeq": 483
+      "subsequentActions": [],
+      "actionSeq": 488
     },
     {
       "index": 226,
@@ -146245,7 +146050,7 @@
         571
       ],
       "subsequentActions": [],
-      "actionSeq": 487,
+      "actionSeq": 493,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -146596,12 +146401,8 @@
         569,
         573
       ],
-      "subsequentActions": [
-        "Hellkite Punisher deals 6 damage to Captivating Unicorn",
-        "Captivating Unicorn deals 4 damage to Hellkite Punisher",
-        "Captivating Unicorn died"
-      ],
-      "actionSeq": 488
+      "subsequentActions": [],
+      "actionSeq": 494
     },
     {
       "index": 228,
@@ -146964,7 +146765,7 @@
         585
       ],
       "subsequentActions": [],
-      "actionSeq": 493,
+      "actionSeq": 495,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -147356,7 +147157,7 @@
         576
       ],
       "subsequentActions": [],
-      "actionSeq": 494
+      "actionSeq": 496
     },
     {
       "index": 230,
@@ -147780,7 +147581,7 @@
         579
       ],
       "subsequentActions": [],
-      "actionSeq": 496,
+      "actionSeq": 497,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -148208,7 +148009,7 @@
         582
       ],
       "subsequentActions": [],
-      "actionSeq": 497,
+      "actionSeq": 498,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -148607,7 +148408,7 @@
         587
       ],
       "subsequentActions": [],
-      "actionSeq": 498,
+      "actionSeq": 503,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -148967,10 +148768,8 @@
         586,
         590
       ],
-      "subsequentActions": [
-        "Grok4F ESPN casts Pillar of Flame targeting Blight Keeper from hand"
-      ],
-      "actionSeq": 495,
+      "subsequentActions": [],
+      "actionSeq": 504,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -149372,7 +149171,7 @@
         592
       ],
       "subsequentActions": [],
-      "actionSeq": 503,
+      "actionSeq": 508,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -149775,12 +149574,8 @@
         591,
         615
       ],
-      "subsequentActions": [
-        "Pillar of Flame deals 2 damage to Blight Keeper",
-        "Grok4F ESPN puts Pillar of Flame from stack into their graveyard",
-        "Blight Keeper died"
-      ],
-      "actionSeq": 504,
+      "subsequentActions": [],
+      "actionSeq": 509,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -150212,7 +150007,7 @@
         595
       ],
       "subsequentActions": [],
-      "actionSeq": 508,
+      "actionSeq": 510,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -150641,10 +150436,8 @@
         598,
         600
       ],
-      "subsequentActions": [
-        "Grok4F ESPN attacks DSV3 Stoic with 2 creatures"
-      ],
-      "actionSeq": 510,
+      "subsequentActions": [],
+      "actionSeq": 514,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -151074,10 +150867,8 @@
         601,
         603
       ],
-      "subsequentActions": [
-        "Grok4F ESPN activates: Hellkite Punisher gets +1/+0 until end of turn. from Hellkite Punisher"
-      ],
-      "actionSeq": 514,
+      "subsequentActions": [],
+      "actionSeq": 517,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -151510,10 +151301,8 @@
         604,
         606
       ],
-      "subsequentActions": [
-        "Grok4F ESPN activates: Hellkite Punisher gets +1/+0 until end of turn. from Hellkite Punisher"
-      ],
-      "actionSeq": 517,
+      "subsequentActions": [],
+      "actionSeq": 520,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -151940,10 +151729,8 @@
         607,
         609
       ],
-      "subsequentActions": [
-        "Grok4F ESPN activates: Hellkite Punisher gets +1/+0 until end of turn. from Hellkite Punisher"
-      ],
-      "actionSeq": 520,
+      "subsequentActions": [],
+      "actionSeq": 523,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -152364,10 +152151,8 @@
         610,
         612
       ],
-      "subsequentActions": [
-        "Grok4F ESPN activates: Hellkite Punisher gets +1/+0 until end of turn. from Hellkite Punisher"
-      ],
-      "actionSeq": 523,
+      "subsequentActions": [],
+      "actionSeq": 526,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -152786,7 +152571,7 @@
         617
       ],
       "subsequentActions": [],
-      "actionSeq": 526,
+      "actionSeq": 529,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -153185,14 +152970,8 @@
         616,
         620
       ],
-      "subsequentActions": [
-        "Grok4F ESPN attacks DSV3 Stoic with 2 creatures",
-        "Grok4F ESPN activates: Hellkite Punisher gets +1/+0 until end of turn. from Hellkite Punisher",
-        "Grok4F ESPN activates: Hellkite Punisher gets +1/+0 until end of turn. from Hellkite Punisher",
-        "Grok4F ESPN activates: Hellkite Punisher gets +1/+0 until end of turn. from Hellkite Punisher",
-        "Grok4F ESPN activates: Hellkite Punisher gets +1/+0 until end of turn. from Hellkite Punisher"
-      ],
-      "actionSeq": 509,
+      "subsequentActions": [],
+      "actionSeq": 530,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -153608,7 +153387,7 @@
         622
       ],
       "subsequentActions": [],
-      "actionSeq": 529,
+      "actionSeq": 531,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -154005,7 +153784,7 @@
         625
       ],
       "subsequentActions": [],
-      "actionSeq": 530,
+      "actionSeq": 532,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -154418,7 +154197,7 @@
         627
       ],
       "subsequentActions": [],
-      "actionSeq": 531,
+      "actionSeq": 533,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -154812,7 +154591,7 @@
         630
       ],
       "subsequentActions": [],
-      "actionSeq": 532,
+      "actionSeq": 534,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -155222,7 +155001,7 @@
         632
       ],
       "subsequentActions": [],
-      "actionSeq": 533,
+      "actionSeq": 535,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -155613,7 +155392,7 @@
         635
       ],
       "subsequentActions": [],
-      "actionSeq": 534,
+      "actionSeq": 536,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -156018,7 +155797,7 @@
         637
       ],
       "subsequentActions": [],
-      "actionSeq": 535,
+      "actionSeq": 537,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -156404,7 +156183,7 @@
         640
       ],
       "subsequentActions": [],
-      "actionSeq": 536,
+      "actionSeq": 538,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -156809,7 +156588,7 @@
         642
       ],
       "subsequentActions": [],
-      "actionSeq": 537,
+      "actionSeq": 539,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -157195,7 +156974,7 @@
         645
       ],
       "subsequentActions": [],
-      "actionSeq": 538,
+      "actionSeq": 540,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -157239,7 +157018,7 @@
         649
       ],
       "subsequentActions": [],
-      "actionSeq": 539,
+      "actionSeq": 544,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -157279,13 +157058,11 @@
         647
       ],
       "subsequentActions": [
-        "Attacker: Coalborn Entity (4/4) unblocked",
-        "Attacker: Hellkite Punisher (11/6) unblocked",
         "DSV3 Stoic loses 4 life at combat from Coalborn Entity",
         "DSV3 Stoic loses 11 life at combat from Hellkite Punisher",
         "DSV3 Stoic has lost the game."
       ],
-      "actionSeq": 540,
+      "actionSeq": 545,
       "pilotContext": {
         "untappedLands": 5
       }

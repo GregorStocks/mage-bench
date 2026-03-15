@@ -54665,10 +54665,8 @@
         6,
         11
       ],
-      "subsequentActions": [
-        "GPT54 Spike chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -55025,10 +55023,8 @@
         12,
         13
       ],
-      "subsequentActions": [
-        "GPT54 Spike's library is shuffled"
-      ],
-      "actionSeq": 7
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -55175,10 +55171,8 @@
         14,
         15
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -55335,10 +55329,8 @@
         18,
         19
       ],
-      "subsequentActions": [
-        "GPT54 Spike skips Draw step"
-      ],
-      "actionSeq": 12,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -55501,7 +55493,7 @@
         21
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 16,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -55655,7 +55647,7 @@
         23
       ],
       "subsequentActions": [],
-      "actionSeq": 16,
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -55791,7 +55783,7 @@
         27
       ],
       "subsequentActions": [],
-      "actionSeq": 17,
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55951,10 +55943,8 @@
         28,
         29
       ],
-      "subsequentActions": [
-        "GPT54 Spike skip attack"
-      ],
-      "actionSeq": 21
+      "subsequentActions": [],
+      "actionSeq": 25
     },
     {
       "index": 11,
@@ -56092,7 +56082,7 @@
         35
       ],
       "subsequentActions": [],
-      "actionSeq": 25,
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -56434,10 +56424,8 @@
         36,
         37
       ],
-      "subsequentActions": [
-        "Llama4 Valley puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 27
+      "subsequentActions": [],
+      "actionSeq": 34
     },
     {
       "index": 15,
@@ -56574,10 +56562,8 @@
         38,
         39
       ],
-      "subsequentActions": [
-        "Llama4 Valley skip attack"
-      ],
-      "actionSeq": 34
+      "subsequentActions": [],
+      "actionSeq": 38
     },
     {
       "index": 16,
@@ -56744,7 +56730,7 @@
         41
       ],
       "subsequentActions": [],
-      "actionSeq": 38
+      "actionSeq": 40
     },
     {
       "index": 17,
@@ -56928,7 +56914,7 @@
         43
       ],
       "subsequentActions": [],
-      "actionSeq": 40,
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -57107,10 +57093,8 @@
         44,
         45
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 41,
+      "subsequentActions": [],
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -57271,7 +57255,7 @@
         47
       ],
       "subsequentActions": [],
-      "actionSeq": 45,
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -57425,10 +57409,8 @@
         48,
         55
       ],
-      "subsequentActions": [
-        "GPT54 Spike casts Angelic Cub from hand"
-      ],
-      "actionSeq": 47,
+      "subsequentActions": [],
+      "actionSeq": 50,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -57630,10 +57612,8 @@
         56,
         57
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts Angelic Cub from stack onto the Battlefield"
-      ],
-      "actionSeq": 50,
+      "subsequentActions": [],
+      "actionSeq": 53,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58070,10 +58050,8 @@
         62,
         63
       ],
-      "subsequentActions": [
-        "Llama4 Valley puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 61,
+      "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -58537,10 +58515,8 @@
         70,
         71
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 80,
+      "subsequentActions": [],
+      "actionSeq": 84,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -58740,7 +58716,7 @@
         73
       ],
       "subsequentActions": [],
-      "actionSeq": 84,
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -58926,11 +58902,8 @@
         74,
         82
       ],
-      "subsequentActions": [
-        "GPT54 Spike casts Chains of Custody targeting Angelic Cub from hand",
-        "GPT54 Spike - Ability triggers: Angelic Cub - Whenever Angelic Cub becomes the target of a spell or ability for the first time each turn, put a +1/+1 counter on it."
-      ],
-      "actionSeq": 86,
+      "subsequentActions": [],
+      "actionSeq": 91,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -59175,7 +59148,7 @@
         84
       ],
       "subsequentActions": [],
-      "actionSeq": 91,
+      "actionSeq": 93,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -59359,11 +59332,8 @@
         85,
         86
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts Chains of Custody from stack onto the Battlefield",
-        "GPT54 Spike - Ability triggers: Chains of Custody - When Chains of Custody enters, exile target nonland permanent an opponent controls until Chains of Custody leaves the battlefield. - targeting Sigiled Starfish"
-      ],
-      "actionSeq": 93,
+      "subsequentActions": [],
+      "actionSeq": 97,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -59564,10 +59534,8 @@
         89,
         90
       ],
-      "subsequentActions": [
-        "GPT54 Spike moves Sigiled Starfish from battlefield to the exile zone (source: Chains of Custody)"
-      ],
-      "actionSeq": 97,
+      "subsequentActions": [],
+      "actionSeq": 100,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -59785,7 +59753,7 @@
         92
       ],
       "subsequentActions": [],
-      "actionSeq": 100,
+      "actionSeq": 102,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -59982,10 +59950,8 @@
         93,
         94
       ],
-      "subsequentActions": [
-        "GPT54 Spike attacks Llama4 Valley with 1 creature"
-      ],
-      "actionSeq": 102
+      "subsequentActions": [],
+      "actionSeq": 106
     },
     {
       "index": 39,
@@ -60179,10 +60145,8 @@
         95,
         96
       ],
-      "subsequentActions": [
-        "Attacker: Angelic Cub (2/2) unblocked"
-      ],
-      "actionSeq": 106
+      "subsequentActions": [],
+      "actionSeq": 110
     },
     {
       "index": 40,
@@ -60363,10 +60327,8 @@
         97,
         98
       ],
-      "subsequentActions": [
-        "Llama4 Valley loses 2 life at combat from Angelic Cub"
-      ],
-      "actionSeq": 110
+      "subsequentActions": [],
+      "actionSeq": 114
     },
     {
       "index": 41,
@@ -60582,7 +60544,7 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 114,
+      "actionSeq": 116,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61100,10 +61062,8 @@
         103,
         104
       ],
-      "subsequentActions": [
-        "Llama4 Valley puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 118,
+      "subsequentActions": [],
+      "actionSeq": 122,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -61352,7 +61312,7 @@
         110
       ],
       "subsequentActions": [],
-      "actionSeq": 122,
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -61857,11 +61817,8 @@
         113,
         114
       ],
-      "subsequentActions": [
-        "GPT54 Spike - Ability triggers: Angelic Cub - ward {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)",
-        "GPT54 Spike - Ability triggers: Angelic Cub - Whenever Angelic Cub becomes the target of a spell or ability for the first time each turn, put a +1/+1 counter on it."
-      ],
-      "actionSeq": 127
+      "subsequentActions": [],
+      "actionSeq": 131
     },
     {
       "index": 49,
@@ -62059,7 +62016,7 @@
         127
       ],
       "subsequentActions": [],
-      "actionSeq": 131
+      "actionSeq": 133
     },
     {
       "index": 50,
@@ -62828,7 +62785,7 @@
         136
       ],
       "subsequentActions": [],
-      "actionSeq": 146,
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -63055,10 +63012,8 @@
         137,
         144
       ],
-      "subsequentActions": [
-        "GPT54 Spike casts Malefic Scythe from hand"
-      ],
-      "actionSeq": 148,
+      "subsequentActions": [],
+      "actionSeq": 153,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -63347,10 +63302,8 @@
         145,
         146
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts Malefic Scythe from stack onto the Battlefield"
-      ],
-      "actionSeq": 153,
+      "subsequentActions": [],
+      "actionSeq": 156,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -63577,11 +63530,8 @@
         147,
         148
       ],
-      "subsequentActions": [
-        "GPT54 Spike activates: Equip. from Malefic Scythe targeting Angelic Cub",
-        "GPT54 Spike - Ability triggers: Angelic Cub - Whenever Angelic Cub becomes the target of a spell or ability for the first time each turn, put a +1/+1 counter on it."
-      ],
-      "actionSeq": 156,
+      "subsequentActions": [],
+      "actionSeq": 160,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -63797,7 +63747,7 @@
         150
       ],
       "subsequentActions": [],
-      "actionSeq": 160,
+      "actionSeq": 162,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -64029,7 +63979,7 @@
         152
       ],
       "subsequentActions": [],
-      "actionSeq": 162,
+      "actionSeq": 164,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -64279,7 +64229,7 @@
         156
       ],
       "subsequentActions": [],
-      "actionSeq": 164,
+      "actionSeq": 166,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -64507,10 +64457,8 @@
         157,
         158
       ],
-      "subsequentActions": [
-        "GPT54 Spike attacks Llama4 Valley with 1 creature"
-      ],
-      "actionSeq": 166
+      "subsequentActions": [],
+      "actionSeq": 170
     },
     {
       "index": 66,
@@ -64735,10 +64683,8 @@
         159,
         160
       ],
-      "subsequentActions": [
-        "Attacker: Angelic Cub (5/5) unblocked"
-      ],
-      "actionSeq": 170
+      "subsequentActions": [],
+      "actionSeq": 174
     },
     {
       "index": 67,
@@ -64950,10 +64896,8 @@
         161,
         162
       ],
-      "subsequentActions": [
-        "Llama4 Valley loses 5 life at combat from Angelic Cub"
-      ],
-      "actionSeq": 174
+      "subsequentActions": [],
+      "actionSeq": 178
     },
     {
       "index": 68,
@@ -65185,7 +65129,7 @@
         176
       ],
       "subsequentActions": [],
-      "actionSeq": 178,
+      "actionSeq": 180,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -65491,34 +65435,249 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "text": "white"
+        "choice": "1"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_CHOOSE_CHOICE",
+        "message": "Choose color",
+        "response_type": "index",
+        "respond_with": "choice=0, choice=1, etc. or text=Name (not yes/no)",
+        "context": "T4 Precombat Main/Precombat Main (Llama4 Valley) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 6,
+            "graveyard": [
+              {
+                "name": "Flicker of Fate",
+                "rules": [
+                  "Exile target creature or enchantment, then return it to the battlefield under its owner's control."
+                ],
+                "id": "p11"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p28"
+              }
+            ],
+            "name": "Llama4 Valley",
+            "exile": [
+              {
+                "name": "Sigiled Starfish",
+                "rules": [
+                  "{T}: Scry 1. (Look at the top one cards of your library, then put any number of them on the bottom and the rest on top in any order.)"
+                ],
+                "id": "p15"
+              }
+            ],
+            "library_size": 29,
+            "life": 13,
+            "hand": [
+              {
+                "mana_cost": "{U}",
+                "name": "Aegis Turtle",
+                "power": "0",
+                "id": "p37",
+                "toughness": "5",
+                "playable": true
+              },
+              {
+                "mana_cost": "{3}{W}",
+                "name": "Faith's Fetters",
+                "rules": [
+                  "Enchant permanent",
+                  "When {this} enters, you gain 4 life.",
+                  "Enchanted permanent can't attack or block, and its activated abilities can't be activated unless they're mana abilities."
+                ],
+                "id": "p10"
+              },
+              {
+                "mana_cost": "{5}{U}{U}",
+                "name": "Pursued Whale",
+                "rules": [
+                  "When {this} enters, each opponent creates a 1/1 red Pirate creature token with \"This creature can't block\" and \"Creatures you control attack each combat if able.\"",
+                  "Spells your opponents cast that target {this} cost {3} more to cast."
+                ],
+                "power": "8",
+                "id": "p32",
+                "toughness": "8"
+              },
+              {
+                "mana_cost": "{2}{U}",
+                "name": "Rousing Read",
+                "rules": [
+                  "Enchant creature",
+                  "When {this} enters, draw two cards, then discard a card.",
+                  "Enchanted creature gets +1/+1 and has flying."
+                ],
+                "id": "p14",
+                "playable": true
+              },
+              {
+                "name": "Thriving Isle",
+                "is_land": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than blue.",
+                  "{T}: Add {U}.",
+                  "{T}: Add one mana of the chosen color."
+                ],
+                "id": "p45",
+                "playable": true
+              },
+              {
+                "mana_cost": "{4}{W}{W}",
+                "name": "Wispweaver Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control."
+                ],
+                "power": "4",
+                "id": "p16",
+                "toughness": "4"
+              }
+            ]
+          },
+          {
+            "hand_size": 3,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 3
+                },
+                "name": "Angelic Cub",
+                "rules": [
+                  "Whenever {this} becomes the target of a spell or ability for the first time each turn, put a +1/+1 counter on it.",
+                  "As long as {this} has three or more +1/+1 counters on it, it has flying.",
+                  "Flying",
+                  "Ward {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
+                ],
+                "id": "p3",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Chains of Custody",
+                "rules": [
+                  "Enchant creature you control",
+                  "When {this} enters, exile target nonland permanent an opponent controls until {this} leaves the battlefield.",
+                  "Enchanted creature has ward {2}. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
+                ],
+                "id": "p17"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "soul": 1
+                },
+                "name": "Malefic Scythe",
+                "rules": [
+                  "{this} enters with a soul counter on it.",
+                  "Equipped creature gets +1/+1 for each soul counter on {this}.",
+                  "Whenever equipped creature dies, put a soul counter on {this}.",
+                  "Equip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p18"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Black"
+                ],
+                "id": "p20"
+              }
+            ],
+            "name": "GPT54 Spike",
+            "library_size": 31,
+            "life": 20
+          }
+        ],
+        "board_cursor": 17,
         "choices": [
           {
             "index": 0,
-            "description": "Thriving Isle: Thriving Isle enters tapped."
+            "description": "White"
           },
           {
             "index": 1,
-            "description": "Thriving Isle: As Thriving Isle enters, choose a color other than blue."
+            "description": "Black"
+          },
+          {
+            "index": 2,
+            "description": "Red"
+          },
+          {
+            "index": 3,
+            "description": "Green"
           }
         ],
+        "untapped_lands": 3,
         "game_seq": 183,
-        "error": "'white' is not a valid choice",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "land_drops_used": 0,
+        "action_taken": "selected_choice_1",
+        "success": true
       },
       "llmEventIndices": [
         166,
         167,
-        168
+        168,
+        169,
+        170
       ],
       "subsequentActions": [],
-      "actionSeq": 182,
+      "actionSeq": 183,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -65800,7 +65959,7 @@
         172
       ],
       "subsequentActions": [],
-      "actionSeq": 183,
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -66062,11 +66221,8 @@
         173,
         174
       ],
-      "subsequentActions": [
-        "Thriving Isle: Llama4 Valley has chosen White",
-        "Llama4 Valley puts Thriving Isle from hand onto the Battlefield"
-      ],
-      "actionSeq": 184,
+      "subsequentActions": [],
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -66335,12 +66491,8 @@
         177,
         178
       ],
-      "subsequentActions": [
-        "Thriving Isle: Llama4 Valley has chosen White",
-        "Llama4 Valley puts Thriving Isle from hand onto the Battlefield",
-        "Llama4 Valley casts Aegis Turtle from hand"
-      ],
-      "actionSeq": 180
+      "subsequentActions": [],
+      "actionSeq": 194
     },
     {
       "index": 75,
@@ -66917,10 +67069,8 @@
         186,
         187
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 204,
+      "subsequentActions": [],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -67171,7 +67321,7 @@
         189
       ],
       "subsequentActions": [],
-      "actionSeq": 208,
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -67416,10 +67566,8 @@
         190,
         198
       ],
-      "subsequentActions": [
-        "GPT54 Spike casts Phyrexian Debaser from hand"
-      ],
-      "actionSeq": 210,
+      "subsequentActions": [],
+      "actionSeq": 215,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -68032,10 +68180,8 @@
         203,
         206
       ],
-      "subsequentActions": [
-        "GPT54 Spike attacks Llama4 Valley with 1 creature"
-      ],
-      "actionSeq": 220
+      "subsequentActions": [],
+      "actionSeq": 224
     },
     {
       "index": 85,
@@ -68059,9 +68205,9 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "blockers": "p37:p3"
+        "choice": "yes"
       },
       "actionResult": {
         "action_pending": true,
@@ -68069,7 +68215,7 @@
         "message": "Play instants and activated abilities",
         "response_type": "boolean",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
-        "context": "T5 Combat/Declare Blockers (GPT54 Spike)",
+        "context": "T5 Combat/Combat Damage (GPT54 Spike)",
         "board": [
           {
             "hand_size": 4,
@@ -68142,7 +68288,7 @@
               }
             ],
             "library_size": 29,
-            "life": 13,
+            "life": 8,
             "hand": [
               {
                 "mana_cost": "{3}{W}",
@@ -68288,7 +68434,7 @@
             "life": 20
           }
         ],
-        "board_cursor": 21,
+        "board_cursor": 22,
         "combat": [
           {
             "blocked": false,
@@ -68304,27 +68450,19 @@
           }
         ],
         "untapped_lands": 1,
-        "game_seq": 226,
-        "error": "p37: attacker p3 is not a valid block target",
-        "action_taken": "batch_block",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [],
-        "failed": [
-          {
-            "reason": "attacker p3 is not a valid block target",
-            "id": "p37"
-          }
-        ]
+        "game_seq": 232,
+        "action_taken": "confirmed",
+        "success": true
       },
       "llmEventIndices": [
         204,
         205,
-        208
+        208,
+        209,
+        214
       ],
       "subsequentActions": [],
-      "actionSeq": 226,
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -68591,7 +68729,7 @@
         210
       ],
       "subsequentActions": [],
-      "actionSeq": 224
+      "actionSeq": 231
     },
     {
       "index": 87,
@@ -68860,10 +68998,8 @@
         209,
         214
       ],
-      "subsequentActions": [
-        "Attacker: Angelic Cub (5/5) unblocked"
-      ],
-      "actionSeq": 226,
+      "subsequentActions": [],
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -69109,7 +69245,7 @@
         220
       ],
       "subsequentActions": [],
-      "actionSeq": 231
+      "actionSeq": 235
     },
     {
       "index": 89,
@@ -69936,10 +70072,8 @@
         230,
         231
       ],
-      "subsequentActions": [
-        "Llama4 Valley puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 239,
+      "subsequentActions": [],
+      "actionSeq": 243,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -70327,7 +70461,7 @@
         233
       ],
       "subsequentActions": [],
-      "actionSeq": 243,
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -70355,58 +70489,257 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "2"
+        "choice": "1"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T5 Precombat Main/Precombat Main (Llama4 Valley) YOUR_MAIN",
+        "board": [
           {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Flicker of Fate",
+                "rules": [
+                  "Exile target creature or enchantment, then return it to the battlefield under its owner's control."
+                ],
+                "id": "p11"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Aegis Turtle",
+                "id": "p37",
+                "power": "0",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p49"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p28"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Isle",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than blue.",
+                  "{T}: Add {U}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: White"
+                ],
+                "id": "p45"
+              }
+            ],
+            "name": "Llama4 Valley",
+            "exile": [
+              {
+                "name": "Sigiled Starfish",
+                "rules": [
+                  "{T}: Scry 1. (Look at the top one cards of your library, then put any number of them on the bottom and the rest on top in any order.)"
+                ],
+                "id": "p15"
+              }
+            ],
+            "library_size": 28,
+            "life": 8,
+            "hand": [
+              {
+                "mana_cost": "{5}{U}{U}",
+                "name": "Pursued Whale",
+                "rules": [
+                  "When {this} enters, each opponent creates a 1/1 red Pirate creature token with \"This creature can't block\" and \"Creatures you control attack each combat if able.\"",
+                  "Spells your opponents cast that target {this} cost {3} more to cast."
+                ],
+                "power": "8",
+                "id": "p32",
+                "toughness": "8"
+              },
+              {
+                "mana_cost": "{2}{U}",
+                "name": "Rousing Read",
+                "rules": [
+                  "Enchant creature",
+                  "When {this} enters, draw two cards, then discard a card.",
+                  "Enchanted creature gets +1/+1 and has flying."
+                ],
+                "id": "p14"
+              },
+              {
+                "mana_cost": "{4}{W}{W}",
+                "name": "Wispweaver Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control."
+                ],
+                "power": "4",
+                "id": "p16",
+                "toughness": "4"
+              }
+            ]
           },
           {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
+            "hand_size": 2,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 3
+                },
+                "name": "Angelic Cub",
+                "rules": [
+                  "Whenever {this} becomes the target of a spell or ability for the first time each turn, put a +1/+1 counter on it.",
+                  "As long as {this} has three or more +1/+1 counters on it, it has flying.",
+                  "Flying",
+                  "Ward {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
+                ],
+                "id": "p3",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Chains of Custody",
+                "rules": [
+                  "Enchant creature you control",
+                  "When {this} enters, exile target nonland permanent an opponent controls until {this} leaves the battlefield.",
+                  "Enchanted creature has ward {2}. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
+                ],
+                "id": "p17"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "soul": 1
+                },
+                "name": "Malefic Scythe",
+                "rules": [
+                  "{this} enters with a soul counter on it.",
+                  "Equipped creature gets +1/+1 for each soul counter on {this}.",
+                  "Whenever equipped creature dies, put a soul counter on {this}.",
+                  "Equip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": false,
+                "name": "Phyrexian Debaser",
+                "rules": [
+                  "Flying",
+                  "{T}, Sacrifice {this}: Target creature gets -2/-2 until end of turn."
+                ],
+                "id": "p29",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p18"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p47"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Black"
+                ],
+                "id": "p20"
+              }
+            ],
+            "name": "GPT54 Spike",
+            "library_size": 30,
+            "life": 20
           }
         ],
+        "board_cursor": 27,
+        "stack": [
+          {
+            "name": "Faith's Fetters",
+            "targets": [
+              {
+                "name": "Aegis Turtle (0/5) (yours)",
+                "id": "p37"
+              }
+            ]
+          }
+        ],
+        "untapped_lands": 1,
         "game_seq": 249,
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "success": false,
-        "error_code": "index_out_of_range",
-        "retryable": true
+        "land_drops_used": 1,
+        "action_taken": "selected_ability_1",
+        "success": true
       },
       "llmEventIndices": [
         233,
         234,
-        235
-      ],
-      "subsequentActions": [],
-      "actionSeq": 244,
-      "pilotContext": {
-        "untappedLands": 2,
-        "landDropsUsed": 1
-      }
-    },
-    {
-      "index": 98,
-      "snapshotIndex": 141,
-      "player": "Llama4 Valley",
-      "turn": 10,
-      "phase": "PRECOMBAT_MAIN",
-      "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
-      "message": "Play instants and activated abilities",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        237,
-        238
+        235,
+        236,
+        237
       ],
       "subsequentActions": [
         "Llama4 Valley casts Faith's Fetters targeting Aegis Turtle from hand",
@@ -70417,12 +70750,12 @@
       ],
       "actionSeq": 249,
       "pilotContext": {
-        "untappedLands": 1,
+        "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 99,
+      "index": 98,
       "snapshotIndex": 152,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -70739,7 +71072,7 @@
       }
     },
     {
-      "index": 100,
+      "index": 99,
       "snapshotIndex": 152,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -71027,14 +71360,14 @@
         245
       ],
       "subsequentActions": [],
-      "actionSeq": 266,
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 101,
+      "index": 100,
       "snapshotIndex": 153,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -71337,17 +71670,15 @@
         246,
         247
       ],
-      "subsequentActions": [
-        "GPT54 Spike casts Perilous Myr from hand"
-      ],
-      "actionSeq": 268,
+      "subsequentActions": [],
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 102,
+      "index": 101,
       "snapshotIndex": 155,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -71672,17 +72003,15 @@
         248,
         249
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts Perilous Myr from stack onto the Battlefield"
-      ],
-      "actionSeq": 273,
+      "subsequentActions": [],
+      "actionSeq": 276,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 103,
+      "index": 102,
       "snapshotIndex": 157,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -72006,14 +72335,14 @@
         251
       ],
       "subsequentActions": [],
-      "actionSeq": 276,
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 104,
+      "index": 103,
       "snapshotIndex": 158,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -72318,18 +72647,15 @@
         252,
         253
       ],
-      "subsequentActions": [
-        "GPT54 Spike activates: Equip. from Malefic Scythe targeting Angelic Cub",
-        "GPT54 Spike - Ability triggers: Angelic Cub - Whenever Angelic Cub becomes the target of a spell or ability for the first time each turn, put a +1/+1 counter on it."
-      ],
-      "actionSeq": 277,
+      "subsequentActions": [],
+      "actionSeq": 281,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 105,
+      "index": 104,
       "snapshotIndex": 160,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -72633,14 +72959,14 @@
         255
       ],
       "subsequentActions": [],
-      "actionSeq": 281,
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 106,
+      "index": 105,
       "snapshotIndex": 162,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -72957,14 +73283,14 @@
         257
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 107,
+      "index": 106,
       "snapshotIndex": 164,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -73294,14 +73620,14 @@
         259
       ],
       "subsequentActions": [],
-      "actionSeq": 285,
+      "actionSeq": 287,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 108,
+      "index": 107,
       "snapshotIndex": 166,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -73599,16 +73925,14 @@
         260,
         263
       ],
-      "subsequentActions": [
-        "GPT54 Spike attacks Llama4 Valley with 2 creatures"
-      ],
-      "actionSeq": 287,
+      "subsequentActions": [],
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 109,
+      "index": 108,
       "snapshotIndex": 170,
       "player": "Llama4 Valley",
       "turn": 11,
@@ -73942,7 +74266,7 @@
       }
     },
     {
-      "index": 110,
+      "index": 109,
       "snapshotIndex": 168,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -74241,13 +74565,13 @@
         267
       ],
       "subsequentActions": [],
-      "actionSeq": 292,
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 111,
+      "index": 110,
       "snapshotIndex": 170,
       "player": "Llama4 Valley",
       "turn": 11,
@@ -74550,17 +74874,14 @@
         266,
         269
       ],
-      "subsequentActions": [
-        "Attacker: Angelic Cub (6/6) unblocked",
-        "Attacker: Phyrexian Debaser (2/2) unblocked"
-      ],
-      "actionSeq": 294,
+      "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 112,
+      "index": 111,
       "snapshotIndex": 171,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -74845,13 +75166,13 @@
         274
       ],
       "subsequentActions": [],
-      "actionSeq": 298,
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 113,
+      "index": 112,
       "snapshotIndex": 172,
       "player": "Llama4 Valley",
       "turn": 11,
@@ -74881,7 +75202,7 @@
       }
     },
     {
-      "index": 114,
+      "index": 113,
       "snapshotIndex": 173,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -75200,14 +75521,14 @@
         276
       ],
       "subsequentActions": [],
-      "actionSeq": 303,
+      "actionSeq": 305,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 115,
+      "index": 114,
       "snapshotIndex": 175,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -75519,14 +75840,14 @@
         280
       ],
       "subsequentActions": [],
-      "actionSeq": 305,
+      "actionSeq": 306,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 116,
+      "index": 115,
       "snapshotIndex": 176,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -75798,16 +76119,14 @@
         281,
         284
       ],
-      "subsequentActions": [
-        "GPT54 Spike activates: Equip. from Malefic Scythe targeting Phyrexian Debaser"
-      ],
-      "actionSeq": 306,
+      "subsequentActions": [],
+      "actionSeq": 310,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 117,
+      "index": 116,
       "snapshotIndex": 179,
       "player": "Llama4 Valley",
       "turn": 11,
@@ -75833,7 +76152,7 @@
       }
     },
     {
-      "index": 118,
+      "index": 117,
       "snapshotIndex": 178,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -76110,13 +76429,13 @@
         290
       ],
       "subsequentActions": [],
-      "actionSeq": 310,
+      "actionSeq": 312,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 119,
+      "index": 118,
       "snapshotIndex": 182,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -76426,7 +76745,7 @@
       }
     },
     {
-      "index": 120,
+      "index": 119,
       "snapshotIndex": 182,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -76724,14 +77043,14 @@
         292
       ],
       "subsequentActions": [],
-      "actionSeq": 314,
+      "actionSeq": 321,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 121,
+      "index": 120,
       "snapshotIndex": 180,
       "player": "GPT54 Spike",
       "turn": 11,
@@ -77011,13 +77330,11 @@
         291,
         294
       ],
-      "subsequentActions": [
-        "Llama4 Valley casts Unstable Obelisk from hand"
-      ],
-      "actionSeq": 312
+      "subsequentActions": [],
+      "actionSeq": 322
     },
     {
-      "index": 122,
+      "index": 121,
       "snapshotIndex": 186,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -77055,7 +77372,7 @@
       }
     },
     {
-      "index": 123,
+      "index": 122,
       "snapshotIndex": 187,
       "player": "GPT54 Spike",
       "turn": 12,
@@ -77081,7 +77398,7 @@
       "actionSeq": 322
     },
     {
-      "index": 124,
+      "index": 123,
       "snapshotIndex": 192,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -77420,7 +77737,7 @@
       }
     },
     {
-      "index": 125,
+      "index": 124,
       "snapshotIndex": 192,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -77757,14 +78074,14 @@
         300
       ],
       "subsequentActions": [],
-      "actionSeq": 330,
+      "actionSeq": 331,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 126,
+      "index": 125,
       "snapshotIndex": 193,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -77785,58 +78102,282 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "2"
+        "choice": "1"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T6 Postcombat Main/Postcombat Main (Llama4 Valley) YOUR_MAIN",
+        "board": [
           {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
+            "hand_size": 2,
+            "graveyard": [
+              {
+                "name": "Flicker of Fate",
+                "rules": [
+                  "Exile target creature or enchantment, then return it to the battlefield under its owner's control."
+                ],
+                "id": "p11"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Aegis Turtle",
+                "modified": true,
+                "rules": [
+                  ": ",
+                  "ICON_RESTRICTCan't attack (Faith's Fetters)",
+                  "ICON_RESTRICTCan't block (Faith's Fetters)"
+                ],
+                "id": "p37",
+                "power": "0",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Faith's Fetters",
+                "rules": [
+                  "Enchant permanent",
+                  "When {this} enters, you gain 4 life.",
+                  "Enchanted permanent can't attack or block, and its activated abilities can't be activated unless they're mana abilities."
+                ],
+                "id": "p10"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p49"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p28"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Isle",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than blue.",
+                  "{T}: Add {U}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: White"
+                ],
+                "id": "p45"
+              },
+              {
+                "tapped": true,
+                "name": "Unstable Obelisk",
+                "rules": [
+                  "{T}: Add {C}.",
+                  "{7}, {T}, Sacrifice {this}: Destroy target permanent."
+                ],
+                "id": "p58"
+              }
+            ],
+            "name": "Llama4 Valley",
+            "exile": [
+              {
+                "name": "Sigiled Starfish",
+                "rules": [
+                  "{T}: Scry 1. (Look at the top one cards of your library, then put any number of them on the bottom and the rest on top in any order.)"
+                ],
+                "id": "p15"
+              }
+            ],
+            "library_size": 27,
+            "life": 4,
+            "hand": [
+              {
+                "mana_cost": "{5}{U}{U}",
+                "name": "Pursued Whale",
+                "rules": [
+                  "When {this} enters, each opponent creates a 1/1 red Pirate creature token with \"This creature can't block\" and \"Creatures you control attack each combat if able.\"",
+                  "Spells your opponents cast that target {this} cost {3} more to cast."
+                ],
+                "power": "8",
+                "id": "p32",
+                "toughness": "8"
+              },
+              {
+                "mana_cost": "{4}{W}{W}",
+                "name": "Wispweaver Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control."
+                ],
+                "power": "4",
+                "id": "p16",
+                "toughness": "4"
+              }
+            ]
           },
           {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
+            "hand_size": 2,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 4
+                },
+                "name": "Angelic Cub",
+                "rules": [
+                  "Whenever {this} becomes the target of a spell or ability for the first time each turn, put a +1/+1 counter on it.",
+                  "As long as {this} has three or more +1/+1 counters on it, it has flying.",
+                  "Flying",
+                  "Ward {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
+                ],
+                "id": "p3",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Chains of Custody",
+                "rules": [
+                  "Enchant creature you control",
+                  "When {this} enters, exile target nonland permanent an opponent controls until {this} leaves the battlefield.",
+                  "Enchanted creature has ward {2}. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
+                ],
+                "id": "p17"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "soul": 1
+                },
+                "name": "Malefic Scythe",
+                "rules": [
+                  "{this} enters with a soul counter on it.",
+                  "Equipped creature gets +1/+1 for each soul counter on {this}.",
+                  "Whenever equipped creature dies, put a soul counter on {this}.",
+                  "Equip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": false,
+                "name": "Perilous Myr",
+                "rules": [
+                  "When {this} dies, it deals 2 damage to any target."
+                ],
+                "id": "p53",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Phyrexian Debaser",
+                "rules": [
+                  "Flying",
+                  "{T}, Sacrifice {this}: Target creature gets -2/-2 until end of turn."
+                ],
+                "id": "p29",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p18"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p47"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Black"
+                ],
+                "id": "p20"
+              }
+            ],
+            "name": "GPT54 Spike",
+            "library_size": 29,
+            "life": 20
+          }
+        ],
+        "board_cursor": 35,
+        "stack": [
+          {
+            "name": "Rousing Read",
+            "targets": [
+              {
+                "name": "Aegis Turtle (0/5) (yours)",
+                "id": "p37"
+              }
+            ]
           }
         ],
         "game_seq": 333,
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "success": false,
-        "error_code": "index_out_of_range",
-        "retryable": true
+        "land_drops_used": 0,
+        "action_taken": "selected_ability_1",
+        "success": true
       },
       "llmEventIndices": [
         300,
         301,
-        302
-      ],
-      "subsequentActions": [],
-      "actionSeq": 331,
-      "pilotContext": {
-        "untappedLands": 2,
-        "landDropsUsed": 0
-      }
-    },
-    {
-      "index": 127,
-      "snapshotIndex": 194,
-      "player": "Llama4 Valley",
-      "turn": 12,
-      "phase": "POSTCOMBAT_MAIN",
-      "step": "POSTCOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
-      "message": "Play instants and activated abilities",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        304,
-        305
+        302,
+        303,
+        304
       ],
       "subsequentActions": [
         "Llama4 Valley casts Rousing Read targeting Aegis Turtle from hand",
@@ -77845,11 +78386,12 @@
       ],
       "actionSeq": 333,
       "pilotContext": {
+        "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 128,
+      "index": 126,
       "snapshotIndex": 201,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -78193,7 +78735,7 @@
       }
     },
     {
-      "index": 129,
+      "index": 127,
       "snapshotIndex": 201,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -78504,10 +79046,8 @@
         310,
         311
       ],
-      "subsequentActions": [
-        "Llama4 Valley discards Pursued Whale (source: Rousing Read)"
-      ],
-      "actionSeq": 344,
+      "subsequentActions": [],
+      "actionSeq": 346,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -78516,7 +79056,7 @@
       }
     },
     {
-      "index": 130,
+      "index": 128,
       "snapshotIndex": 202,
       "player": "Llama4 Valley",
       "turn": 12,
@@ -78545,7 +79085,7 @@
       }
     },
     {
-      "index": 131,
+      "index": 129,
       "snapshotIndex": 205,
       "player": "GPT54 Spike",
       "turn": 13,
@@ -78927,7 +79467,7 @@
       }
     },
     {
-      "index": 132,
+      "index": 130,
       "snapshotIndex": 205,
       "player": "GPT54 Spike",
       "turn": 13,
@@ -79303,10 +79843,8 @@
         321,
         322
       ],
-      "subsequentActions": [
-        "GPT54 Spike puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 350,
+      "subsequentActions": [],
+      "actionSeq": 354,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -79316,7 +79854,7 @@
       }
     },
     {
-      "index": 133,
+      "index": 131,
       "snapshotIndex": 206,
       "player": "GPT54 Spike",
       "turn": 13,
@@ -79698,14 +80236,14 @@
         324
       ],
       "subsequentActions": [],
-      "actionSeq": 354,
+      "actionSeq": 356,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 134,
+      "index": 132,
       "snapshotIndex": 208,
       "player": "GPT54 Spike",
       "turn": 13,
@@ -80047,16 +80585,14 @@
         325,
         329
       ],
-      "subsequentActions": [
-        "GPT54 Spike attacks Llama4 Valley with 2 creatures"
-      ],
-      "actionSeq": 356,
+      "subsequentActions": [],
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 5
       }
     },
     {
-      "index": 135,
+      "index": 133,
       "snapshotIndex": 212,
       "player": "Llama4 Valley",
       "turn": 13,
@@ -80424,7 +80960,7 @@
       }
     },
     {
-      "index": 136,
+      "index": 134,
       "snapshotIndex": 210,
       "player": "GPT54 Spike",
       "turn": 13,
@@ -80464,13 +81000,13 @@
         338
       ],
       "subsequentActions": [],
-      "actionSeq": 361,
+      "actionSeq": 367,
       "pilotContext": {
         "untappedLands": 5
       }
     },
     {
-      "index": 137,
+      "index": 135,
       "snapshotIndex": 212,
       "player": "Llama4 Valley",
       "turn": 13,

@@ -29803,16 +29803,23 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "{'tap': 'p4'}",
+        "mana_plan": "[{\"tap\": \"p4\"}]",
         "id": "p8"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
       },
       "llmEventIndices": [
         65,
         66,
-        67
+        67,
+        68,
+        69
       ],
       "subsequentActions": [
         "has started watching",
@@ -29978,7 +29985,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2"
+        "attackers": [
+          "p2"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -30406,7 +30415,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2,p12"
+        "attackers": [
+          "p2",
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -31550,7 +31562,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2,p12"
+        "attackers": [
+          "p2",
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -32259,7 +32274,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2"
+        "attackers": [
+          "p2"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -33040,20 +33057,27 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
-        "attackers": "p2,p9"
+        "index": 3
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "special_special"
       },
       "llmEventIndices": [
         607,
         611,
-        612
+        612,
+        614,
+        617,
+        618,
+        620,
+        621,
+        623,
+        624
       ],
       "subsequentActions": [
         "has started watching",

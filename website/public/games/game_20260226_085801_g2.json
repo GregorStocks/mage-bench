@@ -44956,12 +44956,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -45097,12 +45097,12 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -46521,7 +46521,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -46977,7 +46979,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -48165,7 +48169,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -49142,7 +49148,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9,p24,p40"
+        "attackers": [
+          "p9",
+          "p24",
+          "p40"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -49326,7 +49336,8 @@
         363,
         364,
         373,
-        374
+        374,
+        375
       ],
       "subsequentActions": [],
       "actionSeq": 247,
@@ -49872,7 +49883,8 @@
       "llmEventIndices": [
         396,
         397,
-        398
+        398,
+        399
       ],
       "subsequentActions": [],
       "actionSeq": 263,
@@ -50148,7 +50160,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9,p40,p24"
+        "attackers": [
+          "p9",
+          "p40",
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [

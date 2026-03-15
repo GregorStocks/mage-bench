@@ -382075,7 +382075,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p1",
-        "mana_plan": "p16,p11,p13"
+        "mana_plan": [
+          "p16",
+          "p11",
+          "p13"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -382911,7 +382915,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p16,p13,p11,p21"
+        "mana_plan": [
+          "p16",
+          "p13",
+          "p11",
+          "p21"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -382974,7 +382983,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p1"
+        "attackers": [
+          "p1"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -384013,7 +384024,13 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": "p8,p13,p16,p11,p21"
+        "mana_plan": [
+          "p8",
+          "p13",
+          "p16",
+          "p11",
+          "p21"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -384186,7 +384203,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p1"
+        "attackers": [
+          "p1"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -384491,35 +384510,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
-        "index": 1
+        "id": "p2"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "recent_chat": [
-          "[System] Spell cancelled — not enough mana to complete payment."
-        ],
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "name": "Jace Beleren",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "+2: Each player draws a card.",
-              "-1: Target player draws a card."
-            ],
-            "id": "p2"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         351,
         352,
-        353
+        353,
+        354,
+        355
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -385153,7 +385160,9 @@
       "chosen": 5,
       "chosenArgs": {
         "id": "p25",
-        "mana_plan": "p11"
+        "mana_plan": [
+          "p11"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -385349,7 +385358,11 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p44",
-        "mana_plan": "p13,p21,p14"
+        "mana_plan": [
+          "p13",
+          "p21",
+          "p14"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -385723,7 +385736,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p43",
-        "mana_plan": "p16,p8"
+        "mana_plan": [
+          "p16",
+          "p8"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -386001,7 +386017,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p1,p34"
+        "attackers": [
+          "p1",
+          "p34"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -386125,7 +386144,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34"
+        "attackers": [
+          "p34"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -386251,7 +386272,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p26:p53"
+        "blockers": [
+          "p26:p53"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -386671,20 +386694,26 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p55"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p55 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         521,
         522,
-        523
+        523,
+        524,
+        525,
+        526,
+        528,
+        529
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -386795,9 +386824,16 @@
         "auto_tap": true,
         "pile": 1,
         "index": 0,
-        "mana_plan": "p1",
-        "attackers": "all",
-        "blockers": "p5:p1,p6:p2",
+        "mana_plan": [
+          "p1"
+        ],
+        "attackers": [
+          "all"
+        ],
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p30",
         "text": "Opus Nature"
       },
@@ -388199,7 +388235,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -388361,7 +388399,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p26:p53"
+        "blockers": [
+          "p26:p53"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -389019,7 +389059,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p38",
-        "mana_plan": "p23,p1"
+        "mana_plan": [
+          "p23",
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -389727,30 +389770,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add one mana of any color in your commander's color identity."
-          },
-          {
-            "index": 1,
-            "description": "2. Sacrifice Commander's Sphere: Draw a card."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         736,
         737,
-        738
+        738,
+        739,
+        740
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -390656,7 +390692,12 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p5",
-        "mana_plan": "p16,p14,p13,p11"
+        "mana_plan": [
+          "p16",
+          "p14",
+          "p13",
+          "p11"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -391081,7 +391122,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p30"
+        "attackers": [
+          "p30"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -391766,60 +391809,22 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p11"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p11 not found in current choices",
-        "choices": [
-          {
-            "name": "Commander's Sphere",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "Sacrifice {this}: Draw a card."
-            ],
-            "id": "p54"
-          },
-          {
-            "mana_cost": "{X}{X}{2}{W}{W}",
-            "name": "Decree of Justice",
-            "index": 1,
-            "action": "cast",
-            "id": "p44"
-          },
-          {
-            "name": "Myriad Landscape",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice {this}: Search your library f..."
-            ],
-            "id": "p62"
-          },
-          {
-            "mana_cost": "{1}{U}{U}",
-            "name": "Neutralize",
-            "index": 3,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{2}{R}{W}",
-            "name": "Zenith Flare",
-            "index": 4,
-            "action": "cast",
-            "id": "p29"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         879,
-        880
+        880,
+        881,
+        882
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -391995,7 +392000,11 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p88",
-        "mana_plan": "p13,p21,p9"
+        "mana_plan": [
+          "p13",
+          "p21",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -392134,7 +392143,13 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p2",
-        "mana_plan": "p16,p93,p14,p11,WHITE"
+        "mana_plan": [
+          "p16",
+          "p93",
+          "p14",
+          "p11",
+          "WHITE"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -392362,7 +392377,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p30"
+        "attackers": [
+          "p30"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -392891,107 +392908,23 @@
       ],
       "choiceCount": 11,
       "isForced": false,
-      "chosen": null,
+      "chosen": 9,
       "chosenArgs": {
-        "id": "p70"
+        "id": "p11"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p70 not found in current choices",
-        "choices": [
-          {
-            "name": "Unknown (1f5f838b)",
-            "index": 0,
-            "id": "p69"
-          },
-          {
-            "name": "Commander's Sphere",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "Sacrifice {this}: Draw a card."
-            ],
-            "id": "p54"
-          },
-          {
-            "mana_cost": "{X}{X}{2}{W}{W}",
-            "name": "Decree of Justice",
-            "index": 2,
-            "action": "cast",
-            "id": "p44"
-          },
-          {
-            "mana_cost": "{2}{W}",
-            "name": "Dismantling Wave",
-            "index": 3,
-            "action": "cast",
-            "id": "p73"
-          },
-          {
-            "mana_cost": "{1}{W}",
-            "name": "Hoofprints of the Stag",
-            "index": 4,
-            "action": "cast",
-            "id": "p12"
-          },
-          {
-            "mana_cost": "{2}{W}{W}{U}{U}",
-            "name": "Isperia, Supreme Judge",
-            "index": 5,
-            "action": "cast",
-            "id": "p55",
-            "power": "6",
-            "toughness": "4"
-          },
-          {
-            "name": "Myriad Landscape",
-            "index": 6,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice {this}: Search your library f..."
-            ],
-            "id": "p62"
-          },
-          {
-            "mana_cost": "{1}{U}{U}",
-            "name": "Neutralize",
-            "index": 7,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{5}",
-            "name": "Psychosis Crawler",
-            "index": 8,
-            "action": "cast",
-            "id": "p10",
-            "power": "9",
-            "toughness": "9"
-          },
-          {
-            "mana_cost": "{3}{W}{U}",
-            "name": "Shabraz, the Skyshark",
-            "index": 9,
-            "action": "cast",
-            "id": "p11",
-            "power": "3",
-            "toughness": "3"
-          },
-          {
-            "mana_cost": "{2}{R}{W}",
-            "name": "Zenith Flare",
-            "index": 10,
-            "action": "cast",
-            "id": "p29"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_9"
       },
       "llmEventIndices": [
         952,
         954,
-        955
+        955,
+        956,
+        957
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -394585,83 +394518,20 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 6,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [
-          0
-        ],
-        "auto_tap": true,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "p1",
-        "attackers": "all",
-        "blockers": "p5:p1,p6:p2",
-        "id": "p6",
-        "text": "Opus Nature"
+        "index": 6
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p6, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p6 not found in current choices",
-        "choices": [
-          {
-            "name": "Ainok Survivalist",
-            "target_type": "card",
-            "index": 0,
-            "id": "p8"
-          },
-          {
-            "name": "Nantuko Vigilante",
-            "target_type": "card",
-            "index": 1,
-            "id": "p5"
-          },
-          {
-            "name": "Sagu Mauler",
-            "target_type": "card",
-            "index": 2,
-            "id": "p71"
-          },
-          {
-            "name": "Sakura-Tribe Elder",
-            "target_type": "card",
-            "index": 3,
-            "id": "p39"
-          },
-          {
-            "name": "Seedborn Muse",
-            "target_type": "card",
-            "index": 4,
-            "id": "p56"
-          },
-          {
-            "name": "Skinthinner",
-            "target_type": "card",
-            "index": 5,
-            "id": "p17"
-          },
-          {
-            "name": "Sunken Hollow",
-            "target_type": "card",
-            "index": 6,
-            "id": "p7"
-          },
-          {
-            "name": "Volrath, the Shapestealer",
-            "target_type": "card",
-            "index": 7,
-            "id": "p63"
-          }
-        ]
+        "success": true,
+        "action_taken": "selected_target_6"
       },
       "llmEventIndices": [
         1060,
         1062,
-        1063
+        1063,
+        1065,
+        1067
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -394793,7 +394663,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -395158,7 +395030,13 @@
       "chosen": 8,
       "chosenArgs": {
         "id": "p106",
-        "mana_plan": "p11,p21,p105,p93,p14"
+        "mana_plan": [
+          "p11",
+          "p21",
+          "p105",
+          "p93",
+          "p14"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -395245,7 +395123,11 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p5",
-        "mana_plan": "p9,p13,p16"
+        "mana_plan": [
+          "p9",
+          "p13",
+          "p16"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -395659,7 +395541,8 @@
       "llmEventIndices": [
         1137,
         1138,
-        1139
+        1139,
+        1141
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -396335,7 +396218,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -396610,7 +396495,11 @@
       "chosen": 8,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p93,p11,p21"
+        "mana_plan": [
+          "p93",
+          "p11",
+          "p21"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -396823,7 +396712,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p95",
-        "mana_plan": "GREEN,p121"
+        "mana_plan": [
+          "GREEN",
+          "p121"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -396946,7 +396838,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p115,p5"
+        "attackers": [
+          "p115",
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -397089,7 +396984,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -397405,7 +397302,8 @@
       "llmEventIndices": [
         1294,
         1295,
-        1296
+        1296,
+        1298
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -397476,20 +397374,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p127"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p127 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1305,
         1306,
-        1307
+        1307,
+        1309,
+        1310
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -397542,7 +397443,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p30,p120"
+        "attackers": [
+          "p30",
+          "p120"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -397882,20 +397786,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p88"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p88 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1350,
         1351,
-        1352
+        1352,
+        1354,
+        1355
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -398157,7 +398064,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -398359,7 +398268,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -399174,7 +399085,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p30",
-        "mana_plan": "p9"
+        "mana_plan": [
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -400319,7 +400232,14 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p30,p120,p132,p133,p137,p138"
+        "attackers": [
+          "p30",
+          "p120",
+          "p132",
+          "p133",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -400469,7 +400389,13 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p120,p132,p133,p137,p138"
+        "attackers": [
+          "p120",
+          "p132",
+          "p133",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -400561,7 +400487,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p132,p133,p137,p138"
+        "attackers": [
+          "p132",
+          "p133",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -400980,7 +400911,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p124",
-        "mana_plan": "p11,p21,p93"
+        "mana_plan": [
+          "p11",
+          "p21",
+          "p93"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -401114,7 +401049,12 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p111",
-        "mana_plan": "p105,p147,p9,p9"
+        "mana_plan": [
+          "p105",
+          "p147",
+          "p9",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -401366,7 +401306,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p115"
+        "attackers": [
+          "p115"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -401669,7 +401611,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p150:p112"
+        "blockers": [
+          "p150:p112"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -401951,7 +401895,13 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p57",
-        "mana_plan": "p9,p9,p16,p14,p121"
+        "mana_plan": [
+          "p9",
+          "p9",
+          "p16",
+          "p14",
+          "p121"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -403438,7 +403388,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p115,p166,p111,p5"
+        "attackers": [
+          "p115",
+          "p166",
+          "p111",
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -403621,7 +403576,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p166,p111,p5"
+        "attackers": [
+          "p166",
+          "p111",
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -403722,7 +403681,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p111"
+        "attackers": [
+          "p111"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -404035,7 +403996,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p11:p94,p10:p132"
+        "blockers": [
+          "p11:p94",
+          "p10:p132"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -404357,7 +404321,10 @@
       "chosen": 9,
       "chosenArgs": {
         "id": "p181",
-        "mana_plan": "p14,p93"
+        "mana_plan": [
+          "p14",
+          "p93"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -406265,7 +406232,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -406501,7 +406470,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p111,p166,p187"
+        "attackers": [
+          "p111",
+          "p166",
+          "p187"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -406684,7 +406657,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p166,p187"
+        "attackers": [
+          "p166",
+          "p187"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -407853,34 +407829,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p88"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "recent_chat": [
-          "Opus Nature: The ecosystem is thriving! &#128025;&#129413; The Archon has adapted beautifully to its new octopus symbiont &mdash; a 9/9 apex predator with first strike, flying, and card draw. Nature finds a way, and this food web is getting out of control! &#127807;"
-        ],
-        "error": "Object p88 not found in current choices",
-        "choices": [
-          {
-            "name": "Karn's Bastion",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{4}, {T}: Proliferate. <i>(Choose any number of p..."
-            ],
-            "id": "p93"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2074,
         2075,
-        2076
+        2076,
+        2078,
+        2079,
+        2080,
+        2081
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -408083,49 +408050,23 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
-        "id": "p29"
+        "id": "p154"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p29 not found in current choices",
-        "choices": [
-          {
-            "name": "Island",
-            "index": 0,
-            "action": "land",
-            "id": "p141"
-          },
-          {
-            "name": "Island",
-            "index": 1,
-            "action": "land",
-            "id": "p155"
-          },
-          {
-            "name": "Myriad Landscape",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice {this}: Search your library f..."
-            ],
-            "id": "p62"
-          },
-          {
-            "name": "Secluded Steppe",
-            "index": 3,
-            "action": "land",
-            "id": "p154"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3"
       },
       "llmEventIndices": [
         2098,
         2099,
-        2100
+        2100,
+        2101,
+        2102
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -408404,7 +408345,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p111,p166,p187,p205"
+        "attackers": [
+          "p111",
+          "p166",
+          "p187",
+          "p205"
+        ]
       },
       "actionResult": {
         "declared": [

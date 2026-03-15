@@ -64493,10 +64493,8 @@
         6,
         16
       ],
-      "subsequentActions": [
-        "MiniMx Grudge chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -64867,10 +64865,8 @@
         12,
         13
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -64991,7 +64987,7 @@
         22
       ],
       "subsequentActions": [],
-      "actionSeq": 10
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -65130,12 +65126,8 @@
         17,
         18
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled",
-        "Gem3P Coach puts a card from hand to the bottom of their library",
-        "MiniMx Grudge skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -65157,28 +65149,120 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0
+        "choice": "no"
       },
       "actionResult": {
-        "game_seq": 18,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "recent_chat": [
-          "Gem3P Coach: Alright team, huddle up! That opening play wasn&#39;t quite right. Let&#39;s reset and find a better formation! Mulligan.",
-          "Gem3P Coach: Okay, we&#39;ll work with this formation. Defense first, then we take the sky! Keep."
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T1 Combat/Declare Attackers (MiniMx Grudge)",
+        "board": [
+          {
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              }
+            ],
+            "name": "MiniMx Grudge",
+            "library_size": 33,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Armorcraft Judge",
+                "rules": [
+                  "When {this} enters, draw a card for each creature you control with a +1/+1 counter on it."
+                ],
+                "power": "3",
+                "id": "p10",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Drowsing Tyrannodon",
+                "rules": [
+                  "Defender",
+                  "As long as you control a creature with power 4 or greater, {this} can attack as though it didn't have defender."
+                ],
+                "power": "3",
+                "id": "p11",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{2}{G}",
+                "name": "Invigorating Surge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control, then double the number of +1/+1 counters on that creature."
+                ],
+                "id": "p13"
+              },
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Ironshell Beetle",
+                "rules": [
+                  "When {this} enters, put a +1/+1 counter on target creature."
+                ],
+                "power": "1",
+                "id": "p14",
+                "toughness": "1"
+              },
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Rampaging Growth",
+                "rules": [
+                  "Search your library for a basic land card, put it on the battlefield, then shuffle. Until end of turn, that land becomes a 4/3 Insect creature with reach and haste. It's still a land."
+                ],
+                "id": "p15"
+              },
+              {
+                "name": "Thriving Grove",
+                "is_land": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than green.",
+                  "{T}: Add {G}.",
+                  "{T}: Add one mana of the chosen color."
+                ],
+                "id": "p16"
+              }
+            ]
+          },
+          {
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "name": "Gem3P Coach",
+            "library_size": 34,
+            "life": 20
+          }
         ],
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
+        "board_cursor": 4,
+        "untapped_lands": 1,
+        "game_seq": 18,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         18,
         19,
-        20
+        20,
+        21,
+        24
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -65334,10 +65418,8 @@
         25,
         26
       ],
-      "subsequentActions": [
-        "MiniMx Grudge skip attack"
-      ],
-      "actionSeq": 18,
+      "subsequentActions": [],
+      "actionSeq": 22,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -65476,7 +65558,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -65689,12 +65771,15 @@
       "llmEventIndices": [
         32,
         33,
-        34
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 24,
+      "subsequentActions": [],
+      "actionSeq": 31,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -65726,7 +65811,8 @@
       "llmEventIndices": [
         40,
         41,
-        42
+        42,
+        43
       ],
       "subsequentActions": [
         "Gem3P Coach skip attack"
@@ -65790,7 +65876,14 @@
       "llmEventIndices": [
         44,
         45,
-        46
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
       ],
       "subsequentActions": [],
       "actionSeq": 38,
@@ -65857,7 +65950,26 @@
       "llmEventIndices": [
         54,
         55,
-        56
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        76
       ],
       "subsequentActions": [
         "MiniMx Grudge skip attack"
@@ -66216,7 +66328,7 @@
         82
       ],
       "subsequentActions": [],
-      "actionSeq": 47,
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -66258,18 +66370,142 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "Blue"
+        "text": "Blue"
       },
       "actionResult": {
-        "error": "Unknown short ID: Blue"
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T2 Precombat Main/Precombat Main (Gem3P Coach) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p30"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 32,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{4}{W}",
+                "name": "Angelic Edict",
+                "rules": [
+                  "Exile target creature or enchantment."
+                ],
+                "id": "p3"
+              },
+              {
+                "mana_cost": "{2}{W}{W}",
+                "name": "Basri's Acolyte",
+                "rules": [
+                  "Lifelink",
+                  "When {this} enters, put a +1/+1 counter on each of up to two other target creatures you control."
+                ],
+                "power": "2",
+                "id": "p17",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{1}{W}{W}",
+                "name": "Emancipation Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand."
+                ],
+                "power": "3",
+                "id": "p18",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{1}{W}",
+                "name": "Feat of Resistance",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn."
+                ],
+                "id": "p6"
+              },
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              },
+              {
+                "mana_cost": "{W}",
+                "name": "Take Heart",
+                "rules": [
+                  "Target creature gets +2/+2 until end of turn. You gain 1 life for each attacking creature you control."
+                ],
+                "id": "p28"
+              }
+            ]
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              }
+            ],
+            "name": "MiniMx Grudge",
+            "library_size": 32,
+            "life": 20
+          }
+        ],
+        "board_cursor": 8,
+        "untapped_lands": 1,
+        "game_seq": 49,
+        "land_drops_used": 1,
+        "action_taken": "selected_choice_text_Blue",
+        "success": true
       },
       "llmEventIndices": [
         82,
         83,
-        84
+        84,
+        85,
+        86
       ],
-      "subsequentActions": [],
-      "actionSeq": 48,
+      "subsequentActions": [
+        "Thriving Heath: Gem3P Coach has chosen Blue",
+        "Gem3P Coach puts Thriving Heath from hand onto the Battlefield",
+        "Gem3P Coach skip attack"
+      ],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -66281,37 +66517,6 @@
     },
     {
       "index": 19,
-      "snapshotIndex": 24,
-      "player": "Gem3P Coach",
-      "turn": 4,
-      "phase": "PRECOMBAT_MAIN",
-      "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
-      "message": "Play spells and abilities",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        86,
-        87
-      ],
-      "subsequentActions": [
-        "Thriving Heath: Gem3P Coach has chosen Blue",
-        "Gem3P Coach puts Thriving Heath from hand onto the Battlefield",
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 49,
-      "pilotContext": {
-        "untappedLands": 1,
-        "landDropsUsed": 1
-      }
-    },
-    {
-      "index": 20,
       "snapshotIndex": 31,
       "player": "MiniMx Grudge",
       "turn": 5,
@@ -66511,7 +66716,7 @@
       }
     },
     {
-      "index": 21,
+      "index": 20,
       "snapshotIndex": 31,
       "player": "MiniMx Grudge",
       "turn": 5,
@@ -66704,7 +66909,7 @@
         92
       ],
       "subsequentActions": [],
-      "actionSeq": 62,
+      "actionSeq": 63,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -66715,7 +66920,7 @@
       }
     },
     {
-      "index": 22,
+      "index": 21,
       "snapshotIndex": 31,
       "player": "MiniMx Grudge",
       "turn": 5,
@@ -66898,7 +67103,7 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 63,
+      "actionSeq": 64,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -66909,7 +67114,7 @@
       }
     },
     {
-      "index": 23,
+      "index": 22,
       "snapshotIndex": 31,
       "player": "MiniMx Grudge",
       "turn": 5,
@@ -67074,18 +67279,15 @@
         97,
         98
       ],
-      "subsequentActions": [
-        "Thriving Grove: MiniMx Grudge has chosen Blue",
-        "MiniMx Grudge puts Thriving Grove from hand onto the Battlefield"
-      ],
-      "actionSeq": 64,
+      "subsequentActions": [],
+      "actionSeq": 69,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 24,
+      "index": 23,
       "snapshotIndex": 32,
       "player": "MiniMx Grudge",
       "turn": 5,
@@ -67250,16 +67452,14 @@
         99,
         100
       ],
-      "subsequentActions": [
-        "MiniMx Grudge skip attack"
-      ],
-      "actionSeq": 69,
+      "subsequentActions": [],
+      "actionSeq": 73,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 25,
+      "index": 24,
       "snapshotIndex": 34,
       "player": "MiniMx Grudge",
       "turn": 5,
@@ -67437,14 +67637,14 @@
         110
       ],
       "subsequentActions": [],
-      "actionSeq": 73,
+      "actionSeq": 75,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 26,
+      "index": 25,
       "snapshotIndex": 38,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -67659,7 +67859,7 @@
       }
     },
     {
-      "index": 27,
+      "index": 26,
       "snapshotIndex": 38,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -67847,10 +68047,8 @@
         105,
         106
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 77,
+      "subsequentActions": [],
+      "actionSeq": 81,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -67861,7 +68059,7 @@
       }
     },
     {
-      "index": 28,
+      "index": 27,
       "snapshotIndex": 39,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68029,14 +68227,14 @@
         108
       ],
       "subsequentActions": [],
-      "actionSeq": 81,
+      "actionSeq": 84,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 29,
+      "index": 28,
       "snapshotIndex": 41,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68062,7 +68260,7 @@
       }
     },
     {
-      "index": 30,
+      "index": 29,
       "snapshotIndex": 36,
       "player": "MiniMx Grudge",
       "turn": 5,
@@ -68251,17 +68449,14 @@
         111,
         112
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Emancipation Angel from hand"
-      ],
-      "actionSeq": 75,
+      "subsequentActions": [],
+      "actionSeq": 88,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 31,
+      "index": 30,
       "snapshotIndex": 44,
       "player": "MiniMx Grudge",
       "turn": 6,
@@ -68433,17 +68628,14 @@
         113,
         160
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Emancipation Angel from stack onto the Battlefield",
-        "Gem3P Coach - Ability triggers: Emancipation Angel - When Emancipation Angel enters, return a permanent you control to its owner's hand."
-      ],
-      "actionSeq": 88,
+      "subsequentActions": [],
+      "actionSeq": 92,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 32,
+      "index": 31,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68499,7 +68691,7 @@
       }
     },
     {
-      "index": 33,
+      "index": 32,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68555,7 +68747,7 @@
       }
     },
     {
-      "index": 34,
+      "index": 33,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68611,7 +68803,7 @@
       }
     },
     {
-      "index": 35,
+      "index": 34,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68667,7 +68859,7 @@
       }
     },
     {
-      "index": 36,
+      "index": 35,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68723,7 +68915,7 @@
       }
     },
     {
-      "index": 37,
+      "index": 36,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68779,7 +68971,7 @@
       }
     },
     {
-      "index": 38,
+      "index": 37,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68835,7 +69027,7 @@
       }
     },
     {
-      "index": 39,
+      "index": 38,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68891,7 +69083,7 @@
       }
     },
     {
-      "index": 40,
+      "index": 39,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -68947,7 +69139,7 @@
       }
     },
     {
-      "index": 41,
+      "index": 40,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69003,7 +69195,7 @@
       }
     },
     {
-      "index": 42,
+      "index": 41,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69059,7 +69251,7 @@
       }
     },
     {
-      "index": 43,
+      "index": 42,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69115,7 +69307,7 @@
       }
     },
     {
-      "index": 44,
+      "index": 43,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69171,7 +69363,7 @@
       }
     },
     {
-      "index": 45,
+      "index": 44,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69227,7 +69419,7 @@
       }
     },
     {
-      "index": 46,
+      "index": 45,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69283,7 +69475,7 @@
       }
     },
     {
-      "index": 47,
+      "index": 46,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69339,7 +69531,7 @@
       }
     },
     {
-      "index": 48,
+      "index": 47,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69395,7 +69587,7 @@
       }
     },
     {
-      "index": 49,
+      "index": 48,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69451,7 +69643,7 @@
       }
     },
     {
-      "index": 50,
+      "index": 49,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69507,7 +69699,7 @@
       }
     },
     {
-      "index": 51,
+      "index": 50,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69563,7 +69755,7 @@
       }
     },
     {
-      "index": 52,
+      "index": 51,
       "snapshotIndex": 47,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -69627,7 +69819,7 @@
       }
     },
     {
-      "index": 53,
+      "index": 52,
       "snapshotIndex": 46,
       "player": "MiniMx Grudge",
       "turn": 6,
@@ -69799,16 +69991,14 @@
         161,
         162
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Emancipation Angel from battlefield into their hand"
-      ],
-      "actionSeq": 92,
+      "subsequentActions": [],
+      "actionSeq": 96,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 54,
+      "index": 53,
       "snapshotIndex": 49,
       "player": "MiniMx Grudge",
       "turn": 6,
@@ -69980,16 +70170,14 @@
         163,
         164
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 96,
+      "subsequentActions": [],
+      "actionSeq": 100,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 55,
+      "index": 54,
       "snapshotIndex": 51,
       "player": "MiniMx Grudge",
       "turn": 6,
@@ -70207,13 +70395,13 @@
         166
       ],
       "subsequentActions": [],
-      "actionSeq": 100,
+      "actionSeq": 102,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 56,
+      "index": 55,
       "snapshotIndex": 53,
       "player": "MiniMx Grudge",
       "turn": 6,
@@ -70431,7 +70619,7 @@
         168
       ],
       "subsequentActions": [],
-      "actionSeq": 102,
+      "actionSeq": 103,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -70444,7 +70632,7 @@
       }
     },
     {
-      "index": 57,
+      "index": 56,
       "snapshotIndex": 54,
       "player": "MiniMx Grudge",
       "turn": 7,
@@ -70629,14 +70817,14 @@
         170
       ],
       "subsequentActions": [],
-      "actionSeq": 103,
+      "actionSeq": 106,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 58,
+      "index": 57,
       "snapshotIndex": 56,
       "player": "MiniMx Grudge",
       "turn": 7,
@@ -70828,16 +71016,14 @@
         171,
         172
       ],
-      "subsequentActions": [
-        "MiniMx Grudge casts Ironshell Beetle from hand"
-      ],
-      "actionSeq": 106,
+      "subsequentActions": [],
+      "actionSeq": 110,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 59,
+      "index": 58,
       "snapshotIndex": 57,
       "player": "MiniMx Grudge",
       "turn": 7,
@@ -70849,37 +71035,204 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p14"
+        "choice": "no"
       },
       "actionResult": {
-        "game_seq": 114,
-        "error": "Object p14 not found in current choices",
-        "recent_chat": [
-          "Gem3P Coach: Brain freeze! Auto-passing until next turn...",
-          "Gem3P Coach: Alright team, let&#39;s get the air game going! Emancipation Angel taking flight!"
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T4 Precombat Main/Precombat Main (MiniMx Grudge) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "+1/+1": 1
+                },
+                "name": "Ironshell Beetle",
+                "rules": [
+                  "When {this} enters, put a +1/+1 counter on target creature."
+                ],
+                "id": "p14",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Grove",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than green.",
+                  "{T}: Add {G}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "MiniMx Grudge",
+            "library_size": 30,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Armorcraft Judge",
+                "rules": [
+                  "When {this} enters, draw a card for each creature you control with a +1/+1 counter on it."
+                ],
+                "power": "3",
+                "id": "p10",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Drowsing Tyrannodon",
+                "rules": [
+                  "Defender",
+                  "As long as you control a creature with power 4 or greater, {this} can attack as though it didn't have defender."
+                ],
+                "power": "3",
+                "id": "p11",
+                "toughness": "3"
+              },
+              {
+                "name": "Forest",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p29",
+                "playable": true
+              },
+              {
+                "name": "Forest",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p35",
+                "playable": true
+              },
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Gaea's Protector",
+                "rules": [
+                  "{this} must be blocked if able."
+                ],
+                "power": "4",
+                "id": "p31",
+                "toughness": "2"
+              },
+              {
+                "mana_cost": "{2}{G}",
+                "name": "Invigorating Surge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control, then double the number of +1/+1 counters on that creature."
+                ],
+                "id": "p13"
+              },
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Rampaging Growth",
+                "rules": [
+                  "Search your library for a basic land card, put it on the battlefield, then shuffle. Until end of turn, that land becomes a 4/3 Insect creature with reach and haste. It's still a land."
+                ],
+                "id": "p15"
+              }
+            ]
+          },
+          {
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p30"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 31,
+            "life": 20
+          }
         ],
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "board_cursor": 16,
+        "choices": [
+          {
+            "name": "Forest",
+            "index": 0,
+            "action": "land",
+            "id": "p29"
+          },
+          {
+            "name": "Forest",
+            "index": 1,
+            "action": "land",
+            "id": "p35"
+          }
+        ],
+        "game_seq": 114,
+        "land_drops_used": 0,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         172,
         173,
-        174
+        174,
+        175,
+        176
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Ironshell Beetle from stack onto the Battlefield",
-        "MiniMx Grudge - Ability triggers: Ironshell Beetle - When Ironshell Beetle enters, put a +1/+1 counter on target creature. - targeting Ironshell Beetle"
-      ],
-      "actionSeq": 110,
+      "subsequentActions": [],
+      "actionSeq": 114,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 60,
+      "index": 59,
       "snapshotIndex": 59,
       "player": "MiniMx Grudge",
       "turn": 7,
@@ -71077,10 +71430,8 @@
         177,
         178
       ],
-      "subsequentActions": [
-        "Ironshell Beetle: MiniMx Grudge puts 1 +1/+1 counters on Ironshell Beetle"
-      ],
-      "actionSeq": 114,
+      "subsequentActions": [],
+      "actionSeq": 117,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71090,7 +71441,7 @@
       }
     },
     {
-      "index": 61,
+      "index": 60,
       "snapshotIndex": 61,
       "player": "MiniMx Grudge",
       "turn": 7,
@@ -71274,17 +71625,15 @@
         179,
         180
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 117,
+      "subsequentActions": [],
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 62,
+      "index": 61,
       "snapshotIndex": 62,
       "player": "MiniMx Grudge",
       "turn": 7,
@@ -71469,16 +71818,14 @@
         181,
         182
       ],
-      "subsequentActions": [
-        "MiniMx Grudge skip attack"
-      ],
-      "actionSeq": 119,
+      "subsequentActions": [],
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 63,
+      "index": 62,
       "snapshotIndex": 64,
       "player": "MiniMx Grudge",
       "turn": 7,
@@ -71668,14 +72015,14 @@
         190
       ],
       "subsequentActions": [],
-      "actionSeq": 123,
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 64,
+      "index": 63,
       "snapshotIndex": 68,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -71923,7 +72270,7 @@
       }
     },
     {
-      "index": 65,
+      "index": 64,
       "snapshotIndex": 68,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -72122,7 +72469,7 @@
         188
       ],
       "subsequentActions": [],
-      "actionSeq": 127,
+      "actionSeq": 130,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -72132,7 +72479,7 @@
       }
     },
     {
-      "index": 66,
+      "index": 65,
       "snapshotIndex": 70,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -72334,13 +72681,13 @@
         192
       ],
       "subsequentActions": [],
-      "actionSeq": 130,
+      "actionSeq": 135,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 67,
+      "index": 66,
       "snapshotIndex": 66,
       "player": "MiniMx Grudge",
       "turn": 7,
@@ -72541,16 +72888,14 @@
         191,
         194
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Emancipation Angel from hand"
-      ],
-      "actionSeq": 125,
+      "subsequentActions": [],
+      "actionSeq": 136,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 68,
+      "index": 67,
       "snapshotIndex": 72,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -72791,13 +73136,13 @@
         196
       ],
       "subsequentActions": [],
-      "actionSeq": 135,
+      "actionSeq": 139,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 69,
+      "index": 68,
       "snapshotIndex": 73,
       "player": "MiniMx Grudge",
       "turn": 8,
@@ -72998,17 +73343,14 @@
         195,
         211
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Emancipation Angel from stack onto the Battlefield",
-        "Gem3P Coach - Ability triggers: Emancipation Angel - When Emancipation Angel enters, return a permanent you control to its owner's hand."
-      ],
-      "actionSeq": 136,
+      "subsequentActions": [],
+      "actionSeq": 140,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 70,
+      "index": 69,
       "snapshotIndex": 74,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -73064,7 +73406,7 @@
       }
     },
     {
-      "index": 71,
+      "index": 70,
       "snapshotIndex": 76,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -73120,7 +73462,7 @@
       }
     },
     {
-      "index": 72,
+      "index": 71,
       "snapshotIndex": 76,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -73176,7 +73518,7 @@
       }
     },
     {
-      "index": 73,
+      "index": 72,
       "snapshotIndex": 76,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -73418,7 +73760,7 @@
       }
     },
     {
-      "index": 74,
+      "index": 73,
       "snapshotIndex": 76,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -73642,10 +73984,8 @@
         205,
         206
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from battlefield into their hand"
-      ],
-      "actionSeq": 141,
+      "subsequentActions": [],
+      "actionSeq": 143,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -73654,7 +73994,7 @@
       }
     },
     {
-      "index": 75,
+      "index": 74,
       "snapshotIndex": 77,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -73861,10 +74201,8 @@
         207,
         209
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 143,
+      "subsequentActions": [],
+      "actionSeq": 145,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -73875,7 +74213,7 @@
       }
     },
     {
-      "index": 76,
+      "index": 75,
       "snapshotIndex": 78,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -74073,13 +74411,13 @@
         213
       ],
       "subsequentActions": [],
-      "actionSeq": 145,
+      "actionSeq": 148,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 77,
+      "index": 76,
       "snapshotIndex": 75,
       "player": "MiniMx Grudge",
       "turn": 8,
@@ -74287,18 +74625,14 @@
         212,
         215
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from battlefield into their hand",
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Anointed Chorister from hand"
-      ],
-      "actionSeq": 140,
+      "subsequentActions": [],
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 78,
+      "index": 77,
       "snapshotIndex": 80,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -74495,13 +74829,13 @@
         217
       ],
       "subsequentActions": [],
-      "actionSeq": 148,
+      "actionSeq": 151,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 79,
+      "index": 78,
       "snapshotIndex": 81,
       "player": "MiniMx Grudge",
       "turn": 8,
@@ -74709,16 +75043,14 @@
         216,
         219
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Anointed Chorister from stack onto the Battlefield"
-      ],
-      "actionSeq": 149,
+      "subsequentActions": [],
+      "actionSeq": 152,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 80,
+      "index": 79,
       "snapshotIndex": 82,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -74916,10 +75248,10 @@
         221
       ],
       "subsequentActions": [],
-      "actionSeq": 151
+      "actionSeq": 155
     },
     {
-      "index": 81,
+      "index": 80,
       "snapshotIndex": 83,
       "player": "MiniMx Grudge",
       "turn": 8,
@@ -75127,16 +75459,14 @@
         220,
         223
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 152,
+      "subsequentActions": [],
+      "actionSeq": 156,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 82,
+      "index": 81,
       "snapshotIndex": 84,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -75344,13 +75674,13 @@
         231
       ],
       "subsequentActions": [],
-      "actionSeq": 155,
+      "actionSeq": 157,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 83,
+      "index": 82,
       "snapshotIndex": 85,
       "player": "MiniMx Grudge",
       "turn": 8,
@@ -75602,13 +75932,13 @@
         225
       ],
       "subsequentActions": [],
-      "actionSeq": 156,
+      "actionSeq": 158,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 84,
+      "index": 83,
       "snapshotIndex": 87,
       "player": "MiniMx Grudge",
       "turn": 8,
@@ -75868,7 +76198,7 @@
         227
       ],
       "subsequentActions": [],
-      "actionSeq": 158,
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -75881,7 +76211,7 @@
       }
     },
     {
-      "index": 85,
+      "index": 84,
       "snapshotIndex": 88,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -76110,14 +76440,14 @@
         229
       ],
       "subsequentActions": [],
-      "actionSeq": 159,
+      "actionSeq": 162,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 86,
+      "index": 85,
       "snapshotIndex": 90,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -76351,13 +76681,13 @@
         233
       ],
       "subsequentActions": [],
-      "actionSeq": 162,
+      "actionSeq": 167,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 87,
+      "index": 86,
       "snapshotIndex": 86,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -76382,7 +76712,7 @@
       "actionSeq": 157
     },
     {
-      "index": 88,
+      "index": 87,
       "snapshotIndex": 92,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -76613,11 +76943,8 @@
         234,
         235
       ],
-      "subsequentActions": [
-        "Invigorating Surge: MiniMx Grudge puts 1 +1/+1 counters on Ironshell Beetle",
-        "MiniMx Grudge puts Invigorating Surge from stack into their graveyard"
-      ],
-      "actionSeq": 167,
+      "subsequentActions": [],
+      "actionSeq": 171,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -76627,7 +76954,7 @@
       }
     },
     {
-      "index": 89,
+      "index": 88,
       "snapshotIndex": 94,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -76646,9 +76973,6 @@
       "actionResult": {
         "game_seq": 173,
         "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "recent_chat": [
-          "Gem3P Coach: Good hustle on that land drop! Let&#39;s get the rookie on the field. Go Chorister!"
-        ],
         "success": false,
         "error_code": "missing_param",
         "retryable": true
@@ -76656,19 +76980,20 @@
       "llmEventIndices": [
         235,
         236,
-        237
+        237,
+        238,
+        239,
+        240
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 171,
+      "subsequentActions": [],
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 90,
+      "index": 89,
       "snapshotIndex": 97,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -76927,7 +77252,7 @@
       }
     },
     {
-      "index": 91,
+      "index": 90,
       "snapshotIndex": 97,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -77158,16 +77483,14 @@
         244,
         247
       ],
-      "subsequentActions": [
-        "MiniMx Grudge attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 175,
+      "subsequentActions": [],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 92,
+      "index": 91,
       "snapshotIndex": 100,
       "player": "Gem3P Coach",
       "turn": 9,
@@ -77426,7 +77749,7 @@
       }
     },
     {
-      "index": 93,
+      "index": 92,
       "snapshotIndex": 98,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -77658,13 +77981,13 @@
         251
       ],
       "subsequentActions": [],
-      "actionSeq": 179,
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 94,
+      "index": 93,
       "snapshotIndex": 100,
       "player": "Gem3P Coach",
       "turn": 9,
@@ -77891,13 +78214,11 @@
         250,
         253
       ],
-      "subsequentActions": [
-        "Attacker: Ironshell Beetle (5/5) unblocked"
-      ],
-      "actionSeq": 181
+      "subsequentActions": [],
+      "actionSeq": 185
     },
     {
-      "index": 95,
+      "index": 94,
       "snapshotIndex": 101,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -78116,13 +78437,13 @@
         255
       ],
       "subsequentActions": [],
-      "actionSeq": 184,
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 96,
+      "index": 95,
       "snapshotIndex": 102,
       "player": "Gem3P Coach",
       "turn": 9,
@@ -78147,7 +78468,7 @@
       "actionSeq": 185
     },
     {
-      "index": 97,
+      "index": 96,
       "snapshotIndex": 103,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -78370,14 +78691,14 @@
         264
       ],
       "subsequentActions": [],
-      "actionSeq": 188,
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 98,
+      "index": 97,
       "snapshotIndex": 107,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -78652,7 +78973,7 @@
       }
     },
     {
-      "index": 99,
+      "index": 98,
       "snapshotIndex": 107,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -78900,7 +79221,7 @@
         262
       ],
       "subsequentActions": [],
-      "actionSeq": 192,
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -78911,7 +79232,7 @@
       }
     },
     {
-      "index": 100,
+      "index": 99,
       "snapshotIndex": 108,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -79177,7 +79498,7 @@
         266
       ],
       "subsequentActions": [],
-      "actionSeq": 194,
+      "actionSeq": 198,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -79188,7 +79509,7 @@
       }
     },
     {
-      "index": 101,
+      "index": 100,
       "snapshotIndex": 105,
       "player": "MiniMx Grudge",
       "turn": 9,
@@ -79419,16 +79740,14 @@
         265,
         270
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Scroll of Avacyn from hand"
-      ],
-      "actionSeq": 190,
+      "subsequentActions": [],
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 102,
+      "index": 101,
       "snapshotIndex": 109,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -79691,10 +80010,8 @@
         267,
         268
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Scroll of Avacyn from stack onto the Battlefield"
-      ],
-      "actionSeq": 198,
+      "subsequentActions": [],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -79705,7 +80022,7 @@
       }
     },
     {
-      "index": 103,
+      "index": 102,
       "snapshotIndex": 111,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -79963,7 +80280,7 @@
         272
       ],
       "subsequentActions": [],
-      "actionSeq": 201,
+      "actionSeq": 205,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -79973,7 +80290,7 @@
       }
     },
     {
-      "index": 104,
+      "index": 103,
       "snapshotIndex": 110,
       "player": "MiniMx Grudge",
       "turn": 10,
@@ -80207,18 +80524,14 @@
         271,
         276
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Scroll of Avacyn from stack onto the Battlefield",
-        "Gem3P Coach sacrificed Scroll of Avacyn (source: Scroll of Avacyn)",
-        "Gem3P Coach activates: draw a card. If you control an Angel, you gain 5 life. from Scroll of Avacyn"
-      ],
-      "actionSeq": 199,
+      "subsequentActions": [],
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 105,
+      "index": 104,
       "snapshotIndex": 113,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -80482,10 +80795,8 @@
         273,
         274
       ],
-      "subsequentActions": [
-        "Gem3P Coach gains 5 life (source: Scroll of Avacyn)"
-      ],
-      "actionSeq": 205,
+      "subsequentActions": [],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -80496,7 +80807,7 @@
       }
     },
     {
-      "index": 106,
+      "index": 105,
       "snapshotIndex": 115,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -80768,7 +81079,7 @@
         278
       ],
       "subsequentActions": [],
-      "actionSeq": 208,
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -80779,7 +81090,7 @@
       }
     },
     {
-      "index": 107,
+      "index": 106,
       "snapshotIndex": 114,
       "player": "MiniMx Grudge",
       "turn": 10,
@@ -81013,17 +81324,14 @@
         277,
         282
       ],
-      "subsequentActions": [
-        "Gem3P Coach gains 5 life (source: Scroll of Avacyn)",
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 206,
+      "subsequentActions": [],
+      "actionSeq": 211,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 108,
+      "index": 107,
       "snapshotIndex": 116,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -81296,14 +81604,14 @@
         280
       ],
       "subsequentActions": [],
-      "actionSeq": 210,
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 109,
+      "index": 108,
       "snapshotIndex": 118,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -81569,7 +81877,7 @@
         284
       ],
       "subsequentActions": [],
-      "actionSeq": 212,
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -81579,7 +81887,7 @@
       }
     },
     {
-      "index": 110,
+      "index": 109,
       "snapshotIndex": 117,
       "player": "MiniMx Grudge",
       "turn": 10,
@@ -81813,16 +82121,14 @@
         283,
         286
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 211,
+      "subsequentActions": [],
+      "actionSeq": 216,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 111,
+      "index": 110,
       "snapshotIndex": 118,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -82092,7 +82398,7 @@
         296
       ],
       "subsequentActions": [],
-      "actionSeq": 215,
+      "actionSeq": 217,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -82103,7 +82409,7 @@
       }
     },
     {
-      "index": 112,
+      "index": 111,
       "snapshotIndex": 119,
       "player": "MiniMx Grudge",
       "turn": 10,
@@ -82396,13 +82702,13 @@
         288
       ],
       "subsequentActions": [],
-      "actionSeq": 216,
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 113,
+      "index": 112,
       "snapshotIndex": 121,
       "player": "MiniMx Grudge",
       "turn": 10,
@@ -82455,20 +82761,248 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
-        "choice": "p28"
+        "choice": "p31"
       },
       "actionResult": {
-        "error": "Unknown short ID: p28"
+        "action_pending": true,
+        "action_type": "GAME_CHOOSE_ABILITY",
+        "message": "Choose spell or ability to play: Thriving Grove",
+        "response_type": "index",
+        "respond_with": "choice=0, choice=1, etc. (not yes/no)",
+        "context": "T6 Precombat Main/Precombat Main (MiniMx Grudge) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Invigorating Surge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control, then double the number of +1/+1 counters on that creature."
+                ],
+                "id": "p13"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p29"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p35"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "+1/+1": 4
+                },
+                "name": "Ironshell Beetle",
+                "rules": [
+                  "When {this} enters, put a +1/+1 counter on target creature."
+                ],
+                "id": "p14",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Thriving Grove",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than green.",
+                  "{T}: Add {G}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "MiniMx Grudge",
+            "library_size": 28,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Armorcraft Judge",
+                "rules": [
+                  "When {this} enters, draw a card for each creature you control with a +1/+1 counter on it."
+                ],
+                "power": "3",
+                "id": "p10",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{4}{G}",
+                "name": "Challenger Troll",
+                "rules": [
+                  "Each creature you control with power 4 or greater can't be blocked by more than one creature."
+                ],
+                "power": "6",
+                "id": "p47",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Drowsing Tyrannodon",
+                "rules": [
+                  "Defender",
+                  "As long as you control a creature with power 4 or greater, {this} can attack as though it didn't have defender."
+                ],
+                "power": "3",
+                "id": "p11",
+                "toughness": "3"
+              },
+              {
+                "name": "Forest",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p42"
+              },
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Rampaging Growth",
+                "rules": [
+                  "Search your library for a basic land card, put it on the battlefield, then shuffle. Until end of turn, that land becomes a 4/3 Insect creature with reach and haste. It's still a land."
+                ],
+                "id": "p15"
+              }
+            ]
+          },
+          {
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Scroll of Avacyn",
+                "rules": [
+                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
+                ],
+                "id": "p8"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Anointed Chorister",
+                "rules": [
+                  "Lifelink",
+                  "{4}{W}: {this} gets +3/+3 until end of turn."
+                ],
+                "id": "p4",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Emancipation Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand."
+                ],
+                "id": "p18",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p46"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p30"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 28,
+            "life": 20
+          }
+        ],
+        "board_cursor": 33,
+        "choices": [
+          {
+            "index": 0,
+            "description": "1. {T}: Add {G}."
+          },
+          {
+            "index": 1,
+            "description": "2. {T}: Add one mana of the chosen color."
+          }
+        ],
+        "stack": [
+          {
+            "name": "Gaea's Protector"
+          }
+        ],
+        "untapped_lands": 3,
+        "game_seq": 219,
+        "land_drops_used": 0,
+        "action_taken": "selected_3",
+        "success": true
       },
       "llmEventIndices": [
         288,
         289,
-        290
+        290,
+        291,
+        292
       ],
       "subsequentActions": [],
-      "actionSeq": 218,
+      "actionSeq": 219,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -82482,7 +83016,7 @@
       }
     },
     {
-      "index": 114,
+      "index": 113,
       "snapshotIndex": 122,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -82731,14 +83265,14 @@
         294
       ],
       "subsequentActions": [],
-      "actionSeq": 219,
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 115,
+      "index": 114,
       "snapshotIndex": 124,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -82997,13 +83531,13 @@
         298
       ],
       "subsequentActions": [],
-      "actionSeq": 222,
+      "actionSeq": 228,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 116,
+      "index": 115,
       "snapshotIndex": 120,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -83050,7 +83584,7 @@
       }
     },
     {
-      "index": 117,
+      "index": 116,
       "snapshotIndex": 127,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -83307,10 +83841,8 @@
         299,
         300
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Gaea's Protector from stack onto the Battlefield"
-      ],
-      "actionSeq": 228,
+      "subsequentActions": [],
+      "actionSeq": 231,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -83319,7 +83851,7 @@
       }
     },
     {
-      "index": 118,
+      "index": 117,
       "snapshotIndex": 129,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -83585,17 +84117,15 @@
         301,
         304
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 231,
+      "subsequentActions": [],
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 119,
+      "index": 118,
       "snapshotIndex": 131,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -83909,7 +84439,7 @@
       }
     },
     {
-      "index": 120,
+      "index": 119,
       "snapshotIndex": 130,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -84193,14 +84723,14 @@
         306
       ],
       "subsequentActions": [],
-      "actionSeq": 233,
+      "actionSeq": 235,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 121,
+      "index": 120,
       "snapshotIndex": 132,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -84464,13 +84994,13 @@
         312
       ],
       "subsequentActions": [],
-      "actionSeq": 235,
+      "actionSeq": 239,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 122,
+      "index": 121,
       "snapshotIndex": 131,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -84798,10 +85328,8 @@
         309,
         310
       ],
-      "subsequentActions": [
-        "MiniMx Grudge attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 234,
+      "subsequentActions": [],
+      "actionSeq": 240,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -84811,7 +85339,7 @@
       }
     },
     {
-      "index": 123,
+      "index": 122,
       "snapshotIndex": 134,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -85131,7 +85659,7 @@
         314
       ],
       "subsequentActions": [],
-      "actionSeq": 240,
+      "actionSeq": 241,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_blockers",
@@ -85150,7 +85678,7 @@
       }
     },
     {
-      "index": 124,
+      "index": 123,
       "snapshotIndex": 133,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -85414,13 +85942,13 @@
         316
       ],
       "subsequentActions": [],
-      "actionSeq": 239,
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 125,
+      "index": 124,
       "snapshotIndex": 135,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -85723,10 +86251,8 @@
         315,
         318
       ],
-      "subsequentActions": [
-        "Attacker: Ironshell Beetle (5/5) unblocked"
-      ],
-      "actionSeq": 241,
+      "subsequentActions": [],
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -85736,7 +86262,7 @@
       }
     },
     {
-      "index": 126,
+      "index": 125,
       "snapshotIndex": 136,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -85987,13 +86513,13 @@
         320
       ],
       "subsequentActions": [],
-      "actionSeq": 244,
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 127,
+      "index": 126,
       "snapshotIndex": 137,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -86282,10 +86808,8 @@
         319,
         322
       ],
-      "subsequentActions": [
-        "Gem3P Coach loses 5 life at combat from Ironshell Beetle"
-      ],
-      "actionSeq": 245,
+      "subsequentActions": [],
+      "actionSeq": 249,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -86295,7 +86819,7 @@
       }
     },
     {
-      "index": 128,
+      "index": 127,
       "snapshotIndex": 138,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -86553,14 +87077,14 @@
         328
       ],
       "subsequentActions": [],
-      "actionSeq": 248,
+      "actionSeq": 250,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 129,
+      "index": 128,
       "snapshotIndex": 139,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -86884,7 +87408,7 @@
         324
       ],
       "subsequentActions": [],
-      "actionSeq": 249,
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -86894,7 +87418,7 @@
       }
     },
     {
-      "index": 130,
+      "index": 129,
       "snapshotIndex": 141,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -87250,7 +87774,7 @@
         326
       ],
       "subsequentActions": [],
-      "actionSeq": 251,
+      "actionSeq": 252,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -87264,7 +87788,7 @@
       }
     },
     {
-      "index": 131,
+      "index": 130,
       "snapshotIndex": 142,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -87345,7 +87869,7 @@
       }
     },
     {
-      "index": 132,
+      "index": 131,
       "snapshotIndex": 140,
       "player": "MiniMx Grudge",
       "turn": 11,
@@ -87624,16 +88148,14 @@
         329,
         335
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 250,
+      "subsequentActions": [],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 133,
+      "index": 132,
       "snapshotIndex": 145,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -87980,7 +88502,7 @@
       }
     },
     {
-      "index": 134,
+      "index": 133,
       "snapshotIndex": 145,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -88034,7 +88556,7 @@
       }
     },
     {
-      "index": 135,
+      "index": 134,
       "snapshotIndex": 144,
       "player": "MiniMx Grudge",
       "turn": 12,
@@ -88064,18 +88586,17 @@
       "llmEventIndices": [
         335,
         336,
-        337
+        337,
+        338
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks MiniMx Grudge with 2 creatures"
-      ],
-      "actionSeq": 257,
+      "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 136,
+      "index": 135,
       "snapshotIndex": 147,
       "player": "MiniMx Grudge",
       "turn": 12,
@@ -88386,7 +88907,7 @@
       }
     },
     {
-      "index": 137,
+      "index": 136,
       "snapshotIndex": 147,
       "player": "MiniMx Grudge",
       "turn": 12,
@@ -88689,7 +89210,7 @@
         344
       ],
       "subsequentActions": [],
-      "actionSeq": 263,
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -88710,7 +89231,7 @@
       }
     },
     {
-      "index": 138,
+      "index": 137,
       "snapshotIndex": 148,
       "player": "MiniMx Grudge",
       "turn": 12,
@@ -88998,19 +89519,19 @@
         352
       ],
       "subsequentActions": [
-        "Attacker: Emancipation Angel (3/3) unblocked",
-        "Attacker: Anointed Chorister (1/1) blocked by Gaea's Protector (4/2)",
         "MiniMx Grudge loses 3 life at combat from Emancipation Angel",
         "Gaea's Protector deals 4 damage to Anointed Chorister",
-        "Anointed Chorister deals 1 damage to Gaea's Protector"
+        "Anointed Chorister deals 1 damage to Gaea's Protector",
+        "Gem3P Coach gains 1 life",
+        "Anointed Chorister died"
       ],
-      "actionSeq": 264,
+      "actionSeq": 270,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 139,
+      "index": 138,
       "snapshotIndex": 152,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -89331,7 +89852,7 @@
       }
     },
     {
-      "index": 140,
+      "index": 139,
       "snapshotIndex": 152,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -89635,7 +90156,7 @@
         350
       ],
       "subsequentActions": [],
-      "actionSeq": 277,
+      "actionSeq": 279,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -89644,7 +90165,7 @@
       }
     },
     {
-      "index": 141,
+      "index": 140,
       "snapshotIndex": 153,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -89963,7 +90484,7 @@
         354
       ],
       "subsequentActions": [],
-      "actionSeq": 279,
+      "actionSeq": 282,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -89972,7 +90493,7 @@
       }
     },
     {
-      "index": 142,
+      "index": 141,
       "snapshotIndex": 151,
       "player": "MiniMx Grudge",
       "turn": 12,
@@ -90259,20 +90780,14 @@
         353,
         359
       ],
-      "subsequentActions": [
-        "MiniMx Grudge loses 3 life at combat from Emancipation Angel",
-        "Gaea's Protector deals 4 damage to Anointed Chorister",
-        "Anointed Chorister deals 1 damage to Gaea's Protector",
-        "Gem3P Coach gains 1 life",
-        "Anointed Chorister died"
-      ],
-      "actionSeq": 270,
+      "subsequentActions": [],
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 143,
+      "index": 142,
       "snapshotIndex": 155,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -90588,10 +91103,8 @@
         355,
         357
       ],
-      "subsequentActions": [
-        "Feat of Resistance: Gem3P Coach puts 1 +1/+1 counters on Emancipation Angel"
-      ],
-      "actionSeq": 282,
+      "subsequentActions": [],
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -90600,7 +91113,7 @@
       }
     },
     {
-      "index": 144,
+      "index": 143,
       "snapshotIndex": 157,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -90637,7 +91150,7 @@
       }
     },
     {
-      "index": 145,
+      "index": 144,
       "snapshotIndex": 156,
       "player": "MiniMx Grudge",
       "turn": 12,
@@ -90897,18 +91410,14 @@
         360,
         361
       ],
-      "subsequentActions": [
-        "Feat of Resistance: Gem3P Coach puts 1 +1/+1 counters on Emancipation Angel",
-        "Feat of Resistance: Gem3P Coach has chosen protection from Green",
-        "Gem3P Coach puts Feat of Resistance from stack into their graveyard"
-      ],
-      "actionSeq": 283,
+      "subsequentActions": [],
+      "actionSeq": 289,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 146,
+      "index": 145,
       "snapshotIndex": 159,
       "player": "MiniMx Grudge",
       "turn": 12,
@@ -91224,13 +91733,13 @@
         363
       ],
       "subsequentActions": [],
-      "actionSeq": 289,
+      "actionSeq": 291,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 147,
+      "index": 146,
       "snapshotIndex": 161,
       "player": "MiniMx Grudge",
       "turn": 12,
@@ -91546,7 +92055,7 @@
         365
       ],
       "subsequentActions": [],
-      "actionSeq": 291,
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -91560,7 +92069,7 @@
       }
     },
     {
-      "index": 148,
+      "index": 147,
       "snapshotIndex": 162,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -91832,7 +92341,7 @@
         367
       ],
       "subsequentActions": [],
-      "actionSeq": 292,
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -91842,7 +92351,7 @@
       }
     },
     {
-      "index": 149,
+      "index": 148,
       "snapshotIndex": 164,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -92119,16 +92628,14 @@
         368,
         371
       ],
-      "subsequentActions": [
-        "MiniMx Grudge casts Challenger Troll from hand"
-      ],
-      "actionSeq": 295,
+      "subsequentActions": [],
+      "actionSeq": 302,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 150,
+      "index": 149,
       "snapshotIndex": 169,
       "player": "Gem3P Coach",
       "turn": 13,
@@ -92165,7 +92672,7 @@
       }
     },
     {
-      "index": 151,
+      "index": 150,
       "snapshotIndex": 168,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -92441,10 +92948,8 @@
         372,
         373
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Challenger Troll from stack onto the Battlefield"
-      ],
-      "actionSeq": 302,
+      "subsequentActions": [],
+      "actionSeq": 305,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -92453,7 +92958,7 @@
       }
     },
     {
-      "index": 152,
+      "index": 151,
       "snapshotIndex": 170,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -92746,17 +93251,15 @@
         374,
         375
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 305,
+      "subsequentActions": [],
+      "actionSeq": 307,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 153,
+      "index": 152,
       "snapshotIndex": 171,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -93082,14 +93585,14 @@
         377
       ],
       "subsequentActions": [],
-      "actionSeq": 307,
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 154,
+      "index": 153,
       "snapshotIndex": 173,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -93383,16 +93886,14 @@
         378,
         379
       ],
-      "subsequentActions": [
-        "MiniMx Grudge attacks Gem3P Coach with 2 creatures"
-      ],
-      "actionSeq": 309,
+      "subsequentActions": [],
+      "actionSeq": 314,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 155,
+      "index": 154,
       "snapshotIndex": 175,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -93686,17 +94187,14 @@
         380,
         381
       ],
-      "subsequentActions": [
-        "Attacker: Ironshell Beetle (5/5) unblocked",
-        "Attacker: Gaea's Protector (4/2) unblocked"
-      ],
-      "actionSeq": 314,
+      "subsequentActions": [],
+      "actionSeq": 319,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 156,
+      "index": 155,
       "snapshotIndex": 177,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -93965,17 +94463,14 @@
         382,
         383
       ],
-      "subsequentActions": [
-        "Gem3P Coach loses 5 life at combat from Ironshell Beetle",
-        "Gem3P Coach loses 4 life at combat from Gaea's Protector"
-      ],
-      "actionSeq": 319,
+      "subsequentActions": [],
+      "actionSeq": 324,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 157,
+      "index": 156,
       "snapshotIndex": 179,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -94251,14 +94746,14 @@
         392
       ],
       "subsequentActions": [],
-      "actionSeq": 324,
+      "actionSeq": 326,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 158,
+      "index": 157,
       "snapshotIndex": 183,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -94604,7 +95099,7 @@
       }
     },
     {
-      "index": 159,
+      "index": 158,
       "snapshotIndex": 183,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -94905,7 +95400,7 @@
         390
       ],
       "subsequentActions": [],
-      "actionSeq": 328,
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -94916,7 +95411,7 @@
       }
     },
     {
-      "index": 160,
+      "index": 159,
       "snapshotIndex": 184,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -95234,7 +95729,7 @@
         394
       ],
       "subsequentActions": [],
-      "actionSeq": 330,
+      "actionSeq": 337,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -95244,7 +95739,7 @@
       }
     },
     {
-      "index": 161,
+      "index": 160,
       "snapshotIndex": 181,
       "player": "MiniMx Grudge",
       "turn": 13,
@@ -95539,16 +96034,14 @@
         393,
         398
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Basri's Acolyte from hand"
-      ],
-      "actionSeq": 326,
+      "subsequentActions": [],
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 162,
+      "index": 161,
       "snapshotIndex": 188,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -95869,10 +96362,8 @@
         395,
         396
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Basri's Acolyte from stack onto the Battlefield"
-      ],
-      "actionSeq": 337,
+      "subsequentActions": [],
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -95882,7 +96373,7 @@
       }
     },
     {
-      "index": 163,
+      "index": 162,
       "snapshotIndex": 190,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -96192,7 +96683,7 @@
         402
       ],
       "subsequentActions": [],
-      "actionSeq": 340,
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -96202,7 +96693,7 @@
       }
     },
     {
-      "index": 164,
+      "index": 163,
       "snapshotIndex": 189,
       "player": "MiniMx Grudge",
       "turn": 14,
@@ -96214,37 +96705,288 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0
+        "choice": "no"
       },
       "actionResult": {
-        "game_seq": 343,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "recent_chat": [
-          "Gem3P Coach: Good hustle on the defense, but watch this footwork! Pivot!",
-          "Gem3P Coach: FOURTH QUARTER, TEAM! LOCK IT DOWN! DEFENSE ON THREE!"
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T7 Precombat Main/Precombat Main (Gem3P Coach)",
+        "board": [
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Invigorating Surge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control, then double the number of +1/+1 counters on that creature."
+                ],
+                "id": "p13"
+              }
+            ],
+            "is_active": false,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Challenger Troll",
+                "rules": [
+                  "Each creature you control with power 4 or greater can't be blocked by more than one creature."
+                ],
+                "id": "p47",
+                "power": "6",
+                "toughness": "5",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p29"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p35"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p51"
+              },
+              {
+                "tapped": true,
+                "name": "Gaea's Protector",
+                "rules": [
+                  "{this} must be blocked if able."
+                ],
+                "id": "p31",
+                "power": "4",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 4
+                },
+                "name": "Ironshell Beetle",
+                "rules": [
+                  "When {this} enters, put a +1/+1 counter on target creature."
+                ],
+                "id": "p14",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Grove",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than green.",
+                  "{T}: Add {G}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "MiniMx Grudge",
+            "library_size": 27,
+            "life": 17,
+            "hand": [
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Armorcraft Judge",
+                "rules": [
+                  "When {this} enters, draw a card for each creature you control with a +1/+1 counter on it."
+                ],
+                "power": "3",
+                "id": "p10",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Drowsing Tyrannodon",
+                "rules": [
+                  "Defender",
+                  "As long as you control a creature with power 4 or greater, {this} can attack as though it didn't have defender."
+                ],
+                "power": "3",
+                "id": "p11",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Rampaging Growth",
+                "rules": [
+                  "Search your library for a basic land card, put it on the battlefield, then shuffle. Until end of turn, that land becomes a 4/3 Insect creature with reach and haste. It's still a land."
+                ],
+                "id": "p15"
+              }
+            ]
+          },
+          {
+            "hand_size": 4,
+            "graveyard": [
+              {
+                "name": "Anointed Chorister",
+                "rules": [
+                  "Lifelink",
+                  "{4}{W}: {this} gets +3/+3 until end of turn."
+                ],
+                "id": "p4"
+              },
+              {
+                "name": "Feat of Resistance",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn."
+                ],
+                "id": "p6"
+              },
+              {
+                "name": "Scroll of Avacyn",
+                "rules": [
+                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
+                ],
+                "id": "p8"
+              }
+            ],
+            "is_active": true,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Basri's Acolyte",
+                "rules": [
+                  "Lifelink",
+                  "When {this} enters, put a +1/+1 counter on each of up to two other target creatures you control.",
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Gaea's Protector (Gaea's Protector)"
+                ],
+                "id": "p17",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "+1/+1": 2
+                },
+                "name": "Emancipation Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand.",
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Gaea's Protector (Gaea's Protector)"
+                ],
+                "id": "p18",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p46"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p49"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p30"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 26,
+            "life": 7
+          }
         ],
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
+        "board_cursor": 52,
+        "untapped_lands": 1,
+        "game_seq": 343,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         398,
         399,
-        400
+        400,
+        401,
+        404
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Basri's Acolyte from stack onto the Battlefield",
-        "Gem3P Coach - Ability triggers: Basri's Acolyte - When Basri's Acolyte enters, put a +1/+1 counter on each of up to two other target creatures you control. - targeting Emancipation Angel"
-      ],
-      "actionSeq": 338,
+      "subsequentActions": [],
+      "actionSeq": 343,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 165,
+      "index": 164,
       "snapshotIndex": 191,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -96560,7 +97302,7 @@
         406
       ],
       "subsequentActions": [],
-      "actionSeq": 342,
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -96570,7 +97312,7 @@
       }
     },
     {
-      "index": 166,
+      "index": 165,
       "snapshotIndex": 192,
       "player": "MiniMx Grudge",
       "turn": 14,
@@ -96866,16 +97608,14 @@
         405,
         410
       ],
-      "subsequentActions": [
-        "Basri's Acolyte: Gem3P Coach puts 1 +1/+1 counters on Emancipation Angel"
-      ],
-      "actionSeq": 343,
+      "subsequentActions": [],
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 167,
+      "index": 166,
       "snapshotIndex": 193,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -97207,14 +97947,14 @@
         408
       ],
       "subsequentActions": [],
-      "actionSeq": 345,
+      "actionSeq": 347,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 168,
+      "index": 167,
       "snapshotIndex": 195,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -97534,7 +98274,7 @@
         416
       ],
       "subsequentActions": [],
-      "actionSeq": 347,
+      "actionSeq": 351,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -97543,7 +98283,7 @@
       }
     },
     {
-      "index": 169,
+      "index": 168,
       "snapshotIndex": 194,
       "player": "MiniMx Grudge",
       "turn": 14,
@@ -97555,62 +98295,16 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0
-      },
-      "actionResult": {
-        "game_seq": 352,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
-      },
-      "llmEventIndices": [
-        410,
-        411,
-        412
-      ],
-      "subsequentActions": [
-        "Gem3P Coach attacks MiniMx Grudge with 1 creature"
-      ],
-      "actionSeq": 346,
-      "pilotContext": {
-        "untappedLands": 1
-      }
-    },
-    {
-      "index": 170,
-      "snapshotIndex": 197,
-      "player": "MiniMx Grudge",
-      "turn": 14,
-      "phase": "COMBAT",
-      "step": "DECLARE_ATTACKERS",
-      "actionType": "GAME_SELECT",
-      "responseType": "select",
-      "message": "Select blockers",
-      "choices": [
-        {
-          "name": "Challenger Troll",
-          "index": 0,
-          "choice_type": "blocker",
-          "id": "p47",
-          "power": "6",
-          "toughness": "5"
-        }
-      ],
-      "choiceCount": 1,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {
-        "blockers": "p47:p18"
+        "choice": "no"
       },
       "actionResult": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "message": "Play instants and activated abilities",
-        "response_type": "boolean",
-        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "message": "Select blockers",
+        "response_type": "select",
+        "respond_with": "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)",
         "context": "T7 Combat/Declare Blockers (Gem3P Coach)",
         "board": [
           {
@@ -97861,6 +98555,17 @@
           }
         ],
         "board_cursor": 53,
+        "choices": [
+          {
+            "name": "Challenger Troll",
+            "index": 0,
+            "choice_type": "blocker",
+            "id": "p47",
+            "power": "6",
+            "toughness": "5"
+          }
+        ],
+        "combat_phase": "declare_blockers",
         "combat": [
           {
             "blocked": false,
@@ -97876,27 +98581,341 @@
           }
         ],
         "untapped_lands": 1,
-        "game_seq": 353,
-        "error": "p47: attacker p18 is not a valid block target",
-        "action_taken": "batch_block",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [],
-        "failed": [
+        "game_seq": 352,
+        "incoming_attackers": [
           {
-            "reason": "attacker p18 is not a valid block target",
-            "id": "p47"
+            "name": "Emancipation Angel",
+            "id": "p18",
+            "power": "5",
+            "toughness": "5"
           }
-        ]
+        ],
+        "action_taken": "passed_priority",
+        "success": true
+      },
+      "llmEventIndices": [
+        410,
+        411,
+        412,
+        413,
+        414
+      ],
+      "subsequentActions": [],
+      "actionSeq": 352,
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 169,
+      "snapshotIndex": 197,
+      "player": "MiniMx Grudge",
+      "turn": 14,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select blockers",
+      "choices": [
+        {
+          "name": "Challenger Troll",
+          "index": 0,
+          "choice_type": "blocker",
+          "id": "p47",
+          "power": "6",
+          "toughness": "5"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "choice": "no"
+      },
+      "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T7 Combat/Combat Damage (Gem3P Coach)",
+        "board": [
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Invigorating Surge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control, then double the number of +1/+1 counters on that creature."
+                ],
+                "id": "p13"
+              }
+            ],
+            "is_active": false,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Challenger Troll",
+                "rules": [
+                  "Each creature you control with power 4 or greater can't be blocked by more than one creature."
+                ],
+                "id": "p47",
+                "power": "6",
+                "toughness": "5",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p29"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p35"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p51"
+              },
+              {
+                "tapped": true,
+                "name": "Gaea's Protector",
+                "rules": [
+                  "{this} must be blocked if able."
+                ],
+                "id": "p31",
+                "power": "4",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 4
+                },
+                "name": "Ironshell Beetle",
+                "rules": [
+                  "When {this} enters, put a +1/+1 counter on target creature."
+                ],
+                "id": "p14",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Grove",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than green.",
+                  "{T}: Add {G}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "MiniMx Grudge",
+            "library_size": 27,
+            "life": 12,
+            "hand": [
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Armorcraft Judge",
+                "rules": [
+                  "When {this} enters, draw a card for each creature you control with a +1/+1 counter on it."
+                ],
+                "power": "3",
+                "id": "p10",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Drowsing Tyrannodon",
+                "rules": [
+                  "Defender",
+                  "As long as you control a creature with power 4 or greater, {this} can attack as though it didn't have defender."
+                ],
+                "power": "3",
+                "id": "p11",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Rampaging Growth",
+                "rules": [
+                  "Search your library for a basic land card, put it on the battlefield, then shuffle. Until end of turn, that land becomes a 4/3 Insect creature with reach and haste. It's still a land."
+                ],
+                "id": "p15"
+              }
+            ]
+          },
+          {
+            "hand_size": 4,
+            "graveyard": [
+              {
+                "name": "Anointed Chorister",
+                "rules": [
+                  "Lifelink",
+                  "{4}{W}: {this} gets +3/+3 until end of turn."
+                ],
+                "id": "p4"
+              },
+              {
+                "name": "Feat of Resistance",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn."
+                ],
+                "id": "p6"
+              },
+              {
+                "name": "Scroll of Avacyn",
+                "rules": [
+                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
+                ],
+                "id": "p8"
+              }
+            ],
+            "is_active": true,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Basri's Acolyte",
+                "rules": [
+                  "Lifelink",
+                  "When {this} enters, put a +1/+1 counter on each of up to two other target creatures you control.",
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Gaea's Protector (Gaea's Protector)"
+                ],
+                "id": "p17",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 2
+                },
+                "name": "Emancipation Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand."
+                ],
+                "id": "p18",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p46"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p49"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p30"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 26,
+            "life": 7
+          }
+        ],
+        "board_cursor": 54,
+        "combat": [
+          {
+            "blocked": false,
+            "defending": "MiniMx Grudge",
+            "attackers": [
+              {
+                "name": "Emancipation Angel",
+                "id": "p18",
+                "power": "5",
+                "toughness": "5"
+              }
+            ]
+          }
+        ],
+        "untapped_lands": 1,
+        "game_seq": 359,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         414,
         415,
-        418
+        418,
+        419,
+        422
       ],
       "subsequentActions": [],
-      "actionSeq": 352,
+      "actionSeq": 359,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -97911,7 +98930,7 @@
       }
     },
     {
-      "index": 171,
+      "index": 170,
       "snapshotIndex": 196,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -97948,7 +98967,7 @@
       }
     },
     {
-      "index": 172,
+      "index": 171,
       "snapshotIndex": 198,
       "player": "MiniMx Grudge",
       "turn": 14,
@@ -98245,16 +99264,15 @@
         422
       ],
       "subsequentActions": [
-        "Attacker: Emancipation Angel (5/5) unblocked",
         "MiniMx Grudge loses 5 life at combat from Emancipation Angel"
       ],
-      "actionSeq": 353,
+      "actionSeq": 359,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 173,
+      "index": 172,
       "snapshotIndex": 201,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -98570,7 +99588,7 @@
       }
     },
     {
-      "index": 174,
+      "index": 173,
       "snapshotIndex": 200,
       "player": "MiniMx Grudge",
       "turn": 14,
@@ -98852,16 +99870,14 @@
         423,
         426
       ],
-      "subsequentActions": [
-        "MiniMx Grudge loses 5 life at combat from Emancipation Angel"
-      ],
-      "actionSeq": 359,
+      "subsequentActions": [],
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 175,
+      "index": 174,
       "snapshotIndex": 201,
       "player": "Gem3P Coach",
       "turn": 14,
@@ -98899,7 +99915,7 @@
       }
     },
     {
-      "index": 176,
+      "index": 175,
       "snapshotIndex": 202,
       "player": "MiniMx Grudge",
       "turn": 14,
@@ -99231,13 +100247,13 @@
         428
       ],
       "subsequentActions": [],
-      "actionSeq": 363,
+      "actionSeq": 365,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 177,
+      "index": 176,
       "snapshotIndex": 204,
       "player": "MiniMx Grudge",
       "turn": 14,
@@ -99571,7 +100587,7 @@
         430
       ],
       "subsequentActions": [],
-      "actionSeq": 365,
+      "actionSeq": 366,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -99584,7 +100600,7 @@
       }
     },
     {
-      "index": 178,
+      "index": 177,
       "snapshotIndex": 205,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -99884,14 +100900,14 @@
         432
       ],
       "subsequentActions": [],
-      "actionSeq": 366,
+      "actionSeq": 369,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 179,
+      "index": 178,
       "snapshotIndex": 207,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -100245,17 +101261,15 @@
         433,
         434
       ],
-      "subsequentActions": [
-        "MiniMx Grudge casts Rampaging Growth from hand"
-      ],
-      "actionSeq": 369,
+      "subsequentActions": [],
+      "actionSeq": 375,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 180,
+      "index": 179,
       "snapshotIndex": 210,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -100634,17 +101648,15 @@
         435,
         436
       ],
-      "subsequentActions": [
-        "MiniMx Grudge searches their library (source: Rampaging Growth)"
-      ],
-      "actionSeq": 375,
+      "subsequentActions": [],
+      "actionSeq": 378,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 181,
+      "index": 180,
       "snapshotIndex": 212,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -100954,12 +101966,8 @@
         437,
         438
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Forest from library onto the Battlefield (source: Rampaging Growth)",
-        "MiniMx Grudge's library is shuffled (source: Rampaging Growth)",
-        "MiniMx Grudge puts Rampaging Growth from stack into their graveyard"
-      ],
-      "actionSeq": 378,
+      "subsequentActions": [],
+      "actionSeq": 382,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -100969,7 +101977,7 @@
       }
     },
     {
-      "index": 182,
+      "index": 181,
       "snapshotIndex": 213,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -101276,17 +102284,15 @@
         439,
         440
       ],
-      "subsequentActions": [
-        "MiniMx Grudge casts Drowsing Tyrannodon from hand"
-      ],
-      "actionSeq": 382,
+      "subsequentActions": [],
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 183,
+      "index": 182,
       "snapshotIndex": 216,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -101633,17 +102639,15 @@
         441,
         442
       ],
-      "subsequentActions": [
-        "MiniMx Grudge puts Drowsing Tyrannodon from stack onto the Battlefield"
-      ],
-      "actionSeq": 386,
+      "subsequentActions": [],
+      "actionSeq": 389,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 184,
+      "index": 183,
       "snapshotIndex": 218,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -102043,14 +103047,14 @@
         444
       ],
       "subsequentActions": [],
-      "actionSeq": 389,
+      "actionSeq": 391,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 185,
+      "index": 184,
       "snapshotIndex": 220,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -102062,29 +103066,364 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0
+        "choice": "no"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T8 Combat/Declare Blockers (MiniMx Grudge)",
+        "board": [
+          {
+            "hand_size": 2,
+            "graveyard": [
+              {
+                "name": "Invigorating Surge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control, then double the number of +1/+1 counters on that creature."
+                ],
+                "id": "p13"
+              },
+              {
+                "name": "Rampaging Growth",
+                "rules": [
+                  "Search your library for a basic land card, put it on the battlefield, then shuffle. Until end of turn, that land becomes a 4/3 Insect creature with reach and haste. It's still a land."
+                ],
+                "id": "p15"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Challenger Troll",
+                "rules": [
+                  "Each creature you control with power 4 or greater can't be blocked by more than one creature."
+                ],
+                "id": "p47",
+                "power": "6",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Drowsing Tyrannodon",
+                "rules": [
+                  "Defender",
+                  "As long as you control a creature with power 4 or greater, {this} can attack as though it didn't have defender."
+                ],
+                "id": "p11",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p29"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p35"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p51"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "modified": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                  "Reach",
+                  "Haste"
+                ],
+                "id": "p64",
+                "power": "4",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Gaea's Protector",
+                "rules": [
+                  "{this} must be blocked if able."
+                ],
+                "id": "p31",
+                "power": "4",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 4
+                },
+                "name": "Ironshell Beetle",
+                "rules": [
+                  "When {this} enters, put a +1/+1 counter on target creature."
+                ],
+                "id": "p14",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Grove",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than green.",
+                  "{T}: Add {G}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "MiniMx Grudge",
+            "library_size": 25,
+            "life": 12,
+            "hand": [
+              {
+                "mana_cost": "{3}{G}",
+                "name": "Armorcraft Judge",
+                "rules": [
+                  "When {this} enters, draw a card for each creature you control with a +1/+1 counter on it."
+                ],
+                "power": "3",
+                "id": "p10",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{5}{G}",
+                "name": "Primeval Bounty",
+                "rules": [
+                  "Whenever you cast a creature spell, create a 3/3 green Beast creature token.",
+                  "Whenever you cast a noncreature spell, put three +1/+1 counters on target creature you control.",
+                  "Landfall &mdash; Whenever a land you control enters, you gain 3 life."
+                ],
+                "id": "p56"
+              }
+            ]
+          },
+          {
+            "hand_size": 4,
+            "graveyard": [
+              {
+                "name": "Anointed Chorister",
+                "rules": [
+                  "Lifelink",
+                  "{4}{W}: {this} gets +3/+3 until end of turn."
+                ],
+                "id": "p4"
+              },
+              {
+                "name": "Feat of Resistance",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn."
+                ],
+                "id": "p6"
+              },
+              {
+                "name": "Scroll of Avacyn",
+                "rules": [
+                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
+                ],
+                "id": "p8"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Basri's Acolyte",
+                "rules": [
+                  "Lifelink",
+                  "When {this} enters, put a +1/+1 counter on each of up to two other target creatures you control.",
+                  ": ",
+                  "ICON_REQUIREMust block attacker if able Gaea's Protector (Gaea's Protector)"
+                ],
+                "id": "p17",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 2
+                },
+                "name": "Emancipation Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand."
+                ],
+                "id": "p18",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p46"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p49"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p30"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 26,
+            "life": 7
+          }
+        ],
+        "board_cursor": 61,
+        "combat": [
+          {
+            "blocked": false,
+            "defending": "Gem3P Coach",
+            "attackers": [
+              {
+                "name": "Ironshell Beetle",
+                "id": "p14",
+                "power": "5",
+                "toughness": "5"
+              }
+            ]
+          },
+          {
+            "blocked": true,
+            "defending": "Gem3P Coach",
+            "attackers": [
+              {
+                "name": "Gaea's Protector",
+                "id": "p31",
+                "power": "4",
+                "toughness": "2"
+              }
+            ],
+            "blockers": [
+              {
+                "name": "Basri's Acolyte",
+                "id": "p17",
+                "power": "2",
+                "toughness": "3"
+              }
+            ]
+          },
+          {
+            "blocked": false,
+            "defending": "Gem3P Coach",
+            "attackers": [
+              {
+                "name": "Challenger Troll",
+                "id": "p47",
+                "power": "6",
+                "toughness": "5"
+              }
+            ]
+          },
+          {
+            "blocked": false,
+            "defending": "Gem3P Coach",
+            "attackers": [
+              {
+                "name": "Forest",
+                "id": "p64",
+                "power": "4",
+                "toughness": "3"
+              }
+            ]
+          }
+        ],
         "game_seq": 395,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         444,
         445,
-        446
+        446,
+        447,
+        452
       ],
-      "subsequentActions": [
-        "MiniMx Grudge attacks Gem3P Coach with 4 creatures"
-      ],
-      "actionSeq": 391
+      "subsequentActions": [],
+      "actionSeq": 395
     },
     {
-      "index": 186,
+      "index": 185,
       "snapshotIndex": 223,
       "player": "Gem3P Coach",
       "turn": 15,
@@ -102531,7 +103870,7 @@
       }
     },
     {
-      "index": 187,
+      "index": 186,
       "snapshotIndex": 221,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -102906,10 +104245,10 @@
         466
       ],
       "subsequentActions": [],
-      "actionSeq": 395
+      "actionSeq": 405
     },
     {
-      "index": 188,
+      "index": 187,
       "snapshotIndex": 223,
       "player": "Gem3P Coach",
       "turn": 15,
@@ -103362,13 +104701,8 @@
         457,
         458
       ],
-      "subsequentActions": [
-        "Attacker: Ironshell Beetle (5/5) unblocked",
-        "Attacker: Gaea's Protector (4/2) blocked by Basri's Acolyte (2/3)",
-        "Attacker: Challenger Troll (6/5) unblocked",
-        "Attacker: Forest (4/3) unblocked"
-      ],
-      "actionSeq": 397,
+      "subsequentActions": [],
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -103377,7 +104711,7 @@
       }
     },
     {
-      "index": 189,
+      "index": 188,
       "snapshotIndex": 226,
       "player": "Gem3P Coach",
       "turn": 15,
@@ -103824,13 +105158,13 @@
         460
       ],
       "subsequentActions": [],
-      "actionSeq": 406,
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 190,
+      "index": 189,
       "snapshotIndex": 227,
       "player": "Gem3P Coach",
       "turn": 15,
@@ -103855,7 +105189,7 @@
       "actionSeq": 407
     },
     {
-      "index": 191,
+      "index": 190,
       "snapshotIndex": 229,
       "player": "Gem3P Coach",
       "turn": 15,
@@ -104235,7 +105569,7 @@
       "actionSeq": 410
     },
     {
-      "index": 192,
+      "index": 191,
       "snapshotIndex": 225,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -104605,13 +105939,11 @@
         467,
         468
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Take Heart targeting Basri's Acolyte from hand"
-      ],
-      "actionSeq": 405
+      "subsequentActions": [],
+      "actionSeq": 411
     },
     {
-      "index": 193,
+      "index": 192,
       "snapshotIndex": 230,
       "player": "MiniMx Grudge",
       "turn": 15,
@@ -104642,10 +105974,10 @@
         474
       ],
       "subsequentActions": [],
-      "actionSeq": 411
+      "actionSeq": 413
     },
     {
-      "index": 194,
+      "index": 193,
       "snapshotIndex": 229,
       "player": "Gem3P Coach",
       "turn": 15,
@@ -104673,13 +106005,13 @@
         472
       ],
       "subsequentActions": [
-        "Gem3P Coach puts Take Heart from stack into their graveyard",
         "Gem3P Coach loses 5 life at combat from Ironshell Beetle",
         "Basri's Acolyte deals 4 damage to Gaea's Protector",
         "Gaea's Protector deals 4 damage to Basri's Acolyte",
-        "Gem3P Coach loses 6 life at combat from Challenger Troll"
+        "Gem3P Coach loses 6 life at combat from Challenger Troll",
+        "Gem3P Coach loses 4 life at combat from Forest"
       ],
-      "actionSeq": 410
+      "actionSeq": 414
     }
   ]
 }

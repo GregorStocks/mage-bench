@@ -30543,20 +30543,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
-        "index": 1
+        "amount": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "Integer 'amount' required for GAME_GET_AMOUNT"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "amount_0"
       },
       "llmEventIndices": [
         178,
         180,
-        181
+        181,
+        183,
+        184
       ],
       "subsequentActions": [
         "has started watching",
@@ -33431,7 +33433,8 @@
       "llmEventIndices": [
         692,
         694,
-        695
+        695,
+        697
       ],
       "subsequentActions": [
         "has started watching",
@@ -37080,7 +37083,8 @@
       "llmEventIndices": [
         1409,
         1411,
-        1412
+        1412,
+        1414
       ],
       "subsequentActions": [
         "has started watching",
@@ -38109,7 +38113,9 @@
       "llmEventIndices": [
         1545,
         1547,
-        1548
+        1548,
+        1550,
+        1553
       ],
       "subsequentActions": [
         "has started watching",
@@ -38588,7 +38594,8 @@
         1626,
         1628,
         1631,
-        1633
+        1633,
+        1635
       ],
       "subsequentActions": [
         "has started watching",
@@ -38622,7 +38629,9 @@
       "llmEventIndices": [
         1636,
         1638,
-        1639
+        1639,
+        1641,
+        1644
       ],
       "subsequentActions": [
         "has started watching",
@@ -38778,7 +38787,8 @@
         1671,
         1673,
         1675,
-        1677
+        1677,
+        1679
       ],
       "subsequentActions": [
         "has started watching",
@@ -38844,7 +38854,8 @@
       "llmEventIndices": [
         1689,
         1691,
-        1692
+        1692,
+        1694
       ],
       "subsequentActions": [
         "has started watching",
@@ -38940,7 +38951,8 @@
         1710,
         1712,
         1715,
-        1716
+        1716,
+        1718
       ],
       "subsequentActions": [
         "has started watching",
@@ -39003,7 +39015,13 @@
       "llmEventIndices": [
         1722,
         1724,
-        1725
+        1725,
+        1727,
+        1729,
+        1731,
+        1733,
+        1735,
+        1737
       ],
       "subsequentActions": [
         "has started watching",
@@ -39803,7 +39821,8 @@
       "llmEventIndices": [
         1850,
         1852,
-        1853
+        1853,
+        1855
       ],
       "subsequentActions": [
         "has started watching",
@@ -39953,7 +39972,8 @@
       "llmEventIndices": [
         1868,
         1870,
-        1871
+        1871,
+        1873
       ],
       "subsequentActions": [
         "has started watching",
@@ -39987,7 +40007,8 @@
       "llmEventIndices": [
         1874,
         1876,
-        1877
+        1877,
+        1879
       ],
       "subsequentActions": [
         "has started watching",

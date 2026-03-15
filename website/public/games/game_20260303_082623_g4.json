@@ -102759,77 +102759,25 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 5,
       "chosenArgs": {
-        "choice": "p14"
+        "choice": "p16"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 231,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p14 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{W}",
-            "name": "Brightmare",
-            "index": 0,
-            "action": "cast",
-            "id": "p37",
-            "power": "2",
-            "toughness": "3"
-          },
-          {
-            "mana_cost": "{1}{R}",
-            "name": "Chandra's Magmutt",
-            "index": 1,
-            "action": "cast",
-            "id": "p44",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "mana_cost": "{1}{R}",
-            "name": "Chandra's Pyreling",
-            "index": 2,
-            "action": "cast",
-            "id": "p17",
-            "power": "1",
-            "toughness": "3"
-          },
-          {
-            "name": "Clue Token",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, Sacrifice this artifact: Draw a card."
-            ],
-            "id": "p33"
-          },
-          {
-            "mana_cost": "{1}{W}",
-            "name": "Distinguished Conjurer",
-            "index": 4,
-            "action": "cast",
-            "id": "p18",
-            "power": "1",
-            "toughness": "2"
-          },
-          {
-            "mana_cost": "{1}{R}",
-            "name": "Young Pyromancer",
-            "index": 5,
-            "action": "cast",
-            "id": "p16",
-            "power": "2",
-            "toughness": "1"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_5",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         220,
         222,
-        223
+        223,
+        224,
+        225
       ],
       "subsequentActions": [
         "MiniMx Worrier casts Young Pyromancer from hand"
@@ -103035,7 +102983,8 @@
       "llmEventIndices": [
         238,
         244,
-        245
+        245,
+        246
       ],
       "subsequentActions": [],
       "actionSeq": 250,
@@ -103468,75 +103417,26 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 5,
       "chosenArgs": {
-        "choice": "p16"
+        "choice": "p52"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
         "game_seq": 275,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p16 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{W}",
-            "name": "Brightmare",
-            "index": 0,
-            "action": "cast",
-            "id": "p37",
-            "power": "2",
-            "toughness": "3"
-          },
-          {
-            "mana_cost": "{1}{R}",
-            "name": "Chandra's Magmutt",
-            "index": 1,
-            "action": "cast",
-            "id": "p44",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "mana_cost": "{1}{R}",
-            "name": "Chandra's Pyreling",
-            "index": 2,
-            "action": "cast",
-            "id": "p17",
-            "power": "1",
-            "toughness": "3"
-          },
-          {
-            "name": "Clue Token",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, Sacrifice this artifact: Draw a card."
-            ],
-            "id": "p33"
-          },
-          {
-            "mana_cost": "{1}{W}",
-            "name": "Distinguished Conjurer",
-            "index": 4,
-            "action": "cast",
-            "id": "p18",
-            "power": "1",
-            "toughness": "2"
-          },
-          {
-            "name": "Thriving Bluff",
-            "index": 5,
-            "action": "land",
-            "id": "p52"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_5",
+        "next_action_message": "Choose replacement effect to resolve first"
       },
       "llmEventIndices": [
         263,
         264,
         266,
-        267
+        267,
+        268,
+        269
       ],
       "subsequentActions": [
         "Thriving Bluff: MiniMx Worrier has chosen White",
@@ -107375,26 +107275,30 @@
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
-        "auto_tap": false,
+        "auto_tap": true,
         "pile": 1,
-        "mana_plan": "p48,p49,p52,p53,p54,p41",
+        "mana_plan": "",
         "attackers": "",
         "blockers": "",
         "text": "",
         "choice": "p84"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 541,
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "error": "Mana plan references unknown permanent 'p53'. Check the board state for correct permanent IDs."
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         514,
         515,
         517,
-        518
+        518,
+        519,
+        520
       ],
       "subsequentActions": [
         "GPT5 Story casts Magnanimous Magistrate from hand",
