@@ -88,7 +88,7 @@
     "tool_call_id": "call_4"
   },
   {
-    "content": "Current game state: Turn 7; Combat; TestPlayer: 20hp, 7 permanents, 6 cards; Opponent: 20hp, 2 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with choice=pN, pass with choice=no.",
+    "content": "Current game state: Turn 7; Combat; TestPlayer: 20hp, 7 permanents, 6 cards; Opponent: 20hp, 5 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with choice=pN, pass with choice=no.",
     "role": "user"
   },
   {
@@ -167,7 +167,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest] | Opponent: 20hp hand=7 lib=51 bf=[Forest, Forest]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p13, land], Forest [id=p14, land], Forest [id=p15, land], Forest [id=p16, land], Forest [id=p24, land], Forest [id=p26, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest] | Opponent: 20hp hand=6 lib=51 bf=[Forest (tapped), Forest (tapped), Grizzly Bears 2/2 (sick)]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p13, land], Forest [id=p14, land], Forest [id=p15, land], Forest [id=p16, land], Forest [id=p24, land], Forest [id=p27, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -188,7 +188,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=51 bf=[Forest, Forest]\n  Untapped lands: 3, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest, Forest] | Opponent: 20hp hand=6 lib=51 bf=[Forest (tapped), Forest (tapped), Grizzly Bears 2/2 (sick)]\n  Untapped lands: 3, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest, Forest] lib=50 bf=[Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=50 bf=[Forest, Forest] gy=[Durkwood Boars]\n  Untapped lands: 3, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p14, land], Forest [id=p15, land], Forest [id=p16, land], Forest [id=p24, land], Forest [id=p26, land], Forest [id=p28, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest, Forest] lib=50 bf=[Forest, Forest, Forest] | Opponent: 20hp hand=6 lib=50 bf=[Forest, Forest, Forest, Grizzly Bears 2/2]\n  Untapped lands: 3, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p14, land], Forest [id=p15, land], Forest [id=p16, land], Forest [id=p24, land], Forest [id=p27, land], Forest [id=p29, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -228,7 +228,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest] lib=50 bf=[Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=50 bf=[Forest, Forest] gy=[Durkwood Boars]\n  Untapped lands: 4, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest] lib=50 bf=[Forest, Forest, Forest, Forest] | Opponent: 20hp hand=6 lib=50 bf=[Forest, Forest, Forest, Grizzly Bears 2/2]\n  Untapped lands: 4, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -247,7 +247,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest, Forest] lib=49 bf=[Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=49 bf=[Forest, Forest] gy=[Durkwood Boars, Forest]\n  Untapped lands: 4, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p15, land], Forest [id=p16, land], Forest [id=p24, land], Forest [id=p26, land], Forest [id=p28, land], Forest [id=p30, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 5 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest, Forest] lib=49 bf=[Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=49 bf=[Forest, Forest, Forest, Grizzly Bears 2/2]\n  Untapped lands: 4, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p15, land], Forest [id=p16, land], Forest [id=p24, land], Forest [id=p27, land], Forest [id=p29, land], Forest [id=p31, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 5 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -268,7 +268,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest] lib=49 bf=[Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=49 bf=[Forest, Forest] gy=[Durkwood Boars, Forest]\n  Untapped lands: 5, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 5 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest] lib=49 bf=[Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=49 bf=[Forest, Forest, Forest, Grizzly Bears 2/2]\n  Untapped lands: 5, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 5 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_13"
   },
@@ -287,7 +287,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 6 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest, Forest] lib=48 bf=[Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=48 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest]\n  Untapped lands: 5, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p16, land], Forest [id=p24, land], Forest [id=p26, land], Forest [id=p28, land], Forest [id=p30, land], Forest [id=p32, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 6 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 6 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest, Forest] lib=48 bf=[Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=48 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2]\n  Untapped lands: 5, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p16, land], Forest [id=p24, land], Forest [id=p27, land], Forest [id=p29, land], Forest [id=p31, land], Forest [id=p33, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 6 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_14"
   },
@@ -308,7 +308,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 6 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest] lib=48 bf=[Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=48 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest]\n  Untapped lands: 6, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (1): Craw Wurm [id=p10, cast, {4}{G}{G}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 6 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 6 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Craw Wurm, Forest, Forest, Forest, Forest, Forest] lib=48 bf=[Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=48 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2]\n  Untapped lands: 6, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (1): Craw Wurm [id=p10, cast, {4}{G}{G}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 6 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -329,7 +329,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 6 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest] lib=48 bf=[Forest (tapped), Forest (tapped), Forest (tapped), Forest (tapped), Forest (tapped), Forest (tapped)] | Opponent: 20hp hand=7 lib=48 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest]\n  Stack: [Craw Wurm]\n  Land drops remaining: 0\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 6 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 6 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest] lib=48 bf=[Forest (tapped), Forest (tapped), Forest (tapped), Forest (tapped), Forest (tapped), Forest (tapped)] | Opponent: 20hp hand=7 lib=48 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2]\n  Stack: [Craw Wurm]\n  Land drops remaining: 0\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 6 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_16"
   },
@@ -348,7 +348,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=47 bf=[Craw Wurm 6/4, Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=47 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest, Forest]\n  Untapped lands: 6, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p24, land], Forest [id=p26, land], Forest [id=p28, land], Forest [id=p30, land], Forest [id=p32, land], Forest [id=p35, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=47 bf=[Craw Wurm 6/4, Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=47 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2] gy=[Durkwood Boars]\n  Untapped lands: 6, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p24, land], Forest [id=p27, land], Forest [id=p29, land], Forest [id=p31, land], Forest [id=p33, land], Forest [id=p36, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_17"
   },
@@ -369,7 +369,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=47 bf=[Craw Wurm 6/4, Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=47 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest, Forest]\n  Combat Phase: declare_attackers\n  Untapped lands: 6\n  Message: Select attackers\n  Choices (2): Craw Wurm [id=p10], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=47 bf=[Craw Wurm 6/4, Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=47 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2] gy=[Durkwood Boars]\n  Combat Phase: declare_attackers\n  Untapped lands: 6\n  Message: Select attackers\n  Choices (2): Craw Wurm [id=p10], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_18"
   },
@@ -388,7 +388,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=47 bf=[Craw Wurm 6/4, Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=47 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest, Forest]\n  Combat Phase: attackers\n  Untapped lands: 6\n  Message: Select attackers\n  Choices (2): Craw Wurm [id=p10], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=47 bf=[Craw Wurm 6/4, Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=47 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2] gy=[Durkwood Boars]\n  Combat Phase: attackers\n  Untapped lands: 6\n  Message: Select attackers\n  Choices (2): Craw Wurm [id=p10], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_19"
   },
@@ -409,7 +409,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=47 bf=[Craw Wurm 6/4 (tapped), Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=47 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest, Forest]\n  Combat: Craw Wurm -> Opponent\n  Untapped lands: 6\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=47 bf=[Craw Wurm 6/4 (tapped), Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 20hp hand=7 lib=47 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2] gy=[Durkwood Boars]\n  Combat: Craw Wurm -> Opponent\n  Untapped lands: 6\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_20"
   },
@@ -428,7 +428,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=47 bf=[Craw Wurm 6/4 (tapped), Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 14hp hand=7 lib=47 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest, Forest]\n  Untapped lands: 6, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p24, land], Forest [id=p26, land], Forest [id=p28, land], Forest [id=p30, land], Forest [id=p32, land], Forest [id=p35, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=47 bf=[Craw Wurm 6/4 (tapped), Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 14hp hand=7 lib=47 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2] gy=[Durkwood Boars]\n  Untapped lands: 6, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p24, land], Forest [id=p27, land], Forest [id=p29, land], Forest [id=p31, land], Forest [id=p33, land], Forest [id=p36, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_21"
   },
@@ -462,38 +462,38 @@
         },
         {
           "action": "land",
-          "id": "p26",
+          "id": "p27",
           "index": 1,
           "name": "Forest"
         },
         {
           "action": "land",
-          "id": "p28",
+          "id": "p29",
           "index": 2,
           "name": "Forest"
         },
         {
           "action": "land",
-          "id": "p30",
+          "id": "p31",
           "index": 3,
           "name": "Forest"
         },
         {
           "action": "land",
-          "id": "p32",
+          "id": "p33",
           "index": 4,
           "name": "Forest"
         },
         {
           "action": "land",
-          "id": "p35",
+          "id": "p36",
           "index": 5,
           "name": "Forest"
         }
       ],
       "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
       "error_code": "missing_param",
-      "game_seq": 184,
+      "game_seq": 190,
       "retryable": true,
       "success": false
     },
@@ -517,7 +517,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=6 lib=47 bf=[Craw Wurm 6/4 (tapped), Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 14hp hand=7 lib=47 bf=[Forest, Forest] gy=[Durkwood Boars, Forest, Forest, Forest]\n  Untapped lands: 6, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p24, land], Forest [id=p26, land], Forest [id=p28, land], Forest [id=p30, land], Forest [id=p32, land], Forest [id=p35, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 7 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=6 lib=47 bf=[Craw Wurm 6/4 (tapped), Forest, Forest, Forest, Forest, Forest, Forest] | Opponent: 14hp hand=7 lib=47 bf=[Forest, Forest, Forest, Forest, Grizzly Bears 2/2] gy=[Durkwood Boars]\n  Untapped lands: 6, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p24, land], Forest [id=p27, land], Forest [id=p29, land], Forest [id=p31, land], Forest [id=p33, land], Forest [id=p36, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 7 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_23"
   },
@@ -540,7 +540,7 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 2,
-      "game_seq": 184,
+      "game_seq": 190,
       "phase": "Postcombat Main",
       "players": [
         {
@@ -613,7 +613,7 @@
               ]
             },
             {
-              "id": "p26",
+              "id": "p27",
               "is_land": true,
               "name": "Forest",
               "playable": true,
@@ -622,7 +622,7 @@
               ]
             },
             {
-              "id": "p28",
+              "id": "p29",
               "is_land": true,
               "name": "Forest",
               "playable": true,
@@ -631,7 +631,7 @@
               ]
             },
             {
-              "id": "p30",
+              "id": "p31",
               "is_land": true,
               "name": "Forest",
               "playable": true,
@@ -640,7 +640,7 @@
               ]
             },
             {
-              "id": "p32",
+              "id": "p33",
               "is_land": true,
               "name": "Forest",
               "playable": true,
@@ -649,7 +649,7 @@
               ]
             },
             {
-              "id": "p35",
+              "id": "p36",
               "is_land": true,
               "name": "Forest",
               "playable": true,
@@ -682,33 +682,36 @@
                 "{T}: Add {G}."
               ],
               "tapped": false
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "p3",
-              "name": "Durkwood Boars"
             },
             {
               "id": "p6",
               "name": "Forest",
               "rules": [
                 "{T}: Add {G}."
-              ]
+              ],
+              "tapped": false
             },
             {
               "id": "p7",
               "name": "Forest",
               "rules": [
                 "{T}: Add {G}."
-              ]
+              ],
+              "tapped": false
             },
             {
-              "id": "p23",
-              "name": "Forest",
-              "rules": [
-                "{T}: Add {G}."
-              ]
+              "id": "p9",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Durkwood Boars"
             }
           ],
           "hand_size": 7,
