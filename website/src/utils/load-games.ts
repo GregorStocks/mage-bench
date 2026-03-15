@@ -31,7 +31,14 @@ export interface GameEntry {
 }
 
 const CACHE_KEY = Symbol.for('mage-bench:games-metadata');
-const BLUNDER_WEIGHTS: Record<string, number> = { minor: 1, moderate: 2, major: 4 };
+type BlunderSeverity = GameExportV7['annotations'][number]['severity'];
+const BLUNDER_WEIGHTS: Record<BlunderSeverity, number> = {
+  questionable: 0,
+  minor: 1,
+  moderate: 2,
+  major: 4,
+};
+type GamesCacheGlobal = typeof globalThis & { [CACHE_KEY]?: GameEntry[] };
 
 function invariant(condition: unknown, message: string): asserts condition {
   if (!condition) {
@@ -49,6 +56,25 @@ function assertPlayer(player: unknown, file: string, index: number): asserts pla
   invariant(typeof candidate.thinkingTimeSecs === 'number', `${file}: player ${index} missing thinkingTimeSecs`);
 }
 
+function assertAnnotation(
+  annotation: unknown,
+  file: string,
+  index: number,
+): asserts annotation is GameExportV7['annotations'][number] {
+  invariant(annotation != null && typeof annotation === 'object', `${file}: annotation ${index} must be an object`);
+  const candidate = annotation as Record<string, unknown>;
+  invariant(candidate.type === 'blunder', `${file}: annotation ${index} has invalid type`);
+  invariant(typeof candidate.player === 'string', `${file}: annotation ${index} missing player`);
+  invariant(Number.isInteger(candidate.snapshotIndex), `${file}: annotation ${index} missing snapshotIndex`);
+  invariant(typeof candidate.description === 'string', `${file}: annotation ${index} missing description`);
+  invariant(typeof candidate.actionTaken === 'string', `${file}: annotation ${index} missing actionTaken`);
+  invariant(typeof candidate.betterLine === 'string', `${file}: annotation ${index} missing betterLine`);
+  invariant(
+    typeof candidate.severity === 'string' && candidate.severity in BLUNDER_WEIGHTS,
+    `${file}: annotation ${index} has invalid severity`,
+  );
+}
+
 function assertGameExport(data: unknown, file: string): asserts data is GameExportV7 {
   invariant(data != null && typeof data === 'object', `${file}: export must be an object`);
   const candidate = data as Record<string, unknown>;
@@ -64,6 +90,8 @@ function assertGameExport(data: unknown, file: string): asserts data is GameExpo
   invariant(candidate.tournament === null || typeof candidate.tournament === 'string', `${file}: invalid tournament`);
   invariant(Array.isArray(candidate.players), `${file}: players must be an array`);
   candidate.players.forEach((player, index) => assertPlayer(player, file, index));
+  invariant(Array.isArray(candidate.annotations), `${file}: annotations must be an array`);
+  candidate.annotations.forEach((annotation, index) => assertAnnotation(annotation, file, index));
 }
 
 function scanGames(): GameEntry[] {
@@ -80,7 +108,7 @@ function scanGames(): GameEntry[] {
   }
 
   for (const file of files) {
-    let data;
+    let data: unknown;
     if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
       if (gzStems.has(file)) continue; // prefer .json.gz
       data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
@@ -120,16 +148,16 @@ function scanGames(): GameEntry[] {
     const annotations = data.annotations;
     if (annotations != null) {
       entry.blunderScriptVersion = data.blunderScriptVersion ?? null;
-      const totalTurns = data.totalTurns as number;
+      const totalTurns = data.totalTurns;
       if (totalTurns && totalTurns > 0) {
         const weightedByPlayer: Record<string, number> = {};
         for (const p of players) {
           weightedByPlayer[p.name] = 0;
         }
         for (const a of annotations) {
-          if (a.type !== "blunder") continue;
-          const player = a.player || "Unknown";
-          weightedByPlayer[player] = (weightedByPlayer[player] || 0) + (BLUNDER_WEIGHTS[a.severity] || 0);
+          if (a.type !== 'blunder') continue;
+          const player = a.player || 'Unknown';
+          weightedByPlayer[player] = (weightedByPlayer[player] || 0) + BLUNDER_WEIGHTS[a.severity];
         }
         const scoreByPlayer: Record<string, number> = {};
         for (const [player, weight] of Object.entries(weightedByPlayer)) {
@@ -148,9 +176,9 @@ function scanGames(): GameEntry[] {
 
 /** Return all game metadata entries, cached across SSR requests. */
 export function loadAllGames(): GameEntry[] {
-  const g = globalThis as any;
-  if (!g[CACHE_KEY]) {
-    g[CACHE_KEY] = scanGames();
+  const cacheGlobal = globalThis as GamesCacheGlobal;
+  if (cacheGlobal[CACHE_KEY] == null) {
+    cacheGlobal[CACHE_KEY] = scanGames();
   }
-  return g[CACHE_KEY];
+  return cacheGlobal[CACHE_KEY];
 }

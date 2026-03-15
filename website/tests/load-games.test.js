@@ -145,6 +145,61 @@ describe("loadAllGames", () => {
     ]);
   });
 
+  it("excludes questionable blunders from weighted scores", async () => {
+    clearGamesCache();
+    mockGameFiles({
+      "game_20260301_120000.json": JSON.stringify(
+        makeV7Export({
+          totalTurns: 4,
+          players: [
+            {
+              name: "Alice",
+              type: "pilot",
+              toolCallsOk: 3,
+              toolCallsFailed: 1,
+              thinkingTimeSecs: 12.5,
+            },
+            {
+              name: "Bob",
+              type: "pilot",
+              toolCallsOk: 4,
+              toolCallsFailed: 0,
+              thinkingTimeSecs: 9.5,
+            },
+          ],
+          annotations: [
+            {
+              snapshotIndex: 1,
+              player: "Alice",
+              type: "blunder",
+              severity: "questionable",
+              description: "Low-confidence nit",
+              actionTaken: "Passed",
+              betterLine: "Hold priority",
+            },
+            {
+              snapshotIndex: 2,
+              player: "Bob",
+              type: "blunder",
+              severity: "moderate",
+              description: "Missed interaction",
+              actionTaken: "Cast spell",
+              betterLine: "Use removal first",
+            },
+          ],
+        }),
+      ),
+    });
+
+    const { loadAllGames } = await import("../src/utils/load-games.ts");
+    const games = loadAllGames();
+
+    expect(games[0].blunderScoreByPlayer).toEqual({
+      Alice: 0,
+      Bob: 0.5,
+    });
+  });
+
   it("rejects exports missing normalized player stats", async () => {
     clearGamesCache();
     mockGameFiles({
@@ -157,5 +212,29 @@ describe("loadAllGames", () => {
 
     const { loadAllGames } = await import("../src/utils/load-games.ts");
     expect(() => loadAllGames()).toThrow(/missing toolCallsOk/);
+  });
+
+  it("rejects exports with invalid blunder severities", async () => {
+    clearGamesCache();
+    mockGameFiles({
+      "game_20260301_120000.json": JSON.stringify(
+        makeV7Export({
+          annotations: [
+            {
+              snapshotIndex: 1,
+              player: "Alice",
+              type: "blunder",
+              severity: "catastrophic",
+              description: "Unexpected severity",
+              actionTaken: "Passed",
+              betterLine: "Attack",
+            },
+          ],
+        }),
+      ),
+    });
+
+    const { loadAllGames } = await import("../src/utils/load-games.ts");
+    expect(() => loadAllGames()).toThrow(/invalid severity/);
   });
 });

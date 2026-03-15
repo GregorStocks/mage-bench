@@ -1,15 +1,29 @@
 ---
 import Base from '../layouts/Base.astro';
-import benchmarkData from '../data/benchmark-results.json';
-import fs from 'node:fs';
-import path from 'node:path';
-import zlib from 'node:zlib';
-import { loadLatestCompletedTournament, loadSeasonState } from '../utils/season-data';
+import { loadAllGames } from '../utils/load-games';
+import { loadBenchmarkResults, loadLatestCompletedTournament, loadSeasonState } from '../utils/season-data';
+import type { TournamentEntrant } from '../utils/season-data';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) {
     throw new Error(message);
   }
+}
+
+type FormatKey = 'standard' | 'modern' | 'legacy' | 'commander' | 'jumpstart';
+
+interface RecentGamePlayer {
+  name: string;
+  model: string;
+}
+
+interface RecentGameCard {
+  id: string;
+  format: FormatKey;
+  formatLabel: string;
+  winner: string | null;
+  totalTurns: number;
+  players: RecentGamePlayer[];
 }
 
 const { currentSeason, phase: seasonPhase } = loadSeasonState();
@@ -20,112 +34,125 @@ const PHASE_LABELS: Record<string, string> = {
 };
 const phaseLabel = PHASE_LABELS[seasonPhase] ?? seasonPhase;
 
-const DECK_TYPE_FORMATS: Record<string, string> = {
-  "Constructed - Standard": "standard",
-  "Constructed - Modern": "modern",
-  "Constructed - Legacy": "legacy",
-  "Variant Magic - Freeform Commander": "commander",
-  "Variant Magic - Commander": "commander",
-  "Limited": "jumpstart",
+const DECK_TYPE_FORMATS: Record<string, FormatKey> = {
+  'Constructed - Standard': 'standard',
+  'Constructed - Modern': 'modern',
+  'Constructed - Legacy': 'legacy',
+  'Variant Magic - Freeform Commander': 'commander',
+  'Variant Magic - Commander': 'commander',
+  Limited: 'jumpstart',
 };
 
-const FORMAT_DISPLAY: Record<string, string> = {
-  standard: "Standard",
-  modern: "Modern",
-  legacy: "Legacy",
-  commander: "Commander (Exhibition)",
-  jumpstart: "Jumpstart",
+const FORMAT_DISPLAY: Record<FormatKey, string> = {
+  standard: 'Standard',
+  modern: 'Modern',
+  legacy: 'Legacy',
+  commander: 'Commander (Exhibition)',
+  jumpstart: 'Jumpstart',
 };
+
+function formatKeyForDeckType(deckType: string): FormatKey {
+  const formatKey = DECK_TYPE_FORMATS[deckType];
+  assert(formatKey != null, `Unsupported deck type on homepage: ${deckType}`);
+  return formatKey;
+}
+
+function stripProviderPrefix(model: string | undefined): string {
+  if (model == null) {
+    return '';
+  }
+
+  const slashIndex = model.lastIndexOf('/');
+  return slashIndex === -1 ? model : model.slice(slashIndex + 1);
+}
 
 const latestCompletedTournament = loadLatestCompletedTournament();
+const benchmarkResults = loadBenchmarkResults();
+
 let championSeason: number | null = null;
-let champion: any = null;
-let runnerUp: any = null;
+let champion: TournamentEntrant | null = null;
+let runnerUp: TournamentEntrant | null = null;
 let champWins = 0;
 let runnerUpWins = 0;
 
 if (latestCompletedTournament != null) {
   championSeason = latestCompletedTournament.season;
-  const entrantsBySeed: Record<number, any> = {};
-  for (const entrant of latestCompletedTournament.tournament.entrants) {
-    entrantsBySeed[entrant.seed] = entrant;
-  }
+  const entrantsBySeed = new Map<number, TournamentEntrant>(
+    latestCompletedTournament.tournament.entrants.map((entrant) => [entrant.seed, entrant]),
+  );
 
   const finalsRound =
     latestCompletedTournament.tournament.rounds[latestCompletedTournament.tournament.rounds.length - 1];
   assert(finalsRound != null, `Season ${championSeason} tournament is missing a finals round`);
   const finalsMatch = finalsRound.matches[0];
   assert(finalsMatch != null, `Season ${championSeason} tournament finals are missing the championship match`);
-  champion = entrantsBySeed[finalsMatch.winner_seed];
+  assert(finalsMatch.winner_seed != null, `Season ${championSeason} finals are missing the winner seed`);
+  champion = entrantsBySeed.get(finalsMatch.winner_seed) ?? null;
   assert(champion != null, `Season ${championSeason} tournament is missing the recorded champion entrant`);
   const runnerUpSeed =
     finalsMatch.seed_a === finalsMatch.winner_seed ? finalsMatch.seed_b : finalsMatch.seed_a;
-  runnerUp = entrantsBySeed[runnerUpSeed];
+  assert(runnerUpSeed != null, `Season ${championSeason} finals are missing the runner-up seed`);
+  runnerUp = entrantsBySeed.get(runnerUpSeed) ?? null;
   assert(runnerUp != null, `Season ${championSeason} tournament is missing the finals runner-up entrant`);
-  champWins = finalsMatch.games.filter((game: any) => game.winner_seed === finalsMatch.winner_seed).length;
-  runnerUpWins = finalsMatch.games.filter((game: any) => game.winner_seed === runnerUpSeed).length;
+  champWins = finalsMatch.games.filter((game) => game.winner_seed === finalsMatch.winner_seed).length;
+  runnerUpWins = finalsMatch.games.filter((game) => game.winner_seed === runnerUpSeed).length;
 }
+
+const championBanner =
+  championSeason != null && champion != null && runnerUp != null
+    ? {
+        season: championSeason,
+        champion,
+        runnerUp,
+        champWins,
+        runnerUpWins,
+      }
+    : null;
 
 // Stats
-const formats: Record<string, any> = (benchmarkData as any).formats ?? {};
-const combinedModels = (benchmarkData as any).models ?? [];
-const top5 = combinedModels.slice(0, 5);
-const totalGames = benchmarkData.totalGames;
+const formats = benchmarkResults.formats;
+const top5 = benchmarkResults.models.slice(0, 5);
+const totalGames = benchmarkResults.totalGames;
 
 const allModelIds = new Set<string>();
-for (const [, fmt] of Object.entries(formats)) {
-  for (const m of ((fmt as any).models ?? [])) {
-    allModelIds.add(m.modelId);
-  }
-}
-// Fallback: count from top-level models if formats is empty
-if (allModelIds.size === 0) {
-  for (const m of combinedModels) {
-    allModelIds.add(m.modelId);
+for (const format of Object.values(formats)) {
+  for (const model of format.models) {
+    allModelIds.add(model.modelId);
   }
 }
 const totalModels = allModelIds.size;
-const formatCount = Object.keys(formats).filter(f => f !== 'combined' && ((formats[f] as any)?.totalGames ?? 0) > 0).length || 5;
+const formatCount = Object.entries(formats).filter(([format, data]) => format !== 'combined' && data.totalGames > 0).length;
 
 // Recent games — 3 most recent 1v1 and 3 most recent commander
-const gamesDir = path.join(process.cwd(), 'public', 'games');
-const recentDuels: Array<Record<string, any>> = [];
-const recentCommander: Array<Record<string, any>> = [];
-if (fs.existsSync(gamesDir)) {
-  const files = fs.readdirSync(gamesDir)
-    .filter((f: string) => f.startsWith('game_'))
-    .sort()
-    .reverse();
-  for (const file of files) {
-    if (recentDuels.length >= 3 && recentCommander.length >= 3) break;
-    let data;
-    if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
-      data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
-    } else if (file.endsWith('.json.gz')) {
-      const jsonPath = path.join(gamesDir, file.replace('.json.gz', '.json'));
-      if (fs.existsSync(jsonPath)) continue;
-      const compressed = fs.readFileSync(path.join(gamesDir, file));
-      data = JSON.parse(zlib.gunzipSync(compressed).toString());
-    } else {
-      continue;
+const recentDuels: RecentGameCard[] = [];
+const recentCommander: RecentGameCard[] = [];
+for (const game of loadAllGames()) {
+  if (recentDuels.length >= 3 && recentCommander.length >= 3) {
+    break;
+  }
+
+  const format = formatKeyForDeckType(game.deckType);
+  const entry: RecentGameCard = {
+    id: game.id,
+    format,
+    formatLabel: FORMAT_DISPLAY[format],
+    winner: game.winner,
+    totalTurns: game.totalTurns,
+    players: game.players.map((player) => ({
+      name: player.name,
+      model: stripProviderPrefix(player.model),
+    })),
+  };
+
+  if (format === 'commander') {
+    if (recentCommander.length < 3) {
+      recentCommander.push(entry);
     }
-    const formatKey = DECK_TYPE_FORMATS[data.deckType] || 'commander';
-    const entry = {
-      id: data.id,
-      format: formatKey,
-      formatLabel: FORMAT_DISPLAY[formatKey] || formatKey,
-      winner: data.winner,
-      totalTurns: data.totalTurns,
-      players: (data.players || []).map((p: any) => ({
-        name: p.name,
-        model: p.model ? (p.model.includes('/') ? p.model.split('/').pop() : p.model) : '',
-      })),
-    };
-    if (formatKey === 'commander') {
-      if (recentCommander.length < 3) recentCommander.push(entry);
-    } else {
-      if (recentDuels.length < 3) recentDuels.push(entry);
-    }
+    continue;
+  }
+
+  if (recentDuels.length < 3) {
+    recentDuels.push(entry);
   }
 }
 ---
@@ -141,12 +168,12 @@ if (fs.existsSync(gamesDir)) {
     </a>
   </section>
 
-  {championSeason != null && (
-    <a href={`/season/${championSeason}/results`} class="champ-banner">
-      <span class="champ-eyebrow">Season {championSeason} Champion</span>
-      <span class="champ-name">{champion.display_name}</span>
+  {championBanner != null && (
+    <a href={`/season/${championBanner.season}/results`} class="champ-banner">
+      <span class="champ-eyebrow">Season {championBanner.season} Champion</span>
+      <span class="champ-name">{championBanner.champion.display_name}</span>
       <span class="champ-finals">
-        Finals: def. {runnerUp.display_name} ({champWins}–{runnerUpWins})
+        Finals: def. {championBanner.runnerUp.display_name} ({championBanner.champWins}–{championBanner.runnerUpWins})
       </span>
       <span class="champ-cta">View full bracket &rarr;</span>
     </a>
@@ -194,14 +221,14 @@ if (fs.existsSync(gamesDir)) {
     <section class="leaderboard-preview">
       <h2>Top Models <a href={`/season/${currentSeason}/rankings`} class="section-link">Full leaderboard &rarr;</a></h2>
       <div class="mini-leaderboard">
-        {top5.map((m: any, i: number) => (
+        {top5.map((model, i) => (
           <div class:list={['mini-row', { 'mini-gold': i === 0, 'mini-silver': i === 1, 'mini-bronze': i === 2 }]}>
             <span class="mini-rank">{i + 1}</span>
             <div class="mini-info">
-              <span class="mini-name">{m.modelName}</span>
-              <span class="mini-provider">{m.provider}</span>
+              <span class="mini-name">{model.modelName}</span>
+              <span class="mini-provider">{model.provider}</span>
             </div>
-            <span class="mini-rating">{m.rating}</span>
+            <span class="mini-rating">{model.rating}</span>
           </div>
         ))}
       </div>
@@ -219,10 +246,10 @@ if (fs.existsSync(gamesDir)) {
               <span class="mgc-turns">{game.totalTurns} turns</span>
             </div>
             <div class="mgc-players">
-              {game.players.map((p: any) => (
-                <div class:list={['mgc-player', { 'mgc-winner': p.name === game.winner }]}>
-                  <span class="mgc-pname">{p.name}</span>
-                  {p.name === game.winner && <span class="mgc-winner-label">WINNER</span>}
+              {game.players.map((player) => (
+                <div class:list={['mgc-player', { 'mgc-winner': player.name === game.winner }]}>
+                  <span class="mgc-pname">{player.name}</span>
+                  {player.name === game.winner && <span class="mgc-winner-label">WINNER</span>}
                 </div>
               ))}
             </div>
@@ -243,10 +270,10 @@ if (fs.existsSync(gamesDir)) {
               <span class="mgc-turns">{game.totalTurns} turns</span>
             </div>
             <div class="mgc-players">
-              {game.players.map((p: any) => (
-                <div class:list={['mgc-player', { 'mgc-winner': p.name === game.winner }]}>
-                  <span class="mgc-pname">{p.name}</span>
-                  {p.name === game.winner && <span class="mgc-winner-label">WINNER</span>}
+              {game.players.map((player) => (
+                <div class:list={['mgc-player', { 'mgc-winner': player.name === game.winner }]}>
+                  <span class="mgc-pname">{player.name}</span>
+                  {player.name === game.winner && <span class="mgc-winner-label">WINNER</span>}
                 </div>
               ))}
             </div>

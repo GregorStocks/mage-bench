@@ -5,11 +5,14 @@ import {
   hasDraft,
   hasTournament,
   loadAvailableSeasons,
+  loadBenchmarkResults,
   loadLatestCompletedTournament,
   loadPersonalities,
   loadSeasonBenchmark,
   loadSeasonState,
   loadTournament,
+  parseBenchmarkResults,
+  parseTournament,
 } from "../src/utils/season-data";
 
 describe("season-data", () => {
@@ -32,6 +35,10 @@ describe("season-data", () => {
 
     const personalities = loadPersonalities();
     expect(Object.keys(personalities).length).toBeGreaterThan(0);
+    expect(typeof personalities.villain.prompt_suffix).toBe("string");
+
+    const benchmarkResults = loadBenchmarkResults();
+    expect(benchmarkResults.minBlunderVersion).toBeGreaterThan(0);
   });
 
   it("fails fast when a season benchmark file is missing", () => {
@@ -115,5 +122,19 @@ describe("season-data", () => {
     expect(championship.season).toBe(championSeason);
     expect(championship.tournament.entrants.length).toBeGreaterThan(0);
     expect(championship.tournament.rounds.length).toBeGreaterThan(0);
+  });
+
+  it("fails fast on malformed benchmark results", () => {
+    const benchmark = structuredClone(loadBenchmarkResults());
+    delete benchmark.minBlunderVersion;
+
+    expect(() => parseBenchmarkResults(benchmark)).toThrow(/minBlunderVersion/i);
+  });
+
+  it("fails fast on malformed tournament rounds", () => {
+    const tournament = structuredClone(loadTournament(1));
+    tournament.rounds[0].matches[0].match = "oops";
+
+    expect(() => parseTournament(tournament)).toThrow(/invalid match/i);
   });
 });
