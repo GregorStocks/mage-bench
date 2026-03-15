@@ -28,19 +28,16 @@ const FORMAT_LABELS: Record<string, string> = {
   combined: 'Combined',
 };
 
-const FORMAT_ORDER = ['combined', 'jumpstart', 'standard', 'modern', 'legacy', 'commander'];
+const FORMAT_ORDER = ['combined', 'jumpstart', 'standard', 'modern', 'legacy', 'commander'] as const;
 
-// Build per-format data from the formats key (or fall back to single leaderboard)
-const formats: Record<string, any> = seasonBenchmark.formats ?? {
-  combined: { totalGames: seasonBenchmark.totalGames, models: seasonBenchmark.models },
-};
+const formats = seasonBenchmark.formats;
 
 // Only show tabs for formats that have games (always show combined)
 const activeFormats = FORMAT_ORDER.filter(
-  (f) => f === 'combined' || (formats[f] && formats[f].totalGames > 0)
+  (format) => format === 'combined' || formats[format].totalGames > 0
 );
 
-const hasData = (seasonBenchmark.models?.length ?? 0) > 0 || Object.keys(formats).length > 1;
+const hasData = seasonBenchmark.models.length > 0 || Object.keys(formats).length > 1;
 
 // Check if this season has tournament data
 const tournament = seasonHasTournament(seasonNum) ? loadTournament(seasonNum) : null;
@@ -59,10 +56,10 @@ const tournamentSize = tournament?.size ?? 0;
     </p>
 
     <div class="format-tabs" id="format-tabs" style={activeFormats.length <= 1 ? 'display:none' : ''}>
-      {activeFormats.map((fmt: string) => (
-        <button class:list={['format-tab', { active: fmt === 'combined' }]} data-format={fmt}>
-          {FORMAT_LABELS[fmt] || fmt}
-          <span class="tab-count">({(formats[fmt]?.totalGames ?? 0)})</span>
+      {activeFormats.map((format) => (
+        <button class:list={['format-tab', { active: format === 'combined' }]} data-format={format}>
+          {FORMAT_LABELS[format] || format}
+          <span class="tab-count">({formats[format].totalGames})</span>
         </button>
       ))}
       <label class="inactive-toggle" title="Inactive models are no longer in the active evaluation pool. Reasons: retired (superseded or bottom-tier), buggy (tool-use issues), or expensive (too costly for regular rotation). Historical ratings are preserved.">
@@ -88,31 +85,31 @@ const tournamentSize = tournament?.size ?? 0;
             <th data-sort="avgApiCost" data-type="number">Avg Cost</th>
           </tr>
         </thead>
-        {activeFormats.map((fmt: string) => {
-          const isExhibition = !!formats[fmt]?.exhibition;
+        {activeFormats.map((format) => {
+          const isExhibition = !!formats[format].exhibition;
           return (
-          <tbody data-format={fmt} data-exhibition={isExhibition ? 'true' : undefined} style={fmt !== 'combined' ? 'display: none;' : ''}>
-            {(formats[fmt]?.models || []).map((m: any, i: number) => (
+          <tbody data-format={format} data-exhibition={isExhibition ? 'true' : undefined} style={format !== 'combined' ? 'display: none;' : ''}>
+            {formats[format].models.map((model, i) => (
               <tr
-                data-model-id={m.modelId}
-                data-reasoning-effort={m.reasoningEffort || ''}
-                data-provider={m.provider}
-                data-rating={m.rating ?? ''}
-                data-games-played={m.gamesPlayed}
-                data-win-rate={m.winRate}
-                data-blunder-score={m.blunderScore}
-                data-avg-api-cost={m.avgApiCost}
-                data-inactive={m.inactive || ''}
-                class:list={[{ inactive: m.inactive }]}
+                data-model-id={model.modelId}
+                data-reasoning-effort={model.reasoningEffort || ''}
+                data-provider={model.provider}
+                data-rating={model.rating ?? ''}
+                data-games-played={model.gamesPlayed}
+                data-win-rate={model.winRate}
+                data-blunder-score={model.blunderScore}
+                data-avg-api-cost={model.avgApiCost}
+                data-inactive={model.inactive || ''}
+                class:list={[{ inactive: model.inactive }]}
               >
                 <td class="rank-cell">{i + 1}</td>
-                <td class="model-name">{m.modelName}{m.inactive && <span class="inactive-label"> ({m.inactive})</span>}</td>
-                <td>{m.provider}</td>
-                <td class="num" data-col="rating">{m.rating != null ? m.rating : '\u2014'}</td>
-                <td class="num"><span class={`blunder-val ${m.blunderScore < 0.3 ? 'blunder-good' : m.blunderScore < 0.8 ? 'blunder-ok' : 'blunder-bad'}`}>{m.blunderScore.toFixed(2)}</span></td>
-                <td class="num"><a class="games-link" href={`/season/${seasonNum}/games?model=${encodeURIComponent(m.modelId)}${m.reasoningEffort ? '&effort=' + encodeURIComponent(m.reasoningEffort) : ''}`}>{m.gamesPlayed}</a></td>
-                <td class="num col-winrate">{(m.winRate * 100).toFixed(1)}%</td>
-                <td class="num">${m.avgApiCost.toFixed(2)}</td>
+                <td class="model-name">{model.modelName}{model.inactive && <span class="inactive-label"> ({model.inactive})</span>}</td>
+                <td>{model.provider}</td>
+                <td class="num" data-col="rating">{model.rating != null ? model.rating : '\u2014'}</td>
+                <td class="num"><span class={`blunder-val ${model.blunderScore < 0.3 ? 'blunder-good' : model.blunderScore < 0.8 ? 'blunder-ok' : 'blunder-bad'}`}>{model.blunderScore.toFixed(2)}</span></td>
+                <td class="num"><a class="games-link" href={`/season/${seasonNum}/games?model=${encodeURIComponent(model.modelId)}${model.reasoningEffort ? '&effort=' + encodeURIComponent(model.reasoningEffort) : ''}`}>{model.gamesPlayed}</a></td>
+                <td class="num col-winrate">{(model.winRate * 100).toFixed(1)}%</td>
+                <td class="num">${model.avgApiCost.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
@@ -140,32 +137,53 @@ const tournamentSize = tournament?.size ?? 0;
     syncRankingsSortStateToUrl,
   } from '../../../utils/rankings-sort-state';
 
-  const seasonNum = (window as any).__seasonNum;
-  const tournamentSize: number = (window as any).__tournamentSize || 0;
-  const table = document.getElementById('leaderboard-table') as HTMLTableElement | null;
-  if (!table) {
+  declare global {
+    interface Window {
+      __seasonNum: number;
+      __tournamentSize: number;
+    }
+  }
+
+  const seasonNum = window.__seasonNum;
+  const tournamentSize = window.__tournamentSize;
+  const table = document.getElementById('leaderboard-table');
+  if (!(table instanceof HTMLTableElement)) {
     // No data yet, nothing to make interactive
   } else {
-  const headers = table.querySelectorAll('th[data-sort]');
+  const tableElement = table;
+  const headers = tableElement.querySelectorAll('th[data-sort]');
   const sortTypes = Object.fromEntries(
     Array.from(headers, (th) => {
       const el = th as HTMLElement;
       return [el.dataset.sort!, el.dataset.type!];
     }),
   ) as Record<string, 'string' | 'number'>;
-  const showInactiveCheckbox = document.getElementById('show-inactive') as HTMLInputElement;
-  const noResults = document.getElementById('no-results')!;
+  const showInactiveCheckbox = document.getElementById('show-inactive');
+  if (!(showInactiveCheckbox instanceof HTMLInputElement)) {
+    throw new Error('Missing inactive toggle on rankings page');
+  }
+  const inactiveToggle = showInactiveCheckbox;
+  const noResults = document.getElementById('no-results');
+  if (!(noResults instanceof HTMLElement)) {
+    throw new Error('Missing no-results element on rankings page');
+  }
+  const noResultsElement = noResults;
   const formatTabs = document.getElementById('format-tabs');
 
   let activeFormat = 'combined';
   let suppressUrlSync = false;
 
   function getActiveTbody(): HTMLTableSectionElement {
-    return table!.querySelector(`tbody[data-format="${activeFormat}"]`) as HTMLTableSectionElement;
+    const tbody = tableElement.querySelector(`tbody[data-format="${activeFormat}"]`);
+    if (!(tbody instanceof HTMLTableSectionElement)) {
+      throw new Error(`Missing leaderboard body for format ${activeFormat}`);
+    }
+    return tbody;
   }
 
   function getSortedHeader(): HTMLElement | null {
-    return table!.querySelector('th.sorted') as HTMLElement | null;
+    const sortedHeader = tableElement.querySelector('th.sorted');
+    return sortedHeader instanceof HTMLElement ? sortedHeader : null;
   }
 
   function setSortedHeaderState(th: HTMLElement, ascending: boolean) {
@@ -210,7 +228,7 @@ const tournamentSize = tournament?.size ?? 0;
   }
 
   function updateGamesLinks() {
-    table!.querySelectorAll('tr[data-model-id]').forEach((row) => {
+    tableElement.querySelectorAll('tr[data-model-id]').forEach((row) => {
       const el = row as HTMLElement;
       const modelId = el.dataset.modelId!;
       const effort = el.dataset.reasoningEffort;
@@ -228,7 +246,7 @@ const tournamentSize = tournament?.size ?? 0;
     const url = new URL(window.location.href);
     if (activeFormat !== 'combined') url.searchParams.set('format', activeFormat);
     else url.searchParams.delete('format');
-    if (showInactiveCheckbox.checked) url.searchParams.set('inactive', '1');
+    if (inactiveToggle.checked) url.searchParams.set('inactive', '1');
     else url.searchParams.delete('inactive');
     const currentSort = getCurrentSortState();
     if (currentSort) {
@@ -241,29 +259,35 @@ const tournamentSize = tournament?.size ?? 0;
     if (fmt === activeFormat) return;
 
     // Hide all tbodies, show selected
-    table!.querySelectorAll('tbody[data-format]').forEach((tb) => {
+    tableElement.querySelectorAll('tbody[data-format]').forEach((tb) => {
       (tb as HTMLElement).style.display = 'none';
     });
-    const newTbody = table!.querySelector(`tbody[data-format="${fmt}"]`) as HTMLElement;
-    if (newTbody) newTbody.style.display = '';
+    const newTbody = tableElement.querySelector(`tbody[data-format="${fmt}"]`);
+    if (!(newTbody instanceof HTMLTableSectionElement)) {
+      throw new Error(`Missing leaderboard body for format ${fmt}`);
+    }
+    newTbody.style.display = '';
 
     // Update active tab styling
     if (formatTabs) {
       formatTabs.querySelectorAll('.format-tab').forEach((t) => t.classList.remove('active'));
       const btn = formatTabs.querySelector(`.format-tab[data-format="${fmt}"]`);
-      if (btn) btn.classList.add('active');
+      if (btn instanceof HTMLElement) btn.classList.add('active');
     }
 
     activeFormat = fmt;
-    table!.classList.toggle('format-combined', fmt === 'combined');
+    tableElement.classList.toggle('format-combined', fmt === 'combined');
 
     // Hide rating column for exhibition formats
-    const isExhibition = newTbody?.dataset.exhibition === 'true';
-    table!.classList.toggle('hide-rating-col', isExhibition);
+    const isExhibition = newTbody.dataset.exhibition === 'true';
+    tableElement.classList.toggle('hide-rating-col', isExhibition);
 
     const sortedHeader = getSortedHeader();
     if (isExhibition && sortedHeader?.dataset.sort === 'rating') {
-      const winRateTh = table!.querySelector('th[data-sort="winRate"]') as HTMLElement;
+      const winRateTh = tableElement.querySelector('th[data-sort="winRate"]');
+      if (!(winRateTh instanceof HTMLElement)) {
+        throw new Error('Missing win-rate header on rankings page');
+      }
       applyActiveSort(winRateTh, false);
     } else if (sortedHeader) {
       applyActiveSort(sortedHeader, sortedHeader.classList.contains('asc'));
@@ -326,7 +350,7 @@ const tournamentSize = tournament?.size ?? 0;
   });
 
   function applyFilters() {
-    const showInactive = showInactiveCheckbox.checked;
+    const showInactive = inactiveToggle.checked;
     const tbody = getActiveTbody();
     if (!tbody) return;
     const rows = tbody.querySelectorAll('tr:not(.cutoff-row)');
@@ -340,7 +364,7 @@ const tournamentSize = tournament?.size ?? 0;
       if (visible) visibleCount++;
     });
 
-    noResults.style.display = visibleCount === 0 ? '' : 'none';
+    noResultsElement.style.display = visibleCount === 0 ? '' : 'none';
     updateRanks();
   }
 
@@ -348,7 +372,7 @@ const tournamentSize = tournament?.size ?? 0;
     const tbody = getActiveTbody();
     if (!tbody) return;
     const showRankingDecorations = isCanonicalSortActive();
-    table!.classList.toggle('canonical-sort', showRankingDecorations);
+    tableElement.classList.toggle('canonical-sort', showRankingDecorations);
     let rank = 1;
     const showCutoff = showRankingDecorations && tournamentSize > 0 && activeFormat === 'combined';
 
@@ -383,7 +407,7 @@ const tournamentSize = tournament?.size ?? 0;
     }
   }
 
-  showInactiveCheckbox.addEventListener('change', () => {
+  inactiveToggle.addEventListener('change', () => {
     applyFilters();
     syncStateToUrl();
   });
@@ -394,11 +418,11 @@ const tournamentSize = tournament?.size ?? 0;
     try {
       const params = new URLSearchParams(window.location.search);
       const formatParam = params.get('format');
-      if (formatParam && table!.querySelector(`tbody[data-format="${formatParam}"]`)) {
+      if (formatParam && tableElement.querySelector(`tbody[data-format="${formatParam}"]`)) {
         switchFormat(formatParam);
       }
       if (params.get('inactive') === '1') {
-        showInactiveCheckbox.checked = true;
+        inactiveToggle.checked = true;
       }
 
       const sortState = parseRankingsSortState(
@@ -406,7 +430,10 @@ const tournamentSize = tournament?.size ?? 0;
         getActiveTbody().dataset.exhibition === 'true',
         sortTypes,
       );
-      const sortHeader = table!.querySelector(`th[data-sort="${sortState.column}"]`) as HTMLElement;
+      const sortHeader = tableElement.querySelector(`th[data-sort="${sortState.column}"]`);
+      if (!(sortHeader instanceof HTMLElement)) {
+        throw new Error(`Missing sort header for ${sortState.column}`);
+      }
       applyActiveSort(sortHeader, sortState.ascending);
       updateGamesLinks();
       applyFilters();

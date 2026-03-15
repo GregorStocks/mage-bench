@@ -7,14 +7,15 @@ import {
   loadAvailableSeasons,
   loadTournament,
 } from '../../../../utils/season-data';
+import type { GameEntry } from '../../../../utils/load-games';
+import type { TournamentEntrant } from '../../../../utils/season-data';
 
 export function getStaticPaths() {
-  const paths: any[] = [];
+  const paths: Array<{ params: { season: string; matchId: string } }> = [];
 
   for (const s of loadAvailableSeasons()) {
     if (!seasonHasTournament(s)) continue;
     const tournament = loadTournament(s);
-    if (!tournament.rounds) continue;
     for (const round of tournament.rounds) {
       for (const match of round.matches) {
         if (match.winner_seed == null) continue;
@@ -38,44 +39,45 @@ const matchNum = parseInt(idMatch[2], 10);
 
 const tournament = loadTournament(seasonNum);
 
-const round = tournament.rounds.find((r: any) => r.round === roundNum);
+const round = tournament.rounds.find((candidate) => candidate.round === roundNum) ?? null;
 assert(round, `Round ${roundNum} not found`);
-const match = round.matches.find((m: any) => m.match === matchNum);
+const match = round.matches.find((candidate) => candidate.match === matchNum) ?? null;
 assert(match, `Match ${matchNum} not found in round ${roundNum}`);
 
 // Build entrants lookup
-const entrantsBySeed: Record<number, any> = {};
-for (const e of tournament.entrants) {
-  entrantsBySeed[e.seed] = e;
-}
+const entrantsBySeed = new Map<number, TournamentEntrant>(
+  tournament.entrants.map((entrant) => [entrant.seed, entrant]),
+);
 
-const ea = entrantsBySeed[match.seed_a];
-const eb = entrantsBySeed[match.seed_b];
+const ea = match.seed_a != null ? entrantsBySeed.get(match.seed_a) ?? null : null;
+const eb = match.seed_b != null ? entrantsBySeed.get(match.seed_b) ?? null : null;
 
 function cleanThemeName(name: string): string {
   return name.replace(/^J22 /, '');
 }
 
-function deckNameForSeed(seed: number): string | null {
-  const dl = tournament?.draft?.decklists?.[String(seed)];
-  if (!dl?.half_decks) return null;
-  return dl.half_decks.map((h: string) => cleanThemeName(h)).join(' + ');
+function deckNameForSeed(seed: number | null): string | null {
+  if (seed == null) return null;
+  const decklist = tournament.draft?.decklists[String(seed)];
+  if (decklist == null) return null;
+  return decklist.half_decks.map(cleanThemeName).join(' + ');
 }
 
 // Load game metadata
 const allGames = loadAllGames().filter(g => g.season === seasonNum);
-const gameMeta: Record<string, any> = {};
-for (const g of allGames) {
-  gameMeta[g.id as string] = g;
-}
+const gameMeta = new Map<string, GameEntry>(allGames.map((game) => [game.id, game]));
+
+type MatchGameView = {
+  index: number;
+  totalTurns: number | null;
+} & (typeof match.games)[number];
 
 // Enrich match games
-const games = (match.games ?? []).map((g: any, i: number) => {
-  const meta = gameMeta[g.game_id];
+const games: MatchGameView[] = match.games.map((game, i) => {
+  const meta = gameMeta.get(game.game_id) ?? null;
   return {
-    ...g,
+    ...game,
     index: i + 1,
-    winnerName: meta?.winner ?? null,
     totalTurns: meta?.totalTurns ?? null,
   };
 });
@@ -88,7 +90,7 @@ for (const g of games) {
 
 const hasDraft = !!tournament.draft;
 
-function assert(cond: any, msg: string): asserts cond {
+function assert(cond: unknown, msg: string): asserts cond {
   if (!cond) throw new Error(msg);
 }
 ---
@@ -125,8 +127,8 @@ function assert(cond: any, msg: string): asserts cond {
 
     <h3 class="games-heading">Games</h3>
     <div class="games-list">
-      {games.map((g: any) => {
-        const winnerEntrant = entrantsBySeed[g.winner_seed];
+      {games.map((g) => {
+        const winnerEntrant = g.winner_seed != null ? entrantsBySeed.get(g.winner_seed) ?? null : null;
         return (
           <a href={`/games/${g.game_id}`} class="game-row">
             <span class="game-num">Game {g.index}</span>

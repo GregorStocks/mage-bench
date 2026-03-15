@@ -1,6 +1,5 @@
 ---
-import seasonData from '../data/season.json';
-import benchmarkData from '../data/benchmark-results.json';
+import { loadBenchmarkResults } from '../utils/season-data';
 
 interface Props {
   title: string;
@@ -9,8 +8,7 @@ interface Props {
 
 const { title, wide } = Astro.props;
 const currentPath = Astro.url.pathname;
-const currentSeason = (seasonData as any).current_season;
-const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [currentSeason];
+const availableSeasons = loadBenchmarkResults().availableSeasons;
 
 const docsLinks = [
   { href: '/docs/about', label: 'About' },

@@ -5,6 +5,7 @@ import {
   hasTournament as seasonHasTournament,
   loadAvailableSeasons,
   loadPersonalities,
+  parseDecklistCardEntry,
   loadTournament,
 } from '../../../utils/season-data';
 
@@ -19,11 +20,6 @@ const seasonNum = parseInt(season!, 10);
 
 const tournament = loadTournament(seasonNum);
 const personalities = loadPersonalities();
-
-const entrantsBySeed: Record<number, any> = {};
-for (const e of tournament.entrants) {
-  entrantsBySeed[e.seed] = e;
-}
 
 function cleanThemeName(name: string): string {
   return name.replace(/^J22 /, '');
@@ -45,22 +41,19 @@ const hasDraft = !!tournament.draft;
     </div>
 
     <div class="entrants-grid">
-      {tournament.entrants.map((e: any) => {
-        const p = personalities[e.personality];
-        const deckInfo = tournament.draft?.decklists?.[String(e.seed)];
-        const cardCount = deckInfo?.cards?.reduce((sum: number, c: string) => {
-          const m = c.match(/^(\d+)\s+/);
-          return sum + (m ? parseInt(m[1]) : 1);
-        }, 0) ?? 0;
+      {tournament.entrants.map((entrant) => {
+        const p = personalities[entrant.personality];
+        const deckInfo = tournament.draft?.decklists[String(entrant.seed)];
+        const cardCount = deckInfo?.cards.reduce((sum, cardLine) => sum + parseDecklistCardEntry(cardLine).count, 0) ?? 0;
         return (
-          <a href={`/season/${seasonNum}/player/${e.seed}`} class="entrant-card">
-            <div class="entrant-seed">#{e.seed}</div>
+          <a href={`/season/${seasonNum}/player/${entrant.seed}`} class="entrant-card">
+            <div class="entrant-seed">#{entrant.seed}</div>
             <div class="entrant-info">
               <div class="entrant-name">
-                {e.display_name}
+                {entrant.display_name}
               </div>
               <div class="entrant-personality">
-                <span class="personality-name">{e.personality}</span>
+                <span class="personality-name">{entrant.personality}</span>
                 {p?.prompt_suffix && (
                   <span class="personality-desc" title={p.prompt_suffix}>
                     {p.prompt_suffix.length > 60 ? p.prompt_suffix.slice(0, 60) + '...' : p.prompt_suffix}
@@ -68,12 +61,12 @@ const hasDraft = !!tournament.draft;
                 )}
               </div>
               <div class="entrant-stats">
-                <span class="entrant-elo">Elo {e.combined_elo}</span>
-                <span class="entrant-games">{e.games_played} games</span>
+                <span class="entrant-elo">Elo {entrant.combined_elo}</span>
+                <span class="entrant-games">{entrant.games_played} games</span>
               </div>
               {deckInfo && (
                 <div class="entrant-deck-summary">
-                  {deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}
+                  {deckInfo.half_decks.map(cleanThemeName).join(' + ')}
                   <span class="deck-card-count">{cardCount} cards</span>
                 </div>
               )}

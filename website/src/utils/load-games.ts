@@ -32,6 +32,7 @@ export interface GameEntry {
 
 const CACHE_KEY = Symbol.for('mage-bench:games-metadata');
 const BLUNDER_WEIGHTS: Record<string, number> = { minor: 1, moderate: 2, major: 4 };
+type GamesCacheGlobal = typeof globalThis & { [CACHE_KEY]?: GameEntry[] };
 
 function invariant(condition: unknown, message: string): asserts condition {
   if (!condition) {
@@ -80,7 +81,7 @@ function scanGames(): GameEntry[] {
   }
 
   for (const file of files) {
-    let data;
+    let data: unknown;
     if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
       if (gzStems.has(file)) continue; // prefer .json.gz
       data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
@@ -120,16 +121,16 @@ function scanGames(): GameEntry[] {
     const annotations = data.annotations;
     if (annotations != null) {
       entry.blunderScriptVersion = data.blunderScriptVersion ?? null;
-      const totalTurns = data.totalTurns as number;
+      const totalTurns = data.totalTurns;
       if (totalTurns && totalTurns > 0) {
         const weightedByPlayer: Record<string, number> = {};
         for (const p of players) {
           weightedByPlayer[p.name] = 0;
         }
         for (const a of annotations) {
-          if (a.type !== "blunder") continue;
-          const player = a.player || "Unknown";
-          weightedByPlayer[player] = (weightedByPlayer[player] || 0) + (BLUNDER_WEIGHTS[a.severity] || 0);
+          if (a.type !== 'blunder') continue;
+          const player = a.player || 'Unknown';
+          weightedByPlayer[player] = (weightedByPlayer[player] || 0) + BLUNDER_WEIGHTS[a.severity];
         }
         const scoreByPlayer: Record<string, number> = {};
         for (const [player, weight] of Object.entries(weightedByPlayer)) {
@@ -148,9 +149,9 @@ function scanGames(): GameEntry[] {
 
 /** Return all game metadata entries, cached across SSR requests. */
 export function loadAllGames(): GameEntry[] {
-  const g = globalThis as any;
-  if (!g[CACHE_KEY]) {
-    g[CACHE_KEY] = scanGames();
+  const cacheGlobal = globalThis as GamesCacheGlobal;
+  if (cacheGlobal[CACHE_KEY] == null) {
+    cacheGlobal[CACHE_KEY] = scanGames();
   }
-  return g[CACHE_KEY];
+  return cacheGlobal[CACHE_KEY];
 }

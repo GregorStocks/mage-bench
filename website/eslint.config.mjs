@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import tsEslintPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import astro from "eslint-plugin-astro";
 import globals from "globals";
@@ -7,6 +8,15 @@ const bugFinderRules = {
   eqeqeq: ["error", "always", { null: "ignore" }],
   "no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
 };
+
+const typeAwareLintFiles = [
+  "src/utils/season-data.ts",
+  "src/utils/load-games.ts",
+  "src/layouts/Base.astro",
+  "src/pages/index.astro",
+  "src/pages/season/[season]/results.astro",
+  "src/pages/season/[season]/rankings.astro",
+];
 
 export default [
   {
@@ -42,6 +52,10 @@ export default [
       parser: tsParser,
       ecmaVersion: "latest",
       sourceType: "module",
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
       globals: {
         ...globals.node,
       },
@@ -53,7 +67,21 @@ export default [
       parserOptions: {
         parser: tsParser,
         extraFileExtensions: [".astro"],
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
       },
+    },
+  },
+  {
+    files: typeAwareLintFiles,
+    plugins: {
+      "@typescript-eslint": tsEslintPlugin,
+    },
+    rules: {
+      "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-unsafe-assignment": "error",
+      "@typescript-eslint/no-unsafe-member-access": "error",
     },
   },
   {

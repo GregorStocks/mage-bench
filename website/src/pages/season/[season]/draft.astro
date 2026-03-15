@@ -20,9 +20,10 @@ const tournament = loadTournament(seasonNum);
 if (!tournament.draft) {
   throw new Error(`Tournament ${seasonNum} has no draft data`);
 }
-if (tournament.draft.history_version !== 2) {
+const draft = tournament.draft;
+if (draft.history_version !== 2) {
   throw new Error(
-    `Tournament ${seasonNum} has draft history v${tournament.draft.history_version ?? 1}; expected v2`
+    `Tournament ${seasonNum} has draft history v${draft.history_version ?? 1}; expected v2`
   );
 }
 
@@ -67,14 +68,14 @@ function renderAttemptResponse(attempt: any): string {
   <div class="draft-page">
     <h2>Draft</h2>
     <div class="draft-stats-bar">
-      <span>{tournament.draft.picks.length} picks</span>
+      <span>{draft.picks.length} picks</span>
       <span class="draft-stat-sep">&middot;</span>
-      <span>{tournament.draft.pool.length} packs in pool</span>
+      <span>{draft.pool.length} packs in pool</span>
       <span class="draft-stat-sep">&middot;</span>
-      <span>${tournament.draft.total_cost_usd.toFixed(2)} total cost</span>
+      <span>${draft.total_cost_usd.toFixed(2)} total cost</span>
     </div>
     {[1, 2].map((roundNum: number) => {
-      const roundPicks = tournament.draft.picks
+      const roundPicks = draft.picks
         .map((p: any, idx: number) => ({ ...p, _idx: idx }))
         .filter((p: any) => p.round === roundNum);
       return (

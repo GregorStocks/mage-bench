@@ -6,15 +6,18 @@ import {
   hasTournament as seasonHasTournament,
   loadAvailableSeasons,
   loadPersonalities,
+  parseDecklistCardEntry,
   loadTournament,
 } from '../../../../utils/season-data';
+import type { GameEntry } from '../../../../utils/load-games';
+import type { TournamentDeckCard, TournamentEntrant } from '../../../../utils/season-data';
 
-function assert(cond: any, msg: string): asserts cond {
+function assert(cond: unknown, msg: string): asserts cond {
   if (!cond) throw new Error(msg);
 }
 
 export function getStaticPaths() {
-  const paths: any[] = [];
+  const paths: Array<{ params: { season: string; seed: string } }> = [];
 
   for (const s of loadAvailableSeasons()) {
     if (!seasonHasTournament(s)) continue;
@@ -33,13 +36,12 @@ const seedNum = parseInt(seed!, 10);
 const tournament = loadTournament(seasonNum);
 const personalities = loadPersonalities();
 
-const entrantsBySeed: Record<number, any> = {};
-for (const e of tournament.entrants) {
-  entrantsBySeed[e.seed] = e;
-}
+const entrantsBySeed = new Map<number, TournamentEntrant>(
+  tournament.entrants.map((entrant) => [entrant.seed, entrant]),
+);
 
-const entrant = entrantsBySeed[seedNum];
-assert(entrant, `No entrant with seed ${seedNum}`);
+const entrant = entrantsBySeed.get(seedNum) ?? null;
+assert(entrant != null, `No entrant with seed ${seedNum}`);
 
 const personality = personalities[entrant.personality];
 const hasDraft = !!tournament.draft;
@@ -49,14 +51,10 @@ function cleanThemeName(name: string): string {
 }
 
 // Parse decklist
-const deckInfo = tournament.draft?.decklists?.[String(seedNum)];
-const cards = deckInfo?.cards?.map((c: string) => {
-  const m = c.match(/^(\d+)\s+\[(\w+):(\w+)\]\s+(.+)$/);
-  if (!m) return { count: 1, set: '', num: '', name: c };
-  return { count: parseInt(m[1]), set: m[2], num: m[3], name: m[4] };
-}) || [];
+const deckInfo = tournament.draft?.decklists[String(seedNum)];
+const cards: TournamentDeckCard[] = deckInfo?.cards.map(parseDecklistCardEntry) ?? [];
 
-const totalCards = cards.reduce((s: number, c: any) => s + c.count, 0);
+const totalCards = cards.reduce((sum, card) => sum + card.count, 0);
 
 // Build championship record: find all matches this player was in
 interface MatchRecord {
@@ -78,11 +76,13 @@ for (const round of (tournament.rounds || [])) {
   for (const match of round.matches) {
     if (match.seed_a !== seedNum && match.seed_b !== seedNum) continue;
     const opponentSeed = match.seed_a === seedNum ? match.seed_b : match.seed_a;
+    assert(opponentSeed != null, `Missing opponent seed for season ${seasonNum} seed ${seedNum}`);
+    assert(match.match != null, `Missing match number for season ${seasonNum} round ${round.round}`);
     const won = match.winner_seed === seedNum;
     let gamesWon = 0;
     let gamesLost = 0;
     const gameIds: string[] = [];
-    for (const g of (match.games || [])) {
+    for (const g of match.games) {
       gameIds.push(g.game_id);
       if (g.winner_seed === seedNum) gamesWon++;
       else gamesLost++;
@@ -115,15 +115,17 @@ const matchesLost = matchRecords.filter(m => !m.won).length;
 
 // Load game metadata for enrichment
 const allGames = loadAllGames().filter(g => g.season === seasonNum);
-const gameMeta: Record<string, any> = {};
-for (const g of allGames) {
-  gameMeta[g.id as string] = g;
-}
+const gameMeta = new Map<string, GameEntry>(allGames.map((game) => [game.id, game]));
 
 // Build scryfall identifiers for the client-side visual decklist
 const scryfallIds = cards
-  .filter((c: any) => c.set && c.num)
-  .map((c: any) => ({ set: c.set.toLowerCase(), collector_number: c.num, count: c.count, name: c.name }));
+  .filter((card) => card.set != null && card.num != null)
+  .map((card) => ({
+    set: card.set!.toLowerCase(),
+    collector_number: card.num!,
+    count: card.count,
+    name: card.name,
+  }));
 ---
 
 <Base title={`${entrant.display_name} — Season ${seasonNum}`} wide>
@@ -171,7 +173,7 @@ const scryfallIds = cards
         <h2 class="section-heading">Championship Run</h2>
         <div class="matches-list">
           {matchRecords.map((m) => {
-            const opponent = entrantsBySeed[m.opponentSeed];
+            const opponent = entrantsBySeed.get(m.opponentSeed) ?? null;
             return (
               <div class:list={['match-row', { won: m.won, lost: !m.won }]}>
                 <div class="match-round">{m.roundName}</div>
@@ -186,7 +188,7 @@ const scryfallIds = cards
                 </div>
                 <div class="match-games">
                   {m.gameIds.map((gid, i) => {
-                    const meta = gameMeta[gid];
+                    const meta = gameMeta.get(gid) ?? null;
                     return (
                       <a href={`/games/${gid}`} class="game-link">
                         Game {i + 1}
@@ -211,7 +213,7 @@ const scryfallIds = cards
     <section class="deck-section">
       <h2 class="section-heading">Decklist</h2>
       <div class="deck-header">
-        <span class="deck-name">{deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}</span>
+        <span class="deck-name">{deckInfo.half_decks.map(cleanThemeName).join(' + ')}</span>
         <span class="deck-count">{totalCards} cards</span>
       </div>
 
