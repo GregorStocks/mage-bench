@@ -57,9 +57,11 @@ def _seed_m2_repo(m2_repo: Path) -> str | None:
         m2_repo.mkdir(parents=True, exist_ok=True)
         return None
 
-    # CoW reflink copy: near-instant on btrfs, falls back to regular copy elsewhere
+    # CoW reflink copy: near-instant on btrfs, falls back to regular copy elsewhere.
+    # Resolve source to follow symlinks (e.g. ~/.m2/repository -> /other/disk),
+    # otherwise cp -a copies the symlink itself instead of an isolated directory.
     subprocess.run(
-        ["cp", "-a", "--reflink=auto", str(source), str(m2_repo)],
+        ["cp", "-a", "--reflink=auto", str(source.resolve()), str(m2_repo)],
         check=True,
     )
     return label
