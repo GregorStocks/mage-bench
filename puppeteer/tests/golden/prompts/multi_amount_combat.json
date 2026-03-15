@@ -264,7 +264,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=51 bf=[Forest, Forest, Grizzly Bears 2/2 (tapped)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n  Combat: Grizzly Bears blocked by Savannah Lions, Savannah Lions -> Opponent\n  Untapped lands: 2\n  Message: \n  Items (2): total_min=2, total_max=2\n    0: Savannah Lions, P/T: 2/1 [min=0, max=2]\n    1: Savannah Lions, P/T: 2/1 [min=0, max=2]\n  Respond: amounts=[N,N,...] — one per item, sum between total_min and total_max\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=51 bf=[Forest, Forest, Grizzly Bears 2/2 (tapped)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n  Combat: Grizzly Bears blocked by Savannah Lions, Savannah Lions -> Opponent\n  Untapped lands: 2\n  Message: Assign combat damage among creatures blocking Grizzly Bears, P/T: 2/2\n  Items (2): total_min=2, total_max=2\n    0: Savannah Lions, P/T: 2/1 [min=0, max=2]\n    1: Savannah Lions, P/T: 2/1 [min=0, max=2]\n  Respond: amounts=[N,N,...] — one per item, sum between total_min and total_max\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_13"
   },
