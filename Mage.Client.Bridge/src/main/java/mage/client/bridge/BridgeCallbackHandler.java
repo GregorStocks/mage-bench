@@ -1480,6 +1480,17 @@ public class BridgeCallbackHandler {
                     }
                 }
                 result.items = items;
+                // The multi-amount GameClientMessage constructor doesn't set
+                // the message field; the useful context ("Assign combat damage
+                // among creatures blocking X" etc.) lives in options.header
+                // from MultiAmountType.
+                if ((result.message == null || result.message.isEmpty())
+                        && msg.getOptions() != null) {
+                    Object header = msg.getOptions().get("header");
+                    if (header instanceof String) {
+                        result.message = stripHtml((String) header);
+                    }
+                }
                 lastChoices = null;
                 break;
             }
