@@ -85,7 +85,8 @@ public class BridgeCallbackHandler {
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
     private static final int DEFAULT_ACTION_DELAY_MS = 500;
     /** Chat message captured for interleaving with bridge events in game log rendering. */
-    private record ChatLogEntry(int eventCursor, String text) {}
+    private record ChatLogEntry(int eventCursor, int seq, String text) {}
+    private volatile int chatSeqCounter = 0; // monotonic counter for deterministic chat ordering
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -602,6 +603,7 @@ public class BridgeCallbackHandler {
         bridgeEventCursor = 0;
         synchronized (chatLog) {
             chatLog.clear();
+            chatSeqCounter = 0;
         }
     }
 
@@ -2996,7 +2998,16 @@ public class BridgeCallbackHandler {
             List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
             if (events != null && !events.isEmpty()) {
                 bridgeEventCursor = events.get(events.size() - 1).index() + 1;
-                cachedBridgeEvents.addAll(events);
+                // Only append events not already in the cache. getGameHistory() temporarily
+                // rewinds bridgeEventCursor (save/restore pattern), which can re-fetch events
+                // that were already cached from a prior pull.
+                int cacheHighWater = cachedBridgeEvents.isEmpty() ? -1
+                        : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index();
+                for (BridgeLogEntry e : events) {
+                    if (e.index() > cacheHighWater) {
+                        cachedBridgeEvents.add(e);
+                    }
+                }
             }
             return events != null ? events : List.of();
         } catch (Exception e) {
@@ -3175,16 +3186,16 @@ public class BridgeCallbackHandler {
         Map<String, Integer> perPlayerTurns = new HashMap<>(initialTurnCounts);
         String lastTurnHeader = null;
 
-        // Snapshot chatLog for interleaving, sorted for deterministic output.
-        // Chat entries with the same eventCursor arrive in nondeterministic callback order;
-        // sorting by (eventCursor, text) ensures stable rendering across runs.
+        // Snapshot chatLog for interleaving, ordered by (eventCursor, seq).
+        // The monotonic seq preserves arrival order for messages at the same cursor,
+        // avoiding lexicographic reordering that could invert conversation flow.
         List<ChatLogEntry> chats = List.of();
         int chatIdx = 0;
         if (includeChat) {
             synchronized (chatLog) {
                 chats = new ArrayList<>(chatLog);
             }
-            chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparing(ChatLogEntry::text));
+            chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparingInt(ChatLogEntry::seq));
             // Skip chat entries before the requested cursor range
             while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() < minChatCursor) {
                 chatIdx++;
@@ -5271,7 +5282,7 @@ public class BridgeCallbackHandler {
                     // cursor=0, placing it before game events — chronologically correct since
                     // the chat predates the first event pull.
                     synchronized (chatLog) {
-                        chatLog.add(new ChatLogEntry(bridgeEventCursor, "[Chat] " + user + ": " + msg));
+                        chatLog.add(new ChatLogEntry(bridgeEventCursor, chatSeqCounter++, "[Chat] " + user + ": " + msg));
                     }
                     // Buffer chat from other players so pass_priority can surface it
                     if (!user.equals(client.getUsername())) {
