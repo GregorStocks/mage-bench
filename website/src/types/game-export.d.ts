@@ -398,6 +398,20 @@ export interface Decision {
    * True if the cast was rolled back (failed mana payment, etc.).
    */
   castRolledBack?: boolean;
+  /**
+   * Per-item metadata for multi-amount decisions (e.g. combat damage distribution targets).
+   */
+  items?: {
+    [k: string]: unknown;
+  }[];
+  /**
+   * Minimum total across all items (multi-amount decisions).
+   */
+  totalMin?: number;
+  /**
+   * Maximum total across all items (multi-amount decisions).
+   */
+  totalMax?: number;
   [k: string]: unknown;
 }
 /**
