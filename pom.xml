@@ -338,11 +338,6 @@
                 <version>4.0.5</version>
             </dependency>
             <dependency>
-                <groupId>org.glassfish.jaxb</groupId>
-                <artifactId>jaxb-core</artifactId>
-                <version>4.0.5</version>
-            </dependency>
-            <dependency>
                 <!-- junit compatible dependencies (xmage uses junit 5 platform for all v4 and v5 tests) -->
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
