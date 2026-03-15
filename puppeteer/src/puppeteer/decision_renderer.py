@@ -164,7 +164,8 @@ def _render_decision_block(
             header += f": {', '.join(total_parts)}"
         lines.append(header)
         for i, item in enumerate(items):
-            desc = item.get("description", "?")
+            assert "description" in item, f"multi-amount item {i} missing 'description': {item}"
+            desc = item["description"]
             constraints: list[str] = []
             if "min" in item:
                 constraints.append(f"min={item['min']}")
