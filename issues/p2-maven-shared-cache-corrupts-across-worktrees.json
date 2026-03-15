@@ -1,0 +1,10 @@
+{
+  "title": "Maven shared build cache corrupts across worktrees",
+  "description": "When multiple worktrees run `make build` (mvn install package -DskipTests), they share the same ~/.m2 local repository. If worktree A installs mage-common with a different CardView (e.g. adding a controllerId field) and worktree B then tries an incremental build, Maven may find the installed artifact from A but skip compilation because its own sources haven't changed — then fail because downstream modules see the wrong class version, or the packaging plugin can't find the expected jar.\n\nObserved failure: after merging origin/master into a branch that modified CardView.java and GameView.java, `make build` failed with:\n\n    Failed to execute goal maven-install-plugin:3.1.4:install on project mage-common:\n    The packaging plugin for project mage-common did not assign a file to the build artifact\n\nAll downstream modules were SKIPPED. A `make clean && make build` fixed it, but this shouldn't happen — parallel worktrees should never corrupt each other's builds.\n\nInvestigation should cover:\n1. Whether `mvn install` writing to the shared ~/.m2/repository is the root cause (worktree A's installed jar gets picked up by worktree B's incremental build)\n2. Whether worktrees should use isolated local repositories (e.g. `-Dmaven.repo.local=.m2-local`) to prevent cross-contamination\n3. Whether the previous decision to re-enable incremental compilation (see git history for p3-investigate-reenabling-maven-incremental-compilation) needs to be revisited\n4. Whether `make build` should always do a clean install, or whether there's a lighter-weight fix\n\nThis is P2 because it causes mysterious build failures that waste Claude time and block work. The workaround is `make clean && make build` but that shouldn't be necessary.",
+  "status": "open",
+  "priority": 2,
+  "type": "bug",
+  "labels": ["build"],
+  "created_at": "2026-03-15T11:03:00.000000-07:00",
+  "updated_at": "2026-03-15T11:03:00.000000-07:00"
+}

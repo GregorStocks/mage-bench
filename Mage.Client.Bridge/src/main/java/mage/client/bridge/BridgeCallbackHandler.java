@@ -5183,10 +5183,12 @@ public class BridgeCallbackHandler {
                 // Player name is extracted directly from the message, no lastGameView dependency.
                 Matcher turnMatcher = TURN_MSG_PATTERN.matcher(logEntry);
                 if (turnMatcher.find()) {
-                    String activePlayer = turnMatcher.group(1);
+                    // Player name from turn message is HTML-wrapped (<font>...</font>); strip to plain text
+                    // so playerTurnCounts keys match the plain names used by getGameLogSinceTurn.
+                    String activePlayer = stripHtml(turnMatcher.group(1));
                     int playerTurn = playerTurnCounts.merge(activePlayer, 1, Integer::sum);
                     // turnMatcher.end() points just past the '(' that the regex matched (life totals)
-                    String lifePart = logEntry.substring(turnMatcher.end() - 1);
+                    String lifePart = stripHtml(logEntry.substring(turnMatcher.end() - 1));
                     logEntry = activePlayer + " turn " + playerTurn + " " + lifePart;
                 }
                 synchronized (gameLog) {
