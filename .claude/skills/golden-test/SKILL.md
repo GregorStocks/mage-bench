@@ -44,6 +44,13 @@ Rules:
 - Pad the rest with basics unless a later specific draw is required
 - Use real set codes and collector numbers from existing decks or `Mage.Sets`
 
+If you know the mechanic but not the exact cards, use `card-finder` before
+inventing a deck from memory. Start with
+`.claude/skills/card-finder/references/golden-test-cards.md`, then use
+`uv run python scripts/find-test-cards.py --list-recipes` or a targeted
+`--query` search. Prefer cards already proven in repo goldens when they cover
+the mechanic.
+
 Predict short IDs in comments and replay scripts. IDs are assigned alphabetically by card name starting at `p3` (`p1`/`p2` are players).
 
 Prompt and export goldens now keep literal MCP short IDs. Only raw XMage HTML object handles (`object_id='UUID'`, `</font> [abc]`) are minimally redacted inside strings, and embedded JSON key order is normalized.
