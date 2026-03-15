@@ -1,0 +1,14 @@
+{
+  "title": "golden replay can overshoot into a later prompt and strand GAME_OVER",
+  "description": "While debugging the March 14-15, 2026 golden flakes, I found evidence of a deeper bridge replay-ordering bug separate from the cleanup-timeout mismatch.\n\nIn a downloaded `golden-test-logs` artifact for a recent failing `mana_drain_fact_or_fiction` run, the TestPlayer bridge showed this sequence near the failure:\n- `passPriority ENTER: until=my_turn ...`\n- `passPriority ENTER: until=precombat_main ...`\n- immediate `choose_action failed: Integer 'pile' (1 or 2) required for GAME_CHOOSE_PILE`\n- then `Conceding game ...`\n- then `End game info received`\n- but no `Game over: ...` line, followed by `Concede sent but GAME_OVER not received within 15s`\n\nThe same artifact's server log shows XMage *did* send `GAME_OVER` to TestPlayer for that game, and the Opponent bridge processed `GAME_OVER` normally. That makes this look like a bridge-side ordering/state bug, not just a harness timeout issue.\n\nWhy this is suspicious:\n- The scripted replay expected `pass_priority(until=precombat_main)` to stop before casting `Fact or Fiction`, but the next scripted `choose_action(choice=0, mana_plan=...)` was apparently being validated against a later `GAME_CHOOSE_PILE` prompt instead.\n- Once the bridge/script state diverged, the follow-up concede waited for `GAME_OVER`, but that callback never surfaced on the TestPlayer bridge even though the server emitted it.\n- Recent CI failures in `dark_depths_combo`, `clone_copies_memnite`, `stack_resolved`, and `mana_drain_fact_or_fiction` all fit the broader pattern of Player A replay drifting or hanging before the expected prompt.\n\nLikely investigation targets:\n- `BridgeCallbackHandler.passPriority()` yield/auto-pass ordering for `my_turn`, step yields, and post-action waits\n- whether `pendingAction` can advance to a later callback before the intended prompt is returned to Python\n- whether a stale or unanswered pending action can suppress or lose a subsequent `GAME_OVER` callback on one bridge\n- interaction between `chooseAction()`, `awaitPendingAction()`, and callback-thread updates while a yield call is returning\n\nThis is likely the real root cause behind a large chunk of the remaining golden flakes after the defensive cleanup timeout is aligned.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": [
+    "golden",
+    "bridge",
+    "replay"
+  ],
+  "created_at": "2026-03-14T19:50:37-07:00",
+  "updated_at": "2026-03-14T19:50:37-07:00"
+}

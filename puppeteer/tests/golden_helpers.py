@@ -263,6 +263,9 @@ GOLDEN_BLUNDER_DIR = Path(__file__).resolve().parent / "golden" / "blunder_promp
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 SPECTATOR_READY_TIMEOUT_SECONDS = 240
+# Must stay above BridgeCallbackHandler.KEEPALIVE_CONCEDE_WAIT_SECONDS so
+# defensive cleanup doesn't time out while Java is still waiting for GAME_OVER.
+DEFENSIVE_CONCEDE_TIMEOUT_SECONDS = 20
 
 # Default decks for tests (relative to project root)
 DECK_RED_STOMPY = "Mage.Client/release/sample-decks/Legacy/Red-Stompy.dck"
@@ -483,6 +486,16 @@ class BridgeSession:
             return False
 
 
+@dataclasses.dataclass(frozen=True)
+class BridgeLogOffsets:
+    """Byte offsets into the current live bridge log files for one test."""
+
+    bridge_log_path: Path
+    bridge_log_offset: int
+    bridge_event_log_path: Path
+    bridge_event_log_offset: int
+
+
 class BridgeManager:
     """Manages a persistent sleepwalker bridge JVM with automatic restart on failure.
 
@@ -514,6 +527,7 @@ class BridgeManager:
         self._proc: subprocess.Popen | None = None
         self._log_fh: object | None = None
         self._current_log_path: Path | None = None
+        self._current_event_log_path: Path | None = None
         self._needs_reconnect_validation = False
 
     def _log_dir(self) -> Path:
@@ -536,7 +550,52 @@ class BridgeManager:
                 archive_index += 1
         if filename == "bridge.log":
             self._current_log_path = live_log
+        if filename == "bridge-events.jsonl":
+            self._current_event_log_path = live_log
         return live_log
+
+    @staticmethod
+    def _sanitize_snapshot_stem(golden_name: str) -> str:
+        stem = re.sub(r"[^0-9A-Za-z_.-]+", "_", golden_name).strip("._")
+        assert stem, "golden_name must contain at least one filename-safe character"
+        return stem
+
+    @staticmethod
+    def _log_size(path: Path) -> int:
+        if not path.exists():
+            return 0
+        return path.stat().st_size
+
+    @staticmethod
+    def _slice_log_bytes(path: Path, offset: int) -> bytes:
+        if not path.exists():
+            assert offset == 0, f"Missing log file {path} after recording non-zero offset {offset}"
+            return b""
+        data = path.read_bytes()
+        assert offset <= len(data), f"Offset {offset} exceeds log size {len(data)} for {path}"
+        return data[offset:]
+
+    def capture_log_offsets(self) -> BridgeLogOffsets:
+        """Capture the current end offsets so one test can snapshot only its own log slice."""
+        assert self._current_log_path is not None, "Bridge log path must be set before capturing offsets"
+        assert self._current_event_log_path is not None, "Bridge event log path must be set before capturing offsets"
+        return BridgeLogOffsets(
+            bridge_log_path=self._current_log_path,
+            bridge_log_offset=self._log_size(self._current_log_path),
+            bridge_event_log_path=self._current_event_log_path,
+            bridge_event_log_offset=self._log_size(self._current_event_log_path),
+        )
+
+    def write_test_log_snapshots(self, golden_name: str, offsets: BridgeLogOffsets) -> tuple[Path, Path]:
+        """Write per-test bridge log slices alongside the live session log files."""
+        snapshot_stem = self._sanitize_snapshot_stem(golden_name)
+        bridge_snapshot = self._prepare_live_log_path(f"{snapshot_stem}.bridge.log")
+        bridge_snapshot.write_bytes(self._slice_log_bytes(offsets.bridge_log_path, offsets.bridge_log_offset))
+        event_snapshot = self._prepare_live_log_path(f"{snapshot_stem}.bridge-events.jsonl")
+        event_snapshot.write_bytes(
+            self._slice_log_bytes(offsets.bridge_event_log_path, offsets.bridge_event_log_offset)
+        )
+        return bridge_snapshot, event_snapshot
 
     def assert_clean_reconnect(self, context: str) -> None:
         """Fail fast if a restarted bridge inherited callbacks from old games."""
@@ -1191,6 +1250,10 @@ def run_golden_scenario(
 
     session_a = bridge_a.session
     session_b = bridge_b.session
+    assert session_a is not None, "Bridge A session must be initialized before running a golden scenario"
+    assert session_b is not None, "Bridge B session must be initialized before running a golden scenario"
+    bridge_a_log_offsets = bridge_a.capture_log_offsets()
+    bridge_b_log_offsets = bridge_b.capture_log_offsets()
 
     try:
         with timed_phase(golden_name, "spectator_command"):
@@ -1333,9 +1396,11 @@ def run_golden_scenario(
         # mid-script, we need this safety net.
         for session in [session_a, session_b]:
             try:
-                session.call_tool("concede", timeout=10)
+                session.call_tool("concede", timeout=DEFENSIVE_CONCEDE_TIMEOUT_SECONDS)
             except RuntimeError:
                 pass
+        bridge_a.write_test_log_snapshots(golden_name, bridge_a_log_offsets)
+        bridge_b.write_test_log_snapshots(golden_name, bridge_b_log_offsets)
 
 
 def _write_game_meta(
