@@ -1,0 +1,10 @@
+{
+  "title": "Opponent keepAlive bridge can miss GAME_OVER after a concede",
+  "description": "During `xvfb-run -a make regen-golden K='mana_drain_fact_or_fiction or emancipation_angel_trigger or multi_amount_combat'` on 2026-03-15, the `emancipation_angel_trigger` scenario completed in the server and spectator, but the losing keepAlive bridge never observed `GAME_OVER`. The bridge log showed `passPriority STILL WAITING` more than 60s after player A conceded, while `tmp/golden-opponent/bridge-events.jsonl` showed `END_GAME_INFO` without a preceding `GAME_OVER`. Golden cleanup eventually recovered by restarting the opponent bridge, but the replay phase for that scenario stretched to 121s instead of the usual ~10-20s. This leaves keepAlive cleanup nondeterministic and risks future bridge_join or replay timeout flakes whenever the loser stays blocked in `passPriority` after a concede.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["bridge", "golden", "keepalive"],
+  "created_at": "2026-03-15T10:22:35.178421-07:00",
+  "updated_at": "2026-03-15T10:22:35.178421-07:00"
+}
