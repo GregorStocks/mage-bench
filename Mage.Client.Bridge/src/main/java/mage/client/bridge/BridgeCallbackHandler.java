@@ -3137,11 +3137,14 @@ public class BridgeCallbackHandler {
         Map<String, Integer> perPlayerTurns = new HashMap<>();
         String lastTurnHeader = null;
 
-        // Snapshot chatLog for interleaving
+        // Snapshot chatLog for interleaving, sorted for deterministic output.
+        // Chat entries with the same eventCursor arrive in nondeterministic callback order;
+        // sorting by (eventCursor, text) ensures stable rendering across runs.
         List<ChatLogEntry> chats;
         synchronized (chatLog) {
             chats = new ArrayList<>(chatLog);
         }
+        chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparing(ChatLogEntry::text));
         int chatIdx = 0;
 
         for (BridgeLogEntry entry : events) {
