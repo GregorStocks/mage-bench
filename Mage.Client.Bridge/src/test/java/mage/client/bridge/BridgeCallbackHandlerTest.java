@@ -560,6 +560,43 @@ class BridgeCallbackHandlerTest {
         assertThat(result.message).isEqualTo("Mulligan hand?");
     }
 
+    @Test
+    void transitionToDecisionBoundaryTreatsReplacedTargetActionAsChanged() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID onlyTarget = UUID.randomUUID();
+        GameView targetView = gameView(40);
+        GameClientMessage targetMessage = new GameClientMessage(
+            targetView,
+            Collections.<String, Serializable>emptyMap(),
+            "Choose a creature to copy",
+            new CardsView(),
+            Set.of(onlyTarget),
+            true
+        );
+        PendingAction staleTargetAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_TARGET,
+            targetMessage,
+            "Choose a creature to copy",
+            40
+        );
+        PendingAction replacementAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(gameView(41), Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            41
+        );
+
+        setField(handler, "pendingAction", replacementAction);
+
+        assertThat(invokeDecisionBoundaryStatus(handler, staleTargetAction, "test"))
+            .isEqualTo("CHANGED");
+    }
+
     private static GameClientMessage multiAmountMessage(List<MultiAmountMessage> items, int min, int max) {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
     }
@@ -685,6 +722,24 @@ class BridgeCallbackHandlerTest {
             new Class<?>[]{Session.class},
             handler
         );
+    }
+
+    private static String invokeDecisionBoundaryStatus(
+            BridgeCallbackHandler handler,
+            PendingAction action,
+            String source
+    ) throws Exception {
+        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
+            "transitionToDecisionBoundary",
+            PendingAction.class,
+            String.class
+        );
+        method.setAccessible(true);
+        Object transition = method.invoke(handler, action, source);
+        Method statusMethod = transition.getClass().getDeclaredMethod("status");
+        statusMethod.setAccessible(true);
+        Object status = statusMethod.invoke(transition);
+        return status.toString();
     }
 
     private static Object defaultReturnValue(Class<?> returnType) {

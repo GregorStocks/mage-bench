@@ -242,6 +242,11 @@ public class BridgeCallbackHandler {
         AUTO_HANDLED,
         CHANGED
     }
+    private enum NonDecisionActionStatus {
+        NOT_HANDLED,
+        AUTO_HANDLED,
+        CHANGED
+    }
     private record DecisionBoundaryTransition(DecisionBoundaryStatus status, PendingAction action) {
     }
     private volatile long lastCallbackReceivedAt = 0;
@@ -1513,8 +1518,12 @@ public class BridgeCallbackHandler {
         if (action == null) {
             return new DecisionBoundaryTransition(DecisionBoundaryStatus.CHANGED, null);
         }
-        if (maybeAutoHandleNonDecisionAction(action, source)) {
+        NonDecisionActionStatus nonDecisionStatus = maybeAutoHandleNonDecisionAction(action, source);
+        if (nonDecisionStatus == NonDecisionActionStatus.AUTO_HANDLED) {
             return new DecisionBoundaryTransition(DecisionBoundaryStatus.AUTO_HANDLED, null);
+        }
+        if (nonDecisionStatus == NonDecisionActionStatus.CHANGED) {
+            return new DecisionBoundaryTransition(DecisionBoundaryStatus.CHANGED, null);
         }
         if (pendingAction != action) {
             return new DecisionBoundaryTransition(DecisionBoundaryStatus.CHANGED, null);
@@ -1522,9 +1531,9 @@ public class BridgeCallbackHandler {
         return new DecisionBoundaryTransition(DecisionBoundaryStatus.READY, action);
     }
 
-    private boolean maybeAutoHandleNonDecisionAction(PendingAction action, String source) {
+    private NonDecisionActionStatus maybeAutoHandleNonDecisionAction(PendingAction action, String source) {
         if (action.method() != ClientCallbackMethod.GAME_TARGET) {
-            return false;
+            return NonDecisionActionStatus.NOT_HANDLED;
         }
 
         GameClientMessage targetMsg = (GameClientMessage) action.data();
@@ -1538,14 +1547,16 @@ public class BridgeCallbackHandler {
                 lastChoices = null;
                 clearChoiceSnapshot();
                 session.sendPlayerBoolean(action.gameId(), false);
-                return true;
+                return NonDecisionActionStatus.AUTO_HANDLED;
             }
-            return pendingAction != action;
+            return pendingAction != action
+                ? NonDecisionActionStatus.CHANGED
+                : NonDecisionActionStatus.NOT_HANDLED;
         }
 
         UUID onlyTarget = selectSingleRequiredTarget(targetMsg);
         if (onlyTarget == null) {
-            return false;
+            return NonDecisionActionStatus.NOT_HANDLED;
         }
 
         if (clearPendingActionIfCurrent(action)) {
@@ -1556,9 +1567,11 @@ public class BridgeCallbackHandler {
             lastChoices = null;
             clearChoiceSnapshot();
             session.sendPlayerUUID(action.gameId(), onlyTarget);
-            return true;
+            return NonDecisionActionStatus.AUTO_HANDLED;
         }
-        return pendingAction != action;
+        return pendingAction != action
+            ? NonDecisionActionStatus.CHANGED
+            : NonDecisionActionStatus.NOT_HANDLED;
     }
 
     private void recordChoiceSnapshot(String actionType, String responseType, int choiceCount) {
