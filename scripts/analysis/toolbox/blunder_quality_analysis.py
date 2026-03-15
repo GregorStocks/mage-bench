@@ -66,8 +66,10 @@ def build_consensus(
             all_approaches.add(approach)
             for ann in r["annotations"]:
                 dec = ann.get("decisionIndex")
-                if isinstance(dec, int):
-                    decision_to_approaches[dec][approach].append(ann)
+                assert isinstance(dec, int), (
+                    f"annotation missing decisionIndex in {approach}: {ann}"
+                )
+                decision_to_approaches[dec][approach].append(ann)
 
         num_approaches = len(all_approaches)
         game_consensus: dict[int, dict] = {}

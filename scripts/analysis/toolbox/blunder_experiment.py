@@ -108,10 +108,10 @@ cards for nothing, missed lethal, or made an error that directly led to losing.
 
 ## Output Format
 
-Return ONLY a JSON array of annotation objects. Use the snapshot= number from the \
-decision header as snapshotIndex (NOT the decision number):
+Return ONLY a JSON array of annotation objects. Use the Decision number from the \
+decision header as decisionIndex:
 {
-  "snapshotIndex": <int from snapshot= in decision header>,
+  "decisionIndex": <int from Decision number in decision header>,
   "player": "<name>",
   "type": "blunder",
   "severity": "questionable" | "minor" | "moderate" | "major",
@@ -343,7 +343,7 @@ cards for nothing, missed lethal, or made an error that directly led to losing."
 
 ANNOTATION_SCHEMA = """\
 {
-  "snapshotIndex": <int>,
+  "decisionIndex": <int>,
   "player": "<name>",
   "type": "blunder",
   "severity": "questionable" | "minor" | "moderate" | "major",
@@ -377,7 +377,7 @@ Do NOT skip ahead or batch your responses.
 For each decision, output either PASS or a JSON annotation object:
 {ANNOTATION_SCHEMA}
 
-Use the snapshot= number from the decision header as snapshotIndex."""
+Use the Decision number from the decision header as decisionIndex."""
 
 
 def _approach_inline(
@@ -461,7 +461,7 @@ Most decisions are reasonable — only flag clear mistakes or questionable choic
 Return ONLY a JSON array — either empty [] or containing one annotation object:
 {ANNOTATION_SCHEMA}
 
-Use the snapshot= number from the decision header as snapshotIndex."""
+Use the Decision number from the decision header as decisionIndex."""
 
 
 def _eval_one_decision(
@@ -606,7 +606,7 @@ Most decisions are reasonable — only flag clear mistakes or questionable choic
 Return ONLY a JSON array — either empty [] or containing one annotation object:
 {ANNOTATION_SCHEMA}
 
-Use the snapshot= number from the decision header as snapshotIndex."""
+Use the Decision number from the decision header as decisionIndex."""
 
 
 def _approach_per_decision_minimal(
@@ -847,7 +847,7 @@ Each decision is self-contained with its own board state. Evaluate them independ
 Return ONLY a JSON array of annotation objects (may be empty):
 {ANNOTATION_SCHEMA}
 
-Use the snapshot= number from each decision header as snapshotIndex."""
+Use the Decision number from each decision header as decisionIndex."""
 
 
 def _approach_batched(
@@ -928,7 +928,7 @@ Keep responses short. Do NOT explain your reasoning for PASS decisions.
 ## Annotation Format
 {ANNOTATION_SCHEMA}
 
-Use the snapshot= number from the decision header as snapshotIndex."""
+Use the Decision number from the decision header as decisionIndex."""
 
 
 def _call_llm_messages(
@@ -1189,8 +1189,6 @@ def _load_results(game_id: str) -> list[dict]:
 
 def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> None:
     """Print a comparison table of approach results."""
-    num_snapshots = len(data["snapshots"])
-
     print(f"\n{'=' * 80}")
     print(f"Comparison for {game_id}")
     print(f"{'=' * 80}")
@@ -1224,13 +1222,12 @@ def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> No
         if not anns:
             continue
         print(f"\n--- {r['approach']} annotations ---")
+        num_decisions = len(data.get("decisions", []))
         for a in anns:
-            snap = a.get("snapshotIndex", "?")
-            valid = (
-                "OK" if isinstance(snap, int) and 0 <= snap < num_snapshots else "BAD"
-            )
+            dec = a.get("decisionIndex", "?")
+            valid = "OK" if isinstance(dec, int) and 0 <= dec < num_decisions else "BAD"
             print(
-                f"  [{valid}] snap={snap} {a.get('player', '?')} "
+                f"  [{valid}] decision={dec} {a.get('player', '?')} "
                 f"{a.get('severity', '?').upper()} {a.get('category', '?')}"
             )
             print(f"       {a.get('description', '')[:120]}")
@@ -1324,7 +1321,7 @@ def _dry_run(gz_path: str) -> None:
         print(f"\n=== Existing v5 annotations ({len(existing)}) ===")
         for a in existing:
             print(
-                f"  snap={a.get('snapshotIndex', '?')} {a.get('player', '?')} "
+                f"  decision={a.get('decisionIndex', '?')} {a.get('player', '?')} "
                 f"{a.get('severity', '?').upper()} {a.get('category', '?')}"
             )
             print(f"       {a.get('description', '')[:120]}")
