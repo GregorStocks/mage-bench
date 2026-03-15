@@ -521,9 +521,8 @@ def _is_annotation(value: object, source: str) -> TypeIs[Annotation]:
     _require_non_negative_int(
         _require_key(obj, "decisionIndex", source), f"{source}.decisionIndex"
     )
-    _require_non_negative_int(
-        _require_key(obj, "snapshotIndex", source), f"{source}.snapshotIndex"
-    )
+    if "snapshotIndex" in obj:
+        _require_non_negative_int(obj["snapshotIndex"], f"{source}.snapshotIndex")
     _require_str(_require_key(obj, "player", source), f"{source}.player")
     _require_str(_require_key(obj, "type", source), f"{source}.type")
     assert obj["type"] == "blunder", (
