@@ -257,14 +257,14 @@ public class ObserverMageFrame extends MageFrame {
     public void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId) {
         // Check if we're already watching this game
         for (Component component : getDesktop().getComponents()) {
-            if (component instanceof ObserverGamePane
-                    && ((ObserverGamePane) component).getGameId().equals(gameId)) {
+            if (component instanceof ObserverGamePane ogp
+                    && ogp.getGameId().equals(gameId)) {
                 setActive((MagePane) component);
                 return;
             }
             // Also check for regular GamePane in case it was created elsewhere
-            if (component instanceof GamePane
-                    && ((GamePane) component).getGameId().equals(gameId)) {
+            if (component instanceof GamePane gp
+                    && gp.getGameId().equals(gameId)) {
                 setActive((MagePane) component);
                 return;
             }
@@ -410,8 +410,8 @@ public class ObserverMageFrame extends MageFrame {
      */
     private void cleanUpCurrentGame() {
         for (Component component : getDesktop().getComponents()) {
-            if (component instanceof ObserverGamePane) {
-                ((ObserverGamePane) component).removeGame();
+            if (component instanceof ObserverGamePane ogp) {
+                ogp.removeGame();
                 LOGGER.info("keepAlive: cleaned up previous game pane");
             }
         }

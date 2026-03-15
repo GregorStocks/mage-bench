@@ -313,9 +313,9 @@ public class ObserverGamePanel extends GamePanel {
             return;
         }
         MageFrame frame = MageFrame.getInstance();
-        if (frame instanceof ObserverMageFrame) {
+        if (frame instanceof ObserverMageFrame omf) {
             String gameName = java.nio.file.Paths.get(gameDirStr).getFileName().toString();
-            ((ObserverMageFrame) frame).setGameName(gameName);
+            omf.setGameName(gameName);
         }
     }
 
@@ -1131,8 +1131,7 @@ public class ObserverGamePanel extends GamePanel {
         // Position at end (will be relaid out by layoutHandCards)
         int dx = MageActionCallback.getHandOrStackMargins(Zone.HAND).getLeft();
         for (Component comp : cardArea.getComponents()) {
-            if (comp instanceof MageCard && comp != mageCard) {
-                MageCard existing = (MageCard) comp;
+            if (comp instanceof MageCard existing && existing != mageCard) {
                 dx = Math.max(dx, existing.getCardLocation().getCardX() +
                         existing.getCardLocation().getCardWidth() +
                         MageActionCallback.getHandOrStackBetweenGapX(Zone.HAND));
@@ -1973,9 +1972,8 @@ public class ObserverGamePanel extends GamePanel {
                 for (CommandObjectView cmd : player.getCommandObjectList()) {
                     var cmdJson = new JsonObject();
                     cmdJson.addProperty("name", safe(cmd.getName()));
-                    if (cmd instanceof CommanderView) {
+                    if (cmd instanceof CommanderView cv) {
                         cmdJson.addProperty("type", "commander");
-                        CommanderView cv = (CommanderView) cmd;
                         if (cv.getShortId() != null) {
                             cmdJson.addProperty("id", cv.getShortId());
                         }
@@ -2061,8 +2059,8 @@ public class ObserverGamePanel extends GamePanel {
                 stackJson.addProperty("id", Objects.requireNonNull(card.getShortId(),
                     "stack card missing shortId: " + stackCardName(card)));
                 stackJson.addProperty("name", stackCardName(card));
-                if (card instanceof StackAbilityView) {
-                    CardView source = ((StackAbilityView) card).getSourceCard();
+                if (card instanceof StackAbilityView sav) {
+                    CardView source = sav.getSourceCard();
                     if (source != null) {
                         String srcName = source.getDisplayName();
                         if (srcName != null && !srcName.isEmpty()) {
@@ -2455,8 +2453,8 @@ public class ObserverGamePanel extends GamePanel {
      */
     private static String stackCardName(CardView card) {
         String name = card.getDisplayName();
-        if ((name == null || name.isEmpty()) && card instanceof StackAbilityView) {
-            CardView source = ((StackAbilityView) card).getSourceCard();
+        if ((name == null || name.isEmpty()) && card instanceof StackAbilityView sav) {
+            CardView source = sav.getSourceCard();
             if (source != null) {
                 name = source.getDisplayName();
             }
