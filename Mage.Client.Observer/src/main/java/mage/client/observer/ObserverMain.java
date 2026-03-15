@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.BindException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -55,6 +56,9 @@ public class ObserverMain {
             try {
                 server = startHealthServer(candidatePort);
             } catch (RuntimeException e) {
+                if (!(e.getCause() instanceof BindException)) {
+                    throw e;
+                }
                 lastException = e;
                 LOGGER.debug("Port " + candidatePort + " busy, trying next");
                 continue;
