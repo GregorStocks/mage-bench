@@ -677,7 +677,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Savannah Lions"
+            "name": "Savannah Lions",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -1176,7 +1177,7 @@
     "seq": 73
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "savannah_lions_blocker_ids",
   "llmEvents": [
     {
@@ -2032,7 +2033,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Savannah Lions"
+            "name": "Savannah Lions",
+            "owner": "TestPlayer"
           }
         ],
         "success": true

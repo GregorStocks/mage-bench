@@ -1318,7 +1318,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Black Lotus"
+            "name": "Black Lotus",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -1728,6 +1729,7 @@
           {
             "ability_text": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
             "name": "Thespian's Stage",
+            "owner": "TestPlayer",
             "source_card": "Thespian's Stage"
           }
         ],
@@ -1932,6 +1934,7 @@
           {
             "ability_text": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
             "name": "Thespian's Stage",
+            "owner": "TestPlayer",
             "source_card": "Thespian's Stage",
             "targets": [
               {
@@ -2134,6 +2137,7 @@
           {
             "ability_text": "When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
             "name": "Dark Depths",
+            "owner": "TestPlayer",
             "source_card": "Dark Depths"
           }
         ],
@@ -2518,7 +2522,7 @@
     "seq": 96
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "dark_depths_combo",
   "llmEvents": [
     {
@@ -3895,7 +3899,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Black Lotus"
+            "name": "Black Lotus",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -4417,6 +4422,7 @@
           {
             "ability_text": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
             "name": "Thespian's Stage",
+            "owner": "TestPlayer",
             "source_card": "Thespian's Stage"
           }
         ],
@@ -4478,6 +4484,7 @@
           {
             "ability_text": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
             "name": "Thespian's Stage",
+            "owner": "TestPlayer",
             "source_card": "Thespian's Stage"
           }
         ],
@@ -4630,6 +4637,7 @@
           {
             "ability_text": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
             "name": "Thespian's Stage",
+            "owner": "TestPlayer",
             "source_card": "Thespian's Stage",
             "targets": [
               {
@@ -4953,6 +4961,7 @@
           {
             "ability_text": "When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
             "name": "Dark Depths",
+            "owner": "TestPlayer",
             "source_card": "Dark Depths"
           }
         ],

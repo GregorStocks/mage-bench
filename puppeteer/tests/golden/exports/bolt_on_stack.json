@@ -1590,7 +1590,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Lightning Bolt"
+            "name": "Lightning Bolt",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -1755,6 +1756,7 @@
         "stack": [
           {
             "name": "Lightning Bolt",
+            "owner": "TestPlayer",
             "targets": [
               {
                 "id": "p1",
@@ -1921,10 +1923,12 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Lightning Bolt"
+            "name": "Lightning Bolt",
+            "owner": "TestPlayer"
           },
           {
             "name": "Lightning Bolt",
+            "owner": "TestPlayer",
             "targets": [
               {
                 "id": "p1",
@@ -2048,7 +2052,7 @@
     "seq": 55
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "bolt_on_stack",
   "llmEvents": [
     {
@@ -4044,7 +4048,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Lightning Bolt"
+            "name": "Lightning Bolt",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -4188,6 +4193,7 @@
         "stack": [
           {
             "name": "Lightning Bolt",
+            "owner": "TestPlayer",
             "targets": [
               {
                 "id": "p1",
@@ -4335,10 +4341,12 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Lightning Bolt"
+            "name": "Lightning Bolt",
+            "owner": "TestPlayer"
           },
           {
             "name": "Lightning Bolt",
+            "owner": "TestPlayer",
             "targets": [
               {
                 "id": "p1",
@@ -4512,6 +4520,7 @@
           {
             "id": "p27",
             "name": "Lightning Bolt",
+            "owner": "TestPlayer",
             "rules": [
               "{this} deals 3 damage to any target."
             ]
@@ -4519,6 +4528,7 @@
           {
             "id": "p26",
             "name": "Lightning Bolt",
+            "owner": "TestPlayer",
             "rules": [
               "{this} deals 3 damage to any target."
             ],

@@ -439,6 +439,105 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void endGameInfoCleansUpWhenGameOverMissed() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID chatId = UUID.randomUUID();
+        AtomicInteger leaveChatCalls = new AtomicInteger();
+
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("leaveChat".equals(method.getName())) {
+                    leaveChatCalls.incrementAndGet();
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setKeepAliveAfterGame(true);
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
+        activeGames.put(gameId, playerId);
+        gameChatIds.put(gameId, chatId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "gameEverStarted", true);
+
+        // Send END_GAME_INFO without prior GAME_OVER — simulates dropped callback
+        ClientCallback callback = new ClientCallback(
+            ClientCallbackMethod.END_GAME_INFO,
+            gameId,
+            null,
+            false
+        );
+        handler.handleCallback(callback);
+
+        assertThat(activeGames).doesNotContainKey(gameId);
+        assertThat(handler.awaitGameFinished(100)).isTrue();
+        assertThat(leaveChatCalls.get()).isEqualTo(1);
+    }
+
+    @Test
+    void endGameInfoIsNoOpAfterGameOver() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID chatId = UUID.randomUUID();
+        AtomicInteger leaveChatCalls = new AtomicInteger();
+
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("leaveChat".equals(method.getName())) {
+                    leaveChatCalls.incrementAndGet();
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setKeepAliveAfterGame(true);
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
+        activeGames.put(gameId, playerId);
+        gameChatIds.put(gameId, chatId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "currentPlayerId", playerId);
+
+        // Send GAME_OVER first
+        ClientCallback gameOverCallback = new ClientCallback(
+            ClientCallbackMethod.GAME_OVER,
+            gameId,
+            new GameClientMessage(gameView(9), Collections.<String, Serializable>emptyMap(), "Player Opponent is the winner"),
+            false
+        );
+        handler.handleCallback(gameOverCallback);
+        assertThat(leaveChatCalls.get()).isEqualTo(1);
+
+        // Send END_GAME_INFO second — should be a no-op
+        ClientCallback endGameInfoCallback = new ClientCallback(
+            ClientCallbackMethod.END_GAME_INFO,
+            gameId,
+            null,
+            false
+        );
+        handler.handleCallback(endGameInfoCallback);
+
+        // leaveChat should NOT have been called a second time
+        assertThat(leaveChatCalls.get()).isEqualTo(1);
+    }
+
+    @Test
     void stackAbilitySummaryIncludesSourceCardAbilityTextAndReadableTargets() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();

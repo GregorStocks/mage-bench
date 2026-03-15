@@ -688,7 +688,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Savannah Lions"
+            "name": "Savannah Lions",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -1310,7 +1311,7 @@
     "seq": 69
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "savannah_lions_trade",
   "llmEvents": [
     {
@@ -2046,7 +2047,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Savannah Lions"
+            "name": "Savannah Lions",
+            "owner": "TestPlayer"
           }
         ],
         "success": true

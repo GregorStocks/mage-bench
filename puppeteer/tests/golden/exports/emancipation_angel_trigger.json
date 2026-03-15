@@ -768,7 +768,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Black Lotus"
+            "name": "Black Lotus",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -927,7 +928,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Emancipation Angel"
+            "name": "Emancipation Angel",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -1052,7 +1054,7 @@
     "seq": 37
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "emancipation_angel_trigger",
   "llmEvents": [
     {
@@ -1939,7 +1941,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Black Lotus"
+            "name": "Black Lotus",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -2189,7 +2192,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Emancipation Angel"
+            "name": "Emancipation Angel",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -2337,6 +2341,7 @@
           {
             "ability_text": "When Emancipation Angel enters, return a permanent you control to its owner's hand.",
             "name": "Emancipation Angel",
+            "owner": "TestPlayer",
             "source_card": "Emancipation Angel",
             "targets": [
               {

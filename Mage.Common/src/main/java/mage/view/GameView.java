@@ -170,6 +170,12 @@ public class GameView implements Serializable {
             } else if (stackObject != null) {
                 throw new IllegalArgumentException("Unknown type of StackObject: " + stackObject + " - " + stackObject.getClass().toString());
             }
+            // Capture controllerId on stack CardViews so the bridge can look up
+            // who controls each stack item without HTML-parsing chat messages.
+            CardView stackEntry = stack.get(stackObject.getId());
+            if (stackEntry != null) {
+                stackEntry.controllerId = stackObject.getControllerId();
+            }
         }
 
         for (ExileZone exileZone : state.getExile().getExileZones()) {
@@ -500,6 +506,15 @@ public class GameView implements Serializable {
 
     public String getActivePlayerName() {
         return activePlayerName;
+    }
+
+    public String getPlayerName(UUID playerId) {
+        for (PlayerView pv : players) {
+            if (pv.getPlayerId().equals(playerId)) {
+                return pv.getName();
+            }
+        }
+        return null;
     }
 
     public String getPriorityPlayerName() {

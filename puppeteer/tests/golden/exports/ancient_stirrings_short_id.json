@@ -600,7 +600,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -788,7 +789,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -942,7 +944,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -1065,7 +1068,7 @@
     "seq": 29
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "ancient_stirrings",
   "llmEvents": [
     {
@@ -1804,7 +1807,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -1846,7 +1850,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "stop_reason": "non_priority_action"
@@ -1994,7 +1999,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -2146,7 +2152,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -2264,6 +2271,7 @@
           {
             "id": "p23",
             "name": "Ancient Stirrings",
+            "owner": "TestPlayer",
             "rules": [
               "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
             ]

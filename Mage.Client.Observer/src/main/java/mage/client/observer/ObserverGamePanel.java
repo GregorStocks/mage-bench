@@ -83,8 +83,6 @@ import java.util.Objects;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * observer-optimized game panel that automatically requests hand permission
@@ -135,10 +133,6 @@ public class ObserverGamePanel extends GamePanel {
     private boolean costPollingInitialized = false;
     private boolean watchingSignaled = false;
 
-    // Cast owner tracking: objectId → playerName, parsed from game chat HTML
-    private static final Pattern CAST_OWNER_PATTERN = Pattern.compile(
-            "<font[^>]*>([^<]+)</font>\\s+casts\\s+.*?object_id='([^']+)'");
-    private final Map<String, String> castOwners = new HashMap<>();
 
     // Player color styling (matches website PLAYER_COLOR_HEX in game-renderer.js)
     private static final Color[] PLAYER_ACCENT_COLORS = {
@@ -2071,8 +2065,8 @@ public class ObserverGamePanel extends GamePanel {
                         stackJson.addProperty("ability_text", safe(card.getRules().get(0)));
                     }
                 }
-                if (card.getId() != null) {
-                    String owner = castOwners.get(card.getId().toString());
+                if (card.getControllerId() != null) {
+                    String owner = game.getPlayerName(card.getControllerId());
                     if (owner != null) {
                         stackJson.addProperty("owner", owner);
                     }
@@ -2243,14 +2237,6 @@ public class ObserverGamePanel extends GamePanel {
      * Log a game event from the chat panel (game action or player chat).
      */
     void logChatEvent(String type, String message, String username) {
-        // Track cast owners from game action messages
-        if ("game_action".equals(type) && message != null && message.contains(" casts ")) {
-            Matcher castMatcher = CAST_OWNER_PATTERN.matcher(message);
-            if (castMatcher.find()) {
-                castOwners.put(castMatcher.group(2), castMatcher.group(1));
-            }
-        }
-
         var event = new JsonObject();
         if ("player_chat".equals(type)) {
             event.addProperty("from", username != null ? username : "");

@@ -1041,7 +1041,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Black Lotus"
+            "name": "Black Lotus",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -1465,7 +1466,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Fact or Fiction"
+            "name": "Fact or Fiction",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -1916,7 +1918,7 @@
     "seq": 82
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "mana_drain_fact_or_fiction",
   "llmEvents": [
     {
@@ -3071,7 +3073,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Black Lotus"
+            "name": "Black Lotus",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -3752,7 +3755,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Fact or Fiction"
+            "name": "Fact or Fiction",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -3847,7 +3851,8 @@
         "response_type": "pile",
         "stack": [
           {
-            "name": "Fact or Fiction"
+            "name": "Fact or Fiction",
+            "owner": "TestPlayer"
           }
         ],
         "stop_reason": "non_priority_action"
@@ -3942,7 +3947,8 @@
         "response_type": "pile",
         "stack": [
           {
-            "name": "Fact or Fiction"
+            "name": "Fact or Fiction",
+            "owner": "TestPlayer"
           }
         ],
         "stop_reason": "non_priority_action"
@@ -4069,7 +4075,8 @@
         "response_type": "pile",
         "stack": [
           {
-            "name": "Fact or Fiction"
+            "name": "Fact or Fiction",
+            "owner": "TestPlayer"
           }
         ],
         "stop_reason": "non_priority_action"

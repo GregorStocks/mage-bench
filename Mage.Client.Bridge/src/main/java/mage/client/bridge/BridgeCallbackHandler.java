@@ -96,11 +96,10 @@ public class BridgeCallbackHandler {
     private static final Pattern REGEX_RED = Pattern.compile("\\x7b.{0,2}R.{0,2}\\x7d");
     private static final Pattern REGEX_GREEN = Pattern.compile("\\x7b.{0,2}G.{0,2}\\x7d");
     private static final Pattern REGEX_COLORLESS = Pattern.compile("\\x7b.{0,2}C.{0,2}\\x7d");
-    // Pattern to match "TURN <number>" at the start of game log messages
-    private static final Pattern TURN_MSG_PATTERN = Pattern.compile("^TURN \\d+");
-    // Pattern to extract player name and object_id from cast messages in game chat HTML
-    private static final Pattern CAST_OWNER_PATTERN = Pattern.compile(
-            "<font[^>]*>([^<]+)</font>\\s+casts\\s+.*?object_id='([^']+)'");
+    // Pattern to match "TURN <number> [extra] for <PlayerName> (<life>)" at the start of game log messages.
+    // Captures the player name in group 1, allowing turn rewriting without depending on lastGameView.
+    private static final Pattern TURN_MSG_PATTERN = Pattern.compile(
+            "^TURN \\d+(?:\\s+\\(extra\\))?\\s+for\\s+(.+?)\\s+\\(");
     // Pattern to strip HTML tags from XMage messages before sending to LLMs
     private static final Pattern HTML_TAG_PATTERN = Pattern.compile("<[^>]+>");
     // Pattern to strip 3-char hex ID suffixes (e.g. " [8ad]") that XMage appends to card names.
@@ -145,7 +144,6 @@ public class BridgeCallbackHandler {
                 return;
             }
             lastGameView = gv;
-            registerNonCardViewShortIds(gv);
             roundTracker.update(gv);
             // Determinism debugging: log when game_seq changes and who changed it
             int oldSeq = old != null ? old.getGameSeq() : -1;
@@ -160,29 +158,6 @@ public class BridgeCallbackHandler {
         }
     }
 
-    /**
-     * Pre-register server-assigned short IDs for objects not found by findCardViewById.
-     * Called when a new GameView is received so that player UUIDs and lookedAt cards
-     * get p-prefix IDs instead of l-prefix fallbacks.
-     */
-    private void registerNonCardViewShortIds(GameView gv) {
-        // Players (PlayerView is not a CardView, so findCardViewById never finds them)
-        for (PlayerView pv : gv.getPlayers()) {
-            String serverShortId = pv.getShortId();
-            if (serverShortId != null && !serverShortId.isBlank()) {
-                shortIds.register(pv.getPlayerId(), serverShortId);
-            }
-        }
-        // LookedAt cards (SimpleCardView, not searchable by findCardViewById)
-        for (LookedAtView lv : gv.getLookedAt()) {
-            for (SimpleCardView sv : lv.getCards().values()) {
-                String serverShortId = sv.getShortId();
-                if (serverShortId != null && !serverShortId.isBlank()) {
-                    shortIds.register(sv.getId(), serverShortId);
-                }
-            }
-        }
-    }
 
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
@@ -212,8 +187,7 @@ public class BridgeCallbackHandler {
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
     private final List<String> unseenChat = new ArrayList<>(); // Chat messages from other players not yet shown to LLM
     private volatile boolean playerDead = false; // Set when we see "{name} has lost the game" in chat
-    private final Map<String, String> castOwners = new HashMap<>(); // objectId → playerName from cast messages
-    private final Map<String, Integer> playerTurnCounts = new HashMap<>(); // playerName → per-player turn count
+    private final Map<String, Integer> playerTurnCounts = new ConcurrentHashMap<>(); // playerName → per-player turn count (read from MCP tool thread)
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
@@ -235,7 +209,7 @@ public class BridgeCallbackHandler {
     private record ManaPlanEntry(String type, String value, Integer abilityIndex) {
         ManaPlanEntry(String type, String value) { this(type, value, null); }
     }
-    private record TargetChoice(UUID targetId, Map<String, Object> entry) {
+    private record TargetChoice(UUID targetId, Map<String, Object> entry, CardView cardView) {
     }
     private enum DecisionBoundaryStatus {
         READY,
@@ -1255,8 +1229,8 @@ public class BridgeCallbackHandler {
                     for (UUID targetId : targets) {
                         var choiceEntry = new HashMap<String, Object>();
                         // ID assigned after sorting — see below
-                        buildTargetInfo(choiceEntry, targetId, cardsView, targetGameView, myPlayerId);
-                        targetChoices.add(new TargetChoice(targetId, choiceEntry));
+                        CardView resolvedCv = buildTargetInfo(choiceEntry, targetId, cardsView, targetGameView, myPlayerId);
+                        targetChoices.add(new TargetChoice(targetId, choiceEntry, resolvedCv));
                     }
 
                     // Sort all target choices deterministically: "you" first, then alphabetical.
@@ -1276,13 +1250,13 @@ public class BridgeCallbackHandler {
                             return nameCmp;
                         }
                         return Integer.compare(
-                            getStableShortIdSequence(a.targetId(), findCardViewById(a.targetId(), gv)),
-                            getStableShortIdSequence(b.targetId(), findCardViewById(b.targetId(), gv)));
+                            getStableShortIdSequence(a.targetId(), a.cardView()),
+                            getStableShortIdSequence(b.targetId(), b.cardView()));
                     });
 
                     int idx = 0;
                     for (TargetChoice tc : targetChoices) {
-                        tc.entry().put("id", getStableShortId(tc.targetId(), findCardViewById(tc.targetId(), gameView)));
+                        tc.entry().put("id", getStableShortId(tc.targetId(), tc.cardView()));
                         tc.entry().put("index", idx);
                         choiceList.add(tc.entry());
                         indexToUuid.add(tc.targetId());
@@ -2686,7 +2660,8 @@ public class BridgeCallbackHandler {
      * Populate a choice entry map with structured target fields: name, target_type,
      * is_you, controller, power, toughness, tapped.
      */
-    private void buildTargetInfo(Map<String, Object> entry, UUID targetId,
+    /** Populate target info and return the resolved CardView (null if target is a player or unknown). */
+    private CardView buildTargetInfo(Map<String, Object> entry, UUID targetId,
                                   CardsView cardsView, GameView gameView, UUID myPlayerId) {
         // Try cardsView first (cards presented in the targeting UI)
         CardView cv = null;
@@ -2721,7 +2696,7 @@ public class BridgeCallbackHandler {
                     }
                 }
             }
-            return;
+            return cv;
         }
         // Check if the target is a player
         if (gameView != null) {
@@ -2732,12 +2707,13 @@ public class BridgeCallbackHandler {
                     if (player.getPlayerId().equals(myPlayerId)) {
                         entry.put("is_you", true);
                     }
-                    return;
+                    return null;
                 }
             }
         }
         entry.put("name", "Unknown (" + targetId.toString().substring(0, 8) + ")");
         entry.put("target_type", "card");
+        return null;
     }
 
     /**
@@ -2781,8 +2757,8 @@ public class BridgeCallbackHandler {
         if (includeRules) {
             item.put("rules", stripHtmlList(card.getRules()));
         }
-        if (card.getId() != null) {
-            String owner = castOwners.get(card.getId().toString());
+        if (card.getControllerId() != null && gameView != null) {
+            String owner = gameView.getPlayerName(card.getControllerId());
             if (owner != null) {
                 item.put("owner", owner);
             }
@@ -4590,7 +4566,34 @@ public class BridgeCallbackHandler {
                 return serverShortId;
             }
         }
+        // Check non-CardView objects in the current GameView: players and lookedAt cards
+        // are SimpleCardView/PlayerView (not found by findCardViewById) but carry server short IDs.
+        String found = findNonCardViewShortId(objectId, lastGameView);
+        if (found != null) {
+            shortIds.register(objectId, found);
+            return found;
+        }
         return shortIds.getOrAssign(objectId);
+    }
+
+    /** Look up a server-assigned short ID for non-CardView objects (players, lookedAt cards). */
+    private String findNonCardViewShortId(UUID objectId, GameView gv) {
+        if (gv == null) return null;
+        for (PlayerView pv : gv.getPlayers()) {
+            if (pv.getPlayerId().equals(objectId)) {
+                String sid = pv.getShortId();
+                if (sid != null && !sid.isBlank()) return sid;
+            }
+        }
+        for (LookedAtView lv : gv.getLookedAt()) {
+            for (SimpleCardView sv : lv.getCards().values()) {
+                if (sv.getId().equals(objectId)) {
+                    String sid = sv.getShortId();
+                    if (sid != null && !sid.isBlank()) return sid;
+                }
+            }
+        }
+        return null;
     }
 
     private int getStableShortIdSequence(UUID objectId) {
@@ -4751,11 +4754,11 @@ public class BridgeCallbackHandler {
                     handleStartGame(objectId, callback);
                     break;
 
-                case GAME_INIT:
+                case GAME_INIT: // Initialization: sets first lastGameView; not a recurring passive update
                     handleGameInit(callback);
                     break;
 
-                case GAME_UPDATE:
+                case GAME_UPDATE: // Passive: debug logging only, no state mutation
                 case GAME_UPDATE_AND_INFORM:
                     logGameState(callback);
                     break;
@@ -4952,14 +4955,14 @@ public class BridgeCallbackHandler {
                     break;
 
                 case END_GAME_INFO:
-                    logger.info("[" + client.getUsername() + "] End game info received");
+                    handleEndGameInfo(objectId);
                     break;
 
                 case CHATMESSAGE:
                     handleChatMessage(callback);
                     break;
 
-                case SERVER_MESSAGE:
+                case SERVER_MESSAGE: // Passive: log-only, no state mutation
                 case GAME_ERROR:
                 case GAME_INFORM_PERSONAL:
                 case JOINED_TABLE:
@@ -5145,27 +5148,21 @@ public class BridgeCallbackHandler {
         return result;
     }
 
-    // Passive callback side-effect classification (see issue: minimize-bridge-passive-callback-state):
-    //  REQUIRED  – castOwners tracking: CardView lacks controllerId, HTML-regex is the only source
+    // Passive callback: CHATMESSAGE
+    // Remaining effects after passive-state audit (see issue: minimize-bridge-passive-callback-state):
     //  REQUIRED  – playerDead detection: early bail-out prevents bridge hangs after elimination
-    //  REQUIRED  – unseenChat buffering: surfaces player-to-player chat via attachUnseenChat()
-    //  REQUIRED  – gameLog accumulation + capping: sole data source for GetGameLogTool/GetGameHistoryTool
-    //  USES lastGameView – turn message rewriting depends on passive lastGameView for active player name
-    //  REMOVED   – actionLock.notifyAll() was spurious: all wait loops gate on pendingAction, which
-    //              CHATMESSAGE never sets, so the wakeup only caused needless thread contention
+    //  REQUIRED  – unseenChat buffering: surfaces player-to-player chat + system messages via attachUnseenChat()
+    //  REQUIRED  – gameLog accumulation + capping: sole data source for GetGameLogTool (migrate to server-side
+    //              bridge events tracked in issue: migrate-gamelog-to-server-side-bridge-events)
+    //  REMOVED   – castOwners HTML-regex tracking: CardView now carries controllerId from GameView
+    //  REMOVED   – lastGameView dependency in turn rewriting: player name extracted from message directly
+    //  REMOVED   – actionLock.notifyAll(): spurious wakeup (PR #1168)
     private void handleChatMessage(ClientCallback callback) {
         Object data = callback.getData();
         if (data instanceof ChatMessage chatMsg) {
             String logEntry = null;
             if (chatMsg.getMessageType() == ChatMessage.MessageType.GAME) {
                 logEntry = chatMsg.getMessage();
-                // Track cast owners: extract player name and object_id from cast messages
-                if (logEntry != null && logEntry.contains(" casts ")) {
-                    Matcher castMatcher = CAST_OWNER_PATTERN.matcher(logEntry);
-                    if (castMatcher.find()) {
-                        castOwners.put(castMatcher.group(2), castMatcher.group(1));
-                    }
-                }
                 // Detect when our player has lost the game
                 if (!playerDead && logEntry != null && logEntry.contains("has lost the game")
                         && logEntry.contains(client.getUsername())) {
@@ -5188,18 +5185,16 @@ public class BridgeCallbackHandler {
             }
             if (logEntry != null && !logEntry.isEmpty()) {
                 // Rewrite "TURN X for <Player> (lives)" to per-player turn numbers: "Player turn N (lives)"
+                // Player name is extracted directly from the message, no lastGameView dependency.
                 Matcher turnMatcher = TURN_MSG_PATTERN.matcher(logEntry);
                 if (turnMatcher.find()) {
-                    String activePlayer = lastGameView != null ? lastGameView.getActivePlayerName() : null;
-                    if (activePlayer != null) {
-                        int playerTurn = playerTurnCounts.merge(activePlayer, 1, Integer::sum);
-                        String rest = logEntry.substring(turnMatcher.end());
-                        int parenIdx = rest.indexOf('(');
-                        String lifePart = parenIdx >= 0 ? " " + rest.substring(parenIdx).trim() : "";
-                        logEntry = activePlayer + " turn " + playerTurn + lifePart;
-                    } else {
-                        logEntry = "TURN " + roundTracker.getGameRound() + logEntry.substring(turnMatcher.end());
-                    }
+                    // Player name from turn message is HTML-wrapped (<font>...</font>); strip to plain text
+                    // so playerTurnCounts keys match the plain names used by getGameLogSinceTurn.
+                    String activePlayer = stripHtml(turnMatcher.group(1));
+                    int playerTurn = playerTurnCounts.merge(activePlayer, 1, Integer::sum);
+                    // turnMatcher.end() points just past the '(' that the regex matched (life totals)
+                    String lifePart = stripHtml(logEntry.substring(turnMatcher.end() - 1));
+                    logEntry = activePlayer + " turn " + playerTurn + " " + lifePart;
                 }
                 synchronized (gameLog) {
                     if (gameLog.length() > 0) {
@@ -5275,22 +5270,16 @@ public class BridgeCallbackHandler {
     }
 
     // Passive callback: GAME_UPDATE / GAME_UPDATE_AND_INFORM
-    // All effects are REQUIRED — keeps lastGameView (and thus getGameState()) fresh between
-    // decisions.  The monotonic game_seq guard in updateLastGameView() prevents backward
-    // overwrites from out-of-order callbacks.  Actionable callbacks also call
-    // updateLastGameView(), but passive updates fill the gaps.
+    // No state mutation — actionable callbacks provide fresh GameViews at decision time via
+    // storePendingAction(). Short ID registration for non-CardView objects (players, lookedAt
+    // cards) happens in getStableShortId() which checks the GameView's lookedAt zone directly.
     private void logGameState(ClientCallback callback) {
         Object data = callback.getData();
         if (data instanceof GameView gameView) {
-            updateLastGameView(gameView, "GAME_UPDATE");
             logger.debug("[" + client.getUsername() + "] Game update: turn " + gameView.getTurn() +
                     ", phase " + gameView.getPhase() + ", active player " + gameView.getActivePlayerName());
         } else if (data instanceof GameClientMessage message) {
-            GameView gameView = message.getGameView();
-            if (gameView != null) {
-                updateLastGameView(gameView, "GAME_UPDATE_AND_INFORM");
-                logger.debug("[" + client.getUsername() + "] Game inform: " + message.getMessage());
-            }
+            logger.debug("[" + client.getUsername() + "] Game inform: " + message.getMessage());
         }
     }
 
@@ -5886,6 +5875,24 @@ public class BridgeCallbackHandler {
         session.sendPlayerString(gameId, result);
     }
 
+    /**
+     * Shared cleanup for game-end handlers: remove from active tracking,
+     * wake action waiters, and leave the game chat.
+     *
+     * @return true if the game was still in activeGames (i.e. not yet cleaned up)
+     */
+    private boolean cleanupGame(UUID gameId) {
+        boolean wasActive = activeGames.remove(gameId) != null;
+        synchronized (actionLock) {
+            actionLock.notifyAll();
+        }
+        UUID chatId = gameChatIds.remove(gameId);
+        if (chatId != null) {
+            session.leaveChat(chatId);
+        }
+        return wasActive;
+    }
+
     private void handleGameOver(UUID gameId, ClientCallback callback) {
         GameClientMessage message = (GameClientMessage) callback.getData();
 
@@ -5904,14 +5911,7 @@ public class BridgeCallbackHandler {
         // Do not pull bridge events synchronously from the callback thread.
         // The server caches them during removeGame(), and currentPlayerId lets
         // postgame get_game_history calls fetch them after activeGames clears.
-        activeGames.remove(gameId);
-        synchronized (actionLock) {
-            actionLock.notifyAll();
-        }
-        UUID chatId = gameChatIds.remove(gameId);
-        if (chatId != null) {
-            session.leaveChat(chatId);
-        }
+        cleanupGame(gameId);
         logger.info("[" + client.getUsername() + "] Game over: " + message.getMessage());
 
         if (keepAliveAfterGame) {
@@ -5927,6 +5927,38 @@ public class BridgeCallbackHandler {
             client.stop();
         } else if (activeGames.isEmpty()) {
             logger.info("[" + client.getUsername() + "] No more active games, stopping client");
+            client.stop();
+        }
+    }
+
+    /**
+     * Safety net for dropped GAME_OVER callbacks.
+     *
+     * The server dispatches END_GAME_INFO after GAME_OVER (via
+     * GameController.endGame → tableManager.endGame → match.endGame →
+     * fireGameEndInfo).  In the normal case handleGameOver() already cleaned
+     * up and every operation below is an idempotent no-op.
+     *
+     * If GAME_OVER was lost (Session lock timeout, callback delivery failure),
+     * this ensures the bridge still detects the game ended instead of spinning
+     * in passPriority indefinitely.
+     */
+    private void handleEndGameInfo(UUID gameId) {
+        boolean wasActive = cleanupGame(gameId);
+        if (!wasActive) {
+            logger.info("[" + client.getUsername() + "] End game info received for game " + gameId);
+            return;
+        }
+        // GAME_OVER was missed — perform the shutdown that handleGameOver would have done.
+        logger.warn("[" + client.getUsername() + "] END_GAME_INFO cleaning up game " + gameId
+            + " (GAME_OVER was likely dropped)");
+        if (keepAliveAfterGame) {
+            gameFinishedLatch.countDown();
+        } else if (mcpMode) {
+            logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (MCP mode, missed GAME_OVER)");
+            client.stop();
+        } else if (activeGames.isEmpty() && gameEverStarted) {
+            logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (no more active games, missed GAME_OVER)");
             client.stop();
         }
     }

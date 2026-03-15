@@ -754,7 +754,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Lightning Bolt"
+            "name": "Lightning Bolt",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -892,6 +893,7 @@
         "stack": [
           {
             "name": "Lightning Bolt",
+            "owner": "TestPlayer",
             "targets": [
               {
                 "id": "p1",
@@ -1084,7 +1086,7 @@
     "seq": 47
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "stack_resolved",
   "llmEvents": [
     {
@@ -1998,7 +2000,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Lightning Bolt"
+            "name": "Lightning Bolt",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -2115,6 +2118,7 @@
         "stack": [
           {
             "name": "Lightning Bolt",
+            "owner": "TestPlayer",
             "targets": [
               {
                 "id": "p1",

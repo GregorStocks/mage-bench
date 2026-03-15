@@ -1027,7 +1027,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Black Lotus"
+            "name": "Black Lotus",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -1440,7 +1441,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Memnite"
+            "name": "Memnite",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -1610,7 +1612,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Clone"
+            "name": "Clone",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -1999,7 +2002,7 @@
     "seq": 66
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 53,
+  "harnessEpoch": 54,
   "id": "clone_copies_memnite",
   "llmEvents": [
     {
@@ -3153,7 +3156,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Black Lotus"
+            "name": "Black Lotus",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -3663,7 +3667,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Memnite"
+            "name": "Memnite",
+            "owner": "TestPlayer"
           }
         ],
         "success": true,
@@ -3971,7 +3976,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Clone"
+            "name": "Clone",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -4013,7 +4019,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Clone"
+            "name": "Clone",
+            "owner": "TestPlayer"
           }
         ],
         "stop_reason": "non_priority_action"
