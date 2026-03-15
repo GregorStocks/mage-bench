@@ -13,6 +13,7 @@ sources:
 from __future__ import annotations
 
 import json
+from collections.abc import Sequence
 
 BASIC_LAND_NAMES = frozenset(
     [
@@ -453,11 +454,9 @@ def _resolve_mana_plan(mana_plan: object, snapshot: dict | None) -> str:
 
     parts: list[str] = []
     if isinstance(mana_plan, str):
-        raw_entries: list[object] = mana_plan.split(",")
+        raw_entries: Sequence[object] = mana_plan.split(",")
     else:
-        assert isinstance(mana_plan, list), (
-            f"mana_plan must be a CSV string or list, got {mana_plan!r}"
-        )
+        assert isinstance(mana_plan, list), f"mana_plan must be a CSV string or list, got {mana_plan!r}"
         raw_entries = mana_plan
 
     for raw_entry in raw_entries:
@@ -479,8 +478,7 @@ def _render_mana_plan_entry(entry: object, id_to_name: dict[str, str]) -> str:
     assert isinstance(entry, dict), f"mana_plan entry must be str or dict, got {entry!r}"
     keys = set(entry)
     assert keys in ({"tap"}, {"pool"}), (
-        "mana_plan dict entry must contain exactly one of 'tap' or 'pool', "
-        f"got {entry!r}"
+        f"mana_plan dict entry must contain exactly one of 'tap' or 'pool', got {entry!r}"
     )
 
     if "tap" in entry:
