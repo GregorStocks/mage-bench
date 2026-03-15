@@ -62,7 +62,8 @@ epoch directly.
 #  47 - Richer stack ability summaries in bridge tool results and rendered prompts (Mar 14)
 #  48 - State-bridge prompt teaches choose_action(choice=no) instead of answer=false (Mar 14)
 #  49 - Strip synthetic AbilityPicker ordinals from GAME_CHOOSE_ABILITY labels (Mar 14)
-HARNESS_EPOCH = 49
+#  50 - Stop step yields on same-turn overshoot and any later-turn callback (Mar 15)
+HARNESS_EPOCH = 50
 
 # First epoch that counts as season 1. Used only for games that predate
 # run-time season tracking (no "season" in game_meta.json). Export and

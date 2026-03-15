@@ -3,6 +3,7 @@ package mage.client.bridge;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
 import mage.game.BridgeLogEntry;
+import mage.constants.PhaseStep;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
@@ -123,6 +124,140 @@ class BridgeCallbackHandlerTest {
     void stripsMultiDigitAbilityPickerOrdinalPrefix() {
         assertThat(BridgeCallbackHandler.stripAbilityPickerOrdinalPrefix("10. {T}: Add one mana of any color.", 9))
             .isEqualTo("{T}: Add one mana of any color.");
+    }
+
+    @Test
+    void stepYieldStopsWhenCallbackOvershootsTargetStepInSameTurn() throws Exception {
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession(sessionProxy(autoPassSent, sendPlayerBooleanCalls));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        GameView upkeepView = gameView(7, 3, PhaseStep.UPKEEP);
+        GameView postcombatMainView = gameView(8, 3, PhaseStep.POSTCOMBAT_MAIN);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", upkeepView);
+        setField(handler, "lastTurnNumber", 3);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(upkeepView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority("precombat_main", null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            setField(handler, "pendingAction", new PendingAction(
+                gameId,
+                ClientCallbackMethod.GAME_SELECT,
+                new GameClientMessage(postcombatMainView, Collections.<String, Serializable>emptyMap(), "Pass after overshoot"),
+                "Pass after overshoot",
+                8
+            ));
+            notifyActionLock(handler);
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("reached_step");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_SELECT");
+            assertThat(result.game_seq).isEqualTo(8);
+            assertThat(result.current_step).isEqualTo("Postcombat Main");
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void stripsHtmlNoiseFromMultiAmountDescriptions() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        GameClientMessage message = multiAmountMessage(List.of(
+            new MultiAmountMessage(
+                "<font color='#F0E68C' object_id='12345678-1234-1234-1234-123456789abc'>"
+                    + "Savannah Lions</font> [7e2], P/T: 2/1",
+                0,
+                2
+            )
+        ), 2, 2);
+
+        setField(handler, "pendingAction", new PendingAction(
+            UUID.randomUUID(),
+            ClientCallbackMethod.GAME_GET_MULTI_AMOUNT,
+            message,
+            "",
+            7
+        ));
+
+        ActionResult result = handler.getActionChoices(null);
+
+        assertThat(result.response_type).isEqualTo("multi_amount");
+        assertThat(result.items).singleElement().satisfies(item ->
+            assertThat(item).containsEntry("description", "Savannah Lions, P/T: 2/1")
+        );
+    }
+
+    @Test
+    void stepYieldStopsOnNewTurnRegardlessOfCurrentStep() throws Exception {
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession(sessionProxy(autoPassSent, sendPlayerBooleanCalls));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        GameView upkeepView = gameView(7, 3, PhaseStep.UPKEEP);
+        GameView nextTurnUntapView = gameView(8, 4, PhaseStep.UNTAP);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", upkeepView);
+        setField(handler, "lastTurnNumber", 3);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(upkeepView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority("postcombat_main", null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            setField(handler, "pendingAction", new PendingAction(
+                gameId,
+                ClientCallbackMethod.GAME_SELECT,
+                new GameClientMessage(nextTurnUntapView, Collections.<String, Serializable>emptyMap(), "Pass on next turn"),
+                "Pass on next turn",
+                8
+            ));
+            notifyActionLock(handler);
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("step_not_reached");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_SELECT");
+            assertThat(result.game_seq).isEqualTo(8);
+            assertThat(result.current_step).isEqualTo("Untap");
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
     }
 
     @Test
@@ -616,6 +751,10 @@ class BridgeCallbackHandlerTest {
     }
 
     private static GameView gameView(int gameSeq, UUID... stackObjectIds) throws Exception {
+        return gameView(gameSeq, 1, null, stackObjectIds);
+    }
+
+    private static GameView gameView(int gameSeq, int turn, PhaseStep step, UUID... stackObjectIds) throws Exception {
         GameView view = (GameView) UNSAFE.allocateInstance(GameView.class);
         CardsView stack = new CardsView();
         for (UUID stackObjectId : stackObjectIds) {
@@ -627,8 +766,9 @@ class BridgeCallbackHandlerTest {
         setField(view, "lookedAt", List.of());
         setField(view, "stack", stack);
         setField(view, "activePlayerName", "TestPlayer");
+        setField(view, "step", step);
         setField(view, "priorityPlayerName", "TestPlayer");
-        setIntField(view, "turn", 1);
+        setIntField(view, "turn", turn);
         setIntField(view, "gameSeq", gameSeq);
         return view;
     }

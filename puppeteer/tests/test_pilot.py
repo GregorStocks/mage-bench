@@ -110,7 +110,7 @@ def test_main_reports_provider_in_missing_key_log(caplog: pytest.LogCaptureFixtu
         assert main() == 2
 
     assert "Missing API key for provider openai" in caplog.text
-    assert "OPENAI_API_KEY" in caplog.text
+    assert "configured API key env var" in caplog.text
 
 
 @pytest.fixture()

@@ -63,7 +63,7 @@ def test_normalize_embedded_json_handles_nested_json_strings():
     assert normalized["result"]["outer"] == {"id": "p9", "k": 2}
 
 
-def test_normalize_embedded_json_strips_object_id_uuid_from_strings():
+def test_normalize_embedded_json_preserves_non_json_strings():
     payload = {
         "description": (
             "<font color='#F0E68C' object_id='12345678-1234-1234-1234-123456789abc'>"
@@ -73,10 +73,7 @@ def test_normalize_embedded_json_strips_object_id_uuid_from_strings():
 
     normalized = _normalize_embedded_json(payload)
 
-    assert (
-        normalized["description"]
-        == "<font color='#F0E68C' object_id='[redacted]'>Savannah Lions</font> [redacted], P/T: 2/1"
-    )
+    assert normalized["description"] == payload["description"]
 
 
 def test_normalize_prompt_preserves_game_seq():

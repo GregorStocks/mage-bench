@@ -1554,15 +1554,16 @@ def main() -> int:
         elif project_root.name == "puppeteer":
             project_root = project_root.parent
 
+    provider = args.provider or DEFAULT_LLM_PROVIDER
+
     # API key: CLI arg > provider-specific env var based on provider.
     api_key = args.api_key
-    required_key_env = ""
     if not api_key.strip():
-        required_key_env = required_api_key_env(args.provider)
+        required_key_env = required_api_key_env(provider)
         api_key = os.environ.get(required_key_env, "")
     if not api_key.strip():
-        logger.error("[pilot] Missing API key for provider %s", args.provider)
-        logger.error("[pilot] Set %s or pass --api-key.", required_key_env)
+        logger.error("[pilot] Missing API key for provider %s", provider)
+        logger.error("[pilot] Pass --api-key or export the provider's configured API key env var.")
         return 2
 
     prices = load_prices()
@@ -1576,7 +1577,7 @@ def main() -> int:
     ignore_providers = args.ignore_providers.split(",") if args.ignore_providers else None
     provider_order = args.provider_order.split(",") if args.provider_order else None
     cache_control = json.loads(args.cache_control) if args.cache_control else None
-    if args.provider != DEFAULT_LLM_PROVIDER:
+    if provider != DEFAULT_LLM_PROVIDER:
         if ignore_providers:
             logger.error("[pilot] --ignore-providers requires --provider=%s", DEFAULT_LLM_PROVIDER)
             return 2
