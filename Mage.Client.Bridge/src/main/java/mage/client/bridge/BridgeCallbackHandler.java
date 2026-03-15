@@ -2850,47 +2850,69 @@ public class BridgeCallbackHandler {
         pullBridgeEvents();
 
         List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
-        List<BridgeLogEntry> responseEvents;
-
-        if (cursor != null) {
-            final int c = cursor;
-            responseEvents = allEvents.stream()
-                    .filter(e -> e.index() >= c)
-                    .toList();
-        } else {
-            responseEvents = allEvents;
-        }
+        Map<String, Integer> emptyTurns = Map.of();
 
         var result = new GetGameLogTool.Result();
-        String allRendered = renderGameLogFlat(allEvents);
-        String rendered = (cursor != null) ? renderGameLogFlat(responseEvents) : allRendered;
-
+        String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0);
         result.total_length = allRendered.length();
 
-        // Apply max_chars truncation from the front (keep most recent)
-        if (maxChars > 0 && rendered.length() > maxChars) {
-            String truncatedText = rendered.substring(rendered.length() - maxChars);
-            // Trim to next newline boundary to avoid cutting mid-line
-            int nl = truncatedText.indexOf('\n');
-            if (nl >= 0 && nl < truncatedText.length() - 1) {
-                truncatedText = truncatedText.substring(nl + 1);
+        if (cursor != null) {
+            // Incremental: render only events and chat from the cursor onward
+            final int c = cursor;
+            List<BridgeLogEntry> responseEvents = allEvents.stream()
+                    .filter(e -> e.index() >= c)
+                    .toList();
+
+            // Pre-populate turn counts from events before the cursor so turn
+            // headers in the slice use absolute per-player turn numbers.
+            Map<String, Integer> priorTurns = new HashMap<>();
+            for (BridgeLogEntry e : allEvents) {
+                if (e.index() >= c) break;
+                if ("BEGIN_TURN".equals(e.type())) {
+                    priorTurns.merge(e.activePlayer(), 1, Integer::sum);
+                }
             }
-            result.log = truncatedText;
-            result.truncated = true;
-        } else {
+
+            String rendered = renderGameLogFlat(responseEvents, priorTurns, c);
+
+            // Apply max_chars truncation from the front (keep most recent)
+            if (maxChars > 0 && rendered.length() > maxChars) {
+                rendered = truncateFromFront(rendered, maxChars);
+                result.truncated = true;
+            } else {
+                result.truncated = false;
+            }
             result.log = rendered;
-            result.truncated = cursor != null && cursor > 0;
+
+            if (!responseEvents.isEmpty() && responseEvents.get(0).index() > cursor) {
+                result.cursor_reset = true;
+            }
+        } else {
+            // Full log
+            String rendered = allRendered;
+            if (maxChars > 0 && rendered.length() > maxChars) {
+                rendered = truncateFromFront(rendered, maxChars);
+                result.truncated = true;
+            } else {
+                result.truncated = false;
+            }
+            result.log = rendered;
         }
 
         int newCursor = allEvents.isEmpty() ? 0
                 : allEvents.get(allEvents.size() - 1).index() + 1;
         result.cursor = newCursor;
-
-        if (cursor != null && !responseEvents.isEmpty() && responseEvents.get(0).index() > cursor) {
-            result.cursor_reset = true;
-        }
-
         return result;
+    }
+
+    /** Truncate text from the front to maxChars, trimming to the next newline boundary. */
+    private static String truncateFromFront(String text, int maxChars) {
+        String truncated = text.substring(text.length() - maxChars);
+        int nl = truncated.indexOf('\n');
+        if (nl >= 0 && nl < truncated.length() - 1) {
+            truncated = truncated.substring(nl + 1);
+        }
+        return truncated;
     }
 
     /**
@@ -2907,19 +2929,26 @@ public class BridgeCallbackHandler {
         pullBridgeEvents();
 
         List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
+        Map<String, Integer> emptyTurns = Map.of();
         var result = new GetGameLogTool.Result();
 
-        String allRendered = renderGameLogFlat(allEvents);
+        String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0);
         result.total_length = allRendered.length();
 
-        // Find the event index where the player's Nth per-player turn starts
-        int playerTurnCount = 0;
+        // Find the event index where the player's Nth per-player turn starts,
+        // and collect turn counts for all players up to that point so the
+        // rendered slice uses correct absolute turn numbers.
+        Map<String, Integer> priorTurns = new HashMap<>();
         int startIdx = -1;
         for (int i = 0; i < allEvents.size(); i++) {
             BridgeLogEntry e = allEvents.get(i);
-            if ("BEGIN_TURN".equals(e.type()) && player.equals(e.activePlayer())) {
-                playerTurnCount++;
-                if (playerTurnCount == sinceTurn) {
+            if ("BEGIN_TURN".equals(e.type())) {
+                int count = priorTurns.merge(e.activePlayer(), 1, Integer::sum);
+                if (player.equals(e.activePlayer()) && count == sinceTurn) {
+                    // Found the target turn — priorTurns already includes this turn's
+                    // count, but renderGameLogFlat will re-count this BEGIN_TURN event,
+                    // so subtract 1 to avoid double-counting.
+                    priorTurns.merge(player, -1, Integer::sum);
                     startIdx = i;
                     break;
                 }
@@ -2928,18 +2957,14 @@ public class BridgeCallbackHandler {
 
         if (startIdx >= 0) {
             List<BridgeLogEntry> subset = allEvents.subList(startIdx, allEvents.size());
-            result.log = renderGameLogFlat(subset);
+            int minChatCursor = allEvents.get(startIdx).index();
+            result.log = renderGameLogFlat(subset, priorTurns, minChatCursor);
             result.truncated = false;
             result.since_turn = sinceTurn;
             result.since_player = player;
         } else {
             // Count total per-player turns to distinguish "trimmed" vs "hasn't happened"
-            int totalPlayerTurns = 0;
-            for (BridgeLogEntry e : allEvents) {
-                if ("BEGIN_TURN".equals(e.type()) && player.equals(e.activePlayer())) {
-                    totalPlayerTurns++;
-                }
-            }
+            int totalPlayerTurns = priorTurns.getOrDefault(player, 0);
             if (totalPlayerTurns > 0 && sinceTurn <= totalPlayerTurns) {
                 result.log = allRendered;
                 result.truncated = true;
@@ -3131,10 +3156,18 @@ public class BridgeCallbackHandler {
      * Render bridge events as flat text with per-player turn headers, interleaved
      * with chat messages captured during gameplay. Used by GetGameLogTool.
      * Distinct from getGameHistory() which uses phase sub-headers and global turn numbers.
+     *
+     * @param events the bridge events to render
+     * @param initialTurnCounts pre-populated per-player turn counts (for rendering slices
+     *        with correct absolute turn numbers); empty map starts from turn 1
+     * @param minChatCursor only include chat entries with eventCursor >= this value
+     *        (prevents replaying old chat on incremental cursor-based calls)
      */
-    private String renderGameLogFlat(List<BridgeLogEntry> events) {
+    private String renderGameLogFlat(List<BridgeLogEntry> events,
+                                     Map<String, Integer> initialTurnCounts,
+                                     int minChatCursor) {
         StringBuilder sb = new StringBuilder();
-        Map<String, Integer> perPlayerTurns = new HashMap<>();
+        Map<String, Integer> perPlayerTurns = new HashMap<>(initialTurnCounts);
         String lastTurnHeader = null;
 
         // Snapshot chatLog for interleaving, sorted for deterministic output.
@@ -3145,7 +3178,11 @@ public class BridgeCallbackHandler {
             chats = new ArrayList<>(chatLog);
         }
         chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparing(ChatLogEntry::text));
+        // Skip chat entries before the requested cursor range
         int chatIdx = 0;
+        while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() < minChatCursor) {
+            chatIdx++;
+        }
 
         for (BridgeLogEntry entry : events) {
             // Insert chat messages that arrived before this event
@@ -3174,7 +3211,7 @@ public class BridgeCallbackHandler {
             }
         }
 
-        // Append any remaining chat messages
+        // Append any remaining chat messages in range
         while (chatIdx < chats.size()) {
             if (sb.length() > 0) sb.append("\n");
             sb.append(chats.get(chatIdx).text());
@@ -5221,7 +5258,11 @@ public class BridgeCallbackHandler {
                 String user = chatMsg.getUsername();
                 String msg = chatMsg.getMessage();
                 if (user != null && msg != null && !msg.isEmpty()) {
-                    // Capture chat for game log rendering (interleaved with bridge events)
+                    // Capture chat for game log rendering (interleaved with bridge events).
+                    // bridgeEventCursor is the best-known event position; it advances when
+                    // pullBridgeEvents() runs. Chat arriving before the first pull gets
+                    // cursor=0, placing it before game events — chronologically correct since
+                    // the chat predates the first event pull.
                     synchronized (chatLog) {
                         chatLog.add(new ChatLogEntry(bridgeEventCursor, "[Chat] " + user + ": " + msg));
                     }
