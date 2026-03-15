@@ -1,38 +1,62 @@
 [
   {
+    "name": "get_game_log",
+    "description": "Get game log text. Use since_turn for turn-based recap, cursor for incremental updates, or max_chars for recent text.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "max_chars": {
+          "type": "integer",
+          "description": "Max chars to return (0 or omit for all)"
+        },
+        "cursor": {
+          "type": "integer",
+          "description": "Cursor from previous call for incremental updates. Mutually exclusive with since_turn."
+        },
+        "since_turn": {
+          "type": "integer",
+          "description": "Get log from this turn number onward. Mutually exclusive with cursor."
+        },
+        "since_player": {
+          "type": "string",
+          "description": "Player for since_turn filter (defaults to you)"
+        }
+      },
+      "additionalProperties": false
+    },
     "outputSchema": {
       "type": "object",
       "properties": {
-        "cursor": {
-          "description": "Cursor for next call",
-          "type": "integer"
-        },
-        "cursor_reset": {
-          "conditional": "when cursor parameter was used",
-          "description": "Cursor was too old and was reset",
-          "type": "boolean"
-        },
-        "since_player": {
-          "conditional": "when since_turn parameter was used",
-          "description": "Player whose turn the log starts from",
-          "type": "string"
-        },
         "log": {
-          "description": "Game log text",
-          "type": "string"
-        },
-        "since_turn": {
-          "conditional": "when since_turn parameter was used",
-          "description": "Turn number the log starts from",
-          "type": "integer"
-        },
-        "truncated": {
-          "description": "Older content was omitted",
-          "type": "boolean"
+          "type": "string",
+          "description": "Game log text"
         },
         "total_length": {
-          "description": "Full log length in chars",
-          "type": "integer"
+          "type": "integer",
+          "description": "Full log length in chars"
+        },
+        "truncated": {
+          "type": "boolean",
+          "description": "Older content was omitted"
+        },
+        "cursor": {
+          "type": "integer",
+          "description": "Cursor for next call"
+        },
+        "cursor_reset": {
+          "type": "boolean",
+          "description": "Cursor was too old and was reset",
+          "conditional": "when cursor parameter was used"
+        },
+        "since_turn": {
+          "type": "integer",
+          "description": "Turn number the log starts from",
+          "conditional": "when since_turn parameter was used"
+        },
+        "since_player": {
+          "type": "string",
+          "description": "Player whose turn the log starts from",
+          "conditional": "when since_turn parameter was used"
         }
       }
     },
@@ -49,47 +73,39 @@
         "label": "Since turn recap",
         "value": "{\n  \"log\": \"Bob turn 2 (20 - 18)\\nBob casts Sol Ring\\nAlice turn 3 (20 - 18)\\nAlice plays Forest\",\n  \"total_length\": 5400,\n  \"truncated\": false,\n  \"cursor\": 5400,\n  \"since_turn\": 2,\n  \"since_player\": \"Bob\"\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "cursor": {
-          "description": "Cursor from previous call for incremental updates. Mutually exclusive with since_turn.",
-          "type": "integer"
-        },
-        "max_chars": {
-          "description": "Max chars to return (0 or omit for all)",
-          "type": "integer"
-        },
-        "since_player": {
-          "description": "Player for since_turn filter (defaults to you)",
-          "type": "string"
-        },
-        "since_turn": {
-          "description": "Get log from this turn number onward. Mutually exclusive with cursor.",
-          "type": "integer"
-        }
-      }
-    },
-    "name": "get_game_log",
-    "description": "Get game log text. Use since_turn for turn-based recap, cursor for incremental updates, or max_chars for recent text."
+    ]
   },
   {
+    "name": "get_game_history",
+    "description": "Get structured game history (casts, attacks, life changes) grouped by turn/phase. Use cursor for incremental updates.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "since_turn": {
+          "type": "integer",
+          "description": "Events from this turn onward"
+        },
+        "cursor": {
+          "type": "integer",
+          "description": "Cursor for incremental updates. Mutually exclusive with since_turn."
+        }
+      },
+      "additionalProperties": false
+    },
     "outputSchema": {
       "type": "object",
       "properties": {
+        "history": {
+          "type": "string",
+          "description": "History text grouped by turn/phase"
+        },
         "cursor": {
-          "description": "Cursor for next call",
-          "type": "integer"
+          "type": "integer",
+          "description": "Cursor for next call"
         },
         "event_count": {
-          "description": "Events in this response",
-          "type": "integer"
-        },
-        "history": {
-          "description": "History text grouped by turn/phase",
-          "type": "string"
+          "type": "integer",
+          "description": "Events in this response"
         }
       }
     },
@@ -106,35 +122,34 @@
         "label": "No new events",
         "value": "{\n  \"history\": \"No game events recorded yet.\",\n  \"cursor\": 24,\n  \"event_count\": 0\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "cursor": {
-          "description": "Cursor for incremental updates. Mutually exclusive with since_turn.",
-          "type": "integer"
-        },
-        "since_turn": {
-          "description": "Events from this turn onward",
-          "type": "integer"
-        }
-      }
-    },
-    "name": "get_game_history",
-    "description": "Get structured game history (casts, attacks, life changes) grouped by turn/phase. Use cursor for incremental updates."
+    ]
   },
   {
+    "name": "send_chat_message",
+    "description": "Send a chat message to the game",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Message to send"
+        }
+      },
+      "required": [
+        "message"
+      ],
+      "additionalProperties": false
+    },
     "outputSchema": {
       "type": "object",
       "properties": {
         "success": {
-          "description": "Whether the message was sent",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether the message was sent"
         },
         "error": {
-          "description": "Error message when success is false",
-          "type": "string"
+          "type": "string",
+          "description": "Error message when success is false"
         }
       }
     },
@@ -147,235 +162,249 @@
         "label": "Error",
         "value": "{\n  \"success\": false,\n  \"error\": \"no active game\"\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "message": {
-          "description": "Message to send",
-          "type": "string"
-        }
-      },
-      "required": [
-        "message"
-      ]
-    },
-    "name": "send_chat_message",
-    "description": "Send a chat message to the game"
+    ]
   },
   {
+    "name": "pass_priority",
+    "description": "Pass priority. Blocks until you have a pending action (playable cards, combat, or non-priority action like mulligan/targeting). With until: skip to a target step/phase; always stops for combat and non-priority actions. When action_pending=true, includes choices so you can call choose_action immediately.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "until": {
+          "type": "string",
+          "description": "Skip to a target step/phase. Omit to block until next action.",
+          "enum": [
+            "upkeep",
+            "draw",
+            "precombat_main",
+            "begin_combat",
+            "declare_attackers",
+            "declare_blockers",
+            "end_combat",
+            "postcombat_main",
+            "end_of_turn",
+            "my_turn",
+            "stack_resolved"
+          ]
+        },
+        "board_cursor": {
+          "type": "integer",
+          "description": "Board cursor from previous result. Omits board when unchanged."
+        }
+      },
+      "additionalProperties": false
+    },
     "outputSchema": {
       "type": "object",
       "properties": {
-        "combat_phase": {
-          "description": "declare_attackers or declare_blockers",
-          "type": "string"
-        },
-        "note": {
-          "conditional": "action_pending",
-          "description": "Informational note",
-          "type": "string"
-        },
-        "stack": {
-          "conditional": "action_pending",
-          "description": "Stack (when non-empty)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "game_seq": {
-          "description": "Sequence number",
-          "type": "integer"
+        "action_pending": {
+          "type": "boolean",
+          "description": "Whether an action is pending"
         },
         "action_type": {
-          "description": "XMage callback method name",
-          "type": "string"
+          "type": "string",
+          "description": "XMage callback method name"
         },
-        "already_attacking": {
-          "conditional": "action_pending",
-          "description": "Pre-declared attackers",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "message": {
+          "type": "string",
+          "description": "Prompt from XMage"
         },
         "response_type": {
-          "conditional": "action_pending",
+          "type": "string",
           "description": "select, boolean, index, amount, pile, or multi_amount",
-          "type": "string"
-        },
-        "can_cancel": {
-          "conditional": "action_pending",
-          "description": "Targeting can be cancelled",
-          "type": "boolean"
-        },
-        "stop_reason": {
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached",
-          "type": "string"
-        },
-        "combat": {
-          "conditional": "action_pending",
-          "description": "Combat groups",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "total_min": {
-          "conditional": "action_pending",
-          "description": "Total min (multi_amount)",
-          "type": "integer"
-        },
-        "error": {
-          "description": "Error message",
-          "type": "string"
-        },
-        "required": {
-          "conditional": "action_pending",
-          "description": "Targeting is required",
-          "type": "boolean"
-        },
-        "land_drops_used": {
-          "conditional": "action_pending",
-          "description": "Lands played this turn",
-          "type": "integer"
-        },
-        "min": {
-          "conditional": "action_pending",
-          "description": "Min allowed value",
-          "type": "integer"
-        },
-        "has_playable_cards": {
-          "description": "Whether you have playable cards",
-          "type": "boolean"
-        },
-        "context": {
-          "conditional": "action_pending",
-          "description": "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
-          "type": "string"
-        },
-        "warning": {
-          "description": "Warning message",
-          "type": "string"
+          "conditional": "action_pending"
         },
         "respond_with": {
-          "conditional": "action_pending",
+          "type": "string",
           "description": "choose_action parameter(s) to use",
-          "type": "string"
+          "conditional": "action_pending"
         },
-        "pile2": {
-          "conditional": "action_pending",
-          "description": "Pile 2 contents",
+        "context": {
+          "type": "string",
+          "description": "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
+          "conditional": "action_pending"
+        },
+        "board": {
           "type": "array",
           "items": {
             "type": "object"
-          }
+          },
+          "description": "Board state (players array). Omitted when board_unchanged=true.",
+          "conditional": "action_pending"
+        },
+        "board_cursor": {
+          "type": "integer",
+          "description": "Pass back to skip unchanged board.",
+          "conditional": "action_pending"
+        },
+        "board_unchanged": {
+          "type": "boolean",
+          "description": "Board omitted (cursor matched).",
+          "conditional": "action_pending"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Available choices with index and name",
+          "conditional": "action_pending"
+        },
+        "your_hand": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Hand cards (during mulligan)",
+          "conditional": "action_pending"
+        },
+        "combat_phase": {
+          "type": "string",
+          "description": "declare_attackers or declare_blockers"
+        },
+        "combat": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Combat groups",
+          "conditional": "action_pending"
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Stack (when non-empty)",
+          "conditional": "action_pending"
+        },
+        "untapped_lands": {
+          "type": "integer",
+          "description": "Untapped land count",
+          "conditional": "action_pending"
+        },
+        "game_seq": {
+          "type": "integer",
+          "description": "Sequence number"
+        },
+        "land_drops_used": {
+          "type": "integer",
+          "description": "Lands played this turn",
+          "conditional": "action_pending"
+        },
+        "already_attacking": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pre-declared attackers",
+          "conditional": "action_pending"
+        },
+        "incoming_attackers": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Attackers (during declare_blockers)",
+          "conditional": "action_pending"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Targeting is required",
+          "conditional": "action_pending"
+        },
+        "can_cancel": {
+          "type": "boolean",
+          "description": "Targeting can be cancelled",
+          "conditional": "action_pending"
+        },
+        "note": {
+          "type": "string",
+          "description": "Informational note",
+          "conditional": "action_pending"
+        },
+        "pile1": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pile 1 contents",
+          "conditional": "action_pending"
+        },
+        "pile2": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pile 2 contents",
+          "conditional": "action_pending"
+        },
+        "min": {
+          "type": "integer",
+          "description": "Min allowed value",
+          "conditional": "action_pending"
+        },
+        "max": {
+          "type": "integer",
+          "description": "Max allowed value",
+          "conditional": "action_pending"
+        },
+        "total_min": {
+          "type": "integer",
+          "description": "Total min (multi_amount)",
+          "conditional": "action_pending"
+        },
+        "total_max": {
+          "type": "integer",
+          "description": "Total max (multi_amount)",
+          "conditional": "action_pending"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Per-item details for multi_amount",
+          "conditional": "action_pending"
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message"
+        },
+        "player_dead": {
+          "type": "boolean",
+          "description": "Whether you died"
+        },
+        "game_over": {
+          "type": "boolean",
+          "description": "Whether the game ended"
         },
         "recent_chat": {
-          "description": "New chat messages",
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "New chat messages"
         },
-        "your_hand": {
-          "conditional": "action_pending",
-          "description": "Hand cards (during mulligan)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "incoming_attackers": {
-          "conditional": "action_pending",
-          "description": "Attackers (during declare_blockers)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "stop_reason": {
+          "type": "string",
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached"
         },
         "current_step": {
-          "description": "Current step (for reached_step/step_not_reached)",
-          "type": "string"
-        },
-        "pile1": {
-          "conditional": "action_pending",
-          "description": "Pile 1 contents",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "max": {
-          "conditional": "action_pending",
-          "description": "Max allowed value",
-          "type": "integer"
+          "type": "string",
+          "description": "Current step (for reached_step/step_not_reached)"
         },
         "action_taken": {
-          "description": "What was done when an action was auto-resolved",
-          "type": "string"
+          "type": "string",
+          "description": "What was done when an action was auto-resolved"
         },
-        "untapped_lands": {
-          "conditional": "action_pending",
-          "description": "Untapped land count",
-          "type": "integer"
+        "has_playable_cards": {
+          "type": "boolean",
+          "description": "Whether you have playable cards"
         },
-        "game_over": {
-          "description": "Whether the game ended",
-          "type": "boolean"
-        },
-        "message": {
-          "description": "Prompt from XMage",
-          "type": "string"
-        },
-        "action_pending": {
-          "description": "Whether an action is pending",
-          "type": "boolean"
-        },
-        "player_dead": {
-          "description": "Whether you died",
-          "type": "boolean"
-        },
-        "total_max": {
-          "conditional": "action_pending",
-          "description": "Total max (multi_amount)",
-          "type": "integer"
-        },
-        "board_unchanged": {
-          "conditional": "action_pending",
-          "description": "Board omitted (cursor matched).",
-          "type": "boolean"
-        },
-        "board_cursor": {
-          "conditional": "action_pending",
-          "description": "Pass back to skip unchanged board.",
-          "type": "integer"
-        },
-        "choices": {
-          "conditional": "action_pending",
-          "description": "Available choices with index and name",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "items": {
-          "conditional": "action_pending",
-          "description": "Per-item details for multi_amount",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "board": {
-          "conditional": "action_pending",
-          "description": "Board state (players array). Omitted when board_unchanged=true.",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "warning": {
+          "type": "string",
+          "description": "Warning message"
         }
       }
     },
@@ -392,101 +421,84 @@
         "label": "Non-priority action (mulligan)",
         "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"stop_reason\": \"non_priority_action\",\n  \"response_type\": \"boolean\",\n  \"message\": \"Mulligan hand?\",\n  \"context\": \"T0 PREGAME\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 20,\n      \"is_you\": false\n    }\n  ],\n  \"board_cursor\": 1,\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ]\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "until": {
-          "description": "Skip to a target step/phase. Omit to block until next action.",
-          "type": "string",
-          "enum": [
-            "upkeep",
-            "draw",
-            "precombat_main",
-            "begin_combat",
-            "declare_attackers",
-            "declare_blockers",
-            "end_combat",
-            "postcombat_main",
-            "end_of_turn",
-            "my_turn",
-            "stack_resolved"
-          ]
-        },
-        "board_cursor": {
-          "description": "Board cursor from previous result. Omits board when unchanged.",
-          "type": "integer"
-        }
-      }
-    },
-    "name": "pass_priority",
-    "description": "Pass priority. Blocks until you have a pending action (playable cards, combat, or non-priority action like mulligan/targeting). With until: skip to a target step/phase; always stops for combat and non-priority actions. When action_pending=true, includes choices so you can call choose_action immediately."
+    ]
   },
   {
-    "outputSchema": {
+    "name": "get_game_state",
+    "description": "Get full game state: turn, phase, players (life, hand, battlefield, graveyard, exile), stack, combat.",
+    "inputSchema": {
       "type": "object",
       "properties": {
         "cursor": {
-          "description": "State cursor",
-          "type": "integer"
-        },
-        "phase": {
-          "description": "Current phase",
-          "type": "string"
-        },
-        "priority_player": {
-          "description": "Who has priority",
-          "type": "string"
-        },
-        "stack": {
-          "description": "Stack: name, rules, targets",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "game_seq": {
-          "description": "Sequence number",
-          "type": "integer"
-        },
-        "players": {
-          "description": "Player objects with life, hand, battlefield, graveyard, exile, mana_pool",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
+          "type": "integer",
+          "description": "Cursor from previous call. Returns compact payload if unchanged."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
         "available": {
-          "description": "Whether state is available",
-          "type": "boolean"
-        },
-        "unchanged": {
-          "description": "Cursor matched (no changes)",
-          "type": "boolean"
-        },
-        "combat": {
-          "description": "Combat groups",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "turn": {
-          "description": "Turn number",
-          "type": "integer"
+          "type": "boolean",
+          "description": "Whether state is available"
         },
         "error": {
-          "description": "Error message",
-          "type": "string"
+          "type": "string",
+          "description": "Error message"
         },
-        "active_player": {
-          "description": "Whose turn it is",
-          "type": "string"
+        "cursor": {
+          "type": "integer",
+          "description": "State cursor"
+        },
+        "unchanged": {
+          "type": "boolean",
+          "description": "Cursor matched (no changes)"
+        },
+        "turn": {
+          "type": "integer",
+          "description": "Turn number"
+        },
+        "phase": {
+          "type": "string",
+          "description": "Current phase"
         },
         "step": {
-          "description": "Current step",
-          "type": "string"
+          "type": "string",
+          "description": "Current step"
+        },
+        "active_player": {
+          "type": "string",
+          "description": "Whose turn it is"
+        },
+        "priority_player": {
+          "type": "string",
+          "description": "Who has priority"
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Player objects with life, hand, battlefield, graveyard, exile, mana_pool"
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Stack: name, rules, targets"
+        },
+        "combat": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Combat groups"
+        },
+        "game_seq": {
+          "type": "integer",
+          "description": "Sequence number"
         }
       }
     },
@@ -495,77 +507,95 @@
         "label": "Mid-game state",
         "value": "{\n  \"available\": true,\n  \"turn\": 4,\n  \"phase\": \"PRECOMBAT_MAIN\",\n  \"step\": \"PRECOMBAT_MAIN\",\n  \"active_player\": \"Player1\",\n  \"priority_player\": \"Player1\",\n  \"players\": [\n    {\n      \"name\": \"Player1\",\n      \"life\": 18,\n      \"library_size\": 49,\n      \"hand_size\": 5,\n      \"is_active\": true,\n      \"is_you\": true,\n      \"hand\": [\n        {\n          \"name\": \"Lightning Bolt\",\n          \"mana_cost\": \"{R}\",\n          \"playable\": true\n        },\n        {\n          \"name\": \"Mountain\",\n          \"is_land\": true,\n          \"playable\": true\n        }\n      ],\n      \"battlefield\": [\n        {\n          \"name\": \"Mountain\",\n          \"tapped\": false\n        },\n        {\n          \"name\": \"Goblin Guide\",\n          \"tapped\": false,\n          \"power\": 2,\n          \"toughness\": 2\n        }\n      ],\n      \"mana_pool\": {\n        \"R\": 0\n      }\n    },\n    {\n      \"name\": \"Player2\",\n      \"life\": 20,\n      \"library_size\": 52,\n      \"hand_size\": 7,\n      \"is_active\": false,\n      \"is_you\": false,\n      \"battlefield\": [\n        {\n          \"name\": \"Island\",\n          \"tapped\": false\n        }\n      ]\n    }\n  ],\n  \"stack\": []\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "cursor": {
-          "description": "Cursor from previous call. Returns compact payload if unchanged.",
-          "type": "integer"
-        }
-      }
-    },
-    "name": "get_game_state",
-    "description": "Get full game state: turn, phase, players (life, hand, battlefield, graveyard, exile), stack, combat."
+    ]
   },
   {
-    "outputSchema": {
+    "name": "get_oracle_text",
+    "description": "Get oracle text for cards. Use card_name/card_names for lookup by name, or object_id/object_ids for in-game objects.",
+    "inputSchema": {
       "type": "object",
       "properties": {
-        "second_face": {
-          "description": "Back face (transform/MDFC)",
-          "type": "object"
+        "card_name": {
+          "type": "string",
+          "description": "Card name"
         },
-        "cards": {
-          "description": "Card objects (batch mode)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "success": {
-          "description": "Whether lookup succeeded",
-          "type": "boolean"
-        },
-        "mana_cost": {
-          "description": "Mana cost",
-          "type": "string"
-        },
-        "name": {
-          "description": "Card name",
-          "type": "string"
-        },
-        "rules": {
-          "description": "Oracle text lines",
+        "card_names": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Card names (batch)"
         },
-        "power": {
-          "description": "Power",
-          "type": "string"
+        "object_id": {
+          "type": "string",
+          "description": "In-game object ID (e.g. \"p3\")"
+        },
+        "object_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "In-game object IDs (batch)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "description": "Whether lookup succeeded"
+        },
+        "name": {
+          "type": "string",
+          "description": "Card name"
+        },
+        "mana_cost": {
+          "type": "string",
+          "description": "Mana cost"
         },
         "type": {
-          "description": "Type line",
-          "type": "string"
+          "type": "string",
+          "description": "Type line"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Oracle text lines"
+        },
+        "power": {
+          "type": "string",
+          "description": "Power"
         },
         "toughness": {
-          "description": "Toughness",
-          "type": "string"
-        },
-        "starting_defense": {
-          "description": "Starting defense",
-          "type": "string"
-        },
-        "error": {
-          "description": "Error message",
-          "type": "string"
+          "type": "string",
+          "description": "Toughness"
         },
         "starting_loyalty": {
-          "description": "Starting loyalty",
-          "type": "string"
+          "type": "string",
+          "description": "Starting loyalty"
+        },
+        "starting_defense": {
+          "type": "string",
+          "description": "Starting defense"
+        },
+        "second_face": {
+          "type": "object",
+          "description": "Back face (transform/MDFC)"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Card objects (batch mode)"
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message"
         }
       }
     },
@@ -586,250 +616,249 @@
         "label": "Not found",
         "value": "{\n  \"success\": false,\n  \"error\": \"not found\"\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "object_ids": {
-          "description": "In-game object IDs (batch)",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "card_name": {
-          "description": "Card name",
-          "type": "string"
-        },
-        "card_names": {
-          "description": "Card names (batch)",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "object_id": {
-          "description": "In-game object ID (e.g. \"p3\")",
-          "type": "string"
-        }
-      }
-    },
-    "name": "get_oracle_text",
-    "description": "Get oracle text for cards. Use card_name/card_names for lookup by name, or object_id/object_ids for in-game objects."
+    ]
   },
   {
+    "name": "get_action_choices",
+    "description": "Get choices for the current pending action. With until: blocks like pass_priority until a decision is needed. Without until: returns immediately (action_pending=false if nothing to do).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "until": {
+          "type": "string",
+          "description": "Skip to a target step/phase, then return choices. Omit to return immediately.",
+          "enum": [
+            "upkeep",
+            "draw",
+            "precombat_main",
+            "begin_combat",
+            "declare_attackers",
+            "declare_blockers",
+            "end_combat",
+            "postcombat_main",
+            "end_of_turn",
+            "my_turn",
+            "stack_resolved"
+          ]
+        },
+        "board_cursor": {
+          "type": "integer",
+          "description": "Board cursor from previous result. Omits board when unchanged."
+        }
+      },
+      "additionalProperties": false
+    },
     "outputSchema": {
       "type": "object",
       "properties": {
-        "combat_phase": {
-          "description": "declare_attackers or declare_blockers",
-          "type": "string"
-        },
-        "note": {
-          "conditional": "action_pending",
-          "description": "Informational note",
-          "type": "string"
-        },
-        "stack": {
-          "conditional": "action_pending",
-          "description": "Stack (when non-empty)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "game_seq": {
-          "description": "Sequence number",
-          "type": "integer"
+        "action_pending": {
+          "type": "boolean",
+          "description": "Whether an action is pending"
         },
         "action_type": {
-          "description": "XMage callback method name",
-          "type": "string"
+          "type": "string",
+          "description": "XMage callback method name"
         },
-        "already_attacking": {
-          "conditional": "action_pending",
-          "description": "Pre-declared attackers",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "message": {
+          "type": "string",
+          "description": "Prompt from XMage"
         },
         "response_type": {
-          "conditional": "action_pending",
+          "type": "string",
           "description": "select, boolean, index, amount, pile, or multi_amount",
-          "type": "string"
-        },
-        "can_cancel": {
-          "conditional": "action_pending",
-          "description": "Targeting can be cancelled",
-          "type": "boolean"
-        },
-        "stop_reason": {
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached",
-          "type": "string"
-        },
-        "combat": {
-          "conditional": "action_pending",
-          "description": "Combat groups",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "total_min": {
-          "conditional": "action_pending",
-          "description": "Total min (multi_amount)",
-          "type": "integer"
-        },
-        "error": {
-          "description": "Error message",
-          "type": "string"
-        },
-        "required": {
-          "conditional": "action_pending",
-          "description": "Targeting is required",
-          "type": "boolean"
-        },
-        "land_drops_used": {
-          "conditional": "action_pending",
-          "description": "Lands played this turn",
-          "type": "integer"
-        },
-        "min": {
-          "conditional": "action_pending",
-          "description": "Min allowed value",
-          "type": "integer"
-        },
-        "has_playable_cards": {
-          "description": "Whether you have playable cards",
-          "type": "boolean"
-        },
-        "context": {
-          "conditional": "action_pending",
-          "description": "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
-          "type": "string"
-        },
-        "warning": {
-          "description": "Warning message",
-          "type": "string"
+          "conditional": "action_pending"
         },
         "respond_with": {
-          "conditional": "action_pending",
+          "type": "string",
           "description": "choose_action parameter(s) to use",
-          "type": "string"
+          "conditional": "action_pending"
         },
-        "pile2": {
-          "conditional": "action_pending",
-          "description": "Pile 2 contents",
+        "context": {
+          "type": "string",
+          "description": "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
+          "conditional": "action_pending"
+        },
+        "board": {
           "type": "array",
           "items": {
             "type": "object"
-          }
+          },
+          "description": "Board state (players array). Omitted when board_unchanged=true.",
+          "conditional": "action_pending"
+        },
+        "board_cursor": {
+          "type": "integer",
+          "description": "Pass back to skip unchanged board.",
+          "conditional": "action_pending"
+        },
+        "board_unchanged": {
+          "type": "boolean",
+          "description": "Board omitted (cursor matched).",
+          "conditional": "action_pending"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Available choices with index and name",
+          "conditional": "action_pending"
+        },
+        "your_hand": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Hand cards (during mulligan)",
+          "conditional": "action_pending"
+        },
+        "combat_phase": {
+          "type": "string",
+          "description": "declare_attackers or declare_blockers"
+        },
+        "combat": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Combat groups",
+          "conditional": "action_pending"
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Stack (when non-empty)",
+          "conditional": "action_pending"
+        },
+        "untapped_lands": {
+          "type": "integer",
+          "description": "Untapped land count",
+          "conditional": "action_pending"
+        },
+        "game_seq": {
+          "type": "integer",
+          "description": "Sequence number"
+        },
+        "land_drops_used": {
+          "type": "integer",
+          "description": "Lands played this turn",
+          "conditional": "action_pending"
+        },
+        "already_attacking": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pre-declared attackers",
+          "conditional": "action_pending"
+        },
+        "incoming_attackers": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Attackers (during declare_blockers)",
+          "conditional": "action_pending"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Targeting is required",
+          "conditional": "action_pending"
+        },
+        "can_cancel": {
+          "type": "boolean",
+          "description": "Targeting can be cancelled",
+          "conditional": "action_pending"
+        },
+        "note": {
+          "type": "string",
+          "description": "Informational note",
+          "conditional": "action_pending"
+        },
+        "pile1": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pile 1 contents",
+          "conditional": "action_pending"
+        },
+        "pile2": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pile 2 contents",
+          "conditional": "action_pending"
+        },
+        "min": {
+          "type": "integer",
+          "description": "Min allowed value",
+          "conditional": "action_pending"
+        },
+        "max": {
+          "type": "integer",
+          "description": "Max allowed value",
+          "conditional": "action_pending"
+        },
+        "total_min": {
+          "type": "integer",
+          "description": "Total min (multi_amount)",
+          "conditional": "action_pending"
+        },
+        "total_max": {
+          "type": "integer",
+          "description": "Total max (multi_amount)",
+          "conditional": "action_pending"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Per-item details for multi_amount",
+          "conditional": "action_pending"
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message"
+        },
+        "player_dead": {
+          "type": "boolean",
+          "description": "Whether you died"
+        },
+        "game_over": {
+          "type": "boolean",
+          "description": "Whether the game ended"
         },
         "recent_chat": {
-          "description": "New chat messages",
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "New chat messages"
         },
-        "your_hand": {
-          "conditional": "action_pending",
-          "description": "Hand cards (during mulligan)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "incoming_attackers": {
-          "conditional": "action_pending",
-          "description": "Attackers (during declare_blockers)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "stop_reason": {
+          "type": "string",
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached"
         },
         "current_step": {
-          "description": "Current step (for reached_step/step_not_reached)",
-          "type": "string"
-        },
-        "pile1": {
-          "conditional": "action_pending",
-          "description": "Pile 1 contents",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "max": {
-          "conditional": "action_pending",
-          "description": "Max allowed value",
-          "type": "integer"
+          "type": "string",
+          "description": "Current step (for reached_step/step_not_reached)"
         },
         "action_taken": {
-          "description": "What was done when an action was auto-resolved",
-          "type": "string"
+          "type": "string",
+          "description": "What was done when an action was auto-resolved"
         },
-        "untapped_lands": {
-          "conditional": "action_pending",
-          "description": "Untapped land count",
-          "type": "integer"
+        "has_playable_cards": {
+          "type": "boolean",
+          "description": "Whether you have playable cards"
         },
-        "game_over": {
-          "description": "Whether the game ended",
-          "type": "boolean"
-        },
-        "message": {
-          "description": "Prompt from XMage",
-          "type": "string"
-        },
-        "action_pending": {
-          "description": "Whether an action is pending",
-          "type": "boolean"
-        },
-        "player_dead": {
-          "description": "Whether you died",
-          "type": "boolean"
-        },
-        "total_max": {
-          "conditional": "action_pending",
-          "description": "Total max (multi_amount)",
-          "type": "integer"
-        },
-        "board_unchanged": {
-          "conditional": "action_pending",
-          "description": "Board omitted (cursor matched).",
-          "type": "boolean"
-        },
-        "board_cursor": {
-          "conditional": "action_pending",
-          "description": "Pass back to skip unchanged board.",
-          "type": "integer"
-        },
-        "choices": {
-          "conditional": "action_pending",
-          "description": "Available choices with index and name",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "items": {
-          "conditional": "action_pending",
-          "description": "Per-item details for multi_amount",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "board": {
-          "conditional": "action_pending",
-          "description": "Board state (players array). Omitted when board_unchanged=true.",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "warning": {
+          "type": "string",
+          "description": "Warning message"
         }
       }
     },
@@ -846,287 +875,305 @@
         "label": "Boolean (mulligan)",
         "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"message\": \"Mulligan hand?\",\n  \"response_type\": \"boolean\",\n  \"context\": \"T0 PREGAME\",\n  \"board_cursor\": 1,\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\",\n      \"rules\": [\n        \"Lightning Bolt deals 3 damage to any target.\"\n      ]\n    }\n  ]\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "until": {
-          "description": "Skip to a target step/phase, then return choices. Omit to return immediately.",
-          "type": "string",
-          "enum": [
-            "upkeep",
-            "draw",
-            "precombat_main",
-            "begin_combat",
-            "declare_attackers",
-            "declare_blockers",
-            "end_combat",
-            "postcombat_main",
-            "end_of_turn",
-            "my_turn",
-            "stack_resolved"
-          ]
-        },
-        "board_cursor": {
-          "description": "Board cursor from previous result. Omits board when unchanged.",
-          "type": "integer"
-        }
-      }
-    },
-    "name": "get_action_choices",
-    "description": "Get choices for the current pending action. With until: blocks like pass_priority until a decision is needed. Without until: returns immediately (action_pending=false if nothing to do)."
+    ]
   },
   {
+    "name": "choose_action",
+    "description": "Respond to pending action. Blocks until an action is pending. Use choice for ID/index/yes/no, attackers/blockers for batch combat.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "choice": {
+          "type": "string",
+          "description": "ID (\"p3\"), index (\"0\"), or yes/no. yes=mulligan/confirm, no=keep/pass."
+        },
+        "amount": {
+          "type": "integer",
+          "description": "Amount value (for amount actions)"
+        },
+        "amounts": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "Multiple amount values (for multi_amount)"
+        },
+        "pile": {
+          "type": "integer",
+          "description": "Pile number: 1 or 2"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text value for GAME_CHOOSE_CHOICE (pick option by name)"
+        },
+        "mana_plan": {
+          "type": "string",
+          "description": "Comma-separated permanent IDs to tap for mana (e.g. \"p1,p5:1\"). :N selects ability on multi-ability lands. Pool colors (RED, BLUE, etc.) only SPEND existing pool mana, not produce. Auto-tap fills remaining pips."
+        },
+        "auto_tap": {
+          "type": "boolean",
+          "description": "Auto-tap mana (default true). Set false with mana_plan to require complete plan."
+        },
+        "attackers": {
+          "type": "string",
+          "description": "Batch attack: comma-separated IDs (e.g. \"p1,p2\") or \"all\". Auto-confirms."
+        },
+        "blockers": {
+          "type": "string",
+          "description": "Batch block: comma-separated \"blocker:attacker\" pairs (e.g. \"p5:p1,p6:p2\"). Auto-confirms."
+        }
+      },
+      "additionalProperties": false
+    },
     "outputSchema": {
       "type": "object",
       "properties": {
-        "combat_phase": {
-          "description": "declare_attackers or declare_blockers",
-          "type": "string"
-        },
-        "retryable": {
-          "description": "Can retry with different parameters",
-          "type": "boolean"
-        },
-        "note": {
-          "conditional": "action_pending",
-          "description": "Informational note",
-          "type": "string"
-        },
-        "stack": {
-          "conditional": "action_pending",
-          "description": "Stack (when non-empty)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "game_seq": {
-          "description": "Sequence number",
-          "type": "integer"
+        "action_pending": {
+          "type": "boolean",
+          "description": "Whether an action is pending"
         },
         "action_type": {
-          "description": "XMage callback method name",
-          "type": "string"
+          "type": "string",
+          "description": "XMage callback method name"
         },
-        "already_attacking": {
-          "conditional": "action_pending",
-          "description": "Pre-declared attackers",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "message": {
+          "type": "string",
+          "description": "Prompt from XMage"
         },
         "response_type": {
-          "conditional": "action_pending",
+          "type": "string",
           "description": "select, boolean, index, amount, pile, or multi_amount",
-          "type": "string"
-        },
-        "can_cancel": {
-          "conditional": "action_pending",
-          "description": "Targeting can be cancelled",
-          "type": "boolean"
-        },
-        "stop_reason": {
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached",
-          "type": "string"
-        },
-        "combat": {
-          "conditional": "action_pending",
-          "description": "Combat groups",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "total_min": {
-          "conditional": "action_pending",
-          "description": "Total min (multi_amount)",
-          "type": "integer"
-        },
-        "error": {
-          "description": "Error message",
-          "type": "string"
-        },
-        "required": {
-          "conditional": "action_pending",
-          "description": "Targeting is required",
-          "type": "boolean"
-        },
-        "land_drops_used": {
-          "conditional": "action_pending",
-          "description": "Lands played this turn",
-          "type": "integer"
-        },
-        "min": {
-          "conditional": "action_pending",
-          "description": "Min allowed value",
-          "type": "integer"
-        },
-        "has_playable_cards": {
-          "description": "Whether you have playable cards",
-          "type": "boolean"
-        },
-        "context": {
-          "conditional": "action_pending",
-          "description": "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
-          "type": "string"
-        },
-        "warning": {
-          "description": "Warning message",
-          "type": "string"
+          "conditional": "action_pending"
         },
         "respond_with": {
-          "conditional": "action_pending",
+          "type": "string",
           "description": "choose_action parameter(s) to use",
-          "type": "string"
+          "conditional": "action_pending"
         },
-        "pile2": {
-          "conditional": "action_pending",
-          "description": "Pile 2 contents",
+        "context": {
+          "type": "string",
+          "description": "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
+          "conditional": "action_pending"
+        },
+        "board": {
           "type": "array",
           "items": {
             "type": "object"
-          }
+          },
+          "description": "Board state (players array). Omitted when board_unchanged=true.",
+          "conditional": "action_pending"
+        },
+        "board_cursor": {
+          "type": "integer",
+          "description": "Pass back to skip unchanged board.",
+          "conditional": "action_pending"
+        },
+        "board_unchanged": {
+          "type": "boolean",
+          "description": "Board omitted (cursor matched).",
+          "conditional": "action_pending"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Available choices with index and name",
+          "conditional": "action_pending"
+        },
+        "your_hand": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Hand cards (during mulligan)",
+          "conditional": "action_pending"
+        },
+        "combat_phase": {
+          "type": "string",
+          "description": "declare_attackers or declare_blockers"
+        },
+        "combat": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Combat groups",
+          "conditional": "action_pending"
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Stack (when non-empty)",
+          "conditional": "action_pending"
+        },
+        "untapped_lands": {
+          "type": "integer",
+          "description": "Untapped land count",
+          "conditional": "action_pending"
+        },
+        "game_seq": {
+          "type": "integer",
+          "description": "Sequence number"
+        },
+        "land_drops_used": {
+          "type": "integer",
+          "description": "Lands played this turn",
+          "conditional": "action_pending"
+        },
+        "already_attacking": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pre-declared attackers",
+          "conditional": "action_pending"
+        },
+        "incoming_attackers": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Attackers (during declare_blockers)",
+          "conditional": "action_pending"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Targeting is required",
+          "conditional": "action_pending"
+        },
+        "can_cancel": {
+          "type": "boolean",
+          "description": "Targeting can be cancelled",
+          "conditional": "action_pending"
+        },
+        "note": {
+          "type": "string",
+          "description": "Informational note",
+          "conditional": "action_pending"
+        },
+        "pile1": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pile 1 contents",
+          "conditional": "action_pending"
+        },
+        "pile2": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pile 2 contents",
+          "conditional": "action_pending"
+        },
+        "min": {
+          "type": "integer",
+          "description": "Min allowed value",
+          "conditional": "action_pending"
+        },
+        "max": {
+          "type": "integer",
+          "description": "Max allowed value",
+          "conditional": "action_pending"
+        },
+        "total_min": {
+          "type": "integer",
+          "description": "Total min (multi_amount)",
+          "conditional": "action_pending"
+        },
+        "total_max": {
+          "type": "integer",
+          "description": "Total max (multi_amount)",
+          "conditional": "action_pending"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Per-item details for multi_amount",
+          "conditional": "action_pending"
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message"
+        },
+        "player_dead": {
+          "type": "boolean",
+          "description": "Whether you died"
+        },
+        "game_over": {
+          "type": "boolean",
+          "description": "Whether the game ended"
         },
         "recent_chat": {
-          "description": "New chat messages",
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "New chat messages"
         },
-        "your_hand": {
-          "conditional": "action_pending",
-          "description": "Hand cards (during mulligan)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "incoming_attackers": {
-          "conditional": "action_pending",
-          "description": "Attackers (during declare_blockers)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "stop_reason": {
+          "type": "string",
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached"
         },
         "current_step": {
-          "description": "Current step (for reached_step/step_not_reached)",
-          "type": "string"
-        },
-        "declared": {
-          "description": "Declared attacker/blocker IDs",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "pile1": {
-          "conditional": "action_pending",
-          "description": "Pile 1 contents",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "max": {
-          "conditional": "action_pending",
-          "description": "Max allowed value",
-          "type": "integer"
+          "type": "string",
+          "description": "Current step (for reached_step/step_not_reached)"
         },
         "action_taken": {
-          "description": "What was done when an action was auto-resolved",
-          "type": "string"
+          "type": "string",
+          "description": "What was done when an action was auto-resolved"
         },
-        "untapped_lands": {
-          "conditional": "action_pending",
-          "description": "Untapped land count",
-          "type": "integer"
+        "has_playable_cards": {
+          "type": "boolean",
+          "description": "Whether you have playable cards"
         },
-        "game_over": {
-          "description": "Whether the game ended",
-          "type": "boolean"
-        },
-        "failed": {
-          "description": "Failed batch entries: {id, reason}",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "interrupted": {
-          "description": "Batch combat interrupted by trigger",
-          "type": "boolean"
-        },
-        "message": {
-          "description": "Prompt from XMage",
-          "type": "string"
-        },
-        "action_pending": {
-          "description": "Whether an action is pending",
-          "type": "boolean"
-        },
-        "player_dead": {
-          "description": "Whether you died",
-          "type": "boolean"
-        },
-        "total_max": {
-          "conditional": "action_pending",
-          "description": "Total max (multi_amount)",
-          "type": "integer"
-        },
-        "board_unchanged": {
-          "conditional": "action_pending",
-          "description": "Board omitted (cursor matched).",
-          "type": "boolean"
+        "warning": {
+          "type": "string",
+          "description": "Warning message"
         },
         "success": {
-          "description": "Whether accepted",
-          "type": "boolean"
-        },
-        "mana_plan_set": {
-          "description": "Mana plan was stored",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether accepted"
         },
         "error_code": {
-          "description": "no_pending_action, missing_param, index_out_of_range, invalid_choice, batch_failed, internal_error, unknown_action_type",
-          "type": "string"
+          "type": "string",
+          "description": "no_pending_action, missing_param, index_out_of_range, invalid_choice, batch_failed, internal_error, unknown_action_type"
         },
-        "board_cursor": {
-          "conditional": "action_pending",
-          "description": "Pass back to skip unchanged board.",
-          "type": "integer"
+        "retryable": {
+          "type": "boolean",
+          "description": "Can retry with different parameters"
         },
-        "choices": {
-          "conditional": "action_pending",
-          "description": "Available choices with index and name",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
+        "mana_plan_set": {
+          "type": "boolean",
+          "description": "Mana plan was stored"
         },
         "mana_plan_size": {
-          "description": "Entries in stored mana plan",
-          "type": "integer"
+          "type": "integer",
+          "description": "Entries in stored mana plan"
         },
-        "items": {
-          "conditional": "action_pending",
-          "description": "Per-item details for multi_amount",
+        "declared": {
           "type": "array",
           "items": {
             "type": "object"
-          }
+          },
+          "description": "Declared attacker/blocker IDs"
         },
-        "board": {
-          "conditional": "action_pending",
-          "description": "Board state (players array). Omitted when board_unchanged=true.",
+        "failed": {
           "type": "array",
           "items": {
             "type": "object"
-          }
+          },
+          "description": "Failed batch entries: {id, reason}"
+        },
+        "interrupted": {
+          "type": "boolean",
+          "description": "Batch combat interrupted by trigger"
         }
       }
     },
@@ -1155,62 +1202,22 @@
         "label": "Error",
         "value": "{\n  \"success\": false,\n  \"error\": \"Index 5 is out of range (valid: 0-3). Call get_action_choices to see current options.\",\n  \"error_code\": \"index_out_of_range\",\n  \"retryable\": true\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "amount": {
-          "description": "Amount value (for amount actions)",
-          "type": "integer"
-        },
-        "amounts": {
-          "description": "Multiple amount values (for multi_amount)",
-          "type": "array",
-          "items": {
-            "type": "integer"
-          }
-        },
-        "auto_tap": {
-          "description": "Auto-tap mana (default true). Set false with mana_plan to require complete plan.",
-          "type": "boolean"
-        },
-        "pile": {
-          "description": "Pile number: 1 or 2",
-          "type": "integer"
-        },
-        "mana_plan": {
-          "description": "Comma-separated permanent IDs to tap for mana (e.g. \"p1,p5:1\"). :N selects ability on multi-ability lands. Pool colors (RED, BLUE, etc.) only SPEND existing pool mana, not produce. Auto-tap fills remaining pips.",
-          "type": "string"
-        },
-        "attackers": {
-          "description": "Batch attack: comma-separated IDs (e.g. \"p1,p2\") or \"all\". Auto-confirms.",
-          "type": "string"
-        },
-        "blockers": {
-          "description": "Batch block: comma-separated \"blocker:attacker\" pairs (e.g. \"p5:p1,p6:p2\"). Auto-confirms.",
-          "type": "string"
-        },
-        "text": {
-          "description": "Text value for GAME_CHOOSE_CHOICE (pick option by name)",
-          "type": "string"
-        },
-        "choice": {
-          "description": "ID (\"p3\"), index (\"0\"), or yes/no. yes=mulligan/confirm, no=keep/pass.",
-          "type": "string"
-        }
-      }
-    },
-    "name": "choose_action",
-    "description": "Respond to pending action. Blocks until an action is pending. Use choice for ID/index/yes/no, attackers/blockers for batch combat."
+    ]
   },
   {
+    "name": "concede",
+    "description": "Concede the current game.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
     "outputSchema": {
       "type": "object",
       "properties": {
         "success": {
-          "description": "Whether the concession was sent",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether the concession was sent"
         }
       }
     },
@@ -1219,13 +1226,6 @@
         "label": "Success",
         "value": "{\n  \"success\": true\n}"
       }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {}
-    },
-    "name": "concede",
-    "description": "Concede the current game."
+    ]
   }
 ]
