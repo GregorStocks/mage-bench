@@ -8,19 +8,6 @@ function stripTrailingSlash(href) {
   return href.endsWith("/") && href !== "/" ? href.slice(0, -1) : href;
 }
 
-function hasBlockedScheme(raw) {
-  const normalized = raw.trimStart().toLowerCase();
-  return (
-    normalized.startsWith("http://") ||
-    normalized.startsWith("https://") ||
-    raw.startsWith("//") ||
-    normalized.startsWith("mailto:") ||
-    normalized.startsWith("javascript:") ||
-    normalized.startsWith("data:") ||
-    normalized.startsWith("vbscript:")
-  );
-}
-
 /**
  * Single walk of dist/ that collects both:
  * - links: Map of href -> Set<sourcePage> (every internal href found in HTML)
@@ -59,17 +46,13 @@ function crawlDist() {
 function extractLinks(html, sourcePage, links) {
   for (const match of html.matchAll(/href=["']([^"']*?)["']/g)) {
     const raw = match[1];
-    // Skip external, executable, protocol-relative, and anchor-only hrefs.
-    if (
-      hasBlockedScheme(raw) ||
-      raw.startsWith("#") ||
-      raw === ""
-    ) {
+    if (raw === "" || raw.startsWith("#")) {
       continue;
     }
     // Strip query string and fragment
     const href = raw.split("?")[0].split("#")[0];
-    if (!href.startsWith("/")) continue; // skip relative links for now
+    // Only track internal root-relative links. Skip schemes, relative paths, and protocol-relative hrefs.
+    if (!href.startsWith("/") || href.startsWith("//")) continue;
     if (!links.has(href)) links.set(href, new Set());
     links.get(href).add(sourcePage);
   }
@@ -109,7 +92,7 @@ describe("internal links", () => {
     expect(fs.existsSync(distDir)).toBe(true);
   });
 
-  test("extractLinks skips blocked URL schemes", () => {
+  test("extractLinks keeps only internal root-relative links", () => {
     const links = new Map();
 
     extractLinks(
@@ -118,6 +101,8 @@ describe("internal links", () => {
         '<a href="data:text/html,boom">data</a>',
         '<a href="vbscript:msgbox(1)">vb</a>',
         '<a href="https://example.com">ext</a>',
+        '<a href="//example.com/path">protocol-relative</a>',
+        '<a href="leaderboard">relative</a>',
         '<a href="/leaderboard">ok</a>',
       ].join(""),
       "/index.html",
