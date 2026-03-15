@@ -5373,10 +5373,8 @@ public class BridgeCallbackHandler {
 
         if (choices != null && !choices.isEmpty()) {
             for (Object choice : choices) {
-                if (choice instanceof UUID candidate) {
-                    if (targets.contains(candidate)) {
-                        return candidate;
-                    }
+                if (choice instanceof UUID candidate && targets.contains(candidate)) {
+                    return candidate;
                 }
             }
         }
