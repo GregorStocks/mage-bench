@@ -10,6 +10,7 @@ import scripts.analysis.blunder_eval_common as blunder_eval_common
 from scripts.analysis.blunder_eval_common import (
     chosen_display,
     compute_aftermath_index,
+    decision_index,
     game_path_for_id,
     load_game_ground_truth,
     lookup_annotation_for_decision,
@@ -273,6 +274,11 @@ class TestReverseMapAnnotations:
 
 
 # --- chosen_display ---
+
+
+class TestDecisionIndex:
+    def test_reads_canonical_decision_index_field(self) -> None:
+        assert decision_index({"decisionIndex": 7}) == 7
 
 
 class TestChosenDisplay:
