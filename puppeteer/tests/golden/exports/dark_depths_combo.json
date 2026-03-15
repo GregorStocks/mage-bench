@@ -277,7 +277,7 @@
   "decisions": [
     {
       "actionResult": {},
-      "actionSeq": 1,
+      "actionSeq": 5,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -293,11 +293,9 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "step": null,
-      "subsequentActions": [
-        "TestPlayer chooses that they take the first turn"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -438,14 +436,14 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 5,
+        "game_seq": 9,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "success": true
       },
-      "actionSeq": 5,
+      "actionSeq": 9,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -471,7 +469,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 5,
+      "actionSeq": 9,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -528,7 +526,7 @@
         7
       ],
       "message": "Play spells and abilities",
-      "phase": null,
+      "phase": "PRECOMBAT_MAIN",
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -543,10 +541,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 1,
-      "step": null,
+      "snapshotIndex": 2,
+      "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer skips Draw step",
         "TestPlayer skip attack"
       ],
       "turn": 1
@@ -652,7 +649,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 15,
+        "game_seq": 18,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -660,7 +657,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 15,
+      "actionSeq": 18,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -733,7 +730,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 15,
+      "actionSeq": 18,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -764,10 +761,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Dark Depths from hand onto the Battlefield",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
         "Opponent discards Mountain"
@@ -892,7 +888,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 33,
+        "game_seq": 37,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -900,7 +896,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "actionSeq": 33,
+      "actionSeq": 37,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -983,7 +979,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 33,
+      "actionSeq": 37,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -1014,10 +1010,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 16,
+      "snapshotIndex": 17,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Thespian's Stage from hand onto the Battlefield",
         "TestPlayer skip attack"
       ],
       "turn": 3
@@ -1137,7 +1132,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 43,
+        "game_seq": 44,
         "land_drops_used": 1,
         "message": "Choose spell or ability to play: Black Lotus",
         "respond_with": "choice=0, choice=1, etc. (not yes/no)",
@@ -1145,7 +1140,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "actionSeq": 43,
+      "actionSeq": 44,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -1183,7 +1178,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 43,
+      "actionSeq": 44,
       "actionType": "GAME_CHOOSE_ABILITY",
       "choiceCount": 1,
       "choices": [
@@ -1316,7 +1311,7 @@
         ],
         "board_cursor": 7,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 44,
+        "game_seq": 47,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -1329,7 +1324,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "actionSeq": 44,
+      "actionSeq": 47,
       "actionType": "GAME_CHOOSE_ABILITY",
       "choiceCount": 1,
       "choices": [
@@ -1364,7 +1359,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 44,
+      "actionSeq": 47,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -1384,10 +1379,9 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 21,
+      "snapshotIndex": 22,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer casts Black Lotus from hand",
         "TestPlayer puts Black Lotus from stack onto the Battlefield"
       ],
       "turn": 3
@@ -1510,7 +1504,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 50,
+        "game_seq": 51,
         "land_drops_used": 1,
         "message": "Choose spell or ability to play: Thespian's Stage",
         "respond_with": "choice=0, choice=1, etc. (not yes/no)",
@@ -1518,7 +1512,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "actionSeq": 50,
+      "actionSeq": 51,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -1567,7 +1561,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 50,
+      "actionSeq": 51,
       "actionType": "GAME_CHOOSE_ABILITY",
       "choiceCount": 2,
       "choices": [
@@ -1724,7 +1718,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 51,
+        "game_seq": 52,
         "land_drops_used": 1,
         "message": "Select a land",
         "required": false,
@@ -1740,7 +1734,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "actionSeq": 51,
+      "actionSeq": 52,
       "actionType": "GAME_CHOOSE_ABILITY",
       "choiceCount": 2,
       "choices": [
@@ -1779,7 +1773,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 51,
+      "actionSeq": 52,
       "actionType": "GAME_TARGET",
       "choiceCount": 2,
       "choices": [
@@ -1812,7 +1806,7 @@
       },
       "player": "TestPlayer",
       "responseType": "index",
-      "snapshotIndex": 24,
+      "snapshotIndex": 25,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [],
       "turn": 3
@@ -1929,7 +1923,7 @@
         ],
         "board_cursor": 9,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 52,
+        "game_seq": 56,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -1950,7 +1944,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 52,
+      "actionSeq": 56,
       "actionType": "GAME_TARGET",
       "choiceCount": 2,
       "choices": [
@@ -1993,7 +1987,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 52,
+      "actionSeq": 56,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -2013,12 +2007,9 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 25,
+      "snapshotIndex": 27,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer sacrificed Black Lotus (source: Black Lotus)",
-        "TestPlayer activates: Thespian's Stage becomes a copy of target land, except it has this ability. from Thespian's Stage targeting Dark Depths"
-      ],
+      "subsequentActions": [],
       "turn": 3
     },
     {
@@ -2134,7 +2125,7 @@
         ],
         "board_cursor": 11,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 58,
+        "game_seq": 61,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -2148,7 +2139,7 @@
         ],
         "success": true
       },
-      "actionSeq": 58,
+      "actionSeq": 61,
       "actionType": "GAME_TARGET",
       "choiceCount": 2,
       "choices": [
@@ -2192,7 +2183,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 58,
+      "actionSeq": 61,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -2211,14 +2202,14 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 29,
+      "snapshotIndex": 30,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
-        "Dark Depths is put into graveyard from battlefield",
-        "TestPlayer - Ability triggers: Dark Depths - When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
         "TestPlayer sacrificed Dark Depths (source: Thespian's Stage)",
         "TestPlayer creates a Marit Lage token",
-        "Opponent skip attack"
+        "Opponent skip attack",
+        "Opponent discards down to 7 hand cards",
+        "Opponent discards Mountain"
       ],
       "turn": 3
     },
@@ -2444,13 +2435,13 @@
             "id": "all"
           }
         ],
-        "game_seq": 82,
+        "game_seq": 87,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
         "success": true
       },
-      "actionSeq": 82,
+      "actionSeq": 87,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -2494,7 +2485,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 82,
+      "actionSeq": 87,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -2511,10 +2502,9 @@
       "phase": "COMBAT",
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 43,
+      "snapshotIndex": 44,
       "step": "DECLARE_ATTACKERS",
       "subsequentActions": [
-        "TestPlayer attacks Opponent with 1 creature",
         "Attacker: Marit Lage (20/20) unblocked",
         "Opponent loses 20 life at combat from Marit Lage",
         "Opponent has lost the game."
@@ -2567,7 +2557,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2654,7 +2644,7 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 1,
+        "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
@@ -2720,7 +2710,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,
@@ -2828,7 +2818,7 @@
       "args": {
         "choice": "no"
       },
-      "gameSeq": 5,
+      "gameSeq": 9,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2967,7 +2957,7 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 5,
+        "game_seq": 9,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -2980,7 +2970,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 5,
+      "gameSeq": 9,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 8,
@@ -3081,7 +3071,7 @@
       "args": {
         "choice": "p11"
       },
-      "gameSeq": 15,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3183,7 +3173,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 15,
+        "game_seq": 18,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -3197,7 +3187,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 15,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 12,
@@ -3406,7 +3396,7 @@
       "args": {
         "choice": "p16"
       },
-      "gameSeq": 33,
+      "gameSeq": 37,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3525,7 +3515,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 33,
+        "game_seq": 37,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -3539,7 +3529,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 33,
+      "gameSeq": 37,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 16,
@@ -3605,7 +3595,7 @@
       "args": {
         "choice": "p10"
       },
-      "gameSeq": 43,
+      "gameSeq": 44,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3721,7 +3711,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 43,
+        "game_seq": 44,
         "land_drops_used": 1,
         "message": "Choose spell or ability to play: Black Lotus",
         "respond_with": "choice=0, choice=1, etc. (not yes/no)",
@@ -3735,7 +3725,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 43,
+      "gameSeq": 44,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 20,
@@ -3797,7 +3787,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 44,
+      "gameSeq": 47,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3898,7 +3888,7 @@
         ],
         "board_cursor": 7,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 44,
+        "game_seq": 47,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -3917,7 +3907,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 44,
+      "gameSeq": 47,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 24,
@@ -4094,7 +4084,7 @@
       "args": {
         "choice": "p16"
       },
-      "gameSeq": 50,
+      "gameSeq": 51,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4213,7 +4203,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 50,
+        "game_seq": 51,
         "land_drops_used": 1,
         "message": "Choose spell or ability to play: Thespian's Stage",
         "respond_with": "choice=0, choice=1, etc. (not yes/no)",
@@ -4227,7 +4217,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 50,
+      "gameSeq": 51,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 28,
@@ -4293,7 +4283,7 @@
       "args": {
         "choice": "1"
       },
-      "gameSeq": 51,
+      "gameSeq": 52,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4417,7 +4407,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 51,
+        "game_seq": 52,
         "land_drops_used": 1,
         "message": "Select a land",
         "required": false,
@@ -4439,7 +4429,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 51,
+      "gameSeq": 52,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 32,
@@ -4518,7 +4508,7 @@
       "args": {
         "choice": "p11"
       },
-      "gameSeq": 52,
+      "gameSeq": 56,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4631,7 +4621,7 @@
         ],
         "board_cursor": 9,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 52,
+        "game_seq": 56,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -4658,7 +4648,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 52,
+      "gameSeq": 56,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 36,
@@ -4840,7 +4830,7 @@
       "args": {
         "choice": "1"
       },
-      "gameSeq": 58,
+      "gameSeq": 61,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4954,7 +4944,7 @@
         ],
         "board_cursor": 11,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 58,
+        "game_seq": 61,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -4974,7 +4964,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 58,
+      "gameSeq": 61,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 40,
@@ -5381,7 +5371,7 @@
       "args": {
         "attackers": "all"
       },
-      "gameSeq": 82,
+      "gameSeq": 87,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5533,7 +5523,7 @@
             "id": "all"
           }
         ],
-        "game_seq": 82,
+        "game_seq": 87,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
@@ -5545,7 +5535,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 82,
+      "gameSeq": 87,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 46,

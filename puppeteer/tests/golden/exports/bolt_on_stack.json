@@ -184,7 +184,7 @@
   "decisions": [
     {
       "actionResult": {},
-      "actionSeq": 1,
+      "actionSeq": 5,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -200,11 +200,9 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "step": null,
-      "subsequentActions": [
-        "TestPlayer chooses that they take the first turn"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -332,14 +330,14 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 5,
+        "game_seq": 9,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "success": true
       },
-      "actionSeq": 5,
+      "actionSeq": 9,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -365,7 +363,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 5,
+      "actionSeq": 9,
       "actionType": "GAME_SELECT",
       "choiceCount": 5,
       "choices": [
@@ -412,7 +410,7 @@
         7
       ],
       "message": "Play spells and abilities",
-      "phase": null,
+      "phase": "PRECOMBAT_MAIN",
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -425,10 +423,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 1,
-      "step": null,
+      "snapshotIndex": 2,
+      "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer skips Draw step",
         "TestPlayer skip attack"
       ],
       "turn": 1
@@ -548,7 +545,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 15,
+        "game_seq": 18,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -556,7 +553,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 15,
+      "actionSeq": 18,
       "actionType": "GAME_SELECT",
       "choiceCount": 5,
       "choices": [
@@ -619,7 +616,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 15,
+      "actionSeq": 18,
       "actionType": "GAME_SELECT",
       "choiceCount": 3,
       "choices": [
@@ -668,11 +665,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Mountain from hand onto the Battlefield"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -853,14 +848,14 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (Opponent)",
-        "game_seq": 26,
+        "game_seq": 28,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 26,
+      "actionSeq": 28,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -904,7 +899,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 26,
+      "actionSeq": 28,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -932,7 +927,7 @@
         19
       ],
       "message": "Play instants and activated abilities",
-      "phase": "COMBAT",
+      "phase": "POSTCOMBAT_MAIN",
       "pilotContext": {
         "playableCards": [
           "p11",
@@ -942,8 +937,8 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 12,
-      "step": "DECLARE_ATTACKERS",
+      "snapshotIndex": 14,
+      "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
         "Opponent discards down to 7 hand cards",
         "Opponent discards Mountain"
@@ -1082,7 +1077,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 33,
+        "game_seq": 37,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -1090,7 +1085,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "actionSeq": 33,
+      "actionSeq": 37,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -1177,7 +1172,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 33,
+      "actionSeq": 37,
       "actionType": "GAME_SELECT",
       "choiceCount": 3,
       "choices": [
@@ -1226,10 +1221,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 16,
+      "snapshotIndex": 17,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Badlands from hand onto the Battlefield",
         "TestPlayer skip attack"
       ],
       "turn": 3
@@ -1366,7 +1360,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 41,
+        "game_seq": 43,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -1374,7 +1368,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "actionSeq": 41,
+      "actionSeq": 43,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -1422,7 +1416,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 41,
+      "actionSeq": 43,
       "actionType": "GAME_SELECT",
       "choiceCount": 3,
       "choices": [
@@ -1459,7 +1453,7 @@
         27
       ],
       "message": "Play spells and abilities",
-      "phase": "COMBAT",
+      "phase": "POSTCOMBAT_MAIN",
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -1471,8 +1465,8 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 19,
-      "step": "DECLARE_ATTACKERS",
+      "snapshotIndex": 21,
+      "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [],
       "turn": 3
     },
@@ -1589,7 +1583,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 46,
+        "game_seq": 47,
         "message": "Select any target",
         "required": false,
         "respond_with": "choice=pN, or choice=no to cancel",
@@ -1602,7 +1596,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "actionSeq": 46,
+      "actionSeq": 47,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -1754,7 +1748,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 47,
+        "game_seq": 52,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
@@ -1772,7 +1766,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 47,
+      "actionSeq": 52,
       "actionType": "GAME_TARGET",
       "choiceCount": 2,
       "choices": [
@@ -1811,7 +1805,7 @@
       },
       "player": "TestPlayer",
       "responseType": "index",
-      "snapshotIndex": 24,
+      "snapshotIndex": 25,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [],
       "turn": 4
@@ -1920,7 +1914,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 52,
+        "game_seq": 53,
         "message": "Select any target",
         "required": false,
         "respond_with": "choice=pN, or choice=no to cancel",
@@ -1942,7 +1936,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 52,
+      "actionSeq": 53,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -1975,7 +1969,7 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 25,
+      "snapshotIndex": 27,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [],
       "turn": 4
@@ -2093,7 +2087,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2179,7 +2173,7 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 1,
+        "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
@@ -2244,7 +2238,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,
@@ -2351,7 +2345,7 @@
       "args": {
         "choice": "no"
       },
-      "gameSeq": 5,
+      "gameSeq": 9,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2477,7 +2471,7 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 5,
+        "game_seq": 9,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -2490,7 +2484,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 5,
+      "gameSeq": 9,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 8,
@@ -2581,7 +2575,7 @@
       "args": {
         "choice": "p14"
       },
-      "gameSeq": 15,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2697,7 +2691,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 15,
+        "game_seq": 18,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -2711,7 +2705,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 15,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 12,
@@ -2967,7 +2961,7 @@
       "args": {
         "choice": "no"
       },
-      "gameSeq": 26,
+      "gameSeq": 28,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3073,7 +3067,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (Opponent)",
-        "game_seq": 26,
+        "game_seq": 28,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
@@ -3086,7 +3080,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 26,
+      "gameSeq": 28,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 20,
@@ -3295,7 +3289,7 @@
       "args": {
         "choice": "p10"
       },
-      "gameSeq": 33,
+      "gameSeq": 37,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3428,7 +3422,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 33,
+        "game_seq": 37,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -3442,7 +3436,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 33,
+      "gameSeq": 37,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 24,
@@ -3612,7 +3606,7 @@
       "args": {
         "choice": "no"
       },
-      "gameSeq": 41,
+      "gameSeq": 43,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3745,7 +3739,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 41,
+        "game_seq": 43,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -3759,7 +3753,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 41,
+      "gameSeq": 43,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 28,
@@ -3929,7 +3923,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 46,
+      "gameSeq": 47,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4043,7 +4037,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 46,
+        "game_seq": 47,
         "message": "Select any target",
         "required": false,
         "respond_with": "choice=pN, or choice=no to cancel",
@@ -4062,7 +4056,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 46,
+      "gameSeq": 47,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 32,
@@ -4080,7 +4074,7 @@
       "args": {
         "choice": "1"
       },
-      "gameSeq": 47,
+      "gameSeq": 52,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4187,7 +4181,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 47,
+        "game_seq": 52,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
@@ -4211,7 +4205,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 47,
+      "gameSeq": 52,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 34,
@@ -4229,7 +4223,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 52,
+      "gameSeq": 53,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4334,7 +4328,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 52,
+        "game_seq": 53,
         "message": "Select any target",
         "required": false,
         "respond_with": "choice=pN, or choice=no to cancel",
@@ -4362,7 +4356,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 52,
+      "gameSeq": 53,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 36,
