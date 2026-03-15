@@ -313,6 +313,72 @@ class TestRenderDecision:
             render_decision(decision, snap)
 
 
+class TestItemsRendering:
+    """Tests for multi-amount Items header rendering."""
+
+    def _make_items_decision(self, *, total_min: int | None = None, total_max: int | None = None) -> dict:
+        d: dict = {
+            "index": 0,
+            "snapshotIndex": 5,
+            "player": "Alice",
+            "turn": 3,
+            "phase": "COMBAT",
+            "step": "FIRST_COMBAT_DAMAGE",
+            "actionType": "GAME_GET_MULTI_AMOUNT",
+            "responseType": "multi_amount",
+            "message": "Assign damage",
+            "choices": [],
+            "items": [
+                {"description": "Savannah Lions, P/T: 2/1", "min": 0, "max": 2},
+                {"description": "Grizzly Bears, P/T: 2/2", "min": 0, "max": 2},
+            ],
+            "choiceCount": 0,
+            "isForced": False,
+            "chosen": None,
+            "chosenArgs": {"amounts": [1, 1]},
+            "actionResult": {"success": True},
+            "llmEventIndices": [],
+            "subsequentActions": [],
+        }
+        if total_min is not None:
+            d["totalMin"] = total_min
+        if total_max is not None:
+            d["totalMax"] = total_max
+        return d
+
+    def test_equal_totals_simplified(self) -> None:
+        snap = _make_snapshot()
+        decision = self._make_items_decision(total_min=2, total_max=2)
+        text = render_decision(decision, snap)
+        assert "Items (2): total=2" in text
+        assert "total_min" not in text
+        assert "total_max" not in text
+
+    def test_unequal_totals_show_both(self) -> None:
+        snap = _make_snapshot()
+        decision = self._make_items_decision(total_min=0, total_max=3)
+        text = render_decision(decision, snap)
+        assert "Items (2): total_min=0, total_max=3" in text
+
+    def test_only_total_min_set(self) -> None:
+        snap = _make_snapshot()
+        decision = self._make_items_decision(total_min=2)
+        text = render_decision(decision, snap)
+        assert "Items (2): total_min=2" in text
+
+    def test_only_total_max_set(self) -> None:
+        snap = _make_snapshot()
+        decision = self._make_items_decision(total_max=5)
+        text = render_decision(decision, snap)
+        assert "Items (2): total_max=5" in text
+
+    def test_no_totals_set(self) -> None:
+        snap = _make_snapshot()
+        decision = self._make_items_decision()
+        text = render_decision(decision, snap)
+        assert "Items (2)\n" in text or text.endswith("Items (2)")
+
+
 class TestFormatChoice:
     def test_simple_string(self) -> None:
         assert _format_choice("Yes") == "Yes"
