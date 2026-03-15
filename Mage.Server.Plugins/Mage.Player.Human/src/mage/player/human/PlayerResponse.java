@@ -90,6 +90,15 @@ public class PlayerResponse implements Serializable, Copyable<PlayerResponse> {
         this.asyncWantCheat = null;
     }
 
+    public boolean hasSyncResponse() {
+        return responseString != null
+                || responseUUID != null
+                || responseBoolean != null
+                || responseInteger != null
+                || responseManaType != null
+                || responseManaPlayerId != null;
+    }
+
     public String getActiveAction() {
         return this.activeAction;
     }

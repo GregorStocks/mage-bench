@@ -313,7 +313,19 @@ public class HumanPlayer extends PlayerImpl {
             game.getState().setPriorityPlayerId(getId());
         }
 
-        responseOpenedForAnswer = false;
+        if (isExecutingMacro()) {
+            responseOpenedForAnswer = false;
+            return;
+        }
+
+        // Open the response window before firing the callback so an immediate
+        // bridge reply cannot sit in waitResponseOpen() and get stranded until a
+        // later prompt reuses the same response object.
+        synchronized (response) {
+            response.clear();
+            response.setActiveAction(game, DebugUtil.getMethodNameWithSource(1, "method"));
+            responseOpenedForAnswer = true;
+        }
     }
 
     /**
@@ -326,6 +338,7 @@ public class HumanPlayer extends PlayerImpl {
         ;
 
         if (isExecutingMacro()) {
+            responseOpenedForAnswer = false;
             pullResponseFromQueue(game);
 //            logger.info("MACRO pull from queue: " + response.toString());
 //            try {
@@ -336,30 +349,26 @@ public class HumanPlayer extends PlayerImpl {
         }
 
         boolean loop = true;
+        boolean firstWait = true;
+        String activeAction = DebugUtil.getMethodNameWithSource(1, "method");
         while (loop) {
             // start waiting for next answer
-            response.clear();
-            response.setActiveAction(game, DebugUtil.getMethodNameWithSource(1, "method"));
             game.resumeTimer(getTurnControlledBy());
 
             loop = false;
             synchronized (response) { // TODO: synchronized response smells bad here, possible deadlocks? Need research
-                // Set responseOpenedForAnswer INSIDE the synchronized block so that
-                // setResponseBoolean/waitResponseOpen cannot see the flag, acquire
-                // the monitor, and call notifyAll() before we enter wait().
-                // Previously this was set outside the synchronized block, creating a
-                // race window where the notification was lost and the game thread
-                // blocked forever — especially on slow CI machines with fast auto-pass.
-                responseOpenedForAnswer = true;
+                if (!firstWait) {
+                    response.clear();
+                    response.setActiveAction(game, activeAction);
+                    responseOpenedForAnswer = true;
+                }
                 try {
-                    // Check async signals before waiting to avoid lost-wakeup:
-                    // signalPlayerConcede/signalPlayerCheat can fire between
-                    // response.clear() and here, setting the async flag and
-                    // calling notifyAll() before we enter wait().  Without this
-                    // guard the notification is lost and the game thread blocks
-                    // forever (the concede sits in the queue but checkConcede is
-                    // never called).
-                    if (!response.getAsyncWantConcede() && !response.getAsyncWantCheat()) {
+                    // The callback may already have been answered before we got
+                    // here; in that case preserve the response instead of
+                    // clearing it and waiting again.
+                    if (!response.hasSyncResponse()
+                            && !response.getAsyncWantConcede()
+                            && !response.getAsyncWantCheat()) {
                         response.wait(); // start waiting a response.notifyAll command from CALL thread (client answer)
                     }
                 } catch (InterruptedException ignore) {
@@ -368,6 +377,7 @@ public class HumanPlayer extends PlayerImpl {
                     game.pauseTimer(getTurnControlledBy());
                 }
             }
+            firstWait = false;
 
             // async command: concede by any player
             // game recived immediately response on OTHER player concede -- need to process end game and continue to wait
