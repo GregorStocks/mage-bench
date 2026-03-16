@@ -286,9 +286,9 @@ def analyze_decision_accuracy(
     """
     print_section("DECISION ATTRIBUTION ANALYSIS")
 
-    MERGE_WINDOW = 3
+    MERGE_WINDOW = 3  # noqa: N806
     # Minimum word overlap fraction to consider two annotations about the same blunder
-    MIN_OVERLAP_FRAC = 0.25
+    MIN_OVERLAP_FRAC = 0.25  # noqa: N806
 
     merge_candidates: list[tuple[str, list[int], dict[int, dict]]] = []
 

@@ -864,7 +864,7 @@ def _run_replay_on_bridge(
 class _MCPToolDef:
     name: str
     description: str
-    inputSchema: dict | None
+    inputSchema: dict | None  # noqa: N815 — MCP protocol field name
 
 
 def _pilot_script_from_replay_script(script: list[dict]) -> list[dict]:

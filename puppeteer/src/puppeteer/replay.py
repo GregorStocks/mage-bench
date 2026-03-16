@@ -108,7 +108,7 @@ async def execute_replay_script(
     seen_oracle_cards: set[str] = set()
     tool_call_count = 0
 
-    _RENDERED_TOOLS = frozenset({"pass_priority", "get_action_choices", "choose_action"})
+    _RENDERED_TOOLS = frozenset({"pass_priority", "get_action_choices", "choose_action"})  # noqa: N806
 
     for call in script:
         if _is_meta_script_step(call):

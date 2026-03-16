@@ -42,7 +42,7 @@ DEFAULT_MODEL = "google/gemini-2.0-flash-001"
 PERMANENT_FAILURE_EXIT_CODE = 3
 
 
-class PermanentLLMFailure(Exception):
+class PermanentLLMFailureError(Exception):
     """Raised when the LLM is permanently unreachable (model not found, credits exhausted)."""
 
 
@@ -71,7 +71,7 @@ MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
 class _McpToolLike(Protocol):
     name: str
     description: str | None
-    inputSchema: dict | None
+    inputSchema: dict | None  # noqa: N815 — MCP protocol field name
 
 
 class _ToolFunctionLike(Protocol):
@@ -1393,7 +1393,7 @@ async def run_pilot_loop(
                     )
                 except ToolExecutionError:
                     pass
-                raise PermanentLLMFailure(reason) from None
+                raise PermanentLLMFailureError(reason) from None
 
             # Transient error - keep actions flowing while waiting to retry
             try:
@@ -1631,7 +1631,7 @@ def main() -> int:
         )
     except KeyboardInterrupt:
         pass
-    except PermanentLLMFailure as e:
+    except PermanentLLMFailureError as e:
         logger.error("[pilot] Permanent LLM failure: %s", e)
         return PERMANENT_FAILURE_EXIT_CODE
 
