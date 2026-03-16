@@ -1,0 +1,10 @@
+{
+  "title": "Expand PMD ruleset for Java bridge code",
+  "description": "The PMD ruleset in Mage.Client.Bridge/pmd-ruleset.xml currently has 8 low-noise rules (unused code, empty statements, etc.). Consider adding more rules that catch real bugs without too much noise:\n\n- AvoidReassigningParameters: catches subtle mutation bugs\n- SwitchStmtsShouldHaveDefault: missing default cases\n- MissingBreakInSwitch / ImplicitSwitchFallThrough: accidental fall-through\n- CloseResource: unclosed streams and connections\n\nEach rule should be added individually and tested against the current codebase to gauge noise level before committing.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["linting", "bridge"],
+  "created_at": "2026-03-16T12:00:00.000000-07:00",
+  "updated_at": "2026-03-16T12:00:00.000000-07:00"
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Audit and tighten mypy module overrides",
+  "description": "Several modules have broad mypy overrides in puppeteer/pyproject.toml that suppress assignment, attr-defined, arg-type, union-attr, and call-overload errors: orchestrator, config, sleepwalker, pilot, auto_pass, process_manager. These were added for legacy code with dynamic patterns, but some may now be fixable. Audit each module's actual mypy violations, fix what's straightforward, and narrow the overrides to only what's genuinely needed.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["linting", "typing", "puppeteer"],
+  "created_at": "2026-03-16T12:00:00.000000-07:00",
+  "updated_at": "2026-03-16T12:00:00.000000-07:00"
+}
