@@ -2,6 +2,8 @@
 """Conductor workspace setup script.
 
 Creates shared directories and symlinks plugins/images for client modules.
+Sets up per-worktree Maven local repository to prevent cross-worktree
+artifact corruption.
 
 Usage:
     worktree-setup.py
@@ -9,6 +11,7 @@ Usage:
 
 import hashlib
 import shutil
+import subprocess
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -21,6 +24,49 @@ PORT_RANGE_START = 4321
 PORT_RANGE_SIZE = 200
 
 
+def _find_main_worktree_root() -> Path | None:
+    """Return the root of the main git worktree, or None if detection fails."""
+    result = subprocess.run(
+        ["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+        capture_output=True,
+        text=True,
+        cwd=PROJECT_ROOT,
+    )
+    if result.returncode != 0:
+        return None
+    return Path(result.stdout.strip()).parent
+
+
+def _seed_m2_repo(m2_repo: Path) -> str | None:
+    """Seed the per-worktree Maven local repository via CoW reflink copy.
+
+    Returns a description of the seed source, or None if no seed was used.
+    """
+    main_root = _find_main_worktree_root()
+    main_m2_repo = main_root / ".m2-repo" if main_root else None
+    global_m2_repo = Path.home() / ".m2" / "repository"
+
+    # Pick the best seed source
+    if main_m2_repo and main_m2_repo != m2_repo and main_m2_repo.is_dir():
+        source = main_m2_repo
+        label = f"main worktree ({main_root})"
+    elif global_m2_repo.is_dir():
+        source = global_m2_repo
+        label = "~/.m2/repository"
+    else:
+        m2_repo.mkdir(parents=True, exist_ok=True)
+        return None
+
+    # CoW reflink copy: near-instant on btrfs, falls back to regular copy elsewhere.
+    # Resolve source to follow symlinks (e.g. ~/.m2/repository -> /other/disk),
+    # otherwise cp -a copies the symlink itself instead of an isolated directory.
+    subprocess.run(
+        ["cp", "-a", "--reflink=auto", str(source.resolve()), str(m2_repo)],
+        check=True,
+    )
+    return label
+
+
 def main() -> None:
     # Create scratch directory (avoids /tmp permission issues in Claude Code)
     (PROJECT_ROOT / "tmp").mkdir(exist_ok=True)
@@ -30,6 +76,19 @@ def main() -> None:
 
     # Ensure shared images directory exists
     SHARED_IMAGES.mkdir(parents=True, exist_ok=True)
+
+    # Per-worktree Maven local repository (prevents cross-worktree artifact corruption)
+    m2_repo = PROJECT_ROOT / ".m2-repo"
+    seed_source: str | None = None
+    if not m2_repo.exists():
+        seed_source = _seed_m2_repo(m2_repo)
+
+    # Write .mvn/maven.config so ALL Maven invocations use the per-worktree repo
+    # (Maven reads this from the project root's .mvn/ dir, even from subdirectories)
+    maven_config = PROJECT_ROOT / ".mvn" / "maven.config"
+    maven_config_content = f"-Dmaven.repo.local={m2_repo.resolve()}\n"
+    if not maven_config.exists() or maven_config.read_text() != maven_config_content:
+        maven_config.write_text(maven_config_content)
 
     # Symlink plugins/images to shared location for each client module
     for module in CLIENT_MODULES:
@@ -83,6 +142,9 @@ def main() -> None:
 
     print("mage-bench workspace ready.")
     print(f"  Website port: {port} (for worktree '{worktree_name}')")
+    print(f"  Maven repo: {m2_repo} (per-worktree)")
+    if seed_source:
+        print(f"    Seeded from {seed_source} (CoW reflink)")
     print("  Build cache: ~/.m2/build-cache")
     print("  Images: ~/.mage-bench/images (symlinked from */plugins/images)")
 

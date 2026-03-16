@@ -3,6 +3,7 @@
 import importlib.util
 import json
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 from unittest.mock import MagicMock, call, patch
 
@@ -601,17 +602,40 @@ class TestFinalizeIssuePr:
 
 
 class TestWorktreeSetup:
-    def test_creates_symlinks(self, tmp_path: Path) -> None:
+    def _setup_project(self, tmp_path: Path) -> Path:
+        """Create a project root with .mvn/ dir (as exists in real repos)."""
         project_root = tmp_path / "project"
         project_root.mkdir()
-        shared_images = tmp_path / "shared-images"
+        (project_root / ".mvn").mkdir()
+        return project_root
 
+    @contextmanager
+    def _patches(
+        self,
+        project_root: Path,
+        tmp_path: Path,
+        shared_images: Path,
+        main_worktree_root: Path | None = None,
+    ):
+        """Common patches for worktree-setup tests."""
         with (
             patch.object(worktree_setup, "PROJECT_ROOT", project_root),
             patch.object(worktree_setup, "SHARED_IMAGES", shared_images),
             patch.object(worktree_setup, "CLIENT_MODULES", ["Mod-A"]),
             patch("pathlib.Path.home", return_value=tmp_path),
+            patch.object(
+                worktree_setup,
+                "_find_main_worktree_root",
+                return_value=main_worktree_root,
+            ),
         ):
+            yield
+
+    def test_creates_symlinks_and_maven_config(self, tmp_path: Path) -> None:
+        project_root = self._setup_project(tmp_path)
+        shared_images = tmp_path / "shared-images"
+
+        with self._patches(project_root, tmp_path, shared_images):
             worktree_setup.main()
 
         # Shared dirs created
@@ -623,9 +647,18 @@ class TestWorktreeSetup:
         assert link.is_symlink()
         assert link.resolve() == shared_images.resolve()
 
+        # Per-worktree Maven local repo created
+        assert (project_root / ".m2-repo").is_dir()
+
+        # maven.config written with absolute path
+        maven_config = project_root / ".mvn" / "maven.config"
+        assert maven_config.exists()
+        content = maven_config.read_text()
+        assert content.startswith("-Dmaven.repo.local=")
+        assert str(project_root.resolve() / ".m2-repo") in content
+
     def test_existing_dir_moved(self, tmp_path: Path) -> None:
-        project_root = tmp_path / "project"
-        project_root.mkdir()
+        project_root = self._setup_project(tmp_path)
         shared_images = tmp_path / "shared-images"
 
         # Pre-existing images directory with a file
@@ -633,12 +666,7 @@ class TestWorktreeSetup:
         mod_dir.mkdir(parents=True)
         (mod_dir / "card.jpg").write_text("img data")
 
-        with (
-            patch.object(worktree_setup, "PROJECT_ROOT", project_root),
-            patch.object(worktree_setup, "SHARED_IMAGES", shared_images),
-            patch.object(worktree_setup, "CLIENT_MODULES", ["Mod-A"]),
-            patch("pathlib.Path.home", return_value=tmp_path),
-        ):
+        with self._patches(project_root, tmp_path, shared_images):
             worktree_setup.main()
 
         # File moved to shared location
@@ -648,8 +676,7 @@ class TestWorktreeSetup:
         assert link.is_symlink()
 
     def test_existing_symlink_untouched(self, tmp_path: Path) -> None:
-        project_root = tmp_path / "project"
-        project_root.mkdir()
+        project_root = self._setup_project(tmp_path)
         shared_images = tmp_path / "shared-images"
         shared_images.mkdir(parents=True)
 
@@ -658,17 +685,70 @@ class TestWorktreeSetup:
         plugins_dir.mkdir(parents=True)
         (plugins_dir / "images").symlink_to(shared_images)
 
-        with (
-            patch.object(worktree_setup, "PROJECT_ROOT", project_root),
-            patch.object(worktree_setup, "SHARED_IMAGES", shared_images),
-            patch.object(worktree_setup, "CLIENT_MODULES", ["Mod-A"]),
-            patch("pathlib.Path.home", return_value=tmp_path),
-        ):
+        with self._patches(project_root, tmp_path, shared_images):
             worktree_setup.main()
 
         link = plugins_dir / "images"
         assert link.is_symlink()
         assert link.resolve() == shared_images.resolve()
+
+    def test_seeds_m2_repo_from_main_worktree(self, tmp_path: Path) -> None:
+        project_root = self._setup_project(tmp_path)
+        shared_images = tmp_path / "shared-images"
+
+        # Simulate a main worktree with a populated .m2-repo
+        main_root = tmp_path / "main-worktree"
+        main_root.mkdir()
+        main_m2 = main_root / ".m2-repo"
+        main_m2.mkdir()
+        (main_m2 / "org").mkdir()
+        (main_m2 / "org" / "example.jar").write_text("artifact")
+
+        with self._patches(project_root, tmp_path, shared_images, main_worktree_root=main_root):
+            worktree_setup.main()
+
+        # .m2-repo seeded from main worktree
+        seeded_jar = project_root / ".m2-repo" / "org" / "example.jar"
+        assert seeded_jar.exists()
+        assert seeded_jar.read_text() == "artifact"
+
+    def test_skips_seed_when_m2_repo_exists(self, tmp_path: Path) -> None:
+        project_root = self._setup_project(tmp_path)
+        shared_images = tmp_path / "shared-images"
+
+        # Pre-existing .m2-repo with different content
+        m2_repo = project_root / ".m2-repo"
+        m2_repo.mkdir()
+        (m2_repo / "existing.txt").write_text("keep me")
+
+        # Main worktree has .m2-repo too
+        main_root = tmp_path / "main-worktree"
+        main_root.mkdir()
+        main_m2 = main_root / ".m2-repo"
+        main_m2.mkdir()
+        (main_m2 / "other.jar").write_text("other")
+
+        with self._patches(project_root, tmp_path, shared_images, main_worktree_root=main_root):
+            worktree_setup.main()
+
+        # Existing content preserved, no seed overwrite
+        assert (m2_repo / "existing.txt").read_text() == "keep me"
+        assert not (m2_repo / "other.jar").exists()
+
+    def test_seeds_from_global_m2_when_no_main_worktree(self, tmp_path: Path) -> None:
+        project_root = self._setup_project(tmp_path)
+        shared_images = tmp_path / "shared-images"
+
+        # Simulate ~/.m2/repository with a dep
+        global_m2 = tmp_path / ".m2" / "repository"
+        global_m2.mkdir(parents=True)
+        (global_m2 / "guava.jar").write_text("dep")
+
+        with self._patches(project_root, tmp_path, shared_images):
+            worktree_setup.main()
+
+        # .m2-repo seeded from ~/.m2/repository
+        assert (project_root / ".m2-repo" / "guava.jar").read_text() == "dep"
 
 
 # ===========================================================================
