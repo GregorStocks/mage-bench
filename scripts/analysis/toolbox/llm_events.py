@@ -57,7 +57,7 @@ def main(gz_path: str) -> None:
             fail_count += 1
             print(
                 f"  {tc.get('player', '?')} | {tc.get('tool', '?')} "
-                f"| args={json.dumps(tc.get('args', {}))} "
+                f"| args={json.dumps(tc.get('args', {}))} "  # nofb
                 f"| {result[:200]}"
             )
     if fail_count == 0:

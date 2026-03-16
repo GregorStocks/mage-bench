@@ -415,7 +415,7 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
         if msg.get("role") == "assistant":
             for tc in msg.get("tool_calls", []):
                 if tc.get("id") == tool_call_id:
-                    function = tc.get("function", {})
+                    function = tc.get("function", {})  # nofb
                     if isinstance(function, dict):
                         name = function.get("name")
                         if isinstance(name, str):

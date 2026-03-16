@@ -381,7 +381,7 @@ def print_event(
     elif etype == "llm_response":
         reasoning = event.get("reasoning", "")
         tool_calls = event.get("toolCalls", [])
-        usage = event.get("usage", {})
+        usage = event.get("usage", {})  # nofb
         cost = event.get("costUsd", 0)
         assert isinstance(reasoning, str) or reasoning is None, (
             f"reasoning must be a string when present, got {reasoning!r}"

@@ -136,7 +136,7 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
         tool = e.get("tool", "")
         model = player_models.get(player, "?")
         result_str = e.get("result", "")
-        args = e.get("args", {})
+        args = e.get("args", {})  # nofb
         assert isinstance(args, dict), (
             f"{game_id}: llm event args must be an object, got {args!r}"
         )

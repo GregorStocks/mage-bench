@@ -183,7 +183,7 @@ def resolve_preset(
     if not player.preset:
         return
 
-    presets = presets_data.get("presets", {})
+    presets = presets_data["presets"]
     pdata = presets.get(player.preset)
     if pdata is None:
         raise ValueError(f"Unknown preset: {player.preset!r}. Available: {sorted(presets.keys())}")
@@ -220,7 +220,7 @@ def _validate_name_parts(personalities: dict[str, dict], presets_data: dict, mod
     pool = get_active_presets(presets_data)
     if not pool:
         return
-    presets = presets_data.get("presets", {})
+    presets = presets_data["presets"]
     models_by_id = {m["id"]: m for m in models_data.get("models", [])}
     errors: list[str] = []
     for preset_key in pool:
@@ -257,9 +257,9 @@ def _generate_player_name(
 ) -> str:
     """Generate a player name from model name_part + personality name_part."""
     models_by_id = {m["id"]: m for m in models_data.get("models", [])}
-    model = models_by_id.get(model_id, {})
+    model = models_by_id.get(model_id, {})  # nofb
     m_part = model.get("name_part", model_id.split("/")[-1][:6])
-    p_data = personalities.get(personality_key, {})
+    p_data = personalities.get(personality_key, {})  # nofb
     p_part = p_data.get("name_part", personality_key[:7])
     return f"{m_part} {p_part}"
 
@@ -337,13 +337,14 @@ def _resolve_randoms(
         # Apply model-level settings from models.json
         if player.model:
             models_by_id = {m["id"]: m for m in models_data.get("models", [])}
-            model_entry = models_by_id.get(player.model, {})
-            if player.ignore_providers is None and "ignore_providers" in model_entry:
-                player.ignore_providers = model_entry["ignore_providers"]
-            if player.provider_order is None and "provider_order" in model_entry:
-                player.provider_order = model_entry["provider_order"]
-            if player.cache_control is None and "cache_control" in model_entry:
-                player.cache_control = model_entry["cache_control"]
+            model_entry = models_by_id.get(player.model)
+            if model_entry is not None:
+                if player.ignore_providers is None and "ignore_providers" in model_entry:
+                    player.ignore_providers = model_entry["ignore_providers"]
+                if player.provider_order is None and "provider_order" in model_entry:
+                    player.provider_order = model_entry["provider_order"]
+                if player.cache_control is None and "cache_control" in model_entry:
+                    player.cache_control = model_entry["cache_control"]
 
             if player.provider != DEFAULT_LLM_PROVIDER:
                 assert player.ignore_providers is None, (
@@ -354,13 +355,14 @@ def _resolve_randoms(
                 )
 
             # Re-roll expressive personality if model skips them (personality infection prevention)
-            if was_random_personality and model_entry.get("skip_expressive_personalities"):
-                p_data = personalities.get(player.personality, {})
+            if was_random_personality and model_entry is not None and model_entry.get("skip_expressive_personalities"):
+                assert player.personality is not None
+                p_data = personalities[player.personality]
                 if p_data.get("expressive"):
                     non_expressive = [
                         k
                         for k in available_personalities
-                        if k not in used_personalities and not personalities.get(k, {}).get("expressive")
+                        if k not in used_personalities and not personalities[k].get("expressive")
                     ]
                     assert non_expressive, (
                         f"No non-expressive personalities available for model {player.model!r} "

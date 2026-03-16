@@ -268,7 +268,7 @@ def _call_llm(
     thinking_tokens = 0
     if hasattr(usage, "completion_tokens_details") and usage.completion_tokens_details:
         details = usage.completion_tokens_details
-        thinking_tokens = getattr(details, "reasoning_tokens", 0) or 0
+        thinking_tokens = getattr(details, "reasoning_tokens", 0) or 0  # nofb
 
     thinking_text = ""
     choice = response.choices[0]

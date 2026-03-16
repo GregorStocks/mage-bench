@@ -29,7 +29,7 @@ _PERSONALITIES_JSON = _ROOT / "puppeteer" / "personalities.json"
 def _build_key_to_preset(presets_data: dict) -> dict[str, str]:
     """Build player_key -> preset_name mapping from presets.json."""
     mapping: dict[str, str] = {}
-    for name, pdata in presets_data.get("presets", {}).items():
+    for name, pdata in presets_data["presets"].items():
         model_id = pdata.get("model", "")
         effort = pdata.get("reasoning_effort")
         key = f"{model_id}::{effort}" if effort else model_id

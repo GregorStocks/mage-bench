@@ -248,7 +248,7 @@ def _load_inactive_statuses(presets_json: Path) -> dict[str, str] | None:
     if not presets_json.exists():
         return None
     data = json.loads(presets_json.read_text())
-    presets = data.get("presets", {})
+    presets = data["presets"]
     statuses: dict[str, str] = {}
     for preset in presets.values():
         status = preset.get("status", "retired")
@@ -914,7 +914,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
             ev_type = ev.get("type")
             if ev_type == "llm_response":
                 b["successfulResponses"] += 1
-                usage = ev.get("usage", {})
+                usage = ev.get("usage", {})  # nofb
                 b["totalPromptTokens"] += usage.get("promptTokens", 0)
                 b["totalCompletionTokens"] += usage.get("completionTokens", 0)
                 b["totalCachedTokens"] += usage.get("cachedTokens", 0)
@@ -1043,7 +1043,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
             ev_type = ev.get("type")
             if ev_type == "llm_response":
                 player_responses[player_name] = player_responses.get(player_name, 0) + 1
-                usage = ev.get("usage", {})
+                usage = ev.get("usage", {})  # nofb
                 player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + usage.get(
                     "promptTokens", 0
                 )

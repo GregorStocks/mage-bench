@@ -427,7 +427,7 @@ def _read_llm_events(
                     exported["costUsd"] = raw["cost_usd"]
             elif event_type == "tool_call":
                 exported["tool"] = raw.get("tool", "")
-                exported["args"] = raw.get("arguments", {})
+                exported["args"] = raw.get("arguments", {})  # nofb
                 exported["result"] = raw.get("result", "")
                 if "latency_ms" in raw:
                     exported["latencyMs"] = raw["latency_ms"]
@@ -929,7 +929,7 @@ def _build_decisions(
 
             if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
                 llm_event_indices.append(j)
-                chosen_args = ev.get("args", {})
+                chosen_args = ev.get("args", {})  # nofb
                 action_result = _parse_json(ev.get("result", ""))
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result

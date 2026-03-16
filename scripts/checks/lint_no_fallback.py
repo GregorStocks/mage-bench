@@ -1,15 +1,24 @@
 """Lint for silent fallback patterns banned by AGENTS.md.
 
 AGENTS.md says "never add graceful fallbacks, silent defaults, or
-backwards-compatibility shims."  This script enforces a subset of that
-rule by catching `or []`, `or {}`, and `or ""` patterns using AST
-analysis.  There is no suppression mechanism — restructure the code instead.
+backwards-compatibility shims."  This script enforces that rule by
+catching several pattern families using AST analysis.
+
+Checked patterns:
+  - `x or []`, `x or {}`, `x or ""` — silent fallback via boolean or
+  - `.get(key, {})` — empty dict default hiding a missing key
+  - `getattr(obj, attr, <non-None>)` — attribute fallback hiding a
+    missing attribute
+  - bare `except:` — catches everything including KeyboardInterrupt
+  - `except Exception: pass` — silently swallows all errors
+
+Suppression: add `# nofb` to the end of a flagged line to suppress
+the violation.  Use this only for genuinely optional fields (e.g.
+variable-schema exported data, optional sub-objects).
 
 Patterns NOT checked (and why):
   - `or 0` / `or 0.0`: too many legitimate uses (nullable API token counts)
-  - `except Exception`: mix of cleanup/reraise/logging; ruff BLE001 exists
-    but false-positive rate is too high for blanket enforcement
-  - `.get(key, default)`: 200+ matches, overwhelmingly legitimate
+  - `.get(key, [])` / `.get(key, "")`: planned for follow-up PRs
 """
 
 import ast
@@ -22,23 +31,44 @@ SCAN_DIRS = [
     REPO_ROOT / "scripts",
 ]
 
+SUPPRESSION_COMMENT = "# nofb"
+
 
 def _is_empty_literal(node: ast.expr) -> str | None:
     """Return a description if `node` is [], {}, or ""; else None."""
     if isinstance(node, ast.List) and not node.elts:
-        return "or []"
+        return "[]"
     if isinstance(node, ast.Dict) and not node.keys:
-        return "or {}"
+        return "{}"
     if (
         isinstance(node, ast.Constant)
         and node.value == ""
         and isinstance(node.value, str)
     ):
-        return 'or ""'
+        return '""'
     return None
 
 
-def _check_file(path: Path, source_lines: list[str]) -> list[str]:
+def _is_suppressed(
+    source_lines: list[str], lineno: int, end_lineno: int | None = None
+) -> bool:
+    """Check if any source line in range contains the suppression comment.
+
+    For single-line nodes, only checks lineno.  For multi-line nodes (e.g.
+    a .get() call split across lines by the formatter), checks all lines
+    from lineno to end_lineno inclusive.
+    """
+    if end_lineno is None:
+        end_lineno = lineno
+    for ln in range(lineno, end_lineno + 1):
+        if SUPPRESSION_COMMENT in source_lines[ln - 1]:
+            return True
+    return False
+
+
+def _check_file(
+    path: Path, source_lines: list[str], repo_root: Path = REPO_ROOT
+) -> list[str]:
     """Return lint errors for a single file."""
     try:
         tree = ast.parse("".join(source_lines), filename=str(path))
@@ -46,20 +76,78 @@ def _check_file(path: Path, source_lines: list[str]) -> list[str]:
         return []
 
     errors = []
+    rel = path.relative_to(repo_root)
+
     for node in ast.walk(tree):
-        if not isinstance(node, ast.BoolOp) or not isinstance(node.op, ast.Or):
-            continue
-        # Check all values except the first (the first is the "real" value,
-        # the rest are fallbacks).
-        for value in node.values[1:]:
-            desc = _is_empty_literal(value)
-            if desc is None:
-                continue
-            lineno = value.lineno
-            rel = path.relative_to(REPO_ROOT)
-            errors.append(
-                f"{rel}:{lineno}: {desc} (silent fallback — restructure the code)"
+        # --- or [] / or {} / or "" ---
+        if isinstance(node, ast.BoolOp) and isinstance(node.op, ast.Or):
+            for value in node.values[1:]:
+                desc = _is_empty_literal(value)
+                if desc is None:
+                    continue
+                lineno = value.lineno
+                if _is_suppressed(source_lines, lineno):
+                    continue
+                errors.append(
+                    f"{rel}:{lineno}: or {desc} (silent fallback — restructure the code)"
+                )
+
+        # --- .get(key, {}) ---
+        elif (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "get"
+            and len(node.args) >= 2
+            and isinstance(node.args[1], ast.Dict)
+            and not node.args[1].keys
+        ):
+            lineno = node.args[1].lineno
+            if not _is_suppressed(source_lines, lineno, node.end_lineno):
+                errors.append(
+                    f"{rel}:{lineno}: .get(key, {{}})"
+                    " (silent default — use explicit key access or None check)"
+                )
+
+        # --- getattr(obj, attr, <non-None>) ---
+        elif (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Name)
+            and node.func.id == "getattr"
+            and len(node.args) >= 3
+        ):
+            default = node.args[2]
+            is_none = isinstance(default, ast.Constant) and default.value is None
+            if not is_none:
+                lineno = default.lineno
+                if not _is_suppressed(source_lines, lineno, node.end_lineno):
+                    errors.append(
+                        f"{rel}:{lineno}: getattr with non-None default"
+                        " (silent fallback — use explicit None check)"
+                    )
+
+        # --- bare except: / except Exception: pass ---
+        elif isinstance(node, ast.ExceptHandler):
+            is_bare = node.type is None
+            is_exception_pass = (
+                isinstance(node.type, ast.Name)
+                and node.type.id == "Exception"
+                and len(node.body) == 1
+                and isinstance(node.body[0], ast.Pass)
             )
+            if is_bare:
+                lineno = node.lineno
+                if not _is_suppressed(source_lines, lineno):
+                    errors.append(
+                        f"{rel}:{lineno}: bare except"
+                        " (catches KeyboardInterrupt — use specific exception)"
+                    )
+            elif is_exception_pass:
+                lineno = node.lineno
+                if not _is_suppressed(source_lines, lineno):
+                    errors.append(
+                        f"{rel}:{lineno}: except Exception: pass"
+                        " (silently swallows errors — handle or propagate)"
+                    )
 
     return errors
 

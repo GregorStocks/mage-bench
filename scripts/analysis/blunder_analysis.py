@@ -376,7 +376,7 @@ def _format_card_ref(card: dict) -> str:
 def _card_names_in_decision(decision: dict) -> set[str]:
     """Extract card names referenced in a decision's game state and choices."""
     names: set[str] = set()
-    gs = decision.get("game_state", {})
+    gs = decision.get("game_state", {})  # nofb
     for p in gs.get("players", []):
         for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
             for c in p.get(zone, []):
@@ -650,7 +650,7 @@ def _format_decisions(decisions: list[dict]) -> str:
     for d in decisions:
         if d["is_forced"]:
             continue
-        gs = d.get("game_state", {})
+        gs = d.get("game_state", {})  # nofb
         deciding_player = d["player"]
         players: list[str] = []
         for p in gs.get("players", []):

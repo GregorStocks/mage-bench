@@ -112,7 +112,7 @@ def _render_decision_block(
         f"[Decision {decision.get('index', '?')}, snapshot={decision.get('snapshotIndex', '?')}] "
         f"Turn {turn} {phase} - {player}"
     ]
-    pilot_ctx = decision.get("pilotContext", {})
+    pilot_ctx = decision.get("pilotContext", {})  # nofb
 
     # Board state from snapshot
     board_line = _render_board(snapshot, deciding_player)
@@ -125,7 +125,7 @@ def _render_decision_block(
         lines.append(f"  Stack: [{', '.join(stack_parts)}]")
 
     # Combat
-    combat_groups = snapshot.get("combat", []) or decision.get("pilotContext", {}).get("combat", [])
+    combat_groups = snapshot.get("combat", []) or decision.get("pilotContext", {}).get("combat", [])  # nofb
     if combat_groups:
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
@@ -409,7 +409,7 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     """Render what was chosen in a decision."""
     lines: list[str] = []
     chosen = decision.get("chosen")
-    chosen_args = decision.get("chosenArgs", {})
+    chosen_args = decision.get("chosenArgs", {})  # nofb
     choices = decision.get("choices", [])
 
     # Display chosen

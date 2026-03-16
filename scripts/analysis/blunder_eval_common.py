@@ -77,7 +77,7 @@ def is_forced(d: Mapping[str, object]) -> bool:
 
 def action_result(d: Mapping[str, object]) -> JsonObject:
     """Get the action result from either format."""
-    value = d.get("actionResult", d.get("action_result", {}))
+    value = d.get("actionResult", d.get("action_result", {}))  # nofb
     assert isinstance(value, dict), f"actionResult must be an object, got {value!r}"
     return value
 

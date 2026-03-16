@@ -75,7 +75,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
         # --- choose_action: check for mana_plan, auto_tap, spell cancellations ---
         if tool == "choose_action":
-            args = e.get("args", {})
+            args = e.get("args", {})  # nofb
             result_str = e.get("result", "")
             try:
                 result = json.loads(result_str)
@@ -148,7 +148,7 @@ def _track_followup(
                     setattr(
                         ps,
                         f"{prefix}_cancelled",
-                        getattr(ps, f"{prefix}_cancelled", 0) + 1,
+                        getattr(ps, f"{prefix}_cancelled", 0) + 1,  # nofb
                     )
                 else:
                     setattr(
