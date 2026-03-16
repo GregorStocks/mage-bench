@@ -167,11 +167,13 @@ for (const game of loadAllGames()) {
     </p>
   </section>
 
-    <a href={`/season/${currentSeason}`} class="season-status" data-phase={seasonPhase}>
-      <span class="season-status-label">Season {currentSeason}</span>
-      <span class="season-status-separator"></span>
-      <span class="season-status-phase">{phaseLabel}</span>
-    </a>
+    {championBanner == null && (
+      <a href={`/season/${currentSeason}`} class="season-status" data-phase={seasonPhase}>
+        <span class="season-status-label">Season {currentSeason}</span>
+        <span class="season-status-separator"></span>
+        <span class="season-status-phase">{phaseLabel}</span>
+      </a>
+    )}
   </section>
 
   {championBanner != null && (
