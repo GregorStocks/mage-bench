@@ -78,7 +78,7 @@ function renderAttemptResponse(attempt: TournamentDraftAttempt): string {
     {[1, 2].map((roundNum: number) => {
       const roundPicks = draft.picks
         .map((p: TournamentDraftPick, idx: number) => ({ ...p, _idx: idx }))
-        .filter((p: TournamentDraftPick & { _idx: number }) => p.round === roundNum);
+        .filter((p) => p.round === roundNum);
       return (
         <div class={`draft-round draft-round-${roundNum}`}>
           <div class="draft-round-header">

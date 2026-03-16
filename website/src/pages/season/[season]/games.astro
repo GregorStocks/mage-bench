@@ -2,16 +2,15 @@
 import Base from '../../../layouts/Base.astro';
 import GameListView from '../../../components/GameListView.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
-import benchmarkData from '../../../data/benchmark-results.json';
 import { loadAllGames } from '../../../utils/load-games';
-import type { BenchmarkResults } from '../../../utils/season-data';
 import {
   hasDraft as seasonHasDraft,
   hasTournament as seasonHasTournament,
   loadAvailableSeasons,
+  loadBenchmarkResults,
 } from '../../../utils/season-data';
 
-const minBlunderVersion = (benchmarkData as BenchmarkResults).minBlunderVersion;
+const minBlunderVersion = loadBenchmarkResults().minBlunderVersion;
 
 export function getStaticPaths() {
   return loadAvailableSeasons().map(s => ({ params: { season: String(s) } }));
