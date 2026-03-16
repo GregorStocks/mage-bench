@@ -3467,6 +3467,7 @@ public class BridgeCallbackHandler {
         interactionsThisTurn++;
 
         int actionsPassed = 0;
+        int lastSeenGameSeq = 0; // deterministic game_seq from actionable callbacks (not lastGameView)
 
         // Route the "until" parameter: check step phases first, then cross-turn yields
         boolean yieldActive = false;
@@ -3548,6 +3549,7 @@ public class BridgeCallbackHandler {
                 // offset between bridge and server.  On slow CI machines this race
                 // causes golden test flakes (missing snapshots, timeouts).
                 if (armedClientSideYield && currentAction != null) {
+                    lastSeenGameSeq = currentAction.gameSeq();
                     synchronized (actionLock) {
                         pendingAction = null;
                     }
@@ -3570,7 +3572,6 @@ public class BridgeCallbackHandler {
         long startTime = System.currentTimeMillis();
         long lastProgressLogAt = startTime;
         int waitLoops = 0;
-        int lastSeenGameSeq = 0; // deterministic game_seq from actionable callbacks (not lastGameView)
         logger.info("[" + client.getUsername() + "] passPriority ENTER: until=" + until
             + " yieldActive=" + yieldActive
             + " pendingAction=" + (pendingAction != null)
