@@ -268,7 +268,12 @@ def _call_llm(
     thinking_tokens = 0
     if hasattr(usage, "completion_tokens_details") and usage.completion_tokens_details:
         details = usage.completion_tokens_details
-        thinking_tokens = getattr(details, "reasoning_tokens", 0) or 0  # nofb
+        if hasattr(details, "reasoning_tokens"):
+            raw_reasoning_tokens = details.reasoning_tokens
+            assert raw_reasoning_tokens is None or isinstance(raw_reasoning_tokens, int), (
+                f"reasoning_tokens must be an int when present, got {raw_reasoning_tokens!r}"
+            )
+            thinking_tokens = raw_reasoning_tokens or 0
 
     thinking_text = ""
     choice = response.choices[0]

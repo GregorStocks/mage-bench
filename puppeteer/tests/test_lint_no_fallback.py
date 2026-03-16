@@ -123,32 +123,6 @@ def test_ignores_specific_exception() -> None:
     assert _check(source) == []
 
 
-# --- # nofb suppression ---
-
-
-def test_nofb_suppresses_or_empty_list() -> None:
-    assert _check("x = y or []  # nofb\n") == []
-
-
-def test_nofb_suppresses_get_empty_dict() -> None:
-    assert _check("x = d.get('k', {})  # nofb\n") == []
-
-
-def test_nofb_suppresses_getattr() -> None:
-    assert _check("x = getattr(obj, 'a', 0)  # nofb\n") == []
-
-
-def test_nofb_suppresses_bare_except() -> None:
-    source = "try:\n    x()\nexcept:  # nofb\n    log()\n"
-    assert _check(source) == []
-
-
-def test_nofb_on_different_line_does_not_suppress() -> None:
-    source = "# nofb\nx = y or []\n"
-    errors = _check(source)
-    assert len(errors) == 1
-
-
 # --- multiple violations ---
 
 

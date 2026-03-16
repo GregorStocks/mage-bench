@@ -43,6 +43,16 @@ def _is_meta_script_step(step: dict) -> bool:
     return step.get("name") == _ASSERT_ACTION_STEP
 
 
+def _script_arguments(step: dict) -> dict:
+    """Return a replay-script step's arguments, asserting on malformed steps."""
+    assert "arguments" in step, f"Replay step {step.get('name', '?')!r} missing arguments"
+    arguments = step["arguments"]
+    assert isinstance(arguments, dict), (
+        f"Replay step {step.get('name', '?')!r} arguments must be an object, got {arguments!r}"
+    )
+    return dict(arguments)
+
+
 def _run_meta_script_step(step: dict, *, last_tool_name: str | None, last_result_text: str | None) -> None:
     """Validate the latest tool result against an assertion-only script step."""
     assert step.get("name") == _ASSERT_ACTION_STEP, f"Unknown meta script step: {step.get('name')!r}"
@@ -65,7 +75,7 @@ def _run_meta_script_step(step: dict, *, last_tool_name: str | None, last_result
             f"assert_action after {last_tool_name or '?'} expected action_pending=true, got: {last_result_text}"
         )
 
-    arguments = dict(step.get("arguments", {}))  # nofb
+    arguments = _script_arguments(step)
     allowed = set(_ASSERT_ACTION_FIELDS) | {"message_contains"}
     unknown = sorted(set(arguments) - allowed)
     if unknown:
@@ -116,7 +126,7 @@ async def execute_replay_script(
             continue
 
         name = call["name"]
-        arguments = dict(call.get("arguments", {}))  # nofb
+        arguments = _script_arguments(call)
         tool_call_count += 1
         board_tracker.inject(name, arguments)
         result_text = await call_tool(name, arguments)

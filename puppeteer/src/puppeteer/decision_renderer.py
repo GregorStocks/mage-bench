@@ -32,6 +32,15 @@ BASIC_LAND_NAMES = frozenset(
 )
 
 
+def _optional_object(data: dict, key: str) -> dict:
+    """Return an optional dict field, asserting on malformed payloads."""
+    value = data.get(key)
+    if value is None:
+        return {}
+    assert isinstance(value, dict), f"{key} must be an object when present, got {value!r}"
+    return value
+
+
 def render_decision(
     decision: dict,
     snapshot: dict,
@@ -112,7 +121,7 @@ def _render_decision_block(
         f"[Decision {decision.get('index', '?')}, snapshot={decision.get('snapshotIndex', '?')}] "
         f"Turn {turn} {phase} - {player}"
     ]
-    pilot_ctx = decision.get("pilotContext", {})  # nofb
+    pilot_ctx = _optional_object(decision, "pilotContext")
 
     # Board state from snapshot
     board_line = _render_board(snapshot, deciding_player)
@@ -125,7 +134,11 @@ def _render_decision_block(
         lines.append(f"  Stack: [{', '.join(stack_parts)}]")
 
     # Combat
-    combat_groups = snapshot.get("combat", []) or decision.get("pilotContext", {}).get("combat", [])  # nofb
+    combat_groups = snapshot.get("combat")
+    if combat_groups is None:
+        combat_groups = []
+    else:
+        assert isinstance(combat_groups, list), f"snapshot combat must be a list when present, got {combat_groups!r}"
     if combat_groups:
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
@@ -409,7 +422,7 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     """Render what was chosen in a decision."""
     lines: list[str] = []
     chosen = decision.get("chosen")
-    chosen_args = decision.get("chosenArgs", {})  # nofb
+    chosen_args = _optional_object(decision, "chosenArgs")
     choices = decision.get("choices", [])
 
     # Display chosen

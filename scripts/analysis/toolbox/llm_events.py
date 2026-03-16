@@ -55,9 +55,12 @@ def main(gz_path: str) -> None:
                 is_failure = True
         if is_failure:
             fail_count += 1
+            assert "args" in tc, f"tool_call event missing args: {tc!r}"
+            args = tc["args"]
+            assert isinstance(args, dict), f"tool_call args must be an object, got {args!r}"
             print(
                 f"  {tc.get('player', '?')} | {tc.get('tool', '?')} "
-                f"| args={json.dumps(tc.get('args', {}))} "  # nofb
+                f"| args={json.dumps(args)} "
                 f"| {result[:200]}"
             )
     if fail_count == 0:

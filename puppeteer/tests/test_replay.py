@@ -47,3 +47,17 @@ async def test_execute_replay_script_assert_action_raises_on_mismatch():
             system_prompt="System prompt",
             skip_postscript=True,
         )
+
+
+@pytest.mark.asyncio
+async def test_execute_replay_script_requires_arguments() -> None:
+    async def fake_call_tool(_name: str, _arguments: dict) -> str:
+        raise AssertionError("should not be called")
+
+    with pytest.raises(AssertionError, match="missing arguments"):
+        await execute_replay_script(
+            fake_call_tool,
+            [{"name": "pass_priority"}],
+            system_prompt="System prompt",
+            skip_postscript=True,
+        )

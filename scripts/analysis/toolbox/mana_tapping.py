@@ -75,7 +75,9 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
         # --- choose_action: check for mana_plan, auto_tap, spell cancellations ---
         if tool == "choose_action":
-            args = e.get("args", {})  # nofb
+            assert "args" in e, f"choose_action event missing args: {e!r}"
+            args = e["args"]
+            assert isinstance(args, dict), f"choose_action args must be an object, got {args!r}"
             result_str = e.get("result", "")
             try:
                 result = json.loads(result_str)
@@ -145,11 +147,12 @@ def _track_followup(
             if result.get("success"):
                 action = str(result.get("action_taken", ""))
                 if "cancelled_spell" in action:
-                    setattr(
-                        ps,
-                        f"{prefix}_cancelled",
-                        getattr(ps, f"{prefix}_cancelled", 0) + 1,  # nofb
-                    )
+                    if prefix == "mana_deferred":
+                        ps.mana_deferred_cancelled += 1
+                    else:
+                        raise AssertionError(
+                            f"Unexpected cancelled_spell follow-up for {prefix}: {result!r}"
+                        )
                 else:
                     setattr(
                         ps,

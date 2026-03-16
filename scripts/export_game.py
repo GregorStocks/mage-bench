@@ -427,7 +427,12 @@ def _read_llm_events(
                     exported["costUsd"] = raw["cost_usd"]
             elif event_type == "tool_call":
                 exported["tool"] = raw.get("tool", "")
-                exported["args"] = raw.get("arguments", {})  # nofb
+                assert "arguments" in raw, f"tool_call event missing arguments: {raw!r}"
+                arguments = raw["arguments"]
+                assert isinstance(arguments, dict), (
+                    f"tool_call arguments must be an object, got {arguments!r}"
+                )
+                exported["args"] = arguments
                 exported["result"] = raw.get("result", "")
                 if "latency_ms" in raw:
                     exported["latencyMs"] = raw["latency_ms"]
@@ -929,7 +934,12 @@ def _build_decisions(
 
             if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
                 llm_event_indices.append(j)
-                chosen_args = ev.get("args", {})  # nofb
+                assert "args" in ev, f"choose_action event missing args: {ev!r}"
+                raw_args = ev["args"]
+                assert isinstance(raw_args, dict), (
+                    f"choose_action args must be an object, got {raw_args!r}"
+                )
+                chosen_args = raw_args
                 action_result = _parse_json(ev.get("result", ""))
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result

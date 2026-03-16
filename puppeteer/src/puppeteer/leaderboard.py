@@ -914,11 +914,13 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
             ev_type = ev.get("type")
             if ev_type == "llm_response":
                 b["successfulResponses"] += 1
-                usage = ev.get("usage", {})  # nofb
-                b["totalPromptTokens"] += usage.get("promptTokens", 0)
-                b["totalCompletionTokens"] += usage.get("completionTokens", 0)
-                b["totalCachedTokens"] += usage.get("cachedTokens", 0)
-                b["totalReasoningTokens"] += usage.get("reasoningTokens", 0)
+                usage = ev.get("usage")
+                if usage is not None:
+                    assert isinstance(usage, dict), f"llm_response usage must be an object, got {usage!r}"
+                    b["totalPromptTokens"] += usage.get("promptTokens", 0)
+                    b["totalCompletionTokens"] += usage.get("completionTokens", 0)
+                    b["totalCachedTokens"] += usage.get("cachedTokens", 0)
+                    b["totalReasoningTokens"] += usage.get("reasoningTokens", 0)
             elif ev_type == "llm_error":
                 error_type = ev.get("errorType", "unknown")
                 b["errors"][error_type] = b["errors"].get(error_type, 0) + 1
@@ -1043,19 +1045,21 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
             ev_type = ev.get("type")
             if ev_type == "llm_response":
                 player_responses[player_name] = player_responses.get(player_name, 0) + 1
-                usage = ev.get("usage", {})  # nofb
-                player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + usage.get(
-                    "promptTokens", 0
-                )
-                player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + usage.get(
-                    "completionTokens", 0
-                )
-                player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + usage.get(
-                    "cachedTokens", 0
-                )
-                player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + usage.get(
-                    "reasoningTokens", 0
-                )
+                usage = ev.get("usage")
+                if usage is not None:
+                    assert isinstance(usage, dict), f"llm_response usage must be an object, got {usage!r}"
+                    player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + usage.get(
+                        "promptTokens", 0
+                    )
+                    player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + usage.get(
+                        "completionTokens", 0
+                    )
+                    player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + usage.get(
+                        "cachedTokens", 0
+                    )
+                    player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + usage.get(
+                        "reasoningTokens", 0
+                    )
             elif ev_type == "llm_error":
                 error_type = ev.get("errorType", "unknown")
                 if error_type == "timeout":

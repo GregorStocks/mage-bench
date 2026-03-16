@@ -257,10 +257,14 @@ def _generate_player_name(
 ) -> str:
     """Generate a player name from model name_part + personality name_part."""
     models_by_id = {m["id"]: m for m in models_data.get("models", [])}
-    model = models_by_id.get(model_id, {})  # nofb
-    m_part = model.get("name_part", model_id.split("/")[-1][:6])
-    p_data = personalities.get(personality_key, {})  # nofb
-    p_part = p_data.get("name_part", personality_key[:7])
+    model = models_by_id.get(model_id)
+    assert model is not None, f"Unknown model for generated player name: {model_id!r}"
+    assert "name_part" in model, f"Model {model_id!r} missing name_part"
+    p_data = personalities.get(personality_key)
+    assert p_data is not None, f"Unknown personality for generated player name: {personality_key!r}"
+    assert "name_part" in p_data, f"Personality {personality_key!r} missing name_part"
+    m_part = model["name_part"]
+    p_part = p_data["name_part"]
     return f"{m_part} {p_part}"
 
 
@@ -338,13 +342,13 @@ def _resolve_randoms(
         if player.model:
             models_by_id = {m["id"]: m for m in models_data.get("models", [])}
             model_entry = models_by_id.get(player.model)
-            if model_entry is not None:
-                if player.ignore_providers is None and "ignore_providers" in model_entry:
-                    player.ignore_providers = model_entry["ignore_providers"]
-                if player.provider_order is None and "provider_order" in model_entry:
-                    player.provider_order = model_entry["provider_order"]
-                if player.cache_control is None and "cache_control" in model_entry:
-                    player.cache_control = model_entry["cache_control"]
+            assert model_entry is not None, f"Unknown model: {player.model!r}"
+            if player.ignore_providers is None and "ignore_providers" in model_entry:
+                player.ignore_providers = model_entry["ignore_providers"]
+            if player.provider_order is None and "provider_order" in model_entry:
+                player.provider_order = model_entry["provider_order"]
+            if player.cache_control is None and "cache_control" in model_entry:
+                player.cache_control = model_entry["cache_control"]
 
             if player.provider != DEFAULT_LLM_PROVIDER:
                 assert player.ignore_providers is None, (
@@ -355,7 +359,7 @@ def _resolve_randoms(
                 )
 
             # Re-roll expressive personality if model skips them (personality infection prevention)
-            if was_random_personality and model_entry is not None and model_entry.get("skip_expressive_personalities"):
+            if was_random_personality and model_entry.get("skip_expressive_personalities"):
                 assert player.personality is not None
                 p_data = personalities[player.personality]
                 if p_data.get("expressive"):

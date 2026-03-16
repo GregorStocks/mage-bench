@@ -105,7 +105,8 @@ def _format_card_line(card_name: str, count: int, oracle: dict[str, dict]) -> st
     if card_name in BASIC_LAND_NAMES:
         return f"  {count}x {card_name} — Basic Land"
 
-    info = oracle.get(card_name, {})  # nofb
+    assert card_name in oracle, f"Missing oracle text for draft card {card_name!r}"
+    info = oracle[card_name]
     parts = [f"  {count}x {card_name}"]
     if info.get("mana_cost"):
         parts.append(info["mana_cost"])

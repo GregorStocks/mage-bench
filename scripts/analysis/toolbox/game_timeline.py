@@ -381,15 +381,15 @@ def print_event(
     elif etype == "llm_response":
         reasoning = event.get("reasoning", "")
         tool_calls = event.get("toolCalls", [])
-        usage = event.get("usage", {})  # nofb
+        usage = event.get("usage")
         cost = event.get("costUsd", 0)
         assert isinstance(reasoning, str) or reasoning is None, (
             f"reasoning must be a string when present, got {reasoning!r}"
         )
         if not isinstance(tool_calls, list):
             tool_calls = []
-        if not isinstance(usage, dict):
-            usage = {}
+        if usage is not None:
+            assert isinstance(usage, dict), f"usage must be an object when present, got {usage!r}"
         if not isinstance(cost, (int, float)) or isinstance(cost, bool):
             cost = 0.0
 
@@ -399,8 +399,8 @@ def print_event(
         tc_summary = ", ".join(
             str(tc.get("name", "?")) for tc in tool_calls if isinstance(tc, dict)
         )
-        prompt_t = usage.get("promptTokens", 0)
-        comp_t = usage.get("completionTokens", 0)
+        prompt_t = usage.get("promptTokens", 0) if usage else 0
+        comp_t = usage.get("completionTokens", 0) if usage else 0
         if not isinstance(prompt_t, int):
             prompt_t = 0
         if not isinstance(comp_t, int):

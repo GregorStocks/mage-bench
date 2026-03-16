@@ -12,10 +12,6 @@ Checked patterns:
   - bare `except:` — catches everything including KeyboardInterrupt
   - `except Exception: pass` — silently swallows all errors
 
-Suppression: add `# nofb` to the end of a flagged line to suppress
-the violation.  Use this only for genuinely optional fields (e.g.
-variable-schema exported data, optional sub-objects).
-
 Patterns NOT checked (and why):
   - `or 0` / `or 0.0`: too many legitimate uses (nullable API token counts)
   - `.get(key, [])` / `.get(key, "")`: planned for follow-up PRs
@@ -31,8 +27,6 @@ SCAN_DIRS = [
     REPO_ROOT / "scripts",
 ]
 
-SUPPRESSION_COMMENT = "# nofb"
-
 
 def _is_empty_literal(node: ast.expr) -> str | None:
     """Return a description if `node` is [], {}, or ""; else None."""
@@ -47,23 +41,6 @@ def _is_empty_literal(node: ast.expr) -> str | None:
     ):
         return '""'
     return None
-
-
-def _is_suppressed(
-    source_lines: list[str], lineno: int, end_lineno: int | None = None
-) -> bool:
-    """Check if any source line in range contains the suppression comment.
-
-    For single-line nodes, only checks lineno.  For multi-line nodes (e.g.
-    a .get() call split across lines by the formatter), checks all lines
-    from lineno to end_lineno inclusive.
-    """
-    if end_lineno is None:
-        end_lineno = lineno
-    for ln in range(lineno, end_lineno + 1):
-        if SUPPRESSION_COMMENT in source_lines[ln - 1]:
-            return True
-    return False
 
 
 def _check_file(
@@ -86,8 +63,6 @@ def _check_file(
                 if desc is None:
                     continue
                 lineno = value.lineno
-                if _is_suppressed(source_lines, lineno):
-                    continue
                 errors.append(
                     f"{rel}:{lineno}: or {desc} (silent fallback — restructure the code)"
                 )
@@ -102,11 +77,10 @@ def _check_file(
             and not node.args[1].keys
         ):
             lineno = node.args[1].lineno
-            if not _is_suppressed(source_lines, lineno, node.end_lineno):
-                errors.append(
-                    f"{rel}:{lineno}: .get(key, {{}})"
-                    " (silent default — use explicit key access or None check)"
-                )
+            errors.append(
+                f"{rel}:{lineno}: .get(key, {{}})"
+                " (silent default — use explicit key access or None check)"
+            )
 
         # --- getattr(obj, attr, <non-None>) ---
         elif (
@@ -119,11 +93,10 @@ def _check_file(
             is_none = isinstance(default, ast.Constant) and default.value is None
             if not is_none:
                 lineno = default.lineno
-                if not _is_suppressed(source_lines, lineno, node.end_lineno):
-                    errors.append(
-                        f"{rel}:{lineno}: getattr with non-None default"
-                        " (silent fallback — use explicit None check)"
-                    )
+                errors.append(
+                    f"{rel}:{lineno}: getattr with non-None default"
+                    " (silent fallback — use explicit None check)"
+                )
 
         # --- bare except: / except Exception: pass ---
         elif isinstance(node, ast.ExceptHandler):
@@ -136,18 +109,16 @@ def _check_file(
             )
             if is_bare:
                 lineno = node.lineno
-                if not _is_suppressed(source_lines, lineno):
-                    errors.append(
-                        f"{rel}:{lineno}: bare except"
-                        " (catches KeyboardInterrupt — use specific exception)"
-                    )
+                errors.append(
+                    f"{rel}:{lineno}: bare except"
+                    " (catches KeyboardInterrupt — use specific exception)"
+                )
             elif is_exception_pass:
                 lineno = node.lineno
-                if not _is_suppressed(source_lines, lineno):
-                    errors.append(
-                        f"{rel}:{lineno}: except Exception: pass"
-                        " (silently swallows errors — handle or propagate)"
-                    )
+                errors.append(
+                    f"{rel}:{lineno}: except Exception: pass"
+                    " (silently swallows errors — handle or propagate)"
+                )
 
     return errors
 

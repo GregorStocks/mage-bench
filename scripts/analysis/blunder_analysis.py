@@ -373,10 +373,18 @@ def _format_card_ref(card: dict) -> str:
     return line
 
 
+def _decision_game_state(decision: dict) -> dict:
+    """Return a decision's game_state, asserting on malformed inputs."""
+    assert "game_state" in decision, f"decision missing game_state: {decision!r}"
+    game_state = decision["game_state"]
+    assert isinstance(game_state, dict), f"game_state must be an object, got {game_state!r}"
+    return game_state
+
+
 def _card_names_in_decision(decision: dict) -> set[str]:
     """Extract card names referenced in a decision's game state and choices."""
     names: set[str] = set()
-    gs = decision.get("game_state", {})  # nofb
+    gs = _decision_game_state(decision)
     for p in gs.get("players", []):
         for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
             for c in p.get(zone, []):
@@ -650,7 +658,7 @@ def _format_decisions(decisions: list[dict]) -> str:
     for d in decisions:
         if d["is_forced"]:
             continue
-        gs = d.get("game_state", {})  # nofb
+        gs = _decision_game_state(d)
         deciding_player = d["player"]
         players: list[str] = []
         for p in gs.get("players", []):

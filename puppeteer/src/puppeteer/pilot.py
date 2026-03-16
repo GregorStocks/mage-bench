@@ -415,11 +415,15 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
         if msg.get("role") == "assistant":
             for tc in msg.get("tool_calls", []):
                 if tc.get("id") == tool_call_id:
-                    function = tc.get("function", {})  # nofb
-                    if isinstance(function, dict):
-                        name = function.get("name")
-                        if isinstance(name, str):
-                            return name
+                    function = tc.get("function")
+                    assert isinstance(function, dict), (
+                        f"assistant tool call {tool_call_id!r} missing function payload: {tc!r}"
+                    )
+                    name = function.get("name")
+                    assert isinstance(name, str), (
+                        f"assistant tool call {tool_call_id!r} missing function name: {tc!r}"
+                    )
+                    return name
             break
     return ""
 

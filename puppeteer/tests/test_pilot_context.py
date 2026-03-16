@@ -328,6 +328,16 @@ def test_find_tool_name_no_assistant():
     assert _find_tool_name(history, 1, "call_1") == ""
 
 
+def test_find_tool_name_requires_function_payload():
+    history = [
+        {"role": "assistant", "content": None, "tool_calls": [{"id": "call_1", "type": "function"}]},
+        _make_tool_msg("call_1"),
+    ]
+
+    with pytest.raises(AssertionError, match="missing function payload"):
+        _find_tool_name(history, 1, "call_1")
+
+
 # ---------------------------------------------------------------------------
 # _render_context
 # ---------------------------------------------------------------------------
