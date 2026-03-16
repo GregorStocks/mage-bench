@@ -336,6 +336,7 @@ public class BridgeClient {
             // Python polls the log file for this marker before sending the first game.
             System.out.println("POTATO_READY");
             System.out.flush();
+            @SuppressWarnings("PMD.CloseResource") // Wraps System.in — must not be closed
             java.io.BufferedReader stdinReader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
 
             // Background thread for pinging the server to stay connected

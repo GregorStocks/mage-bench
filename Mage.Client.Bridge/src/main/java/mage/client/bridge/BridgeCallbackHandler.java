@@ -1678,6 +1678,11 @@ public class BridgeCallbackHandler {
     public ChooseActionTool.Result chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
         interactionsThisTurn++;
         var result = new ChooseActionTool.Result();
+        // Local copies of parameters that may be nulled/reassigned during validation
+        Integer resolvedIndex = index;
+        String[] effectiveAttackers = attackers;
+        String[] effectiveBlockers = blockersArray;
+        String[] effectiveManaPlan = manaPlanArray;
         PendingAction action = pendingAction;
         if (action != null) {
             result.game_seq = action.gameSeq();
@@ -1709,27 +1714,27 @@ public class BridgeCallbackHandler {
         }
 
         // Batch combat: attackers
-        if (attackers != null && attackers.length > 0) {
+        if (effectiveAttackers != null && effectiveAttackers.length > 0) {
             String combatType = detectCombatSelect(action);
             if ("attackers".equals(combatType)) {
-                return handleBatchAttackers(attackers, action, result);
+                return handleBatchAttackers(effectiveAttackers, action, result);
             }
             // Not in declare_attackers — ignore the param and fall through
             logger.warn("[" + client.getUsername() + "] choose_action: ignoring attackers param (not in declare_attackers)");
             result.warning = "Ignored attackers parameter (not in declare_attackers phase)";
-            attackers = null;
+            effectiveAttackers = null;
         }
 
         // Batch combat: blockers
-        if (blockersArray != null && blockersArray.length > 0) {
+        if (effectiveBlockers != null && effectiveBlockers.length > 0) {
             String combatType = detectCombatSelect(action);
             if ("blockers".equals(combatType)) {
-                return handleBatchBlockers(blockersArray, action, result);
+                return handleBatchBlockers(effectiveBlockers, action, result);
             }
             // Not in declare_blockers — ignore the param and fall through
             logger.warn("[" + client.getUsername() + "] choose_action: ignoring blockers param (not in declare_blockers)");
             result.warning = "Ignored blockers parameter (not in declare_blockers phase)";
-            blockersArray = null;
+            effectiveBlockers = null;
         }
 
         ClientCallbackMethod method = action.method();
@@ -1738,11 +1743,11 @@ public class BridgeCallbackHandler {
         // GAME_CHOOSE_CHOICE uses text=Name or choice=N, so free-form strings
         // like "Black" must reach the action-specific validation instead.
         if (id != null && method != ClientCallbackMethod.GAME_CHOOSE_CHOICE) {
-            if (index != null) {
+            if (resolvedIndex != null) {
                 // Both provided — prefer id (it's more specific; index is usually a default value)
-                logger.warn("[" + client.getUsername() + "] choose_action: both id=" + id + " and index=" + index + " provided, preferring id");
-                result.warning = "Both id and index provided; used id=" + id + ", ignored index=" + index;
-                index = null;
+                logger.warn("[" + client.getUsername() + "] choose_action: both id=" + id + " and index=" + resolvedIndex + " provided, preferring id");
+                result.warning = "Both id and index provided; used id=" + id + ", ignored index=" + resolvedIndex;
+                resolvedIndex = null;
             }
             List<Object> choices = lastChoices;
             if (choices == null) {
@@ -1754,12 +1759,12 @@ public class BridgeCallbackHandler {
                 if (choices != null) {
                     for (int i = 0; i < choices.size(); i++) {
                         if ("special".equals(choices.get(i))) {
-                            index = i;
+                            resolvedIndex = i;
                             break;
                         }
                     }
                 }
-                if (index == null) {
+                if (resolvedIndex == null) {
                     return buildError(result, "invalid_choice",
                         "\"all\" is not available in current choices", true, action, true);
                 }
@@ -1768,12 +1773,12 @@ public class BridgeCallbackHandler {
                 if (choices != null) {
                     for (int i = 0; i < choices.size(); i++) {
                         if (resolvedUuid.equals(choices.get(i))) {
-                            index = i;
+                            resolvedIndex = i;
                             break;
                         }
                     }
                 }
-                if (index == null) {
+                if (resolvedIndex == null) {
                     return buildError(result, "invalid_choice",
                         "Object " + id + " not found in current choices", true, action, true);
                 }
@@ -1781,14 +1786,14 @@ public class BridgeCallbackHandler {
         }
 
         // Normalize empty mana_plan to null
-        if (manaPlanArray != null && manaPlanArray.length == 0) {
-            manaPlanArray = null;
+        if (effectiveManaPlan != null && effectiveManaPlan.length == 0) {
+            effectiveManaPlan = null;
         }
 
         // Auto-populate choices if the model skipped get_action_choices.
         // Use the captured action directly so the choice snapshot matches the
         // decision we're answering even if pendingAction changes concurrently.
-        if (index != null && lastChoices == null) {
+        if (resolvedIndex != null && lastChoices == null) {
             logger.info("[" + client.getUsername() + "] choose_action: auto-populating choices (get_action_choices was not called)");
             buildActionChoices(action, null, false);
         }
@@ -1816,8 +1821,8 @@ public class BridgeCallbackHandler {
                             "GAME_ASK requires choice=\"yes\" or choice=\"no\". "
                             + "This is a yes/no question.", true, action);
                     }
-                    if (index != null) {
-                        logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + index + " for GAME_ASK (boolean-only)");
+                    if (resolvedIndex != null) {
+                        logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + resolvedIndex + " for GAME_ASK (boolean-only)");
                     }
                     session.sendPlayerBoolean(gameId, answer);
                     result.action_taken = answer ? "yes" : "no";
@@ -1828,29 +1833,29 @@ public class BridgeCallbackHandler {
                     // When both are provided (some models send all params with defaults),
                     // try index first but fall through to answer if index is invalid.
                     boolean usedIndex = false;
-                    if (index != null) {
+                    if (resolvedIndex != null) {
                         List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                        if (choices == null || index < 0 || index >= choices.size()) {
-                            logChoiceOutOfRangeDiagnostic(method, index, choices);
+                        if (choices == null || resolvedIndex < 0 || resolvedIndex >= choices.size()) {
+                            logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
                             // Index is invalid — if answer is also available, fall through
                             if (answer != null) {
-                                logger.warn("[" + client.getUsername() + "] choose_action: index " + index
+                                logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
                                     + " out of range, falling through to answer=" + answer + " for GAME_SELECT");
                             } else {
                                 return buildError(result, "index_out_of_range",
-                                    "Index " + index + " is out of range"
+                                    "Index " + resolvedIndex + " is out of range"
                                     + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                                     + ". Call get_action_choices to see current options.", true, action, true);
                             }
                         } else {
-                            Object chosen = choices.get(index);
+                            Object chosen = choices.get(resolvedIndex);
                             if (chosen instanceof UUID chosenUuid) {
                                 // Validate mana plan before sending spell to server —
                                 // once sent, cancellation is async and confuses the model
-                                if (manaPlanArray != null) {
+                                if (effectiveManaPlan != null) {
                                     CopyOnWriteArrayList<ManaPlanEntry> parsedPlan;
                                     try {
-                                        parsedPlan = parseManaPlan(manaPlanArray);
+                                        parsedPlan = parseManaPlan(effectiveManaPlan);
                                     } catch (IllegalArgumentException e) {
                                         return buildError(result, "invalid_mana_plan",
                                             "Invalid mana_plan: " + e.getMessage()
@@ -1875,7 +1880,7 @@ public class BridgeCallbackHandler {
                                     manaPlanAutoTapFallback = true;
                                 }
                                 session.sendPlayerUUID(gameId, chosenUuid);
-                                result.action_taken = "selected_" + index;
+                                result.action_taken = "selected_" + resolvedIndex;
                                 usedIndex = true;
                             } else if (chosen instanceof String chosenStr) {
                                 session.sendPlayerString(gameId, chosenStr);
@@ -1883,7 +1888,7 @@ public class BridgeCallbackHandler {
                                 usedIndex = true;
                             } else {
                                 return buildError(result, "internal_error",
-                                    "Unexpected choice type at index " + index, false, action);
+                                    "Unexpected choice type at index " + resolvedIndex, false, action);
                             }
                         }
                     }
@@ -1906,24 +1911,24 @@ public class BridgeCallbackHandler {
                     // index = tap a mana source OR spend a mana type from pool, answer=false = cancel.
                     // When both are provided and index is invalid, fall through to answer.
                     boolean usedManaIndex = false;
-                    if (index != null) {
+                    if (resolvedIndex != null) {
                         List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                        if (choices == null || index < 0 || index >= choices.size()) {
-                            logChoiceOutOfRangeDiagnostic(method, index, choices);
+                        if (choices == null || resolvedIndex < 0 || resolvedIndex >= choices.size()) {
+                            logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
                             if (answer != null && !answer) {
-                                logger.warn("[" + client.getUsername() + "] choose_action: index " + index
+                                logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
                                     + " out of range, falling through to cancel for GAME_PLAY_MANA");
                             } else {
                                 return buildError(result, "index_out_of_range",
-                                    "Index " + index + " is out of range"
+                                    "Index " + resolvedIndex + " is out of range"
                                     + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                                     + ". Call get_action_choices to see current options.", true, action, true);
                             }
                         } else {
-                            Object manaChoice = choices.get(index);
+                            Object manaChoice = choices.get(resolvedIndex);
                             if (manaChoice instanceof UUID manaUuid) {
                                 session.sendPlayerUUID(gameId, manaUuid);
-                                result.action_taken = "tapped_mana_" + index;
+                                result.action_taken = "tapped_mana_" + resolvedIndex;
                                 usedManaIndex = true;
                             } else if (manaChoice instanceof ManaType manaType) {
                                 UUID manaPlayerId = getManaPoolPlayerId(gameId, lastGameView);
@@ -1936,7 +1941,7 @@ public class BridgeCallbackHandler {
                                 usedManaIndex = true;
                             } else {
                                 return buildError(result, "internal_error",
-                                    "Unsupported mana choice type at index " + index, false, action);
+                                    "Unsupported mana choice type at index " + resolvedIndex, false, action);
                             }
                         }
                     }
@@ -1978,29 +1983,29 @@ public class BridgeCallbackHandler {
                     boolean required = targetMsg.isFlag();
 
                     // Index takes priority over answer:false (models sometimes send both)
-                    if (index != null) {
+                    if (resolvedIndex != null) {
                         if (answer != null) {
                             logger.warn("[" + client.getUsername() + "] choose_action: ignoring answer=" + answer + " because index was also provided for GAME_TARGET");
                         }
                         List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                        if (choices != null && index >= 0 && index < choices.size()) {
-                            UUID targetUUID = (UUID) choices.get(index);
+                        if (choices != null && resolvedIndex >= 0 && resolvedIndex < choices.size()) {
+                            UUID targetUUID = (UUID) choices.get(resolvedIndex);
                             session.sendPlayerUUID(gameId, targetUUID);
-                            result.action_taken = "selected_target_" + index;
+                            result.action_taken = "selected_target_" + resolvedIndex;
                             break;
                         }
-                        logChoiceOutOfRangeDiagnostic(method, index, choices);
+                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
                         // Index out of range. For required targets, auto-select to avoid
                         // infinite retry loops. For optional targets, return an error so
                         // the model can retry with a valid index or answer=false.
                         if (!required) {
                             List<Object> targetChoices = lastChoices;
                             return buildError(result, "index_out_of_range",
-                                "Index " + index + " is out of range"
+                                "Index " + resolvedIndex + " is out of range"
                                 + (targetChoices != null ? " (valid: 0-" + (targetChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                                 + ". Call get_action_choices to see current targets.", true, action, true);
                         }
-                        logger.warn("[" + client.getUsername() + "] choose_action: index " + index
+                        logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
                             + " out of range for required GAME_TARGET (choices="
                             + (choices == null ? "null" : choices.size()) + "), auto-selecting");
                     } else if (answer != null && !answer) {
@@ -2036,23 +2041,23 @@ public class BridgeCallbackHandler {
                 }
 
                 case GAME_CHOOSE_ABILITY: {
-                    if (index == null) {
+                    if (resolvedIndex == null) {
                         return buildError(result, "missing_param",
                             "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see "
                             + "the available abilities, then choose_action with the index of the one you want.",
                             true, action, true);
                     }
                     List<Object> abilityChoices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                    if (abilityChoices == null || index < 0 || index >= abilityChoices.size()) {
-                        logChoiceOutOfRangeDiagnostic(method, index, abilityChoices);
+                    if (abilityChoices == null || resolvedIndex < 0 || resolvedIndex >= abilityChoices.size()) {
+                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, abilityChoices);
                         return buildError(result, "index_out_of_range",
-                            "Index " + index + " is out of range"
+                            "Index " + resolvedIndex + " is out of range"
                             + (abilityChoices != null ? " (valid: 0-" + (abilityChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                             + ". Call get_action_choices to see current options.", true, action, true);
                     }
-                    UUID abilityUUID = (UUID) abilityChoices.get(index);
+                    UUID abilityUUID = (UUID) abilityChoices.get(resolvedIndex);
                     session.sendPlayerUUID(gameId, abilityUUID);
-                    result.action_taken = "selected_ability_" + index;
+                    result.action_taken = "selected_ability_" + resolvedIndex;
                     break;
                 }
 
@@ -2109,21 +2114,21 @@ public class BridgeCallbackHandler {
                             + "Use text=\"" + id + "\" or choice=N with the current options.",
                             true, action, true);
                     }
-                    if (index == null) {
+                    if (resolvedIndex == null) {
                         return buildError(result, "missing_param",
                             "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE", true, action, true);
                     }
                     List<Object> choiceChoices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                    if (choiceChoices == null || index < 0 || index >= choiceChoices.size()) {
-                        logChoiceOutOfRangeDiagnostic(method, index, choiceChoices);
+                    if (choiceChoices == null || resolvedIndex < 0 || resolvedIndex >= choiceChoices.size()) {
+                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceChoices);
                         return buildError(result, "index_out_of_range",
-                            "Index " + index + " is out of range"
+                            "Index " + resolvedIndex + " is out of range"
                             + (choiceChoices != null ? " (valid: 0-" + (choiceChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                             + ". Call get_action_choices to see current options.", true, action, true);
                     }
-                    String choiceStr = (String) choiceChoices.get(index);
+                    String choiceStr = (String) choiceChoices.get(resolvedIndex);
                     session.sendPlayerString(gameId, choiceStr);
-                    result.action_taken = "selected_choice_" + index;
+                    result.action_taken = "selected_choice_" + resolvedIndex;
                     break;
                 }
 
@@ -2923,9 +2928,7 @@ public class BridgeCallbackHandler {
      * If player is null, defaults to this client's player name.
      */
     public GetGameLogTool.Result getGameLogSinceTurn(String player, int sinceTurn) {
-        if (player == null) {
-            player = client.getUsername();
-        }
+        String effectivePlayer = player != null ? player : client.getUsername();
 
         // Ensure cache is up to date
         pullBridgeEvents();
@@ -2946,11 +2949,11 @@ public class BridgeCallbackHandler {
             BridgeLogEntry e = allEvents.get(i);
             if ("BEGIN_TURN".equals(e.type())) {
                 int count = priorTurns.merge(e.activePlayer(), 1, Integer::sum);
-                if (player.equals(e.activePlayer()) && count == sinceTurn) {
+                if (effectivePlayer.equals(e.activePlayer()) && count == sinceTurn) {
                     // Found the target turn — priorTurns already includes this turn's
                     // count, but renderGameLogFlat will re-count this BEGIN_TURN event,
                     // so subtract 1 to avoid double-counting.
-                    priorTurns.merge(player, -1, Integer::sum);
+                    priorTurns.merge(effectivePlayer, -1, Integer::sum);
                     startIdx = i;
                     break;
                 }
@@ -2963,14 +2966,14 @@ public class BridgeCallbackHandler {
             result.log = renderGameLogFlat(subset, priorTurns, minChatCursor, true);
             result.truncated = false;
             result.since_turn = sinceTurn;
-            result.since_player = player;
+            result.since_player = effectivePlayer;
         } else {
             // Count total per-player turns to distinguish "trimmed" vs "hasn't happened"
-            int totalPlayerTurns = priorTurns.getOrDefault(player, 0);
+            int totalPlayerTurns = priorTurns.getOrDefault(effectivePlayer, 0);
             if (totalPlayerTurns > 0 && sinceTurn <= totalPlayerTurns) {
                 result.log = allRendered;
                 result.truncated = true;
-                result.since_player = player;
+                result.since_player = effectivePlayer;
             } else {
                 result.log = "";
                 result.truncated = false;
@@ -5256,10 +5259,10 @@ public class BridgeCallbackHandler {
         // Replace <br> tags with ": " before stripping other tags.
         // XMage uses <br> to separate label from card name (e.g. "Choose spell or ability to play<br>Hallowed Fountain").
         // Without this, the tag is stripped and the words run together.
-        s = s.replaceAll("(?i)<br\\s*/?>", ": ");
-        s = HTML_TAG_PATTERN.matcher(s).replaceAll("");
-        s = HEX_SUFFIX_PATTERN.matcher(s).replaceAll("");
-        return s;
+        String result = s.replaceAll("(?i)<br\\s*/?>", ": ");
+        result = HTML_TAG_PATTERN.matcher(result).replaceAll("");
+        result = HEX_SUFFIX_PATTERN.matcher(result).replaceAll("");
+        return result;
     }
 
     static String stripAbilityPickerOrdinalPrefix(String description, int zeroBasedIndex) {
