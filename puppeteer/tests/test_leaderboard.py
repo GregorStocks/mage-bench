@@ -1075,7 +1075,7 @@ def test_generate_leaderboard_blunder_score():
             ],
         ),
     ]
-    # totalTurns=10 per game (from _make_game)  # noqa: ERA001
+    # totalTurns=10 per game (from _make_game)
     games[0]["annotations"] = [
         {"type": "blunder", "player": "Alice", "severity": "major"},  # weight 4
         {"type": "blunder", "player": "Alice", "severity": "minor"},  # weight 1

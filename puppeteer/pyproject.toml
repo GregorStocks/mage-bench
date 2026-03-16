@@ -65,6 +65,7 @@ select = [
     "ERA",  # eradicate: commented-out code
     "N",    # pep8-naming: naming conventions
     "PT",   # flake8-pytest-style: pytest best practices
+    "S",    # flake8-bandit: security checks
 ]
 ignore = [
     "SIM105",  # contextlib.suppress - try/except/pass is fine
@@ -73,6 +74,11 @@ ignore = [
     "PT015",  # assert-False - used as unreachable-code marker in production scripts
     "PT018",  # composite assertions - intentional isinstance+truthy checks
     "PT019",  # fixture-param-without-value - idiomatic side-effect fixture pattern
+    "S101",   # assert - used pervasively for fail-fast validation
+    "S311",   # non-crypto random - game/matchmaking randomization, not security
+    "S603",   # subprocess-without-shell-equals-true - all subprocess calls are intentional
+    "S607",   # partial-path subprocess - mvn/git/java expected on PATH
+    "S314",   # xml.etree - parsing trusted local XMage config files
 ]
 external = []
 
@@ -85,6 +91,7 @@ known-first-party = ["puppeteer", "scripts", "schemas"]
 [tool.ruff.lint.per-file-ignores]
 "../scripts/add-missing-jumpstart-themes.py" = ["ERA001"]  # deck-variant section labels
 "../scripts/*-*.py" = ["N999"]  # hyphenated script filenames are intentional CLI names
+"tests/**" = ["S108", "S105", "S106", "S310"]  # test data: fake /tmp paths, test credentials, localhost URLs
 
 [tool.mypy]
 python_version = "3.11"

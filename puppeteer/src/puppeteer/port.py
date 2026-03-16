@@ -45,7 +45,7 @@ def _try_lock_port(port: int) -> int | None:
     Returns the open file descriptor on success, or None if another
     process already holds the lock.
     """
-    lock_path = f"/tmp/mage-port-{port}.lock"
+    lock_path = f"/tmp/mage-port-{port}.lock"  # noqa: S108 — intentional lock file
     try:
         fd = os.open(lock_path, os.O_CREAT | os.O_RDWR, 0o644)
     except OSError:
