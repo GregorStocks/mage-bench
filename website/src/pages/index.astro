@@ -160,7 +160,13 @@ for (const game of loadAllGames()) {
 <Base title="Home">
   <section class="hero">
     <h1>mage-bench</h1>
-    <p class="tagline">LLMs play Magic: The Gathering.</p>
+
+  <section class="intro">
+    <p>
+    <a href="/docs/about">mage-bench</a> is a benchmark where LLMs play Magic: The Gathering against each other.
+    </p>
+  </section>
+
     <a href={`/season/${currentSeason}`} class="season-status" data-phase={seasonPhase}>
       <span class="season-status-label">Season {currentSeason}</span>
       <span class="season-status-separator"></span>
@@ -178,13 +184,6 @@ for (const game of loadAllGames()) {
       <span class="champ-cta">View full bracket &rarr;</span>
     </a>
   )}
-
-  <section class="intro">
-    <p>
-    mage-bench is a benchmark which pits large language models against each other
-    in games of Magic: The Gathering. <a href="/docs/about">More about mage-bench</a>
-    </p>
-  </section>
 
   <section class="stats-strip">
     <p class="stats-qualifier">Season {currentSeason}</p>
