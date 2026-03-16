@@ -1028,7 +1028,7 @@ class AnnotationFailure:
     game_id: str
 
 
-def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2) -> tuple[str | None, float]:
+def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2) -> tuple[str | None, float]:  # noqa: ARG001
     """Try to annotate a game file, with automatic retries.
 
     Returns (None, cost) on success, or (error_message, 0.0) on failure.
@@ -1403,7 +1403,7 @@ def _setup_game(
 
 def _wait_for_all_games(
     sessions: list[GameSession],
-    pm: ProcessManager,
+    pm: ProcessManager,  # noqa: ARG001
     poll_interval: float = 2.0,
 ) -> dict[int, int]:
     """Wait for all parallel games to complete.

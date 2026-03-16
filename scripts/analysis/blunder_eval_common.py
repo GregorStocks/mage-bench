@@ -378,7 +378,7 @@ def compute_aftermath_index(
 def reverse_map_annotations(
     annotations: Sequence[Mapping[str, object]],
     decisions: Sequence[Mapping[str, object]],
-    snapshots: Sequence[Mapping[str, object]],
+    snapshots: Sequence[Mapping[str, object]],  # noqa: ARG001
 ) -> dict[int, int]:
     """Map annotation list indices to decision indices.
 
@@ -414,7 +414,7 @@ def reverse_map_annotations(
 def lookup_annotation_for_decision(
     decision: Mapping[str, object],
     annotations: Sequence[Mapping[str, object]],
-    snapshots: Sequence[Mapping[str, object]],
+    snapshots: Sequence[Mapping[str, object]],  # noqa: ARG001
 ) -> Mapping[str, object] | None:
     """Find the game-file annotation matching a decision, if any."""
     idx = decision_index(decision)

@@ -613,7 +613,7 @@ def _approach_per_decision_minimal(
     client: OpenAI,
     data: GameExport,
     decisions: list[dict[str, object]],
-    overview: str,
+    overview: str,  # noqa: ARG001
     model: str,
     approach_name: str,
 ) -> ExperimentResult:
