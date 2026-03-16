@@ -1,0 +1,141 @@
+/* Shared prose typography — used by blog content, scoring, about */
+
+.prose {
+  font-family: var(--font-prose);
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+.prose p {
+  color: var(--text-prose);
+  margin-bottom: 1.15rem;
+}
+
+.prose strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose a {
+  color: var(--accent-primary);
+  text-decoration-color: rgba(var(--accent-primary-rgb), 0.3);
+  text-underline-offset: 0.15em;
+  transition: text-decoration-color 0.2s;
+}
+
+.prose a:hover {
+  text-decoration-color: var(--accent-primary);
+}
+
+/* Headings within prose */
+
+.prose h2 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-default);
+}
+
+.prose h3 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Code */
+
+.prose code {
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  font-size: 0.78em;
+  color: #e8c4a0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.prose pre {
+  background: var(--bg-deep);
+  border: 1px solid var(--border-default);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: 0 6px 6px 0;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  border: none;
+  color: #c8c8d0;
+  font-size: 1em;
+}
+
+/* Blockquotes */
+
+.prose blockquote {
+  border-left: 3px solid var(--accent-primary);
+  padding: 0.75rem 1.25rem;
+  margin: 1.75rem 0;
+  background: rgba(var(--accent-primary-rgb), 0.04);
+  border-radius: 0 6px 6px 0;
+  color: #b8b8c0;
+  font-style: italic;
+}
+
+.prose blockquote p {
+  color: #b8b8c0;
+  margin-bottom: 0.5rem;
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Lists */
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1.35rem;
+  padding-left: 1.5rem;
+  color: var(--text-prose);
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose li::marker {
+  color: var(--accent-primary);
+}
+
+/* Media */
+
+.prose img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 1.5rem 0;
+}
+
+.prose hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-default) 20%, var(--border-default) 80%, transparent);
+  margin: 3rem 0;
+}

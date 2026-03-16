@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import '../styles/prose.css';
+import '../styles/shared.css';
 ---
 
 <Base title="Scoring">
@@ -138,10 +140,6 @@ import Base from '../layouts/Base.astro';
     border-bottom: 1px solid var(--border-default);
   }
 
-  .section {
-    margin-bottom: 2.5rem;
-  }
-
   h2 {
     font-family: var(--font-heading);
     color: var(--text-primary);
@@ -162,37 +160,6 @@ import Base from '../layouts/Base.astro';
     letter-spacing: 0.06em;
     margin-top: 2rem;
     margin-bottom: 0.75rem;
-  }
-
-  .prose {
-    font-family: var(--font-prose);
-    font-size: 1.15rem;
-    line-height: 1.8;
-  }
-
-  .prose p {
-    color: #d0d0d6;
-    margin-bottom: 1.15rem;
-  }
-
-  .prose strong {
-    color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  .prose em {
-    font-style: italic;
-  }
-
-  .prose a {
-    color: var(--accent-primary);
-    text-decoration-color: rgba(233, 69, 96, 0.3);
-    text-underline-offset: 0.15em;
-    transition: text-decoration-color 0.2s;
-  }
-
-  .prose a:hover {
-    text-decoration-color: var(--accent-primary);
   }
 
   /* ── Formula callout ── */
@@ -248,7 +215,7 @@ import Base from '../layouts/Base.astro';
   .weights-table td {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--border-subtle);
-    color: #d0d0d6;
+    color: var(--text-prose);
     font-family: var(--font-prose);
   }
 

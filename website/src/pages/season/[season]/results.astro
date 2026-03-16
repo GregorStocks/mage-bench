@@ -11,6 +11,7 @@ import {
 } from '../../../utils/season-data';
 import type { TournamentData, TournamentEntrant, TournamentMatch } from '../../../utils/season-data';
 import '../../../styles/game-list.css';
+import '../../../styles/shared.css';
 
 export function getStaticPaths() {
   return loadAvailableSeasons()
@@ -454,7 +455,7 @@ const hasDraft = !!tournament.draft;
                 const finalMatch = round.matches[0];
                 const champion = finalMatch?.winner_seed != null ? entrantsBySeed.get(finalMatch.winner_seed) ?? null : null;
                 return champion ? (
-                  <div class="champion-card" style="margin-top: 1rem;">
+                  <div class="champion-card lin-champion-card">
                     <span class="champion-trophy">&#127942;</span>
                     <span class="champion-name">{champion.display_name}</span>
                   </div>
@@ -502,24 +503,6 @@ const hasDraft = !!tournament.draft;
     color: var(--text-primary);
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
-  }
-
-  .tournament-meta {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .meta-chip {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.25rem 0.6rem;
-    background: rgba(20, 184, 166, 0.12);
-    border: 1px solid rgba(20, 184, 166, 0.3);
-    border-radius: 20px;
-    color: var(--accent-secondary);
-    text-transform: capitalize;
   }
 
   .tournament-how {
@@ -808,8 +791,8 @@ const hasDraft = !!tournament.draft;
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 0.75rem;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04));
-    border: 1px solid rgba(255, 215, 0, 0.3);
+    background: linear-gradient(135deg, rgba(var(--medal-gold-rgb), 0.12), rgba(var(--medal-gold-rgb), 0.04));
+    border: 1px solid rgba(var(--medal-gold-rgb), 0.3);
     border-radius: 6px;
   }
 
@@ -821,7 +804,11 @@ const hasDraft = !!tournament.draft;
   .champion-name {
     font-weight: 700;
     font-size: 0.95rem;
-    color: #ffd700;
+    color: var(--medal-gold);
+  }
+
+  .lin-champion-card {
+    margin-top: 1rem;
   }
 
   /* --- Linear Bracket (responsive) --- */
