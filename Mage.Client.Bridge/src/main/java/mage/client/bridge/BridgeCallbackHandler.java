@@ -3039,6 +3039,15 @@ public class BridgeCallbackHandler {
                 if (fetched != null && !fetched.isEmpty()) {
                     events = fetched;
                     newCursor = fetched.get(fetched.size() - 1).index() + 1;
+                    // Merge into cache for post-game fallback, using high-water dedup
+                    // to avoid duplicates without polluting order.
+                    int cacheHighWater = cachedBridgeEvents.isEmpty() ? -1
+                            : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index();
+                    for (BridgeLogEntry e : fetched) {
+                        if (e.index() > cacheHighWater) {
+                            cachedBridgeEvents.add(e);
+                        }
+                    }
                 }
             } catch (Exception e) {
                 logger.error("[" + client.getUsername() + "] Failed to fetch bridge events for history", e);
