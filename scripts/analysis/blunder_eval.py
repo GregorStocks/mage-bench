@@ -41,13 +41,17 @@ from scripts.analysis.blunder_eval_common import (
 _LOG_TZ = ZoneInfo("America/Los_Angeles")
 
 
-def _detected_flag(result: dict | None, *, play_key: str, label: str, allow_missing: bool) -> bool:
+def _detected_flag(
+    result: dict | None, *, play_key: str, label: str, allow_missing: bool
+) -> bool:
     """Return a result's detected flag, optionally allowing a missing entry."""
     if result is None:
         assert allow_missing, f"Missing {label} result for {play_key}"
         return False
     detected = result.get("detected")
-    assert isinstance(detected, bool), f"{label} result for {play_key} missing bool detected flag: {result!r}"
+    assert isinstance(detected, bool), (
+        f"{label} result for {play_key} missing bool detected flag: {result!r}"
+    )
     return detected
 
 
@@ -74,8 +78,12 @@ def compare_results(
             pk = play_key(game_id, entry["decision_index"])
             eval_entry = eval_results.get(pk)
             baseline_entry = baseline_results.get(pk)
-            eval_detected = _detected_flag(eval_entry, play_key=pk, label="eval", allow_missing=False)
-            base_detected = _detected_flag(baseline_entry, play_key=pk, label="baseline", allow_missing=True)
+            eval_detected = _detected_flag(
+                eval_entry, play_key=pk, label="eval", allow_missing=False
+            )
+            base_detected = _detected_flag(
+                baseline_entry, play_key=pk, label="baseline", allow_missing=True
+            )
 
             is_blunder = verdict == "blunder"
 
@@ -96,9 +104,15 @@ def compare_results(
                         "verdict": verdict,
                         "eval_detected": eval_detected,
                         "baseline_detected": base_detected,
-                        "baseline_description": baseline_entry.get("description") if baseline_entry else None,
-                        "eval_severity": eval_entry.get("severity") if eval_entry else None,
-                        "eval_description": eval_entry.get("description") if eval_entry else None,
+                        "baseline_description": baseline_entry.get("description")
+                        if baseline_entry
+                        else None,
+                        "eval_severity": eval_entry.get("severity")
+                        if eval_entry
+                        else None,
+                        "eval_description": eval_entry.get("description")
+                        if eval_entry
+                        else None,
                         "human_notes": entry.get("human_notes"),
                     }
                 )

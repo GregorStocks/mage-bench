@@ -77,7 +77,9 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
         if tool == "choose_action":
             assert "args" in e, f"choose_action event missing args: {e!r}"
             args = e["args"]
-            assert isinstance(args, dict), f"choose_action args must be an object, got {args!r}"
+            assert isinstance(args, dict), (
+                f"choose_action args must be an object, got {args!r}"
+            )
             result_str = e.get("result", "")
             try:
                 result = json.loads(result_str)

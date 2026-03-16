@@ -389,7 +389,9 @@ def print_event(
         if not isinstance(tool_calls, list):
             tool_calls = []
         if usage is not None:
-            assert isinstance(usage, dict), f"usage must be an object when present, got {usage!r}"
+            assert isinstance(usage, dict), (
+                f"usage must be an object when present, got {usage!r}"
+            )
         if not isinstance(cost, (int, float)) or isinstance(cost, bool):
             cost = 0.0
 

@@ -420,9 +420,7 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
                         f"assistant tool call {tool_call_id!r} missing function payload: {tc!r}"
                     )
                     name = function.get("name")
-                    assert isinstance(name, str), (
-                        f"assistant tool call {tool_call_id!r} missing function name: {tc!r}"
-                    )
+                    assert isinstance(name, str), f"assistant tool call {tool_call_id!r} missing function name: {tc!r}"
                     return name
             break
     return ""

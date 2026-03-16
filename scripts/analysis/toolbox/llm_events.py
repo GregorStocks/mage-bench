@@ -57,7 +57,9 @@ def main(gz_path: str) -> None:
             fail_count += 1
             assert "args" in tc, f"tool_call event missing args: {tc!r}"
             args = tc["args"]
-            assert isinstance(args, dict), f"tool_call args must be an object, got {args!r}"
+            assert isinstance(args, dict), (
+                f"tool_call args must be an object, got {args!r}"
+            )
             print(
                 f"  {tc.get('player', '?')} | {tc.get('tool', '?')} "
                 f"| args={json.dumps(args)} "

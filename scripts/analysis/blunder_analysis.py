@@ -377,7 +377,9 @@ def _decision_game_state(decision: dict) -> dict:
     """Return a decision's game_state, asserting on malformed inputs."""
     assert "game_state" in decision, f"decision missing game_state: {decision!r}"
     game_state = decision["game_state"]
-    assert isinstance(game_state, dict), f"game_state must be an object, got {game_state!r}"
+    assert isinstance(game_state, dict), (
+        f"game_state must be an object, got {game_state!r}"
+    )
     return game_state
 
 
