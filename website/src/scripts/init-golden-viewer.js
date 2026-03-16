@@ -8,6 +8,12 @@ import {
   parseJsonAttribute,
   setupPreviewLifecycle,
 } from "./spectator-runtime.js";
+import {
+  extractSystemMessages,
+  formatToolArgs,
+  mergeLlmEvents,
+  tryFormatJson,
+} from "./game-log-helpers.ts";
 
 export function initGoldenViewerPage(options) {
   var visualizer = options && options.root ? options.root : document.getElementById("visualizer");
@@ -172,39 +178,6 @@ export function initGoldenViewerPage(options) {
     return '<span class="llm-player ' + cls + '">' + escapeHtml(playerName) + "</span>";
   }
 
-  function formatToolArgs(args) {
-    if (!args || typeof args !== "object") {
-      return "";
-    }
-    var keys = Object.keys(args);
-    if (keys.length === 0) {
-      return "";
-    }
-    var parts = [];
-    keys.forEach(function (key) {
-      var value = args[key];
-      if (typeof value === "string" && value.length > 40) {
-        value = value.substring(0, 40) + "...";
-      } else if (typeof value === "object") {
-        var json = JSON.stringify(value);
-        value = json.substring(0, 40) + (json.length > 40 ? "..." : "");
-      }
-      parts.push(key + "=" + value);
-    });
-    return parts.join(", ");
-  }
-
-  function tryFormatJson(raw) {
-    if (!raw || typeof raw !== "string") {
-      return raw || "";
-    }
-    try {
-      return JSON.stringify(JSON.parse(raw), null, 2);
-    } catch {
-      return raw;
-    }
-  }
-
   function formatTimestamp(ts) {
     if (!ts) {
       return null;
@@ -226,71 +199,6 @@ export function initGoldenViewerPage(options) {
     span.textContent = parsed.display;
     span.title = parsed.full;
     return span;
-  }
-
-  function extractSystemMessages(toolCallEvent) {
-    if (!toolCallEvent.result) {
-      return [];
-    }
-    try {
-      var result = JSON.parse(toolCallEvent.result);
-      var chat = result.recent_chat || [];
-      var messages = [];
-      chat.forEach(function (message) {
-        if (typeof message === "string" && message.indexOf("[System]") !== -1) {
-          messages.push(message.replace("[System] ", ""));
-        }
-      });
-      return messages;
-    } catch {
-      return [];
-    }
-  }
-
-  function mergeLlmEvents(events) {
-    var merged = [];
-    var index = 0;
-    while (index < events.length) {
-      var event = events[index];
-      if (event.type === "llm_response") {
-        var toolResults = [];
-        var nextIndex = index + 1;
-        while (
-          nextIndex < events.length &&
-          events[nextIndex].type === "tool_call" &&
-          events[nextIndex].player === event.player
-        ) {
-          toolResults.push(events[nextIndex]);
-          nextIndex++;
-        }
-        var mergedSeq = event.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
-        merged.push({
-          type: "llm_merged",
-          ts: event.ts,
-          gameSeq: mergedSeq,
-          player: event.player,
-          reasoning: event.reasoning,
-          thinking: event.thinking,
-          toolCalls: event.toolCalls,
-          costUsd: event.costUsd,
-          toolResults: toolResults,
-        });
-        index = nextIndex;
-      } else if (event.type === "tool_call") {
-        merged.push({
-          type: "llm_merged",
-          ts: event.ts,
-          gameSeq: event.gameSeq || 0,
-          player: event.player,
-          toolResults: [event],
-        });
-        index++;
-      } else {
-        merged.push(event);
-        index++;
-      }
-    }
-    return merged;
   }
 
   function renderToolResult(toolCall) {
