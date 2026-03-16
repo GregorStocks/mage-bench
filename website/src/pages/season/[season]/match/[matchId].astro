@@ -9,6 +9,7 @@ import {
 } from '../../../../utils/season-data';
 import type { GameEntry } from '../../../../utils/load-games';
 import type { TournamentEntrant } from '../../../../utils/season-data';
+import '../../../../styles/shared.css';
 
 export function getStaticPaths() {
   const paths: Array<{ params: { season: string; matchId: string } }> = [];
@@ -149,19 +150,6 @@ function assert(cond: unknown, msg: string): asserts cond {
     max-width: 36rem;
     margin: 0 auto;
     padding: 1rem 0;
-  }
-
-  .back-link {
-    display: inline-block;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.85rem;
-    margin-bottom: 1.5rem;
-    transition: color 0.15s;
-  }
-
-  .back-link:hover {
-    color: var(--text-primary);
   }
 
   .match-header {

@@ -81,13 +81,13 @@
 }
 
 #internals-dashboard .metric-btn:hover {
-  border-color: #e94560;
+  border-color: var(--accent-primary);
   color: #e0e0e0;
 }
 
 #internals-dashboard .metric-btn.active {
-  background: #e94560;
-  border-color: #e94560;
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
   color: #fff;
 }
 
@@ -138,7 +138,7 @@
 
 #internals-dashboard .toggle-btn.active {
   background: var(--border-default);
-  color: #e94560;
+  color: var(--accent-primary);
   font-weight: 600;
 }
 
@@ -156,7 +156,7 @@
 }
 
 #internals-dashboard .filter-group input[type="number"]:focus {
-  border-color: #e94560;
+  border-color: var(--accent-primary);
 }
 
 #internals-dashboard .model-filter {
@@ -187,7 +187,7 @@
 }
 
 #internals-dashboard .model-filter-header input:focus {
-  border-color: #e94560;
+  border-color: var(--accent-primary);
 }
 
 #internals-dashboard .model-filter-header input::placeholder {
@@ -230,7 +230,7 @@
 }
 
 #internals-dashboard .model-checkbox input {
-  accent-color: #e94560;
+  accent-color: var(--accent-primary);
 }
 
 #internals-dashboard .color-dot {
@@ -289,7 +289,7 @@
 }
 
 #internals-dashboard .filters input:focus {
-  border-color: #e94560;
+  border-color: var(--accent-primary);
 }
 
 #internals-dashboard .filters input::placeholder {
@@ -327,11 +327,11 @@
 }
 
 #internals-dashboard th:hover {
-  color: #e94560;
+  color: var(--accent-primary);
 }
 
 #internals-dashboard th.sorted {
-  color: #e94560;
+  color: var(--accent-primary);
 }
 
 #internals-dashboard .sort-arrow {
@@ -386,11 +386,11 @@
 }
 
 #internals-dashboard #stats-table tbody tr:hover {
-  background: rgba(233, 69, 96, 0.08);
+  background: rgba(var(--accent-primary-rgb), 0.08);
 }
 
 #internals-dashboard #stats-table tbody tr.selected {
-  background: rgba(233, 69, 96, 0.15);
+  background: rgba(var(--accent-primary-rgb), 0.15);
 }
 
 #internals-dashboard #stats-table .rate-good {
@@ -402,7 +402,7 @@
 }
 
 #internals-dashboard #stats-table .rate-bad {
-  color: #e94560;
+  color: var(--accent-primary);
   font-weight: 600;
 }
 
@@ -435,7 +435,7 @@
 }
 
 #internals-dashboard .error-detail h2 {
-  color: #e94560;
+  color: var(--accent-primary);
   font-size: 1.1rem;
   margin-bottom: 1rem;
 }
@@ -469,14 +469,14 @@
 }
 
 #internals-dashboard .scenario-card:hover {
-  border-color: #e94560;
+  border-color: var(--accent-primary);
   background: #1a2a4e;
 }
 
 #internals-dashboard .scenario-name {
   font-size: 1rem;
   font-weight: 600;
-  color: #e94560;
+  color: var(--accent-primary);
   text-transform: capitalize;
 }
 

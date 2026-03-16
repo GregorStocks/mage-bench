@@ -35,7 +35,7 @@
 }
 #audit-decision-message {
   font-weight: 600;
-  color: #e94560;
+  color: var(--accent-primary);
   margin-bottom: 0.25rem;
 }
 #audit-decision-chosen { margin-bottom: 0.25rem; }
@@ -117,7 +117,7 @@
 
 #audit-submit-btn {
   padding: 0.45rem;
-  background: #e94560;
+  background: var(--accent-primary);
   color: white;
   border: none;
   border-radius: 6px;
@@ -165,7 +165,7 @@
   padding: 0.45rem;
   background: var(--border-default);
   color: #e0e0e0;
-  border: 1px solid #e94560;
+  border: 1px solid var(--accent-primary);
   border-radius: 6px;
   cursor: pointer;
   font-weight: 700;
@@ -173,7 +173,7 @@
   transition: all 0.15s;
   width: 100%;
 }
-#audit-mark-btn:hover { background: rgba(233,69,96,0.2); }
+#audit-mark-btn:hover { background: rgba(var(--accent-primary-rgb),0.2); }
 #audit-mark-btn:disabled { opacity: 0.3; cursor: not-allowed; border-color: var(--border-default); }
 
 #audit-nav-buttons { display: flex; gap: 0.4rem; }
@@ -216,7 +216,7 @@
 #audit-disambig-title {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #e94560;
+  color: var(--accent-primary);
   margin-bottom: 0.75rem;
 }
 .audit-disambig-item {
@@ -228,7 +228,7 @@
   cursor: pointer;
   transition: all 0.1s;
 }
-.audit-disambig-item:hover { background: rgba(233,69,96,0.1); border-color: #e94560; }
+.audit-disambig-item:hover { background: rgba(var(--accent-primary-rgb),0.1); border-color: var(--accent-primary); }
 .audit-disambig-player { font-weight: 700; color: #e0e0e0; }
 .audit-disambig-turn { color: var(--text-muted); font-size: 0.85rem; }
 .audit-disambig-message { color: #e0e0e0; font-size: 0.82rem; margin-top: 0.15rem; }
@@ -251,7 +251,7 @@
   width: 14px;
   height: 14px;
   border: 2px solid var(--text-muted);
-  border-top-color: #e94560;
+  border-top-color: var(--accent-primary);
   border-radius: 50%;
   animation: audit-spin 0.6s linear infinite;
   vertical-align: middle;

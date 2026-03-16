@@ -161,8 +161,8 @@ def test_get_players_config_json_empty():
     assert config.get_players_config_json() == ""
 
 
-def test_legacy_skeleton_treated_as_potato():
-    """Skeleton player type should be loaded as a PotatoPlayer."""
+def test_legacy_skeleton_rejected():
+    """Removed 'skeleton' player type should fail fast, not silently degrade."""
     config_data = {
         "players": [
             {"type": "skeleton", "name": "bones"},
@@ -175,10 +175,8 @@ def test_legacy_skeleton_treated_as_potato():
 
     try:
         config = Config(config_file=config_path)
-        config.load_config()
-        assert len(config.potato_players) == 1
-        assert config.potato_players[0].name == "bones"
-        assert isinstance(config.potato_players[0], PotatoPlayer)
+        with pytest.raises(AssertionError, match="Unknown player type"):
+            config.load_config()
     finally:
         config_path.unlink()
 

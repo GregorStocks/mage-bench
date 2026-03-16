@@ -8,6 +8,7 @@ import {
   parseDecklistCardEntry,
   loadTournament,
 } from '../../../utils/season-data';
+import '../../../styles/shared.css';
 
 export function getStaticPaths() {
   return loadAvailableSeasons()
@@ -93,22 +94,7 @@ const hasDraft = !!tournament.draft;
   }
 
   .tournament-meta {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    align-items: center;
     margin-bottom: 2rem;
-  }
-
-  .meta-chip {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.25rem 0.6rem;
-    background: rgba(20, 184, 166, 0.12);
-    border: 1px solid rgba(20, 184, 166, 0.3);
-    border-radius: 20px;
-    color: var(--accent-secondary);
-    text-transform: capitalize;
   }
 
   .entrants-grid {

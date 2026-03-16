@@ -632,25 +632,25 @@ const tournamentSize = tournament?.size ?? 0;
 
   /* Medal treatment for top 3 */
   table.canonical-sort tbody tr[data-rank="1"] {
-    background: linear-gradient(to right, rgba(255, 215, 0, 0.08), transparent 50%);
-    box-shadow: inset 3px 0 0 #ffd700;
+    background: linear-gradient(to right, rgba(var(--medal-gold-rgb), 0.08), transparent 50%);
+    box-shadow: inset 3px 0 0 var(--medal-gold);
   }
 
-  table.canonical-sort tbody tr[data-rank="1"] .rank-cell { color: #ffd700; }
+  table.canonical-sort tbody tr[data-rank="1"] .rank-cell { color: var(--medal-gold); }
 
   table.canonical-sort tbody tr[data-rank="2"] {
-    background: linear-gradient(to right, rgba(192, 192, 192, 0.06), transparent 50%);
-    box-shadow: inset 3px 0 0 #c0c0c0;
+    background: linear-gradient(to right, rgba(var(--medal-silver-rgb), 0.06), transparent 50%);
+    box-shadow: inset 3px 0 0 var(--medal-silver);
   }
 
-  table.canonical-sort tbody tr[data-rank="2"] .rank-cell { color: #c0c0c0; }
+  table.canonical-sort tbody tr[data-rank="2"] .rank-cell { color: var(--medal-silver); }
 
   table.canonical-sort tbody tr[data-rank="3"] {
-    background: linear-gradient(to right, rgba(205, 127, 50, 0.06), transparent 50%);
-    box-shadow: inset 3px 0 0 #cd7f32;
+    background: linear-gradient(to right, rgba(var(--medal-bronze-rgb), 0.06), transparent 50%);
+    box-shadow: inset 3px 0 0 var(--medal-bronze);
   }
 
-  table.canonical-sort tbody tr[data-rank="3"] .rank-cell { color: #cd7f32; }
+  table.canonical-sort tbody tr[data-rank="3"] .rank-cell { color: var(--medal-bronze); }
 
   /* Championship cutoff divider */
   .cutoff-row td {

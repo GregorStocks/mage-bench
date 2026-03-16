@@ -438,14 +438,6 @@ def _resolve_personality(
         player.prompt_suffix = pdata["prompt_suffix"]
 
 
-_DECK_TYPE_TO_DIR: dict[str, str] = {
-    "Variant Magic - Freeform Commander": "Commander",
-    "Variant Magic - Commander": "Commander",
-    "Constructed - Legacy": "Legacy",
-    "Constructed - Modern": "Modern",
-    "Constructed - Standard": "Standard",
-}
-
 # Maps XMage deck type to our registry directory in data/decks/
 _DECK_TYPE_TO_FORMAT_DIR: dict[str, str] = {
     "Variant Magic - Freeform Commander": "commander",
@@ -690,9 +682,8 @@ class Config:
                     self.replay_players.append(ReplayPlayer(name=name, deck=deck, script=player.get("script")))
                 elif player_type == "cpu":
                     self.cpu_players.append(CpuPlayer(name=name, deck=deck))
-                elif player_type == "skeleton":
-                    # Legacy: treat as potato for backwards compatibility
-                    self.potato_players.append(PotatoPlayer(name=name, deck=deck))
+                else:
+                    raise AssertionError(f"Unknown player type {player_type!r}")
 
             # Validate: only pilot players can have deck="choice"
             non_pilot = (
