@@ -3467,6 +3467,7 @@ public class BridgeCallbackHandler {
         interactionsThisTurn++;
 
         int actionsPassed = 0;
+        int lastSeenGameSeq = 0; // deterministic game_seq from actionable callbacks (not lastGameView)
 
         // Route the "until" parameter: check step phases first, then cross-turn yields
         boolean yieldActive = false;
@@ -3548,6 +3549,7 @@ public class BridgeCallbackHandler {
                 // offset between bridge and server.  On slow CI machines this race
                 // causes golden test flakes (missing snapshots, timeouts).
                 if (armedClientSideYield && currentAction != null) {
+                    lastSeenGameSeq = currentAction.gameSeq();
                     synchronized (actionLock) {
                         pendingAction = null;
                     }
@@ -3579,6 +3581,7 @@ public class BridgeCallbackHandler {
         while (true) {
             PendingAction action = pendingAction;
             if (action != null) {
+                lastSeenGameSeq = action.gameSeq();
                 DecisionBoundaryTransition transition =
                     transitionToDecisionBoundary(action, "passPriority");
                 if (transition.status() == DecisionBoundaryStatus.AUTO_HANDLED) {
@@ -3892,10 +3895,10 @@ public class BridgeCallbackHandler {
                 var result = new ActionResult();
                 result.action_pending = false;
                 result.stop_reason = "game_over";
+                // Use the last actionable callback's game_seq, not lastGameView which
+                // races with GAME_OVER / END_GAME_INFO callback ordering.
+                result.game_seq = lastSeenGameSeq;
                 GameView gvSnap = lastGameView;
-                if (gvSnap != null) {
-                    result.game_seq = gvSnap.getGameSeq();
-                }
                 attachUnseenChat(result);
                 logPassPriorityReturn(until, actionsPassed, null, gvSnap, result, false);
                 return result;
@@ -3918,10 +3921,8 @@ public class BridgeCallbackHandler {
         var result = new ActionResult();
         result.action_pending = false;
         result.stop_reason = "interrupted";
+        result.game_seq = lastSeenGameSeq;
         GameView gvSnap = lastGameView;
-        if (gvSnap != null) {
-            result.game_seq = gvSnap.getGameSeq();
-        }
         attachUnseenChat(result);
         logPassPriorityReturn(until, actionsPassed, null, gvSnap, result, false);
         return result;
