@@ -153,7 +153,7 @@ def is_mana_event(event: LlmEvent) -> bool:
     etype = event["type"]
 
     if etype == "tool_call":
-        tool = event.get("tool", "")  # nofb
+        tool = event.get("tool", "")
         assert isinstance(tool, str), f"tool must be a string, got {tool!r}"
         args_raw = event.get("args")
         if args_raw is None:
@@ -164,7 +164,7 @@ def is_mana_event(event: LlmEvent) -> bool:
             )
             args = args_raw
         assert isinstance(args, dict), f"args must be an object, got {args!r}"
-        result_str = event.get("result", "")  # nofb
+        result_str = event.get("result", "")
         assert isinstance(result_str, str), (
             f"result must be a string when present, got {result_str!r}"
         )
@@ -184,10 +184,10 @@ def is_mana_event(event: LlmEvent) -> bool:
                 return False
             if not isinstance(result, dict):
                 return False
-            action_type = result.get("action_type", "")  # nofb
+            action_type = result.get("action_type", "")
             if isinstance(action_type, str) and action_type in MANA_KEYWORDS:
                 return True
-            recent_chat = result.get("recent_chat", [])  # nofb
+            recent_chat = result.get("recent_chat", [])
             if not isinstance(recent_chat, list):
                 recent_chat = []
             for msg in recent_chat:
@@ -281,8 +281,8 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
             parts.append("(no action pending)")
         else:
             at = result.get("action_type", "?")
-            msg = result.get("message", "")  # nofb
-            choices = result.get("choices", [])  # nofb
+            msg = result.get("message", "")
+            choices = result.get("choices", [])
             assert isinstance(msg, str), f"message must be a string, got {msg!r}"
             parts.append(f"{at}: {msg[:80]}")
             if isinstance(choices, list) and choices and verbose:
@@ -291,9 +291,9 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
                         continue
                     name = c.get("name", c.get("description", "?"))
                     idx = c.get("index", "?")
-                    cid = c.get("id", "")  # nofb
-                    action = c.get("action", "")  # nofb
-                    mc = c.get("mana_cost", "")  # nofb
+                    cid = c.get("id", "")
+                    action = c.get("action", "")
+                    mc = c.get("mana_cost", "")
                     extra = f" ({action})" if action else ""
                     extra += f" {mc}" if mc else ""
                     parts.append(f"  [{idx}]{' ' + cid if cid else ''} {name}{extra}")
@@ -316,7 +316,7 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
             parts.append(f"-> {at}")
 
     # Check for recent_chat with mana messages
-    recent_chat = result.get("recent_chat", [])  # nofb
+    recent_chat = result.get("recent_chat", [])
     if not isinstance(recent_chat, list):
         recent_chat = []
     for msg in recent_chat:
@@ -335,7 +335,7 @@ def print_event(
 ) -> bool:
     """Print a single event. Returns True if printed."""
     etype = event["type"]
-    ts = event.get("ts", "")  # nofb
+    ts = event.get("ts", "")
     assert isinstance(ts, str), f"event ts must be a string when present, got {ts!r}"
     player = event["player"]
     # Short timestamp (just time portion)
@@ -349,7 +349,7 @@ def print_event(
     prefix = "[MANA] " if is_mana else ""
 
     if etype == "tool_call":
-        tool = event.get("tool", "")  # nofb
+        tool = event.get("tool", "")
         assert isinstance(tool, str), f"tool must be a string, got {tool!r}"
         args_raw = event.get("args")
         if args_raw is None:
@@ -360,7 +360,7 @@ def print_event(
             )
             args = args_raw
         assert isinstance(args, dict), f"args must be an object, got {args!r}"
-        result_str = event.get("result", "")  # nofb
+        result_str = event.get("result", "")
         assert isinstance(result_str, str), (
             f"result must be a string when present, got {result_str!r}"
         )
@@ -379,9 +379,9 @@ def print_event(
         return True
 
     elif etype == "llm_response":
-        reasoning = event.get("reasoning", "")  # nofb
-        tool_calls = event.get("toolCalls", [])  # nofb
-        usage = event.get("usage", {})  # nofb
+        reasoning = event.get("reasoning", "")
+        tool_calls = event.get("toolCalls", [])
+        usage = event.get("usage", {})
         cost = event.get("costUsd", 0)
         assert isinstance(reasoning, str) or reasoning is None, (
             f"reasoning must be a string when present, got {reasoning!r}"
@@ -420,7 +420,7 @@ def print_event(
         return True
 
     elif etype in ("stall", "context_reset", "llm_error"):
-        detail = event.get("reason", event.get("errorMessage", ""))  # nofb
+        detail = event.get("reason", event.get("errorMessage", ""))
         print(
             f"{ts_short} {context:<30} {player:<25} *** {etype.upper()}: {str(detail)[:100]} ***"
         )
@@ -474,7 +474,7 @@ def main() -> None:
     for event in events:
         # Player filter
         if args.player:
-            ep = event.get("player", "")  # nofb
+            ep = event.get("player", "")
             if args.player.lower() not in ep.lower():
                 continue
 

@@ -38,7 +38,7 @@ class YouTubeUploadError(RuntimeError):
 
 def _format_label(meta: dict) -> str:
     """Derive a human-readable format label from game metadata."""
-    deck_type = meta.get("deck_type", "")  # nofb
+    deck_type = meta.get("deck_type", "")
     return _DECK_TYPE_TO_FORMAT.get(deck_type, "Commander")
 
 
@@ -50,7 +50,7 @@ _COMMANDER_DECK_TYPES = {
 
 def _extract_commander(player: dict) -> str | None:
     """Find commander name from decklist (SB: entries)."""
-    for entry in player.get("decklist", []):  # nofb
+    for entry in player.get("decklist", []):
         if entry.startswith("SB:"):
             m = DECKLIST_RE.match(entry)
             if m:
@@ -73,7 +73,7 @@ def _deck_display_name(player: dict, deck_type: str) -> str | None:
     """
     if deck_type in _COMMANDER_DECK_TYPES:
         return _extract_commander(player)
-    return _deck_name_from_path(player.get("deck_path", ""))  # nofb
+    return _deck_name_from_path(player.get("deck_path", ""))
 
 
 def _build_title(meta: dict) -> str:
@@ -82,8 +82,8 @@ def _build_title(meta: dict) -> str:
     Format: "mage-bench Format: Name (Deck) vs Name (Deck) vs ..."
     Truncated to 100 chars (YouTube limit).
     """
-    deck_type = meta.get("deck_type", "")  # nofb
-    players = meta.get("players", [])  # nofb
+    deck_type = meta.get("deck_type", "")
+    players = meta.get("players", [])
     parts = []
     for p in players:
         name = p.get("name", "?")
@@ -108,14 +108,14 @@ def _build_description(meta: dict, game_dir: Path) -> str:
     game_id = game_dir.name
     game_url = f"https://mage-bench.com/games/{game_id}"
 
-    deck_type = meta.get("deck_type", "")  # nofb
+    deck_type = meta.get("deck_type", "")
     fmt = _format_label(meta)
     lines = [f"AI models play {fmt} (Magic: The Gathering) via mage-bench.", ""]
 
-    players = meta.get("players", [])  # nofb
+    players = meta.get("players", [])
     for p in players:
         deck_name = _deck_display_name(p, deck_type)
-        model = p.get("model", "")  # nofb
+        model = p.get("model", "")
         name = p.get("name", "?")
         parts = [name]
         if deck_name:

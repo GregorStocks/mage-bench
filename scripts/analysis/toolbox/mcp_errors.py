@@ -75,9 +75,9 @@ def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str
         if ev.get("player") != player:
             continue
         if ev.get("tool") == "get_action_choices":
-            r = _parse_result(ev.get("result", ""))  # nofb
+            r = _parse_result(ev.get("result", ""))
             if r:
-                action_type = r.get("action_type", "")  # nofb
+                action_type = r.get("action_type", "")
                 assert isinstance(action_type, str), (
                     f"get_action_choices action_type must be a string, got {action_type!r}"
                 )
@@ -103,7 +103,7 @@ def _find_retry_outcome(
         if ev.get("tool") != tool:
             continue
 
-        r = _parse_result(ev.get("result", ""))  # nofb
+        r = _parse_result(ev.get("result", ""))
         if r is None:
             return "different_error"
         if r.get("success") is True:
@@ -132,11 +132,11 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
         if e.get("type") != "tool_call":
             continue
 
-        player = e.get("player", "")  # nofb
-        tool = e.get("tool", "")  # nofb
+        player = e.get("player", "")
+        tool = e.get("tool", "")
         model = player_models.get(player, "?")
-        result_str = e.get("result", "")  # nofb
-        args = e.get("args", {})  # nofb
+        result_str = e.get("result", "")
+        args = e.get("args", {})
         assert isinstance(args, dict), (
             f"{game_id}: llm event args must be an object, got {args!r}"
         )
@@ -144,7 +144,7 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
         r = _parse_result(result_str)
 
         if r is not None and r.get("success") is False:
-            error_message = r.get("error", "")  # nofb
+            error_message = r.get("error", "")
             assert isinstance(error_message, str), (
                 f"{game_id}: tool error message must be a string, got {error_message!r}"
             )

@@ -215,13 +215,13 @@ def _recent_actions_before(
         return []
     recent: list[str] = []
     for a in game_actions:
-        a_ts = a.get("ts", "")  # nofb
+        a_ts = a.get("ts", "")
         assert isinstance(a_ts, str), (
             f"action ts must be a string when present, got {a_ts!r}"
         )
         if a_ts > snap_ts:
             break
-        msg = a.get("message", "")  # nofb
+        msg = a.get("message", "")
         assert isinstance(msg, str), (
             f"action message must be a string when present, got {msg!r}"
         )
@@ -256,7 +256,7 @@ def format_play_context(
     )
 
     # Find the current player's hand
-    player_name = decision.get("player", "")  # nofb
+    player_name = decision.get("player", "")
     assert isinstance(player_name, str), (
         f"decision player must be a string, got {player_name!r}"
     )
@@ -496,7 +496,7 @@ def parse_viewer_url(url: str) -> tuple[str, int]:
 
     # Extract snapshot from query params
     qs = parse_qs(parsed.query)
-    s_values = qs.get("s", [])  # nofb
+    s_values = qs.get("s", [])
     assert s_values, f"URL must have ?s=N parameter: {url}"
     snapshot = int(s_values[0])
 

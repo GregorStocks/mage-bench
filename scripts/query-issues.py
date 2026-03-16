@@ -33,7 +33,7 @@ def main() -> None:
         issues.append(data)
 
     if args.label:
-        issues = [i for i in issues if args.label in i.get("labels", [])]  # nofb
+        issues = [i for i in issues if args.label in i.get("labels", [])]
 
     if args.max_priority is not None:
         issues = [i for i in issues if i.get("priority", 999) <= args.max_priority]
@@ -43,8 +43,8 @@ def main() -> None:
         issues = [
             i
             for i in issues
-            if term in i.get("title", "").lower()  # nofb
-            or term in i.get("description", "").lower()  # nofb
+            if term in i.get("title", "").lower()
+            or term in i.get("description", "").lower()
         ]
 
     issues.sort(key=lambda i: i.get("priority", 999))

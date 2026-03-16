@@ -85,12 +85,8 @@ def _fetch_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
         data = json.loads(resp.read())
     assert isinstance(data, dict), "Scryfall collection returned non-object payload"
     return _dict_list(
-        data.get("data", []),  # nofb
-        context="Scryfall collection data",
-    ), _dict_list(
-        data.get("not_found", []),  # nofb
-        context="Scryfall collection not_found",
-    )
+        data.get("data", []), context="Scryfall collection data"
+    ), _dict_list(data.get("not_found", []), context="Scryfall collection not_found")
 
 
 def collection(names: list[str]) -> tuple[list[dict], list[dict]]:
@@ -202,8 +198,7 @@ def search_token(token_name: str) -> str | None:
             f"Scryfall token search for {token_name!r} returned non-object payload"
         )
         cards = _dict_list(
-            data.get("data", []),  # nofb
-            context=f"Scryfall token search for {token_name!r}",
+            data.get("data", []), context=f"Scryfall token search for {token_name!r}"
         )
         if cards:
             image_uris = cards[0].get("image_uris")
@@ -224,9 +219,9 @@ def extract_oracle_fields(card: dict) -> dict:
     """Extract the fields we need from a Scryfall card object."""
     fields: dict = {
         "name": card["name"],
-        "mana_cost": card.get("mana_cost", ""),  # nofb
-        "type_line": card.get("type_line", ""),  # nofb
-        "oracle_text": card.get("oracle_text", ""),  # nofb
+        "mana_cost": card.get("mana_cost", ""),
+        "type_line": card.get("type_line", ""),
+        "oracle_text": card.get("oracle_text", ""),
     }
     if card.get("power") is not None:
         fields["power"] = card["power"]
@@ -342,9 +337,6 @@ def search(query: str) -> list[dict]:
         assert isinstance(data, dict), (
             f"Scryfall search({query!r}) returned non-object payload"
         )
-        return _dict_list(
-            data.get("data", []),  # nofb
-            context=f"Scryfall search({query!r})",
-        )
+        return _dict_list(data.get("data", []), context=f"Scryfall search({query!r})")
     except urllib.error.HTTPError:
         return []

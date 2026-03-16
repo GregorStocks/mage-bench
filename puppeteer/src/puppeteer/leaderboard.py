@@ -117,11 +117,11 @@ def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
     """
     thinking: dict[str, float] = {}
     for i in range(len(llm_events) - 1):
-        player = llm_events[i].get("player", "")  # nofb
+        player = llm_events[i].get("player", "")
         if not player:
             continue
-        ts_a = llm_events[i].get("ts", "")  # nofb
-        ts_b = llm_events[i + 1].get("ts", "")  # nofb
+        ts_a = llm_events[i].get("ts", "")
+        ts_b = llm_events[i + 1].get("ts", "")
         if not ts_a or not ts_b:
             continue
         try:
@@ -200,7 +200,7 @@ def derive_display_name(model_id: str) -> str:
 
 def _player_key(player: Mapping[str, object]) -> str:
     """Build aggregation key: 'model_id::effort' or just 'model_id'."""
-    model_id = player.get("model", "")  # nofb
+    model_id = player.get("model", "")
     assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
     effort = player.get("reasoningEffort", player.get("reasoning_effort"))
     assert effort is None or isinstance(effort, str), (
@@ -225,7 +225,7 @@ def load_model_registry(models_json: Path) -> dict[str, str]:
         return {}
     data = json.loads(models_json.read_text())
     assert isinstance(data, dict), f"{models_json}: expected JSON object"
-    models = data.get("models", [])  # nofb
+    models = data.get("models", [])
     assert isinstance(models, list), f"{models_json}: models must be a list"
     registry: dict[str, str] = {}
     for index, model in enumerate(models):
@@ -248,7 +248,7 @@ def _load_inactive_statuses(presets_json: Path) -> dict[str, str] | None:
     if not presets_json.exists():
         return None
     data = json.loads(presets_json.read_text())
-    presets = data.get("presets", {})  # nofb
+    presets = data.get("presets", {})
     statuses: dict[str, str] = {}
     for preset in presets.values():
         status = preset.get("status", "retired")
@@ -270,7 +270,7 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
 
     Returns {player_name: placement} where 1=winner, 2=2nd, etc.
     """
-    players_obj = game.get("players", [])  # nofb
+    players_obj = game.get("players", [])
     assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
     players: list[Mapping[str, object]] = []
     for index, player in enumerate(players_obj):
@@ -316,7 +316,7 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
 
     eliminations = []
     for a in actions:
-        m = _LOST_GAME_RE.match(a.get("message", ""))  # nofb
+        m = _LOST_GAME_RE.match(a.get("message", ""))
         if m:
             eliminations.append(m.group(1))
 
@@ -344,7 +344,7 @@ def _placements_from_winner(game: Mapping[str, object]) -> dict[str, int]:
     if not winner:
         return {}
     placements: dict[str, int] = {}
-    players_obj = game.get("players", [])  # nofb
+    players_obj = game.get("players", [])
     assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
     for index, p in enumerate(players_obj):
         assert isinstance(p, dict), f"game {game.get('id', '<unknown>')}: players[{index}] must be an object"
@@ -368,10 +368,10 @@ def compute_elo_ratings(
     ratings: dict[str, float] = {}
     per_game: list[dict] = []
 
-    sorted_games = sorted(games_index, key=lambda g: g.get("timestamp", ""))  # nofb
+    sorted_games = sorted(games_index, key=lambda g: g.get("timestamp", ""))
 
     for game in sorted_games:
-        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]  # nofb
+        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
         if len(pilots) < 2:
             for p in pilots:
                 key = _player_key(p)
@@ -381,7 +381,7 @@ def compute_elo_ratings(
                 key = _player_key(pilots[0])
                 per_game.append(
                     {
-                        "id": game.get("id", ""),  # nofb
+                        "id": game.get("id", ""),
                         "players": [
                             {"key": key, "ratingBefore": round(ratings[key]), "ratingAfter": round(ratings[key])}
                         ],
@@ -417,7 +417,7 @@ def compute_elo_ratings(
         after = {key: round(ratings[key]) for key in pilot_keys}
         per_game.append(
             {
-                "id": game.get("id", ""),  # nofb
+                "id": game.get("id", ""),
                 "players": [
                     {
                         "key": key,
@@ -468,15 +468,15 @@ def generate_leaderboard(
         _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         # Build name -> weighted blunder sum from annotations.
         blunder_weight_by_name: dict[str, float] = {}
-        for ann in game.get("annotations", []):  # nofb
+        for ann in game.get("annotations", []):
             if ann.get("type") == "blunder":
-                name = ann.get("player", "")  # nofb
-                severity = ann.get("severity", "")  # nofb
+                name = ann.get("player", "")
+                severity = ann.get("severity", "")
                 blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
 
         total_turns = game.get("totalTurns", 0)
 
-        for p in game.get("players", []):  # nofb
+        for p in game.get("players", []):
             if p.get("type") != "pilot" or not p.get("model"):
                 continue
             key = _player_key(p)
@@ -551,7 +551,7 @@ def generate_leaderboard(
     # Sort by rating desc, then games_played desc, then modelId for determinism
     def rated_sort_key(m: _ModelEntry) -> tuple[int, int, str, str]:
         assert m["rating"] is not None
-        return (-m["rating"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", ""))  # nofb
+        return (-m["rating"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", ""))
 
     models.sort(key=rated_sort_key)
 
@@ -583,15 +583,15 @@ def generate_exhibition_leaderboard(
     for game in scored_games:
         _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         blunder_weight_by_name: dict[str, float] = {}
-        for ann in game.get("annotations", []):  # nofb
+        for ann in game.get("annotations", []):
             if ann.get("type") == "blunder":
-                name = ann.get("player", "")  # nofb
-                severity = ann.get("severity", "")  # nofb
+                name = ann.get("player", "")
+                severity = ann.get("severity", "")
                 blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
 
         total_turns = game.get("totalTurns", 0)
 
-        for p in game.get("players", []):  # nofb
+        for p in game.get("players", []):
             if p.get("type") != "pilot" or not p.get("model"):
                 continue
             key = _player_key(p)
@@ -662,7 +662,7 @@ def generate_exhibition_leaderboard(
         models.append(entry)
 
     # Sort by win rate desc, then games played desc, then modelId for determinism
-    models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))  # nofb
+    models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))
 
     return {
         "generatedAt": datetime.now(UTC).isoformat(),
@@ -755,7 +755,7 @@ def generate_leaderboard_file(
         if inactive_statuses is None:
             return
         for fmt_data in fmt_results.values():
-            for model in fmt_data.get("models", []):  # nofb
+            for model in fmt_data.get("models", []):
                 model_id = model["modelId"]
                 effort = model.get("reasoningEffort")
                 key = f"{model_id}::{effort}" if effort else model_id
@@ -768,9 +768,9 @@ def generate_leaderboard_file(
         pool = fmt_results.get("combined", {"generatedAt": "", "totalGames": 0, "models": []})
         total = sum(fmt_results[fmt].get("totalGames", 0) for fmt in _FORMAT_POOLS if fmt in fmt_results)
         return {
-            "generatedAt": pool.get("generatedAt", ""),  # nofb
+            "generatedAt": pool.get("generatedAt", ""),
             "totalGames": total,
-            "models": pool.get("models", []),  # nofb
+            "models": pool.get("models", []),
             "formats": fmt_results,
             "minBlunderVersion": MIN_BLUNDER_VERSION,
         }, ratings
@@ -792,7 +792,7 @@ def generate_leaderboard_file(
     public_data_dir.mkdir(parents=True, exist_ok=True)
 
     for season_num in available_seasons:
-        season_output, season_ratings = _build_output(games_by_season.get(season_num, []))  # nofb
+        season_output, season_ratings = _build_output(games_by_season.get(season_num, []))
         season_output["availableSeasons"] = available_seasons
         season_path = public_data_dir / f"benchmark-results-season-{season_num}.json"
         _write_if_changed(season_path, json.dumps(season_output, indent=2) + "\n")
@@ -902,7 +902,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # Scan llmEvents for per-player operational stats
         llm_events = game["llmEvents"]
         for ev in llm_events:
-            player_name = ev.get("player", "")  # nofb
+            player_name = ev.get("player", "")
             if player_name not in name_to_key:
                 continue
             key = name_to_key[player_name]
@@ -914,7 +914,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
             ev_type = ev.get("type")
             if ev_type == "llm_response":
                 b["successfulResponses"] += 1
-                usage = ev.get("usage", {})  # nofb
+                usage = ev.get("usage", {})
                 b["totalPromptTokens"] += usage.get("promptTokens", 0)
                 b["totalCompletionTokens"] += usage.get("completionTokens", 0)
                 b["totalCachedTokens"] += usage.get("cachedTokens", 0)
@@ -930,11 +930,11 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # ev_i's player — same approach as compute_thinking_time but we
         # collect individual durations instead of summing.
         for i in range(len(llm_events) - 1):
-            player_name = llm_events[i].get("player", "")  # nofb
+            player_name = llm_events[i].get("player", "")
             if player_name not in name_to_key:
                 continue
-            ts_a = llm_events[i].get("ts", "")  # nofb
-            ts_b = llm_events[i + 1].get("ts", "")  # nofb
+            ts_a = llm_events[i].get("ts", "")
+            ts_b = llm_events[i + 1].get("ts", "")
             if not ts_a or not ts_b:
                 continue
             try:
@@ -1036,14 +1036,14 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         last_ts: dict[str, datetime] = {}
 
         for ev in game["llmEvents"]:
-            player_name = ev.get("player", "")  # nofb
+            player_name = ev.get("player", "")
             if player_name not in name_to_key:
                 continue
 
             ev_type = ev.get("type")
             if ev_type == "llm_response":
                 player_responses[player_name] = player_responses.get(player_name, 0) + 1
-                usage = ev.get("usage", {})  # nofb
+                usage = ev.get("usage", {})
                 player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + usage.get(
                     "promptTokens", 0
                 )
@@ -1066,7 +1066,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 player_context_resets[player_name] = player_context_resets.get(player_name, 0) + 1
 
             # Track latency from inter-event timestamp gaps
-            ev_ts_str = ev.get("ts", "")  # nofb
+            ev_ts_str = ev.get("ts", "")
             if ev_ts_str:
                 try:
                     ev_ts = datetime.fromisoformat(ev_ts_str)
@@ -1079,7 +1079,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 last_ts[player_name] = ev_ts
 
         # Parse the game timestamp into ISO format for date-based charting
-        raw_ts = game.get("timestamp", "")  # nofb
+        raw_ts = game.get("timestamp", "")
         iso_ts = ""
         if raw_ts:
             # Timestamps are like "20260210_074307"
@@ -1101,7 +1101,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 display_name = f"{display_name} ({effort})"
             name = p["name"]
 
-            durations = player_latencies.get(name, [])  # nofb
+            durations = player_latencies.get(name, [])
             if durations:
                 durations.sort()
                 lat_p50 = round(durations[len(durations) // 2], 1)
@@ -1169,7 +1169,7 @@ def generate_blunder_stats(data_dir: Path) -> Path:
             if line:
                 records.append(json.loads(line))
 
-    records.sort(key=lambda r: r.get("ts", ""))  # nofb
+    records.sort(key=lambda r: r.get("ts", ""))
 
     output: dict[str, Any] = {
         "generatedAt": datetime.now(UTC).isoformat(),

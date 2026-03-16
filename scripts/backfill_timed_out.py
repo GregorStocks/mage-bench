@@ -31,14 +31,14 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> int:
     else:
         data = json.loads(path.read_text())
 
-    players = data.get("players", [])  # nofb
+    players = data.get("players", [])
     if any(p.get("timedOut") is not None for p in players):
         return -1  # Already backfilled
 
     # Scan actions for timeout messages
     timed_out_names: set[str] = set()
-    for a in data.get("actions", []):  # nofb
-        m = TIMED_OUT_RE.match(a.get("message", ""))  # nofb
+    for a in data.get("actions", []):
+        m = TIMED_OUT_RE.match(a.get("message", ""))
         if m:
             timed_out_names.add(m.group(1))
 

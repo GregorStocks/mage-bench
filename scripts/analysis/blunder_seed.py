@@ -31,7 +31,7 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
     data = load_game(gz_path)
 
     game_id = data["id"]
-    annotations = data.get("annotations", [])  # nofb
+    annotations = data.get("annotations", [])
     if not annotations:
         return game_id, []
 
@@ -45,7 +45,7 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
         print(f"  SKIP {game_id}: no decisions extracted", file=sys.stderr)
         return game_id, []
 
-    snapshots = data.get("snapshots", [])  # nofb
+    snapshots = data.get("snapshots", [])
 
     mapping = reverse_map_annotations(annotations, decisions, snapshots)
 

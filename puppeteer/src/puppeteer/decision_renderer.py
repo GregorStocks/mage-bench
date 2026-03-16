@@ -102,30 +102,30 @@ def _render_decision_block(
     if turn is None:
         turn = 0
     if not decision.get("phase"):
-        assert turn in (0, 1), f"decision has empty phase on turn {turn}: {decision.get('message', '')}"  # nofb
+        assert turn in (0, 1), f"decision has empty phase on turn {turn}: {decision.get('message', '')}"
     phase = decision.get("phase") or "PREGAME"
     player = decision.get("player", "?")
-    message = decision.get("message", "")  # nofb
+    message = decision.get("message", "")
 
     # Header
     lines: list[str] = [
         f"[Decision {decision.get('index', '?')}, snapshot={decision.get('snapshotIndex', '?')}] "
         f"Turn {turn} {phase} - {player}"
     ]
-    pilot_ctx = decision.get("pilotContext", {})  # nofb
+    pilot_ctx = decision.get("pilotContext", {})
 
     # Board state from snapshot
     board_line = _render_board(snapshot, deciding_player)
     lines.append(f"  Board: {board_line}")
 
     # Stack
-    stack = snapshot.get("stack", [])  # nofb
+    stack = snapshot.get("stack", [])
     if stack:
         stack_parts = _render_stack(stack)
         lines.append(f"  Stack: [{', '.join(stack_parts)}]")
 
     # Combat
-    combat_groups = snapshot.get("combat", []) or decision.get("pilotContext", {}).get("combat", [])  # nofb
+    combat_groups = snapshot.get("combat", []) or decision.get("pilotContext", {}).get("combat", [])
     if combat_groups:
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
@@ -149,8 +149,8 @@ def _render_decision_block(
         lines.append(f"  {', '.join(ctx_parts)}")
 
     # Message and choices/items
-    choices = decision.get("choices", [])  # nofb
-    items = decision.get("items", [])  # nofb
+    choices = decision.get("choices", [])
+    items = decision.get("items", [])
     lines.append(f"  Message: {message}")
     if items:
         total_min = decision.get("totalMin")
@@ -194,21 +194,21 @@ def _render_decision_block(
 def _render_board(snapshot: dict, deciding_player: str | None) -> str:
     """Render board state from snapshot players."""
     players_parts: list[str] = []
-    for p in snapshot.get("players", []):  # nofb
+    for p in snapshot.get("players", []):
         name = p.get("name", "?")
         life = p.get("life", "?")
-        bf = p.get("battlefield", [])  # nofb
-        gy = p.get("graveyard", [])  # nofb
-        exile = p.get("exile", [])  # nofb
+        bf = p.get("battlefield", [])
+        gy = p.get("graveyard", [])
+        exile = p.get("exile", [])
 
         # Hand: show full for deciding player, count only for opponents
         if deciding_player and name != deciding_player:
-            hand_count = p.get("hand_count", p.get("hand_size", len(p.get("hand", []))))  # nofb
+            hand_count = p.get("hand_count", p.get("hand_size", len(p.get("hand", []))))
             s = f"{name}: {life}hp"
             if hand_count:
                 s += f" hand={hand_count}"
         else:
-            hand = p.get("hand", [])  # nofb
+            hand = p.get("hand", [])
             hand_strs = [card_display(c) for c in hand]
             s = f"{name}: {life}hp hand=[{', '.join(hand_strs)}]" if hand_strs else f"{name}: {life}hp hand=0"
 
@@ -307,7 +307,7 @@ def _render_stack(stack: list) -> list[str]:
             parts.append(item)
         elif isinstance(item, dict):
             desc = _render_stack_item(item)
-            targets = item.get("targets", [])  # nofb
+            targets = item.get("targets", [])
             if targets:
                 desc += " -> " + ", ".join(_render_stack_target(t) for t in targets)
             parts.append(desc)
@@ -341,8 +341,8 @@ def _render_combat(combat_groups: list) -> str:
     """Render combat groups."""
     parts: list[str] = []
     for group in combat_groups:
-        atk_names = [a["name"] for a in group.get("attackers", []) if isinstance(a, dict) and a.get("name")]  # nofb
-        blk_names = [b["name"] for b in group.get("blockers", []) if isinstance(b, dict) and b.get("name")]  # nofb
+        atk_names = [a["name"] for a in group.get("attackers", []) if isinstance(a, dict) and a.get("name")]
+        blk_names = [b["name"] for b in group.get("blockers", []) if isinstance(b, dict) and b.get("name")]
         part = ", ".join(atk_names)
         if blk_names:
             part += f" blocked by {', '.join(blk_names)}"
@@ -409,8 +409,8 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     """Render what was chosen in a decision."""
     lines: list[str] = []
     chosen = decision.get("chosen")
-    chosen_args = decision.get("chosenArgs", {})  # nofb
-    choices = decision.get("choices", [])  # nofb
+    chosen_args = decision.get("chosenArgs", {})
+    choices = decision.get("choices", [])
 
     # Display chosen
     chosen_name = _chosen_display(chosen, chosen_args, choices)
@@ -428,8 +428,8 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     # Show targeting / activation details from subsequent actions.
     # These are part of the decision itself (what the player targeted), not
     # outcome information, so they're safe to include without biasing the annotator.
-    player = decision.get("player", "")  # nofb
-    for action in decision.get("subsequentActions", []):  # nofb
+    player = decision.get("player", "")
+    for action in decision.get("subsequentActions", []):
         if not action.startswith(player):
             continue
         if " targeting " in action or "activates:" in action:
@@ -450,8 +450,8 @@ def _resolve_mana_plan(mana_plan: object, snapshot: dict | None) -> str:
     # Build ID -> name map from battlefield permanents
     id_to_name: dict[str, str] = {}
     if snapshot:
-        for p in snapshot.get("players", []):  # nofb
-            for perm in p.get("battlefield", []):  # nofb
+        for p in snapshot.get("players", []):
+            for perm in p.get("battlefield", []):
                 if isinstance(perm, dict) and perm.get("id"):
                     id_to_name[perm["id"]] = perm.get("name") or perm["id"]
 
@@ -608,21 +608,21 @@ def _render_card_reference(
     """Build a Card Reference section for non-basic cards in the decision."""
     # Collect all card names from snapshot and choices
     names: set[str] = set()
-    for p in snapshot.get("players", []):  # nofb
+    for p in snapshot.get("players", []):
         for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-            for c in p.get(zone, []):  # nofb
+            for c in p.get(zone, []):
                 if isinstance(c, dict):
-                    name = c.get("name", "")  # nofb
+                    name = c.get("name", "")
                     if name:
                         names.add(name)
                 elif isinstance(c, str) and c:
                     names.add(c)
-    for item in snapshot.get("stack", []):  # nofb
+    for item in snapshot.get("stack", []):
         if isinstance(item, dict) and item.get("name"):
             names.add(item["name"])
         elif isinstance(item, str) and item:
             names.add(item)
-    for c in decision.get("choices", []):  # nofb
+    for c in decision.get("choices", []):
         if isinstance(c, dict) and c.get("name"):
             names.add(c["name"])
 
@@ -634,10 +634,10 @@ def _render_card_reference(
         oracle = oracle_texts.get(name)
         if not oracle:
             continue
-        mana_cost = oracle.get("mana_cost", "")  # nofb
-        type_line = oracle.get("type_line", "")  # nofb
-        oracle_text = oracle.get("oracle_text", "")  # nofb
-        pt = oracle.get("power_toughness", "")  # nofb
+        mana_cost = oracle.get("mana_cost", "")
+        type_line = oracle.get("type_line", "")
+        oracle_text = oracle.get("oracle_text", "")
+        pt = oracle.get("power_toughness", "")
         if not pt and oracle.get("power") is not None:
             pt = f"{oracle['power']}/{oracle['toughness']}"
 

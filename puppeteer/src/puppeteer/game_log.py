@@ -107,7 +107,7 @@ def merge_game_log(game_dir: Path) -> None:
                         game_seq: int | None = event.get("seq")
                     else:
                         game_seq = event.get("game_seq")
-                    ts_value = _parse_ts(event.get("ts", ""))  # nofb
+                    ts_value = _parse_ts(event.get("ts", ""))
                     all_events.append((game_seq, ts_value, order, line))
                     order += 1
                 except json.JSONDecodeError:

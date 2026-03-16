@@ -268,7 +268,7 @@ def _call_llm(
     thinking_tokens = 0
     if hasattr(usage, "completion_tokens_details") and usage.completion_tokens_details:
         details = usage.completion_tokens_details
-        thinking_tokens = getattr(details, "reasoning_tokens", 0) or 0  # nofb
+        thinking_tokens = getattr(details, "reasoning_tokens", 0) or 0
 
     thinking_text = ""
     choice = response.choices[0]
@@ -1203,7 +1203,7 @@ def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> No
         anns = r["annotations"]
         sev_counts = {"major": 0, "moderate": 0, "minor": 0, "questionable": 0}
         for a in anns:
-            sev = a.get("severity", "")  # nofb
+            sev = a.get("severity", "")
             if sev in sev_counts:
                 sev_counts[sev] += 1
 
@@ -1222,7 +1222,7 @@ def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> No
         if not anns:
             continue
         print(f"\n--- {r['approach']} annotations ---")
-        num_decisions = len(data.get("decisions", []))  # nofb
+        num_decisions = len(data.get("decisions", []))
         for a in anns:
             dec = a.get("decisionIndex", "?")
             valid = "OK" if isinstance(dec, int) and 0 <= dec < num_decisions else "BAD"
@@ -1230,7 +1230,7 @@ def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> No
                 f"  [{valid}] decision={dec} {a.get('player', '?')} "
                 f"{a.get('severity', '?').upper()} {a.get('category', '?')}"
             )
-            print(f"       {a.get('description', '')[:120]}")  # nofb
+            print(f"       {a.get('description', '')[:120]}")
 
 
 def _dry_run(gz_path: str) -> None:
@@ -1324,7 +1324,7 @@ def _dry_run(gz_path: str) -> None:
                 f"  decision={a.get('decisionIndex', '?')} {a.get('player', '?')} "
                 f"{a.get('severity', '?').upper()} {a.get('category', '?')}"
             )
-            print(f"       {a.get('description', '')[:120]}")  # nofb
+            print(f"       {a.get('description', '')[:120]}")
 
 
 def main() -> None:

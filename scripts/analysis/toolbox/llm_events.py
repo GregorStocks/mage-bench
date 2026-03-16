@@ -14,7 +14,7 @@ from scripts.analysis.blunder_eval_common import load_game
 def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
-    events = d.get("llmEvents", [])  # nofb
+    events = d.get("llmEvents", [])
     if not events:
         print("No LLM events found.")
         return
@@ -40,7 +40,7 @@ def main(gz_path: str) -> None:
     for tc in events:
         if tc.get("type") != "tool_call":
             continue
-        result = str(tc.get("result", ""))  # nofb
+        result = str(tc.get("result", ""))
         is_failure = False
         try:
             result_obj = json.loads(result)
@@ -57,7 +57,7 @@ def main(gz_path: str) -> None:
             fail_count += 1
             print(
                 f"  {tc.get('player', '?')} | {tc.get('tool', '?')} "
-                f"| args={json.dumps(tc.get('args', {}))} "  # nofb
+                f"| args={json.dumps(tc.get('args', {}))} "
                 f"| {result[:200]}"
             )
     if fail_count == 0:
@@ -88,7 +88,7 @@ def main(gz_path: str) -> None:
         )
 
     # Game-level errors from error logs
-    errors = d.get("errors", [])  # nofb
+    errors = d.get("errors", [])
     if errors:
         print()
         print(f"=== Game Errors ({len(errors)}) ===")

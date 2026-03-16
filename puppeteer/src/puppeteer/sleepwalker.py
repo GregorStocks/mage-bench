@@ -108,7 +108,7 @@ async def run_sleepwalker(
                     # Print game log (only new entries since last check)
                     log_result = await session.call_tool("get_game_log", {"max_chars": 10000})
                     log_data = json.loads(extract_text_content("get_game_log", log_result))
-                    current_log = log_data.get("log", "")  # nofb
+                    current_log = log_data.get("log", "")
                     total_length = log_data.get("total_length", 0)
 
                     # Print new log entries

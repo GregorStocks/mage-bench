@@ -55,7 +55,7 @@ def main(gz_path: str) -> None:
 
     # Key actions
     for a in actions:
-        msg = a.get("message", "")  # nofb
+        msg = a.get("message", "")
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
         is_key = any(kw in msg.lower() for kw in ACTION_KEYWORDS)
         is_chat = a.get("type") == "chat"

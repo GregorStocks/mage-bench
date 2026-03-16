@@ -210,8 +210,8 @@ def _build_tool_reference() -> str:
         "Parameters:",
     ]
     for name, schema in tool["inputSchema"]["properties"].items():
-        desc = schema.get("description", "")  # nofb
-        type_ = schema.get("type", "")  # nofb
+        desc = schema.get("description", "")
+        type_ = schema.get("type", "")
         lines.append(f"- {name} ({type_}): {desc}")
 
     return "\n".join(lines)
@@ -261,9 +261,9 @@ def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[object]:
     if zone == "graveyard":
         return player["graveyard"]
     if zone == "exile":
-        return player.get("exile", [])  # nofb
+        return player.get("exile", [])
     if zone == "commanders":
-        return player.get("commanders", [])  # nofb
+        return player.get("commanders", [])
     raise AssertionError(f"unexpected zone {zone!r}")
 
 
@@ -275,36 +275,36 @@ def _collect_card_names(data: GameExport) -> set[str]:
             for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
                 for c in _snapshot_zone_cards(p, zone):
                     if isinstance(c, dict):
-                        name = c.get("name", "")  # nofb
+                        name = c.get("name", "")
                         if isinstance(name, str) and name:
                             names.add(name)
                     elif isinstance(c, str) and c:
                         names.add(c)
         for item in snap["stack"]:
             if isinstance(item, dict):
-                name = item.get("name", "")  # nofb
+                name = item.get("name", "")
                 if isinstance(name, str) and name:
                     names.add(name)
             elif isinstance(item, str) and item:
                 names.add(item)
-        for group in snap.get("combat", []):  # nofb
-            for a in group.get("attackers", []):  # nofb
+        for group in snap.get("combat", []):
+            for a in group.get("attackers", []):
                 if isinstance(a, dict) and isinstance(a.get("name"), str) and a["name"]:
                     names.add(a["name"])
-            for b in group.get("blockers", []):  # nofb
+            for b in group.get("blockers", []):
                 if isinstance(b, dict) and isinstance(b.get("name"), str) and b["name"]:
                     names.add(b["name"])
     # Also from choice names and combat fields in llm events
     for ev in data["llmEvents"]:
         if ev.get("tool") == "get_action_choices":
             try:
-                result = json.loads(ev.get("result", ""))  # nofb
+                result = json.loads(ev.get("result", ""))
                 if not isinstance(result, dict):
                     continue
-                for c in result.get("choices", []):  # nofb
+                for c in result.get("choices", []):
                     if not isinstance(c, dict):
                         continue
-                    name = c.get("name", "")  # nofb
+                    name = c.get("name", "")
                     # Skip non-card choices: player targets, special actions,
                     # and entries without an id (e.g. mana ability descriptions)
                     if (
@@ -316,31 +316,31 @@ def _collect_card_names(data: GameExport) -> set[str]:
                         continue
                     if "id" in c:
                         names.add(name)
-                for a in result.get("already_attacking", []):  # nofb
+                for a in result.get("already_attacking", []):
                     if (
                         isinstance(a, dict)
                         and isinstance(a.get("name"), str)
                         and a["name"]
                     ):
                         names.add(a["name"])
-                for a in result.get("incoming_attackers", []):  # nofb
+                for a in result.get("incoming_attackers", []):
                     if (
                         isinstance(a, dict)
                         and isinstance(a.get("name"), str)
                         and a["name"]
                     ):
                         names.add(a["name"])
-                for group in result.get("combat", []):  # nofb
+                for group in result.get("combat", []):
                     if not isinstance(group, dict):
                         continue
-                    for a in group.get("attackers", []):  # nofb
+                    for a in group.get("attackers", []):
                         if (
                             isinstance(a, dict)
                             and isinstance(a.get("name"), str)
                             and a["name"]
                         ):
                             names.add(a["name"])
-                    for b in group.get("blockers", []):  # nofb
+                    for b in group.get("blockers", []):
                         if (
                             isinstance(b, dict)
                             and isinstance(b.get("name"), str)
@@ -359,9 +359,9 @@ def _format_card_ref(card: dict) -> str:
         parts = [_format_card_ref(face).lstrip("- ") for face in card["card_faces"]]
         return "- " + " // ".join(parts)
     name = card["name"]
-    mana = card.get("mana_cost", "")  # nofb
-    type_line = card.get("type_line", "")  # nofb
-    oracle = card.get("oracle_text", "")  # nofb
+    mana = card.get("mana_cost", "")
+    type_line = card.get("type_line", "")
+    oracle = card.get("oracle_text", "")
     # Collapse newlines in oracle text to ` / ` for single-line display
     if oracle:
         oracle = oracle.replace("\n", " / ")
@@ -376,41 +376,41 @@ def _format_card_ref(card: dict) -> str:
 def _card_names_in_decision(decision: dict) -> set[str]:
     """Extract card names referenced in a decision's game state and choices."""
     names: set[str] = set()
-    gs = decision.get("game_state", {})  # nofb
-    for p in gs.get("players", []):  # nofb
+    gs = decision.get("game_state", {})
+    for p in gs.get("players", []):
         for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-            for c in p.get(zone, []):  # nofb
+            for c in p.get(zone, []):
                 if isinstance(c, str) and c:
                     names.add(c)
                 elif isinstance(c, dict) and c.get("name"):
                     names.add(c["name"])
-    for item in gs.get("stack", []):  # nofb
+    for item in gs.get("stack", []):
         if isinstance(item, str) and item:
             names.add(item)
         elif isinstance(item, dict) and item.get("name"):
             names.add(item["name"])
-    for group in gs.get("combat", []):  # nofb
-        for a in group.get("attackers", []):  # nofb
+    for group in gs.get("combat", []):
+        for a in group.get("attackers", []):
             if isinstance(a, dict) and a.get("name"):
                 names.add(a["name"])
-        for b in group.get("blockers", []):  # nofb
+        for b in group.get("blockers", []):
             if isinstance(b, dict) and b.get("name"):
                 names.add(b["name"])
-    for c in decision.get("choices", []):  # nofb
-        name = c.get("name", c.get("description", ""))  # nofb
+    for c in decision.get("choices", []):
+        name = c.get("name", c.get("description", ""))
         if name:
             names.add(name)
-    for a in decision.get("already_attacking", []):  # nofb
+    for a in decision.get("already_attacking", []):
         if isinstance(a, dict) and a.get("name"):
             names.add(a["name"])
-    for a in decision.get("incoming_attackers", []):  # nofb
+    for a in decision.get("incoming_attackers", []):
         if isinstance(a, dict) and a.get("name"):
             names.add(a["name"])
-    for group in decision.get("combat", []):  # nofb
-        for a in group.get("attackers", []):  # nofb
+    for group in decision.get("combat", []):
+        for a in group.get("attackers", []):
             if isinstance(a, dict) and a.get("name"):
                 names.add(a["name"])
-        for b in group.get("blockers", []):  # nofb
+        for b in group.get("blockers", []):
             if isinstance(b, dict) and b.get("name"):
                 names.add(b["name"])
     return names
@@ -463,7 +463,7 @@ def _actions_by_turn(actions: Sequence[Action]) -> dict[int, list[str]]:
     current_turn = 0
     player_turn_counts: dict[str, int] = {}
     for a in actions:
-        msg = a.get("message", "")  # nofb
+        msg = a.get("message", "")
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
         # Skip chat messages — LLM personality flavor adds noise and can bias
         # the blunder annotator
@@ -535,7 +535,7 @@ def _format_prior_context(
     # Add action deltas for turns ref_turn through current_turn - 1
     lines.append("")
     for t in range(ref_turn, current_turn):
-        lines.extend(actions_by_turn.get(t, []))  # nofb
+        lines.extend(actions_by_turn.get(t, []))
 
     return "\n".join(lines)
 
@@ -560,8 +560,8 @@ def _format_current_turn_actions(
     in_current_turn = False
     lines: list[str] = []
     for a in all_actions:
-        msg = a.get("message", "")  # nofb
-        ts = a.get("ts", "")  # nofb
+        msg = a.get("message", "")
+        ts = a.get("ts", "")
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
         assert isinstance(ts, str), (
             f"action ts must be a string when present, got {ts!r}"
@@ -650,15 +650,15 @@ def _format_decisions(decisions: list[dict]) -> str:
     for d in decisions:
         if d["is_forced"]:
             continue
-        gs = d.get("game_state", {})  # nofb
+        gs = d.get("game_state", {})
         deciding_player = d["player"]
         players: list[str] = []
-        for p in gs.get("players", []):  # nofb
-            bf = p.get("battlefield", [])  # nofb
+        for p in gs.get("players", []):
+            bf = p.get("battlefield", [])
             lib = p.get("library_size")
             if p["name"] == deciding_player:
                 # Show full hand for the deciding player
-                hand = p.get("hand", [])  # nofb
+                hand = p.get("hand", [])
                 if hand:
                     s = f"{p['name']}: {p.get('life', '?')}hp hand=[{', '.join(str(x) for x in hand)}]"
                 else:
@@ -680,19 +680,19 @@ def _format_decisions(decisions: list[dict]) -> str:
                         s += f" {ctr_name}={ctr_val}"
             if bf:
                 s += f" bf=[{', '.join(str(x) for x in bf)}]"
-            gy = p.get("graveyard", [])  # nofb
+            gy = p.get("graveyard", [])
             if gy:
                 s += f" gy=[{', '.join(str(x) for x in gy)}]"
-            exile = p.get("exile", [])  # nofb
+            exile = p.get("exile", [])
             if exile:
                 s += f" exile=[{', '.join(str(x) for x in exile)}]"
             players.append(s)
 
-        choice_descs = [_format_choice(c) for c in d.get("choices", [])]  # nofb
+        choice_descs = [_format_choice(c) for c in d.get("choices", [])]
 
         chosen_name = _chosen_display(d)
 
-        stack = gs.get("stack", [])  # nofb
+        stack = gs.get("stack", [])
         stack_line = ""
         if stack:
             stack_descs: list[str] = []
@@ -701,7 +701,7 @@ def _format_decisions(decisions: list[dict]) -> str:
                     stack_descs.append(s)
                 elif isinstance(s, dict):
                     desc = s.get("name", "?")
-                    targets = s.get("targets", [])  # nofb
+                    targets = s.get("targets", [])
                     if targets:
                         desc += " -> " + ", ".join(str(t) for t in targets)
                     stack_descs.append(desc)
@@ -714,7 +714,7 @@ def _format_decisions(decisions: list[dict]) -> str:
             turn = 0
         if not d.get("phase"):
             assert turn in (0, 1), (
-                f"decision has empty phase on turn {turn}: {d.get('message', '')}"  # nofb
+                f"decision has empty phase on turn {turn}: {d.get('message', '')}"
             )
         phase = d.get("phase") or "PREGAME"
         lines = [
@@ -725,18 +725,18 @@ def _format_decisions(decisions: list[dict]) -> str:
         if stack_line:
             lines.append(stack_line)
         # Combat context from game state snapshot or choices result
-        combat_groups = gs.get("combat", []) or d.get("combat", [])  # nofb
+        combat_groups = gs.get("combat", []) or d.get("combat", [])
         if combat_groups:
             combat_parts: list[str] = []
             for group in combat_groups:
                 atk_names = [
                     a["name"]
-                    for a in group.get("attackers", [])  # nofb
+                    for a in group.get("attackers", [])
                     if isinstance(a, dict) and a.get("name")
                 ]
                 blk_names = [
                     b["name"]
-                    for b in group.get("blockers", [])  # nofb
+                    for b in group.get("blockers", [])
                     if isinstance(b, dict) and b.get("name")
                 ]
                 part = ", ".join(atk_names)
@@ -751,11 +751,11 @@ def _format_decisions(decisions: list[dict]) -> str:
         if d.get("combat_phase"):
             lines.append(f"  Combat Phase: {d['combat_phase']}")
         lines += [
-            f"  Message: {d.get('message', '')}",  # nofb
-            f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_descs)}",  # nofb
+            f"  Message: {d.get('message', '')}",
+            f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_descs)}",
             f"  Chosen: {chosen_name}",
         ]
-        if "Pick triggered ability" in d.get("message", ""):  # nofb
+        if "Pick triggered ability" in d.get("message", ""):
             lines.append(
                 "  NOTE: This decision only determines the order triggered abilities"
                 " are placed on the stack. Targets are chosen in separate decisions."
@@ -763,7 +763,7 @@ def _format_decisions(decisions: list[dict]) -> str:
         if d.get("reasoning"):
             lines.append(f"  Reasoning: {d['reasoning'][:500]}")
         # Show what the deciding player did next (but not opponent actions)
-        subsequent = d.get("subsequent_actions", [])  # nofb
+        subsequent = d.get("subsequent_actions", [])
         own_actions = [a for a in subsequent if a.startswith(deciding_player)]
         if own_actions:
             lines.append(f"  After: {'; '.join(own_actions)}")
@@ -779,7 +779,7 @@ def _chosen_display(d: dict) -> str:
     """
     chosen = d.get("chosen")
     chosen_args = d.get("chosenArgs") or d.get("chosen_args")
-    choices = d.get("choices", [])  # nofb
+    choices = d.get("choices", [])
     return _renderer_chosen_display(chosen, chosen_args, choices)
 
 
@@ -990,7 +990,7 @@ def build_decision_prompt(
         prior_ctx = _format_prior_context(
             decision, snapshots, actions_by_turn, num_players
         )
-        snap_ts = snap.get("ts", "")  # nofb
+        snap_ts = snap.get("ts", "")
         turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
         formatted = render_decision(
             dict(decision),
@@ -1011,7 +1011,7 @@ def build_decision_prompt(
         prior_ctx = _format_prior_context(
             decision, snapshots, actions_by_turn, num_players
         )
-        snap_ts = snap.get("ts", "") if snap is not None else ""  # nofb
+        snap_ts = snap.get("ts", "") if snap is not None else ""
         turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
         user_msg = f"## Game Overview\n{overview}"
         if card_ref:
@@ -1152,7 +1152,7 @@ def _eval_one_decision(
     # represents the state BEFORE the action processes.  The resulting game
     # actions get strictly higher seq values, so we need > (not >=).
     action_seq = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
-    action_ts = decision.get("action_ts", "")  # nofb
+    action_ts = decision.get("action_ts", "")
     if action_seq:
         # v2: find first snapshot strictly after action_seq
         aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
@@ -1164,7 +1164,7 @@ def _eval_one_decision(
         # v1: find first snapshot strictly after action_ts
         aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
         for i in range(s_idx, len(snapshots)):
-            if snapshots[i].get("ts", "") > action_ts:  # nofb
+            if snapshots[i].get("ts", "") > action_ts:
                 aftermath_idx = i
                 break
     else:
@@ -1184,11 +1184,11 @@ def load_game_context(gz_path: str) -> dict:
     """
     data = _load_game(gz_path)
     decisions = extract_decisions(gz_path)
-    snapshots = data.get("snapshots", [])  # nofb
+    snapshots = data.get("snapshots", [])
     overview = _game_overview(data)
-    game_actions = data.get("actions", [])  # nofb
+    game_actions = data.get("actions", [])
     abt = _actions_by_turn(game_actions)
-    num_players = len(data.get("players", []))  # nofb
+    num_players = len(data.get("players", []))
 
     card_names = _collect_card_names(data)
     oracle_texts = _get_oracle_texts(sorted(card_names))
@@ -1360,7 +1360,7 @@ def main(gz_path: str) -> float:
                     continue
                 if is_forced(decisions[j]):
                     continue
-                prev_msg = decisions[j].get("message", "")  # nofb
+                prev_msg = decisions[j].get("message", "")
                 assert isinstance(prev_msg, str), (
                     f"decision message must be a string, got {prev_msg!r}"
                 )
@@ -1437,7 +1437,7 @@ def main(gz_path: str) -> float:
             print(f"  Raw LLM data saved to {raw_path}")
 
     # Filter out annotations with invalid snapshotIndex (LLM sometimes fabricates indices)
-    num_snapshots = len(data.get("snapshots", []))  # nofb
+    num_snapshots = len(data.get("snapshots", []))
     valid_annotations: list[dict] = []
     for ann in annotations:
         idx = ann.get("snapshotIndex")
@@ -1468,7 +1468,7 @@ def main(gz_path: str) -> float:
         return total_cost
 
     # Display blunders
-    snapshots = data.get("snapshots", [])  # nofb
+    snapshots = data.get("snapshots", [])
     print(f"\nFound {len(annotations)} blunder(s):\n")
     for ann in annotations:
         snap_idx = ann["snapshotIndex"]

@@ -71,7 +71,7 @@ def main() -> None:
         analyze_game(gz)
 
         data = load_game(gz)
-        new_count = len(data.get("annotations", []))  # nofb
+        new_count = len(data.get("annotations", []))
         print(f"  Annotations: {old_count} old -> {new_count} new")
         return
 
@@ -104,7 +104,7 @@ def main() -> None:
 
         # Count new annotations after analysis
         data = load_game(gz)
-        new_count = len(data.get("annotations", []))  # nofb
+        new_count = len(data.get("annotations", []))
         print(f"  Annotations: {old_count} old -> {new_count} new")
         print()
 

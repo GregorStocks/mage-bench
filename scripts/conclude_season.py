@@ -29,8 +29,8 @@ _PERSONALITIES_JSON = _ROOT / "puppeteer" / "personalities.json"
 def _build_key_to_preset(presets_data: dict) -> dict[str, str]:
     """Build player_key -> preset_name mapping from presets.json."""
     mapping: dict[str, str] = {}
-    for name, pdata in presets_data.get("presets", {}).items():  # nofb
-        model_id = pdata.get("model", "")  # nofb
+    for name, pdata in presets_data.get("presets", {}).items():
+        model_id = pdata.get("model", "")
         effort = pdata.get("reasoning_effort")
         key = f"{model_id}::{effort}" if effort else model_id
         mapping[key] = name
@@ -61,7 +61,7 @@ def main() -> int:
         f"Run 'make leaderboard' first."
     )
     benchmark = json.loads(_BENCHMARK_RESULTS.read_text())
-    combined_models = benchmark.get("models", [])  # nofb
+    combined_models = benchmark.get("models", [])
 
     assert len(combined_models) >= size, (
         f"Only {len(combined_models)} models in combined leaderboard, "

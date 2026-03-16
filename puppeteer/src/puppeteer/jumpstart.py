@@ -71,7 +71,7 @@ def load_jumpstart_themes(project_root: Path) -> list[HalfDeck]:
     for json_file in sorted(registry_dir.glob("*.json")):
         data = json.loads(json_file.read_text())
         theme = data["name"]
-        variants = data.get("variants", [])  # nofb
+        variants = data.get("variants", [])
         assert variants, f"Jumpstart theme {theme!r} has no variants in {json_file}"
         # Use first variant as representative
         cards = [_parse_dck_card(line) for line in variants[0]["cards"]]

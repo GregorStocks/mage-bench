@@ -65,7 +65,7 @@ def _run_meta_script_step(step: dict, *, last_tool_name: str | None, last_result
             f"assert_action after {last_tool_name or '?'} expected action_pending=true, got: {last_result_text}"
         )
 
-    arguments = dict(step.get("arguments", {}))  # nofb
+    arguments = dict(step.get("arguments", {}))
     allowed = set(_ASSERT_ACTION_FIELDS) | {"message_contains"}
     unknown = sorted(set(arguments) - allowed)
     if unknown:
@@ -116,7 +116,7 @@ async def execute_replay_script(
             continue
 
         name = call["name"]
-        arguments = dict(call.get("arguments", {}))  # nofb
+        arguments = dict(call.get("arguments", {}))
         tool_call_count += 1
         board_tracker.inject(name, arguments)
         result_text = await call_tool(name, arguments)

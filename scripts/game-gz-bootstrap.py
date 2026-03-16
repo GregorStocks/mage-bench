@@ -70,7 +70,7 @@ def _failed_tool_calls(
 
 def _format_result_preview(event: Mapping[str, object]) -> str:
     """Render a short preview of the raw result payload."""
-    result = event.get("result", "")  # nofb
+    result = event.get("result", "")
     if isinstance(result, str):
         return result[:120]
     return json.dumps(result)[:120]
@@ -108,7 +108,7 @@ def main(game_id: str) -> None:
         cost = p.get("totalCostUsd", 0)
         print(f"  {p['name']} ({p.get('model', '?')}) ${cost:.2f}")
 
-    events = d.get("llmEvents", [])  # nofb
+    events = d.get("llmEvents", [])
     errors = _failed_tool_calls(events)
     print(f"LLM events: {len(events)} | Failed tool calls: {len(errors)}")
     for e in errors[:5]:

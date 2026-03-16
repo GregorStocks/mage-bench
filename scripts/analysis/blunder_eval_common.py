@@ -77,7 +77,7 @@ def is_forced(d: Mapping[str, object]) -> bool:
 
 def action_result(d: Mapping[str, object]) -> JsonObject:
     """Get the action result from either format."""
-    value = d.get("actionResult", d.get("action_result", {}))  # nofb
+    value = d.get("actionResult", d.get("action_result", {}))
     assert isinstance(value, dict), f"actionResult must be an object, got {value!r}"
     return value
 
@@ -102,17 +102,17 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
     These are intermediate steps during mana payment or ability activation —
     not strategically interesting for blunder annotation.
     """
-    msg = d.get("message", "")  # nofb
+    msg = d.get("message", "")
     assert isinstance(msg, str), f"message must be a string, got {msg!r}"
     if msg.startswith("Choose which mana to produce from"):
         return True
     # "Choose spell or ability to play" where ALL choices are mana abilities
     if msg.startswith(("Choose spell or ability", "Choose ability")):
-        choices = d.get("choices", [])  # nofb
+        choices = d.get("choices", [])
         assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
         if choices and all(
             isinstance(c, dict)
-            and "Add {" in (c.get("name", "") + c.get("description", ""))  # nofb
+            and "Add {" in (c.get("name", "") + c.get("description", ""))
             for c in choices
         ):
             return True
@@ -121,7 +121,7 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
 
 def subsequent_actions(d: Mapping[str, object]) -> list[str]:
     """Get subsequent actions from either format."""
-    actions = d.get("subsequentActions", d.get("subsequent_actions", []))  # nofb
+    actions = d.get("subsequentActions", d.get("subsequent_actions", []))
     assert isinstance(actions, list), (
         f"subsequentActions must be a list, got {actions!r}"
     )
@@ -351,7 +351,7 @@ def compute_aftermath_index(
         if isinstance(action_seq_raw, int) and not isinstance(action_seq_raw, bool)
         else 0
     )
-    action_ts_raw = decision.get("action_ts", "")  # nofb
+    action_ts_raw = decision.get("action_ts", "")
     action_ts = action_ts_raw if isinstance(action_ts_raw, str) else ""
     if action_seq:
         for i in range(s_idx, len(snapshots)):
@@ -363,7 +363,7 @@ def compute_aftermath_index(
                 return i
     elif action_ts:
         for i in range(s_idx, len(snapshots)):
-            snapshot_ts = snapshots[i].get("ts", "")  # nofb
+            snapshot_ts = snapshots[i].get("ts", "")
             assert isinstance(snapshot_ts, str), (
                 f"snapshot ts must be a string when present, got {snapshot_ts!r}"
             )
@@ -425,18 +425,18 @@ def lookup_annotation_for_decision(
 def chosen_display(decision: Mapping[str, object]) -> str:
     """Human-readable name of what was chosen in a decision."""
     chosen = decision.get("chosen")
-    choices = decision.get("choices", [])  # nofb
+    choices = decision.get("choices", [])
     assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
     if isinstance(chosen, bool):
         return str(chosen)
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
         c = choices[chosen]
         if isinstance(c, dict):
-            name = c.get("name", "")  # nofb
+            name = c.get("name", "")
             assert isinstance(name, str), f"choice name must be a string, got {name!r}"
             if name:
                 return name
-            description = c.get("description", "")  # nofb
+            description = c.get("description", "")
             assert isinstance(description, str), (
                 f"choice description must be a string, got {description!r}"
             )
