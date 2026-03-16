@@ -113,7 +113,7 @@ def test_main_reports_provider_in_missing_key_log(caplog: pytest.LogCaptureFixtu
     assert "configured API key env var" in caplog.text
 
 
-@pytest.fixture()
+@pytest.fixture
 def _no_prefetch():
     """Patch _prefetch_first_action so run_pilot_loop tests don't block."""
     with patch("puppeteer.pilot._prefetch_first_action", new_callable=AsyncMock, return_value="Game starting."):

@@ -64,11 +64,15 @@ select = [
     "TCH",  # flake8-type-checking: move type-only imports into TYPE_CHECKING blocks
     "ERA",  # eradicate: commented-out code
     "N",    # pep8-naming: naming conventions
+    "PT",   # flake8-pytest-style: pytest best practices
 ]
 ignore = [
     "SIM105",  # contextlib.suppress - try/except/pass is fine
     "SIM115",  # context manager for open - not always appropriate
     "PERF203", # try-except in loop - intentional for fault tolerance
+    "PT015",  # assert-False - used as unreachable-code marker in production scripts
+    "PT018",  # composite assertions - intentional isinstance+truthy checks
+    "PT019",  # fixture-param-without-value - idiomatic side-effect fixture pattern
 ]
 external = []
 
