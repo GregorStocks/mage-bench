@@ -206,7 +206,7 @@ for (const game of loadAllGames()) {
 
   {top5.length > 0 && (
     <section class="leaderboard-preview">
-      <h2>Season ${currentSeason} ELO <a href={`/season/${currentSeason}/rankings`} class="section-link">Full leaderboard &rarr;</a></h2>
+      <h2>Season {currentSeason} ELO <a href={`/season/${currentSeason}/rankings`} class="section-link">Full leaderboard &rarr;</a></h2>
       <div class="mini-leaderboard">
         {top5.map((model, i) => (
           <div class:list={['mini-row', { 'mini-gold': i === 0, 'mini-silver': i === 1, 'mini-bronze': i === 2 }]}>
