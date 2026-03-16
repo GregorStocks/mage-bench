@@ -41,7 +41,7 @@
         },
         "cursor": {
           "type": "integer",
-          "description": "Cursor for next call"
+          "description": "Bridge event cursor for next call"
         },
         "cursor_reset": {
           "type": "boolean",
@@ -63,15 +63,15 @@
     "examples": [
       {
         "label": "Truncated log",
-        "value": "{\n  \"log\": \"Alice turn 3 (20 - 15)\\nAlice casts Lightning Bolt...\",\n  \"total_length\": 5234,\n  \"truncated\": true,\n  \"cursor\": 5234\n}"
+        "value": "{\n  \"log\": \"Alice turn 3:\\nAlice cast Lightning Bolt targeting Bob\",\n  \"total_length\": 523,\n  \"truncated\": true,\n  \"cursor\": 42\n}"
       },
       {
         "label": "Cursor delta",
-        "value": "{\n  \"log\": \"Bob casts Swords to Plowshares targeting Goblin Guide.\",\n  \"total_length\": 5301,\n  \"truncated\": false,\n  \"cursor\": 5301\n}"
+        "value": "{\n  \"log\": \"Bob cast Swords to Plowshares targeting Goblin Guide\",\n  \"total_length\": 530,\n  \"truncated\": false,\n  \"cursor\": 45\n}"
       },
       {
         "label": "Since turn recap",
-        "value": "{\n  \"log\": \"Bob turn 2 (20 - 18)\\nBob casts Sol Ring\\nAlice turn 3 (20 - 18)\\nAlice plays Forest\",\n  \"total_length\": 5400,\n  \"truncated\": false,\n  \"cursor\": 5400,\n  \"since_turn\": 2,\n  \"since_player\": \"Bob\"\n}"
+        "value": "{\n  \"log\": \"Bob turn 2:\\nBob cast Sol Ring\\nAlice turn 3:\\nAlice played Forest\",\n  \"total_length\": 540,\n  \"truncated\": false,\n  \"cursor\": 50,\n  \"since_turn\": 2,\n  \"since_player\": \"Bob\"\n}"
       }
     ]
   },

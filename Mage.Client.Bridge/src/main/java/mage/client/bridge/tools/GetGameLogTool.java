@@ -20,7 +20,7 @@ public class GetGameLogTool {
         @ResultField(description = "Older content was omitted")
         public Boolean truncated;
 
-        @ResultField(description = "Cursor for next call")
+        @ResultField(description = "Bridge event cursor for next call")
         public Integer cursor;
 
         @ResultField(description = "Cursor was too old and was reset",
@@ -63,20 +63,20 @@ public class GetGameLogTool {
     public static List<Map<String, Object>> examples() {
         return List.of(
             example("Truncated log", json(
-                "log", "Alice turn 3 (20 - 15)\nAlice casts Lightning Bolt...",
-                "total_length", 5234,
+                "log", "Alice turn 3:\nAlice cast Lightning Bolt targeting Bob",
+                "total_length", 523,
                 "truncated", true,
-                "cursor", 5234)),
+                "cursor", 42)),
             example("Cursor delta", json(
-                "log", "Bob casts Swords to Plowshares targeting Goblin Guide.",
-                "total_length", 5301,
+                "log", "Bob cast Swords to Plowshares targeting Goblin Guide",
+                "total_length", 530,
                 "truncated", false,
-                "cursor", 5301)),
+                "cursor", 45)),
             example("Since turn recap", json(
-                "log", "Bob turn 2 (20 - 18)\nBob casts Sol Ring\nAlice turn 3 (20 - 18)\nAlice plays Forest",
-                "total_length", 5400,
+                "log", "Bob turn 2:\nBob cast Sol Ring\nAlice turn 3:\nAlice played Forest",
+                "total_length", 540,
                 "truncated", false,
-                "cursor", 5400,
+                "cursor", 50,
                 "since_turn", 2,
                 "since_player", "Bob")));
     }
