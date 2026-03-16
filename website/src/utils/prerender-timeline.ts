@@ -174,9 +174,9 @@ function chosenDisplayText(decision: Decision): string {
 
   // Batch blocks
   if (chosenArgs.blockers) {
-    let blockers = chosenArgs.blockers;
+    let blockers: unknown = chosenArgs.blockers;
     if (typeof blockers === 'string') {
-      try { blockers = JSON.parse(blockers as string); } catch {
+      try { blockers = JSON.parse(blockers) as unknown; } catch {
         blockers = (blockers as string).split(',').map((s: string) => s.trim());
       }
     }
@@ -278,8 +278,8 @@ interface MergedLlmEvent {
 function extractSystemMessages(toolCallEvent: LlmEvent): string[] {
   if (!toolCallEvent.result) return [];
   try {
-    const r = JSON.parse(toolCallEvent.result);
-    const chat = r.recent_chat || [];
+    const r = JSON.parse(toolCallEvent.result) as Record<string, unknown>;
+    const chat = (r.recent_chat || []) as unknown[];
     const msgs: string[] = [];
     for (const msg of chat) {
       if (typeof msg === 'string' && msg.indexOf('[System]') !== -1) {

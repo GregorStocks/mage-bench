@@ -2,8 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import GameListView from '../../components/GameListView.astro';
 import benchmarkData from '../../data/benchmark-results.json';
+import type { BenchmarkResults } from '../../utils/season-data';
 import { loadAllGames } from '../../utils/load-games';
-const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
+const minBlunderVersion = (benchmarkData as BenchmarkResults).minBlunderVersion;
 
 const games = loadAllGames().filter(g => !g.tournament);
 ---
