@@ -3,14 +3,11 @@
 from __future__ import annotations
 
 import contextlib
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 import pytest
 
 from tests import golden_helpers
-
-if TYPE_CHECKING:
-    from pathlib import Path
 
 
 class _FakeSession:

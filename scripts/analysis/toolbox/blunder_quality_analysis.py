@@ -107,7 +107,7 @@ def print_subsection(title: str) -> None:
 
 
 def analyze_consensus_blunders(
-    games: dict[str, list[dict]],  # noqa: ARG001
+    _games: dict[str, list[dict]],
     consensus: dict[str, dict[int, dict]],
 ) -> None:
     """Section 3: For each consensus blunder, show detailed cross-approach comparison."""
@@ -269,7 +269,7 @@ def analyze_per_approach(
 
 
 def analyze_decision_accuracy(
-    games: dict[str, list[dict]],  # noqa: ARG001
+    _games: dict[str, list[dict]],
     consensus: dict[str, dict[int, dict]],
 ) -> None:
     """Section 5: Decision attribution analysis.
@@ -286,9 +286,9 @@ def analyze_decision_accuracy(
     """
     print_section("DECISION ATTRIBUTION ANALYSIS")
 
-    MERGE_WINDOW = 3  # noqa: N806
+    MERGE_WINDOW = 3
     # Minimum word overlap fraction to consider two annotations about the same blunder
-    MIN_OVERLAP_FRAC = 0.25  # noqa: N806
+    MIN_OVERLAP_FRAC = 0.25
 
     merge_candidates: list[tuple[str, list[int], dict[int, dict]]] = []
 
@@ -557,7 +557,7 @@ def analyze_cost_effectiveness(
 
 
 def analyze_severity_consistency(
-    games: dict[str, list[dict]],  # noqa: ARG001
+    _games: dict[str, list[dict]],
     consensus: dict[str, dict[int, dict]],
 ) -> None:
     """For consensus blunders, analyze severity consistency across approaches."""

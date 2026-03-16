@@ -10,8 +10,9 @@ from __future__ import annotations
 
 import os
 import subprocess
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 import httpx
 from mcp import ClientSession
@@ -20,10 +21,6 @@ from mcp.shared._httpx_utils import create_mcp_http_client
 
 from puppeteer.port import PortReservation, find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
-
-if TYPE_CHECKING:
-    from collections.abc import AsyncGenerator
-    from pathlib import Path
 
 # MCP HTTP ports start at 19000 to avoid overlap with XMage server ports (17171+)
 _MCP_PORT_START = 19000

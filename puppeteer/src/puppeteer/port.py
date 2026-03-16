@@ -45,7 +45,7 @@ def _try_lock_port(port: int) -> int | None:
     Returns the open file descriptor on success, or None if another
     process already holds the lock.
     """
-    lock_path = f"/tmp/mage-port-{port}.lock"  # noqa: S108 — intentional lock file
+    lock_path = f"/tmp/mage-port-{port}.lock"
     try:
         fd = os.open(lock_path, os.O_CREAT | os.O_RDWR, 0o644)
     except OSError:
@@ -82,7 +82,7 @@ def can_bind_port(port: int) -> bool:
         sock.close()
 
 
-def find_available_port(host: str, start_port: int, max_attempts: int = 100) -> PortReservation:  # noqa: ARG001
+def find_available_port(_host: str, start_port: int, max_attempts: int = 100) -> PortReservation:
     """Find an available port starting from start_port, holding flock reservations.
 
     Returns a PortReservation that holds exclusive locks on the primary port

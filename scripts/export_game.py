@@ -1217,7 +1217,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
         "youtubeUrl": meta.get("youtube_url", ""),
     }
 
-    # Season/tournament (v4)  # noqa: ERA001
+    # Season and tournament fields, added in v4
     if "season" in meta:
         output["season"] = meta["season"]
     else:

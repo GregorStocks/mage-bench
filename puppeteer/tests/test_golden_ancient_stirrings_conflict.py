@@ -48,7 +48,7 @@ def test_ancient_stirrings_short_id_conflict(
             # Cast Ancient Stirrings (chain after land play).
             {"name": "choose_action", "arguments": {"choice": "p10"}},
             # Pass priority — Ancient Stirrings resolves.
-            # GAME_ASK: "Reveal a colorless card and put it into your hand?"  # noqa: ERA001
+            # GAME_ASK: "Reveal a colorless card and put it into your hand?"
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "yes"}},
             # GAME_TARGET: Select which colorless card from the top 5.

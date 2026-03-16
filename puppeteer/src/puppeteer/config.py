@@ -404,7 +404,7 @@ def _resolve_personality(
     player: PilotPlayer,
     personalities: dict[str, dict],
     models_data: dict,
-    had_explicit_name: bool,  # noqa: FBT001
+    had_explicit_name: bool,
 ) -> None:
     """Apply personality defaults to a player in-place (prompt_suffix and name only)."""
     if not player.personality:

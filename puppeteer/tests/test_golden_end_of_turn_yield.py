@@ -35,7 +35,7 @@ def test_end_of_turn_yield(
         script_a=[
             # Choose TestPlayer as starting player, keep hand.
             # Opponent's 7 Mountains = p3-p9; TestPlayer's hand alphabetical:
-            # Badlands=p10, LB=p11, LB=p12, Memnite=p13, Mountain=p14,  # noqa: ERA001
+            # Badlands=p10, LB=p11, LB=p12, Memnite=p13, Mountain=p14,
             # Plateau=p15, Taiga=p16.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},

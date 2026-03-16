@@ -26,10 +26,10 @@ import time
 import urllib.error
 import urllib.request
 from collections import defaultdict
+from collections.abc import Generator, Iterable, Mapping
 from contextlib import contextmanager
 from pathlib import Path
 from types import SimpleNamespace
-from typing import TYPE_CHECKING
 
 import psutil
 
@@ -50,9 +50,6 @@ from scripts.analysis.blunder_analysis import (
 from scripts.analysis.blunder_eval_common import decision_index
 from scripts.analysis.extract_decisions import extract_decisions
 from scripts.export_game import build_export
-
-if TYPE_CHECKING:
-    from collections.abc import Generator, Iterable, Mapping
 
 # ---------------------------------------------------------------------------
 # Timing instrumentation
@@ -864,7 +861,7 @@ def _run_replay_on_bridge(
 class _MCPToolDef:
     name: str
     description: str
-    inputSchema: dict | None  # noqa: N815 — MCP protocol field name
+    inputSchema: dict | None
 
 
 def _pilot_script_from_replay_script(script: list[dict]) -> list[dict]:

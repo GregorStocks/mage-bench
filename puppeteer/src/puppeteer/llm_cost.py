@@ -58,8 +58,8 @@ def fetch_openrouter_prices() -> dict[str, tuple[float, float]]:
     Returns empty dict on any failure.
     """
     try:
-        req = urllib.request.Request(OPENROUTER_MODELS_URL)  # noqa: S310
-        with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT_SECS) as resp:  # noqa: S310
+        req = urllib.request.Request(OPENROUTER_MODELS_URL)
+        with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT_SECS) as resp:
             data = json.loads(resp.read())
     except (OSError, json.JSONDecodeError) as e:
         logger.warning("[llm_cost] Failed to fetch OpenRouter prices: %s", e)

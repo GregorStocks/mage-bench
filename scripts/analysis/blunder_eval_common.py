@@ -4,18 +4,13 @@ Provides data structures, I/O, and matching logic used by the seed,
 audit, baseline, eval, and promote scripts.
 """
 
-from __future__ import annotations
-
 import json
 import re
 import tempfile
+from collections.abc import Mapping, Sequence
 from pathlib import Path
-from typing import TYPE_CHECKING
 
 from schemas.game_export_types import GameExport, JsonObject, load_game_export
-
-if TYPE_CHECKING:
-    from collections.abc import Mapping, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
@@ -378,7 +373,7 @@ def compute_aftermath_index(
 def reverse_map_annotations(
     annotations: Sequence[Mapping[str, object]],
     decisions: Sequence[Mapping[str, object]],
-    snapshots: Sequence[Mapping[str, object]],  # noqa: ARG001
+    _snapshots: Sequence[Mapping[str, object]],
 ) -> dict[int, int]:
     """Map annotation list indices to decision indices.
 
@@ -414,7 +409,7 @@ def reverse_map_annotations(
 def lookup_annotation_for_decision(
     decision: Mapping[str, object],
     annotations: Sequence[Mapping[str, object]],
-    snapshots: Sequence[Mapping[str, object]],  # noqa: ARG001
+    _snapshots: Sequence[Mapping[str, object]],
 ) -> Mapping[str, object] | None:
     """Find the game-file annotation matching a decision, if any."""
     idx = decision_index(decision)

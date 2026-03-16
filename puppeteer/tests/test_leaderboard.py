@@ -1111,7 +1111,7 @@ def test_generate_leaderboard_blunder_score_excludes_questionable():
             ],
         ),
     ]
-    # totalTurns=10  # noqa: ERA001
+    # totalTurns=10
     games[0]["annotations"] = [
         {"type": "blunder", "player": "Alice", "severity": "major"},  # weight 4
         {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0
@@ -1370,9 +1370,9 @@ def test_generate_leaderboard_thinking_time():
     alice = next(m for m in result["models"] if m["modelName"] == "Model A")
     bob = next(m for m in result["models"] if m["modelName"] == "Model B")
 
-    # Alice: (120 + 80) / 2 = 100.0  # noqa: ERA001
+    # Alice: (120 + 80) / 2 = 100.0
     assert alice["avgThinkingTimeSecs"] == 100.0
-    # Bob: (90 + 110) / 2 = 100.0  # noqa: ERA001
+    # Bob: (90 + 110) / 2 = 100.0
     assert bob["avgThinkingTimeSecs"] == 100.0
 
 

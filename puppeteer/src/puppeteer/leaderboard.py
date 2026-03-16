@@ -5,16 +5,14 @@ from __future__ import annotations
 import json
 import math
 import re
+from collections.abc import Mapping
 from datetime import UTC, datetime
-from typing import TYPE_CHECKING, Any, NotRequired, TypedDict
+from pathlib import Path
+from typing import Any, NotRequired, TypedDict
 from zoneinfo import ZoneInfo
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 from schemas.game_export_types import GameExport, load_game_export
-
-if TYPE_CHECKING:
-    from collections.abc import Mapping
-    from pathlib import Path
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")

@@ -108,7 +108,7 @@ async def execute_replay_script(
     seen_oracle_cards: set[str] = set()
     tool_call_count = 0
 
-    _RENDERED_TOOLS = frozenset({"pass_priority", "get_action_choices", "choose_action"})  # noqa: N806
+    rendered_tools = frozenset({"pass_priority", "get_action_choices", "choose_action"})
 
     for call in script:
         if _is_meta_script_step(call):
@@ -139,7 +139,7 @@ async def execute_replay_script(
         # Render action results the same way the real pilot does,
         # so golden prompts match what the LLM actually sees.
         display_text = result_text
-        if name in _RENDERED_TOOLS:
+        if name in rendered_tools:
             display_text, last_board = _render_for_pilot(result_text, last_board, seen_oracle_cards)
 
         # Add assistant tool call + tool result to history

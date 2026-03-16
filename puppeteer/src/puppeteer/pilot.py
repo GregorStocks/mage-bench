@@ -71,7 +71,7 @@ MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
 class _McpToolLike(Protocol):
     name: str
     description: str | None
-    inputSchema: dict | None  # noqa: N815 — MCP protocol field name
+    inputSchema: dict | None
 
 
 class _ToolFunctionLike(Protocol):

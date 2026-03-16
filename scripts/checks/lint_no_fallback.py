@@ -64,7 +64,7 @@ def _check_file(path: Path, source_lines: list[str]) -> list[str]:
     return errors
 
 
-def lint_no_fallback(project_root: Path) -> list[str]:  # noqa: ARG001
+def lint_no_fallback(_project_root: Path) -> list[str]:
     errors = []
     for scan_dir in SCAN_DIRS:
         if not scan_dir.is_dir():

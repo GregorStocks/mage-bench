@@ -61,7 +61,6 @@ select = [
     "A002",  # builtin argument shadowing
     "ANN401",  # Any in public signatures
     "C4",   # flake8-comprehensions: unnecessary comprehension patterns
-    "TCH",  # flake8-type-checking: move type-only imports into TYPE_CHECKING blocks
     "ERA",  # eradicate: commented-out code
     "N",    # pep8-naming: naming conventions
     "PT",   # flake8-pytest-style: pytest best practices
@@ -97,9 +96,16 @@ known-first-party = ["puppeteer", "scripts", "schemas"]
     "S105", "S106", "S108", "S310",   # test data: fake credentials, /tmp paths, localhost URLs
     "ARG001", "ARG002", "ARG005",     # fixtures, protocol methods, lambda stubs
     "FBT001", "FBT002", "FBT003",     # boolean params in test helpers
+    "ERA001",                          # documentation comments that look like code
+    "N815",                            # inputSchema — MCP protocol field name
 ]
 "src/puppeteer/orchestrator.py" = ["FBT001", "FBT002"]  # compile_project boolean params
 "src/puppeteer/replay.py" = ["FBT001", "FBT002"]  # skip_postscript boolean params
+"src/puppeteer/pilot.py" = ["N815"]  # inputSchema — MCP protocol field name
+"src/puppeteer/config.py" = ["FBT001"]  # _resolve_personality boolean param
+"src/puppeteer/port.py" = ["S108"]  # intentional /tmp lock file
+"src/puppeteer/llm_cost.py" = ["S310"]  # HTTPS fetch from OpenRouter API
+"../scripts/analysis/toolbox/blunder_quality_analysis.py" = ["N806"]  # intentional UPPERCASE local constants
 
 [tool.mypy]
 python_version = "3.11"
