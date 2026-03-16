@@ -239,6 +239,57 @@ public class BridgeCallbackHandler {
         this.client = client;
     }
 
+    /**
+     * Send a boolean response to the server, or declare the player dead if it fails.
+     *
+     * SessionImpl.sendPlayerBoolean() can return false silently (session expired,
+     * RMI failure, etc.).  When that happens the server never gets the response
+     * and the game deadlocks: the server waits for an answer that was never
+     * delivered, and the bridge waits for a callback that will never arrive.
+     *
+     * On CI runners under memory pressure this causes 120s golden-test timeouts.
+     * Detecting the failure immediately lets the wait loops exit cleanly instead
+     * of blocking until the HTTP socket times out.
+     */
+    private void sendBooleanOrDie(UUID gameId, boolean data, String context) {
+        boolean ok = session.sendPlayerBoolean(gameId, data);
+        if (!ok) {
+            declareResponseFailed("sendPlayerBoolean(" + data + ")", context, gameId);
+        }
+    }
+
+    private void sendUuidOrDie(UUID gameId, UUID data, String context) {
+        boolean ok = session.sendPlayerUUID(gameId, data);
+        if (!ok) {
+            declareResponseFailed("sendPlayerUUID(" + data + ")", context, gameId);
+        }
+    }
+
+    private void sendStringOrDie(UUID gameId, String data, String context) {
+        boolean ok = session.sendPlayerString(gameId, data);
+        if (!ok) {
+            declareResponseFailed("sendPlayerString(" + data + ")", context, gameId);
+        }
+    }
+
+    private void sendIntegerOrDie(UUID gameId, int data, String context) {
+        boolean ok = session.sendPlayerInteger(gameId, data);
+        if (!ok) {
+            declareResponseFailed("sendPlayerInteger(" + data + ")", context, gameId);
+        }
+    }
+
+    private void declareResponseFailed(String call, String context, UUID gameId) {
+        String msg = call + " failed — server did not receive response"
+            + " (context=" + context + ", gameId=" + gameId + ")";
+        logger.error("[" + client.getUsername() + "] CRITICAL: " + msg);
+        logError(msg);
+        playerDead = true;
+        synchronized (actionLock) {
+            actionLock.notifyAll();
+        }
+    }
+
     private final class ActionableCallbackOutcome {
         private final ClientCallbackMethod method;
         private String outcome = null;
@@ -1260,7 +1311,7 @@ public class BridgeCallbackHandler {
                 // Optional GAME_TARGET with no valid targets: auto-cancel
                 if (choiceList.isEmpty() && !required && allowAutoResolve) {
                     clearPendingActionIfCurrent(action);
-                    session.sendPlayerBoolean(action.gameId(), false);
+                    sendBooleanOrDie(action.gameId(), false, "buildActionChoices:auto_cancel_no_targets");
                     result.action_pending = false;
                     result.action_taken = "auto_cancelled_no_targets";
                     result.message = stripHtml(msg.getMessage());
@@ -1523,7 +1574,7 @@ public class BridgeCallbackHandler {
                     + ": auto-cancelling optional GAME_TARGET with no valid targets");
                 lastChoices = null;
                 clearChoiceSnapshot();
-                session.sendPlayerBoolean(action.gameId(), false);
+                sendBooleanOrDie(action.gameId(), false, "auto-cancel optional GAME_TARGET");
                 return NonDecisionActionStatus.AUTO_HANDLED;
             }
             return pendingAction != action
@@ -1543,7 +1594,7 @@ public class BridgeCallbackHandler {
             updateLastGameView(gv, source + ":single_required_target");
             lastChoices = null;
             clearChoiceSnapshot();
-            session.sendPlayerUUID(action.gameId(), onlyTarget);
+            sendUuidOrDie(action.gameId(), onlyTarget, "auto-select single required GAME_TARGET");
             return NonDecisionActionStatus.AUTO_HANDLED;
         }
         return pendingAction != action
@@ -1819,7 +1870,7 @@ public class BridgeCallbackHandler {
                     if (index != null) {
                         logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + index + " for GAME_ASK (boolean-only)");
                     }
-                    session.sendPlayerBoolean(gameId, answer);
+                    sendBooleanOrDie(gameId, answer, "chooseAction:GAME_ASK");
                     result.action_taken = answer ? "yes" : "no";
                     break;
 
@@ -1874,11 +1925,11 @@ public class BridgeCallbackHandler {
                                     manaPlanAbilityIndex = null;
                                     manaPlanAutoTapFallback = true;
                                 }
-                                session.sendPlayerUUID(gameId, chosenUuid);
+                                sendUuidOrDie(gameId, chosenUuid, "chooseAction:GAME_SELECT_index");
                                 result.action_taken = "selected_" + index;
                                 usedIndex = true;
                             } else if (chosen instanceof String chosenStr) {
-                                session.sendPlayerString(gameId, chosenStr);
+                                sendStringOrDie(gameId, chosenStr, "chooseAction:GAME_SELECT_special");
                                 result.action_taken = "special_" + chosenStr;
                                 usedIndex = true;
                             } else {
@@ -1889,7 +1940,7 @@ public class BridgeCallbackHandler {
                     }
                     if (!usedIndex) {
                         if (answer != null) {
-                            session.sendPlayerBoolean(gameId, answer);
+                            sendBooleanOrDie(gameId, answer, "chooseAction:GAME_SELECT_answer");
                             result.action_taken = answer ? "confirmed" : "passed_priority";
                         } else {
                             return buildError(result, "missing_param",
@@ -1922,7 +1973,7 @@ public class BridgeCallbackHandler {
                         } else {
                             Object manaChoice = choices.get(index);
                             if (manaChoice instanceof UUID manaUuid) {
-                                session.sendPlayerUUID(gameId, manaUuid);
+                                sendUuidOrDie(gameId, manaUuid, "chooseAction:GAME_PLAY_MANA");
                                 result.action_taken = "tapped_mana_" + index;
                                 usedManaIndex = true;
                             } else if (manaChoice instanceof ManaType manaType) {
@@ -1962,7 +2013,7 @@ public class BridgeCallbackHandler {
                             }
                             manaPlan = null;
                             manaPlanAbilityIndex = null;
-                            session.sendPlayerBoolean(gameId, false);
+                            sendBooleanOrDie(gameId, false, "chooseAction:GAME_PLAY_MANA_cancel");
                             result.action_taken = "cancelled_spell";
                         } else {
                             return buildError(result, "missing_param",
@@ -1985,7 +2036,7 @@ public class BridgeCallbackHandler {
                         List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
                         if (choices != null && index >= 0 && index < choices.size()) {
                             UUID targetUUID = (UUID) choices.get(index);
-                            session.sendPlayerUUID(gameId, targetUUID);
+                            sendUuidOrDie(gameId, targetUUID, "chooseAction:GAME_TARGET_index");
                             result.action_taken = "selected_target_" + index;
                             break;
                         }
@@ -2006,7 +2057,7 @@ public class BridgeCallbackHandler {
                     } else if (answer != null && !answer) {
                         // Explicit cancel via answer=false
                         if (!required) {
-                            session.sendPlayerBoolean(gameId, false);
+                            sendBooleanOrDie(gameId, false, "chooseAction:GAME_TARGET_cancel");
                             result.action_taken = "cancelled";
                             break;
                         }
@@ -2024,12 +2075,12 @@ public class BridgeCallbackHandler {
                     if (autoTargets != null && !autoTargets.isEmpty()) {
                         UUID firstTarget = selectDeterministicTarget(autoTargets, lastChoices);
                         logger.warn("[" + client.getUsername() + "] choose_action: auto-selecting first target for required GAME_TARGET");
-                        session.sendPlayerUUID(gameId, firstTarget);
+                        sendUuidOrDie(gameId, firstTarget, "chooseAction:GAME_TARGET_auto_select");
                         result.action_taken = "auto_selected_required_target";
                         result.warning = "Required target auto-selected. Use get_action_choices first, then index=N.";
                     } else {
                         logger.error("[" + client.getUsername() + "] Required GAME_TARGET has no valid targets — cancelling to avoid infinite loop");
-                        session.sendPlayerBoolean(gameId, false);
+                        sendBooleanOrDie(gameId, false, "chooseAction:GAME_TARGET_no_valid");
                         result.action_taken = "cancelled_no_valid_targets";
                     }
                     break;
@@ -2051,7 +2102,7 @@ public class BridgeCallbackHandler {
                             + ". Call get_action_choices to see current options.", true, action, true);
                     }
                     UUID abilityUUID = (UUID) abilityChoices.get(index);
-                    session.sendPlayerUUID(gameId, abilityUUID);
+                    sendUuidOrDie(gameId, abilityUUID, "chooseAction:GAME_CHOOSE_ABILITY");
                     result.action_taken = "selected_ability_" + index;
                     break;
                 }
@@ -2081,7 +2132,7 @@ public class BridgeCallbackHandler {
                                 return buildError(result, "invalid_choice",
                                     "'" + text + "' is not a valid choice", true, action, true);
                             }
-                            session.sendPlayerString(gameId, matchedKey);
+                            sendStringOrDie(gameId, matchedKey, "chooseAction:GAME_CHOOSE_CHOICE_key");
                         } else {
                             // For plain choices, text must match a choice string
                             Set<String> choices = choiceObj.getChoices();
@@ -2098,7 +2149,7 @@ public class BridgeCallbackHandler {
                                 return buildError(result, "invalid_choice",
                                     "'" + text + "' is not a valid choice", true, action, true);
                             }
-                            session.sendPlayerString(gameId, matched);
+                            sendStringOrDie(gameId, matched, "chooseAction:GAME_CHOOSE_CHOICE");
                         }
                         result.action_taken = "selected_choice_text_" + text;
                         break;
@@ -2122,7 +2173,7 @@ public class BridgeCallbackHandler {
                             + ". Call get_action_choices to see current options.", true, action, true);
                     }
                     String choiceStr = (String) choiceChoices.get(index);
-                    session.sendPlayerString(gameId, choiceStr);
+                    sendStringOrDie(gameId, choiceStr, "chooseAction:GAME_CHOOSE_CHOICE_index");
                     result.action_taken = "selected_choice_" + index;
                     break;
                 }
@@ -2133,7 +2184,7 @@ public class BridgeCallbackHandler {
                             "Integer 'pile' (1 or 2) required for GAME_CHOOSE_PILE", true, action);
                     }
                     boolean pileChoice = pile == 1;
-                    session.sendPlayerBoolean(gameId, pileChoice);
+                    sendBooleanOrDie(gameId, pileChoice, "chooseAction:GAME_CHOOSE_PILE");
                     result.action_taken = "selected_pile_" + pile;
                     break;
 
@@ -2144,7 +2195,7 @@ public class BridgeCallbackHandler {
                     }
                     GameClientMessage msg = (GameClientMessage) data;
                     int clamped = Math.max(msg.getMin(), Math.min(msg.getMax(), amount));
-                    session.sendPlayerInteger(gameId, clamped);
+                    sendIntegerOrDie(gameId, clamped, "chooseAction:GAME_GET_AMOUNT");
                     result.action_taken = "amount_" + clamped;
                     break;
                 }
@@ -2170,7 +2221,7 @@ public class BridgeCallbackHandler {
                         sb.append(amounts[i]);
                     }
                     String multiAmountStr = sb.toString();
-                    session.sendPlayerString(gameId, multiAmountStr);
+                    sendStringOrDie(gameId, multiAmountStr, "chooseAction:GAME_GET_MULTI_AMOUNT");
                     result.action_taken = "multi_amount";
                     break;
                 }
@@ -2320,7 +2371,7 @@ public class BridgeCallbackHandler {
                     pendingAction = null;
                 }
             }
-            session.sendPlayerString(gameId, "special");
+            sendStringOrDie(gameId, "special", "batchAttack:all");
             // Wait for next callback (server will send a new GAME_SELECT to confirm)
             PendingAction next = waitForNextCallback();
             if (next != null && next.method() == ClientCallbackMethod.GAME_SELECT) {
@@ -2329,7 +2380,7 @@ public class BridgeCallbackHandler {
                         pendingAction = null;
                     }
                 }
-                session.sendPlayerBoolean(gameId, true);
+                sendBooleanOrDie(gameId, true, "batchAttack:confirm_all");
             }
             result.success = true;
             result.action_taken = "batch_attack";
@@ -2366,7 +2417,7 @@ public class BridgeCallbackHandler {
                     pendingAction = null;
                 }
             }
-            session.sendPlayerUUID(gameId, attackerUuid);
+            sendUuidOrDie(gameId, attackerUuid, "batchAttack:declare_attacker");
             declared.add(Map.of("id", shortId));
 
             // Wait for next callback
@@ -2396,7 +2447,7 @@ public class BridgeCallbackHandler {
                     pendingAction = null;
                 }
             }
-            session.sendPlayerBoolean(gameId, true);
+            sendBooleanOrDie(gameId, true, "batchAttack:confirm");
         }
 
         result.success = !Boolean.TRUE.equals(result.interrupted) && failed.isEmpty();
@@ -2464,7 +2515,7 @@ public class BridgeCallbackHandler {
                     pendingAction = null;
                 }
             }
-            session.sendPlayerUUID(gameId, blockerUuid);
+            sendUuidOrDie(gameId, blockerUuid, "batchBlock:declare_blocker");
 
             // Wait for next callback — could be GAME_TARGET (pick which attacker)
             // or GAME_SELECT (single attacker, auto-assigned)
@@ -2487,7 +2538,7 @@ public class BridgeCallbackHandler {
                             pendingAction = null;
                         }
                     }
-                    session.sendPlayerBoolean(gameId, false);
+                    sendBooleanOrDie(gameId, false, "batchBlock:cancel_unknown_attacker");
                     next = waitForNextCallback();
                     if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
                         result.interrupted = true;
@@ -2507,7 +2558,7 @@ public class BridgeCallbackHandler {
                             pendingAction = null;
                         }
                     }
-                    session.sendPlayerBoolean(gameId, false);
+                    sendBooleanOrDie(gameId, false, "batchBlock:cancel_invalid_target");
                     next = waitForNextCallback();
                     if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
                         result.interrupted = true;
@@ -2522,7 +2573,7 @@ public class BridgeCallbackHandler {
                         pendingAction = null;
                     }
                 }
-                session.sendPlayerUUID(gameId, attackerUuid);
+                sendUuidOrDie(gameId, attackerUuid, "batchBlock:select_attacker");
                 declared.add(Map.of("id", blockerShortId, "blocks", attackerShortId));
 
                 // Wait for next GAME_SELECT (back to blocker selection)
@@ -2564,7 +2615,7 @@ public class BridgeCallbackHandler {
                     pendingAction = null;
                 }
             }
-            session.sendPlayerBoolean(gameId, true);
+            sendBooleanOrDie(gameId, true, "batchBlock:confirm");
         }
 
         result.success = !Boolean.TRUE.equals(result.interrupted) && failed.isEmpty();
@@ -3553,7 +3604,7 @@ public class BridgeCallbackHandler {
                     synchronized (actionLock) {
                         pendingAction = null;
                     }
-                    session.sendPlayerBoolean(gameId, false);
+                    sendBooleanOrDie(gameId, false, "passPriority:yield_arm");
                     // The yield consumed the current priority — count it as a pass.
                     actionsPassed++;
                 }
@@ -3654,7 +3705,7 @@ public class BridgeCallbackHandler {
                         unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
                     }
                     logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
-                    session.sendPlayerBoolean(action.gameId(), false);
+                    sendBooleanOrDie(action.gameId(), false, "passPriority:spell_cancel");
                     actionsPassed++;
                     continue;
                 }
@@ -3718,7 +3769,7 @@ public class BridgeCallbackHandler {
                                 pendingAction = null;
                             }
                         }
-                        session.sendPlayerBoolean(action.gameId(), false);
+                        sendBooleanOrDie(action.gameId(), false, "passPriority:yield_my_turn");
                         actionsPassed++;
                         continue;
                     }
@@ -3743,7 +3794,7 @@ public class BridgeCallbackHandler {
                                 pendingAction = null;
                             }
                         }
-                        session.sendPlayerBoolean(action.gameId(), false);
+                        sendBooleanOrDie(action.gameId(), false, "passPriority:yield_end_of_turn");
                         actionsPassed++;
                         continue;
                     }
@@ -3782,7 +3833,7 @@ public class BridgeCallbackHandler {
                             pendingAction = null;
                         }
                     }
-                    session.sendPlayerBoolean(action.gameId(), false);
+                    sendBooleanOrDie(action.gameId(), false, "passPriority:step_yield");
                     actionsPassed++;
                     continue;
                 }
@@ -3848,7 +3899,7 @@ public class BridgeCallbackHandler {
                         pendingAction = null;
                     }
                 }
-                session.sendPlayerBoolean(action.gameId(), false);
+                sendBooleanOrDie(action.gameId(), false, "passPriority:auto_pass");
                 actionsPassed++;
 
                 // Continue waiting for the server to send us the next callback
