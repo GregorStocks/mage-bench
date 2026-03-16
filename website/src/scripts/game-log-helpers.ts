@@ -102,12 +102,9 @@ export function mergeLlmEvents(events: LlmEvent[]): MergedLlmEvent[] {
       });
       i++;
     } else {
-      merged.push({
-        type: e.type,
-        ts: e.ts || '',
-        gameSeq: e.gameSeq || 0,
-        player: e.player,
-      });
+      // Pass metadata events (system_message, context_reset, etc.) through
+      // unchanged so downstream renderers keep all fields.
+      merged.push(e as unknown as MergedLlmEvent);
       i++;
     }
   }
