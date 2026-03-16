@@ -258,6 +258,9 @@ interface MergedLlmEvent {
   type: string;
   ts: string;
   gameSeq: number;
+  /** Max gameSeq across all events in the merged block.  Used for
+   *  firstSnap computation so tool results don't appear too early. */
+  maxGameSeq: number;
   player: string;
   reasoning?: string | null;
   thinking?: string | null;
@@ -302,10 +305,17 @@ function mergeLlmEvents(events: LlmEvent[]): MergedLlmEvent[] {
         j++;
       }
       const mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
+      // Max gameSeq across all events so the block doesn't appear before
+      // its tool results would be individually visible.
+      let maxSeq = mergedSeq;
+      for (const tr of toolResults) {
+        if ((tr.gameSeq || 0) > maxSeq) maxSeq = tr.gameSeq || 0;
+      }
       merged.push({
         type: 'llm_merged',
         ts: e.ts || '',
         gameSeq: mergedSeq,
+        maxGameSeq: maxSeq,
         player: e.player,
         reasoning: e.reasoning,
         thinking: e.thinking,
@@ -315,19 +325,23 @@ function mergeLlmEvents(events: LlmEvent[]): MergedLlmEvent[] {
       });
       i = j;
     } else if (e.type === 'tool_call') {
+      const seq = e.gameSeq || 0;
       merged.push({
         type: 'llm_merged',
         ts: e.ts || '',
-        gameSeq: e.gameSeq || 0,
+        gameSeq: seq,
+        maxGameSeq: seq,
         player: e.player,
         toolResults: [e],
       });
       i++;
     } else {
+      const seq = e.gameSeq || 0;
       merged.push({
         type: e.type,
         ts: e.ts || '',
-        gameSeq: e.gameSeq || 0,
+        gameSeq: seq,
+        maxGameSeq: seq,
         player: e.player,
         turnsWithoutProgress: e.turnsWithoutProgress,
         errorType: e.errorType,
@@ -786,11 +800,12 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
     timeline.push({ html, firstSnap, kind: 'chat', sortSeq: c.gameSeq, sortPriority: 0 });
   }
 
-  // Merged LLM events
+  // Merged LLM events — use maxGameSeq for firstSnap so tool results
+  // don't appear before the snapshot where they'd individually be visible.
   for (const m of mergedLlm) {
     const eventHtml = renderLlmEventHtml(m, llmEventIndexToDecision, playerColorMap);
     if (!eventHtml) continue;
-    const firstSnap = findFirstSnapForLlm(m.gameSeq, snapshotSeqs);
+    const firstSnap = findFirstSnapForLlm(m.maxGameSeq, snapshotSeqs);
     timeline.push({ html: eventHtml, firstSnap, kind: 'llm', sortSeq: m.gameSeq, sortPriority: 0 });
   }
 
