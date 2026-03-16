@@ -317,13 +317,13 @@ for (const game of loadAllGames()) {
   }
 
   .season-status[data-phase="tournament"] {
-    background: rgba(233, 69, 96, 0.08);
-    border-color: rgba(233, 69, 96, 0.25);
+    background: rgba(var(--accent-primary-rgb), 0.08);
+    border-color: rgba(var(--accent-primary-rgb), 0.25);
   }
 
   .season-status[data-phase="between-seasons"] {
-    background: rgba(255, 215, 0, 0.08);
-    border-color: rgba(255, 215, 0, 0.3);
+    background: rgba(var(--medal-gold-rgb), 0.08);
+    border-color: rgba(var(--medal-gold-rgb), 0.3);
   }
 
   .season-status-label {
@@ -351,7 +351,7 @@ for (const game of loadAllGames()) {
   }
 
   .season-status[data-phase="between-seasons"] .season-status-phase {
-    color: #f6c453;
+    color: var(--medal-gold);
   }
 
   /* Championship banner */
@@ -365,9 +365,9 @@ for (const game of loadAllGames()) {
     margin: 2rem auto 2.5rem;
     padding: 2rem 2rem 1.6rem;
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.06) 0%, transparent 70%),
+      radial-gradient(ellipse at 50% 0%, rgba(var(--medal-gold-rgb), 0.06) 0%, transparent 70%),
       var(--bg-surface);
-    border: 1px solid rgba(255, 215, 0, 0.18);
+    border: 1px solid rgba(var(--medal-gold-rgb), 0.18);
     border-radius: 12px;
     text-decoration: none;
     text-align: center;
@@ -385,16 +385,16 @@ for (const game of loadAllGames()) {
     background: linear-gradient(
       90deg,
       transparent,
-      #ffd700 30%,
+      var(--medal-gold) 30%,
       #fff8dc 50%,
-      #ffd700 70%,
+      var(--medal-gold) 70%,
       transparent
     );
     border-radius: 2px;
   }
 
   .champ-banner:hover {
-    border-color: rgba(255, 215, 0, 0.45);
+    border-color: rgba(var(--medal-gold-rgb), 0.45);
     transform: translateY(-2px);
   }
 
@@ -404,7 +404,7 @@ for (const game of loadAllGames()) {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: #ffd700;
+    color: var(--medal-gold);
   }
 
   .champ-name {
@@ -432,7 +432,7 @@ for (const game of loadAllGames()) {
   }
 
   .champ-banner:hover .champ-cta {
-    color: #ffd700;
+    color: var(--medal-gold);
   }
 
   @media (max-width: 600px) {
@@ -589,18 +589,18 @@ for (const game of loadAllGames()) {
   }
 
   .mini-gold {
-    border-left: 3px solid #ffd700;
-    background: linear-gradient(to right, rgba(255, 215, 0, 0.06), var(--bg-surface) 40%);
+    border-left: 3px solid var(--medal-gold);
+    background: linear-gradient(to right, rgba(var(--medal-gold-rgb), 0.06), var(--bg-surface) 40%);
   }
 
   .mini-silver {
-    border-left: 3px solid #c0c0c0;
-    background: linear-gradient(to right, rgba(192, 192, 192, 0.04), var(--bg-surface) 40%);
+    border-left: 3px solid var(--medal-silver);
+    background: linear-gradient(to right, rgba(var(--medal-silver-rgb), 0.04), var(--bg-surface) 40%);
   }
 
   .mini-bronze {
-    border-left: 3px solid #cd7f32;
-    background: linear-gradient(to right, rgba(205, 127, 50, 0.04), var(--bg-surface) 40%);
+    border-left: 3px solid var(--medal-bronze);
+    background: linear-gradient(to right, rgba(var(--medal-bronze-rgb), 0.04), var(--bg-surface) 40%);
   }
 
   .mini-rank {
@@ -612,9 +612,9 @@ for (const game of loadAllGames()) {
     text-align: center;
   }
 
-  .mini-gold .mini-rank { color: #ffd700; }
-  .mini-silver .mini-rank { color: #c0c0c0; }
-  .mini-bronze .mini-rank { color: #cd7f32; }
+  .mini-gold .mini-rank { color: var(--medal-gold); }
+  .mini-silver .mini-rank { color: var(--medal-silver); }
+  .mini-bronze .mini-rank { color: var(--medal-bronze); }
 
   .mini-info {
     flex: 1;
@@ -710,7 +710,7 @@ for (const game of loadAllGames()) {
   .mgc-format-modern { background: rgba(33, 150, 243, 0.15); color: var(--format-modern); }
   .mgc-format-legacy { background: rgba(156, 39, 176, 0.15); color: var(--format-legacy); }
   .mgc-format-commander { background: rgba(255, 152, 0, 0.15); color: var(--format-commander); }
-  .mgc-format-jumpstart { background: rgba(233, 69, 96, 0.15); color: var(--format-jumpstart); }
+  .mgc-format-jumpstart { background: rgba(var(--accent-primary-rgb), 0.15); color: var(--format-jumpstart); }
 
   .mgc-turns {
     color: var(--text-secondary);

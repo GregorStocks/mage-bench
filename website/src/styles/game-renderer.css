@@ -292,7 +292,7 @@
 }
 
 .card-chip:hover {
-  border-color: #e94560;
+  border-color: var(--accent-primary);
 }
 
 .card-chip.tapped {
@@ -339,7 +339,7 @@
 }
 
 .card-thumb:hover {
-  border-color: #e94560;
+  border-color: var(--accent-primary);
   z-index: 1;
 }
 
@@ -580,7 +580,7 @@
   padding: 0.3rem 0.5rem;
   font-size: 0.75rem;
   color: var(--text-muted);
-  border-left: 2px solid #e94560;
+  border-left: 2px solid var(--accent-primary);
   margin-top: 0.3rem;
 }
 
@@ -791,8 +791,8 @@
 @keyframes card-ghost-fade {
   0% {
     opacity: 0.7;
-    border-color: #e94560;
-    box-shadow: 0 0 6px rgba(233, 69, 96, 0.4);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 6px rgba(var(--accent-primary-rgb), 0.4);
   }
   70% {
     opacity: 0.3;
@@ -809,14 +809,14 @@
 
 .card-chip.card-ghost {
   animation: card-ghost-fade 2s ease-out forwards;
-  border-color: #e94560;
+  border-color: var(--accent-primary);
   text-decoration: line-through;
   pointer-events: none;
 }
 
 .card-thumb.card-ghost {
   animation: card-ghost-fade 2s ease-out forwards;
-  border-color: #e94560;
+  border-color: var(--accent-primary);
   pointer-events: none;
   filter: grayscale(0.5);
 }
@@ -827,7 +827,7 @@
 }
 
 @keyframes life-pulse-down {
-  0% { color: #e94560; transform: scale(1.15); }
+  0% { color: var(--accent-primary); transform: scale(1.15); }
   100% { color: var(--text-muted); transform: scale(1); }
 }
 
@@ -847,7 +847,7 @@
 }
 
 .life-down {
-  color: #e94560;
+  color: var(--accent-primary);
   font-weight: 600;
 }
 

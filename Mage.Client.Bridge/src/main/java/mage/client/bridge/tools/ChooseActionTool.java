@@ -88,9 +88,9 @@ public class ChooseActionTool {
         String[] attackersArray = splitCsv(attackers);
         String[] blockersArray = splitCsv(blockers);
         // Treat empty arrays/strings as "not provided"
-        if (amounts != null && amounts.length == 0) amounts = null;
-        if (text != null && text.isEmpty()) text = null;
-        return handler.chooseAction(index, id, answer, amount, amounts, pile, text, manaPlanArray, auto_tap, attackersArray, blockersArray);
+        int[] effectiveAmounts = (amounts != null && amounts.length == 0) ? null : amounts;
+        String effectiveText = (text != null && text.isEmpty()) ? null : text;
+        return handler.chooseAction(index, id, answer, amount, effectiveAmounts, pile, effectiveText, manaPlanArray, auto_tap, attackersArray, blockersArray);
     }
 
     private static String[] splitCsv(String value) {

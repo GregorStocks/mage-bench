@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Card from '../../components/Card.astro';
+import '../../styles/prose.css';
+import '../../styles/shared.css';
 ---
 
 <Base title="About the Project">
@@ -120,10 +122,6 @@ import Card from '../../components/Card.astro';
     border-bottom: 1px solid var(--border-default);
   }
 
-  .section {
-    margin-bottom: 2.5rem;
-  }
-
   h2 {
     font-family: var(--font-heading);
     color: var(--text-primary);
@@ -139,27 +137,6 @@ import Card from '../../components/Card.astro';
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 0.65rem;
-  }
-
-  .prose {
-    font-family: var(--font-prose);
-    font-size: 1.12rem;
-    line-height: 1.8;
-  }
-
-  .prose p {
-    color: #d0d0d6;
-    margin-bottom: 1.15rem;
-  }
-
-  .prose a {
-    color: var(--accent-primary);
-    text-decoration-color: rgba(var(--accent-primary-rgb), 0.35);
-    text-underline-offset: 0.15em;
-  }
-
-  .prose a:hover {
-    text-decoration-color: var(--accent-primary);
   }
 
   .feature-grid {
