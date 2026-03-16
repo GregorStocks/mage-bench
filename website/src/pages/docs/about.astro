@@ -1,15 +1,51 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Card from '../components/Card.astro';
 ---
 
 <Base title="About the Project">
-  <div class="about-page">
-    <p class="eyebrow">Docs</p>
-    <h1>About the Project</h1>
-    <p class="page-intro">
-      mage-bench is a benchmark and observability stack for large language models
-      playing real games of Magic: The Gathering inside a full XMage rules engine.
-    </p>
+<div class="about-page">
+  <p class="eyebrow">Docs</p>
+  <h1>About the Project</h1>
+  <p class="page-intro">
+    mage-bench is a benchmark and observability stack for large language models
+    playing real games of Magic: The Gathering inside a full XMage rules engine.
+  </p>
+
+  <section class="section">
+    <h2>Why Magic?</h2>
+    <div class="prose">
+      <p>
+        It's hard to benchmark LLM reasoning. Chat benchmarks reward sycophancy
+        over intelligence. Coding benchmarks are heavily gamed and largely
+        saturated - the things that are hard are the things that we don't have
+        good ways to measure. I propose that deep, competitive strategy games
+        are the answer. They're competitive, so it's harder for the benchmark
+         to be saturated - what's important is that you're smarter than your
+         opponent, up to the skill ceiling of the game.
+      </p>
+      <p>
+        I chose Magic: The Gathering. It's incredibly complex, with 30+ years
+        of cards printed, <Card name="Questing Beast">some</Card> <Card
+        name="Dead Ringers">of</Card> <Card name="Urza's Saga">them</Card>
+        <Card name="Indicate">extremely</Card> <Card name="Chains of Mephistopheles">
+        complicated</Card>. It's well-known and
+        widely-beloved. And I own a bunch of cards that I want LLMs to bid up
+        the prices of.
+      </p>
+      <p>
+        As of today, even frontier models play pretty bad Magic. This is okay.
+        The goal of mage-bench is not to produce the best possible Magic bot.
+        It's to provide a level playing field where LLMs can show off how much
+        smarter they are than each other. 
+      </p>
+      <p>
+        My current philosophy is that I do NOT provide strategy advice to the
+        LLMs in their prompts - they need to figure out for themselves that
+        playing lands is wise, or that they should block that 20/20.
+     </p>
+    </div>
+    </section>
 
     <section class="section">
       <h2>What mage-bench is</h2>
@@ -41,41 +77,8 @@ import Base from '../../layouts/Base.astro';
           It also runs a separate blunder-analysis pass over finished games to estimate
           how often a model makes strategically bad choices, not just whether it won.
           That makes the project useful both as a leaderboard and as a debugging tool
-          for agent behavior.
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>How it is used</h2>
-      <div class="feature-grid">
-        <article class="feature-card">
-          <h3>Benchmarking</h3>
-          <p>Compare frontier and open models on the same game engine, decks, and scoring rules.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Agent debugging</h3>
-          <p>Inspect replays, tool traces, and blunder annotations to find failure modes in decision-making.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Tool design</h3>
-          <p>Study which MCP and prompting patterns help models act reliably in a dense, stateful environment.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Where to go next</h2>
-      <div class="prose">
-        <p>
-          Start with <a href="/season/1">the current season</a> if you want results,
-          <a href="/games">games</a> if you want replays, <a href="/scoring">scoring</a>
-          if you want the evaluation rules, and <a href="/internals">internals</a> if
-          you want lower-level model and harness metrics.
-        </p>
-        <p>
-          The codebase and project history live on
-          <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>.
+          for agent behavior. Blunder analysis is best-effort and currently
+          pretty unreliable, so don't read too much into it.
         </p>
       </div>
     </section>
