@@ -49,7 +49,7 @@ function decodeHtmlEntities(html: string): string {
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&#x27;/g, "'")
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)));
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(parseInt(code, 10)));
 }
 
 function formatToolArgs(args: Record<string, unknown> | undefined): string {
