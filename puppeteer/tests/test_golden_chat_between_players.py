@@ -20,9 +20,9 @@ def test_chat_between_players(
     """Both players send chat messages and the pilot sees them in game log.
 
     Script:
-    - P1 T1: Play Mountain, send "Good luck have fun!".
-    - P2 T1: Play Mountain, send "You too, glhf!".
-    - P1 T2: Play Mountain, call get_game_log to capture chat from both players.
+    - P1 T1: Play Mountain, send "Good luck have fun!", pull events (advances cursor).
+    - P2 T1: Play Mountain, send "You too, glhf!" (arrives at P1 with higher cursor).
+    - P1 T2: Play Mountain, call get_game_log to capture chat in correct order.
     """
     server, port = xmage_server
     run_golden_scenario(
@@ -41,8 +41,11 @@ def test_chat_between_players(
             # T1: Play Mountain.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # Send chat after first land play.
+            # Send chat after first land play, then pull events to advance
+            # bridgeEventCursor. This ensures P2's reply (arriving during P2's turn)
+            # gets a higher cursor and sorts after P1's message.
             {"name": "send_chat_message", "arguments": {"message": "Good luck have fun!"}},
+            {"name": "get_game_log", "arguments": {"max_chars": 10000}},
             # Pass rest of T1 and let P2 take their turn.
             {"name": "pass_priority", "arguments": {"until": "my_turn"}},
             # T2: Play Mountain.

@@ -85,7 +85,7 @@ public class BridgeCallbackHandler {
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
     private static final int DEFAULT_ACTION_DELAY_MS = 500;
     /** Chat message captured for interleaving with bridge events in game log rendering. */
-    private record ChatLogEntry(int eventCursor, String text) {}
+    private record ChatLogEntry(int eventCursor, String message, String rendered) {}
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -3184,27 +3184,39 @@ public class BridgeCallbackHandler {
         Map<String, Integer> perPlayerTurns = new HashMap<>(initialTurnCounts);
         String lastTurnHeader = null;
 
-        // Snapshot chatLog for interleaving, sorted by (eventCursor, text).
+        // Snapshot chatLog for interleaving, sorted by (eventCursor, message).
         // Messages at the same cursor have no reliable chronological ordering (callback
-        // arrival order is nondeterministic), so text sort ensures deterministic output.
+        // arrival order is nondeterministic). Sort by message content (not the rendered
+        // "[Chat] Player: msg" prefix) so ordering reflects message text, not player name.
         List<ChatLogEntry> chats = List.of();
         int chatIdx = 0;
         if (includeChat) {
             synchronized (chatLog) {
                 chats = new ArrayList<>(chatLog);
             }
-            chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparing(ChatLogEntry::text));
+            chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparing(ChatLogEntry::message));
             // Skip chat entries before the requested cursor range
             while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() < minChatCursor) {
                 chatIdx++;
             }
         }
 
+        // Skip events before the first BEGIN_TURN (opening hand draws, etc.)
+        // These are game setup, not strategic actions.
+        boolean seenFirstTurn = !initialTurnCounts.isEmpty(); // slices already past setup
         for (BridgeLogEntry entry : events) {
+            if (!seenFirstTurn) {
+                if ("BEGIN_TURN".equals(entry.type())) {
+                    seenFirstTurn = true;
+                } else {
+                    continue; // skip pre-turn events (opening draws)
+                }
+            }
+
             // Insert chat messages that arrived before this event
             while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() <= entry.index()) {
                 if (sb.length() > 0) sb.append("\n");
-                sb.append(chats.get(chatIdx).text());
+                sb.append(chats.get(chatIdx).rendered());
                 chatIdx++;
             }
 
@@ -3230,7 +3242,7 @@ public class BridgeCallbackHandler {
         // Append any remaining chat messages in range
         while (chatIdx < chats.size()) {
             if (sb.length() > 0) sb.append("\n");
-            sb.append(chats.get(chatIdx).text());
+            sb.append(chats.get(chatIdx).rendered());
             chatIdx++;
         }
 
@@ -5280,7 +5292,7 @@ public class BridgeCallbackHandler {
                     // cursor=0, placing it before game events — chronologically correct since
                     // the chat predates the first event pull.
                     synchronized (chatLog) {
-                        chatLog.add(new ChatLogEntry(bridgeEventCursor, "[Chat] " + user + ": " + msg));
+                        chatLog.add(new ChatLogEntry(bridgeEventCursor, msg, "[Chat] " + user + ": " + msg));
                     }
                     // Buffer chat from other players so pass_priority can surface it
                     if (!user.equals(client.getUsername())) {

@@ -560,7 +560,8 @@
       "llmEventIndices": [
         10,
         11,
-        13
+        13,
+        15
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
@@ -743,9 +744,9 @@
       "index": 5,
       "isForced": false,
       "llmEventIndices": [
-        14,
-        15,
-        16
+        16,
+        17,
+        18
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -780,9 +781,9 @@
       "index": 6,
       "isForced": false,
       "llmEventIndices": [
-        16,
-        17,
-        19
+        18,
+        19,
+        21
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -1481,6 +1482,38 @@
       "toolCalls": [
         {
           "arguments": {
+            "max_chars": 10000
+          },
+          "name": "get_game_log"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
+      "args": {
+        "max_chars": 10000
+      },
+      "gameSeq": 18,
+      "player": "TestPlayer",
+      "result": {
+        "cursor": 16,
+        "log": "TestPlayer turn 1:\nTestPlayer played Mountain",
+        "total_length": 45,
+        "truncated": false
+      },
+      "seq": 15,
+      "tool": "get_game_log",
+      "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 18,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 16,
+      "toolCalls": [
+        {
+          "arguments": {
             "until": "my_turn"
           },
           "name": "pass_priority"
@@ -1659,7 +1692,7 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
-      "seq": 15,
+      "seq": 17,
       "tool": "pass_priority",
       "type": "tool_call"
     },
@@ -1668,7 +1701,7 @@
       "gameSeq": 32,
       "player": "TestPlayer",
       "reasoning": null,
-      "seq": 16,
+      "seq": 18,
       "toolCalls": [
         {
           "arguments": {
@@ -1795,7 +1828,7 @@
         "success": true,
         "untapped_lands": 2
       },
-      "seq": 17,
+      "seq": 19,
       "tool": "choose_action",
       "type": "tool_call"
     },
@@ -1804,7 +1837,7 @@
       "gameSeq": 36,
       "player": "TestPlayer",
       "reasoning": null,
-      "seq": 18,
+      "seq": 20,
       "toolCalls": [
         {
           "arguments": {
@@ -1823,11 +1856,11 @@
       "player": "TestPlayer",
       "result": {
         "cursor": 22,
-        "log": "[Chat] Opponent: You too, glhf!\n[Chat] TestPlayer: Good luck have fun!\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nTestPlayer turn 1:\nTestPlayer played Mountain\nOpponent turn 1:\nOpponent drew a card\nOpponent played Mountain\nTestPlayer turn 2:\nTestPlayer drew Mountain\nTestPlayer played Mountain",
-        "total_length": 572,
+        "log": "TestPlayer turn 1:\nTestPlayer played Mountain\n[Chat] TestPlayer: Good luck have fun!\n[Chat] Opponent: You too, glhf!\nOpponent turn 1:\nOpponent drew a card\nOpponent played Mountain\nTestPlayer turn 2:\nTestPlayer drew Mountain\nTestPlayer played Mountain",
+        "total_length": 250,
         "truncated": false
       },
-      "seq": 19,
+      "seq": 21,
       "tool": "get_game_log",
       "type": "tool_call"
     },
@@ -1836,7 +1869,7 @@
       "gameSeq": 36,
       "player": "TestPlayer",
       "reasoning": null,
-      "seq": 20,
+      "seq": 22,
       "toolCalls": [
         {
           "arguments": {},
@@ -1956,7 +1989,7 @@
         "step": "Precombat Main",
         "turn": 2
       },
-      "seq": 21,
+      "seq": 23,
       "tool": "get_game_state",
       "type": "tool_call"
     }
@@ -1966,7 +1999,7 @@
       "deckName": "filler_opponent",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 10,
+      "toolCallsOk": 11,
       "tools": [
         "get_game_log",
         "get_game_history",
