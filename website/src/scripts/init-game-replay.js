@@ -18,6 +18,14 @@ function readInlineGameData() {
   return JSON.parse(text);
 }
 
+function readRunningCosts() {
+  var el = document.getElementById("running-costs");
+  if (!el) return null;
+  var text = el.textContent || "";
+  if (!text.trim()) return null;
+  return JSON.parse(text);
+}
+
 export async function initGameReplayPage(options) {
   var visualizer = options && options.root ? options.root : document.getElementById("visualizer");
   if (!visualizer) {
@@ -79,6 +87,7 @@ export async function initGameReplayPage(options) {
 
       var viewer = gameViewer.create(viewerContainer, game, {
         initialSnapshot: initialSnapshot,
+        runningCostBySnapshot: readRunningCosts(),
         onSnapshotChange: function (index) {
           var url = new URL(window.location);
           if (index === 0) {

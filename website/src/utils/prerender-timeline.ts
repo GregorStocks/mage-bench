@@ -593,6 +593,9 @@ export interface PrerenderResult {
   hasChat: boolean;
   /** Whether the game has blunder annotations */
   hasAnnotations: boolean;
+  /** Precomputed running LLM costs per snapshot index, keyed by player name.
+   *  Allows stripping llmEvents from the inline JSON. */
+  runningCostBySnapshot: Record<string, number>[];
 }
 
 export function prerenderTimeline(game: GameExportV8): PrerenderResult {
@@ -855,5 +858,26 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
     );
   }
 
-  return { entries, snapshotCount, hasLlm, hasChat, hasAnnotations };
+  // Precompute running LLM costs per snapshot so llmEvents can be stripped
+  // from the inline JSON. Uses a single-pass pointer approach: O(S + E).
+  const costEvents = llmEvents
+    .filter((e) => e.costUsd && e.player && e.ts)
+    .sort((a, b) => (a.ts || '').localeCompare(b.ts || ''));
+
+  const runningCostBySnapshot: Record<string, number>[] = [];
+  let costPtr = 0;
+  const currentCosts: Record<string, number> = {};
+  for (let i = 0; i < snapshotCount; i++) {
+    const nextSnap = i < snapshotCount - 1 ? snapshots[i + 1] : null;
+    const cutoffTs = nextSnap ? (nextSnap.ts || '') : '';
+    while (costPtr < costEvents.length) {
+      const e = costEvents[costPtr];
+      if (cutoffTs && (e.ts || '') >= cutoffTs) break;
+      currentCosts[e.player] = (currentCosts[e.player] || 0) + (e.costUsd || 0);
+      costPtr++;
+    }
+    runningCostBySnapshot.push({ ...currentCosts });
+  }
+
+  return { entries, snapshotCount, hasLlm, hasChat, hasAnnotations, runningCostBySnapshot };
 }

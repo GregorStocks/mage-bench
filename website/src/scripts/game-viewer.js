@@ -386,6 +386,7 @@
     options = options || {};
     var initialSnapshot = options.initialSnapshot || 0;
     var onSnapshotChange = options.onSnapshotChange || null;
+    var precomputedCosts = options.runningCostBySnapshot || null;
 
     // Detect prerendered DOM (built at SSR time) vs fresh construction
     var prerendered = container.querySelector("#action-list[data-prerendered]") != null;
@@ -769,19 +770,27 @@
       var diffs = R.computeDiff(prevSnap, snap);
 
       // Compute running cost up to current snapshot
-      if (game.llmEvents && game.llmEvents.length > 0) {
+      if (precomputedCosts && precomputedCosts[index]) {
+        // Use precomputed costs (actions/llmEvents stripped from inline JSON)
+        var runningCost = precomputedCosts[index];
+        (game.players || []).forEach(function (p) {
+          if (playerMeta[p.name]) {
+            playerMeta[p.name].totalCostUsd = runningCost[p.name] || 0;
+          }
+        });
+      } else if (game.llmEvents && game.llmEvents.length > 0) {
         var costNextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
         var costCutoffTs = costNextSnap ? (costNextSnap.ts || "") : "";
-        var runningCost = {};
+        var runningCostLegacy = {};
         game.llmEvents.forEach(function (e) {
           if (costCutoffTs && e.ts >= costCutoffTs) return;
           if (e.costUsd && e.player) {
-            runningCost[e.player] = (runningCost[e.player] || 0) + e.costUsd;
+            runningCostLegacy[e.player] = (runningCostLegacy[e.player] || 0) + e.costUsd;
           }
         });
         (game.players || []).forEach(function (p) {
           if (playerMeta[p.name]) {
-            playerMeta[p.name].totalCostUsd = runningCost[p.name] || 0;
+            playerMeta[p.name].totalCostUsd = runningCostLegacy[p.name] || 0;
           }
         });
       }

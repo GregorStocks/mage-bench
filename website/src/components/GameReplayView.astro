@@ -31,10 +31,18 @@ const blunderScriptVersion = normalizedBlunderScriptVersion(game.blunderScriptVe
 const isOldBlunderAnalysis =
   game.replayBlunderSummary != null && blunderScriptVersion < minBlunderVersion;
 
-// Serialize the full game JSON for inline embedding (eliminates runtime fetch)
-const gameDataJson = JSON.stringify(fullGame).replace(/</g, '\\u003c');
+// Serialize game JSON for inline embedding, stripping actions and llmEvents
+// which are already prerendered into the action log HTML.
+// For very large games (snapshots > 15 MB), skip inlining entirely to stay
+// under Cloudflare Pages' 25 MB per-file limit — the viewer falls back to fetch.
+const strippedGame = { ...fullGame, actions: [], llmEvents: [] };
+const strippedJson = JSON.stringify(strippedGame);
+const INLINE_SIZE_LIMIT = 15_000_000; // 15 MB — leaves room for prerendered HTML + page chrome
+const inlineGameData = strippedJson.length <= INLINE_SIZE_LIMIT;
+const gameDataJson = inlineGameData ? strippedJson.replace(/</g, '\\u003c') : '';
 
-const { entries, snapshotCount, hasLlm, hasChat, hasAnnotations } = prerendered;
+const { entries, snapshotCount, hasLlm, hasChat, hasAnnotations, runningCostBySnapshot } = prerendered;
+const runningCostsJson = JSON.stringify(runningCostBySnapshot).replace(/</g, '\\u003c');
 ---
 
 <div id="visualizer" data-spectator-mode="replay">
@@ -144,7 +152,8 @@ const { entries, snapshotCount, hasLlm, hasChat, hasAnnotations } = prerendered;
 </div>
 
 <script is:inline type="application/json" id="game-replay-config" set:html={configJson}></script>
-<script is:inline type="application/json" id="game-data" set:html={gameDataJson}></script>
+{inlineGameData && <script is:inline type="application/json" id="game-data" set:html={gameDataJson}></script>}
+{inlineGameData && <script is:inline type="application/json" id="running-costs" set:html={runningCostsJson}></script>}
 <script>
   import { initSpectatorPage } from "../scripts/init-spectator-page.js";
 
