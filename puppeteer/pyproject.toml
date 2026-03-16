@@ -62,6 +62,7 @@ select = [
     "ANN401",  # Any in public signatures
     "C4",   # flake8-comprehensions: unnecessary comprehension patterns
     "TCH",  # flake8-type-checking: move type-only imports into TYPE_CHECKING blocks
+    "ERA",  # eradicate: commented-out code
 ]
 ignore = [
     "SIM105",  # contextlib.suppress - try/except/pass is fine
@@ -75,6 +76,9 @@ external = []
 
 [tool.ruff.lint.isort]
 known-first-party = ["puppeteer", "scripts", "schemas"]
+
+[tool.ruff.lint.per-file-ignores]
+"../scripts/add-missing-jumpstart-themes.py" = ["ERA001"]  # deck-variant section labels
 
 [tool.mypy]
 python_version = "3.11"

@@ -226,7 +226,7 @@ async def test_board_cursor_updates_on_new_value():
         call_count += 1
         if name == "pass_priority":
             if call_count <= 2:
-                # First: board_cursor=3
+                # First: board_cursor=3  # noqa: ERA001
                 return _mock_tool_result(json.dumps({"action_pending": True, "board_cursor": 3}))
             if call_count <= 4:
                 # After choose_action: board_cursor=4 (board changed)

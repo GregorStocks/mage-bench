@@ -521,7 +521,7 @@ class AuditHandler(BaseHTTPRequestHandler):
                 self._send_error(500, str(e))
             return
 
-        # API: stats
+        # API: stats  # noqa: ERA001
         if path == "/api/stats":
             self._send_json(_compute_stats())
             return
