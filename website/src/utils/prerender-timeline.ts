@@ -556,7 +556,10 @@ function renderAnnotationHtml(ann: Annotation): string {
 
 // ── First-snap binary search ──
 
-/** Find first snapshot index where snapshotSeqs[i] >= targetSeq */
+/** Find first snapshot index where snapshotSeqs[i] >= targetSeq.
+ *  Returns snapshotSeqs.length (past end) if no snapshot qualifies,
+ *  so the entry stays permanently hidden — matching the legacy behavior
+ *  where actions with seq > every snapshot's seq were never shown. */
 function findFirstSnapForAction(targetSeq: number, snapshotSeqs: number[]): number {
   let lo = 0;
   let hi = snapshotSeqs.length;
@@ -565,7 +568,7 @@ function findFirstSnapForAction(targetSeq: number, snapshotSeqs: number[]): numb
     if (snapshotSeqs[mid] < targetSeq) lo = mid + 1;
     else hi = mid;
   }
-  return lo < snapshotSeqs.length ? lo : snapshotSeqs.length - 1;
+  return lo;
 }
 
 /** Find first snapshot index where the LLM event is visible.
