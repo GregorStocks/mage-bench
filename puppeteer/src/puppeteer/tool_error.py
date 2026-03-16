@@ -1,6 +1,6 @@
 """Shared exceptions and helpers for MCP tool execution."""
 
-from mcp.types import CallToolResult
+from mcp.types import CallToolResult, TextContent
 
 
 class ToolExecutionError(RuntimeError):
@@ -9,7 +9,6 @@ class ToolExecutionError(RuntimeError):
 
 def extract_text_content(tool_name: str, result: CallToolResult) -> str:
     """Return the first text payload from an MCP tool result."""
-    try:
-        return result.content[0].text  # type: ignore[union-attr]
-    except (AttributeError, IndexError, TypeError) as exc:
-        raise ToolExecutionError(f"MCP tool {tool_name} returned no text content") from exc
+    if not result.content or not isinstance(result.content[0], TextContent):
+        raise ToolExecutionError(f"MCP tool {tool_name} returned no text content")
+    return result.content[0].text

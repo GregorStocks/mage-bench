@@ -656,7 +656,7 @@ def start_gui_client(
     project_root: Path,
     config: Config,
     log_path: Path,
-    game_dir: Path | None = None,
+    game_dir: Path | None = None,  # Unused; matches start_observer_client signature
 ) -> subprocess.Popen:
     """Start the GUI client."""
     # Pass resolved player config (with actual deck paths, not "random")
@@ -1352,10 +1352,12 @@ def _setup_game(
             _wait_for_spectator_table(spectator_log, spectator_proc, timeout=300)
 
             # Start bridge clients
-            for sw_player in game_config.sleepwalker_players:
-                log_path = game_dir / f"{sw_player.name}_mcp.log"
-                logger.info("%sSleepwalker (%s) log: %s", game_label, sw_player.name, log_path)
-                start_sleepwalker_client(pm, project_root, game_config, sw_player.name, sw_player.deck, log_path)
+            for sleepwalker_player in game_config.sleepwalker_players:
+                log_path = game_dir / f"{sleepwalker_player.name}_mcp.log"
+                logger.info("%sSleepwalker (%s) log: %s", game_label, sleepwalker_player.name, log_path)
+                start_sleepwalker_client(
+                    pm, project_root, game_config, sleepwalker_player.name, sleepwalker_player.deck, log_path
+                )
 
             for pilot_player in game_config.pilot_players:
                 log_path = game_dir / f"{pilot_player.name}_pilot.log"
