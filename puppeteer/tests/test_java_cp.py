@@ -157,3 +157,17 @@ def test_replace_reactor_jars_no_modules(tmp_path):
         assert result == external
     finally:
         _reactor_module_cache.pop(tmp_path, None)
+
+
+def test_build_java_cmd_max_heap():
+    """Verify -Xmx flag is included when max_heap is set."""
+    cmd = _build_java_cmd("/cp", "Main", {}, max_heap="256m")
+    assert "-Xmx256m" in cmd
+    # -Xmx should come before -cp
+    assert cmd.index("-Xmx256m") < cmd.index("-cp")
+
+
+def test_build_java_cmd_no_heap_by_default():
+    """Verify no -Xmx flag when max_heap is not specified."""
+    cmd = _build_java_cmd("/cp", "Main", {})
+    assert not any(arg.startswith("-Xmx") for arg in cmd)

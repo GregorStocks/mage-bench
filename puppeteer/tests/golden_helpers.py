@@ -392,9 +392,13 @@ def _build_java_cmd(
     classpath: str,
     main_class: str,
     system_props: dict[str, str],
+    *,
+    max_heap: str | None = None,
 ) -> list[str]:
     """Build a ``java -cp`` command with JVM flags and system properties."""
     jvm_flags = ["--add-opens=java.base/java.io=ALL-UNNAMED"]
+    if max_heap is not None:
+        jvm_flags.append(f"-Xmx{max_heap}")
     if sys.platform == "darwin":
         jvm_flags.append("-Dapple.awt.UIElement=true")
     cmd = ["java", *jvm_flags]
@@ -657,6 +661,7 @@ class BridgeManager:
                 "xmage.bridge.bridgelog": str(bridge_event_log),
                 "xmage.sets.allowed": self._allowed_sets,
             },
+            max_heap="256m",
         )
         self._log_fh = open(bridge_log, "w")
 

@@ -109,6 +109,7 @@ def xmage_server(project_root, tmp_path_factory):
             "xmage.sets.allowed": allowed_sets,
             "xmage.config.path": str(config_path),
         },
+        max_heap="512m",
     )
 
     # Start server
@@ -224,6 +225,7 @@ def spectator_process(xmage_server, project_root):
             "xmage.aiPuppeteer.password": "",
             "xmage.sets.allowed": allowed_sets,
         },
+        max_heap="512m",
     )
 
     # The observer needs a display for Swing (JFrame) even in noWindow mode.

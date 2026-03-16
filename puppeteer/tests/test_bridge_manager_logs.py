@@ -81,7 +81,12 @@ class TestBridgeLogRotation:
             def initialize(self) -> None:
                 pass
 
-        def _fake_build_java_cmd(_classpath: str, _main_class: str, system_props: dict[str, str]) -> list[str]:
+        def _fake_build_java_cmd(
+            _classpath: str,
+            _main_class: str,
+            system_props: dict[str, str],
+            **_kwargs,
+        ) -> list[str]:
             captured_props.update(system_props)
             return ["java", "-version"]
 
