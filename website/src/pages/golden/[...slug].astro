@@ -25,11 +25,18 @@ const { slug } = Astro.params;
 
 // Load export data
 const exportFile = path.join(exportsDir, slug + '.json');
-const exportData = JSON.parse(fs.readFileSync(exportFile, 'utf-8'));
+const exportData: unknown = JSON.parse(fs.readFileSync(exportFile, 'utf-8'));
+
+interface PromptMessage {
+  role: string;
+  content?: unknown;
+  tool_calls?: Array<{ id: string; function: { name: string } }>;
+  tool_call_id?: string;
+}
 
 // Extract MCP tool results from prompt fixture (for the JSON panel)
-function extractMcpFixture(promptFile: string): { gameState: any, passPriority: any } {
-  const messages = JSON.parse(fs.readFileSync(promptFile, 'utf-8'));
+function extractMcpFixture(promptFile: string): { gameState: unknown, passPriority: unknown } {
+  const messages = JSON.parse(fs.readFileSync(promptFile, 'utf-8')) as PromptMessage[];
   const toolCallNames: Record<string, string> = {};
   for (const msg of messages) {
     if (msg.role === 'assistant' && msg.tool_calls) {
@@ -39,11 +46,11 @@ function extractMcpFixture(promptFile: string): { gameState: any, passPriority: 
     }
   }
   const targetTools = new Set(['get_game_state', 'pass_priority']);
-  let gameState = null;
-  let passPriority = null;
+  let gameState: unknown = null;
+  let passPriority: unknown = null;
   for (const msg of messages) {
     if (msg.role !== 'tool') continue;
-    const callName = toolCallNames[msg.tool_call_id];
+    const callName = toolCallNames[msg.tool_call_id!];
     if (!targetTools.has(callName)) continue;
     if (typeof msg.content !== 'object' || msg.content === null) continue;
     if (callName === 'get_game_state') gameState = msg.content;

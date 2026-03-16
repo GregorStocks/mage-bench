@@ -1,6 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
+import type { TournamentDraftAttempt, TournamentDraftPick, TournamentEntrant } from '../../../utils/season-data';
 import {
   hasDraft as seasonHasDraft,
   loadAvailableSeasons,
@@ -27,7 +28,7 @@ if (draft.history_version !== 2) {
   );
 }
 
-const entrantsBySeed: Record<number, any> = {};
+const entrantsBySeed: Record<number, TournamentEntrant> = {};
 for (const e of tournament.entrants) {
   entrantsBySeed[e.seed] = e;
 }
@@ -36,28 +37,28 @@ function cleanThemeName(name: string): string {
   return name.replace(/^J22 /, '');
 }
 
-function getAttempts(pick: any): any[] {
+function getAttempts(pick: TournamentDraftPick): TournamentDraftAttempt[] {
   if (!Array.isArray(pick.attempts) || pick.attempts.length === 0) {
     throw new Error(`Draft pick for seed ${pick.seed} is missing attempts`);
   }
   return pick.attempts;
 }
 
-function getAcceptedAttempt(pick: any): any {
-  const accepted = getAttempts(pick).find((attempt: any) => attempt.accepted);
+function getAcceptedAttempt(pick: TournamentDraftPick): TournamentDraftAttempt {
+  const accepted = getAttempts(pick).find((attempt) => attempt.accepted);
   if (!accepted) {
     throw new Error(`Draft pick for seed ${pick.seed} has no accepted attempt`);
   }
   return accepted;
 }
 
-function getPreviewSource(pick: any): string | null {
+function getPreviewSource(pick: TournamentDraftPick): string | null {
   const attempts = getAttempts(pick);
   const first = attempts[0];
   return first.thinking || first.response || getAcceptedAttempt(pick).response || null;
 }
 
-function renderAttemptResponse(attempt: any): string {
+function renderAttemptResponse(attempt: TournamentDraftAttempt): string {
   return attempt.response ?? '(empty response)';
 }
 ---
@@ -76,8 +77,8 @@ function renderAttemptResponse(attempt: any): string {
     </div>
     {[1, 2].map((roundNum: number) => {
       const roundPicks = draft.picks
-        .map((p: any, idx: number) => ({ ...p, _idx: idx }))
-        .filter((p: any) => p.round === roundNum);
+        .map((p: TournamentDraftPick, idx: number) => ({ ...p, _idx: idx }))
+        .filter((p) => p.round === roundNum);
       return (
         <div class={`draft-round draft-round-${roundNum}`}>
           <div class="draft-round-header">
@@ -85,7 +86,7 @@ function renderAttemptResponse(attempt: any): string {
             <span class="draft-round-count">{roundPicks.length} picks</span>
           </div>
           <div class="draft-round-picks">
-            {roundPicks.map((pick: any) => {
+            {roundPicks.map((pick) => {
               const ent = entrantsBySeed[pick.seed];
               const attempts = getAttempts(pick);
               const previewSrc = getPreviewSource(pick);
@@ -113,7 +114,7 @@ function renderAttemptResponse(attempt: any): string {
                     </div>
                     <div class="dpick-attempts">
                       <div class="dpick-detail-label">Attempt History ({attempts.length})</div>
-                      {attempts.map((attempt: any) => (
+                      {attempts.map((attempt: TournamentDraftAttempt) => (
                         <details class="dpick-attempt" open={attempt.accepted}>
                           <summary class="dpick-attempt-summary">
                             Attempt {attempt.attempt} {attempt.accepted ? '· accepted' : '· retry'}

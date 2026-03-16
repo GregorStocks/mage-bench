@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "prelint": "astro sync",
     "lint": "eslint \"src/**/*.{astro,ts,js}\" \"tests/**/*.js\" \"*.{js,mjs,cjs}\"",
     "check": "astro check",
     "test": "vitest run"
