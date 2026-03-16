@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
 
 from tests import golden_helpers
 from tests.golden_helpers import BridgeLogOffsets, BridgeManager
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 GAME_START_1 = "[08:00:00] INFO [TestPlayer] Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1"
 GAME_START_2 = "[08:00:01] INFO [TestPlayer] Game started: gameId=22222222-2222-2222-2222-222222222222, playerId=p2"

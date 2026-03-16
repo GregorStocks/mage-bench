@@ -13,7 +13,10 @@ sources:
 from __future__ import annotations
 
 import json
-from collections.abc import Sequence
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 BASIC_LAND_NAMES = frozenset(
     [

@@ -61,6 +61,7 @@ select = [
     "A002",  # builtin argument shadowing
     "ANN401",  # Any in public signatures
     "C4",   # flake8-comprehensions: unnecessary comprehension patterns
+    "TCH",  # flake8-type-checking: move type-only imports into TYPE_CHECKING blocks
 ]
 ignore = [
     "SIM105",  # contextlib.suppress - try/except/pass is fine

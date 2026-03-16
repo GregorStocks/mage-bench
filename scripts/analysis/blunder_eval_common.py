@@ -9,10 +9,13 @@ from __future__ import annotations
 import json
 import re
 import tempfile
-from collections.abc import Mapping, Sequence
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from schemas.game_export_types import GameExport, JsonObject, load_game_export
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"

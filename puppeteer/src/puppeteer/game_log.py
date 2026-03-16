@@ -4,9 +4,12 @@ from __future__ import annotations
 
 import json
 from datetime import UTC, datetime
-from pathlib import Path
-from types import TracebackType
+from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
+
+if TYPE_CHECKING:
+    from pathlib import Path
+    from types import TracebackType
 
 
 class GameLogWriter:
