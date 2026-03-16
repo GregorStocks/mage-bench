@@ -365,10 +365,10 @@ async def _llm_pick(
         {"role": "user", "content": user_prompt},
     ]
 
-    create_kwargs: dict = dict(
-        model=model,
-        max_tokens=MAX_TOKENS,
-    )
+    create_kwargs: dict = {
+        "model": model,
+        "max_tokens": MAX_TOKENS,
+    }
     if reasoning_effort is not None:
         create_kwargs["extra_body"] = {"reasoning": {"effort": reasoning_effort}}
 

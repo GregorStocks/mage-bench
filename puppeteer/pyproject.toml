@@ -60,6 +60,7 @@ select = [
     "DTZ007",  # datetime.strptime without zone
     "A002",  # builtin argument shadowing
     "ANN401",  # Any in public signatures
+    "C4",   # flake8-comprehensions: unnecessary comprehension patterns
 ]
 ignore = [
     "SIM105",  # contextlib.suppress - try/except/pass is fine

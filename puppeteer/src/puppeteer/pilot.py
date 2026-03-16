@@ -1189,13 +1189,13 @@ async def run_pilot_loop(
             messages = await _build_loop_messages(state, session, system_prompt, cache_control)
             _mark_tail_cache_breakpoint(messages, state, cache_control)
 
-            create_kwargs: dict = dict(
-                model=model,
-                messages=messages,
-                tools=tools,
-                tool_choice="auto",
-                max_tokens=MAX_TOKENS,
-            )
+            create_kwargs: dict = {
+                "model": model,
+                "messages": messages,
+                "tools": tools,
+                "tool_choice": "auto",
+                "max_tokens": MAX_TOKENS,
+            }
             extra_body: dict = {}
             if reasoning_effort:
                 extra_body["reasoning"] = {"effort": reasoning_effort}

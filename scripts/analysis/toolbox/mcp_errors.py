@@ -265,7 +265,7 @@ def report(all_errors: list[ErrorEvent], num_games: int) -> None:
 
     # --- Section 4: By model ---
     print("\n--- By model ---")
-    models = sorted(set(e.model for e in all_errors))
+    models = sorted({e.model for e in all_errors})
     for model in models:
         model_errs = [e for e in all_errors if e.model == model]
         retry_ok = sum(1 for e in model_errs if e.retry_outcome == "success")

@@ -1427,7 +1427,7 @@ def run_golden_scenario(
         primary_exc = sys.exc_info()[1]
         cleanup_restarts: list[BridgeManager] = []
         cleanup_restart_failures: list[tuple[str, RuntimeError]] = []
-        replay_error_by_label = {label: exc for label, exc in replay_errors}
+        replay_error_by_label = dict(replay_errors)
         for label, session, bridge in [
             ("player_a", session_a, bridge_a),
             ("player_b", session_b, bridge_b),
