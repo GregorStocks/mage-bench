@@ -4,6 +4,8 @@ import GameReplayView from '../../components/GameReplayView.astro';
 import benchmarkData from '../../data/benchmark-results.json';
 import type { GameEntry } from '../../utils/load-games';
 import { loadAllGames } from '../../utils/load-games';
+import { loadFullGame } from '../../utils/load-full-game';
+import { prerenderTimeline } from '../../utils/prerender-timeline';
 
 const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
 const auditMode = !!process.env.AUDIT_API_PORT;
@@ -20,8 +22,18 @@ export function getStaticPaths() {
 }
 
 const { game } = Astro.props as Props;
+
+// Load full game JSON and prerender the action log at build time
+const fullGame = loadFullGame(game.id);
+const prerendered = prerenderTimeline(fullGame);
 ---
 
 <Base title={game.replayTitle} wide>
-  <GameReplayView game={game} minBlunderVersion={minBlunderVersion} auditMode={auditMode} />
+  <GameReplayView
+    game={game}
+    fullGame={fullGame}
+    prerendered={prerendered}
+    minBlunderVersion={minBlunderVersion}
+    auditMode={auditMode}
+  />
 </Base>

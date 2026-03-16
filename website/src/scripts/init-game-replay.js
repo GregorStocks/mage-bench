@@ -3,48 +3,60 @@ import "./game-viewer.js";
 import { getRequiredElement } from "./spectator-runtime.js";
 
 function readConfig() {
-  const configEl = document.getElementById("game-replay-config");
+  var configEl = document.getElementById("game-replay-config");
   if (!configEl) {
     throw new Error("Missing #game-replay-config script");
   }
   return JSON.parse(configEl.textContent || "null");
 }
 
+function readInlineGameData() {
+  var el = document.getElementById("game-data");
+  if (!el) return null;
+  var text = el.textContent || "";
+  if (!text.trim()) return null;
+  return JSON.parse(text);
+}
+
 export async function initGameReplayPage(options) {
-  const visualizer = options && options.root ? options.root : document.getElementById("visualizer");
+  var visualizer = options && options.root ? options.root : document.getElementById("visualizer");
   if (!visualizer) {
     return;
   }
 
-  const { auditMode } = readConfig();
+  var { auditMode } = readConfig();
   if (auditMode) {
     await import("./audit-panel.js");
   }
 
-  const gameViewer = window.GameViewer;
+  var gameViewer = window.GameViewer;
   if (!gameViewer) {
     throw new Error("game-viewer.js did not initialize window.GameViewer");
   }
 
-  const slug = window.location.pathname.replace(/^\/games\//, "").replace(/\/$/, "");
-  const loadingEl = getRequiredElement(visualizer, "#loading");
-  const errorEl = getRequiredElement(visualizer, "#error");
-  const viewerContainer = getRequiredElement(visualizer, "#viewer-container");
+  var slug = window.location.pathname.replace(/^\/games\//, "").replace(/\/$/, "");
+  var errorEl = getRequiredElement(visualizer, "#error");
+  var viewerContainer = getRequiredElement(visualizer, "#viewer-container");
   if (!slug) {
-    loadingEl.classList.add("hidden");
     errorEl.textContent = "No game ID in URL.";
     errorEl.classList.remove("hidden");
     return;
   }
 
-  gameViewer.fetchGameData("", slug)
+  // Use inline game data (prerendered at build time) or fall back to fetch
+  var gameDataPromise;
+  var inlineGame = readInlineGameData();
+  if (inlineGame) {
+    gameDataPromise = Promise.resolve(inlineGame);
+  } else {
+    gameDataPromise = gameViewer.fetchGameData("", slug);
+  }
+
+  gameDataPromise
     .then(function (game) {
       if (!game.snapshots || game.snapshots.length === 0) {
         throw new Error("No snapshots in game data.");
       }
-
-      loadingEl.classList.add("hidden");
-      viewerContainer.classList.remove("hidden");
 
       var params = new URLSearchParams(window.location.search);
       var startSnap = params.get("s");
@@ -101,7 +113,6 @@ export async function initGameReplayPage(options) {
       viewerContainer.focus({ preventScroll: true });
     })
     .catch(function (err) {
-      loadingEl.classList.add("hidden");
       errorEl.textContent = err.message || "Failed to load game data.";
       errorEl.classList.remove("hidden");
     });

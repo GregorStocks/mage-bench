@@ -4,6 +4,8 @@ import '../styles/game-viewer.css';
 import '../styles/game-header.css';
 import '../styles/audit-panel.css';
 import type { GameEntry } from '../utils/load-games';
+import type { GameExportV8 } from '../types/game-export';
+import type { PrerenderResult } from '../utils/prerender-timeline';
 import { safeHttpUrl } from '../utils/safe-http-url';
 import {
   formatReplayBlunderSummary,
@@ -12,11 +14,13 @@ import {
 
 interface Props {
   game: GameEntry;
+  fullGame: GameExportV8;
+  prerendered: PrerenderResult;
   minBlunderVersion: number;
   auditMode: boolean;
 }
 
-const { game, minBlunderVersion, auditMode } = Astro.props as Props;
+const { game, fullGame, prerendered, minBlunderVersion, auditMode } = Astro.props as Props;
 const configJson = JSON.stringify({ auditMode }).replace(/</g, '\\u003c');
 
 const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
@@ -26,6 +30,11 @@ const blunderSummary = game.replayBlunderSummary
 const blunderScriptVersion = normalizedBlunderScriptVersion(game.blunderScriptVersion);
 const isOldBlunderAnalysis =
   game.replayBlunderSummary != null && blunderScriptVersion < minBlunderVersion;
+
+// Serialize the full game JSON for inline embedding (eliminates runtime fetch)
+const gameDataJson = JSON.stringify(fullGame).replace(/</g, '\\u003c');
+
+const { entries, snapshotCount, hasLlm, hasChat, hasAnnotations } = prerendered;
 ---
 
 <div id="visualizer" data-spectator-mode="replay">
@@ -75,13 +84,67 @@ const isOldBlunderAnalysis =
       </div>
     )}
 
-    <div id="loading">Loading game data...</div>
-    <div id="viewer-container" class="hidden"></div>
+    <!-- Prerendered viewer skeleton (was previously built by JS buildDOM()) -->
+    <div id="viewer-container">
+      <div id="transport">
+        <div class="transport-buttons">
+          <button id="btn-prev" title="Previous (Left arrow)">&lt;</button>
+          <button id="btn-auto" title="Auto-play">Play</button>
+          <button id="btn-next" title="Next (Right arrow)">&gt;</button>
+        </div>
+        <div id="slider-container">
+          <input type="range" id="slider" min="0" max={String(snapshotCount - 1)} value="0" />
+        </div>
+        <div class="snapshot-position">
+          <input type="number" id="snapshot-jump" min="1" max={String(snapshotCount)} value="1" title="Jump to snapshot #" />
+          <span class="snap-divider">/</span>
+          <span class="snap-total">{snapshotCount}</span>
+        </div>
+      </div>
+      <div id="game-content">
+        <div id="game-left">
+          <div id="stack-section">
+            <div class="section-title">Stack</div>
+            <div id="stack-cards" class="cards-row"></div>
+          </div>
+          <div id="players-grid"></div>
+        </div>
+        <div id="game-right">
+          <div id="action-log">
+            <div class="action-log-header">
+              <span class="section-title">Game Log</span>
+              <div class="log-filters">
+                <label class:list={['filter-checkbox', { hidden: !hasLlm }]}><input type="checkbox" id="filter-llm" checked /> LLM</label>
+                <label class="filter-checkbox"><input type="checkbox" id="filter-game" checked /> Game</label>
+                <label class:list={['filter-checkbox', { hidden: !hasChat }]}><input type="checkbox" id="filter-chat" checked /> Chat</label>
+                <label class:list={['filter-checkbox', { hidden: !hasAnnotations }]}><input type="checkbox" id="filter-annotations" checked /> Blunders</label>
+              </div>
+            </div>
+            <div id="action-list" data-prerendered>
+              {entries.map((html) => <Fragment set:html={html} />)}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="card-preview" class="hidden">
+        <img id="preview-image" alt="" />
+        <div class="card-meta">
+          <div class="card-name-row">
+            <div id="preview-name" class="card-name"></div>
+            <div id="preview-cost" class="card-cost"></div>
+          </div>
+          <div id="preview-type" class="card-type"></div>
+          <pre id="preview-rules" class="card-rules"></pre>
+          <div id="preview-stats" class="card-stats"></div>
+        </div>
+      </div>
+    </div>
     {auditMode && <div id="audit-container"></div>}
   </div>
 </div>
 
 <script is:inline type="application/json" id="game-replay-config" set:html={configJson}></script>
+<script is:inline type="application/json" id="game-data" set:html={gameDataJson}></script>
 <script>
   import { initSpectatorPage } from "../scripts/init-spectator-page.js";
 
@@ -97,13 +160,9 @@ const isOldBlunderAnalysis =
     font-family: system-ui, -apple-system, sans-serif;
   }
 
-  #loading, #error {
+  #error {
     text-align: center;
     padding: 1rem 0 2rem;
-    color: var(--text-muted);
-  }
-
-  #error {
     color: #e94560;
   }
 
