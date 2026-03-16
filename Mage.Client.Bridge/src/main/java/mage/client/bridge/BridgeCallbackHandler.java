@@ -3025,22 +3025,28 @@ public class BridgeCallbackHandler {
      *         "event_count" (number of events included)
      */
     public GetGameHistoryTool.Result getGameHistory(Integer sinceTurn, Integer sinceCursor) {
-        // Try pulling fresh events from the server
-        int savedCursor = bridgeEventCursor;
-        if (sinceCursor != null) {
-            bridgeEventCursor = sinceCursor;
-        } else {
-            bridgeEventCursor = 0;
+        // Fetch events directly from the server without going through pullBridgeEvents,
+        // which would pollute cachedBridgeEvents with out-of-order entries when sinceCursor
+        // rewinds the fetch window (e.g. sinceCursor=0 after a prior pull from cursor=50).
+        int effectiveCursor = (sinceCursor != null) ? sinceCursor : 0;
+        List<BridgeLogEntry> events = List.of();
+        int newCursor = effectiveCursor;
+        UUID gameId = currentGameId;
+        UUID playerId = gameId != null ? playerIdForGame(gameId) : null;
+        if (gameId != null && playerId != null) {
+            try {
+                List<BridgeLogEntry> fetched = session.getBridgeEvents(gameId, playerId, effectiveCursor);
+                if (fetched != null && !fetched.isEmpty()) {
+                    events = fetched;
+                    newCursor = fetched.get(fetched.size() - 1).index() + 1;
+                }
+            } catch (Exception e) {
+                logger.error("[" + client.getUsername() + "] Failed to fetch bridge events for history", e);
+            }
         }
 
-        List<BridgeLogEntry> events = pullBridgeEvents();
-        int newCursor = bridgeEventCursor;
-
-        // Restore cursor
-        bridgeEventCursor = savedCursor;
-
         // If the server returned nothing (game ended, controller cleaned up),
-        // fall back to cached events from earlier pulls or handleGameOver.
+        // fall back to cached events from earlier pulls.
         if (events.isEmpty() && !cachedBridgeEvents.isEmpty()) {
             if (sinceCursor != null) {
                 events = cachedBridgeEvents.stream()
