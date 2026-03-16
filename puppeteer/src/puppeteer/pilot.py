@@ -7,12 +7,14 @@ import os
 import re
 import sys
 import time
+from collections.abc import Sequence
 from contextlib import ExitStack
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Protocol
 
 from mcp import ClientSession
+from mcp.types import Tool
 from openai import AsyncOpenAI, OpenAIError
 
 from puppeteer.auto_pass import auto_pass_loop
@@ -66,12 +68,6 @@ CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
 TOOL_SUMMARY_TRIGGER_CHARS = 200  # tool messages longer than this enter the summary path
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
-
-
-class _McpToolLike(Protocol):
-    name: str
-    description: str | None
-    inputSchema: dict | None
 
 
 class _ToolFunctionLike(Protocol):
@@ -611,7 +607,7 @@ def _load_default_system_prompt() -> str:
     return prompts["default"]
 
 
-def mcp_tools_to_openai(mcp_tools: list[_McpToolLike], allowed_tools: set[str] | None = None) -> list[dict]:
+def mcp_tools_to_openai(mcp_tools: Sequence[Tool], allowed_tools: set[str] | None = None) -> list[dict]:
     """Convert MCP tool definitions to OpenAI function calling format.
 
     Args:
@@ -860,6 +856,7 @@ async def _process_tool_calls(
     state.last_was_empty = False
     state.history.append(_build_assistant_tool_message(choice.message))
 
+    assert choice.message.tool_calls is not None, "expected tool_calls in LLM response"
     for tool_call in choice.message.tool_calls:
         fn = tool_call.function
         args = json.loads(fn.arguments) if fn.arguments else {}

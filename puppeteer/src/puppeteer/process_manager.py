@@ -9,7 +9,7 @@ import threading
 from collections.abc import Callable
 from pathlib import Path
 from types import FrameType
-from typing import IO
+from typing import IO, Any
 
 import psutil
 
@@ -134,7 +134,9 @@ class ProcessManager:
         if env:
             merged_env.update(env)
 
-        log_fh: IO | None = None
+        log_fh: IO[Any] | None = None
+        stdout: int | IO[Any]
+        stderr: int | IO[Any]
         if log_file:
             log_fh = open(log_file, "w")
             stdout = log_fh
