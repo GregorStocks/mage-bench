@@ -76,23 +76,24 @@ def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
                 "library_count": p.get("library_size"),
                 "hand": [
                     c.get("name", "?") if isinstance(c, dict) else str(c)
-                    for c in p.get("hand", [])
+                    for c in p.get("hand", [])  # nofb
                 ],
-                "hand_count": p.get("hand_count", len(p.get("hand", []))),
+                "hand_count": p.get("hand_count", len(p.get("hand", []))),  # nofb
                 "battlefield": [
-                    _summarize_permanent(c) for c in p.get("battlefield", [])
+                    _summarize_permanent(c)
+                    for c in p.get("battlefield", [])  # nofb
                 ],
                 "graveyard": [
                     c.get("name", "?") if isinstance(c, dict) else str(c)
-                    for c in p.get("graveyard", [])
+                    for c in p.get("graveyard", [])  # nofb
                 ],
                 "exile": [
                     c.get("name", "?") if isinstance(c, dict) else str(c)
-                    for c in p.get("exile", [])
+                    for c in p.get("exile", [])  # nofb
                 ],
                 "commanders": [
                     c.get("name", "?") if isinstance(c, dict) else c
-                    for c in p.get("commanders", [])
+                    for c in p.get("commanders", [])  # nofb
                 ],
                 **({"counters": p["counters"]} if p.get("counters") else {}),
             }
@@ -115,7 +116,7 @@ def _find_snapshot_index(snapshots: Sequence[Snapshot], ts: str) -> int | None:
     """
     best: int | None = None
     for i, snap in enumerate(snapshots):
-        snap_ts = snap.get("ts", "")
+        snap_ts = snap.get("ts", "")  # nofb
         if snap_ts <= ts:
             best = i
         else:
@@ -221,7 +222,7 @@ def _resolve_chosen_index(
                 return ci
     # Fallback: parse trailing integer from action_taken.
     # Handles selected_0, selected_target_1, selected_ability_0, etc.
-    taken = action_result.get("action_taken", "")
+    taken = action_result.get("action_taken", "")  # nofb
     assert isinstance(taken, str), (
         f"action_taken must be a string when present, got {taken!r}"
     )
@@ -333,28 +334,28 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
     decisions: list[dict[str, object]] = []
 
     for ce_idx, (event_idx, choices_event) in enumerate(choices_events):
-        choices_result = _parse_choices_result(choices_event.get("result", ""))
+        choices_result = _parse_choices_result(choices_event.get("result", ""))  # nofb
         if not choices_result.get("action_pending", True):
             continue
 
-        choices_ts = choices_event.get("ts", "")
+        choices_ts = choices_event.get("ts", "")  # nofb
         assert isinstance(choices_ts, str), (
             f"choices event ts must be a string when present, got {choices_ts!r}"
         )
         player = choices_event["player"]
 
         # Parse available choices
-        available_choices_raw = choices_result.get("choices", [])
+        available_choices_raw = choices_result.get("choices", [])  # nofb
         available_choices = (
             available_choices_raw if isinstance(available_choices_raw, list) else []
         )
-        response_type = choices_result.get("response_type", "")
-        action_type = choices_result.get("action_type", "")
-        message = choices_result.get("message", "")
-        combat_phase = choices_result.get("combat_phase", "")
-        combat_raw = choices_result.get("combat", [])
-        already_attacking_raw = choices_result.get("already_attacking", [])
-        incoming_attackers_raw = choices_result.get("incoming_attackers", [])
+        response_type = choices_result.get("response_type", "")  # nofb
+        action_type = choices_result.get("action_type", "")  # nofb
+        message = choices_result.get("message", "")  # nofb
+        combat_phase = choices_result.get("combat_phase", "")  # nofb
+        combat_raw = choices_result.get("combat", [])  # nofb
+        already_attacking_raw = choices_result.get("already_attacking", [])  # nofb
+        incoming_attackers_raw = choices_result.get("incoming_attackers", [])  # nofb
         assert isinstance(response_type, str), (
             f"response_type must be a string, got {response_type!r}"
         )
@@ -386,7 +387,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
                 continue
 
             if ev.get("type") == "llm_response" and not reasoning:
-                reasoning_raw = ev.get("reasoning", "")
+                reasoning_raw = ev.get("reasoning", "")  # nofb
                 assert isinstance(reasoning_raw, str) or reasoning_raw is None, (
                     f"reasoning must be a string when present, got {reasoning_raw!r}"
                 )
@@ -404,11 +405,11 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
                 assert isinstance(chosen_args, dict), (
                     f"choose_action args must be an object, got {chosen_args!r}"
                 )
-                action_result = _parse_action_result(ev.get("result", ""))
+                action_result = _parse_action_result(ev.get("result", ""))  # nofb
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
-                action_ts = ev.get("ts", "")
+                action_ts = ev.get("ts", "")  # nofb
                 assert isinstance(action_ts, str), (
                     f"choose_action ts must be a string when present, got {action_ts!r}"
                 )
@@ -430,7 +431,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         # Collect subsequent game actions (between this decision and next)
         next_choices_ts = ""
         if ce_idx + 1 < len(choices_events):
-            next_choices_ts = choices_events[ce_idx + 1][1].get("ts", "")
+            next_choices_ts = choices_events[ce_idx + 1][1].get("ts", "")  # nofb
             assert isinstance(next_choices_ts, str), (
                 f"next choices ts must be a string when present, got {next_choices_ts!r}"
             )
@@ -438,7 +439,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         subsequent: list[str] = []
         if action_ts:
             for a in actions:
-                a_ts = a.get("ts", "")
+                a_ts = a.get("ts", "")  # nofb
                 assert isinstance(a_ts, str), (
                     f"action ts must be a string when present, got {a_ts!r}"
                 )
@@ -446,7 +447,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
                     continue
                 if next_choices_ts and a_ts > next_choices_ts:
                     break
-                message_raw = a.get("message", "")
+                message_raw = a.get("message", "")  # nofb
                 assert isinstance(message_raw, str), (
                     f"action message must be a string when present, got {message_raw!r}"
                 )
@@ -491,7 +492,7 @@ def _is_decision_source(event: LlmEvent) -> bool:
     tool = event.get("tool")
     if tool not in ("pass_priority", "get_action_choices"):
         return False
-    result = _parse_choices_result(event.get("result", ""))
+    result = _parse_choices_result(event.get("result", ""))  # nofb
     return bool(result.get("action_pending"))
 
 
@@ -515,20 +516,20 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     decisions: list[dict[str, object]] = []
 
     for ds_idx, (event_idx, source_event) in enumerate(decision_sources):
-        choices_result = _parse_choices_result(source_event.get("result", ""))
+        choices_result = _parse_choices_result(source_event.get("result", ""))  # nofb
         player = source_event["player"]
 
-        available_choices_raw = choices_result.get("choices", [])
+        available_choices_raw = choices_result.get("choices", [])  # nofb
         available_choices = (
             available_choices_raw if isinstance(available_choices_raw, list) else []
         )
-        response_type = choices_result.get("response_type", "")
-        action_type = choices_result.get("action_type", "")
-        message = choices_result.get("message", "")
-        combat_phase = choices_result.get("combat_phase", "")
-        combat_raw = choices_result.get("combat", [])
-        already_attacking_raw = choices_result.get("already_attacking", [])
-        incoming_attackers_raw = choices_result.get("incoming_attackers", [])
+        response_type = choices_result.get("response_type", "")  # nofb
+        action_type = choices_result.get("action_type", "")  # nofb
+        message = choices_result.get("message", "")  # nofb
+        combat_phase = choices_result.get("combat_phase", "")  # nofb
+        combat_raw = choices_result.get("combat", [])  # nofb
+        already_attacking_raw = choices_result.get("already_attacking", [])  # nofb
+        incoming_attackers_raw = choices_result.get("incoming_attackers", [])  # nofb
         assert isinstance(response_type, str), (
             f"response_type must be a string, got {response_type!r}"
         )
@@ -561,7 +562,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
                 continue
 
             if ev.get("type") == "llm_response" and not reasoning:
-                reasoning_raw = ev.get("reasoning", "")
+                reasoning_raw = ev.get("reasoning", "")  # nofb
                 assert isinstance(reasoning_raw, str) or reasoning_raw is None, (
                     f"reasoning must be a string when present, got {reasoning_raw!r}"
                 )
@@ -579,11 +580,11 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
                 assert isinstance(chosen_args, dict), (
                     f"choose_action args must be an object, got {chosen_args!r}"
                 )
-                action_result = _parse_action_result(ev.get("result", ""))
+                action_result = _parse_action_result(ev.get("result", ""))  # nofb
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
-                action_ts = ev.get("ts", "")
+                action_ts = ev.get("ts", "")  # nofb
                 assert isinstance(action_ts, str), (
                     f"choose_action ts must be a string when present, got {action_ts!r}"
                 )
@@ -611,7 +612,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         if choices_seq:
             snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
         else:
-            choices_ts = source_event.get("ts", "")
+            choices_ts = source_event.get("ts", "")  # nofb
             assert isinstance(choices_ts, str), (
                 f"source event ts must be a string when present, got {choices_ts!r}"
             )
@@ -730,12 +731,12 @@ def _find_spell_cancelled_events(
         if ev.get("type") != "tool_call":
             continue
         player = ev["player"]
-        result_str = ev.get("result", "")
+        result_str = ev.get("result", "")  # nofb
         assert isinstance(result_str, str), (
             f"result must be a string when present, got {result_str!r}"
         )
         if "[System] Spell cancelled" not in result_str:
-            ts_raw = ev.get("ts", "")
+            ts_raw = ev.get("ts", "")  # nofb
             assert isinstance(ts_raw, str), (
                 f"event ts must be a string when present, got {ts_raw!r}"
             )
@@ -744,7 +745,7 @@ def _find_spell_cancelled_events(
         try:
             result = json.loads(result_str)
         except (json.JSONDecodeError, TypeError):
-            ts_raw = ev.get("ts", "")
+            ts_raw = ev.get("ts", "")  # nofb
             assert isinstance(ts_raw, str), (
                 f"event ts must be a string when present, got {ts_raw!r}"
             )
@@ -752,20 +753,20 @@ def _find_spell_cancelled_events(
             continue
         if not isinstance(result, dict):
             continue
-        recent_chat = result.get("recent_chat", [])
+        recent_chat = result.get("recent_chat", [])  # nofb
         if not isinstance(recent_chat, list):
             recent_chat = []
         for msg in recent_chat:
             if "[System] Spell cancelled" in str(msg):
                 # Use the previous event's timestamp (when the cast was attempted)
-                ev_ts_raw = ev.get("ts", "")
+                ev_ts_raw = ev.get("ts", "")  # nofb
                 assert isinstance(ev_ts_raw, str), (
                     f"event ts must be a string when present, got {ev_ts_raw!r}"
                 )
                 ts = last_ts.get(player, ev_ts_raw)
                 cancelled.append((player, ts))
                 break
-        ts_raw = ev.get("ts", "")
+        ts_raw = ev.get("ts", "")  # nofb
         assert isinstance(ts_raw, str), (
             f"event ts must be a string when present, got {ts_raw!r}"
         )
@@ -792,7 +793,7 @@ def _mark_rolled_back_casts(
             if d["player"] != player:
                 continue
             # Skip decisions after the cancel event
-            action_ts_raw = d.get("action_ts", "")
+            action_ts_raw = d.get("action_ts", "")  # nofb
             assert isinstance(action_ts_raw, str), (
                 f"action_ts must be a string when present, got {action_ts_raw!r}"
             )
@@ -801,7 +802,7 @@ def _mark_rolled_back_casts(
             # Already handled by a previous cancel event
             if d.get("rolled_back") or d.get("cast_rolled_back"):
                 break
-            msg = d.get("message", "")
+            msg = d.get("message", "")  # nofb
             assert isinstance(msg, str), f"message must be a string, got {msg!r}"
             if msg.startswith(_CAST_PROMPT_PREFIXES):
                 d["cast_rolled_back"] = True

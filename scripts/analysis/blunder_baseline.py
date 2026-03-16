@@ -54,8 +54,8 @@ def derive_baseline() -> dict:
         gz_path = str(game_path_for_id(game_id))
         data = load_game(gz_path)
 
-        snapshots = data.get("snapshots", [])
-        annotations = data.get("annotations", [])
+        snapshots = data.get("snapshots", [])  # nofb
+        annotations = data.get("annotations", [])  # nofb
         decisions = extract_decisions(gz_path)
 
         for entry in entries:

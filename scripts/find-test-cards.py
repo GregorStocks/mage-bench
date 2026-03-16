@@ -105,7 +105,7 @@ def _string_field(card: dict, key: str) -> str:
 
 
 def _card_faces(card: dict) -> list[dict]:
-    faces = card.get("card_faces", [])
+    faces = card.get("card_faces", [])  # nofb
     if not faces:
         return []
     assert isinstance(faces, list), (

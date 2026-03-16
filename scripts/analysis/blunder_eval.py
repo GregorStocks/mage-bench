@@ -62,8 +62,8 @@ def compare_results(
 
             total_validated += 1
             pk = play_key(game_id, entry["decision_index"])
-            eval_detected = eval_results.get(pk, {}).get("detected", False)
-            base_detected = baseline_results.get(pk, {}).get("detected", False)
+            eval_detected = eval_results.get(pk, {}).get("detected", False)  # nofb
+            base_detected = baseline_results.get(pk, {}).get("detected", False)  # nofb
 
             is_blunder = verdict == "blunder"
 
@@ -84,11 +84,16 @@ def compare_results(
                         "verdict": verdict,
                         "eval_detected": eval_detected,
                         "baseline_detected": base_detected,
-                        "baseline_description": baseline_results.get(pk, {}).get(
+                        "baseline_description": baseline_results.get(
+                            pk,
+                            {},  # nofb
+                        ).get("description"),
+                        "eval_severity": eval_results.get(pk, {}).get(  # nofb
+                            "severity"
+                        ),
+                        "eval_description": eval_results.get(pk, {}).get(  # nofb
                             "description"
                         ),
-                        "eval_severity": eval_results.get(pk, {}).get("severity"),
-                        "eval_description": eval_results.get(pk, {}).get("description"),
                         "human_notes": entry.get("human_notes"),
                     }
                 )
@@ -124,7 +129,7 @@ def print_report(comparison: dict) -> None:
         f"    FN: {delta_fn:+d} ({comparison['baseline_false_negatives']} -> {comparison['false_negatives']})"
     )
 
-    details = comparison.get("details", [])
+    details = comparison.get("details", [])  # nofb
     if details:
         print(f"\n  Changes ({len(details)}):")
         indent = "          "
@@ -217,7 +222,7 @@ def main() -> None:
     baseline_results: dict[str, dict] = {}
     if BASELINE_PATH.exists():
         baseline = load_baseline()
-        baseline_results = baseline.get("results", {})
+        baseline_results = baseline.get("results", {})  # nofb
         print(
             f"Baseline: v{baseline.get('blunder_script_version', '?')} ({len(baseline_results)} results)"
         )

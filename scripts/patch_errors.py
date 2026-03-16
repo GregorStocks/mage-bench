@@ -39,12 +39,12 @@ def _link_errors_to_decisions(
     """Add decisionIndex to each error by matching player + timestamp."""
     player_decisions: dict[str, list[tuple[str, int]]] = {}
     for d in decisions:
-        player = d.get("player", "")
-        indices = d.get("llmEventIndices", [])
+        player = d.get("player", "")  # nofb
+        indices = d.get("llmEventIndices", [])  # nofb
         if not indices:
             continue
         source_event = llm_events[indices[0]]
-        ts_iso = source_event.get("ts", "")
+        ts_iso = source_event.get("ts", "")  # nofb
         if len(ts_iso) >= 19 and ts_iso[10] == "T":
             ts_hms = ts_iso[11:19]
         else:
@@ -52,10 +52,10 @@ def _link_errors_to_decisions(
         player_decisions.setdefault(player, []).append((ts_hms, d["index"]))
 
     for err in errors:
-        err_ts = err.get("ts", "")
+        err_ts = err.get("ts", "")  # nofb
         if not err_ts:
             continue
-        player = err.get("player", "")
+        player = err.get("player", "")  # nofb
         pd = player_decisions.get(player)
         if not pd:
             continue
@@ -87,8 +87,8 @@ def patch_game(path: Path) -> bool:
             changed = True
 
     # Add decisionIndex links
-    decisions = data.get("decisions", [])
-    llm_events = data.get("llmEvents", [])
+    decisions = data.get("decisions", [])  # nofb
+    llm_events = data.get("llmEvents", [])  # nofb
     if decisions and llm_events:
         had_indices = any("decisionIndex" in e for e in errors)
         _link_errors_to_decisions(errors, decisions, llm_events)

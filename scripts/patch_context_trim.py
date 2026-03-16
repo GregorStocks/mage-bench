@@ -41,7 +41,9 @@ def patch_game(game_path: Path) -> int:
         data = json.load(f)
 
     trim_events = [
-        e for e in data.get("llmEvents", []) if e.get("type") == "context_trim"
+        e
+        for e in data.get("llmEvents", [])  # nofb
+        if e.get("type") == "context_trim"
     ]
     if not trim_events:
         return 0

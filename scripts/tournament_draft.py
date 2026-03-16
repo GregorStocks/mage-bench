@@ -105,7 +105,7 @@ def _format_card_line(card_name: str, count: int, oracle: dict[str, dict]) -> st
     if card_name in BASIC_LAND_NAMES:
         return f"  {count}x {card_name} — Basic Land"
 
-    info = oracle.get(card_name, {})
+    info = oracle.get(card_name, {})  # nofb
     parts = [f"  {count}x {card_name}"]
     if info.get("mana_cost"):
         parts.append(info["mana_cost"])
@@ -537,7 +537,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     client_cache: dict[tuple[str, str], AsyncOpenAI] = {}
     for model, provider, _, _ in entrant_configs.values():
         key_env = required_api_key_env(provider)
-        api_key = os.environ.get(key_env, "")
+        api_key = os.environ.get(key_env, "")  # nofb
         assert api_key, f"Missing API key: set {key_env} environment variable"
         cache_key = (api_key, provider)
         if cache_key not in client_cache:
@@ -569,7 +569,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
             )
 
             key_env = required_api_key_env(provider)
-            api_key = os.environ.get(key_env, "")
+            api_key = os.environ.get(key_env, "")  # nofb
             client = client_cache[(api_key, provider)]
 
             print(

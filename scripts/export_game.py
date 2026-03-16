@@ -123,7 +123,7 @@ def _build_card_images(players_meta: list[dict]) -> dict[str, str]:
     """Build card name -> Scryfall small image URL map from decklists."""
     images = {}
     for player in players_meta:
-        for entry in player.get("decklist", []):
+        for entry in player.get("decklist", []):  # nofb
             m = DECKLIST_RE.match(entry)
             if m:
                 set_code = m.group(2).lower()
@@ -168,9 +168,9 @@ def _collect_card_names(snapshots: list[dict]) -> tuple[set[str], set[str]]:
 
     for snap in snapshots:
         # Stack items
-        for item in snap.get("stack", []):
+        for item in snap.get("stack", []):  # nofb
             if isinstance(item, dict):
-                name = item.get("name", "")
+                name = item.get("name", "")  # nofb
                 if name and "ability" not in name.lower():
                     if " Token" in name or " token" in name:
                         tokens.add(name)
@@ -182,11 +182,11 @@ def _collect_card_names(snapshots: list[dict]) -> tuple[set[str], set[str]]:
                 else:
                     real_cards.add(item)
 
-        for player in snap.get("players", []):
+        for player in snap.get("players", []):  # nofb
             for zone_name in zones:
-                for card in player.get(zone_name, []):
+                for card in player.get(zone_name, []):  # nofb
                     if isinstance(card, dict):
-                        name = card.get("name", "")
+                        name = card.get("name", "")  # nofb
                     elif isinstance(card, str):
                         name = card
                     else:
@@ -254,7 +254,7 @@ _COMMANDER_DECK_TYPES = {
 
 def _extract_commander(player_meta: dict) -> str | None:
     """Find commander name from decklist (SB: entries)."""
-    for entry in player_meta.get("decklist", []):
+    for entry in player_meta.get("decklist", []):  # nofb
         if entry.startswith("SB:"):
             m = DECKLIST_RE.match(entry)
             if m:
@@ -286,7 +286,7 @@ def _deck_display_name(player_meta: dict, deck_type: str) -> str | None:
     # Legacy fallback for old game_metas
     if deck_type in _COMMANDER_DECK_TYPES:
         return _extract_commander(player_meta)
-    return _deck_name_from_path(player_meta.get("deck_path", ""))
+    return _deck_name_from_path(player_meta.get("deck_path", ""))  # nofb
 
 
 def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
@@ -300,11 +300,11 @@ def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
     """
     thinking: dict[str, float] = {}
     for i in range(len(llm_events) - 1):
-        player = llm_events[i].get("player", "")
+        player = llm_events[i].get("player", "")  # nofb
         if not player:
             continue
-        ts_a = llm_events[i].get("ts", "")
-        ts_b = llm_events[i + 1].get("ts", "")
+        ts_a = llm_events[i].get("ts", "")  # nofb
+        ts_b = llm_events[i + 1].get("ts", "")  # nofb
         if not ts_a or not ts_b:
             continue
         try:
@@ -324,13 +324,13 @@ def compute_tool_call_counts(llm_events: list[dict]) -> dict[str, tuple[int, int
     for event in llm_events:
         if event.get("type") != "tool_call":
             continue
-        player = event.get("player", "")
+        player = event.get("player", "")  # nofb
         if not player:
             continue
 
         ok, failed = player_tool_calls.get(player, (0, 0))
         is_failure = False
-        result_str = event.get("result", "")
+        result_str = event.get("result", "")  # nofb
         if result_str:
             try:
                 result_obj = json.loads(result_str)
@@ -376,8 +376,8 @@ def _read_llm_events(
             except json.JSONDecodeError:
                 continue
 
-            event_type = raw.get("type", "")
-            player = raw.get("player", "")
+            event_type = raw.get("type", "")  # nofb
+            player = raw.get("player", "")  # nofb
 
             # Track per-player cost from game_end or cumulative_cost_usd
             if event_type == "game_end" and "total_cost_usd" in raw:
@@ -394,7 +394,7 @@ def _read_llm_events(
 
             # Build the exported event with camelCase keys
             exported: dict = {
-                "ts": raw.get("ts", ""),
+                "ts": raw.get("ts", ""),  # nofb
                 "seq": raw.get("seq"),
                 "player": player,
                 "type": event_type,
@@ -405,10 +405,10 @@ def _read_llm_events(
             game_seq = raw.get("game_seq")
 
             if event_type == "game_start":
-                exported["model"] = raw.get("model", "")
-                exported["availableTools"] = raw.get("available_tools", [])
+                exported["model"] = raw.get("model", "")  # nofb
+                exported["availableTools"] = raw.get("available_tools", [])  # nofb
             elif event_type == "llm_response":
-                exported["reasoning"] = raw.get("reasoning", "")
+                exported["reasoning"] = raw.get("reasoning", "")  # nofb
                 if raw.get("thinking"):
                     exported["thinking"] = raw["thinking"]
                 if raw.get("tool_calls"):
@@ -426,14 +426,14 @@ def _read_llm_events(
                 if "cost_usd" in raw:
                     exported["costUsd"] = raw["cost_usd"]
             elif event_type == "tool_call":
-                exported["tool"] = raw.get("tool", "")
-                exported["args"] = raw.get("arguments", {})
-                exported["result"] = raw.get("result", "")
+                exported["tool"] = raw.get("tool", "")  # nofb
+                exported["args"] = raw.get("arguments", {})  # nofb
+                exported["result"] = raw.get("result", "")  # nofb
                 if "latency_ms" in raw:
                     exported["latencyMs"] = raw["latency_ms"]
                 # Extract game_seq from result JSON if not already a top-level field
                 if game_seq is None:
-                    result_str = raw.get("result", "")
+                    result_str = raw.get("result", "")  # nofb
                     if result_str:
                         try:
                             result_obj = json.loads(result_str)
@@ -443,14 +443,14 @@ def _read_llm_events(
                             pass
             elif event_type == "stall":
                 exported["turnsWithoutProgress"] = raw.get("turns_without_progress", 0)
-                exported["lastTools"] = raw.get("last_tools", [])
+                exported["lastTools"] = raw.get("last_tools", [])  # nofb
             elif event_type == "context_reset":
-                exported["reason"] = raw.get("reason", "")
+                exported["reason"] = raw.get("reason", "")  # nofb
             elif event_type == "llm_error":
-                exported["errorType"] = raw.get("error_type", "")
-                exported["errorMessage"] = raw.get("error_message", "")
+                exported["errorType"] = raw.get("error_type", "")  # nofb
+                exported["errorMessage"] = raw.get("error_message", "")  # nofb
             elif event_type == "auto_pilot_mode":
-                exported["reason"] = raw.get("reason", "")
+                exported["reason"] = raw.get("reason", "")  # nofb
 
             if game_seq is not None:
                 exported["gameSeq"] = game_seq
@@ -458,7 +458,7 @@ def _read_llm_events(
             events.append(exported)
 
     # Sort by timestamp
-    events.sort(key=lambda e: e.get("ts", ""))
+    events.sort(key=lambda e: e.get("ts", ""))  # nofb
 
     player_tool_calls = compute_tool_call_counts(events)
     player_thinking = compute_thinking_time(events)
@@ -515,7 +515,7 @@ def _read_server_events(
             actions.append(
                 {
                     "seq": event.get("seq", 0),
-                    "message": _strip_html(event.get("message", "")),
+                    "message": _strip_html(event.get("message", "")),  # nofb
                 }
             )
         elif event_type == "turn_change":
@@ -541,7 +541,7 @@ def _read_server_events(
         elif event_type == "game_end":
             game_over = {
                 "seq": event.get("seq", 0),
-                "message": event.get("winner", "") or "Game ended",
+                "message": event.get("winner", "") or "Game ended",  # nofb
             }
             winner = event.get("winner")
             if "state" in event:
@@ -578,7 +578,7 @@ def _is_decision_source(event: dict) -> bool:
     tool = event.get("tool")
     if tool not in ("pass_priority", "get_action_choices", "choose_action"):
         return False
-    result = _parse_json(event.get("result", ""))
+    result = _parse_json(event.get("result", ""))  # nofb
     return bool(result.get("action_pending"))
 
 
@@ -592,7 +592,7 @@ def _is_v1_decision_source(event: dict) -> bool:
         return False
     if event.get("tool") != "get_action_choices":
         return False
-    result = _parse_json(event.get("result", ""))
+    result = _parse_json(event.get("result", ""))  # nofb
     action_pending = result.get("action_pending", True)
     assert isinstance(action_pending, bool), (
         f"get_action_choices action_pending must be a bool, got {action_pending!r}"
@@ -636,7 +636,7 @@ def _follows_failed_choose_action_retry(
     if source_event.get("tool") != "choose_action":
         return False
 
-    player = source_event.get("player", "")
+    player = source_event.get("player", "")  # nofb
     scan_start = 0
     for prev_idx in range(source_idx - 1, -1, -1):
         prev_event_idx, prev_source = decision_sources[prev_idx]
@@ -649,7 +649,9 @@ def _follows_failed_choose_action_retry(
         if ev.get("player") != player:
             continue
         if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
-            if _is_failed_choose_action_result(_parse_json(ev.get("result", ""))):
+            if _is_failed_choose_action_result(
+                _parse_json(ev.get("result", ""))  # nofb
+            ):
                 return True
         if is_v2 and _is_decision_source(ev):
             break
@@ -677,7 +679,7 @@ def _collect_decision_sources(
         if source_event.get("tool") != "choose_action":
             decision_sources.append((event_idx, source_event))
             continue
-        player = source_event.get("player", "")
+        player = source_event.get("player", "")  # nofb
         if _follows_failed_choose_action_retry(
             llm_events, candidate_sources, source_idx, is_v2
         ) and not _has_followup_choose_action(llm_events, event_idx, player, is_v2):
@@ -736,7 +738,7 @@ def _resolve_chosen_index(
                 return ci
     # Fallback: parse trailing integer from action_taken.
     # Handles selected_0, selected_target_1, selected_ability_0, etc.
-    taken = action_result.get("action_taken", "")
+    taken = action_result.get("action_taken", "")  # nofb
     if taken.startswith("selected"):
         try:
             return int(taken.rsplit("_", 1)[1])
@@ -760,7 +762,7 @@ def _find_snapshot_index_by_ts(snapshots: list[dict], ts: str) -> int | None:
     """Find the index of the nearest snapshot at or before the given timestamp."""
     best: int | None = None
     for i, snap in enumerate(snapshots):
-        if snap.get("ts", "") <= ts:
+        if snap.get("ts", "") <= ts:  # nofb
             best = i
         else:
             break
@@ -782,14 +784,14 @@ def _extract_pilot_context(choices_result: dict) -> dict:
         ctx["incomingAttackers"] = choices_result["incoming_attackers"]
     # Extract playable card IDs from board hand.
     # board is a list of player objects (not {players: [...]}).
-    board = choices_result.get("board", [])
+    board = choices_result.get("board", [])  # nofb
     if isinstance(board, dict):
-        board = board.get("players", [])
+        board = board.get("players", [])  # nofb
     playable_ids: list[str] = []
     for p in board if isinstance(board, list) else []:
-        for card in p.get("hand", []) if isinstance(p, dict) else []:
+        for card in p.get("hand", []) if isinstance(p, dict) else []:  # nofb
             if isinstance(card, dict) and card.get("playable"):
-                card_id = card.get("id", "")
+                card_id = card.get("id", "")  # nofb
                 if card_id:
                     playable_ids.append(card_id)
     if playable_ids:
@@ -815,13 +817,13 @@ def _find_spell_cancelled_seqs(llm_events: list[dict]) -> list[tuple[str, int]]:
     for i, ev in enumerate(llm_events):
         if ev.get("type") != "tool_call":
             continue
-        player = ev.get("player", "")
-        result_str = ev.get("result", "")
+        player = ev.get("player", "")  # nofb
+        result_str = ev.get("result", "")  # nofb
         if "[System] Spell cancelled" not in result_str:
             last_idx[player] = i
             continue
         result = _parse_json(result_str)
-        for msg in result.get("recent_chat", []):
+        for msg in result.get("recent_chat", []):  # nofb
             if "[System] Spell cancelled" in str(msg):
                 cancelled.append((player, last_idx.get(player, i)))
                 break
@@ -847,14 +849,14 @@ def _mark_rolled_back_casts(
             if d["player"] != player:
                 continue
             # Skip decisions whose last llm event is after the cancel point
-            indices = d.get("llmEventIndices", [])
+            indices = d.get("llmEventIndices", [])  # nofb
             if not indices:
                 continue
             if indices[0] > cancel_idx:
                 continue
             if d.get("castRolledBack"):
                 break
-            msg = d.get("message", "")
+            msg = d.get("message", "")  # nofb
             if msg.startswith(_CAST_PROMPT_PREFIXES):
                 d["castRolledBack"] = True
                 break
@@ -904,13 +906,13 @@ def _build_decisions(
     decisions: list[dict] = []
 
     for ds_idx, (event_idx, source_event) in enumerate(decision_sources):
-        choices_result = _parse_json(source_event.get("result", ""))
-        player = source_event.get("player", "")
+        choices_result = _parse_json(source_event.get("result", ""))  # nofb
+        player = source_event.get("player", "")  # nofb
 
-        available_choices = choices_result.get("choices", [])
-        response_type = choices_result.get("response_type", "")
-        action_type = choices_result.get("action_type", "")
-        message = choices_result.get("message", "")
+        available_choices = choices_result.get("choices", [])  # nofb
+        response_type = choices_result.get("response_type", "")  # nofb
+        action_type = choices_result.get("action_type", "")  # nofb
+        message = choices_result.get("message", "")  # nofb
 
         # Collect llmEventIndices and find choose_action
         llm_event_indices: list[int] = [event_idx]
@@ -929,8 +931,8 @@ def _build_decisions(
 
             if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
                 llm_event_indices.append(j)
-                chosen_args = ev.get("args", {})
-                action_result = _parse_json(ev.get("result", ""))
+                chosen_args = ev.get("args", {})  # nofb
+                action_result = _parse_json(ev.get("result", ""))  # nofb
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
@@ -952,7 +954,7 @@ def _build_decisions(
         if choices_seq:
             snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
         else:
-            choices_ts = source_event.get("ts", "")
+            choices_ts = source_event.get("ts", "")  # nofb
             snap_idx = (
                 _find_snapshot_index_by_ts(snapshots, choices_ts)
                 if choices_ts
@@ -1038,13 +1040,13 @@ def _link_errors_to_decisions(
     # Build per-player sorted list of (HH:MM:SS, decision_index)
     player_decisions: dict[str, list[tuple[str, int]]] = {}
     for d in decisions:
-        player = d.get("player", "")
-        indices = d.get("llmEventIndices", [])
+        player = d.get("player", "")  # nofb
+        indices = d.get("llmEventIndices", [])  # nofb
         if not indices:
             continue
         source_event = llm_events[indices[0]]
         # Extract HH:MM:SS from ISO timestamp (e.g. "2026-02-28T13:38:35.408-08:00")
-        ts_iso = source_event.get("ts", "")
+        ts_iso = source_event.get("ts", "")  # nofb
         if len(ts_iso) >= 19 and ts_iso[10] == "T":
             ts_hms = ts_iso[11:19]
         else:
@@ -1054,10 +1056,10 @@ def _link_errors_to_decisions(
     # Lists are already in chronological order (decisions built from sorted events)
 
     for err in errors:
-        err_ts = err.get("ts", "")
+        err_ts = err.get("ts", "")  # nofb
         if not err_ts:
             continue
-        player = err.get("player", "")
+        player = err.get("player", "")  # nofb
         pd = player_decisions.get(player)
         if not pd:
             continue
@@ -1077,9 +1079,9 @@ def _find_tournament_for_game(game_id: str) -> str | None:
     """Return tournament identifier (e.g. 'season-1') if game_id is in a bracket."""
     for path in _TOURNAMENTS_DIR.glob("season-*.json"):
         data = json.loads(path.read_text())
-        for rnd in data.get("rounds", []):
-            for match in rnd.get("matches", []):
-                for game in match.get("games", []):
+        for rnd in data.get("rounds", []):  # nofb
+            for match in rnd.get("matches", []):  # nofb
+                for game in match.get("games", []):  # nofb
                     if game.get("game_id") == game_id:
                         return path.stem  # e.g. "season-1"
     return None
@@ -1104,7 +1106,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
         _read_llm_events(game_dir)
     )
     # Build card images map from decklists
-    card_images = _build_card_images(meta.get("players", []))
+    card_images = _build_card_images(meta.get("players", []))  # nofb
 
     # Build card data (Scryfall metadata) and add token images
     card_images, card_data = _build_card_data(card_images, snapshots)
@@ -1116,16 +1118,16 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     # Fallback for interrupted games where game_end wasn't written
     if not winner:
         for a in actions:
-            m = WON_GAME_RE.match(a.get("message", ""))
+            m = WON_GAME_RE.match(a.get("message", ""))  # nofb
             if m:
                 winner = m.group(1)
                 break
 
     # Extract placement from elimination order
-    player_names = [p.get("name", "?") for p in meta.get("players", [])]
+    player_names = [p.get("name", "?") for p in meta.get("players", [])]  # nofb
     eliminations = []
     for a in actions:
-        m = LOST_GAME_RE.match(a.get("message", ""))
+        m = LOST_GAME_RE.match(a.get("message", ""))  # nofb
         if m:
             eliminations.append(m.group(1))
     placements: dict[str, int] = {}
@@ -1149,7 +1151,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     # Detect timer timeout losses
     timed_out_players: set[str] = set()
     for a in actions:
-        m = TIMED_OUT_RE.match(a.get("message", ""))
+        m = TIMED_OUT_RE.match(a.get("message", ""))  # nofb
         if m:
             timed_out_players.add(m.group(1))
 
@@ -1170,7 +1172,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     )
 
     players_summary = []
-    for p in meta.get("players", []):
+    for p in meta.get("players", []):  # nofb
         name = p.get("name", "?")
         ok, failed = player_tool_calls.get(name, (0, 0))
         entry: dict = {
@@ -1201,7 +1203,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     output: dict = {
         "version": 8,
         "id": game_id,
-        "timestamp": meta.get("timestamp", ""),
+        "timestamp": meta.get("timestamp", ""),  # nofb
         "gameType": game_type,
         "deckType": deck_type,
         "totalTurns": total_turns,
@@ -1214,7 +1216,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
         "llmEvents": llm_events,
         "gameOver": game_over,
         "harnessEpoch": harness_epoch,
-        "youtubeUrl": meta.get("youtube_url", ""),
+        "youtubeUrl": meta.get("youtube_url", ""),  # nofb
     }
 
     # Season/tournament (v4)

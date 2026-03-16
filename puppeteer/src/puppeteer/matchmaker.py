@@ -27,7 +27,7 @@ _CALIBRATION_GAMES = 3  # Models with fewer games are "underrated" and get cappe
 
 def get_active_presets(presets_data: dict) -> list[str]:
     """Return names of presets with status='active'."""
-    return [name for name, p in presets_data.get("presets", {}).items() if p.get("status") == "active"]
+    return [name for name, p in presets_data.get("presets", {}).items() if p.get("status") == "active"]  # nofb
 
 
 def _load_games_index(games_dir: Path) -> list[dict]:
@@ -52,7 +52,7 @@ def _load_games_index(games_dir: Path) -> list[dict]:
             game = json.loads(gzip.decompress(path.read_bytes()))
         else:
             game = json.loads(path.read_text())
-        games.append({f: game.get(f, defaults.get(f, "")) for f in fields})
+        games.append({f: game.get(f, defaults.get(f, "")) for f in fields})  # nofb
     return games
 
 
@@ -64,13 +64,13 @@ def _load_rated_games(games_dir: Path) -> list[dict]:
 def _build_key_to_preset(presets_path: Path) -> dict[str, str]:
     """Build player_key -> preset_name mapping for active presets."""
     data = json.loads(presets_path.read_text())
-    presets = data.get("presets", {})
+    presets = data.get("presets", {})  # nofb
     active = set(get_active_presets(data))
     mapping: dict[str, str] = {}
     for name, pdata in presets.items():
         if name not in active:
             continue
-        model_id = pdata.get("model", "")
+        model_id = pdata.get("model", "")  # nofb
         effort = pdata.get("reasoning_effort")
         key = f"{model_id}::{effort}" if effort else model_id
         mapping[key] = name
@@ -81,7 +81,7 @@ def _load_model_names(models_path: Path) -> dict[str, str]:
     """Load model_id -> display name mapping."""
     data = json.loads(models_path.read_text())
     assert isinstance(data, dict), f"{models_path}: expected JSON object"
-    models = data.get("models", [])
+    models = data.get("models", [])  # nofb
     assert isinstance(models, list), f"{models_path}: models must be a list"
     names: dict[str, str] = {}
     for index, model in enumerate(models):
@@ -117,7 +117,7 @@ _DISPATCHES = [
 
 def _player_key_from_dict(player: dict) -> str:
     """Build aggregation key from game player dict: 'model_id::effort' or 'model_id'."""
-    model_id = player.get("model", "")
+    model_id = player.get("model", "")  # nofb
     assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
     effort = player.get("reasoningEffort", player.get("reasoning_effort"))
     assert effort is None or isinstance(effort, str), (
@@ -146,7 +146,7 @@ def _build_matchup_matrix(
     game_counts: dict[str, int] = defaultdict(int)
 
     for game in games:
-        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
+        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]  # nofb
         preset_names = []
         for p in pilots:
             key = _player_key_from_dict(p)
@@ -294,10 +294,10 @@ def pick_round_robin_format(
     format_counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
 
     for game in season_games:
-        dt = game.get("deckType", "")
+        dt = game.get("deckType", "")  # nofb
         if dt not in candidate_set:
             continue
-        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
+        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]  # nofb
         for p in pilots:
             key = _player_key_from_dict(p)
             if key in key_to_preset:

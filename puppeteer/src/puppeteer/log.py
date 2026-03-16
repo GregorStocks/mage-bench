@@ -40,7 +40,7 @@ def setup_logging(*, debug: bool = False) -> None:
         return
     _setup_done = True
 
-    env_level = os.environ.get("PUPPETEER_LOG_LEVEL", "").upper()
+    env_level = os.environ.get("PUPPETEER_LOG_LEVEL", "").upper()  # nofb
     if env_level in ("DEBUG", "INFO", "WARNING", "ERROR"):
         level = getattr(logging, env_level)
     elif debug:

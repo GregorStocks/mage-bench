@@ -16,7 +16,7 @@ EXCERPT_LEN = 600
 def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
-    events = d.get("llmEvents", [])
+    events = d.get("llmEvents", [])  # nofb
     players = sorted(set(e.get("player", "?") for e in events))
 
     for player in players:
@@ -25,7 +25,7 @@ def main(gz_path: str) -> None:
         for e in events:
             if e.get("type") != "llm_response" or e.get("player") != player:
                 continue
-            reasoning = e.get("reasoning", "") or e.get("thinking", "")
+            reasoning = e.get("reasoning", "") or e.get("thinking", "")  # nofb
             assert isinstance(reasoning, str), (
                 f"reasoning must be a string when present, got {reasoning!r}"
             )

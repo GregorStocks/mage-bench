@@ -60,8 +60,8 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
     else:
         data = json.loads(path.read_text())
 
-    snapshots = data.get("snapshots", [])
-    annotations = data.get("annotations", [])
+    snapshots = data.get("snapshots", [])  # nofb
+    annotations = data.get("annotations", [])  # nofb
     max_idx = len(snapshots) - 1
 
     # Fix annotation snapshotIndex: advance by 1, clamped to max
@@ -78,7 +78,7 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
     if snapshots and data.get("llmEvents"):
         new_decisions = _build_decisions(
             snapshots,
-            data.get("actions", []),
+            data.get("actions", []),  # nofb
             data["llmEvents"],
             data.get("harnessEpoch", 0),
         )

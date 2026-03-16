@@ -53,7 +53,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
     # Build player -> model mapping
     player_models: dict[str, str] = {}
-    for p in data.get("players", []):
+    for p in data.get("players", []):  # nofb
         player_models[p["name"]] = p.get("model", "?")
 
     # Initialize stats per player
@@ -61,22 +61,22 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
     for name, model in player_models.items():
         stats[name] = PlayerStats(player=name, model=model)
 
-    events = data.get("llmEvents", [])
+    events = data.get("llmEvents", [])  # nofb
 
     for i, e in enumerate(events):
         if e.get("type") != "tool_call":
             continue
 
-        tool = e.get("tool", "")
-        player = e.get("player", "")
+        tool = e.get("tool", "")  # nofb
+        player = e.get("player", "")  # nofb
         if player not in stats:
             continue
         ps = stats[player]
 
         # --- choose_action: check for mana_plan, auto_tap, spell cancellations ---
         if tool == "choose_action":
-            args = e.get("args", {})
-            result_str = e.get("result", "")
+            args = e.get("args", {})  # nofb
+            result_str = e.get("result", "")  # nofb
             try:
                 result = json.loads(result_str)
             except (json.JSONDecodeError, TypeError):
@@ -90,26 +90,26 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
                     ps.mana_plan_success += 1
                 else:
                     ps.mana_plan_failed += 1
-                    error = result.get("error", "")
+                    error = result.get("error", "")  # nofb
                     if error:
                         ps.mana_plan_errors.append(error[:150])
 
             if args.get("auto_tap") is True:
                 ps.auto_tap_used += 1
 
-            action_taken = str(result.get("action_taken", ""))
+            action_taken = str(result.get("action_taken", ""))  # nofb
             if "cancelled_spell" in action_taken:
                 ps.spells_cancelled += 1
 
         # --- get_action_choices: track GAME_PLAY_MANA and GAME_CHOOSE_ABILITY ---
         if tool == "get_action_choices":
-            result_str = e.get("result", "")
+            result_str = e.get("result", "")  # nofb
             try:
                 result = json.loads(result_str)
             except (json.JSONDecodeError, TypeError):
                 continue
 
-            action_type = result.get("action_type", "")
+            action_type = result.get("action_type", "")  # nofb
 
             if action_type == "GAME_PLAY_MANA":
                 ps.mana_deferred += 1
@@ -136,19 +136,19 @@ def _track_followup(
         if ev.get("player") != player:
             continue
         if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
-            result_str = ev.get("result", "")
+            result_str = ev.get("result", "")  # nofb
             try:
                 result = json.loads(result_str)
             except (json.JSONDecodeError, TypeError):
                 setattr(ps, f"{prefix}_failed", getattr(ps, f"{prefix}_failed") + 1)
                 return
             if result.get("success"):
-                action = str(result.get("action_taken", ""))
+                action = str(result.get("action_taken", ""))  # nofb
                 if "cancelled_spell" in action:
                     setattr(
                         ps,
                         f"{prefix}_cancelled",
-                        getattr(ps, f"{prefix}_cancelled", 0) + 1,
+                        getattr(ps, f"{prefix}_cancelled", 0) + 1,  # nofb
                     )
                 else:
                     setattr(

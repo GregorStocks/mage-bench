@@ -32,10 +32,10 @@ overview = _game_overview(data)
 card_names = _collect_card_names(data)
 oracle_texts = _get_oracle_texts(sorted(card_names))
 
-game_actions = data.get("actions", [])
+game_actions = data.get("actions", [])  # nofb
 abt = _actions_by_turn(game_actions)
-game_snapshots = data.get("snapshots", [])
-num_players = len(data.get("players", []))
+game_snapshots = data.get("snapshots", [])  # nofb
+num_players = len(data.get("players", []))  # nofb
 
 system_prompt, user_msg = build_decision_prompt(
     overview=overview,
@@ -58,7 +58,7 @@ out_path.write_text(output)
 sys_tokens = len(system_prompt) // 4
 user_tokens = len(user_msg) // 4
 print(f"Game: {data['id']}")
-message = decision.get("message", "")
+message = decision.get("message", "")  # nofb
 assert isinstance(message, str), f"decision message must be a string, got {message!r}"
 print(
     f"Decision {decision['decision_index']}, turn {decision.get('turn')}, {decision['player']}"
