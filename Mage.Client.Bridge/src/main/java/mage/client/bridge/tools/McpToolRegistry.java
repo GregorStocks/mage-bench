@@ -91,8 +91,8 @@ public class McpToolRegistry {
     @SuppressWarnings("unchecked")
     public Map<String, Object> call(String name, JsonObject arguments, BridgeCallbackHandler handler) {
         // Some models (e.g. Kimi K2.5) emit tool names with leading whitespace
-        name = name.strip();
-        ToolEntry entry = byName.get(name);
+        String strippedName = name.strip();
+        ToolEntry entry = byName.get(strippedName);
         if (entry == null) {
             throw new RuntimeException("Unknown tool: " + name);
         }
