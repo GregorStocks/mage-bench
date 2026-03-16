@@ -4,12 +4,15 @@
  *
  * Usage: <Card>Questing Beast</Card>
  *    or: <Card name="Questing Beast" />
+ *    or: <Card name="Chains of Mephistopheles">that awful card</Card>
  */
 interface Props {
   name?: string;
 }
 
-const name = Astro.props.name ?? (await Astro.slots.render('default'))?.trim();
+const hasSlot = Astro.slots.has('default');
+const slotContent = hasSlot ? (await Astro.slots.render('default')).trim() : null;
+const name = Astro.props.name ?? slotContent;
 assert(name, 'Card component requires a name prop or slot content');
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -19,10 +22,13 @@ function assert(condition: unknown, message: string): asserts condition {
 const encoded = encodeURIComponent(name);
 const scryfallUrl = `https://scryfall.com/search?q=!%22${encoded}%22`;
 const scryfallImage = `https://api.scryfall.com/cards/named?exact=${encoded}&format=image&version=normal`;
+// If name prop is set and there's slot content, use the slot as display text.
+// Otherwise display the card name.
+const displaySlot = Astro.props.name && slotContent;
 ---
 
 <span class="card-ref">
-  <a href={scryfallUrl} target="_blank" rel="noopener noreferrer">{name}</a>
+  <a href={scryfallUrl} target="_blank" rel="noopener noreferrer">{displaySlot ? <Fragment set:html={slotContent} /> : name}</a>
   <span class="card-preview">
     <img src={scryfallImage} alt={name} loading="lazy" width="244" height="340" />
   </span>
