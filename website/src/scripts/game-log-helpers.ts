@@ -64,6 +64,14 @@ export interface MergedLlmEvent {
   toolCalls?: unknown;
   costUsd?: number;
   toolResults?: LlmEvent[];
+  // Metadata fields preserved from non-merged events (system_message,
+  // context_reset, llm_error, stall, auto_pilot_mode, etc.)
+  turnsWithoutProgress?: number;
+  errorType?: string;
+  errorMessage?: string;
+  reason?: string;
+  message?: string;
+  [k: string]: unknown;
 }
 
 /** Merge consecutive llm_response + tool_call events into single blocks. */
