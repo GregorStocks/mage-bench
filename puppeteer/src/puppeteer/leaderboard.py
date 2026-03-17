@@ -475,6 +475,8 @@ def generate_leaderboard(
         for ann in game.get("annotations", []):
             if ann.get("type") == "blunder":
                 name = ann.get("player")
+                if not name:
+                    continue
                 severity = ann.get("severity")
                 blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
 
@@ -595,6 +597,8 @@ def generate_exhibition_leaderboard(
         for ann in game.get("annotations", []):
             if ann.get("type") == "blunder":
                 name = ann.get("player")
+                if not name:
+                    continue
                 severity = ann.get("severity")
                 blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
 

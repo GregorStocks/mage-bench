@@ -165,7 +165,7 @@ def is_mana_event(event: LlmEvent) -> bool:
             args = args_raw
         assert isinstance(args, dict), f"args must be an object, got {args!r}"
         result_str = event.get("result")
-        assert isinstance(result_str, str), (
+        assert result_str is None or isinstance(result_str, str), (
             f"result must be a string when present, got {result_str!r}"
         )
 
@@ -178,9 +178,11 @@ def is_mana_event(event: LlmEvent) -> bool:
 
         # Any tool result with mana-related action_type or chat
         if tool in ("get_action_choices", "choose_action", "pass_priority"):
+            if result_str is None:
+                return False
             try:
                 result = json.loads(result_str)
-            except (json.JSONDecodeError, TypeError):
+            except json.JSONDecodeError:
                 return False
             if not isinstance(result, dict):
                 return False
@@ -362,7 +364,7 @@ def print_event(
             args = args_raw
         assert isinstance(args, dict), f"args must be an object, got {args!r}"
         result_str = event.get("result")
-        assert isinstance(result_str, str), (
+        assert result_str is None or isinstance(result_str, str), (
             f"result must be a string when present, got {result_str!r}"
         )
         latency = event.get("latencyMs", 0)
@@ -371,7 +373,9 @@ def print_event(
         )
 
         args_fmt = fmt_args(tool, args)
-        result_fmt = fmt_result(tool, result_str, verbose=verbose)
+        result_fmt = fmt_result(
+            tool, result_str if result_str is not None else "", verbose=verbose
+        )
 
         print(f"{ts_short} {context:<30} {player:<25} {prefix}{tool}({args_fmt})")
         print(f"{'':>12} {'':>30} {'':>25}   -> {result_fmt}")

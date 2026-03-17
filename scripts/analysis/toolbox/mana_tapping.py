@@ -111,8 +111,8 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
             if args.get("auto_tap") is True:
                 ps.auto_tap_used += 1
 
-            action_taken = str(result.get("action_taken"))
-            if "cancelled_spell" in action_taken:
+            action_taken = result.get("action_taken")
+            if action_taken and "cancelled_spell" in str(action_taken):
                 ps.spells_cancelled += 1
 
         # --- get_action_choices: track GAME_PLAY_MANA and GAME_CHOOSE_ABILITY ---
@@ -162,8 +162,8 @@ def _track_followup(
                 setattr(ps, f"{prefix}_failed", getattr(ps, f"{prefix}_failed") + 1)
                 return
             if result.get("success"):
-                action = str(result.get("action_taken"))
-                if "cancelled_spell" in action:
+                action = result.get("action_taken")
+                if action and "cancelled_spell" in str(action):
                     if prefix == "mana_deferred":
                         ps.mana_deferred_cancelled += 1
                     else:

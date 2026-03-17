@@ -213,7 +213,7 @@ def _build_tool_reference() -> str:
     for name, schema in tool["inputSchema"]["properties"].items():
         desc = schema.get("description")
         type_ = schema.get("type")
-        lines.append(f"- {name} ({type_}): {desc}")
+        lines.append(f"- {name} ({type_ if type_ else ''}): {desc if desc else ''}")
 
     return "\n".join(lines)
 

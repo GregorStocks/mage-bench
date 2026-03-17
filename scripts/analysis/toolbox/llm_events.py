@@ -40,7 +40,10 @@ def main(gz_path: str) -> None:
     for tc in events:
         if tc.get("type") != "tool_call":
             continue
-        result = str(tc.get("result"))
+        result = tc.get("result")
+        if result is None:
+            result = ""
+        result = str(result)
         is_failure = False
         try:
             result_obj = json.loads(result)

@@ -165,7 +165,7 @@ def _render_decision_block(
     # Message and choices/items
     choices = decision["choices"]
     items = decision.get("items")
-    lines.append(f"  Message: {message}")
+    lines.append(f"  Message: {message if message else ''}")
     if items:
         total_min = decision.get("totalMin")
         total_max = decision.get("totalMax")
