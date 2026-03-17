@@ -628,6 +628,7 @@ def start_server(
     jvm_args = " ".join(
         [
             config.jvm_bridge_opts,
+            "-Xmx1024m",
             f"-Dxmage.config.path={config_path}",
         ]
     )
@@ -664,6 +665,7 @@ def start_gui_client(
         [
             config.jvm_opens,
             config.jvm_rendering,
+            "-Xmx1536m",
             "-Dxmage.aiPuppeteer.autoConnect=true",
             "-Dxmage.aiPuppeteer.autoStart=true",
             "-Dxmage.aiPuppeteer.disableWhatsNew=true",
@@ -713,6 +715,7 @@ def start_potato_client(
     """Start an auto-responder bridge client (potato/staller)."""
     jvm_args_list = [
         config.jvm_bridge_opts,
+        "-Xmx512m",
         f"-Dxmage.bridge.server={config.server}",
         f"-Dxmage.bridge.port={config.port}",
         f"-Dxmage.bridge.personality={personality}",

@@ -1459,6 +1459,7 @@ async def run_pilot(
     # Build JVM args for the bridge (same as sleepwalker)
     jvm_args_list = [
         "--add-opens=java.base/java.io=ALL-UNNAMED",
+        "-Xmx512m",
         f"-Dxmage.bridge.server={server}",
         f"-Dxmage.bridge.port={port}",
         "-Dxmage.bridge.personality=sleepwalker",

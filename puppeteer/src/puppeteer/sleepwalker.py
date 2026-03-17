@@ -53,6 +53,7 @@ async def run_sleepwalker(
     # Build JVM args for the bridge
     jvm_args_list = [
         "--add-opens=java.base/java.io=ALL-UNNAMED",
+        "-Xmx512m",
         f"-Dxmage.bridge.server={server}",
         f"-Dxmage.bridge.port={port}",
         "-Dxmage.bridge.personality=sleepwalker",
