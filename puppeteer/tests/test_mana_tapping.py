@@ -129,6 +129,7 @@ class TestAnalyzeGame:
                 "type": "tool_call",
                 "tool": "get_action_choices",
                 "player": "Alice",
+                "args": {},
                 "result": json.dumps({"action_type": "GAME_PLAY_MANA", "choices": [{"index": 0}]}),
             },
             {
@@ -153,6 +154,7 @@ class TestAnalyzeGame:
                 "type": "tool_call",
                 "tool": "get_action_choices",
                 "player": "Alice",
+                "args": {},
                 "result": json.dumps({"action_type": "GAME_PLAY_MANA", "choices": []}),
             },
             {
@@ -175,6 +177,7 @@ class TestAnalyzeGame:
                 "type": "tool_call",
                 "tool": "get_action_choices",
                 "player": "Bob",
+                "args": {},
                 "result": json.dumps(
                     {
                         "action_type": "GAME_CHOOSE_ABILITY",
@@ -206,6 +209,7 @@ class TestAnalyzeGame:
                 "type": "tool_call",
                 "tool": "get_action_choices",
                 "player": "Alice",
+                "args": {},
                 "result": json.dumps({"action_type": "GAME_CHOOSE_ABILITY", "choices": [{"index": 0}]}),
             },
             {
