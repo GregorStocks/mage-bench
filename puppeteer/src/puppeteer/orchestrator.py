@@ -292,8 +292,8 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
         if player.deck_strategy:
             entry["deck_strategy"] = player.deck_strategy
         if isinstance(player, PilotPlayer):
-            if player.model:
-                entry["model"] = player.model
+            assert player.model, f"Pilot player {player.name} has no model (check preset)"
+            entry["model"] = player.model
             if player.personality:
                 entry["personality"] = player.personality
             if player.system_prompt:
