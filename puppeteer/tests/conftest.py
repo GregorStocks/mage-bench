@@ -201,8 +201,6 @@ def spectator_process(xmage_server, project_root):
     tmp_dir = project_root / "tmp" / "golden-spectator"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
-    allowed_sets = extract_golden_set_codes(project_root)
-
     # Health port file: Java will bind with retry and write the actual port here
     health_port_file = tmp_dir / "health_port"
     health_port_file.unlink(missing_ok=True)
@@ -223,7 +221,6 @@ def spectator_process(xmage_server, project_root):
             "xmage.aiPuppeteer.port": str(port),
             "xmage.aiPuppeteer.user": "spectator",
             "xmage.aiPuppeteer.password": "",
-            "xmage.sets.allowed": allowed_sets,
         },
         max_heap="512m",
     )

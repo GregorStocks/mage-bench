@@ -1,6 +1,6 @@
 package mage.client.observer;
 
-import mage.cards.Sets;
+import mage.cards.repository.CardScanner;
 import mage.client.MageFrame;
 import mage.client.dialog.PreferencesDialog;
 import mage.client.util.EDTExceptionHandler;
@@ -115,15 +115,11 @@ public class ObserverMain {
 
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> LOGGER.fatal(null, e));
 
-        // Restrict card pool before MageFrame constructor triggers CardScanner.scan().
-        // Without this, all ~30K card classes are loaded, consuming hundreds of MB of
-        // metaspace. The bridge does the same at BridgeClient.java:95-100.
-        String allowedSets = System.getProperty("xmage.sets.allowed");
-        if (allowedSets != null && !allowedSets.isEmpty()) {
-            java.util.Set<String> allowed = new java.util.HashSet<>(java.util.Arrays.asList(allowedSets.split(",")));
-            Sets.getInstance().retainOnly(allowed);
-            LOGGER.info("Restricted card pool to " + allowed.size() + " sets");
-        }
+        // Skip card database scanning. The MageFrame constructor calls
+        // CardScanner.scan() on empty DBs, which loads all ~30K card classes
+        // and consumes hundreds of MB of metaspace. The observer doesn't need
+        // the local card DB — it gets all card data from the game server.
+        CardScanner.scanned = true;
 
         SwingUtilities.invokeLater(() -> {
             // Parse command line args
