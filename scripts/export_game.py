@@ -1217,7 +1217,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     output: dict = {
         "version": 8,
         "id": game_id,
-        "timestamp": meta["timestamp"],
+        "timestamp": meta.get("timestamp"),
         "gameType": game_type,
         "deckType": deck_type,
         "totalTurns": total_turns,
