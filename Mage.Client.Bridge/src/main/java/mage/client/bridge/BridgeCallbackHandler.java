@@ -71,6 +71,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 /**
@@ -3560,29 +3561,43 @@ public class BridgeCallbackHandler {
         result.mergeFrom(choices);
     }
 
-    private ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
+    private ActionResult pendingActionResult(
+            PendingAction action,
+            String stopReason,
+            Long boardCursorParam
+    ) {
+        return pendingActionResult(action, stopReason, boardCursorParam, null);
+    }
+
+    private ActionResult pendingActionResult(
+            PendingAction action,
+            String stopReason,
+            Long boardCursorParam,
+            Consumer<ActionResult> customizer
+    ) {
         var result = new ActionResult();
         result.action_pending = true;
         result.action_type = action.method().name();
         result.game_seq = action.gameSeq();
-        result.stop_reason = "stack_resolved";
+        result.stop_reason = stopReason;
+        if (customizer != null) {
+            customizer.accept(result);
+        }
         attachUnseenChat(result);
         mergeActionChoices(result, boardCursorParam, action);
         return result;
     }
 
+    private ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
+        return pendingActionResult(action, "stack_resolved", boardCursorParam);
+    }
+
     private ActionResult stepYieldResult(PendingAction action, GameView gv, String stopReason, Long boardCursorParam) {
-        var result = new ActionResult();
-        result.action_pending = true;
-        result.action_type = action.method().name();
-        result.game_seq = action.gameSeq();
-        if (gv != null && gv.getStep() != null) {
-            result.current_step = gv.getStep().toString();
-        }
-        result.stop_reason = stopReason;
-        attachUnseenChat(result);
-        mergeActionChoices(result, boardCursorParam, action);
-        return result;
+        return pendingActionResult(action, stopReason, boardCursorParam, result -> {
+            if (gv != null && gv.getStep() != null) {
+                result.current_step = gv.getStep().toString();
+            }
+        });
     }
 
     private UUID lowestStackObjectId(GameView gameView) {
@@ -3675,13 +3690,11 @@ public class BridgeCallbackHandler {
                         + "] passPriority: until=" + until
                         + " blocked by pending " + currentAction.method()
                         + " — returning choices instead of auto-passing");
-                    var result = new ActionResult();
-                    result.action_pending = true;
-                    result.action_type = currentAction.method().name();
-                    result.game_seq = currentAction.gameSeq();
-                    result.stop_reason = "non_priority_action";
-                    attachUnseenChat(result);
-                    mergeActionChoices(result, boardCursorParam, currentAction);
+                    ActionResult result = pendingActionResult(
+                        currentAction,
+                        "non_priority_action",
+                        boardCursorParam
+                    );
                     logPassPriorityReturn(
                         until,
                         actionsPassed,
@@ -3834,14 +3847,11 @@ public class BridgeCallbackHandler {
 
                 // Non-GAME_SELECT always needs LLM input — return immediately
                 if (method != ClientCallbackMethod.GAME_SELECT) {
-                    var result = new ActionResult();
-                    result.action_pending = true;
-                    result.action_type = method.name();
-                    result.game_seq = action.gameSeq();
-
-                    result.stop_reason = "non_priority_action";
-                    attachUnseenChat(result);
-                    mergeActionChoices(result, boardCursorParam, action);
+                    ActionResult result = pendingActionResult(
+                        action,
+                        "non_priority_action",
+                        boardCursorParam
+                    );
                     logPassPriorityReturn(
                         until,
                         actionsPassed,
@@ -3855,15 +3865,12 @@ public class BridgeCallbackHandler {
                 // Combat selections (declare attackers/blockers) always need LLM input
                 String combatType = detectCombatSelect(action);
                 if (combatType != null) {
-                    var result = new ActionResult();
-                    result.action_pending = true;
-                    result.action_type = method.name();
-                    result.game_seq = action.gameSeq();
-
-                    result.combat_phase = combatType;
-                    result.stop_reason = "combat";
-                    attachUnseenChat(result);
-                    mergeActionChoices(result, boardCursorParam, action);
+                    ActionResult result = pendingActionResult(
+                        action,
+                        "combat",
+                        boardCursorParam,
+                        built -> built.combat_phase = combatType
+                    );
                     logPassPriorityReturn(
                         until,
                         actionsPassed,
@@ -4000,15 +4007,12 @@ public class BridgeCallbackHandler {
 
                 if (hasPlayableCards && actionsPassed > 0) {
                     // Already passed at least once — return so LLM can decide
-                    var result = new ActionResult();
-                    result.action_pending = true;
-                    result.action_type = method.name();
-                    result.game_seq = action.gameSeq();
-
-                    result.has_playable_cards = true;
-                    result.stop_reason = "playable_cards";
-                    attachUnseenChat(result);
-                    mergeActionChoices(result, boardCursorParam, action);
+                    ActionResult result = pendingActionResult(
+                        action,
+                        "playable_cards",
+                        boardCursorParam,
+                        built -> built.has_playable_cards = true
+                    );
                     logPassPriorityReturn(until, actionsPassed, action, viewForPlayableCheck, result, true);
                     return result;
                 }

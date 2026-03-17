@@ -795,6 +795,65 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void passPriorityReturnsCombatDecisionAfterAutoPass() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView initialView = gameView(50);
+        GameView combatView = gameView(51);
+        var combatOptions = new java.util.HashMap<String, Serializable>();
+        combatOptions.put("possibleAttackers", new java.util.ArrayList<>(List.of(UUID.randomUUID())));
+        GameClientMessage combatMessage = new GameClientMessage(
+            combatView,
+            combatOptions,
+            "Declare attackers"
+        );
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerBoolean".equals(method.getName())) {
+                    sendPlayerBooleanCalls.incrementAndGet();
+                    assertThat(args[0]).isEqualTo(gameId);
+                    assertThat(args[1]).isEqualTo(false);
+                    setField(handler, "pendingAction", new PendingAction(
+                        gameId,
+                        ClientCallbackMethod.GAME_SELECT,
+                        combatMessage,
+                        "Declare attackers",
+                        51
+                    ));
+                    notifyActionLock(handler);
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", initialView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            50
+        ));
+
+        ActionResult result = handler.passPriority(null, null);
+
+        assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+        assertThat(result.stop_reason).isEqualTo("combat");
+        assertThat(result.action_pending).isTrue();
+        assertThat(result.action_type).isEqualTo("GAME_SELECT");
+        assertThat(result.game_seq).isEqualTo(51);
+        assertThat(result.combat_phase).isEqualTo("attackers");
+    }
+
+    @Test
     void transitionToDecisionBoundaryTreatsReplacedTargetActionAsChanged() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
