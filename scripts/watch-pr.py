@@ -25,6 +25,11 @@ TIMEOUT = 1800  # 30 minutes
 STARTUP_GRACE = 120  # wait up to 2min for checks to appear
 
 _PASS_BUCKETS = {"pass", "skipping"}
+_BOT_SUFFIXES = ("[bot]", "-connector")
+
+
+def _is_bot(login: str) -> bool:
+    return any(login.endswith(s) for s in _BOT_SUFFIXES)
 
 
 def run_gh(*args: str) -> subprocess.CompletedProcess[str]:
@@ -76,6 +81,8 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
         if state in ("APPROVED", "PENDING", "DISMISSED"):
             continue
         author = review["author"]["login"]
+        if _is_bot(author):
+            continue
         body = review.get("body", "").strip()
         if body:
             feedback.append(f"[{state}] @{author}: {body}")
@@ -85,7 +92,7 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
 
     for comment in data.get("comments", []):
         author = comment["author"]["login"]
-        if author.endswith("[bot]"):
+        if _is_bot(author):
             continue
         body = comment.get("body", "").strip()
         if not body:
@@ -109,7 +116,7 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
             if len(parts) < 4:
                 continue
             author, path, line_no, body = parts
-            if author.endswith("[bot]"):
+            if _is_bot(author):
                 continue
             feedback.append(f"[INLINE] @{author} on {path}:{line_no}: {body.strip()}")
 
