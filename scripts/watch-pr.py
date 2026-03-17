@@ -70,9 +70,10 @@ def should_stop_polling(checks: list[dict]) -> bool:
 
 def get_review_feedback(pr: str, nwo: str) -> list[str]:
     """Get review comments, change requests, and inline comments."""
-    result = run_gh("pr", "view", pr, "--json", "reviews,comments")
+    result = run_gh("pr", "view", pr, "--json", "author,reviews,comments")
     assert result.returncode == 0, f"Failed to fetch PR details: {result.stderr}"
     data = json.loads(result.stdout)
+    pr_author = data["author"]["login"]
 
     feedback = []
 
@@ -86,7 +87,7 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
         state = review.get("state", "")
         if state in ("APPROVED", "PENDING", "DISMISSED"):
             continue
-        if _is_bot(author):
+        if _is_bot(author) or author == pr_author:
             continue
         body = review.get("body", "").strip()
         if body:
@@ -97,7 +98,7 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
 
     for comment in data.get("comments", []):
         author = comment["author"]["login"]
-        if _is_bot(author):
+        if _is_bot(author) or author == pr_author:
             continue
         body = comment.get("body", "").strip()
         if not body:
@@ -121,7 +122,7 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
             if len(parts) < 4:
                 continue
             author, path, line_no, body = parts
-            if _is_bot(author):
+            if _is_bot(author) or author == pr_author:
                 continue
             feedback.append(f"[INLINE] @{author} on {path}:{line_no}: {body.strip()}")
 
