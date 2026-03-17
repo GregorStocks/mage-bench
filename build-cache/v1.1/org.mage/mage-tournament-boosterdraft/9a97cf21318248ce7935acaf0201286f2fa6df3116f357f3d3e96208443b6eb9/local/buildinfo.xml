@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build xsi:schemaLocation="http://maven.apache.org/BUILD-CACHE-BUILD/1.2.0 https://maven.apache.org/xsd/build-cache-build-1.2.0.xsd"
+    xmlns="http://maven.apache.org/BUILD-CACHE-BUILD/1.2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cacheImplementationVersion>v1.1</cacheImplementationVersion>
+  <final>false</final>
+  <hashFunction>SHA-256</hashFunction>
+  <buildTime>2026-03-16T08:30:50.835</buildTime>
+  <buildServer>media.noodles</buildServer>
+  <scm />
+  <goals>
+    <goal>install</goal>
+    <goal>package</goal>
+  </goals>
+  <artifact>
+    <groupId>org.mage</groupId>
+    <artifactId>mage-tournament-boosterdraft</artifactId>
+    <version>1.4.58</version>
+    <type>jar</type>
+    <fileName>mage-tournament-boosterdraft.jar</fileName>
+    <fileHash>4177dd308a9ced6aa13b56a213a8823804129716273f1b06b1d2976cf8057bd8</fileHash>
+    <fileSize>591927</fileSize>
+    <filePath>target/mage-tournament-booster-draft.jar</filePath>
+  </artifact>
+  <attachedArtifacts>
+    <attachedArtifact>
+      <groupId>org.mage</groupId>
+      <artifactId>mage-tournament-boosterdraft</artifactId>
+      <version>1.4.58</version>
+      <classifier>mvn-cache-ext-extra-output-1</classifier>
+      <type>zip</type>
+      <fileName>mage-tournament-boosterdraft-mvn-cache-ext-extra-output-1.zip</fileName>
+      <fileHash>a45f33b2fc043b0ab991bb70fccd7e68802642f444dcfd6d58e73abb7b4939a8</fileHash>
+      <fileSize>591105</fileSize>
+      <filePath>target/classes</filePath>
+    </attachedArtifact>
+  </attachedArtifacts>
+  <executions>
+    <execution>
+      <executionKey>default:prepare-agent:initialize:jacoco-maven-plugin:org.jacoco</executionKey>
+      <mojoClassName>org.jacoco.maven.AgentMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-resources:resources:process-resources:maven-resources-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.resources.ResourcesMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-compile:compile:compile:maven-compiler-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.compiler.CompilerMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-testResources:testResources:process-test-resources:maven-resources-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.resources.TestResourcesMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-testCompile:testCompile:test-compile:maven-compiler-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.compiler.TestCompilerMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-test:test:test:maven-surefire-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.surefire.SurefireMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-jar:jar:package:maven-jar-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.jar.JarMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-install:install:install:maven-install-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.install.InstallMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default:prepare-agent:initialize:jacoco-maven-plugin:org.jacoco</executionKey>
+      <mojoClassName>org.jacoco.maven.AgentMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-resources:resources:process-resources:maven-resources-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.resources.ResourcesMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-compile:compile:compile:maven-compiler-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.compiler.CompilerMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-testResources:testResources:process-test-resources:maven-resources-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.resources.TestResourcesMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-testCompile:testCompile:test-compile:maven-compiler-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.compiler.TestCompilerMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-test:test:test:maven-surefire-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.surefire.SurefireMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-jar:jar:package:maven-jar-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.jar.JarMojo</mojoClassName>
+    </execution>
+  </executions>
+  <projectsInputInfo>
+    <checksum>9a97cf21318248ce7935acaf0201286f2fa6df3116f357f3d3e96208443b6eb9</checksum>
+    <items>
+      <item type="pom" hash="8110aa103bf175764d60a470d040928aa80dda92d3d692ec4d50a6075d3af6c0">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  &lt;groupId>org.mage&lt;/groupId>
+  &lt;artifactId>mage-tournament-boosterdraft&lt;/artifactId>
+  &lt;version>cache-extension-version&lt;/version>
+  &lt;dependencies>
+    &lt;dependency>
+      &lt;groupId>org.assertj&lt;/groupId>
+      &lt;artifactId>assertj-core&lt;/artifactId>
+      &lt;version>3.27.7&lt;/version>
+      &lt;scope>test&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>com.h2database&lt;/groupId>
+      &lt;artifactId>h2&lt;/artifactId>
+      &lt;version>2.4.240&lt;/version>
+      &lt;scope>runtime&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.junit.jupiter&lt;/groupId>
+      &lt;artifactId>junit-jupiter&lt;/artifactId>
+      &lt;version>6.0.3&lt;/version>
+      &lt;scope>test&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.junit.vintage&lt;/groupId>
+      &lt;artifactId>junit-vintage-engine&lt;/artifactId>
+      &lt;version>6.0.3&lt;/version>
+      &lt;scope>test&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.mage&lt;/groupId>
+      &lt;artifactId>mage&lt;/artifactId>
+      &lt;version>cache-extension-version&lt;/version>
+      &lt;scope>compile&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>com.j256.ormlite&lt;/groupId>
+      &lt;artifactId>ormlite-jdbc&lt;/artifactId>
+      &lt;version>6.1&lt;/version>
+      &lt;scope>compile&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.slf4j&lt;/groupId>
+      &lt;artifactId>slf4j-reload4j&lt;/artifactId>
+      &lt;version>2.0.17&lt;/version>
+      &lt;scope>compile&lt;/scope>
+    &lt;/dependency>
+  &lt;/dependencies>
+  &lt;build>
+    &lt;plugins>
+      &lt;plugin>
+        &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
+        &lt;version>3.15.0&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-compile&lt;/id>
+            &lt;phase>compile&lt;/phase>
+            &lt;goals>
+              &lt;goal>compile&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;source>21&lt;/source>
+              &lt;target>21&lt;/target>
+              &lt;release>21&lt;/release>
+              &lt;encoding>UTF-8&lt;/encoding>
+              &lt;fork>true&lt;/fork>
+              &lt;useIncrementalCompilation>true&lt;/useIncrementalCompilation>
+            &lt;/configuration>
+          &lt;/execution>
+          &lt;execution>
+            &lt;id>default-testCompile&lt;/id>
+            &lt;phase>test-compile&lt;/phase>
+            &lt;goals>
+              &lt;goal>testCompile&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;source>21&lt;/source>
+              &lt;target>21&lt;/target>
+              &lt;release>21&lt;/release>
+              &lt;encoding>UTF-8&lt;/encoding>
+              &lt;fork>true&lt;/fork>
+              &lt;useIncrementalCompilation>true&lt;/useIncrementalCompilation>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;configuration>
+          &lt;source>21&lt;/source>
+          &lt;target>21&lt;/target>
+          &lt;release>21&lt;/release>
+          &lt;encoding>UTF-8&lt;/encoding>
+          &lt;fork>true&lt;/fork>
+          &lt;useIncrementalCompilation>true&lt;/useIncrementalCompilation>
+        &lt;/configuration>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-resources-plugin&lt;/artifactId>
+        &lt;version>3.5.0&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-testResources&lt;/id>
+            &lt;phase>process-test-resources&lt;/phase>
+            &lt;goals>
+              &lt;goal>testResources&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;encoding>UTF-8&lt;/encoding>
+            &lt;/configuration>
+          &lt;/execution>
+          &lt;execution>
+            &lt;id>default-resources&lt;/id>
+            &lt;phase>process-resources&lt;/phase>
+            &lt;goals>
+              &lt;goal>resources&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;encoding>UTF-8&lt;/encoding>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;configuration>
+          &lt;encoding>UTF-8&lt;/encoding>
+        &lt;/configuration>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-jar-plugin&lt;/artifactId>
+        &lt;version>3.5.0&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-jar&lt;/id>
+            &lt;phase>package&lt;/phase>
+            &lt;goals>
+              &lt;goal>jar&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;archive>
+                &lt;manifestEntries>
+                  &lt;Built-By>MageTeam&lt;/Built-By>
+                  &lt;Build-Time>2024-01-01T00:00:00Z&lt;/Build-Time>
+                &lt;/manifestEntries>
+              &lt;/archive>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;configuration>
+          &lt;archive>
+            &lt;manifestEntries>
+              &lt;Built-By>MageTeam&lt;/Built-By>
+              &lt;Build-Time>2024-01-01T00:00:00Z&lt;/Build-Time>
+            &lt;/manifestEntries>
+          &lt;/archive>
+        &lt;/configuration>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;groupId>org.jacoco&lt;/groupId>
+        &lt;artifactId>jacoco-maven-plugin&lt;/artifactId>
+        &lt;version>0.8.14&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;goals>
+              &lt;goal>prepare-agent&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-clean-plugin&lt;/artifactId>
+        &lt;version>3.2.0&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-clean&lt;/id>
+            &lt;phase>clean&lt;/phase>
+            &lt;goals>
+              &lt;goal>clean&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-surefire-plugin&lt;/artifactId>
+        &lt;version>3.5.5&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-test&lt;/id>
+            &lt;phase>test&lt;/phase>
+            &lt;goals>
+              &lt;goal>test&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;printSummary>true&lt;/printSummary>
+              &lt;reportFormat>brief&lt;/reportFormat>
+              &lt;useFile>false&lt;/useFile>
+              &lt;consoleOutputReporter>
+                &lt;disable>true&lt;/disable>
+              &lt;/consoleOutputReporter>
+              &lt;statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter">
+                &lt;theme>ASCII&lt;/theme>
+                &lt;printStacktraceOnError>true&lt;/printStacktraceOnError>
+                &lt;printStacktraceOnFailure>true&lt;/printStacktraceOnFailure>
+                &lt;printStdoutOnError>true&lt;/printStdoutOnError>
+                &lt;printStdoutOnFailure>true&lt;/printStdoutOnFailure>
+                &lt;printStdoutOnSuccess>false&lt;/printStdoutOnSuccess>
+                &lt;printStderrOnError>true&lt;/printStderrOnError>
+                &lt;printStderrOnFailure>true&lt;/printStderrOnFailure>
+                &lt;printStderrOnSuccess>false&lt;/printStderrOnSuccess>
+              &lt;/statelessTestsetInfoReporter>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;dependencies>
+          &lt;dependency>
+            &lt;groupId>me.fabriciorby&lt;/groupId>
+            &lt;artifactId>maven-surefire-junit5-tree-reporter&lt;/artifactId>
+            &lt;version>1.5.1&lt;/version>
+            &lt;scope>compile&lt;/scope>
+          &lt;/dependency>
+        &lt;/dependencies>
+        &lt;configuration>
+          &lt;printSummary>true&lt;/printSummary>
+          &lt;reportFormat>brief&lt;/reportFormat>
+          &lt;useFile>false&lt;/useFile>
+          &lt;consoleOutputReporter>
+            &lt;disable>true&lt;/disable>
+          &lt;/consoleOutputReporter>
+          &lt;statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter">
+            &lt;theme>ASCII&lt;/theme>
+            &lt;printStacktraceOnError>true&lt;/printStacktraceOnError>
+            &lt;printStacktraceOnFailure>true&lt;/printStacktraceOnFailure>
+            &lt;printStdoutOnError>true&lt;/printStdoutOnError>
+            &lt;printStdoutOnFailure>true&lt;/printStdoutOnFailure>
+            &lt;printStdoutOnSuccess>false&lt;/printStdoutOnSuccess>
+            &lt;printStderrOnError>true&lt;/printStderrOnError>
+            &lt;printStderrOnFailure>true&lt;/printStderrOnFailure>
+            &lt;printStderrOnSuccess>false&lt;/printStderrOnSuccess>
+          &lt;/statelessTestsetInfoReporter>
+        &lt;/configuration>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-install-plugin&lt;/artifactId>
+        &lt;version>3.1.4&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-install&lt;/id>
+            &lt;phase>install&lt;/phase>
+            &lt;goals>
+              &lt;goal>install&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-deploy-plugin&lt;/artifactId>
+        &lt;version>3.1.4&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-deploy&lt;/id>
+            &lt;phase>deploy&lt;/phase>
+            &lt;goals>
+              &lt;goal>deploy&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-site-plugin&lt;/artifactId>
+        &lt;version>3.12.1&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-site&lt;/id>
+            &lt;phase>site&lt;/phase>
+            &lt;goals>
+              &lt;goal>site&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;outputDirectory>/target/site&lt;/outputDirectory>
+              &lt;reportPlugins>
+                &lt;reportPlugin>
+                  &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+                  &lt;artifactId>maven-project-info-reports-plugin&lt;/artifactId>
+                &lt;/reportPlugin>
+              &lt;/reportPlugins>
+            &lt;/configuration>
+          &lt;/execution>
+          &lt;execution>
+            &lt;id>default-deploy&lt;/id>
+            &lt;phase>site-deploy&lt;/phase>
+            &lt;goals>
+              &lt;goal>deploy&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;outputDirectory>/target/site&lt;/outputDirectory>
+              &lt;reportPlugins>
+                &lt;reportPlugin>
+                  &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+                  &lt;artifactId>maven-project-info-reports-plugin&lt;/artifactId>
+                &lt;/reportPlugin>
+              &lt;/reportPlugins>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;configuration>
+          &lt;outputDirectory>/target/site&lt;/outputDirectory>
+          &lt;reportPlugins>
+            &lt;reportPlugin>
+              &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+              &lt;artifactId>maven-project-info-reports-plugin&lt;/artifactId>
+            &lt;/reportPlugin>
+          &lt;/reportPlugins>
+        &lt;/configuration>
+      &lt;/plugin>
+    &lt;/plugins>
+  &lt;/build>
+&lt;/project>
+</item>
+      <item type="file" hash="23ae60b6ca0a5191bfea87306e46f9bcd7f750ee8e1fb33c47d28ea434eb75a8" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/BoosterDraftEliminationCubeTournamentType.java</item>
+      <item type="file" hash="97caf63e7fe5fa6d15a54b6ddf63edb19ec28f1ea0767134e6bf315a4e185dbd" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/BoosterDraftEliminationTournament.java</item>
+      <item type="file" hash="f684aac1c4919e8f378cadb35f155175f212c11a7a8e120a6790357a7bb14b17" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/BoosterDraftEliminationTournamentType.java</item>
+      <item type="file" hash="f94390176f4106c4a0b662197ab87179519dc9ffbbbeb16b6b1439a1dfa6c77c" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/BoosterDraftSwissCubeTournamentType.java</item>
+      <item type="file" hash="b1531c9f27d190fff5d141480c147ab4670d9208edcee64131ea8bc5846b6034" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/BoosterDraftSwissTournament.java</item>
+      <item type="file" hash="b73e832519073e0211fea8f68e67edc48d376839986e8f4b51835ed67ef9bb73" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/BoosterDraftSwissTournamentType.java</item>
+      <item type="file" hash="30d894591f8658ebb5d9ec0e9add0ac02ec84868eeaaa739ae45517f902f1005" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/BensCube.java</item>
+      <item type="file" hash="7380405bd65e9b67ea5acd8087992a3273f6748c73e03c2fcae388b59a779909" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/CubeFromDeck.java</item>
+      <item type="file" hash="91185008584ad7a69124cd48d4ae6d19d523dbfc1f4b752fdc4d64233bb84c62" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/CubeTutor360Pauper.java</item>
+      <item type="file" hash="cfe267aabc25e8a61b3c1734985b065d5f87c46ce2c65a6e167ec3ad1997b58c" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/CubeTutor720.java</item>
+      <item type="file" hash="2c28f56125e932bcefee9c749ebda0a5fc3fd44a953e7394eaf2ee16f9a369c2" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/EricKlugsProTourCube.java</item>
+      <item type="file" hash="27e80f2dbe2f35c0516c9a8dd5fc3bcdb5cfa034486bc644077197a1be9dd265" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/GuillaumeMatignonsJennysJohnnysCube.java</item>
+      <item type="file" hash="c100f2652926936731aa245f348906b595bf8db784346a62c49f45a2d91332db" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/JimDavisCube.java</item>
+      <item type="file" hash="20e6070e27188103eb14ebe63d114b2d3bc8e383f01b85b8dc40d9835c3e632c" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/JosephVasolisPeasantCube.java</item>
+      <item type="file" hash="d45fb66493e913a755bfa3c09ee264723fb0954ac4cd9975411467ebfeb123f6" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/KhansExpandedCube.java</item>
+      <item type="file" hash="37231cc00b581aba5cc6c18e445a8de72fab405787062e3f37cdfcbb9d49c0ec" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCube.java</item>
+      <item type="file" hash="00a2c931b38c77091681e6e06cc862e566c2ccab6ee7bf8d264f864388319665" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCube2018February.java</item>
+      <item type="file" hash="607a463c315e7d09d0888917ab7dead5ae186499c32cdda549b04d79c9379509" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCubeApril2017.java</item>
+      <item type="file" hash="5ae4ae1ae8ba6186b656a82644a9710416fa3f9ddb7ad54e45d6c9e66dba5f5b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCubeJanuary2016.java</item>
+      <item type="file" hash="d09ab3f663b479ca27c4028b4243f28e7fab3940dcfa21d76d01348486b09d98" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCubeJanuary2017.java</item>
+      <item type="file" hash="78bd486b09b4b6d975aab0f49cf9faf22611d81f374d0570f44c13aef198d13c" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCubeJuly2019.java</item>
+      <item type="file" hash="d53be791c348d6e37dc481753b794a836d1f7f914606b7764ab860997dbf93e7" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCubeMarch2015.java</item>
+      <item type="file" hash="e4f381ae64b7b3ab57dc1a564a57164adbcd8cfa3ae87107bcb22cf399d73c5f" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCubeMay2021.java</item>
+      <item type="file" hash="622014d4d0f6cff2800b1fa257510ded703b784563faca812c61ae0fed420098" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCubeSeptember2015.java</item>
+      <item type="file" hash="2dd201930fe1d0f7fd01da83be828e1e4ea9b43abaecb6ab9e0435a85ea5a1b7" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegacyCubeSeptember2016.java</item>
+      <item type="file" hash="10d9d27bd55ba5fe3e22566ed172626456aab231320e15c3d7a44cc4fc9acf2b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegendaryCube.java</item>
+      <item type="file" hash="0936969d1402ec5ed016280c1a35fbcbe45e3de5b168f25621c55675aac720c7" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/LegendaryCubeApril2016.java</item>
+      <item type="file" hash="2eae44cffe5fbb68c7c551aa860bc2829f6ea57d919a03e513e73ad8237d999f" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/ModernCube2017.java</item>
+      <item type="file" hash="d922578162dececcbb0a6e02359fdc4f1dfed3e06866322aeb09a89b4d51b209" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/MonoBlueCube.java</item>
+      <item type="file" hash="b48b5b006645d83f86c61c41fa0bc9422b8441290a9931a5663e2fda990770ac" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/MTGACube2020April.java</item>
+      <item type="file" hash="42021f3b5cefe788377da86a0dd2b78b6b71972c6ba2f3e8fb54f904d20e2247" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/MTGCube.java</item>
+      <item type="file" hash="9029921df481dac715190e6928aa2643e8bb1abb7829992c51b1482f6bbdf567" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/MTGOMarchCube2014.java</item>
+      <item type="file" hash="bb4088deafa6948202f42d2131addf34af605dd9b1d12ecfc9a28cad9f14058b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/PauperCube.java</item>
+      <item type="file" hash="d7e74e9c55c399030a57a6f5e938509b424f1e9a431d78c537d7df523ad60ec6" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/PeasantsToolboxCube.java</item>
+      <item type="file" hash="c366dab036286d040e03e38f7187997348ce633f27b5afec1294638e47c2f652" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/SamBlacksCube.java</item>
+      <item type="file" hash="d40add363499a86fdcda0ed3a875fceaa537be44dbe186f77e0504098646f33a" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/ScgConCube2018December.java</item>
+      <item type="file" hash="aabbf1b3cdfe71db1620d0e1a9c79c684b74368582bfb79595f650ff338f4e3a" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/TimotheeSimonotsTwistedColorPieCube.java</item>
+      <item type="file" hash="f0992026a8d60e3b3e5c7f6eb8a253807ea71c5cf0eb6efa90daaf43eed678be" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCube.java</item>
+      <item type="file" hash="4aff191ffc6ddca96a651480e36fd0b1e10357aca8ae657b343b2392e96cb76f" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCube2013.java</item>
+      <item type="file" hash="5dd5b6eda4cf451abba4186245632cf664aea50f2cd2635438f6f5be843b1467" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCube2014.java</item>
+      <item type="file" hash="3e5e253efb98ae777208eb90927ae688eae57313dd7fae358253950ec038e57b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCube2015.java</item>
+      <item type="file" hash="f6d30b185039d3f2b5862dc566c133302772ad9e30204254449b79fbe28e4f66" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCube2016.java</item>
+      <item type="file" hash="3f1a48c9e753fc7dd9d9e8984d1bb93adbff700caf48e9b99ad7e3d67919f6f7" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeApril2020.java</item>
+      <item type="file" hash="6dd98063fe6fc1196b0fc1f005187004ce9889e54aff14d61f82f1735299bab7" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeDecember2017.java</item>
+      <item type="file" hash="7c238fa668b462e56ef8df00ae937f8110d3c349f9dd186d47bb3bd84451d9ad" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeDecember2018.java</item>
+      <item type="file" hash="8a3d89eb3118ffc5904907846380fb484fb7f1919f394cd83f4f03f7697a6d42" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeDecember2019.java</item>
+      <item type="file" hash="29d57ec2d4e7e5967dcba6dd0f3143d9550563b7098b0c4a554aaf696c037ea6" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeDecember2020.java</item>
+      <item type="file" hash="3bc49a1ff82e40ab90c6efbdab302693146858d7a35f362bc52d0f107edc186c" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeFebruary2022.java</item>
+      <item type="file" hash="f14d28e3a1b0f33e25d3471cd80638cf3c08373c6cde07075a56bae222e5e534" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeJuly2020.java</item>
+      <item type="file" hash="61fb7a31ee0d0a5f173b5c49980ef545264edf2b17d2adbcfa31cfd4c9cf189d" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeJuly2021.java</item>
+      <item type="file" hash="b9dc47ae1a94c7f541e78cf5d72ac565b55f7cdbc3b9c8cf2291d2b80207835f" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeJune2016.java</item>
+      <item type="file" hash="737ab8be4843ef287515e2319eebd5c9eae0158078f276d5882e49c009e9cd05" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeJune2017.java</item>
+      <item type="file" hash="88855ccabaaf7adbfee067b65b6913ceb6ba2245829f3e5c5cc310a71e72534b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeJune2018.java</item>
+      <item type="file" hash="6d30744252a3322fde23b9ea17a2f03697f9821fad234ba600654558c21dc86b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeJune2019.java</item>
+      <item type="file" hash="fc7b2f3f6148af1232c82cf97dfcc8767ac0401735d439edf6c0417da0f483d8" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeNovember2016.java</item>
+      <item type="file" hash="6173647478309696d915e8fc6b2c61479412b668a66eae7c1ff4854475cb1c16" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/cubes/VintageCubeOctober2023.java</item>
+      <item type="file" hash="2316fad09c2faf27b928a55ef954d98721313eb8c6609357d1fa2dc246a54f6a" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RandomBoosterDraftEliminationTournament.java</item>
+      <item type="file" hash="3b644e0cae44b47767d5e6919dd9a5f9399dac1ba4365cb471b516ff0268f4f4" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RandomBoosterDraftEliminationTournamentType.java</item>
+      <item type="file" hash="638977c88b324baf78994f81e1bff1930166ce45d3c92fc4696f3635491343ea" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RandomBoosterDraftSwissTournament.java</item>
+      <item type="file" hash="0f30464cce92e38a5326d78ea8e7c8ca709e6aa330d667d5497440cde2c87ddb" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RandomBoosterDraftSwissTournamentType.java</item>
+      <item type="file" hash="c89435c34f575d1a8dbe4ae5a35a5016334946c2bd4e0148ca43d6dfc88cac1b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/ReshuffledBoosterDraftEliminationTournament.java</item>
+      <item type="file" hash="ccb48fc3de01cbb1f074cde1646db41e059937aa129a833e636d239606639111" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/ReshuffledBoosterDraftEliminationTournamentType.java</item>
+      <item type="file" hash="a8046282be0e0b81276dbeccb1a9b3c65e363a1b71e9ce5e65d2dd4e466bfbd4" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/ReshuffledBoosterDraftSwissTournament.java</item>
+      <item type="file" hash="0d7cb42ae758ae91320446fb04582646dcddeb01791c297968df8eb963d5fe45" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/ReshuffledBoosterDraftSwissTournamentType.java</item>
+      <item type="file" hash="20d1cc2a9a67572a1131b232273c6819024ca077b847a010b304c5ed847e0a07" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RichManCubeDraftEliminationTournament.java</item>
+      <item type="file" hash="8b84a502e817ef91cd9eeb370c524849367dcac4abb2d22139693eae93423928" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RichManCubeDraftEliminationTournamentType.java</item>
+      <item type="file" hash="9873ae27e3008e0b6548e82fd70b04bb4c9e7c11fcc5dd204e212ad6f56bf039" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RichManCubeDraftSwissTournament.java</item>
+      <item type="file" hash="b37442a4e38505f899dd0c574353dec638ddeaa1e59bc79984cf1434cd5cc466" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RichManCubeDraftSwissTournamentType.java</item>
+      <item type="file" hash="67baf38e4dfea0159a34390cf3bc15a76820a5d3914fbe5ff7de056b7ef0c7b4" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RichManDraftEliminationTournament.java</item>
+      <item type="file" hash="8d06220b48fb0df1a21d4abd458c4caa7260a59db083196e099df6c3870c44a8" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RichManDraftEliminationTournamentType.java</item>
+      <item type="file" hash="7543803a18e9cd14720167e1086c97d0344a854b6957e68f8632cbf369024c47" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RichManDraftSwissTournament.java</item>
+      <item type="file" hash="ecffa3605e36dd1fd84ead9dfc29839be16b4605b01dd3f37a7a211e574bd5c3" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/tournament/RichManDraftSwissTournamentType.java</item>
+      <item type="dependency" hash="0e3a6c308d4979b9a6207ce12e629a8bbea57acf43b2505670c509ca17476517">org.mage:mage:jar</item>
+    </items>
+  </projectsInputInfo>
+</build>

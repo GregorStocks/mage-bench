@@ -134,16 +134,16 @@
   font-family: inherit;
   font-size: 0.85rem;
   padding: 0.3rem 0.7rem;
-  background: rgba(233, 69, 96, 0.15);
-  border: 1px solid #e94560;
+  background: rgba(var(--accent-primary-rgb), 0.15);
+  border: 1px solid var(--accent-primary);
   border-radius: 20px;
-  color: #e94560;
+  color: var(--accent-primary);
 }
 
 .filter-chip-remove {
   background: none;
   border: none;
-  color: #e94560;
+  color: var(--accent-primary);
   cursor: pointer;
   font-size: 1rem;
   line-height: 1;
@@ -414,7 +414,7 @@
 }
 
 .player-rating.rating-down {
-  color: #e94560;
+  color: var(--accent-primary);
 }
 
 .game-footer {

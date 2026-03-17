@@ -35,7 +35,7 @@ Pick and solve exactly **one** issue, then create a PR.
 2. **Check blocked issues** — before auto-claiming, check if any blocked issues deserve to be unblocked. Skip this step if the user explicitly passed an issue name.
 
    ```bash
-   uv run python scripts/list-issues.py
+   uv run python scripts/query-issues.py
    ```
 
    Look at the output. If any `blocked-` issue has **higher priority** (lower number) than the highest-priority unblocked issue:

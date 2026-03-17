@@ -206,10 +206,6 @@ class ProcessManager:
             preexec_fn=jvm_oom_preexec_fn(),
         )
 
-    def _kill_tree(self, pid: int) -> None:
-        """Kill a process and all its children."""
-        kill_tree(pid)
-
     def cleanup(self) -> None:
         """Terminate all tracked processes and close log file handles."""
         with self._lock:
@@ -220,7 +216,7 @@ class ProcessManager:
             for proc, _fh in self._processes:
                 if proc.poll() is None:  # Still running
                     print(f"Killing process tree rooted at PID {proc.pid}")
-                    self._kill_tree(proc.pid)
+                    kill_tree(proc.pid)
 
             for _proc, fh in self._processes:
                 if fh is not None:

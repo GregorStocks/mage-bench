@@ -10,12 +10,8 @@ const bugFinderRules = {
 };
 
 const typeAwareLintFiles = [
-  "src/utils/season-data.ts",
-  "src/utils/load-games.ts",
-  "src/layouts/Base.astro",
-  "src/pages/index.astro",
-  "src/pages/season/[season]/results.astro",
-  "src/pages/season/[season]/rankings.astro",
+  "src/**/*.ts",
+  "src/**/*.astro",
 ];
 
 export default [

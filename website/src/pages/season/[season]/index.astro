@@ -1,4 +1,5 @@
 ---
+import type { TournamentMatch, TournamentRound } from '../../../utils/season-data';
 import { hasTournament, loadAvailableSeasons, loadTournament } from '../../../utils/season-data';
 
 export function getStaticPaths() {
@@ -16,8 +17,8 @@ let target = 'rankings';
 
 if (hasTournament(seasonNum)) {
   const tournament = loadTournament(seasonNum);
-  const hasResults = tournament.rounds?.some((r: any) =>
-    r.matches?.some((m: any) => m.winner_seed != null)
+  const hasResults = tournament.rounds?.some((r: TournamentRound) =>
+    r.matches?.some((m: TournamentMatch) => m.winner_seed != null)
   );
   if (hasResults) {
     target = 'results';

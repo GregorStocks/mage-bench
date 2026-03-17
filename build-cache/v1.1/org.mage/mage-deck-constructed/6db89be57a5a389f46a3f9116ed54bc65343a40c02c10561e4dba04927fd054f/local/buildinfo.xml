@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build xsi:schemaLocation="http://maven.apache.org/BUILD-CACHE-BUILD/1.2.0 https://maven.apache.org/xsd/build-cache-build-1.2.0.xsd"
+    xmlns="http://maven.apache.org/BUILD-CACHE-BUILD/1.2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cacheImplementationVersion>v1.1</cacheImplementationVersion>
+  <final>false</final>
+  <hashFunction>SHA-256</hashFunction>
+  <buildTime>2026-03-16T08:30:28.108</buildTime>
+  <buildServer>media.noodles</buildServer>
+  <scm />
+  <goals>
+    <goal>install</goal>
+    <goal>package</goal>
+  </goals>
+  <artifact>
+    <groupId>org.mage</groupId>
+    <artifactId>mage-deck-constructed</artifactId>
+    <version>1.4.58</version>
+    <type>jar</type>
+    <fileName>mage-deck-constructed.jar</fileName>
+    <fileHash>712df9da79f149672cdf9a5c7697ce3294e15ba76c66d82ae1cb2da8a852c749</fileHash>
+    <fileSize>120018</fileSize>
+    <filePath>target/mage-deck-constructed.jar</filePath>
+  </artifact>
+  <attachedArtifacts>
+    <attachedArtifact>
+      <groupId>org.mage</groupId>
+      <artifactId>mage-deck-constructed</artifactId>
+      <version>1.4.58</version>
+      <classifier>mvn-cache-ext-extra-output-1</classifier>
+      <type>zip</type>
+      <fileName>mage-deck-constructed-mvn-cache-ext-extra-output-1.zip</fileName>
+      <fileHash>95c5bb031fbc856c08a415cf38fba0cfa8a474be8e655164a21f34c3df925ff0</fileHash>
+      <fileSize>118974</fileSize>
+      <filePath>target/classes</filePath>
+    </attachedArtifact>
+  </attachedArtifacts>
+  <executions>
+    <execution>
+      <executionKey>default:prepare-agent:initialize:jacoco-maven-plugin:org.jacoco</executionKey>
+      <mojoClassName>org.jacoco.maven.AgentMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-resources:resources:process-resources:maven-resources-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.resources.ResourcesMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-compile:compile:compile:maven-compiler-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.compiler.CompilerMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-testResources:testResources:process-test-resources:maven-resources-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.resources.TestResourcesMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-testCompile:testCompile:test-compile:maven-compiler-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.compiler.TestCompilerMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-test:test:test:maven-surefire-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.surefire.SurefireMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-jar:jar:package:maven-jar-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.jar.JarMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-install:install:install:maven-install-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.install.InstallMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default:prepare-agent:initialize:jacoco-maven-plugin:org.jacoco</executionKey>
+      <mojoClassName>org.jacoco.maven.AgentMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-resources:resources:process-resources:maven-resources-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.resources.ResourcesMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-compile:compile:compile:maven-compiler-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.compiler.CompilerMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-testResources:testResources:process-test-resources:maven-resources-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.resources.TestResourcesMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-testCompile:testCompile:test-compile:maven-compiler-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.compiler.TestCompilerMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-test:test:test:maven-surefire-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugin.surefire.SurefireMojo</mojoClassName>
+    </execution>
+    <execution>
+      <executionKey>default-jar:jar:package:maven-jar-plugin:org.apache.maven.plugins</executionKey>
+      <mojoClassName>org.apache.maven.plugins.jar.JarMojo</mojoClassName>
+    </execution>
+  </executions>
+  <projectsInputInfo>
+    <checksum>6db89be57a5a389f46a3f9116ed54bc65343a40c02c10561e4dba04927fd054f</checksum>
+    <items>
+      <item type="pom" hash="3de26807cbd797eeb6b967624fca96ccf4e5b72ed9915eab8d747b803d250ab6">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  &lt;groupId>org.mage&lt;/groupId>
+  &lt;artifactId>mage-deck-constructed&lt;/artifactId>
+  &lt;version>cache-extension-version&lt;/version>
+  &lt;dependencies>
+    &lt;dependency>
+      &lt;groupId>org.assertj&lt;/groupId>
+      &lt;artifactId>assertj-core&lt;/artifactId>
+      &lt;version>3.27.7&lt;/version>
+      &lt;scope>test&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>com.h2database&lt;/groupId>
+      &lt;artifactId>h2&lt;/artifactId>
+      &lt;version>2.4.240&lt;/version>
+      &lt;scope>runtime&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.junit.jupiter&lt;/groupId>
+      &lt;artifactId>junit-jupiter&lt;/artifactId>
+      &lt;version>6.0.3&lt;/version>
+      &lt;scope>test&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.junit.vintage&lt;/groupId>
+      &lt;artifactId>junit-vintage-engine&lt;/artifactId>
+      &lt;version>6.0.3&lt;/version>
+      &lt;scope>test&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.mage&lt;/groupId>
+      &lt;artifactId>mage&lt;/artifactId>
+      &lt;version>cache-extension-version&lt;/version>
+      &lt;scope>compile&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.mage&lt;/groupId>
+      &lt;artifactId>mage-sets&lt;/artifactId>
+      &lt;version>cache-extension-version&lt;/version>
+      &lt;scope>compile&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>com.j256.ormlite&lt;/groupId>
+      &lt;artifactId>ormlite-jdbc&lt;/artifactId>
+      &lt;version>6.1&lt;/version>
+      &lt;scope>compile&lt;/scope>
+    &lt;/dependency>
+    &lt;dependency>
+      &lt;groupId>org.slf4j&lt;/groupId>
+      &lt;artifactId>slf4j-reload4j&lt;/artifactId>
+      &lt;version>2.0.17&lt;/version>
+      &lt;scope>compile&lt;/scope>
+    &lt;/dependency>
+  &lt;/dependencies>
+  &lt;build>
+    &lt;plugins>
+      &lt;plugin>
+        &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
+        &lt;version>3.15.0&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-compile&lt;/id>
+            &lt;phase>compile&lt;/phase>
+            &lt;goals>
+              &lt;goal>compile&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;source>21&lt;/source>
+              &lt;target>21&lt;/target>
+              &lt;release>21&lt;/release>
+              &lt;encoding>UTF-8&lt;/encoding>
+              &lt;fork>true&lt;/fork>
+              &lt;useIncrementalCompilation>true&lt;/useIncrementalCompilation>
+            &lt;/configuration>
+          &lt;/execution>
+          &lt;execution>
+            &lt;id>default-testCompile&lt;/id>
+            &lt;phase>test-compile&lt;/phase>
+            &lt;goals>
+              &lt;goal>testCompile&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;source>21&lt;/source>
+              &lt;target>21&lt;/target>
+              &lt;release>21&lt;/release>
+              &lt;encoding>UTF-8&lt;/encoding>
+              &lt;fork>true&lt;/fork>
+              &lt;useIncrementalCompilation>true&lt;/useIncrementalCompilation>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;configuration>
+          &lt;source>21&lt;/source>
+          &lt;target>21&lt;/target>
+          &lt;release>21&lt;/release>
+          &lt;encoding>UTF-8&lt;/encoding>
+          &lt;fork>true&lt;/fork>
+          &lt;useIncrementalCompilation>true&lt;/useIncrementalCompilation>
+        &lt;/configuration>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-resources-plugin&lt;/artifactId>
+        &lt;version>3.5.0&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-testResources&lt;/id>
+            &lt;phase>process-test-resources&lt;/phase>
+            &lt;goals>
+              &lt;goal>testResources&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;encoding>UTF-8&lt;/encoding>
+            &lt;/configuration>
+          &lt;/execution>
+          &lt;execution>
+            &lt;id>default-resources&lt;/id>
+            &lt;phase>process-resources&lt;/phase>
+            &lt;goals>
+              &lt;goal>resources&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;encoding>UTF-8&lt;/encoding>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;configuration>
+          &lt;encoding>UTF-8&lt;/encoding>
+        &lt;/configuration>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-jar-plugin&lt;/artifactId>
+        &lt;version>3.5.0&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-jar&lt;/id>
+            &lt;phase>package&lt;/phase>
+            &lt;goals>
+              &lt;goal>jar&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;archive>
+                &lt;manifestEntries>
+                  &lt;Built-By>MageTeam&lt;/Built-By>
+                  &lt;Build-Time>2024-01-01T00:00:00Z&lt;/Build-Time>
+                &lt;/manifestEntries>
+              &lt;/archive>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;configuration>
+          &lt;archive>
+            &lt;manifestEntries>
+              &lt;Built-By>MageTeam&lt;/Built-By>
+              &lt;Build-Time>2024-01-01T00:00:00Z&lt;/Build-Time>
+            &lt;/manifestEntries>
+          &lt;/archive>
+        &lt;/configuration>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;groupId>org.jacoco&lt;/groupId>
+        &lt;artifactId>jacoco-maven-plugin&lt;/artifactId>
+        &lt;version>0.8.14&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;goals>
+              &lt;goal>prepare-agent&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-clean-plugin&lt;/artifactId>
+        &lt;version>3.2.0&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-clean&lt;/id>
+            &lt;phase>clean&lt;/phase>
+            &lt;goals>
+              &lt;goal>clean&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-surefire-plugin&lt;/artifactId>
+        &lt;version>3.5.5&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-test&lt;/id>
+            &lt;phase>test&lt;/phase>
+            &lt;goals>
+              &lt;goal>test&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;printSummary>true&lt;/printSummary>
+              &lt;reportFormat>brief&lt;/reportFormat>
+              &lt;useFile>false&lt;/useFile>
+              &lt;consoleOutputReporter>
+                &lt;disable>true&lt;/disable>
+              &lt;/consoleOutputReporter>
+              &lt;statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter">
+                &lt;theme>ASCII&lt;/theme>
+                &lt;printStacktraceOnError>true&lt;/printStacktraceOnError>
+                &lt;printStacktraceOnFailure>true&lt;/printStacktraceOnFailure>
+                &lt;printStdoutOnError>true&lt;/printStdoutOnError>
+                &lt;printStdoutOnFailure>true&lt;/printStdoutOnFailure>
+                &lt;printStdoutOnSuccess>false&lt;/printStdoutOnSuccess>
+                &lt;printStderrOnError>true&lt;/printStderrOnError>
+                &lt;printStderrOnFailure>true&lt;/printStderrOnFailure>
+                &lt;printStderrOnSuccess>false&lt;/printStderrOnSuccess>
+              &lt;/statelessTestsetInfoReporter>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;dependencies>
+          &lt;dependency>
+            &lt;groupId>me.fabriciorby&lt;/groupId>
+            &lt;artifactId>maven-surefire-junit5-tree-reporter&lt;/artifactId>
+            &lt;version>1.5.1&lt;/version>
+            &lt;scope>compile&lt;/scope>
+          &lt;/dependency>
+        &lt;/dependencies>
+        &lt;configuration>
+          &lt;printSummary>true&lt;/printSummary>
+          &lt;reportFormat>brief&lt;/reportFormat>
+          &lt;useFile>false&lt;/useFile>
+          &lt;consoleOutputReporter>
+            &lt;disable>true&lt;/disable>
+          &lt;/consoleOutputReporter>
+          &lt;statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter">
+            &lt;theme>ASCII&lt;/theme>
+            &lt;printStacktraceOnError>true&lt;/printStacktraceOnError>
+            &lt;printStacktraceOnFailure>true&lt;/printStacktraceOnFailure>
+            &lt;printStdoutOnError>true&lt;/printStdoutOnError>
+            &lt;printStdoutOnFailure>true&lt;/printStdoutOnFailure>
+            &lt;printStdoutOnSuccess>false&lt;/printStdoutOnSuccess>
+            &lt;printStderrOnError>true&lt;/printStderrOnError>
+            &lt;printStderrOnFailure>true&lt;/printStderrOnFailure>
+            &lt;printStderrOnSuccess>false&lt;/printStderrOnSuccess>
+          &lt;/statelessTestsetInfoReporter>
+        &lt;/configuration>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-install-plugin&lt;/artifactId>
+        &lt;version>3.1.4&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-install&lt;/id>
+            &lt;phase>install&lt;/phase>
+            &lt;goals>
+              &lt;goal>install&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-deploy-plugin&lt;/artifactId>
+        &lt;version>3.1.4&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-deploy&lt;/id>
+            &lt;phase>deploy&lt;/phase>
+            &lt;goals>
+              &lt;goal>deploy&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;artifactId>maven-site-plugin&lt;/artifactId>
+        &lt;version>3.12.1&lt;/version>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-site&lt;/id>
+            &lt;phase>site&lt;/phase>
+            &lt;goals>
+              &lt;goal>site&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;outputDirectory>/target/site&lt;/outputDirectory>
+              &lt;reportPlugins>
+                &lt;reportPlugin>
+                  &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+                  &lt;artifactId>maven-project-info-reports-plugin&lt;/artifactId>
+                &lt;/reportPlugin>
+              &lt;/reportPlugins>
+            &lt;/configuration>
+          &lt;/execution>
+          &lt;execution>
+            &lt;id>default-deploy&lt;/id>
+            &lt;phase>site-deploy&lt;/phase>
+            &lt;goals>
+              &lt;goal>deploy&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;outputDirectory>/target/site&lt;/outputDirectory>
+              &lt;reportPlugins>
+                &lt;reportPlugin>
+                  &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+                  &lt;artifactId>maven-project-info-reports-plugin&lt;/artifactId>
+                &lt;/reportPlugin>
+              &lt;/reportPlugins>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+        &lt;configuration>
+          &lt;outputDirectory>/target/site&lt;/outputDirectory>
+          &lt;reportPlugins>
+            &lt;reportPlugin>
+              &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+              &lt;artifactId>maven-project-info-reports-plugin&lt;/artifactId>
+            &lt;/reportPlugin>
+          &lt;/reportPlugins>
+        &lt;/configuration>
+      &lt;/plugin>
+    &lt;/plugins>
+  &lt;/build>
+&lt;/project>
+</item>
+      <item type="file" hash="31252fc05a688052650cd94eddbc43683018af3a66567147a4481de3f607451b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/AbstractCommander.java</item>
+      <item type="file" hash="cf7a1ec28e05bbeeed499c9933cc9999da4946e67039bc16de9874eea3656731" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/AmonkhetBlock.java</item>
+      <item type="file" hash="3c3efd87d739a3a76c62b07fd56e05aaa76306c46e75d87583d76c1d7a94a0ff" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/AusHighlander.java</item>
+      <item type="file" hash="62d8e7f30ec0cdeb53cbe271ea4148033ea2e83a975d8059eb5be8ab99c014b3" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/BattleForZendikarBlock.java</item>
+      <item type="file" hash="4f0f9843584e9de55f08eb692720e73fd541f4eeecff419354114c8c9ce9a4f7" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Brawl.java</item>
+      <item type="file" hash="62c98ad4d3ec261f1cae000aa18133bbd3e40d21f6994bf4408f1b78272d40b6" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/CanadianHighlander.java</item>
+      <item type="file" hash="111285b310a7aedd6eb3092369cf8cbe8bc9b67492752bf22c08504d02a9530b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/CenturionCommander.java</item>
+      <item type="file" hash="d04f07d6621a129c280c4c5c0d10cffd4dda07c354442e48b28089053209f0cf" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Commander.java</item>
+      <item type="file" hash="2e3d0d745345eee45724656f0cbbe161b7b1413276b668fca04d377144ad33cb" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/DuelCommander.java</item>
+      <item type="file" hash="8030dfe8825087cea6bc49d570c62b86643332df2a62b4960d1a26d72ec8006a" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Eternal.java</item>
+      <item type="file" hash="c107657d93fc9aa359b189957e79d5085d24f2bad634a8a3a2a99ace4bae4adb" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/EuropeanHighlander.java</item>
+      <item type="file" hash="98ef8766ce9148e65026661b284a5a80566898aa1df453516124705e80ea8c5a" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Extended.java</item>
+      <item type="file" hash="68983318bbd1e5150188213467cf6afbb0fafaeca1288e6d24d785d9ee4eff76" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Freeform.java</item>
+      <item type="file" hash="bdc127023a975a63e88a1d12fa93ec5a09438cdc933e6e478fa1e91a6595ec39" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/FreeformCommander.java</item>
+      <item type="file" hash="5c5c388b9a4aa0a6db2f7c5db34b5c4d167aaaf31bfa93bbb78fb12cc1a9af17" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/FreeformUnlimited.java</item>
+      <item type="file" hash="4d53a7579742430e8c750e1fb0c48267d099d5269f9bcc90f1ca857af5bde3d3" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/FreeformUnlimitedCommander.java</item>
+      <item type="file" hash="03364364bddecca1bf544817fcf585d1eccdadbd659a13208c8153371600bf6b" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Frontier.java</item>
+      <item type="file" hash="aca8c7f1ad88d57ca515cc50a7b82127ada0815c75253178f9c3882074328cad" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Historic.java</item>
+      <item type="file" hash="7b780ed19371323b3867fc41f11ae2bf8887317b34cdba62d09250116a6bd8d6" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/HistoricalType2.java</item>
+      <item type="file" hash="69c96de7264f8a881cb1332ca47002be1e607b610066c881d7b639e12b26a9df" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/InnistradBlock.java</item>
+      <item type="file" hash="369bf00bf15a10b6c52c849120f7f3c92811fe1ee92ce1a0595a403597a2503a" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/IxalanBlock.java</item>
+      <item type="file" hash="4b3fd1fd4720129c59e077587378b6aa72c6d5916be5efa97a43565292423f5a" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/KaladeshBlock.java</item>
+      <item type="file" hash="375ba09b666dada2951a8c40d7a60294cf2124e07ce3d3febc2fa70472ab8dcb" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/KamigawaBlock.java</item>
+      <item type="file" hash="1928be020dc9249eddfb6ad9069a4c047b8a469e07e8efb6a6114526603c2e22" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/KhansOfTarkirBlock.java</item>
+      <item type="file" hash="e28ac868abc5d1311c7b40713f7a92ca290b9991b097a4185e26a05347e48ed8" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Legacy.java</item>
+      <item type="file" hash="9e11bbb970face06ef6801301cefcb295936a6d988fa8b591ac41cbe8e2c0b73" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/LorwynBlock.java</item>
+      <item type="file" hash="1f9b9b2d4fa162d667dbed129987c73964c93125c9da1aa05d3cd99b6e558eaa" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Modern.java</item>
+      <item type="file" hash="a527d7693a23c3a200b629fc3c76a755e1111985bc67d7ab8ea29ca2f425b21d" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/ModernNoBannedList.java</item>
+      <item type="file" hash="edae1cc368a8effdaaa0399201023eb84db3f2aaeaaa35dd4022552d08e59cbe" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Momir.java</item>
+      <item type="file" hash="b312e58fb15b5a65d8409188816386e655412d269a9b143045ca01ca877fce36" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/MTGO1v1Commander.java</item>
+      <item type="file" hash="0d14d5512624abd242034988527952056cdeac41a971f62b176f123bca180717" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Oathbreaker.java</item>
+      <item type="file" hash="d7eb6516627dc4d87bc861711e0e9e4466072130708fab1af1722724a5e9abae" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/OldSchool9394.java</item>
+      <item type="file" hash="cbf19560d3024b749e0df320c24c28e98cfc49420f3fb970b2f26d5277d5fa91" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/OldSchool9394CFB.java</item>
+      <item type="file" hash="9128adb68045ef3f6968a36a3b725f930fb01aa246296dc2c6aa483daa727252" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/OldSchool9394EC.java</item>
+      <item type="file" hash="234edfbe5c72a997d832046c9199f879a559a95452590171c0566528c12253dc" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/OldSchool9394EG.java</item>
+      <item type="file" hash="ae290a304db2580ce60aec3d07212208afcf2c4529208dafea9c138e78c7b67f" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/OldSchool9394Italian.java</item>
+      <item type="file" hash="71926fe1fb419c91d5e86dc57f553d3ce778396a5246a9d61bdcbd5ec14072bc" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Pauper.java</item>
+      <item type="file" hash="174bf72d73e8b406b885e6806e9b091d2d6105a9fc8f2270867ac7fc6869c0ce" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/PennyDreadfulCommander.java</item>
+      <item type="file" hash="5ae5d1c30c84f0ea978957f94938ab4dd5ec68b65baf4477a806abfd4189c2ea" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Pioneer.java</item>
+      <item type="file" hash="f5999e1a1db424600170a4a1258ce83385829c1231ce5982072518ddf141ec66" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Premodern.java</item>
+      <item type="file" hash="e429362fa4fcdf74a0bcef5bd886441ce9e014dd27d767f56b7c394a1d6f2ed4" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/ReturnToRavnicaBlock.java</item>
+      <item type="file" hash="57cf89bd80029f03f7ca5f01871aaed4b82b959e234dc48f5b37d6d11d20bbe1" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/ScarsOfMirrodinBlock.java</item>
+      <item type="file" hash="99509e14216eaa4a9c957b15e4a969cd34dbe565cf1449f292ded0805ec2d4ef" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/ShadowmoorBlock.java</item>
+      <item type="file" hash="0d5583adb00bf5330725934cc5f8f4a72ddfa50608c71b5e0233414a465f9af0" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/ShadowsOverInnistradBlock.java</item>
+      <item type="file" hash="e5b5ce8d86ac4aef4707e2aa64c366a412d8b49f566a78dc7f71fc0b734925fa" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/ShardsOfAlaraBlock.java</item>
+      <item type="file" hash="75bd45a925f7feaa7f05ecd68c7155d0d4840b1b09ff09770eecaa74170a6e43" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Standard.java</item>
+      <item type="file" hash="d57c3578518d197a3545848a1eae83b369394b8bbcf4c4d4c244009137f3689f" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/StarWarsBlock.java</item>
+      <item type="file" hash="c4eaf89d901b90c415cb51dd39addb8eb62d821e79989ee98f0aeda570def386" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/SuperType2.java</item>
+      <item type="file" hash="7320192cd3b597e0a2fdbca9da2f1624f87798e8c04f6d8f8e5c85b0c2d48411" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/TherosBlock.java</item>
+      <item type="file" hash="b5f90d1fbeb76985b13f54f828228087b3baff6a1eda021cce5ba87aa3ff96aa" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/TinyLeaders.java</item>
+      <item type="file" hash="86404bcf36fe079a159438ed3448d6b06ecdc1b7b84de6cba74a5a1de88327b1" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/Vintage.java</item>
+      <item type="file" hash="652c08d9fe84d4e20ad788599321c946651e4427de38cd61d8a93af917c70a8d" content="text/plain" isText="yes" charset="US-ASCII" eol="LF">src/mage/deck/ZendikarBlock.java</item>
+      <item type="dependency" hash="8a5777eb4518653bda5b0bd3e25726f096783c7b623cd1f923ac35a75eb4ac76">org.mage:mage-sets:jar</item>
+      <item type="dependency" hash="0e3a6c308d4979b9a6207ce12e629a8bbea57acf43b2505670c509ca17476517">org.mage:mage:jar</item>
+    </items>
+  </projectsInputInfo>
+</build>
