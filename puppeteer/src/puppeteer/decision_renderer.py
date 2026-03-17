@@ -133,20 +133,32 @@ def _render_decision_block(
         lines.append(f"  Combat: {combat_line}")
 
     combat_phase = pilot_ctx.get("combatPhase")
+    assert combat_phase is None or isinstance(combat_phase, str), (
+        f"combatPhase must be a string when present, got {combat_phase!r}"
+    )
     if combat_phase:
         lines.append(f"  Combat Phase: {combat_phase}")
 
     # Pilot context overlay
     incoming_attackers = pilot_ctx.get("incomingAttackers")
+    assert incoming_attackers is None or isinstance(incoming_attackers, list), (
+        f"incomingAttackers must be a list when present, got {incoming_attackers!r}"
+    )
     if _is_declare_blockers_phase(combat_phase) and incoming_attackers:
         lines.append(f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}")
 
     if "untappedLands" in pilot_ctx or "landDropsUsed" in pilot_ctx:
         ctx_parts: list[str] = []
         if "untappedLands" in pilot_ctx:
-            ctx_parts.append(f"Untapped lands: {pilot_ctx['untappedLands']}")
+            untapped_lands = pilot_ctx["untappedLands"]
+            assert isinstance(untapped_lands, int), f"untappedLands must be an int when present, got {untapped_lands!r}"
+            ctx_parts.append(f"Untapped lands: {untapped_lands}")
         if "landDropsUsed" in pilot_ctx:
-            remaining = 1 - pilot_ctx["landDropsUsed"]
+            land_drops_used = pilot_ctx["landDropsUsed"]
+            assert isinstance(land_drops_used, int), (
+                f"landDropsUsed must be an int when present, got {land_drops_used!r}"
+            )
+            remaining = 1 - land_drops_used
             ctx_parts.append(f"Land drops remaining: {remaining}")
         lines.append(f"  {', '.join(ctx_parts)}")
 
