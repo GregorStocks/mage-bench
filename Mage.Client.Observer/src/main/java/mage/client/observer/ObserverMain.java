@@ -115,15 +115,12 @@ public class ObserverMain {
 
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> LOGGER.fatal(null, e));
 
-        // In noWindow mode (golden tests), skip card database scanning.
-        // The MageFrame constructor calls CardScanner.scan() on empty DBs,
-        // which loads all ~30K card classes and consumes hundreds of MB of
-        // metaspace. In tests, the server already has the card DB and decks
-        // are pre-validated. In real games, the observer needs the DB for
-        // DeckImporter, so we allow the scan.
-        if (Boolean.getBoolean("xmage.observer.noWindow")) {
-            CardScanner.scanned = true;
-        }
+        // Skip bulk card database scanning. The MageFrame constructor calls
+        // CardScanner.scan() on empty DBs, which loads all ~30K card classes
+        // and consumes hundreds of MB of metaspace. The observer only needs
+        // cards from the decks it imports — CardRepository.findCard() lazily
+        // loads individual cards on demand.
+        CardScanner.scanned = true;
 
         SwingUtilities.invokeLater(() -> {
             // Parse command line args

@@ -10,6 +10,7 @@ import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.support.DatabaseConnection;
 import com.j256.ormlite.table.TableUtils;
+import mage.cards.*;
 import mage.constants.CardType;
 import mage.constants.SetType;
 import mage.constants.SuperType;
@@ -335,6 +336,26 @@ public enum CardRepository {
     }
 
     public CardInfo findCard(String setCode, String cardNumber, boolean ignoreNightCards) {
+        CardInfo found = findCardInDb(setCode, cardNumber, ignoreNightCards);
+        if (found != null) {
+            return found;
+        }
+
+        // Card not in DB — try to lazily scan just this one card from the
+        // expansion set definition, avoiding the bulk CardScanner.scan() that
+        // loads all ~30K card classes at startup.
+        if (setCode != null && cardNumber != null) {
+            lazyLoadCard(setCode, cardNumber);
+            found = findCardInDb(setCode, cardNumber, ignoreNightCards);
+            if (found != null) {
+                return found;
+            }
+        }
+
+        return null;
+    }
+
+    private CardInfo findCardInDb(String setCode, String cardNumber, boolean ignoreNightCards) {
         try {
             QueryBuilder<CardInfo, Object> queryBuilder = cardsDao.queryBuilder();
             if (ignoreNightCards) {
@@ -360,6 +381,41 @@ public enum CardRepository {
             processMemoryErrors(e);
         }
         return null;
+    }
+
+    /**
+     * Lazily load a single card into the DB from its ExpansionSet definition.
+     * Only loads the one card class, not the entire set or card pool.
+     */
+    private void lazyLoadCard(String setCode, String cardNumber) {
+        ExpansionSet set = Sets.getInstance().get(setCode);
+        if (set == null) {
+            return;
+        }
+
+        List<CardInfo> cardsToAdd = new ArrayList<>();
+        for (ExpansionSet.SetCardInfo setInfo : set.getSetCardInfo()) {
+            if (setInfo.getCardNumber().equals(cardNumber)) {
+                Card card = CardImpl.createCard(
+                        setInfo.getCardClass(),
+                        new CardSetInfo(setInfo.getName(), set.getCode(),
+                                setInfo.getCardNumber(), setInfo.getRarity(),
+                                setInfo.getGraphicInfo()),
+                        null);
+                if (card != null) {
+                    cardsToAdd.add(new CardInfo(card));
+                    if (card instanceof SplitCard) {
+                        SplitCard splitCard = (SplitCard) card;
+                        cardsToAdd.add(new CardInfo(splitCard.getLeftHalfCard()));
+                        cardsToAdd.add(new CardInfo(splitCard.getRightHalfCard()));
+                    }
+                }
+                break;
+            }
+        }
+        if (!cardsToAdd.isEmpty()) {
+            saveCards(cardsToAdd, getContentVersionConstant());
+        }
     }
 
     public List<String> getClassNames() {
