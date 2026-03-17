@@ -29,10 +29,7 @@ def format_theme_entry(
     basic_lands: dict[str, tuple[str, str]],
 ) -> str:
     """Format a single theme variant in jumpstart.txt format."""
-    if num_variants == 1:
-        header = f"# {theme}"
-    else:
-        header = f"# {theme} ({variant_idx + 1})"
+    header = f"# {theme}" if num_variants == 1 else f"# {theme} ({variant_idx + 1})"
 
     lines = [header]
     for qty, name in cards:

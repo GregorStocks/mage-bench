@@ -9,7 +9,7 @@ import threading
 from collections.abc import Callable
 from pathlib import Path
 from types import FrameType
-from typing import IO
+from typing import IO, Any
 
 import psutil
 
@@ -100,7 +100,7 @@ class ProcessManager:
         if hasattr(signal, "SIGHUP"):
             signal.signal(signal.SIGHUP, self._fatal_signal_handler)
 
-    def _sigint_handler(self, signum: int, frame: FrameType | None) -> None:
+    def _sigint_handler(self, _signum: int, _frame: FrameType | None) -> None:
         """Handle Ctrl-C: kill children but let the main flow continue.
 
         First Ctrl-C kills child processes and returns so the caller can
@@ -111,7 +111,7 @@ class ProcessManager:
         signal.signal(signal.SIGINT, signal.SIG_DFL)
         self.cleanup()
 
-    def _fatal_signal_handler(self, signum: int, frame: FrameType | None) -> None:
+    def _fatal_signal_handler(self, signum: int, _frame: FrameType | None) -> None:
         """Handle SIGTERM/SIGHUP: cleanup and exit immediately."""
         print(f"\nReceived signal {signum}, stopping all processes...")
         self.cleanup()
@@ -134,7 +134,9 @@ class ProcessManager:
         if env:
             merged_env.update(env)
 
-        log_fh: IO | None = None
+        log_fh: IO[Any] | None = None
+        stdout: int | IO[Any]
+        stderr: int | IO[Any]
         if log_file:
             log_fh = open(log_file, "w")
             stdout = log_fh

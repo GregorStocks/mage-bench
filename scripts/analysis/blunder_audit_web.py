@@ -22,7 +22,6 @@ from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
-    decision_index as get_decision_index,
     game_path_for_id,
     is_cast_rolled_back,
     is_forced,
@@ -34,9 +33,14 @@ from scripts.analysis.blunder_eval_common import (
     lookup_annotation_for_decision,
     make_audited_entry,
     save_game_ground_truth,
-    snapshot_index as get_snapshot_index,
     validate_export_filename,
     validate_game_id,
+)
+from scripts.analysis.blunder_eval_common import (
+    decision_index as get_decision_index,
+)
+from scripts.analysis.blunder_eval_common import (
+    snapshot_index as get_snapshot_index,
 )
 from scripts.analysis.extract_decisions import extract_decisions
 
@@ -196,9 +200,7 @@ def _build_play_detail(game_id: str, di: int) -> dict:
     before_snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else None
 
     # Look up annotation
-    annotation = lookup_annotation_for_decision(
-        decision, game_data["annotations"], snapshots
-    )
+    annotation = lookup_annotation_for_decision(decision, game_data["annotations"])
 
     # Recent actions
     game_actions = game_data["actions"]
@@ -398,7 +400,6 @@ class AuditHandler(BaseHTTPRequestHandler):
 
     def log_message(self, fmt: str, *args: object) -> None:
         """Suppress default request logging."""
-        pass
 
     def _send_json(self, data: object, status: int = 200) -> None:
         body = json.dumps(data, default=str).encode()
@@ -521,7 +522,7 @@ class AuditHandler(BaseHTTPRequestHandler):
                 self._send_error(500, str(e))
             return
 
-        # API: stats
+        # Handle stats endpoint
         if path == "/api/stats":
             self._send_json(_compute_stats())
             return

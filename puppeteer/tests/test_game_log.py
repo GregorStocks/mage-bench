@@ -52,7 +52,7 @@ def test_parse_ts_naive():
 
 
 def test_parse_ts_invalid():
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="not-a-timestamp"):
         _parse_ts("not-a-timestamp")
 
 
@@ -66,7 +66,7 @@ def test_merge_game_log_invalid_timestamp_raises():
         events = game_dir / "game_events.jsonl"
         events.write_text(json.dumps({"ts": "not-a-timestamp", "type": "game_start"}) + "\n")
 
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError, match="not-a-timestamp"):
             merge_game_log(game_dir)
 
 

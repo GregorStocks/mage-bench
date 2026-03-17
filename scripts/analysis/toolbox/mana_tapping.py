@@ -50,32 +50,43 @@ class PlayerStats:
 def analyze_game(gz_path: str) -> list[PlayerStats]:
     """Analyze a single game export and return per-player stats."""
     data = load_game(gz_path)
+    game_id = data["id"]
 
     # Build player -> model mapping
     player_models: dict[str, str] = {}
-    for p in data.get("players", []):
-        player_models[p["name"]] = p.get("model", "?")
+    for p in data["players"]:
+        if p["type"] != "pilot":
+            continue
+        assert "model" in p and p["model"], (
+            f"{game_id}: pilot player missing model: {p!r}"
+        )
+        player_models[p["name"]] = p["model"]
 
     # Initialize stats per player
     stats: dict[str, PlayerStats] = {}
     for name, model in player_models.items():
         stats[name] = PlayerStats(player=name, model=model)
 
-    events = data.get("llmEvents", [])
+    events = data["llmEvents"]
 
     for i, e in enumerate(events):
-        if e.get("type") != "tool_call":
+        if e["type"] != "tool_call":
             continue
 
         tool = e.get("tool", "")
-        player = e.get("player", "")
-        if player not in stats:
-            continue
+        player = e["player"]
+        assert player in stats, (
+            f"{game_id}: tool_call event for unknown pilot player {player!r}"
+        )
         ps = stats[player]
 
         # --- choose_action: check for mana_plan, auto_tap, spell cancellations ---
         if tool == "choose_action":
-            args = e.get("args", {})
+            assert "args" in e, f"choose_action event missing args: {e!r}"
+            args = e["args"]
+            assert isinstance(args, dict), (
+                f"choose_action args must be an object, got {args!r}"
+            )
             result_str = e.get("result", "")
             try:
                 result = json.loads(result_str)
@@ -133,9 +144,9 @@ def _track_followup(
     """Look ahead from a get_action_choices to find the corresponding choose_action."""
     for j in range(start_idx + 1, min(start_idx + 20, len(events))):
         ev = events[j]
-        if ev.get("player") != player:
+        if ev["player"] != player:
             continue
-        if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
+        if ev["type"] == "tool_call" and ev.get("tool") == "choose_action":
             result_str = ev.get("result", "")
             try:
                 result = json.loads(result_str)
@@ -145,11 +156,12 @@ def _track_followup(
             if result.get("success"):
                 action = str(result.get("action_taken", ""))
                 if "cancelled_spell" in action:
-                    setattr(
-                        ps,
-                        f"{prefix}_cancelled",
-                        getattr(ps, f"{prefix}_cancelled", 0) + 1,
-                    )
+                    if prefix == "mana_deferred":
+                        ps.mana_deferred_cancelled += 1
+                    else:
+                        raise AssertionError(
+                            f"Unexpected cancelled_spell follow-up for {prefix}: {result!r}"
+                        )
                 else:
                     setattr(
                         ps,
@@ -160,7 +172,7 @@ def _track_followup(
                 setattr(ps, f"{prefix}_failed", getattr(ps, f"{prefix}_failed") + 1)
             return
         # Stop if we hit another get_action_choices from this player
-        if ev.get("type") == "tool_call" and ev.get("tool") == "get_action_choices":
+        if ev["type"] == "tool_call" and ev.get("tool") == "get_action_choices":
             return
 
 
@@ -210,8 +222,7 @@ def report(all_stats: list[PlayerStats]) -> None:
             a = model_agg[model]
             if a.mana_plan_used > 0:
                 print(
-                    f"    {model}: {a.mana_plan_used} "
-                    f"({a.mana_plan_success} ok, {a.mana_plan_failed} failed)"
+                    f"    {model}: {a.mana_plan_used} ({a.mana_plan_success} ok, {a.mana_plan_failed} failed)"
                 )
         # Show error reasons
         all_errors: list[str] = []
@@ -243,8 +254,7 @@ def report(all_stats: list[PlayerStats]) -> None:
     print(f"  Total deferrals: {total_def}")
     if total_def > 0:
         print(
-            f"  LLM handled: {total_def_ok} success, "
-            f"{total_def_fail} failed, {total_def_cancel} cancelled"
+            f"  LLM handled: {total_def_ok} success, {total_def_fail} failed, {total_def_cancel} cancelled"
         )
         print("  By model:")
         for model in sorted(model_agg):
@@ -269,8 +279,7 @@ def report(all_stats: list[PlayerStats]) -> None:
             a = model_agg[model]
             if a.choose_ability > 0:
                 print(
-                    f"    {model}: {a.choose_ability} "
-                    f"({a.choose_ability_success} ok, {a.choose_ability_failed} fail)"
+                    f"    {model}: {a.choose_ability} ({a.choose_ability_success} ok, {a.choose_ability_failed} fail)"
                 )
 
     # --- Section 5: Spell Cancellations ---

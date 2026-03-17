@@ -125,7 +125,6 @@ def _parse_choice(response_text: str, num_decks: int) -> int:
 def choose_deck_for_player(
     player: PilotPlayer,
     decks: list[DeckEntry],
-    project_root: Path,
     deck_type: str,
     already_chosen: list[tuple[str, str]],
 ) -> DeckEntry:
@@ -171,7 +170,6 @@ def resolve_choice_decks(
         entry = choose_deck_for_player(
             player,
             available,
-            project_root,
             deck_type,
             already_chosen,
         )

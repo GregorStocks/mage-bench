@@ -42,22 +42,25 @@ def find_migration_path(
         path = []
         v = current_version
         for m in migrations:
-            if m.SOURCE_VERSION == v:
+            if v == m.SOURCE_VERSION:
                 path.append((m, "up"))
                 v = m.TARGET_VERSION
                 if v == target_version:
                     return path
-        assert False, f"No migration path from v{current_version} to v{target_version}"
-    else:
-        path = []
-        v = current_version
-        for m in reversed(migrations):
-            if m.TARGET_VERSION == v:
-                path.append((m, "down"))
-                v = m.SOURCE_VERSION
-                if v == target_version:
-                    return path
-        assert False, f"No migration path from v{current_version} to v{target_version}"
+        raise AssertionError(
+            f"No migration path from v{current_version} to v{target_version}"
+        )
+    path = []
+    v = current_version
+    for m in reversed(migrations):
+        if v == m.TARGET_VERSION:
+            path.append((m, "down"))
+            v = m.SOURCE_VERSION
+            if v == target_version:
+                return path
+    raise AssertionError(
+        f"No migration path from v{current_version} to v{target_version}"
+    )
 
 
 def read_game(path: Path) -> dict:

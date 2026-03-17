@@ -15,7 +15,7 @@ Requires OPENROUTER_API_KEY environment variable.
 import json
 import textwrap
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
 from openai import OpenAIError
@@ -41,6 +41,20 @@ from scripts.analysis.blunder_eval_common import (
 _LOG_TZ = ZoneInfo("America/Los_Angeles")
 
 
+def _detected_flag(
+    result: dict | None, *, play_key: str, label: str, allow_missing: bool
+) -> bool:
+    """Return a result's detected flag, optionally allowing a missing entry."""
+    if result is None:
+        assert allow_missing, f"Missing {label} result for {play_key}"
+        return False
+    detected = result.get("detected")
+    assert isinstance(detected, bool), (
+        f"{label} result for {play_key} missing bool detected flag: {result!r}"
+    )
+    return detected
+
+
 def compare_results(
     eval_results: dict[str, dict],
     baseline_results: dict[str, dict],
@@ -62,8 +76,14 @@ def compare_results(
 
             total_validated += 1
             pk = play_key(game_id, entry["decision_index"])
-            eval_detected = eval_results.get(pk, {}).get("detected", False)
-            base_detected = baseline_results.get(pk, {}).get("detected", False)
+            eval_entry = eval_results.get(pk)
+            baseline_entry = baseline_results.get(pk)
+            eval_detected = _detected_flag(
+                eval_entry, play_key=pk, label="eval", allow_missing=False
+            )
+            base_detected = _detected_flag(
+                baseline_entry, play_key=pk, label="baseline", allow_missing=True
+            )
 
             is_blunder = verdict == "blunder"
 
@@ -84,11 +104,15 @@ def compare_results(
                         "verdict": verdict,
                         "eval_detected": eval_detected,
                         "baseline_detected": base_detected,
-                        "baseline_description": baseline_results.get(pk, {}).get(
-                            "description"
-                        ),
-                        "eval_severity": eval_results.get(pk, {}).get("severity"),
-                        "eval_description": eval_results.get(pk, {}).get("description"),
+                        "baseline_description": baseline_entry.get("description")
+                        if baseline_entry
+                        else None,
+                        "eval_severity": eval_entry.get("severity")
+                        if eval_entry
+                        else None,
+                        "eval_description": eval_entry.get("description")
+                        if eval_entry
+                        else None,
                         "human_notes": entry.get("human_notes"),
                     }
                 )
@@ -217,7 +241,7 @@ def main() -> None:
     baseline_results: dict[str, dict] = {}
     if BASELINE_PATH.exists():
         baseline = load_baseline()
-        baseline_results = baseline.get("results", {})
+        baseline_results = baseline["results"]
         print(
             f"Baseline: v{baseline.get('blunder_script_version', '?')} ({len(baseline_results)} results)"
         )
@@ -268,7 +292,7 @@ def main() -> None:
         for fut in as_completed(futures):
             pk = futures[fut]
             try:
-                anns, cost, parsed_ok, raw = fut.result()
+                anns, cost, _parsed_ok, _raw = fut.result()
             except OpenAIError as e:
                 print(f"  WARNING: {pk} failed: {e}")
                 eval_results[pk] = {"detected": False}
@@ -292,7 +316,7 @@ def main() -> None:
     output_path = TMP_DIR / f"blunder_eval_{ts}.json"
     output = {
         "blunder_script_version": BLUNDER_SCRIPT_VERSION,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "cost_usd": total_cost,
         "results": eval_results,
     }

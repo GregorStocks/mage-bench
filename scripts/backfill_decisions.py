@@ -16,7 +16,6 @@ from pathlib import Path
 from scripts.export_game import _build_decisions
 from scripts.migrate_exports import write_game
 
-
 GAMES_DIR = Path(__file__).resolve().parent.parent / "website" / "public" / "games"
 
 
@@ -102,8 +101,7 @@ def main() -> None:
         total += count
 
     print(
-        f"\nDone: {updated} updated, {unchanged} unchanged, {skipped} skipped, "
-        f"{total} total decisions written"
+        f"\nDone: {updated} updated, {unchanged} unchanged, {skipped} skipped, {total} total decisions written"
     )
 
 

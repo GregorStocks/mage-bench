@@ -82,7 +82,7 @@ def can_bind_port(port: int) -> bool:
         sock.close()
 
 
-def find_available_port(host: str, start_port: int, max_attempts: int = 100) -> PortReservation:
+def find_available_port(start_port: int, max_attempts: int = 100) -> PortReservation:
     """Find an available port starting from start_port, holding flock reservations.
 
     Returns a PortReservation that holds exclusive locks on the primary port

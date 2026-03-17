@@ -56,7 +56,7 @@ async def spawn_bridge_http(
     Yields:
         A ``ClientSession`` connected to the bridge's MCP HTTP server.
     """
-    port_reservation: PortReservation = find_available_port("localhost", _MCP_PORT_START)
+    port_reservation: PortReservation = find_available_port(_MCP_PORT_START)
     mcp_port = port_reservation.port
 
     full_jvm_args = f"{jvm_args} -Dxmage.bridge.mcpPort={mcp_port}"

@@ -4,8 +4,6 @@ Provides data structures, I/O, and matching logic used by the seed,
 audit, baseline, eval, and promote scripts.
 """
 
-from __future__ import annotations
-
 import json
 import re
 import tempfile
@@ -77,7 +75,12 @@ def is_forced(d: Mapping[str, object]) -> bool:
 
 def action_result(d: Mapping[str, object]) -> JsonObject:
     """Get the action result from either format."""
-    value = d.get("actionResult", d.get("action_result", {}))
+    if "actionResult" in d:
+        value = d["actionResult"]
+    elif "action_result" in d:
+        value = d["action_result"]
+    else:
+        return {}
     assert isinstance(value, dict), f"actionResult must be an object, got {value!r}"
     return value
 
@@ -375,7 +378,6 @@ def compute_aftermath_index(
 def reverse_map_annotations(
     annotations: Sequence[Mapping[str, object]],
     decisions: Sequence[Mapping[str, object]],
-    snapshots: Sequence[Mapping[str, object]],
 ) -> dict[int, int]:
     """Map annotation list indices to decision indices.
 
@@ -391,8 +393,7 @@ def reverse_map_annotations(
             f"annotation {ann_idx} missing decisionIndex"
         )
         assert 0 <= direct_decision_idx < len(decisions), (
-            f"annotation decisionIndex {direct_decision_idx} out of range for "
-            f"{len(decisions)} decisions"
+            f"annotation decisionIndex {direct_decision_idx} out of range for {len(decisions)} decisions"
         )
         ann_player = ann["player"]
         assert isinstance(ann_player, str), (
@@ -400,8 +401,7 @@ def reverse_map_annotations(
         )
         decision_player = decisions[direct_decision_idx]["player"]
         assert decision_player == ann_player, (
-            f"annotation player {ann_player!r} does not match decision "
-            f"{direct_decision_idx} player {decision_player!r}"
+            f"annotation player {ann_player!r} does not match decision {direct_decision_idx} player {decision_player!r}"
         )
         result[ann_idx] = direct_decision_idx
 
@@ -411,7 +411,6 @@ def reverse_map_annotations(
 def lookup_annotation_for_decision(
     decision: Mapping[str, object],
     annotations: Sequence[Mapping[str, object]],
-    snapshots: Sequence[Mapping[str, object]],
 ) -> Mapping[str, object] | None:
     """Find the game-file annotation matching a decision, if any."""
     idx = decision_index(decision)

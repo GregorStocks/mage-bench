@@ -98,59 +98,73 @@ def _render_decision_block(
     deciding_player: str | None,
 ) -> str:
     """Render the core decision: board state, stack, choices."""
-    turn = decision.get("turn")
-    if turn is None:
-        turn = 0
-    if not decision.get("phase"):
-        assert turn in (0, 1), f"decision has empty phase on turn {turn}: {decision.get('message', '')}"
-    phase = decision.get("phase") or "PREGAME"
-    player = decision.get("player", "?")
-    message = decision.get("message", "")
+    turn = decision["turn"]
+    assert isinstance(turn, int), f"decision turn must be an int, got {turn!r}"
+    if not decision["phase"]:
+        assert turn in (0, 1), f"decision has empty phase on turn {turn}: {decision['message']}"
+    phase = decision["phase"] or "PREGAME"
+    player = decision["player"]
+    message = decision["message"]
 
     # Header
     lines: list[str] = [
-        f"[Decision {decision.get('index', '?')}, snapshot={decision.get('snapshotIndex', '?')}] "
-        f"Turn {turn} {phase} - {player}"
+        f"[Decision {decision['index']}, snapshot={decision['snapshotIndex']}] Turn {turn} {phase} - {player}"
     ]
-    pilot_ctx = decision.get("pilotContext", {})
+    pilot_ctx: dict[str, object] = {}
+    if "pilotContext" in decision:
+        raw_pilot_ctx = decision["pilotContext"]
+        assert isinstance(raw_pilot_ctx, dict), f"pilotContext must be an object when present, got {raw_pilot_ctx!r}"
+        pilot_ctx = raw_pilot_ctx
 
     # Board state from snapshot
     board_line = _render_board(snapshot, deciding_player)
     lines.append(f"  Board: {board_line}")
 
     # Stack
-    stack = snapshot.get("stack", [])
+    stack = snapshot.get("stack")
     if stack:
         stack_parts = _render_stack(stack)
         lines.append(f"  Stack: [{', '.join(stack_parts)}]")
 
     # Combat
-    combat_groups = snapshot.get("combat", []) or decision.get("pilotContext", {}).get("combat", [])
+    combat_groups = snapshot.get("combat")
     if combat_groups:
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
 
     combat_phase = pilot_ctx.get("combatPhase")
+    assert combat_phase is None or isinstance(combat_phase, str), (
+        f"combatPhase must be a string when present, got {combat_phase!r}"
+    )
     if combat_phase:
         lines.append(f"  Combat Phase: {combat_phase}")
 
     # Pilot context overlay
     incoming_attackers = pilot_ctx.get("incomingAttackers")
+    assert incoming_attackers is None or isinstance(incoming_attackers, list), (
+        f"incomingAttackers must be a list when present, got {incoming_attackers!r}"
+    )
     if _is_declare_blockers_phase(combat_phase) and incoming_attackers:
         lines.append(f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}")
 
     if "untappedLands" in pilot_ctx or "landDropsUsed" in pilot_ctx:
         ctx_parts: list[str] = []
         if "untappedLands" in pilot_ctx:
-            ctx_parts.append(f"Untapped lands: {pilot_ctx['untappedLands']}")
+            untapped_lands = pilot_ctx["untappedLands"]
+            assert isinstance(untapped_lands, int), f"untappedLands must be an int when present, got {untapped_lands!r}"
+            ctx_parts.append(f"Untapped lands: {untapped_lands}")
         if "landDropsUsed" in pilot_ctx:
-            remaining = 1 - pilot_ctx["landDropsUsed"]
+            land_drops_used = pilot_ctx["landDropsUsed"]
+            assert isinstance(land_drops_used, int), (
+                f"landDropsUsed must be an int when present, got {land_drops_used!r}"
+            )
+            remaining = 1 - land_drops_used
             ctx_parts.append(f"Land drops remaining: {remaining}")
         lines.append(f"  {', '.join(ctx_parts)}")
 
     # Message and choices/items
-    choices = decision.get("choices", [])
-    items = decision.get("items", [])
+    choices = decision["choices"]
+    items = decision.get("items")
     lines.append(f"  Message: {message}")
     if items:
         total_min = decision.get("totalMin")
@@ -194,27 +208,25 @@ def _render_decision_block(
 def _render_board(snapshot: dict, deciding_player: str | None) -> str:
     """Render board state from snapshot players."""
     players_parts: list[str] = []
-    for p in snapshot.get("players", []):
-        name = p.get("name", "?")
-        life = p.get("life", "?")
+    for p in snapshot["players"]:
+        name = p["name"]
+        life = p["life"]
         bf = p.get("battlefield", [])
         gy = p.get("graveyard", [])
-        exile = p.get("exile", [])
+        exile = p.get("exile")
+        hand = p.get("hand")
 
         # Hand: show full for deciding player, count only for opponents
         if deciding_player and name != deciding_player:
-            hand_count = p.get("hand_count", p.get("hand_size", len(p.get("hand", []))))
+            hand_count = p["hand_count"] if "hand_count" in p else len(hand) if hand is not None else 0
             s = f"{name}: {life}hp"
             if hand_count:
                 s += f" hand={hand_count}"
         else:
-            hand = p.get("hand", [])
-            hand_strs = [card_display(c) for c in hand]
+            hand_strs = [card_display(c) for c in hand] if hand else []
             s = f"{name}: {life}hp hand=[{', '.join(hand_strs)}]" if hand_strs else f"{name}: {life}hp hand=0"
 
-        lib = p.get("library_size")
-        if lib is not None:
-            s += f" lib={lib}"
+        s += f" lib={p['library_size']}"
 
         # Player counters
         counters = p.get("counters")
@@ -409,8 +421,13 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     """Render what was chosen in a decision."""
     lines: list[str] = []
     chosen = decision.get("chosen")
-    chosen_args = decision.get("chosenArgs", {})
-    choices = decision.get("choices", [])
+    if "chosenArgs" in decision:
+        raw_chosen_args = decision["chosenArgs"]
+        assert isinstance(raw_chosen_args, dict), f"chosenArgs must be an object when present, got {raw_chosen_args!r}"
+        chosen_args = raw_chosen_args
+    else:
+        chosen_args = {}
+    choices = decision["choices"]
 
     # Display chosen
     chosen_name = _chosen_display(chosen, chosen_args, choices)
@@ -428,8 +445,8 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     # Show targeting / activation details from subsequent actions.
     # These are part of the decision itself (what the player targeted), not
     # outcome information, so they're safe to include without biasing the annotator.
-    player = decision.get("player", "")
-    for action in decision.get("subsequentActions", []):
+    player = decision["player"]
+    for action in decision["subsequentActions"]:
         if not action.startswith(player):
             continue
         if " targeting " in action or "activates:" in action:
@@ -450,7 +467,7 @@ def _resolve_mana_plan(mana_plan: object, snapshot: dict | None) -> str:
     # Build ID -> name map from battlefield permanents
     id_to_name: dict[str, str] = {}
     if snapshot:
-        for p in snapshot.get("players", []):
+        for p in snapshot["players"]:
             for perm in p.get("battlefield", []):
                 if isinstance(perm, dict) and perm.get("id"):
                     id_to_name[perm["id"]] = perm.get("name") or perm["id"]
@@ -608,9 +625,32 @@ def _render_card_reference(
     """Build a Card Reference section for non-basic cards in the decision."""
     # Collect all card names from snapshot and choices
     names: set[str] = set()
-    for p in snapshot.get("players", []):
-        for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-            for c in p.get(zone, []):
+    for p in snapshot["players"]:
+        for c in p.get("hand", []):
+            if isinstance(c, dict):
+                name = c.get("name", "")
+                if name:
+                    names.add(name)
+            elif isinstance(c, str) and c:
+                names.add(c)
+        for c in p.get("battlefield", []):
+            if isinstance(c, dict):
+                name = c.get("name", "")
+                if name:
+                    names.add(name)
+            elif isinstance(c, str) and c:
+                names.add(c)
+        for c in p.get("graveyard", []):
+            if isinstance(c, dict):
+                name = c.get("name", "")
+                if name:
+                    names.add(name)
+            elif isinstance(c, str) and c:
+                names.add(c)
+        for zone in ("exile", "commanders"):
+            if zone not in p:
+                continue
+            for c in p[zone]:
                 if isinstance(c, dict):
                     name = c.get("name", "")
                     if name:
@@ -622,7 +662,7 @@ def _render_card_reference(
             names.add(item["name"])
         elif isinstance(item, str) and item:
             names.add(item)
-    for c in decision.get("choices", []):
+    for c in decision["choices"]:
         if isinstance(c, dict) and c.get("name"):
             names.add(c["name"])
 

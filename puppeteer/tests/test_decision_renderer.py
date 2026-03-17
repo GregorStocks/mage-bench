@@ -65,9 +65,9 @@ def _make_decision(
     index: int = 0,
     snapshot_index: int = 5,
     player: str = "Alice",
-    turn: int = 3,
-    phase: str = "PRECOMBAT_MAIN",
-    step: str = "PRECOMBAT_MAIN",
+    turn: int | None = 3,
+    phase: str | None = "PRECOMBAT_MAIN",
+    step: str | None = "PRECOMBAT_MAIN",
     action_type: str = "GAME_SELECT",
     response_type: str = "select",
     message: str = "Play spells and abilities",
@@ -154,6 +154,14 @@ class TestRenderDecision:
         text = render_decision(decision, snap)
         assert "Untapped lands: 2" in text
         assert "Land drops remaining: 1" in text
+
+    def test_pilot_context_must_be_object(self) -> None:
+        snap = _make_snapshot()
+        decision = _make_decision()
+        decision["pilotContext"] = "bad"
+
+        with pytest.raises(AssertionError, match="pilotContext must be an object"):
+            render_decision(decision, snap)
 
     def test_stack_rendering(self) -> None:
         snap = _make_snapshot(stack=[{"name": "Lightning Bolt", "targets": ["Bob"]}])
@@ -312,12 +320,12 @@ class TestRenderDecision:
         text = render_decision(decision, snap)
         assert "Turn 1 PREGAME" in text
 
-    def test_turn_none_renders_as_pregame(self) -> None:
-        """When turn is None (no snapshot), should render as turn 0 PREGAME."""
+    def test_turn_none_crashes(self) -> None:
+        """Decision turn is schema-required and should fail fast when missing."""
         snap = _make_snapshot(turn=0, phase="")
         decision = _make_decision(turn=None, phase=None)
-        text = render_decision(decision, snap)
-        assert "Turn 0 PREGAME" in text
+        with pytest.raises(AssertionError, match="decision turn must be an int"):
+            render_decision(decision, snap)
 
     def test_empty_phase_after_turn_1_crashes(self) -> None:
         """Empty phase on turn > 1 indicates data corruption and should crash."""
@@ -652,6 +660,18 @@ class TestChosenBlockManaPlan:
         }
         block = _render_chosen_block(decision)
         assert "Mana plan" not in block
+
+    def test_chosen_args_must_be_object(self) -> None:
+        decision = {
+            "chosen": 0,
+            "chosenArgs": "bad",
+            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "player": "Alice",
+            "subsequentActions": [],
+        }
+
+        with pytest.raises(AssertionError, match="chosenArgs must be an object"):
+            _render_chosen_block(decision)
 
     def test_mana_plan_in_full_render(self) -> None:
         snap = _make_snapshot(

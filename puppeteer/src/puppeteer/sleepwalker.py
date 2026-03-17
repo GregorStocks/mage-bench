@@ -77,8 +77,8 @@ async def run_sleepwalker(
         jvm_args=jvm_args,
     ) as session:
         # Initialize MCP connection
-        result = await session.initialize()
-        logger.debug("[sleepwalker] MCP initialized: %s", result.serverInfo)
+        init_result = await session.initialize()
+        logger.debug("[sleepwalker] MCP initialized: %s", init_result.serverInfo)
 
         # List available tools
         tools = await session.list_tools()

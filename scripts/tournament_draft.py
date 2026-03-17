@@ -30,10 +30,10 @@ from openai import AsyncOpenAI
 
 from puppeteer.config import (
     PilotPlayer,
-    resolve_preset,
     load_personalities,
     load_prompts,
     load_toolsets,
+    resolve_preset,
 )
 from puppeteer.decision_renderer import BASIC_LAND_NAMES
 from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes
@@ -43,11 +43,11 @@ from puppeteer.llm_cost import (
     load_prices,
     required_api_key_env,
 )
+from scripts import scryfall
 from scripts.draft_history import (
     CURRENT_DRAFT_HISTORY_VERSION,
     assert_current_draft_history_version,
 )
-from scripts import scryfall
 
 _ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"
@@ -105,7 +105,8 @@ def _format_card_line(card_name: str, count: int, oracle: dict[str, dict]) -> st
     if card_name in BASIC_LAND_NAMES:
         return f"  {count}x {card_name} — Basic Land"
 
-    info = oracle.get(card_name, {})
+    assert card_name in oracle, f"Missing oracle text for draft card {card_name!r}"
+    info = oracle[card_name]
     parts = [f"  {count}x {card_name}"]
     if info.get("mana_cost"):
         parts.append(info["mana_cost"])
@@ -185,8 +186,7 @@ def build_draft_user_prompt(
 
     if already_picked:
         lines.append(
-            f"You already picked: {already_picked.theme}. "
-            f"Now pick a second half-deck to pair with it."
+            f"You already picked: {already_picked.theme}. Now pick a second half-deck to pair with it."
         )
         lines.append("")
 
@@ -365,10 +365,10 @@ async def _llm_pick(
         {"role": "user", "content": user_prompt},
     ]
 
-    create_kwargs: dict = dict(
-        model=model,
-        max_tokens=MAX_TOKENS,
-    )
+    create_kwargs: dict = {
+        "model": model,
+        "max_tokens": MAX_TOKENS,
+    }
     if reasoning_effort is not None:
         create_kwargs["extra_body"] = {"reasoning": {"effort": reasoning_effort}}
 
@@ -415,10 +415,7 @@ async def _llm_pick(
                     return pick, content, attempts, usage
                 reason = "I parsed your pick, but your response included extra text."
             except ValueError:
-                reason = (
-                    f"Could not parse a valid option number (1-{num_options}) "
-                    f"from your response."
-                )
+                reason = f"Could not parse a valid option number (1-{num_options}) from your response."
 
         attempt_record["rejection_reason"] = reason
         attempts.append(attempt_record)
@@ -429,16 +426,14 @@ async def _llm_pick(
             {
                 "role": "user",
                 "content": (
-                    f"{reason} Reply with ONLY a single number from "
-                    f"1 to {num_options}. No other text."
+                    f"{reason} Reply with ONLY a single number from 1 to {num_options}. No other text."
                 ),
             }
         )
         print(f"    Attempt {attempt} failed: {reason} Retrying...")
 
-    assert False, (
-        f"Model {model} failed to produce a valid pick after "
-        f"{MAX_PICK_RETRIES} attempts"
+    raise AssertionError(
+        f"Model {model} failed to produce a valid pick after {MAX_PICK_RETRIES} attempts"
     )
 
 

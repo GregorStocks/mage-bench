@@ -19,6 +19,8 @@ from pathlib import Path
 
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
+)
+from scripts.analysis.blunder_analysis import (
     main as analyze_game,
 )
 from scripts.analysis.blunder_eval_common import (
@@ -37,9 +39,10 @@ def find_outdated_games(limit: int) -> list[str]:
         if len(outdated) >= limit:
             break
         data = load_game(game_path)
-        if "annotations" not in data:
-            outdated.append(str(game_path))
-        elif data.get("blunderScriptVersion", 1) < BLUNDER_SCRIPT_VERSION:
+        if (
+            "annotations" not in data
+            or data.get("blunderScriptVersion", 1) < BLUNDER_SCRIPT_VERSION
+        ):
             outdated.append(str(game_path))
     return outdated
 

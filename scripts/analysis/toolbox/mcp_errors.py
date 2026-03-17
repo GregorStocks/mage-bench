@@ -72,7 +72,7 @@ def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str
     the preceding get_action_choices call."""
     for j in range(idx - 1, max(idx - 30, -1), -1):
         ev = events[j]
-        if ev.get("player") != player:
+        if ev["player"] != player:
             continue
         if ev.get("tool") == "get_action_choices":
             r = _parse_result(ev.get("result", ""))
@@ -94,9 +94,9 @@ def _find_retry_outcome(
     """Look forward from an error to see if the model retried and what happened."""
     for j in range(idx + 1, min(idx + 20, len(events))):
         ev = events[j]
-        if ev.get("player") != player:
+        if ev["player"] != player:
             continue
-        if ev.get("type") != "tool_call":
+        if ev["type"] != "tool_call":
             continue
 
         # If they called a different tool first (e.g. get_action_choices), keep looking
@@ -123,20 +123,29 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
     # Build player -> model mapping
     player_models: dict[str, str] = {}
     for p in data["players"]:
-        player_models[p["name"]] = p.get("model", "?")
+        if p["type"] != "pilot":
+            continue
+        assert "model" in p and p["model"], (
+            f"{game_id}: pilot player missing model: {p!r}"
+        )
+        player_models[p["name"]] = p["model"]
 
     events = data["llmEvents"]
     errors: list[ErrorEvent] = []
 
     for i, e in enumerate(events):
-        if e.get("type") != "tool_call":
+        if e["type"] != "tool_call":
             continue
 
-        player = e.get("player", "")
+        player = e["player"]
+        assert player in player_models, (
+            f"{game_id}: tool_call event for unknown pilot player {player!r}"
+        )
         tool = e.get("tool", "")
-        model = player_models.get(player, "?")
+        model = player_models[player]
         result_str = e.get("result", "")
-        args = e.get("args", {})
+        assert "args" in e, f"{game_id}: tool_call event missing args: {e!r}"
+        args = e["args"]
         assert isinstance(args, dict), (
             f"{game_id}: llm event args must be an object, got {args!r}"
         )
@@ -265,7 +274,7 @@ def report(all_errors: list[ErrorEvent], num_games: int) -> None:
 
     # --- Section 4: By model ---
     print("\n--- By model ---")
-    models = sorted(set(e.model for e in all_errors))
+    models = sorted({e.model for e in all_errors})
     for model in models:
         model_errs = [e for e in all_errors if e.model == model]
         retry_ok = sum(1 for e in model_errs if e.retry_outcome == "success")

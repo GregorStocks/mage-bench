@@ -19,7 +19,7 @@ import json
 import sys
 from pathlib import Path
 
-from scripts.export_game import _build_decisions, _GZ_THRESHOLD
+from scripts.export_game import _GZ_THRESHOLD, _build_decisions
 
 GAMES_DIR = Path(__file__).resolve().parent.parent / "website" / "public" / "games"
 
@@ -126,9 +126,7 @@ def main() -> None:
             games_modified += 1
 
     print(
-        f"\nDone: {games_modified} games modified, "
-        f"{total_ann} annotations fixed, "
-        f"{total_dec} decisions rebuilt"
+        f"\nDone: {games_modified} games modified, {total_ann} annotations fixed, {total_dec} decisions rebuilt"
     )
 
 

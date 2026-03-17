@@ -35,16 +35,15 @@ def migrate_entry(entry: dict) -> dict:
     if verdict is None:
         # Unaudited: just a pointer
         return {"decision_index": entry["decision_index"]}
-    else:
-        # Audited: keep annotation info + verdict
-        return {
-            "decision_index": entry["decision_index"],
-            "annotation_version": extract_version(entry.get("source")),
-            "annotation_severity": entry.get("annotation_severity"),
-            "annotation_description": entry.get("annotation_description"),
-            "verdict": verdict,
-            "human_notes": entry.get("human_notes"),
-        }
+    # Audited: keep annotation info + verdict
+    return {
+        "decision_index": entry["decision_index"],
+        "annotation_version": extract_version(entry.get("source")),
+        "annotation_severity": entry.get("annotation_severity"),
+        "annotation_description": entry.get("annotation_description"),
+        "verdict": verdict,
+        "human_notes": entry.get("human_notes"),
+    }
 
 
 def main() -> None:

@@ -7,13 +7,14 @@ import sys
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from mcp.types import CallToolResult, TextContent
 from openai import OpenAIError
 
 from puppeteer.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
     MAX_CONSECUTIVE_EMPTY_CHOICES,
     MAX_TOKENS,
-    PermanentLLMFailure,
+    PermanentLLMError,
     _build_pilot_decision,
     _build_pilot_snapshot,
     _extract_oracle_texts_from_board,
@@ -31,8 +32,7 @@ from puppeteer.tool_error import ToolExecutionError
 def _make_session() -> MagicMock:
     """Create a mock MCP session."""
     session = MagicMock()
-    result = MagicMock()
-    result.content = [MagicMock(text='{"ok": true}')]
+    result = CallToolResult(content=[TextContent(type="text", text='{"ok": true}')])
     session.call_tool = AsyncMock(return_value=result)
     return session
 
@@ -56,8 +56,7 @@ async def test_execute_tool_raises_on_mcp_failure():
 @pytest.mark.asyncio
 async def test_fetch_state_summary_raises_on_error_payload():
     session = MagicMock()
-    result = MagicMock()
-    result.content = [MagicMock(text='{"error": "bridge died"}')]
+    result = CallToolResult(content=[TextContent(type="text", text='{"error": "bridge died"}')])
     session.call_tool = AsyncMock(return_value=result)
 
     with pytest.raises(ToolExecutionError, match="get_game_state returned error: bridge died"):
@@ -113,7 +112,7 @@ def test_main_reports_provider_in_missing_key_log(caplog: pytest.LogCaptureFixtu
     assert "configured API key env var" in caplog.text
 
 
-@pytest.fixture()
+@pytest.fixture
 def _no_prefetch():
     """Patch _prefetch_first_action so run_pilot_loop tests don't block."""
     with patch("puppeteer.pilot._prefetch_first_action", new_callable=AsyncMock, return_value="Game starting."):
@@ -123,11 +122,11 @@ def _no_prefetch():
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
 async def test_401_raises_permanent_failure():
-    """A 401 error (user not found / bad API key) should raise PermanentLLMFailure."""
+    """A 401 error (user not found / bad API key) should raise PermanentLLMError."""
     session = _make_session()
     client = _make_client(OpenAIError("Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"))
 
-    with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
+    with pytest.raises(PermanentLLMError, match="Credits exhausted"):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -142,11 +141,11 @@ async def test_401_raises_permanent_failure():
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
 async def test_403_raises_permanent_failure():
-    """A 403 error (key quota exceeded) should raise PermanentLLMFailure."""
+    """A 403 error (key quota exceeded) should raise PermanentLLMError."""
     session = _make_session()
     client = _make_client(OpenAIError("Error code: 403 - Forbidden"))
 
-    with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
+    with pytest.raises(PermanentLLMError, match="Credits exhausted"):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -161,11 +160,11 @@ async def test_403_raises_permanent_failure():
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
 async def test_402_raises_permanent_failure():
-    """A 402 error (credits exhausted) should raise PermanentLLMFailure."""
+    """A 402 error (credits exhausted) should raise PermanentLLMError."""
     session = _make_session()
     client = _make_client(OpenAIError("Error code: 402 - Payment Required"))
 
-    with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
+    with pytest.raises(PermanentLLMError, match="Credits exhausted"):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -180,11 +179,11 @@ async def test_402_raises_permanent_failure():
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
 async def test_404_raises_permanent_failure():
-    """A 404 error (model not found) should raise PermanentLLMFailure."""
+    """A 404 error (model not found) should raise PermanentLLMError."""
     session = _make_session()
     client = _make_client(OpenAIError("Error code: 404 - Not Found"))
 
-    with pytest.raises(PermanentLLMFailure, match="Model not found"):
+    with pytest.raises(PermanentLLMError, match="Model not found"):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -203,8 +202,7 @@ async def test_game_over_from_pass_priority_triggers_auto_pass():
     session = _make_session()
 
     # Mock pass_priority to return game_over
-    pass_result = MagicMock()
-    pass_result.content = [MagicMock(text='{"game_over": true, "timeout": true}')]
+    pass_result = CallToolResult(content=[TextContent(type="text", text='{"game_over": true, "timeout": true}')])
     session.call_tool = AsyncMock(return_value=pass_result)
 
     # Mock LLM to call pass_priority
@@ -245,8 +243,8 @@ async def test_game_over_from_get_action_choices_triggers_auto_pass():
     session = _make_session()
 
     # Mock get_action_choices to return game_over
-    choices_result = MagicMock()
-    choices_result.content = [MagicMock(text='{"action_pending": false, "game_over": true}')]
+    choices_text = '{"action_pending": false, "game_over": true}'
+    choices_result = CallToolResult(content=[TextContent(type="text", text=choices_text)])
     session.call_tool = AsyncMock(return_value=choices_result)
 
     # Mock LLM to call get_action_choices
@@ -287,12 +285,11 @@ async def test_game_over_from_choose_action_triggers_auto_pass():
     session = _make_session()
 
     # Mock choose_action to return error with game_over
-    action_result = MagicMock()
     result_json = (
         '{"success": false, "error": "No pending action after 10s wait",'
         ' "error_code": "no_pending_action", "game_over": true}'
     )
-    action_result.content = [MagicMock(text=result_json)]
+    action_result = CallToolResult(content=[TextContent(type="text", text=result_json)])
     session.call_tool = AsyncMock(return_value=action_result)
 
     # Mock LLM to call choose_action
@@ -359,10 +356,8 @@ def test_mcp_tools_to_openai_custom_filter():
 # --- _prefetch_first_action tests ---
 
 
-def _mock_tool_result(text: str) -> MagicMock:
-    result = MagicMock()
-    result.content = [MagicMock(text=text)]
-    return result
+def _mock_tool_result(text: str) -> CallToolResult:
+    return CallToolResult(content=[TextContent(type="text", text=text)])
 
 
 @pytest.mark.asyncio

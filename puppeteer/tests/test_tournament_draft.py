@@ -75,6 +75,15 @@ def oracle_cache(golden_packs):
     return json.loads(cache_path.read_text())
 
 
+def _minimal_oracle_for_packs(packs) -> dict[str, dict]:
+    """Build the minimal oracle mapping required for prompt rendering tests."""
+    oracle: dict[str, dict] = {}
+    for pack in packs:
+        for card in pack.cards:
+            oracle.setdefault(card.name, {})
+    return oracle
+
+
 # -- Straight draft order tests --
 
 
@@ -266,19 +275,19 @@ class TestBuildDraftPrompts:
         assert "16 players" in prompt
         assert "seed #1" in prompt
 
-    def test_user_prompt_round_1(self, all_packs, oracle_cache):
+    def test_user_prompt_round_1(self, all_packs):
         options = all_packs[:4]
-        prompt = build_draft_user_prompt(1, options, oracle_cache)
+        prompt = build_draft_user_prompt(1, options, _minimal_oracle_for_packs(options))
         assert "Pick 1 of 2" in prompt
         assert f"Option 1: {options[0].theme}" in prompt
         assert f"Option 4: {options[3].theme}" in prompt
         assert "1-4" in prompt
         assert "already picked" not in prompt
 
-    def test_user_prompt_round_2(self, all_packs, oracle_cache):
+    def test_user_prompt_round_2(self, all_packs):
         picked = all_packs[0]
         options = all_packs[1:5]
-        prompt = build_draft_user_prompt(2, options, oracle_cache, already_picked=picked)
+        prompt = build_draft_user_prompt(2, options, _minimal_oracle_for_packs(options), already_picked=picked)
         assert "Pick 2 of 2" in prompt
         assert f"already picked: {picked.theme}" in prompt
         assert f"Option 1: {options[0].theme}" in prompt

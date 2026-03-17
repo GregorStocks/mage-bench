@@ -60,11 +60,26 @@ select = [
     "DTZ007",  # datetime.strptime without zone
     "A002",  # builtin argument shadowing
     "ANN401",  # Any in public signatures
+    "C4",   # flake8-comprehensions: unnecessary comprehension patterns
+    "ERA",  # eradicate: commented-out code
+    "N",    # pep8-naming: naming conventions
+    "PT",   # flake8-pytest-style: pytest best practices
+    "S",    # flake8-bandit: security checks
+    "ARG",  # flake8-unused-arguments
+    "FBT",  # flake8-boolean-trap: boolean positional arguments
 ]
 ignore = [
     "SIM105",  # contextlib.suppress - try/except/pass is fine
     "SIM115",  # context manager for open - not always appropriate
     "PERF203", # try-except in loop - intentional for fault tolerance
+    "PT015",  # assert-False - used as unreachable-code marker in production scripts
+    "PT018",  # composite assertions - intentional isinstance+truthy checks
+    "PT019",  # fixture-param-without-value - idiomatic side-effect fixture pattern
+    "S101",   # assert - used pervasively for fail-fast validation
+    "S311",   # non-crypto random - game/matchmaking randomization, not security
+    "S603",   # subprocess-without-shell-equals-true - all subprocess calls are intentional
+    "S607",   # partial-path subprocess - mvn/git/java expected on PATH
+    "S314",   # xml.etree - parsing trusted local XMage config files
 ]
 external = []
 
@@ -73,6 +88,24 @@ external = []
 
 [tool.ruff.lint.isort]
 known-first-party = ["puppeteer", "scripts", "schemas"]
+
+[tool.ruff.lint.per-file-ignores]
+"../scripts/add-missing-jumpstart-themes.py" = ["ERA001"]  # deck-variant section labels
+"../scripts/*-*.py" = ["N999"]  # hyphenated script filenames are intentional CLI names
+"tests/**" = [
+    "S105", "S106", "S108", "S310",   # test data: fake credentials, /tmp paths, localhost URLs
+    "ARG001", "ARG002", "ARG005",     # fixtures, protocol methods, lambda stubs
+    "FBT001", "FBT002", "FBT003",     # boolean params in test helpers
+    "ERA001",                          # documentation comments that look like code
+    "N815",                            # inputSchema — MCP protocol field name
+]
+"src/puppeteer/orchestrator.py" = ["FBT001", "FBT002"]  # compile_project boolean params
+"src/puppeteer/replay.py" = ["FBT001", "FBT002"]  # skip_postscript boolean params
+"src/puppeteer/pilot.py" = ["N815"]  # inputSchema — MCP protocol field name
+"src/puppeteer/config.py" = ["FBT001"]  # _resolve_personality boolean param
+"src/puppeteer/port.py" = ["S108"]  # intentional /tmp lock file
+"src/puppeteer/llm_cost.py" = ["S310"]  # HTTPS fetch from OpenRouter API
+"../scripts/analysis/toolbox/blunder_quality_analysis.py" = ["N806"]  # intentional UPPERCASE local constants
 
 [tool.mypy]
 python_version = "3.11"
@@ -83,20 +116,6 @@ warn_redundant_casts = true
 disallow_untyped_defs = true
 check_untyped_defs = true
 ignore_missing_imports = false
-
-# Existing code uses dynamic player type patterns that mypy can't follow.
-# These per-module overrides prevent noise while still checking new code.
-[[tool.mypy.overrides]]
-module = ["puppeteer.orchestrator", "puppeteer.config"]
-disable_error_code = ["assignment", "attr-defined", "arg-type"]
-
-[[tool.mypy.overrides]]
-module = ["puppeteer.sleepwalker", "puppeteer.pilot", "puppeteer.auto_pass"]
-disable_error_code = ["assignment", "attr-defined", "union-attr", "call-overload", "arg-type"]
-
-[[tool.mypy.overrides]]
-module = ["puppeteer.process_manager"]
-disable_error_code = ["assignment"]
 
 # No working type stubs exist for google_auth_oauthlib (the PyPI package
 # google-auth-oauthlib-stubs is broken). Keep this narrow override until

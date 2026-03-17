@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from mcp.types import CallToolResult, TextContent
 
 from puppeteer.auto_pass import auto_pass_loop
 
@@ -19,11 +20,7 @@ def _no_sleep():
 def _make_session(responses: list[str]) -> MagicMock:
     """Create a mock MCP session that returns the given responses in order."""
     session = MagicMock()
-    results = []
-    for text in responses:
-        result = MagicMock()
-        result.content = [MagicMock(text=text)]
-        results.append(result)
+    results = [CallToolResult(content=[TextContent(type="text", text=text)]) for text in responses]
     session.call_tool = AsyncMock(side_effect=results)
     return session
 
@@ -31,7 +28,7 @@ def _make_session(responses: list[str]) -> MagicMock:
 @pytest.mark.asyncio
 async def test_game_over_exits_immediately():
     session = _make_session([json.dumps({"game_over": True})])
-    await auto_pass_loop(session, None, "test", "test")
+    await auto_pass_loop(session, "test")
     assert session.call_tool.call_count == 1
 
 
@@ -39,7 +36,7 @@ async def test_game_over_exits_immediately():
 async def test_player_dead_exits_immediately():
     """Dead player exits auto-pass loop immediately to avoid log spam."""
     session = _make_session([json.dumps({"player_dead": True})])
-    await auto_pass_loop(session, None, "test", "test")
+    await auto_pass_loop(session, "test")
     assert session.call_tool.call_count == 1
 
 
@@ -48,7 +45,7 @@ async def test_consecutive_errors_cause_exit():
     max_errors = 3
     responses = [json.dumps({"error": "something broke"})] * (max_errors + 1)
     session = _make_session(responses)
-    await auto_pass_loop(session, None, "test", "test", max_consecutive_errors=max_errors)
+    await auto_pass_loop(session, "test", max_consecutive_errors=max_errors)
     assert session.call_tool.call_count == max_errors
 
 
@@ -65,7 +62,7 @@ async def test_successful_calls_reset_error_counter():
         json.dumps({"game_over": True}),
     ]
     session = _make_session(responses)
-    await auto_pass_loop(session, None, "test", "test", max_consecutive_errors=max_errors)
+    await auto_pass_loop(session, "test", max_consecutive_errors=max_errors)
     # Should have processed all 6 responses (errors never hit threshold)
     assert session.call_tool.call_count == 6
 
@@ -75,7 +72,7 @@ async def test_max_iterations_causes_exit():
     max_iter = 5
     responses = [json.dumps({})] * max_iter
     session = _make_session(responses)
-    await auto_pass_loop(session, None, "test", "test", max_iterations=max_iter)
+    await auto_pass_loop(session, "test", max_iterations=max_iter)
     assert session.call_tool.call_count == max_iter
 
 
@@ -84,7 +81,7 @@ async def test_exception_counts_as_error():
     max_errors = 2
     session = MagicMock()
     session.call_tool = AsyncMock(side_effect=RuntimeError("connection lost"))
-    await auto_pass_loop(session, None, "test", "test", max_consecutive_errors=max_errors)
+    await auto_pass_loop(session, "test", max_consecutive_errors=max_errors)
     assert session.call_tool.call_count == max_errors
 
 
@@ -98,7 +95,7 @@ async def test_logs_errors_as_warnings(tmp_path: Path, caplog):
     max_errors = 2
     responses = [json.dumps({"error": "broken"})] * (max_errors + 1)
     session = _make_session(responses)
-    await auto_pass_loop(session, tmp_path, "player1", "test", max_consecutive_errors=max_errors)
+    await auto_pass_loop(session, "test", max_consecutive_errors=max_errors)
     # Should NOT write to the error log file
     error_log = tmp_path / "player1_errors.log"
     assert not error_log.exists()

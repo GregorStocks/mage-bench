@@ -68,7 +68,7 @@ class _FakeSpectator:
         pass
 
 
-@pytest.fixture()
+@pytest.fixture
 def stubbed_golden(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Path:
     monkeypatch.setattr(golden_helpers, "_send_spectator_command", lambda *_args, **_kwargs: "test-table")
     monkeypatch.setattr(golden_helpers, "_run_pilot_on_bridge", lambda *_args, **_kwargs: [{"role": "assistant"}])

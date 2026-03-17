@@ -55,7 +55,9 @@ def test_config_load_players_from_json():
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
         (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "You are a test player."}))
         (tmpdir_path / "personalities.json").write_text("{}")
-        (tmpdir_path / "models.json").write_text('{"models": []}')
+        (tmpdir_path / "models.json").write_text(
+            json.dumps({"models": [{"id": "test/model", "name": "Test Model", "name_part": "TModel"}]})
+        )
 
         config_path = tmpdir_path / "config.json"
         config_path.write_text(json.dumps(config_data))
@@ -97,7 +99,9 @@ def test_config_rejects_base_url_field():
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
         (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "You are a test player."}))
         (tmpdir_path / "personalities.json").write_text("{}")
-        (tmpdir_path / "models.json").write_text('{"models": []}')
+        (tmpdir_path / "models.json").write_text(
+            json.dumps({"models": [{"id": "test/model", "name": "Test Model", "name_part": "TModel"}]})
+        )
 
         config_path = tmpdir_path / "config.json"
         config_path.write_text(json.dumps(config_data))
@@ -128,7 +132,9 @@ def test_get_players_config_json_roundtrip():
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
         (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Test prompt."}))
         (tmpdir_path / "personalities.json").write_text("{}")
-        (tmpdir_path / "models.json").write_text('{"models": []}')
+        (tmpdir_path / "models.json").write_text(
+            json.dumps({"models": [{"id": "test/model", "name": "Test Model", "name_part": "TModel"}]})
+        )
 
         config_data = {
             "players": [
@@ -589,11 +595,16 @@ def test_generate_player_name():
     assert name == "ModA Hero"
 
 
-def test_generate_player_name_fallback():
-    """Unknown model/personality should use fallback name_parts."""
-    name = _generate_player_name("unknown/model", "unknown", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
-    # Falls back to last part of model ID and personality key
-    assert name == "model unknown"
+def test_generate_player_name_requires_known_model():
+    """Unknown model IDs should fail fast."""
+    with pytest.raises(AssertionError, match="Unknown model"):
+        _generate_player_name("unknown/model", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
+
+
+def test_generate_player_name_requires_known_personality():
+    """Unknown personalities should fail fast."""
+    with pytest.raises(AssertionError, match="Unknown personality"):
+        _generate_player_name("test/model-a", "unknown", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
 
 
 def test_resolve_randoms_picks_personality_and_preset():
@@ -671,6 +682,21 @@ def test_resolve_randoms_non_random_untouched():
     assert player.preset == "preset-a"
     assert player.model == "test/model-a"
     assert player.name == "ModA Hero"  # Generated from model + personality
+
+
+def test_resolve_randoms_requires_known_model() -> None:
+    """Resolved players should fail fast if their model is absent from models.json."""
+    player = PilotPlayer(name="player-0", personality="hero", preset="preset-a")
+    players = [(player, False)]
+
+    with pytest.raises(AssertionError, match="Unknown model"):
+        _resolve_randoms(
+            players,
+            SAMPLE_PERSONALITIES_WITH_PARTS,
+            SAMPLE_PRESETS_WITH_POOL,
+            SAMPLE_PROMPTS,
+            {"models": []},
+        )
 
 
 def test_resolve_randoms_cross_game_dedup():
@@ -971,7 +997,9 @@ def test_tools_loaded_from_config_json():
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
         (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Test."}))
         (tmpdir_path / "personalities.json").write_text("{}")
-        (tmpdir_path / "models.json").write_text('{"models": []}')
+        (tmpdir_path / "models.json").write_text(
+            json.dumps({"models": [{"id": "test/m", "name": "Test Model", "name_part": "TModel"}]})
+        )
         (tmpdir_path / "toolsets.json").write_text("{}")
 
         config_path = tmpdir_path / "config.json"
@@ -999,7 +1027,9 @@ def test_tools_none_when_not_specified():
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
         (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Test."}))
         (tmpdir_path / "personalities.json").write_text("{}")
-        (tmpdir_path / "models.json").write_text('{"models": []}')
+        (tmpdir_path / "models.json").write_text(
+            json.dumps({"models": [{"id": "test/m", "name": "Test Model", "name_part": "TModel"}]})
+        )
         (tmpdir_path / "toolsets.json").write_text("{}")
 
         config_path = tmpdir_path / "config.json"

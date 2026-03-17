@@ -235,16 +235,16 @@ class TestReverseMapAnnotations:
         }
 
     def test_direct_mapping(self) -> None:
-        snapshots = self._make_snapshots(10)
+
         decisions = [
             self._make_decision(0, 2, "Alice", "2026-01-01T00:00:05.000"),
         ]
         annotations = [{"decisionIndex": 0, "player": "Alice"}]
-        mapping = reverse_map_annotations(annotations, decisions, snapshots)
+        mapping = reverse_map_annotations(annotations, decisions)
         assert mapping == {0: 0}
 
     def test_multiple_annotations(self) -> None:
-        snapshots = self._make_snapshots(10)
+
         decisions = [
             self._make_decision(0, 1, "Alice", "2026-01-01T00:00:03.000"),
             self._make_decision(1, 5, "Alice", "2026-01-01T00:00:07.000"),
@@ -253,24 +253,24 @@ class TestReverseMapAnnotations:
             {"decisionIndex": 0, "player": "Alice"},
             {"decisionIndex": 1, "player": "Alice"},
         ]
-        mapping = reverse_map_annotations(annotations, decisions, snapshots)
+        mapping = reverse_map_annotations(annotations, decisions)
         assert mapping == {0: 0, 1: 1}
 
     def test_player_mismatch_raises(self) -> None:
-        snapshots = self._make_snapshots(10)
+
         decisions = [
             self._make_decision(0, 2, "Alice"),
         ]
         annotations = [{"decisionIndex": 0, "player": "Bob"}]
         with pytest.raises(AssertionError, match="does not match"):
-            reverse_map_annotations(annotations, decisions, snapshots)
+            reverse_map_annotations(annotations, decisions)
 
     def test_missing_decision_index_raises(self) -> None:
-        snapshots = self._make_snapshots(10)
+
         decisions = [self._make_decision(0, 0, "Alice")]
         annotations = [{"player": "Alice"}]
         with pytest.raises(AssertionError, match="missing decisionIndex"):
-            reverse_map_annotations(annotations, decisions, snapshots)
+            reverse_map_annotations(annotations, decisions)
 
 
 # --- chosen_display ---
@@ -361,7 +361,7 @@ class TestLookupAnnotationForDecision:
         return [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(n)]
 
     def test_exact_match(self) -> None:
-        snapshots = self._make_snapshots(10)
+
         decision = {
             "decision_index": 0,
             "snapshot_index": 2,
@@ -371,12 +371,12 @@ class TestLookupAnnotationForDecision:
         annotations = [
             {"decisionIndex": 0, "player": "Alice", "severity": "minor", "description": "bad play"},
         ]
-        result = lookup_annotation_for_decision(decision, annotations, snapshots)
+        result = lookup_annotation_for_decision(decision, annotations)
         assert result is not None
         assert result["severity"] == "minor"
 
     def test_no_match_wrong_decision(self) -> None:
-        snapshots = self._make_snapshots(10)
+
         decision = {
             "decision_index": 0,
             "snapshot_index": 2,
@@ -386,11 +386,11 @@ class TestLookupAnnotationForDecision:
         annotations = [
             {"decisionIndex": 1, "player": "Bob", "severity": "minor"},
         ]
-        result = lookup_annotation_for_decision(decision, annotations, snapshots)
+        result = lookup_annotation_for_decision(decision, annotations)
         assert result is None
 
     def test_no_match_different_index(self) -> None:
-        snapshots = self._make_snapshots(10)
+
         decision = {
             "decision_index": 0,
             "snapshot_index": 2,
@@ -400,22 +400,22 @@ class TestLookupAnnotationForDecision:
         annotations = [
             {"decisionIndex": 3, "player": "Alice", "severity": "minor"},
         ]
-        result = lookup_annotation_for_decision(decision, annotations, snapshots)
+        result = lookup_annotation_for_decision(decision, annotations)
         assert result is None
 
     def test_empty_annotations(self) -> None:
-        snapshots = self._make_snapshots(5)
+
         decision = {
             "decision_index": 0,
             "snapshot_index": 0,
             "action_ts": "",
             "player": "Alice",
         }
-        result = lookup_annotation_for_decision(decision, [], snapshots)
+        result = lookup_annotation_for_decision(decision, [])
         assert result is None
 
     def test_matches_decision_index_even_if_snapshot_index_differs(self) -> None:
-        snapshots = self._make_snapshots(10)
+
         decision = {
             "decision_index": 1,
             "snapshot_index": 2,
@@ -430,7 +430,7 @@ class TestLookupAnnotationForDecision:
                 "severity": "minor",
             },
         ]
-        result = lookup_annotation_for_decision(decision, annotations, snapshots)
+        result = lookup_annotation_for_decision(decision, annotations)
         assert result is not None
         assert result["decisionIndex"] == 1
 
@@ -514,7 +514,7 @@ class TestBaselineDerivation:
 
     def test_detected_play(self) -> None:
         """An annotation matching the decision index = detected."""
-        snapshots = [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
+        [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
         decision = {
             "decision_index": 0,
             "snapshot_index": 2,
@@ -523,12 +523,12 @@ class TestBaselineDerivation:
         }
 
         annotations = [{"decisionIndex": 0, "player": "Alice", "severity": "moderate", "description": "bad"}]
-        match = lookup_annotation_for_decision(decision, annotations, snapshots)
+        match = lookup_annotation_for_decision(decision, annotations)
         assert match is not None
 
     def test_undetected_play(self) -> None:
         """No annotation with matching decision index = not detected."""
-        snapshots = [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
+        [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
         decision = {
             "decision_index": 1,
             "snapshot_index": 3,
@@ -537,7 +537,7 @@ class TestBaselineDerivation:
         }
 
         annotations = [{"decisionIndex": 0, "player": "Alice", "severity": "moderate", "description": "bad"}]
-        match = lookup_annotation_for_decision(decision, annotations, snapshots)
+        match = lookup_annotation_for_decision(decision, annotations)
         assert match is None
 
 

@@ -7,12 +7,14 @@ import os
 import re
 import sys
 import time
+from collections.abc import Sequence
 from contextlib import ExitStack
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Protocol
 
 from mcp import ClientSession
+from mcp.types import Tool
 from openai import AsyncOpenAI, OpenAIError
 
 from puppeteer.auto_pass import auto_pass_loop
@@ -42,7 +44,7 @@ DEFAULT_MODEL = "google/gemini-2.0-flash-001"
 PERMANENT_FAILURE_EXIT_CODE = 3
 
 
-class PermanentLLMFailure(Exception):
+class PermanentLLMError(Exception):
     """Raised when the LLM is permanently unreachable (model not found, credits exhausted)."""
 
 
@@ -66,12 +68,6 @@ CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
 TOOL_SUMMARY_TRIGGER_CHARS = 200  # tool messages longer than this enter the summary path
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
-
-
-class _McpToolLike(Protocol):
-    name: str
-    description: str | None
-    inputSchema: dict | None
 
 
 class _ToolFunctionLike(Protocol):
@@ -415,11 +411,13 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
         if msg.get("role") == "assistant":
             for tc in msg.get("tool_calls", []):
                 if tc.get("id") == tool_call_id:
-                    function = tc.get("function", {})
-                    if isinstance(function, dict):
-                        name = function.get("name")
-                        if isinstance(name, str):
-                            return name
+                    function = tc.get("function")
+                    assert isinstance(function, dict), (
+                        f"assistant tool call {tool_call_id!r} missing function payload: {tc!r}"
+                    )
+                    name = function.get("name")
+                    assert isinstance(name, str), f"assistant tool call {tool_call_id!r} missing function name: {tc!r}"
+                    return name
             break
     return ""
 
@@ -611,7 +609,7 @@ def _load_default_system_prompt() -> str:
     return prompts["default"]
 
 
-def mcp_tools_to_openai(mcp_tools: list[_McpToolLike], allowed_tools: set[str] | None = None) -> list[dict]:
+def mcp_tools_to_openai(mcp_tools: Sequence[Tool], allowed_tools: set[str] | None = None) -> list[dict]:
     """Convert MCP tool definitions to OpenAI function calling format.
 
     Args:
@@ -860,6 +858,7 @@ async def _process_tool_calls(
     state.last_was_empty = False
     state.history.append(_build_assistant_tool_message(choice.message))
 
+    assert choice.message.tool_calls is not None, "expected tool_calls in LLM response"
     for tool_call in choice.message.tool_calls:
         fn = tool_call.function
         args = json.loads(fn.arguments) if fn.arguments else {}
@@ -987,13 +986,13 @@ async def _process_tool_calls(
                 logger.info("[pilot] Game over detected from %s, switching to auto-pass", fn.name)
                 if game_log:
                     game_log.emit("auto_pilot_mode", reason="game_over")
-                await auto_pass_loop(session, game_dir, username, "pilot")
+                await auto_pass_loop(session, "pilot")
                 return True, turn_state.tools_called
             if result_data.get("player_dead"):
                 logger.info("[pilot] Player dead detected from %s, switching to auto-pass", fn.name)
                 if game_log:
                     game_log.emit("auto_pilot_mode", reason="player_dead")
-                await auto_pass_loop(session, game_dir, username, "pilot")
+                await auto_pass_loop(session, "pilot")
                 return True, turn_state.tools_called
 
         display_text = result_text
@@ -1183,19 +1182,19 @@ async def run_pilot_loop(
             logger.warning("[pilot] Maximum game duration exceeded, switching to auto-pass")
             if game_log:
                 game_log.emit("auto_pilot_mode", reason="max_duration_exceeded")
-            await auto_pass_loop(session, game_dir, username, "pilot")
+            await auto_pass_loop(session, "pilot")
             return
         try:
             messages = await _build_loop_messages(state, session, system_prompt, cache_control)
             _mark_tail_cache_breakpoint(messages, state, cache_control)
 
-            create_kwargs: dict = dict(
-                model=model,
-                messages=messages,
-                tools=tools,
-                tool_choice="auto",
-                max_tokens=MAX_TOKENS,
-            )
+            create_kwargs: dict = {
+                "model": model,
+                "messages": messages,
+                "tools": tools,
+                "tool_choice": "auto",
+                "max_tokens": MAX_TOKENS,
+            }
             extra_body: dict = {}
             if reasoning_effort:
                 extra_body["reasoning"] = {"effort": reasoning_effort}
@@ -1234,7 +1233,7 @@ async def run_pilot_loop(
                         )
                     except ToolExecutionError:
                         pass
-                    await auto_pass_loop(session, game_dir, username, "pilot")
+                    await auto_pass_loop(session, "pilot")
                     return
                 continue
             state.consecutive_empty_choices = 0
@@ -1347,7 +1346,7 @@ async def run_pilot_loop(
                             )
                         except ToolExecutionError:
                             pass
-                        await auto_pass_loop(session, game_dir, username, "pilot")
+                        await auto_pass_loop(session, "pilot")
                         return
                 state.history.append(
                     {
@@ -1393,7 +1392,7 @@ async def run_pilot_loop(
                     )
                 except ToolExecutionError:
                     pass
-                raise PermanentLLMFailure(reason) from None
+                raise PermanentLLMError(reason) from None
 
             # Transient error - keep actions flowing while waiting to retry
             try:
@@ -1632,7 +1631,7 @@ def main() -> int:
         )
     except KeyboardInterrupt:
         pass
-    except PermanentLLMFailure as e:
+    except PermanentLLMError as e:
         logger.error("[pilot] Permanent LLM failure: %s", e)
         return PERMANENT_FAILURE_EXIT_CODE
 

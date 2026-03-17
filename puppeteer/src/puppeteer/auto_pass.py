@@ -8,7 +8,6 @@ duplicate it.
 
 import asyncio
 import json
-from pathlib import Path
 
 from mcp import ClientSession, McpError
 
@@ -31,8 +30,6 @@ async def _execute_tool(session: ClientSession, name: str, arguments: dict) -> s
 
 async def auto_pass_loop(
     session: ClientSession,
-    game_dir: Path | None,
-    username: str,
     label: str,
     max_iterations: int = MAX_AUTO_PASS_ITERATIONS,
     max_consecutive_errors: int = MAX_CONSECUTIVE_ERRORS,
