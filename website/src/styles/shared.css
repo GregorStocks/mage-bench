@@ -46,3 +46,79 @@
   letter-spacing: 0.05em;
   margin-bottom: 0.75rem;
 }
+
+/* Long-form page shells */
+.page-shell {
+  margin: 0 auto;
+}
+
+.page-shell--article {
+  max-width: 40rem;
+}
+
+.page-shell--docs {
+  max-width: 42rem;
+}
+
+.page-kicker {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 0.7rem;
+}
+
+.page-title {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.35rem;
+}
+
+.page-intro {
+  font-family: var(--font-prose);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.page-section-title {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.page-section-title--ruled {
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-default);
+}
+
+.page-subsection-title {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}

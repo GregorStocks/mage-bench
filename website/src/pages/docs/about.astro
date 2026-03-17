@@ -6,51 +6,51 @@ import '../../styles/shared.css';
 ---
 
 <Base title="About the Project">
-<div class="about-page">
-  <p class="eyebrow">Docs</p>
-  <h1>About the Project</h1>
-  <p class="page-intro">
-    mage-bench is a benchmark and observability stack for large language models
-    playing real games of Magic: The Gathering inside a full XMage rules engine.
-  </p>
+  <div class="page-shell page-shell--docs">
+    <p class="page-kicker">Docs</p>
+    <h1 class="page-title about-title">About the Project</h1>
+    <p class="page-intro">
+      mage-bench is a benchmark and observability stack for large language models
+      playing real games of Magic: The Gathering inside a full XMage rules engine.
+    </p>
 
-  <section class="section">
-    <h2>Why Magic?</h2>
-    <div class="prose">
-      <p>
-        It's hard to benchmark LLM reasoning. Chat benchmarks reward sycophancy
-        over intelligence. Coding benchmarks are heavily gamed and largely
-        saturated - the things that are hard are the things that we don't have
-        good ways to measure. I propose that deep, competitive strategy games
-        are the answer. They're competitive, so it's harder for the benchmark
-         to be saturated - what's important is that you're smarter than your
-         opponent, up to the skill ceiling of the game.
-      </p>
-      <p>
-        I chose Magic: The Gathering. It's incredibly complex, with 30+ years
-        of cards printed, <Card name="Questing Beast">some</Card> <Card
-        name="Dead Ringers">of</Card> <Card name="Urza's Saga">them</Card>
-        <Card name="Indicate">extremely</Card> <Card name="Chains of Mephistopheles">
-        complicated</Card>. It's well-known and
-        widely-beloved. And I own a bunch of cards that I want LLMs to bid up
-        the prices of.
-      </p>
-      <p>
-        As of today, even frontier models play pretty bad Magic. This is okay.
-        The goal of mage-bench is not to produce the best possible Magic bot.
-        It's to provide a level playing field where LLMs can show off how much
-        smarter they are than each other. 
-      </p>
-      <p>
-        My current philosophy is that I do NOT provide strategy advice to the
-        LLMs in their prompts - they need to figure out for themselves that
-        playing lands is wise, or that they should block that 20/20.
-     </p>
-    </div>
+    <section class="section">
+      <h2 class="page-section-title about-section-title">Why Magic?</h2>
+      <div class="prose">
+        <p>
+          It's hard to benchmark LLM reasoning. Chat benchmarks reward sycophancy
+          over intelligence. Coding benchmarks are heavily gamed and largely
+          saturated - the things that are hard are the things that we don't have
+          good ways to measure. I propose that deep, competitive strategy games
+          are the answer. They're competitive, so it's harder for the benchmark
+          to be saturated - what's important is that you're smarter than your
+          opponent, up to the skill ceiling of the game.
+        </p>
+        <p>
+          I chose Magic: The Gathering. It's incredibly complex, with 30+ years
+          of cards printed, <Card name="Questing Beast">some</Card> <Card
+          name="Dead Ringers">of</Card> <Card name="Urza's Saga">them</Card>
+          <Card name="Indicate">extremely</Card> <Card name="Chains of Mephistopheles">
+          complicated</Card>. It's well-known and
+          widely-beloved. And I own a bunch of cards that I want LLMs to bid up
+          the prices of.
+        </p>
+        <p>
+          As of today, even frontier models play pretty bad Magic. This is okay.
+          The goal of mage-bench is not to produce the best possible Magic bot.
+          It's to provide a level playing field where LLMs can show off how much
+          smarter they are than each other.
+        </p>
+        <p>
+          My current philosophy is that I do NOT provide strategy advice to the
+          LLMs in their prompts - they need to figure out for themselves that
+          playing lands is wise, or that they should block that 20/20.
+        </p>
+      </div>
     </section>
 
     <section class="section">
-      <h2>What mage-bench is</h2>
+      <h2 class="page-section-title about-section-title">What mage-bench is</h2>
       <div class="prose">
         <p>
           The project is a fork of <a href="https://github.com/magefree/mage">XMage</a>
@@ -68,7 +68,7 @@ import '../../styles/shared.css';
     </section>
 
     <section class="section">
-      <h2>What the project measures</h2>
+      <h2 class="page-section-title about-section-title">What the project measures</h2>
       <div class="prose">
         <p>
           mage-bench tracks match results across multiple formats, computes per-format
@@ -88,78 +88,20 @@ import '../../styles/shared.css';
 </Base>
 
 <style>
-  .about-page {
-    max-width: 42rem;
-    margin: 0 auto;
-  }
-
-  .eyebrow {
-    font-family: var(--font-heading);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-primary);
-    margin-bottom: 0.7rem;
-  }
-
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
+  .about-title {
     font-size: 2.3rem;
-    font-weight: 800;
     letter-spacing: -0.03em;
     margin-bottom: 0.5rem;
   }
 
   .page-intro {
-    font-family: var(--font-prose);
-    color: var(--text-primary);
     font-size: 1.18rem;
     line-height: 1.75;
     margin-bottom: 2.25rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-default);
   }
 
-  h2 {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
+  .about-section-title {
     font-size: 1.45rem;
-    font-weight: 700;
     letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-
-  h3 {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.65rem;
-  }
-
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .feature-card {
-    padding: 1.15rem;
-    background: linear-gradient(180deg, rgba(var(--accent-primary-rgb), 0.07), rgba(255, 255, 255, 0) 28%), var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 10px;
-  }
-
-  .feature-card p {
-    color: var(--text-secondary);
-    line-height: 1.65;
-  }
-
-  @media (max-width: 760px) {
-    .feature-grid {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

@@ -3,13 +3,14 @@ import Base from '../../layouts/Base.astro';
 import GameListView from '../../components/GameListView.astro';
 import { loadAllGames } from '../../utils/load-games';
 import { loadBenchmarkResults } from '../../utils/season-data';
+import '../../styles/shared.css';
 const minBlunderVersion = loadBenchmarkResults().minBlunderVersion;
 
 const games = loadAllGames().filter(g => !g.tournament);
 ---
 
 <Base title="Games">
-  <h1>Games</h1>
+  <h1 class="page-title games-title">Games</h1>
   <p class="subtitle">Replay past mage-bench games.</p>
   <GameListView
     games={games}
@@ -20,10 +21,7 @@ const games = loadAllGames().filter(g => !g.tournament);
 </Base>
 
 <style>
-  h1 {
-    font-family: var(--font-heading);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+  .games-title {
     color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }

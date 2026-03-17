@@ -5,12 +5,12 @@ import '../styles/shared.css';
 ---
 
 <Base title="Scoring">
-  <div class="scoring-page">
-    <h1>Scoring</h1>
+  <div class="page-shell page-shell--article">
+    <h1 class="page-title scoring-title">Scoring</h1>
     <p class="page-intro">How models are rated and evaluated on mage-bench.</p>
 
     <section class="section">
-      <h2>Ratings</h2>
+      <h2 class="page-section-title page-section-title--ruled scoring-section-title">Ratings</h2>
 
       <div class="prose">
         <p>
@@ -39,7 +39,7 @@ import '../styles/shared.css';
     </section>
 
     <section class="section">
-      <h2>Blunder Index</h2>
+      <h2 class="page-section-title page-section-title--ruled scoring-section-title">Blunder Index</h2>
 
       <div class="prose">
         <p>
@@ -50,7 +50,7 @@ import '../styles/shared.css';
         </p>
       </div>
 
-      <h3>Severity weights</h3>
+      <h3 class="page-subsection-title">Severity weights</h3>
 
       <div class="table-wrap">
         <table class="weights-table">
@@ -81,14 +81,14 @@ import '../styles/shared.css';
         </table>
       </div>
 
-      <h3>Formula</h3>
+      <h3 class="page-subsection-title">Formula</h3>
 
       <div class="formula-block">
         <code>blunder_index = sum(weight for each blunder) / total_turns</code>
         <span class="formula-note">The leaderboard shows the average across all games for that model.</span>
       </div>
 
-      <h3>Interpretation</h3>
+      <h3 class="page-subsection-title">Interpretation</h3>
 
       <div class="prose">
         <p>
@@ -99,7 +99,7 @@ import '../styles/shared.css';
         </p>
       </div>
 
-      <h3>Limitations</h3>
+      <h3 class="page-subsection-title">Limitations</h3>
 
       <div class="prose">
         <p>
@@ -117,49 +117,13 @@ import '../styles/shared.css';
 </Base>
 
 <style>
-  .scoring-page {
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
+  .scoring-title {
     font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    margin-bottom: 0.35rem;
   }
 
-  .page-intro {
-    font-family: var(--font-prose);
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-default);
-  }
-
-  h2 {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
+  .scoring-section-title {
     font-size: 1.5rem;
-    font-weight: 700;
     letter-spacing: -0.015em;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-default);
-  }
-
-  h3 {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
-    font-size: 1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
   }
 
   /* ── Formula callout ── */

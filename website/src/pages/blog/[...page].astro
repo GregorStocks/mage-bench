@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Pagination from '../../components/Pagination.astro';
 import { getSortedPosts } from '../../utils/blog';
+import '../../styles/shared.css';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = getSortedPosts(await getCollection('blog'));
@@ -23,7 +24,7 @@ function formatDate(date: Date): string {
 ---
 
 <Base title="Blog">
-  <h1>Blog</h1>
+  <h1 class="page-title blog-index-title">Blog</h1>
   <p class="subtitle">Project updates and technical deep-dives.</p>
 
   <div class="post-list">
@@ -49,13 +50,8 @@ function formatDate(date: Date): string {
 </Base>
 
 <style>
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
+  .blog-index-title {
     font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    margin-bottom: 0.35rem;
   }
 
   .subtitle {

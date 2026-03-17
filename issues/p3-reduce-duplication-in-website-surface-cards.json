@@ -1,0 +1,10 @@
+{
+  "title": "Reduce duplication in website surface card styles",
+  "description": "The website still has repeated border, radius, hover, and inset-accent surface treatments spread across `website/src/styles/game-list.css`, `website/src/styles/game-viewer.css`, `website/src/pages/season/[season]/results.astro`, and related components. Survey those card-like surfaces, rank the repeated patterns, and consolidate the highest-value one into a shared CSS primitive instead of copy-pasting variants.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "css"],
+  "created_at": "2026-03-17T08:05:51-07:00",
+  "updated_at": "2026-03-17T08:05:51-07:00"
+}

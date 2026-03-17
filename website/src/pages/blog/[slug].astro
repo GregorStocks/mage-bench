@@ -4,6 +4,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getSortedPosts } from '../../utils/blog';
 import '../../styles/prose.css';
+import '../../styles/shared.css';
 
 export async function getStaticPaths() {
   const posts = getSortedPosts(await getCollection('blog'));
@@ -26,11 +27,11 @@ function formatDate(date: Date): string {
 ---
 
 <Base title={post.data.title}>
-  <article class="blog-post">
+  <article class="page-shell page-shell--article">
     <header>
-      <a href="/blog" class="back-link">&larr; All posts</a>
-      <h1>{post.data.title}</h1>
-      <div class="meta">
+      <a href="/blog" class="back-link blog-back-link">&larr; All posts</a>
+      <h1 class="page-title blog-post-title">{post.data.title}</h1>
+      <div class="page-meta">
         <time datetime={post.data.pubDate.toISOString()}>
           {formatDate(post.data.pubDate)}
         </time>
@@ -49,49 +50,19 @@ function formatDate(date: Date): string {
 </Base>
 
 <style>
-  .blog-post {
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  .back-link {
+  .blog-back-link {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.85rem;
     font-family: var(--font-body);
     margin-bottom: 2.5rem;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    transition: color 0.2s;
   }
 
-  .back-link:hover {
-    color: var(--text-primary);
-  }
-
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
+  .blog-post-title {
     font-size: 2.4rem;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.025em;
     margin-bottom: 1rem;
-  }
-
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    font-family: var(--font-body);
-    color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid var(--border-default);
   }
 
   .updated {
@@ -110,7 +81,7 @@ function formatDate(date: Date): string {
   }
 
   @media (max-width: 600px) {
-    h1 {
+    .blog-post-title {
       font-size: 1.75rem;
     }
 

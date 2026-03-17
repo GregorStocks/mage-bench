@@ -1,0 +1,10 @@
+{
+  "title": "Reduce duplication in website season page shells",
+  "description": "The season detail pages under `website/src/pages/season/[season]/` still repeat the same centered shell, metadata header, bordered stat bar, and list-row surface patterns across `player/[seed].astro`, `match/[matchId].astro`, and nearby pages. Survey those files, rank the overlap, and extract the highest-leverage shared season-detail primitives into shared CSS with explicit names.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "css"],
+  "created_at": "2026-03-17T08:05:51-07:00",
+  "updated_at": "2026-03-17T08:05:51-07:00"
+}
