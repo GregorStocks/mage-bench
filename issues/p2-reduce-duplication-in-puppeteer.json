@@ -1,0 +1,10 @@
+{
+  "title": "Reduce duplication in puppeteer",
+  "description": "Survey `puppeteer/` for the highest-leverage duplication, rank the main hotspots, and remove the biggest one. Focus on duplicated logic rather than style-only repetition. The goal is to end with a single clear source of truth for the chosen behavior, keep fail-fast semantics, and update or add tests in `puppeteer/tests/` as needed.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["puppeteer"],
+  "created_at": "2026-03-17T00:39:12.853369-07:00",
+  "updated_at": "2026-03-17T00:39:12.853369-07:00"
+}

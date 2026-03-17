@@ -1,0 +1,10 @@
+{
+  "title": "Reduce duplication in scripts",
+  "description": "Survey `scripts/` for the highest-leverage duplication, rank the main hotspots, and remove the biggest one. Prefer consolidating repeated CLI setup, JSON/game loading, analysis pipeline helpers, or shared reporting logic rather than polishing one-off scripts. The chosen refactor should leave a clear reusable path for the duplicated behavior.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["scripts"],
+  "created_at": "2026-03-17T00:39:12.853369-07:00",
+  "updated_at": "2026-03-17T00:39:12.853369-07:00"
+}

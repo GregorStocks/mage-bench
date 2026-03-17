@@ -1,0 +1,10 @@
+{
+  "title": "Reduce duplication in website non-CSS code",
+  "description": "Survey website code outside CSS, especially `website/src/components/`, `website/src/pages/`, `website/src/scripts/`, and `website/src/utils/`, for the highest-leverage duplication. Rank the main hotspots and remove the biggest one, prioritizing repeated page/data-loading/view-model logic over presentation-only cleanup.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["website"],
+  "created_at": "2026-03-17T00:39:12.853369-07:00",
+  "updated_at": "2026-03-17T00:39:12.853369-07:00"
+}
