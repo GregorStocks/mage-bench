@@ -1800,7 +1800,16 @@ public class BridgeCallbackHandler {
             logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
                 + " interactions this turn), auto-handling " + action.method().name());
             // Not a critical error — LLM is stuck in a loop, not a code bug
-            executeDefaultAction();
+            try {
+                executeDefaultAction();
+            } catch (ResponseDeliveryException e) {
+                result.success = false;
+                result.error = e.getMessage();
+                result.error_code = "response_delivery_failed";
+                result.retryable = false;
+                attachUnseenChat(result);
+                return result;
+            }
             result.success = true;
             result.action_taken = "auto_passed_loop_detected";
             result.warning = "Too many interactions this turn (" + interactionsThisTurn + "). Auto-passing until next turn.";
