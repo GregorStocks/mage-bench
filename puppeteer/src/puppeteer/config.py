@@ -221,7 +221,7 @@ def _validate_name_parts(personalities: dict[str, dict], presets_data: dict, mod
     if not pool:
         return
     presets = presets_data["presets"]
-    models_by_id = {m["id"]: m for m in models_data.get("models", [])}
+    models_by_id = {m["id"]: m for m in models_data["models"]}
     errors: list[str] = []
     for preset_key in pool:
         preset = presets.get(preset_key)
@@ -256,7 +256,7 @@ def _generate_player_name(
     personalities: dict[str, dict],
 ) -> str:
     """Generate a player name from model name_part + personality name_part."""
-    models_by_id = {m["id"]: m for m in models_data.get("models", [])}
+    models_by_id = {m["id"]: m for m in models_data["models"]}
     model = models_by_id.get(model_id)
     assert model is not None, f"Unknown model for generated player name: {model_id!r}"
     assert "name_part" in model, f"Model {model_id!r} missing name_part"
@@ -340,7 +340,7 @@ def _resolve_randoms(
 
         # Apply model-level settings from models.json
         if player.model:
-            models_by_id = {m["id"]: m for m in models_data.get("models", [])}
+            models_by_id = {m["id"]: m for m in models_data["models"]}
             model_entry = models_by_id.get(player.model)
             assert model_entry is not None, f"Unknown model: {player.model!r}"
             if player.ignore_providers is None and "ignore_providers" in model_entry:
@@ -468,12 +468,12 @@ def load_deck_registry(project_root: Path, format_dir: str) -> list[DeckEntry]:
         data = json.loads(json_file.read_text())
         assert "name" in data, f"Deck file {json_file} missing 'name' field"
         assert "cards" in data or "variants" in data, f"Deck file {json_file} missing 'cards' or 'variants' field"
-        cards = data.get("cards", [])
+        cards = data.get("cards")
         entries.append(
             DeckEntry(
                 name=data["name"],
                 strategy=data.get("strategy", ""),
-                cards=cards,
+                cards=cards if cards is not None else [],
             )
         )
     assert entries, f"No deck files found in {registry_dir}"
@@ -655,7 +655,7 @@ class Config:
             # First pass: construct player objects, collecting LLM players for random resolution
             llm_players: list[tuple[PilotPlayer, bool]] = []
 
-            for i, player in enumerate(data.get("players", [])):
+            for i, player in enumerate(data["players"]):
                 player_type = player.get("type", "")
                 has_explicit_name = "name" in player
                 name = player.get("name", f"player-{i}")

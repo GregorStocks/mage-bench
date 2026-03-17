@@ -111,8 +111,9 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
         return True
     # "Choose spell or ability to play" where ALL choices are mana abilities
     if msg.startswith(("Choose spell or ability", "Choose ability")):
-        choices = d.get("choices", [])
-        assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
+        choices = d.get("choices")
+        if choices is not None:
+            assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
         if choices and all(
             isinstance(c, dict)
             and "Add {" in (c.get("name", "") + c.get("description", ""))
@@ -124,7 +125,11 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
 
 def subsequent_actions(d: Mapping[str, object]) -> list[str]:
     """Get subsequent actions from either format."""
-    actions = d.get("subsequentActions", d.get("subsequent_actions", []))
+    actions = d.get("subsequentActions")
+    if actions is None:
+        actions = d.get("subsequent_actions")
+    if actions is None:
+        return []
     assert isinstance(actions, list), (
         f"subsequentActions must be a list, got {actions!r}"
     )
@@ -424,8 +429,11 @@ def lookup_annotation_for_decision(
 def chosen_display(decision: Mapping[str, object]) -> str:
     """Human-readable name of what was chosen in a decision."""
     chosen = decision.get("chosen")
-    choices = decision.get("choices", [])
-    assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
+    choices = decision.get("choices")
+    if choices is not None:
+        assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
+    else:
+        choices = []
     if isinstance(chosen, bool):
         return str(chosen)
     if isinstance(chosen, int) and 0 <= chosen < len(choices):

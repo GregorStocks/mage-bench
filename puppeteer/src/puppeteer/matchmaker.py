@@ -81,7 +81,7 @@ def _load_model_names(models_path: Path) -> dict[str, str]:
     """Load model_id -> display name mapping."""
     data = json.loads(models_path.read_text())
     assert isinstance(data, dict), f"{models_path}: expected JSON object"
-    models = data.get("models", [])
+    models = data["models"]
     assert isinstance(models, list), f"{models_path}: models must be a list"
     names: dict[str, str] = {}
     for index, model in enumerate(models):
@@ -146,7 +146,7 @@ def _build_matchup_matrix(
     game_counts: dict[str, int] = defaultdict(int)
 
     for game in games:
-        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
+        pilots = [p for p in game["players"] if p.get("type") == "pilot" and p.get("model")]
         preset_names = []
         for p in pilots:
             key = _player_key_from_dict(p)
@@ -297,7 +297,7 @@ def pick_round_robin_format(
         dt = game.get("deckType", "")
         if dt not in candidate_set:
             continue
-        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
+        pilots = [p for p in game["players"] if p.get("type") == "pilot" and p.get("model")]
         for p in pilots:
             key = _player_key_from_dict(p)
             if key in key_to_preset:

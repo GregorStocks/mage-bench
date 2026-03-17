@@ -84,9 +84,16 @@ def _fetch_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     with urllib.request.urlopen(req) as resp:
         data = json.loads(resp.read())
     assert isinstance(data, dict), "Scryfall collection returned non-object payload"
-    return _dict_list(
-        data.get("data", []), context="Scryfall collection data"
-    ), _dict_list(data.get("not_found", []), context="Scryfall collection not_found")
+    found_data = data.get("data")
+    not_found_data = data.get("not_found")
+    return (
+        _dict_list(found_data, context="Scryfall collection data")
+        if found_data is not None
+        else [],
+        _dict_list(not_found_data, context="Scryfall collection not_found")
+        if not_found_data is not None
+        else [],
+    )
 
 
 def collection(names: list[str]) -> tuple[list[dict], list[dict]]:
@@ -197,8 +204,11 @@ def search_token(token_name: str) -> str | None:
         assert isinstance(data, dict), (
             f"Scryfall token search for {token_name!r} returned non-object payload"
         )
-        cards = _dict_list(
-            data.get("data", []), context=f"Scryfall token search for {token_name!r}"
+        token_data = data.get("data")
+        cards = (
+            _dict_list(token_data, context=f"Scryfall token search for {token_name!r}")
+            if token_data is not None
+            else []
         )
         if cards:
             image_uris = cards[0].get("image_uris")
@@ -337,6 +347,9 @@ def search(query: str) -> list[dict]:
         assert isinstance(data, dict), (
             f"Scryfall search({query!r}) returned non-object payload"
         )
-        return _dict_list(data.get("data", []), context=f"Scryfall search({query!r})")
+        search_data = data.get("data")
+        if search_data is not None:
+            return _dict_list(search_data, context=f"Scryfall search({query!r})")
+        return []
     except urllib.error.HTTPError:
         return []

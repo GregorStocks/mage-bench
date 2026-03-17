@@ -498,7 +498,9 @@ def parse_viewer_url(url: str) -> tuple[str, int]:
 
     # Extract snapshot from query params
     qs = parse_qs(parsed.query)
-    s_values = qs.get("s", [])
+    s_values = qs.get("s")
+    if s_values is None:
+        s_values = []
     assert s_values, f"URL must have ?s=N parameter: {url}"
     snapshot = int(s_values[0])
 

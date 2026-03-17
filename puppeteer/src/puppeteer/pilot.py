@@ -107,13 +107,16 @@ def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
     oracle_texts: dict[str, dict] = {}
     for player in board:
         for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-            for card in player.get(zone, []):
+            zone_cards = player.get(zone)
+            if zone_cards is None:
+                continue
+            for card in zone_cards:
                 if not isinstance(card, dict):
                     continue
                 name = card.get("name", "")
                 if not name or name in BASIC_LAND_NAMES or name in oracle_texts:
                     continue
-                rules = card.get("rules", [])
+                rules = card.get("rules")
                 if not rules:
                     continue
                 entry: dict[str, str] = {}
@@ -146,7 +149,8 @@ def _build_pilot_snapshot(data: dict, board: list[dict] | None) -> dict:
             }
             if p.get("hand"):
                 player["hand"] = p["hand"]
-            player["hand_count"] = p.get("hand_size", len(p.get("hand", [])))
+            hand = p.get("hand")
+            player["hand_count"] = p.get("hand_size", len(hand) if hand is not None else 0)
             for zone in ("battlefield", "graveyard", "exile", "commanders"):
                 if p.get(zone):
                     player[zone] = p[zone]
@@ -167,6 +171,9 @@ def _build_pilot_decision(data: dict) -> dict:
 
     Extracts the fields that render_decision() reads from a decision.
     """
+    choices = data.get("choices")
+    if choices is None:
+        choices = []
     decision: dict = {
         "index": 0,
         "snapshotIndex": 0,
@@ -176,9 +183,9 @@ def _build_pilot_decision(data: dict) -> dict:
         "actionType": data.get("action_type", ""),
         "responseType": data.get("response_type", ""),
         "message": data.get("message", ""),
-        "choices": data.get("choices", []),
-        "choiceCount": len(data.get("choices", [])),
-        "isForced": len(data.get("choices", [])) <= 1,
+        "choices": choices,
+        "choiceCount": len(choices),
+        "isForced": len(choices) <= 1,
     }
 
     # Parse context string for turn/phase: "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN"
@@ -190,7 +197,7 @@ def _build_pilot_decision(data: dict) -> dict:
             decision["phase"] = m.group(2).split("/")[0].strip().upper().replace(" ", "_")
 
     # Find player name from board
-    board = data.get("board", [])
+    board = data.get("board")
     if isinstance(board, list):
         for p in board:
             if isinstance(p, dict) and p.get("is_you"):
@@ -332,7 +339,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             resp_type = data.get("response_type", "")
             if resp_type:
                 parts.append(resp_type)
-            choices = data.get("choices", [])
+            choices = data.get("choices")
             if choices:
                 names = [c.get("name", c.get("description", "?"))[:30] for c in choices[:3]]
                 parts.append(f"{len(choices)} choices: {', '.join(names)}")
@@ -358,7 +365,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
         resp_type = data.get("response_type", "")
         if resp_type:
             parts.append(resp_type)
-        choices = data.get("choices", [])
+        choices = data.get("choices")
         if choices:
             names = [c.get("name", c.get("description", "?"))[:30] for c in choices[:3]]
             parts.append(f"{len(choices)} choices: {', '.join(names)}")
@@ -373,11 +380,14 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             parts.append(f"T{data['turn']}")
         if "phase" in data:
             parts.append(data["phase"])
-        for p in data.get("players", []):
-            name = p.get("name", "?")
-            life = p.get("life", "?")
-            bf = len(p.get("battlefield", []))
-            parts.append(f"{name}:{life}hp/{bf}perm")
+        players = data.get("players")
+        if players is not None:
+            for p in players:
+                name = p.get("name", "?")
+                life = p.get("life", "?")
+                bf_zone = p.get("battlefield")
+                bf = len(bf_zone) if bf_zone is not None else 0
+                parts.append(f"{name}:{life}hp/{bf}perm")
         return "; ".join(parts) if parts else content
 
     if tool_name == "get_game_log":
@@ -409,7 +419,10 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
     for j in range(tool_result_idx - 1, -1, -1):
         msg = history[j]
         if msg.get("role") == "assistant":
-            for tc in msg.get("tool_calls", []):
+            tool_calls = msg.get("tool_calls")
+            if tool_calls is None:
+                continue
+            for tc in tool_calls:
                 if tc.get("id") == tool_call_id:
                     function = tc.get("function")
                     assert isinstance(function, dict), (
@@ -588,10 +601,11 @@ async def _fetch_state_summary(session: ClientSession) -> str:
         parts.append(f"Turn {state_data['turn']}")
     if "phase" in state_data:
         parts.append(state_data["phase"])
-    for p in state_data.get("players", []):
+    for p in state_data["players"]:
         name = p.get("name", "?")
         life = p.get("life", "?")
-        bf = len(p.get("battlefield", []))
+        bf_zone = p.get("battlefield")
+        bf = len(bf_zone) if bf_zone is not None else 0
         hand = p.get("hand_count", p.get("hand_size", "?"))
         parts.append(f"{name}: {life}hp, {bf} permanents, {hand} cards")
     return "Current game state: " + "; ".join(parts) + ". "
@@ -927,7 +941,7 @@ async def _process_tool_calls(
             choice_result = json.loads(result_text)
             action_type = choice_result.get("action_type", "")
             message = choice_result.get("message", "")
-            choices = choice_result.get("choices", [])
+            choices = choice_result.get("choices")
             if choice_result.get("error"):
                 turn_state.had_actionable_opportunity = True
             elif choices:

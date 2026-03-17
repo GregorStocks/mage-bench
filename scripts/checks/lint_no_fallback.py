@@ -12,9 +12,11 @@ Checked patterns:
   - bare `except:` — catches everything including KeyboardInterrupt
   - `except Exception: pass` — silently swallows all errors
 
+  - `.get(key, [])` — empty list default hiding a missing key
+
 Patterns NOT checked (and why):
   - `or 0` / `or 0.0`: too many legitimate uses (nullable API token counts)
-  - `.get(key, [])` / `.get(key, "")`: planned for follow-up PRs
+  - `.get(key, "")`: planned for follow-up PR
 """
 
 import ast
@@ -79,6 +81,21 @@ def _check_file(
             lineno = node.args[1].lineno
             errors.append(
                 f"{rel}:{lineno}: .get(key, {{}})"
+                " (silent default — use explicit key access or None check)"
+            )
+
+        # --- .get(key, []) ---
+        elif (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "get"
+            and len(node.args) >= 2
+            and isinstance(node.args[1], ast.List)
+            and not node.args[1].elts
+        ):
+            lineno = node.args[1].lineno
+            errors.append(
+                f"{rel}:{lineno}: .get(key, [])"
                 " (silent default — use explicit key access or None check)"
             )
 

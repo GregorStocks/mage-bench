@@ -59,7 +59,7 @@ def main() -> int:
         f"Leaderboard data not found at {_BENCHMARK_RESULTS}. Run 'make leaderboard' first."
     )
     benchmark = json.loads(_BENCHMARK_RESULTS.read_text())
-    combined_models = benchmark.get("models", [])
+    combined_models = benchmark["models"]
 
     assert len(combined_models) >= size, (
         f"Only {len(combined_models)} models in combined leaderboard, need {size} for tournament"

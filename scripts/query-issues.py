@@ -33,7 +33,11 @@ def main() -> None:
         issues.append(data)
 
     if args.label:
-        issues = [i for i in issues if args.label in i.get("labels", [])]
+        issues = [
+            i
+            for i in issues
+            if (labels := i.get("labels")) is not None and args.label in labels
+        ]
 
     if args.max_priority is not None:
         issues = [i for i in issues if i.get("priority", 999) <= args.max_priority]

@@ -31,7 +31,7 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
     data = load_game(gz_path)
 
     game_id = data["id"]
-    annotations = data.get("annotations", [])
+    annotations = data.get("annotations")
     if not annotations:
         return game_id, []
 

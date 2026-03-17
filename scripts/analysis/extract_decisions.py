@@ -63,41 +63,66 @@ def _summarize_stack_item(item: object) -> str | dict:
 
 def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
     """Summarize a snapshot for decision context."""
+    players_summary: list[dict[str, object]] = []
+    for p in snap["players"]:
+        p_summary: dict[str, object] = {
+            "name": p["name"],
+            "life": p.get("life"),
+            "library_count": p.get("library_size"),
+        }
+
+        hand_cards = p.get("hand")
+        if hand_cards is not None:
+            p_summary["hand"] = [
+                c.get("name", "?") if isinstance(c, dict) else str(c)
+                for c in hand_cards
+            ]
+
+        hand_count = p.get("hand_count")
+        if hand_count is not None:
+            p_summary["hand_count"] = hand_count
+        elif hand_cards is not None:
+            p_summary["hand_count"] = len(hand_cards)
+
+        battlefield_cards = p.get("battlefield")
+        if battlefield_cards is not None:
+            p_summary["battlefield"] = [
+                _summarize_permanent(c) for c in battlefield_cards
+            ]
+
+        graveyard_cards = p.get("graveyard")
+        if graveyard_cards is not None:
+            p_summary["graveyard"] = [
+                c.get("name", "?") if isinstance(c, dict) else str(c)
+                for c in graveyard_cards
+            ]
+
+        exile_cards = p.get("exile")
+        if exile_cards is not None:
+            p_summary["exile"] = [
+                c.get("name", "?") if isinstance(c, dict) else str(c)
+                for c in exile_cards
+            ]
+
+        commander_cards = p.get("commanders")
+        if commander_cards is not None:
+            p_summary["commanders"] = [
+                c.get("name", "?") if isinstance(c, dict) else c
+                for c in commander_cards
+            ]
+
+        if p.get("counters"):
+            p_summary["counters"] = p["counters"]
+
+        players_summary.append(p_summary)
+
     summary: dict[str, object] = {
         "turn": snap.get("turn"),
         "phase": snap.get("phase"),
         "step": snap.get("step"),
         "active_player": snap.get("active_player"),
         "priority_player": snap.get("priority_player"),
-        "players": [
-            {
-                "name": p["name"],
-                "life": p.get("life"),
-                "library_count": p.get("library_size"),
-                "hand": [
-                    c.get("name", "?") if isinstance(c, dict) else str(c)
-                    for c in p.get("hand", [])
-                ],
-                "hand_count": p.get("hand_count", len(p.get("hand", []))),
-                "battlefield": [
-                    _summarize_permanent(c) for c in p.get("battlefield", [])
-                ],
-                "graveyard": [
-                    c.get("name", "?") if isinstance(c, dict) else str(c)
-                    for c in p.get("graveyard", [])
-                ],
-                "exile": [
-                    c.get("name", "?") if isinstance(c, dict) else str(c)
-                    for c in p.get("exile", [])
-                ],
-                "commanders": [
-                    c.get("name", "?") if isinstance(c, dict) else c
-                    for c in p.get("commanders", [])
-                ],
-                **({"counters": p["counters"]} if p.get("counters") else {}),
-            }
-            for p in snap["players"]
-        ],
+        "players": players_summary,
         "stack": [_summarize_stack_item(item) for item in snap["stack"]],
     }
     # Combat groups (may be absent in old exports)
@@ -344,17 +369,17 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         player = choices_event["player"]
 
         # Parse available choices
-        available_choices_raw = choices_result.get("choices", [])
-        available_choices = (
-            available_choices_raw if isinstance(available_choices_raw, list) else []
-        )
+        available_choices_raw = choices_result.get("choices")
+        if available_choices_raw is not None:
+            available_choices = (
+                available_choices_raw if isinstance(available_choices_raw, list) else []
+            )
+        else:
+            available_choices = []
         response_type = choices_result.get("response_type", "")
         action_type = choices_result.get("action_type", "")
         message = choices_result.get("message", "")
         combat_phase = choices_result.get("combat_phase", "")
-        combat_raw = choices_result.get("combat", [])
-        already_attacking_raw = choices_result.get("already_attacking", [])
-        incoming_attackers_raw = choices_result.get("incoming_attackers", [])
         assert isinstance(response_type, str), (
             f"response_type must be a string, got {response_type!r}"
         )
@@ -365,10 +390,16 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         assert isinstance(combat_phase, str), (
             f"combat_phase must be a string when present, got {combat_phase!r}"
         )
+
+        combat_raw = choices_result.get("combat")
         combat = combat_raw if isinstance(combat_raw, list) else []
+
+        already_attacking_raw = choices_result.get("already_attacking")
         already_attacking = (
             already_attacking_raw if isinstance(already_attacking_raw, list) else []
         )
+
+        incoming_attackers_raw = choices_result.get("incoming_attackers")
         incoming_attackers = (
             incoming_attackers_raw if isinstance(incoming_attackers_raw, list) else []
         )
@@ -518,17 +549,17 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         choices_result = _parse_choices_result(source_event.get("result", ""))
         player = source_event["player"]
 
-        available_choices_raw = choices_result.get("choices", [])
-        available_choices = (
-            available_choices_raw if isinstance(available_choices_raw, list) else []
-        )
+        available_choices_raw = choices_result.get("choices")
+        if available_choices_raw is not None:
+            available_choices = (
+                available_choices_raw if isinstance(available_choices_raw, list) else []
+            )
+        else:
+            available_choices = []
         response_type = choices_result.get("response_type", "")
         action_type = choices_result.get("action_type", "")
         message = choices_result.get("message", "")
         combat_phase = choices_result.get("combat_phase", "")
-        combat_raw = choices_result.get("combat", [])
-        already_attacking_raw = choices_result.get("already_attacking", [])
-        incoming_attackers_raw = choices_result.get("incoming_attackers", [])
         assert isinstance(response_type, str), (
             f"response_type must be a string, got {response_type!r}"
         )
@@ -539,10 +570,16 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         assert isinstance(combat_phase, str), (
             f"combat_phase must be a string when present, got {combat_phase!r}"
         )
+
+        combat_raw = choices_result.get("combat")
         combat = combat_raw if isinstance(combat_raw, list) else []
+
+        already_attacking_raw = choices_result.get("already_attacking")
         already_attacking = (
             already_attacking_raw if isinstance(already_attacking_raw, list) else []
         )
+
+        incoming_attackers_raw = choices_result.get("incoming_attackers")
         incoming_attackers = (
             incoming_attackers_raw if isinstance(incoming_attackers_raw, list) else []
         )
@@ -753,7 +790,7 @@ def _find_spell_cancelled_events(
             continue
         if not isinstance(result, dict):
             continue
-        recent_chat = result.get("recent_chat", [])
+        recent_chat = result.get("recent_chat")
         if not isinstance(recent_chat, list):
             recent_chat = []
         for msg in recent_chat:

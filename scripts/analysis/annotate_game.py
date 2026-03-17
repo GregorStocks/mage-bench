@@ -34,7 +34,7 @@ def _validate_annotation(ann: dict, index: int, game_data: dict) -> None:
         assert isinstance(ann["snapshotIndex"], int), (
             f"Annotation {index}: snapshotIndex must be int, got {type(ann['snapshotIndex']).__name__}"
         )
-        num_snapshots = len(game_data.get("snapshots", []))
+        num_snapshots = len(game_data["snapshots"])
         assert 0 <= ann["snapshotIndex"] < num_snapshots, (
             f"Annotation {index}: snapshotIndex {ann['snapshotIndex']} out of range [0, {num_snapshots})"
         )
@@ -47,7 +47,7 @@ def _validate_annotation(ann: dict, index: int, game_data: dict) -> None:
         f"Annotation {index}: decisionIndex {ann['decisionIndex']} out of range [0, {len(decisions)})"
     )
 
-    player_names = {p["name"] for p in game_data.get("players", [])}
+    player_names = {p["name"] for p in game_data["players"]}
     assert ann["player"] in player_names, (
         f"Annotation {index}: player '{ann['player']}' not in game players {player_names}"
     )

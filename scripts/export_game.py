@@ -123,15 +123,17 @@ def _build_card_images(players_meta: list[dict]) -> dict[str, str]:
     """Build card name -> Scryfall small image URL map from decklists."""
     images = {}
     for player in players_meta:
-        for entry in player.get("decklist", []):
-            m = DECKLIST_RE.match(entry)
-            if m:
-                set_code = m.group(2).lower()
-                card_num = m.group(3)
-                card_name = m.group(4).strip()
-                images[card_name] = (
-                    f"https://api.scryfall.com/cards/{set_code}/{card_num}?format=image&version=small"
-                )
+        decklist = player.get("decklist")
+        if decklist is not None:
+            for entry in decklist:
+                m = DECKLIST_RE.match(entry)
+                if m:
+                    set_code = m.group(2).lower()
+                    card_num = m.group(3)
+                    card_name = m.group(4).strip()
+                    images[card_name] = (
+                        f"https://api.scryfall.com/cards/{set_code}/{card_num}?format=image&version=small"
+                    )
     return images
 
 
@@ -167,35 +169,39 @@ def _collect_card_names(snapshots: list[dict]) -> tuple[set[str], set[str]]:
 
     for snap in snapshots:
         # Stack items
-        for item in snap.get("stack", []):
-            if isinstance(item, dict):
-                name = item.get("name", "")
-                if name and "ability" not in name.lower():
-                    if " Token" in name or " token" in name:
-                        tokens.add(name)
+        stack = snap.get("stack")
+        if stack is not None:
+            for item in stack:
+                if isinstance(item, dict):
+                    name = item.get("name", "")
+                    if name and "ability" not in name.lower():
+                        if " Token" in name or " token" in name:
+                            tokens.add(name)
+                        else:
+                            real_cards.add(name)
+                elif isinstance(item, str) and "ability" not in item.lower():
+                    if " Token" in item or " token" in item:
+                        tokens.add(item)
                     else:
-                        real_cards.add(name)
-            elif isinstance(item, str) and "ability" not in item.lower():
-                if " Token" in item or " token" in item:
-                    tokens.add(item)
-                else:
-                    real_cards.add(item)
+                        real_cards.add(item)
 
-        for player in snap.get("players", []):
+        for player in snap["players"]:
             for zone_name in zones:
-                for card in player.get(zone_name, []):
-                    if isinstance(card, dict):
-                        name = card.get("name", "")
-                    elif isinstance(card, str):
-                        name = card
-                    else:
-                        continue
-                    if not name:
-                        continue
-                    if " Token" in name or " token" in name:
-                        tokens.add(name)
-                    else:
-                        real_cards.add(name)
+                zone_cards = player.get(zone_name)
+                if zone_cards is not None:
+                    for card in zone_cards:
+                        if isinstance(card, dict):
+                            name = card.get("name", "")
+                        elif isinstance(card, str):
+                            name = card
+                        else:
+                            continue
+                        if not name:
+                            continue
+                        if " Token" in name or " token" in name:
+                            tokens.add(name)
+                        else:
+                            real_cards.add(name)
 
     return real_cards, tokens
 
@@ -253,11 +259,13 @@ _COMMANDER_DECK_TYPES = {
 
 def _extract_commander(player_meta: dict) -> str | None:
     """Find commander name from decklist (SB: entries)."""
-    for entry in player_meta.get("decklist", []):
-        if entry.startswith("SB:"):
-            m = DECKLIST_RE.match(entry)
-            if m:
-                return m.group(4).strip()
+    decklist = player_meta.get("decklist")
+    if decklist is not None:
+        for entry in decklist:
+            if entry.startswith("SB:"):
+                m = DECKLIST_RE.match(entry)
+                if m:
+                    return m.group(4).strip()
     return None
 
 
@@ -405,7 +413,9 @@ def _read_llm_events(
 
             if event_type == "game_start":
                 exported["model"] = raw.get("model", "")
-                exported["availableTools"] = raw.get("available_tools", [])
+                available_tools = raw.get("available_tools")
+                if available_tools is not None:
+                    exported["availableTools"] = available_tools
             elif event_type == "llm_response":
                 exported["reasoning"] = raw.get("reasoning", "")
                 if raw.get("thinking"):
@@ -447,7 +457,9 @@ def _read_llm_events(
                             pass
             elif event_type == "stall":
                 exported["turnsWithoutProgress"] = raw.get("turns_without_progress", 0)
-                exported["lastTools"] = raw.get("last_tools", [])
+                last_tools = raw.get("last_tools")
+                if last_tools is not None:
+                    exported["lastTools"] = last_tools
             elif event_type == "context_reset":
                 exported["reason"] = raw.get("reason", "")
             elif event_type == "llm_error":
@@ -786,16 +798,20 @@ def _extract_pilot_context(choices_result: dict) -> dict:
         ctx["incomingAttackers"] = choices_result["incoming_attackers"]
     # Extract playable card IDs from board hand.
     # board is a list of player objects (not {players: [...]}).
-    board = choices_result.get("board", [])
+    board = choices_result.get("board")
     if isinstance(board, dict):
-        board = board.get("players", [])
+        board = board.get("players")
     playable_ids: list[str] = []
-    for p in board if isinstance(board, list) else []:
-        for card in p.get("hand", []) if isinstance(p, dict) else []:
-            if isinstance(card, dict) and card.get("playable"):
-                card_id = card.get("id", "")
-                if card_id:
-                    playable_ids.append(card_id)
+    if isinstance(board, list):
+        for p in board:
+            if isinstance(p, dict):
+                hand = p.get("hand")
+                if hand is not None:
+                    for card in hand:
+                        if isinstance(card, dict) and card.get("playable"):
+                            card_id = card.get("id", "")
+                            if card_id:
+                                playable_ids.append(card_id)
     if playable_ids:
         ctx["playableCards"] = playable_ids
     return ctx
@@ -825,10 +841,12 @@ def _find_spell_cancelled_seqs(llm_events: list[dict]) -> list[tuple[str, int]]:
             last_idx[player] = i
             continue
         result = _parse_json(result_str)
-        for msg in result.get("recent_chat", []):
-            if "[System] Spell cancelled" in str(msg):
-                cancelled.append((player, last_idx.get(player, i)))
-                break
+        recent_chat = result.get("recent_chat")
+        if recent_chat is not None:
+            for msg in recent_chat:
+                if "[System] Spell cancelled" in str(msg):
+                    cancelled.append((player, last_idx.get(player, i)))
+                    break
         last_idx[player] = i
     return cancelled
 
@@ -851,7 +869,7 @@ def _mark_rolled_back_casts(
             if d["player"] != player:
                 continue
             # Skip decisions whose last llm event is after the cancel point
-            indices = d.get("llmEventIndices", [])
+            indices = d.get("llmEventIndices")
             if not indices:
                 continue
             if indices[0] > cancel_idx:
@@ -911,7 +929,9 @@ def _build_decisions(
         choices_result = _parse_json(source_event.get("result", ""))
         player = source_event.get("player", "")
 
-        available_choices = choices_result.get("choices", [])
+        available_choices = choices_result.get("choices")
+        if available_choices is None:
+            available_choices = []
         response_type = choices_result.get("response_type", "")
         action_type = choices_result.get("action_type", "")
         message = choices_result.get("message", "")
@@ -1048,7 +1068,7 @@ def _link_errors_to_decisions(
     player_decisions: dict[str, list[tuple[str, int]]] = {}
     for d in decisions:
         player = d.get("player", "")
-        indices = d.get("llmEventIndices", [])
+        indices = d.get("llmEventIndices")
         if not indices:
             continue
         source_event = llm_events[indices[0]]
@@ -1086,9 +1106,9 @@ def _find_tournament_for_game(game_id: str) -> str | None:
     """Return tournament identifier (e.g. 'season-1') if game_id is in a bracket."""
     for path in _TOURNAMENTS_DIR.glob("season-*.json"):
         data = json.loads(path.read_text())
-        for rnd in data.get("rounds", []):
-            for match in rnd.get("matches", []):
-                for game in match.get("games", []):
+        for rnd in data["rounds"]:
+            for match in rnd["matches"]:
+                for game in match["games"]:
                     if game.get("game_id") == game_id:
                         return path.stem  # e.g. "season-1"
     return None
@@ -1113,7 +1133,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
         _read_llm_events(game_dir)
     )
     # Build card images map from decklists
-    card_images = _build_card_images(meta.get("players", []))
+    card_images = _build_card_images(meta["players"])
 
     # Build card data (Scryfall metadata) and add token images
     card_images, card_data = _build_card_data(card_images, snapshots)
@@ -1131,7 +1151,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
                 break
 
     # Extract placement from elimination order
-    player_names = [p.get("name", "?") for p in meta.get("players", [])]
+    player_names = [p.get("name", "?") for p in meta["players"]]
     eliminations = []
     for a in actions:
         m = LOST_GAME_RE.match(a.get("message", ""))
@@ -1179,7 +1199,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     )
 
     players_summary = []
-    for p in meta.get("players", []):
+    for p in meta["players"]:
         name = p.get("name", "?")
         ok, failed = player_tool_calls.get(name, (0, 0))
         entry: dict = {

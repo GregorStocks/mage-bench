@@ -108,7 +108,7 @@ def main(game_id: str) -> None:
         cost = p.get("totalCostUsd", 0)
         print(f"  {p['name']} ({p.get('model', '?')}) ${cost:.2f}")
 
-    events = d.get("llmEvents", [])
+    events = d["llmEvents"]
     errors = _failed_tool_calls(events)
     print(f"LLM events: {len(events)} | Failed tool calls: {len(errors)}")
     for e in errors[:5]:

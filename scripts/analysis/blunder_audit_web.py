@@ -340,7 +340,7 @@ def _find_decisions_at_snapshot(game_id: str, snap_idx: int) -> list[dict]:
     """
     decisions = _load_decisions_cached(game_id)
     game_data = _load_game_cached(game_id)
-    snapshots = game_data.get("snapshots", [])
+    snapshots = game_data["snapshots"]
 
     results = []
     seen_di: set[int] = set()

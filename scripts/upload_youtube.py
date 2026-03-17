@@ -50,7 +50,10 @@ _COMMANDER_DECK_TYPES = {
 
 def _extract_commander(player: dict) -> str | None:
     """Find commander name from decklist (SB: entries)."""
-    for entry in player.get("decklist", []):
+    decklist = player.get("decklist")
+    if decklist is None:
+        return None
+    for entry in decklist:
         if entry.startswith("SB:"):
             m = DECKLIST_RE.match(entry)
             if m:
@@ -83,8 +86,10 @@ def _build_title(meta: dict) -> str:
     Truncated to 100 chars (YouTube limit).
     """
     deck_type = meta.get("deck_type", "")
-    players = meta.get("players", [])
+    players = meta.get("players")
     parts = []
+    if players is None:
+        players = []
     for p in players:
         name = p.get("name", "?")
         deck_name = _deck_display_name(p, deck_type)
@@ -112,7 +117,9 @@ def _build_description(meta: dict, game_dir: Path) -> str:
     fmt = _format_label(meta)
     lines = [f"AI models play {fmt} (Magic: The Gathering) via mage-bench.", ""]
 
-    players = meta.get("players", [])
+    players = meta.get("players")
+    if players is None:
+        players = []
     for p in players:
         deck_name = _deck_display_name(p, deck_type)
         model = p.get("model", "")
