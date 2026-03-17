@@ -2,19 +2,21 @@
 import Base from '../../../layouts/Base.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
 import {
+  buildAllSeasonStaticPaths,
+  parseRequiredSeasonParam,
+} from '../../../utils/season-pages';
+import {
   hasTournament as seasonHasTournament,
-  loadAvailableSeasons,
   loadSeasonBenchmark,
   loadTournament,
 } from '../../../utils/season-data';
 import '../../../styles/format-tabs.css';
 
 export function getStaticPaths() {
-  return loadAvailableSeasons().map(s => ({ params: { season: String(s) } }));
+  return buildAllSeasonStaticPaths();
 }
 
-const { season } = Astro.params;
-const seasonNum = parseInt(season!, 10);
+const seasonNum = parseRequiredSeasonParam(Astro.params.season);
 
 // Load season-specific benchmark data
 const seasonBenchmark = loadSeasonBenchmark(seasonNum);

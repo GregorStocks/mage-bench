@@ -1,13 +1,16 @@
 ---
 import type { TournamentMatch, TournamentRound } from '../../../utils/season-data';
-import { hasTournament, loadAvailableSeasons, loadTournament } from '../../../utils/season-data';
+import {
+  buildAllSeasonStaticPaths,
+  parseRequiredSeasonParam,
+} from '../../../utils/season-pages';
+import { hasTournament, loadTournament } from '../../../utils/season-data';
 
 export function getStaticPaths() {
-  return loadAvailableSeasons().map(s => ({ params: { season: String(s) } }));
+  return buildAllSeasonStaticPaths();
 }
 
-const { season } = Astro.params;
-const seasonNum = parseInt(season!, 10);
+const seasonNum = parseRequiredSeasonParam(Astro.params.season);
 
 // Determine redirect target based on precedence:
 // 1. Championship results (if tournament has any match results)

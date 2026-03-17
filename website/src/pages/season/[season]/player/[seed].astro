@@ -1,16 +1,18 @@
 ---
 import Base from '../../../../layouts/Base.astro';
 import SeasonNav from '../../../../components/SeasonNav.astro';
-import { loadAllGames } from '../../../../utils/load-games';
 import {
-  hasTournament as seasonHasTournament,
-  loadAvailableSeasons,
+  buildTournamentEntrantStaticPaths,
+  formatJumpstartDeckName,
+  loadSeasonGameMap,
+  loadSeasonTournamentContext,
+  parseRequiredSeasonParam,
+} from '../../../../utils/season-pages';
+import {
   loadPersonalities,
   parseDecklistCardEntry,
-  loadTournament,
 } from '../../../../utils/season-data';
-import type { GameEntry } from '../../../../utils/load-games';
-import type { TournamentDeckCard, TournamentEntrant } from '../../../../utils/season-data';
+import type { TournamentDeckCard } from '../../../../utils/season-data';
 import '../../../../styles/shared.css';
 
 function assert(cond: unknown, msg: string): asserts cond {
@@ -18,38 +20,20 @@ function assert(cond: unknown, msg: string): asserts cond {
 }
 
 export function getStaticPaths() {
-  const paths: Array<{ params: { season: string; seed: string } }> = [];
-
-  for (const s of loadAvailableSeasons()) {
-    if (!seasonHasTournament(s)) continue;
-    const tournament = loadTournament(s);
-    for (const e of tournament.entrants) {
-      paths.push({ params: { season: String(s), seed: String(e.seed) } });
-    }
-  }
-  return paths;
+  return buildTournamentEntrantStaticPaths();
 }
 
 const { season, seed } = Astro.params;
-const seasonNum = parseInt(season!, 10);
+const seasonNum = parseRequiredSeasonParam(season);
 const seedNum = parseInt(seed!, 10);
 
-const tournament = loadTournament(seasonNum);
+const { tournament, hasDraft, entrantsBySeed } = loadSeasonTournamentContext(seasonNum);
 const personalities = loadPersonalities();
-
-const entrantsBySeed = new Map<number, TournamentEntrant>(
-  tournament.entrants.map((entrant) => [entrant.seed, entrant]),
-);
 
 const entrant = entrantsBySeed.get(seedNum) ?? null;
 assert(entrant != null, `No entrant with seed ${seedNum}`);
 
 const personality = personalities[entrant.personality];
-const hasDraft = !!tournament.draft;
-
-function cleanThemeName(name: string): string {
-  return name.replace(/^J22 /, '');
-}
 
 // Parse decklist
 const deckInfo = tournament.draft?.decklists[String(seedNum)];
@@ -115,8 +99,7 @@ const matchesWon = matchRecords.filter(m => m.won).length;
 const matchesLost = matchRecords.filter(m => !m.won).length;
 
 // Load game metadata for enrichment
-const allGames = loadAllGames().filter(g => g.season === seasonNum);
-const gameMeta = new Map<string, GameEntry>(allGames.map((game) => [game.id, game]));
+const gameMeta = loadSeasonGameMap(seasonNum);
 
 // Build scryfall identifiers for the client-side visual decklist
 const scryfallIds = cards
@@ -214,7 +197,7 @@ const scryfallIds = cards
     <section class="deck-section">
       <h2 class="section-heading">Decklist</h2>
       <div class="deck-header">
-        <span class="deck-name">{deckInfo.half_decks.map(cleanThemeName).join(' + ')}</span>
+        <span class="deck-name">{formatJumpstartDeckName(deckInfo.half_decks)}</span>
         <span class="deck-count">{totalCards} cards</span>
       </div>
 

@@ -10,7 +10,7 @@ from pathlib import Path
 
 from mcp import McpError
 
-from puppeteer.bridge_transport import spawn_bridge_http
+from puppeteer.bridge_transport import build_bridge_launch_args, spawn_bridge_http
 from puppeteer.log import get_logger, setup_logging
 from puppeteer.tool_error import ToolExecutionError, extract_text_content
 
@@ -50,31 +50,21 @@ async def run_sleepwalker(
     """Run the sleepwalker client."""
     logger.info("[sleepwalker] Starting for %s@%s:%s", username, server, port)
 
-    # Build JVM args for the bridge
-    jvm_args_list = [
-        "--add-opens=java.base/java.io=ALL-UNNAMED",
-        "-Xmx512m",
-        f"-Dxmage.bridge.server={server}",
-        f"-Dxmage.bridge.port={port}",
-        "-Dxmage.bridge.personality=sleepwalker",
-    ]
-    if sys.platform == "darwin":
-        jvm_args_list.append("-Dapple.awt.UIElement=true")
-    jvm_args = " ".join(jvm_args_list)
-
-    # Pass values that may contain spaces as Maven CLI args (not in MAVEN_OPTS)
-    # because MAVEN_OPTS gets shell-split by the mvn script.
-    mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
-    if deck_path:
-        mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
-    mvn_args.append("exec:java")
+    launch_args = build_bridge_launch_args(
+        server=server,
+        port=port,
+        username=username,
+        personality="sleepwalker",
+        deck_path=deck_path,
+        heap_size_mb=512,
+    )
 
     logger.info("[sleepwalker] Spawning bridge client...")
 
     async with spawn_bridge_http(
-        mvn_args=mvn_args,
+        mvn_args=launch_args.mvn_args,
         project_root=project_root,
-        jvm_args=jvm_args,
+        jvm_args=launch_args.jvm_args,
     ) as session:
         # Initialize MCP connection
         init_result = await session.initialize()
