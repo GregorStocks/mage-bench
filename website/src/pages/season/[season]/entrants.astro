@@ -2,31 +2,25 @@
 import Base from '../../../layouts/Base.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
 import {
-  hasTournament as seasonHasTournament,
-  loadAvailableSeasons,
+  buildTournamentSeasonStaticPaths,
+  formatJumpstartDeckName,
+  loadSeasonTournamentContext,
+  parseRequiredSeasonParam,
+} from '../../../utils/season-pages';
+import {
   loadPersonalities,
   parseDecklistCardEntry,
-  loadTournament,
 } from '../../../utils/season-data';
 import '../../../styles/shared.css';
 
 export function getStaticPaths() {
-  return loadAvailableSeasons()
-    .filter(s => seasonHasTournament(s))
-    .map(s => ({ params: { season: String(s) } }));
+  return buildTournamentSeasonStaticPaths();
 }
 
-const { season } = Astro.params;
-const seasonNum = parseInt(season!, 10);
+const seasonNum = parseRequiredSeasonParam(Astro.params.season);
 
-const tournament = loadTournament(seasonNum);
+const { tournament, hasDraft } = loadSeasonTournamentContext(seasonNum);
 const personalities = loadPersonalities();
-
-function cleanThemeName(name: string): string {
-  return name.replace(/^J22 /, '');
-}
-
-const hasDraft = !!tournament.draft;
 ---
 
 <Base title={`Season ${seasonNum} Championship Entrants`} wide>
@@ -67,7 +61,7 @@ const hasDraft = !!tournament.draft;
               </div>
               {deckInfo && (
                 <div class="entrant-deck-summary">
-                  {deckInfo.half_decks.map(cleanThemeName).join(' + ')}
+                  {formatJumpstartDeckName(deckInfo.half_decks)}
                   <span class="deck-card-count">{cardCount} cards</span>
                 </div>
               )}

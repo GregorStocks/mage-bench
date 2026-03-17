@@ -2,25 +2,27 @@
 import Base from '../../../layouts/Base.astro';
 import GameListView from '../../../components/GameListView.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
-import { loadAllGames } from '../../../utils/load-games';
+import {
+  buildAllSeasonStaticPaths,
+  loadSeasonGameEntries,
+  parseRequiredSeasonParam,
+} from '../../../utils/season-pages';
 import {
   hasDraft as seasonHasDraft,
   hasTournament as seasonHasTournament,
-  loadAvailableSeasons,
   loadBenchmarkResults,
 } from '../../../utils/season-data';
 
 const minBlunderVersion = loadBenchmarkResults().minBlunderVersion;
 
 export function getStaticPaths() {
-  return loadAvailableSeasons().map(s => ({ params: { season: String(s) } }));
+  return buildAllSeasonStaticPaths();
 }
 
-const { season } = Astro.params;
-const seasonNum = parseInt(season!, 10);
+const seasonNum = parseRequiredSeasonParam(Astro.params.season);
 
 // Regular-season games for this season
-const games = loadAllGames().filter(g => g.season === seasonNum && !g.tournament);
+const games = loadSeasonGameEntries(seasonNum).filter(g => !g.tournament);
 
 // Check for tournament existence for SeasonNav props
 const hasTournament = seasonHasTournament(seasonNum);

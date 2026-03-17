@@ -2,40 +2,35 @@
 import Base from '../../../layouts/Base.astro';
 import GameListCard from '../../../components/GameListCard.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
-import { loadAllGames } from '../../../utils/load-games';
+import {
+  getTournamentDeckName,
+  loadSeasonGameEntries,
+  loadSeasonTournamentContext,
+  parseRequiredSeasonParam,
+  buildTournamentSeasonStaticPaths,
+} from '../../../utils/season-pages';
 import {
   loadBenchmarkResults,
-  hasTournament as seasonHasTournament,
-  loadAvailableSeasons,
-  loadTournament,
 } from '../../../utils/season-data';
 import type { TournamentData, TournamentEntrant, TournamentMatch } from '../../../utils/season-data';
 import '../../../styles/game-list.css';
 import '../../../styles/shared.css';
 
 export function getStaticPaths() {
-  return loadAvailableSeasons()
-    .filter(s => seasonHasTournament(s))
-    .map(s => ({ params: { season: String(s) } }));
+  return buildTournamentSeasonStaticPaths();
 }
 
-const { season } = Astro.params;
-const seasonNum = parseInt(season!, 10);
+const seasonNum = parseRequiredSeasonParam(Astro.params.season);
 const minBlunderVersion = loadBenchmarkResults().minBlunderVersion;
 
-// Load tournament data
-const tournament = loadTournament(seasonNum);
+const { tournament, hasDraft, entrantsBySeed } = loadSeasonTournamentContext(seasonNum);
 
-const games = loadAllGames().filter(g => g.season === seasonNum);
+const games = loadSeasonGameEntries(seasonNum);
 
 // Split tournament games from regular-season games
 const tournamentGames = games.filter(g => g.tournament != null);
 
 // Build entrants lookup for bracket rendering
-const entrantsBySeed = new Map<number, TournamentEntrant>(
-  tournament.entrants.map((entrant) => [entrant.seed, entrant]),
-);
-
 // Standard single-elimination seeding order for 16 players
 // Top half: seeds that feed into the left side of the bracket
 const BRACKET_16_LEFT: [number, number][] = [
@@ -143,10 +138,6 @@ function buildTwoSidedBracket(tournamentData: TournamentData): TwoSidedBracket |
 const bracket = buildTwoSidedBracket(tournament);
 const linearBracket = bracket?.rounds ?? null;
 
-function cleanThemeName(name: string): string {
-  return name.replace(/^J22 /, '');
-}
-
 function matchScore(match: TournamentMatch): { winsA: number; winsB: number } | null {
   const games = match.games;
   if (games.length === 0) return null;
@@ -160,9 +151,7 @@ function matchScore(match: TournamentMatch): { winsA: number; winsB: number } | 
 }
 
 function deckNameForSeed(seed: number): string | null {
-  const decklist = tournament.draft?.decklists[String(seed)];
-  if (decklist == null) return null;
-  return decklist.half_decks.map(cleanThemeName).join(' + ');
+  return getTournamentDeckName(tournament, seed);
 }
 
 interface MatchRenderData {
@@ -191,7 +180,6 @@ function matchRenderData(match: TournamentMatch, roundNum?: number): MatchRender
   return { ea, eb, isComplete, isTBD, score, matchUrl };
 }
 
-const hasDraft = !!tournament.draft;
 ---
 
 <Base title={`Season ${seasonNum} Championship Results`} wide={true}>

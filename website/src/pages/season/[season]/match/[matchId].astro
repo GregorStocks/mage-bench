@@ -1,36 +1,21 @@
 ---
 import Base from '../../../../layouts/Base.astro';
 import SeasonNav from '../../../../components/SeasonNav.astro';
-import { loadAllGames } from '../../../../utils/load-games';
 import {
-  hasTournament as seasonHasTournament,
-  loadAvailableSeasons,
-  loadTournament,
-} from '../../../../utils/season-data';
-import type { GameEntry } from '../../../../utils/load-games';
-import type { TournamentEntrant } from '../../../../utils/season-data';
+  buildTournamentMatchStaticPaths,
+  getTournamentDeckName,
+  loadSeasonGameMap,
+  loadSeasonTournamentContext,
+  parseRequiredSeasonParam,
+} from '../../../../utils/season-pages';
 import '../../../../styles/shared.css';
 
 export function getStaticPaths() {
-  const paths: Array<{ params: { season: string; matchId: string } }> = [];
-
-  for (const s of loadAvailableSeasons()) {
-    if (!seasonHasTournament(s)) continue;
-    const tournament = loadTournament(s);
-    for (const round of tournament.rounds) {
-      for (const match of round.matches) {
-        if (match.winner_seed == null) continue;
-        paths.push({
-          params: { season: String(s), matchId: `r${round.round}m${match.match}` },
-        });
-      }
-    }
-  }
-  return paths;
+  return buildTournamentMatchStaticPaths();
 }
 
 const { season, matchId } = Astro.params;
-const seasonNum = parseInt(season!, 10);
+const seasonNum = parseRequiredSeasonParam(season);
 
 // Parse matchId: "r1m3" -> round 1, match 3
 const idMatch = matchId!.match(/^r(\d+)m(\d+)$/);
@@ -38,7 +23,7 @@ assert(idMatch, `Invalid matchId: ${matchId}`);
 const roundNum = parseInt(idMatch[1], 10);
 const matchNum = parseInt(idMatch[2], 10);
 
-const tournament = loadTournament(seasonNum);
+const { tournament, hasDraft, entrantsBySeed } = loadSeasonTournamentContext(seasonNum);
 
 const round = tournament.rounds.find((candidate) => candidate.round === roundNum) ?? null;
 assert(round, `Round ${roundNum} not found`);
@@ -46,27 +31,12 @@ const match = round.matches.find((candidate) => candidate.match === matchNum) ??
 assert(match, `Match ${matchNum} not found in round ${roundNum}`);
 
 // Build entrants lookup
-const entrantsBySeed = new Map<number, TournamentEntrant>(
-  tournament.entrants.map((entrant) => [entrant.seed, entrant]),
-);
-
 const ea = match.seed_a != null ? entrantsBySeed.get(match.seed_a) ?? null : null;
 const eb = match.seed_b != null ? entrantsBySeed.get(match.seed_b) ?? null : null;
+const seedADeckName = getTournamentDeckName(tournament, match.seed_a);
+const seedBDeckName = getTournamentDeckName(tournament, match.seed_b);
 
-function cleanThemeName(name: string): string {
-  return name.replace(/^J22 /, '');
-}
-
-function deckNameForSeed(seed: number | null): string | null {
-  if (seed == null) return null;
-  const decklist = tournament.draft?.decklists[String(seed)];
-  if (decklist == null) return null;
-  return decklist.half_decks.map(cleanThemeName).join(' + ');
-}
-
-// Load game metadata
-const allGames = loadAllGames().filter(g => g.season === seasonNum);
-const gameMeta = new Map<string, GameEntry>(allGames.map((game) => [game.id, game]));
+const gameMeta = loadSeasonGameMap(seasonNum);
 
 type MatchGameView = {
   index: number;
@@ -89,8 +59,6 @@ for (const g of games) {
   else if (g.winner_seed === match.seed_b) winsB++;
 }
 
-const hasDraft = !!tournament.draft;
-
 function assert(cond: unknown, msg: string): asserts cond {
   if (!cond) throw new Error(msg);
 }
@@ -112,7 +80,7 @@ function assert(cond: unknown, msg: string): asserts cond {
         <span class="player-seed">#{match.seed_a}</span>
         <div class="player-info">
           <span class="player-name">{ea?.display_name}</span>
-          {deckNameForSeed(match.seed_a) && <span class="player-deck">{deckNameForSeed(match.seed_a)}</span>}
+          {seedADeckName && <span class="player-deck">{seedADeckName}</span>}
         </div>
         <span class="player-score">{winsA}</span>
       </div>
@@ -120,7 +88,7 @@ function assert(cond: unknown, msg: string): asserts cond {
         <span class="player-seed">#{match.seed_b}</span>
         <div class="player-info">
           <span class="player-name">{eb?.display_name}</span>
-          {deckNameForSeed(match.seed_b) && <span class="player-deck">{deckNameForSeed(match.seed_b)}</span>}
+          {seedBDeckName && <span class="player-deck">{seedBDeckName}</span>}
         </div>
         <span class="player-score">{winsB}</span>
       </div>
