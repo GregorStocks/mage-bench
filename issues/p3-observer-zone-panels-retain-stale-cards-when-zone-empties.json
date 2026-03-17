@@ -1,0 +1,10 @@
+{
+  "title": "Observer zone panels retain stale cards when a zone empties",
+  "description": "In `ObserverGamePanel`, `distributeGraveyards` and `distributeExile` only call `loadCards` when the player zone is non-empty. If a graveyard or exile zone shrinks to zero cards after previously showing cards, the corresponding observer panel never receives the empty `CardsView`, so the old cards remain rendered. The panel implementations already know how to remove missing cards when they are given the authoritative zone contents; the bug is that the empty-zone update is skipped entirely.",
+  "status": "open",
+  "priority": 3,
+  "type": "bug",
+  "labels": ["observer"],
+  "created_at": "2026-03-17T07:58:27-07:00",
+  "updated_at": "2026-03-17T07:58:27-07:00"
+}

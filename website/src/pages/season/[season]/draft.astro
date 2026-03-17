@@ -1,23 +1,21 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
-import type { TournamentDraftAttempt, TournamentDraftPick, TournamentEntrant } from '../../../utils/season-data';
 import {
-  hasDraft as seasonHasDraft,
-  loadAvailableSeasons,
-  loadTournament,
-} from '../../../utils/season-data';
+  buildDraftSeasonStaticPaths,
+  cleanJumpstartThemeName,
+  loadSeasonTournamentContext,
+  parseRequiredSeasonParam,
+} from '../../../utils/season-pages';
+import type { TournamentDraftAttempt, TournamentDraftPick } from '../../../utils/season-data';
 
 export function getStaticPaths() {
-  return loadAvailableSeasons()
-    .filter(s => seasonHasDraft(s))
-    .map(s => ({ params: { season: String(s) } }));
+  return buildDraftSeasonStaticPaths();
 }
 
-const { season } = Astro.params;
-const seasonNum = parseInt(season!, 10);
+const seasonNum = parseRequiredSeasonParam(Astro.params.season);
 
-const tournament = loadTournament(seasonNum);
+const { tournament, entrantsBySeed } = loadSeasonTournamentContext(seasonNum);
 if (!tournament.draft) {
   throw new Error(`Tournament ${seasonNum} has no draft data`);
 }
@@ -26,15 +24,6 @@ if (draft.history_version !== 2) {
   throw new Error(
     `Tournament ${seasonNum} has draft history v${draft.history_version ?? 1}; expected v2`
   );
-}
-
-const entrantsBySeed: Record<number, TournamentEntrant> = {};
-for (const e of tournament.entrants) {
-  entrantsBySeed[e.seed] = e;
-}
-
-function cleanThemeName(name: string): string {
-  return name.replace(/^J22 /, '');
 }
 
 function getAttempts(pick: TournamentDraftPick): TournamentDraftAttempt[] {
@@ -87,7 +76,7 @@ function renderAttemptResponse(attempt: TournamentDraftAttempt): string {
           </div>
           <div class="draft-round-picks">
             {roundPicks.map((pick) => {
-              const ent = entrantsBySeed[pick.seed];
+              const entrant = entrantsBySeed.get(pick.seed) ?? null;
               const attempts = getAttempts(pick);
               const previewSrc = getPreviewSource(pick);
               const preview = previewSrc ? previewSrc.slice(0, 300).replace(/\*+/g, '') : null;
@@ -98,9 +87,9 @@ function renderAttemptResponse(attempt: TournamentDraftAttempt): string {
                     <span class="dpick-num">{pick._idx + 1}</span>
                     <span class="dpick-player">
                       <span class="dpick-seed">#{pick.seed}</span>
-                      <span class="dpick-name">{ent?.display_name || `Seed ${pick.seed}`}</span>
+                      <span class="dpick-name">{entrant?.display_name || `Seed ${pick.seed}`}</span>
                     </span>
-                    <span class="dpick-chose">{cleanThemeName(pick.picked)}</span>
+                    <span class="dpick-chose">{cleanJumpstartThemeName(pick.picked)}</span>
                     <span class="dpick-cost">${pick.cost_usd.toFixed(2)}</span>
                     <span class="dpick-chevron">&#9656;</span>
                   </button>
@@ -143,7 +132,7 @@ function renderAttemptResponse(attempt: TournamentDraftAttempt): string {
                       <div class="dpick-pool-tags">
                         {pick.options.map((opt: string) => (
                           <span class:list={['dpick-tag', { 'dpick-tag-picked': opt === pick.picked }]}>
-                            {cleanThemeName(opt)}
+                            {cleanJumpstartThemeName(opt)}
                           </span>
                         ))}
                       </div>

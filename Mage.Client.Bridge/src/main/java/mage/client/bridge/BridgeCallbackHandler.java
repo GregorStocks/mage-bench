@@ -279,6 +279,13 @@ public class BridgeCallbackHandler {
         }
     }
 
+    private void sendManaTypeOrDie(UUID gameId, UUID playerId, ManaType data, String context) {
+        boolean ok = session.sendPlayerManaType(gameId, playerId, data);
+        if (!ok) {
+            declareResponseFailed("sendPlayerManaType(" + data + ")", context, gameId);
+        }
+    }
+
     /**
      * Unchecked exception thrown when a sendPlayer* call fails.
      * Prevents callers from continuing on the success path after a dropped response.
@@ -713,12 +720,12 @@ public class BridgeCallbackHandler {
 
         switch (method) {
             case GAME_ASK, GAME_SELECT -> {
-                session.sendPlayerBoolean(gameId, false);
+                sendBooleanOrDie(gameId, false, "defaultAction:" + method.name());
                 result.put("action_taken", "passed_priority");
             }
             case GAME_PLAY_MANA, GAME_PLAY_XMANA -> {
                 // Auto-tap failed; default action is to cancel the spell
-                session.sendPlayerBoolean(gameId, false);
+                sendBooleanOrDie(gameId, false, "defaultAction:" + method.name());
                 result.put("action_taken", "cancelled_mana");
             }
             case GAME_TARGET -> {
@@ -728,10 +735,10 @@ public class BridgeCallbackHandler {
                 Set<UUID> targets = findValidTargets(targetMsg);
                 if (required && targets != null && !targets.isEmpty()) {
                     UUID firstTarget = selectDeterministicTarget(targets, null);
-                    session.sendPlayerUUID(gameId, firstTarget);
+                    sendUuidOrDie(gameId, firstTarget, "defaultAction:GAME_TARGET");
                     result.put("action_taken", "selected_first_target");
                 } else {
-                    session.sendPlayerBoolean(gameId, false);
+                    sendBooleanOrDie(gameId, false, "defaultAction:GAME_TARGET_cancel");
                     result.put("action_taken", "cancelled");
                 }
             }
@@ -740,10 +747,10 @@ public class BridgeCallbackHandler {
                 Map<UUID, String> abilityChoices = picker.getChoices();
                 if (abilityChoices != null && !abilityChoices.isEmpty()) {
                     UUID firstChoice = abilityChoices.keySet().iterator().next();
-                    session.sendPlayerUUID(gameId, firstChoice);
+                    sendUuidOrDie(gameId, firstChoice, "defaultAction:GAME_CHOOSE_ABILITY");
                     result.put("action_taken", "selected_first_ability");
                 } else {
-                    session.sendPlayerUUID(gameId, null);
+                    sendUuidOrDie(gameId, null, "defaultAction:GAME_CHOOSE_ABILITY_null");
                     result.put("action_taken", "no_abilities");
                 }
             }
@@ -755,36 +762,36 @@ public class BridgeCallbackHandler {
                         Map<String, String> keyChoices = choice.getKeyChoices();
                         if (keyChoices != null && !keyChoices.isEmpty()) {
                             String firstKey = keyChoices.keySet().iterator().next();
-                            session.sendPlayerString(gameId, firstKey);
+                            sendStringOrDie(gameId, firstKey, "defaultAction:GAME_CHOOSE_CHOICE_key");
                             result.put("action_taken", "selected_first_key_choice");
                         } else {
-                            session.sendPlayerString(gameId, null);
+                            sendStringOrDie(gameId, null, "defaultAction:GAME_CHOOSE_CHOICE_null");
                             result.put("action_taken", "no_choices");
                         }
                     } else {
                         Set<String> choices = choice.getChoices();
                         if (choices != null && !choices.isEmpty()) {
                             String firstChoice = choices.iterator().next();
-                            session.sendPlayerString(gameId, firstChoice);
+                            sendStringOrDie(gameId, firstChoice, "defaultAction:GAME_CHOOSE_CHOICE");
                             result.put("action_taken", "selected_first_choice");
                         } else {
-                            session.sendPlayerString(gameId, null);
+                            sendStringOrDie(gameId, null, "defaultAction:GAME_CHOOSE_CHOICE_null");
                             result.put("action_taken", "no_choices");
                         }
                     }
                 } else {
-                    session.sendPlayerString(gameId, null);
+                    sendStringOrDie(gameId, null, "defaultAction:GAME_CHOOSE_CHOICE_null");
                     result.put("action_taken", "null_choice");
                 }
             }
             case GAME_CHOOSE_PILE -> {
-                session.sendPlayerBoolean(gameId, true);
+                sendBooleanOrDie(gameId, true, "defaultAction:GAME_CHOOSE_PILE");
                 result.put("action_taken", "selected_pile_1");
             }
             case GAME_GET_AMOUNT -> {
                 GameClientMessage amountMsg = (GameClientMessage) data;
                 int min = amountMsg.getMin();
-                session.sendPlayerInteger(gameId, min);
+                sendIntegerOrDie(gameId, min, "defaultAction:GAME_GET_AMOUNT");
                 result.put("action_taken", "selected_min_amount");
                 result.put("amount", min);
             }
@@ -797,7 +804,7 @@ public class BridgeCallbackHandler {
                         sb.append(multiMsg.getMessages().get(i).defaultValue);
                     }
                 }
-                session.sendPlayerString(gameId, sb.toString());
+                sendStringOrDie(gameId, sb.toString(), "defaultAction:GAME_GET_MULTI_AMOUNT");
                 result.put("action_taken", "selected_default_multi_amount");
             }
             default -> {
@@ -1793,7 +1800,16 @@ public class BridgeCallbackHandler {
             logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
                 + " interactions this turn), auto-handling " + action.method().name());
             // Not a critical error — LLM is stuck in a loop, not a code bug
-            executeDefaultAction();
+            try {
+                executeDefaultAction();
+            } catch (ResponseDeliveryException e) {
+                result.success = false;
+                result.error = e.getMessage();
+                result.error_code = "response_delivery_failed";
+                result.retryable = false;
+                attachUnseenChat(result);
+                return result;
+            }
             result.success = true;
             result.action_taken = "auto_passed_loop_detected";
             result.warning = "Too many interactions this turn (" + interactionsThisTurn + "). Auto-passing until next turn.";
@@ -2032,7 +2048,7 @@ public class BridgeCallbackHandler {
                                     return buildError(result, "internal_error",
                                         "Could not resolve player ID for mana pool selection", false, action);
                                 }
-                                session.sendPlayerManaType(gameId, manaPlayerId, manaType);
+                                sendManaTypeOrDie(gameId, manaPlayerId, manaType, "chooseAction:GAME_PLAY_MANA_pool");
                                 result.action_taken = "used_pool_" + manaType.toString();
                                 usedManaIndex = true;
                             } else {
@@ -5076,8 +5092,9 @@ public class BridgeCallbackHandler {
                 case GAME_TARGET:
                     if (mcpMode) {
                         // Auto-select when required and only one legal target.
-                        // Wrap in try-catch: if auto-select throws, fall through
-                        // to storePendingAction instead of dropping the callback.
+                        // Fall back to storePendingAction for ordinary auto-select bugs,
+                        // but rethrow delivery failures so actionable callbacks fail fast
+                        // instead of queueing a pending action after playerDead=true.
                         boolean targetAutoHandled = false;
                         try {
                             GameClientMessage targetCallbackMsg = (GameClientMessage) callback.getData();
@@ -5087,10 +5104,12 @@ public class BridgeCallbackHandler {
                                 // Update game view if available
                                 GameView gv = targetCallbackMsg.getGameView();
                                 updateLastGameView(gv, "auto_target");
-                                session.sendPlayerUUID(objectId, onlyTarget);
+                                sendUuidOrDie(objectId, onlyTarget, "callback:auto_target_single_required");
                                 targetAutoHandled = true;
                                 actionableOutcome.sentResponse("auto GAME_TARGET single_required_target");
                             }
+                        } catch (ResponseDeliveryException e) {
+                            throw e;
                         } catch (Exception e) {
                             logError("Target auto-select exception: " + e.getMessage());
                             logger.debug("[" + client.getUsername() + "] Target auto-select stack trace", e);
@@ -5106,8 +5125,8 @@ public class BridgeCallbackHandler {
                     break;
 
                 case GAME_CHOOSE_ABILITY: {
-                    // Wrap auto-handling in try-catch: if mana plan logic throws,
-                    // fall through to storePendingAction instead of dropping the callback.
+                    // Fall back to storePendingAction for ordinary auto-handler bugs,
+                    // but rethrow delivery failures so actionable callbacks fail fast.
                     boolean abilityAutoHandled = false;
                     try {
                         AbilityPickerView picker = (AbilityPickerView) callback.getData();
@@ -5146,7 +5165,7 @@ public class BridgeCallbackHandler {
                                                 + choices.size() + ": \"" + picker.getMessage() + "\" -> " + choices.get(selected));
                                     }
                                 }
-                                session.sendPlayerUUID(objectId, selected);
+                                sendUuidOrDie(objectId, selected, "callback:GAME_CHOOSE_ABILITY_mana_plan");
                                 actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY mana_plan");
                             } else {
                                 // No mana plan: let the LLM choose the ability
@@ -5155,13 +5174,15 @@ public class BridgeCallbackHandler {
                             }
                         } else if (mcpMode) {
                             logger.warn("[" + client.getUsername() + "] Auto-selecting ability: no choices, sending null");
-                            session.sendPlayerUUID(objectId, null);
+                            sendUuidOrDie(objectId, null, "callback:GAME_CHOOSE_ABILITY_null");
                             actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY null_choice");
                         } else {
                             handleGameChooseAbility(objectId, callback);
                             actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY");
                         }
                         abilityAutoHandled = true;
+                    } catch (ResponseDeliveryException e) {
+                        throw e;
                     } catch (Exception e) {
                         logError("Ability auto-handler exception: " + e.getMessage());
                         logger.debug("[" + client.getUsername() + "] Ability auto-handler stack trace", e);
@@ -5195,12 +5216,14 @@ public class BridgeCallbackHandler {
 
                 case GAME_PLAY_MANA:
                 case GAME_PLAY_XMANA: {
-                    // Try auto-tap first; if it fails or throws, let the LLM choose.
-                    // An uncaught exception here would be swallowed by the outer catch
-                    // block, silently dropping the callback and hanging the game thread.
+                    // Try auto-tap first; fall back to LLM choice for ordinary auto-tap
+                    // bugs, but rethrow delivery failures so transport issues terminate
+                    // instead of queueing a pending action after playerDead=true.
                     boolean manaHandled = false;
                     try {
                         manaHandled = handleGamePlayManaAuto(objectId, callback);
+                    } catch (ResponseDeliveryException e) {
+                        throw e;
                     } catch (Exception e) {
                         logError("Mana auto-handler exception: " + e.getMessage());
                         logger.debug("[" + client.getUsername() + "] Mana auto-handler stack trace", e);
@@ -5211,7 +5234,7 @@ public class BridgeCallbackHandler {
                             actionableOutcome.storedPendingAction("mcp " + method.name());
                         } else {
                             // Non-MCP mode: cancel the payment
-                            session.sendPlayerBoolean(objectId, false);
+                            sendBooleanOrDie(objectId, false, "callback:cancel_" + method.name());
                             actionableOutcome.sentResponse("cancel " + method.name());
                         }
                     } else {
@@ -5889,7 +5912,7 @@ public class BridgeCallbackHandler {
             }
             logBridgeEvent("SPELL_CANCELLED", "mana plan was incorrect or incomplete");
         }
-        session.sendPlayerBoolean(gameId, false);
+        sendBooleanOrDie(gameId, false, "cancelSpellFromBadManaPlan");
         return true;
     }
 
@@ -5938,7 +5961,7 @@ public class BridgeCallbackHandler {
                     if (stats != null && !targetId.equals(payingForId) && !failedManaCasts.contains(targetId)) {
                         logger.info("[" + client.getUsername() + "] Mana plan: \"" + msg + "\" -> tapping " + entry.value());
                         poolManaAttempts = 0;
-                        session.sendPlayerUUID(gameId, targetId);
+                        sendUuidOrDie(gameId, targetId, "manaAuto:plan_tap");
                         return true;
                     }
                 }
@@ -5952,7 +5975,7 @@ public class BridgeCallbackHandler {
                 UUID manaPlayerId = getManaPoolPlayerId(gameId, gameView);
                 if (manaPlayerId != null) {
                     logger.info("[" + client.getUsername() + "] Mana plan: \"" + msg + "\" -> using pool " + manaType);
-                    session.sendPlayerManaType(gameId, manaPlayerId, manaType);
+                    sendManaTypeOrDie(gameId, manaPlayerId, manaType, "manaAuto:plan_pool");
                     return true;
                 }
                 logger.warn("[" + client.getUsername() + "] Mana plan: pool entry failed (no player ID), cancelling spell");
@@ -6034,7 +6057,7 @@ public class BridgeCallbackHandler {
                 if (hasTapManaAbility) {
                     logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> tapping " + objectId.toString().substring(0, 8));
                     poolManaAttempts = 0; // Reset pool counter — tap may produce needed mana
-                    session.sendPlayerUUID(gameId, objectId);
+                    sendUuidOrDie(gameId, objectId, "manaAuto:tap");
                     return true;
                 }
             }
@@ -6071,7 +6094,7 @@ public class BridgeCallbackHandler {
                         }
                         logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
                     }
-                    session.sendPlayerBoolean(gameId, false);
+                    sendBooleanOrDie(gameId, false, "manaAuto:pool_loop_cancel");
                     return true;
                 }
 
@@ -6085,7 +6108,7 @@ public class BridgeCallbackHandler {
                 } else {
                     logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> using first available pool type " + manaType.toString());
                 }
-                session.sendPlayerManaType(gameId, manaPlayerId, manaType);
+                sendManaTypeOrDie(gameId, manaPlayerId, manaType, "manaAuto:pool");
                 return true;
             }
             logger.warn("[" + client.getUsername() + "] Mana: couldn't resolve player ID for mana pool payment");
@@ -6104,7 +6127,7 @@ public class BridgeCallbackHandler {
             }
             logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
         }
-        session.sendPlayerBoolean(gameId, false);
+        sendBooleanOrDie(gameId, false, "manaAuto:no_source_cancel");
         return true;
     }
 

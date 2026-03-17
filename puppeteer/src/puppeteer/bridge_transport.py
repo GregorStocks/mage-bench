@@ -10,8 +10,10 @@ from __future__ import annotations
 
 import os
 import subprocess
+import sys
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
+from dataclasses import dataclass
 from pathlib import Path
 
 import httpx
@@ -27,6 +29,57 @@ _MCP_PORT_START = 19000
 
 # Timeout waiting for the bridge JVM to start its HTTP server
 _BRIDGE_STARTUP_TIMEOUT_SECS = 120
+
+
+@dataclass(frozen=True)
+class BridgeLaunchArgs:
+    jvm_args: str
+    mvn_args: list[str]
+
+
+def build_bridge_launch_args(
+    *,
+    server: str,
+    port: int,
+    username: str,
+    personality: str,
+    deck_path: Path | None = None,
+    heap_size_mb: int | None = None,
+    table_id: str | None = None,
+    error_log_path: Path | None = None,
+    bridge_log_path: Path | None = None,
+    max_interactions_per_turn: int | None = None,
+) -> BridgeLaunchArgs:
+    """Build the bridge JVM and Maven arguments for Python bridge clients."""
+    jvm_args_list = [
+        "--add-opens=java.base/java.io=ALL-UNNAMED",
+    ]
+    if heap_size_mb is not None:
+        jvm_args_list.append(f"-Xmx{heap_size_mb}m")
+    jvm_args_list.extend(
+        [
+            f"-Dxmage.bridge.server={server}",
+            f"-Dxmage.bridge.port={port}",
+            f"-Dxmage.bridge.personality={personality}",
+        ]
+    )
+    if table_id is not None:
+        jvm_args_list.append(f"-Dxmage.bridge.tableId={table_id}")
+    if sys.platform == "darwin":
+        jvm_args_list.append("-Dapple.awt.UIElement=true")
+
+    mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
+    if deck_path is not None:
+        mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
+    if error_log_path is not None:
+        mvn_args.append(f"-Dxmage.bridge.errorlog={error_log_path}")
+    if bridge_log_path is not None:
+        mvn_args.append(f"-Dxmage.bridge.bridgelog={bridge_log_path}")
+    if max_interactions_per_turn is not None:
+        mvn_args.append(f"-Dxmage.bridge.maxInteractionsPerTurn={max_interactions_per_turn}")
+    mvn_args.append("exec:java")
+
+    return BridgeLaunchArgs(jvm_args=" ".join(jvm_args_list), mvn_args=mvn_args)
 
 
 @asynccontextmanager

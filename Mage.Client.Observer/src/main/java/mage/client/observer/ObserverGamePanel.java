@@ -181,16 +181,24 @@ public class ObserverGamePanel extends GamePanel {
         watchingSignaled = true;
     }
 
+    /**
+     * The golden harness must not start replay until the observer has issued its
+     * initial hand-permission requests for the current GameView. Signaling
+     * readiness from watchGame() is too early and can interleave those dialogs
+     * with the first replay decisions, but keepAlive spectators can also miss the
+     * init(GameView) path entirely. Request permissions and complete the health
+     * signal from every callback path that carries a real GameView instead.
+     */
+    private void requestPermissionsAndSignalReady(GameView game) {
+        requestHandPermissions(game);
+        signalWatchingReady();
+    }
+
     @Override
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
         this.observerGameId = gameId;
         replaceChatWithCombinedPanel();  // Replace before super connects chat
         super.watchGame(currentTableId, parentTableId, gameId, gamePane);
-        // Watching readiness must not depend solely on a later init(GameView) call.
-        // In keepAlive goldens the observer can attach to the game before it receives
-        // a populated GameView; if the harness waits for init(), replay never starts
-        // and the observer never gets the next update that would trigger init().
-        signalWatchingReady();
     }
 
     /**
@@ -282,7 +290,7 @@ public class ObserverGamePanel extends GamePanel {
         updateFrameGameName();
         // Hide the central hand container (we show hands in play areas instead)
         hideHandContainer();
-        requestHandPermissions(game);
+        requestPermissionsAndSignalReady(game);
         initCostPolling();
         initGameEventLog();
         // Build player color index map and apply per-player styling
@@ -298,7 +306,6 @@ public class ObserverGamePanel extends GamePanel {
         // Schedule auto-dismissal of any popup dialogs created during init
         schedulePopupDismissal();
         writeStateSnapshotIfChanged(game);
-        signalWatchingReady();
     }
 
     private void updateFrameGameName() {
@@ -323,6 +330,7 @@ public class ObserverGamePanel extends GamePanel {
         super.updateGame(messageId, game, showPlayable, options, targets);
         this.lastGame = game;
         roundTracker.update(game);
+        requestPermissionsAndSignalReady(game);
         writeStateSnapshotIfChanged(game);
     }
 
@@ -333,8 +341,6 @@ public class ObserverGamePanel extends GamePanel {
         schedulePopupDismissal();
         // Hide the central hand container (we show hands in play areas instead)
         hideHandContainer();
-        // Also try to request permissions on updates in case we missed init
-        requestHandPermissions(game);
         // Distribute hands to each player's PlayAreaPanel
         distributeHands(game);
         // Inject observer zone panels (commander, graveyard, exile) into west panel

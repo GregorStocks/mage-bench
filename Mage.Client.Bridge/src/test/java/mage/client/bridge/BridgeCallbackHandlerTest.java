@@ -795,6 +795,57 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void handleCallbackFailsFastWhenAutoTargetDeliveryFailsInMcpMode() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setMcpMode(true);
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID onlyTarget = UUID.randomUUID();
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerUUID".equals(method.getName())) {
+                    sendPlayerUuidCalls.incrementAndGet();
+                    assertThat(args[0]).isEqualTo(gameId);
+                    assertThat(args[1]).isEqualTo(onlyTarget);
+                    return false;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        activeGames.put(gameId, playerId);
+        setField(handler, "currentGameId", gameId);
+
+        ClientCallback callback = new ClientCallback(
+            ClientCallbackMethod.GAME_TARGET,
+            gameId,
+            new GameClientMessage(
+                gameView(33),
+                Collections.<String, Serializable>emptyMap(),
+                "Choose a creature to copy",
+                new CardsView(),
+                Set.of(onlyTarget),
+                true
+            ),
+            false
+        );
+
+        handler.handleCallback(callback);
+
+        assertThat(sendPlayerUuidCalls.get()).isEqualTo(1);
+        assertThat(getField(handler, "pendingAction")).isNull();
+        assertThat(getField(handler, "playerDead")).isEqualTo(true);
+    }
+
+    @Test
     void transitionToDecisionBoundaryTreatsReplacedTargetActionAsChanged() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
