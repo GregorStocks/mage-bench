@@ -1,0 +1,10 @@
+{
+  "title": "Add discriminated game-export types for llmEvents",
+  "description": "The current `schemas/game_export_types.py` models `LlmEvent` as one flat `TypedDict` with many optional keys. After checking `event[\"type\"] == \"tool_call\"` or `\"llm_error\"`, code still has to use `.get(\"tool\")`, `.get(\"result\")`, `.get(\"errorType\")`, etc. because the type system cannot express which fields become mandatory for each event kind. Split `LlmEvent` into discriminated variants (`ToolCallEvent`, `LlmResponseEvent`, `LlmErrorEvent`, etc.) keyed by `type`, then update helpers in leaderboard/analysis/export code to use direct indexing where the variant guarantees the field.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["typing", "puppeteer"],
+  "created_at": "2026-03-16T17:05:00.000000-07:00",
+  "updated_at": "2026-03-16T17:05:00.000000-07:00"
+}

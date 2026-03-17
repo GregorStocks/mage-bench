@@ -840,6 +840,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
+        game_id = game["id"]
         epoch = game["harnessEpoch"]
         players = game["players"]
         winner = game["winner"]
@@ -847,8 +848,9 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
         for p in players:
-            if p.get("type") != "pilot" or not p.get("model"):
+            if p["type"] != "pilot":
                 continue
+            assert "model" in p and p["model"], f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             name_to_key[p["name"]] = key
 
@@ -902,7 +904,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # Scan llmEvents for per-player operational stats
         llm_events = game["llmEvents"]
         for ev in llm_events:
-            player_name = ev.get("player", "")
+            player_name = ev["player"]
             if player_name not in name_to_key:
                 continue
             key = name_to_key[player_name]
@@ -911,7 +913,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
                 continue
             b = buckets[bucket_key]
 
-            ev_type = ev.get("type")
+            ev_type = ev["type"]
             if ev_type == "llm_response":
                 b["successfulResponses"] += 1
                 usage = ev.get("usage")
@@ -932,7 +934,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # ev_i's player — same approach as compute_thinking_time but we
         # collect individual durations instead of summing.
         for i in range(len(llm_events) - 1):
-            player_name = llm_events[i].get("player", "")
+            player_name = llm_events[i]["player"]
             if player_name not in name_to_key:
                 continue
             ts_a = llm_events[i].get("ts", "")
@@ -1011,6 +1013,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
+        game_id = game["id"]
         epoch = game["harnessEpoch"]
         game_format = derive_format(game)
         winner = game["winner"]
@@ -1019,8 +1022,9 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
         for p in players:
-            if p.get("type") != "pilot" or not p.get("model"):
+            if p["type"] != "pilot":
                 continue
+            assert "model" in p and p["model"], f"game {game_id}: pilot player missing model: {p!r}"
             name_to_key[p["name"]] = _player_key(p)
 
         # Accumulate per-player stats from llmEvents
@@ -1038,11 +1042,11 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         last_ts: dict[str, datetime] = {}
 
         for ev in game["llmEvents"]:
-            player_name = ev.get("player", "")
+            player_name = ev["player"]
             if player_name not in name_to_key:
                 continue
 
-            ev_type = ev.get("type")
+            ev_type = ev["type"]
             if ev_type == "llm_response":
                 player_responses[player_name] = player_responses.get(player_name, 0) + 1
                 usage = ev.get("usage")
@@ -1096,8 +1100,9 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Build per-player records
         player_records: list[dict[str, Any]] = []
         for p in players:
-            if p.get("type") != "pilot" or not p.get("model"):
+            if p["type"] != "pilot":
                 continue
+            assert "model" in p and p["model"], f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             model_id, effort = _split_key(key)
             display_name = model_registry.get(model_id) or derive_display_name(model_id)

@@ -1547,6 +1547,31 @@ def test_generate_model_stats_requires_normalized_player_stats():
             generate_model_stats(games_dir, data_dir, models_json)
 
 
+def test_generate_model_stats_requires_pilot_model():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260101_000000",
+            "20260101_000000",
+            "Alice",
+            [_pilot("Alice", "a/model-a", cost=5.0, placement=1)],
+            [],
+            epoch=10,
+        )
+        game["players"][0].pop("model")
+        (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        with pytest.raises(AssertionError, match="pilot player missing model"):
+            generate_model_stats(games_dir, data_dir, models_json)
+
+
 def test_generate_model_stats_epoch_bucketing():
     """Games at different epochs produce separate buckets."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -1901,6 +1926,31 @@ def test_generate_internals_data_no_games():
         result = json.loads(output_path.read_text())
 
         assert result["games"] == []
+
+
+def test_generate_internals_data_requires_pilot_model():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260116_000000",
+            "20260116_000000",
+            "Alice",
+            [_pilot("Alice", "a/model-a", cost=1.0, placement=1)],
+            [],
+            epoch=10,
+        )
+        game["players"][0].pop("model")
+        (games_dir / "game_20260116_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        with pytest.raises(AssertionError, match="pilot player missing model"):
+            generate_internals_data(games_dir, data_dir, models_json)
 
 
 # --- Timeout loss tracking ---
