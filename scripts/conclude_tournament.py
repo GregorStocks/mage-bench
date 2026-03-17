@@ -50,8 +50,7 @@ def main() -> int:
 
     champion_seed = tournament.get("champion_seed")
     assert champion_seed is not None, (
-        "Tournament champion has not been recorded yet. "
-        "Run 'make tournament-game' after the finals complete."
+        "Tournament champion has not been recorded yet. Run 'make tournament-game' after the finals complete."
     )
     computed_champion_seed = get_tournament_champion_seed(tournament)
     assert computed_champion_seed == champion_seed, (

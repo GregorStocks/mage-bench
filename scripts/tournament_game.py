@@ -15,7 +15,7 @@ import json
 import threading
 from collections.abc import Collection, Sequence
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from puppeteer.config import (
@@ -57,8 +57,7 @@ def load_season(allowed_phases: Collection[str] | None = None) -> dict:
     if allowed_phases is not None:
         phase = season_data["phase"]
         assert phase in allowed_phases, (
-            f"Season {season_data['current_season']} is in phase "
-            f"'{phase}', expected one of {sorted(allowed_phases)}"
+            f"Season {season_data['current_season']} is in phase '{phase}', expected one of {sorted(allowed_phases)}"
         )
     return season_data
 
@@ -258,7 +257,7 @@ def _finalize_completed_tournament_state(
         tournament["champion_seed"] = champion_seed
         changed = True
     if tournament.get("completed_at") is None:
-        tournament["completed_at"] = datetime.now(timezone.utc).isoformat()
+        tournament["completed_at"] = datetime.now(UTC).isoformat()
         changed = True
     if changed:
         _save_tournament(tournament, tournament_path)
@@ -376,8 +375,7 @@ def _load_match_wins(match: dict, seed_a: int, seed_b: int) -> dict[int, int]:
     for game in match["games"]:
         winner_seed = game["winner_seed"]
         assert winner_seed in wins, (
-            f"Recorded game winner {winner_seed} is not part of match "
-            f"{seed_a} vs {seed_b}"
+            f"Recorded game winner {winner_seed} is not part of match {seed_a} vs {seed_b}"
         )
         wins[winner_seed] += 1
     return wins
@@ -403,8 +401,7 @@ def map_winner_to_seed(
         name_to_seed[name] = seed
 
     assert winner_name in name_to_seed, (
-        f"Winner name {winner_name!r} doesn't match any entrant. "
-        f"Expected one of: {name_to_seed}"
+        f"Winner name {winner_name!r} doesn't match any entrant. Expected one of: {name_to_seed}"
     )
     return name_to_seed[winner_name]
 
@@ -509,7 +506,7 @@ def _run_games(
     )
     return [
         _read_game_result(session.game_dir, seed_a, seed_b, tournament)
-        for session, (seed_a, seed_b) in zip(result.sessions, matchups)
+        for session, (seed_a, seed_b) in zip(result.sessions, matchups, strict=False)
     ]
 
 
@@ -542,8 +539,7 @@ def _record_match_game(
 
     winner_display = entrants_by_seed[winner_seed]["display_name"]
     print(
-        f"  {result_label}: #{winner_seed} {winner_display} wins "
-        f"({wins[match['seed_a']]}-{wins[match['seed_b']]})"
+        f"  {result_label}: #{winner_seed} {winner_display} wins ({wins[match['seed_a']]}-{wins[match['seed_b']]})"
     )
     return _complete_match_if_decided(
         tournament,
@@ -644,7 +640,9 @@ def _run_match_batch(
         )
 
         next_active: list[MatchSeries] = []
-        for series, (game_dir, winner_seed) in zip(active_series, results):
+        for series, (game_dir, winner_seed) in zip(
+            active_series, results, strict=False
+        ):
             if not _record_match_game(
                 tournament,
                 tournament_path,
@@ -768,7 +766,7 @@ def main() -> int:
     _finalize_completed_tournament_state(tournament, tournament_path)
 
     # Resolve any deferred annotation failures
-    resolve_annotation_failures(deferred_failures, _ROOT)
+    resolve_annotation_failures(deferred_failures)
 
     generate_all_website_data()
     return 0

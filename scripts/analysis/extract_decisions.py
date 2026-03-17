@@ -691,10 +691,11 @@ def extract_decisions(gz_path: str) -> list[dict[str, object]]:
         return typed_decisions
 
     # Legacy: extract from llmEvents
-    if data["harnessEpoch"] >= 20:
-        decisions = _extract_decisions_v2(data)
-    else:
-        decisions = _extract_decisions_v1(data)
+    decisions = (
+        _extract_decisions_v2(data)
+        if data["harnessEpoch"] >= 20
+        else _extract_decisions_v1(data)
+    )
 
     # Detect rolled-back casts from [System] Spell cancelled messages
     # in ANY tool result (get_action_choices, choose_action, pass_priority)

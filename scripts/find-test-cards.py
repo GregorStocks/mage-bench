@@ -36,40 +36,35 @@ RECIPES = (
         name="clone-effect",
         summary="Cheap clone cards for copy-target scenarios.",
         query=(
-            "game:paper unique:cards order:cmc direction:asc "
-            "function:clone is:spell mv<=4"
+            "game:paper unique:cards order:cmc direction:asc function:clone is:spell mv<=4"
         ),
     ),
     Recipe(
         name="trigger-prompt",
         summary="Permanents with explicit triggered abilities for prompt coverage.",
         query=(
-            "game:paper unique:cards order:cmc direction:asc "
-            "is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)"
+            "game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)"
         ),
     ),
     Recipe(
         name="stack-interaction",
         summary="Cheap removal and countermagic for stack-state tests.",
         query=(
-            "game:paper unique:cards order:cmc direction:asc "
-            "is:spell mv<=2 (function:removal or function:counterspell)"
+            "game:paper unique:cards order:cmc direction:asc is:spell mv<=2 (function:removal or function:counterspell)"
         ),
     ),
     Recipe(
         name="graveyard-setup",
         summary="Single-card graveyard enablers that stay compact.",
         query=(
-            "game:paper unique:cards order:cmc direction:asc "
-            'mv<=3 (o:"mill" or o:"discard" or o:"into your graveyard")'
+            'game:paper unique:cards order:cmc direction:asc mv<=3 (o:"mill" or o:"discard" or o:"into your graveyard")'
         ),
     ),
     Recipe(
         name="weird-frames",
         summary="Cards with MDFC, suspend, split, or transform presentation.",
         query=(
-            "game:paper unique:cards order:cmc direction:asc "
-            "(is:mdfc or is:split or is:transform or o:suspend)"
+            "game:paper unique:cards order:cmc direction:asc (is:mdfc or is:split or is:transform or o:suspend)"
         ),
     ),
     Recipe(

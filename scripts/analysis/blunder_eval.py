@@ -15,7 +15,7 @@ Requires OPENROUTER_API_KEY environment variable.
 import json
 import textwrap
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
 from openai import OpenAIError
@@ -268,7 +268,7 @@ def main() -> None:
         for fut in as_completed(futures):
             pk = futures[fut]
             try:
-                anns, cost, parsed_ok, raw = fut.result()
+                anns, cost, _parsed_ok, _raw = fut.result()
             except OpenAIError as e:
                 print(f"  WARNING: {pk} failed: {e}")
                 eval_results[pk] = {"detected": False}
@@ -292,7 +292,7 @@ def main() -> None:
     output_path = TMP_DIR / f"blunder_eval_{ts}.json"
     output = {
         "blunder_script_version": BLUNDER_SCRIPT_VERSION,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "cost_usd": total_cost,
         "results": eval_results,
     }

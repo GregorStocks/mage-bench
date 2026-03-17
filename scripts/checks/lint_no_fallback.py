@@ -64,7 +64,7 @@ def _check_file(path: Path, source_lines: list[str]) -> list[str]:
     return errors
 
 
-def lint_no_fallback(_project_root: Path) -> list[str]:
+def lint_no_fallback() -> list[str]:
     errors = []
     for scan_dir in SCAN_DIRS:
         if not scan_dir.is_dir():
@@ -78,7 +78,7 @@ def lint_no_fallback(_project_root: Path) -> list[str]:
 
 
 def main() -> None:
-    errors = lint_no_fallback(REPO_ROOT)
+    errors = lint_no_fallback()
 
     if errors:
         print(

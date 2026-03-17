@@ -16,9 +16,9 @@ import os
 import sys
 from collections.abc import Sequence
 
+from schemas.game_export_types import GameExport, JsonObject, LlmEvent, Snapshot
 from scripts.analysis.blunder_eval_common import GAMES_DIR
 from scripts.analysis.blunder_eval_common import load_game as _load_game_common
-from schemas.game_export_types import GameExport, JsonObject, LlmEvent, Snapshot
 
 MANA_KEYWORDS = {
     "mana_plan",
@@ -239,14 +239,10 @@ def fmt_args(tool: str, args: JsonObject) -> str:
         if isinstance(text, str) and text.strip():
             parts.append(f"text={text!r}")
         return ", ".join(parts) if parts else "(no significant args)"
-    elif tool == "get_action_choices":
+    if tool == "get_action_choices" or tool == "pass_priority":
         until = args.get("until")
         return f"until={until}" if isinstance(until, str) and until else ""
-    elif tool == "pass_priority":
-        until = args.get("until")
-        return f"until={until}" if isinstance(until, str) and until else ""
-    else:
-        return json.dumps(args)[:200]
+    return json.dumps(args)[:200]
 
 
 def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
@@ -378,7 +374,7 @@ def print_event(
             print(f"{'':>12} {'':>30} {'':>25}   ({latency}ms)")
         return True
 
-    elif etype == "llm_response":
+    if etype == "llm_response":
         reasoning = event.get("reasoning", "")
         tool_calls = event.get("toolCalls", [])
         usage = event.get("usage", {})
@@ -415,11 +411,11 @@ def print_event(
             print(f"{'':>12} {'':>30} {'':>25}   reasoning: {r}")
         return True
 
-    elif etype == "game_start":
+    if etype == "game_start":
         print(f"{ts_short} {'':>30} {player:<25} === GAME START ===")
         return True
 
-    elif etype in ("stall", "context_reset", "llm_error"):
+    if etype in ("stall", "context_reset", "llm_error"):
         detail = event.get("reason", event.get("errorMessage", ""))
         print(
             f"{ts_short} {context:<30} {player:<25} *** {etype.upper()}: {str(detail)[:100]} ***"

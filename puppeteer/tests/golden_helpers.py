@@ -641,7 +641,7 @@ class BridgeManager:
         tmp_dir = self._log_dir()
         tmp_dir.mkdir(parents=True, exist_ok=True)
 
-        mcp_port_res = find_available_port("localhost", 19000)
+        mcp_port_res = find_available_port(19000)
         mcp_port = mcp_port_res.port
         bridge_log = self._prepare_live_log_path()
         bridge_event_log = self._prepare_live_log_path("bridge-events.jsonl")

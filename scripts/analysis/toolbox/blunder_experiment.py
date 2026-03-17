@@ -399,8 +399,8 @@ def _approach_inline(
         )
 
     user_msg = (
-        f"## Game Overview\n{overview}\n\n"
-        f"## Decisions ({len(non_forced)} total)\n\n" + "\n\n".join(parts)
+        f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} total)\n\n"
+        + "\n\n".join(parts)
     )
 
     trace = _call_llm(client, OPUS, INLINE_SYSTEM, user_msg, label="full_game")
@@ -537,11 +537,7 @@ def _approach_thinking(
     result = ExperimentResult(approach="C_thinking", game_id=data["id"], model=OPUS)
     non_forced = [d for d in decisions if not is_forced(d)]
 
-    user_msg = (
-        f"## Game Overview\n{overview}\n\n"
-        f"## Decisions ({len(non_forced)} non-forced)\n\n"
-        f"{_format_decisions(decisions)}"
-    )
+    user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
 
     trace = _call_llm(
         client, OPUS, OPUS_SYSTEM, user_msg, thinking=True, label="full_game"
@@ -569,11 +565,7 @@ def _approach_baseline(
     result = ExperimentResult(approach="baseline", game_id=data["id"], model=OPUS)
     non_forced = [d for d in decisions if not is_forced(d)]
 
-    user_msg = (
-        f"## Game Overview\n{overview}\n\n"
-        f"## Decisions ({len(non_forced)} non-forced)\n\n"
-        f"{_format_decisions(decisions)}"
-    )
+    user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
 
     trace = _call_llm(client, OPUS, OPUS_SYSTEM, user_msg, label="full_game")
     result.calls.append(trace)
@@ -876,8 +868,8 @@ def _approach_batched(
             parts.append(f"--- DECISION ---\n{formatted}")
 
         user_msg = (
-            f"## Game Overview\n{overview}\n\n"
-            f"## Decisions ({len(batch)} to evaluate)\n\n" + "\n\n".join(parts)
+            f"## Game Overview\n{overview}\n\n## Decisions ({len(batch)} to evaluate)\n\n"
+            + "\n\n".join(parts)
         )
         label = f"batch_{batch_indices[0]}-{batch_indices[-1]}"
         batches.append((batch, user_msg, label))
@@ -1075,43 +1067,43 @@ def run_approach(
     """Run a specific approach and return the result."""
     if approach == "baseline":
         return _approach_baseline(client, data, decisions, overview)
-    elif approach == "A_inline":
+    if approach == "A_inline":
         return _approach_inline(client, data, decisions, overview)
-    elif approach == "B_flash":
+    if approach == "B_flash":
         return _approach_per_decision(
             client, data, decisions, overview, FLASH, "B_flash"
         )
-    elif approach == "C_thinking":
+    if approach == "C_thinking":
         return _approach_thinking(client, data, decisions, overview)
-    elif approach == "D_opus":
+    if approach == "D_opus":
         return _approach_per_decision(client, data, decisions, overview, OPUS, "D_opus")
-    elif approach == "E_sonnet":
+    if approach == "E_sonnet":
         return _approach_per_decision(
             client, data, decisions, overview, SONNET, "E_sonnet"
         )
-    elif approach == "F_opus_minimal":
+    if approach == "F_opus_minimal":
         return _approach_per_decision_minimal(
             client, data, decisions, overview, OPUS, "F_opus_minimal"
         )
-    elif approach == "G_flash_opus":
+    if approach == "G_flash_opus":
         return _approach_flash_opus(client, data, decisions, overview)
-    elif approach == "H_opus_batched":
+    if approach == "H_opus_batched":
         return _approach_batched(
             client, data, decisions, overview, OPUS, "H_opus_batched"
         )
-    elif approach == "I_convo_opus":
+    if approach == "I_convo_opus":
         return _approach_conversation(
             client, data, decisions, overview, OPUS, "I_convo_opus"
         )
-    elif approach == "J_convo_sonnet":
+    if approach == "J_convo_sonnet":
         return _approach_conversation(
             client, data, decisions, overview, SONNET, "J_convo_sonnet"
         )
-    elif approach == "K_opus_thinking":
+    if approach == "K_opus_thinking":
         return _approach_per_decision(
             client, data, decisions, overview, OPUS, "K_opus_thinking", thinking=True
         )
-    elif approach == "L_sonnet_thinking":
+    if approach == "L_sonnet_thinking":
         return _approach_per_decision(
             client,
             data,
@@ -1121,7 +1113,7 @@ def run_approach(
             "L_sonnet_thinking",
             thinking=True,
         )
-    elif approach == "M_sonnet_batched_medium":
+    if approach == "M_sonnet_batched_medium":
         return _approach_batched(
             client,
             data,
@@ -1131,7 +1123,7 @@ def run_approach(
             "M_sonnet_batched_medium",
             thinking="medium",
         )
-    elif approach == "N_sonnet_batched_high":
+    if approach == "N_sonnet_batched_high":
         return _approach_batched(
             client,
             data,
@@ -1141,7 +1133,7 @@ def run_approach(
             "N_sonnet_batched_high",
             thinking=True,
         )
-    elif approach == "O_sonnet_medium":
+    if approach == "O_sonnet_medium":
         return _approach_per_decision(
             client,
             data,
@@ -1151,7 +1143,7 @@ def run_approach(
             "O_sonnet_medium",
             thinking="medium",
         )
-    elif approach == "P_sonnet_low":
+    if approach == "P_sonnet_low":
         return _approach_per_decision(
             client,
             data,
@@ -1161,10 +1153,9 @@ def run_approach(
             "P_sonnet_low",
             thinking="low",
         )
-    elif approach == "Q_flash_sonnet":
+    if approach == "Q_flash_sonnet":
         return _approach_flash_sonnet(client, data, decisions, overview)
-    else:
-        raise ValueError(f"Unknown approach: {approach}")
+    raise ValueError(f"Unknown approach: {approach}")
 
 
 def _save_result(result: ExperimentResult) -> Path:
@@ -1247,11 +1238,7 @@ def _dry_run(gz_path: str) -> None:
 
     # Show what baseline/thinking would send
     all_formatted = _format_decisions(decisions)
-    baseline_user = (
-        f"## Game Overview\n{overview}\n\n"
-        f"## Decisions ({len(non_forced)} non-forced)\n\n"
-        f"{all_formatted}"
-    )
+    baseline_user = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{all_formatted}"
     print("=== Baseline/Thinking input ===")
     print(f"System: {len(OPUS_SYSTEM)} chars (~{len(OPUS_SYSTEM) // 4} tokens)")
     print(f"User: {len(baseline_user)} chars (~{len(baseline_user) // 4} tokens)")
@@ -1277,8 +1264,8 @@ def _dry_run(gz_path: str) -> None:
             f"--- DECISION (respond PASS or annotation below) ---\n{formatted}"
         )
     inline_user = (
-        f"## Game Overview\n{overview}\n\n"
-        f"## Decisions ({len(non_forced)} total)\n\n" + "\n\n".join(parts)
+        f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} total)\n\n"
+        + "\n\n".join(parts)
     )
     print("=== Inline input ===")
     print(f"System: {len(INLINE_SYSTEM)} chars (~{len(INLINE_SYSTEM) // 4} tokens)")

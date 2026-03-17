@@ -11,7 +11,7 @@ Usage:
 """
 
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
 from scripts.analysis.blunder_eval_common import (
@@ -46,7 +46,7 @@ def derive_baseline() -> dict:
         print("No validated entries found in ground truth.")
         return {
             "blunder_script_version": BLUNDER_SCRIPT_VERSION,
-            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "generated_at": datetime.now(UTC).isoformat(),
             "results": {},
         }
 
@@ -54,7 +54,6 @@ def derive_baseline() -> dict:
         gz_path = str(game_path_for_id(game_id))
         data = load_game(gz_path)
 
-        snapshots = data.get("snapshots", [])
         annotations = data.get("annotations", [])
         decisions = extract_decisions(gz_path)
 
@@ -77,7 +76,7 @@ def derive_baseline() -> dict:
                 results[pk] = {"detected": False}
                 continue
 
-            match = lookup_annotation_for_decision(decision, annotations, snapshots)
+            match = lookup_annotation_for_decision(decision, annotations)
 
             if match is not None:
                 results[pk] = {
@@ -90,7 +89,7 @@ def derive_baseline() -> dict:
 
     return {
         "blunder_script_version": BLUNDER_SCRIPT_VERSION,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "results": results,
     }
 

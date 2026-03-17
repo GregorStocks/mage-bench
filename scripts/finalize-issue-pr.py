@@ -17,7 +17,6 @@ import argparse
 import re
 import subprocess
 
-
 CLAIM_TS_RE = re.compile(r"<!-- claim-ts: \d+ -->")
 
 

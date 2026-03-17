@@ -210,8 +210,7 @@ def report(all_stats: list[PlayerStats]) -> None:
             a = model_agg[model]
             if a.mana_plan_used > 0:
                 print(
-                    f"    {model}: {a.mana_plan_used} "
-                    f"({a.mana_plan_success} ok, {a.mana_plan_failed} failed)"
+                    f"    {model}: {a.mana_plan_used} ({a.mana_plan_success} ok, {a.mana_plan_failed} failed)"
                 )
         # Show error reasons
         all_errors: list[str] = []
@@ -243,8 +242,7 @@ def report(all_stats: list[PlayerStats]) -> None:
     print(f"  Total deferrals: {total_def}")
     if total_def > 0:
         print(
-            f"  LLM handled: {total_def_ok} success, "
-            f"{total_def_fail} failed, {total_def_cancel} cancelled"
+            f"  LLM handled: {total_def_ok} success, {total_def_fail} failed, {total_def_cancel} cancelled"
         )
         print("  By model:")
         for model in sorted(model_agg):
@@ -269,8 +267,7 @@ def report(all_stats: list[PlayerStats]) -> None:
             a = model_agg[model]
             if a.choose_ability > 0:
                 print(
-                    f"    {model}: {a.choose_ability} "
-                    f"({a.choose_ability_success} ok, {a.choose_ability_failed} fail)"
+                    f"    {model}: {a.choose_ability} ({a.choose_ability_success} ok, {a.choose_ability_failed} fail)"
                 )
 
     # --- Section 5: Spell Cancellations ---

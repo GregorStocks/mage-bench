@@ -24,15 +24,19 @@ from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
-    decision_index as get_decision_index,
     game_path_for_id,
     load_game_ground_truth,
     load_ground_truth,
     lookup_annotation_for_decision,
     make_audited_entry,
     save_game_ground_truth,
-    snapshot_index as get_snapshot_index,
     validate_game_id,
+)
+from scripts.analysis.blunder_eval_common import (
+    decision_index as get_decision_index,
+)
+from scripts.analysis.blunder_eval_common import (
+    snapshot_index as get_snapshot_index,
 )
 from scripts.analysis.extract_decisions import extract_decisions
 
@@ -143,7 +147,7 @@ def _lookup_existing_annotation(
     snapshots: Sequence[Snapshot],
 ) -> Mapping[str, object] | None:
     """Look up the annotation from the game file (may be stale). For display only."""
-    return lookup_annotation_for_decision(decision, game_data["annotations"], snapshots)
+    return lookup_annotation_for_decision(decision, game_data["annotations"])
 
 
 def _get_current_annotation(
@@ -166,9 +170,7 @@ def _get_current_annotation(
 
     game_version = game_data["blunderScriptVersion"]
     if game_version >= BLUNDER_SCRIPT_VERSION:
-        ann = lookup_annotation_for_decision(
-            decision, game_data["annotations"], snapshots
-        )
+        ann = lookup_annotation_for_decision(decision, game_data["annotations"])
         return ann, BLUNDER_SCRIPT_VERSION
 
     # Stale game — run annotator on just this decision
@@ -185,7 +187,7 @@ def _get_current_annotation(
     client, prices = init_api()
     game_ctx = load_game_context(gz_path)
 
-    anns, cost, parsed_ok, raw = _eval_one_decision(
+    anns, cost, _parsed_ok, _raw = _eval_one_decision(
         client,
         OPUS_MODEL,
         prices,
@@ -544,8 +546,7 @@ def add_from_url(url: str) -> None:
     for e in existing:
         if e["decision_index"] == best_di:
             print(
-                f"Decision {best_di} already in ground truth "
-                f"(verdict={e.get('verdict')})"
+                f"Decision {best_di} already in ground truth (verdict={e.get('verdict')})"
             )
             return
 
@@ -593,7 +594,7 @@ def add_from_url(url: str) -> None:
         human_notes=notes,
     )
 
-    save_game_ground_truth(game_id, existing + [audited_entry])
+    save_game_ground_truth(game_id, [*existing, audited_entry])
     print(f"\nAdded as blunder (decision {best_di})")
 
 

@@ -653,8 +653,7 @@ def test_wait_for_all_games_all_complete(mock_sleep):
     s2 = GameSession(index=1, game_dir=Path("/fake/g2"), config=Config())
     s2.spectator_proc = _mock_proc([None, None, 0])
 
-    pm = MagicMock()
-    results = _wait_for_all_games([s1, s2], pm)
+    results = _wait_for_all_games([s1, s2])
 
     assert results == {0: 0, 1: 0}
 
@@ -673,9 +672,8 @@ def test_wait_for_all_games_pilot_fails(mock_sleep):
     bob_proc = _mock_proc([None, 3, 3])
     s2.pilot_procs = [("bob", bob_proc)]
 
-    pm = MagicMock()
     with patch("puppeteer.orchestrator.kill_tree"):
-        results = _wait_for_all_games([s1, s2], pm)
+        results = _wait_for_all_games([s1, s2])
 
     assert results[0] == 0
     assert results[1] == -1

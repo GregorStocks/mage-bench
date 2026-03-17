@@ -21,9 +21,8 @@ import sys
 import tempfile
 from collections.abc import Mapping, Sequence
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
-
 from typing import Any
 from zoneinfo import ZoneInfo
 
@@ -31,11 +30,14 @@ from openai import OpenAI, OpenAIError
 
 from puppeteer.decision_renderer import (
     _chosen_display as _renderer_chosen_display,
+)
+from puppeteer.decision_renderer import (
     card_display,
     permanent_display,
     render_decision,
 )
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
+from schemas.game_export_types import Action, GameExport, Snapshot, SnapshotPlayer
 from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
 from scripts.analysis.blunder_eval_common import (
@@ -50,7 +52,6 @@ from scripts.analysis.blunder_eval_common import (
     snapshot_index,
 )
 from scripts.analysis.extract_decisions import extract_decisions
-from schemas.game_export_types import Action, GameExport, Snapshot, SnapshotPlayer
 
 # Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -574,11 +575,10 @@ def _format_current_turn_actions(
             if turn_num == current_turn:
                 in_current_turn = True
                 continue
-            elif turn_num > current_turn:
+            if turn_num > current_turn:
                 break
-            else:
-                in_current_turn = False
-                continue
+            in_current_turn = False
+            continue
 
         if not in_current_turn:
             continue
@@ -718,8 +718,7 @@ def _format_decisions(decisions: list[dict]) -> str:
             )
         phase = d.get("phase") or "PREGAME"
         lines = [
-            f"[Decision {d['decision_index']}, snapshot={d['snapshot_index']}] Turn {turn} "
-            f"{phase} - {d['player']}",
+            f"[Decision {d['decision_index']}, snapshot={d['snapshot_index']}] Turn {turn} {phase} - {d['player']}",
             f"  Board: {' | '.join(players)}",
         ]
         if stack_line:
@@ -872,10 +871,7 @@ def _parse_annotation(text: str) -> dict | None:
     if fence_match:
         after_fence = text[fence_match.end() :]
         close = after_fence.find("```")
-        if close != -1:
-            text = after_fence[:close].strip()
-        else:
-            text = after_fence.strip()
+        text = after_fence[:close].strip() if close != -1 else after_fence.strip()
 
     # Check for null-like responses
     text_lower = text.lower()
@@ -893,7 +889,9 @@ def _parse_annotation(text: str) -> dict | None:
             or "not a blunder" in text_lower
         ):
             return None
-        assert False, f"No JSON found and can't interpret as null:\n{text[:500]}"
+        raise AssertionError(
+            f"No JSON found and can't interpret as null:\n{text[:500]}"
+        )
 
     start = json_match.start()
     end = text.rfind("}")
@@ -943,12 +941,12 @@ def _append_blunder_stats(
     total_cost: float,
 ) -> None:
     """Append a run record to blunder-stats.jsonl for internals tracking."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     stats_path = REPO_ROOT / "website" / "src" / "data" / "blunder-stats.jsonl"
     record = {
         "gameId": game_id,
-        "ts": datetime.now(timezone.utc).isoformat(),
+        "ts": datetime.now(UTC).isoformat(),
         "version": BLUNDER_SCRIPT_VERSION,
         "model": OPUS_MODEL,
         "decisionsAnalyzed": decisions_analyzed,
@@ -1284,7 +1282,7 @@ def _auto_ingest_ground_truth(
         reverse_map_annotations,
     )
 
-    mapping = reverse_map_annotations(annotations, decisions, snapshots)
+    mapping = reverse_map_annotations(annotations, decisions)
 
     entries: list[dict] = []
     for decision_idx in mapping.values():
@@ -1305,8 +1303,7 @@ def main(gz_path: str) -> float:
         existing_version = data.get("blunderScriptVersion", 1)
         if existing_version >= BLUNDER_SCRIPT_VERSION:
             print(
-                f"Already analyzed (v{existing_version}): {gz_path} "
-                f"({len(data['annotations'])} annotations)"
+                f"Already analyzed (v{existing_version}): {gz_path} ({len(data['annotations'])} annotations)"
             )
             return 0.0
         print(

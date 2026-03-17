@@ -42,7 +42,7 @@ DEFAULT_MODEL = "google/gemini-2.0-flash-001"
 PERMANENT_FAILURE_EXIT_CODE = 3
 
 
-class PermanentLLMFailureError(Exception):
+class PermanentLLMError(Exception):
     """Raised when the LLM is permanently unreachable (model not found, credits exhausted)."""
 
 
@@ -987,13 +987,13 @@ async def _process_tool_calls(
                 logger.info("[pilot] Game over detected from %s, switching to auto-pass", fn.name)
                 if game_log:
                     game_log.emit("auto_pilot_mode", reason="game_over")
-                await auto_pass_loop(session, game_dir, username, "pilot")
+                await auto_pass_loop(session, "pilot")
                 return True, turn_state.tools_called
             if result_data.get("player_dead"):
                 logger.info("[pilot] Player dead detected from %s, switching to auto-pass", fn.name)
                 if game_log:
                     game_log.emit("auto_pilot_mode", reason="player_dead")
-                await auto_pass_loop(session, game_dir, username, "pilot")
+                await auto_pass_loop(session, "pilot")
                 return True, turn_state.tools_called
 
         display_text = result_text
@@ -1183,7 +1183,7 @@ async def run_pilot_loop(
             logger.warning("[pilot] Maximum game duration exceeded, switching to auto-pass")
             if game_log:
                 game_log.emit("auto_pilot_mode", reason="max_duration_exceeded")
-            await auto_pass_loop(session, game_dir, username, "pilot")
+            await auto_pass_loop(session, "pilot")
             return
         try:
             messages = await _build_loop_messages(state, session, system_prompt, cache_control)
@@ -1234,7 +1234,7 @@ async def run_pilot_loop(
                         )
                     except ToolExecutionError:
                         pass
-                    await auto_pass_loop(session, game_dir, username, "pilot")
+                    await auto_pass_loop(session, "pilot")
                     return
                 continue
             state.consecutive_empty_choices = 0
@@ -1347,7 +1347,7 @@ async def run_pilot_loop(
                             )
                         except ToolExecutionError:
                             pass
-                        await auto_pass_loop(session, game_dir, username, "pilot")
+                        await auto_pass_loop(session, "pilot")
                         return
                 state.history.append(
                     {
@@ -1393,7 +1393,7 @@ async def run_pilot_loop(
                     )
                 except ToolExecutionError:
                     pass
-                raise PermanentLLMFailureError(reason) from None
+                raise PermanentLLMError(reason) from None
 
             # Transient error - keep actions flowing while waiting to retry
             try:
@@ -1631,7 +1631,7 @@ def main() -> int:
         )
     except KeyboardInterrupt:
         pass
-    except PermanentLLMFailureError as e:
+    except PermanentLLMError as e:
         logger.error("[pilot] Permanent LLM failure: %s", e)
         return PERMANENT_FAILURE_EXIT_CODE
 

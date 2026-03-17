@@ -130,8 +130,7 @@ def _build_card_images(players_meta: list[dict]) -> dict[str, str]:
                 card_num = m.group(3)
                 card_name = m.group(4).strip()
                 images[card_name] = (
-                    f"https://api.scryfall.com/cards/{set_code}/{card_num}"
-                    f"?format=image&version=small"
+                    f"https://api.scryfall.com/cards/{set_code}/{card_num}?format=image&version=small"
                 )
     return images
 
@@ -231,7 +230,7 @@ def _build_card_data(
     # Batch via collection endpoint
     for i in range(0, len(names_to_fetch), 75):
         batch = names_to_fetch[i : i + 75]
-        found, not_found = scryfall.collection(batch)
+        found, _not_found = scryfall.collection(batch)
         for card in found:
             card_data[card["name"]] = _trim_card(card)
 
