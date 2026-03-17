@@ -259,7 +259,9 @@ _extract_oracle_fields = scryfall.extract_oracle_fields
 _get_oracle_texts = scryfall.get_oracle_texts
 
 
-def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[str | Permanent] | None:
+def _snapshot_zone_cards(
+    player: SnapshotPlayer, zone: str
+) -> list[str | Permanent] | None:
     """Return a snapshot player's cards for a supported public/private zone."""
     if zone == "hand":
         return player["hand"]
