@@ -66,7 +66,11 @@ def fetch_openrouter_prices() -> dict[str, tuple[float, float]]:
         return {}
 
     prices: dict[str, tuple[float, float]] = {}
-    for model in data["data"]:
+    models = data.get("data")
+    if models is None:
+        logger.warning("[llm_cost] OpenRouter response missing 'data' field")
+        return {}
+    for model in models:
         model_id = model.get("id", "")
         pricing = model.get("pricing")
         if not model_id or not pricing:
