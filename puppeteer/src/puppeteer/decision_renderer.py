@@ -251,7 +251,7 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
 def card_display(c: object) -> str:
     """Display a card (hand, graveyard, exile) as a string."""
     if isinstance(c, dict):
-        name = c.get("name", "?")
+        name = c["name"]
         assert isinstance(name, str), f"card name must be a string, got {name!r}"
         return name
     return str(c)
@@ -261,7 +261,7 @@ def permanent_display(c: object) -> str:
     """Display a battlefield permanent with status annotations."""
     if not isinstance(c, dict):
         return str(c)
-    name = c.get("name", "?")
+    name = c["name"]
     assert isinstance(name, str), f"permanent name must be a string, got {name!r}"
     extras: list[str] = []
     if c.get("tapped"):
@@ -334,10 +334,9 @@ def _render_stack_item(item: dict) -> str:
     ability_text = item.get("ability_text")
     if isinstance(source_card, str) and source_card and isinstance(ability_text, str) and ability_text:
         return f"{source_card} - {ability_text}"
-    desc = item.get("name", "?")
-    if isinstance(desc, str):
-        return desc
-    return str(desc)
+    name = item["name"]
+    assert isinstance(name, str), f"stack item name must be a string, got {name!r}"
+    return name
 
 
 def _render_stack_target(target: object) -> str:
@@ -379,7 +378,7 @@ def _render_incoming_attackers(incoming_attackers: list) -> str:
             parts.append(str(attacker))
             continue
 
-        name = attacker.get("name") or "?"
+        name: str = attacker["name"]
         extras: list[str] = []
         attacker_id = attacker.get("id")
         if attacker_id:

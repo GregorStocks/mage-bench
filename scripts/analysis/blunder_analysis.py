@@ -37,7 +37,13 @@ from puppeteer.decision_renderer import (
     render_decision,
 )
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
-from schemas.game_export_types import Action, GameExport, Snapshot, SnapshotPlayer
+from schemas.game_export_types import (
+    Action,
+    GameExport,
+    Permanent,
+    Snapshot,
+    SnapshotPlayer,
+)
 from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
 from scripts.analysis.blunder_eval_common import (
@@ -253,7 +259,7 @@ _extract_oracle_fields = scryfall.extract_oracle_fields
 _get_oracle_texts = scryfall.get_oracle_texts
 
 
-def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[object]:
+def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[str | Permanent]:
     """Return a snapshot player's cards for a supported public/private zone."""
     if zone == "hand":
         return player["hand"]
