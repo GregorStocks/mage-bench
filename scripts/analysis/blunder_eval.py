@@ -324,7 +324,7 @@ def main() -> None:
     print(f"Results saved to {output_path}")
 
     # Compare
-    comparison = compare_results(eval_results, baseline_results, all_gt)
+    comparison = compare_results(eval_results, baseline_results, validated_by_game)
     print_report(comparison)
 
 
