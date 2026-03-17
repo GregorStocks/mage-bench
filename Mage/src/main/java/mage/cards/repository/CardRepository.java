@@ -343,8 +343,9 @@ public enum CardRepository {
 
         // Card not in DB — try to lazily scan just this one card from the
         // expansion set definition, avoiding the bulk CardScanner.scan() that
-        // loads all ~30K card classes at startup.
-        if (setCode != null && cardNumber != null) {
+        // loads all ~30K card classes at startup. Skip during bulk scan to
+        // preserve its batched insert path.
+        if (!CardScanner.scanning && setCode != null && cardNumber != null) {
             lazyLoadCard(setCode, cardNumber);
             found = findCardInDb(setCode, cardNumber, ignoreNightCards);
             if (found != null) {
@@ -473,7 +474,7 @@ public enum CardRepository {
      */
     public CardInfo findCard(String name, boolean returnAnySet) {
         List<CardInfo> cards = returnAnySet ? findCards(name, 1) : findCards(name);
-        if (cards.isEmpty() && name != null && !name.isEmpty()) {
+        if (cards.isEmpty() && !CardScanner.scanning && name != null && !name.isEmpty()) {
             lazyLoadCardByName(name);
             cards = returnAnySet ? findCards(name, 1) : findCards(name);
         }
