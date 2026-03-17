@@ -85,7 +85,7 @@ def main(gz_path: str) -> None:
         )
 
     # Game-level errors from error logs
-    errors = d.get("errors", [])
+    errors = d.get("errors")
     if errors:
         print()
         print(f"=== Game Errors ({len(errors)}) ===")

@@ -148,7 +148,7 @@ def print_report(comparison: dict) -> None:
         f"    FN: {delta_fn:+d} ({comparison['baseline_false_negatives']} -> {comparison['false_negatives']})"
     )
 
-    details = comparison.get("details", [])
+    details = comparison["details"]
     if details:
         print(f"\n  Changes ({len(details)}):")
         indent = "          "

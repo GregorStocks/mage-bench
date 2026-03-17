@@ -40,9 +40,7 @@ def patch_game(game_path: Path) -> int:
     with gzip.open(game_path, "rt") as f:
         data = json.load(f)
 
-    trim_events = [
-        e for e in data.get("llmEvents", []) if e.get("type") == "context_trim"
-    ]
+    trim_events = [e for e in data["llmEvents"] if e.get("type") == "context_trim"]
     if not trim_events:
         return 0
 

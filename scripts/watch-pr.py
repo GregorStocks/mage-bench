@@ -49,6 +49,14 @@ def get_repo_nwo() -> str:
     return result.stdout.strip()
 
 
+def check_merge_conflict(pr: str) -> bool:
+    """Return True if the PR has a merge conflict."""
+    result = run_gh("pr", "view", pr, "--json", "mergeable", "--jq", ".mergeable")
+    if result.returncode != 0:
+        return False
+    return result.stdout.strip() == "CONFLICTING"
+
+
 def get_checks(pr: str) -> list[dict]:
     result = run_gh("pr", "checks", pr, "--json", "bucket,name,link,workflow")
     assert result.returncode in (0, 1, 8), (
@@ -79,7 +87,10 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
 
     # Only consider the latest review per author (earlier reviews are superseded)
     latest_review: dict[str, dict] = {}
-    for review in data.get("reviews", []):
+    reviews = data.get("reviews")
+    if reviews is None:
+        reviews = []
+    for review in reviews:
         author = review["author"]["login"]
         latest_review[author] = review
 
@@ -97,7 +108,10 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
             # CHANGES_REQUESTED with no body means inline-only review
             feedback.append(f"[{state}] @{author} (see inline comments)")
 
-    for comment in data.get("comments", []):
+    comments = data.get("comments")
+    if comments is None:
+        comments = []
+    for comment in comments:
         author = comment["author"]["login"]
         if _is_bot(author) or author == pr_author:
             continue
@@ -160,6 +174,14 @@ def main() -> None:
             )
             sys.exit(4)
 
+        if check_merge_conflict(pr):
+            print(
+                "\nPR has a merge conflict with the base branch. "
+                "Merge or rebase to resolve.",
+                flush=True,
+            )
+            sys.exit(1)
+
         pending = [c["name"] for c in checks if c.get("bucket") == "pending"]
         mins = int(elapsed // 60)
         print(
@@ -168,6 +190,15 @@ def main() -> None:
         )
         time.sleep(POLL_INTERVAL)
         checks = get_checks(pr)
+
+    # Check for merge conflict before reporting
+    if check_merge_conflict(pr):
+        print(
+            "\nPR has a merge conflict with the base branch. "
+            "Merge or rebase to resolve.",
+            flush=True,
+        )
+        sys.exit(1)
 
     # Collect results
     failed = [

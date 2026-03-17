@@ -37,9 +37,9 @@ def backfill_game(
         return "skipped", len(existing)
 
     decisions = _build_decisions(
-        data.get("snapshots", []),
-        data.get("actions", []),
-        data.get("llmEvents", []),
+        data["snapshots"],
+        data["actions"],
+        data["llmEvents"],
         data.get("harnessEpoch", 0),
     )
 

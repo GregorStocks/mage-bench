@@ -211,7 +211,7 @@ def find_next_match(tournament: dict) -> tuple[dict, dict] | None:
 
 def tournament_is_complete(tournament: dict) -> bool:
     """Return True once every bracket match has a recorded winner."""
-    rounds = tournament.get("rounds", [])
+    rounds = tournament["rounds"]
     if not rounds:
         return False
     matches = [match for round_dict in rounds for match in round_dict["matches"]]
@@ -696,7 +696,7 @@ def main() -> int:
     total_matches = tournament["size"] - 1
     played = sum(
         1
-        for r in tournament.get("rounds", [])
+        for r in tournament["rounds"]
         for m in r["matches"]
         if m["winner_seed"] is not None
     )

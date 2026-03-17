@@ -37,7 +37,13 @@ from puppeteer.decision_renderer import (
     render_decision,
 )
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
-from schemas.game_export_types import Action, GameExport, Snapshot, SnapshotPlayer
+from schemas.game_export_types import (
+    Action,
+    GameExport,
+    Permanent,
+    Snapshot,
+    SnapshotPlayer,
+)
 from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
 from scripts.analysis.blunder_eval_common import (
@@ -253,7 +259,9 @@ _extract_oracle_fields = scryfall.extract_oracle_fields
 _get_oracle_texts = scryfall.get_oracle_texts
 
 
-def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[object]:
+def _snapshot_zone_cards(
+    player: SnapshotPlayer, zone: str
+) -> list[str | Permanent] | None:
     """Return a snapshot player's cards for a supported public/private zone."""
     if zone == "hand":
         return player["hand"]
@@ -262,9 +270,9 @@ def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[object]:
     if zone == "graveyard":
         return player["graveyard"]
     if zone == "exile":
-        return player.get("exile", [])
+        return player.get("exile")
     if zone == "commanders":
-        return player.get("commanders", [])
+        return player.get("commanders")
     raise AssertionError(f"unexpected zone {zone!r}")
 
 
@@ -274,13 +282,15 @@ def _collect_card_names(data: GameExport) -> set[str]:
     for snap in data["snapshots"]:
         for p in snap["players"]:
             for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-                for c in _snapshot_zone_cards(p, zone):
-                    if isinstance(c, dict):
-                        name = c.get("name")
-                        if isinstance(name, str) and name:
-                            names.add(name)
-                    elif isinstance(c, str) and c:
-                        names.add(c)
+                zone_cards = _snapshot_zone_cards(p, zone)
+                if zone_cards is not None:
+                    for c in zone_cards:
+                        if isinstance(c, dict):
+                            name = c.get("name")
+                            if isinstance(name, str) and name:
+                                names.add(name)
+                        elif isinstance(c, str) and c:
+                            names.add(c)
         for item in snap["stack"]:
             if isinstance(item, dict):
                 name = item.get("name")
@@ -288,13 +298,27 @@ def _collect_card_names(data: GameExport) -> set[str]:
                     names.add(name)
             elif isinstance(item, str) and item:
                 names.add(item)
-        for group in snap.get("combat", []):
-            for a in group.get("attackers", []):
-                if isinstance(a, dict) and isinstance(a.get("name"), str) and a["name"]:
-                    names.add(a["name"])
-            for b in group.get("blockers", []):
-                if isinstance(b, dict) and isinstance(b.get("name"), str) and b["name"]:
-                    names.add(b["name"])
+        snap_combat = snap.get("combat")
+        if snap_combat is not None:
+            for group in snap_combat:
+                group_attackers = group.get("attackers")
+                if group_attackers is not None:
+                    for a in group_attackers:
+                        if (
+                            isinstance(a, dict)
+                            and isinstance(a.get("name"), str)
+                            and a["name"]
+                        ):
+                            names.add(a["name"])
+                group_blockers = group.get("blockers")
+                if group_blockers is not None:
+                    for b in group_blockers:
+                        if (
+                            isinstance(b, dict)
+                            and isinstance(b.get("name"), str)
+                            and b["name"]
+                        ):
+                            names.add(b["name"])
     # Also from choice names and combat fields in llm events
     for ev in data["llmEvents"]:
         if ev["type"] == "tool_call" and ev["tool"] == "get_action_choices":
@@ -302,52 +326,64 @@ def _collect_card_names(data: GameExport) -> set[str]:
                 result = json.loads(ev["result"])
                 if not isinstance(result, dict):
                     continue
-                for c in result.get("choices", []):
-                    if not isinstance(c, dict):
-                        continue
-                    name = c.get("name")
-                    # Skip non-card choices: player targets, special actions,
-                    # and entries without an id (e.g. mana ability descriptions)
-                    if (
-                        not isinstance(name, str)
-                        or not name
-                        or "target_type" in c
-                        or c.get("choice_type") == "special"
-                    ):
-                        continue
-                    if "id" in c:
-                        names.add(name)
-                for a in result.get("already_attacking", []):
-                    if (
-                        isinstance(a, dict)
-                        and isinstance(a.get("name"), str)
-                        and a["name"]
-                    ):
-                        names.add(a["name"])
-                for a in result.get("incoming_attackers", []):
-                    if (
-                        isinstance(a, dict)
-                        and isinstance(a.get("name"), str)
-                        and a["name"]
-                    ):
-                        names.add(a["name"])
-                for group in result.get("combat", []):
-                    if not isinstance(group, dict):
-                        continue
-                    for a in group.get("attackers", []):
+                result_choices = result.get("choices")
+                if result_choices is not None:
+                    for c in result_choices:
+                        if not isinstance(c, dict):
+                            continue
+                        name = c.get("name")
+                        # Skip non-card choices: player targets, special actions,
+                        # and entries without an id (e.g. mana ability descriptions)
+                        if (
+                            not isinstance(name, str)
+                            or not name
+                            or "target_type" in c
+                            or c.get("choice_type") == "special"
+                        ):
+                            continue
+                        if "id" in c:
+                            names.add(name)
+                result_already_attacking = result.get("already_attacking")
+                if result_already_attacking is not None:
+                    for a in result_already_attacking:
                         if (
                             isinstance(a, dict)
                             and isinstance(a.get("name"), str)
                             and a["name"]
                         ):
                             names.add(a["name"])
-                    for b in group.get("blockers", []):
+                result_incoming = result.get("incoming_attackers")
+                if result_incoming is not None:
+                    for a in result_incoming:
                         if (
-                            isinstance(b, dict)
-                            and isinstance(b.get("name"), str)
-                            and b["name"]
+                            isinstance(a, dict)
+                            and isinstance(a.get("name"), str)
+                            and a["name"]
                         ):
-                            names.add(b["name"])
+                            names.add(a["name"])
+                result_combat = result.get("combat")
+                if result_combat is not None:
+                    for group in result_combat:
+                        if not isinstance(group, dict):
+                            continue
+                        group_attackers = group.get("attackers")
+                        if group_attackers is not None:
+                            for a in group_attackers:
+                                if (
+                                    isinstance(a, dict)
+                                    and isinstance(a.get("name"), str)
+                                    and a["name"]
+                                ):
+                                    names.add(a["name"])
+                        group_blockers = group.get("blockers")
+                        if group_blockers is not None:
+                            for b in group_blockers:
+                                if (
+                                    isinstance(b, dict)
+                                    and isinstance(b.get("name"), str)
+                                    and b["name"]
+                                ):
+                                    names.add(b["name"])
             except (json.JSONDecodeError, TypeError):
                 pass
     # Filter out tokens (not in Scryfall)
@@ -390,42 +426,67 @@ def _card_names_in_decision(decision: dict) -> set[str]:
     """Extract card names referenced in a decision's game state and choices."""
     names: set[str] = set()
     gs = _decision_game_state(decision)
-    for p in gs.get("players", []):
+    gs_players = gs.get("players")
+    if gs_players is None:
+        gs_players = []
+    for p in gs_players:
         for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-            for c in p.get(zone, []):
-                if isinstance(c, str) and c:
-                    names.add(c)
-                elif isinstance(c, dict) and c.get("name"):
-                    names.add(c["name"])
-    for item in gs.get("stack", []):
-        if isinstance(item, str) and item:
-            names.add(item)
-        elif isinstance(item, dict) and item.get("name"):
-            names.add(item["name"])
-    for group in gs.get("combat", []):
-        for a in group.get("attackers", []):
+            zone_cards = p.get(zone)
+            if zone_cards is not None:
+                for c in zone_cards:
+                    if isinstance(c, str) and c:
+                        names.add(c)
+                    elif isinstance(c, dict) and c.get("name"):
+                        names.add(c["name"])
+    stack = gs.get("stack")
+    if stack is not None:
+        for item in stack:
+            if isinstance(item, str) and item:
+                names.add(item)
+            elif isinstance(item, dict) and item.get("name"):
+                names.add(item["name"])
+    gs_combat = gs.get("combat")
+    if gs_combat is not None:
+        for group in gs_combat:
+            group_attackers = group.get("attackers")
+            if group_attackers is not None:
+                for a in group_attackers:
+                    if isinstance(a, dict) and a.get("name"):
+                        names.add(a["name"])
+            group_blockers = group.get("blockers")
+            if group_blockers is not None:
+                for b in group_blockers:
+                    if isinstance(b, dict) and b.get("name"):
+                        names.add(b["name"])
+    decision_choices = decision.get("choices")
+    if decision_choices is not None:
+        for c in decision_choices:
+            name = c.get("name") if "name" in c else c.get("description")
+            if name:
+                names.add(name)
+    decision_already_attacking = decision.get("already_attacking")
+    if decision_already_attacking is not None:
+        for a in decision_already_attacking:
             if isinstance(a, dict) and a.get("name"):
                 names.add(a["name"])
-        for b in group.get("blockers", []):
-            if isinstance(b, dict) and b.get("name"):
-                names.add(b["name"])
-    for c in decision.get("choices", []):
-        name = c.get("name") if "name" in c else c.get("description")
-        if name:
-            names.add(name)
-    for a in decision.get("already_attacking", []):
-        if isinstance(a, dict) and a.get("name"):
-            names.add(a["name"])
-    for a in decision.get("incoming_attackers", []):
-        if isinstance(a, dict) and a.get("name"):
-            names.add(a["name"])
-    for group in decision.get("combat", []):
-        for a in group.get("attackers", []):
+    decision_incoming = decision.get("incoming_attackers")
+    if decision_incoming is not None:
+        for a in decision_incoming:
             if isinstance(a, dict) and a.get("name"):
                 names.add(a["name"])
-        for b in group.get("blockers", []):
-            if isinstance(b, dict) and b.get("name"):
-                names.add(b["name"])
+    decision_combat = decision.get("combat")
+    if decision_combat is not None:
+        for group in decision_combat:
+            group_attackers = group.get("attackers")
+            if group_attackers is not None:
+                for a in group_attackers:
+                    if isinstance(a, dict) and a.get("name"):
+                        names.add(a["name"])
+            group_blockers = group.get("blockers")
+            if group_blockers is not None:
+                for b in group_blockers:
+                    if isinstance(b, dict) and b.get("name"):
+                        names.add(b["name"])
     return names
 
 
@@ -550,7 +611,9 @@ def _format_prior_context(
     # Add action deltas for turns ref_turn through current_turn - 1
     lines.append("")
     for t in range(ref_turn, current_turn):
-        lines.extend(actions_by_turn.get(t, []))
+        turn_actions = actions_by_turn.get(t)
+        if turn_actions is not None:
+            lines.extend(turn_actions)
 
     return "\n".join(lines)
 
@@ -669,12 +732,15 @@ def _format_decisions(decisions: list[dict]) -> str:
         gs = _decision_game_state(d)
         deciding_player = d["player"]
         players: list[str] = []
-        for p in gs.get("players", []):
-            bf = p.get("battlefield", [])
+        gs_players = gs.get("players")
+        if gs_players is None:
+            gs_players = []
+        for p in gs_players:
+            bf = p.get("battlefield")
             lib = p.get("library_size")
             if p["name"] == deciding_player:
                 # Show full hand for the deciding player
-                hand = p.get("hand", [])
+                hand = p.get("hand")
                 if hand:
                     s = f"{p['name']}: {p.get('life', '?')}hp hand=[{', '.join(str(x) for x in hand)}]"
                 else:
@@ -696,19 +762,22 @@ def _format_decisions(decisions: list[dict]) -> str:
                         s += f" {ctr_name}={ctr_val}"
             if bf:
                 s += f" bf=[{', '.join(str(x) for x in bf)}]"
-            gy = p.get("graveyard", [])
+            gy = p.get("graveyard")
             if gy:
                 s += f" gy=[{', '.join(str(x) for x in gy)}]"
-            exile = p.get("exile", [])
+            exile = p.get("exile")
             if exile:
                 s += f" exile=[{', '.join(str(x) for x in exile)}]"
             players.append(s)
 
-        choice_descs = [_format_choice(c) for c in d.get("choices", [])]
+        d_choices = d.get("choices")
+        choice_descs = (
+            [_format_choice(c) for c in d_choices] if d_choices is not None else []
+        )
 
         chosen_name = _chosen_display(d)
 
-        stack = gs.get("stack", [])
+        stack = gs.get("stack")
         stack_line = ""
         if stack:
             stack_descs: list[str] = []
@@ -717,7 +786,7 @@ def _format_decisions(decisions: list[dict]) -> str:
                     stack_descs.append(s)
                 elif isinstance(s, dict):
                     desc = s.get("name", "?")
-                    targets = s.get("targets", [])
+                    targets = s.get("targets")
                     if targets:
                         desc += " -> " + ", ".join(str(t) for t in targets)
                     stack_descs.append(desc)
@@ -740,20 +809,30 @@ def _format_decisions(decisions: list[dict]) -> str:
         if stack_line:
             lines.append(stack_line)
         # Combat context from game state snapshot or choices result
-        combat_groups = gs.get("combat", []) or d.get("combat", [])
+        combat_groups = gs.get("combat") or d.get("combat")
         if combat_groups:
             combat_parts: list[str] = []
             for group in combat_groups:
-                atk_names = [
-                    a["name"]
-                    for a in group.get("attackers", [])
-                    if isinstance(a, dict) and a.get("name")
-                ]
-                blk_names = [
-                    b["name"]
-                    for b in group.get("blockers", [])
-                    if isinstance(b, dict) and b.get("name")
-                ]
+                group_attackers = group.get("attackers")
+                atk_names = (
+                    [
+                        a["name"]
+                        for a in group_attackers
+                        if isinstance(a, dict) and a.get("name")
+                    ]
+                    if group_attackers is not None
+                    else []
+                )
+                group_blockers = group.get("blockers")
+                blk_names = (
+                    [
+                        b["name"]
+                        for b in group_blockers
+                        if isinstance(b, dict) and b.get("name")
+                    ]
+                    if group_blockers is not None
+                    else []
+                )
                 part = ", ".join(atk_names)
                 if blk_names:
                     part += f" blocked by {', '.join(blk_names)}"
@@ -768,7 +847,7 @@ def _format_decisions(decisions: list[dict]) -> str:
         dec_msg = d.get("message")
         lines += [
             f"  Message: {dec_msg}" if dec_msg else "  Message:",
-            f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_descs)}",
+            f"  Choices ({len(d_choices) if d_choices is not None else 0}): {', '.join(choice_descs)}",
             f"  Chosen: {chosen_name}",
         ]
         if dec_msg and "Pick triggered ability" in dec_msg:
@@ -779,8 +858,12 @@ def _format_decisions(decisions: list[dict]) -> str:
         if d.get("reasoning"):
             lines.append(f"  Reasoning: {d['reasoning'][:500]}")
         # Show what the deciding player did next (but not opponent actions)
-        subsequent = d.get("subsequent_actions", [])
-        own_actions = [a for a in subsequent if a.startswith(deciding_player)]
+        subsequent = d.get("subsequent_actions")
+        own_actions = (
+            [a for a in subsequent if a.startswith(deciding_player)]
+            if subsequent is not None
+            else []
+        )
         if own_actions:
             lines.append(f"  After: {'; '.join(own_actions)}")
         parts.append("\n".join(lines))
@@ -795,8 +878,10 @@ def _chosen_display(d: dict) -> str:
     """
     chosen = d.get("chosen")
     chosen_args = d.get("chosenArgs") or d.get("chosen_args")
-    choices = d.get("choices", [])
-    return _renderer_chosen_display(chosen, chosen_args, choices)
+    choices = d.get("choices")
+    return _renderer_chosen_display(
+        chosen, chosen_args, choices if choices is not None else []
+    )
 
 
 def _compute_cost(
@@ -1200,11 +1285,11 @@ def load_game_context(gz_path: str) -> dict:
     """
     data = _load_game(gz_path)
     decisions = extract_decisions(gz_path)
-    snapshots = data.get("snapshots", [])
+    snapshots = data["snapshots"]
     overview = _game_overview(data)
-    game_actions = data.get("actions", [])
+    game_actions = data["actions"]
     abt = _actions_by_turn(game_actions)
-    num_players = len(data.get("players", []))
+    num_players = len(data["players"])
 
     card_names = _collect_card_names(data)
     oracle_texts = _get_oracle_texts(sorted(card_names))
@@ -1452,7 +1537,7 @@ def main(gz_path: str) -> float:
             print(f"  Raw LLM data saved to {raw_path}")
 
     # Filter out annotations with invalid snapshotIndex (LLM sometimes fabricates indices)
-    num_snapshots = len(data.get("snapshots", []))
+    num_snapshots = len(data["snapshots"])
     valid_annotations: list[dict] = []
     for ann in annotations:
         idx = ann.get("snapshotIndex")
@@ -1483,7 +1568,7 @@ def main(gz_path: str) -> float:
         return total_cost
 
     # Display blunders
-    snapshots = data.get("snapshots", [])
+    snapshots = data["snapshots"]
     print(f"\nFound {len(annotations)} blunder(s):\n")
     for ann in annotations:
         snap_idx = ann["snapshotIndex"]

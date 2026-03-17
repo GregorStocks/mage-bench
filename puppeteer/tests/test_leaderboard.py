@@ -1568,7 +1568,7 @@ def test_generate_model_stats_requires_pilot_model():
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
 
-        with pytest.raises(AssertionError, match="pilot player missing model"):
+        with pytest.raises(AssertionError, match="missing model"):
             generate_model_stats(games_dir, data_dir, models_json)
 
 
@@ -1949,7 +1949,7 @@ def test_generate_internals_data_requires_pilot_model():
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
 
-        with pytest.raises(AssertionError, match="pilot player missing model"):
+        with pytest.raises(AssertionError, match="missing model"):
             generate_internals_data(games_dir, data_dir, models_json)
 
 

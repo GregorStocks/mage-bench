@@ -12,7 +12,7 @@ from typing import Any, NotRequired, TypedDict
 from zoneinfo import ZoneInfo
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
-from schemas.game_export_types import GameExport, load_game_export
+from schemas.game_export_types import GameExport, is_pilot_player, load_game_export
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
@@ -225,7 +225,7 @@ def load_model_registry(models_json: Path) -> dict[str, str]:
         return {}
     data = json.loads(models_json.read_text())
     assert isinstance(data, dict), f"{models_json}: expected JSON object"
-    models = data.get("models", [])
+    models = data["models"]
     assert isinstance(models, list), f"{models_json}: models must be a list"
     registry: dict[str, str] = {}
     for index, model in enumerate(models):
@@ -270,7 +270,7 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
 
     Returns {player_name: placement} where 1=winner, 2=2nd, etc.
     """
-    players_obj = game.get("players", [])
+    players_obj = game["players"]
     assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
     players: list[Mapping[str, object]] = []
     for index, player in enumerate(players_obj):
@@ -345,7 +345,7 @@ def _placements_from_winner(game: Mapping[str, object]) -> dict[str, int]:
     if not winner:
         return {}
     placements: dict[str, int] = {}
-    players_obj = game.get("players", [])
+    players_obj = game["players"]
     assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
     for index, p in enumerate(players_obj):
         assert isinstance(p, dict), f"game {game.get('id', '<unknown>')}: players[{index}] must be an object"
@@ -375,7 +375,7 @@ def compute_elo_ratings(
     )
 
     for game in sorted_games:
-        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
+        pilots = [p for p in game["players"] if p.get("type") == "pilot" and p.get("model")]
         if len(pilots) < 2:
             for p in pilots:
                 key = _player_key(p)
@@ -472,17 +472,21 @@ def generate_leaderboard(
         _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         # Build name -> weighted blunder sum from annotations.
         blunder_weight_by_name: dict[str, float] = {}
-        for ann in game.get("annotations", []):
-            if ann.get("type") == "blunder":
-                name = ann.get("player")
-                if not name:
-                    continue
-                severity = ann.get("severity")
-                blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
+        annotations = game.get("annotations")
+        if annotations is not None:
+            for ann in annotations:
+                if ann.get("type") == "blunder":
+                    name = ann.get("player")
+                    if not name:
+                        continue
+                    severity = ann.get("severity")
+                    blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(
+                        severity, 0
+                    )
 
         total_turns = game.get("totalTurns", 0)
 
-        for p in game.get("players", []):
+        for p in game["players"]:
             if p.get("type") != "pilot" or not p.get("model"):
                 continue
             key = _player_key(p)
@@ -594,17 +598,21 @@ def generate_exhibition_leaderboard(
     for game in scored_games:
         _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         blunder_weight_by_name: dict[str, float] = {}
-        for ann in game.get("annotations", []):
-            if ann.get("type") == "blunder":
-                name = ann.get("player")
-                if not name:
-                    continue
-                severity = ann.get("severity")
-                blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
+        annotations = game.get("annotations")
+        if annotations is not None:
+            for ann in annotations:
+                if ann.get("type") == "blunder":
+                    name = ann.get("player")
+                    if not name:
+                        continue
+                    severity = ann.get("severity")
+                    blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(
+                        severity, 0
+                    )
 
         total_turns = game.get("totalTurns", 0)
 
-        for p in game.get("players", []):
+        for p in game["players"]:
             if p.get("type") != "pilot" or not p.get("model"):
                 continue
             key = _player_key(p)
@@ -775,7 +783,7 @@ def generate_leaderboard_file(
         if inactive_statuses is None:
             return
         for fmt_data in fmt_results.values():
-            for model in fmt_data.get("models", []):
+            for model in fmt_data["models"]:
                 model_id = model["modelId"]
                 effort = model.get("reasoningEffort")
                 key = f"{model_id}::{effort}" if effort else model_id
@@ -790,7 +798,7 @@ def generate_leaderboard_file(
         return {
             "generatedAt": pool.get("generatedAt") if "generatedAt" in pool else "",
             "totalGames": total,
-            "models": pool.get("models", []),
+            "models": pool["models"],
             "formats": fmt_results,
             "minBlunderVersion": MIN_BLUNDER_VERSION,
         }, ratings
@@ -812,7 +820,8 @@ def generate_leaderboard_file(
     public_data_dir.mkdir(parents=True, exist_ok=True)
 
     for season_num in available_seasons:
-        season_output, season_ratings = _build_output(games_by_season.get(season_num, []))
+        season_games = games_by_season.get(season_num)
+        season_output, season_ratings = _build_output(season_games if season_games is not None else [])
         season_output["availableSeasons"] = available_seasons
         season_path = public_data_dir / f"benchmark-results-season-{season_num}.json"
         _write_if_changed(season_path, json.dumps(season_output, indent=2) + "\n")
@@ -860,7 +869,6 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        game_id = game["id"]
         epoch = game["harnessEpoch"]
         players = game["players"]
         winner = game["winner"]
@@ -868,10 +876,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
         for p in players:
-            if p["type"] != "pilot":
+            if not is_pilot_player(p):
                 continue
-            model_id = p.get("model")
-            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             name_to_key[p["name"]] = key
 
@@ -1034,7 +1040,6 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        game_id = game["id"]
         epoch = game["harnessEpoch"]
         game_format = derive_format(game)
         winner = game["winner"]
@@ -1043,10 +1048,8 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
         for p in players:
-            if p["type"] != "pilot":
+            if not is_pilot_player(p):
                 continue
-            model_id = p.get("model")
-            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             name_to_key[p["name"]] = _player_key(p)
 
         # Accumulate per-player stats from llmEvents
@@ -1122,10 +1125,8 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Build per-player records
         player_records: list[dict[str, Any]] = []
         for p in players:
-            if p["type"] != "pilot":
+            if not is_pilot_player(p):
                 continue
-            model_id = p.get("model")
-            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             model_id, effort = _split_key(key)
             display_name = model_registry.get(model_id) or derive_display_name(model_id)
@@ -1133,8 +1134,8 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 display_name = f"{display_name} ({effort})"
             name = p["name"]
 
-            durations = player_latencies.get(name, [])
-            if durations:
+            durations = player_latencies.get(name)
+            if durations is not None:
                 durations.sort()
                 lat_p50 = round(durations[len(durations) // 2], 1)
             else:

@@ -813,23 +813,34 @@ public class BridgeCallbackHandler {
     /**
      * Get structured information about the current pending action's available choices.
      * Returns indexed choices so external clients can pick by index via chooseAction().
+     *
+     * Throws ResponseDeliveryException if auto-resolve triggers a send that fails,
+     * so internal callers (chooseAction, attachChoicesToError) see the transport failure.
+     * MCP tool boundary should use {@link #getActionChoicesSafe} instead.
      */
     @SuppressWarnings("unchecked")
     public ActionResult getActionChoices(Long boardCursorParam) {
         PendingAction action = pendingAction;
-        ActionResult result;
-        try {
-            result = buildActionChoices(action, boardCursorParam, true);
-        } catch (ResponseDeliveryException e) {
-            result = new ActionResult();
-            result.error = e.getMessage();
-            attachUnseenChat(result);
-            return result;
-        }
+        ActionResult result = buildActionChoices(action, boardCursorParam, true);
         if (action == null) {
             attachUnseenChat(result);
         }
         return result;
+    }
+
+    /**
+     * MCP tool boundary wrapper: catches ResponseDeliveryException and converts
+     * it to an ActionResult error instead of letting it propagate as an exception.
+     */
+    public ActionResult getActionChoicesSafe(Long boardCursorParam) {
+        try {
+            return getActionChoices(boardCursorParam);
+        } catch (ResponseDeliveryException e) {
+            var result = new ActionResult();
+            result.error = e.getMessage();
+            attachUnseenChat(result);
+            return result;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -1655,9 +1666,15 @@ public class BridgeCallbackHandler {
      * so the model can self-correct without a separate get_action_choices round trip.
      */
     private void attachChoicesToError(ChooseActionTool.Result errorResult) {
-        ActionResult choicesResult = getActionChoices(null);
-        if (choicesResult.choices != null) {
-            errorResult.choices = choicesResult.choices;
+        try {
+            ActionResult choicesResult = getActionChoices(null);
+            if (choicesResult.choices != null) {
+                errorResult.choices = choicesResult.choices;
+            }
+        } catch (ResponseDeliveryException e) {
+            // Already in an error path — delivery failure means we can't attach choices,
+            // but we shouldn't mask the original validation error.
+            logger.warn("[" + client.getUsername() + "] attachChoicesToError: delivery failed, skipping: " + e.getMessage());
         }
     }
 
@@ -1821,7 +1838,16 @@ public class BridgeCallbackHandler {
             }
             List<Object> choices = lastChoices;
             if (choices == null) {
-                getActionChoices(null);
+                try {
+                    getActionChoices(null);
+                } catch (ResponseDeliveryException e) {
+                    result.success = false;
+                    result.error = e.getMessage();
+                    result.error_code = "response_delivery_failed";
+                    result.retryable = false;
+                    attachUnseenChat(result);
+                    return result;
+                }
                 choices = lastChoices;
             }
             if ("all".equals(id)) {

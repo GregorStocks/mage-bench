@@ -1488,15 +1488,18 @@ def _write_game_meta(
     deck_b: str,
 ) -> None:
     """Write game_meta.json so build_export finds harness_epoch and player info."""
+    player_a: dict = {"type": player_a_type, "name": player_a_name, "deck_path": deck_a}
+    if player_a_type == "pilot":
+        player_a["model"] = "test/golden"
+    player_b: dict = {"type": player_b_type, "name": player_b_name, "deck_path": deck_b}
+    if player_b_type == "pilot":
+        player_b["model"] = "test/golden"
     meta = {
         "harness_epoch": HARNESS_EPOCH,
         "season": 1,
         "game_type": game_type,
         "deck_type": deck_type,
-        "players": [
-            {"type": player_a_type, "name": player_a_name, "deck_path": deck_a},
-            {"type": player_b_type, "name": player_b_name, "deck_path": deck_b},
-        ],
+        "players": [player_a, player_b],
     }
     (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 

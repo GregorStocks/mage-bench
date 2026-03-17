@@ -42,7 +42,7 @@ def _link_errors_to_decisions(
         player = d.get("player")
         if not player:
             continue
-        indices = d.get("llmEventIndices", [])
+        indices = d["llmEventIndices"]
         if not indices:
             continue
         source_event = llm_events[indices[0]]
@@ -91,9 +91,9 @@ def patch_game(path: Path) -> bool:
             changed = True
 
     # Add decisionIndex links
-    decisions = data.get("decisions", [])
-    llm_events = data.get("llmEvents", [])
-    if decisions and llm_events:
+    decisions = data.get("decisions")
+    llm_events = data.get("llmEvents")
+    if decisions is not None and llm_events is not None:
         had_indices = any("decisionIndex" in e for e in errors)
         _link_errors_to_decisions(errors, decisions, llm_events)
         if not had_indices and any("decisionIndex" in e for e in errors):

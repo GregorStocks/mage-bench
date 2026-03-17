@@ -32,7 +32,7 @@ def main(gz_path: str) -> None:
             parts.append(f"thinking: {think:.0f}s")
         print(" - ".join(parts))
 
-    errors = d.get("errors", [])
+    errors = d.get("errors")
     if errors:
         print(f"\nCritical Errors: {len(errors)}")
         for err in errors:

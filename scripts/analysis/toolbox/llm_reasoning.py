@@ -16,7 +16,7 @@ EXCERPT_LEN = 600
 def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
-    events = d.get("llmEvents", [])
+    events = d["llmEvents"]
     players = sorted({e.get("player", "?") for e in events})
 
     for player in players:

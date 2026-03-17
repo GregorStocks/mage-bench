@@ -175,7 +175,7 @@ def is_mana_event(event: LlmEvent) -> bool:
             action_type = result.get("action_type")
             if isinstance(action_type, str) and action_type in MANA_KEYWORDS:
                 return True
-            recent_chat = result.get("recent_chat", [])
+            recent_chat = result.get("recent_chat")
             if not isinstance(recent_chat, list):
                 recent_chat = []
             for msg in recent_chat:
@@ -266,7 +266,7 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
         else:
             at = result.get("action_type", "?")
             msg = result.get("message")
-            choices = result.get("choices", [])
+            choices = result.get("choices")
             assert isinstance(msg, str), f"message must be a string, got {msg!r}"
             parts.append(f"{at}: {msg[:80]}")
             if isinstance(choices, list) and choices and verbose:
@@ -300,7 +300,7 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
             parts.append(f"-> {at}")
 
     # Check for recent_chat with mana messages
-    recent_chat = result.get("recent_chat", [])
+    recent_chat = result.get("recent_chat")
     if not isinstance(recent_chat, list):
         recent_chat = []
     for msg in recent_chat:
@@ -355,7 +355,7 @@ def print_event(
 
     if event["type"] == "llm_response":
         reasoning = event.get("reasoning")
-        tool_calls = event.get("toolCalls", [])
+        tool_calls = event.get("toolCalls")
         usage = event.get("usage")
         cost = event.get("costUsd", 0)
         assert isinstance(reasoning, str) or reasoning is None, (

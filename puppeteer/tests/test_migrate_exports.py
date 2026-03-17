@@ -808,6 +808,7 @@ def _make_v7_export() -> dict:
             {
                 "name": "Alice",
                 "type": "pilot",
+                "model": "test/model",
                 "toolCallsOk": 1,
                 "toolCallsFailed": 0,
                 "thinkingTimeSecs": 1.0,

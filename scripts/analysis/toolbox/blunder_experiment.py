@@ -1220,7 +1220,8 @@ def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> No
         if not anns:
             continue
         print(f"\n--- {r['approach']} annotations ---")
-        num_decisions = len(data.get("decisions", []))
+        decisions = data.get("decisions")
+        num_decisions = len(decisions) if decisions is not None else 0
         for a in anns:
             dec = a.get("decisionIndex", "?")
             valid = "OK" if isinstance(dec, int) and 0 <= dec < num_decisions else "BAD"

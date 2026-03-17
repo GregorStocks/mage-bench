@@ -187,7 +187,7 @@ export interface Snapshot {
   /**
    * Spells and abilities on the stack.
    */
-  stack: unknown[];
+  stack: (string | StackItem)[];
   /**
    * Combat groups (attackers, blockers, defending player).
    */
@@ -201,22 +201,22 @@ export interface SnapshotPlayer {
   /**
    * Permanents on the battlefield. Items may be strings (card names) or objects with detailed info.
    */
-  battlefield: unknown[];
-  graveyard: unknown[];
+  battlefield: (string | Permanent)[];
+  graveyard: (string | Permanent)[];
   /**
    * Cards in hand (full contents visible to spectator).
    */
-  hand: unknown[];
+  hand: (string | Permanent)[];
   hand_count?: number;
-  exile?: unknown[];
+  exile?: (string | Permanent)[];
   /**
    * Player-level counters (poison, energy, etc.). May be array of {name, count} or object.
    */
   counters?: {
     [k: string]: unknown;
   };
-  commanders?: unknown[];
-  command_zone?: unknown[];
+  commanders?: (string | Permanent)[];
+  command_zone?: (string | Permanent)[];
   is_active?: boolean;
   has_left?: boolean;
   /**
@@ -227,11 +227,94 @@ export interface SnapshotPlayer {
   };
   [k: string]: unknown;
 }
+/**
+ * A card on the battlefield, in hand, graveyard, exile, or command zone. Always has a name; other fields depend on zone and game state.
+ */
+export interface Permanent {
+  name: string;
+  id?: string;
+  tapped?: boolean;
+  summoning_sick?: boolean;
+  face_down?: boolean;
+  token?: boolean;
+  /**
+   * Creature power (may be int or string).
+   */
+  power?: number | string;
+  /**
+   * Creature toughness (may be int or string).
+   */
+  toughness?: number | string;
+  /**
+   * Pre-formatted P/T string like '2/2'.
+   */
+  power_toughness?: string;
+  /**
+   * Shorthand P/T string.
+   */
+  pt?: string;
+  loyalty?: number;
+  /**
+   * Counters on this permanent. May be dict {name: count} or array of {name, count}.
+   */
+  counters?: {
+    [k: string]: unknown;
+  };
+  /**
+   * Name of the card this is a copy of.
+   */
+  original_card?: string;
+  copy?: boolean;
+  [k: string]: unknown;
+}
+/**
+ * A spell or ability on the stack.
+ */
+export interface StackItem {
+  name: string;
+  id?: string;
+  /**
+   * Card that produced this triggered/activated ability.
+   */
+  source_card?: string;
+  /**
+   * Oracle text of the triggered/activated ability.
+   */
+  ability_text?: string;
+  targets?: (string | StackTarget)[];
+  [k: string]: unknown;
+}
+/**
+ * A target of a spell or ability on the stack.
+ */
+export interface StackTarget {
+  name?: string;
+  id?: string;
+  [k: string]: unknown;
+}
 export interface CombatGroup {
-  attackers?: unknown[];
-  blockers?: unknown[];
+  attackers?: CombatCreature[];
+  blockers?: CombatCreature[];
   blocked?: boolean;
   defending?: string;
+  [k: string]: unknown;
+}
+/**
+ * A creature in a combat group (attacker or blocker) or incoming attacker.
+ */
+export interface CombatCreature {
+  name: string;
+  id?: string;
+  /**
+   * Creature power (may be int or string).
+   */
+  power?: number | string;
+  /**
+   * Creature toughness (may be int or string).
+   */
+  toughness?: number | string;
+  power_toughness?: string;
+  pt?: string;
   [k: string]: unknown;
 }
 /**
@@ -359,9 +442,7 @@ export interface Decision {
   /**
    * Available choices. Shape depends on the tool (name, id, action, mana_cost, etc.).
    */
-  choices: {
-    [k: string]: unknown;
-  }[];
+  choices: Choice[];
   choiceCount: number;
   /**
    * True if there is at most one choice (forced action).
@@ -401,9 +482,7 @@ export interface Decision {
   /**
    * Per-item metadata for multi-amount decisions (e.g. combat damage distribution targets).
    */
-  items?: {
-    [k: string]: unknown;
-  }[];
+  items?: MultiAmountItem[];
   /**
    * Minimum total across all items (multi-amount decisions).
    */
@@ -412,6 +491,19 @@ export interface Decision {
    * Maximum total across all items (multi-amount decisions).
    */
   totalMax?: number;
+  [k: string]: unknown;
+}
+/**
+ * A choice available to the player. Shape varies by decision type.
+ */
+export interface Choice {
+  index?: number;
+  name?: string;
+  description?: string;
+  id?: string;
+  action?: string;
+  mana_cost?: string;
+  choice_type?: string;
   [k: string]: unknown;
 }
 /**
@@ -429,13 +521,22 @@ export interface PilotContext {
    */
   combatPhase?: string | null;
   /**
-   * Creatures already declared as attackers.
+   * Creatures already declared as attackers. Items may be strings or objects.
    */
-  alreadyAttacking?: unknown[];
+  alreadyAttacking?: (string | CombatCreature)[];
   /**
-   * Opponent creatures attacking this player.
+   * Opponent creatures attacking this player. Items may be strings or objects.
    */
-  incomingAttackers?: unknown[];
+  incomingAttackers?: (string | CombatCreature)[];
+  [k: string]: unknown;
+}
+/**
+ * An item in a multi-amount decision (e.g. combat damage distribution).
+ */
+export interface MultiAmountItem {
+  description: string;
+  min?: number;
+  max?: number;
   [k: string]: unknown;
 }
 export interface GameError {

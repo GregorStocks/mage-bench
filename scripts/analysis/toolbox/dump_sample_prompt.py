@@ -32,10 +32,10 @@ overview = _game_overview(data)
 card_names = _collect_card_names(data)
 oracle_texts = _get_oracle_texts(sorted(card_names))
 
-game_actions = data.get("actions", [])
+game_actions = data["actions"]
 abt = _actions_by_turn(game_actions)
-game_snapshots = data.get("snapshots", [])
-num_players = len(data.get("players", []))
+game_snapshots = data["snapshots"]
+num_players = len(data["players"])
 
 system_prompt, user_msg = build_decision_prompt(
     overview=overview,

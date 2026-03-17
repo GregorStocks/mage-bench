@@ -211,8 +211,8 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
     for p in snapshot["players"]:
         name = p["name"]
         life = p["life"]
-        bf = p.get("battlefield", [])
-        gy = p.get("graveyard", [])
+        bf = p.get("battlefield")
+        gy = p.get("graveyard")
         exile = p.get("exile")
         hand = p.get("hand")
 
@@ -251,7 +251,7 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
 def card_display(c: object) -> str:
     """Display a card (hand, graveyard, exile) as a string."""
     if isinstance(c, dict):
-        name = c.get("name", "?")
+        name = c["name"]
         assert isinstance(name, str), f"card name must be a string, got {name!r}"
         return name
     return str(c)
@@ -261,7 +261,7 @@ def permanent_display(c: object) -> str:
     """Display a battlefield permanent with status annotations."""
     if not isinstance(c, dict):
         return str(c)
-    name = c.get("name", "?")
+    name = c["name"]
     assert isinstance(name, str), f"permanent name must be a string, got {name!r}"
     extras: list[str] = []
     if c.get("tapped"):
@@ -319,7 +319,7 @@ def _render_stack(stack: list) -> list[str]:
             parts.append(item)
         elif isinstance(item, dict):
             desc = _render_stack_item(item)
-            targets = item.get("targets", [])
+            targets = item.get("targets")
             if targets:
                 desc += " -> " + ", ".join(_render_stack_target(t) for t in targets)
             parts.append(desc)
@@ -334,10 +334,9 @@ def _render_stack_item(item: dict) -> str:
     ability_text = item.get("ability_text")
     if isinstance(source_card, str) and source_card and isinstance(ability_text, str) and ability_text:
         return f"{source_card} - {ability_text}"
-    desc = item.get("name", "?")
-    if isinstance(desc, str):
-        return desc
-    return str(desc)
+    name = item["name"]
+    assert isinstance(name, str), f"stack item name must be a string, got {name!r}"
+    return name
 
 
 def _render_stack_target(target: object) -> str:
@@ -353,8 +352,14 @@ def _render_combat(combat_groups: list) -> str:
     """Render combat groups."""
     parts: list[str] = []
     for group in combat_groups:
-        atk_names = [a["name"] for a in group.get("attackers", []) if isinstance(a, dict) and a.get("name")]
-        blk_names = [b["name"] for b in group.get("blockers", []) if isinstance(b, dict) and b.get("name")]
+        attackers = group.get("attackers")
+        atk_names: list[str] = []
+        if attackers is not None:
+            atk_names = [a["name"] for a in attackers if isinstance(a, dict) and a.get("name")]
+        blockers = group.get("blockers")
+        blk_names: list[str] = []
+        if blockers is not None:
+            blk_names = [b["name"] for b in blockers if isinstance(b, dict) and b.get("name")]
         part = ", ".join(atk_names)
         if blk_names:
             part += f" blocked by {', '.join(blk_names)}"
@@ -379,7 +384,7 @@ def _render_incoming_attackers(incoming_attackers: list) -> str:
             parts.append(str(attacker))
             continue
 
-        name = attacker.get("name") or "?"
+        name: str = attacker["name"]
         extras: list[str] = []
         attacker_id = attacker.get("id")
         if attacker_id:
@@ -468,9 +473,11 @@ def _resolve_mana_plan(mana_plan: object, snapshot: dict | None) -> str:
     id_to_name: dict[str, str] = {}
     if snapshot:
         for p in snapshot["players"]:
-            for perm in p.get("battlefield", []):
-                if isinstance(perm, dict) and perm.get("id"):
-                    id_to_name[perm["id"]] = perm.get("name") or perm["id"]
+            battlefield = p.get("battlefield")
+            if battlefield is not None:
+                for perm in battlefield:
+                    if isinstance(perm, dict) and perm.get("id"):
+                        id_to_name[perm["id"]] = perm.get("name") or perm["id"]
 
     parts: list[str] = []
     if isinstance(mana_plan, str):
@@ -626,42 +633,24 @@ def _render_card_reference(
     # Collect all card names from snapshot and choices
     names: set[str] = set()
     for p in snapshot["players"]:
-        for c in p.get("hand", []):
-            if isinstance(c, dict):
-                name = c.get("name")
-                if name:
-                    names.add(name)
-            elif isinstance(c, str) and c:
-                names.add(c)
-        for c in p.get("battlefield", []):
-            if isinstance(c, dict):
-                name = c.get("name")
-                if name:
-                    names.add(name)
-            elif isinstance(c, str) and c:
-                names.add(c)
-        for c in p.get("graveyard", []):
-            if isinstance(c, dict):
-                name = c.get("name")
-                if name:
-                    names.add(name)
-            elif isinstance(c, str) and c:
-                names.add(c)
-        for zone in ("exile", "commanders"):
-            if zone not in p:
+        for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
+            zone_cards = p.get(zone)
+            if zone_cards is None:
                 continue
-            for c in p[zone]:
+            for c in zone_cards:
                 if isinstance(c, dict):
                     name = c.get("name")
                     if name:
                         names.add(name)
                 elif isinstance(c, str) and c:
                     names.add(c)
-    for item in snapshot.get("stack", []):
-        if isinstance(item, dict) and item.get("name"):
-            names.add(item["name"])
-        elif isinstance(item, str) and item:
-            names.add(item)
+    stack = snapshot.get("stack")
+    if stack is not None:
+        for item in stack:
+            if isinstance(item, dict) and item.get("name"):
+                names.add(item["name"])
+            elif isinstance(item, str) and item:
+                names.add(item)
     for c in decision["choices"]:
         if isinstance(c, dict) and c.get("name"):
             names.add(c["name"])

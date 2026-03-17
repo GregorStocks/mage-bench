@@ -16,7 +16,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from schemas.game_export_types import LlmEvent
+from schemas.game_export_types import LlmEvent, is_pilot_player
 from scripts.analysis.blunder_eval_common import load_game
 
 
@@ -55,11 +55,8 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
     # Build player -> model mapping
     player_models: dict[str, str] = {}
     for p in data["players"]:
-        if p["type"] != "pilot":
+        if not is_pilot_player(p):
             continue
-        assert "model" in p and p["model"], (
-            f"{game_id}: pilot player missing model: {p!r}"
-        )
         player_models[p["name"]] = p["model"]
 
     # Initialize stats per player
