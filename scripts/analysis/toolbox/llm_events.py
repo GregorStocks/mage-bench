@@ -38,9 +38,9 @@ def main(gz_path: str) -> None:
     print("=== Failed Tool Calls ===")
     fail_count = 0
     for tc in events:
-        if tc.get("type") != "tool_call":
+        if tc["type"] != "tool_call":
             continue
-        result = str(tc.get("result", ""))
+        result = tc["result"]
         is_failure = False
         try:
             result_obj = json.loads(result)
@@ -55,14 +55,9 @@ def main(gz_path: str) -> None:
                 is_failure = True
         if is_failure:
             fail_count += 1
-            assert "args" in tc, f"tool_call event missing args: {tc!r}"
-            args = tc["args"]
-            assert isinstance(args, dict), (
-                f"tool_call args must be an object, got {args!r}"
-            )
             print(
-                f"  {tc.get('player', '?')} | {tc.get('tool', '?')} "
-                f"| args={json.dumps(args)} "
+                f"  {tc['player']} | {tc['tool']} "
+                f"| args={json.dumps(tc['args'])} "
                 f"| {result[:200]}"
             )
     if fail_count == 0:
@@ -70,19 +65,17 @@ def main(gz_path: str) -> None:
 
     # Stalls, resets, auto-pilot, errors
     print()
-    for t in ["stall", "context_reset", "auto_pilot_mode", "llm_error"]:
-        evts = [e for e in events if e.get("type") == t]
+    for t in ("stall", "context_reset", "auto_pilot_mode", "llm_error"):
+        evts = [e for e in events if e["type"] == t]
         if evts:
             print(f"{t}: {len(evts)} events")
 
     # Token/cost summary
-    responses = [
-        e for e in events if e.get("type") == "llm_response" and e.get("usage")
-    ]
+    responses = [e for e in events if e["type"] == "llm_response" and e.get("usage")]
     print()
     print("=== Token Usage ===")
     for player in players:
-        pr = [e for e in responses if e.get("player") == player]
+        pr = [e for e in responses if e["player"] == player]
         if not pr:
             continue
         prompt_tokens = sum(e["usage"].get("promptTokens", 0) for e in pr)

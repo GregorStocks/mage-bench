@@ -587,7 +587,10 @@ class TestCollectCardNames:
         game = _make_game()
         game["llmEvents"] = [
             {
+                "type": "tool_call",
+                "player": "Alice",
                 "tool": "get_action_choices",
+                "args": {},
                 "result": json.dumps(
                     {
                         "action_pending": True,
