@@ -895,8 +895,8 @@
         "summoning_sick": { "type": "boolean" },
         "face_down": { "type": "boolean" },
         "token": { "type": "boolean" },
-        "power": { "description": "Creature power (may be int or string)." },
-        "toughness": { "description": "Creature toughness (may be int or string)." },
+        "power": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature power (may be int or string)." },
+        "toughness": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature toughness (may be int or string)." },
         "power_toughness": { "type": "string", "description": "Pre-formatted P/T string like '2/2'." },
         "pt": { "type": "string", "description": "Shorthand P/T string." },
         "loyalty": { "type": "integer" },
@@ -943,8 +943,8 @@
       "properties": {
         "name": { "type": "string" },
         "id": { "type": "string" },
-        "power": { "description": "Creature power (may be int or string)." },
-        "toughness": { "description": "Creature toughness (may be int or string)." },
+        "power": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature power (may be int or string)." },
+        "toughness": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature toughness (may be int or string)." },
         "power_toughness": { "type": "string" },
         "pt": { "type": "string" }
       }

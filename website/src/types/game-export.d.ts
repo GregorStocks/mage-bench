@@ -240,15 +240,11 @@ export interface Permanent {
   /**
    * Creature power (may be int or string).
    */
-  power?: {
-    [k: string]: unknown;
-  };
+  power?: number | string;
   /**
    * Creature toughness (may be int or string).
    */
-  toughness?: {
-    [k: string]: unknown;
-  };
+  toughness?: number | string;
   /**
    * Pre-formatted P/T string like '2/2'.
    */
@@ -312,15 +308,11 @@ export interface CombatCreature {
   /**
    * Creature power (may be int or string).
    */
-  power?: {
-    [k: string]: unknown;
-  };
+  power?: number | string;
   /**
    * Creature toughness (may be int or string).
    */
-  toughness?: {
-    [k: string]: unknown;
-  };
+  toughness?: number | string;
   power_toughness?: string;
   pt?: string;
   [k: string]: unknown;

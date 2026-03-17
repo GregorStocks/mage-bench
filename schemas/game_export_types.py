@@ -401,6 +401,12 @@ def _require_object_list(value: object, source: str) -> None:
         _require_object(item, f"{source}[{index}]")
 
 
+def _require_int_or_str(value: object, source: str) -> None:
+    assert _is_int(value) or isinstance(value, str), (
+        f"{source}: expected int or string, got {_type_name(value)}"
+    )
+
+
 def _is_permanent(value: object, source: str) -> TypeIs[Permanent]:
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "name", source), f"{source}.name")
@@ -414,6 +420,10 @@ def _is_permanent(value: object, source: str) -> TypeIs[Permanent]:
         _require_bool(obj["face_down"], f"{source}.face_down")
     if "token" in obj:
         _require_bool(obj["token"], f"{source}.token")
+    if "power" in obj:
+        _require_int_or_str(obj["power"], f"{source}.power")
+    if "toughness" in obj:
+        _require_int_or_str(obj["toughness"], f"{source}.toughness")
     if "power_toughness" in obj:
         _require_str(obj["power_toughness"], f"{source}.power_toughness")
     if "pt" in obj:
@@ -457,6 +467,10 @@ def _is_combat_creature(value: object, source: str) -> TypeIs[CombatCreature]:
     _require_str(_require_key(obj, "name", source), f"{source}.name")
     if "id" in obj:
         _require_str(obj["id"], f"{source}.id")
+    if "power" in obj:
+        _require_int_or_str(obj["power"], f"{source}.power")
+    if "toughness" in obj:
+        _require_int_or_str(obj["toughness"], f"{source}.toughness")
     if "power_toughness" in obj:
         _require_str(obj["power_toughness"], f"{source}.power_toughness")
     if "pt" in obj:
