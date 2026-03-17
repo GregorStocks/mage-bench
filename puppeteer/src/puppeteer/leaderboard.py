@@ -850,7 +850,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         for p in players:
             if p["type"] != "pilot":
                 continue
-            assert "model" in p and p["model"], f"game {game_id}: pilot player missing model: {p!r}"
+            model_id = p.get("model")
+            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             name_to_key[p["name"]] = key
 
@@ -1024,7 +1025,8 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for p in players:
             if p["type"] != "pilot":
                 continue
-            assert "model" in p and p["model"], f"game {game_id}: pilot player missing model: {p!r}"
+            model_id = p.get("model")
+            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             name_to_key[p["name"]] = _player_key(p)
 
         # Accumulate per-player stats from llmEvents
@@ -1102,7 +1104,8 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for p in players:
             if p["type"] != "pilot":
                 continue
-            assert "model" in p and p["model"], f"game {game_id}: pilot player missing model: {p!r}"
+            model_id = p.get("model")
+            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             model_id, effort = _split_key(key)
             display_name = model_registry.get(model_id) or derive_display_name(model_id)

@@ -121,16 +121,13 @@ def _render_decision_block(
     lines.append(f"  Board: {board_line}")
 
     # Stack
-    stack = snapshot.get("stack", [])
+    stack = snapshot.get("stack")
     if stack:
         stack_parts = _render_stack(stack)
         lines.append(f"  Stack: [{', '.join(stack_parts)}]")
 
     # Combat
-    if "combat" in snapshot:
-        combat_groups = snapshot["combat"]
-    else:
-        combat_groups = []
+    combat_groups = snapshot.get("combat")
     if combat_groups:
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
@@ -155,11 +152,11 @@ def _render_decision_block(
 
     # Message and choices/items
     choices = decision["choices"]
-    items = decision["items"] if "items" in decision else []
+    items = decision.get("items")
     lines.append(f"  Message: {message}")
     if items:
-        total_min = decision["totalMin"] if "totalMin" in decision else None
-        total_max = decision["totalMax"] if "totalMax" in decision else None
+        total_min = decision.get("totalMin")
+        total_max = decision.get("totalMax")
         header = f"  Items ({len(items)})"
         if total_min is not None and total_max is not None and total_min == total_max:
             header += f": total={total_min}"
@@ -204,17 +201,17 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
         life = p["life"]
         bf = p.get("battlefield", [])
         gy = p.get("graveyard", [])
-        exile = p["exile"] if "exile" in p else []
-        hand = p.get("hand", [])
+        exile = p.get("exile")
+        hand = p.get("hand")
 
         # Hand: show full for deciding player, count only for opponents
         if deciding_player and name != deciding_player:
-            hand_count = p["hand_count"] if "hand_count" in p else len(hand)
+            hand_count = p["hand_count"] if "hand_count" in p else len(hand) if hand is not None else 0
             s = f"{name}: {life}hp"
             if hand_count:
                 s += f" hand={hand_count}"
         else:
-            hand_strs = [card_display(c) for c in hand]
+            hand_strs = [card_display(c) for c in hand] if hand else []
             s = f"{name}: {life}hp hand=[{', '.join(hand_strs)}]" if hand_strs else f"{name}: {life}hp hand=0"
 
         s += f" lib={p['library_size']}"
@@ -411,7 +408,7 @@ def _format_choice(c: object) -> str:
 def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     """Render what was chosen in a decision."""
     lines: list[str] = []
-    chosen = decision["chosen"] if "chosen" in decision else None
+    chosen = decision.get("chosen")
     if "chosenArgs" in decision:
         raw_chosen_args = decision["chosenArgs"]
         assert isinstance(raw_chosen_args, dict), f"chosenArgs must be an object when present, got {raw_chosen_args!r}"
@@ -444,7 +441,7 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
             lines.append(f"  Result: {action}")
             break
 
-    if "castRolledBack" in decision and decision["castRolledBack"]:
+    if decision.get("castRolledBack"):
         lines.append(
             "  **NOTE:** This cast was attempted but the game engine rolled it "
             "back because the player could not complete the mana payment."
