@@ -5,7 +5,7 @@ Usage:
     watch-pr.py [<pr-number>]
 
 Polls CI checks every 30s. Once all checks finish, also reports any
-review comments or change requests that appeared while waiting.
+review comments or change requests on the PR.
 
 Exit codes:
     0  All checks passed, no review feedback
@@ -19,11 +19,12 @@ import json
 import subprocess
 import sys
 import time
-from datetime import datetime, timezone
 
 POLL_INTERVAL = 30  # seconds
 TIMEOUT = 1800  # 30 minutes
 STARTUP_GRACE = 120  # wait up to 2min for checks to appear
+
+_PASS_BUCKETS = {"pass", "skipping"}
 
 
 def run_gh(*args: str) -> subprocess.CompletedProcess[str]:
@@ -52,16 +53,18 @@ def get_checks(pr: str) -> list[dict]:
 
 
 def should_stop_polling(checks: list[dict]) -> bool:
-    """Return True if we have enough info to report: any failure or all done."""
+    """Return True if we have enough info to report: any non-pass terminal state or all done."""
     if not checks:
         return False
-    if any(c.get("bucket") == "fail" for c in checks):
-        return True
+    for c in checks:
+        bucket = c.get("bucket")
+        if bucket not in _PASS_BUCKETS and bucket not in ("pending", None):
+            return True
     return all(c.get("bucket") not in ("pending", None) for c in checks)
 
 
-def get_review_feedback(pr: str, nwo: str, since: datetime) -> list[str]:
-    """Get review comments, change requests, and inline comments newer than `since`."""
+def get_review_feedback(pr: str, nwo: str) -> list[str]:
+    """Get review comments, change requests, and inline comments."""
     result = run_gh("pr", "view", pr, "--json", "reviews,comments")
     assert result.returncode == 0, f"Failed to fetch PR details: {result.stderr}"
     data = json.loads(result.stdout)
@@ -72,11 +75,6 @@ def get_review_feedback(pr: str, nwo: str, since: datetime) -> list[str]:
         state = review.get("state", "")
         if state in ("APPROVED", "PENDING", "DISMISSED"):
             continue
-        submitted = review.get("submittedAt")
-        if submitted:
-            ts = datetime.fromisoformat(submitted.replace("Z", "+00:00"))
-            if ts < since:
-                continue
         author = review["author"]["login"]
         body = review.get("body", "").strip()
         if body:
@@ -89,11 +87,6 @@ def get_review_feedback(pr: str, nwo: str, since: datetime) -> list[str]:
         author = comment["author"]["login"]
         if author.endswith("[bot]"):
             continue
-        created = comment.get("createdAt")
-        if created:
-            ts = datetime.fromisoformat(created.replace("Z", "+00:00"))
-            if ts < since:
-                continue
         body = comment.get("body", "").strip()
         if not body:
             continue
@@ -102,20 +95,22 @@ def get_review_feedback(pr: str, nwo: str, since: datetime) -> list[str]:
     # Inline review comments (diff-level) are a separate API endpoint
     inline_result = run_gh(
         "api",
+        "--paginate",
         f"repos/{nwo}/pulls/{pr}/comments",
         "--jq",
-        ".[] | [.user.login, .path, (.line | tostring), .created_at, .body] | @tsv",
+        ".[] | [.user.login, .path, (.line | tostring), .body] | @tsv",
     )
-    if inline_result.returncode == 0 and inline_result.stdout.strip():
+    assert inline_result.returncode == 0, (
+        f"Failed to fetch inline comments: {inline_result.stderr}"
+    )
+    if inline_result.stdout.strip():
         for line in inline_result.stdout.strip().split("\n"):
-            parts = line.split("\t", 4)
-            if len(parts) < 5:
+            parts = line.split("\t", 3)
+            if len(parts) < 4:
                 continue
-            author, path, line_no, created, body = parts
-            if created:
-                ts = datetime.fromisoformat(created.replace("Z", "+00:00"))
-                if ts < since:
-                    continue
+            author, path, line_no, body = parts
+            if author.endswith("[bot]"):
+                continue
             feedback.append(f"[INLINE] @{author} on {path}:{line_no}: {body.strip()}")
 
     return feedback
@@ -124,7 +119,6 @@ def get_review_feedback(pr: str, nwo: str, since: datetime) -> list[str]:
 def main() -> None:
     pr = sys.argv[1] if len(sys.argv) > 1 else get_pr_number()
     nwo = get_repo_nwo()
-    since = datetime.now(timezone.utc)
     print(f"Watching PR #{pr}...", flush=True)
 
     start = time.monotonic()
@@ -160,8 +154,10 @@ def main() -> None:
         checks = get_checks(pr)
 
     # Collect results
-    failed = [c for c in checks if c.get("bucket") == "fail"]
-    feedback = get_review_feedback(pr, nwo, since)
+    failed = [
+        c for c in checks if c.get("bucket") not in _PASS_BUCKETS | {"pending", None}
+    ]
+    feedback = get_review_feedback(pr, nwo)
 
     exit_code = 0
 
@@ -169,7 +165,7 @@ def main() -> None:
         exit_code |= 1
         print(f"\n{len(failed)} check(s) FAILED:")
         for c in failed:
-            print(f"  - {c['name']}: {c.get('link', 'no link')}")
+            print(f"  - {c['name']} ({c.get('bucket')}): {c.get('link', 'no link')}")
 
     if feedback:
         exit_code |= 2
