@@ -28,12 +28,14 @@ If the PR is closed/merged, create a new one instead of pushing to a dead branch
 
 1. **Push**: `git push origin HEAD`
 2. **Update the PR title and description** to reflect the current state of all changes on the branch. The title should be concise (under 70 characters) and the description should accurately summarize the full diff against the base branch, not just the latest commit:
+
    ```bash
    gh pr edit <number> --title "Updated title" --body "$(cat <<'EOF'
    ...updated description...
    EOF
    )"
    ```
+
 3. **Run the CI watcher**: `uv run python scripts/watch-pr.py` — wait for CI to finish and check for review feedback. If CI fails or feedback arrives, fix it, then do all three steps again (cap at 3 iterations).
 
 ## Build System
