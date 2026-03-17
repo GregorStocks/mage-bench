@@ -99,7 +99,7 @@ known-first-party = ["puppeteer", "scripts", "schemas"]
     "ERA001",                          # documentation comments that look like code
     "N815",                            # inputSchema — MCP protocol field name
 ]
-"src/puppeteer/orchestrator.py" = ["FBT001", "FBT002"]  # compile_project boolean params
+"src/puppeteer/orchestrator.py" = ["FBT001", "FBT002", "ARG001"]  # boolean params, polymorphic signatures
 "src/puppeteer/replay.py" = ["FBT001", "FBT002"]  # skip_postscript boolean params
 "src/puppeteer/pilot.py" = ["N815"]  # inputSchema — MCP protocol field name
 "src/puppeteer/config.py" = ["FBT001"]  # _resolve_personality boolean param
