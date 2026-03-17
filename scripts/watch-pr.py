@@ -36,10 +36,18 @@ def get_pr_number() -> str:
     return result.stdout.strip()
 
 
+def get_repo_nwo() -> str:
+    """Get owner/repo for API calls."""
+    result = run_gh("repo", "view", "--json", "nameWithOwner", "--jq", ".nameWithOwner")
+    assert result.returncode == 0, f"Failed to get repo info: {result.stderr}"
+    return result.stdout.strip()
+
+
 def get_checks(pr: str) -> list[dict]:
     result = run_gh("pr", "checks", pr, "--json", "bucket,name,link,workflow")
-    if result.returncode not in (0, 1, 8):
-        return []
+    assert result.returncode in (0, 1, 8), (
+        f"gh pr checks failed (exit {result.returncode}): {result.stderr}"
+    )
     return json.loads(result.stdout) if result.stdout.strip() else []
 
 
@@ -49,8 +57,8 @@ def all_done(checks: list[dict]) -> bool:
     return all(c.get("bucket") not in ("pending", None) for c in checks)
 
 
-def get_review_feedback(pr: str, since: datetime) -> list[str]:
-    """Get review comments and change requests newer than `since`."""
+def get_review_feedback(pr: str, nwo: str, since: datetime) -> list[str]:
+    """Get review comments, change requests, and inline comments newer than `since`."""
     result = run_gh("pr", "view", pr, "--json", "reviews,comments")
     assert result.returncode == 0, f"Failed to fetch PR details: {result.stderr}"
     data = json.loads(result.stdout)
@@ -66,11 +74,13 @@ def get_review_feedback(pr: str, since: datetime) -> list[str]:
             ts = datetime.fromisoformat(submitted.replace("Z", "+00:00"))
             if ts < since:
                 continue
-        body = review.get("body", "").strip()
-        if not body:
-            continue
         author = review.get("author", {}).get("login", "unknown")
-        feedback.append(f"[{state}] @{author}: {body}")
+        body = review.get("body", "").strip()
+        if body:
+            feedback.append(f"[{state}] @{author}: {body}")
+        else:
+            # CHANGES_REQUESTED with no body means inline-only review
+            feedback.append(f"[{state}] @{author} (see inline comments)")
 
     for comment in data.get("comments", []):
         author = comment.get("author", {}).get("login", "unknown")
@@ -86,11 +96,31 @@ def get_review_feedback(pr: str, since: datetime) -> list[str]:
             continue
         feedback.append(f"[COMMENT] @{author}: {body}")
 
+    # Inline review comments (diff-level) are a separate API endpoint
+    inline_result = run_gh(
+        "api",
+        f"repos/{nwo}/pulls/{pr}/comments",
+        "--jq",
+        ".[] | [.user.login, .path, (.line | tostring), .created_at, .body] | @tsv",
+    )
+    if inline_result.returncode == 0 and inline_result.stdout.strip():
+        for line in inline_result.stdout.strip().split("\n"):
+            parts = line.split("\t", 4)
+            if len(parts) < 5:
+                continue
+            author, path, line_no, created, body = parts
+            if created:
+                ts = datetime.fromisoformat(created.replace("Z", "+00:00"))
+                if ts < since:
+                    continue
+            feedback.append(f"[INLINE] @{author} on {path}:{line_no}: {body.strip()}")
+
     return feedback
 
 
 def main() -> None:
     pr = sys.argv[1] if len(sys.argv) > 1 else get_pr_number()
+    nwo = get_repo_nwo()
     since = datetime.now(timezone.utc)
     print(f"Watching PR #{pr}...", flush=True)
 
@@ -128,7 +158,7 @@ def main() -> None:
 
     # Collect results
     failed = [c for c in checks if c.get("bucket") == "fail"]
-    feedback = get_review_feedback(pr, since)
+    feedback = get_review_feedback(pr, nwo, since)
 
     exit_code = 0
 

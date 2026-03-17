@@ -128,7 +128,7 @@ Pick and solve exactly **one** issue, then create a PR.
     Based on the exit code:
     - **Exit 0** (all green, no comments): Done — leave remaining issues for the next Claude.
     - **Exit 1** (CI failed): The output lists failed checks with links. Investigate with `gh run view <run-id> --log-failed` (extract the run ID from the check URL). Fix the root cause, commit, push, update the PR description (`gh pr edit`), and re-run this step.
-    - **Exit 2** (review feedback): The output lists comments. Address each one, commit, push, update the PR description, and re-run this step.
+    - **Exit 2** (review feedback): The output lists top-level reviews, general comments, and inline diff comments. For inline comments, read the full context with `gh api repos/{owner}/{repo}/pulls/{number}/comments`. Address each one, commit, push, update the PR description, and re-run this step.
     - **Exit 3** (both): Address both, push, and re-run this step.
     - **Exit 4** (timeout): Re-run this step.
 
