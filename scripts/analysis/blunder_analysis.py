@@ -419,7 +419,10 @@ def _card_names_in_decision(decision: dict) -> set[str]:
     """Extract card names referenced in a decision's game state and choices."""
     names: set[str] = set()
     gs = _decision_game_state(decision)
-    for p in gs["players"]:
+    gs_players = gs.get("players")
+    if gs_players is None:
+        gs_players = []
+    for p in gs_players:
         for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
             zone_cards = p.get(zone)
             if zone_cards is not None:
@@ -718,7 +721,10 @@ def _format_decisions(decisions: list[dict]) -> str:
         gs = _decision_game_state(d)
         deciding_player = d["player"]
         players: list[str] = []
-        for p in gs["players"]:
+        gs_players = gs.get("players")
+        if gs_players is None:
+            gs_players = []
+        for p in gs_players:
             bf = p.get("battlefield")
             lib = p.get("library_size")
             if p["name"] == deciding_player:
