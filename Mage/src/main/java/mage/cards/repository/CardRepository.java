@@ -387,11 +387,22 @@ public enum CardRepository {
     /**
      * Lazily load a single card into the DB from its ExpansionSet definition.
      * Only loads the one card class, not the entire set or card pool.
+     * Also ensures the expansion metadata is in ExpansionRepository so that
+     * findPreferredOrLatestCard (used by deck importers) can resolve set info.
      */
     private void lazyLoadCard(String setCode, String cardNumber) {
         ExpansionSet set = Sets.getInstance().get(setCode);
         if (set == null) {
             return;
+        }
+
+        // Ensure the expansion exists in ExpansionRepository — deck importers
+        // use findPreferredOrLatestCard which needs ExpansionInfo to pick the
+        // best printing.
+        if (ExpansionRepository.instance.getSetByCode(setCode) == null) {
+            List<ExpansionInfo> setsToAdd = new ArrayList<>();
+            setsToAdd.add(new ExpansionInfo(set));
+            ExpansionRepository.instance.saveSets(setsToAdd, null, ExpansionRepository.instance.getContentVersionConstant());
         }
 
         List<CardInfo> cardsToAdd = new ArrayList<>();
@@ -489,9 +500,11 @@ public enum CardRepository {
     }
 
     public CardInfo findPreferredCoreExpansionCard(String name, String preferredSetCode) {
-        List<CardInfo> cards;
-        cards = findCards(name);
-
+        List<CardInfo> cards = findCards(name);
+        if (cards.isEmpty() && !CardScanner.scanning && name != null && !name.isEmpty()) {
+            lazyLoadCardByName(name);
+            cards = findCards(name);
+        }
         return findPreferredOrLatestCard(cards, preferredSetCode);
     }
 
