@@ -522,49 +522,48 @@ def _is_llm_event(value: object, source: str) -> TypeIs[LlmEvent]:
     if "gameSeq" in obj:
         _require_int(obj["gameSeq"], f"{source}.gameSeq")
 
-    # Per-variant validation
-    event_type = obj["type"]
-    if event_type == "game_start":
-        if "model" in obj:
-            _require_str(obj["model"], f"{source}.model")
-        if "availableTools" in obj:
-            _require_str_list(obj["availableTools"], f"{source}.availableTools")
-    elif event_type == "llm_response":
-        if "reasoning" in obj:
-            _require_optional_str(obj["reasoning"], f"{source}.reasoning")
-        if "thinking" in obj:
-            _require_optional_str(obj["thinking"], f"{source}.thinking")
-        if "usage" in obj:
-            assert _is_llm_usage(obj["usage"], f"{source}.usage")
-        if "costUsd" in obj:
-            _require_number(obj["costUsd"], f"{source}.costUsd")
-    elif event_type == "tool_call":
+    # Per-variant required fields
+    if obj["type"] == "tool_call":
         _require_str(_require_key(obj, "tool", source), f"{source}.tool")
         _require_object(_require_key(obj, "args", source), f"{source}.args")
         _require_str(_require_key(obj, "result", source), f"{source}.result")
-        if "latencyMs" in obj:
-            _require_int(obj["latencyMs"], f"{source}.latencyMs")
-    elif event_type == "stall":
-        if "turnsWithoutProgress" in obj:
-            _require_int(obj["turnsWithoutProgress"], f"{source}.turnsWithoutProgress")
-        if "lastTools" in obj:
-            _require_str_list(obj["lastTools"], f"{source}.lastTools")
-    elif event_type == "context_reset":
-        if "reason" in obj:
-            _require_str(obj["reason"], f"{source}.reason")
-    elif event_type == "context_trim":
-        if "messagesBefore" in obj:
-            _require_int(obj["messagesBefore"], f"{source}.messagesBefore")
-        if "messagesAfter" in obj:
-            _require_int(obj["messagesAfter"], f"{source}.messagesAfter")
-    elif event_type == "llm_error":
-        if "errorType" in obj:
-            _require_str(obj["errorType"], f"{source}.errorType")
-        if "errorMessage" in obj:
-            _require_str(obj["errorMessage"], f"{source}.errorMessage")
-    elif event_type == "auto_pilot_mode":
-        if "reason" in obj:
-            _require_str(obj["reason"], f"{source}.reason")
+
+    # Validate all known optional fields when present (regardless of variant,
+    # so cross-variant typos like "tool": 123 on an llm_response are caught).
+    if "model" in obj:
+        _require_str(obj["model"], f"{source}.model")
+    if "availableTools" in obj:
+        _require_str_list(obj["availableTools"], f"{source}.availableTools")
+    if "reasoning" in obj:
+        _require_optional_str(obj["reasoning"], f"{source}.reasoning")
+    if "thinking" in obj:
+        _require_optional_str(obj["thinking"], f"{source}.thinking")
+    if "usage" in obj:
+        assert _is_llm_usage(obj["usage"], f"{source}.usage")
+    if "costUsd" in obj:
+        _require_number(obj["costUsd"], f"{source}.costUsd")
+    if "tool" in obj:
+        _require_str(obj["tool"], f"{source}.tool")
+    if "args" in obj:
+        _require_object(obj["args"], f"{source}.args")
+    if "result" in obj:
+        _require_str(obj["result"], f"{source}.result")
+    if "latencyMs" in obj:
+        _require_int(obj["latencyMs"], f"{source}.latencyMs")
+    if "turnsWithoutProgress" in obj:
+        _require_int(obj["turnsWithoutProgress"], f"{source}.turnsWithoutProgress")
+    if "lastTools" in obj:
+        _require_str_list(obj["lastTools"], f"{source}.lastTools")
+    if "reason" in obj:
+        _require_str(obj["reason"], f"{source}.reason")
+    if "errorType" in obj:
+        _require_str(obj["errorType"], f"{source}.errorType")
+    if "errorMessage" in obj:
+        _require_str(obj["errorMessage"], f"{source}.errorMessage")
+    if "messagesBefore" in obj:
+        _require_int(obj["messagesBefore"], f"{source}.messagesBefore")
+    if "messagesAfter" in obj:
+        _require_int(obj["messagesAfter"], f"{source}.messagesAfter")
 
     return True
 
