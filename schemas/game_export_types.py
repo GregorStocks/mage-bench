@@ -445,13 +445,9 @@ def _is_stack_item(value: object, source: str) -> TypeIs[StackItem]:
     if "ability_text" in obj:
         _require_str(obj["ability_text"], f"{source}.ability_text")
     if "targets" in obj:
-        for idx, target in enumerate(
-            _require_list(obj["targets"], f"{source}.targets")
-        ):
-            if isinstance(target, dict):
-                assert _is_stack_target(target, f"{source}.targets[{idx}]")
-            else:
-                _require_str(target, f"{source}.targets[{idx}]")
+        _validate_str_or_typed_list(
+            obj["targets"], f"{source}.targets", _is_stack_target
+        )
     return True
 
 
@@ -496,13 +492,22 @@ def _is_multi_amount_item(value: object, source: str) -> TypeIs[MultiAmountItem]
     return True
 
 
-def _validate_card_list(value: object, source: str) -> None:
-    """Validate a list of cards that can be strings or Permanent dicts."""
+def _validate_str_or_typed_list(
+    value: object,
+    source: str,
+    typed_validator: object,
+) -> None:
+    """Validate a list where items can be strings or typed dicts."""
     for index, item in enumerate(_require_list(value, source)):
         if isinstance(item, dict):
-            assert _is_permanent(item, f"{source}[{index}]")
+            assert typed_validator(item, f"{source}[{index}]")
         else:
             _require_str(item, f"{source}[{index}]")
+
+
+def _validate_card_list(value: object, source: str) -> None:
+    """Validate a list of cards that can be strings or Permanent dicts."""
+    _validate_str_or_typed_list(value, source, _is_permanent)
 
 
 def _is_player(value: object, source: str) -> TypeIs[Player]:
@@ -604,13 +609,9 @@ def _is_snapshot(value: object, source: str) -> TypeIs[Snapshot]:
         _require_list(_require_key(obj, "players", source), f"{source}.players")
     ):
         assert _is_snapshot_player(player, f"{source}.players[{index}]")
-    for index, item in enumerate(
-        _require_list(_require_key(obj, "stack", source), f"{source}.stack")
-    ):
-        if isinstance(item, dict):
-            assert _is_stack_item(item, f"{source}.stack[{index}]")
-        else:
-            _require_str(item, f"{source}.stack[{index}]")
+    _validate_str_or_typed_list(
+        _require_key(obj, "stack", source), f"{source}.stack", _is_stack_item
+    )
     if "ts" in obj:
         _require_str(obj["ts"], f"{source}.ts")
     if "combat" in obj:
@@ -744,21 +745,13 @@ def _is_pilot_context(value: object, source: str) -> TypeIs[PilotContext]:
     if "combatPhase" in obj:
         _require_optional_str(obj["combatPhase"], f"{source}.combatPhase")
     if "alreadyAttacking" in obj:
-        for idx, item in enumerate(
-            _require_list(obj["alreadyAttacking"], f"{source}.alreadyAttacking")
-        ):
-            if isinstance(item, dict):
-                assert _is_combat_creature(item, f"{source}.alreadyAttacking[{idx}]")
-            else:
-                _require_str(item, f"{source}.alreadyAttacking[{idx}]")
+        _validate_str_or_typed_list(
+            obj["alreadyAttacking"], f"{source}.alreadyAttacking", _is_combat_creature
+        )
     if "incomingAttackers" in obj:
-        for idx, item in enumerate(
-            _require_list(obj["incomingAttackers"], f"{source}.incomingAttackers")
-        ):
-            if isinstance(item, dict):
-                assert _is_combat_creature(item, f"{source}.incomingAttackers[{idx}]")
-            else:
-                _require_str(item, f"{source}.incomingAttackers[{idx}]")
+        _validate_str_or_typed_list(
+            obj["incomingAttackers"], f"{source}.incomingAttackers", _is_combat_creature
+        )
     return True
 
 
