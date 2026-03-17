@@ -1230,7 +1230,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
         "llmEvents": llm_events,
         "gameOver": game_over,
         "harnessEpoch": harness_epoch,
-        "youtubeUrl": meta.get("youtube_url"),
+        "youtubeUrl": meta["youtube_url"] if "youtube_url" in meta else "",
     }
 
     # Season and tournament fields, added in v4
