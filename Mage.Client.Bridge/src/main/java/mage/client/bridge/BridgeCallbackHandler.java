@@ -2383,6 +2383,20 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     private ChooseActionTool.Result handleBatchAttackers(String[] attackerIds, PendingAction action, ChooseActionTool.Result result) {
+        try {
+            return handleBatchAttackersBody(attackerIds, action, result);
+        } catch (ResponseDeliveryException e) {
+            result.success = false;
+            result.error = e.getMessage();
+            result.error_code = "response_delivery_failed";
+            result.retryable = false;
+            attachUnseenChat(result);
+            return result;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private ChooseActionTool.Result handleBatchAttackersBody(String[] attackerIds, PendingAction action, ChooseActionTool.Result result) {
         UUID gameId = action.gameId();
         var declared = new ArrayList<Map<String, Object>>();
         var failed = new ArrayList<Map<String, Object>>();
@@ -2494,6 +2508,20 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     private ChooseActionTool.Result handleBatchBlockers(String[] blockersArray, PendingAction action, ChooseActionTool.Result result) {
+        try {
+            return handleBatchBlockersBody(blockersArray, action, result);
+        } catch (ResponseDeliveryException e) {
+            result.success = false;
+            result.error = e.getMessage();
+            result.error_code = "response_delivery_failed";
+            result.retryable = false;
+            attachUnseenChat(result);
+            return result;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private ChooseActionTool.Result handleBatchBlockersBody(String[] blockersArray, PendingAction action, ChooseActionTool.Result result) {
         UUID gameId = action.gameId();
         var declared = new ArrayList<Map<String, Object>>();
         var failed = new ArrayList<Map<String, Object>>();
