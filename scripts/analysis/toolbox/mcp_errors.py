@@ -151,9 +151,11 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
 
         if r is not None and r.get("success") is False:
             error_message = r.get("error")
-            assert isinstance(error_message, str), (
-                f"{game_id}: tool error message must be a string, got {error_message!r}"
+            assert error_message is None or isinstance(error_message, str), (
+                f"{game_id}: tool error message must be a string when present, got {error_message!r}"
             )
+            if error_message is None:
+                error_message = ""
             error_code = r.get("error_code")
             assert error_code is None or isinstance(error_code, str), (
                 f"{game_id}: tool error code must be a string when present, got {error_code!r}"

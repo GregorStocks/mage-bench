@@ -267,8 +267,10 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
             at = result.get("action_type", "?")
             msg = result.get("message")
             choices = result.get("choices")
-            assert isinstance(msg, str), f"message must be a string, got {msg!r}"
-            parts.append(f"{at}: {msg[:80]}")
+            assert msg is None or isinstance(msg, str), (
+                f"message must be a string, got {msg!r}"
+            )
+            parts.append(f"{at}: {msg[:80]}" if msg else f"{at}")
             if isinstance(choices, list) and choices and verbose:
                 for c in choices[:8]:
                     if not isinstance(c, dict):
