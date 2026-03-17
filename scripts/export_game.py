@@ -412,7 +412,9 @@ def _read_llm_events(
             game_seq = raw.get("game_seq")
 
             if event_type == "game_start":
-                exported["model"] = raw["model"]
+                model = raw.get("model")
+                if model is not None:
+                    exported["model"] = model
                 available_tools = raw.get("available_tools")
                 if available_tools is not None:
                     exported["availableTools"] = available_tools
