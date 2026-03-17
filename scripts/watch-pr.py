@@ -76,11 +76,16 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
 
     feedback = []
 
+    # Only consider the latest review per author (earlier reviews are superseded)
+    latest_review: dict[str, dict] = {}
     for review in data.get("reviews", []):
+        author = review["author"]["login"]
+        latest_review[author] = review
+
+    for author, review in latest_review.items():
         state = review.get("state", "")
         if state in ("APPROVED", "PENDING", "DISMISSED"):
             continue
-        author = review["author"]["login"]
         if _is_bot(author):
             continue
         body = review.get("body", "").strip()
@@ -133,9 +138,10 @@ def main() -> None:
     # Wait for checks to appear
     checks = get_checks(pr)
     while not checks:
-        if time.monotonic() - start > STARTUP_GRACE:
-            print("No CI checks found after 2 minutes.", flush=True)
-            break
+        elapsed = time.monotonic() - start
+        assert elapsed <= STARTUP_GRACE, (
+            f"No CI checks found for PR #{pr} after {STARTUP_GRACE}s"
+        )
         print("Waiting for checks to start...", flush=True)
         time.sleep(POLL_INTERVAL)
         checks = get_checks(pr)
