@@ -105,30 +105,74 @@ class LlmUsage(TypedDict, total=False):
     reasoningTokens: int
 
 
-class LlmEvent(TypedDict):
-    type: str
+class _LlmEventBase(TypedDict):
     player: str
     ts: NotRequired[str]
     seq: NotRequired[int]
     gameSeq: NotRequired[int]
+
+
+class GameStartEvent(_LlmEventBase):
+    type: Literal["game_start"]
     model: NotRequired[str]
     availableTools: NotRequired[list[str]]
+
+
+class LlmResponseEvent(_LlmEventBase):
+    type: Literal["llm_response"]
     reasoning: NotRequired[str | None]
     thinking: NotRequired[str | None]
     toolCalls: NotRequired[object]
     usage: NotRequired[LlmUsage]
     costUsd: NotRequired[float]
-    tool: NotRequired[str]
-    args: NotRequired[JsonObject]
-    result: NotRequired[str]
+
+
+class ToolCallEvent(_LlmEventBase):
+    type: Literal["tool_call"]
+    tool: str
+    args: JsonObject
+    result: str
     latencyMs: NotRequired[int]
+
+
+class StallEvent(_LlmEventBase):
+    type: Literal["stall"]
     turnsWithoutProgress: NotRequired[int]
     lastTools: NotRequired[list[str]]
+
+
+class ContextResetEvent(_LlmEventBase):
+    type: Literal["context_reset"]
     reason: NotRequired[str]
-    errorType: NotRequired[str]
-    errorMessage: NotRequired[str]
+
+
+class ContextTrimEvent(_LlmEventBase):
+    type: Literal["context_trim"]
     messagesBefore: NotRequired[int]
     messagesAfter: NotRequired[int]
+
+
+class LlmErrorEvent(_LlmEventBase):
+    type: Literal["llm_error"]
+    errorType: NotRequired[str]
+    errorMessage: NotRequired[str]
+
+
+class AutoPilotModeEvent(_LlmEventBase):
+    type: Literal["auto_pilot_mode"]
+    reason: NotRequired[str]
+
+
+LlmEvent: TypeAlias = (
+    GameStartEvent
+    | LlmResponseEvent
+    | ToolCallEvent
+    | StallEvent
+    | ContextResetEvent
+    | ContextTrimEvent
+    | LlmErrorEvent
+    | AutoPilotModeEvent
+)
 
 
 class GameOver(TypedDict):
@@ -469,12 +513,23 @@ def _is_llm_event(value: object, source: str) -> TypeIs[LlmEvent]:
         f"{source}.type: unexpected llm event type {obj['type']!r}"
     )
     _require_str(_require_key(obj, "player", source), f"{source}.player")
+
+    # Base fields (shared by all variants)
     if "ts" in obj:
         _require_str(obj["ts"], f"{source}.ts")
     if "seq" in obj:
         _require_int(obj["seq"], f"{source}.seq")
     if "gameSeq" in obj:
         _require_int(obj["gameSeq"], f"{source}.gameSeq")
+
+    # Per-variant required fields
+    if obj["type"] == "tool_call":
+        _require_str(_require_key(obj, "tool", source), f"{source}.tool")
+        _require_object(_require_key(obj, "args", source), f"{source}.args")
+        _require_str(_require_key(obj, "result", source), f"{source}.result")
+
+    # Validate all known optional fields when present (regardless of variant,
+    # so cross-variant typos like "tool": 123 on an llm_response are caught).
     if "model" in obj:
         _require_str(obj["model"], f"{source}.model")
     if "availableTools" in obj:
@@ -509,6 +564,7 @@ def _is_llm_event(value: object, source: str) -> TypeIs[LlmEvent]:
         _require_int(obj["messagesBefore"], f"{source}.messagesBefore")
     if "messagesAfter" in obj:
         _require_int(obj["messagesAfter"], f"{source}.messagesAfter")
+
     return True
 
 
@@ -750,20 +806,28 @@ def load_built_game_export(path: str | Path) -> BuiltGameExport:
 __all__ = [
     "Action",
     "Annotation",
+    "AutoPilotModeEvent",
     "BuiltGameExport",
     "CardMetadata",
     "CombatGroup",
+    "ContextResetEvent",
+    "ContextTrimEvent",
     "Decision",
     "GameError",
     "GameExport",
     "GameOver",
+    "GameStartEvent",
     "JsonObject",
+    "LlmErrorEvent",
     "LlmEvent",
+    "LlmResponseEvent",
     "LlmUsage",
     "PilotContext",
     "Player",
     "Snapshot",
     "SnapshotPlayer",
+    "StallEvent",
+    "ToolCallEvent",
     "is_built_game_export",
     "is_game_export",
     "load_built_game_export",

@@ -13,19 +13,26 @@ import pytest
 from schemas.game_export_types import (
     Action,
     Annotation,
+    AutoPilotModeEvent,
     BuiltGameExport,
     CardMetadata,
     CombatGroup,
+    ContextResetEvent,
+    ContextTrimEvent,
     Decision,
     GameError,
     GameExport,
     GameOver,
-    LlmEvent,
+    GameStartEvent,
+    LlmErrorEvent,
+    LlmResponseEvent,
     LlmUsage,
     PilotContext,
     Player,
     Snapshot,
     SnapshotPlayer,
+    StallEvent,
+    ToolCallEvent,
     load_built_game_export,
     load_game_export,
     require_built_game_export,
@@ -352,7 +359,36 @@ class TestExportSchema:
         _assert_typed_dict_matches_schema(SnapshotPlayer, schema=defs["SnapshotPlayer"])
         _assert_typed_dict_matches_schema(CombatGroup, schema=defs["CombatGroup"])
         _assert_typed_dict_matches_schema(Action, schema=defs["Action"])
-        _assert_typed_dict_matches_schema(LlmEvent, schema=defs["LlmEvent"])
+        # LlmEvent is a Union of discriminated variants — verify the union
+        # of all variant keys matches the flat JSON schema properties, and the
+        # intersection of required keys matches the schema's required set.
+        llm_variants = [
+            GameStartEvent,
+            LlmResponseEvent,
+            ToolCallEvent,
+            StallEvent,
+            ContextResetEvent,
+            ContextTrimEvent,
+            LlmErrorEvent,
+            AutoPilotModeEvent,
+        ]
+        all_keys: set[str] = set()
+        all_required: set[str] | None = None
+        for variant in llm_variants:
+            all_keys |= _typed_dict_keys(variant)
+            if all_required is None:
+                all_required = set(variant.__required_keys__)
+            else:
+                all_required &= set(variant.__required_keys__)
+        llm_schema = defs["LlmEvent"]
+        assert all_keys == set(llm_schema["properties"]), (
+            f"LlmEvent variant keys mismatch: "
+            f"extra={all_keys - set(llm_schema['properties'])}, "
+            f"missing={set(llm_schema['properties']) - all_keys}"
+        )
+        assert all_required == set(llm_schema.get("required", [])), (
+            f"LlmEvent required keys mismatch: got {all_required}, expected {set(llm_schema.get('required', []))}"
+        )
         _assert_typed_dict_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
