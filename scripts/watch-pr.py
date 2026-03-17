@@ -51,9 +51,12 @@ def get_checks(pr: str) -> list[dict]:
     return json.loads(result.stdout) if result.stdout.strip() else []
 
 
-def all_done(checks: list[dict]) -> bool:
+def should_stop_polling(checks: list[dict]) -> bool:
+    """Return True if we have enough info to report: any failure or all done."""
     if not checks:
         return False
+    if any(c.get("bucket") == "fail" for c in checks):
+        return True
     return all(c.get("bucket") not in ("pending", None) for c in checks)
 
 
@@ -137,7 +140,7 @@ def main() -> None:
         checks = get_checks(pr)
 
     # Poll until all checks finish
-    while not all_done(checks):
+    while not should_stop_polling(checks):
         elapsed = time.monotonic() - start
         if elapsed > TIMEOUT:
             pending = [c["name"] for c in checks if c.get("bucket") == "pending"]
