@@ -657,7 +657,7 @@ def start_gui_client(
     project_root: Path,
     config: Config,
     log_path: Path,
-    game_dir: Path | None = None,  # Unused; matches start_observer_client signature
+    game_dir: Path | None = None,
 ) -> subprocess.Popen:
     """Start the GUI client."""
     # Pass resolved player config (with actual deck paths, not "random")

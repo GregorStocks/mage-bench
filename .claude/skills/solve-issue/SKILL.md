@@ -117,7 +117,21 @@ Pick and solve exactly **one** issue, then create a PR.
 
     The PR body must include a short **issue context** section near the top that explains what the original issue was and why this change fixes it. Write it for a reader who may not remember the issue they filed days earlier.
 
-    Then mark the PR as ready-for-review. Then stop — leave remaining issues for the next Claude.
+    Then mark the PR as ready-for-review.
+
+14. **Watch CI and address feedback.** Run the watcher — it polls every 30s, returns as soon as any check fails or all pass (up to 30 min):
+
+    ```bash
+    uv run python scripts/watch-pr.py
+    ```
+
+    - **Exit 0** (all green, no comments): Done — leave remaining issues for the next Claude.
+    - **Exit 1** (CI failed): The output lists failed checks with links. Investigate with `gh run view <run-id> --log-failed` (extract the run ID from the check URL). Fix the root cause, then do the full push-edit-watch cycle (see AGENTS.md § Pull Requests).
+    - **Exit 2** (review feedback): The output lists top-level reviews, general comments, and inline diff comments. For inline comments, read the full context with `gh api repos/{owner}/{repo}/pulls/{number}/comments`. Address each one, then do the full push-edit-watch cycle.
+    - **Exit 3** (both): Address both, then push-edit-watch.
+    - **Exit 4** (timeout): Re-run this step.
+
+    **Cap at 3 fix iterations.** If after 3 rounds CI still fails or new feedback keeps arriving, report the situation to the user and stop.
 
 ## Abandoning an Issue
 
@@ -136,4 +150,4 @@ Not every quirk deserves a fix. For issues that seem one-in-a-million or where i
 ## Important
 
 - One issue per PR — keeps PRs small and reviewable
-- Stop after creating the PR — don't chain multiple fixes
+- Don't chain multiple issues — after CI is green and feedback is addressed, stop
