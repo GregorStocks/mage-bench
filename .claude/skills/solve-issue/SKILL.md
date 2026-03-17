@@ -119,17 +119,16 @@ Pick and solve exactly **one** issue, then create a PR.
 
     Then mark the PR as ready-for-review.
 
-14. **Watch CI and address feedback.** Run the watcher in the background — it polls every 30s and may take up to 30 minutes:
+14. **Watch CI and address feedback.** Run the watcher — it polls every 30s, returns as soon as any check fails or all pass (up to 30 min):
 
     ```bash
     uv run python scripts/watch-pr.py
     ```
 
-    Based on the exit code:
     - **Exit 0** (all green, no comments): Done — leave remaining issues for the next Claude.
-    - **Exit 1** (CI failed): The output lists failed checks with links. Investigate with `gh run view <run-id> --log-failed` (extract the run ID from the check URL). Fix the root cause, commit, push, update the PR description (`gh pr edit`), and re-run this step.
-    - **Exit 2** (review feedback): The output lists top-level reviews, general comments, and inline diff comments. For inline comments, read the full context with `gh api repos/{owner}/{repo}/pulls/{number}/comments`. Address each one, commit, push, update the PR description, and re-run this step.
-    - **Exit 3** (both): Address both, push, and re-run this step.
+    - **Exit 1** (CI failed): The output lists failed checks with links. Investigate with `gh run view <run-id> --log-failed` (extract the run ID from the check URL). Fix the root cause, then do the full push-edit-watch cycle (see AGENTS.md § Pull Requests).
+    - **Exit 2** (review feedback): The output lists top-level reviews, general comments, and inline diff comments. For inline comments, read the full context with `gh api repos/{owner}/{repo}/pulls/{number}/comments`. Address each one, then do the full push-edit-watch cycle.
+    - **Exit 3** (both): Address both, then push-edit-watch.
     - **Exit 4** (timeout): Re-run this step.
 
     **Cap at 3 fix iterations.** If after 3 rounds CI still fails or new feedback keeps arriving, report the situation to the user and stop.
