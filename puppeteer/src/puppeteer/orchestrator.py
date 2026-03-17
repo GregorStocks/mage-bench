@@ -17,7 +17,7 @@ from zoneinfo import ZoneInfo
 
 from openai import OpenAIError
 
-from puppeteer.config import Config, PilotPlayer
+from puppeteer.config import Config, PilotPlayer, Player
 from puppeteer.deck_choice import resolve_choice_decks
 from puppeteer.game_log import merge_game_log, read_decklist
 from puppeteer.harness_epoch import HARNESS_EPOCH
@@ -274,7 +274,7 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
     assert config.game_type, "game_meta requires non-empty config.game_type"
     assert config.deck_type, "game_meta requires non-empty config.deck_type"
     players = []
-    all_players = [
+    all_players: list[tuple[Player, str]] = [
         *((p, "pilot") for p in config.pilot_players),
         *((p, "sleepwalker") for p in config.sleepwalker_players),
         *((p, "potato") for p in config.potato_players),
@@ -282,7 +282,7 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
         *((p, "cpu") for p in config.cpu_players),
     ]
     for player, ptype in all_players:
-        entry = {"name": player.name, "type": ptype}
+        entry: dict[str, str | list[str]] = {"name": player.name, "type": ptype}
         if player.deck:
             entry["deck_path"] = player.deck
             deck_file = project_root / player.deck
@@ -291,14 +291,15 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
             entry["deck_name"] = player.deck_name
         if player.deck_strategy:
             entry["deck_strategy"] = player.deck_strategy
-        if hasattr(player, "model") and player.model:
-            entry["model"] = player.model
-        if hasattr(player, "personality") and player.personality:
-            entry["personality"] = player.personality
-        if hasattr(player, "system_prompt") and player.system_prompt:
-            entry["system_prompt"] = player.system_prompt
-        if hasattr(player, "reasoning_effort") and player.reasoning_effort:
-            entry["reasoning_effort"] = player.reasoning_effort
+        if isinstance(player, PilotPlayer):
+            if player.model:
+                entry["model"] = player.model
+            if player.personality:
+                entry["personality"] = player.personality
+            if player.system_prompt:
+                entry["system_prompt"] = player.system_prompt
+            if player.reasoning_effort:
+                entry["reasoning_effort"] = player.reasoning_effort
         players.append(entry)
 
     meta = {
@@ -628,6 +629,7 @@ def start_server(
     jvm_args = " ".join(
         [
             config.jvm_bridge_opts,
+            "-Xmx1024m",
             f"-Dxmage.config.path={config_path}",
         ]
     )
@@ -655,6 +657,7 @@ def start_gui_client(
     project_root: Path,
     config: Config,
     log_path: Path,
+    game_dir: Path | None = None,  # Unused; matches start_observer_client signature
 ) -> subprocess.Popen:
     """Start the GUI client."""
     # Pass resolved player config (with actual deck paths, not "random")
@@ -664,6 +667,7 @@ def start_gui_client(
         [
             config.jvm_opens,
             config.jvm_rendering,
+            "-Xmx1536m",
             "-Dxmage.aiPuppeteer.autoConnect=true",
             "-Dxmage.aiPuppeteer.autoStart=true",
             "-Dxmage.aiPuppeteer.disableWhatsNew=true",
@@ -713,6 +717,7 @@ def start_potato_client(
     """Start an auto-responder bridge client (potato/staller)."""
     jvm_args_list = [
         config.jvm_bridge_opts,
+        "-Xmx512m",
         f"-Dxmage.bridge.server={config.server}",
         f"-Dxmage.bridge.port={config.port}",
         f"-Dxmage.bridge.personality={personality}",
@@ -1287,7 +1292,7 @@ def _setup_game(
     game_dir.mkdir(parents=True, exist_ok=True)
 
     # Write provenance manifest
-    manifest = {
+    manifest: dict[str, str | list[str] | int | None] = {
         "timestamp": timestamp,
         "branch": _git("rev-parse --abbrev-ref HEAD", project_root),
         "commit": _git("rev-parse HEAD", project_root),
@@ -1327,10 +1332,7 @@ def _setup_game(
         start_spectator_client = start_gui_client
 
     # Start spectator
-    if game_config.observer:
-        spectator_proc = start_spectator_client(pm, project_root, game_config, spectator_log, game_dir=game_dir)
-    else:
-        spectator_proc = start_spectator_client(pm, project_root, game_config, spectator_log)
+    spectator_proc = start_spectator_client(pm, project_root, game_config, spectator_log, game_dir=game_dir)
 
     session = GameSession(
         index=index,
@@ -1353,35 +1355,50 @@ def _setup_game(
             _wait_for_spectator_table(spectator_log, spectator_proc, timeout=300)
 
             # Start bridge clients
-            for player in game_config.sleepwalker_players:
-                log_path = game_dir / f"{player.name}_mcp.log"
-                logger.info("%sSleepwalker (%s) log: %s", game_label, player.name, log_path)
-                start_sleepwalker_client(pm, project_root, game_config, player.name, player.deck, log_path)
-
-            for player in game_config.pilot_players:
-                log_path = game_dir / f"{player.name}_pilot.log"
-                logger.info("%sPilot (%s) log: %s", game_label, player.name, log_path)
-                proc = start_pilot_client(pm, project_root, game_config, player, log_path, game_dir=game_dir)
-                session.pilot_procs.append((player.name, proc))
-
-            for player in game_config.replay_players:
-                log_path = game_dir / f"{player.name}_replay.log"
-                logger.info("%sReplay (%s) log: %s", game_label, player.name, log_path)
-                proc = start_replay_client(
-                    pm, project_root, game_config, player.name, player.deck, player.script, log_path, game_dir=game_dir
+            for sleepwalker_player in game_config.sleepwalker_players:
+                log_path = game_dir / f"{sleepwalker_player.name}_mcp.log"
+                logger.info("%sSleepwalker (%s) log: %s", game_label, sleepwalker_player.name, log_path)
+                start_sleepwalker_client(
+                    pm, project_root, game_config, sleepwalker_player.name, sleepwalker_player.deck, log_path
                 )
-                session.pilot_procs.append((player.name, proc))
 
-            for player in game_config.potato_players:
-                log_path = game_dir / f"{player.name}_mcp.log"
-                logger.info("%sPotato (%s) log: %s", game_label, player.name, log_path)
-                start_potato_client(pm, project_root, game_config, player.name, player.deck, log_path)
+            for pilot_player in game_config.pilot_players:
+                log_path = game_dir / f"{pilot_player.name}_pilot.log"
+                logger.info("%sPilot (%s) log: %s", game_label, pilot_player.name, log_path)
+                proc = start_pilot_client(pm, project_root, game_config, pilot_player, log_path, game_dir=game_dir)
+                session.pilot_procs.append((pilot_player.name, proc))
 
-            for player in game_config.staller_players:
-                log_path = game_dir / f"{player.name}_mcp.log"
-                logger.info("%sStaller (%s) log: %s", game_label, player.name, log_path)
+            for replay_player in game_config.replay_players:
+                log_path = game_dir / f"{replay_player.name}_replay.log"
+                logger.info("%sReplay (%s) log: %s", game_label, replay_player.name, log_path)
+                proc = start_replay_client(
+                    pm,
+                    project_root,
+                    game_config,
+                    replay_player.name,
+                    replay_player.deck,
+                    replay_player.script,
+                    log_path,
+                    game_dir=game_dir,
+                )
+                session.pilot_procs.append((replay_player.name, proc))
+
+            for potato_player in game_config.potato_players:
+                log_path = game_dir / f"{potato_player.name}_mcp.log"
+                logger.info("%sPotato (%s) log: %s", game_label, potato_player.name, log_path)
+                start_potato_client(pm, project_root, game_config, potato_player.name, potato_player.deck, log_path)
+
+            for staller_player in game_config.staller_players:
+                log_path = game_dir / f"{staller_player.name}_mcp.log"
+                logger.info("%sStaller (%s) log: %s", game_label, staller_player.name, log_path)
                 start_potato_client(
-                    pm, project_root, game_config, player.name, player.deck, log_path, personality="staller"
+                    pm,
+                    project_root,
+                    game_config,
+                    staller_player.name,
+                    staller_player.deck,
+                    log_path,
+                    personality="staller",
                 )
 
             # In parallel mode, wait for the game to actually start (table leaves

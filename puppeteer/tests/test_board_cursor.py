@@ -4,6 +4,7 @@ import json
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from mcp.types import CallToolResult, TextContent
 
 from puppeteer.pilot import BoardCursorTracker, run_pilot_loop
 
@@ -59,10 +60,8 @@ def test_tracker_extract_ignores_missing_field():
 # --- Helpers for pilot loop integration tests ---
 
 
-def _mock_tool_result(text: str) -> MagicMock:
-    result = MagicMock()
-    result.content = [MagicMock(text=text)]
-    return result
+def _mock_tool_result(text: str) -> CallToolResult:
+    return CallToolResult(content=[TextContent(type="text", text=text)])
 
 
 def _make_llm_response(tool_name: str, args: str) -> MagicMock:

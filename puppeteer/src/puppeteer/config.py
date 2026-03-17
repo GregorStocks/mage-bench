@@ -355,6 +355,7 @@ def _resolve_randoms(
 
             # Re-roll expressive personality if model skips them (personality infection prevention)
             if was_random_personality and model_entry.get("skip_expressive_personalities"):
+                assert player.personality is not None, "personality must be set after resolution"
                 p_data = personalities.get(player.personality, {})
                 if p_data.get("expressive"):
                     non_expressive = [
@@ -374,6 +375,7 @@ def _resolve_randoms(
         # Generate name if needed (personality was random and no explicit name)
         if was_random_personality and not had_explicit_name:
             assert player.model is not None, "Model must be set before name generation"
+            assert player.personality is not None, "Personality must be set before name generation"
             player.name = _generate_player_name(player.model, player.personality, models_data, personalities)
 
             # Avoid cross-game name collisions in parallel batches.  Two bridge
@@ -737,6 +739,7 @@ class Config:
     def get_players_config_json(self) -> str:
         """Serialize resolved player config to JSON for passing to spectator/GUI client."""
         players = []
+        p: Player
         for p in self.pilot_players:
             d = {"type": "pilot", "name": p.name}
             if p.deck:
