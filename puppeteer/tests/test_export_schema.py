@@ -187,7 +187,7 @@ class TestExportSchema:
         errors = list(validator.iter_errors(_minimal_export(5)))
         assert errors, "v6 schema should reject version 5"
 
-    def test_v6_schema_rejects_llmTrace(self) -> None:
+    def test_v6_schema_rejects_llm_trace(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(6))
         v6_with_trace = _minimal_export(6, season=1, tournament=None, llmTrace=[])
         errors = list(validator.iter_errors(v6_with_trace))

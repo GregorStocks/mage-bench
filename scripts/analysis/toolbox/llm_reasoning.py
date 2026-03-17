@@ -17,7 +17,7 @@ def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
     events = d.get("llmEvents", [])
-    players = sorted(set(e.get("player", "?") for e in events))
+    players = sorted({e.get("player", "?") for e in events})
 
     for player in players:
         print(f"=== {player} ===")

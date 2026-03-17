@@ -30,10 +30,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    if args.path:
-        eval_path = Path(args.path)
-    else:
-        eval_path = find_latest_eval()
+    eval_path = Path(args.path) if args.path else find_latest_eval()
 
     assert eval_path.exists(), f"Eval file not found: {eval_path}"
 

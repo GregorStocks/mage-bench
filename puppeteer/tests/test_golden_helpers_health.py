@@ -88,7 +88,7 @@ class _HealthHandler(BaseHTTPRequestHandler):
         pass  # Suppress request logs during tests
 
 
-@pytest.fixture()
+@pytest.fixture
 def mock_health_server():
     """Start a mock health server and yield its port."""
     # Reset delays

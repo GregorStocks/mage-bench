@@ -82,7 +82,7 @@ def xmage_server(project_root, tmp_path_factory):
         assert compile_project(project_root, observer=True, populate_local_repo=True), "Compilation failed"
 
     # Find available port
-    port_res = find_available_port("localhost", 17171)
+    port_res = find_available_port(17171)
     port = port_res.port
 
     # Generate server config — use repo-local tmp/ for easy access

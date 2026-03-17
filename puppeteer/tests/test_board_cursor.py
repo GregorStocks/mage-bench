@@ -89,7 +89,7 @@ _TOOLS = [
 ]
 
 
-@pytest.fixture()
+@pytest.fixture
 def _no_prefetch():
     with patch(
         "puppeteer.pilot._prefetch_first_action",

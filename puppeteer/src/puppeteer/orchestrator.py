@@ -657,7 +657,7 @@ def start_gui_client(
     project_root: Path,
     config: Config,
     log_path: Path,
-    game_dir: Path | None = None,  # Unused; matches start_observer_client signature
+    game_dir: Path | None = None,
 ) -> subprocess.Popen:
     """Start the GUI client."""
     # Pass resolved player config (with actual deck paths, not "random")
@@ -1033,7 +1033,7 @@ class AnnotationFailure:
     game_id: str
 
 
-def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2) -> tuple[str | None, float]:
+def _attempt_annotation(gz_path: Path, max_retries: int = 2) -> tuple[str | None, float]:
     """Try to annotate a game file, with automatic retries.
 
     Returns (None, cost) on success, or (error_message, 0.0) on failure.
@@ -1081,7 +1081,7 @@ def _finalize_export(tmp_path: Path, final_path: Path) -> None:
     logger.info("  Exported for website: %s (%d KB)", final_path, size_kb)
 
 
-def resolve_annotation_failures(failures: list[AnnotationFailure], project_root: Path) -> None:
+def resolve_annotation_failures(failures: list[AnnotationFailure]) -> None:
     """Prompt the user about each deferred annotation failure."""
     if not failures:
         return
@@ -1090,7 +1090,7 @@ def resolve_annotation_failures(failures: list[AnnotationFailure], project_root:
         while True:
             action = _prompt_annotation_failure(failure.game_id, failure.error)
             if action == "retry":
-                err, _cost = _attempt_annotation(failure.tmp_path, project_root, max_retries=0)
+                err, _cost = _attempt_annotation(failure.tmp_path, max_retries=0)
                 if err is None:
                     _finalize_export(failure.tmp_path, failure.final_path)
                     break
@@ -1164,7 +1164,7 @@ def upload_and_export(
         _finalize_export(tmp_path, final_path)
         return 0.0
 
-    err, cost = _attempt_annotation(tmp_path, project_root)
+    err, cost = _attempt_annotation(tmp_path)
     if err is None:
         # Annotation succeeded
         _finalize_export(tmp_path, final_path)
@@ -1181,7 +1181,7 @@ def upload_and_export(
     while True:
         action = _prompt_annotation_failure(game_id, err)
         if action == "retry":
-            err, cost = _attempt_annotation(tmp_path, project_root, max_retries=0)
+            err, cost = _attempt_annotation(tmp_path, max_retries=0)
             if err is None:
                 _finalize_export(tmp_path, final_path)
                 return cost
@@ -1420,7 +1420,6 @@ def _setup_game(
 
 def _wait_for_all_games(
     sessions: list[GameSession],
-    pm: ProcessManager,
     poll_interval: float = 2.0,
 ) -> dict[int, int]:
     """Wait for all parallel games to complete.
@@ -1594,7 +1593,7 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
 
         # Find available port
         logger.info("Finding available port starting from %d...", config.start_port)
-        port_reservation = find_available_port(config.server, config.start_port)
+        port_reservation = find_available_port(config.start_port)
         config.port = port_reservation.port
         logger.info("Using port %d", config.port)
 
@@ -1700,7 +1699,7 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
 
         # --- Wait for all games to complete ---
         if batch:
-            results = _wait_for_all_games(sessions, pm)
+            results = _wait_for_all_games(sessions)
             deferred: list[AnnotationFailure] = []
             for session in sessions:
                 spectator_rc = results.get(session.index, -1)
@@ -1711,7 +1710,7 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
                     deferred_failures=deferred,
                     post_game_failures=post_game_failures,
                 )
-            resolve_annotation_failures(deferred, project_root)
+            resolve_annotation_failures(deferred)
         else:
             # Single game: use existing wait logic
             session = sessions[0]

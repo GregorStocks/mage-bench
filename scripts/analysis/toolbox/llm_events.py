@@ -27,7 +27,7 @@ def main(gz_path: str) -> None:
 
     # By player
     print()
-    players = sorted(set(e.get("player", "?") for e in events))
+    players = sorted({e.get("player", "?") for e in events})
     for player in players:
         pe = [e for e in events if e.get("player") == player]
         pt = Counter(e.get("type", "?") for e in pe)
@@ -55,9 +55,14 @@ def main(gz_path: str) -> None:
                 is_failure = True
         if is_failure:
             fail_count += 1
+            assert "args" in tc, f"tool_call event missing args: {tc!r}"
+            args = tc["args"]
+            assert isinstance(args, dict), (
+                f"tool_call args must be an object, got {args!r}"
+            )
             print(
                 f"  {tc.get('player', '?')} | {tc.get('tool', '?')} "
-                f"| args={json.dumps(tc.get('args', {}))} "
+                f"| args={json.dumps(args)} "
                 f"| {result[:200]}"
             )
     if fail_count == 0:
@@ -83,8 +88,7 @@ def main(gz_path: str) -> None:
         prompt_tokens = sum(e["usage"].get("promptTokens", 0) for e in pr)
         completion_tokens = sum(e["usage"].get("completionTokens", 0) for e in pr)
         print(
-            f"{player}: {len(pr)} responses, "
-            f"{prompt_tokens:,} prompt, {completion_tokens:,} completion tokens"
+            f"{player}: {len(pr)} responses, {prompt_tokens:,} prompt, {completion_tokens:,} completion tokens"
         )
 
     # Game-level errors from error logs

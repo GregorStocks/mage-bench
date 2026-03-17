@@ -15,7 +15,7 @@ import scripts.analysis.blunder_audit_web as blunder_audit_web
 VALID_GAME_ID = "game_20260214_005111_g1"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _temp_ground_truth(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """Set up temp ground truth directory with sample data."""
     gt_dir = tmp_path / "ground_truth"
@@ -31,7 +31,7 @@ def _temp_ground_truth(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     return gt_dir
 
 
-@pytest.fixture()
+@pytest.fixture
 def _temp_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """Set up temp config with custom hostname."""
     config_path = tmp_path / "config.json"
@@ -40,7 +40,7 @@ def _temp_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     return config_path
 
 
-@pytest.fixture()
+@pytest.fixture
 def server_port(_temp_ground_truth: Path) -> int:
     """Start the audit web server on a free port and return the port."""
     handler = blunder_audit_web.AuditHandler
@@ -185,11 +185,9 @@ class TestExpectedApiErrors:
 class TestNotFound:
     def test_unknown_path_returns_404(self, server_port: int) -> None:
         req = Request(f"http://127.0.0.1:{server_port}/api/nonexistent")
-        try:
+        with pytest.raises(HTTPError, match="404") as excinfo:
             urlopen(req, timeout=5)
-            pytest.fail("Expected 404")
-        except HTTPError as e:
-            assert e.code == 404
+        assert excinfo.value.code == 404
 
 
 class TestPathValidation:

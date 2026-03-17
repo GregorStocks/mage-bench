@@ -27,7 +27,7 @@ _CALIBRATION_GAMES = 3  # Models with fewer games are "underrated" and get cappe
 
 def get_active_presets(presets_data: dict) -> list[str]:
     """Return names of presets with status='active'."""
-    return [name for name, p in presets_data.get("presets", {}).items() if p.get("status") == "active"]
+    return [name for name, p in presets_data["presets"].items() if p.get("status") == "active"]
 
 
 def _load_games_index(games_dir: Path) -> list[dict]:
@@ -64,7 +64,7 @@ def _load_rated_games(games_dir: Path) -> list[dict]:
 def _build_key_to_preset(presets_path: Path) -> dict[str, str]:
     """Build player_key -> preset_name mapping for active presets."""
     data = json.loads(presets_path.read_text())
-    presets = data.get("presets", {})
+    presets = data["presets"]
     active = set(get_active_presets(data))
     mapping: dict[str, str] = {}
     for name, pdata in presets.items():

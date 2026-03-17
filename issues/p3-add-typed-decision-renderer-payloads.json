@@ -1,0 +1,10 @@
+{
+  "title": "Add typed payload shapes for renderer snapshot and choice objects",
+  "description": "The top-level game export types already guarantee `Decision` and `Snapshot` fields like `turn`, `player`, `choices`, `players`, and `stack`, so those callers can fail fast. But nested payloads used by `decision_renderer.py` are still mostly `object`/`JsonObject`: battlefield permanents, stack items, combat groups, incoming attackers, and decision choices. That forces `.get(\"name\")` / `.get(\"id\")` style access even where those fields are semantically required by the renderer. Introduce typed shapes for the nested renderer-facing payloads and thread them through the export schema so the renderer and blunder-analysis code can use direct indexing for required fields.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["typing", "puppeteer"],
+  "created_at": "2026-03-16T17:05:00.000000-07:00",
+  "updated_at": "2026-03-16T17:05:00.000000-07:00"
+}

@@ -641,7 +641,7 @@ class BridgeManager:
         tmp_dir = self._log_dir()
         tmp_dir.mkdir(parents=True, exist_ok=True)
 
-        mcp_port_res = find_available_port("localhost", 19000)
+        mcp_port_res = find_available_port(19000)
         mcp_port = mcp_port_res.port
         bridge_log = self._prepare_live_log_path()
         bridge_event_log = self._prepare_live_log_path("bridge-events.jsonl")
@@ -1427,7 +1427,7 @@ def run_golden_scenario(
         primary_exc = sys.exc_info()[1]
         cleanup_restarts: list[BridgeManager] = []
         cleanup_restart_failures: list[tuple[str, RuntimeError]] = []
-        replay_error_by_label = {label: exc for label, exc in replay_errors}
+        replay_error_by_label = dict(replay_errors)
         for label, session, bridge in [
             ("player_a", session_a, bridge_a),
             ("player_b", session_b, bridge_b),

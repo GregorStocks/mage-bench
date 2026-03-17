@@ -72,8 +72,7 @@ def main() -> None:
             skipped += 1
 
     print(
-        f"\nDone: {migrated} migrated, {skipped} skipped "
-        f"(target v{args.target_version})"
+        f"\nDone: {migrated} migrated, {skipped} skipped (target v{args.target_version})"
     )
 
 

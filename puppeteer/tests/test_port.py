@@ -61,7 +61,7 @@ def test_can_bind_port_occupied():
 
 def test_find_available_port():
     """Should find an available port and return a PortReservation."""
-    reservation = find_available_port("localhost", 19000, max_attempts=100)
+    reservation = find_available_port(19000, max_attempts=100)
     try:
         assert reservation.port >= 19000
         assert reservation.port < 19100
@@ -75,17 +75,17 @@ def test_find_available_port_exhausted():
         patch("puppeteer.port._try_lock_port", return_value=None),
         pytest.raises(RuntimeError, match="No available port found"),
     ):
-        find_available_port("localhost", 19000, max_attempts=5)
+        find_available_port(19000, max_attempts=5)
 
 
 def test_port_reservation_release():
     """Releasing a reservation makes the port re-acquirable."""
-    reservation = find_available_port("localhost", 19200, max_attempts=100)
+    reservation = find_available_port(19200, max_attempts=100)
     port = reservation.port
     reservation.release()
 
     # Should be able to lock the same port again
-    reservation2 = find_available_port("localhost", port, max_attempts=1)
+    reservation2 = find_available_port(port, max_attempts=1)
     try:
         assert reservation2.port == port
     finally:
@@ -94,7 +94,7 @@ def test_port_reservation_release():
 
 def test_port_reservation_context_manager():
     """PortReservation works as a context manager."""
-    with find_available_port("localhost", 19300, max_attempts=100) as reservation:
+    with find_available_port(19300, max_attempts=100) as reservation:
         assert reservation.port >= 19300
     # After exiting, locks are released — fds list is empty
     assert reservation._lock_fds == []
@@ -102,10 +102,10 @@ def test_port_reservation_context_manager():
 
 def test_port_reservation_prevents_duplicate():
     """A held reservation forces the next caller to skip that port."""
-    reservation = find_available_port("localhost", 19400, max_attempts=100)
+    reservation = find_available_port(19400, max_attempts=100)
     try:
         # The next call starting at the same port should get a different one
-        reservation2 = find_available_port("localhost", reservation.port, max_attempts=100)
+        reservation2 = find_available_port(reservation.port, max_attempts=100)
         try:
             assert reservation2.port != reservation.port
         finally:
@@ -116,7 +116,7 @@ def test_port_reservation_prevents_duplicate():
 
 def test_port_reservation_double_release():
     """Calling release() twice is safe (idempotent)."""
-    reservation = find_available_port("localhost", 19500, max_attempts=100)
+    reservation = find_available_port(19500, max_attempts=100)
     reservation.release()
     reservation.release()  # Should not raise
     assert reservation._lock_fds == []

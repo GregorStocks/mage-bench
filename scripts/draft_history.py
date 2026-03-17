@@ -36,7 +36,7 @@ def migrate_draft_history_to_current(draft: dict) -> dict:
         return draft
     if version == 1:
         return migrate_draft_history_to_v2(draft)
-    assert False, f"Unsupported draft history version: v{version}"
+    raise AssertionError(f"Unsupported draft history version: v{version}")
 
 
 def assert_current_draft_history_version(draft: dict) -> None:

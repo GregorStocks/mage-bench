@@ -248,7 +248,7 @@ def _load_inactive_statuses(presets_json: Path) -> dict[str, str] | None:
     if not presets_json.exists():
         return None
     data = json.loads(presets_json.read_text())
-    presets = data.get("presets", {})
+    presets = data["presets"]
     statuses: dict[str, str] = {}
     for preset in presets.values():
         status = preset.get("status", "retired")
@@ -840,6 +840,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
+        game_id = game["id"]
         epoch = game["harnessEpoch"]
         players = game["players"]
         winner = game["winner"]
@@ -847,8 +848,10 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
         for p in players:
-            if p.get("type") != "pilot" or not p.get("model"):
+            if p["type"] != "pilot":
                 continue
+            model_id = p.get("model")
+            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             name_to_key[p["name"]] = key
 
@@ -902,7 +905,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # Scan llmEvents for per-player operational stats
         llm_events = game["llmEvents"]
         for ev in llm_events:
-            player_name = ev.get("player", "")
+            player_name = ev["player"]
             if player_name not in name_to_key:
                 continue
             key = name_to_key[player_name]
@@ -911,14 +914,16 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
                 continue
             b = buckets[bucket_key]
 
-            ev_type = ev.get("type")
+            ev_type = ev["type"]
             if ev_type == "llm_response":
                 b["successfulResponses"] += 1
-                usage = ev.get("usage", {})
-                b["totalPromptTokens"] += usage.get("promptTokens", 0)
-                b["totalCompletionTokens"] += usage.get("completionTokens", 0)
-                b["totalCachedTokens"] += usage.get("cachedTokens", 0)
-                b["totalReasoningTokens"] += usage.get("reasoningTokens", 0)
+                usage = ev.get("usage")
+                if usage is not None:
+                    assert isinstance(usage, dict), f"llm_response usage must be an object, got {usage!r}"
+                    b["totalPromptTokens"] += usage.get("promptTokens", 0)
+                    b["totalCompletionTokens"] += usage.get("completionTokens", 0)
+                    b["totalCachedTokens"] += usage.get("cachedTokens", 0)
+                    b["totalReasoningTokens"] += usage.get("reasoningTokens", 0)
             elif ev_type == "llm_error":
                 error_type = ev.get("errorType", "unknown")
                 b["errors"][error_type] = b["errors"].get(error_type, 0) + 1
@@ -930,7 +935,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # ev_i's player — same approach as compute_thinking_time but we
         # collect individual durations instead of summing.
         for i in range(len(llm_events) - 1):
-            player_name = llm_events[i].get("player", "")
+            player_name = llm_events[i]["player"]
             if player_name not in name_to_key:
                 continue
             ts_a = llm_events[i].get("ts", "")
@@ -1009,6 +1014,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
+        game_id = game["id"]
         epoch = game["harnessEpoch"]
         game_format = derive_format(game)
         winner = game["winner"]
@@ -1017,8 +1023,10 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
         for p in players:
-            if p.get("type") != "pilot" or not p.get("model"):
+            if p["type"] != "pilot":
                 continue
+            model_id = p.get("model")
+            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             name_to_key[p["name"]] = _player_key(p)
 
         # Accumulate per-player stats from llmEvents
@@ -1036,26 +1044,28 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         last_ts: dict[str, datetime] = {}
 
         for ev in game["llmEvents"]:
-            player_name = ev.get("player", "")
+            player_name = ev["player"]
             if player_name not in name_to_key:
                 continue
 
-            ev_type = ev.get("type")
+            ev_type = ev["type"]
             if ev_type == "llm_response":
                 player_responses[player_name] = player_responses.get(player_name, 0) + 1
-                usage = ev.get("usage", {})
-                player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + usage.get(
-                    "promptTokens", 0
-                )
-                player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + usage.get(
-                    "completionTokens", 0
-                )
-                player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + usage.get(
-                    "cachedTokens", 0
-                )
-                player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + usage.get(
-                    "reasoningTokens", 0
-                )
+                usage = ev.get("usage")
+                if usage is not None:
+                    assert isinstance(usage, dict), f"llm_response usage must be an object, got {usage!r}"
+                    player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + usage.get(
+                        "promptTokens", 0
+                    )
+                    player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + usage.get(
+                        "completionTokens", 0
+                    )
+                    player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + usage.get(
+                        "cachedTokens", 0
+                    )
+                    player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + usage.get(
+                        "reasoningTokens", 0
+                    )
             elif ev_type == "llm_error":
                 error_type = ev.get("errorType", "unknown")
                 if error_type == "timeout":
@@ -1092,8 +1102,10 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Build per-player records
         player_records: list[dict[str, Any]] = []
         for p in players:
-            if p.get("type") != "pilot" or not p.get("model"):
+            if p["type"] != "pilot":
                 continue
+            model_id = p.get("model")
+            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             model_id, effort = _split_key(key)
             display_name = model_registry.get(model_id) or derive_display_name(model_id)

@@ -107,7 +107,6 @@ def print_subsection(title: str) -> None:
 
 
 def analyze_consensus_blunders(
-    games: dict[str, list[dict]],
     consensus: dict[str, dict[int, dict]],
 ) -> None:
     """Section 3: For each consensus blunder, show detailed cross-approach comparison."""
@@ -129,8 +128,7 @@ def analyze_consensus_blunders(
             continue
 
         print_subsection(
-            f"{game_id}: {len(consensus_snaps)} consensus, "
-            f"{len(non_consensus_snaps)} non-consensus"
+            f"{game_id}: {len(consensus_snaps)} consensus, {len(non_consensus_snaps)} non-consensus"
         )
 
         for dec_idx in sorted(consensus_snaps.keys()):
@@ -269,7 +267,6 @@ def analyze_per_approach(
 
 
 def analyze_decision_accuracy(
-    games: dict[str, list[dict]],
     consensus: dict[str, dict[int, dict]],
 ) -> None:
     """Section 5: Decision attribution analysis.
@@ -336,8 +333,7 @@ def analyze_decision_accuracy(
                 merge_candidates.append((game_id, group, dec_details))
 
     print(
-        f"\n  Nearby consensus blunders that may be the same mistake: "
-        f"{len(merge_candidates)}"
+        f"\n  Nearby consensus blunders that may be the same mistake: {len(merge_candidates)}"
     )
 
     if merge_candidates:
@@ -453,8 +449,7 @@ def analyze_hellkite_test(
         print(f"    {abbreviate(desc, 100)}")
     if missed_hellkite:
         print(
-            f"\n  MISSED BY ({len(missed_hellkite)}): "
-            f"{', '.join(sorted(missed_hellkite))}"
+            f"\n  MISSED BY ({len(missed_hellkite)}): {', '.join(sorted(missed_hellkite))}"
         )
 
     # --- Momo legend-rule ---
@@ -557,7 +552,6 @@ def analyze_cost_effectiveness(
 
 
 def analyze_severity_consistency(
-    games: dict[str, list[dict]],
     consensus: dict[str, dict[int, dict]],
 ) -> None:
     """For consensus blunders, analyze severity consistency across approaches."""
@@ -654,16 +648,16 @@ def main() -> None:
     print_summary_overview(games)
 
     # 2. Consensus blunder details
-    analyze_consensus_blunders(games, consensus)
+    analyze_consensus_blunders(consensus)
 
     # 3. Per-approach stats
     analyze_per_approach(games, consensus)
 
     # 4. Decision attribution analysis
-    analyze_decision_accuracy(games, consensus)
+    analyze_decision_accuracy(consensus)
 
     # 5. Severity consistency
-    analyze_severity_consistency(games, consensus)
+    analyze_severity_consistency(consensus)
 
     # 6. Hellkite test case
     analyze_hellkite_test(games)

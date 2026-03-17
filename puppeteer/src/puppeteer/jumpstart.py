@@ -5,8 +5,6 @@ variant per theme, and combines random pairs into 40-card .dck files at game
 creation time. Any two half-decks can be paired regardless of color.
 """
 
-from __future__ import annotations
-
 import json
 import random
 import re

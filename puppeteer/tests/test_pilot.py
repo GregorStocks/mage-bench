@@ -14,7 +14,7 @@ from puppeteer.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
     MAX_CONSECUTIVE_EMPTY_CHOICES,
     MAX_TOKENS,
-    PermanentLLMFailure,
+    PermanentLLMError,
     _build_pilot_decision,
     _build_pilot_snapshot,
     _extract_oracle_texts_from_board,
@@ -112,7 +112,7 @@ def test_main_reports_provider_in_missing_key_log(caplog: pytest.LogCaptureFixtu
     assert "configured API key env var" in caplog.text
 
 
-@pytest.fixture()
+@pytest.fixture
 def _no_prefetch():
     """Patch _prefetch_first_action so run_pilot_loop tests don't block."""
     with patch("puppeteer.pilot._prefetch_first_action", new_callable=AsyncMock, return_value="Game starting."):
@@ -122,11 +122,11 @@ def _no_prefetch():
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
 async def test_401_raises_permanent_failure():
-    """A 401 error (user not found / bad API key) should raise PermanentLLMFailure."""
+    """A 401 error (user not found / bad API key) should raise PermanentLLMError."""
     session = _make_session()
     client = _make_client(OpenAIError("Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"))
 
-    with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
+    with pytest.raises(PermanentLLMError, match="Credits exhausted"):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -141,11 +141,11 @@ async def test_401_raises_permanent_failure():
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
 async def test_403_raises_permanent_failure():
-    """A 403 error (key quota exceeded) should raise PermanentLLMFailure."""
+    """A 403 error (key quota exceeded) should raise PermanentLLMError."""
     session = _make_session()
     client = _make_client(OpenAIError("Error code: 403 - Forbidden"))
 
-    with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
+    with pytest.raises(PermanentLLMError, match="Credits exhausted"):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -160,11 +160,11 @@ async def test_403_raises_permanent_failure():
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
 async def test_402_raises_permanent_failure():
-    """A 402 error (credits exhausted) should raise PermanentLLMFailure."""
+    """A 402 error (credits exhausted) should raise PermanentLLMError."""
     session = _make_session()
     client = _make_client(OpenAIError("Error code: 402 - Payment Required"))
 
-    with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
+    with pytest.raises(PermanentLLMError, match="Credits exhausted"):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -179,11 +179,11 @@ async def test_402_raises_permanent_failure():
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
 async def test_404_raises_permanent_failure():
-    """A 404 error (model not found) should raise PermanentLLMFailure."""
+    """A 404 error (model not found) should raise PermanentLLMError."""
     session = _make_session()
     client = _make_client(OpenAIError("Error code: 404 - Not Found"))
 
-    with pytest.raises(PermanentLLMFailure, match="Model not found"):
+    with pytest.raises(PermanentLLMError, match="Model not found"):
         await run_pilot_loop(
             session=session,
             client=client,

@@ -100,7 +100,7 @@ class ProcessManager:
         if hasattr(signal, "SIGHUP"):
             signal.signal(signal.SIGHUP, self._fatal_signal_handler)
 
-    def _sigint_handler(self, signum: int, frame: FrameType | None) -> None:
+    def _sigint_handler(self, _signum: int, _frame: FrameType | None) -> None:
         """Handle Ctrl-C: kill children but let the main flow continue.
 
         First Ctrl-C kills child processes and returns so the caller can
@@ -111,7 +111,7 @@ class ProcessManager:
         signal.signal(signal.SIGINT, signal.SIG_DFL)
         self.cleanup()
 
-    def _fatal_signal_handler(self, signum: int, frame: FrameType | None) -> None:
+    def _fatal_signal_handler(self, signum: int, _frame: FrameType | None) -> None:
         """Handle SIGTERM/SIGHUP: cleanup and exit immediately."""
         print(f"\nReceived signal {signum}, stopping all processes...")
         self.cleanup()

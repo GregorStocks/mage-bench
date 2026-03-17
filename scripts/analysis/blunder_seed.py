@@ -45,9 +45,7 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
         print(f"  SKIP {game_id}: no decisions extracted", file=sys.stderr)
         return game_id, []
 
-    snapshots = data.get("snapshots", [])
-
-    mapping = reverse_map_annotations(annotations, decisions, snapshots)
+    mapping = reverse_map_annotations(annotations, decisions)
 
     unmapped = len(annotations) - len(mapping)
     if unmapped > 0:
