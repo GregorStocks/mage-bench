@@ -74,8 +74,8 @@ def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str
         ev = events[j]
         if ev["player"] != player:
             continue
-        if ev.get("tool") == "get_action_choices":
-            r = _parse_result(ev.get("result", ""))
+        if ev["type"] == "tool_call" and ev["tool"] == "get_action_choices":
+            r = _parse_result(ev["result"])
             if r:
                 action_type = r.get("action_type", "")
                 assert isinstance(action_type, str), (
@@ -83,7 +83,7 @@ def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str
                 )
                 return action_type
         # Stop if we hit another choose_action from this player
-        if ev.get("tool") == "choose_action":
+        if ev["type"] == "tool_call" and ev["tool"] == "choose_action":
             break
     return ""
 
@@ -100,10 +100,10 @@ def _find_retry_outcome(
             continue
 
         # If they called a different tool first (e.g. get_action_choices), keep looking
-        if ev.get("tool") != tool:
+        if ev["tool"] != tool:
             continue
 
-        r = _parse_result(ev.get("result", ""))
+        r = _parse_result(ev["result"])
         if r is None:
             return "different_error"
         if r.get("success") is True:
@@ -141,14 +141,10 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
         assert player in player_models, (
             f"{game_id}: tool_call event for unknown pilot player {player!r}"
         )
-        tool = e.get("tool", "")
+        tool = e["tool"]
         model = player_models[player]
-        result_str = e.get("result", "")
-        assert "args" in e, f"{game_id}: tool_call event missing args: {e!r}"
+        result_str = e["result"]
         args = e["args"]
-        assert isinstance(args, dict), (
-            f"{game_id}: llm event args must be an object, got {args!r}"
-        )
 
         r = _parse_result(result_str)
 
