@@ -304,7 +304,6 @@ def test_bridge_manager_restart_wraps_start_failures(monkeypatch: pytest.MonkeyP
         server="localhost",
         port=17171,
         project_root=tmp_path,
-        allowed_sets="*",
     )
 
     monkeypatch.setattr(bridge, "stop", lambda: None)

@@ -518,14 +518,12 @@ class BridgeManager:
         server: str,
         port: int,
         project_root: Path,
-        allowed_sets: str,
         username: str = "TestPlayer",
         label: str = "bridge",
     ) -> None:
         self._server = server
         self._port = port
         self._project_root = project_root
-        self._allowed_sets = allowed_sets
         self._username = username
         self._label = label
         self.session: BridgeSession | None = None
@@ -662,7 +660,6 @@ class BridgeManager:
                 "xmage.bridge.mcpPort": str(mcp_port),
                 "xmage.bridge.username": self._username,
                 "xmage.bridge.bridgelog": str(bridge_event_log),
-                "xmage.sets.allowed": self._allowed_sets,
             },
             max_heap="256m",
         )

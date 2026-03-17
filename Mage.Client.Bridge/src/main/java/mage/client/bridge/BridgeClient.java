@@ -91,26 +91,10 @@ public class BridgeClient {
 
         logger.info("Starting bridge client: " + username + "@" + server + ":" + port + " [" + personality + "]");
 
-        // Restrict card pool if requested (used by golden tests for faster startup)
-        String allowedSets = System.getProperty("xmage.sets.allowed");
-        if (allowedSets != null && !allowedSets.isEmpty()) {
-            java.util.Set<String> allowed = new java.util.HashSet<>(java.util.Arrays.asList(allowedSets.split(",")));
-            mage.cards.Sets.getInstance().retainOnly(allowed);
-            logger.info("Restricted card pool to " + allowed.size() + " sets");
-        }
-
-        // Initialize card database so get_oracle_text can look up cards by name
-        logger.info("Loading card database...");
-        java.io.File lockFile = new java.io.File("./db/cards.lock");
-        lockFile.getParentFile().mkdirs();
-        try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(lockFile, "rw");
-             java.nio.channels.FileLock fileLock = raf.getChannel().lock()) {
-            if (!fileLock.isValid()) {
-                throw new IllegalStateException("Failed to lock card database");
-            }
-            CardScanner.scan();
-        }
-        logger.info("Card database loaded.");
+        // Skip bulk card scanning — CardRepository.findCard() lazily loads
+        // individual cards on demand from ExpansionSet definitions. This avoids
+        // loading all ~30K card classes at startup.
+        CardScanner.scanned = true;
 
         BridgeMageClient client = new BridgeMageClient(username);
         Session session = new SessionImpl(client);

@@ -158,9 +158,8 @@ def bridge_session(xmage_server, project_root):
     becomes unresponsive between tests (e.g. stuck mid-game after a failure).
     """
     server, port = xmage_server
-    allowed_sets = extract_golden_set_codes(project_root)
 
-    mgr = BridgeManager(server, port, project_root, allowed_sets)
+    mgr = BridgeManager(server, port, project_root)
     with timed_phase("session", "bridge_jvm_startup"):
         mgr.start()
 
@@ -177,9 +176,8 @@ def opponent_session(xmage_server, project_root):
     Runs replay scripts for the opponent side of golden tests.
     """
     server, port = xmage_server
-    allowed_sets = extract_golden_set_codes(project_root)
 
-    mgr = BridgeManager(server, port, project_root, allowed_sets, username="Opponent", label="opponent")
+    mgr = BridgeManager(server, port, project_root, username="Opponent", label="opponent")
     with timed_phase("session", "opponent_jvm_startup"):
         mgr.start()
 

@@ -418,6 +418,21 @@ public enum CardRepository {
         }
     }
 
+    /**
+     * Lazily load a card by name, searching all expansion set definitions.
+     * Loads only the first matching card class (one printing).
+     */
+    private void lazyLoadCardByName(String name) {
+        for (ExpansionSet set : Sets.getInstance().values()) {
+            for (ExpansionSet.SetCardInfo setInfo : set.getSetCardInfo()) {
+                if (setInfo.getName().equals(name)) {
+                    lazyLoadCard(set.getCode(), setInfo.getCardNumber());
+                    return;
+                }
+            }
+        }
+    }
+
     public List<String> getClassNames() {
         List<String> names = new ArrayList<>();
         try {
@@ -458,6 +473,10 @@ public enum CardRepository {
      */
     public CardInfo findCard(String name, boolean returnAnySet) {
         List<CardInfo> cards = returnAnySet ? findCards(name, 1) : findCards(name);
+        if (cards.isEmpty() && name != null && !name.isEmpty()) {
+            lazyLoadCardByName(name);
+            cards = returnAnySet ? findCards(name, 1) : findCards(name);
+        }
         if (!cards.isEmpty()) {
             return cards.get(RandomUtil.nextInt(cards.size()));
         }

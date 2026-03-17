@@ -23,7 +23,6 @@ def _make_manager(tmp_path: Path, label: str = "bridge") -> BridgeManager:
         server="localhost",
         port=17171,
         project_root=tmp_path,
-        allowed_sets="all",
         username="TestPlayer",
         label=label,
     )
