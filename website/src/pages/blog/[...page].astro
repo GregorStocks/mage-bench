@@ -1,5 +1,6 @@
 ---
-import type { GetStaticPathsOptions } from 'astro';
+import type { GetStaticPathsOptions, Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Pagination from '../../components/Pagination.astro';
@@ -10,7 +11,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   return paginate(posts, { pageSize: 10 });
 }
 
-const { page } = Astro.props;
+const { page } = Astro.props as { page: Page<CollectionEntry<'blog'>> };
 
 function formatDate(date: Date): string {
   return date.toLocaleDateString('en-US', {
@@ -26,7 +27,7 @@ function formatDate(date: Date): string {
   <p class="subtitle">Project updates and technical deep-dives.</p>
 
   <div class="post-list">
-    {page.data.map((post: any) => (
+    {page.data.map((post: CollectionEntry<'blog'>) => (
       <a href={`/blog/${post.id}`} class="post-card">
         <div class="post-meta">
           <time datetime={post.data.pubDate.toISOString()}>

@@ -40,8 +40,8 @@
 }
 
 .transport-buttons button.active {
-  background: #e94560;
-  border-color: #e94560;
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
   color: #fff;
 }
 
@@ -53,7 +53,7 @@
 
 #slider {
   width: 100%;
-  accent-color: #e94560;
+  accent-color: var(--accent-primary);
 }
 
 /* Unified snapshot position: editable input + total */
@@ -73,7 +73,7 @@
 }
 
 .snapshot-position:focus-within {
-  border-color: #e94560;
+  border-color: var(--accent-primary);
 }
 
 #snapshot-jump {
@@ -212,7 +212,7 @@
 
 .filter-checkbox input {
   margin-right: 2px;
-  accent-color: #e94560;
+  accent-color: var(--accent-primary);
 }
 
 #llm-toggle-label {
@@ -224,7 +224,7 @@
 
 #llm-toggle {
   margin-right: 4px;
-  accent-color: #e94560;
+  accent-color: var(--accent-primary);
 }
 
 #action-list {

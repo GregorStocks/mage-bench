@@ -11,6 +11,7 @@ import {
 } from '../../../../utils/season-data';
 import type { GameEntry } from '../../../../utils/load-games';
 import type { TournamentDeckCard, TournamentEntrant } from '../../../../utils/season-data';
+import '../../../../styles/shared.css';
 
 function assert(cond: unknown, msg: string): asserts cond {
   if (!cond) throw new Error(msg);
@@ -361,18 +362,6 @@ const scryfallIds = cards
     padding: 1rem 0;
   }
 
-  .back-link {
-    display: inline-block;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.85rem;
-    margin-bottom: 1.5rem;
-    transition: color 0.15s;
-  }
-
-  .back-link:hover {
-    color: var(--text-primary);
-  }
 
   .player-header {
     display: flex;
@@ -467,19 +456,6 @@ const scryfallIds = cards
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-top: 0.15rem;
-  }
-
-  .section {
-    margin-bottom: 2.5rem;
-  }
-
-  .section-heading {
-    font-family: var(--font-heading);
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
   }
 
   /* Championship run */

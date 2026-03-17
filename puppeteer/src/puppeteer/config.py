@@ -360,7 +360,7 @@ def _resolve_randoms(
 
             # Re-roll expressive personality if model skips them (personality infection prevention)
             if was_random_personality and model_entry.get("skip_expressive_personalities"):
-                assert player.personality is not None
+                assert player.personality is not None, "personality must be set after resolution"
                 p_data = personalities[player.personality]
                 if p_data.get("expressive"):
                     non_expressive = [
@@ -380,6 +380,7 @@ def _resolve_randoms(
         # Generate name if needed (personality was random and no explicit name)
         if was_random_personality and not had_explicit_name:
             assert player.model is not None, "Model must be set before name generation"
+            assert player.personality is not None, "Personality must be set before name generation"
             player.name = _generate_player_name(player.model, player.personality, models_data, personalities)
 
             # Avoid cross-game name collisions in parallel batches.  Two bridge
@@ -443,14 +444,6 @@ def _resolve_personality(
     if player.prompt_suffix is None and "prompt_suffix" in pdata:
         player.prompt_suffix = pdata["prompt_suffix"]
 
-
-_DECK_TYPE_TO_DIR: dict[str, str] = {
-    "Variant Magic - Freeform Commander": "Commander",
-    "Variant Magic - Commander": "Commander",
-    "Constructed - Legacy": "Legacy",
-    "Constructed - Modern": "Modern",
-    "Constructed - Standard": "Standard",
-}
 
 # Maps XMage deck type to our registry directory in data/decks/
 _DECK_TYPE_TO_FORMAT_DIR: dict[str, str] = {
@@ -696,9 +689,8 @@ class Config:
                     self.replay_players.append(ReplayPlayer(name=name, deck=deck, script=player.get("script")))
                 elif player_type == "cpu":
                     self.cpu_players.append(CpuPlayer(name=name, deck=deck))
-                elif player_type == "skeleton":
-                    # Legacy: treat as potato for backwards compatibility
-                    self.potato_players.append(PotatoPlayer(name=name, deck=deck))
+                else:
+                    raise AssertionError(f"Unknown player type {player_type!r}")
 
             # Validate: only pilot players can have deck="choice"
             non_pilot = (
@@ -752,6 +744,7 @@ class Config:
     def get_players_config_json(self) -> str:
         """Serialize resolved player config to JSON for passing to spectator/GUI client."""
         players = []
+        p: Player
         for p in self.pilot_players:
             d = {"type": "pilot", "name": p.name}
             if p.deck:

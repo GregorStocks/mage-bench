@@ -7,6 +7,7 @@ import sys
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from mcp.types import CallToolResult, TextContent
 from openai import OpenAIError
 
 from puppeteer.pilot import (
@@ -31,8 +32,7 @@ from puppeteer.tool_error import ToolExecutionError
 def _make_session() -> MagicMock:
     """Create a mock MCP session."""
     session = MagicMock()
-    result = MagicMock()
-    result.content = [MagicMock(text='{"ok": true}')]
+    result = CallToolResult(content=[TextContent(type="text", text='{"ok": true}')])
     session.call_tool = AsyncMock(return_value=result)
     return session
 
@@ -56,8 +56,7 @@ async def test_execute_tool_raises_on_mcp_failure():
 @pytest.mark.asyncio
 async def test_fetch_state_summary_raises_on_error_payload():
     session = MagicMock()
-    result = MagicMock()
-    result.content = [MagicMock(text='{"error": "bridge died"}')]
+    result = CallToolResult(content=[TextContent(type="text", text='{"error": "bridge died"}')])
     session.call_tool = AsyncMock(return_value=result)
 
     with pytest.raises(ToolExecutionError, match="get_game_state returned error: bridge died"):
@@ -203,8 +202,7 @@ async def test_game_over_from_pass_priority_triggers_auto_pass():
     session = _make_session()
 
     # Mock pass_priority to return game_over
-    pass_result = MagicMock()
-    pass_result.content = [MagicMock(text='{"game_over": true, "timeout": true}')]
+    pass_result = CallToolResult(content=[TextContent(type="text", text='{"game_over": true, "timeout": true}')])
     session.call_tool = AsyncMock(return_value=pass_result)
 
     # Mock LLM to call pass_priority
@@ -245,8 +243,8 @@ async def test_game_over_from_get_action_choices_triggers_auto_pass():
     session = _make_session()
 
     # Mock get_action_choices to return game_over
-    choices_result = MagicMock()
-    choices_result.content = [MagicMock(text='{"action_pending": false, "game_over": true}')]
+    choices_text = '{"action_pending": false, "game_over": true}'
+    choices_result = CallToolResult(content=[TextContent(type="text", text=choices_text)])
     session.call_tool = AsyncMock(return_value=choices_result)
 
     # Mock LLM to call get_action_choices
@@ -287,12 +285,11 @@ async def test_game_over_from_choose_action_triggers_auto_pass():
     session = _make_session()
 
     # Mock choose_action to return error with game_over
-    action_result = MagicMock()
     result_json = (
         '{"success": false, "error": "No pending action after 10s wait",'
         ' "error_code": "no_pending_action", "game_over": true}'
     )
-    action_result.content = [MagicMock(text=result_json)]
+    action_result = CallToolResult(content=[TextContent(type="text", text=result_json)])
     session.call_tool = AsyncMock(return_value=action_result)
 
     # Mock LLM to call choose_action
@@ -359,10 +356,8 @@ def test_mcp_tools_to_openai_custom_filter():
 # --- _prefetch_first_action tests ---
 
 
-def _mock_tool_result(text: str) -> MagicMock:
-    result = MagicMock()
-    result.content = [MagicMock(text=text)]
-    return result
+def _mock_tool_result(text: str) -> CallToolResult:
+    return CallToolResult(content=[TextContent(type="text", text=text)])
 
 
 @pytest.mark.asyncio

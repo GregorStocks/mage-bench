@@ -84,20 +84,6 @@ disallow_untyped_defs = true
 check_untyped_defs = true
 ignore_missing_imports = false
 
-# Existing code uses dynamic player type patterns that mypy can't follow.
-# These per-module overrides prevent noise while still checking new code.
-[[tool.mypy.overrides]]
-module = ["puppeteer.orchestrator", "puppeteer.config"]
-disable_error_code = ["assignment", "attr-defined", "arg-type"]
-
-[[tool.mypy.overrides]]
-module = ["puppeteer.sleepwalker", "puppeteer.pilot", "puppeteer.auto_pass"]
-disable_error_code = ["assignment", "attr-defined", "union-attr", "call-overload", "arg-type"]
-
-[[tool.mypy.overrides]]
-module = ["puppeteer.process_manager"]
-disable_error_code = ["assignment"]
-
 # No working type stubs exist for google_auth_oauthlib (the PyPI package
 # google-auth-oauthlib-stubs is broken). Keep this narrow override until
 # upstream ships py.typed or a working stubs package appears.

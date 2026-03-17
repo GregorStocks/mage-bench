@@ -53,6 +53,7 @@ async def run_sleepwalker(
     # Build JVM args for the bridge
     jvm_args_list = [
         "--add-opens=java.base/java.io=ALL-UNNAMED",
+        "-Xmx512m",
         f"-Dxmage.bridge.server={server}",
         f"-Dxmage.bridge.port={port}",
         "-Dxmage.bridge.personality=sleepwalker",
@@ -76,8 +77,8 @@ async def run_sleepwalker(
         jvm_args=jvm_args,
     ) as session:
         # Initialize MCP connection
-        result = await session.initialize()
-        logger.debug("[sleepwalker] MCP initialized: %s", result.serverInfo)
+        init_result = await session.initialize()
+        logger.debug("[sleepwalker] MCP initialized: %s", init_result.serverInfo)
 
         # List available tools
         tools = await session.list_tools()
