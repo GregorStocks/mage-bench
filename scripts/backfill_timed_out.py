@@ -38,7 +38,8 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> int:
     # Scan actions for timeout messages
     timed_out_names: set[str] = set()
     for a in data.get("actions", []):
-        m = TIMED_OUT_RE.match(a.get("message", ""))
+        msg = a.get("message")
+        m = TIMED_OUT_RE.match(msg) if msg else None
         if m:
             timed_out_names.add(m.group(1))
 

@@ -84,12 +84,13 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
         latest_review[author] = review
 
     for author, review in latest_review.items():
-        state = review.get("state", "")
+        state = review.get("state")
         if state in ("APPROVED", "PENDING", "DISMISSED"):
             continue
         if _is_bot(author) or author == pr_author:
             continue
-        body = review.get("body", "").strip()
+        body = review.get("body")
+        body = body.strip() if body else None
         if body:
             feedback.append(f"[{state}] @{author}: {body}")
         else:
@@ -100,7 +101,8 @@ def get_review_feedback(pr: str, nwo: str) -> list[str]:
         author = comment["author"]["login"]
         if _is_bot(author) or author == pr_author:
             continue
-        body = comment.get("body", "").strip()
+        body = comment.get("body")
+        body = body.strip() if body else None
         if not body:
             continue
         feedback.append(f"[COMMENT] @{author}: {body}")

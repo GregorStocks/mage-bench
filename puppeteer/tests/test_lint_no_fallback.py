@@ -68,9 +68,10 @@ def test_ignores_get_empty_list() -> None:
     assert _check("x = d.get('k', [])\n") == []
 
 
-def test_ignores_get_empty_string() -> None:
-    """Empty string defaults are not yet checked (planned for follow-up)."""
-    assert _check('x = d.get("k", "")\n') == []
+def test_catches_get_empty_string() -> None:
+    errors = _check('x = d.get("k", "")\n')
+    assert len(errors) == 1
+    assert '.get(key, "")' in errors[0]
 
 
 # --- getattr(obj, attr, <non-None>) ---

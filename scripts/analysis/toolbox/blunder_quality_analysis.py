@@ -149,7 +149,7 @@ def analyze_consensus_blunders(
                 for ann in anns:
                     sev = ann.get("severity", "?")
                     cat = ann.get("category", "?")
-                    desc = abbreviate(ann.get("description", ""), 75)
+                    desc = abbreviate(ann.get("description") or "?", 75)
                     dec_val = ann.get("decisionIndex", "?")
                     print(f"    {approach:<25} {sev:<14} {cat:<25} decision={dec_val}")
                     print(f"      {desc}")
@@ -226,7 +226,8 @@ def analyze_per_approach(
             for ann in r["annotations"]:
                 dec = ann.get("decisionIndex")
                 stats["total_annotations"] += 1
-                stats["description_lengths"].append(len(ann.get("description", "")))
+                ann_desc = ann.get("description")
+                stats["description_lengths"].append(len(ann_desc) if ann_desc else 0)
                 stats["severities"].append(ann.get("severity", "?"))
 
                 if isinstance(dec, int):
@@ -304,14 +305,16 @@ def analyze_decision_accuracy(
                 if d2 - d1 <= MERGE_WINDOW and d2 not in used:
                     # Check description similarity
                     descs1 = [
-                        a.get("description", "").lower()
+                        a.get("description").lower()
                         for anns in game_data[d1]["approaches_that_found"].values()
                         for a in anns
+                        if a.get("description")
                     ]
                     descs2 = [
-                        a.get("description", "").lower()
+                        a.get("description").lower()
                         for anns in game_data[d2]["approaches_that_found"].values()
                         for a in anns
+                        if a.get("description")
                     ]
 
                     # Check if there's meaningful keyword overlap
@@ -430,16 +433,17 @@ def analyze_hellkite_test(
         found = False
         for ann in r["annotations"]:
             dec = ann.get("decisionIndex", -1)
-            desc = ann.get("description", "").lower()
+            raw_desc = ann.get("description")
+            desc = raw_desc.lower() if raw_desc else ""
             # Match: annotations about the land destruction choice
-            if ("passage" in desc or "spirebluff" in desc) and (
-                "destroy" in desc or "wrong" in desc or "target" in desc
+            if (
+                desc
+                and ("passage" in desc or "spirebluff" in desc)
+                and ("destroy" in desc or "wrong" in desc or "target" in desc)
             ):
                 sev = ann.get("severity", "?")
                 cat = ann.get("category", "?")
-                found_hellkite.append(
-                    (approach, dec, sev, cat, ann.get("description", ""))
-                )
+                found_hellkite.append((approach, dec, sev, cat, raw_desc or "?"))
                 found = True
         if not found:
             missed_hellkite.append(approach)
@@ -465,8 +469,10 @@ def analyze_hellkite_test(
         found = False
         for ann in r["annotations"]:
             dec = ann.get("decisionIndex", -1)
-            desc = ann.get("description", "").lower()
-            cat = ann.get("category", "").lower()
+            raw_desc_m = ann.get("description")
+            desc = raw_desc_m.lower() if raw_desc_m else ""
+            raw_cat = ann.get("category")
+            cat = raw_cat.lower() if raw_cat else ""
             if "momo" in desc or "legend" in desc or "legend" in cat:
                 found = True
                 sev = ann.get("severity", "?")

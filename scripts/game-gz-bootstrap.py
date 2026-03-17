@@ -70,7 +70,9 @@ def _failed_tool_calls(
 
 def _format_result_preview(event: Mapping[str, object]) -> str:
     """Render a short preview of the raw result payload."""
-    result = event.get("result", "")
+    result = event.get("result")
+    if result is None:
+        return ""
     if isinstance(result, str):
         return result[:120]
     return json.dumps(result)[:120]

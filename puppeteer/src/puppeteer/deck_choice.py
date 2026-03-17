@@ -152,13 +152,14 @@ def choose_deck_for_player(
 def resolve_choice_decks(
     players: list[PilotPlayer],
     project_root: Path,
-    deck_type: str,
+    deck_type: str | None,
 ) -> None:
     """Resolve deck='choice' for pilot players by asking their LLMs."""
     choice_players = [p for p in players if p.deck == "choice"]
     if not choice_players:
         return
 
+    assert deck_type is not None, "deck_type must be set when players use deck='choice'"
     all_decks = list_available_decks(project_root, deck_type)
     assert all_decks, f"No decks found in registry for deck type {deck_type!r}"
 

@@ -211,8 +211,8 @@ def _build_tool_reference() -> str:
         "Parameters:",
     ]
     for name, schema in tool["inputSchema"]["properties"].items():
-        desc = schema.get("description", "")
-        type_ = schema.get("type", "")
+        desc = schema.get("description")
+        type_ = schema.get("type")
         lines.append(f"- {name} ({type_}): {desc}")
 
     return "\n".join(lines)
@@ -276,14 +276,14 @@ def _collect_card_names(data: GameExport) -> set[str]:
             for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
                 for c in _snapshot_zone_cards(p, zone):
                     if isinstance(c, dict):
-                        name = c.get("name", "")
+                        name = c.get("name")
                         if isinstance(name, str) and name:
                             names.add(name)
                     elif isinstance(c, str) and c:
                         names.add(c)
         for item in snap["stack"]:
             if isinstance(item, dict):
-                name = item.get("name", "")
+                name = item.get("name")
                 if isinstance(name, str) and name:
                     names.add(name)
             elif isinstance(item, str) and item:
@@ -298,14 +298,17 @@ def _collect_card_names(data: GameExport) -> set[str]:
     # Also from choice names and combat fields in llm events
     for ev in data["llmEvents"]:
         if ev.get("tool") == "get_action_choices":
+            result_str = ev.get("result")
+            if result_str is None:
+                continue
             try:
-                result = json.loads(ev.get("result", ""))
+                result = json.loads(result_str)
                 if not isinstance(result, dict):
                     continue
                 for c in result.get("choices", []):
                     if not isinstance(c, dict):
                         continue
-                    name = c.get("name", "")
+                    name = c.get("name")
                     # Skip non-card choices: player targets, special actions,
                     # and entries without an id (e.g. mana ability descriptions)
                     if (
@@ -360,15 +363,17 @@ def _format_card_ref(card: dict) -> str:
         parts = [_format_card_ref(face).lstrip("- ") for face in card["card_faces"]]
         return "- " + " // ".join(parts)
     name = card["name"]
-    mana = card.get("mana_cost", "")
-    type_line = card.get("type_line", "")
-    oracle = card.get("oracle_text", "")
+    mana = card.get("mana_cost")
+    type_line = card.get("type_line")
+    oracle = card.get("oracle_text")
     # Collapse newlines in oracle text to ` / ` for single-line display
     if oracle:
         oracle = oracle.replace("\n", " / ")
     pt = f" {card['power']}/{card['toughness']}" if card.get("power") else ""
     loyalty = f" [Loyalty: {card['loyalty']}]" if card.get("loyalty") else ""
-    line = f"- {name} {mana} -- {type_line}{pt}{loyalty}"
+    mana_part = f" {mana}" if mana else ""
+    type_part = f" -- {type_line}" if type_line else ""
+    line = f"- {name}{mana_part}{type_part}{pt}{loyalty}"
     if oracle:
         line += f": {oracle}"
     return line
@@ -408,7 +413,7 @@ def _card_names_in_decision(decision: dict) -> set[str]:
             if isinstance(b, dict) and b.get("name"):
                 names.add(b["name"])
     for c in decision.get("choices", []):
-        name = c.get("name", c.get("description", ""))
+        name = c.get("name") if "name" in c else c.get("description")
         if name:
             names.add(name)
     for a in decision.get("already_attacking", []):
@@ -474,7 +479,9 @@ def _actions_by_turn(actions: Sequence[Action]) -> dict[int, list[str]]:
     current_turn = 0
     player_turn_counts: dict[str, int] = {}
     for a in actions:
-        msg = a.get("message", "")
+        msg = a.get("message")
+        if msg is None:
+            continue
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
         # Skip chat messages — LLM personality flavor adds noise and can bias
         # the blunder annotator
@@ -554,7 +561,7 @@ def _format_prior_context(
 def _format_current_turn_actions(
     decision: dict,
     all_actions: Sequence[Action],
-    cutoff_ts: str,
+    cutoff_ts: str | None,
 ) -> str:
     """Format actions from the current turn before this decision.
 
@@ -571,10 +578,12 @@ def _format_current_turn_actions(
     in_current_turn = False
     lines: list[str] = []
     for a in all_actions:
-        msg = a.get("message", "")
-        ts = a.get("ts", "")
+        msg = a.get("message")
+        ts = a.get("ts")
+        if msg is None:
+            continue
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
-        assert isinstance(ts, str), (
+        assert isinstance(ts, str) or ts is None, (
             f"action ts must be a string when present, got {ts!r}"
         )
 
@@ -594,7 +603,7 @@ def _format_current_turn_actions(
             continue
 
         # Only actions before the decision was presented
-        if ts >= cutoff_ts:
+        if ts and ts >= cutoff_ts:
             break
 
         # Skip chat messages — LLM personality flavor adds noise
@@ -724,7 +733,7 @@ def _format_decisions(decisions: list[dict]) -> str:
             turn = 0
         if not d.get("phase"):
             assert turn in (0, 1), (
-                f"decision has empty phase on turn {turn}: {d.get('message', '')}"
+                f"decision has empty phase on turn {turn}: {d.get('message')}"
             )
         phase = d.get("phase") or "PREGAME"
         lines = [
@@ -759,12 +768,13 @@ def _format_decisions(decisions: list[dict]) -> str:
             lines.append(f"  Combat: {' | '.join(combat_parts)}")
         if d.get("combat_phase"):
             lines.append(f"  Combat Phase: {d['combat_phase']}")
+        dec_msg = d.get("message")
         lines += [
-            f"  Message: {d.get('message', '')}",
+            f"  Message: {dec_msg}" if dec_msg else "  Message:",
             f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_descs)}",
             f"  Chosen: {chosen_name}",
         ]
-        if "Pick triggered ability" in d.get("message", ""):
+        if dec_msg and "Pick triggered ability" in dec_msg:
             lines.append(
                 "  NOTE: This decision only determines the order triggered abilities"
                 " are placed on the stack. Targets are chosen in separate decisions."
@@ -998,7 +1008,7 @@ def build_decision_prompt(
         prior_ctx = _format_prior_context(
             decision, snapshots, actions_by_turn, num_players
         )
-        snap_ts = snap.get("ts", "")
+        snap_ts = snap.get("ts")
         turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
         formatted = render_decision(
             dict(decision),
@@ -1019,7 +1029,7 @@ def build_decision_prompt(
         prior_ctx = _format_prior_context(
             decision, snapshots, actions_by_turn, num_players
         )
-        snap_ts = snap.get("ts", "") if snap is not None else ""
+        snap_ts = snap.get("ts") if snap is not None else None
         turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
         user_msg = f"## Game Overview\n{overview}"
         if card_ref:
@@ -1160,7 +1170,7 @@ def _eval_one_decision(
     # represents the state BEFORE the action processes.  The resulting game
     # actions get strictly higher seq values, so we need > (not >=).
     action_seq = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
-    action_ts = decision.get("action_ts", "")
+    action_ts = decision.get("action_ts")
     if action_seq:
         # v2: find first snapshot strictly after action_seq
         aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
@@ -1172,7 +1182,8 @@ def _eval_one_decision(
         # v1: find first snapshot strictly after action_ts
         aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
         for i in range(s_idx, len(snapshots)):
-            if snapshots[i].get("ts", "") > action_ts:
+            snap_ts_val = snapshots[i].get("ts")
+            if snap_ts_val and snap_ts_val > action_ts:
                 aftermath_idx = i
                 break
     else:
@@ -1367,11 +1378,11 @@ def main(gz_path: str) -> float:
                     continue
                 if is_forced(decisions[j]):
                     continue
-                prev_msg = decisions[j].get("message", "")
-                assert isinstance(prev_msg, str), (
-                    f"decision message must be a string, got {prev_msg!r}"
+                prev_msg = decisions[j].get("message")
+                assert isinstance(prev_msg, str) or prev_msg is None, (
+                    f"decision message must be a string when present, got {prev_msg!r}"
                 )
-                if prev_msg.startswith(
+                if prev_msg and prev_msg.startswith(
                     (
                         "Play spells and abilities",
                         "Play instants and activated abilities",

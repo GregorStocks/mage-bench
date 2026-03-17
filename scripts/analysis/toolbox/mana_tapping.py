@@ -73,7 +73,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
         if e["type"] != "tool_call":
             continue
 
-        tool = e.get("tool", "")
+        tool = e.get("tool")
         player = e["player"]
         assert player in stats, (
             f"{game_id}: tool_call event for unknown pilot player {player!r}"
@@ -87,11 +87,14 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
             assert isinstance(args, dict), (
                 f"choose_action args must be an object, got {args!r}"
             )
-            result_str = e.get("result", "")
-            try:
-                result = json.loads(result_str)
-            except (json.JSONDecodeError, TypeError):
+            result_str = e.get("result")
+            if result_str is None:
                 result = {}
+            else:
+                try:
+                    result = json.loads(result_str)
+                except json.JSONDecodeError:
+                    result = {}
 
             success = result.get("success", False)
 
@@ -101,26 +104,28 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
                     ps.mana_plan_success += 1
                 else:
                     ps.mana_plan_failed += 1
-                    error = result.get("error", "")
+                    error = result.get("error")
                     if error:
                         ps.mana_plan_errors.append(error[:150])
 
             if args.get("auto_tap") is True:
                 ps.auto_tap_used += 1
 
-            action_taken = str(result.get("action_taken", ""))
+            action_taken = str(result.get("action_taken"))
             if "cancelled_spell" in action_taken:
                 ps.spells_cancelled += 1
 
         # --- get_action_choices: track GAME_PLAY_MANA and GAME_CHOOSE_ABILITY ---
         if tool == "get_action_choices":
-            result_str = e.get("result", "")
+            result_str = e.get("result")
+            if result_str is None:
+                continue
             try:
                 result = json.loads(result_str)
-            except (json.JSONDecodeError, TypeError):
+            except json.JSONDecodeError:
                 continue
 
-            action_type = result.get("action_type", "")
+            action_type = result.get("action_type")
 
             if action_type == "GAME_PLAY_MANA":
                 ps.mana_deferred += 1
@@ -147,14 +152,17 @@ def _track_followup(
         if ev["player"] != player:
             continue
         if ev["type"] == "tool_call" and ev.get("tool") == "choose_action":
-            result_str = ev.get("result", "")
+            result_str = ev.get("result")
+            if result_str is None:
+                setattr(ps, f"{prefix}_failed", getattr(ps, f"{prefix}_failed") + 1)
+                return
             try:
                 result = json.loads(result_str)
-            except (json.JSONDecodeError, TypeError):
+            except json.JSONDecodeError:
                 setattr(ps, f"{prefix}_failed", getattr(ps, f"{prefix}_failed") + 1)
                 return
             if result.get("success"):
-                action = str(result.get("action_taken", ""))
+                action = str(result.get("action_taken"))
                 if "cancelled_spell" in action:
                     if prefix == "mana_deferred":
                         ps.mana_deferred_cancelled += 1

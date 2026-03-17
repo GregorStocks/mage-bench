@@ -52,7 +52,7 @@ def _load_games_index(games_dir: Path) -> list[dict]:
             game = json.loads(gzip.decompress(path.read_bytes()))
         else:
             game = json.loads(path.read_text())
-        games.append({f: game.get(f, defaults.get(f, "")) for f in fields})
+        games.append({f: game.get(f, defaults.get(f)) for f in fields})
     return games
 
 
@@ -70,7 +70,7 @@ def _build_key_to_preset(presets_path: Path) -> dict[str, str]:
     for name, pdata in presets.items():
         if name not in active:
             continue
-        model_id = pdata.get("model", "")
+        model_id = pdata["model"]
         effort = pdata.get("reasoning_effort")
         key = f"{model_id}::{effort}" if effort else model_id
         mapping[key] = name
@@ -117,7 +117,7 @@ _DISPATCHES = [
 
 def _player_key_from_dict(player: dict) -> str:
     """Build aggregation key from game player dict: 'model_id::effort' or 'model_id'."""
-    model_id = player.get("model", "")
+    model_id = player.get("model")
     assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
     effort = player.get("reasoningEffort", player.get("reasoning_effort"))
     assert effort is None or isinstance(effort, str), (
@@ -170,7 +170,7 @@ def _build_matchup_matrix(
 
 
 def get_round_robin_matchup(
-    deck_type: str,
+    deck_type: str | None,
     num_seats: int,
     games_dir: Path = _GAMES_DIR,
     presets_path: Path = _PRESETS_JSON,
@@ -188,7 +188,7 @@ def get_round_robin_matchup(
 
     Returns a list of exactly num_seats preset name strings.
     """
-    is_commander = "Commander" in deck_type or not deck_type
+    is_commander = not deck_type or "Commander" in deck_type
 
     season_games = _load_rated_games(games_dir)
 
@@ -294,7 +294,7 @@ def pick_round_robin_format(
     format_counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
 
     for game in season_games:
-        dt = game.get("deckType", "")
+        dt = game.get("deckType")
         if dt not in candidate_set:
             continue
         pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]

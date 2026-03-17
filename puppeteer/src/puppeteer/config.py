@@ -19,7 +19,7 @@ class DeckEntry:
     """A deck from the registry (data/decks/)."""
 
     name: str  # Display name (e.g., "Death's Shadow")
-    strategy: str  # 1-2 sentence strategy summary (may be empty)
+    strategy: str | None  # 1-2 sentence strategy summary (may be absent)
     cards: list[str]  # Card lines in .dck format
 
 
@@ -228,7 +228,7 @@ def _validate_name_parts(personalities: dict[str, dict], presets_data: dict, mod
         if preset is None:
             errors.append(f"active preset {preset_key!r} not found in presets")
             continue
-        model_id = preset.get("model", "")
+        model_id = preset["model"]
         model = models_by_id.get(model_id)
         if model is None:
             errors.append(f"Preset {preset_key!r} model {model_id!r} not found in models list")
@@ -472,7 +472,7 @@ def load_deck_registry(project_root: Path, format_dir: str) -> list[DeckEntry]:
         entries.append(
             DeckEntry(
                 name=data["name"],
-                strategy=data.get("strategy", ""),
+                strategy=data.get("strategy"),
                 cards=cards,
             )
         )
@@ -563,12 +563,12 @@ class Config:
     skip_compile: bool = False  # Skip compilation (caller already compiled)
 
     # Match timer settings (XMage enum names, e.g. "MIN__20", "SEC__10")
-    match_time_limit: str = ""
-    match_buffer_time: str = ""
+    match_time_limit: str | None = None
+    match_buffer_time: str | None = None
 
     # Game format settings (passed to XMage via config JSON)
-    game_type: str = ""  # e.g. "Two Player Duel", "Commander Free For All"
-    deck_type: str = ""  # e.g. "Constructed - Legacy", "Variant Magic - Freeform Commander"
+    game_type: str | None = None  # e.g. "Two Player Duel", "Commander Free For All"
+    deck_type: str | None = None  # e.g. "Constructed - Legacy", "Variant Magic - Freeform Commander"
     deck_type_candidates: list[str] = field(default_factory=list)  # Multi-format rotation
     custom_start_life: int = 0  # 0 = use game type default
 
@@ -630,10 +630,10 @@ class Config:
 
         with open(self.config_file) as f:
             data = json.load(f)
-            self.match_time_limit = data.get("matchTimeLimit", "")
-            self.match_buffer_time = data.get("matchBufferTime", "")
-            self.game_type = data.get("gameType", "")
-            raw_deck_type = data.get("deckType", "")
+            self.match_time_limit = data.get("matchTimeLimit")
+            self.match_buffer_time = data.get("matchBufferTime")
+            self.game_type = data.get("gameType")
+            raw_deck_type = data.get("deckType")
             if isinstance(raw_deck_type, list):
                 assert len(raw_deck_type) > 0, "deckType list must not be empty"
                 self.deck_type_candidates = raw_deck_type
@@ -656,7 +656,7 @@ class Config:
             llm_players: list[tuple[PilotPlayer, bool]] = []
 
             for i, player in enumerate(data.get("players", [])):
-                player_type = player.get("type", "")
+                player_type = player["type"]
                 has_explicit_name = "name" in player
                 name = player.get("name", f"player-{i}")
                 deck = player.get("deck")  # Optional deck path
@@ -828,6 +828,7 @@ class Config:
                     logger.info("Random Jumpstart deck for %s: %s", player.name, deck_name)
             return
 
+        assert self.deck_type is not None, "deck_type must be set for registry lookup"
         format_dir = _DECK_TYPE_TO_FORMAT_DIR.get(self.deck_type)
         assert format_dir, f"Unknown deck type for registry lookup: {self.deck_type!r}"
         registry = load_deck_registry(project_root, format_dir)
@@ -887,7 +888,7 @@ class Config:
                     data = json.loads(json_file.read_text())
                     if data.get("cards") == cards:
                         player.deck_name = data["name"]
-                        player.deck_strategy = data.get("strategy", "")
+                        player.deck_strategy = data.get("strategy")
                         break
                 if player.deck_name:
                     break

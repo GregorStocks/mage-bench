@@ -43,8 +43,8 @@ def main() -> None:
         issues = [
             i
             for i in issues
-            if term in i.get("title", "").lower()
-            or term in i.get("description", "").lower()
+            if term in i["title"].lower()
+            or (i.get("description") and term in i["description"].lower())
         ]
 
     issues.sort(key=lambda i: i.get("priority", 999))

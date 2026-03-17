@@ -532,7 +532,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     client_cache: dict[tuple[str, str], AsyncOpenAI] = {}
     for model, provider, _, _ in entrant_configs.values():
         key_env = required_api_key_env(provider)
-        api_key = os.environ.get(key_env, "")
+        api_key = os.environ.get(key_env)
         assert api_key, f"Missing API key: set {key_env} environment variable"
         cache_key = (api_key, provider)
         if cache_key not in client_cache:
@@ -564,7 +564,8 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
             )
 
             key_env = required_api_key_env(provider)
-            api_key = os.environ.get(key_env, "")
+            api_key = os.environ.get(key_env)
+            assert api_key, f"Missing API key: set {key_env} environment variable"
             client = client_cache[(api_key, provider)]
 
             print(

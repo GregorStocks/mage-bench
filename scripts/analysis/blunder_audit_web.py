@@ -160,13 +160,17 @@ def _recent_actions_before(
         return []
     recent: list[str] = []
     for a in game_actions:
-        a_ts = a.get("ts", "")
+        a_ts = a.get("ts")
+        if a_ts is None:
+            continue
         assert isinstance(a_ts, str), (
             f"action ts must be a string when present, got {a_ts!r}"
         )
         if a_ts > snap_ts:
             break
-        msg = a.get("message", "")
+        msg = a.get("message")
+        if msg is None:
+            continue
         assert isinstance(msg, str), (
             f"action message must be a string when present, got {msg!r}"
         )
@@ -207,7 +211,7 @@ def _build_play_detail(game_id: str, di: int) -> dict:
     recent = _recent_actions_before(game_actions, snapshots, snap_idx)
 
     # Get hand from before-snapshot
-    player_name = decision.get("player", "")
+    player_name = decision["player"]
     hand_str = "?"
     for p in before_snapshot["players"] if before_snapshot is not None else []:
         if p.get("name") == player_name:

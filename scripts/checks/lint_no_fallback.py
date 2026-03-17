@@ -6,7 +6,7 @@ catching several pattern families using AST analysis.
 
 Checked patterns:
   - `x or []`, `x or {}`, `x or ""` — silent fallback via boolean or
-  - `.get(key, {})` — empty dict default hiding a missing key
+  - `.get(key, {})` / `.get(key, "")` — empty default hiding a missing key
   - `getattr(obj, attr, <non-None>)` — attribute fallback hiding a
     missing attribute
   - bare `except:` — catches everything including KeyboardInterrupt
@@ -14,7 +14,7 @@ Checked patterns:
 
 Patterns NOT checked (and why):
   - `or 0` / `or 0.0`: too many legitimate uses (nullable API token counts)
-  - `.get(key, [])` / `.get(key, "")`: planned for follow-up PRs
+  - `.get(key, [])`: planned for follow-up PR
 """
 
 import ast
@@ -79,6 +79,22 @@ def _check_file(
             lineno = node.args[1].lineno
             errors.append(
                 f"{rel}:{lineno}: .get(key, {{}})"
+                " (silent default — use explicit key access or None check)"
+            )
+
+        # --- .get(key, "") ---
+        elif (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "get"
+            and len(node.args) >= 2
+            and isinstance(node.args[1], ast.Constant)
+            and node.args[1].value == ""
+            and isinstance(node.args[1].value, str)
+        ):
+            lineno = node.args[1].lineno
+            errors.append(
+                f'{rel}:{lineno}: .get(key, "")'
                 " (silent default — use explicit key access or None check)"
             )
 

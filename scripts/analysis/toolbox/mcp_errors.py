@@ -38,13 +38,15 @@ class ErrorEvent:
     game_id: str
 
 
-def _parse_result(result_str: str) -> JsonObject | None:
+def _parse_result(result_str: str | None) -> JsonObject | None:
     """Parse a tool result string into a dict, or None if not JSON."""
+    if result_str is None:
+        return None
     try:
         r = json.loads(result_str)
         if isinstance(r, dict):
             return r
-    except (json.JSONDecodeError, TypeError):
+    except json.JSONDecodeError:
         pass
     return None
 
@@ -75,9 +77,9 @@ def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str
         if ev["player"] != player:
             continue
         if ev.get("tool") == "get_action_choices":
-            r = _parse_result(ev.get("result", ""))
+            r = _parse_result(ev.get("result"))
             if r:
-                action_type = r.get("action_type", "")
+                action_type = r.get("action_type")
                 assert isinstance(action_type, str), (
                     f"get_action_choices action_type must be a string, got {action_type!r}"
                 )
@@ -103,7 +105,7 @@ def _find_retry_outcome(
         if ev.get("tool") != tool:
             continue
 
-        r = _parse_result(ev.get("result", ""))
+        r = _parse_result(ev.get("result"))
         if r is None:
             return "different_error"
         if r.get("success") is True:
@@ -141,9 +143,12 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
         assert player in player_models, (
             f"{game_id}: tool_call event for unknown pilot player {player!r}"
         )
-        tool = e.get("tool", "")
+        tool = e.get("tool")
+        assert isinstance(tool, str), (
+            f"{game_id}: tool_call event missing tool name: {e!r}"
+        )
         model = player_models[player]
-        result_str = e.get("result", "")
+        result_str = e.get("result")
         assert "args" in e, f"{game_id}: tool_call event missing args: {e!r}"
         args = e["args"]
         assert isinstance(args, dict), (
@@ -153,7 +158,7 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
         r = _parse_result(result_str)
 
         if r is not None and r.get("success") is False:
-            error_message = r.get("error", "")
+            error_message = r.get("error")
             assert isinstance(error_message, str), (
                 f"{game_id}: tool error message must be a string, got {error_message!r}"
             )

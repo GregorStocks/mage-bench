@@ -105,7 +105,9 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
     These are intermediate steps during mana payment or ability activation —
     not strategically interesting for blunder annotation.
     """
-    msg = d.get("message", "")
+    msg = d.get("message")
+    if not msg:
+        return False
     assert isinstance(msg, str), f"message must be a string, got {msg!r}"
     if msg.startswith("Choose which mana to produce from"):
         return True
@@ -115,7 +117,11 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
         assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
         if choices and all(
             isinstance(c, dict)
-            and "Add {" in (c.get("name", "") + c.get("description", ""))
+            and "Add {"
+            in (
+                (c["name"] if "name" in c else "")
+                + (c["description"] if "description" in c else "")
+            )
             for c in choices
         ):
             return True
@@ -354,8 +360,8 @@ def compute_aftermath_index(
         if isinstance(action_seq_raw, int) and not isinstance(action_seq_raw, bool)
         else 0
     )
-    action_ts_raw = decision.get("action_ts", "")
-    action_ts = action_ts_raw if isinstance(action_ts_raw, str) else ""
+    action_ts_raw = decision.get("action_ts")
+    action_ts = action_ts_raw if isinstance(action_ts_raw, str) else None
     if action_seq:
         for i in range(s_idx, len(snapshots)):
             snapshot_seq = snapshots[i].get("seq", 0)
@@ -366,7 +372,9 @@ def compute_aftermath_index(
                 return i
     elif action_ts:
         for i in range(s_idx, len(snapshots)):
-            snapshot_ts = snapshots[i].get("ts", "")
+            snapshot_ts = snapshots[i].get("ts")
+            if not snapshot_ts:
+                continue
             assert isinstance(snapshot_ts, str), (
                 f"snapshot ts must be a string when present, got {snapshot_ts!r}"
             )
@@ -431,14 +439,18 @@ def chosen_display(decision: Mapping[str, object]) -> str:
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
         c = choices[chosen]
         if isinstance(c, dict):
-            name = c.get("name", "")
-            assert isinstance(name, str), f"choice name must be a string, got {name!r}"
-            if name:
-                return name
-            description = c.get("description", "")
-            assert isinstance(description, str), (
-                f"choice description must be a string, got {description!r}"
-            )
+            name = c.get("name")
+            if name is not None:
+                assert isinstance(name, str), (
+                    f"choice name must be a string, got {name!r}"
+                )
+                if name:
+                    return name
+            description = c.get("description")
+            if description is not None:
+                assert isinstance(description, str), (
+                    f"choice description must be a string, got {description!r}"
+                )
             if description:
                 return description
         return f"option_{chosen}"

@@ -1201,7 +1201,7 @@ def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> No
         anns = r["annotations"]
         sev_counts = {"major": 0, "moderate": 0, "minor": 0, "questionable": 0}
         for a in anns:
-            sev = a.get("severity", "")
+            sev = a.get("severity")
             if sev in sev_counts:
                 sev_counts[sev] += 1
 
@@ -1228,7 +1228,8 @@ def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> No
                 f"  [{valid}] decision={dec} {a.get('player', '?')} "
                 f"{a.get('severity', '?').upper()} {a.get('category', '?')}"
             )
-            print(f"       {a.get('description', '')[:120]}")
+            a_desc = a.get("description")
+            print(f"       {a_desc[:120] if a_desc else '(no description)'}")
 
 
 def _dry_run(gz_path: str) -> None:
@@ -1318,7 +1319,8 @@ def _dry_run(gz_path: str) -> None:
                 f"  decision={a.get('decisionIndex', '?')} {a.get('player', '?')} "
                 f"{a.get('severity', '?').upper()} {a.get('category', '?')}"
             )
-            print(f"       {a.get('description', '')[:120]}")
+            a_desc_ex = a.get("description")
+            print(f"       {a_desc_ex[:120] if a_desc_ex else '(no description)'}")
 
 
 def main() -> None:

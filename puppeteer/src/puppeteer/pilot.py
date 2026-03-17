@@ -110,7 +110,7 @@ def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
             for card in player.get(zone, []):
                 if not isinstance(card, dict):
                     continue
-                name = card.get("name", "")
+                name = card["name"]
                 if not name or name in BASIC_LAND_NAMES or name in oracle_texts:
                     continue
                 rules = card.get("rules", [])
@@ -173,16 +173,16 @@ def _build_pilot_decision(data: dict) -> dict:
         "player": "You",
         "turn": 0,
         "phase": "",
-        "actionType": data.get("action_type", ""),
-        "responseType": data.get("response_type", ""),
-        "message": data.get("message", ""),
+        "actionType": data.get("action_type"),
+        "responseType": data.get("response_type"),
+        "message": data.get("message"),
         "choices": data.get("choices", []),
         "choiceCount": len(data.get("choices", [])),
         "isForced": len(data.get("choices", [])) <= 1,
     }
 
     # Parse context string for turn/phase: "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN"
-    context = data.get("context", "")
+    context = data.get("context")
     if context:
         m = re.match(r"T(\d+)\s+(.+?)(?:\s+\(|$)", context)
         if m:
@@ -278,8 +278,8 @@ def _render_for_pilot(
 
     # Append operational metadata the LLM needs to respond
     lines = [rendered]
-    resp_type = data.get("response_type", "")
-    respond_with = data.get("respond_with", "")
+    resp_type = data.get("response_type")
+    respond_with = data.get("respond_with")
     if respond_with:
         # When total_min == total_max, the Items header shows "total=N" instead
         # of "total_min=N, total_max=N", so adjust the respond_with text to match.
@@ -321,7 +321,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
         if data.get("player_dead"):
             return "player_dead"
         if data.get("action_pending"):
-            stop = data.get("stop_reason", "")
+            stop = data.get("stop_reason")
             action_type = data.get("action_type", "?")
             parts = []
             if stop:
@@ -329,14 +329,14 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             else:
                 parts.append(f"action_pending({action_type})")
             # Include choice summary (pass_priority now returns choices inline)
-            resp_type = data.get("response_type", "")
+            resp_type = data.get("response_type")
             if resp_type:
                 parts.append(resp_type)
             choices = data.get("choices", [])
             if choices:
                 names = [c.get("name", c.get("description", "?"))[:30] for c in choices[:3]]
                 parts.append(f"{len(choices)} choices: {', '.join(names)}")
-            msg = data.get("message", "")
+            msg = data.get("message")
             if msg and not choices:
                 parts.append(msg[:60])
             return "; ".join(parts)
@@ -355,14 +355,14 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
 
     if tool_name == "get_action_choices":
         parts = [data.get("action_type", "?")]
-        resp_type = data.get("response_type", "")
+        resp_type = data.get("response_type")
         if resp_type:
             parts.append(resp_type)
         choices = data.get("choices", [])
         if choices:
             names = [c.get("name", c.get("description", "?"))[:30] for c in choices[:3]]
             parts.append(f"{len(choices)} choices: {', '.join(names)}")
-        msg = data.get("message", "")
+        msg = data.get("message")
         if msg and not choices:
             parts.append(msg[:60])
         return "; ".join(parts)
@@ -384,7 +384,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
         total = data.get("total_length", "?")
         truncated = data.get("truncated", False)
         since = data.get("since_turn")
-        log_text = data.get("log", "")
+        log_text = data.get("log")
         prefix = f"log({total} chars"
         if since is not None:
             prefix += f", since_turn={since}"
@@ -450,7 +450,7 @@ def _with_cache_control(msg: dict, cache_control: dict) -> dict:
     Works for user, assistant (with text content), and tool messages.
     Returns the message unchanged if the content isn't suitable (e.g. None/empty).
     """
-    role = msg.get("role", "")
+    role = msg["role"]
     content = msg.get("content")
 
     if role in ("user", "tool"):
@@ -478,9 +478,7 @@ def _message_text(msg: dict) -> str:
     if isinstance(content, str):
         return content
     if isinstance(content, list):
-        return "".join(
-            block.get("text", "") for block in content if isinstance(block, dict) and block.get("type") == "text"
-        )
+        return "".join(block["text"] for block in content if isinstance(block, dict) and block.get("type") == "text")
     return ""
 
 
@@ -540,8 +538,8 @@ def _render_context(
 
     for i in range(summary_start, recent_start):
         msg = history[i]
-        if msg.get("role") == "tool" and len(msg.get("content", "")) > TOOL_SUMMARY_TRIGGER_CHARS:
-            tool_name = _find_tool_name(history, i, msg.get("tool_call_id", ""))
+        if msg.get("role") == "tool" and len(msg["content"]) > TOOL_SUMMARY_TRIGGER_CHARS:
+            tool_name = _find_tool_name(history, i, msg["tool_call_id"])
             messages.append({**msg, "content": _summarize_tool_result(tool_name, msg["content"])})
         else:
             messages.append(msg)
@@ -914,19 +912,19 @@ async def _process_tool_calls(
         turn_state.tools_called.add(fn.name)
         if fn.name == "choose_action":
             choice_result = json.loads(result_text)
-            action_taken = choice_result.get("action_taken", "")
+            action_taken = choice_result.get("action_taken")
             success = choice_result.get("success", False)
             if success:
                 logger.info("[pilot] Action: %s", action_taken)
                 turn_state.had_successful_action = True
                 state.turns_without_progress = 0
             else:
-                logger.warning("[pilot] Action failed: %s", choice_result.get("error", ""))
+                logger.warning("[pilot] Action failed: %s", choice_result.get("error"))
                 turn_state.had_actionable_opportunity = True
         elif fn.name == "get_action_choices":
             choice_result = json.loads(result_text)
-            action_type = choice_result.get("action_type", "")
-            message = choice_result.get("message", "")
+            action_type = choice_result.get("action_type")
+            message = choice_result.get("message")
             choices = choice_result.get("choices", [])
             if choice_result.get("error"):
                 turn_state.had_actionable_opportunity = True
@@ -934,12 +932,12 @@ async def _process_tool_calls(
                 logger.info("[pilot] Choices for %s: %d options", action_type, len(choices))
                 turn_state.had_actionable_opportunity = True
             else:
-                logger.info("[pilot] Action: %s - %s", action_type, message[:100])
+                logger.info("[pilot] Action: %s - %s", action_type, message[:100] if message else "")
         elif fn.name == "pass_priority":
             try:
                 pass_result = json.loads(result_text)
-                context = pass_result.get("context", "")
-                if context.startswith("T"):
+                context = pass_result.get("context")
+                if context and context.startswith("T"):
                     try:
                         state.current_game_turn = int(context[1:].split()[0])
                     except (ValueError, IndexError):
@@ -1121,17 +1119,17 @@ def build_initial_message(pass_priority_result: dict) -> str:
     if not pass_priority_result.get("action_pending"):
         return "The game is starting. Call pass_priority to get your first decision."
 
-    action_type = pass_priority_result.get("action_type", "")
-    message = pass_priority_result.get("message", "")
+    action_type = pass_priority_result.get("action_type")
+    message = pass_priority_result.get("message")
 
-    if "Mulligan" in message or "mulligan" in message.lower():
+    if message and ("Mulligan" in message or "mulligan" in message.lower()):
         return (
             f"The game is starting. Your first decision: {message}\n"
             f"Call get_action_choices to see your hand, then choose_action to decide."
         )
     if action_type:
         return (
-            f"The game is starting. Your first decision ({action_type}): {message}\n"
+            f"The game is starting. Your first decision ({action_type}): {message if message else ''}\n"
             f"Call get_action_choices to see your options, then choose_action to decide."
         )
     return "The game is starting. Call pass_priority to get your first decision."
@@ -1582,8 +1580,8 @@ def main() -> int:
     api_key = args.api_key
     if not api_key.strip():
         required_key_env = required_api_key_env(provider)
-        api_key = os.environ.get(required_key_env, "")
-    if not api_key.strip():
+        api_key = os.environ.get(required_key_env)
+    if not api_key or not api_key.strip():
         logger.error("[pilot] Missing API key for provider %s", provider)
         logger.error("[pilot] Pass --api-key or export the provider's configured API key env var.")
         return 2

@@ -109,14 +109,14 @@ async def run_sleepwalker(
                     # Print game log (only new entries since last check)
                     log_result = await session.call_tool("get_game_log", {"max_chars": 10000})
                     log_data = json.loads(extract_text_content("get_game_log", log_result))
-                    current_log = log_data.get("log", "")
+                    current_log = log_data.get("log")
                     total_length = log_data.get("total_length", 0)
 
                     # Print new log entries
                     if total_length > last_log_length:
                         # Get the new portion of the log
                         new_chars = total_length - last_log_length
-                        if new_chars > 0 and len(current_log) >= new_chars:
+                        if new_chars > 0 and current_log and len(current_log) >= new_chars:
                             new_log = current_log[-new_chars:]
                             if new_log.strip():
                                 logger.debug("[sleepwalker] === New Log Entries ===")

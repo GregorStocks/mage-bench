@@ -153,7 +153,7 @@ def is_mana_event(event: LlmEvent) -> bool:
     etype = event["type"]
 
     if etype == "tool_call":
-        tool = event.get("tool", "")
+        tool = event.get("tool")
         assert isinstance(tool, str), f"tool must be a string, got {tool!r}"
         args_raw = event.get("args")
         if args_raw is None:
@@ -164,7 +164,7 @@ def is_mana_event(event: LlmEvent) -> bool:
             )
             args = args_raw
         assert isinstance(args, dict), f"args must be an object, got {args!r}"
-        result_str = event.get("result", "")
+        result_str = event.get("result")
         assert isinstance(result_str, str), (
             f"result must be a string when present, got {result_str!r}"
         )
@@ -184,7 +184,7 @@ def is_mana_event(event: LlmEvent) -> bool:
                 return False
             if not isinstance(result, dict):
                 return False
-            action_type = result.get("action_type", "")
+            action_type = result.get("action_type")
             if isinstance(action_type, str) and action_type in MANA_KEYWORDS:
                 return True
             recent_chat = result.get("recent_chat", [])
@@ -277,7 +277,7 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
             parts.append("(no action pending)")
         else:
             at = result.get("action_type", "?")
-            msg = result.get("message", "")
+            msg = result.get("message")
             choices = result.get("choices", [])
             assert isinstance(msg, str), f"message must be a string, got {msg!r}"
             parts.append(f"{at}: {msg[:80]}")
@@ -287,9 +287,9 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
                         continue
                     name = c.get("name", c.get("description", "?"))
                     idx = c.get("index", "?")
-                    cid = c.get("id", "")
-                    action = c.get("action", "")
-                    mc = c.get("mana_cost", "")
+                    cid = c.get("id")
+                    action = c.get("action")
+                    mc = c.get("mana_cost")
                     extra = f" ({action})" if action else ""
                     extra += f" {mc}" if mc else ""
                     parts.append(f"  [{idx}]{' ' + cid if cid else ''} {name}{extra}")
@@ -331,11 +331,16 @@ def print_event(
 ) -> bool:
     """Print a single event. Returns True if printed."""
     etype = event["type"]
-    ts = event.get("ts", "")
-    assert isinstance(ts, str), f"event ts must be a string when present, got {ts!r}"
+    ts = event.get("ts")
+    assert ts is None or isinstance(ts, str), (
+        f"event ts must be a string when present, got {ts!r}"
+    )
     player = event["player"]
     # Short timestamp (just time portion)
-    ts_short = ts.split("T")[-1][:12] if "T" in ts else ts[:12]
+    if ts:
+        ts_short = ts.split("T")[-1][:12] if "T" in ts else ts[:12]
+    else:
+        ts_short = ""
     context = find_context_for_event(snapshots, event)
 
     is_mana = is_mana_event(event)
@@ -345,7 +350,7 @@ def print_event(
     prefix = "[MANA] " if is_mana else ""
 
     if etype == "tool_call":
-        tool = event.get("tool", "")
+        tool = event.get("tool")
         assert isinstance(tool, str), f"tool must be a string, got {tool!r}"
         args_raw = event.get("args")
         if args_raw is None:
@@ -356,7 +361,7 @@ def print_event(
             )
             args = args_raw
         assert isinstance(args, dict), f"args must be an object, got {args!r}"
-        result_str = event.get("result", "")
+        result_str = event.get("result")
         assert isinstance(result_str, str), (
             f"result must be a string when present, got {result_str!r}"
         )
@@ -375,7 +380,7 @@ def print_event(
         return True
 
     if etype == "llm_response":
-        reasoning = event.get("reasoning", "")
+        reasoning = event.get("reasoning")
         tool_calls = event.get("toolCalls", [])
         usage = event.get("usage")
         cost = event.get("costUsd", 0)
@@ -418,7 +423,7 @@ def print_event(
         return True
 
     if etype in ("stall", "context_reset", "llm_error"):
-        detail = event.get("reason", event.get("errorMessage", ""))
+        detail = event.get("reason") or event.get("errorMessage")
         print(
             f"{ts_short} {context:<30} {player:<25} *** {etype.upper()}: {str(detail)[:100]} ***"
         )
@@ -472,8 +477,8 @@ def main() -> None:
     for event in events:
         # Player filter
         if args.player:
-            ep = event.get("player", "")
-            if args.player.lower() not in ep.lower():
+            ep = event.get("player")
+            if not ep or args.player.lower() not in ep.lower():
                 continue
 
         # Turn filter

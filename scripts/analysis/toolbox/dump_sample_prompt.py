@@ -58,7 +58,7 @@ out_path.write_text(output)
 sys_tokens = len(system_prompt) // 4
 user_tokens = len(user_msg) // 4
 print(f"Game: {data['id']}")
-message = decision.get("message", "")
+message = decision.get("message")
 assert isinstance(message, str), f"decision message must be a string, got {message!r}"
 print(
     f"Decision {decision['decision_index']}, turn {decision.get('turn')}, {decision['player']}"

@@ -219,10 +219,16 @@ def extract_oracle_fields(card: dict) -> dict:
     """Extract the fields we need from a Scryfall card object."""
     fields: dict = {
         "name": card["name"],
-        "mana_cost": card.get("mana_cost", ""),
-        "type_line": card.get("type_line", ""),
-        "oracle_text": card.get("oracle_text", ""),
     }
+    mana_cost = card.get("mana_cost")
+    if mana_cost is not None:
+        fields["mana_cost"] = mana_cost
+    type_line = card.get("type_line")
+    if type_line is not None:
+        fields["type_line"] = type_line
+    oracle_text = card.get("oracle_text")
+    if oracle_text is not None:
+        fields["oracle_text"] = oracle_text
     if card.get("power") is not None:
         fields["power"] = card["power"]
         fields["toughness"] = card["toughness"]

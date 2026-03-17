@@ -67,7 +67,7 @@ def fetch_openrouter_prices() -> dict[str, tuple[float, float]]:
 
     prices: dict[str, tuple[float, float]] = {}
     for model in data.get("data", []):
-        model_id = model.get("id", "")
+        model_id = model.get("id")
         pricing = model.get("pricing")
         if not model_id or not pricing:
             continue

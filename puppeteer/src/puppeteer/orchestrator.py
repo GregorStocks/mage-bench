@@ -119,7 +119,8 @@ def _missing_llm_api_keys(config: Config) -> list[str]:
         except ValueError as exc:
             errors.append(f"{player.name} ({provider}): {exc}")
             continue
-        if not os.environ.get(key_env, "").strip():
+        api_key = os.environ.get(key_env)
+        if not api_key or not api_key.strip():
             errors.append(f"{player.name} ({provider}) is missing the required API key")
     return errors
 
@@ -356,8 +357,8 @@ def _print_game_summary(game_dir: Path) -> float:
                     except json.JSONDecodeError:
                         continue
                     if event.get("type") == "game_over":
-                        reason = event.get("reason", "")
-                        msg = event.get("message", "")
+                        reason = event.get("reason")
+                        msg = event.get("message")
                         if reason == "spectator_closed":
                             game_over_found = True
                             logger.info("  %s", msg)
@@ -385,8 +386,8 @@ def _print_game_summary(game_dir: Path) -> float:
                     event = json.loads(line)
                 except json.JSONDecodeError:
                     continue
-                msg = event.get("message", "")
-                m = turn_pattern.search(msg)
+                msg = event.get("message")
+                m = turn_pattern.search(msg) if msg else None
                 if m:
                     max_turn = max(max_turn, int(m.group(1)))
         except OSError:
@@ -848,7 +849,7 @@ def start_pilot_client(
 
     # Pass the provider-specific API key based on the player's configured provider.
     key_env = required_api_key_env(player.provider)
-    api_key = os.environ.get(key_env, "")
+    api_key = os.environ.get(key_env)
     if api_key:
         env[key_env] = api_key
 

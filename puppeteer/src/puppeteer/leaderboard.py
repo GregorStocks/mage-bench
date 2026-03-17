@@ -117,11 +117,11 @@ def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
     """
     thinking: dict[str, float] = {}
     for i in range(len(llm_events) - 1):
-        player = llm_events[i].get("player", "")
+        player = llm_events[i].get("player")
         if not player:
             continue
-        ts_a = llm_events[i].get("ts", "")
-        ts_b = llm_events[i + 1].get("ts", "")
+        ts_a = llm_events[i].get("ts")
+        ts_b = llm_events[i + 1].get("ts")
         if not ts_a or not ts_b:
             continue
         try:
@@ -200,7 +200,7 @@ def derive_display_name(model_id: str) -> str:
 
 def _player_key(player: Mapping[str, object]) -> str:
     """Build aggregation key: 'model_id::effort' or just 'model_id'."""
-    model_id = player.get("model", "")
+    model_id = player["model"]
     assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
     effort = player.get("reasoningEffort", player.get("reasoning_effort"))
     assert effort is None or isinstance(effort, str), (
@@ -316,7 +316,8 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
 
     eliminations = []
     for a in actions:
-        m = _LOST_GAME_RE.match(a.get("message", ""))
+        msg = a.get("message")
+        m = _LOST_GAME_RE.match(msg) if msg else None
         if m:
             eliminations.append(m.group(1))
 
@@ -368,7 +369,10 @@ def compute_elo_ratings(
     ratings: dict[str, float] = {}
     per_game: list[dict] = []
 
-    sorted_games = sorted(games_index, key=lambda g: g.get("timestamp", ""))
+    sorted_games = sorted(
+        games_index,
+        key=lambda g: g["timestamp"] if "timestamp" in g else "",
+    )
 
     for game in sorted_games:
         pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
@@ -381,7 +385,7 @@ def compute_elo_ratings(
                 key = _player_key(pilots[0])
                 per_game.append(
                     {
-                        "id": game.get("id", ""),
+                        "id": game["id"],
                         "players": [
                             {"key": key, "ratingBefore": round(ratings[key]), "ratingAfter": round(ratings[key])}
                         ],
@@ -417,7 +421,7 @@ def compute_elo_ratings(
         after = {key: round(ratings[key]) for key in pilot_keys}
         per_game.append(
             {
-                "id": game.get("id", ""),
+                "id": game["id"],
                 "players": [
                     {
                         "key": key,
@@ -470,8 +474,8 @@ def generate_leaderboard(
         blunder_weight_by_name: dict[str, float] = {}
         for ann in game.get("annotations", []):
             if ann.get("type") == "blunder":
-                name = ann.get("player", "")
-                severity = ann.get("severity", "")
+                name = ann.get("player")
+                severity = ann.get("severity")
                 blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
 
         total_turns = game.get("totalTurns", 0)
@@ -551,7 +555,12 @@ def generate_leaderboard(
     # Sort by rating desc, then games_played desc, then modelId for determinism
     def rated_sort_key(m: _ModelEntry) -> tuple[int, int, str, str]:
         assert m["rating"] is not None
-        return (-m["rating"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", ""))
+        return (
+            -m["rating"],
+            -m["gamesPlayed"],
+            m["modelId"],
+            m["reasoningEffort"] if "reasoningEffort" in m else "",
+        )
 
     models.sort(key=rated_sort_key)
 
@@ -585,8 +594,8 @@ def generate_exhibition_leaderboard(
         blunder_weight_by_name: dict[str, float] = {}
         for ann in game.get("annotations", []):
             if ann.get("type") == "blunder":
-                name = ann.get("player", "")
-                severity = ann.get("severity", "")
+                name = ann.get("player")
+                severity = ann.get("severity")
                 blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
 
         total_turns = game.get("totalTurns", 0)
@@ -662,7 +671,14 @@ def generate_exhibition_leaderboard(
         models.append(entry)
 
     # Sort by win rate desc, then games played desc, then modelId for determinism
-    models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))
+    models.sort(
+        key=lambda m: (
+            -m["winRate"],
+            -m["gamesPlayed"],
+            m["modelId"],
+            m["reasoningEffort"] if "reasoningEffort" in m else "",
+        )
+    )
 
     return {
         "generatedAt": datetime.now(UTC).isoformat(),
@@ -768,7 +784,7 @@ def generate_leaderboard_file(
         pool = fmt_results.get("combined", {"generatedAt": "", "totalGames": 0, "models": []})
         total = sum(fmt_results[fmt].get("totalGames", 0) for fmt in _FORMAT_POOLS if fmt in fmt_results)
         return {
-            "generatedAt": pool.get("generatedAt", ""),
+            "generatedAt": pool.get("generatedAt") if "generatedAt" in pool else "",
             "totalGames": total,
             "models": pool.get("models", []),
             "formats": fmt_results,
@@ -938,8 +954,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
             player_name = llm_events[i]["player"]
             if player_name not in name_to_key:
                 continue
-            ts_a = llm_events[i].get("ts", "")
-            ts_b = llm_events[i + 1].get("ts", "")
+            ts_a = llm_events[i].get("ts")
+            ts_b = llm_events[i + 1].get("ts")
             if not ts_a or not ts_b:
                 continue
             try:
@@ -1076,7 +1092,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 player_context_resets[player_name] = player_context_resets.get(player_name, 0) + 1
 
             # Track latency from inter-event timestamp gaps
-            ev_ts_str = ev.get("ts", "")
+            ev_ts_str = ev.get("ts")
             if ev_ts_str:
                 try:
                     ev_ts = datetime.fromisoformat(ev_ts_str)
@@ -1089,7 +1105,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 last_ts[player_name] = ev_ts
 
         # Parse the game timestamp into ISO format for date-based charting
-        raw_ts = game.get("timestamp", "")
+        raw_ts = game.get("timestamp")
         iso_ts = ""
         if raw_ts:
             # Timestamps are like "20260210_074307"
@@ -1181,7 +1197,7 @@ def generate_blunder_stats(data_dir: Path) -> Path:
             if line:
                 records.append(json.loads(line))
 
-    records.sort(key=lambda r: r.get("ts", ""))
+    records.sort(key=lambda r: r["ts"] if "ts" in r else "")
 
     output: dict[str, Any] = {
         "generatedAt": datetime.now(UTC).isoformat(),

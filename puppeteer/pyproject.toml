@@ -80,6 +80,7 @@ ignore = [
     "S603",   # subprocess-without-shell-equals-true - all subprocess calls are intentional
     "S607",   # partial-path subprocess - mvn/git/java expected on PATH
     "S314",   # xml.etree - parsing trusted local XMage config files
+    "SIM401", # dict-get-or-default - conflicts with no-fallback lint (AGENTS.md)
 ]
 external = []
 

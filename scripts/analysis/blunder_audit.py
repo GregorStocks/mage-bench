@@ -217,13 +217,17 @@ def _recent_actions_before(
         return []
     recent: list[str] = []
     for a in game_actions:
-        a_ts = a.get("ts", "")
+        a_ts = a.get("ts")
+        if a_ts is None:
+            continue
         assert isinstance(a_ts, str), (
             f"action ts must be a string when present, got {a_ts!r}"
         )
         if a_ts > snap_ts:
             break
-        msg = a.get("message", "")
+        msg = a.get("message")
+        if msg is None:
+            continue
         assert isinstance(msg, str), (
             f"action message must be a string when present, got {msg!r}"
         )
@@ -258,7 +262,7 @@ def format_play_context(
     )
 
     # Find the current player's hand
-    player_name = decision.get("player", "")
+    player_name = decision["player"]
     assert isinstance(player_name, str), (
         f"decision player must be a string, got {player_name!r}"
     )

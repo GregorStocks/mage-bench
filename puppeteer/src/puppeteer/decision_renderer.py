@@ -196,7 +196,7 @@ def _render_decision_block(
         lines.append(f"  Choices ({len(choices)}): {', '.join(choice_descs)}")
 
     # Triggered ability note
-    if "Pick triggered ability" in message:
+    if message and "Pick triggered ability" in message:
         lines.append(
             "  NOTE: This decision only determines the order triggered abilities"
             " are placed on the stack. Targets are chosen in separate decisions."
@@ -628,21 +628,21 @@ def _render_card_reference(
     for p in snapshot["players"]:
         for c in p.get("hand", []):
             if isinstance(c, dict):
-                name = c.get("name", "")
+                name = c.get("name")
                 if name:
                     names.add(name)
             elif isinstance(c, str) and c:
                 names.add(c)
         for c in p.get("battlefield", []):
             if isinstance(c, dict):
-                name = c.get("name", "")
+                name = c.get("name")
                 if name:
                     names.add(name)
             elif isinstance(c, str) and c:
                 names.add(c)
         for c in p.get("graveyard", []):
             if isinstance(c, dict):
-                name = c.get("name", "")
+                name = c.get("name")
                 if name:
                     names.add(name)
             elif isinstance(c, str) and c:
@@ -652,7 +652,7 @@ def _render_card_reference(
                 continue
             for c in p[zone]:
                 if isinstance(c, dict):
-                    name = c.get("name", "")
+                    name = c.get("name")
                     if name:
                         names.add(name)
                 elif isinstance(c, str) and c:
@@ -674,10 +674,10 @@ def _render_card_reference(
         oracle = oracle_texts.get(name)
         if not oracle:
             continue
-        mana_cost = oracle.get("mana_cost", "")
-        type_line = oracle.get("type_line", "")
-        oracle_text = oracle.get("oracle_text", "")
-        pt = oracle.get("power_toughness", "")
+        mana_cost = oracle.get("mana_cost")
+        type_line = oracle.get("type_line")
+        oracle_text = oracle.get("oracle_text")
+        pt = oracle.get("power_toughness")
         if not pt and oracle.get("power") is not None:
             pt = f"{oracle['power']}/{oracle['toughness']}"
 
