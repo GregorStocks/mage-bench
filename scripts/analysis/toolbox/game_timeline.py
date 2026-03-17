@@ -150,24 +150,10 @@ def _has_real_auto_tap(args: JsonObject) -> bool:
 
 def is_mana_event(event: LlmEvent) -> bool:
     """Check if an event is mana-related."""
-    etype = event["type"]
-
-    if etype == "tool_call":
-        tool = event.get("tool", "")
-        assert isinstance(tool, str), f"tool must be a string, got {tool!r}"
-        args_raw = event.get("args")
-        if args_raw is None:
-            args = {}
-        else:
-            assert isinstance(args_raw, dict), (
-                f"args must be an object, got {args_raw!r}"
-            )
-            args = args_raw
-        assert isinstance(args, dict), f"args must be an object, got {args!r}"
-        result_str = event.get("result", "")
-        assert isinstance(result_str, str), (
-            f"result must be a string when present, got {result_str!r}"
-        )
+    if event["type"] == "tool_call":
+        tool = event["tool"]
+        args = event["args"]
+        result_str = event["result"]
 
         # choose_action with real mana_plan or meaningful auto_tap
         if tool == "choose_action":
@@ -330,7 +316,6 @@ def print_event(
     verbose: bool,
 ) -> bool:
     """Print a single event. Returns True if printed."""
-    etype = event["type"]
     ts = event.get("ts", "")
     assert isinstance(ts, str), f"event ts must be a string when present, got {ts!r}"
     player = event["player"]
@@ -344,26 +329,11 @@ def print_event(
 
     prefix = "[MANA] " if is_mana else ""
 
-    if etype == "tool_call":
-        tool = event.get("tool", "")
-        assert isinstance(tool, str), f"tool must be a string, got {tool!r}"
-        args_raw = event.get("args")
-        if args_raw is None:
-            args = {}
-        else:
-            assert isinstance(args_raw, dict), (
-                f"args must be an object, got {args_raw!r}"
-            )
-            args = args_raw
-        assert isinstance(args, dict), f"args must be an object, got {args!r}"
-        result_str = event.get("result", "")
-        assert isinstance(result_str, str), (
-            f"result must be a string when present, got {result_str!r}"
-        )
+    if event["type"] == "tool_call":
+        tool = event["tool"]
+        args = event["args"]
+        result_str = event["result"]
         latency = event.get("latencyMs", 0)
-        assert isinstance(latency, int), (
-            f"latencyMs must be an int when present, got {latency!r}"
-        )
 
         args_fmt = fmt_args(tool, args)
         result_fmt = fmt_result(tool, result_str, verbose=verbose)
@@ -374,7 +344,7 @@ def print_event(
             print(f"{'':>12} {'':>30} {'':>25}   ({latency}ms)")
         return True
 
-    if etype == "llm_response":
+    if event["type"] == "llm_response":
         reasoning = event.get("reasoning", "")
         tool_calls = event.get("toolCalls", [])
         usage = event.get("usage")
@@ -413,15 +383,23 @@ def print_event(
             print(f"{'':>12} {'':>30} {'':>25}   reasoning: {r}")
         return True
 
-    if etype == "game_start":
+    if event["type"] == "game_start":
         print(f"{ts_short} {'':>30} {player:<25} === GAME START ===")
         return True
 
-    if etype in ("stall", "context_reset", "llm_error"):
-        detail = event.get("reason", event.get("errorMessage", ""))
-        print(
-            f"{ts_short} {context:<30} {player:<25} *** {etype.upper()}: {str(detail)[:100]} ***"
-        )
+    if event["type"] == "stall":
+        detail = f"turns={event.get('turnsWithoutProgress', '?')}"
+        print(f"{ts_short} {context:<30} {player:<25} *** STALL: {detail} ***")
+        return True
+
+    if event["type"] == "context_reset":
+        detail = str(event.get("reason", ""))[:100]
+        print(f"{ts_short} {context:<30} {player:<25} *** CONTEXT_RESET: {detail} ***")
+        return True
+
+    if event["type"] == "llm_error":
+        detail = str(event.get("errorMessage", ""))[:100]
+        print(f"{ts_short} {context:<30} {player:<25} *** LLM_ERROR: {detail} ***")
         return True
 
     return False
@@ -472,7 +450,7 @@ def main() -> None:
     for event in events:
         # Player filter
         if args.player:
-            ep = event.get("player", "")
+            ep = event["player"]
             if args.player.lower() not in ep.lower():
                 continue
 

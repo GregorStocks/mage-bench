@@ -70,7 +70,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
         if e["type"] != "tool_call":
             continue
 
-        tool = e.get("tool", "")
+        tool = e["tool"]
         player = e["player"]
         assert player in stats, (
             f"{game_id}: tool_call event for unknown pilot player {player!r}"
@@ -79,12 +79,8 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
         # --- choose_action: check for mana_plan, auto_tap, spell cancellations ---
         if tool == "choose_action":
-            assert "args" in e, f"choose_action event missing args: {e!r}"
             args = e["args"]
-            assert isinstance(args, dict), (
-                f"choose_action args must be an object, got {args!r}"
-            )
-            result_str = e.get("result", "")
+            result_str = e["result"]
             try:
                 result = json.loads(result_str)
             except (json.JSONDecodeError, TypeError):
@@ -111,7 +107,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
         # --- get_action_choices: track GAME_PLAY_MANA and GAME_CHOOSE_ABILITY ---
         if tool == "get_action_choices":
-            result_str = e.get("result", "")
+            result_str = e["result"]
             try:
                 result = json.loads(result_str)
             except (json.JSONDecodeError, TypeError):
@@ -143,8 +139,8 @@ def _track_followup(
         ev = events[j]
         if ev["player"] != player:
             continue
-        if ev["type"] == "tool_call" and ev.get("tool") == "choose_action":
-            result_str = ev.get("result", "")
+        if ev["type"] == "tool_call" and ev["tool"] == "choose_action":
+            result_str = ev["result"]
             try:
                 result = json.loads(result_str)
             except (json.JSONDecodeError, TypeError):
@@ -169,7 +165,7 @@ def _track_followup(
                 setattr(ps, f"{prefix}_failed", getattr(ps, f"{prefix}_failed") + 1)
             return
         # Stop if we hit another get_action_choices from this player
-        if ev["type"] == "tool_call" and ev.get("tool") == "get_action_choices":
+        if ev["type"] == "tool_call" and ev["tool"] == "get_action_choices":
             return
 
 
