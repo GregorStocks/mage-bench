@@ -226,6 +226,7 @@ def spectator_process(xmage_server, project_root):
             "xmage.sets.allowed": allowed_sets,
         },
         max_heap="512m",
+        max_metaspace="128m",
     )
 
     # The observer needs a display for Swing (JFrame) even in noWindow mode.

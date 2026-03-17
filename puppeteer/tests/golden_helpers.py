@@ -394,11 +394,14 @@ def _build_java_cmd(
     system_props: dict[str, str],
     *,
     max_heap: str | None = None,
+    max_metaspace: str | None = None,
 ) -> list[str]:
     """Build a ``java -cp`` command with JVM flags and system properties."""
     jvm_flags = ["--add-opens=java.base/java.io=ALL-UNNAMED"]
     if max_heap is not None:
         jvm_flags.append(f"-Xmx{max_heap}")
+    if max_metaspace is not None:
+        jvm_flags.append(f"-XX:MaxMetaspaceSize={max_metaspace}")
     if sys.platform == "darwin":
         jvm_flags.append("-Dapple.awt.UIElement=true")
     cmd = ["java", *jvm_flags]

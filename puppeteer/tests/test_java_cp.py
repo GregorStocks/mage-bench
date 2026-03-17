@@ -171,3 +171,16 @@ def test_build_java_cmd_no_heap_by_default():
     """Verify no -Xmx flag when max_heap is not specified."""
     cmd = _build_java_cmd("/cp", "Main", {})
     assert not any(arg.startswith("-Xmx") for arg in cmd)
+
+
+def test_build_java_cmd_max_metaspace():
+    """Verify -XX:MaxMetaspaceSize flag is included when max_metaspace is set."""
+    cmd = _build_java_cmd("/cp", "Main", {}, max_metaspace="128m")
+    assert "-XX:MaxMetaspaceSize=128m" in cmd
+    assert cmd.index("-XX:MaxMetaspaceSize=128m") < cmd.index("-cp")
+
+
+def test_build_java_cmd_no_metaspace_by_default():
+    """Verify no MaxMetaspaceSize flag when max_metaspace is not specified."""
+    cmd = _build_java_cmd("/cp", "Main", {})
+    assert not any(arg.startswith("-XX:MaxMetaspaceSize") for arg in cmd)
