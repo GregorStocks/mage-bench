@@ -917,6 +917,13 @@ def _build_decisions(
         response_type = choices_result.get("response_type")
         action_type = choices_result.get("action_type")
         message = choices_result.get("message")
+        # Schema requires strings — normalize None to "" for optional fields
+        if response_type is None:
+            response_type = ""
+        if action_type is None:
+            action_type = ""
+        if message is None:
+            message = ""
 
         # Collect llmEventIndices and find choose_action
         llm_event_indices: list[int] = [event_idx]
