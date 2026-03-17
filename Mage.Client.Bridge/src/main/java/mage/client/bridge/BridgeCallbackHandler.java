@@ -2245,13 +2245,6 @@ public class BridgeCallbackHandler {
                 default:
                     buildError(result, "unknown_action_type", "Unknown action type: " + method, false, null);
             }
-        } catch (ResponseDeliveryException e) {
-            result.success = false;
-            result.error = e.getMessage();
-            result.error_code = "response_delivery_failed";
-            result.retryable = false;
-            attachUnseenChat(result);
-            return result;
         } finally {
             lastChoices = null;
             if (Boolean.FALSE.equals(result.success)) {
@@ -2261,24 +2254,34 @@ public class BridgeCallbackHandler {
 
         // After successful action, block until the next real decision arrives.
         // Transient callbacks that can be auto-resolved should not leak back to the model.
+        // awaitDecisionAction() can trigger sendBooleanOrDie/sendUuidOrDie via
+        // transitionToDecisionBoundary auto-resolve, so catch delivery failures here too.
         if (Boolean.TRUE.equals(result.success)) {
-            PendingAction next = awaitDecisionAction();
-            if (next != null) {
-                result.game_seq = next.gameSeq();
-                mergeActionChoices(result, null, next);
-                String summary = "after=" + summarizePendingAction(action)
-                    + ",woke_to=" + summarizePendingAction(next)
-                    + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
-                logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
-                logBridgeEvent("CHOOSE_ACTION_WAKEUP", next.gameId(), summary);
-            } else {
-                String summary = "after=" + summarizePendingAction(action)
-                    + ",woke_to=game_over"
-                    + ",playerDead=" + playerDead
-                    + ",activeGames=" + activeGames.size()
-                    + ",clientRunning=" + client.isRunning();
-                logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
-                logBridgeEvent("CHOOSE_ACTION_WAKEUP", action.gameId(), summary);
+            try {
+                PendingAction next = awaitDecisionAction();
+                if (next != null) {
+                    result.game_seq = next.gameSeq();
+                    mergeActionChoices(result, null, next);
+                    String summary = "after=" + summarizePendingAction(action)
+                        + ",woke_to=" + summarizePendingAction(next)
+                        + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
+                    logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+                    logBridgeEvent("CHOOSE_ACTION_WAKEUP", next.gameId(), summary);
+                } else {
+                    String summary = "after=" + summarizePendingAction(action)
+                        + ",woke_to=game_over"
+                        + ",playerDead=" + playerDead
+                        + ",activeGames=" + activeGames.size()
+                        + ",clientRunning=" + client.isRunning();
+                    logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+                    logBridgeEvent("CHOOSE_ACTION_WAKEUP", action.gameId(), summary);
+                    attachUnseenChat(result);
+                }
+            } catch (ResponseDeliveryException e) {
+                result.success = false;
+                result.error = e.getMessage();
+                result.error_code = "response_delivery_failed";
+                result.retryable = false;
                 attachUnseenChat(result);
             }
         }
