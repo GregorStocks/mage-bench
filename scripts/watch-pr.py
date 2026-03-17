@@ -77,7 +77,7 @@ def get_review_feedback(pr: str, nwo: str, since: datetime) -> list[str]:
             ts = datetime.fromisoformat(submitted.replace("Z", "+00:00"))
             if ts < since:
                 continue
-        author = review.get("author", {}).get("login", "unknown")
+        author = review["author"]["login"]
         body = review.get("body", "").strip()
         if body:
             feedback.append(f"[{state}] @{author}: {body}")
@@ -86,7 +86,7 @@ def get_review_feedback(pr: str, nwo: str, since: datetime) -> list[str]:
             feedback.append(f"[{state}] @{author} (see inline comments)")
 
     for comment in data.get("comments", []):
-        author = comment.get("author", {}).get("login", "unknown")
+        author = comment["author"]["login"]
         if author.endswith("[bot]"):
             continue
         created = comment.get("createdAt")
