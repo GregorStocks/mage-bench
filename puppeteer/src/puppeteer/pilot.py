@@ -18,7 +18,7 @@ from mcp.types import Tool
 from openai import AsyncOpenAI, OpenAIError
 
 from puppeteer.auto_pass import auto_pass_loop
-from puppeteer.bridge_transport import spawn_bridge_http
+from puppeteer.bridge_transport import build_bridge_launch_args, spawn_bridge_http
 from puppeteer.config import load_prompts
 from puppeteer.decision_renderer import BASIC_LAND_NAMES, render_decision
 from puppeteer.game_log import GameLogWriter
@@ -1467,30 +1467,17 @@ async def run_pilot(
         max_retries=1,
     )
 
-    # Build JVM args for the bridge (same as sleepwalker)
-    jvm_args_list = [
-        "--add-opens=java.base/java.io=ALL-UNNAMED",
-        "-Xmx512m",
-        f"-Dxmage.bridge.server={server}",
-        f"-Dxmage.bridge.port={port}",
-        "-Dxmage.bridge.personality=sleepwalker",
-    ]
-    if sys.platform == "darwin":
-        jvm_args_list.append("-Dapple.awt.UIElement=true")
-    jvm_args = " ".join(jvm_args_list)
-
-    # Pass values that may contain spaces as Maven CLI args (not in MAVEN_OPTS)
-    # because MAVEN_OPTS gets shell-split by the mvn script.
-    # Maven CLI -D args go through "$@" which preserves spaces correctly.
-    mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
-    if deck_path:
-        mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
-    if game_dir:
-        mvn_args.append(f"-Dxmage.bridge.errorlog={game_dir / f'{username}_errors.log'}")
-        mvn_args.append(f"-Dxmage.bridge.bridgelog={game_dir / f'{username}_bridge.jsonl'}")
-    if max_interactions_per_turn is not None:
-        mvn_args.append(f"-Dxmage.bridge.maxInteractionsPerTurn={max_interactions_per_turn}")
-    mvn_args.append("exec:java")
+    launch_args = build_bridge_launch_args(
+        server=server,
+        port=port,
+        username=username,
+        personality="sleepwalker",
+        deck_path=deck_path,
+        heap_size_mb=512,
+        error_log_path=game_dir / f"{username}_errors.log" if game_dir else None,
+        bridge_log_path=game_dir / f"{username}_bridge.jsonl" if game_dir else None,
+        max_interactions_per_turn=max_interactions_per_turn,
+    )
 
     logger.info("[pilot] Spawning bridge client...")
 
@@ -1503,9 +1490,9 @@ async def run_pilot(
 
         try:
             async with spawn_bridge_http(
-                mvn_args=mvn_args,
+                mvn_args=launch_args.mvn_args,
                 project_root=project_root,
-                jvm_args=jvm_args,
+                jvm_args=launch_args.jvm_args,
                 log_file=game_dir / f"{username}_mcp.log" if game_dir else None,
             ) as session:
                 result = await session.initialize()

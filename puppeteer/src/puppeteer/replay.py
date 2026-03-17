@@ -17,7 +17,7 @@ from collections.abc import Awaitable, Callable
 from contextlib import ExitStack
 from pathlib import Path
 
-from puppeteer.bridge_transport import spawn_bridge_http
+from puppeteer.bridge_transport import build_bridge_launch_args, spawn_bridge_http
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.log import get_logger, setup_logging
@@ -277,25 +277,15 @@ async def run_replay(
 
     system_prompt = _load_default_system_prompt()
 
-    # Build JVM args for the bridge (same as sleepwalker.py)
-    jvm_args_list = [
-        "--add-opens=java.base/java.io=ALL-UNNAMED",
-        f"-Dxmage.bridge.server={server}",
-        f"-Dxmage.bridge.port={port}",
-        "-Dxmage.bridge.personality=sleepwalker",
-    ]
-    if table_id is not None:
-        jvm_args_list.append(f"-Dxmage.bridge.tableId={table_id}")
-    if sys.platform == "darwin":
-        jvm_args_list.append("-Dapple.awt.UIElement=true")
-    jvm_args = " ".join(jvm_args_list)
-
-    mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
-    if deck_path:
-        mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
-    if game_dir:
-        mvn_args.append(f"-Dxmage.bridge.errorlog={game_dir / f'{username}_errors.log'}")
-    mvn_args.append("exec:java")
+    launch_args = build_bridge_launch_args(
+        server=server,
+        port=port,
+        username=username,
+        personality="sleepwalker",
+        deck_path=deck_path,
+        table_id=table_id,
+        error_log_path=game_dir / f"{username}_errors.log" if game_dir else None,
+    )
 
     logger.info("[replay] Spawning bridge client...")
 
@@ -305,9 +295,9 @@ async def run_replay(
             game_log = log_stack.enter_context(GameLogWriter(game_dir, username))
 
         async with spawn_bridge_http(
-            mvn_args=mvn_args,
+            mvn_args=launch_args.mvn_args,
             project_root=project_root,
-            jvm_args=jvm_args,
+            jvm_args=launch_args.jvm_args,
             log_file=game_dir / f"{username}_mcp.log" if game_dir else None,
         ) as session:
             result = await session.initialize()
