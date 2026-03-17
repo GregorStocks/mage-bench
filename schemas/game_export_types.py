@@ -8,6 +8,7 @@ load validated exports without falling back to raw ``dict[str, object]`` blobs.
 import gzip
 import json
 from pathlib import Path
+from collections.abc import Callable
 from typing import Literal, TypeAlias
 
 from typing_extensions import NotRequired, TypeIs, TypedDict
@@ -495,7 +496,7 @@ def _is_multi_amount_item(value: object, source: str) -> TypeIs[MultiAmountItem]
 def _validate_str_or_typed_list(
     value: object,
     source: str,
-    typed_validator: object,
+    typed_validator: Callable[[object, str], bool],
 ) -> None:
     """Validate a list where items can be strings or typed dicts."""
     for index, item in enumerate(_require_list(value, source)):
