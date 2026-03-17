@@ -33,15 +33,6 @@ EOF
 )"
 ```
 
-**After pushing to an existing PR, check for and address review comments.** Codex (an automated reviewer) may have left comments on the PR. After every push + PR description update, check for unresolved review comments and address them:
-
-```bash
-gh api repos/GregorStocks/mage-bench/pulls/<number>/comments \
-  --jq '[.[] | select(.user.login == "chatgpt-codex-connector[bot]")] | sort_by(.created_at) | .[] | {line, path, body}'
-```
-
-If there are comments you haven't addressed yet, fix the code, commit, push, update the PR description, and note which comments were addressed. Repeat until all comments are handled.
-
 ## Build System
 
 ```bash

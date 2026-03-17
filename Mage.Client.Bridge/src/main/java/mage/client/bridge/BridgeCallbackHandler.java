@@ -817,7 +817,15 @@ public class BridgeCallbackHandler {
     @SuppressWarnings("unchecked")
     public ActionResult getActionChoices(Long boardCursorParam) {
         PendingAction action = pendingAction;
-        ActionResult result = buildActionChoices(action, boardCursorParam, true);
+        ActionResult result;
+        try {
+            result = buildActionChoices(action, boardCursorParam, true);
+        } catch (ResponseDeliveryException e) {
+            result = new ActionResult();
+            result.error = e.getMessage();
+            attachUnseenChat(result);
+            return result;
+        }
         if (action == null) {
             attachUnseenChat(result);
         }
@@ -2245,6 +2253,13 @@ public class BridgeCallbackHandler {
                 default:
                     buildError(result, "unknown_action_type", "Unknown action type: " + method, false, null);
             }
+        } catch (ResponseDeliveryException e) {
+            result.success = false;
+            result.error = e.getMessage();
+            result.error_code = "response_delivery_failed";
+            result.retryable = false;
+            attachUnseenChat(result);
+            return result;
         } finally {
             lastChoices = null;
             if (Boolean.FALSE.equals(result.success)) {
