@@ -173,6 +173,13 @@
         "type"
       ],
       "additionalProperties": false,
+      "if": {
+        "properties": { "type": { "const": "pilot" } },
+        "required": ["type"]
+      },
+      "then": {
+        "required": ["model"]
+      },
       "properties": {
         "name": {
           "type": "string"

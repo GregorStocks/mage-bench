@@ -12,7 +12,7 @@ from typing import Any, NotRequired, TypedDict
 from zoneinfo import ZoneInfo
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
-from schemas.game_export_types import GameExport, load_game_export
+from schemas.game_export_types import GameExport, is_pilot_player, load_game_export
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
@@ -840,7 +840,6 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        game_id = game["id"]
         epoch = game["harnessEpoch"]
         players = game["players"]
         winner = game["winner"]
@@ -848,10 +847,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
         for p in players:
-            if p["type"] != "pilot":
+            if not is_pilot_player(p):
                 continue
-            model_id = p.get("model")
-            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             name_to_key[p["name"]] = key
 
@@ -1014,7 +1011,6 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        game_id = game["id"]
         epoch = game["harnessEpoch"]
         game_format = derive_format(game)
         winner = game["winner"]
@@ -1023,10 +1019,8 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
         for p in players:
-            if p["type"] != "pilot":
+            if not is_pilot_player(p):
                 continue
-            model_id = p.get("model")
-            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             name_to_key[p["name"]] = _player_key(p)
 
         # Accumulate per-player stats from llmEvents
@@ -1102,10 +1096,8 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Build per-player records
         player_records: list[dict[str, Any]] = []
         for p in players:
-            if p["type"] != "pilot":
+            if not is_pilot_player(p):
                 continue
-            model_id = p.get("model")
-            assert isinstance(model_id, str) and model_id, f"game {game_id}: pilot player missing model: {p!r}"
             key = _player_key(p)
             model_id, effort = _split_key(key)
             display_name = model_registry.get(model_id) or derive_display_name(model_id)

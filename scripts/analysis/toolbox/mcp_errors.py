@@ -17,7 +17,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-from schemas.game_export_types import JsonObject, LlmEvent
+from schemas.game_export_types import JsonObject, LlmEvent, is_pilot_player
 from scripts.analysis.blunder_eval_common import load_game
 
 
@@ -123,11 +123,8 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
     # Build player -> model mapping
     player_models: dict[str, str] = {}
     for p in data["players"]:
-        if p["type"] != "pilot":
+        if not is_pilot_player(p):
             continue
-        assert "model" in p and p["model"], (
-            f"{game_id}: pilot player missing model: {p!r}"
-        )
         player_models[p["name"]] = p["model"]
 
     events = data["llmEvents"]
