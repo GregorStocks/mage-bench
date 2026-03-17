@@ -5092,8 +5092,9 @@ public class BridgeCallbackHandler {
                 case GAME_TARGET:
                     if (mcpMode) {
                         // Auto-select when required and only one legal target.
-                        // Wrap in try-catch: if auto-select throws, fall through
-                        // to storePendingAction instead of dropping the callback.
+                        // Fall back to storePendingAction for ordinary auto-select bugs,
+                        // but rethrow delivery failures so actionable callbacks fail fast
+                        // instead of queueing a pending action after playerDead=true.
                         boolean targetAutoHandled = false;
                         try {
                             GameClientMessage targetCallbackMsg = (GameClientMessage) callback.getData();
@@ -5107,6 +5108,8 @@ public class BridgeCallbackHandler {
                                 targetAutoHandled = true;
                                 actionableOutcome.sentResponse("auto GAME_TARGET single_required_target");
                             }
+                        } catch (ResponseDeliveryException e) {
+                            throw e;
                         } catch (Exception e) {
                             logError("Target auto-select exception: " + e.getMessage());
                             logger.debug("[" + client.getUsername() + "] Target auto-select stack trace", e);
@@ -5122,8 +5125,8 @@ public class BridgeCallbackHandler {
                     break;
 
                 case GAME_CHOOSE_ABILITY: {
-                    // Wrap auto-handling in try-catch: if mana plan logic throws,
-                    // fall through to storePendingAction instead of dropping the callback.
+                    // Fall back to storePendingAction for ordinary auto-handler bugs,
+                    // but rethrow delivery failures so actionable callbacks fail fast.
                     boolean abilityAutoHandled = false;
                     try {
                         AbilityPickerView picker = (AbilityPickerView) callback.getData();
@@ -5178,6 +5181,8 @@ public class BridgeCallbackHandler {
                             actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY");
                         }
                         abilityAutoHandled = true;
+                    } catch (ResponseDeliveryException e) {
+                        throw e;
                     } catch (Exception e) {
                         logError("Ability auto-handler exception: " + e.getMessage());
                         logger.debug("[" + client.getUsername() + "] Ability auto-handler stack trace", e);
@@ -5211,12 +5216,14 @@ public class BridgeCallbackHandler {
 
                 case GAME_PLAY_MANA:
                 case GAME_PLAY_XMANA: {
-                    // Try auto-tap first; if it fails or throws, let the LLM choose.
-                    // An uncaught exception here would be swallowed by the outer catch
-                    // block, silently dropping the callback and hanging the game thread.
+                    // Try auto-tap first; fall back to LLM choice for ordinary auto-tap
+                    // bugs, but rethrow delivery failures so transport issues terminate
+                    // instead of queueing a pending action after playerDead=true.
                     boolean manaHandled = false;
                     try {
                         manaHandled = handleGamePlayManaAuto(objectId, callback);
+                    } catch (ResponseDeliveryException e) {
+                        throw e;
                     } catch (Exception e) {
                         logError("Mana auto-handler exception: " + e.getMessage());
                         logger.debug("[" + client.getUsername() + "] Mana auto-handler stack trace", e);
