@@ -137,6 +137,5 @@ def test_multiple_violations_in_one_file() -> None:
 
 def test_real_codebase_passes() -> None:
     """The actual codebase must pass the no-fallback lint."""
-    project_root = Path(__file__).resolve().parent.parent.parent
-    errors = lint_no_fallback(project_root)
+    errors = lint_no_fallback()
     assert errors == [], "No-fallback lint errors:\n" + "\n".join(errors)
