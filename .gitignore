@@ -78,6 +78,9 @@ mage-bundle.zip
 # scratch directory (avoid /tmp permission issues in Claude Code)
 /tmp
 
+# Maven build cache (per-worktree, symlinked from ~/.m2/build-cache)
+build-cache/
+
 # Python / uv
 __pycache__
 *.pyc
