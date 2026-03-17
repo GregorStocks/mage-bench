@@ -497,6 +497,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     # Collect decision source events
     decision_sources: list[tuple[int, ToolCallEvent]] = []
     for i, event in enumerate(llm_events):
+        # type check is redundant with _is_decision_source but needed for mypy narrowing
         if event["type"] == "tool_call" and _is_decision_source(event):
             decision_sources.append((i, event))
 

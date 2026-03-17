@@ -14,23 +14,23 @@ from scripts.analysis.blunder_eval_common import load_game
 def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
-    events = d.get("llmEvents", [])
+    events = d["llmEvents"]
     if not events:
         print("No LLM events found.")
         return
 
     # Event type counts
-    types = Counter(e.get("type", "?") for e in events)
+    types = Counter(e["type"] for e in events)
     print("=== LLM Event Types ===")
     for t, c in types.most_common():
         print(f"  {t}: {c}")
 
     # By player
     print()
-    players = sorted({e.get("player", "?") for e in events})
+    players = sorted({e["player"] for e in events})
     for player in players:
-        pe = [e for e in events if e.get("player") == player]
-        pt = Counter(e.get("type", "?") for e in pe)
+        pe = [e for e in events if e["player"] == player]
+        pt = Counter(e["type"] for e in pe)
         print(f"{player}: {dict(pt.most_common())}")
 
     # Failed tool calls

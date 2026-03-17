@@ -387,12 +387,19 @@ def print_event(
         print(f"{ts_short} {'':>30} {player:<25} === GAME START ===")
         return True
 
-    etype = event["type"]
-    if etype in ("stall", "context_reset", "llm_error"):
-        detail = event.get("reason", event.get("errorMessage", ""))
-        print(
-            f"{ts_short} {context:<30} {player:<25} *** {etype.upper()}: {str(detail)[:100]} ***"
-        )
+    if event["type"] == "stall":
+        detail = f"turns={event.get('turnsWithoutProgress', '?')}"
+        print(f"{ts_short} {context:<30} {player:<25} *** STALL: {detail} ***")
+        return True
+
+    if event["type"] == "context_reset":
+        detail = str(event.get("reason", ""))[:100]
+        print(f"{ts_short} {context:<30} {player:<25} *** CONTEXT_RESET: {detail} ***")
+        return True
+
+    if event["type"] == "llm_error":
+        detail = str(event.get("errorMessage", ""))[:100]
+        print(f"{ts_short} {context:<30} {player:<25} *** LLM_ERROR: {detail} ***")
         return True
 
     return False
@@ -443,7 +450,7 @@ def main() -> None:
     for event in events:
         # Player filter
         if args.player:
-            ep = event.get("player", "")
+            ep = event["player"]
             if args.player.lower() not in ep.lower():
                 continue
 
