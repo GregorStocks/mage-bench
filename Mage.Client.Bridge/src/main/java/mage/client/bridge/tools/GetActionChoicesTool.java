@@ -32,7 +32,7 @@ public class GetActionChoicesTool {
         if (until != null) {
             return handler.waitAndGetChoices(until, board_cursor);
         } else {
-            return handler.getActionChoices(board_cursor);
+            return handler.getActionChoicesSafe(board_cursor);
         }
     }
 

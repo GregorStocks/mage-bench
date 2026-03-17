@@ -295,6 +295,12 @@
         },
         "stack": {
           "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/StackItem" }
+            ]
+          },
           "description": "Spells and abilities on the stack."
         },
         "combat": {
@@ -330,13 +336,31 @@
         },
         "battlefield": {
           "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          },
           "description": "Permanents on the battlefield. Items may be strings (card names) or objects with detailed info."
         },
         "graveyard": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          }
         },
         "hand": {
           "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          },
           "description": "Cards in hand (full contents visible to spectator)."
         },
         "hand_count": {
@@ -344,16 +368,34 @@
           "minimum": 0
         },
         "exile": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          }
         },
         "counters": {
           "description": "Player-level counters (poison, energy, etc.). May be array of {name, count} or object."
         },
         "commanders": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          }
         },
         "command_zone": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          }
         },
         "is_active": {
           "type": "boolean"
@@ -372,10 +414,12 @@
       "additionalProperties": true,
       "properties": {
         "attackers": {
-          "type": "array"
+          "type": "array",
+          "items": { "$ref": "#/$defs/CombatCreature" }
         },
         "blockers": {
-          "type": "array"
+          "type": "array",
+          "items": { "$ref": "#/$defs/CombatCreature" }
         },
         "blocked": {
           "type": "boolean"
@@ -693,10 +737,7 @@
         },
         "choices": {
           "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": true
-          },
+          "items": { "$ref": "#/$defs/Choice" },
           "description": "Available choices. Shape depends on the tool (name, id, action, mana_cost, etc.)."
         },
         "choiceCount": {
@@ -745,10 +786,7 @@
         },
         "items": {
           "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": true
-          },
+          "items": { "$ref": "#/$defs/MultiAmountItem" },
           "description": "Per-item metadata for multi-amount decisions (e.g. combat damage distribution targets)."
         },
         "totalMin": {
@@ -792,11 +830,23 @@
         },
         "alreadyAttacking": {
           "type": "array",
-          "description": "Creatures already declared as attackers."
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/CombatCreature" }
+            ]
+          },
+          "description": "Creatures already declared as attackers. Items may be strings or objects."
         },
         "incomingAttackers": {
           "type": "array",
-          "description": "Opponent creatures attacking this player."
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/CombatCreature" }
+            ]
+          },
+          "description": "Opponent creatures attacking this player. Items may be strings or objects."
         }
       }
     },
@@ -831,6 +881,97 @@
           "minimum": 0,
           "description": "Index into the decisions array for the decision active when this error occurred. Absent when no matching decision was found."
         }
+      }
+    },
+    "Permanent": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": true,
+      "description": "A card on the battlefield, in hand, graveyard, exile, or command zone. Always has a name; other fields depend on zone and game state.",
+      "properties": {
+        "name": { "type": "string" },
+        "id": { "type": "string" },
+        "tapped": { "type": "boolean" },
+        "summoning_sick": { "type": "boolean" },
+        "face_down": { "type": "boolean" },
+        "token": { "type": "boolean" },
+        "power": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature power (may be int or string)." },
+        "toughness": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature toughness (may be int or string)." },
+        "power_toughness": { "type": "string", "description": "Pre-formatted P/T string like '2/2'." },
+        "pt": { "type": "string", "description": "Shorthand P/T string." },
+        "loyalty": { "type": "integer" },
+        "counters": { "description": "Counters on this permanent. May be dict {name: count} or array of {name, count}." },
+        "original_card": { "type": "string", "description": "Name of the card this is a copy of." },
+        "copy": { "type": "boolean" }
+      }
+    },
+    "StackItem": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": true,
+      "description": "A spell or ability on the stack.",
+      "properties": {
+        "name": { "type": "string" },
+        "id": { "type": "string" },
+        "source_card": { "type": "string", "description": "Card that produced this triggered/activated ability." },
+        "ability_text": { "type": "string", "description": "Oracle text of the triggered/activated ability." },
+        "targets": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/StackTarget" }
+            ]
+          }
+        }
+      }
+    },
+    "StackTarget": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "A target of a spell or ability on the stack.",
+      "properties": {
+        "name": { "type": "string" },
+        "id": { "type": "string" }
+      }
+    },
+    "CombatCreature": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": true,
+      "description": "A creature in a combat group (attacker or blocker) or incoming attacker.",
+      "properties": {
+        "name": { "type": "string" },
+        "id": { "type": "string" },
+        "power": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature power (may be int or string)." },
+        "toughness": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature toughness (may be int or string)." },
+        "power_toughness": { "type": "string" },
+        "pt": { "type": "string" }
+      }
+    },
+    "Choice": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "A choice available to the player. Shape varies by decision type.",
+      "properties": {
+        "index": { "type": "integer" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "id": { "type": "string" },
+        "action": { "type": "string" },
+        "mana_cost": { "type": "string" },
+        "choice_type": { "type": "string" }
+      }
+    },
+    "MultiAmountItem": {
+      "type": "object",
+      "required": ["description"],
+      "additionalProperties": true,
+      "description": "An item in a multi-amount decision (e.g. combat damage distribution).",
+      "properties": {
+        "description": { "type": "string" },
+        "min": { "type": "integer" },
+        "max": { "type": "integer" }
       }
     },
     "CardMetadata": {

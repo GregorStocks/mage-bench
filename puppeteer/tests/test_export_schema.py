@@ -16,6 +16,8 @@ from schemas.game_export_types import (
     AutoPilotModeEvent,
     BuiltGameExport,
     CardMetadata,
+    Choice,
+    CombatCreature,
     CombatGroup,
     ContextResetEvent,
     ContextTrimEvent,
@@ -27,10 +29,14 @@ from schemas.game_export_types import (
     LlmErrorEvent,
     LlmResponseEvent,
     LlmUsage,
+    MultiAmountItem,
+    Permanent,
     PilotContext,
     Player,
     Snapshot,
     SnapshotPlayer,
+    StackItem,
+    StackTarget,
     StallEvent,
     ToolCallEvent,
     load_built_game_export,
@@ -396,6 +402,12 @@ class TestExportSchema:
         _assert_typed_dict_matches_schema(PilotContext, schema=defs["PilotContext"])
         _assert_typed_dict_matches_schema(GameError, schema=defs["GameError"])
         _assert_typed_dict_matches_schema(CardMetadata, schema=defs["CardMetadata"])
+        _assert_typed_dict_matches_schema(Permanent, schema=defs["Permanent"])
+        _assert_typed_dict_matches_schema(StackItem, schema=defs["StackItem"])
+        _assert_typed_dict_matches_schema(StackTarget, schema=defs["StackTarget"])
+        _assert_typed_dict_matches_schema(CombatCreature, schema=defs["CombatCreature"])
+        _assert_typed_dict_matches_schema(Choice, schema=defs["Choice"])
+        _assert_typed_dict_matches_schema(MultiAmountItem, schema=defs["MultiAmountItem"])
 
     def test_typed_loader_accepts_minimal_v8_export(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v8.json"

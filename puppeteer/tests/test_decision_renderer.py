@@ -10,6 +10,7 @@ from puppeteer.decision_renderer import (
     _render_card_reference,
     _render_chosen_block,
     _resolve_mana_plan,
+    card_display,
     permanent_display,
     render_decision,
 )
@@ -694,3 +695,15 @@ class TestChosenBlockManaPlan:
         )
         text = render_decision(decision, snap, include_chosen=True)
         assert "Mana plan: Mountain (p1)" in text
+
+
+class TestFailFastOnMissingName:
+    """Required 'name' field must crash, not fall back to '?'."""
+
+    def test_card_display_crashes_on_missing_name(self) -> None:
+        with pytest.raises(KeyError):
+            card_display({"id": "p1"})
+
+    def test_permanent_display_crashes_on_missing_name(self) -> None:
+        with pytest.raises(KeyError):
+            permanent_display({"tapped": True})

@@ -8,11 +8,83 @@ load validated exports without falling back to raw ``dict[str, object]`` blobs.
 import gzip
 import json
 from pathlib import Path
+from collections.abc import Callable
 from typing import Literal, TypeAlias
 
 from typing_extensions import NotRequired, TypeIs, TypedDict
 
 JsonObject: TypeAlias = dict[str, object]
+
+
+# -- Nested payload types used by the decision renderer --
+
+
+class Permanent(TypedDict):
+    """A card on the battlefield, in hand, graveyard, exile, or command zone."""
+
+    name: str
+    id: NotRequired[str]
+    tapped: NotRequired[bool]
+    summoning_sick: NotRequired[bool]
+    face_down: NotRequired[bool]
+    token: NotRequired[bool]
+    power: NotRequired[int | str]
+    toughness: NotRequired[int | str]
+    power_toughness: NotRequired[str]
+    pt: NotRequired[str]
+    loyalty: NotRequired[int]
+    counters: NotRequired[object]
+    original_card: NotRequired[str]
+    copy: NotRequired[bool]
+
+
+class StackTarget(TypedDict, total=False):
+    """A target of a spell or ability on the stack."""
+
+    name: str
+    id: str
+
+
+class StackItem(TypedDict):
+    """A spell or ability on the stack."""
+
+    name: str
+    id: NotRequired[str]
+    source_card: NotRequired[str]
+    ability_text: NotRequired[str]
+    targets: NotRequired[list[str | StackTarget]]
+
+
+class CombatCreature(TypedDict):
+    """A creature in a combat group (attacker or blocker) or incoming attacker."""
+
+    name: str
+    id: NotRequired[str]
+    power: NotRequired[int | str]
+    toughness: NotRequired[int | str]
+    power_toughness: NotRequired[str]
+    pt: NotRequired[str]
+
+
+class Choice(TypedDict, total=False):
+    """A choice available to the player. Shape varies by decision type."""
+
+    index: int
+    name: str
+    description: str
+    id: str
+    action: str
+    mana_cost: str
+    choice_type: str
+
+
+class MultiAmountItem(TypedDict):
+    """An item in a multi-amount decision."""
+
+    description: str
+    min: NotRequired[int]
+    max: NotRequired[int]
+
 
 _ACTION_TYPES = {"turn_change", "phase_change", "chat"}
 _ANNOTATION_SEVERITIES = {"questionable", "minor", "moderate", "major"}
@@ -49,22 +121,22 @@ class SnapshotPlayer(TypedDict):
     name: str
     life: int
     library_size: int
-    battlefield: list[object]
-    graveyard: list[object]
-    hand: list[object]
+    battlefield: list[str | Permanent]
+    graveyard: list[str | Permanent]
+    hand: list[str | Permanent]
     hand_count: NotRequired[int]
-    exile: NotRequired[list[object]]
+    exile: NotRequired[list[str | Permanent]]
     counters: NotRequired[object]
-    commanders: NotRequired[list[object]]
-    command_zone: NotRequired[list[object]]
+    commanders: NotRequired[list[str | Permanent]]
+    command_zone: NotRequired[list[str | Permanent]]
     is_active: NotRequired[bool]
     has_left: NotRequired[bool]
     mana_pool: NotRequired[JsonObject]
 
 
 class CombatGroup(TypedDict, total=False):
-    attackers: list[object]
-    blockers: list[object]
+    attackers: list[CombatCreature]
+    blockers: list[CombatCreature]
     blocked: bool
     defending: str
 
@@ -77,7 +149,7 @@ class Snapshot(TypedDict):
     active_player: str | None
     priority_player: str | None
     players: list[SnapshotPlayer]
-    stack: list[object]
+    stack: list[str | StackItem]
     ts: NotRequired[str]
     combat: NotRequired[list[CombatGroup]]
 
@@ -197,8 +269,8 @@ class PilotContext(TypedDict, total=False):
     landDropsUsed: int
     playableCards: list[str]
     combatPhase: str | None
-    alreadyAttacking: list[object]
-    incomingAttackers: list[object]
+    alreadyAttacking: list[str | CombatCreature]
+    incomingAttackers: list[str | CombatCreature]
 
 
 class Decision(TypedDict):
@@ -210,7 +282,7 @@ class Decision(TypedDict):
     actionType: str
     responseType: str
     message: str
-    choices: list[JsonObject]
+    choices: list[Choice]
     choiceCount: int
     isForced: bool
     llmEventIndices: list[int]
@@ -221,7 +293,7 @@ class Decision(TypedDict):
     chosenArgs: NotRequired[JsonObject]
     actionResult: NotRequired[JsonObject]
     castRolledBack: NotRequired[bool]
-    items: NotRequired[list[JsonObject]]
+    items: NotRequired[list[MultiAmountItem]]
     totalMin: NotRequired[int]
     totalMax: NotRequired[int]
 
@@ -373,6 +445,130 @@ def _require_object_list(value: object, source: str) -> None:
         _require_object(item, f"{source}[{index}]")
 
 
+def _require_int_or_str(value: object, source: str) -> None:
+    assert _is_int(value) or isinstance(value, str), (
+        f"{source}: expected int or string, got {_type_name(value)}"
+    )
+
+
+def _is_permanent(value: object, source: str) -> TypeIs[Permanent]:
+    obj = _require_object(value, source)
+    _require_str(_require_key(obj, "name", source), f"{source}.name")
+    if "id" in obj:
+        _require_str(obj["id"], f"{source}.id")
+    if "tapped" in obj:
+        _require_bool(obj["tapped"], f"{source}.tapped")
+    if "summoning_sick" in obj:
+        _require_bool(obj["summoning_sick"], f"{source}.summoning_sick")
+    if "face_down" in obj:
+        _require_bool(obj["face_down"], f"{source}.face_down")
+    if "token" in obj:
+        _require_bool(obj["token"], f"{source}.token")
+    if "power" in obj:
+        _require_int_or_str(obj["power"], f"{source}.power")
+    if "toughness" in obj:
+        _require_int_or_str(obj["toughness"], f"{source}.toughness")
+    if "power_toughness" in obj:
+        _require_str(obj["power_toughness"], f"{source}.power_toughness")
+    if "pt" in obj:
+        _require_str(obj["pt"], f"{source}.pt")
+    if "loyalty" in obj:
+        _require_int(obj["loyalty"], f"{source}.loyalty")
+    if "original_card" in obj:
+        _require_str(obj["original_card"], f"{source}.original_card")
+    if "copy" in obj:
+        _require_bool(obj["copy"], f"{source}.copy")
+    return True
+
+
+def _is_stack_target(value: object, source: str) -> TypeIs[StackTarget]:
+    obj = _require_object(value, source)
+    if "name" in obj:
+        _require_str(obj["name"], f"{source}.name")
+    if "id" in obj:
+        _require_str(obj["id"], f"{source}.id")
+    return True
+
+
+def _is_stack_item(value: object, source: str) -> TypeIs[StackItem]:
+    obj = _require_object(value, source)
+    _require_str(_require_key(obj, "name", source), f"{source}.name")
+    if "id" in obj:
+        _require_str(obj["id"], f"{source}.id")
+    if "source_card" in obj:
+        _require_str(obj["source_card"], f"{source}.source_card")
+    if "ability_text" in obj:
+        _require_str(obj["ability_text"], f"{source}.ability_text")
+    if "targets" in obj:
+        _validate_str_or_typed_list(
+            obj["targets"], f"{source}.targets", _is_stack_target
+        )
+    return True
+
+
+def _is_combat_creature(value: object, source: str) -> TypeIs[CombatCreature]:
+    obj = _require_object(value, source)
+    _require_str(_require_key(obj, "name", source), f"{source}.name")
+    if "id" in obj:
+        _require_str(obj["id"], f"{source}.id")
+    if "power" in obj:
+        _require_int_or_str(obj["power"], f"{source}.power")
+    if "toughness" in obj:
+        _require_int_or_str(obj["toughness"], f"{source}.toughness")
+    if "power_toughness" in obj:
+        _require_str(obj["power_toughness"], f"{source}.power_toughness")
+    if "pt" in obj:
+        _require_str(obj["pt"], f"{source}.pt")
+    return True
+
+
+def _is_choice(value: object, source: str) -> TypeIs[Choice]:
+    obj = _require_object(value, source)
+    if "index" in obj:
+        _require_int(obj["index"], f"{source}.index")
+    if "name" in obj:
+        _require_str(obj["name"], f"{source}.name")
+    if "description" in obj:
+        _require_str(obj["description"], f"{source}.description")
+    if "id" in obj:
+        _require_str(obj["id"], f"{source}.id")
+    if "action" in obj:
+        _require_str(obj["action"], f"{source}.action")
+    if "mana_cost" in obj:
+        _require_str(obj["mana_cost"], f"{source}.mana_cost")
+    if "choice_type" in obj:
+        _require_str(obj["choice_type"], f"{source}.choice_type")
+    return True
+
+
+def _is_multi_amount_item(value: object, source: str) -> TypeIs[MultiAmountItem]:
+    obj = _require_object(value, source)
+    _require_str(_require_key(obj, "description", source), f"{source}.description")
+    if "min" in obj:
+        _require_int(obj["min"], f"{source}.min")
+    if "max" in obj:
+        _require_int(obj["max"], f"{source}.max")
+    return True
+
+
+def _validate_str_or_typed_list(
+    value: object,
+    source: str,
+    typed_validator: Callable[[object, str], bool],
+) -> None:
+    """Validate a list where items can be strings or typed dicts."""
+    for index, item in enumerate(_require_list(value, source)):
+        if isinstance(item, dict):
+            assert typed_validator(item, f"{source}[{index}]")
+        else:
+            _require_str(item, f"{source}[{index}]")
+
+
+def _validate_card_list(value: object, source: str) -> None:
+    """Validate a list of cards that can be strings or Permanent dicts."""
+    _validate_str_or_typed_list(value, source, _is_permanent)
+
+
 def _is_player(value: object, source: str) -> TypeIs[Player]:
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "name", source), f"{source}.name")
@@ -415,17 +611,19 @@ def _is_snapshot_player(value: object, source: str) -> TypeIs[SnapshotPlayer]:
     _require_non_negative_int(
         _require_key(obj, "library_size", source), f"{source}.library_size"
     )
-    _require_list(_require_key(obj, "battlefield", source), f"{source}.battlefield")
-    _require_list(_require_key(obj, "graveyard", source), f"{source}.graveyard")
-    _require_list(_require_key(obj, "hand", source), f"{source}.hand")
+    _validate_card_list(
+        _require_key(obj, "battlefield", source), f"{source}.battlefield"
+    )
+    _validate_card_list(_require_key(obj, "graveyard", source), f"{source}.graveyard")
+    _validate_card_list(_require_key(obj, "hand", source), f"{source}.hand")
     if "hand_count" in obj:
         _require_non_negative_int(obj["hand_count"], f"{source}.hand_count")
     if "exile" in obj:
-        _require_list(obj["exile"], f"{source}.exile")
+        _validate_card_list(obj["exile"], f"{source}.exile")
     if "commanders" in obj:
-        _require_list(obj["commanders"], f"{source}.commanders")
+        _validate_card_list(obj["commanders"], f"{source}.commanders")
     if "command_zone" in obj:
-        _require_list(obj["command_zone"], f"{source}.command_zone")
+        _validate_card_list(obj["command_zone"], f"{source}.command_zone")
     if "is_active" in obj:
         _require_bool(obj["is_active"], f"{source}.is_active")
     if "has_left" in obj:
@@ -438,9 +636,15 @@ def _is_snapshot_player(value: object, source: str) -> TypeIs[SnapshotPlayer]:
 def _is_combat_group(value: object, source: str) -> TypeIs[CombatGroup]:
     obj = _require_object(value, source)
     if "attackers" in obj:
-        _require_list(obj["attackers"], f"{source}.attackers")
+        for idx, item in enumerate(
+            _require_list(obj["attackers"], f"{source}.attackers")
+        ):
+            assert _is_combat_creature(item, f"{source}.attackers[{idx}]")
     if "blockers" in obj:
-        _require_list(obj["blockers"], f"{source}.blockers")
+        for idx, item in enumerate(
+            _require_list(obj["blockers"], f"{source}.blockers")
+        ):
+            assert _is_combat_creature(item, f"{source}.blockers[{idx}]")
     if "blocked" in obj:
         _require_bool(obj["blocked"], f"{source}.blocked")
     if "defending" in obj:
@@ -464,7 +668,9 @@ def _is_snapshot(value: object, source: str) -> TypeIs[Snapshot]:
         _require_list(_require_key(obj, "players", source), f"{source}.players")
     ):
         assert _is_snapshot_player(player, f"{source}.players[{index}]")
-    _require_list(_require_key(obj, "stack", source), f"{source}.stack")
+    _validate_str_or_typed_list(
+        _require_key(obj, "stack", source), f"{source}.stack", _is_stack_item
+    )
     if "ts" in obj:
         _require_str(obj["ts"], f"{source}.ts")
     if "combat" in obj:
@@ -610,9 +816,13 @@ def _is_pilot_context(value: object, source: str) -> TypeIs[PilotContext]:
     if "combatPhase" in obj:
         _require_optional_str(obj["combatPhase"], f"{source}.combatPhase")
     if "alreadyAttacking" in obj:
-        _require_list(obj["alreadyAttacking"], f"{source}.alreadyAttacking")
+        _validate_str_or_typed_list(
+            obj["alreadyAttacking"], f"{source}.alreadyAttacking", _is_combat_creature
+        )
     if "incomingAttackers" in obj:
-        _require_list(obj["incomingAttackers"], f"{source}.incomingAttackers")
+        _validate_str_or_typed_list(
+            obj["incomingAttackers"], f"{source}.incomingAttackers", _is_combat_creature
+        )
     return True
 
 
@@ -628,7 +838,10 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     _require_str(_require_key(obj, "actionType", source), f"{source}.actionType")
     _require_str(_require_key(obj, "responseType", source), f"{source}.responseType")
     _require_str(_require_key(obj, "message", source), f"{source}.message")
-    _require_object_list(_require_key(obj, "choices", source), f"{source}.choices")
+    for index, choice in enumerate(
+        _require_list(_require_key(obj, "choices", source), f"{source}.choices")
+    ):
+        assert _is_choice(choice, f"{source}.choices[{index}]")
     _require_non_negative_int(
         _require_key(obj, "choiceCount", source), f"{source}.choiceCount"
     )
@@ -650,7 +863,8 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     if "castRolledBack" in obj:
         _require_bool(obj["castRolledBack"], f"{source}.castRolledBack")
     if "items" in obj:
-        _require_object_list(obj["items"], f"{source}.items")
+        for index, item in enumerate(_require_list(obj["items"], f"{source}.items")):
+            assert _is_multi_amount_item(item, f"{source}.items[{index}]")
     if "totalMin" in obj:
         _require_non_negative_int(obj["totalMin"], f"{source}.totalMin")
     if "totalMax" in obj:
@@ -809,6 +1023,8 @@ __all__ = [
     "AutoPilotModeEvent",
     "BuiltGameExport",
     "CardMetadata",
+    "Choice",
+    "CombatCreature",
     "CombatGroup",
     "ContextResetEvent",
     "ContextTrimEvent",
@@ -822,10 +1038,14 @@ __all__ = [
     "LlmEvent",
     "LlmResponseEvent",
     "LlmUsage",
+    "MultiAmountItem",
+    "Permanent",
     "PilotContext",
     "Player",
     "Snapshot",
     "SnapshotPlayer",
+    "StackItem",
+    "StackTarget",
     "StallEvent",
     "ToolCallEvent",
     "is_built_game_export",
