@@ -129,7 +129,7 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
     for p in data["players"]:
         if not is_pilot_player(p):
             continue
-        player_models[p["name"]] = p["model"]
+        player_models[p.name] = p.model
 
     events = data["llmEvents"]
     errors: list[ErrorEvent] = []

@@ -57,7 +57,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
     for p in data["players"]:
         if not is_pilot_player(p):
             continue
-        player_models[p["name"]] = p["model"]
+        player_models[p.name] = p.model
 
     # Initialize stats per player
     stats: dict[str, PlayerStats] = {}

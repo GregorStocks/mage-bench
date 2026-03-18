@@ -690,10 +690,9 @@ def _game_overview(data: GameExport) -> str:
         f"Format: {data['deckType']} ({data['gameType']})",
     ]
     for p in data["players"]:
-        lines.append(f"  {p['name']} ({p.get('model', '?')})")
-        strategy = p.get("deckStrategy")
-        if strategy:
-            lines.append(f"    Deck: {strategy}")
+        lines.append(f"  {p.name} ({p.model or '?'})")
+        if p.deckStrategy:
+            lines.append(f"    Deck: {p.deckStrategy}")
     return "\n".join(lines)
 
 
