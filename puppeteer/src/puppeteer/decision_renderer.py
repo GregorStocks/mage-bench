@@ -15,6 +15,8 @@ from __future__ import annotations
 import json
 from collections.abc import Sequence
 
+from schemas.game_export_types import Decision
+
 BASIC_LAND_NAMES = frozenset(
     [
         "Plains",
@@ -31,9 +33,23 @@ BASIC_LAND_NAMES = frozenset(
     ]
 )
 
+DecisionLike = Decision | dict[str, object]
+
+
+def _decision_value(decision: DecisionLike, key: str) -> object:
+    if isinstance(decision, Decision):
+        return getattr(decision, key)
+    return decision[key]
+
+
+def _decision_optional(decision: DecisionLike, key: str) -> object:
+    if isinstance(decision, Decision):
+        return getattr(decision, key)
+    return decision.get(key)
+
 
 def render_decision(
-    decision: dict,
+    decision: DecisionLike,
     snapshot: dict,
     oracle_texts: dict[str, dict] | None = None,
     *,
@@ -93,26 +109,34 @@ def render_decision(
 
 
 def _render_decision_block(
-    decision: dict,
+    decision: DecisionLike,
     snapshot: dict,
     deciding_player: str | None,
 ) -> str:
     """Render the core decision: board state, stack, choices."""
-    turn = decision["turn"]
+    turn = _decision_value(decision, "turn")
     assert isinstance(turn, int), f"decision turn must be an int, got {turn!r}"
-    if not decision["phase"]:
-        assert turn in (0, 1), f"decision has empty phase on turn {turn}: {decision['message']}"
-    phase = decision["phase"] or "PREGAME"
-    player = decision["player"]
-    message = decision["message"]
+    phase_value = _decision_value(decision, "phase")
+    if not phase_value:
+        message_value = _decision_value(decision, "message")
+        assert turn in (0, 1), f"decision has empty phase on turn {turn}: {message_value}"
+    phase = phase_value or "PREGAME"
+    player = _decision_value(decision, "player")
+    message = _decision_value(decision, "message")
+    assert isinstance(player, str), f"decision player must be a string, got {player!r}"
+    assert isinstance(message, str), f"decision message must be a string, got {message!r}"
 
     # Header
     lines: list[str] = [
-        f"[Decision {decision['index']}, snapshot={decision['snapshotIndex']}] Turn {turn} {phase} - {player}"
+        (
+            f"[Decision {_decision_value(decision, 'index')}, "
+            f"snapshot={_decision_value(decision, 'snapshotIndex')}] "
+            f"Turn {turn} {phase} - {player}"
+        )
     ]
     pilot_ctx: dict[str, object] = {}
-    if "pilotContext" in decision:
-        raw_pilot_ctx = decision["pilotContext"]
+    raw_pilot_ctx = _decision_optional(decision, "pilotContext")
+    if raw_pilot_ctx is not None:
         assert isinstance(raw_pilot_ctx, dict), f"pilotContext must be an object when present, got {raw_pilot_ctx!r}"
         pilot_ctx = raw_pilot_ctx
 
@@ -163,12 +187,15 @@ def _render_decision_block(
         lines.append(f"  {', '.join(ctx_parts)}")
 
     # Message and choices/items
-    choices = decision["choices"]
-    items = decision.get("items")
+    raw_choices = _decision_value(decision, "choices")
+    assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
+    choices = raw_choices
+    items = _decision_optional(decision, "items")
     lines.append(f"  Message: {message if message else ''}")
     if items:
-        total_min = decision.get("totalMin")
-        total_max = decision.get("totalMax")
+        assert isinstance(items, list), f"decision items must be a list when present, got {items!r}"
+        total_min = _decision_optional(decision, "totalMin")
+        total_max = _decision_optional(decision, "totalMax")
         header = f"  Items ({len(items)})"
         if total_min is not None and total_max is not None and total_min == total_max:
             header += f": total={total_min}"
@@ -422,17 +449,19 @@ def _format_choice(c: object) -> str:
     return parts[0]
 
 
-def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
+def _render_chosen_block(decision: DecisionLike, snapshot: dict | None = None) -> str:
     """Render what was chosen in a decision."""
     lines: list[str] = []
-    chosen = decision.get("chosen")
-    if "chosenArgs" in decision:
-        raw_chosen_args = decision["chosenArgs"]
+    chosen = _decision_optional(decision, "chosen")
+    raw_chosen_args = _decision_optional(decision, "chosenArgs")
+    if raw_chosen_args is not None:
         assert isinstance(raw_chosen_args, dict), f"chosenArgs must be an object when present, got {raw_chosen_args!r}"
         chosen_args = raw_chosen_args
     else:
         chosen_args = {}
-    choices = decision["choices"]
+    raw_choices = _decision_value(decision, "choices")
+    assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
+    choices = raw_choices
 
     # Display chosen
     chosen_name = _chosen_display(chosen, chosen_args, choices)
@@ -450,15 +479,20 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     # Show targeting / activation details from subsequent actions.
     # These are part of the decision itself (what the player targeted), not
     # outcome information, so they're safe to include without biasing the annotator.
-    player = decision["player"]
-    for action in decision["subsequentActions"]:
+    player = _decision_value(decision, "player")
+    assert isinstance(player, str), f"decision player must be a string, got {player!r}"
+    subsequent_actions = _decision_value(decision, "subsequentActions")
+    assert isinstance(subsequent_actions, list), (
+        f"decision subsequentActions must be a list, got {subsequent_actions!r}"
+    )
+    for action in subsequent_actions:
         if not action.startswith(player):
             continue
         if " targeting " in action or "activates:" in action:
             lines.append(f"  Result: {action}")
             break
 
-    if decision.get("castRolledBack"):
+    if _decision_optional(decision, "castRolledBack"):
         lines.append(
             "  **NOTE:** This cast was attempted but the game engine rolled it "
             "back because the player could not complete the mana payment."
@@ -625,7 +659,7 @@ def _batch_block_display(blockers: list | str, choices: list) -> str:
 
 
 def _render_card_reference(
-    decision: dict,
+    decision: DecisionLike,
     snapshot: dict,
     oracle_texts: dict[str, dict],
 ) -> str:
@@ -651,7 +685,9 @@ def _render_card_reference(
                 names.add(item["name"])
             elif isinstance(item, str) and item:
                 names.add(item)
-    for c in decision["choices"]:
+    raw_choices = _decision_value(decision, "choices")
+    assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
+    for c in raw_choices:
         if isinstance(c, dict) and c.get("name"):
             names.add(c["name"])
 

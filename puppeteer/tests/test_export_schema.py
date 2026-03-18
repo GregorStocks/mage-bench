@@ -3,6 +3,7 @@
 Full per-game validation is in test_weird_conventions.py::TestAllExportsValid.
 """
 
+import dataclasses
 import gzip
 import json
 from pathlib import Path
@@ -99,6 +100,24 @@ def _assert_typed_dict_matches_schema(
     assert _typed_dict_keys(typed_dict_cls) == expected_props
     assert set(typed_dict_cls.__required_keys__) == expected_required
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
+
+
+def _assert_dataclass_matches_schema(
+    dataclass_cls: type,
+    *,
+    schema: dict,
+    extra_fields: set[str] | None = None,
+) -> None:
+    ignored = extra_fields or set()
+    fields = [field for field in dataclasses.fields(dataclass_cls) if field.name not in ignored]
+    field_names = {field.name for field in fields}
+    required = {
+        field.name
+        for field in fields
+        if field.default is dataclasses.MISSING and field.default_factory is dataclasses.MISSING
+    }
+    assert field_names == set(schema["properties"])
+    assert required == set(schema.get("required", []))
 
 
 class TestExportSchema:
@@ -409,7 +428,7 @@ class TestExportSchema:
         _assert_typed_dict_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
-        _assert_typed_dict_matches_schema(Decision, schema=defs["Decision"])
+        _assert_dataclass_matches_schema(Decision, schema=defs["Decision"], extra_fields={"actionSeq"})
         _assert_typed_dict_matches_schema(PilotContext, schema=defs["PilotContext"])
         _assert_typed_dict_matches_schema(GameError, schema=defs["GameError"])
         _assert_typed_dict_matches_schema(CardMetadata, schema=defs["CardMetadata"])
@@ -565,9 +584,10 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert game["decisions"][0]["actionType"] == ""
-        assert game["decisions"][0]["responseType"] == ""
-        assert game["decisions"][0]["message"] == ""
+        assert isinstance(game["decisions"][0], Decision)
+        assert game["decisions"][0].actionType == ""
+        assert game["decisions"][0].responseType == ""
+        assert game["decisions"][0].message == ""
 
     def test_v8_schema_rejects_pilot_without_model(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(8))

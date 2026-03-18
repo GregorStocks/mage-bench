@@ -9,8 +9,9 @@ import re
 import tempfile
 from collections.abc import Mapping, Sequence
 from pathlib import Path
+from typing import Any
 
-from schemas.game_export_types import GameExport, JsonObject, load_game_export
+from schemas.game_export_types import Decision, GameExport, JsonObject, load_game_export
 from scripts.game_exports import GAMES_DIR, glob_game_export_paths
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -31,13 +32,15 @@ GAME_EXPORT_FILENAME_PATTERN = re.compile(
 # Legacy decisions (from extract_decisions) use snake_case.
 # These helpers read either format.
 
+DecisionLike = Decision | Mapping[str, Any]
 
-def is_canonical_decision(d: Mapping[str, object]) -> bool:
+
+def is_canonical_decision(d: DecisionLike) -> bool:
     """Check if a decision is in canonical (camelCase) format."""
-    return "snapshotIndex" in d
+    return isinstance(d, Decision) or "snapshotIndex" in d
 
 
-def decision_index(d: Mapping[str, object]) -> int:
+def decision_index(d: DecisionLike) -> int:
     """Get the decision index from either format."""
     value = d.get("index", d.get("decisionIndex", d.get("decision_index", 0)))
     assert isinstance(value, int) and not isinstance(value, bool), (
@@ -46,7 +49,7 @@ def decision_index(d: Mapping[str, object]) -> int:
     return value
 
 
-def snapshot_index(d: Mapping[str, object]) -> int:
+def snapshot_index(d: DecisionLike) -> int:
     """Get the snapshot index from either format."""
     value = d.get("snapshotIndex", d.get("snapshot_index", 0))
     assert isinstance(value, int) and not isinstance(value, bool), (
@@ -66,14 +69,14 @@ def annotation_decision_index(annotation: Mapping[str, object]) -> int | None:
     return value
 
 
-def is_forced(d: Mapping[str, object]) -> bool:
+def is_forced(d: DecisionLike) -> bool:
     """Check if a decision is forced (<=1 choice) in either format."""
     value = d.get("isForced", d.get("is_forced", False))
     assert isinstance(value, bool), f"isForced must be a bool, got {value!r}"
     return value
 
 
-def action_result(d: Mapping[str, object]) -> JsonObject:
+def action_result(d: DecisionLike) -> JsonObject:
     """Get the action result from either format."""
     if "actionResult" in d:
         value = d["actionResult"]
@@ -85,21 +88,21 @@ def action_result(d: Mapping[str, object]) -> JsonObject:
     return value
 
 
-def is_rolled_back(d: Mapping[str, object]) -> bool:
+def is_rolled_back(d: DecisionLike) -> bool:
     """Check if a decision was rolled back in either format."""
     value = d.get("rolled_back", False)
     assert isinstance(value, bool), f"rolled_back must be a bool, got {value!r}"
     return value
 
 
-def is_cast_rolled_back(d: Mapping[str, object]) -> bool:
+def is_cast_rolled_back(d: DecisionLike) -> bool:
     """Check if a cast was rolled back in either format."""
     value = d.get("castRolledBack", d.get("cast_rolled_back", False))
     assert isinstance(value, bool), f"castRolledBack must be a bool, got {value!r}"
     return value
 
 
-def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
+def is_mana_ability_subdecision(d: DecisionLike) -> bool:
     """Check if a decision is a mana ability sub-decision (picking which mana to produce).
 
     These are intermediate steps during mana payment or ability activation —
@@ -129,7 +132,7 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
     return False
 
 
-def subsequent_actions(d: Mapping[str, object]) -> list[str]:
+def subsequent_actions(d: DecisionLike) -> list[str]:
     """Get subsequent actions from either format."""
     actions = d.get("subsequentActions")
     if actions is None:
@@ -346,7 +349,7 @@ def make_audited_entry(
 
 
 def compute_aftermath_index(
-    decision: Mapping[str, object], snapshots: Sequence[Mapping[str, object]]
+    decision: DecisionLike, snapshots: Sequence[Mapping[str, object]]
 ) -> int:
     """Compute the aftermath snapshot index for a decision.
 
@@ -387,7 +390,7 @@ def compute_aftermath_index(
 
 def reverse_map_annotations(
     annotations: Sequence[Mapping[str, object]],
-    decisions: Sequence[Mapping[str, object]],
+    decisions: Sequence[DecisionLike],
 ) -> dict[int, int]:
     """Map annotation list indices to decision indices.
 
@@ -419,7 +422,7 @@ def reverse_map_annotations(
 
 
 def lookup_annotation_for_decision(
-    decision: Mapping[str, object],
+    decision: DecisionLike,
     annotations: Sequence[Mapping[str, object]],
 ) -> Mapping[str, object] | None:
     """Find the game-file annotation matching a decision, if any."""
@@ -431,7 +434,7 @@ def lookup_annotation_for_decision(
     return None
 
 
-def chosen_display(decision: Mapping[str, object]) -> str:
+def chosen_display(decision: DecisionLike) -> str:
     """Human-readable name of what was chosen in a decision."""
     chosen = decision.get("chosen")
     choices = decision.get("choices")
