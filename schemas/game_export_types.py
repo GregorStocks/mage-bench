@@ -602,7 +602,12 @@ def _validate_card_list(value: object, source: str) -> None:
 
 
 def _validate_player(value: object, source: str) -> Player:
-    """Validate a raw dict and construct a Player instance."""
+    """Validate a raw dict and construct a Player instance.
+
+    If *value* is already a Player (e.g. re-validation), returns it as-is.
+    """
+    if isinstance(value, Player):
+        return value
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "name", source), f"{source}.name")
     _require_str(_require_key(obj, "type", source), f"{source}.type")

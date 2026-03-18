@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Export a game log directory into a single JSON file for the website visualizer."""
 
+import dataclasses
 import gzip
 import json
 import re
@@ -9,6 +10,16 @@ from datetime import datetime
 from pathlib import Path
 
 from schemas.game_export_types import BuiltGameExport, require_built_game_export
+
+
+class _ExportEncoder(json.JSONEncoder):
+    """JSON encoder that serializes Player dataclass instances."""
+
+    def default(self, obj: object) -> object:
+        if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
+            return {k: v for k, v in dataclasses.asdict(obj).items() if v is not None}
+        return super().default(obj)
+
 
 _ROOT = Path(__file__).resolve().parent.parent
 WEBSITE_GAMES_DIR = _ROOT / "website" / "public" / "games"
@@ -1307,7 +1318,7 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
 
         website_games_dir.mkdir(parents=True, exist_ok=True)
 
-        json_str = json.dumps(output, indent=2, ensure_ascii=False)
+        json_str = json.dumps(output, indent=2, ensure_ascii=False, cls=_ExportEncoder)
         json_bytes = json_str.encode()
         if len(json_bytes) > _GZ_THRESHOLD:
             output_path = website_games_dir / f"{game_id}.json.gz"
