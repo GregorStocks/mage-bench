@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from schemas.game_export_types import GameStartEvent
+from schemas.game_export_types import GameStartEvent, Snapshot
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GAME_TIMELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "toolbox" / "game_timeline.py"
@@ -152,20 +152,28 @@ def _write_export(tmp_path: Path) -> Path:
 
 def test_find_context_uses_timestamp_for_older_exports() -> None:
     snapshots = [
-        {
-            "turn": 1,
-            "phase": "PRECOMBAT_MAIN",
-            "active_player": "Alice",
-            "ts": "2026-03-01T00:00:05.000000Z",
-            "seq": 5,
-        },
-        {
-            "turn": 2,
-            "phase": "PRECOMBAT_MAIN",
-            "active_player": "Bob",
-            "ts": "2026-03-01T00:00:10.000000Z",
-            "seq": 10,
-        },
+        Snapshot(
+            seq=5,
+            turn=1,
+            phase="PRECOMBAT_MAIN",
+            step=None,
+            active_player="Alice",
+            priority_player=None,
+            players=[],
+            stack=[],
+            ts="2026-03-01T00:00:05.000000Z",
+        ),
+        Snapshot(
+            seq=10,
+            turn=2,
+            phase="PRECOMBAT_MAIN",
+            step=None,
+            active_player="Bob",
+            priority_player=None,
+            players=[],
+            stack=[],
+            ts="2026-03-01T00:00:10.000000Z",
+        ),
     ]
     # Use a dataclass instance — GameStartEvent is arbitrary, we just need ts/gameSeq
     event = GameStartEvent(type="game_start", player="Alice", ts="2026-03-01T00:00:06.000000Z")

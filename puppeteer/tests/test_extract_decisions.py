@@ -2,7 +2,7 @@
 
 import json
 
-from schemas.game_export_types import _llm_event_from_dict
+from schemas.game_export_types import Snapshot, _llm_event_from_dict
 from scripts.analysis.extract_decisions import (
     _extract_decisions_v1,
     _extract_decisions_v2,
@@ -39,17 +39,32 @@ class TestSummarizeStackItem:
         assert _summarize_stack_item({"name": ""}) == ""
 
 
+def _test_snapshot(**kwargs: object) -> Snapshot:
+    """Build a minimal Snapshot for tests, filling in required fields."""
+    defaults: dict = {
+        "seq": 0,
+        "turn": 1,
+        "phase": None,
+        "step": None,
+        "active_player": None,
+        "priority_player": None,
+        "players": [],
+        "stack": [],
+    }
+    defaults.update(kwargs)
+    return Snapshot(**defaults)  # type: ignore[arg-type]
+
+
 class TestSummarizeSnapshotStack:
     def test_stack_preserves_targets(self) -> None:
-        snap = {
-            "turn": 3,
-            "phase": "PRECOMBAT_MAIN",
-            "players": [],
-            "stack": [
+        snap = _test_snapshot(
+            turn=3,
+            phase="PRECOMBAT_MAIN",
+            stack=[
                 {"name": "Lightning Bolt", "targets": ["Goblin Guide"]},
                 {"name": "Counterspell", "targets": ["Lightning Bolt"]},
             ],
-        }
+        )
         summary = _summarize_snapshot(snap)
         assert summary["stack"] == [
             {"name": "Lightning Bolt", "targets": ["Goblin Guide"]},
@@ -57,26 +72,23 @@ class TestSummarizeSnapshotStack:
         ]
 
     def test_stack_without_targets(self) -> None:
-        snap = {
-            "turn": 1,
-            "phase": "PRECOMBAT_MAIN",
-            "players": [],
-            "stack": [{"name": "Opt"}],
-        }
+        snap = _test_snapshot(
+            phase="PRECOMBAT_MAIN",
+            stack=[{"name": "Opt"}],
+        )
         summary = _summarize_snapshot(snap)
         assert summary["stack"] == ["Opt"]
 
     def test_stack_mixed_items(self) -> None:
-        snap = {
-            "turn": 2,
-            "phase": "PRECOMBAT_MAIN",
-            "players": [],
-            "stack": [
+        snap = _test_snapshot(
+            turn=2,
+            phase="PRECOMBAT_MAIN",
+            stack=[
                 {"name": "Swords to Plowshares", "targets": ["Tarmogoyf"]},
                 {"name": "Brainstorm"},
                 "Legacy string item",
             ],
-        }
+        )
         summary = _summarize_snapshot(snap)
         assert summary["stack"] == [
             {"name": "Swords to Plowshares", "targets": ["Tarmogoyf"]},
@@ -412,13 +424,17 @@ def _v2_game_data(llm_events: list[dict]) -> dict:
     return {
         "version": 2,
         "snapshots": [
-            {
-                "ts": "T00",
-                "turn": 1,
-                "phase": "PRECOMBAT_MAIN",
-                "players": [],
-                "stack": [],
-            },
+            Snapshot(
+                seq=0,
+                ts="T00",
+                turn=1,
+                phase="PRECOMBAT_MAIN",
+                step=None,
+                active_player=None,
+                priority_player=None,
+                players=[],
+                stack=[],
+            ),
         ],
         "actions": [],
         "llmEvents": _convert_events(llm_events),
@@ -793,13 +809,17 @@ class TestExtractDecisionsV1:
         ]
         data = {
             "snapshots": [
-                {
-                    "ts": "T00",
-                    "turn": 1,
-                    "phase": "PRECOMBAT_MAIN",
-                    "players": [],
-                    "stack": [],
-                },
+                Snapshot(
+                    seq=0,
+                    ts="T00",
+                    turn=1,
+                    phase="PRECOMBAT_MAIN",
+                    step=None,
+                    active_player=None,
+                    priority_player=None,
+                    players=[],
+                    stack=[],
+                ),
             ],
             "actions": [],
             "llmEvents": _convert_events(events),
@@ -851,13 +871,17 @@ class TestExtractDecisionsV1:
         ]
         data = {
             "snapshots": [
-                {
-                    "ts": "T00",
-                    "turn": 1,
-                    "phase": "PRECOMBAT_MAIN",
-                    "players": [],
-                    "stack": [],
-                },
+                Snapshot(
+                    seq=0,
+                    ts="T00",
+                    turn=1,
+                    phase="PRECOMBAT_MAIN",
+                    step=None,
+                    active_player=None,
+                    priority_player=None,
+                    players=[],
+                    stack=[],
+                ),
             ],
             "actions": [],
             "llmEvents": _convert_events(events),

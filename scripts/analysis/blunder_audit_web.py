@@ -158,7 +158,7 @@ def _recent_actions_before(
     """Return the last `count` game action messages before a snapshot's timestamp."""
     if snapshot_idx is None or snapshot_idx < 0 or snapshot_idx >= len(snapshots):
         return []
-    snap_ts = snapshots[snapshot_idx].get("ts")
+    snap_ts = snapshots[snapshot_idx].ts
     if snap_ts is None:
         return []
     recent: list[str] = []
@@ -216,9 +216,9 @@ def _build_play_detail(game_id: str, di: int) -> dict:
     # Get hand from before-snapshot
     player_name = decision["player"]
     hand_str = "?"
-    for p in before_snapshot["players"] if before_snapshot is not None else []:
-        if p.get("name") == player_name:
-            hand = p["hand"]
+    for p in before_snapshot.players if before_snapshot is not None else []:
+        if p.name == player_name:
+            hand = p.hand
             hand_str = (
                 ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
             )

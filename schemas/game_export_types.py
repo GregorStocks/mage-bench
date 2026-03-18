@@ -103,14 +103,15 @@ _COMBAT_CREATURE_FIELDS = _public_dataclass_fields(CombatCreature)
 
 
 def export_record_field(record: object, field_name: str) -> object | None:
-    """Read a field from a loaded export leaf record or its preserved extra properties."""
+    """Read a field from a loaded export record (dataclass or dict)."""
 
-    if isinstance(record, (Permanent, CombatCreature, StackItem, StackTarget)):
+    if dataclasses.is_dataclass(record) and not isinstance(record, type):
         if field_name in record.__dataclass_fields__:
             return cast(object | None, getattr(record, field_name))
-        # Extra JSON properties stay accessible to existing consumers through
-        # the same field lookup helper used for declared dataclass attributes.
-        return record._extras.get(field_name)
+        extras: JsonObject | None = getattr(record, "_extras", None)
+        if extras is not None:
+            return extras.get(field_name)
+        return None
     if isinstance(record, dict):
         return record.get(field_name)
     return None
@@ -198,31 +199,40 @@ def is_pilot_player(player: Player) -> TypeGuard[PilotPlayer]:
     return True
 
 
-class SnapshotPlayer(TypedDict):
+@dataclass(frozen=True, kw_only=True)
+class SnapshotPlayer:
+    """A player's state at a point in the game."""
+
     name: str
     life: int
     library_size: int
     battlefield: list[str | Permanent]
     graveyard: list[str | Permanent]
     hand: list[str | Permanent]
-    hand_count: NotRequired[int]
-    exile: NotRequired[list[str | Permanent]]
-    counters: NotRequired[object]
-    commanders: NotRequired[list[str | Permanent]]
-    command_zone: NotRequired[list[str | Permanent]]
-    is_active: NotRequired[bool]
-    has_left: NotRequired[bool]
-    mana_pool: NotRequired[JsonObject]
+    hand_count: int | None = None
+    exile: list[str | Permanent] | None = None
+    counters: object | None = None
+    commanders: list[str | Permanent] | None = None
+    command_zone: list[str | Permanent] | None = None
+    is_active: bool | None = None
+    has_left: bool | None = None
+    mana_pool: JsonObject | None = None
 
 
-class CombatGroup(TypedDict, total=False):
-    attackers: list[CombatCreature]
-    blockers: list[CombatCreature]
-    blocked: bool
-    defending: str
+@dataclass(frozen=True, kw_only=True)
+class CombatGroup:
+    """A group of attackers and blockers in combat."""
+
+    attackers: list[CombatCreature] | None = None
+    blockers: list[CombatCreature] | None = None
+    blocked: bool | None = None
+    defending: str | None = None
 
 
-class Snapshot(TypedDict):
+@dataclass(frozen=True, kw_only=True)
+class Snapshot:
+    """A snapshot of the game state at a point in time."""
+
     seq: int
     turn: int
     phase: str | None
@@ -231,8 +241,8 @@ class Snapshot(TypedDict):
     priority_player: str | None
     players: list[SnapshotPlayer]
     stack: list[str | StackItem]
-    ts: NotRequired[str]
-    combat: NotRequired[list[CombatGroup]]
+    ts: str | None = None
+    combat: list[CombatGroup] | None = None
 
 
 @dataclass
@@ -1054,7 +1064,29 @@ def _validate_player(value: object, source: str) -> Player:
     )
 
 
-def _is_snapshot_player(value: object, source: str) -> TypeIs[SnapshotPlayer]:
+def _is_snapshot_player(value: object, source: str) -> bool:
+    if isinstance(value, SnapshotPlayer):
+        _require_non_empty_str(value.name, f"{source}.name")
+        _require_int(value.life, f"{source}.life")
+        _require_non_negative_int(value.library_size, f"{source}.library_size")
+        _validate_card_list(value.battlefield, f"{source}.battlefield")
+        _validate_card_list(value.graveyard, f"{source}.graveyard")
+        _validate_card_list(value.hand, f"{source}.hand")
+        if value.hand_count is not None:
+            _require_non_negative_int(value.hand_count, f"{source}.hand_count")
+        if value.exile is not None:
+            _validate_card_list(value.exile, f"{source}.exile")
+        if value.commanders is not None:
+            _validate_card_list(value.commanders, f"{source}.commanders")
+        if value.command_zone is not None:
+            _validate_card_list(value.command_zone, f"{source}.command_zone")
+        if value.is_active is not None:
+            _require_bool(value.is_active, f"{source}.is_active")
+        if value.has_left is not None:
+            _require_bool(value.has_left, f"{source}.has_left")
+        if value.mana_pool is not None:
+            _require_object(value.mana_pool, f"{source}.mana_pool")
+        return True
     obj = _require_object(value, source)
     _require_non_empty_str(_require_key(obj, "name", source), f"{source}.name")
     _require_int(_require_key(obj, "life", source), f"{source}.life")
@@ -1083,7 +1115,19 @@ def _is_snapshot_player(value: object, source: str) -> TypeIs[SnapshotPlayer]:
     return True
 
 
-def _is_combat_group(value: object, source: str) -> TypeIs[CombatGroup]:
+def _is_combat_group(value: object, source: str) -> bool:
+    if isinstance(value, CombatGroup):
+        if value.attackers is not None:
+            for idx, creature in enumerate(value.attackers):
+                assert _is_combat_creature(creature, f"{source}.attackers[{idx}]")
+        if value.blockers is not None:
+            for idx, creature in enumerate(value.blockers):
+                assert _is_combat_creature(creature, f"{source}.blockers[{idx}]")
+        if value.blocked is not None:
+            _require_bool(value.blocked, f"{source}.blocked")
+        if value.defending is not None:
+            _require_str(value.defending, f"{source}.defending")
+        return True
     obj = _require_object(value, source)
     if "attackers" in obj:
         for idx, item in enumerate(
@@ -1102,7 +1146,23 @@ def _is_combat_group(value: object, source: str) -> TypeIs[CombatGroup]:
     return True
 
 
-def _is_snapshot(value: object, source: str) -> TypeIs[Snapshot]:
+def _is_snapshot(value: object, source: str) -> bool:
+    if isinstance(value, Snapshot):
+        _require_int(value.seq, f"{source}.seq")
+        _require_int(value.turn, f"{source}.turn")
+        _require_optional_str(value.phase, f"{source}.phase")
+        _require_optional_str(value.step, f"{source}.step")
+        _require_optional_str(value.active_player, f"{source}.active_player")
+        _require_optional_str(value.priority_player, f"{source}.priority_player")
+        for idx, sp in enumerate(value.players):
+            assert _is_snapshot_player(sp, f"{source}.players[{idx}]")
+        _validate_str_or_typed_list(value.stack, f"{source}.stack", _is_stack_item)
+        if value.ts is not None:
+            _require_str(value.ts, f"{source}.ts")
+        if value.combat is not None:
+            for idx, cg in enumerate(value.combat):
+                assert _is_combat_group(cg, f"{source}.combat[{idx}]")
+        return True
     obj = _require_object(value, source)
     _require_int(_require_key(obj, "seq", source), f"{source}.seq")
     _require_int(_require_key(obj, "turn", source), f"{source}.turn")
@@ -1414,68 +1474,91 @@ def _parse_card_metadata(value: object, source: str) -> CardMetadata:
 
 def _coerce_snapshot_player(value: object, source: str) -> SnapshotPlayer:
     assert _is_snapshot_player(value, source)
+    if isinstance(value, SnapshotPlayer):
+        return value
     obj = _require_object(value, source)
-    player = dict(obj)
-    player["battlefield"] = _coerce_card_list(
-        obj["battlefield"], f"{source}.battlefield"
+    return SnapshotPlayer(
+        name=cast(str, obj["name"]),
+        life=cast(int, obj["life"]),
+        library_size=cast(int, obj["library_size"]),
+        battlefield=_coerce_card_list(obj["battlefield"], f"{source}.battlefield"),
+        graveyard=_coerce_card_list(obj["graveyard"], f"{source}.graveyard"),
+        hand=_coerce_card_list(obj["hand"], f"{source}.hand"),
+        hand_count=cast(int | None, obj.get("hand_count")),
+        exile=_coerce_card_list(obj["exile"], f"{source}.exile")
+        if "exile" in obj
+        else None,
+        counters=obj.get("counters"),
+        commanders=_coerce_card_list(obj["commanders"], f"{source}.commanders")
+        if "commanders" in obj
+        else None,
+        command_zone=_coerce_card_list(obj["command_zone"], f"{source}.command_zone")
+        if "command_zone" in obj
+        else None,
+        is_active=cast(bool | None, obj.get("is_active")),
+        has_left=cast(bool | None, obj.get("has_left")),
+        mana_pool=cast(JsonObject | None, obj.get("mana_pool")),
     )
-    player["graveyard"] = _coerce_card_list(obj["graveyard"], f"{source}.graveyard")
-    player["hand"] = _coerce_card_list(obj["hand"], f"{source}.hand")
-    if "exile" in obj:
-        player["exile"] = _coerce_card_list(obj["exile"], f"{source}.exile")
-    if "commanders" in obj:
-        player["commanders"] = _coerce_card_list(
-            obj["commanders"], f"{source}.commanders"
-        )
-    if "command_zone" in obj:
-        player["command_zone"] = _coerce_card_list(
-            obj["command_zone"], f"{source}.command_zone"
-        )
-    return cast(SnapshotPlayer, player)
 
 
 def _coerce_combat_group(value: object, source: str) -> CombatGroup:
     assert _is_combat_group(value, source)
+    if isinstance(value, CombatGroup):
+        return value
     obj = _require_object(value, source)
-    group = dict(obj)
-    if "attackers" in obj:
-        group["attackers"] = [
+    return CombatGroup(
+        attackers=[
             _coerce_combat_creature(item, f"{source}.attackers[{index}]")
             for index, item in enumerate(
                 _require_list(obj["attackers"], f"{source}.attackers")
             )
         ]
-    if "blockers" in obj:
-        group["blockers"] = [
+        if "attackers" in obj
+        else None,
+        blockers=[
             _coerce_combat_creature(item, f"{source}.blockers[{index}]")
             for index, item in enumerate(
                 _require_list(obj["blockers"], f"{source}.blockers")
             )
         ]
-    return cast(CombatGroup, group)
+        if "blockers" in obj
+        else None,
+        blocked=cast(bool | None, obj.get("blocked")),
+        defending=cast(str | None, obj.get("defending")),
+    )
 
 
 def _coerce_snapshot(value: object, source: str) -> Snapshot:
     assert _is_snapshot(value, source)
+    if isinstance(value, Snapshot):
+        return value
     obj = _require_object(value, source)
-    snapshot = dict(obj)
-    snapshot["players"] = [
-        _coerce_snapshot_player(player, f"{source}.players[{index}]")
-        for index, player in enumerate(
-            _require_list(obj["players"], f"{source}.players")
-        )
-    ]
-    snapshot["stack"] = _coerce_str_or_typed_list(
-        obj["stack"], f"{source}.stack", _coerce_stack_item
-    )
-    if "combat" in obj:
-        snapshot["combat"] = [
+    return Snapshot(
+        seq=cast(int, obj["seq"]),
+        turn=cast(int, obj["turn"]),
+        phase=cast(str | None, obj["phase"]),
+        step=cast(str | None, obj["step"]),
+        active_player=cast(str | None, obj["active_player"]),
+        priority_player=cast(str | None, obj["priority_player"]),
+        players=[
+            _coerce_snapshot_player(player, f"{source}.players[{index}]")
+            for index, player in enumerate(
+                _require_list(obj["players"], f"{source}.players")
+            )
+        ],
+        stack=_coerce_str_or_typed_list(
+            obj["stack"], f"{source}.stack", _coerce_stack_item
+        ),
+        ts=cast(str | None, obj.get("ts")),
+        combat=[
             _coerce_combat_group(group, f"{source}.combat[{index}]")
             for index, group in enumerate(
                 _require_list(obj["combat"], f"{source}.combat")
             )
         ]
-    return cast(Snapshot, snapshot)
+        if "combat" in obj
+        else None,
+    )
 
 
 def _coerce_pilot_context(value: object, source: str) -> PilotContext:
@@ -1724,6 +1807,38 @@ def json_default(obj: object) -> object:
     raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
 
+def snapshot_to_dict(snap: Snapshot) -> dict:
+    """Convert a Snapshot dataclass tree to a plain dict for render_decision().
+
+    Produces a shallow nested dict: Snapshot fields become top-level keys,
+    SnapshotPlayer and CombatGroup instances become dicts, but leaf records
+    (Permanent, StackItem, CombatCreature) remain as dataclass instances.
+    """
+    result: dict = {
+        f.name: getattr(snap, f.name)
+        for f in dataclasses.fields(snap)
+        if getattr(snap, f.name) is not None
+    }
+    result["players"] = [
+        {
+            f.name: getattr(p, f.name)
+            for f in dataclasses.fields(p)
+            if getattr(p, f.name) is not None
+        }
+        for p in snap.players
+    ]
+    if snap.combat is not None:
+        result["combat"] = [
+            {
+                f.name: getattr(g, f.name)
+                for f in dataclasses.fields(g)
+                if getattr(g, f.name) is not None
+            }
+            for g in snap.combat
+        ]
+    return result
+
+
 __all__ = [
     "Action",
     "Annotation",
@@ -1753,6 +1868,7 @@ __all__ = [
     "Player",
     "Snapshot",
     "SnapshotPlayer",
+    "snapshot_to_dict",
     "StackItem",
     "StackTarget",
     "StallEvent",

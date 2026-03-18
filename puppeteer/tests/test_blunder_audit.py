@@ -2,7 +2,7 @@
 
 import pytest
 
-from schemas.game_export_types import Permanent, StackItem
+from schemas.game_export_types import Permanent, Snapshot, SnapshotPlayer, StackItem
 from scripts.analysis.blunder_audit import format_play_context, parse_viewer_url
 
 VALID_GAME_ID = "game_20260214_005111_g1"
@@ -31,25 +31,25 @@ class TestParseViewerUrl:
 class TestFormatPlayContext:
     def test_formats_dataclass_leaf_names_without_repr_noise(self) -> None:
         snapshots = [
-            {
-                "seq": 1,
-                "turn": 1,
-                "phase": "MAIN",
-                "step": "MAIN",
-                "active_player": "Alice",
-                "priority_player": "Alice",
-                "players": [
-                    {
-                        "name": "Alice",
-                        "life": 20,
-                        "library_size": 53,
-                        "battlefield": [],
-                        "graveyard": [],
-                        "hand": [Permanent(name="Island")],
-                    }
+            Snapshot(
+                seq=1,
+                turn=1,
+                phase="MAIN",
+                step="MAIN",
+                active_player="Alice",
+                priority_player="Alice",
+                players=[
+                    SnapshotPlayer(
+                        name="Alice",
+                        life=20,
+                        library_size=53,
+                        battlefield=[],
+                        graveyard=[],
+                        hand=[Permanent(name="Island")],
+                    )
                 ],
-                "stack": [StackItem(name="Lightning Bolt")],
-            }
+                stack=[StackItem(name="Lightning Bolt")],
+            )
         ]
         decision = {
             "decision_index": 0,

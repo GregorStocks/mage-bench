@@ -215,7 +215,7 @@ def _recent_actions_before(
     """Return the last `count` game action messages before a snapshot's timestamp."""
     if snapshot_index is None or snapshot_index < 0 or snapshot_index >= len(snapshots):
         return []
-    snap_ts = snapshots[snapshot_index].get("ts")
+    snap_ts = snapshots[snapshot_index].ts
     if snap_ts is None:
         return []
     recent: list[str] = []
@@ -250,7 +250,7 @@ def format_play_context(
     aftermath = compute_aftermath_index(decision, snapshots)
     snap_idx = get_snapshot_index(decision)
     snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else None
-    stack = snapshot["stack"] if snapshot is not None else []
+    stack = snapshot.stack if snapshot is not None else []
     stack_str = ", ".join(export_record_name(s) for s in stack) if stack else "(empty)"
 
     # Find the current player's hand
@@ -259,9 +259,9 @@ def format_play_context(
         f"decision player must be a string, got {player_name!r}"
     )
     hand_str = "?"
-    for p in snapshot["players"] if snapshot is not None else []:
-        if p.get("name") == player_name:
-            hand = p["hand"]
+    for p in snapshot.players if snapshot is not None else []:
+        if p.name == player_name:
+            hand = p.hand
             hand_str = (
                 ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
             )

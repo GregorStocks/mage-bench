@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 import scripts.analysis.blunder_eval_common as blunder_eval_common
-from schemas.game_export_types import Annotation
+from schemas.game_export_types import Annotation, Snapshot
 from scripts.analysis.blunder_eval_common import (
     chosen_display,
     compute_aftermath_index,
@@ -175,33 +175,48 @@ class TestLoadGameValidation:
 # --- compute_aftermath_index ---
 
 
+def _snap(seq: int = 0, ts: str | None = None) -> Snapshot:
+    """Build a minimal Snapshot for aftermath index tests."""
+    return Snapshot(
+        seq=seq,
+        turn=1,
+        phase=None,
+        step=None,
+        active_player=None,
+        priority_player=None,
+        players=[],
+        stack=[],
+        ts=ts,
+    )
+
+
 class TestComputeAftermathIndex:
     def test_with_action_ts(self) -> None:
         snapshots = [
-            {"ts": "2026-01-01T00:00:01.000"},
-            {"ts": "2026-01-01T00:00:05.000"},
-            {"ts": "2026-01-01T00:00:10.000"},
+            _snap(ts="2026-01-01T00:00:01.000"),
+            _snap(ts="2026-01-01T00:00:05.000"),
+            _snap(ts="2026-01-01T00:00:10.000"),
         ]
         decision = {"snapshot_index": 0, "action_ts": "2026-01-01T00:00:04.000"}
         assert compute_aftermath_index(decision, snapshots) == 1
 
     def test_exact_ts_match(self) -> None:
         snapshots = [
-            {"ts": "2026-01-01T00:00:01.000"},
-            {"ts": "2026-01-01T00:00:05.000"},
+            _snap(ts="2026-01-01T00:00:01.000"),
+            _snap(ts="2026-01-01T00:00:05.000"),
         ]
         decision = {"snapshot_index": 0, "action_ts": "2026-01-01T00:00:05.000"}
         assert compute_aftermath_index(decision, snapshots) == 1
 
     def test_no_action_ts(self) -> None:
-        snapshots = [{"ts": "2026-01-01T00:00:01.000"}]
+        snapshots = [_snap(ts="2026-01-01T00:00:01.000")]
         decision = {"snapshot_index": 0, "action_ts": ""}
         assert compute_aftermath_index(decision, snapshots) == 0
 
     def test_action_ts_beyond_all_snapshots(self) -> None:
         snapshots = [
-            {"ts": "2026-01-01T00:00:01.000"},
-            {"ts": "2026-01-01T00:00:02.000"},
+            _snap(ts="2026-01-01T00:00:01.000"),
+            _snap(ts="2026-01-01T00:00:02.000"),
         ]
         decision = {"snapshot_index": 0, "action_ts": "2026-01-01T00:00:99.000"}
         # No snapshot > action_ts, falls back to snapshot_index + 1
@@ -210,10 +225,10 @@ class TestComputeAftermathIndex:
     def test_starts_from_snapshot_index(self) -> None:
         """Search starts from decision's snapshot_index, not from 0."""
         snapshots = [
-            {"ts": "2026-01-01T00:00:01.000"},
-            {"ts": "2026-01-01T00:00:03.000"},
-            {"ts": "2026-01-01T00:00:05.000"},
-            {"ts": "2026-01-01T00:00:07.000"},
+            _snap(ts="2026-01-01T00:00:01.000"),
+            _snap(ts="2026-01-01T00:00:03.000"),
+            _snap(ts="2026-01-01T00:00:05.000"),
+            _snap(ts="2026-01-01T00:00:07.000"),
         ]
         decision = {"snapshot_index": 2, "action_ts": "2026-01-01T00:00:06.000"}
         # Should find snapshot 3 (ts >= action_ts), starting search from index 2
@@ -224,8 +239,8 @@ class TestComputeAftermathIndex:
 
 
 class TestReverseMapAnnotations:
-    def _make_snapshots(self, n: int) -> list[dict]:
-        return [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(n)]
+    def _make_snapshots(self, n: int) -> list[Snapshot]:
+        return [_snap(seq=i, ts=f"2026-01-01T00:00:{i:02d}.000") for i in range(n)]
 
     def _make_decision(self, idx: int, snap_idx: int, player: str, action_ts: str = "") -> dict:
         return {

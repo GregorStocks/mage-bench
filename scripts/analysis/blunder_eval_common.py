@@ -16,6 +16,7 @@ from schemas.game_export_types import (
     Decision,
     GameExport,
     JsonObject,
+    Snapshot,
     export_record_field,
     load_game_export,
 )
@@ -366,7 +367,7 @@ def make_audited_entry(
 
 
 def compute_aftermath_index(
-    decision: DecisionLike, snapshots: Sequence[Mapping[str, object]]
+    decision: DecisionLike, snapshots: Sequence[Snapshot | Mapping[str, object]]
 ) -> int:
     """Compute the aftermath snapshot index for a decision.
 
@@ -374,6 +375,8 @@ def compute_aftermath_index(
     finds the first snapshot strictly after action_ts/action_seq, starting
     from the decision's snapshot_index.  action_seq represents the game state
     BEFORE the action processes, so we need > (not >=).
+
+    Accepts both Snapshot dataclass instances and raw dicts (for migration scripts).
     """
     s_idx = snapshot_index(decision)
     action_seq_raw = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
@@ -386,7 +389,9 @@ def compute_aftermath_index(
     action_ts = action_ts_raw if isinstance(action_ts_raw, str) else None
     if action_seq:
         for i in range(s_idx, len(snapshots)):
-            snapshot_seq = snapshots[i].get("seq", 0)
+            snapshot_seq = export_record_field(snapshots[i], "seq")
+            if snapshot_seq is None:
+                snapshot_seq = 0
             assert isinstance(snapshot_seq, int), (
                 f"snapshot seq must be an int, got {snapshot_seq!r}"
             )
@@ -394,7 +399,7 @@ def compute_aftermath_index(
                 return i
     elif action_ts:
         for i in range(s_idx, len(snapshots)):
-            snapshot_ts = snapshots[i].get("ts")
+            snapshot_ts = export_record_field(snapshots[i], "ts")
             if not snapshot_ts:
                 continue
             assert isinstance(snapshot_ts, str), (

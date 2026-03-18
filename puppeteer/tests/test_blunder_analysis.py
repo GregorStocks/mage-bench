@@ -1,5 +1,6 @@
 """Tests for the blunder analysis script."""
 
+import dataclasses
 import gzip
 import json
 from pathlib import Path
@@ -8,7 +9,15 @@ from unittest.mock import MagicMock, patch
 import pytest
 from openai import OpenAIError
 
-from schemas.game_export_types import Action, ToolCallEvent
+from schemas.game_export_types import (
+    Action,
+    CombatCreature,
+    CombatGroup,
+    Snapshot,
+    SnapshotPlayer,
+    ToolCallEvent,
+    json_default,
+)
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
@@ -103,66 +112,66 @@ def _make_game() -> dict:
         ],
         "cardImages": {},
         "snapshots": [
-            {
-                "seq": 1,
-                "turn": 1,
-                "phase": "PRECOMBAT_MAIN",
-                "step": "PRECOMBAT_MAIN",
-                "active_player": "Alice",
-                "priority_player": "Alice",
-                "ts": "2026-01-01T00:00:01.000-08:00",
-                "players": [
-                    {
-                        "name": "Alice",
-                        "life": 20,
-                        "library_size": 53,
-                        "hand": [{"name": "Mountain"}],
-                        "battlefield": [],
-                        "graveyard": [],
-                        "commanders": [],
-                    },
-                    {
-                        "name": "Bob",
-                        "life": 20,
-                        "library_size": 53,
-                        "hand": [],
-                        "battlefield": [{"name": "Grizzly Bears"}],
-                        "graveyard": [],
-                        "commanders": [],
-                    },
+            Snapshot(
+                seq=1,
+                turn=1,
+                phase="PRECOMBAT_MAIN",
+                step="PRECOMBAT_MAIN",
+                active_player="Alice",
+                priority_player="Alice",
+                ts="2026-01-01T00:00:01.000-08:00",
+                players=[
+                    SnapshotPlayer(
+                        name="Alice",
+                        life=20,
+                        library_size=53,
+                        hand=[{"name": "Mountain"}],
+                        battlefield=[],
+                        graveyard=[],
+                        commanders=[],
+                    ),
+                    SnapshotPlayer(
+                        name="Bob",
+                        life=20,
+                        library_size=53,
+                        hand=[],
+                        battlefield=[{"name": "Grizzly Bears"}],
+                        graveyard=[],
+                        commanders=[],
+                    ),
                 ],
-                "stack": [],
-            },
-            {
-                "seq": 2,
-                "turn": 1,
-                "phase": "COMBAT",
-                "step": "DECLARE_ATTACKERS",
-                "active_player": "Alice",
-                "priority_player": "Bob",
-                "ts": "2026-01-01T00:00:05.000-08:00",
-                "players": [
-                    {
-                        "name": "Alice",
-                        "life": 20,
-                        "library_size": 52,
-                        "hand": [],
-                        "battlefield": [{"name": "Mountain"}],
-                        "graveyard": [],
-                        "commanders": [],
-                    },
-                    {
-                        "name": "Bob",
-                        "life": 20,
-                        "library_size": 53,
-                        "hand": [],
-                        "battlefield": [{"name": "Grizzly Bears"}],
-                        "graveyard": [],
-                        "commanders": [],
-                    },
+                stack=[],
+            ),
+            Snapshot(
+                seq=2,
+                turn=1,
+                phase="COMBAT",
+                step="DECLARE_ATTACKERS",
+                active_player="Alice",
+                priority_player="Bob",
+                ts="2026-01-01T00:00:05.000-08:00",
+                players=[
+                    SnapshotPlayer(
+                        name="Alice",
+                        life=20,
+                        library_size=52,
+                        hand=[],
+                        battlefield=[{"name": "Mountain"}],
+                        graveyard=[],
+                        commanders=[],
+                    ),
+                    SnapshotPlayer(
+                        name="Bob",
+                        life=20,
+                        library_size=53,
+                        hand=[],
+                        battlefield=[{"name": "Grizzly Bears"}],
+                        graveyard=[],
+                        commanders=[],
+                    ),
                 ],
-                "stack": [],
-            },
+                stack=[],
+            ),
         ],
         "actions": [],
         "llmEvents": [],
@@ -566,20 +575,26 @@ class TestCollectCardNames:
 
     def test_filters_tokens(self) -> None:
         game = _make_game()
-        game["snapshots"][0]["players"][0]["battlefield"] = [{"name": "Otter Token"}]
+        snap = game["snapshots"][0]
+        new_player = dataclasses.replace(snap.players[0], battlefield=[{"name": "Otter Token"}])
+        game["snapshots"][0] = dataclasses.replace(snap, players=[new_player, snap.players[1]])
         names = _collect_card_names(game)
         assert "Otter Token" not in names
 
     def test_collects_from_snapshot_combat(self) -> None:
         game = _make_game()
-        game["snapshots"][0]["combat"] = [
-            {
-                "attackers": [{"name": "Goblin Guide", "power": "2", "toughness": "2"}],
-                "blockers": [{"name": "Wall of Omens", "power": "0", "toughness": "4"}],
-                "blocked": True,
-                "defending": "Bob",
-            }
-        ]
+        snap = game["snapshots"][0]
+        game["snapshots"][0] = dataclasses.replace(
+            snap,
+            combat=[
+                CombatGroup(
+                    attackers=[CombatCreature(name="Goblin Guide", power="2", toughness="2")],
+                    blockers=[CombatCreature(name="Wall of Omens", power="0", toughness="4")],
+                    blocked=True,
+                    defending="Bob",
+                )
+            ],
+        )
         names = _collect_card_names(game)
         assert "Goblin Guide" in names
         assert "Wall of Omens" in names
@@ -731,7 +746,7 @@ class TestFormatDecisionsCombat:
 class TestMainIntegration:
     def _write_gz(self, path: Path, data: dict) -> None:
         with gzip.open(path, "wt") as f:
-            json.dump(data, f)
+            json.dump(data, f, default=json_default)
 
     def _read_gz(self, path: Path) -> dict:
         with gzip.open(path, "rt") as f:
