@@ -10,7 +10,12 @@ import tempfile
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 
-from schemas.game_export_types import GameExport, JsonObject, load_game_export
+from schemas.game_export_types import (
+    Annotation,
+    GameExport,
+    JsonObject,
+    load_game_export,
+)
 from scripts.game_exports import GAMES_DIR, glob_game_export_paths
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -55,11 +60,11 @@ def snapshot_index(d: Mapping[str, object]) -> int:
     return value
 
 
-def annotation_decision_index(annotation: Mapping[str, object]) -> int | None:
-    """Get the canonical decision index for an annotation when present."""
+def annotation_decision_index(annotation: Annotation | Mapping[str, object]) -> int:
+    """Get the canonical decision index for an annotation."""
+    if isinstance(annotation, Annotation):
+        return annotation.decisionIndex
     value = annotation.get("decisionIndex")
-    if value is None:
-        return None
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"annotation decisionIndex must be an int, got {value!r}"
     )
@@ -386,7 +391,7 @@ def compute_aftermath_index(
 
 
 def reverse_map_annotations(
-    annotations: Sequence[Mapping[str, object]],
+    annotations: Sequence[Annotation | Mapping[str, object]],
     decisions: Sequence[Mapping[str, object]],
 ) -> dict[int, int]:
     """Map annotation list indices to decision indices.
@@ -399,16 +404,10 @@ def reverse_map_annotations(
 
     for ann_idx, ann in enumerate(annotations):
         direct_decision_idx = annotation_decision_index(ann)
-        assert direct_decision_idx is not None, (
-            f"annotation {ann_idx} missing decisionIndex"
-        )
         assert 0 <= direct_decision_idx < len(decisions), (
             f"annotation decisionIndex {direct_decision_idx} out of range for {len(decisions)} decisions"
         )
-        ann_player = ann["player"]
-        assert isinstance(ann_player, str), (
-            f"annotation player must be a string, got {ann_player!r}"
-        )
+        ann_player = ann.player if isinstance(ann, Annotation) else ann["player"]
         decision_player = decisions[direct_decision_idx]["player"]
         assert decision_player == ann_player, (
             f"annotation player {ann_player!r} does not match decision {direct_decision_idx} player {decision_player!r}"
@@ -420,13 +419,13 @@ def reverse_map_annotations(
 
 def lookup_annotation_for_decision(
     decision: Mapping[str, object],
-    annotations: Sequence[Mapping[str, object]],
-) -> Mapping[str, object] | None:
+    annotations: Sequence[Annotation],
+) -> Annotation | None:
     """Find the game-file annotation matching a decision, if any."""
     idx = decision_index(decision)
     for ann in annotations:
         ann_idx = annotation_decision_index(ann)
-        if ann_idx is not None and ann_idx == idx:
+        if ann_idx == idx:
             return ann
     return None
 

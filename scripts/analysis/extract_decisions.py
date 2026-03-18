@@ -532,7 +532,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         subsequent: list[str] = []
         if action_ts:
             for a in actions:
-                a_ts = a.get("ts")
+                a_ts = a.ts
                 if a_ts is not None:
                     assert isinstance(a_ts, str), (
                         f"action ts must be a string when present, got {a_ts!r}"
@@ -542,7 +542,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
                     continue
                 if next_choices_ts and a_ts > next_choices_ts:
                     break
-                message_raw = a.get("message")
+                message_raw = a.message
                 if message_raw is not None:
                     assert isinstance(message_raw, str), (
                         f"action message must be a string when present, got {message_raw!r}"
@@ -735,12 +735,12 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
 
         subsequent: list[str] = []
         for a in actions:
-            a_seq = a["seq"]
+            a_seq = a.seq
             if a_seq <= action_seq:
                 continue
             if next_choices_seq and a_seq > next_choices_seq:
                 break
-            message_raw = a.get("message")
+            message_raw = a.message
             if isinstance(message_raw, str) and message_raw:
                 subsequent.append(message_raw)
             if len(subsequent) >= 5:

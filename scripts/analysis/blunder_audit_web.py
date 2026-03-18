@@ -17,7 +17,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from schemas.game_export_types import Action, GameExport, Snapshot
+from schemas.game_export_types import Action, Annotation, GameExport, Snapshot
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
@@ -160,7 +160,7 @@ def _recent_actions_before(
         return []
     recent: list[str] = []
     for a in game_actions:
-        a_ts = a.get("ts")
+        a_ts = a.ts
         if a_ts is None:
             continue
         assert isinstance(a_ts, str), (
@@ -168,7 +168,7 @@ def _recent_actions_before(
         )
         if a_ts > snap_ts:
             break
-        msg = a.get("message")
+        msg = a.message
         if msg is None:
             continue
         assert isinstance(msg, str), (
@@ -252,10 +252,10 @@ def _build_play_detail(game_id: str, di: int) -> dict:
         "hand": hand_str,
         "recent_actions": recent,
         "annotation": {
-            "severity": annotation.get("severity") if annotation else None,
-            "description": annotation.get("description") if annotation else None,
-            "actionTaken": annotation.get("actionTaken") if annotation else None,
-            "betterLine": annotation.get("betterLine") if annotation else None,
+            "severity": annotation.severity if annotation else None,
+            "description": annotation.description if annotation else None,
+            "actionTaken": annotation.actionTaken if annotation else None,
+            "betterLine": annotation.betterLine if annotation else None,
         },
         "verdict": gt_entry.get("verdict") if gt_entry else None,
         "human_notes": gt_entry.get("human_notes") if gt_entry else None,
@@ -295,16 +295,20 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     annotation_severity = None
     annotation_description = None
     if annotation is not None:
-        severity = annotation.get("severity")
-        description = annotation.get("description")
-        assert isinstance(severity, str), (
-            f"annotation severity must be a string, got {severity!r}"
-        )
-        assert isinstance(description, str), (
-            f"annotation description must be a string, got {description!r}"
-        )
-        annotation_severity = severity
-        annotation_description = description
+        if isinstance(annotation, Annotation):
+            annotation_severity = annotation.severity
+            annotation_description = annotation.description
+        else:
+            severity = annotation.get("severity")
+            description = annotation.get("description")
+            assert isinstance(severity, str), (
+                f"annotation severity must be a string, got {severity!r}"
+            )
+            assert isinstance(description, str), (
+                f"annotation description must be a string, got {description!r}"
+            )
+            annotation_severity = severity
+            annotation_description = description
     audited_entry = make_audited_entry(
         decision_index=di,
         annotation_version=ann_version,

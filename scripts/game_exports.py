@@ -6,8 +6,8 @@ scripts can operate on older export versions.
 
 import gzip
 import json
-from dataclasses import fields, is_dataclass
 from collections.abc import Mapping
+from dataclasses import fields, is_dataclass
 from pathlib import Path
 from typing import Any
 
