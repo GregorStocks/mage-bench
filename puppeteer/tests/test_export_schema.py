@@ -106,11 +106,7 @@ def _assert_typed_dict_matches_schema(
 
 def _dataclass_keys(cls: type, renames: dict[str, str] | None = None) -> set[str]:
     r = renames or {}
-    return {
-        r.get(field.name, field.name)
-        for field in fields(cls)
-        if not field.name.startswith("_")
-    }
+    return {r.get(field.name, field.name) for field in fields(cls) if not field.name.startswith("_")}
 
 
 def _dataclass_required_keys(cls: type, renames: dict[str, str] | None = None) -> set[str]:
@@ -118,9 +114,7 @@ def _dataclass_required_keys(cls: type, renames: dict[str, str] | None = None) -
     return {
         r.get(field.name, field.name)
         for field in fields(cls)
-        if not field.name.startswith("_")
-        and field.default is MISSING
-        and field.default_factory is MISSING
+        if not field.name.startswith("_") and field.default is MISSING and field.default_factory is MISSING
     }
 
 
