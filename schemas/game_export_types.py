@@ -9,14 +9,19 @@ callers can load validated exports without falling back to raw
 import copy
 import gzip
 import json
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal, TypeAlias, cast
+from typing import TYPE_CHECKING, Any, Literal, TypeAlias, TypeVar, cast, overload
 
 from typing_extensions import NotRequired, TypedDict, TypeGuard, TypeIs
 
+if TYPE_CHECKING:
+    from _typeshed import SupportsKeysAndGetItem
+
 JsonObject: TypeAlias = dict[str, object]
+_TKey = TypeVar("_TKey")
+_TValue = TypeVar("_TValue")
 
 
 # -- Nested payload types used by the decision renderer --
@@ -44,6 +49,26 @@ class _FrozenDataclassDict(dict[str, object]):
         raise TypeError(f"{type(self).__name__} is immutable")
 
     def update(self, *args: object, **kwargs: object) -> None:
+        raise TypeError(f"{type(self).__name__} is immutable")
+
+    # mypy cross-checks __ior__ against dict.__or__ for |= fallback typing.
+    # Keep the builtin surface area, but always raise to preserve immutability.
+    @overload  # type: ignore[misc]
+    def __ior__(
+        self, other: "SupportsKeysAndGetItem[str, object]", /
+    ) -> "_FrozenDataclassDict": ...
+
+    @overload
+    def __ior__(
+        self, other: Iterable[tuple[str, object]], /
+    ) -> "_FrozenDataclassDict": ...
+
+    @overload
+    def __ior__(
+        self, other: dict[_TKey, _TValue], /
+    ) -> dict[str | _TKey, object | _TValue]: ...
+
+    def __ior__(self, other: object, /) -> Any:  # type: ignore[misc]
         raise TypeError(f"{type(self).__name__} is immutable")
 
 
@@ -104,7 +129,7 @@ class CombatCreature(TypedDict):
     pt: NotRequired[str]
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, eq=False)
 class Choice(_FrozenDataclassDict):
     """A choice available to the player. Shape varies by decision type."""
 
@@ -158,7 +183,7 @@ class Choice(_FrozenDataclassDict):
         return duplicate
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, eq=False)
 class MultiAmountItem(_FrozenDataclassDict):
     """An item in a multi-amount decision."""
 
@@ -394,7 +419,7 @@ class Annotation(TypedDict):
     llmReasoning: NotRequired[str]
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, eq=False)
 class PilotContext(_FrozenDataclassDict):
     untappedLands: int | None = None
     landDropsUsed: int | None = None
@@ -702,8 +727,6 @@ def _is_combat_creature(value: object, source: str) -> TypeIs[CombatCreature]:
 
 
 def _coerce_choice(value: object, source: str) -> Choice:
-    if isinstance(value, Choice):
-        return value
     obj = _require_object(value, source)
     if "index" in obj:
         _require_int(obj["index"], f"{source}.index")
@@ -719,18 +742,20 @@ def _coerce_choice(value: object, source: str) -> Choice:
         _require_str(obj["mana_cost"], f"{source}.mana_cost")
     if "choice_type" in obj:
         _require_str(obj["choice_type"], f"{source}.choice_type")
+    if isinstance(value, Choice):
+        return value
     return Choice.from_mapping(obj)
 
 
 def _coerce_multi_amount_item(value: object, source: str) -> MultiAmountItem:
-    if isinstance(value, MultiAmountItem):
-        return value
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "description", source), f"{source}.description")
     if "min" in obj:
         _require_int(obj["min"], f"{source}.min")
     if "max" in obj:
         _require_int(obj["max"], f"{source}.max")
+    if isinstance(value, MultiAmountItem):
+        return value
     return MultiAmountItem.from_mapping(obj)
 
 
@@ -991,8 +1016,6 @@ def _is_annotation(value: object, source: str) -> TypeIs[Annotation]:
 
 
 def _coerce_pilot_context(value: object, source: str) -> PilotContext:
-    if isinstance(value, PilotContext):
-        return value
     obj = _require_object(value, source)
     if "untappedLands" in obj:
         _require_non_negative_int(obj["untappedLands"], f"{source}.untappedLands")
@@ -1010,6 +1033,8 @@ def _coerce_pilot_context(value: object, source: str) -> PilotContext:
         _validate_str_or_typed_list(
             obj["incomingAttackers"], f"{source}.incomingAttackers", _is_combat_creature
         )
+    if isinstance(value, PilotContext):
+        return value
     return PilotContext.from_mapping(obj)
 
 

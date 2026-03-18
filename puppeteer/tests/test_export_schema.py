@@ -684,6 +684,47 @@ class TestExportSchema:
         assert isinstance(cloned["decisions"][0]["choices"][0], Choice)
         assert json.loads(json.dumps(built))["decisions"][0]["pilotContext"]["manaPool"] == {"WHITE": 1}
 
+    def test_validator_rejects_invalid_prebuilt_choice_instance(self) -> None:
+        payload = _minimal_export(
+            8,
+            season=1,
+            tournament=None,
+            decisions=[
+                {
+                    "index": 0,
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "actionType": "play",
+                    "responseType": "choice",
+                    "message": "Play spells and abilities",
+                    "choices": [Choice(index="oops")],  # type: ignore[arg-type]
+                    "choiceCount": 1,
+                    "isForced": True,
+                    "llmEventIndices": [],
+                    "subsequentActions": [],
+                }
+            ],
+        )
+
+        with pytest.raises(AssertionError, match=r"choices\[0\]\.index"):
+            require_built_game_export(payload, source="built export")
+
+    def test_frozen_dataclass_dict_rejects_inplace_union(self) -> None:
+        choice = Choice(name="Memnite")
+
+        with pytest.raises(TypeError, match="immutable"):
+            choice |= {"id": "p1"}
+
+    def test_decision_support_dataclass_equality_includes_extra_keys(self) -> None:
+        assert Choice.from_mapping({"name": "Memnite", "power": "1"}) != Choice.from_mapping(
+            {"name": "Memnite", "power": "2"}
+        )
+        assert PilotContext.from_mapping({"untappedLands": 1, "manaPool": {"WHITE": 1}}) != PilotContext.from_mapping(
+            {"untappedLands": 1, "manaPool": {"BLUE": 1}}
+        )
+
     def test_v8_schema_rejects_pilot_without_model(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(8))
         v8 = _minimal_export(
