@@ -2023,11 +2023,16 @@ def json_default(obj: object) -> object:
             if extra:
                 result.update(extra)
             return result
-        result = {
-            f.name: getattr(obj, f.name)
-            for f in dataclasses.fields(obj)
-            if getattr(obj, f.name) is not None
-        }
+        result = {}
+        for f in dataclasses.fields(obj):
+            v = getattr(obj, f.name)
+            # Include required fields even when None (preserves null in JSON),
+            # omit optional fields (those with defaults) when None.
+            if v is not None or (
+                f.default is dataclasses.MISSING
+                and f.default_factory is dataclasses.MISSING
+            ):
+                result[f.name] = v
         if "from_" in result:
             result["from"] = result.pop("from_")
         return result
