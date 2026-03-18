@@ -310,9 +310,12 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
             continue
         if k == "usage" and isinstance(v, dict):
             usage_fields = {f.name for f in dataclasses.fields(LlmUsage)}
-            kwargs[k] = LlmUsage(
-                **{uk: uv for uk, uv in v.items() if uk in usage_fields}
-            )
+            usage_kwargs = {uk: uv for uk, uv in v.items() if uk in usage_fields}
+            usage_extra = {uk: uv for uk, uv in v.items() if uk not in usage_fields}
+            usage_instance = LlmUsage(**usage_kwargs)  # type: ignore[arg-type]
+            object.__setattr__(usage_instance, "_source_keys", frozenset(v.keys()))
+            object.__setattr__(usage_instance, "_extra", usage_extra)
+            kwargs[k] = usage_instance
         else:
             kwargs[k] = v
     instance = cls(**kwargs)  # type: ignore[arg-type]
@@ -1017,6 +1020,8 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
         _require_key(obj, "llmEvents", source), f"{source}.llmEvents"
     )
     for index in range(len(llm_events)):
+        if dataclasses.is_dataclass(llm_events[index]):
+            continue  # Already converted (re-validation)
         event_obj = _require_object(llm_events[index], f"{source}.llmEvents[{index}]")
         assert _is_llm_event(event_obj, f"{source}.llmEvents[{index}]")
         llm_events[index] = _llm_event_from_dict(event_obj)
