@@ -322,12 +322,12 @@
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>
                 <artifactId>jakarta.xml.bind-api</artifactId>
-                <version>4.0.2</version>
+                <version>4.0.5</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
                 <artifactId>jaxb-runtime</artifactId>
-                <version>4.0.5</version>
+                <version>4.0.7</version>
             </dependency>
             <dependency>
                 <!-- junit compatible dependencies (xmage uses junit 5 platform for all v4 and v5 tests) -->
