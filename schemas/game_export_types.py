@@ -1549,11 +1549,15 @@ def _coerce_pilot_context(value: object, source: str) -> PilotContext:
         _require_optional_str(obj["combatPhase"], f"{source}.combatPhase")
     if "alreadyAttacking" in obj:
         obj["alreadyAttacking"] = _coerce_str_or_typed_list(
-            obj["alreadyAttacking"], f"{source}.alreadyAttacking", _coerce_combat_creature
+            obj["alreadyAttacking"],
+            f"{source}.alreadyAttacking",
+            _coerce_combat_creature,
         )
     if "incomingAttackers" in obj:
         obj["incomingAttackers"] = _coerce_str_or_typed_list(
-            obj["incomingAttackers"], f"{source}.incomingAttackers", _coerce_combat_creature
+            obj["incomingAttackers"],
+            f"{source}.incomingAttackers",
+            _coerce_combat_creature,
         )
     return PilotContext.from_mapping(obj)
 
@@ -1716,8 +1720,6 @@ def _coerce_snapshot(value: object, source: str) -> Snapshot:
             )
         ]
     return cast(Snapshot, snapshot)
-
-
 
 
 def _coerce_decision(value: object, source: str) -> Decision:

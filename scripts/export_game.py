@@ -789,7 +789,7 @@ def _find_snapshot_index_by_ts(snapshots: list[dict], ts: str) -> int | None:
     return best
 
 
-def _extract_pilot_context(choices_result: dict) -> PilotContext:
+def _extract_pilot_context(choices_result: dict) -> PilotContext | None:
     """Extract pilot-specific overlay data from a tool result."""
     ctx: dict[str, object] = {}
     if "untapped_lands" in choices_result:
@@ -820,6 +820,8 @@ def _extract_pilot_context(choices_result: dict) -> PilotContext:
                                 playable_ids.append(card_id)
     if playable_ids:
         ctx["playableCards"] = playable_ids
+    if not ctx:
+        return None
     return PilotContext.from_mapping(ctx)
 
 
