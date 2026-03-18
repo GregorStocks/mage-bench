@@ -242,10 +242,10 @@ regen-schema-types: $(WEBSITE_NPM_STAMP)
 .PHONY: verify-schema-types
 verify-schema-types: $(WEBSITE_NPM_STAMP)
 	@TMP_SCHEMA_TYPES=$$(mktemp); \
+	trap 'rm -f "$$TMP_SCHEMA_TYPES"' EXIT; \
 	cd website && npx json2ts -i ../schemas/game-export-v8.schema.json -o "$$TMP_SCHEMA_TYPES"; \
 	diff -q "$$TMP_SCHEMA_TYPES" src/types/game-export.d.ts > /dev/null 2>&1 \
-		|| (rm -f "$$TMP_SCHEMA_TYPES"; echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make regen-schema-types' to regenerate." && exit 1); \
-	rm -f "$$TMP_SCHEMA_TYPES"
+		|| { echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make regen-schema-types' to regenerate."; exit 1; }
 
 # Verify mcp-tools.json is up to date with McpServer.java
 .PHONY: verify-mcp-tools
