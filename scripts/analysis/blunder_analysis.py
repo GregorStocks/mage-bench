@@ -268,21 +268,16 @@ def _record_field(record: object, field: str) -> object | None:
     return export_record_field(record, field)
 
 
+_SNAPSHOT_ZONES = frozenset({"hand", "battlefield", "graveyard", "exile", "commanders"})
+
+
 def _snapshot_zone_cards(
     player: SnapshotPlayer, zone: str
 ) -> list[str | Permanent] | None:
     """Return a snapshot player's cards for a supported public/private zone."""
-    if zone == "hand":
-        return player.hand
-    if zone == "battlefield":
-        return player.battlefield
-    if zone == "graveyard":
-        return player.graveyard
-    if zone == "exile":
-        return player.exile
-    if zone == "commanders":
-        return player.commanders
-    raise AssertionError(f"unexpected zone {zone!r}")
+    assert zone in _SNAPSHOT_ZONES, f"unexpected zone {zone!r}"
+    cards: list[str | Permanent] | None = getattr(player, zone)
+    return cards
 
 
 def _collect_card_names(data: GameExport) -> set[str]:

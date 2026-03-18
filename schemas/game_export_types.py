@@ -1807,35 +1807,32 @@ def json_default(obj: object) -> object:
     raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
 
+def _dataclass_to_shallow_dict(obj: object) -> dict:
+    """Convert a dataclass instance to a dict, omitting None-valued optional fields."""
+    result: dict = {}
+    for f in dataclasses.fields(obj):  # type: ignore[arg-type]
+        v = getattr(obj, f.name)
+        if v is not None or (
+            f.default is dataclasses.MISSING
+            and f.default_factory is dataclasses.MISSING
+        ):
+            result[f.name] = v
+    return result
+
+
 def snapshot_to_dict(snap: Snapshot) -> dict:
     """Convert a Snapshot dataclass tree to a plain dict for render_decision().
 
     Produces a shallow nested dict: Snapshot fields become top-level keys,
     SnapshotPlayer and CombatGroup instances become dicts, but leaf records
     (Permanent, StackItem, CombatCreature) remain as dataclass instances.
+    Required fields are always included (even when None), matching the
+    original TypedDict behavior.
     """
-    result: dict = {
-        f.name: getattr(snap, f.name)
-        for f in dataclasses.fields(snap)
-        if getattr(snap, f.name) is not None
-    }
-    result["players"] = [
-        {
-            f.name: getattr(p, f.name)
-            for f in dataclasses.fields(p)
-            if getattr(p, f.name) is not None
-        }
-        for p in snap.players
-    ]
+    result = _dataclass_to_shallow_dict(snap)
+    result["players"] = [_dataclass_to_shallow_dict(p) for p in snap.players]
     if snap.combat is not None:
-        result["combat"] = [
-            {
-                f.name: getattr(g, f.name)
-                for f in dataclasses.fields(g)
-                if getattr(g, f.name) is not None
-            }
-            for g in snap.combat
-        ]
+        result["combat"] = [_dataclass_to_shallow_dict(g) for g in snap.combat]
     return result
 
 
