@@ -321,9 +321,9 @@ def _collect_card_names(data: GameExport) -> set[str]:
                             names.add(b["name"])
     # Also from choice names and combat fields in llm events
     for ev in data["llmEvents"]:
-        if ev["type"] == "tool_call" and ev["tool"] == "get_action_choices":
+        if ev.type == "tool_call" and ev.tool == "get_action_choices":
             try:
-                result = json.loads(ev["result"])
+                result = json.loads(ev.result)
                 if not isinstance(result, dict):
                     continue
                 result_choices = result.get("choices")

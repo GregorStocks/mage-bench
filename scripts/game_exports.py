@@ -4,21 +4,13 @@ These helpers intentionally avoid schema validation so migration and backfill
 scripts can operate on older export versions.
 """
 
-import dataclasses
 import gzip
 import json
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
-
-class _DataclassEncoder(json.JSONEncoder):
-    """JSON encoder that serializes dataclass instances, filtering None values."""
-
-    def default(self, obj: object) -> object:
-        if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
-            return {k: v for k, v in dataclasses.asdict(obj).items() if v is not None}
-        return super().default(obj)
+from schemas.game_export_types import json_default
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -62,7 +54,7 @@ def write_raw_game_export(
     _assert_game_export_path(export_path)
 
     json_bytes = json.dumps(
-        data, indent=2, ensure_ascii=False, cls=_DataclassEncoder
+        data, indent=2, ensure_ascii=False, default=json_default
     ).encode()
     if compress is None:
         compress = len(json_bytes) > GAME_EXPORT_GZ_THRESHOLD

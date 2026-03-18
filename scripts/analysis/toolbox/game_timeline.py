@@ -95,10 +95,10 @@ def _find_snapshot_index_for_event(
     snapshots: Sequence[Snapshot], event: LlmEvent
 ) -> int | None:
     """Resolve the snapshot index for an event using the best available coordinate."""
-    game_seq = event.get("gameSeq")
+    game_seq = event.gameSeq
     if isinstance(game_seq, int) and not isinstance(game_seq, bool):
         return _find_snapshot_index_by_seq(snapshots, game_seq)
-    ts = event.get("ts")
+    ts = event.ts
     if isinstance(ts, str) and ts:
         return _find_snapshot_index_by_ts(snapshots, ts)
     return None
@@ -150,10 +150,10 @@ def _has_real_auto_tap(args: JsonObject) -> bool:
 
 def is_mana_event(event: LlmEvent) -> bool:
     """Check if an event is mana-related."""
-    if event["type"] == "tool_call":
-        tool = event["tool"]
-        args = event["args"]
-        result_str = event["result"]
+    if event.type == "tool_call":
+        tool = event.tool
+        args = event.args
+        result_str = event.result
 
         # choose_action with real mana_plan or meaningful auto_tap
         if tool == "choose_action":
@@ -320,11 +320,8 @@ def print_event(
     verbose: bool,
 ) -> bool:
     """Print a single event. Returns True if printed."""
-    ts = event.get("ts")
-    assert ts is None or isinstance(ts, str), (
-        f"event ts must be a string when present, got {ts!r}"
-    )
-    player = event["player"]
+    ts = event.ts
+    player = event.player
     # Short timestamp (just time portion)
     if ts:
         ts_short = ts.split("T")[-1][:12] if "T" in ts else ts[:12]
@@ -338,11 +335,11 @@ def print_event(
 
     prefix = "[MANA] " if is_mana else ""
 
-    if event["type"] == "tool_call":
-        tool = event["tool"]
-        args = event["args"]
-        result_str = event["result"]
-        latency = event.get("latencyMs", 0)
+    if event.type == "tool_call":
+        tool = event.tool
+        args = event.args
+        result_str = event.result
+        latency = event.latencyMs or 0
 
         args_fmt = fmt_args(tool, args)
         result_fmt = fmt_result(
@@ -355,22 +352,13 @@ def print_event(
             print(f"{'':>12} {'':>30} {'':>25}   ({latency}ms)")
         return True
 
-    if event["type"] == "llm_response":
-        reasoning = event.get("reasoning")
-        tool_calls = event.get("toolCalls")
-        usage = event.get("usage")
-        cost = event.get("costUsd", 0)
-        assert isinstance(reasoning, str) or reasoning is None, (
-            f"reasoning must be a string when present, got {reasoning!r}"
-        )
+    if event.type == "llm_response":
+        reasoning = event.reasoning
+        tool_calls = event.toolCalls
+        usage = event.usage
+        cost = event.costUsd if event.costUsd is not None else 0.0
         if not isinstance(tool_calls, list):
             tool_calls = []
-        if usage is not None:
-            assert isinstance(usage, dict), (
-                f"usage must be an object when present, got {usage!r}"
-            )
-        if not isinstance(cost, (int, float)) or isinstance(cost, bool):
-            cost = 0.0
 
         if mana_only and not reasoning:
             return False
@@ -378,12 +366,8 @@ def print_event(
         tc_summary = ", ".join(
             str(tc.get("name", "?")) for tc in tool_calls if isinstance(tc, dict)
         )
-        prompt_t = usage.get("promptTokens", 0) if usage else 0
-        comp_t = usage.get("completionTokens", 0) if usage else 0
-        if not isinstance(prompt_t, int):
-            prompt_t = 0
-        if not isinstance(comp_t, int):
-            comp_t = 0
+        prompt_t = (usage.promptTokens or 0) if usage else 0
+        comp_t = (usage.completionTokens or 0) if usage else 0
 
         print(
             f"{ts_short} {context:<30} {player:<25} {prefix}LLM -> {tc_summary} (${cost:.4f}, {prompt_t}+{comp_t} tok)"
@@ -394,23 +378,23 @@ def print_event(
             print(f"{'':>12} {'':>30} {'':>25}   reasoning: {r}")
         return True
 
-    if event["type"] == "game_start":
+    if event.type == "game_start":
         print(f"{ts_short} {'':>30} {player:<25} === GAME START ===")
         return True
 
-    if event["type"] == "stall":
-        detail = f"turns={event.get('turnsWithoutProgress', '?')}"
+    if event.type == "stall":
+        detail = f"turns={event.turnsWithoutProgress or '?'}"
         print(f"{ts_short} {context:<30} {player:<25} *** STALL: {detail} ***")
         return True
 
-    if event["type"] == "context_reset":
-        reason = event.get("reason")
+    if event.type == "context_reset":
+        reason = event.reason
         detail = str(reason)[:100] if reason is not None else ""
         print(f"{ts_short} {context:<30} {player:<25} *** CONTEXT_RESET: {detail} ***")
         return True
 
-    if event["type"] == "llm_error":
-        error_msg = event.get("errorMessage")
+    if event.type == "llm_error":
+        error_msg = event.errorMessage
         detail = str(error_msg)[:100] if error_msg is not None else ""
         print(f"{ts_short} {context:<30} {player:<25} *** LLM_ERROR: {detail} ***")
         return True
@@ -463,7 +447,7 @@ def main() -> None:
     for event in events:
         # Player filter
         if args.player:
-            ep = event["player"]
+            ep = event.player
             if args.player.lower() not in ep.lower():
                 continue
 

@@ -9,6 +9,7 @@ from unittest.mock import MagicMock, call, patch
 
 import pytest
 
+from schemas.game_export_types import ToolCallEvent
 from scripts import scryfall
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
@@ -1363,42 +1364,44 @@ class TestGameGzBootstrap:
 
     def test_failed_tool_call_detection_requires_explicit_errors(self) -> None:
         events = [
-            {
-                "type": "tool_call",
-                "player": "Alice",
-                "tool": "get_action_choices",
-                "result": json.dumps({"required": True, "action_pending": True}),
-            },
-            {
-                "type": "tool_call",
-                "player": "Alice",
-                "tool": "choose_action",
-                "result": json.dumps(
+            ToolCallEvent(
+                type="tool_call",
+                player="Alice",
+                tool="get_action_choices",
+                args={},
+                result=json.dumps({"required": True, "action_pending": True}),
+            ),
+            ToolCallEvent(
+                type="tool_call",
+                player="Alice",
+                tool="choose_action",
+                args={},
+                result=json.dumps(
                     {
                         "success": True,
                         "failed": [{"id": "p1", "reason": "not a valid attacker"}],
                     }
                 ),
-            },
-            {
-                "type": "tool_call",
-                "player": "Alice",
-                "tool": "choose_action",
-                "result": json.dumps(
-                    {"success": False, "error": "Index 0 out of range (call get_action_choices first)"}
-                ),
-            },
-            {
-                "type": "tool_call",
-                "player": "Bob",
-                "tool": "send_chat_message",
-                "result": json.dumps({"error": "Missing required 'message' parameter"}),
-            },
+            ),
+            ToolCallEvent(
+                type="tool_call",
+                player="Alice",
+                tool="choose_action",
+                args={},
+                result=json.dumps({"success": False, "error": "Index 0 out of range (call get_action_choices first)"}),
+            ),
+            ToolCallEvent(
+                type="tool_call",
+                player="Bob",
+                tool="send_chat_message",
+                args={},
+                result=json.dumps({"error": "Missing required 'message' parameter"}),
+            ),
         ]
 
         failures = game_gz_bootstrap._failed_tool_calls(events)
 
-        assert [event["tool"] for event in failures] == [
+        assert [event.tool for event in failures] == [
             "choose_action",
             "send_chat_message",
         ]

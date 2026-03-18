@@ -8,6 +8,7 @@ import json
 import sys
 from collections import Counter
 
+from schemas.game_export_types import LlmResponseEvent, ToolCallEvent
 from scripts.analysis.blunder_eval_common import load_game
 
 
@@ -20,17 +21,17 @@ def main(gz_path: str) -> None:
         return
 
     # Event type counts
-    types = Counter(e["type"] for e in events)
+    types = Counter(e.type for e in events)
     print("=== LLM Event Types ===")
     for t, c in types.most_common():
         print(f"  {t}: {c}")
 
     # By player
     print()
-    players = sorted({e["player"] for e in events})
+    players = sorted({e.player for e in events})
     for player in players:
-        pe = [e for e in events if e["player"] == player]
-        pt = Counter(e["type"] for e in pe)
+        pe = [e for e in events if e.player == player]
+        pt = Counter(e.type for e in pe)
         print(f"{player}: {dict(pt.most_common())}")
 
     # Failed tool calls
@@ -38,9 +39,9 @@ def main(gz_path: str) -> None:
     print("=== Failed Tool Calls ===")
     fail_count = 0
     for tc in events:
-        if tc["type"] != "tool_call":
+        if not isinstance(tc, ToolCallEvent):
             continue
-        result = tc["result"]
+        result = tc.result
         is_failure = False
         try:
             result_obj = json.loads(result)
@@ -56,8 +57,8 @@ def main(gz_path: str) -> None:
         if is_failure:
             fail_count += 1
             print(
-                f"  {tc['player']} | {tc['tool']} "
-                f"| args={json.dumps(tc['args'])} "
+                f"  {tc.player} | {tc.tool} "
+                f"| args={json.dumps(tc.args)} "
                 f"| {result[:200]}"
             )
     if fail_count == 0:
@@ -66,20 +67,20 @@ def main(gz_path: str) -> None:
     # Stalls, resets, auto-pilot, errors
     print()
     for t in ("stall", "context_reset", "auto_pilot_mode", "llm_error"):
-        evts = [e for e in events if e["type"] == t]
+        evts = [e for e in events if e.type == t]
         if evts:
             print(f"{t}: {len(evts)} events")
 
     # Token/cost summary
-    responses = [e for e in events if e["type"] == "llm_response" and e.get("usage")]
+    responses = [e for e in events if isinstance(e, LlmResponseEvent) and e.usage]
     print()
     print("=== Token Usage ===")
     for player in players:
-        pr = [e for e in responses if e["player"] == player]
+        pr = [e for e in responses if e.player == player]
         if not pr:
             continue
-        prompt_tokens = sum(e["usage"].get("promptTokens", 0) for e in pr)
-        completion_tokens = sum(e["usage"].get("completionTokens", 0) for e in pr)
+        prompt_tokens = sum((e.usage.promptTokens or 0) for e in pr if e.usage)
+        completion_tokens = sum((e.usage.completionTokens or 0) for e in pr if e.usage)
         print(
             f"{player}: {len(pr)} responses, {prompt_tokens:,} prompt, {completion_tokens:,} completion tokens"
         )

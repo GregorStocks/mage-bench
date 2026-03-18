@@ -12,9 +12,9 @@ runs export_game.py to generate the export first.
 import json
 import subprocess
 import sys
-from collections.abc import Mapping, Sequence
 from pathlib import Path
 
+from schemas.game_export_types import LlmEvent, ToolCallEvent
 from scripts.analysis.blunder_eval_common import GAMES_DIR, load_game
 from scripts.export_game import LOGS_DIR
 
@@ -30,12 +30,10 @@ def _find_export(game_id: str) -> Path | None:
     return None
 
 
-def _parse_tool_result(event: Mapping[str, object]) -> dict | None:
+def _parse_tool_result(event: ToolCallEvent) -> dict | None:
     """Parse a tool_call result payload if it is structured JSON."""
-    result = event.get("result")
-    if isinstance(result, dict):
-        return result
-    if not isinstance(result, str) or not result:
+    result = event.result
+    if not result:
         return None
     try:
         parsed = json.loads(result)
@@ -44,10 +42,11 @@ def _parse_tool_result(event: Mapping[str, object]) -> dict | None:
     return parsed if isinstance(parsed, dict) else None
 
 
-def _is_failed_tool_call(event: Mapping[str, object]) -> bool:
+def _is_failed_tool_call(event: LlmEvent) -> bool:
     """Count only explicit tool error payloads, not arbitrary substrings."""
-    if event.get("type") != "tool_call":
+    if event.type != "tool_call":
         return False
+    assert isinstance(event, ToolCallEvent)
     result = _parse_tool_result(event)
     if result is None:
         return False
@@ -61,21 +60,18 @@ def _is_failed_tool_call(event: Mapping[str, object]) -> bool:
     return error is not None
 
 
-def _failed_tool_calls(
-    events: Sequence[Mapping[str, object]],
-) -> list[Mapping[str, object]]:
+def _failed_tool_calls(events: list[LlmEvent]) -> list[ToolCallEvent]:
     """Return tool_call events with explicit structured failures."""
-    return [event for event in events if _is_failed_tool_call(event)]
+    return [
+        event
+        for event in events
+        if isinstance(event, ToolCallEvent) and _is_failed_tool_call(event)
+    ]
 
 
-def _format_result_preview(event: Mapping[str, object]) -> str:
+def _format_result_preview(event: ToolCallEvent) -> str:
     """Render a short preview of the raw result payload."""
-    result = event.get("result")
-    if result is None:
-        return ""
-    if isinstance(result, str):
-        return result[:120]
-    return json.dumps(result)[:120]
+    return event.result[:120]
 
 
 def main(game_id: str) -> None:
@@ -114,9 +110,7 @@ def main(game_id: str) -> None:
     errors = _failed_tool_calls(events)
     print(f"LLM events: {len(events)} | Failed tool calls: {len(errors)}")
     for e in errors[:5]:
-        print(
-            f"  {e.get('player', '?')} | {e.get('tool', '?')} | {_format_result_preview(e)}"
-        )
+        print(f"  {e.player} | {e.tool} | {_format_result_preview(e)}")
     if len(errors) > 5:
         print(f"  ... and {len(errors) - 5} more")
 

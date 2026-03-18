@@ -356,22 +356,18 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
     # Collect get_action_choices events with their indices
     choices_events: list[tuple[int, ToolCallEvent]] = []
     for i, event in enumerate(llm_events):
-        if event["type"] == "tool_call" and event["tool"] == "get_action_choices":
+        if event.type == "tool_call" and event.tool == "get_action_choices":
             choices_events.append((i, event))
 
     decisions: list[dict[str, object]] = []
 
     for ce_idx, (event_idx, choices_event) in enumerate(choices_events):
-        choices_result = _parse_choices_result(choices_event["result"])
+        choices_result = _parse_choices_result(choices_event.result)
         if not choices_result.get("action_pending", True):
             continue
 
-        choices_ts = choices_event.get("ts")
-        if choices_ts is not None:
-            assert isinstance(choices_ts, str), (
-                f"choices event ts must be a string when present, got {choices_ts!r}"
-            )
-        player = choices_event["player"]
+        choices_ts = choices_event.ts
+        player = choices_event.player
 
         # Parse available choices
         available_choices_raw = choices_result.get("choices")
@@ -432,34 +428,26 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
 
         for j in range(event_idx + 1, min(event_idx + 20, len(llm_events))):
             ev = llm_events[j]
-            if ev["player"] != player:
+            if ev.player != player:
                 continue
 
-            if ev["type"] == "llm_response" and not reasoning:
-                reasoning_raw = ev.get("reasoning")
-                assert isinstance(reasoning_raw, str) or reasoning_raw is None, (
-                    f"reasoning must be a string when present, got {reasoning_raw!r}"
-                )
-                reasoning = reasoning_raw if reasoning_raw is not None else ""
+            if ev.type == "llm_response" and not reasoning:
+                reasoning = ev.reasoning if ev.reasoning is not None else ""
 
-            if ev["type"] == "tool_call" and ev["tool"] == "choose_action":
-                chosen_args = ev["args"]
-                action_result = _parse_action_result(ev["result"])
+            if ev.type == "tool_call" and ev.tool == "choose_action":
+                chosen_args = ev.args
+                action_result = _parse_action_result(ev.result)
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
-                action_ts_val = ev.get("ts")
-                if action_ts_val is not None:
-                    assert isinstance(action_ts_val, str), (
-                        f"choose_action ts must be a string when present, got {action_ts_val!r}"
-                    )
-                    action_ts = action_ts_val
+                if ev.ts is not None:
+                    action_ts = ev.ts
                 if _is_failed_choose_action_result(action_result):
                     continue
                 break
 
             # If we hit another get_action_choices, stop
-            if ev["type"] == "tool_call" and ev["tool"] == "get_action_choices":
+            if ev.type == "tool_call" and ev.tool == "get_action_choices":
                 break
 
         # Find nearest snapshot (None if decision precedes all snapshots,
@@ -472,11 +460,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         # Collect subsequent game actions (between this decision and next)
         next_choices_ts: str | None = None
         if ce_idx + 1 < len(choices_events):
-            next_choices_ts = choices_events[ce_idx + 1][1].get("ts")
-            if next_choices_ts is not None:
-                assert isinstance(next_choices_ts, str), (
-                    f"next choices ts must be a string when present, got {next_choices_ts!r}"
-                )
+            next_choices_ts = choices_events[ce_idx + 1][1].ts
 
         subsequent: list[str] = []
         if action_ts:
@@ -532,12 +516,12 @@ def _is_decision_source(event: LlmEvent) -> bool:
     A decision source is a pass_priority or get_action_choices tool_call
     whose result has action_pending=true.
     """
-    if event["type"] != "tool_call":
+    if event.type != "tool_call":
         return False
-    tool = event["tool"]
+    tool = event.tool
     if tool not in ("pass_priority", "get_action_choices"):
         return False
-    result = _parse_choices_result(event["result"])
+    result = _parse_choices_result(event.result)
     return bool(result.get("action_pending"))
 
 
@@ -556,14 +540,14 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     decision_sources: list[tuple[int, ToolCallEvent]] = []
     for i, event in enumerate(llm_events):
         # type check is redundant with _is_decision_source but needed for mypy narrowing
-        if event["type"] == "tool_call" and _is_decision_source(event):
+        if event.type == "tool_call" and _is_decision_source(event):
             decision_sources.append((i, event))
 
     decisions: list[dict[str, object]] = []
 
     for ds_idx, (event_idx, source_event) in enumerate(decision_sources):
-        choices_result = _parse_choices_result(source_event["result"])
-        player = source_event["player"]
+        choices_result = _parse_choices_result(source_event.result)
+        player = source_event.player
 
         available_choices_raw = choices_result.get("choices")
         if available_choices_raw is not None:
@@ -624,29 +608,21 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
 
         for j in range(event_idx + 1, len(llm_events)):
             ev = llm_events[j]
-            if ev["player"] != player:
+            if ev.player != player:
                 continue
 
-            if ev["type"] == "llm_response" and not reasoning:
-                reasoning_raw = ev.get("reasoning")
-                assert isinstance(reasoning_raw, str) or reasoning_raw is None, (
-                    f"reasoning must be a string when present, got {reasoning_raw!r}"
-                )
-                reasoning = reasoning_raw if reasoning_raw is not None else ""
+            if ev.type == "llm_response" and not reasoning:
+                reasoning = ev.reasoning if ev.reasoning is not None else ""
 
-            if ev["type"] == "tool_call" and ev["tool"] == "choose_action":
-                chosen_args = ev["args"]
-                action_result = _parse_action_result(ev["result"])
+            if ev.type == "tool_call" and ev.tool == "choose_action":
+                chosen_args = ev.args
+                action_result = _parse_action_result(ev.result)
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
-                action_ts_val = ev.get("ts")
-                if action_ts_val is not None:
-                    assert isinstance(action_ts_val, str), (
-                        f"choose_action ts must be a string when present, got {action_ts_val!r}"
-                    )
-                    action_ts = action_ts_val
-                game_seq_raw = ev.get("gameSeq", action_seq)
+                if ev.ts is not None:
+                    action_ts = ev.ts
+                game_seq_raw = ev.gameSeq if ev.gameSeq is not None else action_seq
                 if isinstance(game_seq_raw, int) and not isinstance(game_seq_raw, bool):
                     action_seq = game_seq_raw
                 if _is_failed_choose_action_result(action_result):
@@ -660,7 +636,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         # Use seq-based snapshot lookup for v2 (snapshots have seq, not ts).
         # Fall back to timestamp if gameSeq is missing (e.g. discard-to-hand-size
         # events from older harness versions that didn't emit gameSeq).
-        choices_seq_raw = source_event.get("gameSeq", 0)
+        choices_seq_raw = source_event.gameSeq
         choices_seq = (
             choices_seq_raw
             if isinstance(choices_seq_raw, int)
@@ -670,11 +646,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         if choices_seq:
             snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
         else:
-            choices_ts = source_event.get("ts")
-            if choices_ts is not None:
-                assert isinstance(choices_ts, str), (
-                    f"source event ts must be a string when present, got {choices_ts!r}"
-                )
+            choices_ts = source_event.ts
             snap_idx = (
                 _find_snapshot_index(snapshots, choices_ts) if choices_ts else None
             )
@@ -688,7 +660,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
 
         next_choices_seq = 0
         if ds_idx + 1 < len(decision_sources):
-            next_game_seq_raw = decision_sources[ds_idx + 1][1].get("gameSeq", 0)
+            next_game_seq_raw = decision_sources[ds_idx + 1][1].gameSeq
             if isinstance(next_game_seq_raw, int) and not isinstance(
                 next_game_seq_raw, bool
             ):
@@ -788,27 +760,19 @@ def _find_spell_cancelled_events(
     last_ts: dict[str, str] = {}
     cancelled: list[tuple[str, str]] = []
     for ev in llm_events:
-        if ev["type"] != "tool_call":
+        if ev.type != "tool_call":
             continue
-        player = ev["player"]
-        result_str = ev["result"]
+        player = ev.player
+        result_str = ev.result
         if "[System] Spell cancelled" not in result_str:
-            ts_raw = ev.get("ts")
-            if ts_raw is not None:
-                assert isinstance(ts_raw, str), (
-                    f"event ts must be a string when present, got {ts_raw!r}"
-                )
-                last_ts[player] = ts_raw
+            if ev.ts is not None:
+                last_ts[player] = ev.ts
             continue
         try:
             result = json.loads(result_str)
         except (json.JSONDecodeError, TypeError):
-            ts_raw = ev.get("ts")
-            if ts_raw is not None:
-                assert isinstance(ts_raw, str), (
-                    f"event ts must be a string when present, got {ts_raw!r}"
-                )
-                last_ts[player] = ts_raw
+            if ev.ts is not None:
+                last_ts[player] = ev.ts
             continue
         if not isinstance(result, dict):
             continue
@@ -818,26 +782,16 @@ def _find_spell_cancelled_events(
         for msg in recent_chat:
             if "[System] Spell cancelled" in str(msg):
                 # Use the previous event's timestamp (when the cast was attempted)
-                ev_ts_raw = ev.get("ts")
-                if ev_ts_raw is not None:
-                    assert isinstance(ev_ts_raw, str), (
-                        f"event ts must be a string when present, got {ev_ts_raw!r}"
-                    )
                 if player in last_ts:
                     ts = last_ts[player]
-                elif ev_ts_raw is not None:
-                    assert isinstance(ev_ts_raw, str)
-                    ts = ev_ts_raw
+                elif ev.ts is not None:
+                    ts = ev.ts
                 else:
                     break
                 cancelled.append((player, ts))
                 break
-        ts_raw = ev.get("ts")
-        if ts_raw is not None:
-            assert isinstance(ts_raw, str), (
-                f"event ts must be a string when present, got {ts_raw!r}"
-            )
-            last_ts[player] = ts_raw
+        if ev.ts is not None:
+            last_ts[player] = ev.ts
     return cancelled
 
 

@@ -2,6 +2,7 @@
 
 import json
 
+from schemas.game_export_types import _llm_event_from_dict
 from scripts.analysis.extract_decisions import (
     _extract_decisions_v1,
     _extract_decisions_v2,
@@ -11,6 +12,11 @@ from scripts.analysis.extract_decisions import (
     _summarize_snapshot,
     _summarize_stack_item,
 )
+
+
+def _convert_events(events: list[dict]) -> list:
+    """Convert raw event dicts to dataclass instances for testing."""
+    return [_llm_event_from_dict(e) for e in events]
 
 
 class TestSummarizeStackItem:
@@ -216,10 +222,11 @@ class TestFindSpellCancelledEvents:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — mana plan was incorrect."]}',
             },
         ]
-        assert _find_spell_cancelled_events(events) == [("Alice", "T01")]
+        assert _find_spell_cancelled_events(_convert_events(events)) == [("Alice", "T01")]
 
     def test_finds_cancel_in_choose_action(self) -> None:
         result = '{"action_taken": "selected_0", "recent_chat": ["[System] Spell cancelled — not enough mana."]}'
@@ -229,10 +236,11 @@ class TestFindSpellCancelledEvents:
                 "tool": "choose_action",
                 "player": "Bob",
                 "ts": "T02",
+                "args": {},
                 "result": result,
             },
         ]
-        assert _find_spell_cancelled_events(events) == [("Bob", "T02")]
+        assert _find_spell_cancelled_events(_convert_events(events)) == [("Bob", "T02")]
 
     def test_finds_cancel_in_pass_priority(self) -> None:
         events = [
@@ -241,10 +249,11 @@ class TestFindSpellCancelledEvents:
                 "tool": "pass_priority",
                 "player": "Alice",
                 "ts": "T03",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — mana plan was incorrect or incomplete."]}',
             },
         ]
-        assert _find_spell_cancelled_events(events) == [("Alice", "T03")]
+        assert _find_spell_cancelled_events(_convert_events(events)) == [("Alice", "T03")]
 
     def test_ignores_non_system_chat(self) -> None:
         events = [
@@ -253,10 +262,11 @@ class TestFindSpellCancelledEvents:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": '{"recent_chat": ["Alice: I will cast a spell!"]}',
             },
         ]
-        assert _find_spell_cancelled_events(events) == []
+        assert _find_spell_cancelled_events(_convert_events(events)) == []
 
     def test_ignores_non_tool_call(self) -> None:
         events = [
@@ -264,10 +274,9 @@ class TestFindSpellCancelledEvents:
                 "type": "llm_response",
                 "player": "Alice",
                 "ts": "T01",
-                "result": '{"recent_chat": ["[System] Spell cancelled"]}',
             },
         ]
-        assert _find_spell_cancelled_events(events) == []
+        assert _find_spell_cancelled_events(_convert_events(events)) == []
 
     def test_multiple_cancels(self) -> None:
         events = [
@@ -276,6 +285,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — mana plan was incorrect."]}',
             },
             {
@@ -283,10 +293,11 @@ class TestFindSpellCancelledEvents:
                 "tool": "pass_priority",
                 "player": "Bob",
                 "ts": "T02",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — not enough mana."]}',
             },
         ]
-        result = _find_spell_cancelled_events(events)
+        result = _find_spell_cancelled_events(_convert_events(events))
         assert result == [("Alice", "T01"), ("Bob", "T02")]
 
     def test_backdates_to_previous_event(self) -> None:
@@ -297,6 +308,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "choose_action",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": '{"action_taken": "selected_0"}',
             },
             {
@@ -304,6 +316,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "get_action_choices",
                 "player": "Bob",
                 "ts": "T02",
+                "args": {},
                 "result": '{"choices": []}',
             },
             {
@@ -311,10 +324,11 @@ class TestFindSpellCancelledEvents:
                 "tool": "pass_priority",
                 "player": "Alice",
                 "ts": "T10",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — not enough mana."]}',
             },
         ]
-        result = _find_spell_cancelled_events(events)
+        result = _find_spell_cancelled_events(_convert_events(events))
         # Should be backdated to T01 (Alice's previous tool_call), not T10
         assert result == [("Alice", "T01")]
 
@@ -404,7 +418,7 @@ def _v2_game_data(llm_events: list[dict]) -> dict:
             },
         ],
         "actions": [],
-        "llmEvents": llm_events,
+        "llmEvents": _convert_events(llm_events),
     }
 
 
@@ -761,6 +775,7 @@ class TestExtractDecisionsV1:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": gac_result,
             },
             {"type": "llm_response", "player": "Alice", "ts": "T02", "reasoning": "bolt it"},
@@ -784,7 +799,7 @@ class TestExtractDecisionsV1:
                 },
             ],
             "actions": [],
-            "llmEvents": events,
+            "llmEvents": _convert_events(events),
         }
         decisions = _extract_decisions_v1(data)
         assert len(decisions) == 1
@@ -809,6 +824,7 @@ class TestExtractDecisionsV1:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": gac_result,
             },
             {"type": "llm_response", "player": "Alice", "ts": "T02", "reasoning": "black"},
@@ -841,7 +857,7 @@ class TestExtractDecisionsV1:
                 },
             ],
             "actions": [],
-            "llmEvents": events,
+            "llmEvents": _convert_events(events),
         }
         decisions = _extract_decisions_v1(data)
         assert len(decisions) == 1

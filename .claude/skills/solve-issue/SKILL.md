@@ -93,6 +93,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
    This checklist survives the plan mode boundary and ensures no steps are skipped even if earlier context is compressed.
 6. After the plan is approved, **create tasks** from the checklist using `TaskCreate`. Mark each task in_progress when you start it and completed when you finish it.
+   - If `TaskCreate` is unavailable in the current Codex session, mirror the checklist in `update_plan` instead and keep the statuses current there.
 7. Implement the fix. Push progress:
 
    ```bash
