@@ -1,501 +1,252 @@
 {
   "actions": [
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "phase": null,
-      "seq": 2,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 2
     },
     {
-      "active_player": null,
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 3,
-      "step": null,
-      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
-      "active_player": null,
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 4,
-      "step": null,
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skips Draw step",
-      "phase": null,
-      "seq": 7,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 7
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "BEGINNING",
       "seq": 8,
       "step": "DRAW",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 11,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 11
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 12,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Dark Depths from hand onto the Battlefield",
-      "phase": null,
-      "seq": 16,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 16
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 17,
       "step": "POSTCOMBAT_MAIN",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 22,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 22
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 23,
-      "step": null,
-      "ts": null,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 24,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "phase": null,
-      "seq": 29,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 29
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "END",
       "seq": 30,
       "step": "CLEANUP",
-      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards Mountain",
-      "phase": null,
-      "seq": 32,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 32
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Thespian's Stage from hand onto the Battlefield",
-      "phase": null,
-      "seq": 34,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 34
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 35,
-      "step": null,
-      "ts": null,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 36,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 39,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 39
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 40,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer casts Black Lotus from hand",
-      "phase": null,
-      "seq": 45,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 45
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 46,
       "step": "POSTCOMBAT_MAIN",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Black Lotus from stack onto the Battlefield",
-      "phase": null,
-      "seq": 49,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 49
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer sacrificed Black Lotus (source: Black Lotus)",
-      "phase": null,
-      "seq": 54,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 54
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer activates: Thespian's Stage becomes a copy of target land, except it has this ability. from Thespian's Stage targeting Dark Depths",
-      "phase": null,
-      "seq": 55,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 55
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Dark Depths is put into graveyard from battlefield",
-      "phase": null,
-      "seq": 59,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 59
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer - Ability triggers: Dark Depths - When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
-      "phase": null,
-      "seq": 60,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 60
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer sacrificed Dark Depths (source: Thespian's Stage)",
-      "phase": null,
-      "seq": 63,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 63
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer creates a Marit Lage token",
-      "phase": null,
-      "seq": 64,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 64
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 69,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 69
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 70,
-      "step": null,
-      "ts": null,
       "turn": 4,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 71,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "phase": null,
-      "seq": 76,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 76
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "END",
       "seq": 77,
       "step": "CLEANUP",
-      "ts": null,
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards Mountain",
-      "phase": null,
-      "seq": 79,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 79
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer attacks Opponent with 1 creature",
-      "phase": null,
-      "seq": 84,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 84
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 85,
-      "step": null,
-      "ts": null,
       "turn": 5,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 86,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Attacker: Marit Lage (20/20) unblocked",
-      "phase": null,
-      "seq": 89,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 89
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 90,
       "step": "DECLARE_BLOCKERS",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent loses 20 life at combat from Marit Lage",
-      "phase": null,
-      "seq": 93,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 93
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 94,
       "step": "COMBAT_DAMAGE",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent has lost the game.",
-      "phase": null,
-      "seq": 95,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 95
     }
   ],
   "cardData": {
     "Black Lotus": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "{0}",
       "oracle_text": "{T}, Sacrifice this artifact: Add three mana of any one color.",
-      "power": null,
-      "toughness": null,
       "type_line": "Artifact"
     },
     "Dark Depths": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "Dark Depths enters with ten ice counters on it.\n{3}: Remove an ice counter from Dark Depths.\nWhen Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
-      "power": null,
-      "toughness": null,
       "type_line": "Legendary Snow Land"
     },
     "Marit Lage": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "Flying, indestructible",
       "power": "20",
@@ -503,30 +254,18 @@
       "type_line": "Token Legendary Creature — Avatar"
     },
     "Mountain": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {R}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Mountain"
     },
     "Plains": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {W}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Plains"
     },
     "Thespian's Stage": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "{T}: Add {C}.\n{2}, {T}: This land becomes a copy of target land, except it has this ability.",
-      "power": null,
-      "toughness": null,
       "type_line": "Land"
     }
   },

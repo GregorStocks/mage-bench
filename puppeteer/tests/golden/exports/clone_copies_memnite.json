@@ -1,327 +1,163 @@
 {
   "actions": [
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "phase": null,
-      "seq": 2,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 2
     },
     {
-      "active_player": null,
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 3,
-      "step": null,
-      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
-      "active_player": null,
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 4,
-      "step": null,
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skips Draw step",
-      "phase": null,
-      "seq": 7,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 7
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "BEGINNING",
       "seq": 8,
       "step": "DRAW",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 11,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 11
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 12,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Island from hand onto the Battlefield",
-      "phase": null,
-      "seq": 16,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 16
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 17,
       "step": "POSTCOMBAT_MAIN",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 22,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 22
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 23,
-      "step": null,
-      "ts": null,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 24,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "phase": null,
-      "seq": 29,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 29
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "END",
       "seq": 30,
       "step": "CLEANUP",
-      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards Mountain",
-      "phase": null,
-      "seq": 32,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 32
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer casts Black Lotus from hand",
-      "phase": null,
-      "seq": 35,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 35
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 36,
-      "step": null,
-      "ts": null,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 37,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Black Lotus from stack onto the Battlefield",
-      "phase": null,
-      "seq": 40,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 40
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer casts Memnite from hand",
-      "phase": null,
-      "seq": 43,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 43
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Memnite from stack onto the Battlefield",
-      "phase": null,
-      "seq": 46,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 46
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer sacrificed Black Lotus (source: Black Lotus)",
-      "phase": null,
-      "seq": 50,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 50
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer casts Clone from hand",
-      "phase": null,
-      "seq": 51,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 51
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Memnite from stack onto the Battlefield",
-      "phase": null,
-      "seq": 56,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 56
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 59,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 59
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 60,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer wants to concede",
-      "phase": null,
-      "seq": 64,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 64
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 65,
       "step": "POSTCOMBAT_MAIN",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     }
   ],
   "cardData": {
     "Black Lotus": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "{0}",
       "oracle_text": "{T}, Sacrifice this artifact: Add three mana of any one color.",
-      "power": null,
-      "toughness": null,
       "type_line": "Artifact"
     },
     "Clone": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "{3}{U}",
       "oracle_text": "You may have this creature enter as a copy of any creature on the battlefield.",
       "power": "0",
@@ -329,17 +165,11 @@
       "type_line": "Creature — Shapeshifter"
     },
     "Island": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {U}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Island"
     },
     "Memnite": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "{0}",
       "oracle_text": "",
       "power": "1",
@@ -347,12 +177,8 @@
       "type_line": "Artifact Creature — Construct"
     },
     "Mountain": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {R}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Mountain"
     }
   },

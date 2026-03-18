@@ -1,514 +1,255 @@
 {
   "actions": [
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "phase": null,
-      "seq": 2,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 2
     },
     {
-      "active_player": null,
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 3,
-      "step": null,
-      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
-      "active_player": null,
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 4,
-      "step": null,
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skips Draw step",
-      "phase": null,
-      "seq": 7,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 7
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "BEGINNING",
       "seq": 8,
       "step": "DRAW",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 11,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 11
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 12,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Forest from hand onto the Battlefield",
-      "phase": null,
-      "seq": 16,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 16
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 17,
       "step": "POSTCOMBAT_MAIN",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent puts Plains from hand onto the Battlefield",
-      "phase": null,
-      "seq": 21,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 21
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 22,
-      "step": null,
-      "ts": null,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 23,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent casts Savannah Lions from hand",
-      "phase": null,
-      "seq": 26,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 26
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent puts Savannah Lions from stack onto the Battlefield",
-      "phase": null,
-      "seq": 29,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 29
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 32,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 32
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 33,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Forest from hand onto the Battlefield",
-      "phase": null,
-      "seq": 39,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 39
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 40,
-      "step": null,
-      "ts": null,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 41,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer casts Grizzly Bears from hand",
-      "phase": null,
-      "seq": 45,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 45
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Grizzly Bears from stack onto the Battlefield",
-      "phase": null,
-      "seq": 48,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 48
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 51,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 51
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 52,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent puts Plains from hand onto the Battlefield",
-      "phase": null,
-      "seq": 58,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 58
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 59,
-      "step": null,
-      "ts": null,
       "turn": 4,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 60,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent casts Savannah Lions from hand",
-      "phase": null,
-      "seq": 63,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 63
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent puts Savannah Lions from stack onto the Battlefield",
-      "phase": null,
-      "seq": 66,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 66
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 70,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 70
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 71,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer attacks Opponent with 1 creature",
-      "phase": null,
-      "seq": 80,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 80
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 81,
-      "step": null,
-      "ts": null,
       "turn": 5,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 82,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Attacker: Grizzly Bears (2/2) blocked by Savannah Lions (2/1) Savannah Lions (2/1)",
-      "phase": null,
-      "seq": 88,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 88
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 89,
       "step": "DECLARE_BLOCKERS",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Savannah Lions deals 2 damage to Grizzly Bears",
-      "phase": null,
-      "seq": 93,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 93
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 94,
       "step": "COMBAT_DAMAGE",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Savannah Lions deals 2 damage to Grizzly Bears",
-      "phase": null,
-      "seq": 95,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 95
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Grizzly Bears deals 1 damage to Savannah Lions",
-      "phase": null,
-      "seq": 96,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 96
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Grizzly Bears deals 1 damage to Savannah Lions",
-      "phase": null,
-      "seq": 97,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 97
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Savannah Lions died",
-      "phase": null,
-      "seq": 98,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 98
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Grizzly Bears died",
-      "phase": null,
-      "seq": 99,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 99
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Savannah Lions died",
-      "phase": null,
-      "seq": 100,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 100
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer wants to concede",
-      "phase": null,
-      "seq": 104,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 104
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 105,
       "step": "POSTCOMBAT_MAIN",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     }
   ],
   "cardData": {
     "Forest": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {G}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Forest"
     },
     "Grizzly Bears": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "{1}{G}",
       "oracle_text": "",
       "power": "2",
@@ -516,17 +257,11 @@
       "type_line": "Creature — Bear"
     },
     "Plains": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {W}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Plains"
     },
     "Savannah Lions": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "{W}",
       "oracle_text": "",
       "power": "2",

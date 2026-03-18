@@ -1540,7 +1540,9 @@ class _DataclassEncoder(json.JSONEncoder):
             # Map Python field names back to JSON keys
             if "from_" in d:
                 d["from"] = d.pop("from_")
-            return d
+            # Strip None values — dataclass optional fields default to None,
+            # but the JSON schema treats absent keys and null differently.
+            return {k: v for k, v in d.items() if v is not None}
         return super().default(o)
 
 

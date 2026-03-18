@@ -1,963 +1,490 @@
 {
   "actions": [
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "phase": null,
-      "seq": 2,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 2
     },
     {
-      "active_player": null,
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 3,
-      "step": null,
-      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
-      "active_player": null,
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 4,
-      "step": null,
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skips Draw step",
-      "phase": null,
-      "seq": 7,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 7
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "BEGINNING",
       "seq": 8,
       "step": "DRAW",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 11,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 11
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 12,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Forest from hand onto the Battlefield",
-      "phase": null,
-      "seq": 16,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 16
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 17,
       "step": "POSTCOMBAT_MAIN",
-      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 22,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 22
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 23,
-      "step": null,
-      "ts": null,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 24,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "phase": null,
-      "seq": 29,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 29
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "END",
       "seq": 30,
       "step": "CLEANUP",
-      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards Mountain",
-      "phase": null,
-      "seq": 32,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 32
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer activates: Suspend 4. from Crashing Footfalls",
-      "phase": null,
-      "seq": 35,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 35
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 36,
-      "step": null,
-      "ts": null,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 37,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer moves Crashing Footfalls from hand to the exile zone",
-      "phase": null,
-      "seq": 38,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 38
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer suspends (4) Crashing Footfalls",
-      "phase": null,
-      "seq": 39,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 39
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 42,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 42
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 43,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Boggart Bog from hand onto the Battlefield",
-      "phase": null,
-      "seq": 49,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 49
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 50,
       "step": "POSTCOMBAT_MAIN",
-      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 55,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 55
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 56,
-      "step": null,
-      "ts": null,
       "turn": 4,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 57,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "phase": null,
-      "seq": 62,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 62
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "END",
       "seq": 63,
       "step": "CLEANUP",
-      "ts": null,
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards Mountain",
-      "phase": null,
-      "seq": 65,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 65
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it.",
-      "phase": null,
-      "seq": 66,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 66
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 67,
-      "step": null,
-      "ts": null,
       "turn": 5,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "BEGINNING",
       "seq": 68,
       "step": "UPKEEP",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Removed 1 time counter from Crashing Footfalls (3 left)",
-      "phase": null,
-      "seq": 71,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 71
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Plains from hand onto the Battlefield",
-      "phase": null,
-      "seq": 73,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 73
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 74,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 77,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 77
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 78,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 85,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 85
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 86,
-      "step": null,
-      "ts": null,
       "turn": 6,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 87,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 6,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "phase": null,
-      "seq": 92,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 92
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "END",
       "seq": 93,
       "step": "CLEANUP",
-      "ts": null,
       "turn": 6,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards Mountain",
-      "phase": null,
-      "seq": 95,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 95
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it.",
-      "phase": null,
-      "seq": 96,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 96
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 97,
-      "step": null,
-      "ts": null,
       "turn": 7,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "BEGINNING",
       "seq": 98,
       "step": "UPKEEP",
-      "ts": null,
       "turn": 7,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Removed 1 time counter from Crashing Footfalls (2 left)",
-      "phase": null,
-      "seq": 101,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 101
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Plains from hand onto the Battlefield",
-      "phase": null,
-      "seq": 103,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 103
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 104,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 7,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 107,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 107
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 108,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 7,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 115,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 115
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 116,
-      "step": null,
-      "ts": null,
       "turn": 8,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 117,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 8,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "phase": null,
-      "seq": 122,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 122
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "END",
       "seq": 123,
       "step": "CLEANUP",
-      "ts": null,
       "turn": 8,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards Mountain",
-      "phase": null,
-      "seq": 125,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 125
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it.",
-      "phase": null,
-      "seq": 126,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 126
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 127,
-      "step": null,
-      "ts": null,
       "turn": 9,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "BEGINNING",
       "seq": 128,
       "step": "UPKEEP",
-      "ts": null,
       "turn": 9,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Removed 1 time counter from Crashing Footfalls (1 left)",
-      "phase": null,
-      "seq": 131,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 131
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Plains from hand onto the Battlefield",
-      "phase": null,
-      "seq": 133,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 133
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 134,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 9,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer skip attack",
-      "phase": null,
-      "seq": 137,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 137
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 138,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 9,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent skip attack",
-      "phase": null,
-      "seq": 145,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 145
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 146,
-      "step": null,
-      "ts": null,
       "turn": 10,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "COMBAT",
       "seq": 147,
       "step": "DECLARE_ATTACKERS",
-      "ts": null,
       "turn": 10,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "phase": null,
-      "seq": 152,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 152
     },
     {
       "active_player": "Opponent",
-      "from": null,
-      "message": null,
       "phase": "END",
       "seq": 153,
       "step": "CLEANUP",
-      "ts": null,
       "turn": 10,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Opponent discards Mountain",
-      "phase": null,
-      "seq": 155,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 155
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it.",
-      "phase": null,
-      "seq": 156,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 156
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
-      "phase": null,
       "seq": 157,
-      "step": null,
-      "ts": null,
       "turn": 11,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "BEGINNING",
       "seq": 158,
       "step": "UPKEEP",
-      "ts": null,
       "turn": 11,
       "type": "phase_change"
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "Removed 1 time counter from Crashing Footfalls (0 left)",
-      "phase": null,
-      "seq": 161,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 161
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer - Ability triggers: Crashing Footfalls - When the last time counter is removed from Crashing Footfalls, if it's exiled,",
-      "phase": null,
-      "seq": 162,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 162
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer casts Crashing Footfalls from exile zone",
-      "phase": null,
-      "seq": 166,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 166
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer creates a Rhino Token token",
-      "phase": null,
-      "seq": 169,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 169
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer creates a Rhino Token token",
-      "phase": null,
-      "seq": 170,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 170
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer puts Crashing Footfalls from stack into their graveyard",
-      "phase": null,
-      "seq": 171,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 171
     },
     {
-      "active_player": null,
-      "from": null,
       "message": "TestPlayer wants to concede",
-      "phase": null,
-      "seq": 173,
-      "step": null,
-      "ts": null,
-      "turn": null,
-      "type": null
+      "seq": 173
     },
     {
       "active_player": "TestPlayer",
-      "from": null,
-      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 174,
       "step": "PRECOMBAT_MAIN",
-      "ts": null,
       "turn": 11,
       "type": "phase_change"
     }
   ],
   "cardData": {
     "Boggart Trawler // Boggart Bog": {
-      "defense": null,
-      "loyalty": null,
-      "mana_cost": null,
-      "oracle_text": null,
-      "power": null,
-      "toughness": null,
       "type_line": "Creature — Goblin // Land"
     },
     "Crashing Footfalls": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "Suspend 4—{G} (Rather than cast this card from your hand, pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nCreate two 4/4 green Rhino creature tokens with trample.",
-      "power": null,
-      "toughness": null,
       "type_line": "Sorcery"
     },
     "Forest": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {G}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Forest"
     },
     "Mountain": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {R}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Mountain"
     },
     "Plains": {
-      "defense": null,
-      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {W}.)",
-      "power": null,
-      "toughness": null,
       "type_line": "Basic Land — Plains"
     }
   },
