@@ -115,6 +115,18 @@ def _assert_dataclass_matches_schema(dataclass_cls: object, *, schema: dict) -> 
     assert required_props == set(schema.get("required", []))
 
 
+def _dataclass_keys(dataclass_cls: object) -> set[str]:
+    return {field.name for field in fields(dataclass_cls) if not field.name.startswith("_")}
+
+
+def _dataclass_required_keys(dataclass_cls: object) -> set[str]:
+    return {
+        field.name
+        for field in fields(dataclass_cls)
+        if not field.name.startswith("_") and field.default is MISSING and field.default_factory is MISSING
+    }
+
+
 class TestExportSchema:
     def test_v2_schema_is_valid(self) -> None:
         schema = _load_schema(2)
@@ -406,11 +418,11 @@ class TestExportSchema:
         all_keys: set[str] = set()
         all_required: set[str] | None = None
         for variant in llm_variants:
-            all_keys |= _typed_dict_keys(variant)
+            all_keys |= _dataclass_keys(variant)
             if all_required is None:
-                all_required = set(variant.__required_keys__)
+                all_required = _dataclass_required_keys(variant)
             else:
-                all_required &= set(variant.__required_keys__)
+                all_required &= _dataclass_required_keys(variant)
         llm_schema = defs["LlmEvent"]
         assert all_keys == set(llm_schema["properties"]), (
             f"LlmEvent variant keys mismatch: "
@@ -420,7 +432,7 @@ class TestExportSchema:
         assert all_required == set(llm_schema.get("required", [])), (
             f"LlmEvent required keys mismatch: got {all_required}, expected {set(llm_schema.get('required', []))}"
         )
-        _assert_typed_dict_matches_schema(LlmUsage, schema=defs["LlmUsage"])
+        _assert_dataclass_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
         _assert_typed_dict_matches_schema(Decision, schema=defs["Decision"])

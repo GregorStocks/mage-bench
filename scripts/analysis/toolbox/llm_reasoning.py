@@ -6,6 +6,7 @@ Extracts 3-4 reasoning samples per player to assess decision quality.
 
 import sys
 
+from schemas.game_export_types import LlmResponseEvent
 from scripts.analysis.blunder_eval_common import load_game
 
 MAX_SAMPLES = 4
@@ -17,18 +18,15 @@ def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
     events = d["llmEvents"]
-    players = sorted({e.get("player", "?") for e in events})
+    players = sorted({e.player for e in events})
 
     for player in players:
         print(f"=== {player} ===")
         count = 0
         for e in events:
-            if e.get("type") != "llm_response" or e.get("player") != player:
+            if not isinstance(e, LlmResponseEvent) or e.player != player:
                 continue
-            reasoning = e.get("reasoning") or e.get("thinking")
-            assert reasoning is None or isinstance(reasoning, str), (
-                f"reasoning must be a string when present, got {reasoning!r}"
-            )
+            reasoning = e.reasoning or e.thinking
             if reasoning and len(reasoning) > MIN_REASONING_LEN:
                 count += 1
                 print(f"--- Sample {count} ---")

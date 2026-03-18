@@ -1,13 +1,19 @@
 package mage.client.bridge;
 
+import mage.cards.repository.CardInfo;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
+import mage.client.bridge.tools.GetOracleTextTool;
+import mage.constants.CardType;
 import mage.game.BridgeLogEntry;
 import mage.constants.PhaseStep;
+import mage.constants.SubType;
+import mage.constants.SuperType;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
 import mage.util.MultiAmountMessage;
+import mage.util.SubTypes;
 import mage.view.CardView;
 import mage.view.CardsView;
 import mage.view.GameClientMessage;
@@ -127,6 +133,52 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void getGameLogChunkUsesAbsolutePerPlayerTurnsForCursorSlices() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("Alice");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        setCachedBridgeEvents(handler, sampleBridgeLogEvents());
+
+        var result = handler.getGameLogChunk(0, 4);
+
+        assertThat(result.log).isEqualTo("Alice turn 2:\nAlice cast Lightning Bolt targeting Bob");
+        assertThat(result.total_length).isNull();
+        assertThat(result.truncated).isFalse();
+        assertThat(result.cursor).isEqualTo(6);
+        assertThat(result.cursor_reset).isNull();
+    }
+
+    @Test
+    void getGameLogChunkReportsFullLengthBeforeTruncating() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("Alice");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        setCachedBridgeEvents(handler, sampleBridgeLogEvents());
+
+        String lastLine = "Alice cast Lightning Bolt targeting Bob";
+        var result = handler.getGameLogChunk(lastLine.length(), null);
+
+        assertThat(result.log).isEqualTo(lastLine);
+        assertThat(result.total_length).isEqualTo(sampleBridgeLogText().length());
+        assertThat(result.truncated).isTrue();
+        assertThat(result.cursor).isEqualTo(6);
+    }
+
+    @Test
+    void getGameLogSinceTurnDefaultsToClientPlayer() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("Alice");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        setCachedBridgeEvents(handler, sampleBridgeLogEvents());
+
+        var result = handler.getGameLogSinceTurn(null, 2);
+
+        assertThat(result.log).isEqualTo("Alice turn 2:\nAlice cast Lightning Bolt targeting Bob");
+        assertThat(result.total_length).isEqualTo(sampleBridgeLogText().length());
+        assertThat(result.truncated).isFalse();
+        assertThat(result.cursor).isEqualTo(6);
+        assertThat(result.since_turn).isEqualTo(2);
+        assertThat(result.since_player).isEqualTo("Alice");
+    }
+
+    @Test
     void stepYieldStopsWhenCallbackOvershootsTargetStepInSameTurn() throws Exception {
         CountDownLatch autoPassSent = new CountDownLatch(1);
         AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
@@ -206,6 +258,79 @@ class BridgeCallbackHandlerTest {
         assertThat(result.items).singleElement().satisfies(item ->
             assertThat(item).containsEntry("description", "Savannah Lions, P/T: 2/1")
         );
+    }
+
+    @Test
+    void populateCardFieldsMapForCardViewPreservesSharedOracleFields() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        CardView secondFace = cardView(UUID.randomUUID(), "p2", "Awakened Insight");
+        setField(secondFace, "manaCostLeftStr", List.of());
+        setField(secondFace, "manaCostRightStr", List.of());
+        setField(secondFace, "rules", List.of("<i>Flying</i>"));
+        setField(secondFace, "cardTypes", List.of(CardType.PLANESWALKER));
+        setField(secondFace, "subTypes", subTypes(SubType.JACE));
+        setField(secondFace, "superTypes", List.of(SuperType.LEGENDARY));
+        setField(secondFace, "startingLoyalty", "5");
+
+        CardView frontFace = cardView(UUID.randomUUID(), "p1", "Test Front");
+        setField(frontFace, "manaCostLeftStr", List.of("{2}", "{U}"));
+        setField(frontFace, "manaCostRightStr", List.of());
+        setField(frontFace, "rules", List.of("Flying", "<i>Ward</i> {2}"));
+        setField(frontFace, "cardTypes", List.of(CardType.CREATURE));
+        setField(frontFace, "subTypes", subTypes(SubType.HUMAN, SubType.WIZARD));
+        setField(frontFace, "superTypes", List.of(SuperType.LEGENDARY));
+        setField(frontFace, "power", "3");
+        setField(frontFace, "toughness", "4");
+        setField(frontFace, "secondCardFace", secondFace);
+
+        Map<String, Object> entry = invokePopulateCardFieldsMap(handler, frontFace);
+
+        assertThat(entry)
+            .containsEntry("name", "Test Front")
+            .containsEntry("mana_cost", "{2}{U}")
+            .containsEntry("type", "Legendary Creature  - Human Wizard")
+            .containsEntry("rules", List.of("Flying", "Ward {2}"))
+            .containsEntry("power", "3")
+            .containsEntry("toughness", "4");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> secondFaceEntry = (Map<String, Object>) entry.get("second_face");
+        assertThat(secondFaceEntry)
+            .containsEntry("name", "Awakened Insight")
+            .containsEntry("type", "Legendary Planeswalker  - Jace")
+            .containsEntry("rules", List.of("Flying"))
+            .containsEntry("starting_loyalty", "5")
+            .doesNotContainKeys("mana_cost", "power", "toughness", "starting_defense");
+    }
+
+    @Test
+    void populateCardFieldsResultForCardInfoPreservesSharedOracleFields() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        CardInfo battle = new CardInfo();
+        setField(battle, "name", "Test Invasion");
+        battle.setManaCosts(List.of("{1}", "{W}"));
+        battle.setTypes(List.of(CardType.BATTLE));
+        battle.setSubtypes(List.of("Siege"));
+        battle.setSuperTypes(List.of(SuperType.LEGENDARY));
+        battle.setRules(List.of(
+            "<i>Front</i> rule one",
+            "Front rule two"
+        ));
+        setField(battle, "startingDefense", "4");
+
+        GetOracleTextTool.Result result = invokePopulateCardFieldsResult(handler, battle);
+
+        assertThat(result.name).isEqualTo("Test Invasion");
+        assertThat(result.mana_cost).isEqualTo("{1}{W}");
+        assertThat(result.type).isEqualTo("Legendary Battle — Siege");
+        assertThat(result.rules).containsExactly(
+            "Front rule one",
+            "Front rule two"
+        );
+        assertThat(result.starting_defense).isEqualTo("4");
+        assertThat(result.second_face).isNull();
     }
 
     @Test
@@ -945,6 +1070,52 @@ class BridgeCallbackHandlerTest {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
     }
 
+    private static List<BridgeLogEntry> sampleBridgeLogEvents() {
+        return List.of(
+            bridgeLogEntry(0, "BEGIN_TURN", 1, "Alice", "Alice", null, null),
+            bridgeLogEntry(1, "LAND_PLAYED", 1, "Alice", "Alice", "Island", null),
+            bridgeLogEntry(2, "BEGIN_TURN", 2, "Bob", "Bob", null, null),
+            bridgeLogEntry(3, "LAND_PLAYED", 2, "Bob", "Bob", "Swamp", null),
+            bridgeLogEntry(4, "BEGIN_TURN", 3, "Alice", "Alice", null, null),
+            bridgeLogEntry(5, "SPELL_CAST", 3, "Alice", "Alice", "Lightning Bolt", "Bob")
+        );
+    }
+
+    private static String sampleBridgeLogText() {
+        return String.join("\n",
+            "Alice turn 1:",
+            "Alice played Island",
+            "Bob turn 1:",
+            "Bob played Swamp",
+            "Alice turn 2:",
+            "Alice cast Lightning Bolt targeting Bob"
+        );
+    }
+
+    private static BridgeLogEntry bridgeLogEntry(
+            int index,
+            String type,
+            int turn,
+            String activePlayer,
+            String player,
+            String cardName,
+            String targetName) {
+        return new BridgeLogEntry(
+            index,
+            index,
+            type,
+            turn,
+            "PRECOMBAT_MAIN",
+            "PRECOMBAT_MAIN",
+            activePlayer,
+            player,
+            cardName,
+            targetName,
+            0,
+            true
+        );
+    }
+
     @SuppressWarnings("removal")
     private static final Unsafe UNSAFE = initUnsafe();
 
@@ -1057,6 +1228,37 @@ class BridgeCallbackHandlerTest {
         return (Map<String, Object>) method.invoke(handler, card, view, includeId, includeRules);
     }
 
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> invokePopulateCardFieldsMap(
+            BridgeCallbackHandler handler,
+            CardView card
+    ) throws Exception {
+        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
+            "populateCardFields",
+            Map.class,
+            CardView.class
+        );
+        method.setAccessible(true);
+        Map<String, Object> entry = new LinkedHashMap<>();
+        method.invoke(handler, entry, card);
+        return entry;
+    }
+
+    private static GetOracleTextTool.Result invokePopulateCardFieldsResult(
+            BridgeCallbackHandler handler,
+            CardInfo card
+    ) throws Exception {
+        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
+            "populateCardFields",
+            GetOracleTextTool.Result.class,
+            CardInfo.class
+        );
+        method.setAccessible(true);
+        GetOracleTextTool.Result result = new GetOracleTextTool.Result();
+        method.invoke(handler, result, card);
+        return result;
+    }
+
     private static Session sessionProxy(CountDownLatch autoPassSent, AtomicInteger sendPlayerBooleanCalls) {
         InvocationHandler handler = (proxy, method, args) -> {
             if ("sendPlayerBoolean".equals(method.getName())) {
@@ -1122,6 +1324,14 @@ class BridgeCallbackHandlerTest {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
+    private static void setCachedBridgeEvents(BridgeCallbackHandler handler, List<BridgeLogEntry> events)
+            throws Exception {
+        List<BridgeLogEntry> cached = (List<BridgeLogEntry>) getField(handler, "cachedBridgeEvents");
+        cached.clear();
+        cached.addAll(events);
+    }
+
     private static void notifyActionLock(BridgeCallbackHandler handler) throws Exception {
         Object actionLock = getField(handler, "actionLock");
         synchronized (actionLock) {
@@ -1145,6 +1355,14 @@ class BridgeCallbackHandlerTest {
         Field field = findField(target.getClass(), name);
         field.setAccessible(true);
         field.setInt(target, value);
+    }
+
+    private static SubTypes subTypes(SubType... values) {
+        SubTypes subTypes = new SubTypes();
+        for (SubType value : values) {
+            subTypes.add(value);
+        }
+        return subTypes;
     }
 
     private static Field findField(Class<?> type, String name) throws NoSuchFieldException {
