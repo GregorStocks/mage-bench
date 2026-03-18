@@ -908,7 +908,7 @@ def test_generate_all_leaderboards_commander_is_exhibition():
             "20260101_000000",
             "Alice",
             [
-                _pilot("Alice", "a/a", placement=1),
+                _pilot("Alice", "a/a", placement=1, reasoning_effort="low"),
                 _pilot("Bob", "b/b", placement=2),
                 _pilot("Carol", "c/c", placement=3),
                 _pilot("Dave", "d/d", placement=4),
@@ -929,6 +929,9 @@ def test_generate_all_leaderboards_commander_is_exhibition():
     # Winner should have highest win rate (sorted by win rate desc)
     assert models[0]["modelId"] == "a/a"
     assert models[0]["winRate"] == 1.0
+    assert models[0]["reasoningEffort"] == "low"
+    bob = next(m for m in models if m["modelId"] == "b/b")
+    assert "reasoningEffort" not in bob
     # Commander games should NOT appear in ratings_by_game
     assert "g1" not in ratings_by_game
 
