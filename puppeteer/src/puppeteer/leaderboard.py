@@ -13,7 +13,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
-from schemas.game_export_types import GameExport, is_pilot_player, load_game_export
+from schemas.game_export_types import Annotation, GameExport, is_pilot_player, load_game_export
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
@@ -516,12 +516,13 @@ def generate_leaderboard(
         annotations = game.get("annotations")
         if annotations is not None:
             for ann in annotations:
-                ann_type = ann.type if hasattr(ann, "type") else ann.get("type")
+                if isinstance(ann, Annotation):
+                    ann_type, name, severity = ann.type, ann.player, ann.severity
+                else:
+                    ann_type, name, severity = ann.get("type"), ann.get("player"), ann.get("severity")
                 if ann_type == "blunder":
-                    name = ann.player if hasattr(ann, "player") else ann.get("player")
                     if not name:
                         continue
-                    severity = ann.severity if hasattr(ann, "severity") else ann.get("severity")
                     blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(
                         severity, 0
                     )
@@ -634,12 +635,13 @@ def generate_exhibition_leaderboard(
         annotations = game.get("annotations")
         if annotations is not None:
             for ann in annotations:
-                ann_type = ann.type if hasattr(ann, "type") else ann.get("type")
+                if isinstance(ann, Annotation):
+                    ann_type, name, severity = ann.type, ann.player, ann.severity
+                else:
+                    ann_type, name, severity = ann.get("type"), ann.get("player"), ann.get("severity")
                 if ann_type == "blunder":
-                    name = ann.player if hasattr(ann, "player") else ann.get("player")
                     if not name:
                         continue
-                    severity = ann.severity if hasattr(ann, "severity") else ann.get("severity")
                     blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(
                         severity, 0
                     )
