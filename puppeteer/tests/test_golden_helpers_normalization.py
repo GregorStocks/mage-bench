@@ -1,5 +1,6 @@
 import asyncio
 import json
+from pathlib import Path
 
 import pytest
 
@@ -14,6 +15,7 @@ from tests.golden_helpers import (
     _ScriptedExecutionState,
     _strip_volatile,
     _to_sorted_json,
+    extract_blunder_decisions,
 )
 
 
@@ -145,6 +147,60 @@ def test_to_sorted_json_serializes_dataclass_export_records():
             }
         ]
     }
+
+
+def test_extract_blunder_decisions_serializes_dataclass_export_records(tmp_path: Path, monkeypatch):
+    captured: dict[str, object] = {}
+
+    def fake_extract_decisions(path: str) -> list[dict]:
+        captured["payload"] = json.loads(Path(path).read_text())
+        return []
+
+    monkeypatch.setattr("tests.golden_helpers.extract_decisions", fake_extract_decisions)
+
+    export_data = {
+        "snapshots": [
+            {
+                "players": [
+                    {
+                        "battlefield": [
+                            Permanent(
+                                name="Mountain",
+                                id="p3",
+                                _extras={"visible_to": ["Opponent"]},
+                            )
+                        ],
+                        "graveyard": [],
+                        "hand": [],
+                    }
+                ],
+                "stack": [],
+            }
+        ]
+    }
+
+    assert extract_blunder_decisions(export_data, tmp_path) == []
+    assert captured["payload"] == {
+        "snapshots": [
+            {
+                "players": [
+                    {
+                        "battlefield": [
+                            {
+                                "id": "p3",
+                                "name": "Mountain",
+                                "visible_to": ["Opponent"],
+                            }
+                        ],
+                        "graveyard": [],
+                        "hand": [],
+                    }
+                ],
+                "stack": [],
+            }
+        ]
+    }
+    assert not (tmp_path / "game_blunder_export.json").exists()
 
 
 def test_normalize_embedded_json_preserves_non_json_strings():
