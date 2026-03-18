@@ -46,6 +46,7 @@ from schemas.game_export_types import (
     Snapshot,
     SnapshotPlayer,
     export_record_field,
+    json_default,
 )
 from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
@@ -1020,13 +1021,13 @@ def _parse_annotation(text: str) -> dict | None:
     return result
 
 
-def _write_annotations(gz_path: str, annotations: list) -> None:
+def _write_annotations(gz_path: str, annotations: list[Annotation]) -> None:
     """Write annotations (possibly empty) to the game file."""
     TMP_DIR.mkdir(exist_ok=True)
     with tempfile.NamedTemporaryFile(
         mode="w", suffix=".json", delete=False, dir=str(TMP_DIR)
     ) as f:
-        json.dump(annotations, f)
+        json.dump(annotations, f, default=json_default)
         ann_path = f.name
 
     try:
@@ -1155,7 +1156,7 @@ def _eval_one_decision(
     num_players: int,
     all_actions: Sequence[Action],
     label: str | None = None,
-) -> tuple[list[dict], float, bool, dict]:
+) -> tuple[list[Annotation], float, bool, dict]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok, raw_record).
 
     On parse failure, prints a warning and returns ([], cost, False, raw_record).
@@ -1279,12 +1280,19 @@ def _eval_one_decision(
                 break
     else:
         aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
-    ann["type"] = "blunder"
-    ann["decisionIndex"] = d_idx
-    ann["snapshotIndex"] = aftermath_idx
-    ann["player"] = decision["player"]
+    ann_obj = Annotation(
+        type="blunder",
+        decisionIndex=d_idx,
+        snapshotIndex=aftermath_idx,
+        player=decision["player"],
+        severity=ann["severity"],
+        description=ann["description"],
+        actionTaken=ann["actionTaken"],
+        betterLine=ann["betterLine"],
+        llmReasoning=ann.get("llmReasoning"),
+    )
 
-    return [ann], cost, True, raw_record
+    return [ann_obj], cost, True, raw_record
 
 
 def load_game_context(gz_path: str) -> dict:
@@ -1339,9 +1347,9 @@ def eval_decisions(
     game_ctx: dict,
     client: OpenAI,
     prices: dict[str, tuple[float, float]],
-) -> dict[int, tuple[list[dict], float, bool, dict]]:
+) -> dict[int, tuple[list[Annotation], float, bool, dict]]:
     """Evaluate a list of decisions in parallel. Returns {decision_index: result}."""
-    results_by_idx: dict[int, tuple[list[dict], float, bool, dict]] = {}
+    results_by_idx: dict[int, tuple[list[Annotation], float, bool, dict]] = {}
 
     pool = ThreadPoolExecutor(max_workers=MAX_WORKERS)
     futures = {}
@@ -1383,7 +1391,7 @@ def eval_decisions(
 
 def _auto_ingest_ground_truth(
     game_id: str,
-    annotations: Sequence[Annotation | Mapping[str, object]],
+    annotations: Sequence[Annotation],
     decisions: Sequence[DecisionRecord],
     snapshots: Sequence[Mapping[str, object]],
 ) -> None:
@@ -1502,7 +1510,7 @@ def main(gz_path: str) -> float:
 
     results_by_idx = eval_decisions(non_forced, game_ctx, client, prices)
 
-    annotations: list[dict] = []
+    annotations: list[Annotation] = []
     raw_records: list[dict] = []
     total_cost = 0.0
     parse_failures = 0
@@ -1547,9 +1555,9 @@ def main(gz_path: str) -> float:
 
     # Filter out annotations with invalid snapshotIndex (LLM sometimes fabricates indices)
     num_snapshots = len(data["snapshots"])
-    valid_annotations: list[dict] = []
+    valid_annotations: list[Annotation] = []
     for ann in annotations:
-        idx = ann.get("snapshotIndex")
+        idx = ann.snapshotIndex
         if not isinstance(idx, int) or idx < 0 or idx >= num_snapshots:
             print(
                 f"  WARNING: Dropping annotation with invalid snapshotIndex {idx} (max {num_snapshots - 1})"
@@ -1580,13 +1588,14 @@ def main(gz_path: str) -> float:
     snapshots = data["snapshots"]
     print(f"\nFound {len(annotations)} blunder(s):\n")
     for ann in annotations:
-        snap_idx = ann["snapshotIndex"]
+        snap_idx = ann.snapshotIndex
+        assert isinstance(snap_idx, int)
         turn = snapshots[snap_idx]["turn"] if snap_idx < len(snapshots) else "?"
-        sev = ann["severity"].upper()
-        print(f"  Turn {turn} ({ann['player']}) - {sev}")
-        print(f"    {ann['description']}")
-        if ann.get("betterLine"):
-            print(f"    Better: {ann['betterLine']}")
+        sev = ann.severity.upper()
+        print(f"  Turn {turn} ({ann.player}) - {sev}")
+        print(f"    {ann.description}")
+        if ann.betterLine:
+            print(f"    Better: {ann.betterLine}")
         print()
 
     _write_annotations(gz_path, annotations)

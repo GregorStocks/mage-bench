@@ -25,7 +25,7 @@ from puppeteer.leaderboard import (
     generate_model_stats,
     load_model_registry,
 )
-from schemas.game_export_types import Player
+from schemas.game_export_types import Annotation, Player
 
 
 class _PlayerEncoder(json.JSONEncoder):
@@ -1067,6 +1067,19 @@ def test_generate_leaderboard_no_effort_no_suffix():
     assert "reasoningEffort" not in model_a
 
 
+def _blunder(player: str, severity: str) -> Annotation:
+    """Create a minimal blunder Annotation for leaderboard tests."""
+    return Annotation(
+        type="blunder",
+        player=player,
+        severity=severity,
+        decisionIndex=0,
+        description="",
+        actionTaken="",
+        betterLine="",
+    )
+
+
 def test_generate_leaderboard_blunder_score():
     """Blunder score should be severity-weighted blunders per turn."""
     games = [
@@ -1091,12 +1104,12 @@ def test_generate_leaderboard_blunder_score():
     ]
     # totalTurns=10 per game (from _make_game)
     games[0]["annotations"] = [
-        {"type": "blunder", "player": "Alice", "severity": "major"},  # weight 4
-        {"type": "blunder", "player": "Alice", "severity": "minor"},  # weight 1
-        {"type": "blunder", "player": "Bob", "severity": "moderate"},  # weight 2
+        _blunder("Alice", "major"),  # weight 4
+        _blunder("Alice", "minor"),  # weight 1
+        _blunder("Bob", "moderate"),  # weight 2
     ]
     games[1]["annotations"] = [
-        {"type": "blunder", "player": "Bob", "severity": "major"},  # weight 4
+        _blunder("Bob", "major"),  # weight 4
     ]
     result, _ = generate_leaderboard(
         games,
@@ -1127,9 +1140,9 @@ def test_generate_leaderboard_blunder_score_excludes_questionable():
     ]
     # totalTurns=10
     games[0]["annotations"] = [
-        {"type": "blunder", "player": "Alice", "severity": "major"},  # weight 4
-        {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0
-        {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0
+        _blunder("Alice", "major"),  # weight 4
+        _blunder("Alice", "questionable"),  # weight 0
+        _blunder("Alice", "questionable"),  # weight 0
     ]
     result, _ = generate_leaderboard(games, {})
     alice = next(m for m in result["models"] if m["modelName"] == "Model A")
@@ -1162,7 +1175,7 @@ def test_generate_leaderboard_blunder_score_zero_turns():
     )
     game["totalTurns"] = 0
     game["annotations"] = [
-        {"type": "blunder", "player": "Alice", "severity": "major"},
+        _blunder("Alice", "major"),
     ]
     with pytest.raises(AssertionError, match="no turns"):
         generate_leaderboard([game], {})
