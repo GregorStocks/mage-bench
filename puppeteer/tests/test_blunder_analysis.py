@@ -176,15 +176,18 @@ def _make_game() -> dict:
     }
 
 
-def _make_game_ctx() -> dict:
-    return {
+def _make_game_ctx(**overrides: object) -> dict:
+    ctx: dict = {
         "overview": "Test overview",
         "oracle_texts": {},
         "snapshots": [],
         "actions_by_turn": {},
         "num_players": 2,
         "all_actions": [],
+        "decisions": [],
     }
+    ctx.update(overrides)
+    return ctx
 
 
 def _mock_response(content: str, prompt_tokens: int = 2000, completion_tokens: int = 200) -> MagicMock:
@@ -1085,6 +1088,58 @@ class TestMainIntegration:
 
         # Only 1 API call — the no-op decision was skipped
         assert mock_client.chat.completions.create.call_count == 1
+
+
+class TestPrecedingAction:
+    def test_format_preceding_action_with_dict_decision(self) -> None:
+        from scripts.analysis.blunder_analysis import _format_preceding_action
+
+        preceding = _make_decision(
+            decision_index=75,
+            message="Play spells and abilities",
+            chosen=0,
+            choices=[
+                {"index": 0, "name": "Evolving Wilds"},
+                {"index": 1, "name": "Forest"},
+            ],
+        )
+        result = _format_preceding_action(preceding)
+        assert "## Preceding Action" in result
+        assert "[Decision 75] Play spells and abilities" in result
+        assert "→ Chose: Evolving Wilds" in result
+
+    def test_format_preceding_action_with_no_chosen(self) -> None:
+        from scripts.analysis.blunder_analysis import _format_preceding_action
+
+        preceding = _make_decision(
+            decision_index=10,
+            message="Play instants",
+            chosen=None,
+        )
+        result = _format_preceding_action(preceding)
+        assert "[Decision 10] Play instants" in result
+        assert "Chose" not in result
+
+    def test_eval_decisions_passes_preceding(self) -> None:
+        """eval_decisions should pass the preceding decision to _eval_one_decision."""
+        d0 = _make_decision(decision_index=0, message="First")
+        d1 = _make_decision(decision_index=1, message="Second")
+        ctx = _make_game_ctx(decisions=[d0, d1])
+
+        with patch("scripts.analysis.blunder_analysis._eval_one_decision") as mock_eval:
+            mock_eval.return_value = ([], 0.0, True, {})
+            eval_decisions([d0, d1], ctx, MagicMock(), _TEST_PRICES)
+
+            # d0 should have no preceding, d1 should have d0
+            calls_by_idx = {}
+            for call in mock_eval.call_args_list:
+                di = call.args[4]  # decision is 5th positional arg
+                preceding = call.kwargs.get("preceding_decision")
+                idx = di["decision_index"]
+                calls_by_idx[idx] = preceding
+
+            assert calls_by_idx[0] is None
+            assert calls_by_idx[1] is d0
 
 
 class TestOperationalFailures:

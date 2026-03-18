@@ -80,6 +80,7 @@ def render_decision(
     include_chosen: bool = False,
     prior_context: str = "",
     current_turn_actions: str = "",
+    preceding_action: str = "",
 ) -> str:
     """Render a canonical decision into structured text.
 
@@ -94,6 +95,9 @@ def render_decision(
         prior_context: Pre-formatted prior context string (annotator-specific).
             Should already include its own ## heading.
         current_turn_actions: Pre-formatted current turn actions string.
+            Should already include its own ## heading.
+        preceding_action: Pre-formatted preceding action string (annotator-specific).
+            Shows what the player just did before this decision.
             Should already include its own ## heading.
 
     Returns:
@@ -114,6 +118,10 @@ def render_decision(
     # Current turn actions (pre-formatted with ## heading)
     if current_turn_actions:
         parts.append(current_turn_actions)
+
+    # Preceding action (what the player just did before this decision)
+    if preceding_action:
+        parts.append(preceding_action)
 
     # Main decision block (with heading)
     decision_block = _render_decision_block(decision, snapshot, deciding_player)

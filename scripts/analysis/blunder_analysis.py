@@ -39,6 +39,7 @@ from puppeteer.decision_renderer import (
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Action,
+    Choice,
     Decision,
     Annotation,
     GameExport,
@@ -133,7 +134,9 @@ DecisionRecord = Decision | dict[str, Any]
 # v32: fix chosen=None false positives — show actual attackers/blockers/text from
 #      chosenArgs instead of "?" for batch and text decisions
 # v33: persist decisionIndex on annotations; export schema v8 makes it canonical
-BLUNDER_SCRIPT_VERSION = 33
+# v34: include preceding action context in prompt so the LLM knows what triggered
+#      generic target-selection prompts (fixes Hunter's Insight misattribution)
+BLUNDER_SCRIPT_VERSION = 34
 
 
 class BlunderAnalysisError(RuntimeError):
@@ -1066,6 +1069,36 @@ def _append_blunder_stats(
     print(f"  Blunder stats appended to {stats_path}")
 
 
+def _format_preceding_action(preceding: DecisionRecord) -> str:
+    """Format a brief summary of the preceding decision for context.
+
+    This helps the LLM understand what triggered a generic prompt like
+    "Select a creature" — e.g. that a land was just played (triggering landfall),
+    not that a spell like Hunter's Insight was cast.
+    """
+    msg = preceding.message if isinstance(preceding, Decision) else preceding["message"]
+    chosen = preceding.chosen if isinstance(preceding, Decision) else preceding.get("chosen")
+    raw_choices = preceding.choices if isinstance(preceding, Decision) else preceding["choices"]
+
+    chosen_name: str | None = None
+    if isinstance(chosen, int) and isinstance(raw_choices, list) and 0 <= chosen < len(raw_choices):
+        c = raw_choices[chosen]
+        if isinstance(c, Choice):
+            chosen_name = c.name or c.description or c.id
+        elif isinstance(c, dict):
+            chosen_name = c.get("name") or c.get("description") or c.get("id")
+    elif isinstance(chosen, bool):
+        chosen_name = str(chosen)
+    elif isinstance(chosen, str):
+        chosen_name = chosen
+
+    di = decision_index(preceding)
+    parts = [f"[Decision {di}] {msg}"]
+    if chosen_name is not None:
+        parts.append(f"→ Chose: {chosen_name}")
+    return "## Preceding Action\n\n" + " ".join(parts)
+
+
 def build_decision_prompt(
     overview: str,
     decision: DecisionRecord,
@@ -1074,6 +1107,7 @@ def build_decision_prompt(
     actions_by_turn: dict[int, list[str]],
     num_players: int,
     all_actions: Sequence[Action],
+    preceding_decision: DecisionRecord | None = None,
 ) -> tuple[str, str]:
     """Build the (system_prompt, user_message) pair for a single decision evaluation.
 
@@ -1085,6 +1119,10 @@ def build_decision_prompt(
     """
     snap_idx = snapshot_index(decision)
     snap = snapshots[snap_idx] if snap_idx < len(snapshots) else None
+
+    preceding_ctx = ""
+    if preceding_decision is not None:
+        preceding_ctx = _format_preceding_action(preceding_decision)
 
     if is_canonical_decision(decision):
         # Canonical format: use shared renderer
@@ -1111,6 +1149,7 @@ def build_decision_prompt(
             include_chosen=True,
             prior_context=prior_ctx,
             current_turn_actions=turn_ctx,
+            preceding_action=preceding_ctx,
         )
         player = deciding_player
         user_msg = f"## Game Overview\n{overview}\n\nYou are evaluating **{player}**'s decision.\n\n{formatted}"
@@ -1156,6 +1195,7 @@ def _eval_one_decision(
     num_players: int,
     all_actions: Sequence[Action],
     label: str | None = None,
+    preceding_decision: DecisionRecord | None = None,
 ) -> tuple[list[Annotation], float, bool, dict]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok, raw_record).
 
@@ -1170,6 +1210,7 @@ def _eval_one_decision(
         actions_by_turn,
         num_players,
         all_actions,
+        preceding_decision=preceding_decision,
     )
     if label is None:
         label = f"decision_{decision_index(decision)}"
@@ -1349,11 +1390,21 @@ def eval_decisions(
     prices: dict[str, tuple[float, float]],
 ) -> dict[int, tuple[list[Annotation], float, bool, dict]]:
     """Evaluate a list of decisions in parallel. Returns {decision_index: result}."""
+    # Build preceding-decision lookup from the full decision list (including
+    # forced/filtered decisions) so each decision knows what happened just before.
+    all_decisions = game_ctx["decisions"]
+    all_sorted = sorted(all_decisions, key=lambda d: decision_index(d))
+    preceding_by_idx: dict[int, DecisionRecord] = {}
+    for i, d in enumerate(all_sorted):
+        if i > 0:
+            preceding_by_idx[decision_index(d)] = all_sorted[i - 1]
+
     results_by_idx: dict[int, tuple[list[Annotation], float, bool, dict]] = {}
 
     pool = ThreadPoolExecutor(max_workers=MAX_WORKERS)
     futures = {}
     for d in decisions:
+        di = decision_index(d)
         fut = pool.submit(
             _eval_one_decision,
             client,
@@ -1366,8 +1417,9 @@ def eval_decisions(
             game_ctx["actions_by_turn"],
             game_ctx["num_players"],
             game_ctx["all_actions"],
+            preceding_decision=preceding_by_idx.get(di),
         )
-        futures[fut] = decision_index(d)
+        futures[fut] = di
 
     try:
         for fut in as_completed(futures):

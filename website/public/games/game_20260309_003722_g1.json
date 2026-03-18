@@ -110091,147 +110091,197 @@
   "tournament": "season-1",
   "annotations": [
     {
-      "severity": "major",
-      "description": "Declined Turntimber Basilisk's landfall trigger, passing up the opportunity to force Elvish Archdruid (a key lord and mana engine) to block into a deathtoucher. The Archdruid has summoning sickness so it can't tap for mana yet, but it's still buffing Llanowar Visionary. Forcing the block would guarantee trading the 2/1 Basilisk for the much more valuable Archdruid.",
-      "actionTaken": "Declined the 'may' trigger, not forcing Elvish Archdruid to block Turntimber Basilisk.",
-      "betterLine": "Accept the landfall trigger to force Elvish Archdruid to block Turntimber Basilisk, then attack with the Basilisk to trade a 2/1 deathtouch creature for the opponent's lord/mana engine.",
-      "type": "blunder",
-      "snapshotIndex": 92,
-      "player": "GPT53C Teach",
-      "decisionIndex": 55
-    },
-    {
-      "severity": "moderate",
-      "description": "Opus Brewer passed priority during combat with Might of the Masses available for just {G}. Casting it on Llanowar Visionary (making it 3/3 with 1 creature) would let it block and kill the attacking Brushstrider (3/1) while surviving, saving 3 damage and removing an opponent's creature. Instead, both attackers deal full damage (6 total) and Brushstrider survives.",
-      "actionTaken": "Passed priority without casting any combat trick, taking 6 damage from both attackers unblocked.",
-      "betterLine": "Cast Might of the Masses on Llanowar Visionary (making it 3/3), then block Brushstrider (3/1). Visionary kills Brushstrider and survives, only taking 3 damage from the Basilisk instead of 6 total.",
-      "type": "blunder",
-      "snapshotIndex": 109,
+      "decisionIndex": 50,
       "player": "Opus Brewer",
-      "decisionIndex": 64
-    },
-    {
-      "severity": "major",
-      "description": "Cast Hunter's Insight targeting opponent's Llanowar Visionary instead of their own creature. Hunter's Insight only draws cards when the targeted creature deals combat damage, and since the opponent controls Llanowar Visionary, GPT53C Teach has no way to make it deal combat damage. The spell is completely wasted.",
-      "actionTaken": "Targeted opponent's Llanowar Visionary with Hunter's Insight",
-      "betterLine": "Target own Brushstrider (3/1 vigilance) with Hunter's Insight, then attack. With opponent's creatures mostly tapped/sick, Brushstrider likely connects for 3 damage and draws 3 cards.",
       "type": "blunder",
-      "snapshotIndex": 136,
-      "player": "GPT53C Teach",
-      "decisionIndex": 75
-    },
-    {
-      "severity": "moderate",
-      "description": "Turntimber Basilisk's landfall trigger targeted Llanowar Visionary, which is tapped and therefore unable to block. The 'if able' clause means the forced block does nothing. Dwynen's Elite (2/2) and Elf Warrior Token (1/1) are untapped and could have been forced to block into the deathtouch Basilisk, guaranteeing a creature kill.",
-      "actionTaken": "Targeted tapped Llanowar Visionary with the landfall forced-block trigger, which has no effect since it can't block while tapped.",
-      "betterLine": "Target Dwynen's Elite (2/2) with the landfall trigger to force it to block Turntimber Basilisk, guaranteeing a kill via deathtouch on the more valuable creature.",
-      "type": "blunder",
-      "snapshotIndex": 146,
-      "player": "GPT53C Teach",
-      "decisionIndex": 85
-    },
-    {
-      "severity": "moderate",
-      "description": "GPT53C Teach passed on casting Hunter's Insight when it would have drawn 3 cards with zero risk. Brushstrider (3/1 vigilance) is unblockable this combat since Dwynen's Elite and the token are summoning sick, and Llanowar Visionary is forced to block Turntimber Basilisk. Opus Brewer has 0 mana available (all lands and Visionary tapped), so there's no possible interaction. Drawing 3 cards for 3 mana with guaranteed combat damage is excellent value.",
-      "actionTaken": "Passed priority, declining to cast Hunter's Insight",
-      "betterLine": "Cast Hunter's Insight targeting Brushstrider before combat. Brushstrider deals 3 unblockable combat damage and draws 3 cards with zero risk of opponent interaction.",
-      "type": "blunder",
-      "snapshotIndex": 148,
-      "player": "GPT53C Teach",
-      "decisionIndex": 86
-    },
-    {
-      "severity": "moderate",
-      "description": "GPT53C Teach declined to cast Hunter's Insight during combat when the opponent had no available blockers (all creatures sick or tapped). Either Brushstrider or Turntimber Basilisk would connect unblocked, drawing 3 cards. This is a free 3-card draw opportunity that was passed up.",
-      "actionTaken": "Passed priority without casting Hunter's Insight",
-      "betterLine": "Cast Hunter's Insight targeting Brushstrider or Turntimber Basilisk, then attack with both. With no available blockers, the targeted creature connects and draws 3 cards, providing massive card advantage at a critical point in the game.",
-      "type": "blunder",
-      "snapshotIndex": 151,
-      "player": "GPT53C Teach",
-      "decisionIndex": 88
-    },
-    {
-      "severity": "moderate",
-      "description": "Failed to block the 3/1 Brushstrider with the 1/1 Elf Warrior Token. The token trades favorably with the Brushstrider (killing a 3/1 creature) and prevents 3 damage to the player at 11 life. In the current line, Dwynen's Elite dies to deathtouch anyway and the Basilisk survives, so the token is free to block Brushstrider. Not doing so wastes a favorable trade and takes unnecessary damage.",
-      "actionTaken": "Did not assign the Elf Warrior Token as a blocker, taking 3 damage from Brushstrider.",
-      "betterLine": "Block Brushstrider with Elf Warrior Token to trade a 1/1 token for a 3/1 creature and prevent 3 damage.",
-      "type": "blunder",
-      "snapshotIndex": 154,
-      "player": "Opus Brewer",
-      "decisionIndex": 90
-    },
-    {
-      "severity": "questionable",
-      "description": "Using Band Together (which can kill very large creatures by combining two creatures' power) to remove a Brushstrider 3/1 when Skyway Sniper is about to resolve and could help block it. At 8 life the Brushstrider is threatening, but Band Together is premium removal better saved for bigger threats, especially with opponent holding 6 cards.",
-      "actionTaken": "Cast Band Together to kill Brushstrider 3/1",
-      "betterLine": "Let Skyway Sniper resolve, then plan to block Brushstrider with available creatures. Save Band Together for a larger threat the opponent might deploy from their 6-card hand. Could also use Titanic Growth on a blocker if needed to trade with Brushstrider.",
-      "type": "blunder",
-      "snapshotIndex": 175,
-      "player": "Opus Brewer",
-      "decisionIndex": 107
-    },
-    {
-      "severity": "moderate",
-      "description": "Opus Brewer declined to cast Might of the Masses to save Llanowar Visionary from Band Together. With ~6 creatures on board, Might would have made the Visionary large enough to survive easily. Llanowar Visionary is a valuable mana creature, and losing it for free when it could be saved for just 1 mana weakens the board significantly at a critical 8 life total.",
-      "actionTaken": "Passed priority, allowing Band Together to destroy Llanowar Visionary without responding.",
-      "betterLine": "Cast Might of the Masses targeting Llanowar Visionary to save it from Band Together. With 6 creatures, it would become roughly 8/8, easily surviving the damage.",
-      "type": "blunder",
-      "snapshotIndex": 179,
-      "player": "Opus Brewer",
-      "decisionIndex": 111
-    },
-    {
-      "severity": "moderate",
-      "description": "Chose Zendikar's Roil (makes 2/2 tokens on landfall, no body) over Rampaging Baloths (6/6 trample, makes 4/4 tokens on landfall). By playing a Forest first to reach 6 mana, Baloths could have been cast this turn. Opponent is at 8 life, so the 6/6 trample body alone threatens a 2-turn clock, and Baloths' landfall tokens are strictly superior (4/4 vs 2/2).",
-      "actionTaken": "Cast Zendikar's Roil for 5 mana, leaving no mana and no board pressure.",
-      "betterLine": "Play Forest first (reaching 6 lands), then cast Rampaging Baloths. The 6/6 trample threatens lethal in 2 attacks against an 8-life opponent, and future landfall triggers create 4/4 tokens instead of 2/2s.",
-      "type": "blunder",
-      "snapshotIndex": 191,
-      "player": "GPT53C Teach",
-      "decisionIndex": 120
-    },
-    {
-      "severity": "major",
-      "description": "At 8 life facing Rampaging Baloths 6/6, a 4/4 Beast token, and a 2/2 Elemental token all becoming untapped next turn (12+ damage), Opus Brewer attacks with everything, leaving no meaningful blockers. The attack only deals ~8 damage against a 20-life opponent — nowhere near lethal. With Titanic Growth in hand, keeping back creatures to block and pump could have survived the counterattack.",
-      "actionTaken": "Attacked with all five creatures (Llanowar Visionary, two Elf tokens, Skyway Sniper, Primeval Herald), leaving no untapped blockers.",
-      "betterLine": "Attack with only Primeval Herald (to get the landfall trigger for land search) and perhaps one expendable 1/1 token. Keep Llanowar Visionary, Skyway Sniper, and another token back as blockers. With Titanic Growth available, a blocker pumped to 5/6 or 6/6 could trade with the Baloths and survive the turn.",
-      "type": "blunder",
-      "snapshotIndex": 269,
-      "player": "Opus Brewer",
-      "decisionIndex": 173
-    },
-    {
-      "severity": "questionable",
-      "description": "Using Titanic Growth offensively for 4 extra non-lethal damage (opponent goes from ~12 to ~8) while at 8 life facing an incoming attack from Rampaging Baloths 6/6, Beast Token 4/4, Elemental Token 2/2, and Oashra Cultivator. Saving Titanic Growth for defense could allow trading with or surviving Rampaging Baloths (e.g., pumping a blocker to kill the 6/6).",
-      "actionTaken": "Cast Titanic Growth offensively during combat to deal 4 extra damage to opponent at 20 life",
-      "betterLine": "Save Titanic Growth for defensive use next turn - pumping a blocker to kill Rampaging Baloths (e.g., Skyway Sniper 1/2 becomes 5/6, killing the 6/6) would be far more impactful than 4 non-lethal damage against an opponent at 20 life",
-      "type": "blunder",
-      "snapshotIndex": 276,
-      "player": "Opus Brewer",
-      "decisionIndex": 178
-    },
-    {
-      "severity": "moderate",
-      "description": "Used Titanic Growth on an unblocked 1/1 Elf Warrior Token to deal 5 face damage to an opponent at 20 life, when the opponent has a lethal board (Rampaging Baloths 6/6 + Beast 4/4 + Elemental 2/2) and Opus Brewer is at only 8 life. The damage race math doesn't favor going to face here.",
-      "actionTaken": "Targeted Titanic Growth on the unblocked Elf Warrior Token to deal 5 damage to opponent's face.",
-      "betterLine": "Target Llanowar Visionary with Titanic Growth (making it 6/6) to trade with Rampaging Baloths 6/6, removing the most dangerous threat that generates 4/4 tokens with every land drop. Alternatively, target Primeval Herald (making it 7/5) to kill the Beast Token 4/4, survive combat, and deal 3 trample damage - keeping the Herald alive while removing a major threat.",
-      "type": "blunder",
-      "snapshotIndex": 283,
-      "player": "Opus Brewer",
-      "decisionIndex": 182
-    },
-    {
       "severity": "minor",
-      "description": "Khalni Heart Expedition is a slow enchantment that needs 3 land drops to pay off. The opponent is at 8 life with all creatures tapped. GPT53C Teach should be focused on closing the game immediately rather than investing in long-term value.",
-      "actionTaken": "Cast Khalni Heart Expedition, a slow ramp enchantment",
-      "betterLine": "Play Thriving Grove first (triggering Rampaging Baloths for a 4/4 and Zendikar's Roil for a 2/2), then cast Rampaging Growth to get another land entering (another 4/4 beast + 2/2 elemental) plus a 4/3 hasty creature that could attack immediately. Or cast Garruk's Gorehorn as a 7/3 threat to close the game next turn. KHE does almost nothing in a game that should end in 1-2 turns.",
+      "description": "Llanowar Visionary (3/3) could attack into Brushstrider (3/1) with Might of the Masses in hand and 1 untapped Forest available. If blocked, casting Might of the Masses makes Visionary 5/5, killing Brushstrider while Visionary survives. If unblocked, 3 damage to opponent's face. Either outcome is favorable.",
+      "actionTaken": "Declined to attack with Llanowar Visionary",
+      "betterLine": "Attack with Llanowar Visionary. If Brushstrider blocks, cast Might of the Masses for G to pump Visionary to 5/5, winning combat and destroying Brushstrider. If unblocked, deal 3 damage.",
+      "snapshotIndex": 86
+    },
+    {
+      "decisionIndex": 64,
+      "player": "Opus Brewer",
       "type": "blunder",
-      "snapshotIndex": 301,
+      "severity": "minor",
+      "description": "Declined to block, taking 6 damage (to 11 life) when blocking Brushstrider with Llanowar Visionary would have been a clean trade (both die) while only taking 3 damage from the Basilisk. Trading a 2/2 mana dork for a 3/1 vigilance attacker saves 3 life and removes a threat.",
+      "actionTaken": "No blocks, taking 6 damage total from both attackers",
+      "betterLine": "Block Brushstrider with Llanowar Visionary for a clean trade (2 power kills the 3/1), only taking 3 damage from Turntimber Basilisk. Saves 3 life and removes an attacker.",
+      "snapshotIndex": 111
+    },
+    {
+      "decisionIndex": 65,
+      "player": "Opus Brewer",
+      "type": "blunder",
+      "severity": "questionable",
+      "description": "If Llanowar Visionary is blocking Brushstrider (3/1), casting Might of the Masses (+1/+1 with 1 creature) would make Visionary a 3/3, allowing it to survive combat while killing Brushstrider. Visionary could tap for {G} to pay the cost even while blocking. If blocking the deathtouch Basilisk instead, passing is correct since deathtouch kills regardless of toughness.",
+      "actionTaken": "Passed priority without casting any combat trick",
+      "betterLine": "If blocking Brushstrider, tap Llanowar Visionary for {G} and cast Might of the Masses targeting Visionary to save it while killing Brushstrider",
+      "snapshotIndex": 111
+    },
+    {
+      "decisionIndex": 66,
+      "player": "Opus Brewer",
+      "type": "blunder",
+      "severity": "moderate",
+      "description": "Opus Brewer passed priority instead of casting Might of the Masses on Llanowar Visionary. With the sick Forest able to tap for mana (summoning sickness doesn't affect lands), they could make Visionary a 3/3, block Brushstrider (3/1), and have Visionary survive combat. Instead, they'll likely have to trade Visionary for Brushstrider or take the full 6 damage.",
+      "actionTaken": "Passed priority without casting any combat trick",
+      "betterLine": "Cast Might of the Masses targeting Llanowar Visionary (making it 3/3), then block Brushstrider with it. Visionary survives, Brushstrider dies, only take 3 from Basilisk.",
+      "snapshotIndex": 113
+    },
+    {
+      "decisionIndex": 72,
+      "player": "Opus Brewer",
+      "type": "blunder",
+      "severity": "minor",
+      "description": "Enchanted the 1/1 Elf Warrior token with Presence of Gond instead of Llanowar Visionary. The Visionary is not summoning sick and could have started creating tokens immediately this turn. Additionally, putting an aura on a 1/1 token is risky - if it's removed, you lose both the token and the enchantment (a 2-for-1). The token is the most vulnerable creature on the board.",
+      "actionTaken": "Enchanted Elf Warrior Token (1/1, summoning sick) with Presence of Gond",
+      "betterLine": "Enchant Llanowar Visionary with Presence of Gond - it's not summoning sick so it can create a token immediately, and it's a more durable creature to carry an aura. The mana ability becomes less important as the board develops and token generation is more valuable.",
+      "snapshotIndex": 124
+    },
+    {
+      "decisionIndex": 76,
       "player": "GPT53C Teach",
-      "decisionIndex": 195
+      "type": "blunder",
+      "severity": "moderate",
+      "description": "Turntimber Basilisk's landfall trigger targets a creature to force it to block. GPT53C Teach targeted Llanowar Visionary, which is tapped and therefore cannot block — completely wasting the trigger. Summoning sickness doesn't prevent blocking, so the newly-played Dwynen's Elite (2/2) or Elf Warrior Token (1/1) could have been forced to block into the deathtouch Basilisk and die.",
+      "actionTaken": "Targeted Llanowar Visionary (tapped, unable to block) with Turntimber Basilisk's landfall trigger.",
+      "betterLine": "Target Dwynen's Elite (2/2) to force it to block the deathtouch Basilisk, killing a meaningful creature for free.",
+      "snapshotIndex": 137
+    },
+    {
+      "decisionIndex": 84,
+      "player": "GPT53C Teach",
+      "type": "blunder",
+      "severity": "minor",
+      "description": "One of the Turntimber Basilisk landfall triggers targets Llanowar Visionary, which is tapped and therefore cannot block. The trigger is wasted since tapped creatures cannot be declared as blockers.",
+      "actionTaken": "Targeted Llanowar Visionary (tapped) and Dwynen's Elite with the two landfall triggers forcing them to block the deathtouch Basilisk.",
+      "betterLine": "Should have targeted the Elf Warrior Token (1/1, untapped, can block despite summoning sickness) instead of the tapped Llanowar Visionary, forcing two creatures to block into deathtouch and die.",
+      "snapshotIndex": 145
+    },
+    {
+      "decisionIndex": 87,
+      "player": "GPT53C Teach",
+      "type": "blunder",
+      "severity": "major",
+      "description": "GPT53C Teach passed on casting Hunter's Insight in the precombat main phase when Brushstrider (3/1 vigilance) was guaranteed to connect unblocked. The opponent's Llanowar Visionary is forced to block Turntimber Basilisk due to the landfall trigger, and the opponent's other creatures (Dwynen's Elite and Elf Warrior token) have summoning sickness. Casting Hunter's Insight on Brushstrider before combat would draw 3 cards when it deals 3 unblocked combat damage.",
+      "actionTaken": "Passed priority without casting Hunter's Insight",
+      "betterLine": "Cast Hunter's Insight targeting Brushstrider, then attack with both Brushstrider and Turntimber Basilisk. Brushstrider deals 3 unblocked, drawing 3 cards. Basilisk kills the forced-blocking Llanowar Visionary with deathtouch.",
+      "snapshotIndex": 149
+    },
+    {
+      "decisionIndex": 89,
+      "player": "GPT53C Teach",
+      "type": "blunder",
+      "severity": "moderate",
+      "description": "Declined to cast Hunter's Insight during combat when attacking creatures are likely to deal combat damage. The Turntimber Basilisk has deathtouch making it unattractive to block, and the opponent's only potential blockers are a 2/2 and a 1/1. Casting Hunter's Insight on the Basilisk (or Brushstrider) would likely draw 3 cards, a massive card advantage swing.",
+      "actionTaken": "Passed priority without casting Hunter's Insight during combat",
+      "betterLine": "Cast Hunter's Insight targeting Turntimber Basilisk (which opponents rarely block due to deathtouch), drawing 3 cards when it deals combat damage to the opponent.",
+      "snapshotIndex": 152
+    },
+    {
+      "decisionIndex": 90,
+      "player": "Opus Brewer",
+      "type": "blunder",
+      "severity": "moderate",
+      "description": "The Elf Warrior Token (1/1) could have blocked Brushstrider (3/1), which would kill the Brushstrider since it only has 1 toughness. Instead, Opus Brewer took 3 unnecessary damage (going to 8 life) and left the Brushstrider alive. Trading a 1/1 token for a 3/1 vigilance creature is an excellent deal.",
+      "actionTaken": "Did not block Brushstrider with the Elf Warrior Token, taking 3 damage.",
+      "betterLine": "Block Brushstrider with the Elf Warrior Token to trade a 1/1 token for a 3/1 vigilance creature, saving 3 life.",
+      "snapshotIndex": 154
+    },
+    {
+      "decisionIndex": 113,
+      "player": "Opus Brewer",
+      "type": "blunder",
+      "severity": "moderate",
+      "description": "Opus Brewer declined to cast Might of the Masses to save Llanowar Visionary from Band Together. With 4 creatures on board, Might of the Masses would have given Llanowar Visionary +4/+4 (making it 6/6), easily surviving the Brushstrider's 3 damage. Llanowar Visionary is both a mana producer and an important body at 8 life. Losing it weakens the board significantly.",
+      "actionTaken": "Passed priority, allowing Band Together to resolve and kill Llanowar Visionary.",
+      "betterLine": "Cast Might of the Masses targeting Llanowar Visionary to make it 6/6, saving it from Band Together's damage. This preserves a mana source and a creature on a board where every body matters.",
+      "snapshotIndex": 183
+    },
+    {
+      "decisionIndex": 120,
+      "player": "GPT53C Teach",
+      "type": "blunder",
+      "severity": "moderate",
+      "description": "Cast Zendikar's Roil (makes 2/2 tokens on landfall) instead of playing a Forest first and casting Rampaging Baloths (6/6 trample that makes 4/4 tokens on landfall). The opponent is at 8 life, so the 6/6 trampler represents a serious clock and near-lethal threat. Zendikar's Roil is an enchantment with no board presence, producing weaker tokens.",
+      "actionTaken": "Cast Zendikar's Roil for 3GG, using all 5 mana",
+      "betterLine": "Play Forest first (6 lands), then cast Rampaging Baloths (4GG) to get a 6/6 trampler immediately, threatening the opponent at 8 life. Future landfall triggers produce 4/4s instead of 2/2s.",
+      "snapshotIndex": 191
+    },
+    {
+      "decisionIndex": 146,
+      "player": "GPT53C Teach",
+      "type": "blunder",
+      "severity": "minor",
+      "description": "Chose to block with the 2/2 Elemental Token instead of the 0/3 Oashra Cultivator. Both creatures die equally to the 7/7 attacker, but the 2/2 Elemental Token has more value as a future attacker/blocker than the 0/3 Oashra Cultivator. The Cultivator's activated ability requires 3 mana and a tap (and all lands are tapped), making it less immediately useful, but it's still a 0-power creature with limited offensive upside compared to the 2/2 token.",
+      "actionTaken": "Selected Elemental Token (2/2) as blocker for the incoming 7/7 attack",
+      "betterLine": "Block with Oashra Cultivator (0/3) against the 7/7 instead, preserving the 2/2 Elemental Token which has more offensive value for future turns. Both die to the 7/7 equally.",
+      "snapshotIndex": 235
+    },
+    {
+      "decisionIndex": 148,
+      "player": "GPT53C Teach",
+      "type": "blunder",
+      "severity": "moderate",
+      "description": "Blocked the 1/2 Skyway Sniper with Oashra Cultivator instead of the 7/7 Elf Warrior Token, taking 7 damage instead of just 1. Saving 6 life is far more valuable than preserving a 0/3 Oashra Cultivator, especially when already at risk of being overrun by the opponent's wide board with Presence of Gond generating tokens.",
+      "actionTaken": "Blocked the 1/2 Skyway Sniper with Oashra Cultivator, taking 7 damage from the unblocked 7/7 token.",
+      "betterLine": "Block the 7/7 Elf Warrior Token with Oashra Cultivator to save 6 life (taking only 1 from the Sniper), preserving life total at a critical juncture with the opponent having a threatening board.",
+      "snapshotIndex": 236
+    },
+    {
+      "decisionIndex": 174,
+      "player": "Opus Brewer",
+      "type": "blunder",
+      "severity": "major",
+      "description": "Attacking with all creatures while at 8 life against an opponent who will untap with Rampaging Baloths 6/6, a 4/4 Beast token, and a 2/2 Elemental token (12+ power total) next turn. The all-out attack only deals ~7 damage (20→13) but leaves essentially no blockers, making the crack-back lethal. Titanic Growth in hand can't save you when facing 12+ damage across multiple attackers with only a summoning-sick 1/1 token back.",
+      "actionTaken": "Attacked with all eligible creatures (Llanowar Visionary, two Elf Warriors, Skyway Sniper, Primeval Herald)",
+      "betterLine": "Attack with only Primeval Herald (to get the land trigger and deal 3 trample) and maybe one 1/1 token. Keep Llanowar Visionary, Skyway Sniper, and at least one 1/1 token back to block. With Titanic Growth available, you could potentially survive the crack-back by blocking the 6/6 Baloths with a pumped creature and chumping the 4/4.",
+      "snapshotIndex": 271
+    },
+    {
+      "decisionIndex": 180,
+      "player": "GPT53C Teach",
+      "type": "blunder",
+      "severity": "minor",
+      "description": "Oashra Cultivator (0/3) can't kill any attacker, so the only consideration is damage prevention. Blocking Llanowar Visionary saves 2 damage, but blocking Primeval Herald would save 3 damage. The player chose to save 1 less damage than optimal.",
+      "actionTaken": "Blocked Llanowar Visionary (2/2) with Oashra Cultivator (0/3), saving 2 damage",
+      "betterLine": "Block Primeval Herald (3/1) with Oashra Cultivator to save 3 damage instead of 2",
+      "snapshotIndex": 278
+    },
+    {
+      "decisionIndex": 182,
+      "player": "Opus Brewer",
+      "type": "blunder",
+      "severity": "questionable",
+      "description": "Using Titanic Growth offensively to deal 4 extra damage (opponent goes to 8 instead of 12) while facing likely lethal on the crack-back. Opponent has Rampaging Baloths 6/6, Beast Token 4/4, and Elemental Token 2/2 all becoming untapped next turn (12 power total vs Opus Brewer's 8 life). Titanic Growth on a blocker next turn could be the difference between surviving and dying.",
+      "actionTaken": "Cast Titanic Growth offensively during combat to push 4 extra damage",
+      "betterLine": "Hold Titanic Growth for defensive combat trick next turn. The 8 damage from attackers still puts pressure on opponent (20→12), and saving the Growth for blocking could prevent lethal from opponent's massive board (Baloths + tokens = 12+ power).",
+      "snapshotIndex": 283
+    },
+    {
+      "decisionIndex": 183,
+      "player": "Opus Brewer",
+      "type": "blunder",
+      "severity": "moderate",
+      "description": "Opus Brewer used Titanic Growth on an unblocked 1/1 Elf Warrior token to deal 5 damage to the opponent's face (20→15), instead of using it on Llanowar Visionary (2/2 blocked by Rampaging Baloths 6/6) to kill the extremely threatening Baloths. At 8 life with the opponent having Rampaging Baloths, Beast Token 4/4, Elemental Token 2/2, and Zendikar's Roil generating more tokens each land drop, removing Baloths is far more important than 5 face damage. Baloths will generate 4/4 tokens every turn and threatens lethal attacks very soon.",
+      "actionTaken": "Targeted unblocked Elf Warrior Token with Titanic Growth for 5 face damage",
+      "betterLine": "Target Llanowar Visionary with Titanic Growth to make it 6/6, trading with and killing Rampaging Baloths 6/6 - removing the most dangerous threat on the board",
+      "snapshotIndex": 284
+    },
+    {
+      "decisionIndex": 196,
+      "player": "GPT53C Teach",
+      "type": "blunder",
+      "severity": "minor",
+      "description": "Khalni Heart Expedition is far too slow when the game should end in 1-2 turns. The opponent is at 8 life with all creatures tapped, and the player has Rampaging Baloths + Zendikar's Roil making every land trigger devastating. KHE needs 3 land drops before it does anything, wasting 2 mana that could go toward Garruk's Gorehorn (7/3) which adds lethal pressure immediately.",
+      "actionTaken": "Cast Khalni Heart Expedition, a slow enchantment that won't pay off for several turns.",
+      "betterLine": "Play Thriving Grove first (triggering 4/4 Beast + 2/2 Elemental tokens from landfall), then cast Garruk's Gorehorn (7/3) for 5 mana. This creates 13+ additional power on board, threatening lethal next turn against an 8-life opponent with tapped creatures.",
+      "snapshotIndex": 302
     }
   ],
-  "blunderScriptVersion": 32,
+  "blunderScriptVersion": 34,
   "decisions": [
     {
       "index": 0,
