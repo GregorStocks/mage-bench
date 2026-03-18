@@ -1589,7 +1589,7 @@ def main(gz_path: str) -> float:
     print(f"\nFound {len(annotations)} blunder(s):\n")
     for ann in annotations:
         snap_idx = ann.snapshotIndex
-        assert isinstance(snap_idx, int)
+        assert snap_idx is not None
         turn = snapshots[snap_idx]["turn"] if snap_idx < len(snapshots) else "?"
         sev = ann.severity.upper()
         print(f"  Turn {turn} ({ann.player}) - {sev}")
