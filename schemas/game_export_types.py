@@ -40,6 +40,8 @@ class Permanent:
     counters: object | None = None
     original_card: str | None = None
     copy: bool | None = None
+    # The JSON schema allows additional leaf fields; keep them here so loading
+    # into dataclasses does not silently drop export data.
     _extras: JsonObject = field(
         default_factory=dict, repr=False, compare=False, kw_only=True
     )
@@ -105,6 +107,8 @@ def export_record_field(record: object, field_name: str) -> object | None:
     if isinstance(record, (Permanent, CombatCreature, StackItem, StackTarget)):
         if field_name in record.__dataclass_fields__:
             return cast(object | None, getattr(record, field_name))
+        # Extra JSON properties stay accessible to existing consumers through
+        # the same field lookup helper used for declared dataclass attributes.
         return record._extras.get(field_name)
     if isinstance(record, dict):
         return record.get(field_name)
@@ -720,6 +724,8 @@ def _coerce_extra_fields(
     source: str,
     known_fields: set[str],
 ) -> JsonObject:
+    # Preserve schema-allowed additional properties separately so the typed
+    # fields stay explicit while round-tripping remains lossless.
     extras: JsonObject = {}
     for key, value in obj.items():
         assert key != "_extras", f"{source}: _extras is reserved for internal use"

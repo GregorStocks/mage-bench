@@ -79,6 +79,8 @@ def _jsonify_export_payload(value: Any) -> Any:
         for field in fields(value):
             field_value = getattr(value, field.name)
             if field.name == "_extras":
+                # Dataclass loaders keep unknown JSON properties under `_extras`;
+                # flatten them back into the emitted object here.
                 assert isinstance(field_value, Mapping), (
                     f"dataclass _extras must be a mapping, got {field_value!r}"
                 )

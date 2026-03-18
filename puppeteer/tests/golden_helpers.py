@@ -1806,6 +1806,8 @@ def extract_blunder_decisions(export_data: dict, game_dir: Path) -> list[dict]:
     """Extract decisions for golden blunder prompt comparisons."""
     # Keep the temp export on the validator's canonical game-export path.
     tmp_export = game_dir / "game_blunder_export.json"
+    # Golden helpers now receive dataclass-backed exports from the typed loader,
+    # so normalize them back to plain JSON before handing off to file-based tools.
     tmp_export.write_text(json.dumps(_json_ready(export_data)))
     try:
         return extract_decisions(str(tmp_export))
