@@ -1531,9 +1531,23 @@ def _send_spectator_command(
     return spectator.wait_for_ready(game_dir)
 
 
+class _DataclassEncoder(json.JSONEncoder):
+    """JSON encoder that converts dataclass instances to dicts."""
+
+    def default(self, o: object) -> object:
+        if dataclasses.is_dataclass(o) and not isinstance(o, type):
+            d = dataclasses.asdict(o)
+            # Map Python field names back to JSON keys
+            if "from_" in d:
+                d["from"] = d.pop("from_")
+            # Strip None values to match TypedDict serialization (absent keys)
+            return {k: v for k, v in d.items() if v is not None}
+        return super().default(o)
+
+
 def _to_sorted_json(obj: object) -> str:
     """Deterministic JSON serialization with sorted keys."""
-    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
+    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False, cls=_DataclassEncoder)
 
 
 def _brief(value: object, max_len: int = 80) -> str:
@@ -1681,7 +1695,10 @@ def _strip_volatile(data: dict) -> None:
 
     # Keep critical errors visible in goldens; only strip their wall-clock time.
     for error in data.get("errors", []):
-        error.pop("ts", None)
+        if isinstance(error, dict):
+            error.pop("ts", None)
+        else:
+            error.ts = None
 
     # Strip volatile fields from player summaries
     for player in data.get("players", []):
@@ -1689,7 +1706,10 @@ def _strip_volatile(data: dict) -> None:
 
     # Strip ts from actions
     for action in data.get("actions", []):
-        action.pop("ts", None)
+        if isinstance(action, dict):
+            action.pop("ts", None)
+        else:
+            action.ts = None
 
     # Sort llmEvents by (seq, player) then strip wall-clock timing fields.
     # Mulligans and concedes have both players acting at the same seq;

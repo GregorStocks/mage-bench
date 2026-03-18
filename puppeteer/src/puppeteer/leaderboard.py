@@ -516,11 +516,12 @@ def generate_leaderboard(
         annotations = game.get("annotations")
         if annotations is not None:
             for ann in annotations:
-                if ann.get("type") == "blunder":
-                    name = ann.get("player")
+                ann_type = ann.type if hasattr(ann, "type") else ann.get("type")
+                if ann_type == "blunder":
+                    name = ann.player if hasattr(ann, "player") else ann.get("player")
                     if not name:
                         continue
-                    severity = ann.get("severity")
+                    severity = ann.severity if hasattr(ann, "severity") else ann.get("severity")
                     blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(
                         severity, 0
                     )
@@ -633,11 +634,12 @@ def generate_exhibition_leaderboard(
         annotations = game.get("annotations")
         if annotations is not None:
             for ann in annotations:
-                if ann.get("type") == "blunder":
-                    name = ann.get("player")
+                ann_type = ann.type if hasattr(ann, "type") else ann.get("type")
+                if ann_type == "blunder":
+                    name = ann.player if hasattr(ann, "player") else ann.get("player")
                     if not name:
                         continue
-                    severity = ann.get("severity")
+                    severity = ann.severity if hasattr(ann, "severity") else ann.get("severity")
                     blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(
                         severity, 0
                     )
