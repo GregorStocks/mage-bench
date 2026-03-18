@@ -40,6 +40,7 @@ from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
+from schemas.game_export_types import json_default
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -47,7 +48,6 @@ from scripts.analysis.blunder_analysis import (
     _get_oracle_texts,
     build_decision_prompt,
 )
-from schemas.game_export_types import json_default
 from scripts.analysis.blunder_eval_common import decision_index
 from scripts.analysis.extract_decisions import extract_decisions
 from scripts.export_game import build_export
