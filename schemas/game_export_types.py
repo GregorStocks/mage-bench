@@ -222,6 +222,15 @@ class Choice(_DecisionSupportRecord):
             _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
         )
 
+    @classmethod
+    def coerce_list(cls, raw: list[object]) -> "list[Choice]":
+        """Convert a list of raw dicts/Choice instances to typed Choice list."""
+        return [
+            c if isinstance(c, Choice) else cls.from_mapping(c)
+            for c in raw
+            if isinstance(c, (dict, Choice))
+        ]
+
     def __deepcopy__(self, memo: dict[int, object]) -> "Choice":
         duplicate = Choice.from_mapping(self._deepcopy_mapping(memo))
         memo[id(self)] = duplicate
@@ -247,6 +256,15 @@ class MultiAmountItem(_DecisionSupportRecord):
             _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
             _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
         )
+
+    @classmethod
+    def coerce_list(cls, raw: list[object]) -> "list[MultiAmountItem]":
+        """Convert a list of raw dicts/MultiAmountItem instances to typed list."""
+        return [
+            item if isinstance(item, MultiAmountItem) else cls.from_mapping(item)
+            for item in raw
+            if isinstance(item, (dict, MultiAmountItem))
+        ]
 
     def __deepcopy__(self, memo: dict[int, object]) -> "MultiAmountItem":
         duplicate = MultiAmountItem.from_mapping(self._deepcopy_mapping(memo))

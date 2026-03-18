@@ -93,7 +93,7 @@ def _make_decision(
     if choices is None:
         choices = []
     # Convert any remaining raw dicts to Choice dataclasses
-    choices = [Choice.from_mapping(c) if isinstance(c, dict) else c for c in choices]
+    choices = Choice.coerce_list(choices)
     d: dict = {
         "index": index,
         "snapshotIndex": snapshot_index,
@@ -115,7 +115,7 @@ def _make_decision(
     }
     if items is not None:
         # Convert any remaining raw dicts to MultiAmountItem dataclasses
-        d["items"] = [MultiAmountItem.from_mapping(i) if isinstance(i, dict) else i for i in items]
+        d["items"] = MultiAmountItem.coerce_list(items)
     if total_min is not None:
         d["totalMin"] = total_min
     if total_max is not None:

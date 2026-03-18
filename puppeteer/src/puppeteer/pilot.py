@@ -175,9 +175,7 @@ def _build_pilot_decision(data: dict) -> Decision:
     raw_choices = data.get("choices")
     if raw_choices is None:
         raw_choices = []
-    choices = [
-        c if isinstance(c, Choice) else Choice.from_mapping(c) for c in raw_choices if isinstance(c, (dict, Choice))
-    ]
+    choices = Choice.coerce_list(raw_choices)
     action_type = data.get("action_type")
     response_type = data.get("response_type")
     message = data.get("message")
@@ -240,11 +238,7 @@ def _build_pilot_decision(data: dict) -> Decision:
     # Multi-amount items (e.g. combat damage distribution targets)
     raw_items = data.get("items")
     if raw_items:
-        decision.items = [
-            item if isinstance(item, MultiAmountItem) else MultiAmountItem.from_mapping(item)
-            for item in raw_items
-            if isinstance(item, (dict, MultiAmountItem))
-        ]
+        decision.items = MultiAmountItem.coerce_list(raw_items)
         if "total_min" in data:
             decision.totalMin = data["total_min"]
         if "total_max" in data:

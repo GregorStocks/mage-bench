@@ -197,6 +197,7 @@ def _render_decision_block(
     if _is_declare_blockers_phase(combat_phase) and incoming_attackers:
         lines.append(f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}")
 
+    # has_field() distinguishes "field absent" from "field is 0", which matters here
     if pilot_ctx is not None and (pilot_ctx.has_field("untappedLands") or pilot_ctx.has_field("landDropsUsed")):
         ctx_parts: list[str] = []
         if pilot_ctx.has_field("untappedLands"):

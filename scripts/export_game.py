@@ -1027,11 +1027,7 @@ def _build_decisions(
                 break
 
         # Convert raw choice dicts to typed Choice dataclasses
-        typed_choices = [
-            c if isinstance(c, Choice) else Choice.from_mapping(c)
-            for c in available_choices
-            if isinstance(c, (dict, Choice))
-        ]
+        typed_choices = Choice.coerce_list(available_choices)
 
         # Build canonical decision
         decision = Decision(
@@ -1046,7 +1042,7 @@ def _build_decisions(
             message=message,
             choices=typed_choices,
             choiceCount=len(typed_choices),
-            isForced=_is_forced(response_type, message, available_choices),
+            isForced=_is_forced(response_type, message, typed_choices),
             chosen=chosen_index,
             chosenArgs=chosen_args,
             actionResult=action_result,
@@ -1063,13 +1059,7 @@ def _build_decisions(
         # Multi-amount items (e.g. combat damage distribution targets)
         multi_items = choices_result.get("items")
         if multi_items:
-            decision.items = [
-                item
-                if isinstance(item, MultiAmountItem)
-                else MultiAmountItem.from_mapping(item)
-                for item in multi_items
-                if isinstance(item, (dict, MultiAmountItem))
-            ]
+            decision.items = MultiAmountItem.coerce_list(multi_items)
             if "total_min" in choices_result:
                 decision.totalMin = choices_result["total_min"]
             if "total_max" in choices_result:
