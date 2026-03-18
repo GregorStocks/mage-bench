@@ -363,6 +363,10 @@ class CombatGroup:
     blockers: list[CombatCreature] | None = None
     blocked: bool | None = None
     defending: str | None = None
+    _extras: JsonObject = field(default_factory=dict, repr=False, compare=False)
+
+
+_COMBAT_GROUP_FIELDS = _public_dataclass_fields(CombatGroup)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -1387,8 +1391,6 @@ def _is_combat_group(value: object, source: str) -> bool:
         _require_bool(obj["blocked"], f"{source}.blocked")
     if "defending" in obj:
         _require_str(obj["defending"], f"{source}.defending")
-    if "defender" in obj:
-        _require_str(obj["defender"], f"{source}.defender")
     return True
 
 
@@ -1779,7 +1781,8 @@ def _coerce_combat_group(value: object, source: str) -> CombatGroup:
         if "blockers" in obj
         else None,
         blocked=cast(bool | None, obj.get("blocked")),
-        defending=cast(str | None, obj.get("defending") or obj.get("defender")),
+        defending=cast(str | None, obj.get("defending")),
+        _extras=_coerce_extra_fields(obj, source, _COMBAT_GROUP_FIELDS),
     )
 
 
@@ -2053,13 +2056,20 @@ def json_default(obj: object) -> object:
 def _dataclass_to_shallow_dict(obj: object) -> dict:
     """Convert a dataclass instance to a dict, omitting None-valued optional fields."""
     result: dict = {}
+    extras: Mapping[str, object] = {}
     for f in dataclasses.fields(obj):  # type: ignore[arg-type]
         v = getattr(obj, f.name)
+        if f.name == "_extras":
+            if isinstance(v, Mapping):
+                extras = v
+            continue
         if v is not None or (
             f.default is dataclasses.MISSING
             and f.default_factory is dataclasses.MISSING
         ):
             result[f.name] = v
+    for key, value in extras.items():
+        result[str(key)] = value
     return result
 
 
