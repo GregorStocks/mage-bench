@@ -6,9 +6,10 @@ import json
 import math
 import re
 from collections.abc import Mapping
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, NotRequired, TypedDict
+from typing import Any
 from zoneinfo import ZoneInfo
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
@@ -18,24 +19,64 @@ _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 
 
-class _ModelEntry(TypedDict):
-    modelId: str
-    modelName: str
+@dataclass(frozen=True, slots=True)
+class _ModelEntry:
+    model_id: str
+    model_name: str
     provider: str
     rating: int | None
-    gamesPlayed: int
-    winRate: float
-    timeoutLosses: int
-    timeoutLossRate: float
-    avgApiCost: float
-    avgToolCallsOk: float
-    avgToolCallsFailed: float
-    avgThinkingTimeSecs: float
-    blunderScore: float
-    reasoningEffort: NotRequired[str]
+    games_played: int
+    win_rate: float
+    timeout_losses: int
+    timeout_loss_rate: float
+    avg_api_cost: float
+    avg_tool_calls_ok: float
+    avg_tool_calls_failed: float
+    avg_thinking_time_secs: float
+    blunder_score: float
+    reasoning_effort: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        entry: dict[str, Any] = {
+            "modelId": self.model_id,
+            "modelName": self.model_name,
+            "provider": self.provider,
+            "rating": self.rating,
+            "gamesPlayed": self.games_played,
+            "winRate": self.win_rate,
+            "timeoutLosses": self.timeout_losses,
+            "timeoutLossRate": self.timeout_loss_rate,
+            "avgApiCost": self.avg_api_cost,
+            "avgToolCallsOk": self.avg_tool_calls_ok,
+            "avgToolCallsFailed": self.avg_tool_calls_failed,
+            "avgThinkingTimeSecs": self.avg_thinking_time_secs,
+            "blunderScore": self.blunder_score,
+        }
+        if self.reasoning_effort is not None:
+            entry["reasoningEffort"] = self.reasoning_effort
+        return entry
 
 
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
+
+
+def _serialize_model_entries(models: list[_ModelEntry]) -> list[dict[str, Any]]:
+    return [model.to_dict() for model in models]
+
+
+def _reasoning_effort_sort_key(model: _ModelEntry) -> tuple[str, ...]:
+    if model.reasoning_effort is None:
+        return ()
+    return (model.reasoning_effort,)
+
+
+def _rated_sort_key(model: _ModelEntry) -> tuple[int, int, str, tuple[str, ...]]:
+    assert model.rating is not None
+    return (-model.rating, -model.games_played, model.model_id, _reasoning_effort_sort_key(model))
+
+
+def _exhibition_sort_key(model: _ModelEntry) -> tuple[float, int, str, tuple[str, ...]]:
+    return (-model.win_rate, -model.games_played, model.model_id, _reasoning_effort_sort_key(model))
 
 
 def _write_if_changed(path: Path, content: str) -> bool:
@@ -539,41 +580,32 @@ def generate_leaderboard(
         blunder_score = s["total_weighted_blunders"] / total_annotated_turns
         timeout_losses = int(s["timeout_losses"])
         timeout_loss_rate = timeout_losses / games_played
-        entry: _ModelEntry = {
-            "modelId": model_id,
-            "modelName": display_name,
-            "provider": capitalize_provider(provider_slug),
-            "rating": rating,
-            "gamesPlayed": games_played,
-            "winRate": round(win_rate, 4),
-            "timeoutLosses": timeout_losses,
-            "timeoutLossRate": round(timeout_loss_rate, 4),
-            "avgApiCost": round(avg_cost, 2),
-            "avgToolCallsOk": round(avg_tool_calls_ok, 1),
-            "avgToolCallsFailed": round(avg_tool_calls_failed, 1),
-            "avgThinkingTimeSecs": round(avg_thinking_time, 1),
-            "blunderScore": round(blunder_score, 2),
-        }
-        if effort:
-            entry["reasoningEffort"] = effort
-        models.append(entry)
-
-    # Sort by rating desc, then games_played desc, then modelId for determinism
-    def rated_sort_key(m: _ModelEntry) -> tuple[int, int, str, str]:
-        assert m["rating"] is not None
-        return (
-            -m["rating"],
-            -m["gamesPlayed"],
-            m["modelId"],
-            m["reasoningEffort"] if "reasoningEffort" in m else "",
+        models.append(
+            _ModelEntry(
+                model_id=model_id,
+                model_name=display_name,
+                provider=capitalize_provider(provider_slug),
+                rating=rating,
+                games_played=games_played,
+                win_rate=round(win_rate, 4),
+                timeout_losses=timeout_losses,
+                timeout_loss_rate=round(timeout_loss_rate, 4),
+                avg_api_cost=round(avg_cost, 2),
+                avg_tool_calls_ok=round(avg_tool_calls_ok, 1),
+                avg_tool_calls_failed=round(avg_tool_calls_failed, 1),
+                avg_thinking_time_secs=round(avg_thinking_time, 1),
+                blunder_score=round(blunder_score, 2),
+                reasoning_effort=effort,
+            )
         )
 
-    models.sort(key=rated_sort_key)
+    # Sort by rating desc, then games_played desc, then modelId for determinism
+    models.sort(key=_rated_sort_key)
 
     benchmark_results = {
         "generatedAt": datetime.now(UTC).isoformat(),
         "totalGames": len(scored_games),
-        "models": models,
+        "models": _serialize_model_entries(models),
     }
 
     return benchmark_results, ratings_by_game
@@ -663,40 +695,33 @@ def generate_exhibition_leaderboard(
         blunder_score = s["total_weighted_blunders"] / total_annotated_turns
         timeout_losses = int(s["timeout_losses"])
         timeout_loss_rate = timeout_losses / games_played
-        entry: _ModelEntry = {
-            "modelId": model_id,
-            "modelName": display_name,
-            "provider": capitalize_provider(provider_slug),
-            "rating": None,
-            "gamesPlayed": games_played,
-            "winRate": round(win_rate, 4),
-            "timeoutLosses": timeout_losses,
-            "timeoutLossRate": round(timeout_loss_rate, 4),
-            "avgApiCost": round(avg_cost, 2),
-            "avgToolCallsOk": round(avg_tool_calls_ok, 1),
-            "avgToolCallsFailed": round(avg_tool_calls_failed, 1),
-            "avgThinkingTimeSecs": round(avg_thinking_time, 1),
-            "blunderScore": round(blunder_score, 2),
-        }
-        if effort:
-            entry["reasoningEffort"] = effort
-        models.append(entry)
+        models.append(
+            _ModelEntry(
+                model_id=model_id,
+                model_name=display_name,
+                provider=capitalize_provider(provider_slug),
+                rating=None,
+                games_played=games_played,
+                win_rate=round(win_rate, 4),
+                timeout_losses=timeout_losses,
+                timeout_loss_rate=round(timeout_loss_rate, 4),
+                avg_api_cost=round(avg_cost, 2),
+                avg_tool_calls_ok=round(avg_tool_calls_ok, 1),
+                avg_tool_calls_failed=round(avg_tool_calls_failed, 1),
+                avg_thinking_time_secs=round(avg_thinking_time, 1),
+                blunder_score=round(blunder_score, 2),
+                reasoning_effort=effort,
+            )
+        )
 
     # Sort by win rate desc, then games played desc, then modelId for determinism
-    models.sort(
-        key=lambda m: (
-            -m["winRate"],
-            -m["gamesPlayed"],
-            m["modelId"],
-            m["reasoningEffort"] if "reasoningEffort" in m else "",
-        )
-    )
+    models.sort(key=_exhibition_sort_key)
 
     return {
         "generatedAt": datetime.now(UTC).isoformat(),
         "totalGames": len(scored_games),
         "exhibition": True,
-        "models": models,
+        "models": _serialize_model_entries(models),
     }
 
 

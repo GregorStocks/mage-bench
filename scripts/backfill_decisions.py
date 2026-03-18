@@ -9,25 +9,22 @@ Usage:
 """
 
 import argparse
-import gzip
-import json
 from pathlib import Path
 
 from scripts.export_game import _build_decisions
-from scripts.migrate_exports import write_game
-
-GAMES_DIR = Path(__file__).resolve().parent.parent / "website" / "public" / "games"
+from scripts.game_exports import (
+    GAMES_DIR,
+    glob_game_export_paths,
+    load_raw_game_export,
+    write_raw_game_export,
+)
 
 
 def backfill_game(
     path: Path, *, dry_run: bool = False, force: bool = False
 ) -> tuple[str, int]:
     """Backfill or rebuild decisions for a single game export."""
-    if path.suffix == ".gz":
-        raw = gzip.decompress(path.read_bytes())
-        data = json.loads(raw)
-    else:
-        data = json.loads(path.read_text())
+    data = load_raw_game_export(path)
 
     existing = data.get("decisions")
     if existing is not None and not force:
@@ -52,7 +49,7 @@ def backfill_game(
         del data["decisions"]
 
     if not dry_run:
-        write_game(path, data)
+        write_raw_game_export(path, data)
 
     return "updated", len(decisions)
 
@@ -71,17 +68,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    paths = sorted(GAMES_DIR.glob("game_*.json")) + sorted(
-        GAMES_DIR.glob("game_*.json.gz")
-    )
-    # Deduplicate (a game might have both .json and .json.gz)
-    seen: set[str] = set()
-    unique_paths: list[Path] = []
-    for p in paths:
-        stem = p.name.replace(".json.gz", "").replace(".json", "")
-        if stem not in seen:
-            seen.add(stem)
-            unique_paths.append(p)
+    unique_paths = glob_game_export_paths(GAMES_DIR)
 
     total = 0
     skipped = 0
