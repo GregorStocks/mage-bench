@@ -1779,7 +1779,7 @@ def extract_blunder_decisions(export_data: dict, game_dir: Path) -> list[dict]:
     """Extract decisions for golden blunder prompt comparisons."""
     # Keep the temp export on the validator's canonical game-export path.
     tmp_export = game_dir / "game_blunder_export.json"
-    tmp_export.write_text(json.dumps(export_data))
+    tmp_export.write_text(json.dumps(game_export_to_jsonable(export_data)))
     try:
         return extract_decisions(str(tmp_export))
     finally:
