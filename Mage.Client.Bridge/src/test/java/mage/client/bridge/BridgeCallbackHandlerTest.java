@@ -127,6 +127,52 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void getGameLogChunkUsesAbsolutePerPlayerTurnsForCursorSlices() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("Alice");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        setCachedBridgeEvents(handler, sampleBridgeLogEvents());
+
+        var result = handler.getGameLogChunk(0, 4);
+
+        assertThat(result.log).isEqualTo("Alice turn 2:\nAlice cast Lightning Bolt targeting Bob");
+        assertThat(result.total_length).isNull();
+        assertThat(result.truncated).isFalse();
+        assertThat(result.cursor).isEqualTo(6);
+        assertThat(result.cursor_reset).isNull();
+    }
+
+    @Test
+    void getGameLogChunkReportsFullLengthBeforeTruncating() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("Alice");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        setCachedBridgeEvents(handler, sampleBridgeLogEvents());
+
+        String lastLine = "Alice cast Lightning Bolt targeting Bob";
+        var result = handler.getGameLogChunk(lastLine.length(), null);
+
+        assertThat(result.log).isEqualTo(lastLine);
+        assertThat(result.total_length).isEqualTo(sampleBridgeLogText().length());
+        assertThat(result.truncated).isTrue();
+        assertThat(result.cursor).isEqualTo(6);
+    }
+
+    @Test
+    void getGameLogSinceTurnDefaultsToClientPlayer() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("Alice");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        setCachedBridgeEvents(handler, sampleBridgeLogEvents());
+
+        var result = handler.getGameLogSinceTurn(null, 2);
+
+        assertThat(result.log).isEqualTo("Alice turn 2:\nAlice cast Lightning Bolt targeting Bob");
+        assertThat(result.total_length).isEqualTo(sampleBridgeLogText().length());
+        assertThat(result.truncated).isFalse();
+        assertThat(result.cursor).isEqualTo(6);
+        assertThat(result.since_turn).isEqualTo(2);
+        assertThat(result.since_player).isEqualTo("Alice");
+    }
+
+    @Test
     void stepYieldStopsWhenCallbackOvershootsTargetStepInSameTurn() throws Exception {
         CountDownLatch autoPassSent = new CountDownLatch(1);
         AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
@@ -945,6 +991,52 @@ class BridgeCallbackHandlerTest {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
     }
 
+    private static List<BridgeLogEntry> sampleBridgeLogEvents() {
+        return List.of(
+            bridgeLogEntry(0, "BEGIN_TURN", 1, "Alice", "Alice", null, null),
+            bridgeLogEntry(1, "LAND_PLAYED", 1, "Alice", "Alice", "Island", null),
+            bridgeLogEntry(2, "BEGIN_TURN", 2, "Bob", "Bob", null, null),
+            bridgeLogEntry(3, "LAND_PLAYED", 2, "Bob", "Bob", "Swamp", null),
+            bridgeLogEntry(4, "BEGIN_TURN", 3, "Alice", "Alice", null, null),
+            bridgeLogEntry(5, "SPELL_CAST", 3, "Alice", "Alice", "Lightning Bolt", "Bob")
+        );
+    }
+
+    private static String sampleBridgeLogText() {
+        return String.join("\n",
+            "Alice turn 1:",
+            "Alice played Island",
+            "Bob turn 1:",
+            "Bob played Swamp",
+            "Alice turn 2:",
+            "Alice cast Lightning Bolt targeting Bob"
+        );
+    }
+
+    private static BridgeLogEntry bridgeLogEntry(
+            int index,
+            String type,
+            int turn,
+            String activePlayer,
+            String player,
+            String cardName,
+            String targetName) {
+        return new BridgeLogEntry(
+            index,
+            index,
+            type,
+            turn,
+            "PRECOMBAT_MAIN",
+            "PRECOMBAT_MAIN",
+            activePlayer,
+            player,
+            cardName,
+            targetName,
+            0,
+            true
+        );
+    }
+
     @SuppressWarnings("removal")
     private static final Unsafe UNSAFE = initUnsafe();
 
@@ -1120,6 +1212,14 @@ class BridgeCallbackHandlerTest {
             return '\0';
         }
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void setCachedBridgeEvents(BridgeCallbackHandler handler, List<BridgeLogEntry> events)
+            throws Exception {
+        List<BridgeLogEntry> cached = (List<BridgeLogEntry>) getField(handler, "cachedBridgeEvents");
+        cached.clear();
+        cached.addAll(events);
     }
 
     private static void notifyActionLock(BridgeCallbackHandler handler) throws Exception {

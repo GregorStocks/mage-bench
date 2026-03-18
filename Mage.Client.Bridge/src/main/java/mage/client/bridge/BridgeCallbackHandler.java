@@ -87,6 +87,8 @@ public class BridgeCallbackHandler {
     private static final int DEFAULT_ACTION_DELAY_MS = 500;
     /** Chat message captured for interleaving with bridge events in game log rendering. */
     private record ChatLogEntry(int eventCursor, String message, String rendered) {}
+    /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
+    private record GameLogSnapshot(List<BridgeLogEntry> events, int cursor) {}
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -3009,15 +3011,8 @@ public class BridgeCallbackHandler {
     }
 
     public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
-        // Ensure cache is up to date
-        pullBridgeEvents();
-
-        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
-        var result = new GetGameLogTool.Result();
-
-        int newCursor = allEvents.isEmpty() ? 0
-                : allEvents.get(allEvents.size() - 1).index() + 1;
-        result.cursor = newCursor;
+        GameLogSnapshot snapshot = snapshotGameLog();
+        List<BridgeLogEntry> allEvents = snapshot.events();
 
         if (cursor != null) {
             // Incremental: render only events from the cursor onward.
@@ -3041,33 +3036,17 @@ public class BridgeCallbackHandler {
             }
 
             String rendered = renderGameLogFlat(responseEvents, priorTurns, c, false);
-
-            if (maxChars > 0 && rendered.length() > maxChars) {
-                rendered = truncateFromFront(rendered, maxChars);
-                result.truncated = true;
-            } else {
-                result.truncated = false;
-            }
-            result.log = rendered;
+            GetGameLogTool.Result result = buildGameLogResult(snapshot, rendered, null, maxChars);
 
             if (!responseEvents.isEmpty() && responseEvents.get(0).index() > cursor) {
                 result.cursor_reset = true;
             }
+            return result;
         } else {
             // Full log: render all events with chat
             String rendered = renderGameLogFlat(allEvents, Map.of(), 0, true);
-            result.total_length = rendered.length();
-
-            if (maxChars > 0 && rendered.length() > maxChars) {
-                rendered = truncateFromFront(rendered, maxChars);
-                result.truncated = true;
-            } else {
-                result.truncated = false;
-            }
-            result.log = rendered;
+            return buildGameLogResult(snapshot, rendered, rendered.length(), maxChars);
         }
-
-        return result;
     }
 
     /** Truncate text from the front to maxChars, trimming to the next newline boundary. */
@@ -3087,16 +3066,11 @@ public class BridgeCallbackHandler {
      */
     public GetGameLogTool.Result getGameLogSinceTurn(String player, int sinceTurn) {
         String effectivePlayer = player != null ? player : client.getUsername();
-
-        // Ensure cache is up to date
-        pullBridgeEvents();
-
-        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
+        GameLogSnapshot snapshot = snapshotGameLog();
+        List<BridgeLogEntry> allEvents = snapshot.events();
         Map<String, Integer> emptyTurns = Map.of();
-        var result = new GetGameLogTool.Result();
 
         String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0, true);
-        result.total_length = allRendered.length();
 
         // Find the event index where the player's Nth per-player turn starts,
         // and collect turn counts for all players up to that point so the
@@ -3121,27 +3095,68 @@ public class BridgeCallbackHandler {
         if (startIdx >= 0) {
             List<BridgeLogEntry> subset = allEvents.subList(startIdx, allEvents.size());
             int minChatCursor = allEvents.get(startIdx).index();
-            result.log = renderGameLogFlat(subset, priorTurns, minChatCursor, true);
+            GetGameLogTool.Result result = buildGameLogResult(
+                    snapshot,
+                    renderGameLogFlat(subset, priorTurns, minChatCursor, true),
+                    allRendered.length(),
+                    null
+            );
             result.truncated = false;
             result.since_turn = sinceTurn;
             result.since_player = effectivePlayer;
+            return result;
         } else {
             // Count total per-player turns to distinguish "trimmed" vs "hasn't happened"
             int totalPlayerTurns = priorTurns.getOrDefault(effectivePlayer, 0);
             if (totalPlayerTurns > 0 && sinceTurn <= totalPlayerTurns) {
-                result.log = allRendered;
+                GetGameLogTool.Result result = buildGameLogResult(snapshot, allRendered, allRendered.length(), null);
                 result.truncated = true;
                 result.since_player = effectivePlayer;
+                return result;
             } else {
-                result.log = "";
+                GetGameLogTool.Result result = buildGameLogResult(snapshot, "", allRendered.length(), null);
                 result.truncated = false;
+                return result;
             }
         }
+    }
 
-        int newCursor = allEvents.isEmpty() ? 0
-                : allEvents.get(allEvents.size() - 1).index() + 1;
-        result.cursor = newCursor;
+    private GameLogSnapshot snapshotGameLog() {
+        pullBridgeEvents();
+        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
+        return new GameLogSnapshot(allEvents, nextBridgeEventCursor(allEvents));
+    }
+
+    private static int nextBridgeEventCursor(List<BridgeLogEntry> allEvents) {
+        return allEvents.isEmpty() ? 0 : allEvents.get(allEvents.size() - 1).index() + 1;
+    }
+
+    private static GetGameLogTool.Result buildGameLogResult(
+            GameLogSnapshot snapshot,
+            String rendered,
+            Integer totalLength,
+            Integer maxChars) {
+        var result = new GetGameLogTool.Result();
+        result.cursor = snapshot.cursor();
+        if (totalLength != null) {
+            result.total_length = totalLength;
+        }
+        if (maxChars != null) {
+            applyGameLogCharLimit(result, rendered, maxChars);
+        } else {
+            result.log = rendered;
+        }
         return result;
+    }
+
+    private static void applyGameLogCharLimit(GetGameLogTool.Result result, String rendered, int maxChars) {
+        if (maxChars > 0 && rendered.length() > maxChars) {
+            result.log = truncateFromFront(rendered, maxChars);
+            result.truncated = true;
+        } else {
+            result.log = rendered;
+            result.truncated = false;
+        }
     }
 
     /**
