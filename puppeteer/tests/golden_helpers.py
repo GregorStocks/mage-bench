@@ -47,8 +47,8 @@ from scripts.analysis.blunder_analysis import (
     _get_oracle_texts,
     build_decision_prompt,
 )
-from scripts.analysis.blunder_eval_common import decision_index
 from schemas.game_export_types import json_default
+from scripts.analysis.blunder_eval_common import decision_index
 from scripts.analysis.extract_decisions import extract_decisions
 from scripts.export_game import build_export
 
