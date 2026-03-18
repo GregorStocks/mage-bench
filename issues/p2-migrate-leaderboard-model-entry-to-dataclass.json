@@ -2,7 +2,7 @@
   "title": "Migrate leaderboard _ModelEntry from TypedDict to dataclass",
   "description": "Replace `_ModelEntry` in `puppeteer/src/puppeteer/leaderboard.py` with a dataclass and update the local leaderboard helpers that construct, sort, and serialize it.\n\nKeep this PR intentionally small: do not migrate any schema export types in the same change. Limit the work to leaderboard code and the direct tests that cover leaderboard output.\n\nThis is the smallest migration slice and a good first PR for proving the pattern.",
   "status": "open",
-  "priority": 3,
+  "priority": 2,
   "type": "task",
   "labels": [
     "typing",

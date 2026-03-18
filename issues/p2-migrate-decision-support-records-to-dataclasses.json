@@ -2,7 +2,7 @@
   "title": "Migrate decision support export records from TypedDict to dataclasses",
   "description": "Replace the decision support leaf records in `schemas/game_export_types.py` with dataclasses: `Choice`, `MultiAmountItem`, and `PilotContext`.\n\nKeep this PR limited to those supporting records and the direct construction/consumption sites. Do not migrate `Decision` itself in the same PR; that should remain a separate review because it will touch more code.\n\nThe purpose of this slice is to land the nested decision support objects first so the later `Decision` migration has fewer moving parts.",
   "status": "open",
-  "priority": 3,
+  "priority": 2,
   "type": "task",
   "labels": [
     "typing",

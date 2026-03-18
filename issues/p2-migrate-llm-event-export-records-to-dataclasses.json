@@ -2,7 +2,7 @@
   "title": "Migrate LLM event export records from TypedDict to dataclasses",
   "description": "Replace the LLM event export records in `schemas/game_export_types.py` with dataclasses: `LlmUsage`, `GameStartEvent`, `LlmResponseEvent`, `ToolCallEvent`, `StallEvent`, `ContextResetEvent`, `ContextTrimEvent`, `LlmErrorEvent`, and `AutoPilotModeEvent`. Fold `_LlmEventBase` into this migration as part of the same hierarchy.\n\nUpdate the union and the direct event-processing consumers in export generation, leaderboard code, and analysis tools. Keep `GameExport` / `BuiltGameExport` container migration out of this PR.\n\nThis should be one coherent event-layer migration, not multiple tiny PRs for each event subtype.",
   "status": "open",
-  "priority": 3,
+  "priority": 2,
   "type": "task",
   "labels": [
     "typing",
