@@ -166,18 +166,25 @@ public class ObserverGamePanel extends GamePanel {
         this.healthServer = healthServer;
     }
 
+    private Path requireConfiguredGameDirPath(String source) {
+        if (gameDirPath != null) {
+            return gameDirPath;
+        }
+        String gameDirStr = System.getProperty("xmage.observer.gameDir");
+        if (gameDirStr == null || gameDirStr.isEmpty()) {
+            throw new IllegalStateException(
+                    source + ": xmage.observer.gameDir must be configured before watching a game"
+            );
+        }
+        gameDirPath = Paths.get(gameDirStr);
+        return gameDirPath;
+    }
+
     private void signalWatchingReady() {
         if (watchingSignaled || healthServer == null) {
             return;
         }
-        if (gameDirPath == null) {
-            String gameDirStr = System.getProperty("xmage.observer.gameDir");
-            if (gameDirStr == null || gameDirStr.isEmpty()) {
-                return;
-            }
-            gameDirPath = Paths.get(gameDirStr);
-        }
-        healthServer.signalGameWatching(gameDirPath.toString());
+        healthServer.signalGameWatching(requireConfiguredGameDirPath("signalWatchingReady").toString());
         watchingSignaled = true;
     }
 
@@ -196,6 +203,21 @@ public class ObserverGamePanel extends GamePanel {
 
     @Override
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
+        if (healthServer != null) {
+            requireConfiguredGameDirPath("watchGame");
+        } else {
+            String gameDirStr = System.getProperty("xmage.observer.gameDir");
+            if (gameDirStr != null && !gameDirStr.isEmpty()) {
+                gameDirPath = Paths.get(gameDirStr);
+            }
+        }
+        // keepAlive spectators reuse the same panel across games, so any
+        // per-game watcher state must be cleared before the new GameView
+        // callbacks arrive. Otherwise /wait-for-watching can stay latched
+        // from the previous game and hand permissions can be skipped because
+        // the same session-scoped player IDs are reused.
+        watchingSignaled = false;
+        permissionsRequested.clear();
         this.observerGameId = gameId;
         replaceChatWithCombinedPanel();  // Replace before super connects chat
         super.watchGame(currentTableId, parentTableId, gameId, gamePane);

@@ -8,7 +8,7 @@ what happened next. Designed to give Claude Code structured data for blunder ana
 
 import json
 import sys
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from typing import Any, cast
 
 from schemas.game_export_types import (
@@ -18,35 +18,48 @@ from schemas.game_export_types import (
     LlmEvent,
     Snapshot,
     ToolCallEvent,
+    export_record_field,
     game_export_to_jsonable,
     load_built_game_export,
 )
 
 
+def _record_field(record: object, field: str) -> object | None:
+    return export_record_field(record, field)
+
+
+def _record_name(record: object, *, source: str) -> str:
+    name = _record_field(record, "name")
+    assert isinstance(name, str), f"{source} name must be a string, got {name!r}"
+    return name
+
+
 def _summarize_permanent(c: object) -> str | dict:
     """Summarize a battlefield permanent. Returns just the name if nothing
     interesting, or a dict with extra info when tapped/counters/sick."""
-    if not isinstance(c, dict):
+    if isinstance(c, str):
         return str(c)
-    name = c.get("name", "?")
-    assert isinstance(name, str), f"permanent name must be a string, got {name!r}"
+    name = _record_name(c, source="permanent")
     extras: dict = {}
-    if c.get("tapped"):
+    if _record_field(c, "tapped"):
         extras["tapped"] = True
-    if c.get("summoning_sick"):
+    if _record_field(c, "summoning_sick"):
         extras["summoning_sick"] = True
-    if c.get("counters"):
-        extras["counters"] = c["counters"]
-    if c.get("token"):
+    counters = _record_field(c, "counters")
+    if counters:
+        extras["counters"] = counters
+    if _record_field(c, "token"):
         extras["token"] = True
-    if c.get("face_down"):
+    if _record_field(c, "face_down"):
         extras["face_down"] = True
-    if c.get("copy"):
+    if _record_field(c, "copy"):
         extras["copy"] = True
-    if c.get("original_card"):
-        extras["original_card"] = c["original_card"]
-    if c.get("rules"):
-        extras["rules"] = c["rules"]
+    original_card = _record_field(c, "original_card")
+    if isinstance(original_card, str) and original_card:
+        extras["original_card"] = original_card
+    rules = _record_field(c, "rules")
+    if rules is not None:
+        extras["rules"] = rules
     if extras:
         return {"name": name, **extras}
     return name
@@ -55,14 +68,60 @@ def _summarize_permanent(c: object) -> str | dict:
 def _summarize_stack_item(item: object) -> str | dict:
     """Summarize a stack item. Returns just the name if no targets,
     or a dict with name + targets when targets are present."""
-    if not isinstance(item, dict):
+    if isinstance(item, str):
         return str(item)
-    name = item.get("name", "?")
-    assert isinstance(name, str), f"stack item name must be a string, got {name!r}"
-    targets = item.get("targets")
+    name = _record_name(item, source="stack item")
+    targets = _record_field(item, "targets")
     if targets:
-        return {"name": name, "targets": targets}
+        assert isinstance(targets, list), (
+            f"stack item targets must be a list, got {targets!r}"
+        )
+        return {"name": name, "targets": [_summarize_stack_target(t) for t in targets]}
     return name
+
+
+def _summarize_stack_target(target: object) -> str | dict:
+    if isinstance(target, str):
+        return target
+    name = _record_field(target, "name")
+    target_id = _record_field(target, "id")
+    summary: dict[str, object] = {}
+    if isinstance(name, str) and name:
+        summary["name"] = name
+    if isinstance(target_id, str) and target_id:
+        summary["id"] = target_id
+    return summary if summary else str(target)
+
+
+def _summarize_combat_group(group: Mapping[str, object]) -> dict[str, object]:
+    summary: dict[str, object] = {}
+    attackers = group.get("attackers")
+    if attackers is not None:
+        assert isinstance(attackers, list), (
+            f"combat attackers must be a list, got {attackers!r}"
+        )
+        summary["attackers"] = [_summarize_combat_creature(a) for a in attackers]
+    blockers = group.get("blockers")
+    if blockers is not None:
+        assert isinstance(blockers, list), (
+            f"combat blockers must be a list, got {blockers!r}"
+        )
+        summary["blockers"] = [_summarize_combat_creature(b) for b in blockers]
+    if "blocked" in group:
+        summary["blocked"] = group["blocked"]
+    if "defending" in group:
+        summary["defending"] = group["defending"]
+    return summary
+
+
+def _summarize_combat_creature(creature: object) -> dict[str, object]:
+    name = _record_name(creature, source="combat creature")
+    summary: dict[str, object] = {"name": name}
+    for field in ("id", "power", "toughness", "power_toughness", "pt"):
+        value = _record_field(creature, field)
+        if value is not None:
+            summary[field] = value
+    return summary
 
 
 def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
@@ -78,7 +137,9 @@ def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
         hand_cards = p.get("hand")
         if hand_cards is not None:
             p_summary["hand"] = [
-                c.get("name", "?") if isinstance(c, dict) else str(c)
+                _record_name(c, source="hand card")
+                if not isinstance(c, str)
+                else str(c)
                 for c in hand_cards
             ]
 
@@ -97,21 +158,27 @@ def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
         graveyard_cards = p.get("graveyard")
         if graveyard_cards is not None:
             p_summary["graveyard"] = [
-                c.get("name", "?") if isinstance(c, dict) else str(c)
+                _record_name(c, source="graveyard card")
+                if not isinstance(c, str)
+                else str(c)
                 for c in graveyard_cards
             ]
 
         exile_cards = p.get("exile")
         if exile_cards is not None:
             p_summary["exile"] = [
-                c.get("name", "?") if isinstance(c, dict) else str(c)
+                _record_name(c, source="exile card")
+                if not isinstance(c, str)
+                else str(c)
                 for c in exile_cards
             ]
 
         commander_cards = p.get("commanders")
         if commander_cards is not None:
             p_summary["commanders"] = [
-                c.get("name", "?") if isinstance(c, dict) else c
+                _record_name(c, source="commander card")
+                if not isinstance(c, str)
+                else c
                 for c in commander_cards
             ]
 
@@ -132,7 +199,7 @@ def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
     # Combat groups (may be absent in old exports)
     combat = snap.get("combat")
     if combat:
-        summary["combat"] = combat
+        summary["combat"] = [_summarize_combat_group(group) for group in combat]
     return summary
 
 

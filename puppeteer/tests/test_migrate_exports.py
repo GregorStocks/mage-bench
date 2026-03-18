@@ -8,7 +8,7 @@ from unittest.mock import patch
 import pytest
 
 from puppeteer.harness_epoch import SEASON_1_START_EPOCH
-from schemas.game_export_types import Choice, MultiAmountItem, PilotContext
+from schemas.game_export_types import Action, Choice, MultiAmountItem, PilotContext
 from schemas.migrations import (
     MIGRATIONS,
     v2_to_v3,
@@ -787,6 +787,21 @@ class TestGameExportHelpers:
             "description": "Assign damage",
             "target": "p1",
         }
+
+    def test_write_raw_game_export_serializes_action_from_as_json_from(self, tmp_path: Path) -> None:
+        payload = {
+            "id": "game_test_001",
+            "actions": [
+                Action(seq=1, type="chat", message="hello", from_="Alice"),
+            ],
+        }
+        json_path = tmp_path / "game_test_001.json"
+
+        out_path = write_raw_game_export(json_path, payload)
+
+        written = json.loads(out_path.read_text())
+        assert written["actions"][0]["from"] == "Alice"
+        assert "from_" not in written["actions"][0]
 
     def test_glob_game_export_paths_prefers_gz_when_both_exist(self, tmp_path: Path) -> None:
         (tmp_path / "game_a.json").write_text("{}")

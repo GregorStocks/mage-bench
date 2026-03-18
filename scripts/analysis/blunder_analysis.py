@@ -45,6 +45,7 @@ from schemas.game_export_types import (
     Permanent,
     Snapshot,
     SnapshotPlayer,
+    export_record_field,
 )
 from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
@@ -262,6 +263,10 @@ _extract_oracle_fields = scryfall.extract_oracle_fields
 _get_oracle_texts = scryfall.get_oracle_texts
 
 
+def _record_field(record: object, field: str) -> object | None:
+    return export_record_field(record, field)
+
+
 def _snapshot_zone_cards(
     player: SnapshotPlayer, zone: str
 ) -> list[str | Permanent] | None:
@@ -288,40 +293,34 @@ def _collect_card_names(data: GameExport) -> set[str]:
                 zone_cards = _snapshot_zone_cards(p, zone)
                 if zone_cards is not None:
                     for c in zone_cards:
-                        if isinstance(c, dict):
-                            name = c.get("name")
+                        if isinstance(c, str) and c:
+                            names.add(c)
+                        else:
+                            name = _record_field(c, "name")
                             if isinstance(name, str) and name:
                                 names.add(name)
-                        elif isinstance(c, str) and c:
-                            names.add(c)
         for item in snap["stack"]:
-            if isinstance(item, dict):
-                name = item.get("name")
+            if isinstance(item, str) and item:
+                names.add(item)
+            else:
+                name = _record_field(item, "name")
                 if isinstance(name, str) and name:
                     names.add(name)
-            elif isinstance(item, str) and item:
-                names.add(item)
         snap_combat = snap.get("combat")
         if snap_combat is not None:
             for group in snap_combat:
                 group_attackers = group.get("attackers")
                 if group_attackers is not None:
                     for a in group_attackers:
-                        if (
-                            isinstance(a, dict)
-                            and isinstance(a.get("name"), str)
-                            and a["name"]
-                        ):
-                            names.add(a["name"])
+                        name = _record_field(a, "name")
+                        if isinstance(name, str) and name:
+                            names.add(name)
                 group_blockers = group.get("blockers")
                 if group_blockers is not None:
                     for b in group_blockers:
-                        if (
-                            isinstance(b, dict)
-                            and isinstance(b.get("name"), str)
-                            and b["name"]
-                        ):
-                            names.add(b["name"])
+                        name = _record_field(b, "name")
+                        if isinstance(name, str) and name:
+                            names.add(name)
     # Also from choice names and combat fields in llm events
     for ev in data["llmEvents"]:
         if ev.type == "tool_call" and ev.tool == "get_action_choices":

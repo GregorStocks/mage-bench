@@ -22,6 +22,7 @@ from schemas.game_export_types import (
     PilotContext,
     decision_support_get,
     decision_support_has,
+    export_record_field,
 )
 
 BASIC_LAND_NAMES = frozenset(
@@ -53,6 +54,20 @@ def _decision_optional(decision: DecisionLike, key: str) -> object:
     if isinstance(decision, Decision):
         return getattr(decision, key)
     return decision.get(key)
+
+
+def _record_field(record: object, field: str) -> object | None:
+    return export_record_field(record, field)
+
+
+def _record_name(record: object, *, source: str) -> str:
+    if isinstance(record, dict):
+        name = record["name"]
+        assert isinstance(name, str), f"{source} name must be a string, got {name!r}"
+        return name
+    name = _record_field(record, "name")
+    assert isinstance(name, str), f"{source} name must be a string, got {name!r}"
+    return name
 
 
 def render_decision(
@@ -288,30 +303,28 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
 
 def card_display(c: object) -> str:
     """Display a card (hand, graveyard, exile) as a string."""
-    if isinstance(c, dict):
-        name = c["name"]
-        assert isinstance(name, str), f"card name must be a string, got {name!r}"
-        return name
+    if not isinstance(c, str):
+        return _record_name(c, source="card")
     return str(c)
 
 
 def permanent_display(c: object) -> str:
     """Display a battlefield permanent with status annotations."""
-    if not isinstance(c, dict):
+    if isinstance(c, str):
         return str(c)
-    name = c["name"]
-    assert isinstance(name, str), f"permanent name must be a string, got {name!r}"
+    name = _record_name(c, source="permanent")
     extras: list[str] = []
-    if c.get("tapped"):
+    if _record_field(c, "tapped"):
         extras.append("tapped")
-    if c.get("summoning_sick"):
+    if _record_field(c, "summoning_sick"):
         extras.append("sick")
-    if c.get("face_down"):
+    if _record_field(c, "face_down"):
         extras.append("face_down")
-    if c.get("loyalty") is not None:
-        extras.append(f"loyalty={c['loyalty']}")
-    if c.get("counters"):
-        counters = c["counters"]
+    loyalty = _record_field(c, "loyalty")
+    if loyalty is not None:
+        extras.append(f"loyalty={loyalty}")
+    counters = _record_field(c, "counters")
+    if counters:
         if isinstance(counters, list):
             extras.extend(
                 f"{ctr.get('name', '?')}={ctr.get('count', '?')}" for ctr in counters if isinstance(ctr, dict)
@@ -319,16 +332,19 @@ def permanent_display(c: object) -> str:
         elif isinstance(counters, dict):
             for k, v in counters.items():
                 extras.append(f"{k}={v}")
-    if c.get("original_card"):
-        extras.append(f"copy of {c['original_card']}")
-    elif c.get("copy"):
+    original_card = _record_field(c, "original_card")
+    if isinstance(original_card, str) and original_card:
+        extras.append(f"copy of {original_card}")
+    elif _record_field(c, "copy"):
         extras.append("copy")
-    if c.get("token"):
+    if _record_field(c, "token"):
         extras.append("token")
     # Power/toughness for creatures
-    pt = c.get("power_toughness") or c.get("pt")
-    if not pt and c.get("power") is not None:
-        pt = f"{c['power']}/{c['toughness']}"
+    pt = _record_field(c, "power_toughness") or _record_field(c, "pt")
+    power = _record_field(c, "power")
+    toughness = _record_field(c, "toughness")
+    if not pt and power is not None:
+        pt = f"{power}/{toughness}"
     if pt:
         name += f" {pt}"
     if extras:
@@ -355,34 +371,30 @@ def _render_stack(stack: list) -> list[str]:
     for item in stack:
         if isinstance(item, str):
             parts.append(item)
-        elif isinstance(item, dict):
+        else:
             desc = _render_stack_item(item)
-            targets = item.get("targets")
+            targets = _record_field(item, "targets")
             if targets:
+                assert isinstance(targets, list), f"stack item targets must be a list, got {targets!r}"
                 desc += " -> " + ", ".join(_render_stack_target(t) for t in targets)
             parts.append(desc)
-        else:
-            parts.append(str(item))
     return parts
 
 
-def _render_stack_item(item: dict) -> str:
+def _render_stack_item(item: object) -> str:
     """Render a stack item name with triggered-ability context when available."""
-    source_card = item.get("source_card")
-    ability_text = item.get("ability_text")
+    source_card = _record_field(item, "source_card")
+    ability_text = _record_field(item, "ability_text")
     if isinstance(source_card, str) and source_card and isinstance(ability_text, str) and ability_text:
         return f"{source_card} - {ability_text}"
-    name = item["name"]
-    assert isinstance(name, str), f"stack item name must be a string, got {name!r}"
-    return name
+    return _record_name(item, source="stack item")
 
 
 def _render_stack_target(target: object) -> str:
     """Render a stack target as a readable name instead of a raw dict repr."""
-    if isinstance(target, dict):
-        name = target.get("name")
-        if isinstance(name, str) and name:
-            return name
+    name = _record_field(target, "name")
+    if isinstance(name, str) and name:
+        return name
     return str(target)
 
 
@@ -393,11 +405,11 @@ def _render_combat(combat_groups: list) -> str:
         attackers = group.get("attackers")
         atk_names: list[str] = []
         if attackers is not None:
-            atk_names = [a["name"] for a in attackers if isinstance(a, dict) and a.get("name")]
+            atk_names = [_record_name(a, source="combat attacker") for a in attackers if _record_field(a, "name")]
         blockers = group.get("blockers")
         blk_names: list[str] = []
         if blockers is not None:
-            blk_names = [b["name"] for b in blockers if isinstance(b, dict) and b.get("name")]
+            blk_names = [_record_name(b, source="combat blocker") for b in blockers if _record_field(b, "name")]
         part = ", ".join(atk_names)
         if blk_names:
             part += f" blocked by {', '.join(blk_names)}"
@@ -418,20 +430,22 @@ def _render_incoming_attackers(incoming_attackers: list) -> str:
     """Render incoming attackers with IDs for declare-blockers prompts."""
     parts: list[str] = []
     for attacker in incoming_attackers:
-        if not isinstance(attacker, dict):
+        if isinstance(attacker, str):
             parts.append(str(attacker))
             continue
 
-        name: str = attacker["name"]
+        name = _record_name(attacker, source="incoming attacker")
         extras: list[str] = []
-        attacker_id = attacker.get("id")
+        attacker_id = _record_field(attacker, "id")
         if attacker_id:
             extras.append(f"id={attacker_id}")
-        pt = attacker.get("power_toughness") or attacker.get("pt")
-        if not pt and attacker.get("power") is not None and attacker.get("toughness") is not None:
-            pt = f"{attacker['power']}/{attacker['toughness']}"
+        pt = _record_field(attacker, "power_toughness") or _record_field(attacker, "pt")
+        power = _record_field(attacker, "power")
+        toughness = _record_field(attacker, "toughness")
+        if not pt and power is not None and toughness is not None:
+            pt = f"{power}/{toughness}"
         if pt:
-            extras.append(pt)
+            extras.append(str(pt))
 
         if extras:
             parts.append(f"{name} [{', '.join(extras)}]")
@@ -529,8 +543,10 @@ def _resolve_mana_plan(mana_plan: object, snapshot: dict | None) -> str:
             battlefield = p.get("battlefield")
             if battlefield is not None:
                 for perm in battlefield:
-                    if isinstance(perm, dict) and perm.get("id"):
-                        id_to_name[perm["id"]] = perm.get("name") or perm["id"]
+                    perm_id = _record_field(perm, "id")
+                    if isinstance(perm_id, str) and perm_id:
+                        perm_name = _record_field(perm, "name")
+                        id_to_name[perm_id] = perm_name if isinstance(perm_name, str) and perm_name else perm_id
 
     parts: list[str] = []
     if isinstance(mana_plan, str):
@@ -720,19 +736,21 @@ def _render_card_reference(
             if zone_cards is None:
                 continue
             for c in zone_cards:
-                if isinstance(c, dict):
-                    name = c.get("name")
-                    if name:
-                        names.add(name)
-                elif isinstance(c, str) and c:
+                if isinstance(c, str) and c:
                     names.add(c)
+                else:
+                    name = _record_field(c, "name")
+                    if isinstance(name, str) and name:
+                        names.add(name)
     stack = snapshot.get("stack")
     if stack is not None:
         for item in stack:
-            if isinstance(item, dict) and item.get("name"):
-                names.add(item["name"])
-            elif isinstance(item, str) and item:
+            if isinstance(item, str) and item:
                 names.add(item)
+            else:
+                name = _record_field(item, "name")
+                if isinstance(name, str) and name:
+                    names.add(name)
     raw_choices = _decision_value(decision, "choices")
     assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
     for c in raw_choices:

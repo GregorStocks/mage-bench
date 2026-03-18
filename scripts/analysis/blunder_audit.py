@@ -25,6 +25,7 @@ from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
+    export_record_name,
     game_path_for_id,
     load_game_ground_truth,
     load_ground_truth,
@@ -250,18 +251,7 @@ def format_play_context(
     snap_idx = get_snapshot_index(decision)
     snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else None
     stack = snapshot["stack"] if snapshot is not None else []
-    stack_str = (
-        ", ".join(
-            s
-            if isinstance(s, str)
-            else s.get("name", "?")
-            if isinstance(s, dict)
-            else str(s)
-            for s in stack
-        )
-        if stack
-        else "(empty)"
-    )
+    stack_str = ", ".join(export_record_name(s) for s in stack) if stack else "(empty)"
 
     # Find the current player's hand
     player_name = decision["player"]
@@ -273,16 +263,7 @@ def format_play_context(
         if p.get("name") == player_name:
             hand = p["hand"]
             hand_str = (
-                ", ".join(
-                    h
-                    if isinstance(h, str)
-                    else h.get("name", "?")
-                    if isinstance(h, dict)
-                    else str(h)
-                    for h in hand
-                )
-                if hand
-                else "(empty)"
+                ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
             )
             break
 

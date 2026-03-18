@@ -7,10 +7,11 @@ scripts can operate on older export versions.
 import gzip
 import json
 from collections.abc import Mapping
+from dataclasses import is_dataclass
 from pathlib import Path
 from typing import Any
 
-from schemas.game_export_types import game_export_to_jsonable
+from schemas.game_export_types import json_default
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
@@ -53,7 +54,7 @@ def write_raw_game_export(
     _assert_game_export_path(export_path)
 
     json_bytes = json.dumps(
-        game_export_to_jsonable(data), indent=2, ensure_ascii=False
+        _jsonify_export_payload(data), indent=2, ensure_ascii=False
     ).encode()
     if compress is None:
         compress = len(json_bytes) > GAME_EXPORT_GZ_THRESHOLD
@@ -71,6 +72,17 @@ def write_raw_game_export(
     if gz_path.exists():
         gz_path.unlink()
     return json_path
+
+
+def _jsonify_export_payload(value: Any) -> Any:
+    """Recursively convert dataclass-backed export data to plain JSON-ready dicts."""
+    if is_dataclass(value) and not isinstance(value, type):
+        return _jsonify_export_payload(json_default(value))
+    if isinstance(value, list):
+        return [_jsonify_export_payload(item) for item in value]
+    if isinstance(value, dict):
+        return {str(key): _jsonify_export_payload(item) for key, item in value.items()}
+    return value
 
 
 def glob_game_export_paths(games_dir: Path = GAMES_DIR) -> list[Path]:

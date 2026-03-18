@@ -35,6 +35,9 @@ class TestSummarizeStackItem:
         """Empty targets list should return just the name."""
         assert _summarize_stack_item({"name": "Opt", "targets": []}) == "Opt"
 
+    def test_dict_with_empty_name_is_allowed(self) -> None:
+        assert _summarize_stack_item({"name": ""}) == ""
+
 
 class TestSummarizeSnapshotStack:
     def test_stack_preserves_targets(self) -> None:
