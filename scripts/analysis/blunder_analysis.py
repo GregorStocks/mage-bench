@@ -39,13 +39,11 @@ from puppeteer.decision_renderer import (
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Action,
-    CombatCreature,
     GameExport,
     Permanent,
     Snapshot,
     SnapshotPlayer,
-    StackItem,
-    StackTarget,
+    export_record_field,
 )
 from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
@@ -263,11 +261,7 @@ _get_oracle_texts = scryfall.get_oracle_texts
 
 
 def _record_field(record: object, field: str) -> object | None:
-    if isinstance(record, (Permanent, CombatCreature, StackItem, StackTarget)):
-        return getattr(record, field, None)
-    if isinstance(record, dict):
-        return record.get(field)
-    return None
+    return export_record_field(record, field)
 
 
 def _snapshot_zone_cards(

@@ -70,10 +70,21 @@ def test_normalize_embedded_json_converts_dataclass_export_records():
     payload = {
         "snapshots": [
             {
-                "players": [{"battlefield": [Permanent(name="Mountain", id="p3")]}],
+                "players": [
+                    {
+                        "battlefield": [
+                            Permanent(
+                                name="Mountain",
+                                id="p3",
+                                _extras={"visible_to": ["Opponent"]},
+                            )
+                        ]
+                    }
+                ],
                 "stack": [
                     StackItem(
                         name="Lightning Bolt",
+                        _extras={"controller": "Alice"},
                         targets=[StackTarget(name="Goblin Guide", id="p1")],
                     )
                 ],
@@ -87,10 +98,21 @@ def test_normalize_embedded_json_converts_dataclass_export_records():
     assert normalized == {
         "snapshots": [
             {
-                "players": [{"battlefield": [{"name": "Mountain", "id": "p3"}]}],
+                "players": [
+                    {
+                        "battlefield": [
+                            {
+                                "name": "Mountain",
+                                "id": "p3",
+                                "visible_to": ["Opponent"],
+                            }
+                        ]
+                    }
+                ],
                 "stack": [
                     {
                         "name": "Lightning Bolt",
+                        "controller": "Alice",
                         "targets": [{"name": "Goblin Guide", "id": "p1"}],
                     }
                 ],
@@ -101,11 +123,28 @@ def test_normalize_embedded_json_converts_dataclass_export_records():
 
 
 def test_to_sorted_json_serializes_dataclass_export_records():
-    payload = {"battlefield": [Permanent(name="Mountain", id="p3")]}
+    payload = {
+        "battlefield": [
+            Permanent(
+                name="Mountain",
+                id="p3",
+                _extras={"visible_to": ["Opponent"], "mana_cost": "{R}"},
+            )
+        ]
+    }
 
     parsed = json.loads(_to_sorted_json(payload))
 
-    assert parsed == {"battlefield": [{"id": "p3", "name": "Mountain"}]}
+    assert parsed == {
+        "battlefield": [
+            {
+                "id": "p3",
+                "mana_cost": "{R}",
+                "name": "Mountain",
+                "visible_to": ["Opponent"],
+            }
+        ]
+    }
 
 
 def test_normalize_embedded_json_preserves_non_json_strings():

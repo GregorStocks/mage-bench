@@ -15,7 +15,7 @@ from __future__ import annotations
 import json
 from collections.abc import Sequence
 
-from schemas.game_export_types import CombatCreature, Permanent, StackItem, StackTarget
+from schemas.game_export_types import export_record_field
 
 BASIC_LAND_NAMES = frozenset(
     [
@@ -35,11 +35,7 @@ BASIC_LAND_NAMES = frozenset(
 
 
 def _record_field(record: object, field: str) -> object | None:
-    if isinstance(record, (Permanent, CombatCreature, StackItem, StackTarget)):
-        return getattr(record, field, None)
-    if isinstance(record, dict):
-        return record.get(field)
-    return None
+    return export_record_field(record, field)
 
 
 def _record_name(record: object, *, source: str) -> str:

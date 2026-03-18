@@ -6,12 +6,12 @@ validated exports with typed nested payloads instead of raw ``dict[str, object]`
 blobs.
 """
 
+from collections.abc import Callable
 import gzip
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field, fields
 from pathlib import Path
-from collections.abc import Callable
-from typing import Literal, TypeAlias, TypeVar, cast
+from typing import Any, Literal, TypeAlias, TypeVar, cast
 
 from typing_extensions import NotRequired, TypeGuard, TypeIs, TypedDict
 
@@ -40,6 +40,9 @@ class Permanent:
     counters: object | None = None
     original_card: str | None = None
     copy: bool | None = None
+    _extras: JsonObject = field(
+        default_factory=dict, repr=False, compare=False, kw_only=True
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -48,6 +51,9 @@ class StackTarget:
 
     name: str | None = None
     id: str | None = None
+    _extras: JsonObject = field(
+        default_factory=dict, repr=False, compare=False, kw_only=True
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,6 +65,9 @@ class StackItem:
     source_card: str | None = None
     ability_text: str | None = None
     targets: list[str | StackTarget] | None = None
+    _extras: JsonObject = field(
+        default_factory=dict, repr=False, compare=False, kw_only=True
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -71,6 +80,35 @@ class CombatCreature:
     toughness: int | str | None = None
     power_toughness: str | None = None
     pt: str | None = None
+    _extras: JsonObject = field(
+        default_factory=dict, repr=False, compare=False, kw_only=True
+    )
+
+
+def _public_dataclass_fields(dataclass_cls: Any) -> set[str]:
+    return {
+        member.name
+        for member in fields(dataclass_cls)
+        if not member.name.startswith("_")
+    }
+
+
+_PERMANENT_FIELDS = _public_dataclass_fields(Permanent)
+_STACK_TARGET_FIELDS = _public_dataclass_fields(StackTarget)
+_STACK_ITEM_FIELDS = _public_dataclass_fields(StackItem)
+_COMBAT_CREATURE_FIELDS = _public_dataclass_fields(CombatCreature)
+
+
+def export_record_field(record: object, field_name: str) -> object | None:
+    """Read a field from a loaded export leaf record or its preserved extra properties."""
+
+    if isinstance(record, (Permanent, CombatCreature, StackItem, StackTarget)):
+        if field_name in record.__dataclass_fields__:
+            return cast(object | None, getattr(record, field_name))
+        return record._extras.get(field_name)
+    if isinstance(record, dict):
+        return record.get(field_name)
+    return None
 
 
 class Choice(TypedDict, total=False):
@@ -677,6 +715,19 @@ def _coerce_card_list(value: object, source: str) -> list[str | Permanent]:
     return _coerce_str_or_typed_list(value, source, _coerce_permanent)
 
 
+def _coerce_extra_fields(
+    obj: JsonObject,
+    source: str,
+    known_fields: set[str],
+) -> JsonObject:
+    extras: JsonObject = {}
+    for key, value in obj.items():
+        assert key != "_extras", f"{source}: _extras is reserved for internal use"
+        if key not in known_fields:
+            extras[key] = value
+    return extras
+
+
 def _coerce_permanent(value: object, source: str) -> Permanent:
     assert _is_permanent(value, source)
     if isinstance(value, Permanent):
@@ -697,6 +748,7 @@ def _coerce_permanent(value: object, source: str) -> Permanent:
         counters=obj.get("counters"),
         original_card=cast(str | None, obj.get("original_card")),
         copy=cast(bool | None, obj.get("copy")),
+        _extras=_coerce_extra_fields(obj, source, _PERMANENT_FIELDS),
     )
 
 
@@ -708,6 +760,7 @@ def _coerce_stack_target(value: object, source: str) -> StackTarget:
     return StackTarget(
         name=cast(str | None, obj.get("name")),
         id=cast(str | None, obj.get("id")),
+        _extras=_coerce_extra_fields(obj, source, _STACK_TARGET_FIELDS),
     )
 
 
@@ -729,6 +782,7 @@ def _coerce_stack_item(value: object, source: str) -> StackItem:
             if targets is not None
             else None
         ),
+        _extras=_coerce_extra_fields(obj, source, _STACK_ITEM_FIELDS),
     )
 
 
@@ -744,6 +798,7 @@ def _coerce_combat_creature(value: object, source: str) -> CombatCreature:
         toughness=cast(int | str | None, obj.get("toughness")),
         power_toughness=cast(str | None, obj.get("power_toughness")),
         pt=cast(str | None, obj.get("pt")),
+        _extras=_coerce_extra_fields(obj, source, _COMBAT_CREATURE_FIELDS),
     )
 
 
@@ -1328,6 +1383,7 @@ __all__ = [
     "ContextResetEvent",
     "ContextTrimEvent",
     "Decision",
+    "export_record_field",
     "GameError",
     "GameExport",
     "GameOver",

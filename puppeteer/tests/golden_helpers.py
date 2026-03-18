@@ -1540,11 +1540,19 @@ def _json_ready(obj: object) -> object:
     """Convert dataclass-backed export records into plain JSON-compatible values."""
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
         result: dict[str, object] = {}
+        extras: Mapping[str, object] = {}
         for field in dataclasses.fields(obj):
             value = getattr(obj, field.name)
+            if field.name == "_extras":
+                assert isinstance(value, Mapping), f"dataclass _extras must be a mapping, got {value!r}"
+                extras = value
+                continue
             if value is None:
                 continue
             result[field.name] = _json_ready(value)
+        for key, value in extras.items():
+            assert key not in result, f"duplicate dataclass export key {key!r}"
+            result[key] = _json_ready(value)
         return result
     if isinstance(obj, dict):
         return {key: _json_ready(value) for key, value in obj.items()}

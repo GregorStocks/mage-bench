@@ -12,24 +12,17 @@ from collections.abc import Mapping, Sequence
 
 from schemas.game_export_types import (
     BuiltGameExport,
-    CombatCreature,
     JsonObject,
     LlmEvent,
-    Permanent,
     Snapshot,
-    StackItem,
-    StackTarget,
     ToolCallEvent,
+    export_record_field,
     load_built_game_export,
 )
 
 
 def _record_field(record: object, field: str) -> object | None:
-    if isinstance(record, (Permanent, CombatCreature, StackItem, StackTarget)):
-        return getattr(record, field, None)
-    if isinstance(record, dict):
-        return record.get(field)
-    return None
+    return export_record_field(record, field)
 
 
 def _record_name(record: object, *, source: str) -> str:

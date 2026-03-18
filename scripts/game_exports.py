@@ -75,11 +75,21 @@ def write_raw_game_export(
 def _jsonify_export_payload(value: Any) -> Any:
     if is_dataclass(value) and not isinstance(value, type):
         result: dict[str, Any] = {}
+        extras: Mapping[str, Any] = {}
         for field in fields(value):
             field_value = getattr(value, field.name)
+            if field.name == "_extras":
+                assert isinstance(field_value, Mapping), (
+                    f"dataclass _extras must be a mapping, got {field_value!r}"
+                )
+                extras = field_value
+                continue
             if field_value is None:
                 continue
             result[field.name] = _jsonify_export_payload(field_value)
+        for key, extra_value in extras.items():
+            assert key not in result, f"duplicate dataclass export key {key!r}"
+            result[str(key)] = _jsonify_export_payload(extra_value)
         return result
     if isinstance(value, list):
         return [_jsonify_export_payload(item) for item in value]

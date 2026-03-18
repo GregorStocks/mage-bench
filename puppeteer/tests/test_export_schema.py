@@ -42,6 +42,7 @@ from schemas.game_export_types import (
     StallEvent,
     ToolCallEvent,
     _is_player,
+    export_record_field,
     is_pilot_player,
     load_built_game_export,
     load_game_export,
@@ -112,9 +113,14 @@ def _assert_dataclass_matches_schema(
     actual_fields = fields(dataclass_cls)
     expected_props = set(schema["properties"])
     expected_required = required_override if required_override is not None else set(schema.get("required", []))
-    assert {field.name for field in actual_fields} == expected_props
+    public_fields = [field for field in actual_fields if not field.name.startswith("_")]
+    internal_fields = [field for field in actual_fields if field.name.startswith("_")]
+    assert {field.name for field in public_fields} == expected_props
+    assert all(field.default is not MISSING or field.default_factory is not MISSING for field in internal_fields), (
+        "internal dataclass fields must be optional"
+    )
     actual_required = {
-        field.name for field in actual_fields if field.default is MISSING and field.default_factory is MISSING
+        field.name for field in public_fields if field.default is MISSING and field.default_factory is MISSING
     }
     assert actual_required == expected_required
 
@@ -520,15 +526,25 @@ class TestExportSchema:
                                     "name": "Llanowar Elves",
                                     "id": "p1",
                                     "summoning_sick": True,
+                                    "visible_to": ["Alice"],
+                                    "rules": "Tap: Add {G}.",
                                 }
                             ],
                             "graveyard": [],
-                            "hand": [{"name": "Lightning Bolt", "id": "h1"}],
+                            "hand": [
+                                {
+                                    "name": "Lightning Bolt",
+                                    "id": "h1",
+                                    "mana_cost": "{R}",
+                                    "type_line": "Instant",
+                                }
+                            ],
                         }
                     ],
                     "stack": [
                         {
                             "name": "Lightning Bolt",
+                            "controller": "Alice",
                             "targets": [{"name": "Llanowar Elves", "id": "p1"}],
                         }
                     ],
@@ -576,6 +592,11 @@ class TestExportSchema:
         assert isinstance(target, StackTarget)
         assert isinstance(attacker, CombatCreature)
         assert isinstance(incoming, CombatCreature)
+        assert export_record_field(battlefield_card, "visible_to") == ["Alice"]
+        assert export_record_field(battlefield_card, "rules") == "Tap: Add {G}."
+        assert export_record_field(game["snapshots"][0]["players"][0]["hand"][0], "mana_cost") == "{R}"
+        assert export_record_field(game["snapshots"][0]["players"][0]["hand"][0], "type_line") == "Instant"
+        assert export_record_field(stack_item, "controller") == "Alice"
 
     def test_typed_loader_rejects_unannotated_export(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v8.json"
