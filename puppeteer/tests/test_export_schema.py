@@ -3,6 +3,7 @@
 Full per-game validation is in test_weird_conventions.py::TestAllExportsValid.
 """
 
+import dataclasses
 import gzip
 import json
 from pathlib import Path
@@ -99,6 +100,29 @@ def _assert_typed_dict_matches_schema(
     assert _typed_dict_keys(typed_dict_cls) == expected_props
     assert set(typed_dict_cls.__required_keys__) == expected_required
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
+
+
+def _assert_dataclass_matches_schema(
+    dataclass_cls: type,
+    *,
+    schema: dict,
+    field_renames: dict[str, str] | None = None,
+) -> None:
+    """Assert a dataclass's fields match a JSON schema's properties."""
+    renames = field_renames or {}
+    fields = dataclasses.fields(dataclass_cls)
+    field_names = {renames.get(f.name, f.name) for f in fields}
+    expected_props = set(schema["properties"])
+    assert field_names == expected_props, (
+        f"field mismatch: extra={field_names - expected_props}, missing={expected_props - field_names}"
+    )
+    required_names = {
+        renames.get(f.name, f.name)
+        for f in fields
+        if f.default is dataclasses.MISSING and f.default_factory is dataclasses.MISSING
+    }
+    expected_required = set(schema.get("required", []))
+    assert required_names == expected_required, f"required mismatch: got {required_names}, expected {expected_required}"
 
 
 class TestExportSchema:
@@ -375,7 +399,7 @@ class TestExportSchema:
         _assert_typed_dict_matches_schema(Snapshot, schema=defs["Snapshot"])
         _assert_typed_dict_matches_schema(SnapshotPlayer, schema=defs["SnapshotPlayer"])
         _assert_typed_dict_matches_schema(CombatGroup, schema=defs["CombatGroup"])
-        _assert_typed_dict_matches_schema(Action, schema=defs["Action"])
+        _assert_dataclass_matches_schema(Action, schema=defs["Action"], field_renames={"from_": "from"})
         # LlmEvent is a Union of discriminated variants — verify the union
         # of all variant keys matches the flat JSON schema properties, and the
         # intersection of required keys matches the schema's required set.
@@ -407,12 +431,12 @@ class TestExportSchema:
             f"LlmEvent required keys mismatch: got {all_required}, expected {set(llm_schema.get('required', []))}"
         )
         _assert_typed_dict_matches_schema(LlmUsage, schema=defs["LlmUsage"])
-        _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
-        _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
+        _assert_dataclass_matches_schema(GameOver, schema=defs["GameOver"])
+        _assert_dataclass_matches_schema(Annotation, schema=defs["Annotation"])
         _assert_typed_dict_matches_schema(Decision, schema=defs["Decision"])
         _assert_typed_dict_matches_schema(PilotContext, schema=defs["PilotContext"])
-        _assert_typed_dict_matches_schema(GameError, schema=defs["GameError"])
-        _assert_typed_dict_matches_schema(CardMetadata, schema=defs["CardMetadata"])
+        _assert_dataclass_matches_schema(GameError, schema=defs["GameError"])
+        _assert_dataclass_matches_schema(CardMetadata, schema=defs["CardMetadata"])
         _assert_typed_dict_matches_schema(Permanent, schema=defs["Permanent"])
         _assert_typed_dict_matches_schema(StackItem, schema=defs["StackItem"])
         _assert_typed_dict_matches_schema(StackTarget, schema=defs["StackTarget"])

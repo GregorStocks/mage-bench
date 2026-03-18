@@ -36,10 +36,7 @@ def main(gz_path: str) -> None:
     if errors:
         print(f"\nCritical Errors: {len(errors)}")
         for err in errors:
-            print(
-                f"  [{err.get('ts', '?')}] [{err.get('source', '?')}] "
-                f"{err.get('player', '?')}: {err.get('message', '?')}"
-            )
+            print(f"  [{err.ts}] [{err.source}] {err.player}: {err.message}")
 
 
 if __name__ == "__main__":

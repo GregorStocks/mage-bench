@@ -316,7 +316,7 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
 
     eliminations = []
     for a in actions:
-        msg = a.get("message")
+        msg = a.message
         m = _LOST_GAME_RE.match(msg) if msg else None
         if m:
             eliminations.append(m.group(1))

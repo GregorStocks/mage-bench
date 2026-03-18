@@ -1316,12 +1316,10 @@ def _dry_run(gz_path: str) -> None:
     if existing:
         print(f"\n=== Existing v5 annotations ({len(existing)}) ===")
         for a in existing:
+            print(f"  decision={a.decisionIndex} {a.player} {a.severity.upper()}")
             print(
-                f"  decision={a.get('decisionIndex', '?')} {a.get('player', '?')} "
-                f"{a.get('severity', '?').upper()} {a.get('category', '?')}"
+                f"       {a.description[:120] if a.description else '(no description)'}"
             )
-            a_desc_ex = a.get("description")
-            print(f"       {a_desc_ex[:120] if a_desc_ex else '(no description)'}")
 
 
 def main() -> None:
