@@ -48,6 +48,7 @@ from scripts.analysis.blunder_analysis import (
     build_decision_prompt,
 )
 from scripts.analysis.blunder_eval_common import decision_index
+from schemas.game_export_types import json_default
 from scripts.analysis.extract_decisions import extract_decisions
 from scripts.export_game import build_export
 
@@ -1533,7 +1534,7 @@ def _send_spectator_command(
 
 def _to_sorted_json(obj: object) -> str:
     """Deterministic JSON serialization with sorted keys."""
-    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
+    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False, default=json_default)
 
 
 def _brief(value: object, max_len: int = 80) -> str:
@@ -1691,13 +1692,18 @@ def _strip_volatile(data: dict) -> None:
     for action in data.get("actions", []):
         action.pop("ts", None)
 
-    # Sort llmEvents by (seq, player) then strip wall-clock timing fields.
+    # Convert llmEvents to dicts (they are dataclass instances after validation)
+    # then sort by (seq, player) and strip wall-clock timing fields.
     # Mulligans and concedes have both players acting at the same seq;
     # thread interleaving is nondeterministic so we need a stable sort.
-    for event in data.get("llmEvents", []):
+    llm_events = data.get("llmEvents", [])
+    for i, event in enumerate(llm_events):
+        if dataclasses.is_dataclass(event) and not isinstance(event, type):
+            llm_events[i] = {f.name: getattr(event, f.name) for f in dataclasses.fields(event)}
+    for event in llm_events:
         event.pop("ts", None)
         event.pop("latencyMs", None)
-    data.get("llmEvents", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
+    llm_events.sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
     # Same for llmTrace.
     for event in data.get("llmTrace", []):
@@ -1778,7 +1784,7 @@ def extract_blunder_decisions(export_data: dict, game_dir: Path) -> list[dict]:
     """Extract decisions for golden blunder prompt comparisons."""
     # Keep the temp export on the validator's canonical game-export path.
     tmp_export = game_dir / "game_blunder_export.json"
-    tmp_export.write_text(json.dumps(export_data))
+    tmp_export.write_text(json.dumps(export_data, default=json_default))
     try:
         return extract_decisions(str(tmp_export))
     finally:

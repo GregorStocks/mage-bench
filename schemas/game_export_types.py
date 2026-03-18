@@ -1090,6 +1090,16 @@ def load_built_game_export(path: str | Path) -> BuiltGameExport:
     return require_built_game_export(json.loads(raw), source=export_path.name)
 
 
+def json_default(obj: object) -> object:
+    """Handle dataclass instances in json.dumps.
+
+    Usage: ``json.dumps(export, default=json_default)``
+    """
+    if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
+        return {f.name: getattr(obj, f.name) for f in dataclasses.fields(obj)}
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+
 __all__ = [
     "Action",
     "Annotation",
@@ -1122,6 +1132,7 @@ __all__ = [
     "StackTarget",
     "StallEvent",
     "ToolCallEvent",
+    "json_default",
     "is_built_game_export",
     "is_game_export",
     "is_pilot_player",
