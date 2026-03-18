@@ -584,14 +584,16 @@ class TestCollectCardNames:
         assert "Wall of Omens" in names
 
     def test_collects_from_llm_event_combat(self) -> None:
+        from schemas.game_export_types import ToolCallEvent
+
         game = _make_game()
         game["llmEvents"] = [
-            {
-                "type": "tool_call",
-                "player": "Alice",
-                "tool": "get_action_choices",
-                "args": {},
-                "result": json.dumps(
+            ToolCallEvent(
+                type="tool_call",
+                player="Alice",
+                tool="get_action_choices",
+                args={},
+                result=json.dumps(
                     {
                         "action_pending": True,
                         "choices": [],
@@ -604,7 +606,7 @@ class TestCollectCardNames:
                         "incoming_attackers": [{"name": "Tarmogoyf"}],
                     }
                 ),
-            }
+            )
         ]
         names = _collect_card_names(game)
         assert "Ragavan, Nimble Pilferer" in names

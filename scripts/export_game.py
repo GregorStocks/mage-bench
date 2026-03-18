@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Export a game log directory into a single JSON file for the website visualizer."""
 
+import dataclasses
 import gzip
 import json
 import re
@@ -14,6 +15,13 @@ _ROOT = Path(__file__).resolve().parent.parent
 WEBSITE_GAMES_DIR = _ROOT / "website" / "public" / "games"
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 _TOURNAMENTS_DIR = _ROOT / "data" / "tournaments"
+
+def _json_default(obj: object) -> object:
+    """Handle dataclass instances in json.dumps."""
+    if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
+        return dataclasses.asdict(obj)
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
 
 FONT_TAG_RE = re.compile(r"<font[^>]*>|</font>")
 OBJECT_ID_RE = re.compile(r"\s*\[[0-9a-f]{3,}\]")
@@ -1307,7 +1315,7 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
 
         website_games_dir.mkdir(parents=True, exist_ok=True)
 
-        json_str = json.dumps(output, indent=2, ensure_ascii=False)
+        json_str = json.dumps(output, indent=2, ensure_ascii=False, default=_json_default)
         json_bytes = json_str.encode()
         if len(json_bytes) > _GZ_THRESHOLD:
             output_path = website_games_dir / f"{game_id}.json.gz"

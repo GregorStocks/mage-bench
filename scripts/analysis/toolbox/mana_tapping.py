@@ -67,11 +67,11 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
     events = data["llmEvents"]
 
     for i, e in enumerate(events):
-        if e["type"] != "tool_call":
+        if e.type != "tool_call":
             continue
 
-        tool = e["tool"]
-        player = e["player"]
+        tool = e.tool
+        player = e.player
         assert player in stats, (
             f"{game_id}: tool_call event for unknown pilot player {player!r}"
         )
@@ -79,8 +79,8 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
         # --- choose_action: check for mana_plan, auto_tap, spell cancellations ---
         if tool == "choose_action":
-            args = e["args"]
-            result_str = e["result"]
+            args = e.args
+            result_str = e.result
             try:
                 result = json.loads(result_str)
             except (json.JSONDecodeError, TypeError):
@@ -107,7 +107,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
         # --- get_action_choices: track GAME_PLAY_MANA and GAME_CHOOSE_ABILITY ---
         if tool == "get_action_choices":
-            result_str = e["result"]
+            result_str = e.result
             try:
                 result = json.loads(result_str)
             except json.JSONDecodeError:
@@ -137,10 +137,10 @@ def _track_followup(
     """Look ahead from a get_action_choices to find the corresponding choose_action."""
     for j in range(start_idx + 1, min(start_idx + 20, len(events))):
         ev = events[j]
-        if ev["player"] != player:
+        if ev.player != player:
             continue
-        if ev["type"] == "tool_call" and ev["tool"] == "choose_action":
-            result_str = ev["result"]
+        if ev.type == "tool_call" and ev.tool == "choose_action":
+            result_str = ev.result
             try:
                 result = json.loads(result_str)
             except json.JSONDecodeError:
@@ -165,7 +165,7 @@ def _track_followup(
                 setattr(ps, f"{prefix}_failed", getattr(ps, f"{prefix}_failed") + 1)
             return
         # Stop if we hit another get_action_choices from this player
-        if ev["type"] == "tool_call" and ev["tool"] == "get_action_choices":
+        if ev.type == "tool_call" and ev.tool == "get_action_choices":
             return
 
 
