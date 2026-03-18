@@ -11,6 +11,7 @@ from urllib.request import Request, urlopen
 import pytest
 
 import scripts.analysis.blunder_audit_web as blunder_audit_web
+from schemas.game_export_types import Permanent
 
 VALID_GAME_ID = "game_20260214_005111_g1"
 
@@ -180,6 +181,66 @@ class TestExpectedApiErrors:
 
         assert excinfo.value.code == 500
         assert json.loads(excinfo.value.read()) == {"error": "save failed"}
+
+    def test_build_play_detail_formats_dataclass_hand_names(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr(
+            blunder_audit_web,
+            "_load_game_cached",
+            lambda _game_id: {
+                "snapshots": [
+                    {
+                        "seq": 1,
+                        "turn": 1,
+                        "phase": "MAIN",
+                        "step": "MAIN",
+                        "active_player": "Alice",
+                        "priority_player": "Alice",
+                        "players": [
+                            {
+                                "name": "Alice",
+                                "life": 20,
+                                "library_size": 53,
+                                "battlefield": [],
+                                "graveyard": [],
+                                "hand": [Permanent(name="Island")],
+                            }
+                        ],
+                        "stack": [],
+                    }
+                ],
+                "actions": [],
+                "annotations": [],
+            },
+        )
+        monkeypatch.setattr(
+            blunder_audit_web,
+            "_load_decisions_cached",
+            lambda _game_id: [
+                {
+                    "decision_index": 0,
+                    "snapshot_index": 0,
+                    "player": "Alice",
+                    "turn": 1,
+                    "phase": "MAIN",
+                    "message": "Choose action",
+                }
+            ],
+        )
+        monkeypatch.setattr(
+            blunder_audit_web,
+            "lookup_annotation_for_decision",
+            lambda _decision, _annotations: None,
+        )
+        monkeypatch.setattr(
+            blunder_audit_web,
+            "load_game_ground_truth",
+            lambda _game_id: [],
+        )
+
+        detail = blunder_audit_web._build_play_detail(VALID_GAME_ID, 0)
+
+        assert detail["hand"] == "Island"
+        assert "Permanent(" not in detail["hand"]
 
 
 class TestNotFound:

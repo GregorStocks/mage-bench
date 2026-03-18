@@ -6,7 +6,7 @@ Prints turn-boundary board states and key actions (plays, casts, attacks, etc.).
 
 import sys
 
-from scripts.analysis.blunder_eval_common import load_game
+from scripts.analysis.blunder_eval_common import export_record_name, load_game
 
 ACTION_KEYWORDS = [
     "plays",
@@ -40,10 +40,7 @@ def main(gz_path: str) -> None:
         seen.add(turn)
         parts = []
         for p in s["players"]:
-            bf = [
-                c.get("name", "?") if isinstance(c, dict) else str(c)
-                for c in p["battlefield"]
-            ]
+            bf = [export_record_name(c) for c in p["battlefield"]]
             hand = p.get("hand_count", len(p["hand"]))
             entry = f"{p['name']}: {p.get('life', '?')}hp hand={hand}"
             if bf:

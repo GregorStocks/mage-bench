@@ -22,6 +22,7 @@ from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
+    export_record_name,
     game_path_for_id,
     is_cast_rolled_back,
     is_forced,
@@ -217,16 +218,7 @@ def _build_play_detail(game_id: str, di: int) -> dict:
         if p.get("name") == player_name:
             hand = p["hand"]
             hand_str = (
-                ", ".join(
-                    h
-                    if isinstance(h, str)
-                    else h.get("name", "?")
-                    if isinstance(h, dict)
-                    else str(h)
-                    for h in hand
-                )
-                if hand
-                else "(empty)"
+                ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
             )
             break
 

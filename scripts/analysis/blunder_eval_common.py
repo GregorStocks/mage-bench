@@ -14,6 +14,7 @@ from schemas.game_export_types import (
     Annotation,
     GameExport,
     JsonObject,
+    export_record_field,
     load_game_export,
 )
 from scripts.game_exports import GAMES_DIR, glob_game_export_paths
@@ -209,6 +210,15 @@ def _validate_export_path(path: str | Path) -> Path:
 def load_game(path: str | Path) -> GameExport:
     """Load a game export file (.json or .json.gz)."""
     return load_game_export(_validate_export_path(path))
+
+
+def export_record_name(record: object) -> str:
+    """Get the schema-level name from a board/stack leaf record or raw string."""
+    if isinstance(record, str):
+        return record
+    name = export_record_field(record, "name")
+    assert isinstance(name, str), f"export record name must be a string, got {name!r}"
+    return name
 
 
 def validate_game_id(game_id: str) -> str:

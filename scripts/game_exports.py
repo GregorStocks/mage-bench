@@ -76,11 +76,13 @@ def _jsonify_export_payload(value: Any) -> Any:
     if is_dataclass(value) and not isinstance(value, type):
         source_keys: frozenset[str] | None = getattr(value, "_source_keys", None)
         if source_keys is not None:
-            source_result = {
-                field.name: _jsonify_export_payload(getattr(value, field.name))
-                for field in fields(value)
-                if field.name in source_keys
-            }
+            source_result: dict[str, Any] = {}
+            for field in fields(value):
+                if field.name not in source_keys:
+                    continue
+                source_result[_json_field_name(field.name)] = _jsonify_export_payload(
+                    getattr(value, field.name)
+                )
             extra: Mapping[str, Any] | None = getattr(value, "_extra", None)
             if extra:
                 for key, extra_value in extra.items():
@@ -103,7 +105,7 @@ def _jsonify_export_payload(value: Any) -> Any:
                 continue
             if field_value is None:
                 continue
-            result[field.name] = _jsonify_export_payload(field_value)
+            result[_json_field_name(field.name)] = _jsonify_export_payload(field_value)
         for key, extra_value in extras.items():
             assert key not in result, f"duplicate dataclass export key {key!r}"
             result[str(key)] = _jsonify_export_payload(extra_value)
@@ -113,6 +115,12 @@ def _jsonify_export_payload(value: Any) -> Any:
     if isinstance(value, dict):
         return {str(key): _jsonify_export_payload(item) for key, item in value.items()}
     return value
+
+
+def _json_field_name(field_name: str) -> str:
+    if field_name == "from_":
+        return "from"
+    return field_name
 
 
 def glob_game_export_paths(games_dir: Path = GAMES_DIR) -> list[Path]:
