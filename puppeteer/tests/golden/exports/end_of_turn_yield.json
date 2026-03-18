@@ -1429,11 +1429,10 @@
         ],
         "context": "T1 Precombat Main/Precombat Main (Opponent)",
         "game_seq": 21,
-        "has_playable_cards": true,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
-        "stop_reason": "playable_cards",
+        "stop_reason": "turn_advanced",
         "untapped_lands": 1
       },
       "seq": 13,
