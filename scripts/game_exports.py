@@ -6,6 +6,7 @@ scripts can operate on older export versions.
 
 import gzip
 import json
+from dataclasses import fields, is_dataclass
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
@@ -50,7 +51,9 @@ def write_raw_game_export(
     export_path = Path(path)
     _assert_game_export_path(export_path)
 
-    json_bytes = json.dumps(data, indent=2, ensure_ascii=False).encode()
+    json_bytes = json.dumps(
+        _jsonify_export_payload(data), indent=2, ensure_ascii=False
+    ).encode()
     if compress is None:
         compress = len(json_bytes) > GAME_EXPORT_GZ_THRESHOLD
 
@@ -67,6 +70,22 @@ def write_raw_game_export(
     if gz_path.exists():
         gz_path.unlink()
     return json_path
+
+
+def _jsonify_export_payload(value: Any) -> Any:
+    if is_dataclass(value) and not isinstance(value, type):
+        result: dict[str, Any] = {}
+        for field in fields(value):
+            field_value = getattr(value, field.name)
+            if field_value is None:
+                continue
+            result[field.name] = _jsonify_export_payload(field_value)
+        return result
+    if isinstance(value, list):
+        return [_jsonify_export_payload(item) for item in value]
+    if isinstance(value, dict):
+        return {str(key): _jsonify_export_payload(item) for key, item in value.items()}
+    return value
 
 
 def glob_game_export_paths(games_dir: Path = GAMES_DIR) -> list[Path]:

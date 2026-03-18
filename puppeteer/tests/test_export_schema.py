@@ -5,6 +5,7 @@ Full per-game validation is in test_weird_conventions.py::TestAllExportsValid.
 
 import gzip
 import json
+from dataclasses import MISSING, fields, is_dataclass
 from pathlib import Path
 
 import jsonschema
@@ -99,6 +100,23 @@ def _assert_typed_dict_matches_schema(
     assert _typed_dict_keys(typed_dict_cls) == expected_props
     assert set(typed_dict_cls.__required_keys__) == expected_required
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
+
+
+def _assert_dataclass_matches_schema(
+    dataclass_cls: type[object],
+    *,
+    schema: dict,
+    required_override: set[str] | None = None,
+) -> None:
+    assert is_dataclass(dataclass_cls)
+    actual_fields = fields(dataclass_cls)
+    expected_props = set(schema["properties"])
+    expected_required = required_override if required_override is not None else set(schema.get("required", []))
+    assert {field.name for field in actual_fields} == expected_props
+    actual_required = {
+        field.name for field in actual_fields if field.default is MISSING and field.default_factory is MISSING
+    }
+    assert actual_required == expected_required
 
 
 class TestExportSchema:
@@ -413,10 +431,10 @@ class TestExportSchema:
         _assert_typed_dict_matches_schema(PilotContext, schema=defs["PilotContext"])
         _assert_typed_dict_matches_schema(GameError, schema=defs["GameError"])
         _assert_typed_dict_matches_schema(CardMetadata, schema=defs["CardMetadata"])
-        _assert_typed_dict_matches_schema(Permanent, schema=defs["Permanent"])
-        _assert_typed_dict_matches_schema(StackItem, schema=defs["StackItem"])
-        _assert_typed_dict_matches_schema(StackTarget, schema=defs["StackTarget"])
-        _assert_typed_dict_matches_schema(CombatCreature, schema=defs["CombatCreature"])
+        _assert_dataclass_matches_schema(Permanent, schema=defs["Permanent"])
+        _assert_dataclass_matches_schema(StackItem, schema=defs["StackItem"])
+        _assert_dataclass_matches_schema(StackTarget, schema=defs["StackTarget"])
+        _assert_dataclass_matches_schema(CombatCreature, schema=defs["CombatCreature"])
         _assert_typed_dict_matches_schema(Choice, schema=defs["Choice"])
         _assert_typed_dict_matches_schema(MultiAmountItem, schema=defs["MultiAmountItem"])
 
@@ -467,6 +485,97 @@ class TestExportSchema:
         game = load_game_export(path)
 
         assert game["id"] == "test_v8"
+
+    def test_loader_coerces_board_and_stack_leaf_records_to_dataclasses(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v8.json"
+        payload = _minimal_export(
+            8,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "test/model",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+            snapshots=[
+                {
+                    "seq": 1,
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "step": None,
+                    "active_player": "Alice",
+                    "priority_player": "Alice",
+                    "players": [
+                        {
+                            "name": "Alice",
+                            "life": 20,
+                            "library_size": 53,
+                            "battlefield": [
+                                {
+                                    "name": "Llanowar Elves",
+                                    "id": "p1",
+                                    "summoning_sick": True,
+                                }
+                            ],
+                            "graveyard": [],
+                            "hand": [{"name": "Lightning Bolt", "id": "h1"}],
+                        }
+                    ],
+                    "stack": [
+                        {
+                            "name": "Lightning Bolt",
+                            "targets": [{"name": "Llanowar Elves", "id": "p1"}],
+                        }
+                    ],
+                    "combat": [
+                        {
+                            "attackers": [{"name": "Goblin Guide", "id": "a1"}],
+                            "blockers": [{"name": "Wall of Omens", "id": "b1"}],
+                            "blocked": True,
+                            "defending": "Bob",
+                        }
+                    ],
+                }
+            ],
+            decisions=[
+                {
+                    "index": 0,
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "actionType": "cast",
+                    "responseType": "select",
+                    "message": "Play spells and abilities",
+                    "choices": [],
+                    "choiceCount": 0,
+                    "isForced": True,
+                    "llmEventIndices": [],
+                    "subsequentActions": [],
+                    "pilotContext": {"incomingAttackers": [{"name": "Goblin Guide", "id": "a1"}]},
+                }
+            ],
+        )
+        path.write_text(json.dumps(payload))
+
+        game = load_game_export(path)
+
+        battlefield_card = game["snapshots"][0]["players"][0]["battlefield"][0]
+        stack_item = game["snapshots"][0]["stack"][0]
+        target = stack_item.targets[0] if isinstance(stack_item, StackItem) and stack_item.targets else None
+        attacker = game["snapshots"][0]["combat"][0]["attackers"][0]
+        incoming = game["decisions"][0]["pilotContext"]["incomingAttackers"][0]
+
+        assert isinstance(battlefield_card, Permanent)
+        assert isinstance(stack_item, StackItem)
+        assert isinstance(target, StackTarget)
+        assert isinstance(attacker, CombatCreature)
+        assert isinstance(incoming, CombatCreature)
 
     def test_typed_loader_rejects_unannotated_export(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v8.json"

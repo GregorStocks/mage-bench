@@ -1,69 +1,76 @@
 """Typed helpers for game export JSON.
 
 These types are backed by ``schemas/game-export-v8.schema.json``. Tests keep
-the TypedDict field sets aligned with the JSON Schema so Python callers can
-load validated exports without falling back to raw ``dict[str, object]`` blobs.
+the in-memory Python types aligned with the JSON Schema so callers can load
+validated exports with typed nested payloads instead of raw ``dict[str, object]``
+blobs.
 """
 
 import gzip
 import json
+from dataclasses import dataclass
 from pathlib import Path
 from collections.abc import Callable
-from typing import Literal, TypeAlias
+from typing import Literal, TypeAlias, TypeVar, cast
 
 from typing_extensions import NotRequired, TypeGuard, TypeIs, TypedDict
 
 JsonObject: TypeAlias = dict[str, object]
+T = TypeVar("T")
 
 
 # -- Nested payload types used by the decision renderer --
 
 
-class Permanent(TypedDict):
+@dataclass(frozen=True, slots=True)
+class Permanent:
     """A card on the battlefield, in hand, graveyard, exile, or command zone."""
 
     name: str
-    id: NotRequired[str]
-    tapped: NotRequired[bool]
-    summoning_sick: NotRequired[bool]
-    face_down: NotRequired[bool]
-    token: NotRequired[bool]
-    power: NotRequired[int | str]
-    toughness: NotRequired[int | str]
-    power_toughness: NotRequired[str]
-    pt: NotRequired[str]
-    loyalty: NotRequired[int]
-    counters: NotRequired[object]
-    original_card: NotRequired[str]
-    copy: NotRequired[bool]
+    id: str | None = None
+    tapped: bool | None = None
+    summoning_sick: bool | None = None
+    face_down: bool | None = None
+    token: bool | None = None
+    power: int | str | None = None
+    toughness: int | str | None = None
+    power_toughness: str | None = None
+    pt: str | None = None
+    loyalty: int | None = None
+    counters: object | None = None
+    original_card: str | None = None
+    copy: bool | None = None
 
 
-class StackTarget(TypedDict, total=False):
+@dataclass(frozen=True, slots=True)
+class StackTarget:
     """A target of a spell or ability on the stack."""
 
-    name: str
-    id: str
+    name: str | None = None
+    id: str | None = None
 
 
-class StackItem(TypedDict):
+@dataclass(frozen=True, slots=True)
+class StackItem:
     """A spell or ability on the stack."""
 
     name: str
-    id: NotRequired[str]
-    source_card: NotRequired[str]
-    ability_text: NotRequired[str]
-    targets: NotRequired[list[str | StackTarget]]
+    id: str | None = None
+    source_card: str | None = None
+    ability_text: str | None = None
+    targets: list[str | StackTarget] | None = None
 
 
-class CombatCreature(TypedDict):
+@dataclass(frozen=True, slots=True)
+class CombatCreature:
     """A creature in a combat group (attacker or blocker) or incoming attacker."""
 
     name: str
-    id: NotRequired[str]
-    power: NotRequired[int | str]
-    toughness: NotRequired[int | str]
-    power_toughness: NotRequired[str]
-    pt: NotRequired[str]
+    id: str | None = None
+    power: int | str | None = None
+    toughness: int | str | None = None
+    power_toughness: str | None = None
+    pt: str | None = None
 
 
 class Choice(TypedDict, total=False):
@@ -473,7 +480,34 @@ def _require_int_or_str(value: object, source: str) -> None:
     )
 
 
-def _is_permanent(value: object, source: str) -> TypeIs[Permanent]:
+def _is_permanent(value: object, source: str) -> bool:
+    if isinstance(value, Permanent):
+        _require_str(value.name, f"{source}.name")
+        if value.id is not None:
+            _require_str(value.id, f"{source}.id")
+        if value.tapped is not None:
+            _require_bool(value.tapped, f"{source}.tapped")
+        if value.summoning_sick is not None:
+            _require_bool(value.summoning_sick, f"{source}.summoning_sick")
+        if value.face_down is not None:
+            _require_bool(value.face_down, f"{source}.face_down")
+        if value.token is not None:
+            _require_bool(value.token, f"{source}.token")
+        if value.power is not None:
+            _require_int_or_str(value.power, f"{source}.power")
+        if value.toughness is not None:
+            _require_int_or_str(value.toughness, f"{source}.toughness")
+        if value.power_toughness is not None:
+            _require_str(value.power_toughness, f"{source}.power_toughness")
+        if value.pt is not None:
+            _require_str(value.pt, f"{source}.pt")
+        if value.loyalty is not None:
+            _require_int(value.loyalty, f"{source}.loyalty")
+        if value.original_card is not None:
+            _require_str(value.original_card, f"{source}.original_card")
+        if value.copy is not None:
+            _require_bool(value.copy, f"{source}.copy")
+        return True
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "name", source), f"{source}.name")
     if "id" in obj:
@@ -503,7 +537,13 @@ def _is_permanent(value: object, source: str) -> TypeIs[Permanent]:
     return True
 
 
-def _is_stack_target(value: object, source: str) -> TypeIs[StackTarget]:
+def _is_stack_target(value: object, source: str) -> bool:
+    if isinstance(value, StackTarget):
+        if value.name is not None:
+            _require_str(value.name, f"{source}.name")
+        if value.id is not None:
+            _require_str(value.id, f"{source}.id")
+        return True
     obj = _require_object(value, source)
     if "name" in obj:
         _require_str(obj["name"], f"{source}.name")
@@ -512,7 +552,22 @@ def _is_stack_target(value: object, source: str) -> TypeIs[StackTarget]:
     return True
 
 
-def _is_stack_item(value: object, source: str) -> TypeIs[StackItem]:
+def _is_stack_item(value: object, source: str) -> bool:
+    if isinstance(value, StackItem):
+        _require_str(value.name, f"{source}.name")
+        if value.id is not None:
+            _require_str(value.id, f"{source}.id")
+        if value.source_card is not None:
+            _require_str(value.source_card, f"{source}.source_card")
+        if value.ability_text is not None:
+            _require_str(value.ability_text, f"{source}.ability_text")
+        if value.targets is not None:
+            for index, target in enumerate(value.targets):
+                if isinstance(target, str):
+                    _require_str(target, f"{source}.targets[{index}]")
+                else:
+                    assert _is_stack_target(target, f"{source}.targets[{index}]")
+        return True
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "name", source), f"{source}.name")
     if "id" in obj:
@@ -528,7 +583,20 @@ def _is_stack_item(value: object, source: str) -> TypeIs[StackItem]:
     return True
 
 
-def _is_combat_creature(value: object, source: str) -> TypeIs[CombatCreature]:
+def _is_combat_creature(value: object, source: str) -> bool:
+    if isinstance(value, CombatCreature):
+        _require_str(value.name, f"{source}.name")
+        if value.id is not None:
+            _require_str(value.id, f"{source}.id")
+        if value.power is not None:
+            _require_int_or_str(value.power, f"{source}.power")
+        if value.toughness is not None:
+            _require_int_or_str(value.toughness, f"{source}.toughness")
+        if value.power_toughness is not None:
+            _require_str(value.power_toughness, f"{source}.power_toughness")
+        if value.pt is not None:
+            _require_str(value.pt, f"{source}.pt")
+        return True
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "name", source), f"{source}.name")
     if "id" in obj:
@@ -586,9 +654,97 @@ def _validate_str_or_typed_list(
             _require_str(item, f"{source}[{index}]")
 
 
+def _coerce_str_or_typed_list(
+    value: object,
+    source: str,
+    typed_loader: Callable[[object, str], T],
+) -> list[str | T]:
+    result: list[str | T] = []
+    for index, item in enumerate(_require_list(value, source)):
+        if isinstance(item, str):
+            result.append(item)
+        else:
+            result.append(typed_loader(item, f"{source}[{index}]"))
+    return result
+
+
 def _validate_card_list(value: object, source: str) -> None:
     """Validate a list of cards that can be strings or Permanent dicts."""
     _validate_str_or_typed_list(value, source, _is_permanent)
+
+
+def _coerce_card_list(value: object, source: str) -> list[str | Permanent]:
+    return _coerce_str_or_typed_list(value, source, _coerce_permanent)
+
+
+def _coerce_permanent(value: object, source: str) -> Permanent:
+    assert _is_permanent(value, source)
+    if isinstance(value, Permanent):
+        return value
+    obj = _require_object(value, source)
+    return Permanent(
+        name=cast(str, obj["name"]),
+        id=cast(str | None, obj.get("id")),
+        tapped=cast(bool | None, obj.get("tapped")),
+        summoning_sick=cast(bool | None, obj.get("summoning_sick")),
+        face_down=cast(bool | None, obj.get("face_down")),
+        token=cast(bool | None, obj.get("token")),
+        power=cast(int | str | None, obj.get("power")),
+        toughness=cast(int | str | None, obj.get("toughness")),
+        power_toughness=cast(str | None, obj.get("power_toughness")),
+        pt=cast(str | None, obj.get("pt")),
+        loyalty=cast(int | None, obj.get("loyalty")),
+        counters=obj.get("counters"),
+        original_card=cast(str | None, obj.get("original_card")),
+        copy=cast(bool | None, obj.get("copy")),
+    )
+
+
+def _coerce_stack_target(value: object, source: str) -> StackTarget:
+    assert _is_stack_target(value, source)
+    if isinstance(value, StackTarget):
+        return value
+    obj = _require_object(value, source)
+    return StackTarget(
+        name=cast(str | None, obj.get("name")),
+        id=cast(str | None, obj.get("id")),
+    )
+
+
+def _coerce_stack_item(value: object, source: str) -> StackItem:
+    assert _is_stack_item(value, source)
+    if isinstance(value, StackItem):
+        return value
+    obj = _require_object(value, source)
+    targets = obj.get("targets")
+    return StackItem(
+        name=cast(str, obj["name"]),
+        id=cast(str | None, obj.get("id")),
+        source_card=cast(str | None, obj.get("source_card")),
+        ability_text=cast(str | None, obj.get("ability_text")),
+        targets=(
+            _coerce_str_or_typed_list(
+                targets, f"{source}.targets", _coerce_stack_target
+            )
+            if targets is not None
+            else None
+        ),
+    )
+
+
+def _coerce_combat_creature(value: object, source: str) -> CombatCreature:
+    assert _is_combat_creature(value, source)
+    if isinstance(value, CombatCreature):
+        return value
+    obj = _require_object(value, source)
+    return CombatCreature(
+        name=cast(str, obj["name"]),
+        id=cast(str | None, obj.get("id")),
+        power=cast(int | str | None, obj.get("power")),
+        toughness=cast(int | str | None, obj.get("toughness")),
+        power_toughness=cast(str | None, obj.get("power_toughness")),
+        pt=cast(str | None, obj.get("pt")),
+    )
 
 
 def _is_player(value: object, source: str) -> TypeIs[Player]:
@@ -923,6 +1079,120 @@ def _is_card_metadata(value: object, source: str) -> TypeIs[CardMetadata]:
     return True
 
 
+def _coerce_snapshot_player(value: object, source: str) -> SnapshotPlayer:
+    assert _is_snapshot_player(value, source)
+    obj = _require_object(value, source)
+    player = dict(obj)
+    player["battlefield"] = _coerce_card_list(
+        obj["battlefield"], f"{source}.battlefield"
+    )
+    player["graveyard"] = _coerce_card_list(obj["graveyard"], f"{source}.graveyard")
+    player["hand"] = _coerce_card_list(obj["hand"], f"{source}.hand")
+    if "exile" in obj:
+        player["exile"] = _coerce_card_list(obj["exile"], f"{source}.exile")
+    if "commanders" in obj:
+        player["commanders"] = _coerce_card_list(
+            obj["commanders"], f"{source}.commanders"
+        )
+    if "command_zone" in obj:
+        player["command_zone"] = _coerce_card_list(
+            obj["command_zone"], f"{source}.command_zone"
+        )
+    return cast(SnapshotPlayer, player)
+
+
+def _coerce_combat_group(value: object, source: str) -> CombatGroup:
+    assert _is_combat_group(value, source)
+    obj = _require_object(value, source)
+    group = dict(obj)
+    if "attackers" in obj:
+        group["attackers"] = [
+            _coerce_combat_creature(item, f"{source}.attackers[{index}]")
+            for index, item in enumerate(
+                _require_list(obj["attackers"], f"{source}.attackers")
+            )
+        ]
+    if "blockers" in obj:
+        group["blockers"] = [
+            _coerce_combat_creature(item, f"{source}.blockers[{index}]")
+            for index, item in enumerate(
+                _require_list(obj["blockers"], f"{source}.blockers")
+            )
+        ]
+    return cast(CombatGroup, group)
+
+
+def _coerce_snapshot(value: object, source: str) -> Snapshot:
+    assert _is_snapshot(value, source)
+    obj = _require_object(value, source)
+    snapshot = dict(obj)
+    snapshot["players"] = [
+        _coerce_snapshot_player(player, f"{source}.players[{index}]")
+        for index, player in enumerate(
+            _require_list(obj["players"], f"{source}.players")
+        )
+    ]
+    snapshot["stack"] = _coerce_str_or_typed_list(
+        obj["stack"], f"{source}.stack", _coerce_stack_item
+    )
+    if "combat" in obj:
+        snapshot["combat"] = [
+            _coerce_combat_group(group, f"{source}.combat[{index}]")
+            for index, group in enumerate(
+                _require_list(obj["combat"], f"{source}.combat")
+            )
+        ]
+    return cast(Snapshot, snapshot)
+
+
+def _coerce_pilot_context(value: object, source: str) -> PilotContext:
+    assert _is_pilot_context(value, source)
+    obj = _require_object(value, source)
+    context = dict(obj)
+    if "alreadyAttacking" in obj:
+        context["alreadyAttacking"] = _coerce_str_or_typed_list(
+            obj["alreadyAttacking"],
+            f"{source}.alreadyAttacking",
+            _coerce_combat_creature,
+        )
+    if "incomingAttackers" in obj:
+        context["incomingAttackers"] = _coerce_str_or_typed_list(
+            obj["incomingAttackers"],
+            f"{source}.incomingAttackers",
+            _coerce_combat_creature,
+        )
+    return cast(PilotContext, context)
+
+
+def _coerce_decision(value: object, source: str) -> Decision:
+    assert _is_decision(value, source)
+    obj = _require_object(value, source)
+    decision = dict(obj)
+    if "pilotContext" in obj:
+        decision["pilotContext"] = _coerce_pilot_context(
+            obj["pilotContext"], f"{source}.pilotContext"
+        )
+    return cast(Decision, decision)
+
+
+def _coerce_common_game_export(obj: JsonObject, source: str) -> JsonObject:
+    coerced = dict(obj)
+    coerced["snapshots"] = [
+        _coerce_snapshot(snapshot, f"{source}.snapshots[{index}]")
+        for index, snapshot in enumerate(
+            _require_list(obj["snapshots"], f"{source}.snapshots")
+        )
+    ]
+    if "decisions" in obj:
+        coerced["decisions"] = [
+            _coerce_decision(decision, f"{source}.decisions[{index}]")
+            for index, decision in enumerate(
+                _require_list(obj["decisions"], f"{source}.decisions")
+            )
+        ]
+    return coerced
+
+
 def _validate_common_game_export(value: object, source: str) -> JsonObject:
     obj = _require_object(value, source)
     version = _require_key(obj, "version", source)
@@ -1013,12 +1283,17 @@ def require_built_game_export(
     value: object, source: str = "game export"
 ) -> BuiltGameExport:
     assert is_built_game_export(value, source)
-    return value
+    return cast(
+        BuiltGameExport,
+        _coerce_common_game_export(_require_object(value, source), source),
+    )
 
 
 def require_game_export(value: object, source: str = "game export") -> GameExport:
     assert is_game_export(value, source)
-    return value
+    return cast(
+        GameExport, _coerce_common_game_export(_require_object(value, source), source)
+    )
 
 
 def load_game_export(path: str | Path) -> GameExport:
