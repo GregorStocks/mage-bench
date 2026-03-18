@@ -1,22 +1,59 @@
 """Typed helpers for game export JSON.
 
 These types are backed by ``schemas/game-export-v8.schema.json``. Tests keep
-the TypedDict field sets aligned with the JSON Schema so Python callers can
-load validated exports without falling back to raw ``dict[str, object]`` blobs.
+the TypedDict and dataclass field sets aligned with the JSON Schema so Python
+callers can load validated exports without falling back to raw
+``dict[str, object]`` blobs.
 """
 
 import gzip
 import json
-from pathlib import Path
 from collections.abc import Callable
-from typing import Literal, TypeAlias
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Literal, TypeAlias, cast
 
-from typing_extensions import NotRequired, TypeGuard, TypeIs, TypedDict
+from typing_extensions import NotRequired, TypedDict, TypeGuard, TypeIs
 
 JsonObject: TypeAlias = dict[str, object]
 
 
 # -- Nested payload types used by the decision renderer --
+
+
+class _FrozenDataclassDict(dict[str, object]):
+    """Immutable dict-like base for export leaf dataclasses."""
+
+    def __setitem__(self, key: str, value: object) -> None:
+        raise TypeError(f"{type(self).__name__} is immutable")
+
+    def __delitem__(self, key: str) -> None:
+        raise TypeError(f"{type(self).__name__} is immutable")
+
+    def clear(self) -> None:
+        raise TypeError(f"{type(self).__name__} is immutable")
+
+    def pop(self, key: str, default: object = None) -> object:
+        raise TypeError(f"{type(self).__name__} is immutable")
+
+    def popitem(self) -> tuple[str, object]:
+        raise TypeError(f"{type(self).__name__} is immutable")
+
+    def setdefault(self, key: str, default: object = None) -> object:
+        raise TypeError(f"{type(self).__name__} is immutable")
+
+    def update(self, *args: object, **kwargs: object) -> None:
+        raise TypeError(f"{type(self).__name__} is immutable")
+
+
+def _init_dataclass_dict(
+    target: dict[str, object],
+    entries: tuple[tuple[str, object], ...],
+) -> None:
+    dict.__init__(target)
+    for key, value in entries:
+        if value is not None:
+            dict.__setitem__(target, key, value)
 
 
 class Permanent(TypedDict):
@@ -66,24 +103,84 @@ class CombatCreature(TypedDict):
     pt: NotRequired[str]
 
 
-class Choice(TypedDict, total=False):
+@dataclass(frozen=True)
+class Choice(_FrozenDataclassDict):
     """A choice available to the player. Shape varies by decision type."""
 
-    index: int
-    name: str
-    description: str
-    id: str
-    action: str
-    mana_cost: str
-    choice_type: str
+    index: int | None = None
+    name: str | None = None
+    description: str | None = None
+    id: str | None = None
+    action: str | None = None
+    mana_cost: str | None = None
+    choice_type: str | None = None
+
+    def __post_init__(self) -> None:
+        _init_dataclass_dict(
+            self,
+            (
+                ("index", self.index),
+                ("name", self.name),
+                ("description", self.description),
+                ("id", self.id),
+                ("action", self.action),
+                ("mana_cost", self.mana_cost),
+                ("choice_type", self.choice_type),
+            ),
+        )
+
+    @classmethod
+    def from_mapping(cls, obj: JsonObject) -> "Choice":
+        choice = cls(
+            index=cast(int | None, obj["index"] if "index" in obj else None),
+            name=cast(str | None, obj["name"] if "name" in obj else None),
+            description=cast(
+                str | None, obj["description"] if "description" in obj else None
+            ),
+            id=cast(str | None, obj["id"] if "id" in obj else None),
+            action=cast(str | None, obj["action"] if "action" in obj else None),
+            mana_cost=cast(
+                str | None, obj["mana_cost"] if "mana_cost" in obj else None
+            ),
+            choice_type=cast(
+                str | None, obj["choice_type"] if "choice_type" in obj else None
+            ),
+        )
+        for key, value in obj.items():
+            if key not in choice:
+                dict.__setitem__(choice, key, value)
+        return choice
 
 
-class MultiAmountItem(TypedDict):
+@dataclass(frozen=True)
+class MultiAmountItem(_FrozenDataclassDict):
     """An item in a multi-amount decision."""
 
     description: str
-    min: NotRequired[int]
-    max: NotRequired[int]
+    min: int | None = None
+    max: int | None = None
+
+    def __post_init__(self) -> None:
+        _init_dataclass_dict(
+            self,
+            (
+                ("description", self.description),
+                ("min", self.min),
+                ("max", self.max),
+            ),
+        )
+
+    @classmethod
+    def from_mapping(cls, obj: JsonObject) -> "MultiAmountItem":
+        item = cls(
+            description=cast(str, obj["description"]),
+            min=cast(int | None, obj["min"] if "min" in obj else None),
+            max=cast(int | None, obj["max"] if "max" in obj else None),
+        )
+        for key, value in obj.items():
+            if key not in item:
+                dict.__setitem__(item, key, value)
+        return item
 
 
 _ACTION_TYPES = {"turn_change", "phase_change", "chat"}
@@ -286,13 +383,57 @@ class Annotation(TypedDict):
     llmReasoning: NotRequired[str]
 
 
-class PilotContext(TypedDict, total=False):
-    untappedLands: int
-    landDropsUsed: int
-    playableCards: list[str]
-    combatPhase: str | None
-    alreadyAttacking: list[str | CombatCreature]
-    incomingAttackers: list[str | CombatCreature]
+@dataclass(frozen=True)
+class PilotContext(_FrozenDataclassDict):
+    untappedLands: int | None = None
+    landDropsUsed: int | None = None
+    playableCards: list[str] | None = None
+    combatPhase: str | None = None
+    alreadyAttacking: list[str | CombatCreature] | None = None
+    incomingAttackers: list[str | CombatCreature] | None = None
+
+    def __post_init__(self) -> None:
+        _init_dataclass_dict(
+            self,
+            (
+                ("untappedLands", self.untappedLands),
+                ("landDropsUsed", self.landDropsUsed),
+                ("playableCards", self.playableCards),
+                ("combatPhase", self.combatPhase),
+                ("alreadyAttacking", self.alreadyAttacking),
+                ("incomingAttackers", self.incomingAttackers),
+            ),
+        )
+
+    @classmethod
+    def from_mapping(cls, obj: JsonObject) -> "PilotContext":
+        context = cls(
+            untappedLands=cast(
+                int | None, obj["untappedLands"] if "untappedLands" in obj else None
+            ),
+            landDropsUsed=cast(
+                int | None, obj["landDropsUsed"] if "landDropsUsed" in obj else None
+            ),
+            playableCards=cast(
+                list[str] | None,
+                obj["playableCards"] if "playableCards" in obj else None,
+            ),
+            combatPhase=cast(
+                str | None, obj["combatPhase"] if "combatPhase" in obj else None
+            ),
+            alreadyAttacking=cast(
+                list[str | CombatCreature] | None,
+                obj["alreadyAttacking"] if "alreadyAttacking" in obj else None,
+            ),
+            incomingAttackers=cast(
+                list[str | CombatCreature] | None,
+                obj["incomingAttackers"] if "incomingAttackers" in obj else None,
+            ),
+        )
+        for key, value in obj.items():
+            if key not in context:
+                dict.__setitem__(context, key, value)
+        return context
 
 
 class Decision(TypedDict):
@@ -544,7 +685,9 @@ def _is_combat_creature(value: object, source: str) -> TypeIs[CombatCreature]:
     return True
 
 
-def _is_choice(value: object, source: str) -> TypeIs[Choice]:
+def _coerce_choice(value: object, source: str) -> Choice:
+    if isinstance(value, Choice):
+        return value
     obj = _require_object(value, source)
     if "index" in obj:
         _require_int(obj["index"], f"{source}.index")
@@ -560,17 +703,19 @@ def _is_choice(value: object, source: str) -> TypeIs[Choice]:
         _require_str(obj["mana_cost"], f"{source}.mana_cost")
     if "choice_type" in obj:
         _require_str(obj["choice_type"], f"{source}.choice_type")
-    return True
+    return Choice.from_mapping(obj)
 
 
-def _is_multi_amount_item(value: object, source: str) -> TypeIs[MultiAmountItem]:
+def _coerce_multi_amount_item(value: object, source: str) -> MultiAmountItem:
+    if isinstance(value, MultiAmountItem):
+        return value
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "description", source), f"{source}.description")
     if "min" in obj:
         _require_int(obj["min"], f"{source}.min")
     if "max" in obj:
         _require_int(obj["max"], f"{source}.max")
-    return True
+    return MultiAmountItem.from_mapping(obj)
 
 
 def _validate_str_or_typed_list(
@@ -829,7 +974,9 @@ def _is_annotation(value: object, source: str) -> TypeIs[Annotation]:
     return True
 
 
-def _is_pilot_context(value: object, source: str) -> TypeIs[PilotContext]:
+def _coerce_pilot_context(value: object, source: str) -> PilotContext:
+    if isinstance(value, PilotContext):
+        return value
     obj = _require_object(value, source)
     if "untappedLands" in obj:
         _require_non_negative_int(obj["untappedLands"], f"{source}.untappedLands")
@@ -847,7 +994,7 @@ def _is_pilot_context(value: object, source: str) -> TypeIs[PilotContext]:
         _validate_str_or_typed_list(
             obj["incomingAttackers"], f"{source}.incomingAttackers", _is_combat_creature
         )
-    return True
+    return PilotContext.from_mapping(obj)
 
 
 def _is_decision(value: object, source: str) -> TypeIs[Decision]:
@@ -862,10 +1009,9 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     _require_str(_require_key(obj, "actionType", source), f"{source}.actionType")
     _require_str(_require_key(obj, "responseType", source), f"{source}.responseType")
     _require_str(_require_key(obj, "message", source), f"{source}.message")
-    for index, choice in enumerate(
-        _require_list(_require_key(obj, "choices", source), f"{source}.choices")
-    ):
-        assert _is_choice(choice, f"{source}.choices[{index}]")
+    choices = _require_list(_require_key(obj, "choices", source), f"{source}.choices")
+    for index, choice in enumerate(choices):
+        choices[index] = _coerce_choice(choice, f"{source}.choices[{index}]")
     _require_non_negative_int(
         _require_key(obj, "choiceCount", source), f"{source}.choiceCount"
     )
@@ -879,7 +1025,9 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     if "step" in obj:
         _require_optional_str(obj["step"], f"{source}.step")
     if "pilotContext" in obj:
-        assert _is_pilot_context(obj["pilotContext"], f"{source}.pilotContext")
+        obj["pilotContext"] = _coerce_pilot_context(
+            obj["pilotContext"], f"{source}.pilotContext"
+        )
     if "chosenArgs" in obj:
         _require_object(obj["chosenArgs"], f"{source}.chosenArgs")
     if "actionResult" in obj:
@@ -887,8 +1035,9 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     if "castRolledBack" in obj:
         _require_bool(obj["castRolledBack"], f"{source}.castRolledBack")
     if "items" in obj:
-        for index, item in enumerate(_require_list(obj["items"], f"{source}.items")):
-            assert _is_multi_amount_item(item, f"{source}.items[{index}]")
+        items = _require_list(obj["items"], f"{source}.items")
+        for index, item in enumerate(items):
+            items[index] = _coerce_multi_amount_item(item, f"{source}.items[{index}]")
     if "totalMin" in obj:
         _require_non_negative_int(obj["totalMin"], f"{source}.totalMin")
     if "totalMax" in obj:

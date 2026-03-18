@@ -5,6 +5,7 @@ Full per-game validation is in test_weird_conventions.py::TestAllExportsValid.
 
 import gzip
 import json
+from dataclasses import MISSING, fields
 from pathlib import Path
 
 import jsonschema
@@ -99,6 +100,17 @@ def _assert_typed_dict_matches_schema(
     assert _typed_dict_keys(typed_dict_cls) == expected_props
     assert set(typed_dict_cls.__required_keys__) == expected_required
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
+
+
+def _assert_dataclass_matches_schema(dataclass_cls: object, *, schema: dict) -> None:
+    expected_props = set(schema["properties"])
+    dataclass_fields = [field for field in fields(dataclass_cls) if not field.name.startswith("_")]
+    actual_props = {field.name for field in dataclass_fields}
+    required_props = {
+        field.name for field in dataclass_fields if field.default is MISSING and field.default_factory is MISSING
+    }
+    assert actual_props == expected_props
+    assert required_props == set(schema.get("required", []))
 
 
 class TestExportSchema:
@@ -410,15 +422,15 @@ class TestExportSchema:
         _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
         _assert_typed_dict_matches_schema(Decision, schema=defs["Decision"])
-        _assert_typed_dict_matches_schema(PilotContext, schema=defs["PilotContext"])
+        _assert_dataclass_matches_schema(PilotContext, schema=defs["PilotContext"])
         _assert_typed_dict_matches_schema(GameError, schema=defs["GameError"])
         _assert_typed_dict_matches_schema(CardMetadata, schema=defs["CardMetadata"])
         _assert_typed_dict_matches_schema(Permanent, schema=defs["Permanent"])
         _assert_typed_dict_matches_schema(StackItem, schema=defs["StackItem"])
         _assert_typed_dict_matches_schema(StackTarget, schema=defs["StackTarget"])
         _assert_typed_dict_matches_schema(CombatCreature, schema=defs["CombatCreature"])
-        _assert_typed_dict_matches_schema(Choice, schema=defs["Choice"])
-        _assert_typed_dict_matches_schema(MultiAmountItem, schema=defs["MultiAmountItem"])
+        _assert_dataclass_matches_schema(Choice, schema=defs["Choice"])
+        _assert_dataclass_matches_schema(MultiAmountItem, schema=defs["MultiAmountItem"])
 
     def test_typed_loader_accepts_minimal_v8_export(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v8.json"
@@ -568,6 +580,106 @@ class TestExportSchema:
         assert game["decisions"][0]["actionType"] == ""
         assert game["decisions"][0]["responseType"] == ""
         assert game["decisions"][0]["message"] == ""
+
+    def test_loader_coerces_decision_support_records_to_dataclasses(self, tmp_path: Path) -> None:
+        path = tmp_path / "decision_support.json"
+        payload = _minimal_export(
+            8,
+            season=1,
+            tournament=None,
+            decisions=[
+                {
+                    "index": 0,
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "actionType": "play",
+                    "responseType": "choice",
+                    "message": "Play spells and abilities",
+                    "choices": [
+                        {
+                            "index": 0,
+                            "name": "Memnite",
+                            "id": "p1",
+                            "action": "cast",
+                            "mana_cost": "{0}",
+                            "power": "1",
+                            "toughness": "1",
+                        }
+                    ],
+                    "choiceCount": 1,
+                    "isForced": True,
+                    "llmEventIndices": [],
+                    "subsequentActions": [],
+                    "pilotContext": {
+                        "untappedLands": 1,
+                        "landDropsUsed": 0,
+                        "combatPhase": None,
+                        "manaPool": {"WHITE": 1},
+                    },
+                    "items": [
+                        {
+                            "description": "Assign damage to Memnite",
+                            "min": 0,
+                            "max": 1,
+                            "target": "p1",
+                        }
+                    ],
+                    "totalMin": 0,
+                    "totalMax": 1,
+                }
+            ],
+        )
+        path.write_text(json.dumps(payload))
+
+        game = load_game_export(path)
+        decision = game["decisions"][0]
+        choice = decision["choices"][0]
+        pilot_context = decision["pilotContext"]
+        item = decision["items"][0]
+
+        assert isinstance(choice, Choice)
+        assert choice.name == "Memnite"
+        assert choice["power"] == "1"
+        assert isinstance(pilot_context, PilotContext)
+        assert pilot_context.landDropsUsed == 0
+        assert pilot_context["combatPhase"] is None
+        assert pilot_context["manaPool"] == {"WHITE": 1}
+        assert isinstance(item, MultiAmountItem)
+        assert item.description == "Assign damage to Memnite"
+        assert item["target"] == "p1"
+
+    def test_built_export_with_decision_support_dataclasses_stays_json_serializable(self) -> None:
+        payload = _minimal_export(
+            8,
+            season=1,
+            tournament=None,
+            decisions=[
+                {
+                    "index": 0,
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "actionType": "play",
+                    "responseType": "choice",
+                    "message": "Play spells and abilities",
+                    "choices": [{"index": 0, "name": "Memnite"}],
+                    "choiceCount": 1,
+                    "isForced": True,
+                    "llmEventIndices": [],
+                    "subsequentActions": [],
+                    "pilotContext": {"untappedLands": 1, "manaPool": {"WHITE": 1}},
+                    "items": [{"description": "Assign damage"}],
+                }
+            ],
+        )
+
+        built = require_built_game_export(payload, source="built export")
+
+        assert isinstance(built["decisions"][0]["choices"][0], Choice)
+        assert json.loads(json.dumps(built))["decisions"][0]["pilotContext"]["manaPool"] == {"WHITE": 1}
 
     def test_v8_schema_rejects_pilot_without_model(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(8))
