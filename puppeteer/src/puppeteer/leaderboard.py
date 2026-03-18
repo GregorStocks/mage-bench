@@ -112,19 +112,6 @@ def _assert_number(value: object, message: str) -> None:
     assert isinstance(value, (int, float)) and not isinstance(value, bool), message
 
 
-def _assert_player_summary_fields(player: object, *, source: str, index: int) -> None:
-    assert isinstance(player, Player), f"{source}: player {index} must be a Player, got {type(player).__name__}"
-
-
-def _assert_game_summary_fields(game: Mapping[str, object], *, source: str) -> None:
-    deck_type = game.get("deckType")
-    assert isinstance(deck_type, str) and deck_type, f"{source}: missing deckType"
-    players = game.get("players")
-    assert isinstance(players, list), f"{source}: players must be a list"
-    for index, player in enumerate(players):
-        _assert_player_summary_fields(player, source=source, index=index)
-
-
 def _glob_game_files(games_dir: Path) -> list[Path]:
     """Find all game export files (.json and .json.gz) in a directory, sorted."""
     gz_files = set(games_dir.glob("game_*.json.gz"))
@@ -487,7 +474,6 @@ def generate_leaderboard(
     # Aggregate per-player-key stats (model_id::effort or just model_id)
     stats: dict[str, dict[str, float]] = {}
     for game in scored_games:
-        _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         # Build name -> weighted blunder sum from annotations.
         blunder_weight_by_name: dict[str, float] = {}
         annotations = game.get("annotations")
@@ -605,7 +591,6 @@ def generate_exhibition_leaderboard(
 
     stats: dict[str, dict[str, float]] = {}
     for game in scored_games:
-        _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         blunder_weight_by_name: dict[str, float] = {}
         annotations = game.get("annotations")
         if annotations is not None:

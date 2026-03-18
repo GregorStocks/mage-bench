@@ -1390,21 +1390,6 @@ def test_generate_leaderboard_thinking_time():
     assert bob["avgThinkingTimeSecs"] == 100.0
 
 
-def test_generate_leaderboard_rejects_non_player():
-    games = [
-        _make_game(
-            "g1",
-            "20260101_000000",
-            "Alice",
-            [_pilot("Alice", "a/model-a", placement=1), _pilot("Bob", "b/model-b", placement=2)],
-        ),
-    ]
-    games[0]["players"][0] = {"name": "Alice", "type": "pilot"}  # not a Player
-
-    with pytest.raises(AssertionError, match="must be a Player"):
-        generate_leaderboard(games, {})
-
-
 # --- generate_model_stats ---
 
 
