@@ -539,6 +539,8 @@ def game_export_to_jsonable(value: object) -> object:
     """Convert export leaves to plain JSON-compatible dict/list structures."""
     if _is_decision_support_record(value):
         return game_export_to_jsonable(value.to_mapping())
+    if dataclasses.is_dataclass(value) and not isinstance(value, type):
+        return game_export_to_jsonable(json_default(value))
     if isinstance(value, dict):
         return {key: game_export_to_jsonable(item) for key, item in value.items()}
     if isinstance(value, list):
@@ -1323,6 +1325,8 @@ def json_default(obj: object) -> object:
 
     Usage: ``json.dumps(export, default=json_default)``
     """
+    if _is_decision_support_record(obj):
+        return obj.to_mapping()
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
         source_keys: frozenset[str] | None = getattr(obj, "_source_keys", None)
         if source_keys is not None:

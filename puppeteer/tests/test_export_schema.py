@@ -666,11 +666,19 @@ class TestExportSchema:
         assert item.description == "Assign damage to Memnite"
         assert item.extras["target"] == "p1"
 
-    def test_game_export_to_jsonable_serializes_decision_support_dataclasses(self) -> None:
+    def test_game_export_to_jsonable_serializes_export_dataclasses(self) -> None:
         payload = _minimal_export(
             8,
             season=1,
             tournament=None,
+            llmEvents=[
+                {
+                    "type": "game_start",
+                    "player": "Alice",
+                    "model": "test-model",
+                    "availableTools": ["pass_priority"],
+                }
+            ],
             decisions=[
                 {
                     "index": 0,
@@ -696,9 +704,17 @@ class TestExportSchema:
         cloned = copy.deepcopy(built)
         json_ready = game_export_to_jsonable(built)
 
+        assert isinstance(built["llmEvents"][0], GameStartEvent)
         assert isinstance(built["decisions"][0]["choices"][0], Choice)
         assert isinstance(cloned["decisions"][0]["choices"][0], Choice)
-        assert json.loads(json.dumps(json_ready))["decisions"][0]["pilotContext"] == {
+        json_round_trip = json.loads(json.dumps(json_ready))
+        assert json_round_trip["llmEvents"][0] == {
+            "type": "game_start",
+            "player": "Alice",
+            "model": "test-model",
+            "availableTools": ["pass_priority"],
+        }
+        assert json_round_trip["decisions"][0]["pilotContext"] == {
             "untappedLands": 1,
             "manaPool": {"WHITE": 1},
         }
