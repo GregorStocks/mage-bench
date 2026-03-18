@@ -1,0 +1,15 @@
+{
+  "title": "Normalize decision support records at construction boundaries",
+  "description": "The decision support leaf migration left the live decision builders producing raw mapping payloads while loaded exports produce `Choice`, `MultiAmountItem`, and `PilotContext` dataclasses. As a result, renderer and helper code now carries compatibility unions like `dict | PilotContext` / `DecisionSupportRecordLike` and has to branch on both shapes.\n\nClean this up at the source: introduce one canonical construction path for decision support records in `puppeteer/src/puppeteer/pilot.py` and `scripts/export_game.py`, so downstream code receives typed leaf records instead of ad hoc dicts. The follow-up should remove the dict-or-dataclass unions from `puppeteer/src/puppeteer/decision_renderer.py` and any similar helper signatures that only exist because the builders are still untyped.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "typing",
+    "refactor",
+    "puppeteer",
+    "schemas"
+  ],
+  "created_at": "2026-03-17T20:40:12-07:00",
+  "updated_at": "2026-03-17T20:40:12-07:00"
+}
