@@ -15,7 +15,6 @@ import mimetypes
 import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
-from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Decision, GameExport, Snapshot
@@ -28,7 +27,6 @@ from scripts.analysis.blunder_eval_common import (
     is_cast_rolled_back,
     is_forced,
     is_mana_ability_subdecision,
-    is_rolled_back,
     load_game,
     load_game_ground_truth,
     load_ground_truth,
@@ -67,11 +65,10 @@ STATIC_FILES: dict[str, Path] = {
     "/cardback.jpg": WEBSITE_PUBLIC / "cardback.jpg",
 }
 GAMES_DIR = WEBSITE_PUBLIC / "games"
-DecisionRecord = Decision | dict[str, Any]
 
 # In-memory caches (single-user tool, no concurrency concerns)
 _game_data_cache: dict[str, GameExport] = {}
-_decisions_cache: dict[str, list[DecisionRecord]] = {}
+_decisions_cache: dict[str, list[Decision]] = {}
 
 
 class AuditApiError(RuntimeError):
@@ -126,7 +123,7 @@ def _load_game_cached(game_id: str) -> GameExport:
     return _game_data_cache[game_id]
 
 
-def _load_decisions_cached(game_id: str) -> list[DecisionRecord]:
+def _load_decisions_cached(game_id: str) -> list[Decision]:
     """Load decisions with caching."""
     if game_id not in _decisions_cache:
         try:
@@ -142,7 +139,7 @@ def _load_decisions_cached(game_id: str) -> list[DecisionRecord]:
     return _decisions_cache[game_id]
 
 
-def _find_decision(decisions: list[DecisionRecord], di: int) -> DecisionRecord:
+def _find_decision(decisions: list[Decision], di: int) -> Decision:
     """Find a decision by index."""
     for d in decisions:
         if get_decision_index(d) == di:
@@ -334,7 +331,7 @@ def _find_decisions_at_snapshot(game_id: str, snap_idx: int) -> list[dict]:
     seen_di: set[int] = set()
 
     for d in decisions:
-        if is_forced(d) or is_rolled_back(d) or is_cast_rolled_back(d):
+        if is_forced(d) or is_cast_rolled_back(d):
             continue
         if is_mana_ability_subdecision(d):
             continue

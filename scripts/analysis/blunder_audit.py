@@ -17,7 +17,6 @@ import subprocess
 import textwrap
 import time
 from collections.abc import Sequence
-from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Annotation, Decision, GameExport, Snapshot
@@ -44,7 +43,6 @@ from scripts.analysis.extract_decisions import extract_decisions
 
 _dev_server_port: int | None = None
 _dev_server_proc: subprocess.Popen | None = None
-DecisionRecord = Decision | dict[str, Any]
 
 
 def _find_free_port() -> int:
@@ -136,7 +134,7 @@ def _load_game_data(gz_path: str) -> GameExport:
     return load_game(gz_path)
 
 
-def _find_decision(decisions: list[DecisionRecord], di: int) -> DecisionRecord:
+def _find_decision(decisions: list[Decision], di: int) -> Decision:
     """Find a decision by index. Asserts if not found."""
     for d in decisions:
         if get_decision_index(d) == di:
@@ -145,7 +143,7 @@ def _find_decision(decisions: list[DecisionRecord], di: int) -> DecisionRecord:
 
 
 def _lookup_existing_annotation(
-    decision: DecisionRecord,
+    decision: Decision,
     game_data: GameExport,
     snapshots: Sequence[Snapshot],
 ) -> Annotation | None:
@@ -154,7 +152,7 @@ def _lookup_existing_annotation(
 
 
 def _get_current_annotation(
-    decision: DecisionRecord,
+    decision: Decision,
     game_data: GameExport,
     snapshots: Sequence[Snapshot],
     gz_path: str,
@@ -241,7 +239,7 @@ def _recent_actions_before(
 
 def format_play_context(
     game_id: str,
-    decision: DecisionRecord,
+    decision: Decision,
     snapshots: Sequence[Snapshot],
     annotation: Annotation | None,
     game_actions: Sequence[Action] | None = None,
@@ -370,7 +368,7 @@ def audit_plays(game_filter: str | None = None) -> None:
 
     # Cache game data to avoid re-loading per entry
     game_data_cache: dict[str, GameExport] = {}
-    decisions_cache: dict[str, list[DecisionRecord]] = {}
+    decisions_cache: dict[str, list[Decision]] = {}
 
     audited_count = 0
     skip_game_id: str | None = None

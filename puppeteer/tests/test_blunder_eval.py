@@ -191,47 +191,49 @@ def _snap(seq: int = 0, ts: str | None = None) -> Snapshot:
 
 
 class TestComputeAftermathIndex:
-    def test_with_action_ts(self) -> None:
+    def test_with_action_seq(self) -> None:
         snapshots = [
-            _snap(ts="2026-01-01T00:00:01.000"),
-            _snap(ts="2026-01-01T00:00:05.000"),
-            _snap(ts="2026-01-01T00:00:10.000"),
+            _snap(seq=1),
+            _snap(seq=5),
+            _snap(seq=10),
         ]
-        decision = {"snapshot_index": 0, "action_ts": "2026-01-01T00:00:04.000"}
+        decision = {"snapshotIndex": 0, "actionSeq": 4}
         assert compute_aftermath_index(decision, snapshots) == 1
 
-    def test_exact_ts_match(self) -> None:
+    def test_exact_seq_match(self) -> None:
         snapshots = [
-            _snap(ts="2026-01-01T00:00:01.000"),
-            _snap(ts="2026-01-01T00:00:05.000"),
+            _snap(seq=1),
+            _snap(seq=5),
         ]
-        decision = {"snapshot_index": 0, "action_ts": "2026-01-01T00:00:05.000"}
+        # actionSeq=5, we need strictly greater, so snapshot seq=5 is not > 5
+        decision = {"snapshotIndex": 0, "actionSeq": 4}
         assert compute_aftermath_index(decision, snapshots) == 1
 
-    def test_no_action_ts(self) -> None:
-        snapshots = [_snap(ts="2026-01-01T00:00:01.000")]
-        decision = {"snapshot_index": 0, "action_ts": ""}
+    def test_no_action_seq(self) -> None:
+        snapshots = [_snap(seq=1)]
+        decision = {"snapshotIndex": 0}
+        # No actionSeq -> falls back to snapshotIndex + 1
         assert compute_aftermath_index(decision, snapshots) == 0
 
-    def test_action_ts_beyond_all_snapshots(self) -> None:
+    def test_action_seq_beyond_all_snapshots(self) -> None:
         snapshots = [
-            _snap(ts="2026-01-01T00:00:01.000"),
-            _snap(ts="2026-01-01T00:00:02.000"),
+            _snap(seq=1),
+            _snap(seq=2),
         ]
-        decision = {"snapshot_index": 0, "action_ts": "2026-01-01T00:00:99.000"}
-        # No snapshot > action_ts, falls back to snapshot_index + 1
+        decision = {"snapshotIndex": 0, "actionSeq": 99}
+        # No snapshot > actionSeq, falls back to snapshotIndex + 1
         assert compute_aftermath_index(decision, snapshots) == 1
 
     def test_starts_from_snapshot_index(self) -> None:
-        """Search starts from decision's snapshot_index, not from 0."""
+        """Search starts from decision's snapshotIndex, not from 0."""
         snapshots = [
-            _snap(ts="2026-01-01T00:00:01.000"),
-            _snap(ts="2026-01-01T00:00:03.000"),
-            _snap(ts="2026-01-01T00:00:05.000"),
-            _snap(ts="2026-01-01T00:00:07.000"),
+            _snap(seq=1),
+            _snap(seq=3),
+            _snap(seq=5),
+            _snap(seq=7),
         ]
-        decision = {"snapshot_index": 2, "action_ts": "2026-01-01T00:00:06.000"}
-        # Should find snapshot 3 (ts >= action_ts), starting search from index 2
+        decision = {"snapshotIndex": 2, "actionSeq": 6}
+        # Should find snapshot 3 (seq=7 > 6), starting search from index 2
         assert compute_aftermath_index(decision, snapshots) == 3
 
 
@@ -239,21 +241,17 @@ class TestComputeAftermathIndex:
 
 
 class TestReverseMapAnnotations:
-    def _make_snapshots(self, n: int) -> list[Snapshot]:
-        return [_snap(seq=i, ts=f"2026-01-01T00:00:{i:02d}.000") for i in range(n)]
-
-    def _make_decision(self, idx: int, snap_idx: int, player: str, action_ts: str = "") -> dict:
+    def _make_decision(self, idx: int, snap_idx: int, player: str) -> dict:
         return {
-            "decision_index": idx,
-            "snapshot_index": snap_idx,
-            "action_ts": action_ts,
+            "index": idx,
+            "snapshotIndex": snap_idx,
             "player": player,
         }
 
     def test_direct_mapping(self) -> None:
 
         decisions = [
-            self._make_decision(0, 2, "Alice", "2026-01-01T00:00:05.000"),
+            self._make_decision(0, 2, "Alice"),
         ]
         annotations = [_ann(0, "Alice")]
         mapping = reverse_map_annotations(annotations, decisions)
@@ -262,8 +260,8 @@ class TestReverseMapAnnotations:
     def test_multiple_annotations(self) -> None:
 
         decisions = [
-            self._make_decision(0, 1, "Alice", "2026-01-01T00:00:03.000"),
-            self._make_decision(1, 5, "Alice", "2026-01-01T00:00:07.000"),
+            self._make_decision(0, 1, "Alice"),
+            self._make_decision(1, 5, "Alice"),
         ]
         annotations = [_ann(0, "Alice"), _ann(1, "Alice")]
         mapping = reverse_map_annotations(annotations, decisions)
@@ -295,7 +293,10 @@ class TestReverseMapAnnotations:
 
 
 class TestDecisionIndex:
-    def test_reads_canonical_decision_index_field(self) -> None:
+    def test_reads_canonical_index_field(self) -> None:
+        assert decision_index({"index": 7}) == 7
+
+    def test_reads_decision_index_alias(self) -> None:
         assert decision_index({"decisionIndex": 7}) == 7
 
 
@@ -316,8 +317,8 @@ class TestChosenDisplay:
         d = {"chosen": None, "choices": [], "chosenArgs": {"attackers": "p5,p12"}}
         assert chosen_display(d) == "Attack with: p5,p12"
 
-    def test_none_choice_with_blockers_snake(self) -> None:
-        d = {"chosen": None, "choices": [], "chosen_args": {"blockers": "p3:p64"}}
+    def test_none_choice_with_blockers(self) -> None:
+        d = {"chosen": None, "choices": [], "chosenArgs": {"blockers": "p3:p64"}}
         assert chosen_display(d) == "Block with: p3:p64"
 
     def test_none_choice_with_text(self) -> None:
@@ -401,9 +402,8 @@ class TestLookupAnnotationForDecision:
     def test_exact_match(self) -> None:
 
         decision = {
-            "decision_index": 0,
-            "snapshot_index": 2,
-            "action_ts": "2026-01-01T00:00:05.000",
+            "index": 0,
+            "snapshotIndex": 2,
             "player": "Alice",
         }
         annotations = [_ann(0, "Alice", severity="minor", description="bad play")]
@@ -414,9 +414,8 @@ class TestLookupAnnotationForDecision:
     def test_no_match_wrong_decision(self) -> None:
 
         decision = {
-            "decision_index": 0,
-            "snapshot_index": 2,
-            "action_ts": "2026-01-01T00:00:05.000",
+            "index": 0,
+            "snapshotIndex": 2,
             "player": "Alice",
         }
         annotations = [_ann(1, "Bob")]
@@ -426,9 +425,8 @@ class TestLookupAnnotationForDecision:
     def test_no_match_different_index(self) -> None:
 
         decision = {
-            "decision_index": 0,
-            "snapshot_index": 2,
-            "action_ts": "2026-01-01T00:00:05.000",
+            "index": 0,
+            "snapshotIndex": 2,
             "player": "Alice",
         }
         annotations = [_ann(3, "Alice")]
@@ -438,9 +436,8 @@ class TestLookupAnnotationForDecision:
     def test_empty_annotations(self) -> None:
 
         decision = {
-            "decision_index": 0,
-            "snapshot_index": 0,
-            "action_ts": "",
+            "index": 0,
+            "snapshotIndex": 0,
             "player": "Alice",
         }
         result = lookup_annotation_for_decision(decision, [])
@@ -449,9 +446,8 @@ class TestLookupAnnotationForDecision:
     def test_matches_decision_index_even_if_snapshot_index_differs(self) -> None:
 
         decision = {
-            "decision_index": 1,
-            "snapshot_index": 2,
-            "action_ts": "2026-01-01T00:00:05.000",
+            "index": 1,
+            "snapshotIndex": 2,
             "player": "Alice",
         }
         annotations = [_ann(1, "Alice", snapshot_index=0)]
@@ -539,11 +535,9 @@ class TestBaselineDerivation:
 
     def test_detected_play(self) -> None:
         """An annotation matching the decision index = detected."""
-        [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
         decision = {
-            "decision_index": 0,
-            "snapshot_index": 2,
-            "action_ts": "2026-01-01T00:00:05.000",
+            "index": 0,
+            "snapshotIndex": 2,
             "player": "Alice",
         }
 
@@ -553,11 +547,9 @@ class TestBaselineDerivation:
 
     def test_undetected_play(self) -> None:
         """No annotation with matching decision index = not detected."""
-        [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
         decision = {
-            "decision_index": 1,
-            "snapshot_index": 3,
-            "action_ts": "2026-01-01T00:00:06.000",
+            "index": 1,
+            "snapshotIndex": 3,
             "player": "Bob",
         }
 

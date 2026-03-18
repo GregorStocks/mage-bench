@@ -22,7 +22,7 @@ gz_path = str(REPO_ROOT / "website/public/games/game_20260216_155314_g7.json.gz"
 data = load_game_export(gz_path)
 
 decisions = extract_decisions(gz_path)
-non_forced = [d for d in decisions if not d["is_forced"]]
+non_forced = [d for d in decisions if not d.isForced]
 
 # Pick a mid-game decision (around the middle of the game)
 mid_idx = len(non_forced) // 2
@@ -58,14 +58,8 @@ out_path.write_text(output)
 sys_tokens = len(system_prompt) // 4
 user_tokens = len(user_msg) // 4
 print(f"Game: {data['id']}")
-message = decision.get("message")
-assert message is None or isinstance(message, str), (
-    f"decision message must be a string, got {message!r}"
-)
-print(
-    f"Decision {decision['decision_index']}, turn {decision.get('turn')}, {decision['player']}"
-)
-print(f"Message: {message[:80] if message else ''}")
+print(f"Decision {decision.index}, turn {decision.turn}, {decision.player}")
+print(f"Message: {decision.message[:80] if decision.message else ''}")
 print(f"\nSystem prompt: ~{sys_tokens} tokens")
 print(f"User message:  ~{user_tokens} tokens")
 print(f"\nWritten to: {out_path}")
