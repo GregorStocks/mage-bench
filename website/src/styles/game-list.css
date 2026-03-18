@@ -184,9 +184,6 @@
 .game-card {
   display: block;
   margin-bottom: 1rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
-  border-radius: 8px;
   text-decoration: none;
   color: var(--text-primary);
   transition: border-color 0.2s, transform 0.2s;

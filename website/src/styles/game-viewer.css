@@ -11,9 +11,6 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 0.75rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
-  border-radius: 8px;
   margin-bottom: 0.5rem;
 }
 
@@ -169,9 +166,6 @@
 /* Action log */
 #action-log {
   padding: 0.5rem 0.75rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
-  border-radius: 8px;
   position: sticky;
   top: 0.5rem;
 }

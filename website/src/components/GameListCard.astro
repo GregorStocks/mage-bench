@@ -1,6 +1,7 @@
 ---
 import type { GameEntry } from "../utils/load-games";
 import { safeHttpUrl } from "../utils/safe-http-url";
+import "../styles/shared.css";
 
 interface Props {
   game: GameEntry;
@@ -93,7 +94,7 @@ const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
 ---
 
 <article
-  class="game-card"
+  class="game-card surface-card"
   data-format={formatKey}
   data-season={String(game.season ?? 0)}
   data-model-entries={modelEntriesJson}
