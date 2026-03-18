@@ -303,8 +303,10 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
     cls = _LLM_EVENT_CLASSES[event_type]
     field_names = {f.name for f in dataclasses.fields(cls)}
     kwargs: dict[str, object] = {}
+    extra: dict[str, object] = {}
     for k, v in d.items():
         if k not in field_names:
+            extra[k] = v
             continue
         if k == "usage" and isinstance(v, dict):
             usage_fields = {f.name for f in dataclasses.fields(LlmUsage)}
@@ -316,7 +318,9 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
     instance = cls(**kwargs)  # type: ignore[arg-type]
     # Track which keys were in the source dict so serialization can distinguish
     # "field was explicitly null" from "field was absent" (both are None on the dataclass).
+    # Also preserve any unknown keys so round-trip serialization doesn't drop them.
     object.__setattr__(instance, "_source_keys", frozenset(d.keys()))
+    object.__setattr__(instance, "_extra", extra)
     return instance
 
 
@@ -1107,11 +1111,15 @@ def json_default(obj: object) -> object:
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
         source_keys: frozenset[str] | None = getattr(obj, "_source_keys", None)
         if source_keys is not None:
-            return {
+            result = {
                 f.name: getattr(obj, f.name)
                 for f in dataclasses.fields(obj)
                 if f.name in source_keys
             }
+            # Re-emit unknown keys preserved from the source dict.
+            extra: dict[str, object] = getattr(obj, "_extra", {})
+            result.update(extra)
+            return result
         return {
             f.name: getattr(obj, f.name)
             for f in dataclasses.fields(obj)
