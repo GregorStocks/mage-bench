@@ -17,7 +17,6 @@ import subprocess
 import textwrap
 import time
 from collections.abc import Mapping, Sequence
-from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Annotation, Decision, GameExport, Snapshot
@@ -44,7 +43,7 @@ from scripts.analysis.extract_decisions import extract_decisions
 
 _dev_server_port: int | None = None
 _dev_server_proc: subprocess.Popen | None = None
-DecisionRecord = Decision | dict[str, Any]
+DecisionRecord = Decision
 
 
 def _find_free_port() -> int:
@@ -377,7 +376,7 @@ def audit_plays(game_filter: str | None = None) -> None:
 
     # Cache game data to avoid re-loading per entry
     game_data_cache: dict[str, GameExport] = {}
-    decisions_cache: dict[str, list[DecisionRecord]] = {}
+    decisions_cache: dict[str, list[Decision]] = {}
 
     audited_count = 0
     skip_game_id: str | None = None

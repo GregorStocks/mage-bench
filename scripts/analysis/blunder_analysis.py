@@ -52,11 +52,9 @@ from scripts.analysis.annotate_game import annotate_game
 from scripts.analysis.blunder_eval_common import (
     action_result,
     decision_index,
-    is_canonical_decision,
     is_cast_rolled_back,
     is_forced,
     is_mana_ability_subdecision,
-    is_rolled_back,
     load_game,
     snapshot_index,
 )
@@ -880,7 +878,7 @@ def _chosen_display(d: DecisionRecord) -> str:
     the relevant fields from the decision dict.
     """
     chosen = d.get("chosen")
-    chosen_args = d.get("chosenArgs") or d.get("chosen_args")
+    chosen_args = d.get("chosenArgs")
     choices = d.get("choices")
     return _renderer_chosen_display(
         chosen, chosen_args, choices if choices is not None else []
@@ -1079,57 +1077,30 @@ def build_decision_prompt(
     Pure function with no side effects. Used by _eval_one_decision() and
     tested via golden prompt tests.
 
-    Handles both canonical (camelCase, from export's decisions[]) and legacy
-    (snake_case, from extract_decisions) decision formats.
     """
     snap_idx = snapshot_index(decision)
     snap = snapshots[snap_idx] if snap_idx < len(snapshots) else None
 
-    if is_canonical_decision(decision):
-        # Canonical format: use shared renderer
-        assert snap is not None, (
-            f"canonical decision references missing snapshot index {snap_idx}"
-        )
-        prior_ctx = _format_prior_context(
-            decision, snapshots, actions_by_turn, num_players
-        )
-        snap_ts = snap.get("ts")
-        turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
-        rendered_decision = (
-            decision if isinstance(decision, Decision) else dict(decision)
-        )
-        deciding_player = (
-            decision.player if isinstance(decision, Decision) else decision["player"]
-        )
-        formatted = render_decision(
-            rendered_decision,
-            dict(snap),
-            oracle_texts=oracle_texts,
-            deciding_player=deciding_player,
-            include_card_reference=True,
-            include_chosen=True,
-            prior_context=prior_ctx,
-            current_turn_actions=turn_ctx,
-        )
-        player = deciding_player
-        user_msg = f"## Game Overview\n{overview}\n\nYou are evaluating **{player}**'s decision.\n\n{formatted}"
-    else:
-        # Legacy format: use old formatting code
-        formatted = _format_decisions([decision])
-        card_ref = _card_reference_for_decision(decision, oracle_texts)
-        prior_ctx = _format_prior_context(
-            decision, snapshots, actions_by_turn, num_players
-        )
-        snap_ts = snap.get("ts") if snap is not None else None
-        turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
-        user_msg = f"## Game Overview\n{overview}"
-        if card_ref:
-            user_msg += f"\n\n{card_ref}"
-        if prior_ctx:
-            user_msg += f"\n\n{prior_ctx}"
-        if turn_ctx:
-            user_msg += f"\n\n{turn_ctx}"
-        user_msg += f"\n\n## Decision\n\n{formatted}"
+    assert snap is not None, f"decision references missing snapshot index {snap_idx}"
+    prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn, num_players)
+    snap_ts = snap.get("ts")
+    turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
+    rendered_decision = decision if isinstance(decision, Decision) else dict(decision)
+    deciding_player = (
+        decision.player if isinstance(decision, Decision) else decision["player"]
+    )
+    formatted = render_decision(
+        rendered_decision,
+        dict(snap),
+        oracle_texts=oracle_texts,
+        deciding_player=deciding_player,
+        include_card_reference=True,
+        include_chosen=True,
+        prior_context=prior_ctx,
+        current_turn_actions=turn_ctx,
+    )
+    player = deciding_player
+    user_msg = f"## Game Overview\n{overview}\n\nYou are evaluating **{player}**'s decision.\n\n{formatted}"
 
     if is_cast_rolled_back(decision):
         user_msg += (
@@ -1449,11 +1420,8 @@ def main(gz_path: str) -> float:
         if ar.get("success") is False:
             skip_indices.add(i)
             continue
-        chosen_args = d.get("chosenArgs") or d.get("chosen_args")
+        chosen_args = d.get("chosenArgs")
         if d.get("chosen") is None and not ar and not chosen_args:
-            skip_indices.add(i)
-            continue
-        if is_rolled_back(d):
             skip_indices.add(i)
             continue
         if is_mana_ability_subdecision(d):

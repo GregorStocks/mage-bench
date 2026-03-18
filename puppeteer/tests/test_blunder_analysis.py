@@ -331,15 +331,15 @@ class TestChosenDisplay:
         assert _chosen_display(d) == "(no response)"
 
     def test_none_choice_with_attackers(self) -> None:
-        d = _make_decision(chosen=None, chosen_args={"attackers": "p5,p12"})
+        d = _make_decision(chosen=None, chosenArgs={"attackers": "p5,p12"})
         assert _chosen_display(d) == "Attack with p5, p12"
 
     def test_none_choice_with_blockers(self) -> None:
-        d = _make_decision(chosen=None, chosen_args={"blockers": "p3:p64"})
+        d = _make_decision(chosen=None, chosenArgs={"blockers": "p3:p64"})
         assert _chosen_display(d) == "p3 blocks p64"
 
     def test_none_choice_with_text(self) -> None:
-        d = _make_decision(chosen=None, chosen_args={"text": "Green"})
+        d = _make_decision(chosen=None, chosenArgs={"text": "Green"})
         assert _chosen_display(d) == "Text: Green"
 
     def test_out_of_range(self) -> None:

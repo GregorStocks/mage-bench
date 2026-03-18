@@ -9,7 +9,6 @@ what happened next. Designed to give Claude Code structured data for blunder ana
 import json
 import sys
 from collections.abc import Mapping, Sequence
-from typing import Any, cast
 
 from schemas.game_export_types import (
     BuiltGameExport,
@@ -19,7 +18,6 @@ from schemas.game_export_types import (
     Snapshot,
     ToolCallEvent,
     export_record_field,
-    game_export_to_jsonable,
     load_built_game_export,
 )
 
@@ -776,40 +774,21 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     return decisions
 
 
-def extract_decisions(gz_path: str) -> list[Decision | dict[str, Any]]:
+def extract_decisions(gz_path: str) -> list[Decision]:
     """Extract decision points from a game export file.
 
-    Returns canonical decisions from the export's 'decisions' field when
-    present (built by export_game._build_decisions). Falls back to legacy
-    extraction from llmEvents for older exports without pre-built decisions.
+    Returns canonical Decision dataclass instances from the export's
+    pre-built 'decisions' field.  All current exports have this field;
+    the legacy extraction helpers (_extract_decisions_v1/v2) are retained
+    for their independent test coverage but are no longer called here.
     """
     data = load_built_game_export(gz_path)
 
-    # Use pre-built canonical decisions when available
-    if "decisions" in data:
-        typed_decisions: list[Decision | dict[str, Any]] = []
-        for decision in data["decisions"]:
-            jsonable_decision = game_export_to_jsonable(decision)
-            assert isinstance(jsonable_decision, dict), (
-                f"canonical decision must serialize to an object, got {jsonable_decision!r}"
-            )
-            typed_decisions.append(cast(dict[str, Any], jsonable_decision))
-        return typed_decisions
-
-    # Legacy: extract from llmEvents
-    legacy_decisions = (
-        _extract_decisions_v2(data)
-        if data["harnessEpoch"] >= 20
-        else _extract_decisions_v1(data)
+    assert "decisions" in data, (
+        f"Game export {gz_path} missing decisions[] field — "
+        "all exports must have pre-built decisions"
     )
-
-    # Detect rolled-back casts from [System] Spell cancelled messages
-    # in ANY tool result (get_action_choices, choose_action, pass_priority)
-    llm_events = data["llmEvents"]
-    cancelled = _find_spell_cancelled_events(llm_events)
-    _mark_rolled_back_casts(legacy_decisions, cancelled)
-
-    return cast(list[Decision | dict[str, Any]], legacy_decisions)
+    return list(data["decisions"])
 
 
 _CAST_PROMPT_PREFIXES = (
@@ -906,14 +885,14 @@ def _mark_rolled_back_casts(
 
 
 def main(gz_path: str) -> None:
+    from schemas.game_export_types import json_default
+
     decisions = extract_decisions(gz_path)
     json.dump(
-        [
-            decision.to_dict() if isinstance(decision, Decision) else decision
-            for decision in decisions
-        ],
+        [decision.to_dict() for decision in decisions],
         sys.stdout,
         indent=2,
+        default=json_default,
     )
     print()
 

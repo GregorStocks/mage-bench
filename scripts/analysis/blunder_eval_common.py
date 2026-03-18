@@ -36,23 +36,18 @@ GAME_EXPORT_FILENAME_PATTERN = re.compile(
 )
 
 
-# --- Decision format compat helpers ---
-# Canonical decisions (from export's decisions[]) use camelCase.
-# Legacy decisions (from extract_decisions) use snake_case.
-# These helpers read either format.
+# --- Decision format helpers ---
+# All decisions are now canonical Decision dataclass instances (camelCase).
+# DecisionLike is kept as a union so callers passing plain dicts (tests,
+# blunder_experiment.py) continue to work via Decision.__getitem__/get().
 
 DecisionLike = Decision | Mapping[str, Any]
 AnnotationLike = Annotation | Mapping[str, object]
 
 
-def is_canonical_decision(d: DecisionLike) -> bool:
-    """Check if a decision is in canonical (camelCase) format."""
-    return isinstance(d, Decision) or "snapshotIndex" in d
-
-
 def decision_index(d: DecisionLike) -> int:
-    """Get the decision index from either format."""
-    value = d.get("index", d.get("decisionIndex", d.get("decision_index", 0)))
+    """Get the decision index."""
+    value = d.get("index", d.get("decisionIndex", 0))
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"decision index must be an int, got {value!r}"
     )
@@ -60,8 +55,8 @@ def decision_index(d: DecisionLike) -> int:
 
 
 def snapshot_index(d: DecisionLike) -> int:
-    """Get the snapshot index from either format."""
-    value = d.get("snapshotIndex", d.get("snapshot_index", 0))
+    """Get the snapshot index."""
+    value = d.get("snapshotIndex", 0)
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"snapshot index must be an int, got {value!r}"
     )
@@ -80,34 +75,25 @@ def annotation_decision_index(annotation: AnnotationLike) -> int:
 
 
 def is_forced(d: DecisionLike) -> bool:
-    """Check if a decision is forced (<=1 choice) in either format."""
-    value = d.get("isForced", d.get("is_forced", False))
+    """Check if a decision is forced (<=1 choice)."""
+    value = d.get("isForced", False)
     assert isinstance(value, bool), f"isForced must be a bool, got {value!r}"
     return value
 
 
 def action_result(d: DecisionLike) -> JsonObject:
-    """Get the action result from either format."""
+    """Get the action result."""
     if "actionResult" in d:
         value = d["actionResult"]
-    elif "action_result" in d:
-        value = d["action_result"]
     else:
         return {}
     assert isinstance(value, dict), f"actionResult must be an object, got {value!r}"
     return value
 
 
-def is_rolled_back(d: DecisionLike) -> bool:
-    """Check if a decision was rolled back in either format."""
-    value = d.get("rolled_back", False)
-    assert isinstance(value, bool), f"rolled_back must be a bool, got {value!r}"
-    return value
-
-
 def is_cast_rolled_back(d: DecisionLike) -> bool:
-    """Check if a cast was rolled back in either format."""
-    value = d.get("castRolledBack", d.get("cast_rolled_back", False))
+    """Check if a cast was rolled back."""
+    value = d.get("castRolledBack", False)
     assert isinstance(value, bool), f"castRolledBack must be a bool, got {value!r}"
     return value
 
@@ -149,10 +135,8 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
 
 
 def subsequent_actions(d: DecisionLike) -> list[str]:
-    """Get subsequent actions from either format."""
+    """Get subsequent actions."""
     actions = d.get("subsequentActions")
-    if actions is None:
-        actions = d.get("subsequent_actions")
     if actions is None:
         return []
     assert isinstance(actions, list), (
@@ -378,20 +362,17 @@ def compute_aftermath_index(
 ) -> int:
     """Compute the aftermath snapshot index for a decision.
 
-    Mirrors the logic in _eval_one_decision from blunder_analysis.py:
-    finds the first snapshot strictly after action_ts/action_seq, starting
-    from the decision's snapshot_index.  action_seq represents the game state
-    BEFORE the action processes, so we need > (not >=).
+    Finds the first snapshot strictly after actionSeq, starting from the
+    decision's snapshotIndex.  actionSeq represents the game state BEFORE
+    the action processes, so we need > (not >=).
     """
     s_idx = snapshot_index(decision)
-    action_seq_raw = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
+    action_seq_raw = decision.get("actionSeq", 0)
     action_seq = (
         action_seq_raw
         if isinstance(action_seq_raw, int) and not isinstance(action_seq_raw, bool)
         else 0
     )
-    action_ts_raw = decision.get("action_ts")
-    action_ts = action_ts_raw if isinstance(action_ts_raw, str) else None
     if action_seq:
         for i in range(s_idx, len(snapshots)):
             snapshot_seq = snapshots[i].get("seq", 0)
@@ -399,16 +380,6 @@ def compute_aftermath_index(
                 f"snapshot seq must be an int, got {snapshot_seq!r}"
             )
             if snapshot_seq > action_seq:
-                return i
-    elif action_ts:
-        for i in range(s_idx, len(snapshots)):
-            snapshot_ts = snapshots[i].get("ts")
-            if not snapshot_ts:
-                continue
-            assert isinstance(snapshot_ts, str), (
-                f"snapshot ts must be a string when present, got {snapshot_ts!r}"
-            )
-            if snapshot_ts > action_ts:
                 return i
     return min(s_idx + 1, len(snapshots) - 1)
 
@@ -494,8 +465,8 @@ def chosen_display(decision: DecisionLike) -> str:
         return f"option_{chosen}"
     if chosen is not None:
         return str(chosen)
-    # Batch/text decisions store the response in chosenArgs/chosen_args, not chosen
-    chosen_args = decision.get("chosenArgs") or decision.get("chosen_args")
+    # Batch/text decisions store the response in chosenArgs, not chosen
+    chosen_args = decision.get("chosenArgs")
     if not chosen_args:
         return "?"
     assert isinstance(chosen_args, dict), (

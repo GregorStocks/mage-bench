@@ -15,7 +15,6 @@ import mimetypes
 import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
-from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Annotation, Decision, GameExport, Snapshot
@@ -28,7 +27,6 @@ from scripts.analysis.blunder_eval_common import (
     is_cast_rolled_back,
     is_forced,
     is_mana_ability_subdecision,
-    is_rolled_back,
     load_game,
     load_game_ground_truth,
     load_ground_truth,
@@ -67,7 +65,7 @@ STATIC_FILES: dict[str, Path] = {
     "/cardback.jpg": WEBSITE_PUBLIC / "cardback.jpg",
 }
 GAMES_DIR = WEBSITE_PUBLIC / "games"
-DecisionRecord = Decision | dict[str, Any]
+DecisionRecord = Decision
 
 # In-memory caches (single-user tool, no concurrency concerns)
 _game_data_cache: dict[str, GameExport] = {}
@@ -349,7 +347,7 @@ def _find_decisions_at_snapshot(game_id: str, snap_idx: int) -> list[dict]:
     seen_di: set[int] = set()
 
     for d in decisions:
-        if is_forced(d) or is_rolled_back(d) or is_cast_rolled_back(d):
+        if is_forced(d) or is_cast_rolled_back(d):
             continue
         if is_mana_ability_subdecision(d):
             continue

@@ -1838,7 +1838,7 @@ def assert_golden_blunder_prompts(
     name: str,
     export_data: dict,
     annotated: list[int],
-    decisions: list[dict],
+    decisions: list,
 ) -> None:
     """Check blunder analysis prompts for annotated decision indices.
 

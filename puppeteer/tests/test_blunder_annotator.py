@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from schemas.game_export_types import Choice, Decision
 from scripts.analysis.extract_decisions import extract_decisions
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts" / "analysis"
@@ -16,7 +17,7 @@ def _make_test_game(
     *,
     extra_llm_events: list[dict] | None = None,
     extra_snapshots: list[dict] | None = None,
-    include_decisions: bool = False,
+    include_decisions: bool = True,
 ) -> dict:
     """Create a minimal but valid game data structure for testing."""
     snapshots = [
@@ -232,32 +233,29 @@ class TestExtractDecisions:
         assert len(decisions) == 1
         d = decisions[0]
         assert d["player"] == "Alice"
-        assert d["choice_count"] == 2
+        assert d["choiceCount"] == 2
         assert d["chosen"] == 0
-        assert d["is_forced"] is False
-        assert d["reasoning"] == "I should play a land first to have mana available."
-        assert d["snapshot_index"] == 0
+        assert d["isForced"] is False
+        assert d["snapshotIndex"] == 0
         assert d["turn"] == 1
         assert d["phase"] == "PRECOMBAT_MAIN"
         assert d["message"] == "Play spells and abilities"
 
-    def test_canonical_decisions_remain_plain_json(self, tmp_path: Path) -> None:
+    def test_returns_decision_instances(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(include_decisions=True), gz_path)
+        _write_gz(_make_test_game(), gz_path)
 
         decisions = extract_decisions(str(gz_path))
 
         assert len(decisions) == 1
-        assert decisions[0]["choices"][0] == {"index": 0, "name": "Mountain"}
-        assert decisions[0]["choices"][1] == {
-            "index": 1,
-            "name": "Lightning Bolt",
-        }
-        assert json.loads(json.dumps(decisions))[0]["choices"][0]["name"] == "Mountain"
+        assert isinstance(decisions[0], Decision)
+        assert isinstance(decisions[0].choices[0], Choice)
+        assert decisions[0].choices[0].name == "Mountain"
+        assert decisions[0].choices[1].name == "Lightning Bolt"
 
-    def test_empty_events(self, tmp_path: Path) -> None:
+    def test_empty_decisions(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        game["llmEvents"] = []
+        game["decisions"] = []
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
@@ -267,11 +265,10 @@ class TestExtractDecisions:
 
     def test_forced_choice(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        # Replace with a mandatory single-choice prompt (no pass option)
-        choices_result = json.loads(game["llmEvents"][0]["result"])
-        choices_result["choices"] = [{"index": 0, "name": "Mountain"}]
-        choices_result["message"] = "Choose target creature"
-        game["llmEvents"][0]["result"] = json.dumps(choices_result)
+        game["decisions"][0]["isForced"] = True
+        game["decisions"][0]["choices"] = [{"index": 0, "name": "Mountain"}]
+        game["decisions"][0]["choiceCount"] = 1
+        game["decisions"][0]["message"] = "Choose target creature"
 
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
@@ -279,15 +276,14 @@ class TestExtractDecisions:
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert decisions[0]["is_forced"] is True
-        assert decisions[0]["choice_count"] == 1
+        assert decisions[0]["isForced"] is True
+        assert decisions[0]["choiceCount"] == 1
 
     def test_single_choice_with_pass_not_forced(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        # Single choice with "Play spells" message — player can pass, not forced
-        choices_result = json.loads(game["llmEvents"][0]["result"])
-        choices_result["choices"] = [{"index": 0, "name": "Mountain"}]
-        game["llmEvents"][0]["result"] = json.dumps(choices_result)
+        game["decisions"][0]["choices"] = [{"index": 0, "name": "Mountain"}]
+        game["decisions"][0]["choiceCount"] = 1
+        # isForced stays False — player can pass
 
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
@@ -295,47 +291,32 @@ class TestExtractDecisions:
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert decisions[0]["is_forced"] is False
-        assert decisions[0]["choice_count"] == 1
+        assert decisions[0]["isForced"] is False
+        assert decisions[0]["choiceCount"] == 1
 
     def test_multiple_players(self, tmp_path: Path) -> None:
-        bob_events = [
+        game = _make_test_game()
+        game["decisions"].append(
             {
-                "ts": "2026-01-01T12:00:10.500-08:00",
+                "index": 1,
+                "snapshotIndex": 1,
                 "player": "Bob",
-                "type": "tool_call",
-                "tool": "get_action_choices",
-                "args": {},
-                "result": json.dumps(
-                    {
-                        "action_pending": True,
-                        "action_type": "GAME_SELECT",
-                        "response_type": "select",
-                        "message": "Attack with creatures",
-                        "choices": [
-                            {"index": 0, "name": "Grizzly Bears"},
-                            {"index": 1, "name": "Don't attack"},
-                        ],
-                    }
-                ),
-            },
-            {
-                "ts": "2026-01-01T12:00:10.700-08:00",
-                "player": "Bob",
-                "type": "llm_response",
-                "reasoning": "Let me attack with my bear.",
-                "toolCalls": [{"name": "choose_action"}],
-            },
-            {
-                "ts": "2026-01-01T12:00:10.800-08:00",
-                "player": "Bob",
-                "type": "tool_call",
-                "tool": "choose_action",
-                "args": {"index": 0},
-                "result": json.dumps({"success": True}),
-            },
-        ]
-        game = _make_test_game(extra_llm_events=bob_events)
+                "turn": 2,
+                "phase": "COMBAT_DECLARE_ATTACKERS",
+                "actionType": "GAME_SELECT",
+                "responseType": "select",
+                "message": "Attack with creatures",
+                "choices": [
+                    {"index": 0, "name": "Grizzly Bears"},
+                    {"index": 1, "name": "Don't attack"},
+                ],
+                "choiceCount": 2,
+                "isForced": False,
+                "chosen": 0,
+                "llmEventIndices": [3, 4, 5],
+                "subsequentActions": [],
+            }
+        )
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
@@ -347,17 +328,11 @@ class TestExtractDecisions:
 
     def test_boolean_decision(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        # Replace with a boolean choice (mulligan)
-        game["llmEvents"][0]["result"] = json.dumps(
-            {
-                "action_pending": True,
-                "action_type": "GAME_ASK",
-                "response_type": "boolean",
-                "message": "Mulligan hand?",
-                "choices": [],
-            }
-        )
-        game["llmEvents"][2]["args"] = {"answer": False}
+        game["decisions"][0]["responseType"] = "boolean"
+        game["decisions"][0]["message"] = "Mulligan hand?"
+        game["decisions"][0]["choices"] = []
+        game["decisions"][0]["choiceCount"] = 0
+        game["decisions"][0]["chosen"] = False
 
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
@@ -365,35 +340,18 @@ class TestExtractDecisions:
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert decisions[0]["response_type"] == "boolean"
+        assert decisions[0]["responseType"] == "boolean"
         assert decisions[0]["chosen"] is False
 
     def test_subsequent_actions(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        # The existing action "Alice plays Mountain" has ts after the choose_action
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert "Alice plays Mountain" in decisions[0]["subsequent_actions"]
-
-    def test_game_state_summary(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(), gz_path)
-
-        result = _run_script("extract_decisions.py", str(gz_path))
-        decisions = json.loads(result.stdout)
-        gs = decisions[0]["game_state"]
-        assert gs["turn"] == 1
-        # Alice has 2 cards in hand
-        alice_state = next(p for p in gs["players"] if p["name"] == "Alice")
-        assert alice_state["life"] == 20
-        assert alice_state["hand_count"] == 2
-        # Bob has Grizzly Bears on battlefield
-        bob_state = next(p for p in gs["players"] if p["name"] == "Bob")
-        assert "Grizzly Bears" in bob_state["battlefield"]
+        assert "Alice plays Mountain" in decisions[0]["subsequentActions"]
 
 
 # --- annotate_game tests ---
