@@ -7,6 +7,8 @@ from pathlib import Path
 
 import pytest
 
+from scripts.analysis.extract_decisions import extract_decisions
+
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts" / "analysis"
 
 
@@ -238,6 +240,20 @@ class TestExtractDecisions:
         assert d["turn"] == 1
         assert d["phase"] == "PRECOMBAT_MAIN"
         assert d["message"] == "Play spells and abilities"
+
+    def test_canonical_decisions_remain_plain_json(self, tmp_path: Path) -> None:
+        gz_path = tmp_path / "game_test.json.gz"
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
+
+        decisions = extract_decisions(str(gz_path))
+
+        assert len(decisions) == 1
+        assert decisions[0]["choices"][0] == {"index": 0, "name": "Mountain"}
+        assert decisions[0]["choices"][1] == {
+            "index": 1,
+            "name": "Lightning Bolt",
+        }
+        assert json.loads(json.dumps(decisions))[0]["choices"][0]["name"] == "Mountain"
 
     def test_empty_events(self, tmp_path: Path) -> None:
         game = _make_test_game()
