@@ -3,6 +3,7 @@
 Full per-game validation is in test_weird_conventions.py::TestAllExportsValid.
 """
 
+import copy
 import gzip
 import json
 from dataclasses import MISSING, fields
@@ -677,8 +678,10 @@ class TestExportSchema:
         )
 
         built = require_built_game_export(payload, source="built export")
+        cloned = copy.deepcopy(built)
 
         assert isinstance(built["decisions"][0]["choices"][0], Choice)
+        assert isinstance(cloned["decisions"][0]["choices"][0], Choice)
         assert json.loads(json.dumps(built))["decisions"][0]["pilotContext"]["manaPool"] == {"WHITE": 1}
 
     def test_v8_schema_rejects_pilot_without_model(self) -> None:

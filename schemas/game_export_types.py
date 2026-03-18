@@ -6,6 +6,7 @@ callers can load validated exports without falling back to raw
 ``dict[str, object]`` blobs.
 """
 
+import copy
 import gzip
 import json
 from collections.abc import Callable
@@ -151,6 +152,11 @@ class Choice(_FrozenDataclassDict):
                 dict.__setitem__(choice, key, value)
         return choice
 
+    def __deepcopy__(self, memo: dict[int, object]) -> "Choice":
+        duplicate = Choice.from_mapping(copy.deepcopy(dict(self), memo))
+        memo[id(self)] = duplicate
+        return duplicate
+
 
 @dataclass(frozen=True)
 class MultiAmountItem(_FrozenDataclassDict):
@@ -181,6 +187,11 @@ class MultiAmountItem(_FrozenDataclassDict):
             if key not in item:
                 dict.__setitem__(item, key, value)
         return item
+
+    def __deepcopy__(self, memo: dict[int, object]) -> "MultiAmountItem":
+        duplicate = MultiAmountItem.from_mapping(copy.deepcopy(dict(self), memo))
+        memo[id(self)] = duplicate
+        return duplicate
 
 
 _ACTION_TYPES = {"turn_change", "phase_change", "chat"}
@@ -434,6 +445,11 @@ class PilotContext(_FrozenDataclassDict):
             if key not in context:
                 dict.__setitem__(context, key, value)
         return context
+
+    def __deepcopy__(self, memo: dict[int, object]) -> "PilotContext":
+        duplicate = PilotContext.from_mapping(copy.deepcopy(dict(self), memo))
+        memo[id(self)] = duplicate
+        return duplicate
 
 
 class Decision(TypedDict):
