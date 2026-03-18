@@ -1117,8 +1117,9 @@ def json_default(obj: object) -> object:
                 if f.name in source_keys
             }
             # Re-emit unknown keys preserved from the source dict.
-            extra: dict[str, object] = getattr(obj, "_extra", {})
-            result.update(extra)
+            extra: dict[str, object] | None = getattr(obj, "_extra", None)
+            if extra:
+                result.update(extra)
             return result
         return {
             f.name: getattr(obj, f.name)

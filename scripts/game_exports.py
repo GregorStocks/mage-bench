@@ -60,8 +60,9 @@ def write_raw_game_export(
                     for f in dataclasses.fields(obj)
                     if f.name in source_keys
                 }
-                extra: dict[str, object] = getattr(obj, "_extra", {})
-                result.update(extra)
+                extra: dict[str, object] | None = getattr(obj, "_extra", None)
+                if extra:
+                    result.update(extra)
                 return result
             return {
                 f.name: getattr(obj, f.name)

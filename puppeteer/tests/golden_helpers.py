@@ -1701,11 +1701,10 @@ def _strip_volatile(data: dict) -> None:
         if dataclasses.is_dataclass(event) and not isinstance(event, type):
             source_keys: frozenset[str] | None = getattr(event, "_source_keys", None)
             if source_keys is not None:
-                d = {
-                    f.name: getattr(event, f.name) for f in dataclasses.fields(event) if f.name in source_keys
-                }
-                extra: dict[str, object] = getattr(event, "_extra", {})
-                d.update(extra)
+                d = {f.name: getattr(event, f.name) for f in dataclasses.fields(event) if f.name in source_keys}
+                extra: dict[str, object] | None = getattr(event, "_extra", None)
+                if extra:
+                    d.update(extra)
                 llm_events[i] = d
             else:
                 llm_events[i] = {
