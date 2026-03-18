@@ -1531,9 +1531,18 @@ def _send_spectator_command(
     return spectator.wait_for_ready(game_dir)
 
 
+class _DataclassEncoder(json.JSONEncoder):
+    """JSON encoder that serializes dataclass instances, filtering None values."""
+
+    def default(self, obj: object) -> object:
+        if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
+            return {k: v for k, v in dataclasses.asdict(obj).items() if v is not None}
+        return super().default(obj)
+
+
 def _to_sorted_json(obj: object) -> str:
     """Deterministic JSON serialization with sorted keys."""
-    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
+    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False, cls=_DataclassEncoder)
 
 
 def _brief(value: object, max_len: int = 80) -> str:
@@ -1785,7 +1794,7 @@ def extract_blunder_decisions(export_data: dict, game_dir: Path) -> list[dict]:
     """Extract decisions for golden blunder prompt comparisons."""
     # Keep the temp export on the validator's canonical game-export path.
     tmp_export = game_dir / "game_blunder_export.json"
-    tmp_export.write_text(json.dumps(export_data))
+    tmp_export.write_text(json.dumps(export_data, cls=_DataclassEncoder))
     try:
         return extract_decisions(str(tmp_export))
     finally:
