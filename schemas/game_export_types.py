@@ -1387,6 +1387,8 @@ def _is_combat_group(value: object, source: str) -> bool:
         _require_bool(obj["blocked"], f"{source}.blocked")
     if "defending" in obj:
         _require_str(obj["defending"], f"{source}.defending")
+    if "defender" in obj:
+        _require_str(obj["defender"], f"{source}.defender")
     return True
 
 
@@ -1777,7 +1779,7 @@ def _coerce_combat_group(value: object, source: str) -> CombatGroup:
         if "blockers" in obj
         else None,
         blocked=cast(bool | None, obj.get("blocked")),
-        defending=cast(str | None, obj.get("defending")),
+        defending=cast(str | None, obj.get("defending") or obj.get("defender")),
     )
 
 
