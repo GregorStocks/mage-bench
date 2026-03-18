@@ -312,7 +312,7 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
             usage_fields = {f.name for f in dataclasses.fields(LlmUsage)}
             usage_kwargs = {uk: uv for uk, uv in v.items() if uk in usage_fields}
             usage_extra = {uk: uv for uk, uv in v.items() if uk not in usage_fields}
-            usage_instance = LlmUsage(**usage_kwargs)  # type: ignore[arg-type]
+            usage_instance = LlmUsage(**usage_kwargs)
             object.__setattr__(usage_instance, "_source_keys", frozenset(v.keys()))
             object.__setattr__(usage_instance, "_extra", usage_extra)
             kwargs[k] = usage_instance
