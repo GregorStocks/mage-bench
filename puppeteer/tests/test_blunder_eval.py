@@ -365,9 +365,9 @@ def _ann(
     *,
     severity: str = "minor",
     description: str = "",
-    actionTaken: str = "",
-    betterLine: str = "",
-    snapshotIndex: int | None = None,
+    action_taken: str = "",
+    better_line: str = "",
+    snapshot_index: int | None = None,
 ) -> Annotation:
     """Create a minimal Annotation for testing."""
     return Annotation(
@@ -376,9 +376,9 @@ def _ann(
         type="blunder",
         severity=severity,
         description=description,
-        actionTaken=actionTaken,
-        betterLine=betterLine,
-        snapshotIndex=snapshotIndex,
+        actionTaken=action_taken,
+        betterLine=better_line,
+        snapshotIndex=snapshot_index,
     )
 
 
@@ -439,7 +439,7 @@ class TestLookupAnnotationForDecision:
             "action_ts": "2026-01-01T00:00:05.000",
             "player": "Alice",
         }
-        annotations = [_ann(1, "Alice", snapshotIndex=0)]
+        annotations = [_ann(1, "Alice", snapshot_index=0)]
         result = lookup_annotation_for_decision(decision, annotations)
         assert result is not None
         assert result.decisionIndex == 1
