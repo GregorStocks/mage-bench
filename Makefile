@@ -236,13 +236,16 @@ blunder-baseline:
 # Generate TypeScript types from the JSON Schema
 .PHONY: regen-schema-types
 regen-schema-types: $(WEBSITE_NPM_STAMP)
-	cd website && npx json2ts ../schemas/game-export-v8.schema.json > src/types/game-export.d.ts
+	cd website && npx json2ts -i ../schemas/game-export-v8.schema.json -o src/types/game-export.d.ts
 
 # Verify generated TypeScript types are up to date
 .PHONY: verify-schema-types
 verify-schema-types: $(WEBSITE_NPM_STAMP)
-	@cd website && npx json2ts ../schemas/game-export-v8.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
-		|| (echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make regen-schema-types' to regenerate." && exit 1)
+	@TMP_SCHEMA_TYPES=$$(mktemp); \
+	trap 'rm -f "$$TMP_SCHEMA_TYPES"' EXIT; \
+	cd website && npx json2ts -i ../schemas/game-export-v8.schema.json -o "$$TMP_SCHEMA_TYPES"; \
+	diff -q "$$TMP_SCHEMA_TYPES" src/types/game-export.d.ts > /dev/null 2>&1 \
+		|| { echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make regen-schema-types' to regenerate."; exit 1; }
 
 # Verify mcp-tools.json is up to date with McpServer.java
 .PHONY: verify-mcp-tools

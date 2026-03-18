@@ -397,6 +397,21 @@ def _make_valid_annotation(snapshot_index: int = 0, decision_index: int = 0) -> 
 
 
 class TestAnnotateGame:
+    def test_basic_annotation_plain_json(self, tmp_path: Path) -> None:
+        json_path = tmp_path / "game_test.json"
+        json_path.write_text(json.dumps(_make_test_game(include_decisions=True)))
+
+        annotations = [_make_valid_annotation()]
+        ann_path = tmp_path / "annotations.json"
+        ann_path.write_text(json.dumps(annotations))
+
+        _run_annotate_game(str(json_path), str(ann_path))
+
+        data = json.loads(json_path.read_text())
+        assert "annotations" in data
+        assert len(data["annotations"]) == 1
+        assert not (tmp_path / "game_test.json.gz").exists()
+
     def test_basic_annotation(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(include_decisions=True), gz_path)
