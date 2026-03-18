@@ -1684,9 +1684,16 @@ def _strip_volatile(data: dict) -> None:
     for error in data.get("errors", []):
         error.pop("ts", None)
 
-    # Strip volatile fields from player summaries
-    for player in data.get("players", []):
-        player.pop("thinkingTimeSecs", None)
+    # Strip volatile fields from player summaries — convert dataclass instances
+    # to plain dicts so downstream json.dumps works.
+    players = data.get("players", [])
+    for i, player in enumerate(players):
+        if dataclasses.is_dataclass(player) and not isinstance(player, type):
+            d = {k: v for k, v in dataclasses.asdict(player).items() if v is not None}
+            d.pop("thinkingTimeSecs", None)
+            players[i] = d
+        elif isinstance(player, dict):
+            player.pop("thinkingTimeSecs", None)
 
     # Strip ts from actions
     for action in data.get("actions", []):

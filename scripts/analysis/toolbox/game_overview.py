@@ -14,18 +14,18 @@ def main(gz_path: str) -> None:
     print(f"Turns: {d['totalTurns']}")
     print(f"Winner: {d['winner']}")
     for p in d["players"]:
-        cost = p.get("totalCostUsd", 0)
-        ok = p.get("toolCallsOk", 0)
-        fail = p.get("toolCallsFailed", 0)
-        think = p.get("thinkingTimeSecs")
-        effort = p.get("reasoningEffort")
-        model = p.get("model", "?")
+        cost = p.totalCostUsd or 0
+        ok = p.toolCallsOk
+        fail = p.toolCallsFailed
+        think = p.thinkingTimeSecs
+        effort = p.reasoningEffort
+        model: str = p.model or "?"
         if effort:
             model = f"{model} ({effort})"
         parts = [
-            f"  {p['name']} ({model})",
+            f"  {p.name} ({model})",
             f"cost: ${cost:.2f}",
-            f"placement: {p.get('placement', '?')}",
+            f"placement: {p.placement if p.placement is not None else '?'}",
             f"tools: {ok}ok/{fail}fail",
         ]
         if think is not None:

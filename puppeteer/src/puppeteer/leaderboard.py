@@ -17,6 +17,7 @@ from schemas.game_export_types import (
     GameExport,
     LlmErrorEvent,
     LlmResponseEvent,
+    Player,
     is_pilot_player,
     load_game_export,
 )
@@ -116,24 +117,6 @@ def _assert_int(value: object, message: str) -> None:
 
 def _assert_number(value: object, message: str) -> None:
     assert isinstance(value, (int, float)) and not isinstance(value, bool), message
-
-
-def _assert_player_summary_fields(player: Mapping[str, object], *, source: str, index: int) -> None:
-    assert isinstance(player.get("name"), str), f"{source}: player {index} missing name"
-    assert isinstance(player.get("type"), str), f"{source}: player {index} missing type"
-    _assert_int(player.get("toolCallsOk"), f"{source}: player {index} missing toolCallsOk")
-    _assert_int(player.get("toolCallsFailed"), f"{source}: player {index} missing toolCallsFailed")
-    _assert_number(player.get("thinkingTimeSecs"), f"{source}: player {index} missing thinkingTimeSecs")
-
-
-def _assert_game_summary_fields(game: Mapping[str, object], *, source: str) -> None:
-    deck_type = game.get("deckType")
-    assert isinstance(deck_type, str) and deck_type, f"{source}: missing deckType"
-    players = game.get("players")
-    assert isinstance(players, list), f"{source}: players must be a list"
-    for index, player in enumerate(players):
-        assert isinstance(player, dict), f"{source}: player {index} must be an object"
-        _assert_player_summary_fields(player, source=source, index=index)
 
 
 def _glob_game_files(games_dir: Path) -> list[Path]:
@@ -245,17 +228,11 @@ def derive_display_name(model_id: str) -> str:
     return slug.replace("-", " ").title()
 
 
-def _player_key(player: Mapping[str, object]) -> str:
+def _player_key(model: str, reasoning_effort: str | None = None) -> str:
     """Build aggregation key: 'model_id::effort' or just 'model_id'."""
-    model_id = player["model"]
-    assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
-    effort = player.get("reasoningEffort", player.get("reasoning_effort"))
-    assert effort is None or isinstance(effort, str), (
-        f"player reasoningEffort must be a string when present, got {effort!r}"
-    )
-    if effort:
-        return f"{model_id}::{effort}"
-    return model_id
+    if reasoning_effort:
+        return f"{model}::{reasoning_effort}"
+    return model
 
 
 def _split_key(key: str) -> tuple[str, str | None]:
@@ -319,24 +296,18 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
     """
     players_obj = game["players"]
     assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
-    players: list[Mapping[str, object]] = []
+    players: list[Player] = []
     for index, player in enumerate(players_obj):
-        assert isinstance(player, dict), f"game {game.get('id', '<unknown>')}: players[{index}] must be an object"
+        assert isinstance(player, Player), f"game {game.get('id', '<unknown>')}: players[{index}] must be a Player"
         players.append(player)
 
     # Check if placements are already in the index data
-    if any("placement" in p for p in players):
+    if any(p.placement is not None for p in players):
         existing_placements: dict[str, int] = {}
-        for index, player in enumerate(players):
-            if "placement" not in player:
+        for player in players:
+            if player.placement is None:
                 continue
-            name = player.get("name")
-            placement = player.get("placement")
-            assert isinstance(name, str), f"game {game.get('id', '<unknown>')}: players[{index}] missing name"
-            assert isinstance(placement, int), (
-                f"game {game.get('id', '<unknown>')}: players[{index}] placement must be an int"
-            )
-            existing_placements[name] = placement
+            existing_placements[player.name] = player.placement
         return existing_placements
 
     # Fall back to reading actions from the full game JSON
@@ -351,11 +322,7 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
 
     full_game = _load_game_file(game_path)
     actions = full_game["actions"]
-    player_names: list[str] = []
-    for index, player in enumerate(players):
-        name = player.get("name", "?")
-        assert isinstance(name, str), f"game {game.get('id', '<unknown>')}: players[{index}] missing name"
-        player_names.append(name)
+    player_names: list[str] = [p.name for p in players]
     winner = game.get("winner")
     assert winner is None or isinstance(winner, str), (
         f"game {game.get('id', '<unknown>')}: winner must be a string or null"
@@ -395,10 +362,8 @@ def _placements_from_winner(game: Mapping[str, object]) -> dict[str, int]:
     players_obj = game["players"]
     assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
     for index, p in enumerate(players_obj):
-        assert isinstance(p, dict), f"game {game.get('id', '<unknown>')}: players[{index}] must be an object"
-        name = p.get("name", "?")
-        assert isinstance(name, str), f"game {game.get('id', '<unknown>')}: players[{index}] missing name"
-        placements[name] = 1 if name == winner else 2
+        assert isinstance(p, Player), f"game {game.get('id', '<unknown>')}: players[{index}] must be a Player"
+        placements[p.name] = 1 if p.name == winner else 2
     return placements
 
 
@@ -422,14 +387,14 @@ def compute_elo_ratings(
     )
 
     for game in sorted_games:
-        pilots = [p for p in game["players"] if p.get("type") == "pilot" and p.get("model")]
+        pilots = [p for p in game["players"] if isinstance(p, Player) and p.type == "pilot" and p.model]
         if len(pilots) < 2:
             for p in pilots:
-                key = _player_key(p)
+                key = _player_key(p.model, p.reasoningEffort)  # type: ignore[arg-type]
                 if key not in ratings:
                     ratings[key] = float(_ELO_START)
             if pilots:
-                key = _player_key(pilots[0])
+                key = _player_key(pilots[0].model, pilots[0].reasoningEffort)  # type: ignore[arg-type]
                 per_game.append(
                     {
                         "id": game["id"],
@@ -441,15 +406,15 @@ def compute_elo_ratings(
             continue
 
         for p in pilots:
-            key = _player_key(p)
+            key = _player_key(p.model, p.reasoningEffort)  # type: ignore[arg-type]
             if key not in ratings:
                 ratings[key] = float(_ELO_START)
 
-        pilot_keys = [_player_key(p) for p in pilots]
+        pilot_keys = [_player_key(p.model, p.reasoningEffort) for p in pilots]  # type: ignore[arg-type]
         before = {key: round(ratings[key]) for key in pilot_keys}
 
         placements = extract_placements(game, games_dir)
-        has_placements = any(p["name"] in placements for p in pilots)
+        has_placements = any(p.name in placements for p in pilots)
 
         if has_placements and len(pilots) == 2:
             key_a, key_b = pilot_keys
@@ -458,7 +423,7 @@ def compute_elo_ratings(
             eb = 1.0 - ea
 
             # Determine scores: winner gets 1, loser gets 0
-            placement_a = placements.get(pilots[0]["name"])
+            placement_a = placements.get(pilots[0].name)
             sa = 1.0 if placement_a == 1 else 0.0
             sb = 1.0 - sa
 
@@ -516,7 +481,6 @@ def generate_leaderboard(
     # Aggregate per-player-key stats (model_id::effort or just model_id)
     stats: dict[str, dict[str, float]] = {}
     for game in scored_games:
-        _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         # Build name -> weighted blunder sum from annotations.
         blunder_weight_by_name: dict[str, float] = {}
         annotations = game.get("annotations")
@@ -534,9 +498,9 @@ def generate_leaderboard(
         total_turns = game.get("totalTurns", 0)
 
         for p in game["players"]:
-            if p.get("type") != "pilot" or not p.get("model"):
+            if p.type != "pilot" or not p.model:
                 continue
-            key = _player_key(p)
+            key = _player_key(p.model, p.reasoningEffort)
             if key not in stats:
                 stats[key] = {
                     "games_played": 0,
@@ -550,18 +514,18 @@ def generate_leaderboard(
                     "total_annotated_turns": 0,
                 }
             stats[key]["games_played"] += 1
-            if game.get("winner") == p["name"]:
+            if game.get("winner") == p.name:
                 stats[key]["wins"] += 1
-            if p.get("timedOut"):
+            if p.timedOut:
                 stats[key]["timeout_losses"] += 1
-            stats[key]["total_cost"] += p.get("totalCostUsd", 0.0)
-            stats[key]["total_tool_calls_ok"] += p["toolCallsOk"]
-            stats[key]["total_tool_calls_failed"] += p["toolCallsFailed"]
-            stats[key]["total_thinking_time"] += p["thinkingTimeSecs"]
+            stats[key]["total_cost"] += p.totalCostUsd or 0.0
+            stats[key]["total_tool_calls_ok"] += p.toolCallsOk
+            stats[key]["total_tool_calls_failed"] += p.toolCallsFailed
+            stats[key]["total_thinking_time"] += p.thinkingTimeSecs
             assert game.get("annotations") is not None, f"Game {game.get('id')} has no annotations"
             assert total_turns > 0, f"Game {game.get('id')} has no turns"
             stats[key]["total_annotated_turns"] += total_turns
-            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p["name"], 0)
+            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p.name, 0)
 
     # Build models list
     models: list[_ModelEntry] = []
@@ -634,7 +598,6 @@ def generate_exhibition_leaderboard(
 
     stats: dict[str, dict[str, float]] = {}
     for game in scored_games:
-        _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         blunder_weight_by_name: dict[str, float] = {}
         annotations = game.get("annotations")
         if annotations is not None:
@@ -651,9 +614,9 @@ def generate_exhibition_leaderboard(
         total_turns = game.get("totalTurns", 0)
 
         for p in game["players"]:
-            if p.get("type") != "pilot" or not p.get("model"):
+            if p.type != "pilot" or not p.model:
                 continue
-            key = _player_key(p)
+            key = _player_key(p.model, p.reasoningEffort)
             if key not in stats:
                 stats[key] = {
                     "games_played": 0,
@@ -667,18 +630,18 @@ def generate_exhibition_leaderboard(
                     "total_annotated_turns": 0,
                 }
             stats[key]["games_played"] += 1
-            if game.get("winner") == p["name"]:
+            if game.get("winner") == p.name:
                 stats[key]["wins"] += 1
-            if p.get("timedOut"):
+            if p.timedOut:
                 stats[key]["timeout_losses"] += 1
-            stats[key]["total_cost"] += p.get("totalCostUsd", 0.0)
-            stats[key]["total_tool_calls_ok"] += p["toolCallsOk"]
-            stats[key]["total_tool_calls_failed"] += p["toolCallsFailed"]
-            stats[key]["total_thinking_time"] += p["thinkingTimeSecs"]
+            stats[key]["total_cost"] += p.totalCostUsd or 0.0
+            stats[key]["total_tool_calls_ok"] += p.toolCallsOk
+            stats[key]["total_tool_calls_failed"] += p.toolCallsFailed
+            stats[key]["total_thinking_time"] += p.thinkingTimeSecs
             assert game.get("annotations") is not None, f"Game {game.get('id')} has no annotations"
             assert total_turns > 0, f"Game {game.get('id')} has no turns"
             stats[key]["total_annotated_turns"] += total_turns
-            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p["name"], 0)
+            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p.name, 0)
 
     models: list[_ModelEntry] = []
     for key, s in stats.items():
@@ -909,8 +872,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         for p in players:
             if not is_pilot_player(p):
                 continue
-            key = _player_key(p)
-            name_to_key[p["name"]] = key
+            key = _player_key(p.model, p.reasoningEffort)
+            name_to_key[p.name] = key
 
             # Register model metadata (first time only)
             if key not in model_meta:
@@ -950,14 +913,14 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
             b = buckets[bucket_key]
             b["gamesPlayed"] += 1
-            if winner == p["name"]:
+            if winner == p.name:
                 b["wins"] += 1
-            if p.get("timedOut"):
+            if p.timedOut:
                 b["timerTimeoutLosses"] += 1
-            b["totalCostUsd"] += p.get("totalCostUsd", 0.0)
-            b["totalToolCallsOk"] += p["toolCallsOk"]
-            b["totalToolCallsFailed"] += p["toolCallsFailed"]
-            b["totalThinkingTimeSecs"] += p["thinkingTimeSecs"]
+            b["totalCostUsd"] += p.totalCostUsd or 0.0
+            b["totalToolCallsOk"] += p.toolCallsOk
+            b["totalToolCallsFailed"] += p.toolCallsFailed
+            b["totalThinkingTimeSecs"] += p.thinkingTimeSecs
 
         # Scan llmEvents for per-player operational stats
         llm_events = game["llmEvents"]
@@ -1079,7 +1042,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for p in players:
             if not is_pilot_player(p):
                 continue
-            name_to_key[p["name"]] = _player_key(p)
+            name_to_key[p.name] = _player_key(p.model, p.reasoningEffort)
 
         # Accumulate per-player stats from llmEvents
         player_responses: dict[str, int] = {}
@@ -1154,12 +1117,12 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for p in players:
             if not is_pilot_player(p):
                 continue
-            key = _player_key(p)
+            key = _player_key(p.model, p.reasoningEffort)
             model_id, effort = _split_key(key)
             display_name = model_registry.get(model_id) or derive_display_name(model_id)
             if effort:
                 display_name = f"{display_name} ({effort})"
-            name = p["name"]
+            name = p.name
 
             durations = player_latencies.get(name)
             if durations is not None:
@@ -1173,15 +1136,15 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                     "key": key,
                     "modelName": display_name,
                     "won": winner == name,
-                    "timedOut": bool(p.get("timedOut")),
-                    "costUsd": round(p.get("totalCostUsd", 0.0), 4),
+                    "timedOut": bool(p.timedOut),
+                    "costUsd": round(p.totalCostUsd or 0.0, 4),
                     "promptTokens": player_prompt_tokens.get(name, 0),
                     "completionTokens": player_completion_tokens.get(name, 0),
                     "cachedTokens": player_cached_tokens.get(name, 0),
                     "reasoningTokens": player_reasoning_tokens.get(name, 0),
-                    "toolCallsOk": p["toolCallsOk"],
-                    "toolCallsFailed": p["toolCallsFailed"],
-                    "thinkingTimeSecs": round(p["thinkingTimeSecs"], 1),
+                    "toolCallsOk": p.toolCallsOk,
+                    "toolCallsFailed": p.toolCallsFailed,
+                    "thinkingTimeSecs": round(p.thinkingTimeSecs, 1),
                     "responses": player_responses.get(name, 0),
                     "timeouts": player_timeouts.get(name, 0),
                     "otherErrors": player_other_errors.get(name, 0),
