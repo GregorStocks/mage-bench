@@ -56,7 +56,9 @@ def write_raw_game_export(
             return {f.name: getattr(obj, f.name) for f in dataclasses.fields(obj)}
         raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
-    json_bytes = json.dumps(data, indent=2, ensure_ascii=False, default=_default).encode()
+    json_bytes = json.dumps(
+        data, indent=2, ensure_ascii=False, default=_default
+    ).encode()
     if compress is None:
         compress = len(json_bytes) > GAME_EXPORT_GZ_THRESHOLD
 
