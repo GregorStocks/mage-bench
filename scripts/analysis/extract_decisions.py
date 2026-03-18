@@ -889,7 +889,7 @@ def main(gz_path: str) -> None:
 
     decisions = extract_decisions(gz_path)
     json.dump(
-        [decision.to_dict() for decision in decisions],
+        list(decisions),
         sys.stdout,
         indent=2,
         default=json_default,

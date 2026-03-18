@@ -226,9 +226,6 @@ class TestComputeAftermathIndex:
 
 
 class TestReverseMapAnnotations:
-    def _make_snapshots(self, n: int) -> list[dict]:
-        return [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(n)]
-
     def _make_decision(self, idx: int, snap_idx: int, player: str) -> dict:
         return {
             "index": idx,
