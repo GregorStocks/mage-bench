@@ -166,18 +166,23 @@ public class ObserverGamePanel extends GamePanel {
         this.healthServer = healthServer;
     }
 
+    private Path requireConfiguredGameDirPath(String source) {
+        if (gameDirPath != null) {
+            return gameDirPath;
+        }
+        String gameDirStr = System.getProperty("xmage.observer.gameDir");
+        assert gameDirStr != null && !gameDirStr.isEmpty() : (
+                source + ": xmage.observer.gameDir must be configured before watching a game"
+        );
+        gameDirPath = Paths.get(gameDirStr);
+        return gameDirPath;
+    }
+
     private void signalWatchingReady() {
         if (watchingSignaled || healthServer == null) {
             return;
         }
-        if (gameDirPath == null) {
-            String gameDirStr = System.getProperty("xmage.observer.gameDir");
-            if (gameDirStr == null || gameDirStr.isEmpty()) {
-                return;
-            }
-            gameDirPath = Paths.get(gameDirStr);
-        }
-        healthServer.signalGameWatching(gameDirPath.toString());
+        healthServer.signalGameWatching(requireConfiguredGameDirPath("signalWatchingReady").toString());
         watchingSignaled = true;
     }
 
@@ -196,9 +201,13 @@ public class ObserverGamePanel extends GamePanel {
 
     @Override
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
-        String gameDirStr = System.getProperty("xmage.observer.gameDir");
-        if (gameDirStr != null && !gameDirStr.isEmpty()) {
-            gameDirPath = Paths.get(gameDirStr);
+        if (healthServer != null) {
+            requireConfiguredGameDirPath("watchGame");
+        } else {
+            String gameDirStr = System.getProperty("xmage.observer.gameDir");
+            if (gameDirStr != null && !gameDirStr.isEmpty()) {
+                gameDirPath = Paths.get(gameDirStr);
+            }
         }
         // keepAlive spectators reuse the same panel across games, so any
         // per-game watcher state must be cleared before the new GameView
