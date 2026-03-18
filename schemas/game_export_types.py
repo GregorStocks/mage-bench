@@ -187,20 +187,17 @@ class Snapshot(TypedDict):
     combat: NotRequired[list[CombatGroup]]
 
 
-Action = TypedDict(
-    "Action",
-    {
-        "seq": int,
-        "message": NotRequired[str],
-        "type": NotRequired[str],
-        "turn": NotRequired[int],
-        "phase": NotRequired[str | None],
-        "step": NotRequired[str | None],
-        "active_player": NotRequired[str | None],
-        "ts": NotRequired[str],
-        "from": NotRequired[str],
-    },
-)
+@dataclass
+class Action:
+    seq: int
+    message: str | None = None
+    type: str | None = None
+    turn: int | None = None
+    phase: str | None = None
+    step: str | None = None
+    active_player: str | None = None
+    ts: str | None = None
+    from_: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -336,21 +333,23 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
     return instance
 
 
-class GameOver(TypedDict):
+@dataclass
+class GameOver:
     seq: int
     message: str
 
 
-class Annotation(TypedDict):
+@dataclass
+class Annotation:
     decisionIndex: int
-    snapshotIndex: NotRequired[int]
     player: str
     type: Literal["blunder"]
     severity: str
     description: str
     actionTaken: str
     betterLine: str
-    llmReasoning: NotRequired[str]
+    snapshotIndex: int | None = None
+    llmReasoning: str | None = None
 
 
 class PilotContext(TypedDict, total=False):
@@ -497,22 +496,24 @@ class Decision:
         return self.to_dict().get(key, default)
 
 
-class GameError(TypedDict):
+@dataclass
+class GameError:
     ts: str
     player: str
     source: str
     message: str
-    decisionIndex: NotRequired[int]
+    decisionIndex: int | None = None
 
 
-class CardMetadata(TypedDict, total=False):
-    mana_cost: str
-    type_line: str
-    oracle_text: str
-    power: str
-    toughness: str
-    loyalty: str
-    defense: str
+@dataclass
+class CardMetadata:
+    mana_cost: str | None = None
+    type_line: str | None = None
+    oracle_text: str | None = None
+    power: str | None = None
+    toughness: str | None = None
+    loyalty: str | None = None
+    defense: str | None = None
 
 
 class _GameExportBase(TypedDict):
@@ -581,47 +582,57 @@ def _require_key(obj: JsonObject, key: str, source: str) -> object:
     return obj[key]
 
 
-def _require_str(value: object, source: str) -> None:
+def _require_str(value: object, source: str) -> str:
     assert isinstance(value, str), f"{source}: expected string, got {_type_name(value)}"
+    return value
 
 
-def _require_non_empty_str(value: object, source: str) -> None:
-    _require_str(value, source)
-    assert value, f"{source}: expected non-empty string"
+def _require_non_empty_str(value: object, source: str) -> str:
+    result = _require_str(value, source)
+    assert result, f"{source}: expected non-empty string"
+    return result
 
 
-def _require_optional_str(value: object, source: str) -> None:
+def _require_optional_str(value: object, source: str) -> str | None:
     assert value is None or isinstance(value, str), (
         f"{source}: expected string or null, got {_type_name(value)}"
     )
+    return value
 
 
-def _require_int(value: object, source: str) -> None:
+def _require_int(value: object, source: str) -> int:
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"{source}: expected int, got {_type_name(value)}"
     )
+    return value
 
 
-def _require_non_negative_int(value: object, source: str) -> None:
+def _require_non_negative_int(value: object, source: str) -> int:
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"{source}: expected int, got {_type_name(value)}"
     )
     assert value >= 0, f"{source}: expected non-negative int, got {value!r}"
+    return value
 
 
-def _require_positive_int(value: object, source: str) -> None:
+def _require_positive_int(value: object, source: str) -> int:
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"{source}: expected int, got {_type_name(value)}"
     )
     assert value >= 1, f"{source}: expected positive int, got {value!r}"
+    return value
 
 
-def _require_number(value: object, source: str) -> None:
-    assert _is_number(value), f"{source}: expected number, got {_type_name(value)}"
+def _require_number(value: object, source: str) -> int | float:
+    assert isinstance(value, (int, float)) and not isinstance(value, bool), (
+        f"{source}: expected number, got {_type_name(value)}"
+    )
+    return value
 
 
-def _require_bool(value: object, source: str) -> None:
+def _require_bool(value: object, source: str) -> bool:
     assert isinstance(value, bool), f"{source}: expected bool, got {_type_name(value)}"
+    return value
 
 
 def _require_list(value: object, source: str) -> list[object]:
@@ -901,29 +912,51 @@ def _is_snapshot(value: object, source: str) -> TypeIs[Snapshot]:
     return True
 
 
-def _is_action(value: object, source: str) -> TypeIs[Action]:
+def _parse_action(value: object, source: str) -> Action:
+    if isinstance(value, Action):
+        return value
     obj = _require_object(value, source)
-    _require_int(_require_key(obj, "seq", source), f"{source}.seq")
+    seq = _require_int(_require_key(obj, "seq", source), f"{source}.seq")
+    message: str | None = None
     if "message" in obj:
-        _require_str(obj["message"], f"{source}.message")
+        message = _require_str(obj["message"], f"{source}.message")
+    type_: str | None = None
     if "type" in obj:
-        _require_str(obj["type"], f"{source}.type")
-        assert obj["type"] in _ACTION_TYPES, (
-            f"{source}.type: unexpected action type {obj['type']!r}"
+        type_ = _require_str(obj["type"], f"{source}.type")
+        assert type_ in _ACTION_TYPES, (
+            f"{source}.type: unexpected action type {type_!r}"
         )
+    turn: int | None = None
     if "turn" in obj:
-        _require_int(obj["turn"], f"{source}.turn")
+        turn = _require_int(obj["turn"], f"{source}.turn")
+    phase: str | None = None
     if "phase" in obj:
-        _require_optional_str(obj["phase"], f"{source}.phase")
+        phase = _require_optional_str(obj["phase"], f"{source}.phase")
+    step: str | None = None
     if "step" in obj:
-        _require_optional_str(obj["step"], f"{source}.step")
+        step = _require_optional_str(obj["step"], f"{source}.step")
+    active_player: str | None = None
     if "active_player" in obj:
-        _require_optional_str(obj["active_player"], f"{source}.active_player")
+        active_player = _require_optional_str(
+            obj["active_player"], f"{source}.active_player"
+        )
+    ts: str | None = None
     if "ts" in obj:
-        _require_str(obj["ts"], f"{source}.ts")
+        ts = _require_str(obj["ts"], f"{source}.ts")
+    from_: str | None = None
     if "from" in obj:
-        _require_str(obj["from"], f"{source}.from")
-    return True
+        from_ = _require_str(obj["from"], f"{source}.from")
+    return Action(
+        seq=seq,
+        message=message,
+        type=type_,
+        turn=turn,
+        phase=phase,
+        step=step,
+        active_player=active_player,
+        ts=ts,
+        from_=from_,
+    )
 
 
 def _is_llm_usage(value: object, source: str) -> bool:
@@ -996,35 +1029,57 @@ def _is_llm_event(value: object, source: str) -> bool:
     return True
 
 
-def _is_game_over(value: object, source: str) -> TypeIs[GameOver]:
+def _parse_game_over(value: object, source: str) -> GameOver:
+    if isinstance(value, GameOver):
+        return value
     obj = _require_object(value, source)
-    _require_int(_require_key(obj, "seq", source), f"{source}.seq")
-    _require_str(_require_key(obj, "message", source), f"{source}.message")
-    return True
+    seq = _require_int(_require_key(obj, "seq", source), f"{source}.seq")
+    message = _require_str(_require_key(obj, "message", source), f"{source}.message")
+    return GameOver(seq=seq, message=message)
 
 
-def _is_annotation(value: object, source: str) -> TypeIs[Annotation]:
+def _parse_annotation(value: object, source: str) -> Annotation:
+    if isinstance(value, Annotation):
+        return value
     obj = _require_object(value, source)
-    _require_non_negative_int(
+    decision_index = _require_non_negative_int(
         _require_key(obj, "decisionIndex", source), f"{source}.decisionIndex"
     )
+    snapshot_index: int | None = None
     if "snapshotIndex" in obj:
-        _require_non_negative_int(obj["snapshotIndex"], f"{source}.snapshotIndex")
-    _require_str(_require_key(obj, "player", source), f"{source}.player")
-    _require_str(_require_key(obj, "type", source), f"{source}.type")
-    assert obj["type"] == "blunder", (
-        f"{source}.type: expected 'blunder', got {obj['type']!r}"
+        snapshot_index = _require_non_negative_int(
+            obj["snapshotIndex"], f"{source}.snapshotIndex"
+        )
+    player = _require_str(_require_key(obj, "player", source), f"{source}.player")
+    type_ = _require_str(_require_key(obj, "type", source), f"{source}.type")
+    assert type_ == "blunder", f"{source}.type: expected 'blunder', got {type_!r}"
+    severity = _require_str(_require_key(obj, "severity", source), f"{source}.severity")
+    assert severity in _ANNOTATION_SEVERITIES, (
+        f"{source}.severity: unexpected annotation severity {severity!r}"
     )
-    _require_str(_require_key(obj, "severity", source), f"{source}.severity")
-    assert obj["severity"] in _ANNOTATION_SEVERITIES, (
-        f"{source}.severity: unexpected annotation severity {obj['severity']!r}"
+    description = _require_str(
+        _require_key(obj, "description", source), f"{source}.description"
     )
-    _require_str(_require_key(obj, "description", source), f"{source}.description")
-    _require_str(_require_key(obj, "actionTaken", source), f"{source}.actionTaken")
-    _require_str(_require_key(obj, "betterLine", source), f"{source}.betterLine")
+    action_taken = _require_str(
+        _require_key(obj, "actionTaken", source), f"{source}.actionTaken"
+    )
+    better_line = _require_str(
+        _require_key(obj, "betterLine", source), f"{source}.betterLine"
+    )
+    llm_reasoning: str | None = None
     if "llmReasoning" in obj:
-        _require_str(obj["llmReasoning"], f"{source}.llmReasoning")
-    return True
+        llm_reasoning = _require_str(obj["llmReasoning"], f"{source}.llmReasoning")
+    return Annotation(
+        decisionIndex=decision_index,
+        player=player,
+        type="blunder",
+        severity=severity,
+        description=description,
+        actionTaken=action_taken,
+        betterLine=better_line,
+        snapshotIndex=snapshot_index,
+        llmReasoning=llm_reasoning,
+    )
 
 
 def _is_pilot_context(value: object, source: str) -> TypeIs[PilotContext]:
@@ -1099,19 +1154,33 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     return True
 
 
-def _is_game_error(value: object, source: str) -> TypeIs[GameError]:
+def _parse_game_error(value: object, source: str) -> GameError:
+    if isinstance(value, GameError):
+        return value
     obj = _require_object(value, source)
-    _require_str(_require_key(obj, "ts", source), f"{source}.ts")
-    _require_str(_require_key(obj, "player", source), f"{source}.player")
-    _require_str(_require_key(obj, "source", source), f"{source}.source")
-    _require_str(_require_key(obj, "message", source), f"{source}.message")
+    ts = _require_str(_require_key(obj, "ts", source), f"{source}.ts")
+    player = _require_str(_require_key(obj, "player", source), f"{source}.player")
+    source_ = _require_str(_require_key(obj, "source", source), f"{source}.source")
+    message = _require_str(_require_key(obj, "message", source), f"{source}.message")
+    decision_index: int | None = None
     if "decisionIndex" in obj:
-        _require_non_negative_int(obj["decisionIndex"], f"{source}.decisionIndex")
-    return True
+        decision_index = _require_non_negative_int(
+            obj["decisionIndex"], f"{source}.decisionIndex"
+        )
+    return GameError(
+        ts=ts,
+        player=player,
+        source=source_,
+        message=message,
+        decisionIndex=decision_index,
+    )
 
 
-def _is_card_metadata(value: object, source: str) -> TypeIs[CardMetadata]:
+def _parse_card_metadata(value: object, source: str) -> CardMetadata:
+    if isinstance(value, CardMetadata):
+        return value
     obj = _require_object(value, source)
+    kwargs: dict[str, str] = {}
     for key in (
         "mana_cost",
         "type_line",
@@ -1122,8 +1191,8 @@ def _is_card_metadata(value: object, source: str) -> TypeIs[CardMetadata]:
         "defense",
     ):
         if key in obj:
-            _require_str(obj[key], f"{source}.{key}")
-    return True
+            kwargs[key] = _require_str(obj[key], f"{source}.{key}")
+    return CardMetadata(**kwargs)
 
 
 def _validate_common_game_export(value: object, source: str) -> JsonObject:
@@ -1160,7 +1229,7 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
         assert _is_snapshot(snapshot, f"{source}.snapshots[{index}]")
     actions = _require_list(_require_key(obj, "actions", source), f"{source}.actions")
     for index, action in enumerate(actions):
-        assert _is_action(action, f"{source}.actions[{index}]")
+        actions[index] = _parse_action(action, f"{source}.actions[{index}]")
     llm_events = _require_list(
         _require_key(obj, "llmEvents", source), f"{source}.llmEvents"
     )
@@ -1171,15 +1240,18 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
         assert _is_llm_event(event_obj, f"{source}.llmEvents[{index}]")
         llm_events[index] = _llm_event_from_dict(event_obj)
     game_over = _require_key(obj, "gameOver", source)
-    assert game_over is None or _is_game_over(game_over, f"{source}.gameOver")
+    if game_over is not None:
+        obj["gameOver"] = _parse_game_over(game_over, f"{source}.gameOver")
     _require_non_negative_int(_require_key(obj, "season", source), f"{source}.season")
     tournament = _require_key(obj, "tournament", source)
     _require_optional_str(tournament, f"{source}.tournament")
     if "cardData" in obj:
         card_data = _require_object(obj["cardData"], f"{source}.cardData")
-        for card_name, metadata in card_data.items():
+        for card_name in card_data:
             _require_str(card_name, f"{source}.cardData key")
-            assert _is_card_metadata(metadata, f"{source}.cardData[{card_name}]")
+            card_data[card_name] = _parse_card_metadata(
+                card_data[card_name], f"{source}.cardData[{card_name}]"
+            )
     if "decisions" in obj:
         decisions = _require_list(obj["decisions"], f"{source}.decisions")
         for index, decision in enumerate(decisions):
@@ -1189,13 +1261,15 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
                     _require_object(decision, f"{source}.decisions[{index}]")
                 )
     if "errors" in obj:
-        for index, error in enumerate(_require_list(obj["errors"], f"{source}.errors")):
-            assert _is_game_error(error, f"{source}.errors[{index}]")
+        errors = _require_list(obj["errors"], f"{source}.errors")
+        for index, error in enumerate(errors):
+            errors[index] = _parse_game_error(error, f"{source}.errors[{index}]")
     if "annotations" in obj:
-        for index, annotation in enumerate(
-            _require_list(obj["annotations"], f"{source}.annotations")
-        ):
-            assert _is_annotation(annotation, f"{source}.annotations[{index}]")
+        annotations = _require_list(obj["annotations"], f"{source}.annotations")
+        for index, annotation in enumerate(annotations):
+            annotations[index] = _parse_annotation(
+                annotation, f"{source}.annotations[{index}]"
+            )
     if "blunderScriptVersion" in obj:
         _require_non_negative_int(
             obj["blunderScriptVersion"], f"{source}.blunderScriptVersion"
@@ -1276,11 +1350,14 @@ def json_default(obj: object) -> object:
             if extra:
                 result.update(extra)
             return result
-        return {
+        result = {
             f.name: getattr(obj, f.name)
             for f in dataclasses.fields(obj)
             if getattr(obj, f.name) is not None
         }
+        if "from_" in result:
+            result["from"] = result.pop("from_")
+        return result
     raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
 

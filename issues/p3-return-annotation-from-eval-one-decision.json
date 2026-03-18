@@ -1,0 +1,14 @@
+{
+  "title": "Have _eval_one_decision return Annotation instances instead of raw dicts",
+  "description": "After the leaf-type dataclass migration, `_eval_one_decision` in `scripts/analysis/blunder_analysis.py` still returns `list[dict]` for annotations. This forces every downstream consumer to handle both `Annotation` dataclass instances (from `load_game_export`) and raw dicts (from the annotator), resulting in ugly `isinstance(annotation, Annotation)` branching in 6 call sites across 4 files:\n\n- `blunder_eval_common.py`: `annotation_decision_index`, `reverse_map_annotations`\n- `blunder_audit.py`: `format_play_context`, `_get_current_annotation` callers (x2)\n- `blunder_audit_web.py`: `_handle_verdict`\n- `leaderboard.py`: `generate_leaderboard`, `generate_format_leaderboard`\n\nFix: construct `Annotation` instances at the end of `_eval_one_decision` (around line 1274 where `ann[\"type\"] = \"blunder\"` etc. are injected). Then change `_get_current_annotation` return type from `Annotation | dict | None` to `Annotation | None`, `_auto_ingest_ground_truth` annotations param from `Sequence[Annotation | Mapping]` to `Sequence[Annotation]`, and remove all `isinstance` branches.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "typing",
+    "refactor",
+    "schemas"
+  ],
+  "created_at": "2026-03-17T21:06:26-07:00",
+  "updated_at": "2026-03-17T21:06:26-07:00"
+}

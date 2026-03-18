@@ -83,8 +83,8 @@ def derive_baseline() -> dict:
             if match is not None:
                 results[pk] = {
                     "detected": True,
-                    "severity": match.get("severity"),
-                    "description": match.get("description"),
+                    "severity": match.severity,
+                    "description": match.description,
                 }
             else:
                 results[pk] = {"detected": False}

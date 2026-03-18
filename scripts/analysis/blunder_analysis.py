@@ -40,6 +40,7 @@ from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Action,
     Decision,
+    Annotation,
     GameExport,
     Permanent,
     Snapshot,
@@ -541,13 +542,13 @@ def _actions_by_turn(actions: Sequence[Action]) -> dict[int, list[str]]:
     current_turn = 0
     player_turn_counts: dict[str, int] = {}
     for a in actions:
-        msg = a.get("message")
+        msg = a.message
         if msg is None:
             continue
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
         # Skip chat messages — LLM personality flavor adds noise and can bias
         # the blunder annotator
-        if a.get("type") == "chat":
+        if a.type == "chat":
             continue
         msg = html.unescape(msg)
         m = re.match(r"^TURN (\d+) for (.+?)( \(.+\))$", msg)
@@ -642,8 +643,8 @@ def _format_current_turn_actions(
     in_current_turn = False
     lines: list[str] = []
     for a in all_actions:
-        msg = a.get("message")
-        ts = a.get("ts")
+        msg = a.message
+        ts = a.ts
         if msg is None:
             continue
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
@@ -671,7 +672,7 @@ def _format_current_turn_actions(
             break
 
         # Skip chat messages — LLM personality flavor adds noise
-        if a.get("type") == "chat":
+        if a.type == "chat":
             continue
         msg = html.unescape(msg)
 
@@ -1383,7 +1384,7 @@ def eval_decisions(
 
 def _auto_ingest_ground_truth(
     game_id: str,
-    annotations: Sequence[Mapping[str, object]],
+    annotations: Sequence[Annotation | Mapping[str, object]],
     decisions: Sequence[DecisionRecord],
     snapshots: Sequence[Mapping[str, object]],
 ) -> None:

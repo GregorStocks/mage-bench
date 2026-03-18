@@ -69,6 +69,7 @@ epoch directly.
 #  54 - Stop passive GAME_UPDATE state mutation; stack owner from CardView.controllerId (Mar 15)
 #  55 - Migrate GetGameLogTool from client-side chat accumulation to server-side bridge events (Mar 15)
 #  --- Golden exports updated: add model to test pilot players for stricter export validation (Mar 16)
+#  --- Golden exports updated: dataclass serialization includes null optional fields (Mar 17)
 HARNESS_EPOCH = 55
 
 # First epoch that counts as season 1. Used only for games that predate

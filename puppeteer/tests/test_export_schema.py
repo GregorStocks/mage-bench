@@ -102,15 +102,27 @@ def _assert_typed_dict_matches_schema(
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
 
 
-def _dataclass_keys(cls: type, *, ignored_fields: set[str] | None = None) -> set[str]:
+def _dataclass_keys(
+    cls: type,
+    *,
+    ignored_fields: set[str] | None = None,
+    renames: dict[str, str] | None = None,
+) -> set[str]:
     ignored = ignored_fields or set()
-    return {f.name for f in dataclasses.fields(cls) if f.name not in ignored}
+    renamed = renames or {}
+    return {renamed.get(f.name, f.name) for f in dataclasses.fields(cls) if f.name not in ignored}
 
 
-def _dataclass_required_keys(cls: type, *, ignored_fields: set[str] | None = None) -> set[str]:
+def _dataclass_required_keys(
+    cls: type,
+    *,
+    ignored_fields: set[str] | None = None,
+    renames: dict[str, str] | None = None,
+) -> set[str]:
     ignored = ignored_fields or set()
+    renamed = renames or {}
     return {
-        f.name
+        renamed.get(f.name, f.name)
         for f in dataclasses.fields(cls)
         if f.name not in ignored and f.default is dataclasses.MISSING and f.default_factory is dataclasses.MISSING
     }
@@ -122,11 +134,26 @@ def _assert_dataclass_matches_schema(
     schema: dict,
     required_override: set[str] | None = None,
     extra_fields: set[str] | None = None,
+    field_renames: dict[str, str] | None = None,
 ) -> None:
     expected_props = set(schema["properties"])
     expected_required = required_override if required_override is not None else set(schema.get("required", []))
-    assert _dataclass_keys(cls, ignored_fields=extra_fields) == expected_props
-    assert _dataclass_required_keys(cls, ignored_fields=extra_fields) == expected_required
+    assert (
+        _dataclass_keys(
+            cls,
+            ignored_fields=extra_fields,
+            renames=field_renames,
+        )
+        == expected_props
+    )
+    assert (
+        _dataclass_required_keys(
+            cls,
+            ignored_fields=extra_fields,
+            renames=field_renames,
+        )
+        == expected_required
+    )
 
 
 class TestExportSchema:
@@ -403,7 +430,7 @@ class TestExportSchema:
         _assert_typed_dict_matches_schema(Snapshot, schema=defs["Snapshot"])
         _assert_typed_dict_matches_schema(SnapshotPlayer, schema=defs["SnapshotPlayer"])
         _assert_typed_dict_matches_schema(CombatGroup, schema=defs["CombatGroup"])
-        _assert_typed_dict_matches_schema(Action, schema=defs["Action"])
+        _assert_dataclass_matches_schema(Action, schema=defs["Action"], field_renames={"from_": "from"})
         # LlmEvent is a Union of discriminated variants — verify the union
         # of all variant keys matches the flat JSON schema properties, and the
         # intersection of required keys matches the schema's required set.
@@ -435,12 +462,12 @@ class TestExportSchema:
             f"LlmEvent required keys mismatch: got {all_required}, expected {set(llm_schema.get('required', []))}"
         )
         _assert_dataclass_matches_schema(LlmUsage, schema=defs["LlmUsage"])
-        _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
-        _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
+        _assert_dataclass_matches_schema(GameOver, schema=defs["GameOver"])
+        _assert_dataclass_matches_schema(Annotation, schema=defs["Annotation"])
         _assert_dataclass_matches_schema(Decision, schema=defs["Decision"], extra_fields={"actionSeq"})
         _assert_typed_dict_matches_schema(PilotContext, schema=defs["PilotContext"])
-        _assert_typed_dict_matches_schema(GameError, schema=defs["GameError"])
-        _assert_typed_dict_matches_schema(CardMetadata, schema=defs["CardMetadata"])
+        _assert_dataclass_matches_schema(GameError, schema=defs["GameError"])
+        _assert_dataclass_matches_schema(CardMetadata, schema=defs["CardMetadata"])
         _assert_typed_dict_matches_schema(Permanent, schema=defs["Permanent"])
         _assert_typed_dict_matches_schema(StackItem, schema=defs["StackItem"])
         _assert_typed_dict_matches_schema(StackTarget, schema=defs["StackTarget"])

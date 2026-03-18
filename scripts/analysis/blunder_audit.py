@@ -20,7 +20,7 @@ from collections.abc import Mapping, Sequence
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
-from schemas.game_export_types import Action, Decision, GameExport, Snapshot
+from schemas.game_export_types import Action, Annotation, Decision, GameExport, Snapshot
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
@@ -147,7 +147,7 @@ def _lookup_existing_annotation(
     decision: DecisionRecord,
     game_data: GameExport,
     snapshots: Sequence[Snapshot],
-) -> Mapping[str, Any] | None:
+) -> Annotation | None:
     """Look up the annotation from the game file (may be stale). For display only."""
     return lookup_annotation_for_decision(decision, game_data["annotations"])
 
@@ -157,7 +157,7 @@ def _get_current_annotation(
     game_data: GameExport,
     snapshots: Sequence[Snapshot],
     gz_path: str,
-) -> tuple[Mapping[str, Any] | None, int]:
+) -> tuple[Annotation | dict[str, object] | None, int]:
     """Get the current-version annotation for a decision.
 
     If the game file is at the current BLUNDER_SCRIPT_VERSION, looks up
@@ -219,7 +219,7 @@ def _recent_actions_before(
         return []
     recent: list[str] = []
     for a in game_actions:
-        a_ts = a.get("ts")
+        a_ts = a.ts
         if a_ts is None:
             continue
         assert isinstance(a_ts, str), (
@@ -227,7 +227,7 @@ def _recent_actions_before(
         )
         if a_ts > snap_ts:
             break
-        msg = a.get("message")
+        msg = a.message
         if msg is None:
             continue
         assert isinstance(msg, str), (
@@ -242,7 +242,7 @@ def format_play_context(
     game_id: str,
     decision: DecisionRecord,
     snapshots: Sequence[Snapshot],
-    annotation: Mapping[str, Any] | None,
+    annotation: Annotation | Mapping[str, object] | None,
     game_actions: Sequence[Action] | None = None,
 ) -> str:
     """Format a decision for display during auditing."""
@@ -304,8 +304,12 @@ def format_play_context(
             lines.extend(f"  {msg}" for msg in recent)
 
     if annotation:
-        sev = annotation.get("severity")
-        desc = annotation.get("description")
+        if isinstance(annotation, Annotation):
+            sev: object = annotation.severity
+            desc: object = annotation.description
+        else:
+            sev = annotation.get("severity")
+            desc = annotation.get("description")
         if isinstance(sev, str) and isinstance(desc, str):
             prefix = f"Annotator: {sev} - "
             wrapped = textwrap.fill(
@@ -447,16 +451,20 @@ def audit_plays(game_filter: str | None = None) -> None:
         annotation_severity = None
         annotation_description = None
         if annotation is not None:
-            severity = annotation.get("severity")
-            description = annotation.get("description")
-            assert isinstance(severity, str), (
-                f"annotation severity must be a string, got {severity!r}"
-            )
-            assert isinstance(description, str), (
-                f"annotation description must be a string, got {description!r}"
-            )
-            annotation_severity = severity
-            annotation_description = description
+            if isinstance(annotation, Annotation):
+                annotation_severity = annotation.severity
+                annotation_description = annotation.description
+            else:
+                severity = annotation.get("severity")
+                description = annotation.get("description")
+                assert isinstance(severity, str), (
+                    f"annotation severity must be a string, got {severity!r}"
+                )
+                assert isinstance(description, str), (
+                    f"annotation description must be a string, got {description!r}"
+                )
+                annotation_severity = severity
+                annotation_description = description
         audited_entry = make_audited_entry(
             decision_index=di,
             annotation_version=ann_version,
@@ -582,16 +590,20 @@ def add_from_url(url: str) -> None:
     annotation_severity = None
     annotation_description = None
     if annotation is not None:
-        severity = annotation.get("severity")
-        description = annotation.get("description")
-        assert isinstance(severity, str), (
-            f"annotation severity must be a string, got {severity!r}"
-        )
-        assert isinstance(description, str), (
-            f"annotation description must be a string, got {description!r}"
-        )
-        annotation_severity = severity
-        annotation_description = description
+        if isinstance(annotation, Annotation):
+            annotation_severity = annotation.severity
+            annotation_description = annotation.description
+        else:
+            severity = annotation.get("severity")
+            description = annotation.get("description")
+            assert isinstance(severity, str), (
+                f"annotation severity must be a string, got {severity!r}"
+            )
+            assert isinstance(description, str), (
+                f"annotation description must be a string, got {description!r}"
+            )
+            annotation_severity = severity
+            annotation_description = description
 
     audited_entry = make_audited_entry(
         decision_index=best_di,

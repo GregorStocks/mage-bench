@@ -55,12 +55,12 @@ def main(gz_path: str) -> None:
 
     # Key actions
     for a in actions:
-        msg = a.get("message")
+        msg = a.message
         if msg is None:
             continue
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
         is_key = any(kw in msg.lower() for kw in ACTION_KEYWORDS)
-        is_chat = a.get("type") == "chat"
+        is_chat = a.type == "chat"
         if is_key or is_chat:
             prefix = "[CHAT] " if is_chat else ""
             print(f"  {prefix}{msg[:200]}")

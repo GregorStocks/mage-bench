@@ -1544,7 +1544,7 @@ def _brief(value: object, max_len: int = 80) -> str:
         if len(r) > max_len:
             return r[: max_len - 3] + "..."
         return r
-    s = json.dumps(value, sort_keys=True, ensure_ascii=False)
+    s = json.dumps(value, sort_keys=True, ensure_ascii=False, default=json_default)
     if len(s) > max_len:
         return s[: max_len - 3] + "..."
     return s
@@ -1682,7 +1682,10 @@ def _strip_volatile(data: dict) -> None:
 
     # Keep critical errors visible in goldens; only strip their wall-clock time.
     for error in data.get("errors", []):
-        error.pop("ts", None)
+        if isinstance(error, dict):
+            error.pop("ts", None)
+        else:
+            error.ts = None
 
     # Strip volatile fields from player summaries — convert dataclass instances
     # to plain dicts so downstream json.dumps works.
@@ -1697,7 +1700,10 @@ def _strip_volatile(data: dict) -> None:
 
     # Strip ts from actions
     for action in data.get("actions", []):
-        action.pop("ts", None)
+        if isinstance(action, dict):
+            action.pop("ts", None)
+        else:
+            action.ts = None
 
     # Convert llmEvents to dicts (they are dataclass instances after validation)
     # then sort by (seq, player) and strip wall-clock timing fields.
@@ -1734,7 +1740,9 @@ def _normalize_export_for_golden(export_data: dict) -> dict:
     """Return a deterministic export copy for golden comparison."""
     normalized = copy.deepcopy(export_data)
     _strip_volatile(normalized)
-    return _normalize_embedded_json(normalized)
+    normalized = _normalize_embedded_json(normalized)
+    # Round-trip through JSON to convert dataclass instances to plain dicts
+    return json.loads(json.dumps(normalized, default=json_default))
 
 
 def assert_golden_export(name: str, export_data: dict) -> None:
