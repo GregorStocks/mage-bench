@@ -1699,7 +1699,11 @@ def _strip_volatile(data: dict) -> None:
     llm_events = data.get("llmEvents", [])
     for i, event in enumerate(llm_events):
         if dataclasses.is_dataclass(event) and not isinstance(event, type):
-            llm_events[i] = {f.name: getattr(event, f.name) for f in dataclasses.fields(event)}
+            llm_events[i] = {
+                f.name: getattr(event, f.name)
+                for f in dataclasses.fields(event)
+                if getattr(event, f.name) is not None
+            }
     for event in llm_events:
         event.pop("ts", None)
         event.pop("latencyMs", None)
