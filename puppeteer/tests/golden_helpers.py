@@ -40,6 +40,7 @@ from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
+from schemas.game_export_types import GameExportEncoder
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -1531,24 +1532,9 @@ def _send_spectator_command(
     return spectator.wait_for_ready(game_dir)
 
 
-class _DataclassEncoder(json.JSONEncoder):
-    """JSON encoder that converts dataclass instances to dicts."""
-
-    def default(self, o: object) -> object:
-        if dataclasses.is_dataclass(o) and not isinstance(o, type):
-            d = dataclasses.asdict(o)
-            # Map Python field names back to JSON keys
-            if "from_" in d:
-                d["from"] = d.pop("from_")
-            # Strip None values — dataclass optional fields default to None,
-            # but the JSON schema treats absent keys and null differently.
-            return {k: v for k, v in d.items() if v is not None}
-        return super().default(o)
-
-
 def _to_sorted_json(obj: object) -> str:
     """Deterministic JSON serialization with sorted keys."""
-    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False, cls=_DataclassEncoder)
+    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False, cls=GameExportEncoder)
 
 
 def _brief(value: object, max_len: int = 80) -> str:
@@ -1558,7 +1544,7 @@ def _brief(value: object, max_len: int = 80) -> str:
         if len(r) > max_len:
             return r[: max_len - 3] + "..."
         return r
-    s = json.dumps(value, sort_keys=True, ensure_ascii=False, cls=_DataclassEncoder)
+    s = json.dumps(value, sort_keys=True, ensure_ascii=False, cls=GameExportEncoder)
     if len(s) > max_len:
         return s[: max_len - 3] + "..."
     return s
@@ -1732,7 +1718,7 @@ def _normalize_export_for_golden(export_data: dict) -> dict:
     _strip_volatile(normalized)
     normalized = _normalize_embedded_json(normalized)
     # Round-trip through JSON to convert dataclass instances to plain dicts
-    return json.loads(json.dumps(normalized, cls=_DataclassEncoder))
+    return json.loads(json.dumps(normalized, cls=GameExportEncoder))
 
 
 def assert_golden_export(name: str, export_data: dict) -> None:
@@ -1801,7 +1787,7 @@ def extract_blunder_decisions(export_data: dict, game_dir: Path) -> list[dict]:
     """Extract decisions for golden blunder prompt comparisons."""
     # Keep the temp export on the validator's canonical game-export path.
     tmp_export = game_dir / "game_blunder_export.json"
-    tmp_export.write_text(json.dumps(export_data, cls=_DataclassEncoder))
+    tmp_export.write_text(json.dumps(export_data, cls=GameExportEncoder))
     try:
         return extract_decisions(str(tmp_export))
     finally:

@@ -5,6 +5,7 @@ the TypedDict field sets aligned with the JSON Schema so Python callers can
 load validated exports without falling back to raw ``dict[str, object]`` blobs.
 """
 
+import dataclasses
 import gzip
 import json
 from dataclasses import dataclass
@@ -15,6 +16,22 @@ from typing import Literal, TypeAlias
 from typing_extensions import NotRequired, TypeGuard, TypeIs, TypedDict
 
 JsonObject: TypeAlias = dict[str, object]
+
+
+class GameExportEncoder(json.JSONEncoder):
+    """JSON encoder that converts game export dataclass instances to dicts.
+
+    Strips None values so absent optional fields are omitted rather than
+    serialized as null (matching the original TypedDict/dict behavior).
+    """
+
+    def default(self, o: object) -> object:
+        if dataclasses.is_dataclass(o) and not isinstance(o, type):
+            d = dataclasses.asdict(o)
+            if "from_" in d:
+                d["from"] = d.pop("from_")
+            return {k: v for k, v in d.items() if v is not None}
+        return super().default(o)
 
 
 # -- Nested payload types used by the decision renderer --
@@ -716,6 +733,8 @@ def _is_snapshot(value: object, source: str) -> TypeIs[Snapshot]:
 
 
 def _parse_action(value: object, source: str) -> Action:
+    if isinstance(value, Action):
+        return value
     obj = _require_object(value, source)
     seq = _require_int(_require_key(obj, "seq", source), f"{source}.seq")
     message: str | None = None
@@ -831,6 +850,8 @@ def _is_llm_event(value: object, source: str) -> TypeIs[LlmEvent]:
 
 
 def _parse_game_over(value: object, source: str) -> GameOver:
+    if isinstance(value, GameOver):
+        return value
     obj = _require_object(value, source)
     seq = _require_int(_require_key(obj, "seq", source), f"{source}.seq")
     message = _require_str(_require_key(obj, "message", source), f"{source}.message")
@@ -838,6 +859,8 @@ def _parse_game_over(value: object, source: str) -> GameOver:
 
 
 def _parse_annotation(value: object, source: str) -> Annotation:
+    if isinstance(value, Annotation):
+        return value
     obj = _require_object(value, source)
     decision_index = _require_non_negative_int(
         _require_key(obj, "decisionIndex", source), f"{source}.decisionIndex"
@@ -947,6 +970,8 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
 
 
 def _parse_game_error(value: object, source: str) -> GameError:
+    if isinstance(value, GameError):
+        return value
     obj = _require_object(value, source)
     ts = _require_str(_require_key(obj, "ts", source), f"{source}.ts")
     player = _require_str(_require_key(obj, "player", source), f"{source}.player")
@@ -967,6 +992,8 @@ def _parse_game_error(value: object, source: str) -> GameError:
 
 
 def _parse_card_metadata(value: object, source: str) -> CardMetadata:
+    if isinstance(value, CardMetadata):
+        return value
     obj = _require_object(value, source)
     kwargs: dict[str, str] = {}
     for key in (
@@ -1120,6 +1147,7 @@ __all__ = [
     "Decision",
     "GameError",
     "GameExport",
+    "GameExportEncoder",
     "GameOver",
     "GameStartEvent",
     "JsonObject",
