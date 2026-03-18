@@ -40,6 +40,7 @@ from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
+from schemas.game_export_types import json_default
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -1533,7 +1534,7 @@ def _send_spectator_command(
 
 def _to_sorted_json(obj: object) -> str:
     """Deterministic JSON serialization with sorted keys."""
-    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
+    return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False, default=json_default)
 
 
 def _brief(value: object, max_len: int = 80) -> str:
@@ -1691,13 +1692,30 @@ def _strip_volatile(data: dict) -> None:
     for action in data.get("actions", []):
         action.pop("ts", None)
 
-    # Sort llmEvents by (seq, player) then strip wall-clock timing fields.
+    # Convert llmEvents to dicts (they are dataclass instances after validation)
+    # then sort by (seq, player) and strip wall-clock timing fields.
     # Mulligans and concedes have both players acting at the same seq;
     # thread interleaving is nondeterministic so we need a stable sort.
-    for event in data.get("llmEvents", []):
+    llm_events = data.get("llmEvents", [])
+    for i, event in enumerate(llm_events):
+        if dataclasses.is_dataclass(event) and not isinstance(event, type):
+            source_keys: frozenset[str] | None = getattr(event, "_source_keys", None)
+            if source_keys is not None:
+                d = {f.name: getattr(event, f.name) for f in dataclasses.fields(event) if f.name in source_keys}
+                extra: dict[str, object] | None = getattr(event, "_extra", None)
+                if extra:
+                    d.update(extra)
+                llm_events[i] = d
+            else:
+                llm_events[i] = {
+                    f.name: getattr(event, f.name)
+                    for f in dataclasses.fields(event)
+                    if getattr(event, f.name) is not None
+                }
+    for event in llm_events:
         event.pop("ts", None)
         event.pop("latencyMs", None)
-    data.get("llmEvents", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
+    llm_events.sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
     # Same for llmTrace.
     for event in data.get("llmTrace", []):
@@ -1778,7 +1796,7 @@ def extract_blunder_decisions(export_data: dict, game_dir: Path) -> list[dict]:
     """Extract decisions for golden blunder prompt comparisons."""
     # Keep the temp export on the validator's canonical game-export path.
     tmp_export = game_dir / "game_blunder_export.json"
-    tmp_export.write_text(json.dumps(export_data))
+    tmp_export.write_text(json.dumps(export_data, default=json_default))
     try:
         return extract_decisions(str(tmp_export))
     finally:

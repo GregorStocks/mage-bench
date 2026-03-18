@@ -102,22 +102,31 @@ def _assert_typed_dict_matches_schema(
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
 
 
+def _dataclass_keys(cls: type, *, ignored_fields: set[str] | None = None) -> set[str]:
+    ignored = ignored_fields or set()
+    return {f.name for f in dataclasses.fields(cls) if f.name not in ignored}
+
+
+def _dataclass_required_keys(cls: type, *, ignored_fields: set[str] | None = None) -> set[str]:
+    ignored = ignored_fields or set()
+    return {
+        f.name
+        for f in dataclasses.fields(cls)
+        if f.name not in ignored and f.default is dataclasses.MISSING and f.default_factory is dataclasses.MISSING
+    }
+
+
 def _assert_dataclass_matches_schema(
-    dataclass_cls: type,
+    cls: type,
     *,
     schema: dict,
+    required_override: set[str] | None = None,
     extra_fields: set[str] | None = None,
 ) -> None:
-    ignored = extra_fields or set()
-    fields = [field for field in dataclasses.fields(dataclass_cls) if field.name not in ignored]
-    field_names = {field.name for field in fields}
-    required = {
-        field.name
-        for field in fields
-        if field.default is dataclasses.MISSING and field.default_factory is dataclasses.MISSING
-    }
-    assert field_names == set(schema["properties"])
-    assert required == set(schema.get("required", []))
+    expected_props = set(schema["properties"])
+    expected_required = required_override if required_override is not None else set(schema.get("required", []))
+    assert _dataclass_keys(cls, ignored_fields=extra_fields) == expected_props
+    assert _dataclass_required_keys(cls, ignored_fields=extra_fields) == expected_required
 
 
 class TestExportSchema:
@@ -411,11 +420,11 @@ class TestExportSchema:
         all_keys: set[str] = set()
         all_required: set[str] | None = None
         for variant in llm_variants:
-            all_keys |= _typed_dict_keys(variant)
+            all_keys |= _dataclass_keys(variant)
             if all_required is None:
-                all_required = set(variant.__required_keys__)
+                all_required = _dataclass_required_keys(variant)
             else:
-                all_required &= set(variant.__required_keys__)
+                all_required &= _dataclass_required_keys(variant)
         llm_schema = defs["LlmEvent"]
         assert all_keys == set(llm_schema["properties"]), (
             f"LlmEvent variant keys mismatch: "
@@ -425,7 +434,7 @@ class TestExportSchema:
         assert all_required == set(llm_schema.get("required", [])), (
             f"LlmEvent required keys mismatch: got {all_required}, expected {set(llm_schema.get('required', []))}"
         )
-        _assert_typed_dict_matches_schema(LlmUsage, schema=defs["LlmUsage"])
+        _assert_dataclass_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
         _assert_dataclass_matches_schema(Decision, schema=defs["Decision"], extra_fields={"actionSeq"})

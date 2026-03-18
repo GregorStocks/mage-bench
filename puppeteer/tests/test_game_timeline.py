@@ -6,6 +6,8 @@ from unittest.mock import patch
 
 import pytest
 
+from schemas.game_export_types import GameStartEvent
+
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GAME_TIMELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "toolbox" / "game_timeline.py"
 
@@ -165,7 +167,8 @@ def test_find_context_uses_timestamp_for_older_exports() -> None:
             "seq": 10,
         },
     ]
-    event = {"ts": "2026-03-01T00:00:06.000000Z"}
+    # Use a dataclass instance — GameStartEvent is arbitrary, we just need ts/gameSeq
+    event = GameStartEvent(type="game_start", player="Alice", ts="2026-03-01T00:00:06.000000Z")
 
     assert game_timeline.find_turn_for_event(snapshots, event) == 1
     assert game_timeline.find_context_for_event(snapshots, event) == "T1 PRECOMBAT_MAIN (Alice)"

@@ -5,11 +5,12 @@ the typed field sets aligned with the JSON Schema so Python callers can
 load validated exports without falling back to raw ``dict[str, object]`` blobs.
 """
 
+import dataclasses
 import gzip
 import json
-from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
+from collections.abc import Callable
 from typing import Any, Literal, TypeAlias, cast
 
 from typing_extensions import NotRequired, TypeGuard, TypeIs, TypedDict
@@ -193,69 +194,80 @@ Action = TypedDict(
 )
 
 
-class LlmUsage(TypedDict, total=False):
-    promptTokens: int
-    completionTokens: int
-    cachedTokens: int
-    reasoningTokens: int
+@dataclass(kw_only=True)
+class LlmUsage:
+    promptTokens: int | None = None
+    completionTokens: int | None = None
+    cachedTokens: int | None = None
+    reasoningTokens: int | None = None
 
 
-class _LlmEventBase(TypedDict):
+@dataclass(kw_only=True)
+class _LlmEventBase:
+    type: str
     player: str
-    ts: NotRequired[str]
-    seq: NotRequired[int]
-    gameSeq: NotRequired[int]
+    ts: str | None = None
+    seq: int | None = None
+    gameSeq: int | None = None
 
 
+@dataclass(kw_only=True)
 class GameStartEvent(_LlmEventBase):
     type: Literal["game_start"]
-    model: NotRequired[str]
-    availableTools: NotRequired[list[str]]
+    model: str | None = None
+    availableTools: list[str] | None = None
 
 
+@dataclass(kw_only=True)
 class LlmResponseEvent(_LlmEventBase):
     type: Literal["llm_response"]
-    reasoning: NotRequired[str | None]
-    thinking: NotRequired[str | None]
-    toolCalls: NotRequired[object]
-    usage: NotRequired[LlmUsage]
-    costUsd: NotRequired[float]
+    reasoning: str | None = None
+    thinking: str | None = None
+    toolCalls: object | None = None
+    usage: LlmUsage | None = None
+    costUsd: float | None = None
 
 
+@dataclass(kw_only=True)
 class ToolCallEvent(_LlmEventBase):
     type: Literal["tool_call"]
     tool: str
     args: JsonObject
     result: str
-    latencyMs: NotRequired[int]
+    latencyMs: int | None = None
 
 
+@dataclass(kw_only=True)
 class StallEvent(_LlmEventBase):
     type: Literal["stall"]
-    turnsWithoutProgress: NotRequired[int]
-    lastTools: NotRequired[list[str]]
+    turnsWithoutProgress: int | None = None
+    lastTools: list[str] | None = None
 
 
+@dataclass(kw_only=True)
 class ContextResetEvent(_LlmEventBase):
     type: Literal["context_reset"]
-    reason: NotRequired[str]
+    reason: str | None = None
 
 
+@dataclass(kw_only=True)
 class ContextTrimEvent(_LlmEventBase):
     type: Literal["context_trim"]
-    messagesBefore: NotRequired[int]
-    messagesAfter: NotRequired[int]
+    messagesBefore: int | None = None
+    messagesAfter: int | None = None
 
 
+@dataclass(kw_only=True)
 class LlmErrorEvent(_LlmEventBase):
     type: Literal["llm_error"]
-    errorType: NotRequired[str]
-    errorMessage: NotRequired[str]
+    errorType: str | None = None
+    errorMessage: str | None = None
 
 
+@dataclass(kw_only=True)
 class AutoPilotModeEvent(_LlmEventBase):
     type: Literal["auto_pilot_mode"]
-    reason: NotRequired[str]
+    reason: str | None = None
 
 
 LlmEvent: TypeAlias = (
@@ -268,6 +280,51 @@ LlmEvent: TypeAlias = (
     | LlmErrorEvent
     | AutoPilotModeEvent
 )
+
+
+_LLM_EVENT_CLASSES: dict[str, type[LlmEvent]] = {
+    "game_start": GameStartEvent,
+    "llm_response": LlmResponseEvent,
+    "tool_call": ToolCallEvent,
+    "stall": StallEvent,
+    "context_reset": ContextResetEvent,
+    "context_trim": ContextTrimEvent,
+    "llm_error": LlmErrorEvent,
+    "auto_pilot_mode": AutoPilotModeEvent,
+}
+
+
+def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
+    """Convert a validated raw dict into the appropriate LlmEvent dataclass."""
+    event_type = d["type"]
+    assert isinstance(event_type, str) and event_type in _LLM_EVENT_CLASSES, (
+        f"unknown llm event type: {event_type!r}"
+    )
+    cls = _LLM_EVENT_CLASSES[event_type]
+    field_names = {f.name for f in dataclasses.fields(cls)}
+    kwargs: dict[str, object] = {}
+    extra: dict[str, object] = {}
+    for k, v in d.items():
+        if k not in field_names:
+            extra[k] = v
+            continue
+        if k == "usage" and isinstance(v, dict):
+            usage_fields = {f.name for f in dataclasses.fields(LlmUsage)}
+            usage_kwargs = {uk: uv for uk, uv in v.items() if uk in usage_fields}
+            usage_extra = {uk: uv for uk, uv in v.items() if uk not in usage_fields}
+            usage_instance = LlmUsage(**usage_kwargs)
+            object.__setattr__(usage_instance, "_source_keys", frozenset(v.keys()))
+            object.__setattr__(usage_instance, "_extra", usage_extra)
+            kwargs[k] = usage_instance
+        else:
+            kwargs[k] = v
+    instance = cls(**kwargs)  # type: ignore[arg-type]
+    # Track which keys were in the source dict so serialization can distinguish
+    # "field was explicitly null" from "field was absent" (both are None on the dataclass).
+    # Also preserve any unknown keys so round-trip serialization doesn't drop them.
+    object.__setattr__(instance, "_source_keys", frozenset(d.keys()))
+    object.__setattr__(instance, "_extra", extra)
+    return instance
 
 
 class GameOver(TypedDict):
@@ -839,7 +896,7 @@ def _is_action(value: object, source: str) -> TypeIs[Action]:
     return True
 
 
-def _is_llm_usage(value: object, source: str) -> TypeIs[LlmUsage]:
+def _is_llm_usage(value: object, source: str) -> bool:
     obj = _require_object(value, source)
     for key in ("promptTokens", "completionTokens", "cachedTokens", "reasoningTokens"):
         if key in obj:
@@ -847,7 +904,7 @@ def _is_llm_usage(value: object, source: str) -> TypeIs[LlmUsage]:
     return True
 
 
-def _is_llm_event(value: object, source: str) -> TypeIs[LlmEvent]:
+def _is_llm_event(value: object, source: str) -> bool:
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "type", source), f"{source}.type")
     assert obj["type"] in _LLM_EVENT_TYPES, (
@@ -1077,8 +1134,12 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
     llm_events = _require_list(
         _require_key(obj, "llmEvents", source), f"{source}.llmEvents"
     )
-    for index, event in enumerate(llm_events):
-        assert _is_llm_event(event, f"{source}.llmEvents[{index}]")
+    for index in range(len(llm_events)):
+        if dataclasses.is_dataclass(llm_events[index]):
+            continue  # Already converted (re-validation)
+        event_obj = _require_object(llm_events[index], f"{source}.llmEvents[{index}]")
+        assert _is_llm_event(event_obj, f"{source}.llmEvents[{index}]")
+        llm_events[index] = _llm_event_from_dict(event_obj)
     game_over = _require_key(obj, "gameOver", source)
     assert game_over is None or _is_game_over(game_over, f"{source}.gameOver")
     _require_non_negative_int(_require_key(obj, "season", source), f"{source}.season")
@@ -1160,6 +1221,39 @@ def load_built_game_export(path: str | Path) -> BuiltGameExport:
     return require_built_game_export(json.loads(raw), source=export_path.name)
 
 
+def json_default(obj: object) -> object:
+    """Handle dataclass instances in json.dumps.
+
+    If the instance was created via ``_llm_event_from_dict``, only fields
+    that were present in the source dict are serialized (preserving the
+    distinction between "field was explicitly null" and "field was absent").
+    Otherwise, fields with None values are omitted.
+
+    Usage: ``json.dumps(export, default=json_default)``
+    """
+    if isinstance(obj, Decision):
+        return obj.to_dict()
+    if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
+        source_keys: frozenset[str] | None = getattr(obj, "_source_keys", None)
+        if source_keys is not None:
+            result = {
+                f.name: getattr(obj, f.name)
+                for f in dataclasses.fields(obj)
+                if f.name in source_keys
+            }
+            # Re-emit unknown keys preserved from the source dict.
+            extra: dict[str, object] | None = getattr(obj, "_extra", None)
+            if extra:
+                result.update(extra)
+            return result
+        return {
+            f.name: getattr(obj, f.name)
+            for f in dataclasses.fields(obj)
+            if getattr(obj, f.name) is not None
+        }
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+
 __all__ = [
     "Action",
     "Annotation",
@@ -1192,6 +1286,7 @@ __all__ = [
     "StackTarget",
     "StallEvent",
     "ToolCallEvent",
+    "json_default",
     "is_built_game_export",
     "is_game_export",
     "is_pilot_player",

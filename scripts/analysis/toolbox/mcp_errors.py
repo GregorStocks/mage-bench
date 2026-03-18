@@ -74,10 +74,10 @@ def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str
     the preceding get_action_choices call."""
     for j in range(idx - 1, max(idx - 30, -1), -1):
         ev = events[j]
-        if ev["player"] != player:
+        if ev.player != player:
             continue
-        if ev["type"] == "tool_call" and ev["tool"] == "get_action_choices":
-            r = _parse_result(ev["result"])
+        if ev.type == "tool_call" and ev.tool == "get_action_choices":
+            r = _parse_result(ev.result)
             if r:
                 action_type = r.get("action_type")
                 assert action_type is None or isinstance(action_type, str), (
@@ -87,7 +87,7 @@ def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str
                     continue
                 return action_type
         # Stop if we hit another choose_action from this player
-        if ev["type"] == "tool_call" and ev["tool"] == "choose_action":
+        if ev.type == "tool_call" and ev.tool == "choose_action":
             break
     return ""
 
@@ -98,16 +98,16 @@ def _find_retry_outcome(
     """Look forward from an error to see if the model retried and what happened."""
     for j in range(idx + 1, min(idx + 20, len(events))):
         ev = events[j]
-        if ev["player"] != player:
+        if ev.player != player:
             continue
-        if ev["type"] != "tool_call":
+        if ev.type != "tool_call":
             continue
 
         # If they called a different tool first (e.g. get_action_choices), keep looking
-        if ev["tool"] != tool:
+        if ev.tool != tool:
             continue
 
-        r = _parse_result(ev["result"])
+        r = _parse_result(ev.result)
         if r is None:
             return "different_error"
         if r.get("success") is True:
@@ -135,17 +135,17 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
     errors: list[ErrorEvent] = []
 
     for i, e in enumerate(events):
-        if e["type"] != "tool_call":
+        if e.type != "tool_call":
             continue
 
-        player = e["player"]
+        player = e.player
         assert player in player_models, (
             f"{game_id}: tool_call event for unknown pilot player {player!r}"
         )
-        tool = e["tool"]
+        tool = e.tool
         model = player_models[player]
-        result_str = e["result"]
-        args = e["args"]
+        result_str = e.result
+        args = e.args
 
         r = _parse_result(result_str)
 

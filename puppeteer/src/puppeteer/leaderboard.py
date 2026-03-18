@@ -13,7 +13,13 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
-from schemas.game_export_types import GameExport, is_pilot_player, load_game_export
+from schemas.game_export_types import (
+    GameExport,
+    LlmErrorEvent,
+    LlmResponseEvent,
+    is_pilot_player,
+    load_game_export,
+)
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
@@ -956,7 +962,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # Scan llmEvents for per-player operational stats
         llm_events = game["llmEvents"]
         for ev in llm_events:
-            player_name = ev["player"]
+            player_name = ev.player
             if player_name not in name_to_key:
                 continue
             key = name_to_key[player_name]
@@ -965,20 +971,18 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
                 continue
             b = buckets[bucket_key]
 
-            ev_type = ev["type"]
-            if ev_type == "llm_response":
+            if isinstance(ev, LlmResponseEvent):
                 b["successfulResponses"] += 1
-                usage = ev.get("usage")
+                usage = ev.usage
                 if usage is not None:
-                    assert isinstance(usage, dict), f"llm_response usage must be an object, got {usage!r}"
-                    b["totalPromptTokens"] += usage.get("promptTokens", 0)
-                    b["totalCompletionTokens"] += usage.get("completionTokens", 0)
-                    b["totalCachedTokens"] += usage.get("cachedTokens", 0)
-                    b["totalReasoningTokens"] += usage.get("reasoningTokens", 0)
-            elif ev_type == "llm_error":
-                error_type = ev.get("errorType", "unknown")
+                    b["totalPromptTokens"] += usage.promptTokens or 0
+                    b["totalCompletionTokens"] += usage.completionTokens or 0
+                    b["totalCachedTokens"] += usage.cachedTokens or 0
+                    b["totalReasoningTokens"] += usage.reasoningTokens or 0
+            elif isinstance(ev, LlmErrorEvent):
+                error_type = ev.errorType or "unknown"
                 b["errors"][error_type] = b["errors"].get(error_type, 0) + 1
-            elif ev_type == "context_reset":
+            elif ev.type == "context_reset":
                 b["contextResets"] += 1
 
         # Collect per-request latencies from consecutive event timestamps.
@@ -986,11 +990,11 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         # ev_i's player — same approach as compute_thinking_time but we
         # collect individual durations instead of summing.
         for i in range(len(llm_events) - 1):
-            player_name = llm_events[i]["player"]
+            player_name = llm_events[i].player
             if player_name not in name_to_key:
                 continue
-            ts_a = llm_events[i].get("ts")
-            ts_b = llm_events[i + 1].get("ts")
+            ts_a = llm_events[i].ts
+            ts_b = llm_events[i + 1].ts
             if not ts_a or not ts_b:
                 continue
             try:
@@ -1092,39 +1096,37 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         last_ts: dict[str, datetime] = {}
 
         for ev in game["llmEvents"]:
-            player_name = ev["player"]
+            player_name = ev.player
             if player_name not in name_to_key:
                 continue
 
-            ev_type = ev["type"]
-            if ev_type == "llm_response":
+            if isinstance(ev, LlmResponseEvent):
                 player_responses[player_name] = player_responses.get(player_name, 0) + 1
-                usage = ev.get("usage")
+                usage = ev.usage
                 if usage is not None:
-                    assert isinstance(usage, dict), f"llm_response usage must be an object, got {usage!r}"
-                    player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + usage.get(
-                        "promptTokens", 0
+                    player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + (
+                        usage.promptTokens or 0
                     )
-                    player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + usage.get(
-                        "completionTokens", 0
+                    player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + (
+                        usage.completionTokens or 0
                     )
-                    player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + usage.get(
-                        "cachedTokens", 0
+                    player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + (
+                        usage.cachedTokens or 0
                     )
-                    player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + usage.get(
-                        "reasoningTokens", 0
+                    player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + (
+                        usage.reasoningTokens or 0
                     )
-            elif ev_type == "llm_error":
-                error_type = ev.get("errorType", "unknown")
+            elif isinstance(ev, LlmErrorEvent):
+                error_type = ev.errorType or "unknown"
                 if error_type == "timeout":
                     player_timeouts[player_name] = player_timeouts.get(player_name, 0) + 1
                 else:
                     player_other_errors[player_name] = player_other_errors.get(player_name, 0) + 1
-            elif ev_type == "context_reset":
+            elif ev.type == "context_reset":
                 player_context_resets[player_name] = player_context_resets.get(player_name, 0) + 1
 
             # Track latency from inter-event timestamp gaps
-            ev_ts_str = ev.get("ts")
+            ev_ts_str = ev.ts
             if ev_ts_str:
                 try:
                     ev_ts = datetime.fromisoformat(ev_ts_str)
