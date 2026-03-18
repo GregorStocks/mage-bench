@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Patch a .json.gz game export with blunder annotations.
+"""Patch a game export with blunder annotations.
 
-Reads the gz file, adds or replaces the top-level 'annotations' array,
+Reads the export file, adds or replaces the top-level 'annotations' array,
 validates the annotation schema, and writes back.
 """
 
-import gzip
 import json
 import sys
+
+from scripts.game_exports import load_raw_game_export, write_raw_game_export
 
 VALID_SEVERITIES = {"questionable", "minor", "moderate", "major"}
 REQUIRED_FIELDS = {
@@ -73,13 +74,7 @@ def annotate_game(
     blunder_script_version: int | None = None,
 ) -> None:
     """Patch a game export file with annotations. Handles both .json and .json.gz."""
-    is_gz = gz_path.endswith(".json.gz")
-    if is_gz:
-        with gzip.open(gz_path, "rt") as f:
-            game_data = json.load(f)
-    else:
-        with open(gz_path) as f:
-            game_data = json.load(f)
+    game_data = load_raw_game_export(gz_path)
 
     with open(annotations_path) as f:
         annotations = json.load(f)
@@ -95,12 +90,7 @@ def annotate_game(
     if blunder_script_version is not None:
         game_data["blunderScriptVersion"] = blunder_script_version
 
-    if is_gz:
-        with gzip.open(gz_path, "wt") as f:
-            json.dump(game_data, f, indent=2, ensure_ascii=False)
-    else:
-        with open(gz_path, "w") as f:
-            json.dump(game_data, f, indent=2, ensure_ascii=False)
+    write_raw_game_export(gz_path, game_data, compress=gz_path.endswith(".json.gz"))
 
     print(
         f"Wrote {len(annotations)} annotation(s) to {gz_path}",
