@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 import scripts.analysis.blunder_eval_common as blunder_eval_common
+from schemas.game_export_types import Annotation
 from scripts.analysis.blunder_eval_common import (
     chosen_display,
     compute_aftermath_index,
@@ -239,7 +240,7 @@ class TestReverseMapAnnotations:
         decisions = [
             self._make_decision(0, 2, "Alice", "2026-01-01T00:00:05.000"),
         ]
-        annotations = [{"decisionIndex": 0, "player": "Alice"}]
+        annotations = [_ann(0, "Alice")]
         mapping = reverse_map_annotations(annotations, decisions)
         assert mapping == {0: 0}
 
@@ -249,10 +250,7 @@ class TestReverseMapAnnotations:
             self._make_decision(0, 1, "Alice", "2026-01-01T00:00:03.000"),
             self._make_decision(1, 5, "Alice", "2026-01-01T00:00:07.000"),
         ]
-        annotations = [
-            {"decisionIndex": 0, "player": "Alice"},
-            {"decisionIndex": 1, "player": "Alice"},
-        ]
+        annotations = [_ann(0, "Alice"), _ann(1, "Alice")]
         mapping = reverse_map_annotations(annotations, decisions)
         assert mapping == {0: 0, 1: 1}
 
@@ -261,16 +259,21 @@ class TestReverseMapAnnotations:
         decisions = [
             self._make_decision(0, 2, "Alice"),
         ]
-        annotations = [{"decisionIndex": 0, "player": "Bob"}]
+        annotations = [_ann(0, "Bob")]
         with pytest.raises(AssertionError, match="does not match"):
             reverse_map_annotations(annotations, decisions)
 
-    def test_missing_decision_index_raises(self) -> None:
-
-        decisions = [self._make_decision(0, 0, "Alice")]
-        annotations = [{"player": "Alice"}]
-        with pytest.raises(AssertionError, match="missing decisionIndex"):
-            reverse_map_annotations(annotations, decisions)
+    def test_missing_decision_index_prevented_by_construction(self) -> None:
+        """Annotation dataclass requires decisionIndex — can't construct without it."""
+        with pytest.raises(TypeError):
+            Annotation(  # type: ignore[call-arg]
+                player="Alice",
+                type="blunder",
+                severity="minor",
+                description="",
+                actionTaken="",
+                betterLine="",
+            )
 
 
 # --- chosen_display ---
@@ -356,10 +359,30 @@ class TestEntryConstructors:
 # --- lookup_annotation_for_decision ---
 
 
-class TestLookupAnnotationForDecision:
-    def _make_snapshots(self, n: int) -> list[dict]:
-        return [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(n)]
+def _ann(
+    decision_index: int,
+    player: str,
+    *,
+    severity: str = "minor",
+    description: str = "",
+    action_taken: str = "",
+    better_line: str = "",
+    snapshot_index: int | None = None,
+) -> Annotation:
+    """Create a minimal Annotation for testing."""
+    return Annotation(
+        decisionIndex=decision_index,
+        player=player,
+        type="blunder",
+        severity=severity,
+        description=description,
+        actionTaken=action_taken,
+        betterLine=better_line,
+        snapshotIndex=snapshot_index,
+    )
 
+
+class TestLookupAnnotationForDecision:
     def test_exact_match(self) -> None:
 
         decision = {
@@ -368,12 +391,10 @@ class TestLookupAnnotationForDecision:
             "action_ts": "2026-01-01T00:00:05.000",
             "player": "Alice",
         }
-        annotations = [
-            {"decisionIndex": 0, "player": "Alice", "severity": "minor", "description": "bad play"},
-        ]
+        annotations = [_ann(0, "Alice", severity="minor", description="bad play")]
         result = lookup_annotation_for_decision(decision, annotations)
         assert result is not None
-        assert result["severity"] == "minor"
+        assert result.severity == "minor"
 
     def test_no_match_wrong_decision(self) -> None:
 
@@ -383,9 +404,7 @@ class TestLookupAnnotationForDecision:
             "action_ts": "2026-01-01T00:00:05.000",
             "player": "Alice",
         }
-        annotations = [
-            {"decisionIndex": 1, "player": "Bob", "severity": "minor"},
-        ]
+        annotations = [_ann(1, "Bob")]
         result = lookup_annotation_for_decision(decision, annotations)
         assert result is None
 
@@ -397,9 +416,7 @@ class TestLookupAnnotationForDecision:
             "action_ts": "2026-01-01T00:00:05.000",
             "player": "Alice",
         }
-        annotations = [
-            {"decisionIndex": 3, "player": "Alice", "severity": "minor"},
-        ]
+        annotations = [_ann(3, "Alice")]
         result = lookup_annotation_for_decision(decision, annotations)
         assert result is None
 
@@ -422,17 +439,10 @@ class TestLookupAnnotationForDecision:
             "action_ts": "2026-01-01T00:00:05.000",
             "player": "Alice",
         }
-        annotations = [
-            {
-                "decisionIndex": 1,
-                "snapshotIndex": 0,
-                "player": "Alice",
-                "severity": "minor",
-            },
-        ]
+        annotations = [_ann(1, "Alice", snapshot_index=0)]
         result = lookup_annotation_for_decision(decision, annotations)
         assert result is not None
-        assert result["decisionIndex"] == 1
+        assert result.decisionIndex == 1
 
 
 # --- merge_into_ground_truth ---
@@ -522,7 +532,7 @@ class TestBaselineDerivation:
             "player": "Alice",
         }
 
-        annotations = [{"decisionIndex": 0, "player": "Alice", "severity": "moderate", "description": "bad"}]
+        annotations = [_ann(0, "Alice", severity="moderate", description="bad")]
         match = lookup_annotation_for_decision(decision, annotations)
         assert match is not None
 
@@ -536,7 +546,7 @@ class TestBaselineDerivation:
             "player": "Bob",
         }
 
-        annotations = [{"decisionIndex": 0, "player": "Alice", "severity": "moderate", "description": "bad"}]
+        annotations = [_ann(0, "Alice", severity="moderate", description="bad")]
         match = lookup_annotation_for_decision(decision, annotations)
         assert match is None
 

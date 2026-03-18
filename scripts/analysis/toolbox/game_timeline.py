@@ -428,10 +428,10 @@ def main() -> None:
     print(f"Format: {data['deckType']} ({data['gameType']})")
     print(f"Turns: {data['totalTurns']} | Winner: {data['winner']}")
     for p in data["players"]:
-        model = p.get("model", "?")
-        deck = p.get("deckName", "?")
-        cost = p.get("totalCostUsd", 0)
-        print(f"  {p['name']} ({model}) — {deck} — ${cost:.2f}")
+        model = p.model or "?"
+        deck = p.deckName or "?"
+        cost = p.totalCostUsd or 0
+        print(f"  {p.name} ({model}) — {deck} — ${cost:.2f}")
     print()
 
     snapshots = data["snapshots"]

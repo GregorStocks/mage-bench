@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from openai import OpenAIError
 
-from schemas.game_export_types import ToolCallEvent
+from schemas.game_export_types import Action, ToolCallEvent
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
@@ -249,15 +249,15 @@ class TestParseAnnotation:
 
 
 class TestFormatCurrentTurnActions:
-    def _actions(self) -> list[dict]:
+    def _actions(self) -> list[Action]:
         return [
-            {"ts": "2026-01-01T00:00:01.000", "message": "TURN 1 for Alice (20 - 20)"},
-            {"ts": "2026-01-01T00:00:02.000", "message": "Alice plays Mountain"},
-            {"ts": "2026-01-01T00:00:03.000", "message": "Alice casts Sol Ring from hand"},
-            {"ts": "2026-01-01T00:00:04.000", "message": "Alice puts Sol Ring from stack onto the Battlefield"},
-            {"ts": "2026-01-01T00:00:10.000", "message": "Alice skip attack"},
-            {"ts": "2026-01-01T00:00:15.000", "message": "TURN 2 for Bob (20 - 20)"},
-            {"ts": "2026-01-01T00:00:16.000", "message": "Bob plays Forest"},
+            Action(seq=1, ts="2026-01-01T00:00:01.000", message="TURN 1 for Alice (20 - 20)"),
+            Action(seq=2, ts="2026-01-01T00:00:02.000", message="Alice plays Mountain"),
+            Action(seq=3, ts="2026-01-01T00:00:03.000", message="Alice casts Sol Ring from hand"),
+            Action(seq=4, ts="2026-01-01T00:00:04.000", message="Alice puts Sol Ring from stack onto the Battlefield"),
+            Action(seq=5, ts="2026-01-01T00:00:10.000", message="Alice skip attack"),
+            Action(seq=6, ts="2026-01-01T00:00:15.000", message="TURN 2 for Bob (20 - 20)"),
+            Action(seq=7, ts="2026-01-01T00:00:16.000", message="Bob plays Forest"),
         ]
 
     def test_shows_current_turn_actions(self) -> None:
