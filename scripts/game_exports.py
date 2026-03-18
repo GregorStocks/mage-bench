@@ -10,6 +10,8 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from schemas.game_export_types import game_export_to_jsonable
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 GAME_EXPORT_GZ_THRESHOLD = 25 * 1024 * 1024
@@ -50,7 +52,9 @@ def write_raw_game_export(
     export_path = Path(path)
     _assert_game_export_path(export_path)
 
-    json_bytes = json.dumps(data, indent=2, ensure_ascii=False).encode()
+    json_bytes = json.dumps(
+        game_export_to_jsonable(data), indent=2, ensure_ascii=False
+    ).encode()
     if compress is None:
         compress = len(json_bytes) > GAME_EXPORT_GZ_THRESHOLD
 

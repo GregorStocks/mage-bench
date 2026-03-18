@@ -10,7 +10,13 @@ import tempfile
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 
-from schemas.game_export_types import GameExport, JsonObject, load_game_export
+from schemas.game_export_types import (
+    Choice,
+    GameExport,
+    JsonObject,
+    decision_support_get,
+    load_game_export,
+)
 from scripts.game_exports import GAMES_DIR, glob_game_export_paths
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -105,6 +111,17 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
     These are intermediate steps during mana payment or ability activation —
     not strategically interesting for blunder annotation.
     """
+
+    def _choice_text(choice: dict[str, object] | Choice) -> str:
+        parts: list[str] = []
+        name = decision_support_get(choice, "name")
+        if isinstance(name, str):
+            parts.append(name)
+        description = decision_support_get(choice, "description")
+        if isinstance(description, str):
+            parts.append(description)
+        return "".join(parts)
+
     msg = d.get("message")
     if not msg:
         return False
@@ -117,12 +134,7 @@ def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
         if choices is not None:
             assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
         if choices and all(
-            isinstance(c, dict)
-            and "Add {"
-            in (
-                (c["name"] if "name" in c else "")
-                + (c["description"] if "description" in c else "")
-            )
+            isinstance(c, (dict, Choice)) and "Add {" in _choice_text(c)
             for c in choices
         ):
             return True

@@ -43,6 +43,7 @@ from schemas.game_export_types import (
     StallEvent,
     ToolCallEvent,
     _is_player,
+    game_export_to_jsonable,
     is_pilot_player,
     load_built_game_export,
     load_game_export,
@@ -641,17 +642,19 @@ class TestExportSchema:
         item = decision["items"][0]
 
         assert isinstance(choice, Choice)
+        assert not isinstance(choice, dict)
         assert choice.name == "Memnite"
-        assert choice["power"] == "1"
+        assert choice.extras["power"] == "1"
         assert isinstance(pilot_context, PilotContext)
         assert pilot_context.landDropsUsed == 0
-        assert pilot_context["combatPhase"] is None
-        assert pilot_context["manaPool"] == {"WHITE": 1}
+        assert pilot_context.has_field("combatPhase")
+        assert pilot_context.combatPhase is None
+        assert pilot_context.extras["manaPool"] == {"WHITE": 1}
         assert isinstance(item, MultiAmountItem)
         assert item.description == "Assign damage to Memnite"
-        assert item["target"] == "p1"
+        assert item.extras["target"] == "p1"
 
-    def test_built_export_with_decision_support_dataclasses_stays_json_serializable(self) -> None:
+    def test_game_export_to_jsonable_serializes_decision_support_dataclasses(self) -> None:
         payload = _minimal_export(
             8,
             season=1,
@@ -679,10 +682,14 @@ class TestExportSchema:
 
         built = require_built_game_export(payload, source="built export")
         cloned = copy.deepcopy(built)
+        json_ready = game_export_to_jsonable(built)
 
         assert isinstance(built["decisions"][0]["choices"][0], Choice)
         assert isinstance(cloned["decisions"][0]["choices"][0], Choice)
-        assert json.loads(json.dumps(built))["decisions"][0]["pilotContext"]["manaPool"] == {"WHITE": 1}
+        assert json.loads(json.dumps(json_ready))["decisions"][0]["pilotContext"] == {
+            "untappedLands": 1,
+            "manaPool": {"WHITE": 1},
+        }
 
     def test_validator_rejects_invalid_prebuilt_choice_instance(self) -> None:
         payload = _minimal_export(
@@ -711,11 +718,11 @@ class TestExportSchema:
         with pytest.raises(AssertionError, match=r"choices\[0\]\.index"):
             require_built_game_export(payload, source="built export")
 
-    def test_frozen_dataclass_dict_rejects_inplace_union(self) -> None:
-        choice = Choice(name="Memnite")
+    def test_decision_support_dataclass_extras_are_read_only(self) -> None:
+        choice = Choice.from_mapping({"name": "Memnite", "power": "1"})
 
-        with pytest.raises(TypeError, match="immutable"):
-            choice |= {"id": "p1"}
+        with pytest.raises(TypeError):
+            choice.extras["power"] = "2"  # type: ignore[index]
 
     def test_decision_support_dataclass_equality_includes_extra_keys(self) -> None:
         assert Choice.from_mapping({"name": "Memnite", "power": "1"}) != Choice.from_mapping(
@@ -724,6 +731,7 @@ class TestExportSchema:
         assert PilotContext.from_mapping({"untappedLands": 1, "manaPool": {"WHITE": 1}}) != PilotContext.from_mapping(
             {"untappedLands": 1, "manaPool": {"BLUE": 1}}
         )
+        assert PilotContext.from_mapping({"combatPhase": None}) != PilotContext()
 
     def test_v8_schema_rejects_pilot_without_model(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(8))

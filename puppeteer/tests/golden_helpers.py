@@ -13,7 +13,6 @@ To update: make regen-golden
 from __future__ import annotations
 
 import asyncio
-import copy
 import dataclasses
 import io
 import json
@@ -40,6 +39,7 @@ from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
+from schemas.game_export_types import game_export_to_jsonable
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -1707,7 +1707,8 @@ def _strip_volatile(data: dict) -> None:
 
 def _normalize_export_for_golden(export_data: dict) -> dict:
     """Return a deterministic export copy for golden comparison."""
-    normalized = copy.deepcopy(export_data)
+    normalized = game_export_to_jsonable(export_data)
+    assert isinstance(normalized, dict), f"expected export normalization to produce an object, got {normalized!r}"
     _strip_volatile(normalized)
     return _normalize_embedded_json(normalized)
 

@@ -9,77 +9,80 @@ callers can load validated exports without falling back to raw
 import copy
 import gzip
 import json
-from collections.abc import Callable, Iterable
-from dataclasses import dataclass
+from collections.abc import Callable, Mapping
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Literal, TypeAlias, TypeVar, cast, overload
+from types import MappingProxyType
+from typing import ClassVar, Literal, TypeAlias, cast
 
 from typing_extensions import NotRequired, TypedDict, TypeGuard, TypeIs
 
-if TYPE_CHECKING:
-    from _typeshed import SupportsKeysAndGetItem
-
 JsonObject: TypeAlias = dict[str, object]
-_TKey = TypeVar("_TKey")
-_TValue = TypeVar("_TValue")
 
 
 # -- Nested payload types used by the decision renderer --
 
 
-class _FrozenDataclassDict(dict[str, object]):
-    """Immutable dict-like base for export leaf dataclasses."""
+@dataclass(frozen=True, slots=True)
+class _DecisionSupportRecord:
+    """Shared helpers for decision-support leaves with schema extras."""
 
-    def __setitem__(self, key: str, value: object) -> None:
-        raise TypeError(f"{type(self).__name__} is immutable")
+    _extras: Mapping[str, object] = field(
+        default_factory=dict,
+        repr=False,
+        compare=True,
+        kw_only=True,
+    )
+    _present_fields: frozenset[str] = field(
+        default_factory=frozenset,
+        repr=False,
+        compare=True,
+        kw_only=True,
+    )
 
-    def __delitem__(self, key: str) -> None:
-        raise TypeError(f"{type(self).__name__} is immutable")
+    _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = ()
 
-    def clear(self) -> None:
-        raise TypeError(f"{type(self).__name__} is immutable")
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "_extras", MappingProxyType(dict(self._extras)))
+        present_fields = self._present_fields or frozenset(
+            name for name in self._KNOWN_FIELDS if getattr(self, name) is not None
+        )
+        object.__setattr__(self, "_present_fields", frozenset(present_fields))
 
-    def pop(self, key: str, default: object = None) -> object:
-        raise TypeError(f"{type(self).__name__} is immutable")
+    @property
+    def extras(self) -> Mapping[str, object]:
+        return self._extras
 
-    def popitem(self) -> tuple[str, object]:
-        raise TypeError(f"{type(self).__name__} is immutable")
+    def has_field(self, key: str) -> bool:
+        return key in self._present_fields or key in self._extras
 
-    def setdefault(self, key: str, default: object = None) -> object:
-        raise TypeError(f"{type(self).__name__} is immutable")
+    def get_value(self, key: str) -> object | None:
+        if key in self._KNOWN_FIELDS:
+            return cast(object, getattr(self, key))
+        return self._extras.get(key)
 
-    def update(self, *args: object, **kwargs: object) -> None:
-        raise TypeError(f"{type(self).__name__} is immutable")
+    def to_mapping(self) -> JsonObject:
+        obj: JsonObject = {}
+        for key in self._KNOWN_FIELDS:
+            if key in self._present_fields:
+                obj[key] = cast(object, getattr(self, key))
+        obj.update(self._extras)
+        return obj
 
-    # mypy cross-checks __ior__ against dict.__or__ for |= fallback typing.
-    # Keep the builtin surface area, but always raise to preserve immutability.
-    @overload  # type: ignore[misc]
-    def __ior__(
-        self, other: "SupportsKeysAndGetItem[str, object]", /
-    ) -> "_FrozenDataclassDict": ...
-
-    @overload
-    def __ior__(
-        self, other: Iterable[tuple[str, object]], /
-    ) -> "_FrozenDataclassDict": ...
-
-    @overload
-    def __ior__(
-        self, other: dict[_TKey, _TValue], /
-    ) -> dict[str | _TKey, object | _TValue]: ...
-
-    def __ior__(self, other: object, /) -> Any:  # type: ignore[misc]
-        raise TypeError(f"{type(self).__name__} is immutable")
+    def _deepcopy_mapping(self, memo: dict[int, object]) -> JsonObject:
+        return copy.deepcopy(self.to_mapping(), memo)
 
 
-def _init_dataclass_dict(
-    target: dict[str, object],
-    entries: tuple[tuple[str, object], ...],
-) -> None:
-    dict.__init__(target)
-    for key, value in entries:
-        if value is not None:
-            dict.__setitem__(target, key, value)
+def _extras_from_mapping(
+    obj: Mapping[str, object], known_fields: tuple[str, ...]
+) -> Mapping[str, object]:
+    return {key: value for key, value in obj.items() if key not in known_fields}
+
+
+def _present_fields_from_mapping(
+    obj: Mapping[str, object], known_fields: tuple[str, ...]
+) -> frozenset[str]:
+    return frozenset(key for key in known_fields if key in obj)
 
 
 class Permanent(TypedDict):
@@ -129,8 +132,8 @@ class CombatCreature(TypedDict):
     pt: NotRequired[str]
 
 
-@dataclass(frozen=True, eq=False)
-class Choice(_FrozenDataclassDict):
+@dataclass(frozen=True, slots=True)
+class Choice(_DecisionSupportRecord):
     """A choice available to the player. Shape varies by decision type."""
 
     index: int | None = None
@@ -141,23 +144,19 @@ class Choice(_FrozenDataclassDict):
     mana_cost: str | None = None
     choice_type: str | None = None
 
-    def __post_init__(self) -> None:
-        _init_dataclass_dict(
-            self,
-            (
-                ("index", self.index),
-                ("name", self.name),
-                ("description", self.description),
-                ("id", self.id),
-                ("action", self.action),
-                ("mana_cost", self.mana_cost),
-                ("choice_type", self.choice_type),
-            ),
-        )
+    _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = (
+        "index",
+        "name",
+        "description",
+        "id",
+        "action",
+        "mana_cost",
+        "choice_type",
+    )
 
     @classmethod
-    def from_mapping(cls, obj: JsonObject) -> "Choice":
-        choice = cls(
+    def from_mapping(cls, obj: Mapping[str, object]) -> "Choice":
+        return cls(
             index=cast(int | None, obj["index"] if "index" in obj else None),
             name=cast(str | None, obj["name"] if "name" in obj else None),
             description=cast(
@@ -171,50 +170,38 @@ class Choice(_FrozenDataclassDict):
             choice_type=cast(
                 str | None, obj["choice_type"] if "choice_type" in obj else None
             ),
+            _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
+            _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
         )
-        for key, value in obj.items():
-            if key not in choice:
-                dict.__setitem__(choice, key, value)
-        return choice
 
     def __deepcopy__(self, memo: dict[int, object]) -> "Choice":
-        duplicate = Choice.from_mapping(copy.deepcopy(dict(self), memo))
+        duplicate = Choice.from_mapping(self._deepcopy_mapping(memo))
         memo[id(self)] = duplicate
         return duplicate
 
 
-@dataclass(frozen=True, eq=False)
-class MultiAmountItem(_FrozenDataclassDict):
+@dataclass(frozen=True, slots=True)
+class MultiAmountItem(_DecisionSupportRecord):
     """An item in a multi-amount decision."""
 
     description: str
     min: int | None = None
     max: int | None = None
 
-    def __post_init__(self) -> None:
-        _init_dataclass_dict(
-            self,
-            (
-                ("description", self.description),
-                ("min", self.min),
-                ("max", self.max),
-            ),
-        )
+    _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = ("description", "min", "max")
 
     @classmethod
-    def from_mapping(cls, obj: JsonObject) -> "MultiAmountItem":
-        item = cls(
+    def from_mapping(cls, obj: Mapping[str, object]) -> "MultiAmountItem":
+        return cls(
             description=cast(str, obj["description"]),
             min=cast(int | None, obj["min"] if "min" in obj else None),
             max=cast(int | None, obj["max"] if "max" in obj else None),
+            _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
+            _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
         )
-        for key, value in obj.items():
-            if key not in item:
-                dict.__setitem__(item, key, value)
-        return item
 
     def __deepcopy__(self, memo: dict[int, object]) -> "MultiAmountItem":
-        duplicate = MultiAmountItem.from_mapping(copy.deepcopy(dict(self), memo))
+        duplicate = MultiAmountItem.from_mapping(self._deepcopy_mapping(memo))
         memo[id(self)] = duplicate
         return duplicate
 
@@ -419,8 +406,8 @@ class Annotation(TypedDict):
     llmReasoning: NotRequired[str]
 
 
-@dataclass(frozen=True, eq=False)
-class PilotContext(_FrozenDataclassDict):
+@dataclass(frozen=True, slots=True)
+class PilotContext(_DecisionSupportRecord):
     untappedLands: int | None = None
     landDropsUsed: int | None = None
     playableCards: list[str] | None = None
@@ -428,22 +415,18 @@ class PilotContext(_FrozenDataclassDict):
     alreadyAttacking: list[str | CombatCreature] | None = None
     incomingAttackers: list[str | CombatCreature] | None = None
 
-    def __post_init__(self) -> None:
-        _init_dataclass_dict(
-            self,
-            (
-                ("untappedLands", self.untappedLands),
-                ("landDropsUsed", self.landDropsUsed),
-                ("playableCards", self.playableCards),
-                ("combatPhase", self.combatPhase),
-                ("alreadyAttacking", self.alreadyAttacking),
-                ("incomingAttackers", self.incomingAttackers),
-            ),
-        )
+    _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = (
+        "untappedLands",
+        "landDropsUsed",
+        "playableCards",
+        "combatPhase",
+        "alreadyAttacking",
+        "incomingAttackers",
+    )
 
     @classmethod
-    def from_mapping(cls, obj: JsonObject) -> "PilotContext":
-        context = cls(
+    def from_mapping(cls, obj: Mapping[str, object]) -> "PilotContext":
+        return cls(
             untappedLands=cast(
                 int | None, obj["untappedLands"] if "untappedLands" in obj else None
             ),
@@ -465,16 +448,45 @@ class PilotContext(_FrozenDataclassDict):
                 list[str | CombatCreature] | None,
                 obj["incomingAttackers"] if "incomingAttackers" in obj else None,
             ),
+            _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
+            _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
         )
-        for key, value in obj.items():
-            if key not in context:
-                dict.__setitem__(context, key, value)
-        return context
 
     def __deepcopy__(self, memo: dict[int, object]) -> "PilotContext":
-        duplicate = PilotContext.from_mapping(copy.deepcopy(dict(self), memo))
+        duplicate = PilotContext.from_mapping(self._deepcopy_mapping(memo))
         memo[id(self)] = duplicate
         return duplicate
+
+
+DecisionSupportRecord: TypeAlias = Choice | MultiAmountItem | PilotContext
+DecisionSupportRecordLike: TypeAlias = DecisionSupportRecord | Mapping[str, object]
+
+
+def _is_decision_support_record(value: object) -> TypeIs[DecisionSupportRecord]:
+    return isinstance(value, (Choice, MultiAmountItem, PilotContext))
+
+
+def decision_support_get(record: DecisionSupportRecordLike, key: str) -> object | None:
+    if _is_decision_support_record(record):
+        return record.get_value(key)
+    return record.get(key)
+
+
+def decision_support_has(record: DecisionSupportRecordLike, key: str) -> bool:
+    if _is_decision_support_record(record):
+        return record.has_field(key)
+    return key in record
+
+
+def game_export_to_jsonable(value: object) -> object:
+    """Convert export leaves to plain JSON-compatible dict/list structures."""
+    if _is_decision_support_record(value):
+        return game_export_to_jsonable(value.to_mapping())
+    if isinstance(value, dict):
+        return {key: game_export_to_jsonable(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [game_export_to_jsonable(item) for item in value]
+    return value
 
 
 class Decision(TypedDict):
@@ -727,7 +739,10 @@ def _is_combat_creature(value: object, source: str) -> TypeIs[CombatCreature]:
 
 
 def _coerce_choice(value: object, source: str) -> Choice:
-    obj = _require_object(value, source)
+    if isinstance(value, Choice):
+        obj = value.to_mapping()
+    else:
+        obj = _require_object(value, source)
     if "index" in obj:
         _require_int(obj["index"], f"{source}.index")
     if "name" in obj:
@@ -748,7 +763,10 @@ def _coerce_choice(value: object, source: str) -> Choice:
 
 
 def _coerce_multi_amount_item(value: object, source: str) -> MultiAmountItem:
-    obj = _require_object(value, source)
+    if isinstance(value, MultiAmountItem):
+        obj = value.to_mapping()
+    else:
+        obj = _require_object(value, source)
     _require_str(_require_key(obj, "description", source), f"{source}.description")
     if "min" in obj:
         _require_int(obj["min"], f"{source}.min")
@@ -1016,7 +1034,10 @@ def _is_annotation(value: object, source: str) -> TypeIs[Annotation]:
 
 
 def _coerce_pilot_context(value: object, source: str) -> PilotContext:
-    obj = _require_object(value, source)
+    if isinstance(value, PilotContext):
+        obj = value.to_mapping()
+    else:
+        obj = _require_object(value, source)
     if "untappedLands" in obj:
         _require_non_negative_int(obj["untappedLands"], f"{source}.untappedLands")
     if "landDropsUsed" in obj:
@@ -1243,6 +1264,8 @@ __all__ = [
     "ContextResetEvent",
     "ContextTrimEvent",
     "Decision",
+    "DecisionSupportRecord",
+    "DecisionSupportRecordLike",
     "GameError",
     "GameExport",
     "GameOver",
@@ -1263,6 +1286,9 @@ __all__ = [
     "StackTarget",
     "StallEvent",
     "ToolCallEvent",
+    "decision_support_get",
+    "decision_support_has",
+    "game_export_to_jsonable",
     "is_built_game_export",
     "is_game_export",
     "is_pilot_player",
