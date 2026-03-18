@@ -105,17 +105,29 @@ def _assert_typed_dict_matches_schema(
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
 
 
-def _dataclass_keys(cls: type, renames: dict[str, str] | None = None) -> set[str]:
-    r = renames or {}
-    return {r.get(f.name, f.name) for f in dataclasses.fields(cls) if not f.name.startswith("_")}
+def _dataclass_keys(
+    cls: type,
+    *,
+    ignored_fields: set[str] | None = None,
+    renames: dict[str, str] | None = None,
+) -> set[str]:
+    ignored = ignored_fields or set()
+    renamed = renames or {}
+    return {renamed.get(f.name, f.name) for f in dataclasses.fields(cls) if f.name not in ignored}
 
 
-def _dataclass_required_keys(cls: type, renames: dict[str, str] | None = None) -> set[str]:
-    r = renames or {}
+def _dataclass_required_keys(
+    cls: type,
+    *,
+    ignored_fields: set[str] | None = None,
+    renames: dict[str, str] | None = None,
+) -> set[str]:
+    ignored = ignored_fields or set()
+    renamed = renames or {}
     return {
-        r.get(f.name, f.name)
+        renamed.get(f.name, f.name)
         for f in dataclasses.fields(cls)
-        if not f.name.startswith("_") and f.default is dataclasses.MISSING and f.default_factory is dataclasses.MISSING
+        if f.name not in ignored and f.default is dataclasses.MISSING and f.default_factory is dataclasses.MISSING
     }
 
 
@@ -124,6 +136,7 @@ def _assert_dataclass_matches_schema(
     *,
     schema: dict,
     required_override: set[str] | None = None,
+    extra_fields: set[str] | None = None,
     field_renames: dict[str, str] | None = None,
 ) -> None:
     assert is_dataclass(dataclass_cls)
@@ -131,11 +144,28 @@ def _assert_dataclass_matches_schema(
     expected_required = required_override if required_override is not None else set(schema.get("required", []))
     actual_fields = fields(dataclass_cls)
     internal_fields = [field for field in actual_fields if field.name.startswith("_")]
-    assert _dataclass_keys(dataclass_cls, field_renames) == expected_props
+    ignored_fields = {field.name for field in internal_fields}
+    if extra_fields:
+        ignored_fields |= extra_fields
+    assert (
+        _dataclass_keys(
+            dataclass_cls,
+            ignored_fields=ignored_fields,
+            renames=field_renames,
+        )
+        == expected_props
+    )
     assert all(field.default is not MISSING or field.default_factory is not MISSING for field in internal_fields), (
         "internal dataclass fields must be optional"
     )
-    assert _dataclass_required_keys(dataclass_cls, field_renames) == expected_required
+    assert (
+        _dataclass_required_keys(
+            dataclass_cls,
+            ignored_fields=ignored_fields,
+            renames=field_renames,
+        )
+        == expected_required
+    )
 
 
 class TestExportSchema:
@@ -446,7 +476,7 @@ class TestExportSchema:
         _assert_dataclass_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_dataclass_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_dataclass_matches_schema(Annotation, schema=defs["Annotation"])
-        _assert_typed_dict_matches_schema(Decision, schema=defs["Decision"])
+        _assert_dataclass_matches_schema(Decision, schema=defs["Decision"], extra_fields={"actionSeq"})
         _assert_typed_dict_matches_schema(PilotContext, schema=defs["PilotContext"])
         _assert_dataclass_matches_schema(GameError, schema=defs["GameError"])
         _assert_dataclass_matches_schema(CardMetadata, schema=defs["CardMetadata"])
@@ -809,9 +839,10 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert game["decisions"][0]["actionType"] == ""
-        assert game["decisions"][0]["responseType"] == ""
-        assert game["decisions"][0]["message"] == ""
+        assert isinstance(game["decisions"][0], Decision)
+        assert game["decisions"][0].actionType == ""
+        assert game["decisions"][0].responseType == ""
+        assert game["decisions"][0].message == ""
 
     def test_v8_schema_rejects_pilot_without_model(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(8))

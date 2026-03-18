@@ -409,7 +409,8 @@ class PilotContext(TypedDict, total=False):
     incomingAttackers: list[str | CombatCreature]
 
 
-class Decision(TypedDict):
+@dataclass(slots=True)
+class Decision:
     index: int
     snapshotIndex: int
     player: str
@@ -423,15 +424,124 @@ class Decision(TypedDict):
     isForced: bool
     llmEventIndices: list[int]
     subsequentActions: list[str]
-    step: NotRequired[str | None]
-    pilotContext: NotRequired[PilotContext]
-    chosen: NotRequired[object]
-    chosenArgs: NotRequired[JsonObject]
-    actionResult: NotRequired[JsonObject]
-    castRolledBack: NotRequired[bool]
-    items: NotRequired[list[MultiAmountItem]]
-    totalMin: NotRequired[int]
-    totalMax: NotRequired[int]
+    step: str | None = None
+    pilotContext: PilotContext | JsonObject | None = None
+    chosen: object = None
+    chosenArgs: JsonObject | None = None
+    actionResult: JsonObject | None = None
+    castRolledBack: bool = False
+    items: list[MultiAmountItem] | None = None
+    totalMin: int | None = None
+    totalMax: int | None = None
+    actionSeq: int | None = None
+
+    @classmethod
+    def from_dict(cls, value: JsonObject) -> "Decision":
+        chosen_args = value.get("chosenArgs")
+        assert chosen_args is None or isinstance(chosen_args, dict), (
+            f"Decision.chosenArgs must be an object when present, got {chosen_args!r}"
+        )
+        action_result = value.get("actionResult")
+        assert action_result is None or isinstance(action_result, dict), (
+            f"Decision.actionResult must be an object when present, got {action_result!r}"
+        )
+        pilot_context = value.get("pilotContext")
+        assert pilot_context is None or isinstance(pilot_context, dict), (
+            f"Decision.pilotContext must be an object when present, got {pilot_context!r}"
+        )
+        items = value.get("items")
+        assert items is None or isinstance(items, list), (
+            f"Decision.items must be a list when present, got {items!r}"
+        )
+        total_min = value.get("totalMin")
+        assert total_min is None or _is_int(total_min), (
+            f"Decision.totalMin must be an int when present, got {total_min!r}"
+        )
+        total_max = value.get("totalMax")
+        assert total_max is None or _is_int(total_max), (
+            f"Decision.totalMax must be an int when present, got {total_max!r}"
+        )
+        action_seq = value.get("actionSeq")
+        assert action_seq is None or _is_int(action_seq), (
+            f"Decision.actionSeq must be an int when present, got {action_seq!r}"
+        )
+        cast_rolled_back = value.get("castRolledBack", False)
+        assert isinstance(cast_rolled_back, bool), (
+            f"Decision.castRolledBack must be a bool when present, got {cast_rolled_back!r}"
+        )
+        return cls(
+            index=cast(int, value["index"]),
+            snapshotIndex=cast(int, value["snapshotIndex"]),
+            player=cast(str, value["player"]),
+            turn=cast(int, value["turn"]),
+            phase=cast(str | None, value["phase"]),
+            actionType=cast(str, value["actionType"]),
+            responseType=cast(str, value["responseType"]),
+            message=cast(str, value["message"]),
+            choices=cast(list[Choice], value["choices"]),
+            choiceCount=cast(int, value["choiceCount"]),
+            isForced=cast(bool, value["isForced"]),
+            llmEventIndices=cast(list[int], value["llmEventIndices"]),
+            subsequentActions=cast(list[str], value["subsequentActions"]),
+            step=cast(str | None, value.get("step")),
+            pilotContext=cast(PilotContext | JsonObject | None, pilot_context),
+            chosen=value.get("chosen"),
+            chosenArgs=cast(JsonObject | None, chosen_args),
+            actionResult=cast(JsonObject | None, action_result),
+            castRolledBack=cast_rolled_back,
+            items=cast(list[MultiAmountItem] | None, items),
+            totalMin=cast(int | None, total_min),
+            totalMax=cast(int | None, total_max),
+            actionSeq=cast(int | None, action_seq),
+        )
+
+    def to_dict(self) -> JsonObject:
+        result: JsonObject = {
+            "index": self.index,
+            "snapshotIndex": self.snapshotIndex,
+            "player": self.player,
+            "turn": self.turn,
+            "phase": self.phase,
+            "step": self.step,
+            "actionType": self.actionType,
+            "responseType": self.responseType,
+            "message": self.message,
+            "choices": self.choices,
+            "choiceCount": self.choiceCount,
+            "isForced": self.isForced,
+            "chosen": self.chosen,
+            "llmEventIndices": self.llmEventIndices,
+            "subsequentActions": self.subsequentActions,
+        }
+        if self.pilotContext is not None:
+            result["pilotContext"] = self.pilotContext
+        if self.chosenArgs is not None:
+            result["chosenArgs"] = self.chosenArgs
+        if self.actionResult is not None:
+            result["actionResult"] = self.actionResult
+        if self.castRolledBack:
+            result["castRolledBack"] = True
+        if self.items is not None:
+            result["items"] = self.items
+        if self.totalMin is not None:
+            result["totalMin"] = self.totalMin
+        if self.totalMax is not None:
+            result["totalMax"] = self.totalMax
+        if self.actionSeq is not None:
+            result["actionSeq"] = self.actionSeq
+        return result
+
+    def __getitem__(self, key: str) -> Any:
+        data = self.to_dict()
+        if key not in data:
+            raise KeyError(key)
+        return data[key]
+
+    def __contains__(self, key: object) -> bool:
+        return isinstance(key, str) and key in self.to_dict()
+
+    def get(self, key: str, default: Any = None) -> Any:
+        return self.to_dict().get(key, default)
 
 
 @dataclass
@@ -1211,7 +1321,10 @@ def _is_pilot_context(value: object, source: str) -> TypeIs[PilotContext]:
 
 
 def _is_decision(value: object, source: str) -> TypeIs[Decision]:
-    obj = _require_object(value, source)
+    if isinstance(value, Decision):
+        obj = value.to_dict()
+    else:
+        obj = _require_object(value, source)
     _require_non_negative_int(_require_key(obj, "index", source), f"{source}.index")
     _require_non_negative_int(
         _require_key(obj, "snapshotIndex", source), f"{source}.snapshotIndex"
@@ -1253,6 +1366,8 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
         _require_non_negative_int(obj["totalMin"], f"{source}.totalMin")
     if "totalMax" in obj:
         _require_non_negative_int(obj["totalMax"], f"{source}.totalMax")
+    if "actionSeq" in obj:
+        _require_non_negative_int(obj["actionSeq"], f"{source}.actionSeq")
     return True
 
 
@@ -1384,6 +1499,15 @@ def _coerce_pilot_context(value: object, source: str) -> PilotContext:
 
 def _coerce_decision(value: object, source: str) -> Decision:
     assert _is_decision(value, source)
+    if isinstance(value, Decision):
+        if value.pilotContext is None:
+            return value
+        return dataclasses.replace(
+            value,
+            pilotContext=_coerce_pilot_context(
+                value.pilotContext, f"{source}.pilotContext"
+            ),
+        )
     obj = _require_object(value, source)
     decision = dict(obj)
     if "pilotContext" in obj:
@@ -1469,10 +1593,13 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
                 card_data[card_name], f"{source}.cardData[{card_name}]"
             )
     if "decisions" in obj:
-        for index, decision in enumerate(
-            _require_list(obj["decisions"], f"{source}.decisions")
-        ):
+        decisions = _require_list(obj["decisions"], f"{source}.decisions")
+        for index, decision in enumerate(decisions):
             assert _is_decision(decision, f"{source}.decisions[{index}]")
+            if not isinstance(decision, Decision):
+                decisions[index] = Decision.from_dict(
+                    _require_object(decision, f"{source}.decisions[{index}]")
+                )
     if "errors" in obj:
         errors = _require_list(obj["errors"], f"{source}.errors")
         for index, error in enumerate(errors):
@@ -1553,6 +1680,8 @@ def json_default(obj: object) -> object:
 
     Usage: ``json.dumps(export, default=json_default)``
     """
+    if isinstance(obj, Decision):
+        return obj.to_dict()
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
         field_names = {f.name for f in dataclasses.fields(obj)}
         if "_extras" in field_names:

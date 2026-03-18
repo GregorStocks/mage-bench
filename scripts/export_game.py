@@ -7,7 +7,12 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from schemas.game_export_types import BuiltGameExport, require_built_game_export
+from schemas.game_export_types import (
+    BuiltGameExport,
+    Decision,
+    PilotContext,
+    require_built_game_export,
+)
 from scripts.game_exports import GAMES_DIR as WEBSITE_GAMES_DIR, write_raw_game_export
 
 
@@ -784,9 +789,9 @@ def _find_snapshot_index_by_ts(snapshots: list[dict], ts: str) -> int | None:
     return best
 
 
-def _extract_pilot_context(choices_result: dict) -> dict:
+def _extract_pilot_context(choices_result: dict) -> PilotContext:
     """Extract pilot-specific overlay data from a tool result."""
-    ctx: dict = {}
+    ctx: PilotContext = {}
     if "untapped_lands" in choices_result:
         ctx["untappedLands"] = choices_result["untapped_lands"]
     if "land_drops_used" in choices_result:
@@ -853,7 +858,7 @@ def _find_spell_cancelled_seqs(llm_events: list[dict]) -> list[tuple[str, int]]:
 
 
 def _mark_rolled_back_casts(
-    decisions: list[dict], cancelled: list[tuple[str, int]]
+    decisions: list[Decision], cancelled: list[tuple[str, int]]
 ) -> None:
     """Mark rolled-back cast sequences on canonical decisions.
 
@@ -867,19 +872,19 @@ def _mark_rolled_back_casts(
     for player, cancel_idx in sorted(cancelled, key=lambda x: x[1]):
         for j in range(len(decisions) - 1, -1, -1):
             d = decisions[j]
-            if d["player"] != player:
+            if d.player != player:
                 continue
             # Skip decisions whose last llm event is after the cancel point
-            indices = d.get("llmEventIndices")
+            indices = d.llmEventIndices
             if not indices:
                 continue
             if indices[0] > cancel_idx:
                 continue
-            if d.get("castRolledBack"):
+            if d.castRolledBack:
                 break
-            msg = d.get("message")
+            msg = d.message
             if msg and msg.startswith(_CAST_PROMPT_PREFIXES):
-                d["castRolledBack"] = True
+                d.castRolledBack = True
                 break
 
 
@@ -914,7 +919,7 @@ def _build_decisions(
     actions: list[dict],
     llm_events: list[dict],
     harness_epoch: int,
-) -> list[dict]:
+) -> list[Decision]:
     """Build canonical decision records from export data.
 
     Handles both v1 (harnessEpoch < 20, get_action_choices anchored) and
@@ -924,7 +929,7 @@ def _build_decisions(
 
     decision_sources = _collect_decision_sources(llm_events, harness_epoch)
 
-    decisions: list[dict] = []
+    decisions: list[Decision] = []
 
     for ds_idx, (event_idx, source_event) in enumerate(decision_sources):
         choices_result = _parse_json(source_event.get("result"))
@@ -1018,40 +1023,40 @@ def _build_decisions(
                 break
 
         # Build canonical decision
-        decision: dict = {
-            "index": len(decisions),
-            "snapshotIndex": snap_idx_val,
-            "player": player,
-            "turn": snap.get("turn", 0),
-            "phase": snap.get("phase"),
-            "step": snap.get("step"),
-            "actionType": action_type,
-            "responseType": response_type,
-            "message": message,
-            "choices": available_choices,
-            "choiceCount": len(available_choices),
-            "isForced": _is_forced(response_type, message, available_choices),
-            "chosen": chosen_index,
-            "chosenArgs": chosen_args,
-            "actionResult": action_result,
-            "llmEventIndices": llm_event_indices,
-            "subsequentActions": subsequent,
-            "actionSeq": action_seq,
-        }
+        decision = Decision(
+            index=len(decisions),
+            snapshotIndex=snap_idx_val,
+            player=player,
+            turn=snap.get("turn", 0),
+            phase=snap.get("phase"),
+            step=snap.get("step"),
+            actionType=action_type,
+            responseType=response_type,
+            message=message,
+            choices=available_choices,
+            choiceCount=len(available_choices),
+            isForced=_is_forced(response_type, message, available_choices),
+            chosen=chosen_index,
+            chosenArgs=chosen_args,
+            actionResult=action_result,
+            llmEventIndices=llm_event_indices,
+            subsequentActions=subsequent,
+            actionSeq=action_seq,
+        )
 
         # Add pilot context if available
         pilot_ctx = _extract_pilot_context(choices_result)
         if pilot_ctx:
-            decision["pilotContext"] = pilot_ctx
+            decision.pilotContext = pilot_ctx
 
         # Multi-amount items (e.g. combat damage distribution targets)
         multi_items = choices_result.get("items")
         if multi_items:
-            decision["items"] = multi_items
+            decision.items = multi_items
             if "total_min" in choices_result:
-                decision["totalMin"] = choices_result["total_min"]
+                decision.totalMin = choices_result["total_min"]
             if "total_max" in choices_result:
-                decision["totalMax"] = choices_result["total_max"]
+                decision.totalMax = choices_result["total_max"]
 
         decisions.append(decision)
 
@@ -1064,7 +1069,7 @@ def _build_decisions(
 
 
 def _link_errors_to_decisions(
-    errors: list[dict], decisions: list[dict], llm_events: list[dict]
+    errors: list[dict], decisions: list[Decision], llm_events: list[dict]
 ) -> None:
     """Add decisionIndex to each error by matching player + timestamp.
 
@@ -1075,8 +1080,8 @@ def _link_errors_to_decisions(
     # Build per-player sorted list of (HH:MM:SS, decision_index)
     player_decisions: dict[str, list[tuple[str, int]]] = {}
     for d in decisions:
-        player = d["player"]
-        indices = d.get("llmEventIndices")
+        player = d.player
+        indices = d.llmEventIndices
         if not indices:
             continue
         source_event = llm_events[indices[0]]
@@ -1086,7 +1091,7 @@ def _link_errors_to_decisions(
             ts_hms = ts_iso[11:19]
         else:
             continue
-        player_decisions.setdefault(player, []).append((ts_hms, d["index"]))
+        player_decisions.setdefault(player, []).append((ts_hms, d.index))
 
     # Lists are already in chronological order (decisions built from sorted events)
 
@@ -1094,9 +1099,13 @@ def _link_errors_to_decisions(
         err_ts = err.get("ts")
         if not err_ts:
             continue
-        player = err.get("player")
-        if not player:
+        player_raw = err.get("player")
+        if not player_raw:
             continue
+        assert isinstance(player_raw, str), (
+            f"error player must be a string, got {player_raw!r}"
+        )
+        player = player_raw
         pd = player_decisions.get(player)
         if not pd:
             continue

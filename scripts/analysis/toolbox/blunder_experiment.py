@@ -32,6 +32,7 @@ import time
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import cast
 
 from openai import OpenAI
 
@@ -1375,7 +1376,13 @@ def main() -> None:
     for approach in approaches_to_run:
         desc = APPROACHES[approach][0]
         print(f"Running {approach}: {desc}...")
-        result = run_approach(approach, client, data, decisions, overview)
+        result = run_approach(
+            approach,
+            client,
+            data,
+            cast(list[dict[str, object]], decisions),
+            overview,
+        )
         path = _save_result(result)
         print(
             f"  {len(result.annotations)} annotations, "
