@@ -34,15 +34,15 @@ def main(gz_path: str) -> None:
     # Turn-boundary snapshots
     seen: set[int] = set()
     for s in snapshots:
-        turn = s.get("turn", 0)
+        turn = s.turn
         if turn in seen:
             continue
         seen.add(turn)
         parts = []
-        for p in s["players"]:
-            bf = [export_record_name(c) for c in p["battlefield"]]
-            hand = p.get("hand_count", len(p["hand"]))
-            entry = f"{p['name']}: {p.get('life', '?')}hp hand={hand}"
+        for p in s.players:
+            bf = [export_record_name(c) for c in p.battlefield]
+            hand = p.hand_count if p.hand_count is not None else len(p.hand)
+            entry = f"{p.name}: {p.life}hp hand={hand}"
             if bf:
                 entry += f" bf=[{', '.join(bf)}]"
             parts.append(entry)

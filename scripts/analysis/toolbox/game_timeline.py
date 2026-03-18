@@ -69,7 +69,7 @@ def _find_snapshot_index_by_seq(snapshots: Sequence[Snapshot], seq: int) -> int 
     """Find the nearest snapshot at or before a game sequence number."""
     best: int | None = None
     for i, snap in enumerate(snapshots):
-        snap_seq = snap["seq"]
+        snap_seq = snap.seq
         if snap_seq <= seq:
             best = i
         else:
@@ -81,7 +81,7 @@ def _find_snapshot_index_by_ts(snapshots: Sequence[Snapshot], ts: str) -> int | 
     """Find the nearest snapshot at or before a timestamp."""
     best: int | None = None
     for i, snap in enumerate(snapshots):
-        snap_ts = snap.get("ts")
+        snap_ts = snap.ts
         if snap_ts is None:
             continue
         if snap_ts <= ts:
@@ -109,7 +109,7 @@ def find_turn_for_event(snapshots: Sequence[Snapshot], event: LlmEvent) -> int |
     snap_idx = _find_snapshot_index_for_event(snapshots, event)
     if snap_idx is None:
         return None
-    return snapshots[snap_idx]["turn"]
+    return snapshots[snap_idx].turn
 
 
 def find_context_for_event(snapshots: Sequence[Snapshot], event: LlmEvent) -> str:
@@ -118,10 +118,10 @@ def find_context_for_event(snapshots: Sequence[Snapshot], event: LlmEvent) -> st
     if snap_idx is None:
         return ""
     best = snapshots[snap_idx]
-    turn = best["turn"]
-    phase_value = best["phase"]
+    turn = best.turn
+    phase_value = best.phase
     phase = phase_value if phase_value is not None else ""
-    active_value = best["active_player"]
+    active_value = best.active_player
     active = active_value if active_value is not None else ""
     parts = [f"T{turn}"]
     if phase:

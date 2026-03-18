@@ -15,6 +15,7 @@ from datetime import UTC, datetime
 
 from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
 from scripts.analysis.blunder_eval_common import (
+    decision_index,
     game_path_for_id,
     load_game,
     load_ground_truth,
@@ -66,7 +67,7 @@ def derive_baseline() -> dict:
             # Find the decision
             decision = None
             for d in decisions:
-                if d["decision_index"] == di:
+                if decision_index(d) == di:
                     decision = d
                     break
 
