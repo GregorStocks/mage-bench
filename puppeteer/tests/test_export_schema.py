@@ -42,7 +42,7 @@ from schemas.game_export_types import (
     StackTarget,
     StallEvent,
     ToolCallEvent,
-    _is_player,
+    _validate_player,
     export_record_field,
     is_game_export,
     is_pilot_player,
@@ -400,11 +400,11 @@ class TestExportSchema:
             schema=schema,
             required_override=set(schema["required"]) - {"annotations", "blunderScriptVersion"},
         )
-        _assert_typed_dict_matches_schema(Player, schema=defs["Player"])
-        _assert_typed_dict_matches_schema(
+        _assert_dataclass_matches_schema(Player, schema=defs["Player"])
+        _assert_dataclass_matches_schema(
             PilotPlayer,
             schema=defs["Player"],
-            required_override=set(defs["Player"].get("required", [])) | {"model"},
+            required_override=(set(defs["Player"].get("required", [])) | {"model"}) - {"type"},
         )
         _assert_typed_dict_matches_schema(Snapshot, schema=defs["Snapshot"])
         _assert_typed_dict_matches_schema(SnapshotPlayer, schema=defs["SnapshotPlayer"])
@@ -476,7 +476,7 @@ class TestExportSchema:
         game = load_game_export(path)
 
         assert game["version"] == 8
-        assert game["players"][0]["toolCallsOk"] == 3
+        assert game["players"][0].toolCallsOk == 3
         assert game["annotations"] == []
 
     def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
@@ -849,34 +849,34 @@ class TestExportSchema:
         assert errors == [], f"v8 schema should accept cpu player without model: {errors}"
 
     def test_is_pilot_player_narrows_pilot(self) -> None:
-        player: Player = {
-            "name": "Alice",
-            "type": "pilot",
-            "model": "test/model",
-            "toolCallsOk": 0,
-            "toolCallsFailed": 0,
-            "thinkingTimeSecs": 0.0,
-        }
+        player = Player(
+            name="Alice",
+            type="pilot",
+            model="test/model",
+            toolCallsOk=0,
+            toolCallsFailed=0,
+            thinkingTimeSecs=0.0,
+        )
         assert is_pilot_player(player)
 
     def test_is_pilot_player_rejects_cpu(self) -> None:
-        player: Player = {
-            "name": "Bot",
-            "type": "cpu",
-            "toolCallsOk": 0,
-            "toolCallsFailed": 0,
-            "thinkingTimeSecs": 0.0,
-        }
+        player = Player(
+            name="Bot",
+            type="cpu",
+            toolCallsOk=0,
+            toolCallsFailed=0,
+            thinkingTimeSecs=0.0,
+        )
         assert not is_pilot_player(player)
 
     def test_is_pilot_player_crashes_on_pilot_without_model(self) -> None:
-        player: Player = {
-            "name": "Alice",
-            "type": "pilot",
-            "toolCallsOk": 0,
-            "toolCallsFailed": 0,
-            "thinkingTimeSecs": 0.0,
-        }
+        player = Player(
+            name="Alice",
+            type="pilot",
+            toolCallsOk=0,
+            toolCallsFailed=0,
+            thinkingTimeSecs=0.0,
+        )
         with pytest.raises(AssertionError, match="pilot player missing model"):
             is_pilot_player(player)
 
@@ -889,4 +889,4 @@ class TestExportSchema:
             "thinkingTimeSecs": 0.0,
         }
         with pytest.raises(AssertionError, match="model"):
-            _is_player(player, "test")
+            _validate_player(player, "test")

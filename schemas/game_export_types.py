@@ -150,42 +150,51 @@ _LLM_EVENT_TYPES = {
 }
 
 
-class _PlayerRequired(TypedDict):
+@dataclass(frozen=True, kw_only=True)
+class Player:
     name: str
+    type: str
     toolCallsOk: int
     toolCallsFailed: int
     thinkingTimeSecs: float
+    model: str | None = None
+    deckName: str | None = None
+    deckStrategy: str | None = None
+    commander: str | None = None
+    reasoningEffort: str | None = None
+    totalCostUsd: float | None = None
+    placement: int | None = None
+    tools: list[str] | None = None
+    timedOut: bool | None = None
 
 
-class _PlayerOptionalFields(TypedDict, total=False):
-    deckName: str
-    deckStrategy: str
-    commander: str
-    reasoningEffort: str
-    totalCostUsd: float
-    placement: int
-    tools: list[str]
-    timedOut: bool
-
-
-class Player(_PlayerRequired, _PlayerOptionalFields):
-    type: str
-    model: NotRequired[str]
-
-
-class PilotPlayer(_PlayerRequired, _PlayerOptionalFields):
+@dataclass(frozen=True, kw_only=True)
+class PilotPlayer:
     """Pilot player with required model field.  Narrowed via is_pilot_player()."""
 
-    type: Literal["pilot"]
+    name: str
     model: str
+    toolCallsOk: int
+    toolCallsFailed: int
+    thinkingTimeSecs: float
+    type: Literal["pilot"] = "pilot"
+    deckName: str | None = None
+    deckStrategy: str | None = None
+    commander: str | None = None
+    reasoningEffort: str | None = None
+    totalCostUsd: float | None = None
+    placement: int | None = None
+    tools: list[str] | None = None
+    timedOut: bool | None = None
 
 
 def is_pilot_player(player: Player) -> TypeGuard[PilotPlayer]:
     """Narrow a Player to PilotPlayer.  Crashes if type is pilot but model is missing."""
-    if player["type"] != "pilot":
+    if player.type != "pilot":
         return False
-    model = player.get("model")
-    assert isinstance(model, str) and model, f"pilot player missing model: {player!r}"
+    assert isinstance(player.model, str) and player.model, (
+        f"pilot player missing model: {player!r}"
+    )
     return True
 
 
@@ -866,7 +875,13 @@ def _coerce_combat_creature(value: object, source: str) -> CombatCreature:
     )
 
 
-def _is_player(value: object, source: str) -> TypeIs[Player]:
+def _validate_player(value: object, source: str) -> Player:
+    """Validate a raw dict and construct a Player instance.
+
+    If *value* is already a Player (e.g. re-validation), returns it as-is.
+    """
+    if isinstance(value, Player):
+        return value
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "name", source), f"{source}.name")
     _require_str(_require_key(obj, "type", source), f"{source}.type")
@@ -900,7 +915,22 @@ def _is_player(value: object, source: str) -> TypeIs[Player]:
         _require_bool(obj["timedOut"], f"{source}.timedOut")
     if obj["type"] == "pilot":
         _require_non_empty_str(_require_key(obj, "model", source), f"{source}.model")
-    return True
+    return Player(
+        name=obj["name"],  # type: ignore[arg-type]
+        type=obj["type"],  # type: ignore[arg-type]
+        toolCallsOk=obj["toolCallsOk"],  # type: ignore[arg-type]
+        toolCallsFailed=obj["toolCallsFailed"],  # type: ignore[arg-type]
+        thinkingTimeSecs=obj["thinkingTimeSecs"],  # type: ignore[arg-type]
+        model=obj.get("model"),  # type: ignore[arg-type]
+        deckName=obj.get("deckName"),  # type: ignore[arg-type]
+        deckStrategy=obj.get("deckStrategy"),  # type: ignore[arg-type]
+        commander=obj.get("commander"),  # type: ignore[arg-type]
+        reasoningEffort=obj.get("reasoningEffort"),  # type: ignore[arg-type]
+        totalCostUsd=obj.get("totalCostUsd"),  # type: ignore[arg-type]
+        placement=obj.get("placement"),  # type: ignore[arg-type]
+        tools=obj.get("tools"),  # type: ignore[arg-type]
+        timedOut=obj.get("timedOut"),  # type: ignore[arg-type]
+    )
 
 
 def _is_snapshot_player(value: object, source: str) -> TypeIs[SnapshotPlayer]:
@@ -1331,8 +1361,8 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
     )
     _require_str(_require_key(obj, "youtubeUrl", source), f"{source}.youtubeUrl")
     players = _require_list(_require_key(obj, "players", source), f"{source}.players")
-    for index, player in enumerate(players):
-        assert _is_player(player, f"{source}.players[{index}]")
+    for index in range(len(players)):
+        players[index] = _validate_player(players[index], f"{source}.players[{index}]")
     card_images = _require_object(
         _require_key(obj, "cardImages", source), f"{source}.cardImages"
     )

@@ -9,13 +9,13 @@ To update golden files after intentional changes:
     make regen-blunder-golden
 """
 
-import gzip
 import json
 import os
 from pathlib import Path
 
 import pytest
 
+from schemas.game_export_types import load_game_export
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _game_overview,
@@ -45,12 +45,7 @@ GOLDEN_DECISION_INDICES = [0, 11, 64, 113, 232]
 @pytest.fixture(scope="module")
 def game_context():
     """Load game data and build context (once per module, no network calls)."""
-    if str(GAME_PATH).endswith(".gz"):
-        with gzip.open(str(GAME_PATH), "rt") as f:
-            data = json.load(f)
-    else:
-        with open(str(GAME_PATH)) as f:
-            data = json.load(f)
+    data = load_game_export(GAME_PATH)
 
     oracle_texts = json.loads(ORACLE_CACHE.read_text())
     decisions = extract_decisions(str(GAME_PATH))
