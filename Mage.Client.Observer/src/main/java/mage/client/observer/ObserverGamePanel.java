@@ -1216,7 +1216,7 @@ public class ObserverGamePanel extends GamePanel {
             }
 
             CardsView graveyardCards = player.getGraveyard();
-            if (graveyardCards != null && !graveyardCards.isEmpty()) {
+            if (graveyardCards != null) {
                 panel.loadCards(graveyardCards, getBigCard(), getGameId());
             }
         }
@@ -1238,8 +1238,10 @@ public class ObserverGamePanel extends GamePanel {
             }
 
             CardsView exileCards = player.getExile();
-            if (exileCards != null && !exileCards.isEmpty()) {
-                logger.info("Player " + player.getName() + " has " + exileCards.size() + " exiled cards");
+            if (exileCards != null) {
+                if (!exileCards.isEmpty()) {
+                    logger.info("Player " + player.getName() + " has " + exileCards.size() + " exiled cards");
+                }
                 panel.loadCards(exileCards, getBigCard(), getGameId());
             }
         }
