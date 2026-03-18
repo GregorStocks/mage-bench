@@ -196,6 +196,17 @@ public class ObserverGamePanel extends GamePanel {
 
     @Override
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
+        String gameDirStr = System.getProperty("xmage.observer.gameDir");
+        if (gameDirStr != null && !gameDirStr.isEmpty()) {
+            gameDirPath = Paths.get(gameDirStr);
+        }
+        // keepAlive spectators reuse the same panel across games, so any
+        // per-game watcher state must be cleared before the new GameView
+        // callbacks arrive. Otherwise /wait-for-watching can stay latched
+        // from the previous game and hand permissions can be skipped because
+        // the same session-scoped player IDs are reused.
+        watchingSignaled = false;
+        permissionsRequested.clear();
         this.observerGameId = gameId;
         replaceChatWithCombinedPanel();  // Replace before super connects chat
         super.watchGame(currentTableId, parentTableId, gameId, gamePane);
