@@ -27,6 +27,7 @@ from puppeteer.pilot import (
     run_pilot_loop,
 )
 from puppeteer.tool_error import ToolExecutionError
+from schemas.game_export_types import Decision
 
 
 def _make_session() -> MagicMock:
@@ -1103,19 +1104,23 @@ class TestBuildPilotDecision:
     def test_parses_context(self) -> None:
         data = _sample_pass_priority_result()
         decision = _build_pilot_decision(data)
-        assert decision["turn"] == 3
-        assert "PRECOMBAT" in decision["phase"]
-        assert decision["player"] == "Alice"
+        assert isinstance(decision, Decision)
+        assert decision.turn == 3
+        assert "PRECOMBAT" in decision.phase
+        assert decision.player == "Alice"
 
     def test_choices_preserved(self) -> None:
         data = _sample_pass_priority_result()
         decision = _build_pilot_decision(data)
-        assert len(decision["choices"]) == 2
+        assert isinstance(decision, Decision)
+        assert len(decision.choices) == 2
 
     def test_pilot_context(self) -> None:
         data = _sample_pass_priority_result()
         decision = _build_pilot_decision(data)
-        assert decision["pilotContext"]["landDropsUsed"] == 0
+        assert isinstance(decision, Decision)
+        assert decision.pilotContext is not None
+        assert decision.pilotContext["landDropsUsed"] == 0
 
 
 class TestBuildPilotSnapshot:

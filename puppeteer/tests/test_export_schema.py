@@ -104,17 +104,36 @@ def _assert_typed_dict_matches_schema(
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
 
 
-def _dataclass_keys(cls: type, renames: dict[str, str] | None = None) -> set[str]:
-    r = renames or {}
-    return {r.get(field.name, field.name) for field in fields(cls) if not field.name.startswith("_")}
-
-
-def _dataclass_required_keys(cls: type, renames: dict[str, str] | None = None) -> set[str]:
-    r = renames or {}
+def _dataclass_keys(
+    cls: type,
+    *,
+    ignored_fields: set[str] | None = None,
+    renames: dict[str, str] | None = None,
+) -> set[str]:
+    ignored = ignored_fields or set()
+    renamed = renames or {}
     return {
-        r.get(field.name, field.name)
+        renamed.get(field.name, field.name)
         for field in fields(cls)
-        if not field.name.startswith("_") and field.default is MISSING and field.default_factory is MISSING
+        if not field.name.startswith("_") and field.name not in ignored
+    }
+
+
+def _dataclass_required_keys(
+    cls: type,
+    *,
+    ignored_fields: set[str] | None = None,
+    renames: dict[str, str] | None = None,
+) -> set[str]:
+    ignored = ignored_fields or set()
+    renamed = renames or {}
+    return {
+        renamed.get(field.name, field.name)
+        for field in fields(cls)
+        if not field.name.startswith("_")
+        and field.name not in ignored
+        and field.default is MISSING
+        and field.default_factory is MISSING
     }
 
 
@@ -123,12 +142,27 @@ def _assert_dataclass_matches_schema(
     *,
     schema: dict,
     required_override: set[str] | None = None,
+    extra_fields: set[str] | None = None,
     field_renames: dict[str, str] | None = None,
 ) -> None:
     expected_props = set(schema["properties"])
     expected_required = required_override if required_override is not None else set(schema.get("required", []))
-    assert _dataclass_keys(cls, field_renames) == expected_props
-    assert _dataclass_required_keys(cls, field_renames) == expected_required
+    assert (
+        _dataclass_keys(
+            cls,
+            ignored_fields=extra_fields,
+            renames=field_renames,
+        )
+        == expected_props
+    )
+    assert (
+        _dataclass_required_keys(
+            cls,
+            ignored_fields=extra_fields,
+            renames=field_renames,
+        )
+        == expected_required
+    )
 
 
 class TestExportSchema:
@@ -439,7 +473,7 @@ class TestExportSchema:
         _assert_dataclass_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_dataclass_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_dataclass_matches_schema(Annotation, schema=defs["Annotation"])
-        _assert_typed_dict_matches_schema(Decision, schema=defs["Decision"])
+        _assert_dataclass_matches_schema(Decision, schema=defs["Decision"], extra_fields={"actionSeq"})
         _assert_dataclass_matches_schema(GameError, schema=defs["GameError"])
         _assert_dataclass_matches_schema(CardMetadata, schema=defs["CardMetadata"])
         _assert_dataclass_matches_schema(PilotContext, schema=defs["PilotContext"])
@@ -595,9 +629,10 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert game["decisions"][0]["actionType"] == ""
-        assert game["decisions"][0]["responseType"] == ""
-        assert game["decisions"][0]["message"] == ""
+        assert isinstance(game["decisions"][0], Decision)
+        assert game["decisions"][0].actionType == ""
+        assert game["decisions"][0].responseType == ""
+        assert game["decisions"][0].message == ""
 
     def test_loader_coerces_decision_support_records_to_dataclasses(self, tmp_path: Path) -> None:
         path = tmp_path / "decision_support.json"

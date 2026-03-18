@@ -15,9 +15,10 @@ import mimetypes
 import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
+from typing import Any
 from urllib.parse import parse_qs, urlparse
 
-from schemas.game_export_types import Action, Annotation, GameExport, Snapshot
+from schemas.game_export_types import Action, Annotation, Decision, GameExport, Snapshot
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
@@ -64,10 +65,11 @@ STATIC_FILES: dict[str, Path] = {
     "/cardback.jpg": WEBSITE_PUBLIC / "cardback.jpg",
 }
 GAMES_DIR = WEBSITE_PUBLIC / "games"
+DecisionRecord = Decision | dict[str, Any]
 
 # In-memory caches (single-user tool, no concurrency concerns)
 _game_data_cache: dict[str, GameExport] = {}
-_decisions_cache: dict[str, list[dict[str, object]]] = {}
+_decisions_cache: dict[str, list[DecisionRecord]] = {}
 
 
 class AuditApiError(RuntimeError):
@@ -122,7 +124,7 @@ def _load_game_cached(game_id: str) -> GameExport:
     return _game_data_cache[game_id]
 
 
-def _load_decisions_cached(game_id: str) -> list[dict[str, object]]:
+def _load_decisions_cached(game_id: str) -> list[DecisionRecord]:
     """Load decisions with caching."""
     if game_id not in _decisions_cache:
         try:
@@ -138,7 +140,7 @@ def _load_decisions_cached(game_id: str) -> list[dict[str, object]]:
     return _decisions_cache[game_id]
 
 
-def _find_decision(decisions: list[dict[str, object]], di: int) -> dict[str, object]:
+def _find_decision(decisions: list[DecisionRecord], di: int) -> DecisionRecord:
     """Find a decision by index."""
     for d in decisions:
         if get_decision_index(d) == di:

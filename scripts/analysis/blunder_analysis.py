@@ -39,6 +39,7 @@ from puppeteer.decision_renderer import (
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Action,
+    Decision,
     Annotation,
     GameExport,
     Permanent,
@@ -76,6 +77,7 @@ BASE_URL = "https://openrouter.ai/api/v1"
 # automatically with exponential backoff.
 MAX_WORKERS = 50
 _LOG_TZ = ZoneInfo("America/Los_Angeles")
+DecisionRecord = Decision | dict[str, Any]
 
 # Bump this when the analysis pipeline changes enough to warrant re-running.
 # Games analyzed with an older version will be automatically re-analyzed.
@@ -413,7 +415,7 @@ def _format_card_ref(card: dict) -> str:
     return line
 
 
-def _decision_game_state(decision: dict) -> dict:
+def _decision_game_state(decision: DecisionRecord) -> dict:
     """Return a decision's game_state, asserting on malformed inputs."""
     assert "game_state" in decision, f"decision missing game_state: {decision!r}"
     game_state = decision["game_state"]
@@ -423,7 +425,7 @@ def _decision_game_state(decision: dict) -> dict:
     return game_state
 
 
-def _card_names_in_decision(decision: dict) -> set[str]:
+def _card_names_in_decision(decision: DecisionRecord) -> set[str]:
     """Extract card names referenced in a decision's game state and choices."""
     names: set[str] = set()
     gs = _decision_game_state(decision)
@@ -506,7 +508,9 @@ _BASIC_LANDS = {
 }
 
 
-def _card_reference_for_decision(decision: dict, oracle_texts: dict[str, dict]) -> str:
+def _card_reference_for_decision(
+    decision: DecisionRecord, oracle_texts: dict[str, dict]
+) -> str:
     """Build a card reference section for a single decision."""
     names = _card_names_in_decision(decision) & set(oracle_texts.keys())
     names -= _BASIC_LANDS
@@ -571,7 +575,7 @@ def _snapshot_for_turn(snapshots: Sequence[Snapshot], turn: int) -> Snapshot | N
 
 
 def _format_prior_context(
-    decision: dict,
+    decision: DecisionRecord,
     snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
     num_players: int,
@@ -620,7 +624,7 @@ def _format_prior_context(
 
 
 def _format_current_turn_actions(
-    decision: dict,
+    decision: DecisionRecord,
     all_actions: Sequence[Action],
     cutoff_ts: str | None,
 ) -> str:
@@ -723,7 +727,7 @@ def _format_choice(c: dict) -> str:
     return name
 
 
-def _format_decisions(decisions: list[dict]) -> str:
+def _format_decisions(decisions: Sequence[DecisionRecord]) -> str:
     """Compact decision format for analysis."""
     parts: list[str] = []
     for d in decisions:
@@ -870,7 +874,7 @@ def _format_decisions(decisions: list[dict]) -> str:
     return "\n\n".join(parts)
 
 
-def _chosen_display(d: dict) -> str:
+def _chosen_display(d: DecisionRecord) -> str:
     """Human-readable name of what was chosen in a decision.
 
     Delegates to the canonical renderer's _chosen_display, extracting
@@ -1064,7 +1068,7 @@ def _append_blunder_stats(
 
 def build_decision_prompt(
     overview: str,
-    decision: dict,
+    decision: DecisionRecord,
     oracle_texts: dict[str, dict],
     snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
@@ -1092,17 +1096,23 @@ def build_decision_prompt(
         )
         snap_ts = snap.get("ts")
         turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
+        rendered_decision = (
+            decision if isinstance(decision, Decision) else dict(decision)
+        )
+        deciding_player = (
+            decision.player if isinstance(decision, Decision) else decision["player"]
+        )
         formatted = render_decision(
-            dict(decision),
+            rendered_decision,
             dict(snap),
             oracle_texts=oracle_texts,
-            deciding_player=decision["player"],
+            deciding_player=deciding_player,
             include_card_reference=True,
             include_chosen=True,
             prior_context=prior_ctx,
             current_turn_actions=turn_ctx,
         )
-        player = decision["player"]
+        player = deciding_player
         user_msg = f"## Game Overview\n{overview}\n\nYou are evaluating **{player}**'s decision.\n\n{formatted}"
     else:
         # Legacy format: use old formatting code
@@ -1139,7 +1149,7 @@ def _eval_one_decision(
     model: str,
     prices: dict[str, tuple[float, float]],
     overview: str,
-    decision: dict,
+    decision: DecisionRecord,
     oracle_texts: dict[str, dict],
     snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
@@ -1326,7 +1336,7 @@ def init_api() -> tuple[OpenAI, dict[str, tuple[float, float]]]:
 
 
 def eval_decisions(
-    decisions: list[dict],
+    decisions: Sequence[DecisionRecord],
     game_ctx: dict,
     client: OpenAI,
     prices: dict[str, tuple[float, float]],
@@ -1375,7 +1385,7 @@ def eval_decisions(
 def _auto_ingest_ground_truth(
     game_id: str,
     annotations: Sequence[Annotation | Mapping[str, object]],
-    decisions: Sequence[Mapping[str, object]],
+    decisions: Sequence[DecisionRecord],
     snapshots: Sequence[Mapping[str, object]],
 ) -> None:
     """Add annotated decisions to ground truth for future eval."""

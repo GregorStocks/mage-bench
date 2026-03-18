@@ -33,6 +33,7 @@ from puppeteer.llm_cost import (
 )
 from puppeteer.log import get_logger, log_error, setup_logging
 from puppeteer.tool_error import ToolExecutionError, extract_text_content
+from schemas.game_export_types import Decision
 
 logger = get_logger(__name__)
 
@@ -166,7 +167,7 @@ def _build_pilot_snapshot(data: dict, board: list[dict] | None) -> dict:
     return snapshot
 
 
-def _build_pilot_decision(data: dict) -> dict:
+def _build_pilot_decision(data: dict) -> Decision:
     """Build a decision-like dict from a pass_priority/get_action_choices result.
 
     Extracts the fields that render_decision() reads from a decision.
@@ -174,34 +175,46 @@ def _build_pilot_decision(data: dict) -> dict:
     choices = data.get("choices")
     if choices is None:
         choices = []
-    decision: dict = {
-        "index": 0,
-        "snapshotIndex": 0,
-        "player": "You",
-        "turn": 0,
-        "phase": "",
-        "actionType": data.get("action_type"),
-        "responseType": data.get("response_type"),
-        "message": data.get("message"),
-        "choices": choices,
-        "choiceCount": len(choices),
-        "isForced": len(choices) <= 1,
-    }
+    action_type = data.get("action_type")
+    response_type = data.get("response_type")
+    message = data.get("message")
+    assert action_type is None or isinstance(action_type, str), (
+        f"action_type must be a string when present, got {action_type!r}"
+    )
+    assert response_type is None or isinstance(response_type, str), (
+        f"response_type must be a string when present, got {response_type!r}"
+    )
+    assert message is None or isinstance(message, str), f"message must be a string when present, got {message!r}"
+    decision = Decision(
+        index=0,
+        snapshotIndex=0,
+        player="You",
+        turn=0,
+        phase="",
+        actionType="" if action_type is None else action_type,
+        responseType="" if response_type is None else response_type,
+        message="" if message is None else message,
+        choices=choices,
+        choiceCount=len(choices),
+        isForced=len(choices) <= 1,
+        llmEventIndices=[],
+        subsequentActions=[],
+    )
 
     # Parse context string for turn/phase: "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN"
     context = data.get("context")
     if context:
         m = re.match(r"T(\d+)\s+(.+?)(?:\s+\(|$)", context)
         if m:
-            decision["turn"] = int(m.group(1))
-            decision["phase"] = m.group(2).split("/")[0].strip().upper().replace(" ", "_")
+            decision.turn = int(m.group(1))
+            decision.phase = m.group(2).split("/")[0].strip().upper().replace(" ", "_")
 
     # Find player name from board
     board = data.get("board")
     if isinstance(board, list):
         for p in board:
             if isinstance(p, dict) and p.get("is_you"):
-                decision["player"] = p["name"]
+                decision.player = p["name"]
                 break
 
     # Pilot context overlay
@@ -219,16 +232,16 @@ def _build_pilot_decision(data: dict) -> dict:
     if "mana_pool" in data:
         pilot_ctx["manaPool"] = data["mana_pool"]
     if pilot_ctx:
-        decision["pilotContext"] = pilot_ctx
+        decision.pilotContext = pilot_ctx
 
     # Multi-amount items (e.g. combat damage distribution targets)
     items = data.get("items")
     if items:
-        decision["items"] = items
+        decision.items = items
         if "total_min" in data:
-            decision["totalMin"] = data["total_min"]
+            decision.totalMin = data["total_min"]
         if "total_max" in data:
-            decision["totalMax"] = data["total_max"]
+            decision.totalMax = data["total_max"]
 
     return decision
 
@@ -273,7 +286,7 @@ def _render_for_pilot(
         oracle_texts = {k: v for k, v in oracle_texts.items() if k not in seen_oracle_cards}
         seen_oracle_cards.update(oracle_texts)
 
-    deciding_player = decision["player"]
+    deciding_player = decision.player
 
     rendered = render_decision(
         decision,

@@ -9,9 +9,11 @@ what happened next. Designed to give Claude Code structured data for blunder ana
 import json
 import sys
 from collections.abc import Sequence
+from typing import Any, cast
 
 from schemas.game_export_types import (
     BuiltGameExport,
+    Decision,
     JsonObject,
     LlmEvent,
     Snapshot,
@@ -707,7 +709,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     return decisions
 
 
-def extract_decisions(gz_path: str) -> list[dict[str, object]]:
+def extract_decisions(gz_path: str) -> list[Decision | dict[str, Any]]:
     """Extract decision points from a game export file.
 
     Returns canonical decisions from the export's 'decisions' field when
@@ -718,17 +720,17 @@ def extract_decisions(gz_path: str) -> list[dict[str, object]]:
 
     # Use pre-built canonical decisions when available
     if "decisions" in data:
-        typed_decisions: list[dict[str, object]] = []
+        typed_decisions: list[Decision | dict[str, Any]] = []
         for decision in data["decisions"]:
             jsonable_decision = game_export_to_jsonable(decision)
             assert isinstance(jsonable_decision, dict), (
                 f"canonical decision must serialize to an object, got {jsonable_decision!r}"
             )
-            typed_decisions.append(jsonable_decision)
+            typed_decisions.append(cast(dict[str, Any], jsonable_decision))
         return typed_decisions
 
     # Legacy: extract from llmEvents
-    decisions = (
+    legacy_decisions = (
         _extract_decisions_v2(data)
         if data["harnessEpoch"] >= 20
         else _extract_decisions_v1(data)
@@ -738,9 +740,9 @@ def extract_decisions(gz_path: str) -> list[dict[str, object]]:
     # in ANY tool result (get_action_choices, choose_action, pass_priority)
     llm_events = data["llmEvents"]
     cancelled = _find_spell_cancelled_events(llm_events)
-    _mark_rolled_back_casts(decisions, cancelled)
+    _mark_rolled_back_casts(legacy_decisions, cancelled)
 
-    return decisions
+    return cast(list[Decision | dict[str, Any]], legacy_decisions)
 
 
 _CAST_PROMPT_PREFIXES = (
@@ -838,7 +840,14 @@ def _mark_rolled_back_casts(
 
 def main(gz_path: str) -> None:
     decisions = extract_decisions(gz_path)
-    json.dump(decisions, sys.stdout, indent=2)
+    json.dump(
+        [
+            decision.to_dict() if isinstance(decision, Decision) else decision
+            for decision in decisions
+        ],
+        sys.stdout,
+        indent=2,
+    )
     print()
 
 
