@@ -1097,7 +1097,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                     player_timeouts[player_name] = player_timeouts.get(player_name, 0) + 1
                 else:
                     player_other_errors[player_name] = player_other_errors.get(player_name, 0) + 1
-            elif ev_type == "context_reset":
+            elif ev.type == "context_reset":
                 player_context_resets[player_name] = player_context_resets.get(player_name, 0) + 1
 
             # Track latency from inter-event timestamp gaps

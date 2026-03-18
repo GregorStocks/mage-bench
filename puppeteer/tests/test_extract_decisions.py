@@ -222,6 +222,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — mana plan was incorrect."]}',
             },
         ]
@@ -235,6 +236,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "choose_action",
                 "player": "Bob",
                 "ts": "T02",
+                "args": {},
                 "result": result,
             },
         ]
@@ -247,6 +249,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "pass_priority",
                 "player": "Alice",
                 "ts": "T03",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — mana plan was incorrect or incomplete."]}',
             },
         ]
@@ -259,6 +262,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": '{"recent_chat": ["Alice: I will cast a spell!"]}',
             },
         ]
@@ -270,7 +274,6 @@ class TestFindSpellCancelledEvents:
                 "type": "llm_response",
                 "player": "Alice",
                 "ts": "T01",
-                "result": '{"recent_chat": ["[System] Spell cancelled"]}',
             },
         ]
         assert _find_spell_cancelled_events(_convert_events(events)) == []
@@ -282,6 +285,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — mana plan was incorrect."]}',
             },
             {
@@ -289,6 +293,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "pass_priority",
                 "player": "Bob",
                 "ts": "T02",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — not enough mana."]}',
             },
         ]
@@ -303,6 +308,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "choose_action",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": '{"action_taken": "selected_0"}',
             },
             {
@@ -310,6 +316,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "get_action_choices",
                 "player": "Bob",
                 "ts": "T02",
+                "args": {},
                 "result": '{"choices": []}',
             },
             {
@@ -317,6 +324,7 @@ class TestFindSpellCancelledEvents:
                 "tool": "pass_priority",
                 "player": "Alice",
                 "ts": "T10",
+                "args": {},
                 "result": '{"recent_chat": ["[System] Spell cancelled — not enough mana."]}',
             },
         ]
@@ -767,6 +775,7 @@ class TestExtractDecisionsV1:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": gac_result,
             },
             {"type": "llm_response", "player": "Alice", "ts": "T02", "reasoning": "bolt it"},
@@ -815,6 +824,7 @@ class TestExtractDecisionsV1:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "ts": "T01",
+                "args": {},
                 "result": gac_result,
             },
             {"type": "llm_response", "player": "Alice", "ts": "T02", "reasoning": "black"},
