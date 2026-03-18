@@ -63,6 +63,7 @@ STATIC_FILES: dict[str, Path] = {
     "/game-renderer.css": WEBSITE_STYLES / "game-renderer.css",
     "/game-viewer.js": WEBSITE_SCRIPTS / "game-viewer.js",
     "/game-viewer.css": WEBSITE_STYLES / "game-viewer.css",
+    "/shared.css": WEBSITE_STYLES / "shared.css",
     "/cardback.jpg": WEBSITE_PUBLIC / "cardback.jpg",
 }
 GAMES_DIR = WEBSITE_PUBLIC / "games"
