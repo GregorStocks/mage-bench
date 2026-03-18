@@ -87,6 +87,8 @@ public class BridgeCallbackHandler {
     private static final int DEFAULT_ACTION_DELAY_MS = 500;
     /** Chat message captured for interleaving with bridge events in game log rendering. */
     private record ChatLogEntry(int eventCursor, String message, String rendered) {}
+    /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
+    private record GameLogSnapshot(List<BridgeLogEntry> events, int cursor) {}
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -3009,15 +3011,8 @@ public class BridgeCallbackHandler {
     }
 
     public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
-        // Ensure cache is up to date
-        pullBridgeEvents();
-
-        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
-        var result = new GetGameLogTool.Result();
-
-        int newCursor = allEvents.isEmpty() ? 0
-                : allEvents.get(allEvents.size() - 1).index() + 1;
-        result.cursor = newCursor;
+        GameLogSnapshot snapshot = snapshotGameLog();
+        List<BridgeLogEntry> allEvents = snapshot.events();
 
         if (cursor != null) {
             // Incremental: render only events from the cursor onward.
@@ -3041,33 +3036,17 @@ public class BridgeCallbackHandler {
             }
 
             String rendered = renderGameLogFlat(responseEvents, priorTurns, c, false);
-
-            if (maxChars > 0 && rendered.length() > maxChars) {
-                rendered = truncateFromFront(rendered, maxChars);
-                result.truncated = true;
-            } else {
-                result.truncated = false;
-            }
-            result.log = rendered;
+            GetGameLogTool.Result result = buildGameLogResult(snapshot, rendered, null, maxChars);
 
             if (!responseEvents.isEmpty() && responseEvents.get(0).index() > cursor) {
                 result.cursor_reset = true;
             }
+            return result;
         } else {
             // Full log: render all events with chat
             String rendered = renderGameLogFlat(allEvents, Map.of(), 0, true);
-            result.total_length = rendered.length();
-
-            if (maxChars > 0 && rendered.length() > maxChars) {
-                rendered = truncateFromFront(rendered, maxChars);
-                result.truncated = true;
-            } else {
-                result.truncated = false;
-            }
-            result.log = rendered;
+            return buildGameLogResult(snapshot, rendered, rendered.length(), maxChars);
         }
-
-        return result;
     }
 
     /** Truncate text from the front to maxChars, trimming to the next newline boundary. */
@@ -3087,16 +3066,11 @@ public class BridgeCallbackHandler {
      */
     public GetGameLogTool.Result getGameLogSinceTurn(String player, int sinceTurn) {
         String effectivePlayer = player != null ? player : client.getUsername();
-
-        // Ensure cache is up to date
-        pullBridgeEvents();
-
-        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
+        GameLogSnapshot snapshot = snapshotGameLog();
+        List<BridgeLogEntry> allEvents = snapshot.events();
         Map<String, Integer> emptyTurns = Map.of();
-        var result = new GetGameLogTool.Result();
 
         String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0, true);
-        result.total_length = allRendered.length();
 
         // Find the event index where the player's Nth per-player turn starts,
         // and collect turn counts for all players up to that point so the
@@ -3121,27 +3095,68 @@ public class BridgeCallbackHandler {
         if (startIdx >= 0) {
             List<BridgeLogEntry> subset = allEvents.subList(startIdx, allEvents.size());
             int minChatCursor = allEvents.get(startIdx).index();
-            result.log = renderGameLogFlat(subset, priorTurns, minChatCursor, true);
+            GetGameLogTool.Result result = buildGameLogResult(
+                    snapshot,
+                    renderGameLogFlat(subset, priorTurns, minChatCursor, true),
+                    allRendered.length(),
+                    null
+            );
             result.truncated = false;
             result.since_turn = sinceTurn;
             result.since_player = effectivePlayer;
+            return result;
         } else {
             // Count total per-player turns to distinguish "trimmed" vs "hasn't happened"
             int totalPlayerTurns = priorTurns.getOrDefault(effectivePlayer, 0);
             if (totalPlayerTurns > 0 && sinceTurn <= totalPlayerTurns) {
-                result.log = allRendered;
+                GetGameLogTool.Result result = buildGameLogResult(snapshot, allRendered, allRendered.length(), null);
                 result.truncated = true;
                 result.since_player = effectivePlayer;
+                return result;
             } else {
-                result.log = "";
+                GetGameLogTool.Result result = buildGameLogResult(snapshot, "", allRendered.length(), null);
                 result.truncated = false;
+                return result;
             }
         }
+    }
 
-        int newCursor = allEvents.isEmpty() ? 0
-                : allEvents.get(allEvents.size() - 1).index() + 1;
-        result.cursor = newCursor;
+    private GameLogSnapshot snapshotGameLog() {
+        pullBridgeEvents();
+        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
+        return new GameLogSnapshot(allEvents, nextBridgeEventCursor(allEvents));
+    }
+
+    private static int nextBridgeEventCursor(List<BridgeLogEntry> allEvents) {
+        return allEvents.isEmpty() ? 0 : allEvents.get(allEvents.size() - 1).index() + 1;
+    }
+
+    private static GetGameLogTool.Result buildGameLogResult(
+            GameLogSnapshot snapshot,
+            String rendered,
+            Integer totalLength,
+            Integer maxChars) {
+        var result = new GetGameLogTool.Result();
+        result.cursor = snapshot.cursor();
+        if (totalLength != null) {
+            result.total_length = totalLength;
+        }
+        if (maxChars != null) {
+            applyGameLogCharLimit(result, rendered, maxChars);
+        } else {
+            result.log = rendered;
+        }
         return result;
+    }
+
+    private static void applyGameLogCharLimit(GetGameLogTool.Result result, String rendered, int maxChars) {
+        if (maxChars > 0 && rendered.length() > maxChars) {
+            result.log = truncateFromFront(rendered, maxChars);
+            result.truncated = true;
+        } else {
+            result.log = rendered;
+            result.truncated = false;
+        }
     }
 
     /**
@@ -4649,178 +4664,107 @@ public class BridgeCallbackHandler {
         }
     }
 
-    private void populateCardFields(Map<String, Object> entry, CardView cv) {
-        entry.put("name", cv.getDisplayName());
-        String manaCost = cv.getManaCostStr();
-        if (manaCost != null && !manaCost.isEmpty()) {
-            entry.put("mana_cost", manaCost);
-        }
-        String typeText = cv.getTypeText();
-        if (typeText != null && !typeText.trim().isEmpty()) {
-            entry.put("type", typeText.trim());
-        }
-        entry.put("rules", stripHtmlList(cv.getRules()));
-        if (cv.isCreature() && cv.getPower() != null) {
-            entry.put("power", cv.getPower());
-            entry.put("toughness", cv.getToughness());
-        }
-        if (cv.isPlaneswalker()) {
-            String loyalty = cv.getStartingLoyalty();
-            if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
-                entry.put("starting_loyalty", loyalty);
+    private record OracleCardFields(
+        String name,
+        String manaCost,
+        String type,
+        List<String> rules,
+        String power,
+        String toughness,
+        String startingLoyalty,
+        String startingDefense,
+        OracleCardFields secondFace
+    ) {
+        private void populate(Map<String, Object> entry) {
+            entry.put("name", name);
+            if (manaCost != null) {
+                entry.put("mana_cost", manaCost);
+            }
+            if (type != null) {
+                entry.put("type", type);
+            }
+            entry.put("rules", rules);
+            if (power != null) {
+                entry.put("power", power);
+                entry.put("toughness", toughness);
+            }
+            if (startingLoyalty != null) {
+                entry.put("starting_loyalty", startingLoyalty);
+            }
+            if (startingDefense != null) {
+                entry.put("starting_defense", startingDefense);
+            }
+            if (secondFace != null) {
+                entry.put("second_face", secondFace.toMap());
             }
         }
-        if (cv.isBattle()) {
-            String defense = cv.getStartingDefense();
-            if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
-                entry.put("starting_defense", defense);
-            }
-        }
-        CardView secondFace = cv.getSecondCardFace();
-        if (secondFace != null) {
+
+        private Map<String, Object> toMap() {
             var face = new HashMap<String, Object>();
-            populateCardFields(face, secondFace);
-            entry.put("second_face", face);
+            populate(face);
+            return face;
         }
+
+        private void populate(GetOracleTextTool.Result result) {
+            result.name = name;
+            result.mana_cost = manaCost;
+            result.type = type;
+            result.rules = rules;
+            result.power = power;
+            result.toughness = toughness;
+            result.starting_loyalty = startingLoyalty;
+            result.starting_defense = startingDefense;
+            result.second_face = secondFace != null ? secondFace.toMap() : null;
+        }
+    }
+
+    private void populateCardFields(Map<String, Object> entry, CardView cv) {
+        extractOracleCardFields(cv).populate(entry);
     }
 
     private void populateCardFields(Map<String, Object> entry, CardInfo ci) {
-        entry.put("name", ci.getName());
-        List<String> manaCosts = ci.getManaCosts(CardInfo.ManaCostSide.ALL);
-        if (manaCosts != null && !manaCosts.isEmpty()) {
-            entry.put("mana_cost", String.join("", manaCosts));
-        }
-        String typeText = buildTypeLine(ci);
-        if (!typeText.isEmpty()) {
-            entry.put("type", typeText);
-        }
-        entry.put("rules", stripHtmlList(ci.getRules()));
-        if (ci.getTypes().contains(CardType.CREATURE) && ci.getPower() != null) {
-            entry.put("power", ci.getPower());
-            entry.put("toughness", ci.getToughness());
-        }
-        if (ci.getTypes().contains(CardType.PLANESWALKER)) {
-            String loyalty = ci.getStartingLoyalty();
-            if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
-                entry.put("starting_loyalty", loyalty);
-            }
-        }
-        if (ci.getTypes().contains(CardType.BATTLE)) {
-            String defense = ci.getStartingDefense();
-            if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
-                entry.put("starting_defense", defense);
-            }
-        }
-        // Check for second face (transform, MDFC, flip, adventure)
-        String secondName = ci.getSecondSideName();
-        if (secondName == null || secondName.isEmpty()) {
-            secondName = ci.getDoubleFacedSecondSideName();
-        }
-        if (secondName == null || secondName.isEmpty()) {
-            secondName = ci.getFlipCardName();
-        }
-        if (secondName == null || secondName.isEmpty()) {
-            secondName = ci.getSpellOptionCardName();
-        }
-        if (secondName != null && !secondName.isEmpty()) {
-            CardInfo secondCard = CardRepository.instance.findCard(secondName);
-            if (secondCard != null) {
-                var face = new HashMap<String, Object>();
-                // Don't recurse further — second faces don't have second faces
-                face.put("name", secondCard.getName());
-                List<String> secondManaCosts = secondCard.getManaCosts(CardInfo.ManaCostSide.ALL);
-                if (secondManaCosts != null && !secondManaCosts.isEmpty()) {
-                    face.put("mana_cost", String.join("", secondManaCosts));
-                }
-                String secondType = buildTypeLine(secondCard);
-                if (!secondType.isEmpty()) {
-                    face.put("type", secondType);
-                }
-                face.put("rules", stripHtmlList(secondCard.getRules()));
-                if (secondCard.getTypes().contains(CardType.CREATURE) && secondCard.getPower() != null) {
-                    face.put("power", secondCard.getPower());
-                    face.put("toughness", secondCard.getToughness());
-                }
-                if (secondCard.getTypes().contains(CardType.PLANESWALKER)) {
-                    String loyalty = secondCard.getStartingLoyalty();
-                    if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
-                        face.put("starting_loyalty", loyalty);
-                    }
-                }
-                if (secondCard.getTypes().contains(CardType.BATTLE)) {
-                    String defense = secondCard.getStartingDefense();
-                    if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
-                        face.put("starting_defense", defense);
-                    }
-                }
-                entry.put("second_face", face);
-            }
-        }
+        extractOracleCardFields(ci, true).populate(entry);
     }
 
     private void populateCardFields(GetOracleTextTool.Result result, CardView cv) {
-        result.name = cv.getDisplayName();
-        String manaCost = cv.getManaCostStr();
-        if (manaCost != null && !manaCost.isEmpty()) {
-            result.mana_cost = manaCost;
-        }
-        String typeText = cv.getTypeText();
-        if (typeText != null && !typeText.trim().isEmpty()) {
-            result.type = typeText.trim();
-        }
-        result.rules = stripHtmlList(cv.getRules());
-        if (cv.isCreature() && cv.getPower() != null) {
-            result.power = cv.getPower();
-            result.toughness = cv.getToughness();
-        }
-        if (cv.isPlaneswalker()) {
-            String loyalty = cv.getStartingLoyalty();
-            if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
-                result.starting_loyalty = loyalty;
-            }
-        }
-        if (cv.isBattle()) {
-            String defense = cv.getStartingDefense();
-            if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
-                result.starting_defense = defense;
-            }
-        }
-        CardView secondFace = cv.getSecondCardFace();
-        if (secondFace != null) {
-            var face = new HashMap<String, Object>();
-            populateCardFields(face, secondFace);
-            result.second_face = face;
-        }
+        extractOracleCardFields(cv).populate(result);
     }
 
     private void populateCardFields(GetOracleTextTool.Result result, CardInfo ci) {
-        result.name = ci.getName();
-        List<String> manaCosts = ci.getManaCosts(CardInfo.ManaCostSide.ALL);
-        if (manaCosts != null && !manaCosts.isEmpty()) {
-            result.mana_cost = String.join("", manaCosts);
-        }
-        String typeText = buildTypeLine(ci);
-        if (!typeText.isEmpty()) {
-            result.type = typeText;
-        }
-        result.rules = stripHtmlList(ci.getRules());
-        if (ci.getTypes().contains(CardType.CREATURE) && ci.getPower() != null) {
-            result.power = ci.getPower();
-            result.toughness = ci.getToughness();
-        }
-        if (ci.getTypes().contains(CardType.PLANESWALKER)) {
-            String loyalty = ci.getStartingLoyalty();
-            if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
-                result.starting_loyalty = loyalty;
-            }
-        }
-        if (ci.getTypes().contains(CardType.BATTLE)) {
-            String defense = ci.getStartingDefense();
-            if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
-                result.starting_defense = defense;
-            }
-        }
-        // Check for second face (transform, MDFC, flip, adventure)
+        extractOracleCardFields(ci, true).populate(result);
+    }
+
+    private static OracleCardFields extractOracleCardFields(CardView cv) {
+        CardView secondFace = cv.getSecondCardFace();
+        return new OracleCardFields(
+            cv.getDisplayName(),
+            normalizeOptionalField(cv.getManaCostStr()),
+            normalizeOptionalType(cv.getTypeText()),
+            stripHtmlList(cv.getRules()),
+            cv.isCreature() && cv.getPower() != null ? cv.getPower() : null,
+            cv.isCreature() && cv.getPower() != null ? cv.getToughness() : null,
+            cv.isPlaneswalker() ? normalizeNonZeroField(cv.getStartingLoyalty()) : null,
+            cv.isBattle() ? normalizeNonZeroField(cv.getStartingDefense()) : null,
+            secondFace != null ? extractOracleCardFields(secondFace) : null
+        );
+    }
+
+    private static OracleCardFields extractOracleCardFields(CardInfo ci, boolean includeSecondFace) {
+        CardInfo secondFace = includeSecondFace ? findSecondFace(ci) : null;
+        return new OracleCardFields(
+            ci.getName(),
+            joinManaCosts(ci.getManaCosts(CardInfo.ManaCostSide.ALL)),
+            normalizeOptionalType(buildTypeLine(ci)),
+            stripHtmlList(ci.getRules()),
+            ci.getTypes().contains(CardType.CREATURE) && ci.getPower() != null ? ci.getPower() : null,
+            ci.getTypes().contains(CardType.CREATURE) && ci.getPower() != null ? ci.getToughness() : null,
+            ci.getTypes().contains(CardType.PLANESWALKER) ? normalizeNonZeroField(ci.getStartingLoyalty()) : null,
+            ci.getTypes().contains(CardType.BATTLE) ? normalizeNonZeroField(ci.getStartingDefense()) : null,
+            secondFace != null ? extractOracleCardFields(secondFace, false) : null
+        );
+    }
+
+    private static CardInfo findSecondFace(CardInfo ci) {
         String secondName = ci.getSecondSideName();
         if (secondName == null || secondName.isEmpty()) {
             secondName = ci.getDoubleFacedSecondSideName();
@@ -4831,14 +4775,39 @@ public class BridgeCallbackHandler {
         if (secondName == null || secondName.isEmpty()) {
             secondName = ci.getSpellOptionCardName();
         }
-        if (secondName != null && !secondName.isEmpty()) {
-            CardInfo secondCard = CardRepository.instance.findCard(secondName);
-            if (secondCard != null) {
-                var face = new HashMap<String, Object>();
-                populateCardFields(face, secondCard);
-                result.second_face = face;
-            }
+        if (secondName == null || secondName.isEmpty()) {
+            return null;
         }
+        return CardRepository.instance.findCard(secondName);
+    }
+
+    private static String joinManaCosts(List<String> manaCosts) {
+        if (manaCosts == null || manaCosts.isEmpty()) {
+            return null;
+        }
+        return String.join("", manaCosts);
+    }
+
+    private static String normalizeOptionalField(String value) {
+        if (value == null || value.isEmpty()) {
+            return null;
+        }
+        return value;
+    }
+
+    private static String normalizeOptionalType(String value) {
+        if (value == null) {
+            return null;
+        }
+        String trimmed = value.trim();
+        return trimmed.isEmpty() ? null : trimmed;
+    }
+
+    private static String normalizeNonZeroField(String value) {
+        if (value == null || value.isEmpty() || value.equals("0")) {
+            return null;
+        }
+        return value;
     }
 
     private static String buildTypeLine(CardInfo ci) {

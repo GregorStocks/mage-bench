@@ -3,6 +3,7 @@
 Full per-game validation is in test_weird_conventions.py::TestAllExportsValid.
 """
 
+import dataclasses
 import gzip
 import json
 from dataclasses import MISSING, fields, is_dataclass
@@ -104,6 +105,18 @@ def _assert_typed_dict_matches_schema(
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
 
 
+def _dataclass_keys(cls: type) -> set[str]:
+    return {f.name for f in dataclasses.fields(cls) if not f.name.startswith("_")}
+
+
+def _dataclass_required_keys(cls: type) -> set[str]:
+    return {
+        f.name
+        for f in dataclasses.fields(cls)
+        if not f.name.startswith("_") and f.default is dataclasses.MISSING and f.default_factory is dataclasses.MISSING
+    }
+
+
 def _assert_dataclass_matches_schema(
     dataclass_cls: type[object],
     *,
@@ -111,19 +124,15 @@ def _assert_dataclass_matches_schema(
     required_override: set[str] | None = None,
 ) -> None:
     assert is_dataclass(dataclass_cls)
-    actual_fields = fields(dataclass_cls)
     expected_props = set(schema["properties"])
     expected_required = required_override if required_override is not None else set(schema.get("required", []))
-    public_fields = [field for field in actual_fields if not field.name.startswith("_")]
+    actual_fields = fields(dataclass_cls)
     internal_fields = [field for field in actual_fields if field.name.startswith("_")]
-    assert {field.name for field in public_fields} == expected_props
+    assert _dataclass_keys(dataclass_cls) == expected_props
     assert all(field.default is not MISSING or field.default_factory is not MISSING for field in internal_fields), (
         "internal dataclass fields must be optional"
     )
-    actual_required = {
-        field.name for field in public_fields if field.default is MISSING and field.default_factory is MISSING
-    }
-    assert actual_required == expected_required
+    assert _dataclass_required_keys(dataclass_cls) == expected_required
 
 
 class TestExportSchema:
@@ -417,11 +426,11 @@ class TestExportSchema:
         all_keys: set[str] = set()
         all_required: set[str] | None = None
         for variant in llm_variants:
-            all_keys |= _typed_dict_keys(variant)
+            all_keys |= _dataclass_keys(variant)
             if all_required is None:
-                all_required = set(variant.__required_keys__)
+                all_required = _dataclass_required_keys(variant)
             else:
-                all_required &= set(variant.__required_keys__)
+                all_required &= _dataclass_required_keys(variant)
         llm_schema = defs["LlmEvent"]
         assert all_keys == set(llm_schema["properties"]), (
             f"LlmEvent variant keys mismatch: "
@@ -431,7 +440,7 @@ class TestExportSchema:
         assert all_required == set(llm_schema.get("required", [])), (
             f"LlmEvent required keys mismatch: got {all_required}, expected {set(llm_schema.get('required', []))}"
         )
-        _assert_typed_dict_matches_schema(LlmUsage, schema=defs["LlmUsage"])
+        _assert_dataclass_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
         _assert_typed_dict_matches_schema(Decision, schema=defs["Decision"])

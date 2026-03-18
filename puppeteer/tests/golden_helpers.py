@@ -40,6 +40,7 @@ from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
+from schemas.game_export_types import json_default
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -1539,21 +1540,7 @@ def _to_sorted_json(obj: object) -> str:
 def _json_ready(obj: object) -> object:
     """Convert dataclass-backed export records into plain JSON-compatible values."""
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
-        result: dict[str, object] = {}
-        extras: Mapping[str, object] = {}
-        for field in dataclasses.fields(obj):
-            value = getattr(obj, field.name)
-            if field.name == "_extras":
-                assert isinstance(value, Mapping), f"dataclass _extras must be a mapping, got {value!r}"
-                extras = value
-                continue
-            if value is None:
-                continue
-            result[field.name] = _json_ready(value)
-        for key, value in extras.items():
-            assert key not in result, f"duplicate dataclass export key {key!r}"
-            result[key] = _json_ready(value)
-        return result
+        return _json_ready(json_default(obj))
     if isinstance(obj, dict):
         return {key: _json_ready(value) for key, value in obj.items()}
     if isinstance(obj, list):
@@ -1719,13 +1706,30 @@ def _strip_volatile(data: dict) -> None:
     for action in data.get("actions", []):
         action.pop("ts", None)
 
-    # Sort llmEvents by (seq, player) then strip wall-clock timing fields.
+    # Convert llmEvents to dicts (they are dataclass instances after validation)
+    # then sort by (seq, player) and strip wall-clock timing fields.
     # Mulligans and concedes have both players acting at the same seq;
     # thread interleaving is nondeterministic so we need a stable sort.
-    for event in data.get("llmEvents", []):
+    llm_events = data.get("llmEvents", [])
+    for i, event in enumerate(llm_events):
+        if dataclasses.is_dataclass(event) and not isinstance(event, type):
+            source_keys: frozenset[str] | None = getattr(event, "_source_keys", None)
+            if source_keys is not None:
+                d = {f.name: getattr(event, f.name) for f in dataclasses.fields(event) if f.name in source_keys}
+                extra: dict[str, object] | None = getattr(event, "_extra", None)
+                if extra:
+                    d.update(extra)
+                llm_events[i] = d
+            else:
+                llm_events[i] = {
+                    f.name: getattr(event, f.name)
+                    for f in dataclasses.fields(event)
+                    if getattr(event, f.name) is not None
+                }
+    for event in llm_events:
         event.pop("ts", None)
         event.pop("latencyMs", None)
-    data.get("llmEvents", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
+    llm_events.sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
     # Same for llmTrace.
     for event in data.get("llmTrace", []):
