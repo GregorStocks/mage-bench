@@ -1,42 +1,76 @@
 {
   "actions": [
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "seq": 2
+      "phase": null,
+      "seq": 2,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 3,
+      "step": null,
+      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
       "phase": null,
       "seq": 4,
       "step": null,
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer wants to concede",
-      "seq": 6
+      "phase": null,
+      "seq": 6,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     }
   ],
   "cardData": {
     "Aether Vial": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{1}",
       "oracle_text": "At the beginning of your upkeep, you may put a charge counter on this artifact.\n{T}: You may put a creature card with mana value equal to the number of charge counters on this artifact from your hand onto the battlefield.",
+      "power": null,
+      "toughness": null,
       "type_line": "Artifact"
     },
     "Ancient Tomb": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you.",
+      "power": null,
+      "toughness": null,
       "type_line": "Land"
     },
     "Badlands": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {B} or {R}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Land — Swamp Mountain"
     }
   },

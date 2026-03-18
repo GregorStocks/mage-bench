@@ -1,95 +1,195 @@
 {
   "actions": [
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "seq": 2
+      "phase": null,
+      "seq": 2,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 3,
+      "step": null,
+      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
       "phase": null,
       "seq": 4,
       "step": null,
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skips Draw step",
-      "seq": 7
+      "phase": null,
+      "seq": 7,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "BEGINNING",
       "seq": 8,
       "step": "DRAW",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skip attack",
-      "seq": 11
+      "phase": null,
+      "seq": 11,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "COMBAT",
       "seq": 12,
       "step": "DECLARE_ATTACKERS",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Plains from hand onto the Battlefield",
-      "seq": 16
+      "phase": null,
+      "seq": 16,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 17,
       "step": "POSTCOMBAT_MAIN",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer casts Black Lotus from hand",
-      "seq": 20
+      "phase": null,
+      "seq": 20,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Black Lotus from stack onto the Battlefield",
-      "seq": 23
+      "phase": null,
+      "seq": 23,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer sacrificed Black Lotus (source: Black Lotus)",
-      "seq": 27
+      "phase": null,
+      "seq": 27,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer casts Emancipation Angel from hand",
-      "seq": 28
+      "phase": null,
+      "seq": 28,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Emancipation Angel from stack onto the Battlefield",
-      "seq": 31
+      "phase": null,
+      "seq": 31,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer - Ability triggers: Emancipation Angel - When Emancipation Angel enters, return a permanent you control to its owner's hand.",
-      "seq": 32
+      "phase": null,
+      "seq": 32,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer wants to concede",
-      "seq": 36
+      "phase": null,
+      "seq": 36,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     }
   ],
   "cardData": {
     "Black Lotus": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{0}",
       "oracle_text": "{T}, Sacrifice this artifact: Add three mana of any one color.",
+      "power": null,
+      "toughness": null,
       "type_line": "Artifact"
     },
     "Emancipation Angel": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{1}{W}{W}",
       "oracle_text": "Flying\nWhen this creature enters, return a permanent you control to its owner's hand.",
       "power": "3",
@@ -97,13 +197,21 @@
       "type_line": "Creature — Angel"
     },
     "Mountain": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {R}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Basic Land — Mountain"
     },
     "Plains": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {W}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Basic Land — Plains"
     }
   },

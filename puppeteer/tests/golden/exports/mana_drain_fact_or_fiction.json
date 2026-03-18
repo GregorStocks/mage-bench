@@ -1,202 +1,428 @@
 {
   "actions": [
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "seq": 2
+      "phase": null,
+      "seq": 2,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 3,
+      "step": null,
+      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
       "phase": null,
       "seq": 4,
       "step": null,
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skips Draw step",
-      "seq": 7
+      "phase": null,
+      "seq": 7,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "BEGINNING",
       "seq": 8,
       "step": "DRAW",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skip attack",
-      "seq": 11
+      "phase": null,
+      "seq": 11,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "COMBAT",
       "seq": 12,
       "step": "DECLARE_ATTACKERS",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Island from hand onto the Battlefield",
-      "seq": 16
+      "phase": null,
+      "seq": 16,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 17,
       "step": "POSTCOMBAT_MAIN",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent casts Black Lotus from hand",
-      "seq": 22
+      "phase": null,
+      "seq": 22,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 23,
+      "step": null,
+      "ts": null,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 24,
       "step": "PRECOMBAT_MAIN",
+      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent puts Black Lotus from stack onto the Battlefield",
-      "seq": 27
+      "phase": null,
+      "seq": 27,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent sacrificed Black Lotus (source: Black Lotus)",
-      "seq": 30
+      "phase": null,
+      "seq": 30,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent casts Divination from hand",
-      "seq": 31
+      "phase": null,
+      "seq": 31,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent puts Divination from stack into their graveyard",
-      "seq": 34
+      "phase": null,
+      "seq": 34,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent puts Plains from hand onto the Battlefield",
-      "seq": 36
+      "phase": null,
+      "seq": 36,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent skip attack",
-      "seq": 39
+      "phase": null,
+      "seq": 39,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
       "phase": "COMBAT",
       "seq": 40,
       "step": "DECLARE_ATTACKERS",
+      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer casts Black Lotus from hand",
-      "seq": 47
+      "phase": null,
+      "seq": 47,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 48,
+      "step": null,
+      "ts": null,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 49,
       "step": "PRECOMBAT_MAIN",
+      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Black Lotus from stack onto the Battlefield",
-      "seq": 52
+      "phase": null,
+      "seq": 52,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skip attack",
-      "seq": 55
+      "phase": null,
+      "seq": 55,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "COMBAT",
       "seq": 56,
       "step": "DECLARE_ATTACKERS",
+      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer sacrificed Black Lotus (source: Black Lotus)",
-      "seq": 62
+      "phase": null,
+      "seq": 62,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 63,
       "step": "POSTCOMBAT_MAIN",
+      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer casts Fact or Fiction from hand",
-      "seq": 64
+      "phase": null,
+      "seq": 64,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer reveals Djinn of Wishes, Mind Control, Serra Angel, Shivan Dragon, Island (source: Fact or Fiction)",
-      "seq": 67
+      "phase": null,
+      "seq": 67,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Pile 1, going to HAND: Djinn of Wishes, Island",
-      "seq": 72
+      "phase": null,
+      "seq": 72,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts a card from library into their hand",
-      "seq": 73
+      "phase": null,
+      "seq": 73,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts a card from library into their hand",
-      "seq": 74
+      "phase": null,
+      "seq": 74,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Pile 2, going to GRAVEYARD: Mind Control, Serra Angel, Shivan Dragon",
-      "seq": 75
+      "phase": null,
+      "seq": 75,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Mind Control from library into their graveyard (source: Fact or Fiction)",
-      "seq": 76
+      "phase": null,
+      "seq": 76,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Serra Angel from library into their graveyard (source: Fact or Fiction)",
-      "seq": 77
+      "phase": null,
+      "seq": 77,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Shivan Dragon from library into their graveyard (source: Fact or Fiction)",
-      "seq": 78
+      "phase": null,
+      "seq": 78,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Fact or Fiction from stack into their graveyard",
-      "seq": 79
+      "phase": null,
+      "seq": 79,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer wants to concede",
-      "seq": 81
+      "phase": null,
+      "seq": 81,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     }
   ],
   "cardData": {
     "Air Elemental": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{3}{U}{U}",
       "oracle_text": "Flying",
       "power": "4",
@@ -204,33 +430,57 @@
       "type_line": "Creature — Elemental"
     },
     "Black Lotus": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{0}",
       "oracle_text": "{T}, Sacrifice this artifact: Add three mana of any one color.",
+      "power": null,
+      "toughness": null,
       "type_line": "Artifact"
     },
     "Divination": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{2}{U}",
       "oracle_text": "Draw two cards.",
+      "power": null,
+      "toughness": null,
       "type_line": "Sorcery"
     },
     "Fact or Fiction": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{3}{U}",
       "oracle_text": "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.",
+      "power": null,
+      "toughness": null,
       "type_line": "Instant"
     },
     "Island": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {U}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Basic Land — Island"
     },
     "Mana Drain": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{U}{U}",
       "oracle_text": "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.",
+      "power": null,
+      "toughness": null,
       "type_line": "Instant"
     },
     "Plains": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {W}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Basic Land — Plains"
     }
   },

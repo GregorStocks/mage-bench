@@ -1,144 +1,270 @@
 {
   "actions": [
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "seq": 2
+      "phase": null,
+      "seq": 2,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 3,
+      "step": null,
+      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
       "phase": null,
       "seq": 4,
       "step": null,
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skips Draw step",
-      "seq": 7
+      "phase": null,
+      "seq": 7,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "BEGINNING",
       "seq": 8,
       "step": "DRAW",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skip attack",
-      "seq": 11
+      "phase": null,
+      "seq": 11,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "COMBAT",
       "seq": 12,
       "step": "DECLARE_ATTACKERS",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Mountain from hand onto the Battlefield",
-      "seq": 16
+      "phase": null,
+      "seq": 16,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 17,
       "step": "POSTCOMBAT_MAIN",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer casts Lightning Bolt targeting Opponent from hand",
-      "seq": 24
+      "phase": null,
+      "seq": 24,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 25,
+      "step": null,
+      "ts": null,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 26,
       "step": "PRECOMBAT_MAIN",
+      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent loses 3 life from Lightning Bolt",
-      "seq": 29
+      "phase": null,
+      "seq": 29,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Lightning Bolt from stack into their graveyard",
-      "seq": 30
+      "phase": null,
+      "seq": 30,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent skip attack",
-      "seq": 33
+      "phase": null,
+      "seq": 33,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
       "phase": "COMBAT",
       "seq": 34,
       "step": "DECLARE_ATTACKERS",
+      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent discards down to 7 hand cards",
-      "seq": 39
+      "phase": null,
+      "seq": 39,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
       "phase": "END",
       "seq": 40,
       "step": "CLEANUP",
+      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent discards Mountain",
-      "seq": 42
+      "phase": null,
+      "seq": 42,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer wants to concede",
-      "seq": 44
+      "phase": null,
+      "seq": 44,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 45,
+      "step": null,
+      "ts": null,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 46,
       "step": "PRECOMBAT_MAIN",
+      "ts": null,
       "turn": 3,
       "type": "phase_change"
     }
   ],
   "cardData": {
     "Badlands": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {B} or {R}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Land — Swamp Mountain"
     },
     "Lightning Bolt": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{R}",
       "oracle_text": "Lightning Bolt deals 3 damage to any target.",
+      "power": null,
+      "toughness": null,
       "type_line": "Instant"
     },
     "Memnite": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "{0}",
       "oracle_text": "",
       "power": "1",
@@ -146,18 +272,30 @@
       "type_line": "Artifact Creature — Construct"
     },
     "Mountain": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {R}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Basic Land — Mountain"
     },
     "Plateau": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {R} or {W}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Land — Mountain Plains"
     },
     "Taiga": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {R} or {G}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Land — Mountain Forest"
     }
   },

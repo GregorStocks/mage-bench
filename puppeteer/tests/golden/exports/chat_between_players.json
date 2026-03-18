@@ -1,116 +1,212 @@
 {
   "actions": [
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer chooses that they take the first turn",
-      "seq": 2
+      "phase": null,
+      "seq": 2,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 3,
+      "step": null,
+      "ts": null,
       "turn": 1,
       "type": "turn_change"
     },
     {
       "active_player": null,
+      "from": null,
+      "message": null,
       "phase": null,
       "seq": 4,
       "step": null,
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skips Draw step",
-      "seq": 7
+      "phase": null,
+      "seq": 7,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "BEGINNING",
       "seq": 8,
       "step": "DRAW",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer skip attack",
-      "seq": 11
+      "phase": null,
+      "seq": 11,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "COMBAT",
       "seq": 12,
       "step": "DECLARE_ATTACKERS",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Mountain from hand onto the Battlefield",
-      "seq": 16
+      "phase": null,
+      "seq": 16,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "POSTCOMBAT_MAIN",
       "seq": 17,
       "step": "POSTCOMBAT_MAIN",
+      "ts": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent puts Mountain from hand onto the Battlefield",
-      "seq": 21
+      "phase": null,
+      "seq": 21,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 22,
+      "step": null,
+      "ts": null,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 23,
       "step": "PRECOMBAT_MAIN",
+      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "Opponent skip attack",
-      "seq": 26
+      "phase": null,
+      "seq": 26,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "Opponent",
+      "from": null,
+      "message": null,
       "phase": "COMBAT",
       "seq": 27,
       "step": "DECLARE_ATTACKERS",
+      "ts": null,
       "turn": 2,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer puts Mountain from hand onto the Battlefield",
-      "seq": 33
+      "phase": null,
+      "seq": 33,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
+      "phase": null,
       "seq": 34,
+      "step": null,
+      "ts": null,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
+      "from": null,
+      "message": null,
       "phase": "PRECOMBAT_MAIN",
       "seq": 35,
       "step": "PRECOMBAT_MAIN",
+      "ts": null,
       "turn": 3,
       "type": "phase_change"
     },
     {
+      "active_player": null,
+      "from": null,
       "message": "TestPlayer wants to concede",
-      "seq": 37
+      "phase": null,
+      "seq": 37,
+      "step": null,
+      "ts": null,
+      "turn": null,
+      "type": null
     }
   ],
   "cardData": {
     "Mountain": {
+      "defense": null,
+      "loyalty": null,
       "mana_cost": "",
       "oracle_text": "({T}: Add {R}.)",
+      "power": null,
+      "toughness": null,
       "type_line": "Basic Land — Mountain"
     }
   },
