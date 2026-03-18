@@ -3927,10 +3927,17 @@ public class BridgeCallbackHandler {
                     int turnNum = gv != null ? gv.getTurn() : yieldStartTurn;
                     if (step == PhaseStep.END_TURN || step == PhaseStep.CLEANUP
                             || turnNum > yieldStartTurn) {
-                        // Reached end of turn (or the turn advanced without us seeing
-                        // END_TURN/CLEANUP because server-side skip settings auto-passed
-                        // those steps) — stop yielding, fall through to playable-cards check.
-                        yieldUntilEndOfTurn = false;
+                        // End of turn reached (or turn advanced past END_TURN/CLEANUP
+                        // due to server-side skip settings) — return immediately so we
+                        // don't fall through to the playable-cards check, which loops
+                        // forever for players with no playable non-mana cards.
+                        String reason = (turnNum > yieldStartTurn)
+                            ? "turn_advanced" : "end_of_turn";
+                        ActionResult result = pendingActionResult(
+                            action, reason, boardCursorParam);
+                        logPassPriorityReturn(
+                            until, actionsPassed, action, actionView, result, true);
+                        return result;
                     } else {
                         // Not end of turn yet — auto-pass
                         synchronized (actionLock) {

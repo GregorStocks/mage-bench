@@ -222,6 +222,15 @@ class Choice(_DecisionSupportRecord):
             _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
         )
 
+    @classmethod
+    def coerce_list(cls, raw: list[object]) -> "list[Choice]":
+        """Convert a list of raw dicts/Choice instances to typed Choice list."""
+        return [
+            c if isinstance(c, Choice) else cls.from_mapping(c)
+            for c in raw
+            if isinstance(c, (dict, Choice))
+        ]
+
     def __deepcopy__(self, memo: dict[int, object]) -> "Choice":
         duplicate = Choice.from_mapping(self._deepcopy_mapping(memo))
         memo[id(self)] = duplicate
@@ -247,6 +256,15 @@ class MultiAmountItem(_DecisionSupportRecord):
             _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
             _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
         )
+
+    @classmethod
+    def coerce_list(cls, raw: list[object]) -> "list[MultiAmountItem]":
+        """Convert a list of raw dicts/MultiAmountItem instances to typed list."""
+        return [
+            item if isinstance(item, MultiAmountItem) else cls.from_mapping(item)
+            for item in raw
+            if isinstance(item, (dict, MultiAmountItem))
+        ]
 
     def __deepcopy__(self, memo: dict[int, object]) -> "MultiAmountItem":
         duplicate = MultiAmountItem.from_mapping(self._deepcopy_mapping(memo))
@@ -571,28 +589,19 @@ class PilotContext(_DecisionSupportRecord):
 
 
 DecisionSupportRecord: TypeAlias = Choice | MultiAmountItem | PilotContext
-DecisionSupportRecordLike: TypeAlias = DecisionSupportRecord | Mapping[str, object]
 
 
-def _is_decision_support_record(value: object) -> TypeIs[DecisionSupportRecord]:
-    return isinstance(value, (Choice, MultiAmountItem, PilotContext))
+def decision_support_get(record: DecisionSupportRecord, key: str) -> object | None:
+    return record.get_value(key)
 
 
-def decision_support_get(record: DecisionSupportRecordLike, key: str) -> object | None:
-    if _is_decision_support_record(record):
-        return record.get_value(key)
-    return record.get(key)
-
-
-def decision_support_has(record: DecisionSupportRecordLike, key: str) -> bool:
-    if _is_decision_support_record(record):
-        return record.has_field(key)
-    return key in record
+def decision_support_has(record: DecisionSupportRecord, key: str) -> bool:
+    return record.has_field(key)
 
 
 def game_export_to_jsonable(value: object) -> object:
     """Convert export leaves to plain JSON-compatible dict/list structures."""
-    if _is_decision_support_record(value):
+    if isinstance(value, (Choice, MultiAmountItem, PilotContext)):
         return game_export_to_jsonable(value.to_mapping())
     if dataclasses.is_dataclass(value) and not isinstance(value, type):
         return game_export_to_jsonable(json_default(value))
@@ -619,7 +628,7 @@ class Decision:
     llmEventIndices: list[int]
     subsequentActions: list[str]
     step: str | None = None
-    pilotContext: PilotContext | JsonObject | None = None
+    pilotContext: PilotContext | None = None
     chosen: object = None
     chosenArgs: JsonObject | None = None
     actionResult: JsonObject | None = None
@@ -1907,7 +1916,7 @@ def json_default(obj: object) -> object:
     """
     if isinstance(obj, Decision):
         return obj.to_dict()
-    if _is_decision_support_record(obj):
+    if isinstance(obj, (Choice, MultiAmountItem, PilotContext)):
         return obj.to_mapping()
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
         field_names = {f.name for f in dataclasses.fields(obj)}
@@ -1964,7 +1973,6 @@ __all__ = [
     "ContextTrimEvent",
     "Decision",
     "DecisionSupportRecord",
-    "DecisionSupportRecordLike",
     "export_record_field",
     "GameError",
     "GameExport",

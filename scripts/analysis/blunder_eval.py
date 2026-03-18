@@ -302,8 +302,8 @@ def main() -> None:
             if anns:
                 eval_results[pk] = {
                     "detected": True,
-                    "severity": anns[0].get("severity"),
-                    "description": anns[0].get("description"),
+                    "severity": anns[0].severity,
+                    "description": anns[0].description,
                 }
             else:
                 eval_results[pk] = {"detected": False}

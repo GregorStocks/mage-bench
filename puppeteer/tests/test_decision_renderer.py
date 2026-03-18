@@ -14,7 +14,7 @@ from puppeteer.decision_renderer import (
     permanent_display,
     render_decision,
 )
-from schemas.game_export_types import Choice, PilotContext
+from schemas.game_export_types import Choice, MultiAmountItem, PilotContext
 
 
 def _make_snapshot(
@@ -77,7 +77,7 @@ def _make_decision(
     items: list | None = None,
     total_min: int | None = None,
     total_max: int | None = None,
-    pilot_context: dict | PilotContext | None = None,
+    pilot_context: PilotContext | None = None,
     chosen: object = 0,
     chosen_args: dict | None = None,
     llm_event_indices: list[int] | None = None,
@@ -85,11 +85,15 @@ def _make_decision(
 ) -> dict:
     if choices is None and items is None:
         choices = [
-            {"index": 0, "name": "Lightning Bolt", "id": "p3", "action": "cast", "mana_cost": "{R}"},
-            {"index": 1, "name": "Mountain", "id": "p5", "action": "land"},
+            Choice.from_mapping(
+                {"index": 0, "name": "Lightning Bolt", "id": "p3", "action": "cast", "mana_cost": "{R}"}
+            ),
+            Choice.from_mapping({"index": 1, "name": "Mountain", "id": "p5", "action": "land"}),
         ]
     if choices is None:
         choices = []
+    # Convert any remaining raw dicts to Choice dataclasses
+    choices = Choice.coerce_list(choices)
     d: dict = {
         "index": index,
         "snapshotIndex": snapshot_index,
@@ -110,7 +114,8 @@ def _make_decision(
         "subsequentActions": subsequent_actions or [],
     }
     if items is not None:
-        d["items"] = items
+        # Convert any remaining raw dicts to MultiAmountItem dataclasses
+        d["items"] = MultiAmountItem.coerce_list(items)
     if total_min is not None:
         d["totalMin"] = total_min
     if total_max is not None:
@@ -152,7 +157,7 @@ class TestRenderDecision:
 
     def test_pilot_context(self) -> None:
         snap = _make_snapshot()
-        decision = _make_decision(pilot_context={"untappedLands": 2, "landDropsUsed": 0})
+        decision = _make_decision(pilot_context=PilotContext.from_mapping({"untappedLands": 2, "landDropsUsed": 0}))
         text = render_decision(decision, snap)
         assert "Untapped lands: 2" in text
         assert "Land drops remaining: 1" in text
@@ -236,14 +241,16 @@ class TestRenderDecision:
         decision = _make_decision(
             phase="COMBAT",
             message="Select blockers",
-            choices=[{"index": 0, "name": "Wall of Omens", "id": "p30", "choice_type": "blocker"}],
-            pilot_context={
-                "combatPhase": combat_phase,
-                "incomingAttackers": [
-                    {"name": "Goblin Token", "id": "p10", "power": "1", "toughness": "1"},
-                    {"name": "Goblin Token", "id": "p11", "power": "1", "toughness": "1"},
-                ],
-            },
+            choices=[Choice.from_mapping({"index": 0, "name": "Wall of Omens", "id": "p30", "choice_type": "blocker"})],
+            pilot_context=PilotContext.from_mapping(
+                {
+                    "combatPhase": combat_phase,
+                    "incomingAttackers": [
+                        {"name": "Goblin Token", "id": "p10", "power": "1", "toughness": "1"},
+                        {"name": "Goblin Token", "id": "p11", "power": "1", "toughness": "1"},
+                    ],
+                }
+            ),
         )
         text = render_decision(decision, snap)
         assert "Incoming Attackers: Goblin Token [id=p10, 1/1], Goblin Token [id=p11, 1/1]" in text
@@ -398,11 +405,13 @@ class TestFormatChoice:
     def test_simple_string(self) -> None:
         assert _format_choice("Yes") == "Yes"
 
-    def test_dict_with_name(self) -> None:
-        assert _format_choice({"name": "Mountain", "id": "p5", "action": "land"}) == "Mountain [id=p5, land]"
+    def test_choice_with_name(self) -> None:
+        c = Choice.from_mapping({"name": "Mountain", "id": "p5", "action": "land"})
+        assert _format_choice(c) == "Mountain [id=p5, land]"
 
-    def test_dict_with_mana_cost(self) -> None:
-        result = _format_choice({"name": "Lightning Bolt", "id": "p3", "action": "cast", "mana_cost": "{R}"})
+    def test_choice_with_mana_cost(self) -> None:
+        c = Choice.from_mapping({"name": "Lightning Bolt", "id": "p3", "action": "cast", "mana_cost": "{R}"})
+        result = _format_choice(c)
         assert "Lightning Bolt" in result
         assert "{R}" in result
 
@@ -482,43 +491,48 @@ class TestCardReference:
         assert _render_card_reference(decision, snap, {}) == ""
 
 
+def _choice_list(*specs: dict) -> list[Choice]:
+    """Helper to create a list of Choice dataclasses from dicts."""
+    return [Choice.from_mapping(s) for s in specs]
+
+
 class TestBatchAttackDisplay:
     def test_list_format(self) -> None:
-        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        choices = _choice_list({"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"})
         assert _batch_attack_display(["p1", "p2"], choices) == "Attack with Bear, Elf"
 
     def test_string_format(self) -> None:
         """Comma-separated string format (epoch 36+)."""
-        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        choices = _choice_list({"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"})
         assert _batch_attack_display("p1,p2", choices) == "Attack with Bear, Elf"
 
     def test_string_all(self) -> None:
         """String 'all' format (epoch 36+)."""
-        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        choices = _choice_list({"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"})
         assert _batch_attack_display("all", choices) == "Attack with all (Bear, Elf)"
 
     def test_list_all(self) -> None:
-        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        choices = _choice_list({"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"})
         assert _batch_attack_display(["all"], choices) == "Attack with all (Bear, Elf)"
 
 
 class TestBatchBlockDisplay:
     def test_list_format(self) -> None:
-        choices = [
+        choices = _choice_list(
             {"name": "Bear", "id": "p1"},
             {"name": "Elf", "id": "p2"},
             {"name": "Goblin", "id": "p3"},
-        ]
+        )
         result = _batch_block_display(["p1:p3"], choices)
         assert result == "Bear blocks Goblin"
 
     def test_string_format(self) -> None:
         """Comma-separated string format (epoch 36+)."""
-        choices = [
+        choices = _choice_list(
             {"name": "Bear", "id": "p1"},
             {"name": "Elf", "id": "p2"},
             {"name": "Goblin", "id": "p3"},
-        ]
+        )
         result = _batch_block_display("p1:p3,p2:p3", choices)
         assert result == "Bear blocks Goblin, Elf blocks Goblin"
 
@@ -526,13 +540,13 @@ class TestBatchBlockDisplay:
 class TestChosenDisplay:
     def test_batch_attackers_string(self) -> None:
         """String-format attackers in chosen_args (epoch 36+)."""
-        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        choices = _choice_list({"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"})
         result = _chosen_display(None, {"attackers": "p1,p2"}, choices)
         assert result == "Attack with Bear, Elf"
 
     def test_batch_blockers_string(self) -> None:
         """String-format blockers in chosen_args (epoch 36+)."""
-        choices = [{"name": "Bear", "id": "p1"}, {"name": "Goblin", "id": "p3"}]
+        choices = _choice_list({"name": "Bear", "id": "p1"}, {"name": "Goblin", "id": "p3"})
         result = _chosen_display(None, {"blockers": "p1:p3"}, choices)
         assert result == "Bear blocks Goblin"
 
@@ -541,7 +555,7 @@ class TestChosenDisplay:
         assert _chosen_display(False, {}, []) == "False"
 
     def test_index_chosen(self) -> None:
-        choices = [{"name": "Lightning Bolt"}, {"name": "Mountain"}]
+        choices = _choice_list({"name": "Lightning Bolt"}, {"name": "Mountain"})
         assert _chosen_display(0, {}, choices) == "Lightning Bolt"
 
     def test_index_chosen_dataclass(self) -> None:
@@ -614,7 +628,7 @@ class TestChosenBlockManaPlan:
         decision = {
             "chosen": 0,
             "chosenArgs": {"choice": "p3", "mana_plan": "p1,p5"},
-            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
             "player": "Alice",
             "subsequentActions": [],
         }
@@ -631,7 +645,7 @@ class TestChosenBlockManaPlan:
         decision = {
             "chosen": 0,
             "chosenArgs": {"choice": "p3", "mana_plan": ["p1", "p5:1"]},
-            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
             "player": "Alice",
             "subsequentActions": [],
         }
@@ -647,7 +661,7 @@ class TestChosenBlockManaPlan:
         decision = {
             "chosen": 0,
             "chosenArgs": {"choice": "p3", "mana_plan": [{"tap": "p1"}, {"pool": "RED"}]},
-            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
             "player": "Alice",
             "subsequentActions": [],
         }
@@ -663,7 +677,7 @@ class TestChosenBlockManaPlan:
         decision = {
             "chosen": 0,
             "chosenArgs": {"choice": "p3", "mana_plan": "p1", "auto_tap": False},
-            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
             "player": "Alice",
             "subsequentActions": [],
         }
@@ -679,7 +693,7 @@ class TestChosenBlockManaPlan:
         decision = {
             "chosen": 0,
             "chosenArgs": {"choice": "p3"},
-            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
             "player": "Alice",
             "subsequentActions": [],
         }
@@ -690,7 +704,7 @@ class TestChosenBlockManaPlan:
         decision = {
             "chosen": 0,
             "chosenArgs": "bad",
-            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
             "player": "Alice",
             "subsequentActions": [],
         }

@@ -9,7 +9,9 @@ from pathlib import Path
 
 from schemas.game_export_types import (
     BuiltGameExport,
+    Choice,
     Decision,
+    MultiAmountItem,
     PilotContext,
     require_built_game_export,
 )
@@ -1024,6 +1026,9 @@ def _build_decisions(
             if len(subsequent) >= 5:
                 break
 
+        # Convert raw choice dicts to typed Choice dataclasses
+        typed_choices = Choice.coerce_list(available_choices)
+
         # Build canonical decision
         decision = Decision(
             index=len(decisions),
@@ -1035,9 +1040,9 @@ def _build_decisions(
             actionType=action_type,
             responseType=response_type,
             message=message,
-            choices=available_choices,
-            choiceCount=len(available_choices),
-            isForced=_is_forced(response_type, message, available_choices),
+            choices=typed_choices,
+            choiceCount=len(typed_choices),
+            isForced=_is_forced(response_type, message, typed_choices),
             chosen=chosen_index,
             chosenArgs=chosen_args,
             actionResult=action_result,
@@ -1054,7 +1059,7 @@ def _build_decisions(
         # Multi-amount items (e.g. combat damage distribution targets)
         multi_items = choices_result.get("items")
         if multi_items:
-            decision.items = multi_items
+            decision.items = MultiAmountItem.coerce_list(multi_items)
             if "total_min" in choices_result:
                 decision.totalMin = choices_result["total_min"]
             if "total_max" in choices_result:

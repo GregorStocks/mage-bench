@@ -388,7 +388,7 @@
         },
         "stop_reason": {
           "type": "string",
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached"
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, interrupted"
         },
         "current_step": {
           "type": "string",
@@ -842,7 +842,7 @@
         },
         "stop_reason": {
           "type": "string",
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached"
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, interrupted"
         },
         "current_step": {
           "type": "string",
@@ -1119,7 +1119,7 @@
         },
         "stop_reason": {
           "type": "string",
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached"
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, interrupted"
         },
         "current_step": {
           "type": "string",

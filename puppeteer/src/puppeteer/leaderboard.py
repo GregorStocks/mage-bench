@@ -14,7 +14,6 @@ from zoneinfo import ZoneInfo
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 from schemas.game_export_types import (
-    Annotation,
     GameExport,
     LlmErrorEvent,
     LlmResponseEvent,
@@ -487,10 +486,7 @@ def generate_leaderboard(
         annotations = game.get("annotations")
         if annotations is not None:
             for ann in annotations:
-                if isinstance(ann, Annotation):
-                    ann_type, name, severity = ann.type, ann.player, ann.severity
-                else:
-                    ann_type, name, severity = ann.get("type"), ann.get("player"), ann.get("severity")
+                ann_type, name, severity = ann.type, ann.player, ann.severity
                 if ann_type == "blunder":
                     if not name:
                         continue
@@ -605,10 +601,7 @@ def generate_exhibition_leaderboard(
         annotations = game.get("annotations")
         if annotations is not None:
             for ann in annotations:
-                if isinstance(ann, Annotation):
-                    ann_type, name, severity = ann.type, ann.player, ann.severity
-                else:
-                    ann_type, name, severity = ann.get("type"), ann.get("player"), ann.get("severity")
+                ann_type, name, severity = ann.type, ann.player, ann.severity
                 if ann_type == "blunder":
                     if not name:
                         continue

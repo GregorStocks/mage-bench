@@ -33,7 +33,7 @@ from puppeteer.llm_cost import (
 )
 from puppeteer.log import get_logger, log_error, setup_logging
 from puppeteer.tool_error import ToolExecutionError, extract_text_content
-from schemas.game_export_types import Decision
+from schemas.game_export_types import Choice, Decision, MultiAmountItem, PilotContext
 
 logger = get_logger(__name__)
 
@@ -172,9 +172,10 @@ def _build_pilot_decision(data: dict) -> Decision:
 
     Extracts the fields that render_decision() reads from a decision.
     """
-    choices = data.get("choices")
-    if choices is None:
-        choices = []
+    raw_choices = data.get("choices")
+    if raw_choices is None:
+        raw_choices = []
+    choices = Choice.coerce_list(raw_choices)
     action_type = data.get("action_type")
     response_type = data.get("response_type")
     message = data.get("message")
@@ -232,12 +233,12 @@ def _build_pilot_decision(data: dict) -> Decision:
     if "mana_pool" in data:
         pilot_ctx["manaPool"] = data["mana_pool"]
     if pilot_ctx:
-        decision.pilotContext = pilot_ctx
+        decision.pilotContext = PilotContext.from_mapping(pilot_ctx)
 
     # Multi-amount items (e.g. combat damage distribution targets)
-    items = data.get("items")
-    if items:
-        decision.items = items
+    raw_items = data.get("items")
+    if raw_items:
+        decision.items = MultiAmountItem.coerce_list(raw_items)
         if "total_min" in data:
             decision.totalMin = data["total_min"]
         if "total_max" in data:
