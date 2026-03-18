@@ -1557,7 +1557,7 @@ def _brief(value: object, max_len: int = 80) -> str:
         if len(r) > max_len:
             return r[: max_len - 3] + "..."
         return r
-    s = json.dumps(value, sort_keys=True, ensure_ascii=False)
+    s = json.dumps(value, sort_keys=True, ensure_ascii=False, cls=_DataclassEncoder)
     if len(s) > max_len:
         return s[: max_len - 3] + "..."
     return s
@@ -1729,7 +1729,9 @@ def _normalize_export_for_golden(export_data: dict) -> dict:
     """Return a deterministic export copy for golden comparison."""
     normalized = copy.deepcopy(export_data)
     _strip_volatile(normalized)
-    return _normalize_embedded_json(normalized)
+    normalized = _normalize_embedded_json(normalized)
+    # Round-trip through JSON to convert dataclass instances to plain dicts
+    return json.loads(json.dumps(normalized, cls=_DataclassEncoder))
 
 
 def assert_golden_export(name: str, export_data: dict) -> None:
