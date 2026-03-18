@@ -11,11 +11,11 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 
 from schemas.game_export_types import GameExport, JsonObject, load_game_export
+from scripts.game_exports import GAMES_DIR, glob_game_export_paths
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
 BASELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "blunder_baseline.json"
-GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 TMP_DIR = REPO_ROOT / "tmp"
 _SAFE_EXPORT_COMPONENT_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 _SAFE_EXPORT_FILENAME_RE = re.compile(r"^game_[A-Za-z0-9_]+\.json(?:\.gz)?$")
@@ -224,10 +224,7 @@ def validate_export_filename(filename: str) -> str:
 
 def glob_game_files(games_dir: Path) -> list[Path]:
     """Find all game export files (.json and .json.gz) in a directory, sorted."""
-    gz_files = set(games_dir.glob("game_*.json.gz"))
-    gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
-    json_files = [p for p in games_dir.glob("game_*.json") if p.name not in gz_stems]
-    return sorted(gz_files | set(json_files))
+    return glob_game_export_paths(games_dir)
 
 
 def play_key(game_id: str, decision_index: int) -> str:

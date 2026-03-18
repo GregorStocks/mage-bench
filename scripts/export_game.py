@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Export a game log directory into a single JSON file for the website visualizer."""
 
-import gzip
 import json
 import re
 import sys
@@ -9,9 +8,9 @@ from datetime import datetime
 from pathlib import Path
 
 from schemas.game_export_types import BuiltGameExport, require_built_game_export
+from scripts.game_exports import GAMES_DIR as WEBSITE_GAMES_DIR, write_raw_game_export
 
 _ROOT = Path(__file__).resolve().parent.parent
-WEBSITE_GAMES_DIR = _ROOT / "website" / "public" / "games"
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 _TOURNAMENTS_DIR = _ROOT / "data" / "tournaments"
 
@@ -56,9 +55,6 @@ _LLM_EVENT_TYPES = {
     "llm_error",
     "auto_pilot_mode",
 }
-
-# Size threshold: use .json.gz above 25 MiB (Cloudflare Pages file size limit)
-_GZ_THRESHOLD = 25 * 1024 * 1024
 
 
 class GameExportError(RuntimeError):
@@ -1306,23 +1302,9 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
         game_id = output["id"]
 
         website_games_dir.mkdir(parents=True, exist_ok=True)
-
-        json_str = json.dumps(output, indent=2, ensure_ascii=False)
-        json_bytes = json_str.encode()
-        if len(json_bytes) > _GZ_THRESHOLD:
-            output_path = website_games_dir / f"{game_id}.json.gz"
-            output_path.write_bytes(gzip.compress(json_bytes))
-            # Clean up uncompressed file if it exists
-            json_path = website_games_dir / f"{game_id}.json"
-            if json_path.exists():
-                json_path.unlink()
-        else:
-            output_path = website_games_dir / f"{game_id}.json"
-            output_path.write_bytes(json_bytes)
-            # Clean up compressed file if it exists
-            gz_path = website_games_dir / f"{game_id}.json.gz"
-            if gz_path.exists():
-                gz_path.unlink()
+        output_path = write_raw_game_export(
+            website_games_dir / f"{game_id}.json", output
+        )
     except (AssertionError, OSError, json.JSONDecodeError) as exc:
         raise GameExportError(str(exc)) from exc
 
