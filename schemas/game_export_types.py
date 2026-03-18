@@ -313,7 +313,11 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
             )
         else:
             kwargs[k] = v
-    return cls(**kwargs)  # type: ignore[arg-type]
+    instance = cls(**kwargs)  # type: ignore[arg-type]
+    # Track which keys were in the source dict so serialization can distinguish
+    # "field was explicitly null" from "field was absent" (both are None on the dataclass).
+    object.__setattr__(instance, "_source_keys", frozenset(d.keys()))
+    return instance
 
 
 class GameOver(TypedDict):
@@ -1093,12 +1097,21 @@ def load_built_game_export(path: str | Path) -> BuiltGameExport:
 def json_default(obj: object) -> object:
     """Handle dataclass instances in json.dumps.
 
-    Omits fields with None values to match the TypedDict serialization
-    behavior where NotRequired fields were simply absent from the dict.
+    If the instance was created via ``_llm_event_from_dict``, only fields
+    that were present in the source dict are serialized (preserving the
+    distinction between "field was explicitly null" and "field was absent").
+    Otherwise, fields with None values are omitted.
 
     Usage: ``json.dumps(export, default=json_default)``
     """
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
+        source_keys: frozenset[str] | None = getattr(obj, "_source_keys", None)
+        if source_keys is not None:
+            return {
+                f.name: getattr(obj, f.name)
+                for f in dataclasses.fields(obj)
+                if f.name in source_keys
+            }
         return {
             f.name: getattr(obj, f.name)
             for f in dataclasses.fields(obj)

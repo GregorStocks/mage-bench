@@ -53,6 +53,13 @@ def write_raw_game_export(
 
     def _default(obj: object) -> object:
         if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
+            source_keys: frozenset[str] | None = getattr(obj, "_source_keys", None)
+            if source_keys is not None:
+                return {
+                    f.name: getattr(obj, f.name)
+                    for f in dataclasses.fields(obj)
+                    if f.name in source_keys
+                }
             return {
                 f.name: getattr(obj, f.name)
                 for f in dataclasses.fields(obj)
