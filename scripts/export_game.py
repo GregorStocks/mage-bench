@@ -10,6 +10,7 @@ from pathlib import Path
 from schemas.game_export_types import BuiltGameExport, require_built_game_export
 from scripts.game_exports import GAMES_DIR as WEBSITE_GAMES_DIR, write_raw_game_export
 
+
 _ROOT = Path(__file__).resolve().parent.parent
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 _TOURNAMENTS_DIR = _ROOT / "data" / "tournaments"

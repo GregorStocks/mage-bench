@@ -103,8 +103,8 @@ def main(game_id: str) -> None:
         f"Game: {d['id']} | {d.get('deckType', '?')} | {d['totalTurns']} turns | Winner: {d['winner']}"
     )
     for p in d["players"]:
-        cost = p.get("totalCostUsd", 0)
-        print(f"  {p['name']} ({p.get('model', '?')}) ${cost:.2f}")
+        cost = p.totalCostUsd or 0
+        print(f"  {p.name} ({p.model or '?'}) ${cost:.2f}")
 
     events = d["llmEvents"]
     errors = _failed_tool_calls(events)
