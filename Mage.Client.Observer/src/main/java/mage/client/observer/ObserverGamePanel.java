@@ -171,9 +171,11 @@ public class ObserverGamePanel extends GamePanel {
             return gameDirPath;
         }
         String gameDirStr = System.getProperty("xmage.observer.gameDir");
-        assert gameDirStr != null && !gameDirStr.isEmpty() : (
-                source + ": xmage.observer.gameDir must be configured before watching a game"
-        );
+        if (gameDirStr == null || gameDirStr.isEmpty()) {
+            throw new IllegalStateException(
+                    source + ": xmage.observer.gameDir must be configured before watching a game"
+            );
+        }
         gameDirPath = Paths.get(gameDirStr);
         return gameDirPath;
     }
