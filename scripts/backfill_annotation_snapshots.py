@@ -14,39 +14,16 @@ Usage:
     uv run python scripts/backfill_annotation_snapshots.py [--dry-run]
 """
 
-import gzip
-import json
 import sys
 from pathlib import Path
 
-from scripts.export_game import _GZ_THRESHOLD, _build_decisions
-
-GAMES_DIR = Path(__file__).resolve().parent.parent / "website" / "public" / "games"
-
-
-def _write_game(path: Path, data: dict) -> None:
-    """Write a game export, choosing .json or .json.gz based on size."""
-    json_str = json.dumps(data, indent=2, ensure_ascii=False)
-    json_bytes = json_str.encode()
-
-    if len(json_bytes) > _GZ_THRESHOLD:
-        out_path = path.with_suffix("") if path.suffix == ".gz" else path
-        out_path = out_path.with_suffix(".json.gz")
-        out_path.write_bytes(gzip.compress(json_bytes))
-        alt = out_path.with_suffix(".json")
-        if alt != path and alt.exists():
-            alt.unlink()
-        if path != out_path and path.exists():
-            path.unlink()
-    else:
-        out_path = path.with_suffix("") if path.suffix == ".gz" else path
-        out_path = out_path.with_suffix(".json")
-        out_path.write_bytes(json_bytes)
-        alt = out_path.with_suffix(".json.gz")
-        if alt != path and alt.exists():
-            alt.unlink()
-        if path != out_path and path.exists():
-            path.unlink()
+from scripts.export_game import _build_decisions
+from scripts.game_exports import (
+    GAMES_DIR,
+    glob_game_export_paths,
+    load_raw_game_export,
+    write_raw_game_export,
+)
 
 
 def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
@@ -54,11 +31,7 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
 
     Returns (annotations_fixed, decisions_rebuilt).
     """
-    if path.suffix == ".gz":
-        raw = gzip.decompress(path.read_bytes())
-        data = json.loads(raw)
-    else:
-        data = json.loads(path.read_text())
+    data = load_raw_game_export(path)
 
     snapshots = data["snapshots"]
     annotations = data.get("annotations")
@@ -89,7 +62,7 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
             decisions_rebuilt = len(new_decisions)
 
     if not dry_run and (ann_fixed > 0 or decisions_rebuilt > 0):
-        _write_game(path, data)
+        write_raw_game_export(path, data)
 
     return ann_fixed, decisions_rebuilt
 
@@ -97,17 +70,7 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
 def main() -> None:
     dry_run = "--dry-run" in sys.argv
 
-    paths = sorted(GAMES_DIR.glob("game_*.json")) + sorted(
-        GAMES_DIR.glob("game_*.json.gz")
-    )
-    # Deduplicate (a game might have both .json and .json.gz)
-    seen: set[str] = set()
-    unique_paths: list[Path] = []
-    for p in paths:
-        stem = p.name.replace(".json.gz", "").replace(".json", "")
-        if stem not in seen:
-            seen.add(stem)
-            unique_paths.append(p)
+    unique_paths = glob_game_export_paths(GAMES_DIR)
 
     total_ann = 0
     total_dec = 0

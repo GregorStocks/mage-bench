@@ -1,6 +1,8 @@
 """Test migration round-trip fidelity and runner path-finding."""
 
+import gzip
 import json
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -17,6 +19,11 @@ from schemas.migrations import (
 )
 from scripts.backfill_decisions import backfill_game
 from scripts.export_game import _build_decisions, _collect_card_names, _trim_card
+from scripts.game_exports import (
+    glob_game_export_paths,
+    load_raw_game_export,
+    write_raw_game_export,
+)
 from scripts.migrate_exports import find_migration_path
 
 
@@ -693,6 +700,63 @@ class TestMigrateV5V6:
         v5_restored = v5_to_v6.down(v6)
 
         assert json.dumps(v5_restored, sort_keys=True) == json.dumps(v5_without_trace, sort_keys=True)
+
+
+class TestGameExportHelpers:
+    def test_load_raw_game_export_handles_json_and_gz(self, tmp_path: Path) -> None:
+        payload = _make_v6_export()
+        json_path = tmp_path / "game_test.json"
+        gz_path = tmp_path / "game_test_copy.json.gz"
+        json_text = json.dumps(payload)
+
+        json_path.write_text(json_text)
+        gz_path.write_bytes(gzip.compress(json_text.encode()))
+
+        assert load_raw_game_export(json_path)["id"] == payload["id"]
+        assert load_raw_game_export(gz_path)["id"] == payload["id"]
+
+    def test_write_raw_game_export_switches_to_json_and_removes_gz(self, tmp_path: Path) -> None:
+        payload = _make_v6_export()
+        gz_path = tmp_path / "game_small.json.gz"
+        json_path = tmp_path / "game_small.json"
+        gz_path.write_bytes(b"stale")
+
+        with patch("scripts.game_exports.GAME_EXPORT_GZ_THRESHOLD", 10_000):
+            out_path = write_raw_game_export(gz_path, payload)
+
+        assert out_path == json_path
+        assert json_path.exists()
+        assert not gz_path.exists()
+        assert json.loads(json_path.read_text())["id"] == payload["id"]
+
+    def test_write_raw_game_export_switches_to_gz_and_removes_json(self, tmp_path: Path) -> None:
+        payload = _make_v6_export()
+        json_path = tmp_path / "game_large.json"
+        gz_path = tmp_path / "game_large.json.gz"
+        json_path.write_text("stale")
+
+        with patch("scripts.game_exports.GAME_EXPORT_GZ_THRESHOLD", 1):
+            out_path = write_raw_game_export(json_path, payload)
+
+        assert out_path == gz_path
+        assert gz_path.exists()
+        assert not json_path.exists()
+        raw = gzip.decompress(gz_path.read_bytes())
+        assert json.loads(raw)["id"] == payload["id"]
+
+    def test_glob_game_export_paths_prefers_gz_when_both_exist(self, tmp_path: Path) -> None:
+        (tmp_path / "game_a.json").write_text("{}")
+        (tmp_path / "game_b.json.gz").write_bytes(gzip.compress(b"{}"))
+        (tmp_path / "game_c.json").write_text("{}")
+        (tmp_path / "game_c.json.gz").write_bytes(gzip.compress(b"{}"))
+
+        paths = glob_game_export_paths(tmp_path)
+
+        assert [path.name for path in paths] == [
+            "game_a.json",
+            "game_b.json.gz",
+            "game_c.json.gz",
+        ]
 
 
 def _make_v6_export(

@@ -14,16 +14,16 @@ Examples:
 """
 
 import argparse
-import gzip
-import json
 from pathlib import Path
 from types import ModuleType
 
 from schemas.migrations import MIGRATIONS
-from scripts.export_game import _GZ_THRESHOLD
-
-REPO_ROOT = Path(__file__).resolve().parent.parent
-GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
+from scripts.game_exports import (
+    GAMES_DIR,
+    glob_game_export_paths,
+    load_raw_game_export,
+    write_raw_game_export,
+)
 
 
 def find_migration_path(
@@ -63,57 +63,6 @@ def find_migration_path(
     )
 
 
-def read_game(path: Path) -> dict:
-    """Read a game export from .json or .json.gz."""
-    if path.suffix == ".gz":
-        raw = gzip.decompress(path.read_bytes())
-        data = json.loads(raw)
-    else:
-        data = json.loads(path.read_text())
-    assert isinstance(data, dict), f"{path}: expected JSON object"
-    return data
-
-
-def write_game(path: Path, data: dict) -> None:
-    """Write a game export, choosing .json or .json.gz based on size."""
-    json_str = json.dumps(data, indent=2, ensure_ascii=False)
-    json_bytes = json_str.encode()
-
-    if len(json_bytes) > _GZ_THRESHOLD:
-        out_path = path.with_suffix("") if path.suffix == ".gz" else path
-        out_path = out_path.with_suffix(".json.gz")
-        out_path.write_bytes(gzip.compress(json_bytes))
-        alt = out_path.with_suffix(".json")
-        if alt != path and alt.exists():
-            alt.unlink()
-        if path != out_path and path.exists():
-            path.unlink()
-    else:
-        out_path = path.with_suffix("") if path.suffix == ".gz" else path
-        out_path = out_path.with_suffix(".json")
-        out_path.write_bytes(json_bytes)
-        alt = out_path.with_suffix(".json.gz")
-        if alt != path and alt.exists():
-            alt.unlink()
-        if path != out_path and path.exists():
-            path.unlink()
-
-
-def glob_game_files() -> list[Path]:
-    """List game export files, deduplicating .json/.json.gz pairs."""
-    paths = sorted(GAMES_DIR.glob("game_*.json")) + sorted(
-        GAMES_DIR.glob("game_*.json.gz")
-    )
-    seen: set[str] = set()
-    unique: list[Path] = []
-    for p in paths:
-        stem = p.name.replace(".json.gz", "").replace(".json", "")
-        if stem not in seen:
-            seen.add(stem)
-            unique.append(p)
-    return unique
-
-
 def migrate_game(
     path: Path,
     target_version: int,
@@ -122,7 +71,7 @@ def migrate_game(
     force: bool = False,
 ) -> bool:
     """Migrate a single game export to the target version. Returns True if migrated."""
-    data = read_game(path)
+    data = load_raw_game_export(path)
     current_version = data["version"]
 
     if current_version == target_version and not force:
@@ -143,7 +92,7 @@ def migrate_game(
     )
 
     if not dry_run:
-        write_game(path, data)
+        write_raw_game_export(path, data)
 
     return True
 
@@ -167,7 +116,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    paths = glob_game_files()
+    paths = glob_game_export_paths(GAMES_DIR)
     migrated = 0
     skipped = 0
 
