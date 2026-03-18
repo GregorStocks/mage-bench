@@ -16,6 +16,7 @@ WEBSITE_GAMES_DIR = _ROOT / "website" / "public" / "games"
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 _TOURNAMENTS_DIR = _ROOT / "data" / "tournaments"
 
+
 def _json_default(obj: object) -> object:
     """Handle dataclass instances in json.dumps."""
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
@@ -1315,7 +1316,9 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
 
         website_games_dir.mkdir(parents=True, exist_ok=True)
 
-        json_str = json.dumps(output, indent=2, ensure_ascii=False, default=_json_default)
+        json_str = json.dumps(
+            output, indent=2, ensure_ascii=False, default=_json_default
+        )
         json_bytes = json_str.encode()
         if len(json_bytes) > _GZ_THRESHOLD:
             output_path = website_games_dir / f"{game_id}.json.gz"

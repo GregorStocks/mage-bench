@@ -8,6 +8,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from openai import OpenAIError
 
+from schemas.game_export_types import ToolCallEvent
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
@@ -584,8 +585,6 @@ class TestCollectCardNames:
         assert "Wall of Omens" in names
 
     def test_collects_from_llm_event_combat(self) -> None:
-        from schemas.game_export_types import ToolCallEvent
-
         game = _make_game()
         game["llmEvents"] = [
             ToolCallEvent(

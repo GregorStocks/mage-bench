@@ -110,9 +110,7 @@ def main(game_id: str) -> None:
     errors = _failed_tool_calls(events)
     print(f"LLM events: {len(events)} | Failed tool calls: {len(errors)}")
     for e in errors[:5]:
-        print(
-            f"  {e.player} | {e.tool} | {_format_result_preview(e)}"
-        )
+        print(f"  {e.player} | {e.tool} | {_format_result_preview(e)}")
     if len(errors) > 5:
         print(f"  ... and {len(errors) - 5} more")
 

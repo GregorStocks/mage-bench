@@ -308,7 +308,9 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
             continue
         if k == "usage" and isinstance(v, dict):
             usage_fields = {f.name for f in dataclasses.fields(LlmUsage)}
-            kwargs[k] = LlmUsage(**{uk: uv for uk, uv in v.items() if uk in usage_fields})  # type: ignore[arg-type]
+            kwargs[k] = LlmUsage(
+                **{uk: uv for uk, uv in v.items() if uk in usage_fields}
+            )
         else:
             kwargs[k] = v
     return cls(**kwargs)  # type: ignore[arg-type]

@@ -9,6 +9,7 @@ from unittest.mock import MagicMock, call, patch
 
 import pytest
 
+from schemas.game_export_types import ToolCallEvent
 from scripts import scryfall
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
@@ -1362,8 +1363,6 @@ class TestGameGzBootstrap:
         assert f"Game: {game_id} | jumpstart | 7 turns | Winner: Alice" in out
 
     def test_failed_tool_call_detection_requires_explicit_errors(self) -> None:
-        from schemas.game_export_types import ToolCallEvent
-
         events = [
             ToolCallEvent(
                 type="tool_call",
@@ -1389,9 +1388,7 @@ class TestGameGzBootstrap:
                 player="Alice",
                 tool="choose_action",
                 args={},
-                result=json.dumps(
-                    {"success": False, "error": "Index 0 out of range (call get_action_choices first)"}
-                ),
+                result=json.dumps({"success": False, "error": "Index 0 out of range (call get_action_choices first)"}),
             ),
             ToolCallEvent(
                 type="tool_call",

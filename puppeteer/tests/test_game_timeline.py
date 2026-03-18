@@ -6,6 +6,8 @@ from unittest.mock import patch
 
 import pytest
 
+from schemas.game_export_types import GameStartEvent
+
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GAME_TIMELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "toolbox" / "game_timeline.py"
 
@@ -149,8 +151,6 @@ def _write_export(tmp_path: Path) -> Path:
 
 
 def test_find_context_uses_timestamp_for_older_exports() -> None:
-    from schemas.game_export_types import GameStartEvent
-
     snapshots = [
         {
             "turn": 1,
