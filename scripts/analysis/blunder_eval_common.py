@@ -119,7 +119,7 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
     not strategically interesting for blunder annotation.
     """
 
-    def _choice_text(choice: dict[str, object] | Choice) -> str:
+    def _choice_text(choice: Choice) -> str:
         parts: list[str] = []
         name = decision_support_get(choice, "name")
         if isinstance(name, str):
@@ -141,8 +141,7 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
         if choices is not None:
             assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
         if choices and all(
-            isinstance(c, (dict, Choice)) and "Add {" in _choice_text(c)
-            for c in choices
+            isinstance(c, Choice) and "Add {" in _choice_text(c) for c in choices
         ):
             return True
     return False
