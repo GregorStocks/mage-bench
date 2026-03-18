@@ -4,7 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from schemas.game_export_types import CombatCreature, Permanent, StackItem, StackTarget
+import tests.golden_helpers as golden_helpers
+from schemas.game_export_types import Choice, CombatCreature, Permanent, StackItem, StackTarget
 from tests.golden_helpers import (
     _CapturedPilotRequest,
     _json_diff,
@@ -372,6 +373,56 @@ def test_strip_volatile_keeps_errors_but_strips_error_timestamps():
             "message": "no timestamp here",
         },
     ]
+
+
+def test_extract_blunder_decisions_serializes_dataclass_leaves(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    export_data = {
+        "version": 8,
+        "id": "game_20260317_000000",
+        "timestamp": "",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed - Standard",
+        "totalTurns": 1,
+        "winner": None,
+        "harnessEpoch": 0,
+        "youtubeUrl": "",
+        "players": [],
+        "cardImages": {},
+        "snapshots": [],
+        "actions": [],
+        "llmEvents": [],
+        "gameOver": None,
+        "season": 1,
+        "tournament": None,
+        "annotations": [],
+        "blunderScriptVersion": 0,
+        "decisions": [
+            {
+                "index": 0,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "actionType": "play",
+                "responseType": "choice",
+                "message": "Play spells and abilities",
+                "choices": [Choice.from_mapping({"index": 0, "name": "Memnite"})],
+                "choiceCount": 1,
+                "isForced": True,
+                "llmEventIndices": [],
+                "subsequentActions": [],
+            }
+        ],
+    }
+
+    def _fake_extract_decisions(path: str) -> list[dict]:
+        payload = json.loads(Path(path).read_text())
+        assert payload["decisions"][0]["choices"][0] == {"index": 0, "name": "Memnite"}
+        return [{"index": 0}]
+
+    monkeypatch.setattr(golden_helpers, "extract_decisions", _fake_extract_decisions)
+
+    assert extract_blunder_decisions(export_data, tmp_path) == [{"index": 0}]
 
 
 # --- _json_diff tests ---

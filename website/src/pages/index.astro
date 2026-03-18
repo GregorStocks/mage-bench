@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import '../styles/shared.css';
 import { loadAllGames } from '../utils/load-games';
 import { loadBenchmarkResults, loadLatestCompletedTournament, loadSeasonState } from '../utils/season-data';
 import type { TournamentEntrant } from '../utils/season-data';
@@ -190,15 +191,15 @@ for (const game of loadAllGames()) {
   <section class="stats-strip">
     <p class="stats-qualifier">Season {currentSeason}</p>
     <div class="stats-cards">
-      <div class="stat-card">
+      <div class="stat-card surface-card">
         <span class="stat-number">{totalGames}</span>
         <span class="stat-label">Games Played</span>
       </div>
-      <div class="stat-card">
+      <div class="stat-card surface-card">
         <span class="stat-number">{totalModels}</span>
         <span class="stat-label">Models Tested</span>
       </div>
-      <div class="stat-card">
+      <div class="stat-card surface-card">
         <span class="stat-number">{formatCount}</span>
         <span class="stat-label">Formats</span>
       </div>
@@ -511,9 +512,6 @@ for (const game of loadAllGames()) {
   .stat-card {
     text-align: center;
     padding: 1.2rem 2rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
     min-width: 140px;
   }
 

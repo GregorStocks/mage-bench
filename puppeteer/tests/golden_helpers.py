@@ -13,7 +13,6 @@ To update: make regen-golden
 from __future__ import annotations
 
 import asyncio
-import copy
 import dataclasses
 import io
 import json
@@ -1752,7 +1751,8 @@ def _strip_volatile(data: dict) -> None:
 
 def _normalize_export_for_golden(export_data: dict) -> dict:
     """Return a deterministic export copy for golden comparison."""
-    normalized = copy.deepcopy(export_data)
+    normalized = _json_ready(export_data)
+    assert isinstance(normalized, dict), f"expected export normalization to produce an object, got {normalized!r}"
     _strip_volatile(normalized)
     normalized = _normalize_embedded_json(normalized)
     # Round-trip through JSON to convert dataclass instances to plain dicts

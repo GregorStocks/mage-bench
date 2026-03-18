@@ -20,6 +20,7 @@ from schemas.game_export_types import (
     Snapshot,
     ToolCallEvent,
     export_record_field,
+    game_export_to_jsonable,
     load_built_game_export,
 )
 
@@ -765,7 +766,14 @@ def extract_decisions(gz_path: str) -> list[Decision | dict[str, Any]]:
 
     # Use pre-built canonical decisions when available
     if "decisions" in data:
-        return list(data["decisions"])
+        typed_decisions: list[Decision | dict[str, Any]] = []
+        for decision in data["decisions"]:
+            jsonable_decision = game_export_to_jsonable(decision)
+            assert isinstance(jsonable_decision, dict), (
+                f"canonical decision must serialize to an object, got {jsonable_decision!r}"
+            )
+            typed_decisions.append(cast(dict[str, Any], jsonable_decision))
+        return typed_decisions
 
     # Legacy: extract from llmEvents
     legacy_decisions = (

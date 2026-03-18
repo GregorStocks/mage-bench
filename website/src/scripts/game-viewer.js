@@ -293,7 +293,7 @@
     container.innerHTML = "";
 
     var html = [
-      '<div id="transport">',
+      '<div id="transport" class="surface-card">',
       '  <div class="transport-buttons">',
       '    <button id="btn-prev" title="Previous (Left arrow)">&lt;</button>',
       '    <button id="btn-auto" title="Auto-play">Play</button>',
@@ -317,7 +317,7 @@
       '    <div id="players-grid"></div>',
       '  </div>',
       '  <div id="game-right">',
-      '    <div id="action-log">',
+      '    <div id="action-log" class="surface-card">',
       '      <div class="action-log-header">',
       '        <span class="section-title">Game Log</span>',
       '        <div class="log-filters">',

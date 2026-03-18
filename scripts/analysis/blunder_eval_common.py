@@ -13,10 +13,12 @@ from typing import Any
 
 from schemas.game_export_types import (
     Annotation,
+    Choice,
     Decision,
     GameExport,
     JsonObject,
     Snapshot,
+    decision_support_get,
     export_record_field,
     load_game_export,
 )
@@ -117,6 +119,17 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
     These are intermediate steps during mana payment or ability activation —
     not strategically interesting for blunder annotation.
     """
+
+    def _choice_text(choice: dict[str, object] | Choice) -> str:
+        parts: list[str] = []
+        name = decision_support_get(choice, "name")
+        if isinstance(name, str):
+            parts.append(name)
+        description = decision_support_get(choice, "description")
+        if isinstance(description, str):
+            parts.append(description)
+        return "".join(parts)
+
     msg = d.get("message")
     if not msg:
         return False
@@ -129,12 +142,7 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
         if choices is not None:
             assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
         if choices and all(
-            isinstance(c, dict)
-            and "Add {"
-            in (
-                (c["name"] if "name" in c else "")
-                + (c["description"] if "description" in c else "")
-            )
+            isinstance(c, (dict, Choice)) and "Add {" in _choice_text(c)
             for c in choices
         ):
             return True

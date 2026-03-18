@@ -159,7 +159,7 @@ const scryfallIds = cards
           {matchRecords.map((m) => {
             const opponent = entrantsBySeed.get(m.opponentSeed) ?? null;
             return (
-              <div class:list={['match-row', { won: m.won, lost: !m.won }]}>
+              <div class:list={['match-row', 'surface-card', { won: m.won, lost: !m.won }]}>
                 <div class="match-round">{m.roundName}</div>
                 <div class="match-details">
                   <span class="match-result">{m.won ? 'W' : 'L'}</span>
@@ -449,9 +449,6 @@ const scryfallIds = cards
   }
 
   .match-row {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
     padding: 0.75rem 1rem;
     transition: border-color 0.15s;
   }

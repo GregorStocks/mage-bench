@@ -14,6 +14,7 @@ from puppeteer.decision_renderer import (
     permanent_display,
     render_decision,
 )
+from schemas.game_export_types import Choice, PilotContext
 
 
 def _make_snapshot(
@@ -76,7 +77,7 @@ def _make_decision(
     items: list | None = None,
     total_min: int | None = None,
     total_max: int | None = None,
-    pilot_context: dict | None = None,
+    pilot_context: dict | PilotContext | None = None,
     chosen: object = 0,
     chosen_args: dict | None = None,
     llm_event_indices: list[int] | None = None,
@@ -152,6 +153,15 @@ class TestRenderDecision:
     def test_pilot_context(self) -> None:
         snap = _make_snapshot()
         decision = _make_decision(pilot_context={"untappedLands": 2, "landDropsUsed": 0})
+        text = render_decision(decision, snap)
+        assert "Untapped lands: 2" in text
+        assert "Land drops remaining: 1" in text
+
+    def test_pilot_context_dataclass(self) -> None:
+        snap = _make_snapshot()
+        decision = _make_decision(
+            pilot_context=PilotContext.from_mapping({"untappedLands": 2, "landDropsUsed": 0, "combatPhase": None})
+        )
         text = render_decision(decision, snap)
         assert "Untapped lands: 2" in text
         assert "Land drops remaining: 1" in text
@@ -396,6 +406,10 @@ class TestFormatChoice:
         assert "Lightning Bolt" in result
         assert "{R}" in result
 
+    def test_dataclass_choice(self) -> None:
+        result = _format_choice(Choice.from_mapping({"name": "Lightning Bolt", "id": "p3", "action": "cast"}))
+        assert result == "Lightning Bolt [id=p3, cast]"
+
 
 class TestPermanentDisplay:
     def test_simple_name(self) -> None:
@@ -528,6 +542,10 @@ class TestChosenDisplay:
 
     def test_index_chosen(self) -> None:
         choices = [{"name": "Lightning Bolt"}, {"name": "Mountain"}]
+        assert _chosen_display(0, {}, choices) == "Lightning Bolt"
+
+    def test_index_chosen_dataclass(self) -> None:
+        choices = [Choice(name="Lightning Bolt"), Choice(name="Mountain")]
         assert _chosen_display(0, {}, choices) == "Lightning Bolt"
 
     def test_text_chosen(self) -> None:

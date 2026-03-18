@@ -15,7 +15,15 @@ from __future__ import annotations
 import json
 from collections.abc import Sequence
 
-from schemas.game_export_types import Decision, export_record_field
+from schemas.game_export_types import (
+    Choice,
+    Decision,
+    MultiAmountItem,
+    PilotContext,
+    decision_support_get,
+    decision_support_has,
+    export_record_field,
+)
 
 BASIC_LAND_NAMES = frozenset(
     [
@@ -148,10 +156,12 @@ def _render_decision_block(
             f"Turn {turn} {phase} - {player}"
         )
     ]
-    pilot_ctx: dict[str, object] = {}
+    pilot_ctx: dict[str, object] | PilotContext = {}
     raw_pilot_ctx = _decision_optional(decision, "pilotContext")
     if raw_pilot_ctx is not None:
-        assert isinstance(raw_pilot_ctx, dict), f"pilotContext must be an object when present, got {raw_pilot_ctx!r}"
+        assert isinstance(raw_pilot_ctx, (dict, PilotContext)), (
+            f"pilotContext must be an object when present, got {raw_pilot_ctx!r}"
+        )
         pilot_ctx = raw_pilot_ctx
 
     # Board state from snapshot
@@ -170,7 +180,7 @@ def _render_decision_block(
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
 
-    combat_phase = pilot_ctx.get("combatPhase")
+    combat_phase = decision_support_get(pilot_ctx, "combatPhase")
     assert combat_phase is None or isinstance(combat_phase, str), (
         f"combatPhase must be a string when present, got {combat_phase!r}"
     )
@@ -178,21 +188,21 @@ def _render_decision_block(
         lines.append(f"  Combat Phase: {combat_phase}")
 
     # Pilot context overlay
-    incoming_attackers = pilot_ctx.get("incomingAttackers")
+    incoming_attackers = decision_support_get(pilot_ctx, "incomingAttackers")
     assert incoming_attackers is None or isinstance(incoming_attackers, list), (
         f"incomingAttackers must be a list when present, got {incoming_attackers!r}"
     )
     if _is_declare_blockers_phase(combat_phase) and incoming_attackers:
         lines.append(f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}")
 
-    if "untappedLands" in pilot_ctx or "landDropsUsed" in pilot_ctx:
+    if decision_support_has(pilot_ctx, "untappedLands") or decision_support_has(pilot_ctx, "landDropsUsed"):
         ctx_parts: list[str] = []
-        if "untappedLands" in pilot_ctx:
-            untapped_lands = pilot_ctx["untappedLands"]
+        if decision_support_has(pilot_ctx, "untappedLands"):
+            untapped_lands = decision_support_get(pilot_ctx, "untappedLands")
             assert isinstance(untapped_lands, int), f"untappedLands must be an int when present, got {untapped_lands!r}"
             ctx_parts.append(f"Untapped lands: {untapped_lands}")
-        if "landDropsUsed" in pilot_ctx:
-            land_drops_used = pilot_ctx["landDropsUsed"]
+        if decision_support_has(pilot_ctx, "landDropsUsed"):
+            land_drops_used = decision_support_get(pilot_ctx, "landDropsUsed")
             assert isinstance(land_drops_used, int), (
                 f"landDropsUsed must be an int when present, got {land_drops_used!r}"
             )
@@ -223,13 +233,15 @@ def _render_decision_block(
                 header += f": {', '.join(total_parts)}"
         lines.append(header)
         for i, item in enumerate(items):
-            assert "description" in item, f"multi-amount item {i} missing 'description': {item}"
-            desc = item["description"]
+            assert isinstance(item, (dict, MultiAmountItem)), f"multi-amount item {i} must be an object, got {item!r}"
+            assert decision_support_has(item, "description"), f"multi-amount item {i} missing 'description': {item}"
+            desc = decision_support_get(item, "description")
+            assert isinstance(desc, str), f"multi-amount item {i} description must be a string, got {desc!r}"
             constraints: list[str] = []
-            if "min" in item:
-                constraints.append(f"min={item['min']}")
-            if "max" in item:
-                constraints.append(f"max={item['max']}")
+            if decision_support_has(item, "min"):
+                constraints.append(f"min={decision_support_get(item, 'min')}")
+            if decision_support_has(item, "max"):
+                constraints.append(f"max={decision_support_get(item, 'max')}")
             suffix = f" [{', '.join(constraints)}]" if constraints else ""
             lines.append(f"    {i}: {desc}{suffix}")
     else:
@@ -447,16 +459,24 @@ def _format_choice(c: object) -> str:
     """Format a single choice for display."""
     if isinstance(c, str):
         return c
-    if not isinstance(c, dict):
+    if not isinstance(c, (dict, Choice)):
         return str(c)
-    name: str = c.get("name") or c.get("description") or "?"
+    raw_name = decision_support_get(c, "name")
+    if isinstance(raw_name, str) and raw_name:
+        name = raw_name
+    else:
+        raw_description = decision_support_get(c, "description")
+        name = raw_description if isinstance(raw_description, str) and raw_description else "?"
     parts: list[str] = [name]
-    if c.get("id"):
-        parts.append(f"id={c['id']}")
-    if c.get("action"):
-        parts.append(c["action"])
-    if c.get("mana_cost"):
-        parts.append(c["mana_cost"])
+    choice_id = decision_support_get(c, "id")
+    if isinstance(choice_id, str) and choice_id:
+        parts.append(f"id={choice_id}")
+    action = decision_support_get(c, "action")
+    if isinstance(action, str) and action:
+        parts.append(action)
+    mana_cost = decision_support_get(c, "mana_cost")
+    if isinstance(mana_cost, str) and mana_cost:
+        parts.append(mana_cost)
     if len(parts) > 1:
         return f"{parts[0]} [{', '.join(parts[1:])}]"
     return parts[0]
@@ -605,8 +625,14 @@ def _chosen_display(
         return str(chosen)
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
         c = choices[chosen]
-        if isinstance(c, dict):
-            return str(c.get("name") or c.get("description") or chosen)
+        if isinstance(c, (dict, Choice)):
+            name = decision_support_get(c, "name")
+            if isinstance(name, str) and name:
+                return name
+            description = decision_support_get(c, "description")
+            if isinstance(description, str) and description:
+                return description
+            return str(chosen)
         return str(c)
     return str(chosen)
 
@@ -625,12 +651,27 @@ def _batch_attack_display(attackers: list | str, choices: list) -> str:
         attackers = [a.strip() for a in attackers.split(",")]
     if attackers == ["all"]:
         # Resolve names from choices (exclude the "All attack" special entry)
-        names = [c.get("name", str(c)) for c in choices if isinstance(c, dict) and c.get("id") != "all"]
+        names = []
+        for c in choices:
+            if not isinstance(c, (dict, Choice)):
+                continue
+            if decision_support_get(c, "id") == "all":
+                continue
+            name = decision_support_get(c, "name")
+            names.append(name if isinstance(name, str) and name else str(c))
         if names:
             return f"Attack with all ({', '.join(names)})"
         return "Attack with all creatures"
     # Resolve individual attacker IDs to names (entries may be strings or dicts)
-    choice_by_id = {c["id"]: c.get("name", c["id"]) for c in choices if isinstance(c, dict) and "id" in c}
+    choice_by_id: dict[str, str] = {}
+    for c in choices:
+        if not isinstance(c, (dict, Choice)):
+            continue
+        choice_id = decision_support_get(c, "id")
+        if not isinstance(choice_id, str) or not choice_id:
+            continue
+        name = decision_support_get(c, "name")
+        choice_by_id[choice_id] = name if isinstance(name, str) and name else choice_id
     names = [choice_by_id.get(_attacker_id(a), _attacker_id(a)) for a in attackers]
     return f"Attack with {', '.join(names)}"
 
@@ -653,7 +694,15 @@ def _batch_block_display(blockers: list | str, choices: list) -> str:
         except (json.JSONDecodeError, TypeError):
             parsed = [b.strip() for b in blockers.split(",")]
         blockers = parsed
-    choice_by_id = {c["id"]: c.get("name", c["id"]) for c in choices if isinstance(c, dict) and "id" in c}
+    choice_by_id: dict[str, str] = {}
+    for c in choices:
+        if not isinstance(c, (dict, Choice)):
+            continue
+        choice_id = decision_support_get(c, "id")
+        if not isinstance(choice_id, str) or not choice_id:
+            continue
+        name = decision_support_get(c, "name")
+        choice_by_id[choice_id] = name if isinstance(name, str) and name else choice_id
     parts = []
     for entry in blockers:
         if isinstance(entry, dict):
@@ -705,8 +754,10 @@ def _render_card_reference(
     raw_choices = _decision_value(decision, "choices")
     assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
     for c in raw_choices:
-        if isinstance(c, dict) and c.get("name"):
-            names.add(c["name"])
+        if isinstance(c, (dict, Choice)):
+            name = decision_support_get(c, "name")
+            if isinstance(name, str) and name:
+                names.add(name)
 
     # Filter to non-basic cards with oracle text
     lines: list[str] = []

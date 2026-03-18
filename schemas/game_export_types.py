@@ -6,21 +6,85 @@ validated exports with typed nested payloads instead of raw ``dict[str, object]`
 blobs.
 """
 
+import copy
 import dataclasses
 from collections.abc import Callable, Mapping
 import gzip
 import json
 from dataclasses import dataclass, field, fields
 from pathlib import Path
-from typing import Any, Literal, TypeAlias, TypeVar, cast
+from types import MappingProxyType
+from typing import Any, ClassVar, Literal, TypeAlias, TypeVar, cast
 
-from typing_extensions import NotRequired, TypeGuard, TypeIs, TypedDict
+from typing_extensions import TypedDict, TypeGuard, TypeIs
 
 JsonObject: TypeAlias = dict[str, object]
 T = TypeVar("T")
 
 
 # -- Nested payload types used by the decision renderer --
+
+
+@dataclass(frozen=True, slots=True)
+class _DecisionSupportRecord:
+    """Shared helpers for decision-support leaves with schema extras."""
+
+    _extras: Mapping[str, object] = field(
+        default_factory=dict,
+        repr=False,
+        compare=True,
+        kw_only=True,
+    )
+    _present_fields: frozenset[str] = field(
+        default_factory=frozenset,
+        repr=False,
+        compare=True,
+        kw_only=True,
+    )
+
+    _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = ()
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "_extras", MappingProxyType(dict(self._extras)))
+        present_fields = self._present_fields or frozenset(
+            name for name in self._KNOWN_FIELDS if getattr(self, name) is not None
+        )
+        object.__setattr__(self, "_present_fields", frozenset(present_fields))
+
+    @property
+    def extras(self) -> Mapping[str, object]:
+        return self._extras
+
+    def has_field(self, key: str) -> bool:
+        return key in self._present_fields or key in self._extras
+
+    def get_value(self, key: str) -> object | None:
+        if key in self._KNOWN_FIELDS:
+            return cast(object, getattr(self, key))
+        return self._extras.get(key)
+
+    def to_mapping(self) -> JsonObject:
+        obj: JsonObject = {}
+        for key in self._KNOWN_FIELDS:
+            if key in self._present_fields:
+                obj[key] = cast(object, getattr(self, key))
+        obj.update(self._extras)
+        return obj
+
+    def _deepcopy_mapping(self, memo: dict[int, object]) -> JsonObject:
+        return copy.deepcopy(self.to_mapping(), memo)
+
+
+def _extras_from_mapping(
+    obj: Mapping[str, object], known_fields: tuple[str, ...]
+) -> Mapping[str, object]:
+    return {key: value for key, value in obj.items() if key not in known_fields}
+
+
+def _present_fields_from_mapping(
+    obj: Mapping[str, object], known_fields: tuple[str, ...]
+) -> frozenset[str]:
+    return frozenset(key for key in known_fields if key in obj)
 
 
 @dataclass(frozen=True, slots=True)
@@ -117,24 +181,78 @@ def export_record_field(record: object, field_name: str) -> object | None:
     return None
 
 
-class Choice(TypedDict, total=False):
+@dataclass(frozen=True, slots=True)
+class Choice(_DecisionSupportRecord):
     """A choice available to the player. Shape varies by decision type."""
 
-    index: int
-    name: str
-    description: str
-    id: str
-    action: str
-    mana_cost: str
-    choice_type: str
+    index: int | None = None
+    name: str | None = None
+    description: str | None = None
+    id: str | None = None
+    action: str | None = None
+    mana_cost: str | None = None
+    choice_type: str | None = None
+
+    _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = (
+        "index",
+        "name",
+        "description",
+        "id",
+        "action",
+        "mana_cost",
+        "choice_type",
+    )
+
+    @classmethod
+    def from_mapping(cls, obj: Mapping[str, object]) -> "Choice":
+        return cls(
+            index=cast(int | None, obj["index"] if "index" in obj else None),
+            name=cast(str | None, obj["name"] if "name" in obj else None),
+            description=cast(
+                str | None, obj["description"] if "description" in obj else None
+            ),
+            id=cast(str | None, obj["id"] if "id" in obj else None),
+            action=cast(str | None, obj["action"] if "action" in obj else None),
+            mana_cost=cast(
+                str | None, obj["mana_cost"] if "mana_cost" in obj else None
+            ),
+            choice_type=cast(
+                str | None, obj["choice_type"] if "choice_type" in obj else None
+            ),
+            _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
+            _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
+        )
+
+    def __deepcopy__(self, memo: dict[int, object]) -> "Choice":
+        duplicate = Choice.from_mapping(self._deepcopy_mapping(memo))
+        memo[id(self)] = duplicate
+        return duplicate
 
 
-class MultiAmountItem(TypedDict):
+@dataclass(frozen=True, slots=True)
+class MultiAmountItem(_DecisionSupportRecord):
     """An item in a multi-amount decision."""
 
     description: str
-    min: NotRequired[int]
-    max: NotRequired[int]
+    min: int | None = None
+    max: int | None = None
+
+    _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = ("description", "min", "max")
+
+    @classmethod
+    def from_mapping(cls, obj: Mapping[str, object]) -> "MultiAmountItem":
+        return cls(
+            description=cast(str, obj["description"]),
+            min=cast(int | None, obj["min"] if "min" in obj else None),
+            max=cast(int | None, obj["max"] if "max" in obj else None),
+            _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
+            _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
+        )
+
+    def __deepcopy__(self, memo: dict[int, object]) -> "MultiAmountItem":
+        duplicate = MultiAmountItem.from_mapping(self._deepcopy_mapping(memo))
+        memo[id(self)] = duplicate
+        return duplicate
 
 
 _ACTION_TYPES = {"turn_change", "phase_change", "chat"}
@@ -410,13 +528,89 @@ class Annotation:
     llmReasoning: str | None = None
 
 
-class PilotContext(TypedDict, total=False):
-    untappedLands: int
-    landDropsUsed: int
-    playableCards: list[str]
-    combatPhase: str | None
-    alreadyAttacking: list[str | CombatCreature]
-    incomingAttackers: list[str | CombatCreature]
+@dataclass(frozen=True, slots=True)
+class PilotContext(_DecisionSupportRecord):
+    untappedLands: int | None = None
+    landDropsUsed: int | None = None
+    playableCards: list[str] | None = None
+    combatPhase: str | None = None
+    alreadyAttacking: list[str | CombatCreature] | None = None
+    incomingAttackers: list[str | CombatCreature] | None = None
+
+    _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = (
+        "untappedLands",
+        "landDropsUsed",
+        "playableCards",
+        "combatPhase",
+        "alreadyAttacking",
+        "incomingAttackers",
+    )
+
+    @classmethod
+    def from_mapping(cls, obj: Mapping[str, object]) -> "PilotContext":
+        return cls(
+            untappedLands=cast(
+                int | None, obj["untappedLands"] if "untappedLands" in obj else None
+            ),
+            landDropsUsed=cast(
+                int | None, obj["landDropsUsed"] if "landDropsUsed" in obj else None
+            ),
+            playableCards=cast(
+                list[str] | None,
+                obj["playableCards"] if "playableCards" in obj else None,
+            ),
+            combatPhase=cast(
+                str | None, obj["combatPhase"] if "combatPhase" in obj else None
+            ),
+            alreadyAttacking=cast(
+                list[str | CombatCreature] | None,
+                obj["alreadyAttacking"] if "alreadyAttacking" in obj else None,
+            ),
+            incomingAttackers=cast(
+                list[str | CombatCreature] | None,
+                obj["incomingAttackers"] if "incomingAttackers" in obj else None,
+            ),
+            _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
+            _present_fields=_present_fields_from_mapping(obj, cls._KNOWN_FIELDS),
+        )
+
+    def __deepcopy__(self, memo: dict[int, object]) -> "PilotContext":
+        duplicate = PilotContext.from_mapping(self._deepcopy_mapping(memo))
+        memo[id(self)] = duplicate
+        return duplicate
+
+
+DecisionSupportRecord: TypeAlias = Choice | MultiAmountItem | PilotContext
+DecisionSupportRecordLike: TypeAlias = DecisionSupportRecord | Mapping[str, object]
+
+
+def _is_decision_support_record(value: object) -> TypeIs[DecisionSupportRecord]:
+    return isinstance(value, (Choice, MultiAmountItem, PilotContext))
+
+
+def decision_support_get(record: DecisionSupportRecordLike, key: str) -> object | None:
+    if _is_decision_support_record(record):
+        return record.get_value(key)
+    return record.get(key)
+
+
+def decision_support_has(record: DecisionSupportRecordLike, key: str) -> bool:
+    if _is_decision_support_record(record):
+        return record.has_field(key)
+    return key in record
+
+
+def game_export_to_jsonable(value: object) -> object:
+    """Convert export leaves to plain JSON-compatible dict/list structures."""
+    if _is_decision_support_record(value):
+        return game_export_to_jsonable(value.to_mapping())
+    if dataclasses.is_dataclass(value) and not isinstance(value, type):
+        return game_export_to_jsonable(json_default(value))
+    if isinstance(value, dict):
+        return {key: game_export_to_jsonable(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [game_export_to_jsonable(item) for item in value]
+    return value
 
 
 @dataclass(slots=True)
@@ -447,6 +641,18 @@ class Decision:
 
     @classmethod
     def from_dict(cls, value: JsonObject) -> "Decision":
+        raw_choices = value["choices"]
+        assert isinstance(raw_choices, list), (
+            f"Decision.choices must be a list, got {raw_choices!r}"
+        )
+        choices: list[Choice] = []
+        for index, choice in enumerate(raw_choices):
+            assert isinstance(choice, (dict, Choice)), (
+                f"Decision.choices[{index}] must be an object, got {choice!r}"
+            )
+            choices.append(
+                choice if isinstance(choice, Choice) else Choice.from_mapping(choice)
+            )
         chosen_args = value.get("chosenArgs")
         assert chosen_args is None or isinstance(chosen_args, dict), (
             f"Decision.chosenArgs must be an object when present, got {chosen_args!r}"
@@ -455,14 +661,33 @@ class Decision:
         assert action_result is None or isinstance(action_result, dict), (
             f"Decision.actionResult must be an object when present, got {action_result!r}"
         )
-        pilot_context = value.get("pilotContext")
-        assert pilot_context is None or isinstance(pilot_context, dict), (
-            f"Decision.pilotContext must be an object when present, got {pilot_context!r}"
+        raw_pilot_context = value.get("pilotContext")
+        assert raw_pilot_context is None or isinstance(
+            raw_pilot_context, (dict, PilotContext)
+        ), (
+            f"Decision.pilotContext must be an object when present, got {raw_pilot_context!r}"
         )
-        items = value.get("items")
-        assert items is None or isinstance(items, list), (
-            f"Decision.items must be a list when present, got {items!r}"
+        pilot_context = (
+            raw_pilot_context
+            if raw_pilot_context is None or isinstance(raw_pilot_context, PilotContext)
+            else PilotContext.from_mapping(raw_pilot_context)
         )
+        raw_items = value.get("items")
+        assert raw_items is None or isinstance(raw_items, list), (
+            f"Decision.items must be a list when present, got {raw_items!r}"
+        )
+        items: list[MultiAmountItem] | None = None
+        if raw_items is not None:
+            items = []
+            for index, item in enumerate(raw_items):
+                assert isinstance(item, (dict, MultiAmountItem)), (
+                    f"Decision.items[{index}] must be an object, got {item!r}"
+                )
+                items.append(
+                    item
+                    if isinstance(item, MultiAmountItem)
+                    else MultiAmountItem.from_mapping(item)
+                )
         total_min = value.get("totalMin")
         assert total_min is None or _is_int(total_min), (
             f"Decision.totalMin must be an int when present, got {total_min!r}"
@@ -488,18 +713,18 @@ class Decision:
             actionType=cast(str, value["actionType"]),
             responseType=cast(str, value["responseType"]),
             message=cast(str, value["message"]),
-            choices=cast(list[Choice], value["choices"]),
+            choices=choices,
             choiceCount=cast(int, value["choiceCount"]),
             isForced=cast(bool, value["isForced"]),
             llmEventIndices=cast(list[int], value["llmEventIndices"]),
             subsequentActions=cast(list[str], value["subsequentActions"]),
             step=cast(str | None, value.get("step")),
-            pilotContext=cast(PilotContext | JsonObject | None, pilot_context),
+            pilotContext=pilot_context,
             chosen=value.get("chosen"),
             chosenArgs=cast(JsonObject | None, chosen_args),
             actionResult=cast(JsonObject | None, action_result),
             castRolledBack=cast_rolled_back,
-            items=cast(list[MultiAmountItem] | None, items),
+            items=items,
             totalMin=cast(int | None, total_min),
             totalMax=cast(int | None, total_max),
             actionSeq=cast(int | None, action_seq),
@@ -851,8 +1076,11 @@ def _is_combat_creature(value: object, source: str) -> bool:
     return True
 
 
-def _is_choice(value: object, source: str) -> TypeIs[Choice]:
-    obj = _require_object(value, source)
+def _coerce_choice(value: object, source: str) -> Choice:
+    if isinstance(value, Choice):
+        obj = value.to_mapping()
+    else:
+        obj = _require_object(value, source)
     if "index" in obj:
         _require_int(obj["index"], f"{source}.index")
     if "name" in obj:
@@ -867,17 +1095,24 @@ def _is_choice(value: object, source: str) -> TypeIs[Choice]:
         _require_str(obj["mana_cost"], f"{source}.mana_cost")
     if "choice_type" in obj:
         _require_str(obj["choice_type"], f"{source}.choice_type")
-    return True
+    if isinstance(value, Choice):
+        return value
+    return Choice.from_mapping(obj)
 
 
-def _is_multi_amount_item(value: object, source: str) -> TypeIs[MultiAmountItem]:
-    obj = _require_object(value, source)
+def _coerce_multi_amount_item(value: object, source: str) -> MultiAmountItem:
+    if isinstance(value, MultiAmountItem):
+        obj = value.to_mapping()
+    else:
+        obj = _require_object(value, source)
     _require_str(_require_key(obj, "description", source), f"{source}.description")
     if "min" in obj:
         _require_int(obj["min"], f"{source}.min")
     if "max" in obj:
         _require_int(obj["max"], f"{source}.max")
-    return True
+    if isinstance(value, MultiAmountItem):
+        return value
+    return MultiAmountItem.from_mapping(obj)
 
 
 def _validate_str_or_typed_list(
@@ -1359,8 +1594,11 @@ def _parse_annotation(value: object, source: str) -> Annotation:
     )
 
 
-def _is_pilot_context(value: object, source: str) -> TypeIs[PilotContext]:
-    obj = _require_object(value, source)
+def _coerce_pilot_context(value: object, source: str) -> PilotContext:
+    if isinstance(value, PilotContext):
+        obj = dict(value.to_mapping())
+    else:
+        obj = _require_object(value, source)
     if "untappedLands" in obj:
         _require_non_negative_int(obj["untappedLands"], f"{source}.untappedLands")
     if "landDropsUsed" in obj:
@@ -1370,14 +1608,18 @@ def _is_pilot_context(value: object, source: str) -> TypeIs[PilotContext]:
     if "combatPhase" in obj:
         _require_optional_str(obj["combatPhase"], f"{source}.combatPhase")
     if "alreadyAttacking" in obj:
-        _validate_str_or_typed_list(
-            obj["alreadyAttacking"], f"{source}.alreadyAttacking", _is_combat_creature
+        obj["alreadyAttacking"] = _coerce_str_or_typed_list(
+            obj["alreadyAttacking"],
+            f"{source}.alreadyAttacking",
+            _coerce_combat_creature,
         )
     if "incomingAttackers" in obj:
-        _validate_str_or_typed_list(
-            obj["incomingAttackers"], f"{source}.incomingAttackers", _is_combat_creature
+        obj["incomingAttackers"] = _coerce_str_or_typed_list(
+            obj["incomingAttackers"],
+            f"{source}.incomingAttackers",
+            _coerce_combat_creature,
         )
-    return True
+    return PilotContext.from_mapping(obj)
 
 
 def _is_decision(value: object, source: str) -> TypeIs[Decision]:
@@ -1395,10 +1637,9 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     _require_str(_require_key(obj, "actionType", source), f"{source}.actionType")
     _require_str(_require_key(obj, "responseType", source), f"{source}.responseType")
     _require_str(_require_key(obj, "message", source), f"{source}.message")
-    for index, choice in enumerate(
-        _require_list(_require_key(obj, "choices", source), f"{source}.choices")
-    ):
-        assert _is_choice(choice, f"{source}.choices[{index}]")
+    choices = _require_list(_require_key(obj, "choices", source), f"{source}.choices")
+    for index, choice in enumerate(choices):
+        choices[index] = _coerce_choice(choice, f"{source}.choices[{index}]")
     _require_non_negative_int(
         _require_key(obj, "choiceCount", source), f"{source}.choiceCount"
     )
@@ -1412,7 +1653,9 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     if "step" in obj:
         _require_optional_str(obj["step"], f"{source}.step")
     if "pilotContext" in obj:
-        assert _is_pilot_context(obj["pilotContext"], f"{source}.pilotContext")
+        obj["pilotContext"] = _coerce_pilot_context(
+            obj["pilotContext"], f"{source}.pilotContext"
+        )
     if "chosenArgs" in obj:
         _require_object(obj["chosenArgs"], f"{source}.chosenArgs")
     if "actionResult" in obj:
@@ -1420,8 +1663,9 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     if "castRolledBack" in obj:
         _require_bool(obj["castRolledBack"], f"{source}.castRolledBack")
     if "items" in obj:
-        for index, item in enumerate(_require_list(obj["items"], f"{source}.items")):
-            assert _is_multi_amount_item(item, f"{source}.items[{index}]")
+        items = _require_list(obj["items"], f"{source}.items")
+        for index, item in enumerate(items):
+            items[index] = _coerce_multi_amount_item(item, f"{source}.items[{index}]")
     if "totalMin" in obj:
         _require_non_negative_int(obj["totalMin"], f"{source}.totalMin")
     if "totalMax" in obj:
@@ -1559,25 +1803,6 @@ def _coerce_snapshot(value: object, source: str) -> Snapshot:
         if "combat" in obj
         else None,
     )
-
-
-def _coerce_pilot_context(value: object, source: str) -> PilotContext:
-    assert _is_pilot_context(value, source)
-    obj = _require_object(value, source)
-    context = dict(obj)
-    if "alreadyAttacking" in obj:
-        context["alreadyAttacking"] = _coerce_str_or_typed_list(
-            obj["alreadyAttacking"],
-            f"{source}.alreadyAttacking",
-            _coerce_combat_creature,
-        )
-    if "incomingAttackers" in obj:
-        context["incomingAttackers"] = _coerce_str_or_typed_list(
-            obj["incomingAttackers"],
-            f"{source}.incomingAttackers",
-            _coerce_combat_creature,
-        )
-    return cast(PilotContext, context)
 
 
 def _coerce_decision(value: object, source: str) -> Decision:
@@ -1765,6 +1990,8 @@ def json_default(obj: object) -> object:
     """
     if isinstance(obj, Decision):
         return obj.to_dict()
+    if _is_decision_support_record(obj):
+        return obj.to_mapping()
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
         field_names = {f.name for f in dataclasses.fields(obj)}
         if "_extras" in field_names:
@@ -1848,6 +2075,8 @@ __all__ = [
     "ContextResetEvent",
     "ContextTrimEvent",
     "Decision",
+    "DecisionSupportRecord",
+    "DecisionSupportRecordLike",
     "export_record_field",
     "GameError",
     "GameExport",
@@ -1870,6 +2099,9 @@ __all__ = [
     "StackTarget",
     "StallEvent",
     "ToolCallEvent",
+    "decision_support_get",
+    "decision_support_has",
+    "game_export_to_jsonable",
     "json_default",
     "is_built_game_export",
     "is_game_export",

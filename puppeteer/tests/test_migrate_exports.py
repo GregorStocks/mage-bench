@@ -8,7 +8,7 @@ from unittest.mock import patch
 import pytest
 
 from puppeteer.harness_epoch import SEASON_1_START_EPOCH
-from schemas.game_export_types import Action
+from schemas.game_export_types import Action, Choice, MultiAmountItem, PilotContext
 from schemas.migrations import (
     MIGRATIONS,
     v2_to_v3,
@@ -744,6 +744,49 @@ class TestGameExportHelpers:
         assert not json_path.exists()
         raw = gzip.decompress(gz_path.read_bytes())
         assert json.loads(raw)["id"] == payload["id"]
+
+    def test_write_raw_game_export_serializes_decision_support_dataclasses(self, tmp_path: Path) -> None:
+        payload = _make_v6_export()
+        payload["version"] = 8
+        payload["season"] = 1
+        payload["tournament"] = None
+        payload["annotations"] = []
+        payload["blunderScriptVersion"] = 0
+        payload["decisions"] = [
+            {
+                "index": 0,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "actionType": "play",
+                "responseType": "choice",
+                "message": "Play spells and abilities",
+                "choices": [Choice.from_mapping({"index": 0, "name": "Memnite", "power": "1"})],
+                "choiceCount": 1,
+                "isForced": True,
+                "llmEventIndices": [],
+                "subsequentActions": [],
+                "pilotContext": PilotContext.from_mapping(
+                    {"untappedLands": 1, "combatPhase": None, "manaPool": {"WHITE": 1}}
+                ),
+                "items": [MultiAmountItem.from_mapping({"description": "Assign damage", "target": "p1"})],
+            }
+        ]
+
+        out_path = write_raw_game_export(tmp_path / "game_dataclass.json", payload)
+
+        written = json.loads(out_path.read_text())
+        assert written["decisions"][0]["choices"][0] == {"index": 0, "name": "Memnite", "power": "1"}
+        assert written["decisions"][0]["pilotContext"] == {
+            "untappedLands": 1,
+            "combatPhase": None,
+            "manaPool": {"WHITE": 1},
+        }
+        assert written["decisions"][0]["items"][0] == {
+            "description": "Assign damage",
+            "target": "p1",
+        }
 
     def test_write_raw_game_export_serializes_action_from_as_json_from(self, tmp_path: Path) -> None:
         payload = {

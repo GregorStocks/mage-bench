@@ -3,6 +3,7 @@ import '../styles/game-renderer.css';
 import '../styles/game-viewer.css';
 import '../styles/game-header.css';
 import '../styles/audit-panel.css';
+import '../styles/shared.css';
 import type { GameEntry } from '../utils/load-games';
 import type { GameExportV8 } from '../types/game-export';
 import type { PrerenderResult } from '../utils/prerender-timeline';
@@ -49,7 +50,7 @@ const runningCostsJson = JSON.stringify(runningCostBySnapshot).replace(/</g, '\\
   <div id="error" class="hidden"></div>
 
   <div id="game-ui">
-    <div id="game-header">
+    <div id="game-header" class="surface-card">
       <div id="game-title">{game.replayTitle}</div>
       {youtubeUrl && (
         <div id="youtube-link">
@@ -94,7 +95,7 @@ const runningCostsJson = JSON.stringify(runningCostBySnapshot).replace(/</g, '\\
 
     <!-- Prerendered viewer skeleton (was previously built by JS buildDOM()) -->
     <div id="viewer-container">
-      <div id="transport">
+      <div id="transport" class="surface-card">
         <div class="transport-buttons">
           <button id="btn-prev" title="Previous (Left arrow)">&lt;</button>
           <button id="btn-auto" title="Auto-play">Play</button>
@@ -118,7 +119,7 @@ const runningCostsJson = JSON.stringify(runningCostBySnapshot).replace(/</g, '\\
           <div id="players-grid"></div>
         </div>
         <div id="game-right">
-          <div id="action-log">
+          <div id="action-log" class="surface-card">
             <div class="action-log-header">
               <span class="section-title">Game Log</span>
               <div class="log-filters">

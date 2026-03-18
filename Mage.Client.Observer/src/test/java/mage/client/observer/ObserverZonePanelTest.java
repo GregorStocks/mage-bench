@@ -5,6 +5,7 @@ import mage.cards.MageCardAnimationSettings;
 import mage.cards.MageCardSpace;
 import mage.constants.Zone;
 import mage.view.CardView;
+import mage.view.CardsView;
 import org.junit.Test;
 
 import javax.swing.*;
@@ -58,6 +59,20 @@ public class ObserverZonePanelTest {
         panel.cleanUp();
 
         assertTrue(panel.getCardPanels().isEmpty());
+        assertEquals(0, panel.cardAreaComponentCount());
+    }
+
+    @Test
+    public void loadCardsWithEmptyViewClearsExistingCards() {
+        TestGraveyardPanel panel = new TestGraveyardPanel(80);
+        panel.seedCard();
+        panel.seedCard();
+        assertEquals(2, panel.getCardCount());
+        assertEquals(2, panel.cardAreaComponentCount());
+
+        panel.loadCards(new CardsView(), null, UUID.randomUUID());
+
+        assertEquals(0, panel.getCardCount());
         assertEquals(0, panel.cardAreaComponentCount());
     }
 
@@ -138,6 +153,10 @@ public class ObserverZonePanelTest {
 
         int cardZOrder(TestMageCard card) {
             return getCardAreaPanel().getComponentZOrder(card);
+        }
+
+        int cardAreaComponentCount() {
+            return getCardAreaPanel().getComponentCount();
         }
     }
 

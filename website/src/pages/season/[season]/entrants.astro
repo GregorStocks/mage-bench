@@ -41,7 +41,7 @@ const personalities = loadPersonalities();
         const deckInfo = tournament.draft?.decklists[String(entrant.seed)];
         const cardCount = deckInfo?.cards.reduce((sum, cardLine) => sum + parseDecklistCardEntry(cardLine).count, 0) ?? 0;
         return (
-          <a href={`/season/${seasonNum}/player/${entrant.seed}`} class="entrant-card">
+          <a href={`/season/${seasonNum}/player/${entrant.seed}`} class="entrant-card surface-card">
             <div class="entrant-seed">#{entrant.seed}</div>
             <div class="entrant-info">
               <div class="entrant-name">
@@ -101,9 +101,6 @@ const personalities = loadPersonalities();
     display: flex;
     gap: 0.75rem;
     padding: 0.75rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
     transition: border-color 0.2s;
     overflow: hidden;
     text-decoration: none;

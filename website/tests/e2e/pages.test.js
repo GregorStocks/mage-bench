@@ -225,7 +225,7 @@ describe("game pages", () => {
 
   test("games index server-renders game cards", () => {
     const html = readPage("games");
-    const gameCards = html.match(/class="game-card"/g);
+    const gameCards = html.match(/class="game-card surface-card"/g);
     expect(gameCards).not.toBeNull();
     expect(gameCards.length).toBeGreaterThan(0);
     expect(html).not.toContain("Loading games...");
@@ -236,6 +236,6 @@ describe("game pages", () => {
     expect(html).toContain("Tournament Games");
     expect(html).toContain('id="tournament-games-list"');
     expect(html).toContain("Tournament</span>");
-    expect(html).toContain('class="game-card"');
+    expect(html).toContain('class="game-card surface-card"');
   });
 });

@@ -122,3 +122,10 @@
   margin-top: 2rem;
   margin-bottom: 0.75rem;
 }
+
+/* Surface card — base card container used across the site */
+.surface-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+}
