@@ -43,6 +43,7 @@ from schemas.game_export_types import (
     ToolCallEvent,
     _is_player,
     export_record_field,
+    is_game_export,
     is_pilot_player,
     load_built_game_export,
     load_game_export,
@@ -597,6 +598,107 @@ class TestExportSchema:
         assert export_record_field(game["snapshots"][0]["players"][0]["hand"][0], "mana_cost") == "{R}"
         assert export_record_field(game["snapshots"][0]["players"][0]["hand"][0], "type_line") == "Instant"
         assert export_record_field(stack_item, "controller") == "Alice"
+
+    def test_is_game_export_accepts_already_coerced_leaf_dataclasses(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v8.json"
+        payload = _minimal_export(
+            8,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "test/model",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+            snapshots=[
+                {
+                    "seq": 1,
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "step": None,
+                    "active_player": "Alice",
+                    "priority_player": "Alice",
+                    "players": [
+                        {
+                            "name": "Alice",
+                            "life": 20,
+                            "library_size": 53,
+                            "battlefield": [{"name": "Llanowar Elves", "id": "p1"}],
+                            "graveyard": [],
+                            "hand": [],
+                        }
+                    ],
+                    "stack": [{"name": "Lightning Bolt", "targets": [{"name": "", "id": "p1"}]}],
+                    "combat": [],
+                }
+            ],
+        )
+        path.write_text(json.dumps(payload))
+
+        game = load_game_export(path)
+
+        assert isinstance(game["snapshots"][0]["players"][0]["battlefield"][0], Permanent)
+        assert isinstance(game["snapshots"][0]["stack"][0], StackItem)
+        assert is_game_export(game)
+
+    def test_loader_accepts_schema_valid_leaf_extras_key(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v8.json"
+        payload = _minimal_export(
+            8,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "test/model",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+            snapshots=[
+                {
+                    "seq": 1,
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "step": None,
+                    "active_player": "Alice",
+                    "priority_player": "Alice",
+                    "players": [
+                        {
+                            "name": "Alice",
+                            "life": 20,
+                            "library_size": 53,
+                            "battlefield": [
+                                {
+                                    "name": "Llanowar Elves",
+                                    "_extras": {"nested": True},
+                                    "rules": "Tap: Add {G}.",
+                                }
+                            ],
+                            "graveyard": [],
+                            "hand": [],
+                        }
+                    ],
+                    "stack": [],
+                    "combat": [],
+                }
+            ],
+        )
+        path.write_text(json.dumps(payload))
+
+        game = load_game_export(path)
+
+        battlefield_card = game["snapshots"][0]["players"][0]["battlefield"][0]
+        assert isinstance(battlefield_card, Permanent)
+        assert battlefield_card._extras["_extras"] == {"nested": True}
+        assert export_record_field(battlefield_card, "rules") == "Tap: Add {G}."
 
     def test_typed_loader_rejects_unannotated_export(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v8.json"

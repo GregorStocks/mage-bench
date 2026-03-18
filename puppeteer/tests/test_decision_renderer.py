@@ -170,6 +170,12 @@ class TestRenderDecision:
         text = render_decision(decision, snap)
         assert "Stack: [Lightning Bolt -> Bob]" in text
 
+    def test_stack_rendering_allows_empty_stack_item_name(self) -> None:
+        snap = _make_snapshot(stack=[{"name": "", "targets": ["Bob"]}])
+        decision = _make_decision()
+        text = render_decision(decision, snap)
+        assert "Stack: [ -> Bob]" in text
+
     def test_triggered_ability_stack_rendering(self) -> None:
         snap = _make_snapshot(
             stack=[

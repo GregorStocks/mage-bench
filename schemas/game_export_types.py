@@ -688,12 +688,12 @@ def _validate_str_or_typed_list(
     source: str,
     typed_validator: Callable[[object, str], bool],
 ) -> None:
-    """Validate a list where items can be strings or typed dicts."""
+    """Validate a list where items can be strings or typed records."""
     for index, item in enumerate(_require_list(value, source)):
-        if isinstance(item, dict):
-            assert typed_validator(item, f"{source}[{index}]")
-        else:
+        if isinstance(item, str):
             _require_str(item, f"{source}[{index}]")
+        else:
+            assert typed_validator(item, f"{source}[{index}]")
 
 
 def _coerce_str_or_typed_list(
@@ -725,10 +725,11 @@ def _coerce_extra_fields(
     known_fields: set[str],
 ) -> JsonObject:
     # Preserve schema-allowed additional properties separately so the typed
-    # fields stay explicit while round-tripping remains lossless.
+    # fields stay explicit while round-tripping remains lossless. Schema-valid
+    # payloads may themselves contain an "_extras" key, so preserve it as just
+    # another unknown JSON field instead of reserving the name.
     extras: JsonObject = {}
     for key, value in obj.items():
-        assert key != "_extras", f"{source}: _extras is reserved for internal use"
         if key not in known_fields:
             extras[key] = value
     return extras

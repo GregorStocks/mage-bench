@@ -41,10 +41,10 @@ def _record_field(record: object, field: str) -> object | None:
 def _record_name(record: object, *, source: str) -> str:
     if isinstance(record, dict):
         name = record["name"]
-        assert isinstance(name, str) and name, f"{source} name must be a non-empty string, got {name!r}"
+        assert isinstance(name, str), f"{source} name must be a string, got {name!r}"
         return name
     name = _record_field(record, "name")
-    assert isinstance(name, str) and name, f"{source} name must be a non-empty string, got {name!r}"
+    assert isinstance(name, str), f"{source} name must be a string, got {name!r}"
     return name
 
 
