@@ -654,10 +654,6 @@ def _validate_player(value: object, source: str) -> Player:
     )
 
 
-# Alias for test import compatibility
-_is_player = _validate_player
-
-
 def _is_snapshot_player(value: object, source: str) -> TypeIs[SnapshotPlayer]:
     obj = _require_object(value, source)
     _require_non_empty_str(_require_key(obj, "name", source), f"{source}.name")

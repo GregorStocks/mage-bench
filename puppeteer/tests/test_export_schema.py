@@ -41,7 +41,7 @@ from schemas.game_export_types import (
     StackTarget,
     StallEvent,
     ToolCallEvent,
-    _is_player,
+    _validate_player,
     is_pilot_player,
     load_built_game_export,
     load_game_export,
@@ -668,4 +668,4 @@ class TestExportSchema:
             "thinkingTimeSecs": 0.0,
         }
         with pytest.raises(AssertionError, match="model"):
-            _is_player(player, "test")
+            _validate_player(player, "test")

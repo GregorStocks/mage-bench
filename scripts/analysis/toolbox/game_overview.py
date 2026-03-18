@@ -25,7 +25,7 @@ def main(gz_path: str) -> None:
         parts = [
             f"  {p.name} ({model})",
             f"cost: ${cost:.2f}",
-            f"placement: {p.placement or '?'}",
+            f"placement: {p.placement if p.placement is not None else '?'}",
             f"tools: {ok}ok/{fail}fail",
         ]
         if think is not None:

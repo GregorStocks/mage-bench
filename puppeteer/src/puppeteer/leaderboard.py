@@ -355,13 +355,11 @@ def compute_elo_ratings(
         pilots = [p for p in game["players"] if isinstance(p, Player) and p.type == "pilot" and p.model]
         if len(pilots) < 2:
             for p in pilots:
-                assert p.model is not None
-                key = _player_key(p.model, p.reasoningEffort)
+                key = _player_key(p.model, p.reasoningEffort)  # type: ignore[arg-type]
                 if key not in ratings:
                     ratings[key] = float(_ELO_START)
             if pilots:
-                assert pilots[0].model is not None
-                key = _player_key(pilots[0].model, pilots[0].reasoningEffort)
+                key = _player_key(pilots[0].model, pilots[0].reasoningEffort)  # type: ignore[arg-type]
                 per_game.append(
                     {
                         "id": game["id"],
@@ -373,8 +371,7 @@ def compute_elo_ratings(
             continue
 
         for p in pilots:
-            assert p.model is not None
-            key = _player_key(p.model, p.reasoningEffort)
+            key = _player_key(p.model, p.reasoningEffort)  # type: ignore[arg-type]
             if key not in ratings:
                 ratings[key] = float(_ELO_START)
 
@@ -467,7 +464,7 @@ def generate_leaderboard(
         total_turns = game.get("totalTurns", 0)
 
         for p in game["players"]:
-            if not isinstance(p, Player) or p.type != "pilot" or not p.model:
+            if p.type != "pilot" or not p.model:
                 continue
             key = _player_key(p.model, p.reasoningEffort)
             if key not in stats:
@@ -593,7 +590,7 @@ def generate_exhibition_leaderboard(
         total_turns = game.get("totalTurns", 0)
 
         for p in game["players"]:
-            if not isinstance(p, Player) or p.type != "pilot" or not p.model:
+            if p.type != "pilot" or not p.model:
                 continue
             key = _player_key(p.model, p.reasoningEffort)
             if key not in stats:
