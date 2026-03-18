@@ -200,7 +200,7 @@ function matchRenderData(match: TournamentMatch, roundNum?: number): MatchRender
     {/* Bracket */}
     {bracket && (
       <div class="bracket-section bracket-horizontal">
-        <h3>Bracket</h3>
+        <h3 class="section-heading">Bracket</h3>
         <div class="bracket-scroll">
           <div class="bracket-two-sided" style={`--bracket-half-height: ${(tournament.size / 2) * 72}px`}>
             {/* Left half: R1 -> QF -> SF */}
@@ -396,7 +396,7 @@ function matchRenderData(match: TournamentMatch, roundNum?: number): MatchRender
     {/* Linear bracket for smaller screens */}
     {linearBracket && (
       <div class="bracket-section bracket-linear">
-        <h3>Bracket</h3>
+        <h3 class="section-heading">Bracket</h3>
         {linearBracket.map((round, ri) => {
           const isFinals = ri === linearBracket.length - 1;
           return (
@@ -505,15 +505,6 @@ function matchRenderData(match: TournamentMatch, roundNum?: number): MatchRender
 
   .tournament-how a:hover {
     color: var(--accent-primary);
-  }
-
-  .bracket-section h3 {
-    font-family: var(--font-heading);
-    color: var(--text-secondary);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
   }
 
   /* --- Bracket --- */

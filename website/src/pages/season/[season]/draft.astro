@@ -8,6 +8,7 @@ import {
   parseRequiredSeasonParam,
 } from '../../../utils/season-pages';
 import type { TournamentDraftAttempt, TournamentDraftPick } from '../../../utils/season-data';
+import '../../../styles/shared.css';
 
 export function getStaticPaths() {
   return buildDraftSeasonStaticPaths();
@@ -56,7 +57,7 @@ function renderAttemptResponse(attempt: TournamentDraftAttempt): string {
   <SeasonNav season={seasonNum} active="draft" hasTournament={true} hasDraft={true} />
 
   <div class="draft-page">
-    <h2>Draft</h2>
+    <h2 class="section-heading">Draft</h2>
     <div class="draft-stats-bar">
       <span>{draft.picks.length} picks</span>
       <span class="draft-stat-sep">&middot;</span>
@@ -153,15 +154,6 @@ function renderAttemptResponse(attempt: TournamentDraftAttempt): string {
 </Base>
 
 <style>
-  h2 {
-    font-family: var(--font-heading);
-    color: var(--text-secondary);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-  }
-
   .draft-page {
     max-width: 1000px;
   }

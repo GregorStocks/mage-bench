@@ -156,13 +156,15 @@ def _render_decision_block(
             f"Turn {turn} {phase} - {player}"
         )
     ]
-    pilot_ctx: dict[str, object] | PilotContext = {}
+    pilot_ctx: PilotContext | None = None
     raw_pilot_ctx = _decision_optional(decision, "pilotContext")
     if raw_pilot_ctx is not None:
         assert isinstance(raw_pilot_ctx, (dict, PilotContext)), (
             f"pilotContext must be an object when present, got {raw_pilot_ctx!r}"
         )
-        pilot_ctx = raw_pilot_ctx
+        pilot_ctx = (
+            raw_pilot_ctx if isinstance(raw_pilot_ctx, PilotContext) else PilotContext.from_mapping(raw_pilot_ctx)
+        )
 
     # Board state from snapshot
     board_line = _render_board(snapshot, deciding_player)
@@ -180,7 +182,7 @@ def _render_decision_block(
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
 
-    combat_phase = decision_support_get(pilot_ctx, "combatPhase")
+    combat_phase = pilot_ctx.combatPhase if pilot_ctx is not None else None
     assert combat_phase is None or isinstance(combat_phase, str), (
         f"combatPhase must be a string when present, got {combat_phase!r}"
     )
@@ -188,21 +190,22 @@ def _render_decision_block(
         lines.append(f"  Combat Phase: {combat_phase}")
 
     # Pilot context overlay
-    incoming_attackers = decision_support_get(pilot_ctx, "incomingAttackers")
+    incoming_attackers = pilot_ctx.incomingAttackers if pilot_ctx is not None else None
     assert incoming_attackers is None or isinstance(incoming_attackers, list), (
         f"incomingAttackers must be a list when present, got {incoming_attackers!r}"
     )
     if _is_declare_blockers_phase(combat_phase) and incoming_attackers:
         lines.append(f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}")
 
-    if decision_support_has(pilot_ctx, "untappedLands") or decision_support_has(pilot_ctx, "landDropsUsed"):
+    # has_field() distinguishes "field absent" from "field is 0", which matters here
+    if pilot_ctx is not None and (pilot_ctx.has_field("untappedLands") or pilot_ctx.has_field("landDropsUsed")):
         ctx_parts: list[str] = []
-        if decision_support_has(pilot_ctx, "untappedLands"):
-            untapped_lands = decision_support_get(pilot_ctx, "untappedLands")
+        if pilot_ctx.has_field("untappedLands"):
+            untapped_lands = pilot_ctx.untappedLands
             assert isinstance(untapped_lands, int), f"untappedLands must be an int when present, got {untapped_lands!r}"
             ctx_parts.append(f"Untapped lands: {untapped_lands}")
-        if decision_support_has(pilot_ctx, "landDropsUsed"):
-            land_drops_used = decision_support_get(pilot_ctx, "landDropsUsed")
+        if pilot_ctx.has_field("landDropsUsed"):
+            land_drops_used = pilot_ctx.landDropsUsed
             assert isinstance(land_drops_used, int), (
                 f"landDropsUsed must be an int when present, got {land_drops_used!r}"
             )
@@ -233,7 +236,7 @@ def _render_decision_block(
                 header += f": {', '.join(total_parts)}"
         lines.append(header)
         for i, item in enumerate(items):
-            assert isinstance(item, (dict, MultiAmountItem)), f"multi-amount item {i} must be an object, got {item!r}"
+            assert isinstance(item, MultiAmountItem), f"multi-amount item {i} must be an object, got {item!r}"
             assert decision_support_has(item, "description"), f"multi-amount item {i} missing 'description': {item}"
             desc = decision_support_get(item, "description")
             assert isinstance(desc, str), f"multi-amount item {i} description must be a string, got {desc!r}"
@@ -455,12 +458,23 @@ def _render_incoming_attackers(incoming_attackers: list) -> str:
     return ", ".join(parts)
 
 
+def _as_choice(c: object) -> Choice | None:
+    """Coerce a choice to a Choice dataclass, accepting both Choice and raw dict."""
+    if isinstance(c, Choice):
+        return c
+    if isinstance(c, dict):
+        return Choice.from_mapping(c)
+    return None
+
+
 def _format_choice(c: object) -> str:
     """Format a single choice for display."""
     if isinstance(c, str):
         return c
-    if not isinstance(c, (dict, Choice)):
+    choice = _as_choice(c)
+    if choice is None:
         return str(c)
+    c = choice
     raw_name = decision_support_get(c, "name")
     if isinstance(raw_name, str) and raw_name:
         name = raw_name
@@ -625,11 +639,12 @@ def _chosen_display(
         return str(chosen)
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
         c = choices[chosen]
-        if isinstance(c, (dict, Choice)):
-            name = decision_support_get(c, "name")
+        choice = _as_choice(c)
+        if choice is not None:
+            name = decision_support_get(choice, "name")
             if isinstance(name, str) and name:
                 return name
-            description = decision_support_get(c, "description")
+            description = decision_support_get(choice, "description")
             if isinstance(description, str) and description:
                 return description
             return str(chosen)
@@ -653,11 +668,12 @@ def _batch_attack_display(attackers: list | str, choices: list) -> str:
         # Resolve names from choices (exclude the "All attack" special entry)
         names = []
         for c in choices:
-            if not isinstance(c, (dict, Choice)):
+            choice = _as_choice(c)
+            if choice is None:
                 continue
-            if decision_support_get(c, "id") == "all":
+            if decision_support_get(choice, "id") == "all":
                 continue
-            name = decision_support_get(c, "name")
+            name = decision_support_get(choice, "name")
             names.append(name if isinstance(name, str) and name else str(c))
         if names:
             return f"Attack with all ({', '.join(names)})"
@@ -665,12 +681,13 @@ def _batch_attack_display(attackers: list | str, choices: list) -> str:
     # Resolve individual attacker IDs to names (entries may be strings or dicts)
     choice_by_id: dict[str, str] = {}
     for c in choices:
-        if not isinstance(c, (dict, Choice)):
+        choice = _as_choice(c)
+        if choice is None:
             continue
-        choice_id = decision_support_get(c, "id")
+        choice_id = decision_support_get(choice, "id")
         if not isinstance(choice_id, str) or not choice_id:
             continue
-        name = decision_support_get(c, "name")
+        name = decision_support_get(choice, "name")
         choice_by_id[choice_id] = name if isinstance(name, str) and name else choice_id
     names = [choice_by_id.get(_attacker_id(a), _attacker_id(a)) for a in attackers]
     return f"Attack with {', '.join(names)}"
@@ -696,12 +713,13 @@ def _batch_block_display(blockers: list | str, choices: list) -> str:
         blockers = parsed
     choice_by_id: dict[str, str] = {}
     for c in choices:
-        if not isinstance(c, (dict, Choice)):
+        choice = _as_choice(c)
+        if choice is None:
             continue
-        choice_id = decision_support_get(c, "id")
+        choice_id = decision_support_get(choice, "id")
         if not isinstance(choice_id, str) or not choice_id:
             continue
-        name = decision_support_get(c, "name")
+        name = decision_support_get(choice, "name")
         choice_by_id[choice_id] = name if isinstance(name, str) and name else choice_id
     parts = []
     for entry in blockers:
@@ -754,8 +772,9 @@ def _render_card_reference(
     raw_choices = _decision_value(decision, "choices")
     assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
     for c in raw_choices:
-        if isinstance(c, (dict, Choice)):
-            name = decision_support_get(c, "name")
+        choice = _as_choice(c)
+        if choice is not None:
+            name = decision_support_get(choice, "name")
             if isinstance(name, str) and name:
                 names.add(name)
 

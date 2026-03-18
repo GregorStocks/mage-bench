@@ -27,7 +27,7 @@ const personalities = loadPersonalities();
   <SeasonNav season={seasonNum} active="entrants" hasTournament={true} hasDraft={hasDraft} />
 
   <div class="entrants-page">
-    <h2>Entrants & Decklists</h2>
+    <h2 class="section-heading">Entrants & Decklists</h2>
     <div class="tournament-meta">
       <span class="meta-chip">best of {tournament.best_of}</span>
       <span class="meta-chip">{tournament.elimination} elimination</span>
@@ -76,15 +76,6 @@ const personalities = loadPersonalities();
 <style>
   .entrants-page {
     max-width: 52rem;
-  }
-
-  h2 {
-    font-family: var(--font-heading);
-    color: var(--text-secondary);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
   }
 
   .tournament-meta {

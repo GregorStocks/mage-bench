@@ -43,7 +43,6 @@ GAME_EXPORT_FILENAME_PATTERN = re.compile(
 # These helpers read either format.
 
 DecisionLike = Decision | Mapping[str, Any]
-AnnotationLike = Annotation | Mapping[str, object]
 
 
 def is_canonical_decision(d: DecisionLike) -> bool:
@@ -69,15 +68,9 @@ def snapshot_index(d: DecisionLike) -> int:
     return value
 
 
-def annotation_decision_index(annotation: AnnotationLike) -> int:
+def annotation_decision_index(annotation: Annotation) -> int:
     """Get the canonical decision index for an annotation."""
-    if isinstance(annotation, Annotation):
-        return annotation.decisionIndex
-    value = annotation.get("decisionIndex")
-    assert isinstance(value, int) and not isinstance(value, bool), (
-        f"annotation decisionIndex must be an int, got {value!r}"
-    )
-    return value
+    return annotation.decisionIndex
 
 
 def is_forced(d: DecisionLike) -> bool:
@@ -120,7 +113,7 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
     not strategically interesting for blunder annotation.
     """
 
-    def _choice_text(choice: dict[str, object] | Choice) -> str:
+    def _choice_text(choice: Choice) -> str:
         parts: list[str] = []
         name = decision_support_get(choice, "name")
         if isinstance(name, str):
@@ -142,8 +135,7 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
         if choices is not None:
             assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
         if choices and all(
-            isinstance(c, (dict, Choice)) and "Add {" in _choice_text(c)
-            for c in choices
+            isinstance(c, Choice) and "Add {" in _choice_text(c) for c in choices
         ):
             return True
     return False
@@ -419,7 +411,7 @@ def compute_aftermath_index(
 
 
 def reverse_map_annotations(
-    annotations: Sequence[AnnotationLike],
+    annotations: Sequence[Annotation],
     decisions: Sequence[DecisionLike],
 ) -> dict[int, int]:
     """Map annotation list indices to decision indices.
@@ -435,21 +427,12 @@ def reverse_map_annotations(
         assert 0 <= direct_decision_idx < len(decisions), (
             f"annotation decisionIndex {direct_decision_idx} out of range for {len(decisions)} decisions"
         )
-        if isinstance(ann, Annotation):
-            ann_player = ann.player
-        else:
-            ann_player_raw = ann["player"]
-            assert isinstance(ann_player_raw, str), (
-                f"annotation player must be a string, got {ann_player_raw!r}"
-            )
-            ann_player = ann_player_raw
         decision_player_raw = decisions[direct_decision_idx]["player"]
         assert isinstance(decision_player_raw, str), (
             f"decision player must be a string, got {decision_player_raw!r}"
         )
-        decision_player = decision_player_raw
-        assert decision_player == ann_player, (
-            f"annotation player {ann_player!r} does not match decision {direct_decision_idx} player {decision_player!r}"
+        assert decision_player_raw == ann.player, (
+            f"annotation player {ann.player!r} does not match decision {direct_decision_idx} player {decision_player_raw!r}"
         )
         result[ann_idx] = direct_decision_idx
 
