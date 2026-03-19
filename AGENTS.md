@@ -109,9 +109,9 @@ Each worktree gets a unique port assigned by `worktree-setup.py` (written to `.e
 
 ## Issues
 
-Issues are tracked as JSON files in `issues/`. See `doc/issues.md` for format and queries.
+Issues are tracked as JSON5 files in `issues/`. See `doc/issues.md` for format and queries.
 
-**File issues for bugs you discover**, even if you're not fixing them. Future Claudes benefit from documented issues — they provide context, reproduction steps, and save re-investigation time. If you notice something broken while working on something else, create a JSON file in `issues/` and include it in your commit.
+**File issues for bugs you discover**, even if you're not fixing them. Future Claudes benefit from documented issues — they provide context, reproduction steps, and save re-investigation time. If you notice something broken while working on something else, create a JSON5 file in `issues/` and include it in your commit.
 
 ## Skills
 

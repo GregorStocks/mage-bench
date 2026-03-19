@@ -14,11 +14,12 @@ Exit codes:
     2  Failed after max retries (all picks were race-lost)
 """
 
-import json
 import re
 import subprocess
 import sys
 from pathlib import Path
+
+from scripts.issue_files import issue_path, issue_stem, iter_issue_files, load_issue
 
 ISSUES_DIR = Path("issues")
 MAX_RETRIES = 5
@@ -38,8 +39,8 @@ def load_issues() -> list[tuple[str, int, str]]:
     """Load issues sorted by priority. Returns (stem, priority, title)."""
     assert ISSUES_DIR.is_dir(), f"Issues directory not found: {ISSUES_DIR}"
     issues = []
-    for f in sorted(ISSUES_DIR.glob("*.json")):
-        data = json.loads(f.read_text())
+    for f in iter_issue_files(ISSUES_DIR):
+        data = load_issue(f)
         if data.get("blocked"):
             continue
         issues.append((f.stem, data.get("priority", 999), data["title"]))
@@ -90,20 +91,20 @@ def pick_unclaimed(issues: list[tuple[str, int, str]], claimed: set[str]) -> str
 
 def claim_specific(issue_name: str) -> None:
     """Claim a specific issue by name, bypassing blocked."""
-    issue_stem = issue_name.removesuffix(".json")
-    issue_path = ISSUES_DIR / f"{issue_stem}.json"
-    assert issue_path.exists(), f"Issue file not found: {issue_path}"
+    stem = issue_stem(issue_name)
+    path = issue_path(ISSUES_DIR, issue_name)
+    assert path.exists(), f"Issue file not found: {path}"
 
     claimed = get_claimed()
-    if issue_stem in claimed:
-        print(f"Issue {issue_stem} is already claimed by another PR.", file=sys.stderr)
+    if stem in claimed:
+        print(f"Issue {stem} is already claimed by another PR.", file=sys.stderr)
         sys.exit(1)
 
-    if claim(issue_stem):
-        print(f"Claimed: {issue_stem}")
+    if claim(stem):
+        print(f"Claimed: {stem}")
         sys.exit(0)
 
-    print(f"Failed to claim {issue_stem}.", file=sys.stderr)
+    print(f"Failed to claim {stem}.", file=sys.stderr)
     sys.exit(2)
 
 

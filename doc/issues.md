@@ -1,12 +1,12 @@
 # Issues
 
-Issues are stored as individual JSON files in the `issues/` directory. The filename serves as the issue ID and must start with `p1-`, `p2-`, `p3-`, `p4-`, or `blocked-` (e.g., `p3-commander-zone-gy-exile-layout.json`).
+Issues are stored as individual JSON5 files in the `issues/` directory. The filename serves as the issue ID and must start with `p1-`, `p2-`, `p3-`, `p4-`, or `blocked-` (e.g., `p3-commander-zone-gy-exile-layout.json5`).
 
 Resolved issues should be deleted, not marked as resolved/closed.
 
 ## Format
 
-```json
+```json5
 {
   "title": "Short summary of the issue",
   "description": "Full description with context...",
@@ -46,7 +46,7 @@ ls issues/
 ### View an issue
 
 ```bash
-jq . issues/p3-commander-zone-gy-exile-layout.json
+sed -n '1,160p' issues/p3-commander-zone-gy-exile-layout.json5
 ```
 
 ### List all issue titles with priority

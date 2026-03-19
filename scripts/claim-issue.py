@@ -11,13 +11,15 @@ Exit codes:
     2  Bad input / branch already tied to a different open PR
 """
 
-import json
 import re
 import subprocess
 import sys
 import time
 from datetime import datetime
+import json
 from pathlib import Path
+
+from scripts.issue_files import issue_path, issue_stem, load_issue
 
 ISSUES_DIR = Path("issues")
 RACE_SETTLE_SECONDS = 5
@@ -211,15 +213,15 @@ def main() -> None:
             print(name)
         sys.exit(0)
 
-    issue = sys.argv[1].removesuffix(".json")
+    issue = issue_stem(sys.argv[1])
     claim_time_ns = time.time_ns()
 
-    issue_path = ISSUES_DIR / f"{issue}.json"
-    if not issue_path.exists():
-        print(f"Error: {issue_path} not found", file=sys.stderr)
+    path = issue_path(ISSUES_DIR, issue)
+    if not path.exists():
+        print(f"Error: {path} not found", file=sys.stderr)
         sys.exit(2)
 
-    data = json.loads(issue_path.read_text())
+    data = load_issue(path)
     title = data["title"]
 
     branch = run(["git", "branch", "--show-current"]).stdout.strip()
