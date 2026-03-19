@@ -77,12 +77,12 @@ Create a pull request for the current branch's changes.
    ```
 
    - **Exit 0** (all green, no comments): Done.
-   - **Exit 1** (CI failed): The output lists failed checks with links. Investigate with `gh run view <run-id> --log-failed` (extract the run ID from the check URL). Fix the root cause, then do the full push-edit-watch cycle (see AGENTS.md § Pull Requests).
+   - **Exit 1** (CI failed): The output lists failed checks with links. Investigate with `gh run view <run-id> --log-failed` (extract the run ID from the check URL). If the overall run is still in progress and GitHub refuses `--log-failed`, fetch the job log directly with `gh api repos/{owner}/{repo}/actions/jobs/{job-id}/logs`. Fix the root cause, then do the full push-edit-watch cycle (see AGENTS.md § Pull Requests).
    - **Exit 2** (review feedback): The output lists top-level reviews, general comments, and inline diff comments. For inline comments, read the full context with `gh api repos/{owner}/{repo}/pulls/{number}/comments`. Address each one, then do the full push-edit-watch cycle.
    - **Exit 3** (both): Address both, then push-edit-watch.
    - **Exit 4** (timeout): Re-run this step.
 
-   **Cap at 3 fix iterations.** If after 3 rounds CI still fails or new feedback keeps arriving, report the situation to the user and stop.
+   **Cap at 10 fix iterations.** If after 10 rounds CI still fails or new feedback keeps arriving, report the situation to the user and stop.
 
 ## Guidelines
 
