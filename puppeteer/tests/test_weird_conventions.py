@@ -202,7 +202,7 @@ class TestPresetsReferenceValidModels:
 class TestToolsetsReferenceValidTools:
     def test_all_toolset_tools_exist(self) -> None:
         toolsets = _load_json(PUPPETEER_DIR / "toolsets.json")
-        mcp_tools = _load_json(REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json")
+        mcp_tools = loads_json5((REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json5").read_text())
         real_tool_names = {t["name"] for t in mcp_tools}
 
         missing = []

@@ -133,12 +133,13 @@ run:
 list-configs:
 	@for f in configs/*.json; do printf "  %s\n" "$$(basename $$f .json)"; done
 
-# Generate mcp-tools.json with MCP tool definitions
+# Generate mcp-tools.json5 with MCP tool definitions
 # Compiles first to pick up any Java source changes.
 .PHONY: regen-mcp-tools
 regen-mcp-tools:
 	mvn -q -pl Mage.Client.Bridge -am -DskipTests -Dmaven.build.cache.enabled=false install
-	cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' > ../website/src/data/mcp-tools.json
+	cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
+		| uv run python ../scripts/mcp_tools_json5.py > ../website/src/data/mcp-tools.json5
 
 # Launch the desktop client (for image downloads, deck building, etc.)
 .PHONY: run-client
@@ -244,13 +245,14 @@ verify-schema-types: $(WEBSITE_NPM_STAMP)
 	diff -q "$$TMP_SCHEMA_TYPES" src/types/game-export.d.ts > /dev/null 2>&1 \
 		|| { echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make regen-schema-types' to regenerate."; exit 1; }
 
-# Verify mcp-tools.json is up to date with McpServer.java
+# Verify mcp-tools.json5 is up to date with McpServer.java
 .PHONY: verify-mcp-tools
 verify-mcp-tools:
 	@mvn -q -pl Mage.Client.Bridge -am -DskipTests -Dmaven.build.cache.enabled=false install
 	@cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
-		| diff --unified - ../website/src/data/mcp-tools.json > /tmp/mcp-tools-diff.txt 2>&1 \
-		|| (echo "ERROR: website/src/data/mcp-tools.json is out of date. Run 'make regen-mcp-tools' to regenerate." && head -60 /tmp/mcp-tools-diff.txt && exit 1)
+		| uv run python ../scripts/mcp_tools_json5.py \
+		| diff --unified - ../website/src/data/mcp-tools.json5 > /tmp/mcp-tools-diff.txt 2>&1 \
+		|| (echo "ERROR: website/src/data/mcp-tools.json5 is out of date. Run 'make regen-mcp-tools' to regenerate." && head -60 /tmp/mcp-tools-diff.txt && exit 1)
 
 .PHONY: list-games-to-analyze
 list-games-to-analyze:

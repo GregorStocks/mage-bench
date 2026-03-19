@@ -61,6 +61,7 @@ from scripts.analysis.blunder_eval_common import (
     snapshot_index,
 )
 from scripts.analysis.extract_decisions import extract_decisions
+from scripts.json5_utils import loads_json5
 
 # Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -210,10 +211,10 @@ instead of a choice name. These are valid responses — the player DID act."""
 
 def _build_tool_reference() -> str:
     """Build a tool reference section from the MCP tool spec for choose_action."""
-    mcp_tools_path = REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json"
-    mcp_tools = json.loads(mcp_tools_path.read_text())
+    mcp_tools_path = REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json5"
+    mcp_tools = loads_json5(mcp_tools_path.read_text())
     tool = next((t for t in mcp_tools if t["name"] == "choose_action"), None)
-    assert tool is not None, "choose_action not found in mcp-tools.json"
+    assert tool is not None, "choose_action not found in mcp-tools.json5"
 
     lines = [
         "## Tool Reference: choose_action",
