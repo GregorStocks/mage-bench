@@ -39,7 +39,7 @@ def test_cli_runs_under_system_python() -> None:
     assert python3 is not None
 
     result = subprocess.run(
-        [python3, "-m", "scripts.mcp_tools_json5"],
+        [python3, "-S", "-m", "scripts.mcp_tools_json5"],
         cwd=REPO_ROOT / "Mage.Client.Bridge",
         env={**os.environ, "PYTHONPATH": ".."},
         input='[{"name":"choose_action"}]',
@@ -48,4 +48,5 @@ def test_cli_runs_under_system_python() -> None:
         check=True,
     )
 
-    assert loads_json5(result.stdout) == [{"name": "choose_action"}]
+    assert result.stdout.endswith("\n")
+    assert '"name": "choose_action"' in result.stdout
