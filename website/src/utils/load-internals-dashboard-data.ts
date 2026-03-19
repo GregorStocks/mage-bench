@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { parseJSON5 } from './parse-json5';
 import blunderInternalsData from '../data/blunder-internals.json';
 import internalsTrendData from '../data/internals-data.json';
 import modelStatsData from '../data/model-stats.json';
@@ -42,12 +43,12 @@ export function loadGoldenTestScenarios(exportsDir: string = GOLDEN_EXPORTS_DIR)
   }
 
   return fs.readdirSync(exportsDir).sort().flatMap((file) => {
-    if (!file.endsWith('.json')) {
+    if (!file.endsWith('.json5')) {
       return [];
     }
 
     const filePath = path.join(exportsDir, file);
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as GoldenExport;
+    const data = parseJSON5(fs.readFileSync(filePath, 'utf-8')) as GoldenExport;
     const snapshots = data.snapshots ?? [];
     const lastSnapshot = snapshots.at(-1);
     if (lastSnapshot != null && typeof lastSnapshot.turn !== 'number') {
@@ -55,7 +56,7 @@ export function loadGoldenTestScenarios(exportsDir: string = GOLDEN_EXPORTS_DIR)
     }
 
     return [{
-      name: file.replace(/\.json$/, ''),
+      name: file.replace(/\.json5$/, ''),
       snapshots: snapshots.length,
       turns: lastSnapshot?.turn ?? 0,
     }];

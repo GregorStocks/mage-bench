@@ -49,7 +49,7 @@ def _write_export(path: Path) -> None:
         "tournament": None,
     }
     path.parent.mkdir(parents=True, exist_ok=True)
-    if path.name.endswith(".json.gz"):
+    if path.name.endswith(".json5.gz"):
         with gzip.open(path, "wt") as f:
             json.dump(data, f)
         return
@@ -82,7 +82,7 @@ class TestLoadGameValidation:
             "gettempdir",
             lambda: str(tmp_path / "system-temp"),
         )
-        export_path = games_dir / "game_test_001.json.gz"
+        export_path = games_dir / "game_test_001.json5.gz"
         _write_export(export_path)
 
         loaded = blunder_eval_common.load_game(export_path)
@@ -100,10 +100,10 @@ class TestLoadGameValidation:
             lambda: str(tmp_path / "system-temp"),
         )
         monkeypatch.chdir(repo_root)
-        export_path = games_dir / "game_test_001.json"
+        export_path = games_dir / "game_test_001.json5"
         _write_export(export_path)
 
-        loaded = blunder_eval_common.load_game(Path("website/public/games/game_test_001.json"))
+        loaded = blunder_eval_common.load_game(Path("website/public/games/game_test_001.json5"))
 
         assert loaded.id == "game_test_001"
 
@@ -115,7 +115,7 @@ class TestLoadGameValidation:
             "gettempdir",
             lambda: str(temp_root),
         )
-        export_path = temp_root / "pytest-of-gregor" / "game_test.json.gz"
+        export_path = temp_root / "pytest-of-gregor" / "game_test.json5.gz"
         _write_export(export_path)
 
         loaded = blunder_eval_common.load_game(export_path)
@@ -129,7 +129,7 @@ class TestLoadGameValidation:
             "gettempdir",
             lambda: str(tmp_path / "system-temp"),
         )
-        export_path = tmp_path / "outside" / "game_test_001.json"
+        export_path = tmp_path / "outside" / "game_test_001.json5"
         _write_export(export_path)
 
         with pytest.raises(AssertionError, match="must live under one of"):
@@ -150,14 +150,14 @@ class TestLoadGameValidation:
 
         with pytest.raises(
             AssertionError,
-            match=r"filename must match game_\*\.json or game_\*\.json\.gz",
+            match=r"filename must match game_\*\.json5 or game_\*\.json5\.gz",
         ):
             blunder_eval_common.load_game(export_path)
 
     def test_rejects_symlink_escape_from_games_dir(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         games_dir = tmp_path / "website" / "public" / "games"
-        outside_path = tmp_path / "outside" / "game_test_001.json.gz"
-        symlink_path = games_dir / "game_test_001.json.gz"
+        outside_path = tmp_path / "outside" / "game_test_001.json5.gz"
+        symlink_path = games_dir / "game_test_001.json5.gz"
         monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
         monkeypatch.setattr(
             blunder_eval_common.tempfile,

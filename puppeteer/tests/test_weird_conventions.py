@@ -17,6 +17,8 @@ from typing import ClassVar
 
 import pytest
 
+from scripts.json5_utils import loads_json5
+
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PUPPETEER_DIR = REPO_ROOT / "puppeteer"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
@@ -47,17 +49,18 @@ def _load_json(path: Path) -> object:
 
 
 def _load_game_file(path: Path) -> dict:
-    """Load a game export file (plain JSON or gzipped)."""
+    """Load a game export file (plain JSON5 or gzipped)."""
     if path.suffix == ".gz":
         with gzip.open(path, "rt") as f:
-            return json.load(f)
-    return _load_json(path)
+            return loads_json5(f.read())
+    with open(path) as f:
+        return loads_json5(f.read())
 
 
 def _all_game_files() -> list[Path]:
-    gz_files = set(GAMES_DIR.glob("game_*.json.gz"))
+    gz_files = set(GAMES_DIR.glob("game_*.json5.gz"))
     gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
-    json_files = [p for p in GAMES_DIR.glob("game_*.json") if p.name not in gz_stems]
+    json_files = [p for p in GAMES_DIR.glob("game_*.json5") if p.name not in gz_stems]
     return sorted(gz_files | set(json_files))
 
 

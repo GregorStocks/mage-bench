@@ -1,6 +1,6 @@
 // Scan all exported game files and return lightweight metadata entries.
 //
-// Reading and parsing every game JSON (~375 files, 1 GB) takes 4-5 s.
+// Reading and parsing every game JSON5 (~375 files, 1 GB) takes 4-5 s.
 // This module caches the result on globalThis so the scan runs once per
 // Node process — subsequent SSR requests in the Vite dev server reuse it.
 
@@ -9,6 +9,7 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 
 import type { GameExportV8 } from '../types/game-export';
+import { parseJSON5 } from './parse-json5';
 import type { ReplayBlunderSummary } from './replay-metadata';
 import { buildReplayTitle, summarizeReplayBlunders } from './replay-metadata';
 
@@ -100,27 +101,21 @@ function scanGames(): GameEntry[] {
 
   const games: GameEntry[] = [];
 
-  // Build set of .json.gz stems to deduplicate
+  // Build set of .json5.gz stems to deduplicate
   const gzStems = new Set<string>();
   const files = fs.readdirSync(gamesDir).filter(f => f.startsWith('game_')).sort();
   for (const f of files) {
-    if (f.endsWith('.json.gz')) gzStems.add(f.replace('.json.gz', '.json'));
+    if (f.endsWith('.json5.gz')) gzStems.add(f.replace('.json5.gz', '.json5'));
   }
 
   for (const file of files) {
     let data: unknown;
-    if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
-      if (gzStems.has(file)) continue; // prefer .json.gz
-      data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
-    } else if (file.endsWith('.json.gz')) {
-      // Skip if uncompressed version exists (prefer .json)
-      const jsonName = file.replace('.json.gz', '.json');
-      if (files.includes(jsonName)) {
-        data = JSON.parse(fs.readFileSync(path.join(gamesDir, jsonName), 'utf-8'));
-      } else {
-        const compressed = fs.readFileSync(path.join(gamesDir, file));
-        data = JSON.parse(zlib.gunzipSync(compressed).toString());
-      }
+    if (file.endsWith('.json5') && !file.endsWith('.json5.gz')) {
+      if (gzStems.has(file)) continue; // prefer .json5.gz
+      data = parseJSON5(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
+    } else if (file.endsWith('.json5.gz')) {
+      const compressed = fs.readFileSync(path.join(gamesDir, file));
+      data = parseJSON5(zlib.gunzipSync(compressed).toString());
     } else {
       continue;
     }

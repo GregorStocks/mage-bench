@@ -38,6 +38,7 @@ from scripts.analysis.blunder_analysis import (
     init_api,
     main,
 )
+from scripts.game_exports import load_raw_game_export
 
 # Fake prices for testing
 _TEST_PRICES = {
@@ -754,9 +755,12 @@ class TestMainIntegration:
         with gzip.open(path, "wt") as f:
             json.dump(data, f, default=json_default)
 
-    def _read_gz(self, path: Path) -> dict:
-        with gzip.open(path, "rt") as f:
-            return json.load(f)
+    def _read_export(self, path: Path) -> dict:
+        """Read a game export, checking both .json5.gz and .json5 variants."""
+        if path.exists():
+            return load_raw_game_export(path)
+        alt = path.with_suffix("") if path.suffix == ".gz" else Path(str(path) + ".gz")
+        return load_raw_game_export(alt)
 
     def _make_game_with_decisions(self) -> dict:
         """Game with LLM events that produce extractable decisions."""
@@ -837,7 +841,7 @@ class TestMainIntegration:
         tmp_path: Path,
     ) -> None:
         game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game_test.json.gz"
+        gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -864,7 +868,7 @@ class TestMainIntegration:
         main(str(gz_path))
 
         # Verify annotations and version were written
-        result = self._read_gz(gz_path)
+        result = self._read_export(gz_path)
         assert "annotations" in result
         assert len(result["annotations"]) == 1
         assert result["blunderScriptVersion"] == BLUNDER_SCRIPT_VERSION
@@ -893,7 +897,7 @@ class TestMainIntegration:
         tmp_path: Path,
     ) -> None:
         game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game_test.json.gz"
+        gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -906,7 +910,7 @@ class TestMainIntegration:
         assert mock_client.chat.completions.create.call_count == 1
 
         # Empty annotations written (marks game as analyzed)
-        result = self._read_gz(gz_path)
+        result = self._read_export(gz_path)
         assert result["annotations"] == []
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
@@ -926,7 +930,7 @@ class TestMainIntegration:
             }
         ]
         game["blunderScriptVersion"] = BLUNDER_SCRIPT_VERSION
-        gz_path = tmp_path / "game_test.json.gz"
+        gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
         main(str(gz_path))
@@ -950,7 +954,7 @@ class TestMainIntegration:
         tmp_path: Path,
     ) -> None:
         game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game_test.json.gz"
+        gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -967,7 +971,7 @@ class TestMainIntegration:
 
         main(str(gz_path))
 
-        result = self._read_gz(gz_path)
+        result = self._read_export(gz_path)
         assert len(result["annotations"]) == 1
         ann = result["annotations"][0]
         # These fields are injected server-side
@@ -993,7 +997,7 @@ class TestMainIntegration:
     ) -> None:
         """When >50% of decisions fail to parse, raises RuntimeError."""
         game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game_test.json.gz"
+        gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -1023,7 +1027,7 @@ class TestMainIntegration:
         game = self._make_game_with_decisions()
         game["annotations"] = []
         # Missing blunderScriptVersion → treated as v1, which is < current
-        gz_path = tmp_path / "game_test.json.gz"
+        gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -1095,7 +1099,7 @@ class TestMainIntegration:
                 "subsequentActions": [],
             },
         ]
-        gz_path = tmp_path / "game_test.json.gz"
+        gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()

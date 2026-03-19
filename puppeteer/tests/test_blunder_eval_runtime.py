@@ -34,7 +34,7 @@ def _configure_runtime(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     monkeypatch.setattr(
         blunder_eval,
         "game_path_for_id",
-        lambda _game_id: Path("/tmp/game_fake.json.gz"),
+        lambda _game_id: Path("/tmp/game_fake.json5.gz"),
     )
     monkeypatch.setattr(blunder_eval, "load_game_context", lambda _path: _make_game_ctx())
     monkeypatch.setattr("sys.argv", ["blunder_eval.py"])

@@ -145,7 +145,7 @@ def _write_export(tmp_path: Path) -> Path:
         "season": 1,
         "tournament": None,
     }
-    path = tmp_path / "game_test.json"
+    path = tmp_path / "game_test.json5"
     path.write_text(json.dumps(export))
     return path
 

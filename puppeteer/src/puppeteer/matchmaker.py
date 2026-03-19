@@ -14,6 +14,7 @@ from pathlib import Path
 
 from puppeteer.leaderboard import derive_format
 from puppeteer.log import get_logger
+from scripts.json5_utils import loads_json5
 
 logger = get_logger(__name__)
 
@@ -35,12 +36,12 @@ def _load_games_index(games_dir: Path) -> list[dict]:
     fields = ("id", "timestamp", "gameType", "deckType", "winner", "players", "harnessEpoch", "season")
     defaults = {"players": [], "season": 0}
     games = []
-    # Collect both .json and .json.gz game files, deduplicating by stem
+    # Collect both .json5 and .json5.gz game files, deduplicating by stem
     seen_stems: set[str] = set()
     for path in sorted(games_dir.glob("game_*")):
-        if path.suffix == ".gz" and path.name.endswith(".json.gz"):
-            stem = path.name.removesuffix(".json.gz")
-        elif path.suffix == ".json":
+        if path.suffix == ".gz" and path.name.endswith(".json5.gz"):
+            stem = path.name.removesuffix(".json5.gz")
+        elif path.suffix == ".json5":
             stem = path.stem
         else:
             continue
@@ -48,10 +49,10 @@ def _load_games_index(games_dir: Path) -> list[dict]:
             continue
         seen_stems.add(stem)
 
-        if path.name.endswith(".json.gz"):
-            game = json.loads(gzip.decompress(path.read_bytes()))
+        if path.name.endswith(".json5.gz"):
+            game = loads_json5(gzip.decompress(path.read_bytes()))
         else:
-            game = json.loads(path.read_text())
+            game = loads_json5(path.read_text())
         games.append({f: game.get(f, defaults.get(f)) for f in fields})
     return games
 

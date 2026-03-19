@@ -496,7 +496,7 @@ class TestExportSchema:
         _assert_dataclass_matches_schema(MultiAmountItem, schema=defs["MultiAmountItem"])
 
     def test_typed_loader_accepts_minimal_v8_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json"
+        path = tmp_path / "game_v8.json5"
         payload = _minimal_export(
             8,
             season=1,
@@ -521,7 +521,7 @@ class TestExportSchema:
         assert game.annotations == []
 
     def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json.gz"
+        path = tmp_path / "game_v8.json5.gz"
         payload = _minimal_export(
             8,
             season=1,
@@ -544,7 +544,7 @@ class TestExportSchema:
         assert game.id == "test_v8"
 
     def test_loader_coerces_board_and_stack_leaf_records_to_dataclasses(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json"
+        path = tmp_path / "game_v8.json5"
         payload = _minimal_export(
             8,
             season=1,
@@ -657,7 +657,7 @@ class TestExportSchema:
         assert export_record_field(stack_item, "controller") == "Alice"
 
     def test_is_game_export_accepts_already_coerced_leaf_dataclasses(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json"
+        path = tmp_path / "game_v8.json5"
         payload = _minimal_export(
             8,
             season=1,
@@ -705,7 +705,7 @@ class TestExportSchema:
         assert is_game_export(game)
 
     def test_loader_accepts_schema_valid_leaf_extras_key(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json"
+        path = tmp_path / "game_v8.json5"
         payload = _minimal_export(
             8,
             season=1,
@@ -760,7 +760,7 @@ class TestExportSchema:
         assert export_record_field(battlefield_card, "rules") == "Tap: Add {G}."
 
     def test_typed_loader_rejects_unannotated_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json"
+        path = tmp_path / "game_v8.json5"
         payload = _minimal_export(8, season=1, tournament=None)
         del payload["annotations"]
         path.write_text(json.dumps(payload))
@@ -793,7 +793,7 @@ class TestExportSchema:
         assert built.annotations is None
 
     def test_built_loader_accepts_unannotated_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "built_v8.json"
+        path = tmp_path / "built_v8.json5"
         payload = _minimal_export(
             8,
             season=1,
@@ -819,7 +819,7 @@ class TestExportSchema:
         assert built.annotations is None
 
     def test_loader_accepts_empty_decision_strings_allowed_by_schema(self, tmp_path: Path) -> None:
-        path = tmp_path / "empty_decision_strings.json"
+        path = tmp_path / "empty_decision_strings.json5"
         payload = _minimal_export(
             8,
             season=1,
@@ -863,7 +863,7 @@ class TestExportSchema:
         assert game.decisions[0].message == ""
 
     def test_loader_coerces_decision_support_records_to_dataclasses(self, tmp_path: Path) -> None:
-        path = tmp_path / "decision_support.json"
+        path = tmp_path / "decision_support.json5"
         payload = _minimal_export(
             8,
             season=1,

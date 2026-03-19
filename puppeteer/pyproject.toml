@@ -11,7 +11,7 @@ dependencies = [
     "google-api-python-client>=2.0.0",
     "google-auth-oauthlib>=1.0.0",
     "google-auth-httplib2>=0.2.0",
-    "json5>=0.10.0",
+    "pyjson5>=2.0.0",
 ]
 
 [tool.uv.sources]
@@ -127,9 +127,6 @@ module = ["google_auth_oauthlib.*"]
 ignore_missing_imports = true
 disable_error_code = ["import-untyped"]
 
-[[tool.mypy.overrides]]
-module = ["json5"]
-ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

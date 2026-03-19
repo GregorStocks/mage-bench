@@ -6,16 +6,17 @@ import pytest
 
 import tests.golden_helpers as golden_helpers
 from schemas.game_export_types import Choice, CombatCreature, Permanent, StackItem, StackTarget
+from scripts.json5_utils import dumps_json5, loads_json5
 from tests.golden_helpers import (
     _CapturedPilotRequest,
     _json_diff,
+    _json_ready,
     _normalize_embedded_json,
     _normalize_prompt_for_golden,
     _pilot_script_from_replay_script,
     _ScriptedChatCompletions,
     _ScriptedExecutionState,
     _strip_volatile,
-    _to_sorted_json,
     extract_blunder_decisions,
 )
 
@@ -125,7 +126,7 @@ def test_normalize_embedded_json_converts_dataclass_export_records():
     }
 
 
-def test_to_sorted_json_serializes_dataclass_export_records():
+def test_dumps_json5_serializes_dataclass_export_records():
     payload = {
         "battlefield": [
             Permanent(
@@ -136,7 +137,7 @@ def test_to_sorted_json_serializes_dataclass_export_records():
         ]
     }
 
-    parsed = json.loads(_to_sorted_json(payload))
+    parsed = loads_json5(dumps_json5(_json_ready(payload), sort_keys=True))
 
     assert parsed == {
         "battlefield": [

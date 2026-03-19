@@ -1532,11 +1532,6 @@ def _send_spectator_command(
     return spectator.wait_for_ready(game_dir)
 
 
-def _to_sorted_json(obj: object) -> str:
-    """Deterministic JSON serialization with sorted keys."""
-    return json.dumps(_json_ready(obj), indent=2, sort_keys=True, ensure_ascii=False)
-
-
 def _json_ready(obj: object) -> object:
     """Convert dataclass-backed export records into plain JSON-compatible values."""
     if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
@@ -1764,24 +1759,24 @@ def _normalize_export_for_golden(export_data: dict) -> dict:
 def assert_golden_export(name: str, export_data: dict) -> None:
     """Compare export data against a golden file."""
     normalized_export = _normalize_export_for_golden(export_data)
-    actual_json = _to_sorted_json(normalized_export)
-    golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json"
+    actual_json5 = dumps_json5(normalized_export, sort_keys=True)
+    golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json5"
 
     if UPDATE_MODE:
         golden_file.parent.mkdir(parents=True, exist_ok=True)
-        golden_file.write_text(actual_json + "\n")
+        golden_file.write_text(actual_json5 + "\n")
         print(f"Updated golden export: {golden_file}")
         return
 
     assert golden_file.exists(), f"Golden export file not found: {golden_file}\nRun 'make regen-golden' to generate it."
 
     expected = golden_file.read_text().rstrip()
-    if expected != actual_json:
-        expected_obj = json.loads(expected)
+    if expected != actual_json5:
+        expected_obj = loads_json5(expected)
         diff_lines = _json_diff(expected_obj, normalized_export)
         diff_text = "\n".join(diff_lines)
         raise AssertionError(
-            f"Golden export mismatch: {name}.json\nRun 'make regen-golden' to regenerate.\n\n{diff_text}"
+            f"Golden export mismatch: {name}.json5\nRun 'make regen-golden' to regenerate.\n\n{diff_text}"
         )
 
 

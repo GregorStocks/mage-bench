@@ -17,6 +17,7 @@ from puppeteer.orchestrator import compile_project
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.xml_config import modify_server_config
+from scripts.json5_utils import loads_json5
 from tests.golden_fail_fast import GoldenFailureGate
 from tests.golden_helpers import (
     DECK_GOBLINS,
@@ -288,20 +289,19 @@ def spectator_process(xmage_server, project_root):
 
 
 def _glob_game_files() -> list[Path]:
-    """Find all game export files, preferring .json.gz over .json."""
+    """Find all game export files, preferring .json5.gz over .json5."""
     games_dir = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"
-    gz_files = set(games_dir.glob("game_*.json.gz"))
+    gz_files = set(games_dir.glob("game_*.json5.gz"))
     gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
-    json_files = [p for p in games_dir.glob("game_*.json") if p.name not in gz_stems]
+    json_files = [p for p in games_dir.glob("game_*.json5") if p.name not in gz_stems]
     return sorted(gz_files | set(json_files))
 
 
 def _load_game(path: Path) -> dict:
     if path.suffix == ".gz":
         with gzip.open(path, "rt") as f:
-            return json.load(f)
-    with open(path) as f:
-        return json.load(f)
+            return loads_json5(f.read())
+    return loads_json5(path.read_text())
 
 
 class _LazyGameData(Mapping[Path, dict]):

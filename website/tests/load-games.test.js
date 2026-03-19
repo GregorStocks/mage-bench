@@ -64,7 +64,7 @@ describe("loadAllGames", () => {
   it("loads normalized v8 exports", async () => {
     clearGamesCache();
     mockGameFiles({
-      "game_20260301_120000.json": JSON.stringify(
+      "game_20260301_120000.json5": JSON.stringify(
         makeV8Export({
           players: [
             {
@@ -150,7 +150,7 @@ describe("loadAllGames", () => {
   it("excludes questionable blunders from weighted scores", async () => {
     clearGamesCache();
     mockGameFiles({
-      "game_20260301_120000.json": JSON.stringify(
+      "game_20260301_120000.json5": JSON.stringify(
         makeV8Export({
           totalTurns: 4,
           players: [
@@ -207,7 +207,7 @@ describe("loadAllGames", () => {
   it("rejects exports missing normalized player stats", async () => {
     clearGamesCache();
     mockGameFiles({
-      "game_20260301_120000.json": JSON.stringify(
+      "game_20260301_120000.json5": JSON.stringify(
         makeV8Export({
           players: [{ name: "Alice", type: "pilot" }],
         }),
@@ -221,7 +221,7 @@ describe("loadAllGames", () => {
   it("rejects exports with invalid blunder severities", async () => {
     clearGamesCache();
     mockGameFiles({
-      "game_20260301_120000.json": JSON.stringify(
+      "game_20260301_120000.json5": JSON.stringify(
         makeV8Export({
           annotations: [
             {

@@ -29,11 +29,11 @@ GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
 BASELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "blunder_baseline.json"
 TMP_DIR = REPO_ROOT / "tmp"
 _SAFE_EXPORT_COMPONENT_RE = re.compile(r"^[A-Za-z0-9._-]+$")
-_SAFE_EXPORT_FILENAME_RE = re.compile(r"^game_[A-Za-z0-9_]+\.json(?:\.gz)?$")
+_SAFE_EXPORT_FILENAME_RE = re.compile(r"^game_[A-Za-z0-9_]+\.json5?(?:\.gz)?$")
 
 GAME_ID_PATTERN = re.compile(r"^game_\d{8}_\d{6}(?:_g\d+)?$")
 GAME_EXPORT_FILENAME_PATTERN = re.compile(
-    r"^(game_\d{8}_\d{6}(?:_g\d+)?)\.json(?:\.gz)?$"
+    r"^(game_\d{8}_\d{6}(?:_g\d+)?)\.json5?(?:\.gz)?$"
 )
 
 
@@ -184,7 +184,7 @@ def _validate_export_path(path: str | Path) -> Path:
 
     filename = relative.parts[-1]
     assert _SAFE_EXPORT_FILENAME_RE.fullmatch(filename), (
-        f"Game export filename must match game_*.json or game_*.json.gz: {path}"
+        f"Game export filename must match game_*.json5 or game_*.json5.gz: {path}"
     )
 
     candidate = root.joinpath(*relative.parts)
@@ -238,14 +238,14 @@ def play_key(game_id: str, decision_index: int) -> str:
 
 
 def game_path_for_id(game_id: str) -> Path:
-    """Resolve the export path for a game ID (.json.gz or .json)."""
+    """Resolve the export path for a game ID (.json5.gz or .json5)."""
     game_id = validate_game_id(game_id)
-    gz_path = GAMES_DIR / f"{game_id}.json.gz"
+    gz_path = GAMES_DIR / f"{game_id}.json5.gz"
     if gz_path.exists():
         return gz_path
-    json_path = GAMES_DIR / f"{game_id}.json"
-    assert json_path.exists(), f"Game file not found: {gz_path} or {json_path}"
-    return json_path
+    json5_path = GAMES_DIR / f"{game_id}.json5"
+    assert json5_path.exists(), f"Game file not found: {gz_path} or {json5_path}"
+    return json5_path
 
 
 def _gt_path(game_id: str) -> Path:

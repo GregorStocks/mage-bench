@@ -29,13 +29,13 @@ def _write_models(path: Path, models: list[dict]) -> None:
 
 
 def _write_game(games_dir: Path, game_id: str, game: dict) -> None:
-    gz_path = games_dir / f"{game_id}.json.gz"
+    gz_path = games_dir / f"{game_id}.json5.gz"
     gz_path.write_bytes(gzip.compress(json.dumps(game).encode()))
 
 
 def _write_game_json(games_dir: Path, game_id: str, game: dict) -> None:
-    """Write a plain .json game file (not gzipped)."""
-    json_path = games_dir / f"{game_id}.json"
+    """Write a plain .json5 game file (not gzipped)."""
+    json_path = games_dir / f"{game_id}.json5"
     json_path.write_text(json.dumps(game))
 
 
@@ -130,7 +130,7 @@ class TestLoadGamesIndex:
         assert result[0]["id"] == "g2"
 
     def test_deduplicates_json_and_gz(self, tmp_path: Path) -> None:
-        """When both .json and .json.gz exist for the same game, load only once."""
+        """When both .json5 and .json5.gz exist for the same game, load only once."""
         games_dir = tmp_path / "games"
         games_dir.mkdir()
         game = _make_1v1_game("g3", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta")

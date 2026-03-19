@@ -16,7 +16,7 @@ spec.loader.exec_module(mana_tapping)
 
 
 def _make_gz(tmp_path: Path, events: list[dict], players: list[dict] | None = None) -> Path:
-    """Create a minimal .json.gz file with given llmEvents."""
+    """Create a minimal .json5.gz file with given llmEvents."""
     raw_players = players or [
         {"name": "Alice", "model": "test/model-a", "totalCostUsd": 0.1},
         {"name": "Bob", "model": "test/model-b", "totalCostUsd": 0.2},
@@ -55,7 +55,7 @@ def _make_gz(tmp_path: Path, events: list[dict], players: list[dict] | None = No
         "season": 1,
         "tournament": None,
     }
-    path = tmp_path / "game_test.json.gz"
+    path = tmp_path / "game_test.json5.gz"
     with gzip.open(path, "wt") as f:
         json.dump(data, f)
     return str(path)
@@ -300,7 +300,7 @@ class TestDirectoryMode:
             "season": 1,
             "tournament": None,
         }
-        p1 = tmp_path / "game_1.json.gz"
+        p1 = tmp_path / "game_1.json5.gz"
         with gzip.open(p1, "wt") as f:
             json.dump(data1, f)
 
@@ -344,13 +344,13 @@ class TestDirectoryMode:
             "season": 1,
             "tournament": None,
         }
-        p2 = tmp_path / "game_2.json.gz"
+        p2 = tmp_path / "game_2.json5.gz"
         with gzip.open(p2, "wt") as f:
             json.dump(data2, f)
 
         # Analyze directory
         all_stats: list[mana_tapping.PlayerStats] = []
-        for gz in sorted(tmp_path.glob("*.json.gz")):
+        for gz in sorted(tmp_path.glob("*.json5.gz")):
             all_stats.extend(mana_tapping.analyze_game(str(gz)))
 
         assert len(all_stats) == 2  # One player per game
@@ -399,7 +399,7 @@ class TestDirectoryMode:
             "season": 1,
             "tournament": None,
         }
-        p = tmp_path / "game_test.json.gz"
+        p = tmp_path / "game_test.json5.gz"
         with gzip.open(p, "wt") as f:
             json.dump(data, f)
 

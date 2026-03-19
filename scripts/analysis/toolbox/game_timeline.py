@@ -35,14 +35,14 @@ def resolve_game_path(path_or_id: str) -> str:
     if os.path.isfile(path_or_id):
         return path_or_id
     # Try as game ID in the games directory
-    for ext in (".json.gz", ".json"):
+    for ext in (".json5.gz", ".json5"):
         candidate = GAMES_DIR / f"{path_or_id}{ext}"
         if candidate.is_file():
             return str(candidate)
     # Try glob match
     matches = sorted(
-        list(GAMES_DIR.glob(f"*{path_or_id}*.json.gz"))
-        + list(GAMES_DIR.glob(f"*{path_or_id}*.json"))
+        list(GAMES_DIR.glob(f"*{path_or_id}*.json5.gz"))
+        + list(GAMES_DIR.glob(f"*{path_or_id}*.json5"))
     )
     assert matches, f"No game found matching '{path_or_id}' in {GAMES_DIR}"
     if len(matches) > 1:

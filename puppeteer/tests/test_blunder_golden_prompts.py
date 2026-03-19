@@ -24,9 +24,9 @@ from scripts.json5_utils import dumps_json5, loads_json5
 
 GOLDEN_DIR = Path(__file__).parent / "golden" / "blunder_prompts" / "game_20260216_074122_g2"
 _GAMES_DIR = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"
-GAME_PATH = _GAMES_DIR / "game_20260216_074122_g2.json.gz"
+GAME_PATH = _GAMES_DIR / "game_20260216_074122_g2.json5.gz"
 if not GAME_PATH.exists():
-    GAME_PATH = _GAMES_DIR / "game_20260216_074122_g2.json"
+    GAME_PATH = _GAMES_DIR / "game_20260216_074122_g2.json5"
 ORACLE_CACHE = GOLDEN_DIR / "oracle_cache.json5"
 
 UPDATE_MODE = bool(os.environ.get("UPDATE_BLUNDER_GOLDEN"))

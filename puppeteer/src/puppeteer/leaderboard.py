@@ -121,11 +121,11 @@ def _assert_number(value: object, message: str) -> None:
 
 
 def _glob_game_files(games_dir: Path) -> list[Path]:
-    """Find all game export files (.json and .json.gz) in a directory, sorted."""
-    gz_files = set(games_dir.glob("game_*.json.gz"))
+    """Find all game export files (.json5 and .json5.gz) in a directory, sorted."""
+    gz_files = set(games_dir.glob("game_*.json5.gz"))
     gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
-    json_files = [p for p in games_dir.glob("game_*.json") if p.name not in gz_stems]
-    return sorted(gz_files | set(json_files))
+    json5_files = [p for p in games_dir.glob("game_*.json5") if p.name not in gz_stems]
+    return sorted(gz_files | set(json5_files))
 
 
 # Severity weights for blunder index. Higher weight = worse blunder.
@@ -320,9 +320,9 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
     if games_dir is None:
         return _placements_from_winner(game)
 
-    game_path = games_dir / f"{game['id']}.json.gz"
+    game_path = games_dir / f"{game['id']}.json5.gz"
     if not game_path.exists():
-        game_path = games_dir / f"{game['id']}.json"
+        game_path = games_dir / f"{game['id']}.json5"
     if not game_path.exists():
         return _placements_from_winner(game)
 

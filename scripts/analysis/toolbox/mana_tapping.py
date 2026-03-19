@@ -310,7 +310,7 @@ def main(path: str) -> None:
     """Analyze a single game export or a directory of them."""
     if os.path.isdir(path):
         p = Path(path)
-        gz_files = sorted(list(p.glob("*.json.gz")) + list(p.glob("*.json")))
+        gz_files = sorted(list(p.glob("*.json5.gz")) + list(p.glob("*.json5")))
         assert gz_files, f"No game files found in {path}"
         print(f"Analyzing {len(gz_files)} games from {path}")
         all_stats: list[PlayerStats] = []

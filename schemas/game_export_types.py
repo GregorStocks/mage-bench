@@ -10,13 +10,14 @@ import copy
 import dataclasses
 from collections.abc import Callable, Mapping
 import gzip
-import json
 from dataclasses import dataclass, field, fields
 from pathlib import Path
 from types import MappingProxyType
 from typing import Any, ClassVar, Literal, TypeAlias, TypeVar, cast
 
 from typing_extensions import TypeGuard, TypeIs
+
+from scripts.json5_utils import loads_json5
 
 JsonObject: TypeAlias = dict[str, object]
 T = TypeVar("T")
@@ -2042,21 +2043,21 @@ def require_game_export(value: object, source: str = "game export") -> GameExpor
 def load_game_export(path: str | Path) -> GameExport:
     export_path = Path(path)
     raw = (
-        gzip.decompress(export_path.read_bytes())
+        gzip.decompress(export_path.read_bytes()).decode()
         if export_path.suffix == ".gz"
         else export_path.read_text()
     )
-    return require_game_export(json.loads(raw), source=export_path.name)
+    return require_game_export(loads_json5(raw), source=export_path.name)
 
 
 def load_built_game_export(path: str | Path) -> BuiltGameExport:
     export_path = Path(path)
     raw = (
-        gzip.decompress(export_path.read_bytes())
+        gzip.decompress(export_path.read_bytes()).decode()
         if export_path.suffix == ".gz"
         else export_path.read_text()
     )
-    return require_built_game_export(json.loads(raw), source=export_path.name)
+    return require_built_game_export(loads_json5(raw), source=export_path.name)
 
 
 def json_default(obj: object) -> object:

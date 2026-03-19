@@ -25,6 +25,7 @@ from scripts.game_exports import (
     load_raw_game_export,
     write_raw_game_export,
 )
+from scripts.json5_utils import loads_json5
 from scripts.migrate_exports import find_migration_path
 
 
@@ -552,7 +553,7 @@ class TestExportGameHelpers:
         assert decisions[1]["llmEventIndices"] == [2, 3, 4, 5, 6]
 
     def test_backfill_game_force_rebuilds_existing_decisions(self, tmp_path) -> None:
-        path = tmp_path / "game_retry.json"
+        path = tmp_path / "game_retry.json5"
         payload = _make_v6_export()
         payload["snapshots"] = [
             {
@@ -654,7 +655,7 @@ class TestExportGameHelpers:
 
         assert status == "updated"
         assert count == 1
-        updated = json.loads(path.read_text())
+        updated = loads_json5(path.read_text())
         assert updated["decisions"][0]["chosenArgs"] == {"text": "Black"}
         assert updated["decisions"][0]["actionResult"] == {
             "success": True,
@@ -706,8 +707,8 @@ class TestMigrateV5V6:
 class TestGameExportHelpers:
     def test_load_raw_game_export_handles_json_and_gz(self, tmp_path: Path) -> None:
         payload = _make_v6_export()
-        json_path = tmp_path / "game_test.json"
-        gz_path = tmp_path / "game_test_copy.json.gz"
+        json_path = tmp_path / "game_test.json5"
+        gz_path = tmp_path / "game_test_copy.json5.gz"
         json_text = json.dumps(payload)
 
         json_path.write_text(json_text)
@@ -718,8 +719,8 @@ class TestGameExportHelpers:
 
     def test_write_raw_game_export_switches_to_json_and_removes_gz(self, tmp_path: Path) -> None:
         payload = _make_v6_export()
-        gz_path = tmp_path / "game_small.json.gz"
-        json_path = tmp_path / "game_small.json"
+        gz_path = tmp_path / "game_small.json5.gz"
+        json_path = tmp_path / "game_small.json5"
         gz_path.write_bytes(b"stale")
 
         with patch("scripts.game_exports.GAME_EXPORT_GZ_THRESHOLD", 10_000):
@@ -728,12 +729,12 @@ class TestGameExportHelpers:
         assert out_path == json_path
         assert json_path.exists()
         assert not gz_path.exists()
-        assert json.loads(json_path.read_text())["id"] == payload["id"]
+        assert loads_json5(json_path.read_text())["id"] == payload["id"]
 
     def test_write_raw_game_export_switches_to_gz_and_removes_json(self, tmp_path: Path) -> None:
         payload = _make_v6_export()
-        json_path = tmp_path / "game_large.json"
-        gz_path = tmp_path / "game_large.json.gz"
+        json_path = tmp_path / "game_large.json5"
+        gz_path = tmp_path / "game_large.json5.gz"
         json_path.write_text("stale")
 
         with patch("scripts.game_exports.GAME_EXPORT_GZ_THRESHOLD", 1):
@@ -743,7 +744,7 @@ class TestGameExportHelpers:
         assert gz_path.exists()
         assert not json_path.exists()
         raw = gzip.decompress(gz_path.read_bytes())
-        assert json.loads(raw)["id"] == payload["id"]
+        assert loads_json5(raw.decode())["id"] == payload["id"]
 
     def test_write_raw_game_export_serializes_decision_support_dataclasses(self, tmp_path: Path) -> None:
         payload = _make_v6_export()
@@ -774,9 +775,9 @@ class TestGameExportHelpers:
             }
         ]
 
-        out_path = write_raw_game_export(tmp_path / "game_dataclass.json", payload)
+        out_path = write_raw_game_export(tmp_path / "game_dataclass.json5", payload)
 
-        written = json.loads(out_path.read_text())
+        written = loads_json5(out_path.read_text())
         assert written["decisions"][0]["choices"][0] == {"index": 0, "name": "Memnite", "power": "1"}
         assert written["decisions"][0]["pilotContext"] == {
             "untappedLands": 1,
@@ -795,26 +796,26 @@ class TestGameExportHelpers:
                 Action(seq=1, type="chat", message="hello", from_="Alice"),
             ],
         }
-        json_path = tmp_path / "game_test_001.json"
+        json_path = tmp_path / "game_test_001.json5"
 
         out_path = write_raw_game_export(json_path, payload)
 
-        written = json.loads(out_path.read_text())
+        written = loads_json5(out_path.read_text())
         assert written["actions"][0]["from"] == "Alice"
         assert "from_" not in written["actions"][0]
 
     def test_glob_game_export_paths_prefers_gz_when_both_exist(self, tmp_path: Path) -> None:
-        (tmp_path / "game_a.json").write_text("{}")
-        (tmp_path / "game_b.json.gz").write_bytes(gzip.compress(b"{}"))
-        (tmp_path / "game_c.json").write_text("{}")
-        (tmp_path / "game_c.json.gz").write_bytes(gzip.compress(b"{}"))
+        (tmp_path / "game_a.json5").write_text("{}")
+        (tmp_path / "game_b.json5.gz").write_bytes(gzip.compress(b"{}"))
+        (tmp_path / "game_c.json5").write_text("{}")
+        (tmp_path / "game_c.json5.gz").write_bytes(gzip.compress(b"{}"))
 
         paths = glob_game_export_paths(tmp_path)
 
         assert [path.name for path in paths] == [
-            "game_a.json",
-            "game_b.json.gz",
-            "game_c.json.gz",
+            "game_a.json5",
+            "game_b.json5.gz",
+            "game_c.json5.gz",
         ]
 
 

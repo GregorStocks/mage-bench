@@ -224,7 +224,7 @@ def test_extract_placements_from_game_file():
             {"seq": 100, "message": "Carol has lost the game."},
             {"seq": 200, "message": "Bob has lost the game."},
         ]
-        (games_dir / "g1.json.gz").write_bytes(_dump(game))
+        (games_dir / "g1.json5.gz").write_bytes(_dump(game))
 
         result = extract_placements(game, games_dir)
         assert result == {"Alice": 1, "Bob": 2, "Carol": 3}
@@ -697,7 +697,7 @@ def test_generate_leaderboard_file_integration():
         )
         game["deckType"] = "Constructed - Standard"
         game["harnessEpoch"] = HARNESS_EPOCH
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(
@@ -778,7 +778,7 @@ def test_generate_leaderboard_file_with_game_fallback():
         game["actions"] = [
             {"seq": 200, "message": "Bob has lost the game."},
         ]
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -810,7 +810,7 @@ def test_generate_leaderboard_file_requires_deck_type():
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         )
         game.pop("deckType")
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         with pytest.raises(AssertionError, match="missing deckType"):
             generate_leaderboard_file(games_dir, data_dir, root / "models.json")
@@ -963,7 +963,7 @@ def test_generate_leaderboard_file_has_formats_key():
         )
         game["deckType"] = "Constructed - Legacy"
         game["harnessEpoch"] = HARNESS_EPOCH
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1221,7 +1221,7 @@ def test_generate_leaderboard_file_excludes_preseason():
         )
         old_game["harnessEpoch"] = 2
         old_game["deckType"] = "Constructed - Standard"
-        (games_dir / "game_20260210_090000.json.gz").write_bytes(_dump(old_game))
+        (games_dir / "game_20260210_090000.json5.gz").write_bytes(_dump(old_game))
 
         # Season 1 game (should be included)
         new_game = _make_game(
@@ -1233,7 +1233,7 @@ def test_generate_leaderboard_file_excludes_preseason():
         )
         new_game["harnessEpoch"] = HARNESS_EPOCH
         new_game["deckType"] = "Constructed - Standard"
-        (games_dir / "game_20260215_090000.json.gz").write_bytes(_dump(new_game))
+        (games_dir / "game_20260215_090000.json5.gz").write_bytes(_dump(new_game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1272,7 +1272,7 @@ def test_generate_leaderboard_file_season_1_included():
         )
         game["deckType"] = "Constructed - Standard"
         game["harnessEpoch"] = HARNESS_EPOCH
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1303,7 +1303,7 @@ def test_generate_leaderboard_file_includes_empty_current_season():
             season=1,
             deck_type="Constructed - Standard",
         )
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1494,7 +1494,7 @@ def test_generate_model_stats_basic():
         # Override the default zero values so aggregation exercises non-zero totals.
         game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=60.0)
         game["players"][1] = dataclasses.replace(game["players"][1], thinkingTimeSecs=30.0)
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1557,7 +1557,7 @@ def test_generate_model_stats_requires_normalized_player_stats():
             "toolCallsOk": 0,
             "toolCallsFailed": 0,
         }
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1589,7 +1589,7 @@ def test_generate_model_stats_requires_pilot_model():
             "toolCallsFailed": 0,
             "thinkingTimeSecs": 0.0,
         }
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1625,7 +1625,7 @@ def test_generate_model_stats_epoch_bucketing():
                 epoch=epoch,
             )
             game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
-            (games_dir / f"{game_id}.json.gz").write_bytes(_dump(game))
+            (games_dir / f"{game_id}.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1673,7 +1673,7 @@ def test_generate_model_stats_error_types():
             epoch=10,
         )
         game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1712,7 +1712,7 @@ def test_generate_model_stats_includes_no_winner_games():
             epoch=10,
         )
         game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1792,7 +1792,7 @@ def test_generate_model_stats_reasoning_effort():
         )
         game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
         game["players"][1] = dataclasses.replace(game["players"][1], thinkingTimeSecs=20.0)
-        (games_dir / "game_20260101_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1863,7 +1863,7 @@ def test_generate_internals_data_basic():
         )
         game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=60.0)
         game["players"][1] = dataclasses.replace(game["players"][1], thinkingTimeSecs=30.0)
-        (games_dir / "game_20260115_120000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260115_120000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1926,7 +1926,7 @@ def test_generate_internals_data_format_detection():
         game["deckType"] = "Constructed - Standard"
         game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
         game["players"][1] = dataclasses.replace(game["players"][1], thinkingTimeSecs=10.0)
-        (games_dir / "game_20260116_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260116_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -1977,7 +1977,7 @@ def test_generate_internals_data_requires_pilot_model():
             "toolCallsFailed": 0,
             "thinkingTimeSecs": 0.0,
         }
-        (games_dir / "game_20260116_000000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260116_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -2039,7 +2039,7 @@ def test_generate_internals_data_timed_out():
             ],
             [],
         )
-        (games_dir / "game_20260115_120000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260115_120000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
@@ -2073,7 +2073,7 @@ def test_generate_model_stats_timeout_losses():
             ],
             [],
         )
-        (games_dir / "game_20260115_120000.json.gz").write_bytes(_dump(game))
+        (games_dir / "game_20260115_120000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
