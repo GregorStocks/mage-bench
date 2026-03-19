@@ -157,16 +157,20 @@ def _parse_context_metadata(
         return None, None, None, None
     assert isinstance(context, str), f"context must be a string when present, got {context!r}"
 
-    header, _, player_suffix = context.partition(" (")
-    active_player = player_suffix.split(")", 1)[0].strip() if player_suffix else None
-    if active_player == "":
-        active_player = None
-
-    parts = header.split(maxsplit=1)
+    parts = context.split(maxsplit=1)
     assert parts and parts[0].startswith("T"), f"context must start with turn marker, got {context!r}"
     turn = int(parts[0][1:])
 
+    active_player: str | None = None
     phase_step = parts[1] if len(parts) > 1 else ""
+    if phase_step and phase_step != "()":
+        phase_prefix, sep, suffix = phase_step.partition(" (")
+        if sep:
+            player_name, closing, _ = suffix.partition(")")
+            if closing:
+                phase_step = phase_prefix
+                active_player = player_name.strip() or None
+
     phase_raw, _, step_raw = phase_step.partition("/")
     phase = _normalize_context_token(phase_raw)
     step = _normalize_context_token(step_raw) or phase

@@ -1122,6 +1122,14 @@ class TestBuildPilotDecision:
         assert isinstance(decision.pilotContext, PilotContext)
         assert decision.pilotContext.landDropsUsed == 0
 
+    def test_preserves_empty_pregame_phase_marker(self) -> None:
+        data = _sample_pass_priority_result()
+        data["context"] = "T1 ()"
+        decision = _build_pilot_decision(data)
+        assert isinstance(decision, Decision)
+        assert decision.turn == 1
+        assert decision.phase == "()"
+
 
 class TestBuildPilotSnapshot:
     def test_player_data(self) -> None:
