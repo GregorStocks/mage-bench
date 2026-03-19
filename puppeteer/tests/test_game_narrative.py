@@ -1,5 +1,7 @@
 """Tests for scripts/analysis/toolbox/game_narrative.py."""
 
+from types import SimpleNamespace
+
 import scripts.analysis.toolbox.game_narrative as game_narrative
 from schemas.game_export_types import Permanent, Snapshot, SnapshotPlayer
 
@@ -11,8 +13,8 @@ def test_main_formats_dataclass_battlefield_names(
     monkeypatch.setattr(
         game_narrative,
         "load_game",
-        lambda _path: {
-            "snapshots": [
+        lambda _path: SimpleNamespace(
+            snapshots=[
                 Snapshot(
                     seq=0,
                     turn=1,
@@ -33,8 +35,8 @@ def test_main_formats_dataclass_battlefield_names(
                     stack=[],
                 )
             ],
-            "actions": [],
-        },
+            actions=[],
+        ),
     )
 
     game_narrative.main("game_test_001.json")

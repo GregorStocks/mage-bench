@@ -6,7 +6,6 @@ scripts can operate on older export versions.
 
 import gzip
 import json
-from collections.abc import Mapping
 from dataclasses import is_dataclass
 from pathlib import Path
 from typing import Any
@@ -45,7 +44,7 @@ def load_raw_game_export(path: str | Path) -> dict[str, Any]:
 
 def write_raw_game_export(
     path: str | Path,
-    data: Mapping[str, Any],
+    data: Any,
     *,
     compress: bool | None = None,
 ) -> Path:

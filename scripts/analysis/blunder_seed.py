@@ -30,13 +30,13 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
     """
     data = load_game(gz_path)
 
-    game_id = data["id"]
-    annotations = data.get("annotations")
+    game_id = data.id
+    annotations = data.annotations
     if not annotations:
         return game_id, []
 
     # Need llmEvents to extract decisions
-    if not data.get("llmEvents"):
+    if not data.llmEvents:
         print(f"  SKIP {game_id}: no llmEvents", file=sys.stderr)
         return game_id, []
 

@@ -282,7 +282,7 @@ def _snapshot_zone_cards(
 def _collect_card_names(data: GameExport) -> set[str]:
     """Collect all unique card names from game snapshots and choices."""
     names: set[str] = set()
-    for snap in data["snapshots"]:
+    for snap in data.snapshots:
         for p in snap.players:
             for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
                 zone_cards = _snapshot_zone_cards(p, zone)
@@ -314,7 +314,7 @@ def _collect_card_names(data: GameExport) -> set[str]:
                         if isinstance(name, str) and name:
                             names.add(name)
     # Also from choice names and combat fields in llm events
-    for ev in data["llmEvents"]:
+    for ev in data.llmEvents:
         if ev.type == "tool_call" and ev.tool == "get_action_choices":
             try:
                 result = json.loads(ev.result)
@@ -682,10 +682,10 @@ def _format_current_turn_actions(
 
 def _game_overview(data: GameExport) -> str:
     lines = [
-        f"Game: {data['id']}",
-        f"Format: {data['deckType']} ({data['gameType']})",
+        f"Game: {data.id}",
+        f"Format: {data.deckType} ({data.gameType})",
     ]
-    for p in data["players"]:
+    for p in data.players:
         lines.append(f"  {p.name} ({p.model or '?'})")
         if p.deckStrategy:
             lines.append(f"    Deck: {p.deckStrategy}")
@@ -1266,11 +1266,11 @@ def load_game_context(gz_path: str) -> dict:
     """
     data = _load_game(gz_path)
     decisions = extract_decisions(gz_path)
-    snapshots = data["snapshots"]
+    snapshots = data.snapshots
     overview = _game_overview(data)
-    game_actions = data["actions"]
+    game_actions = data.actions
     abt = _actions_by_turn(game_actions)
-    num_players = len(data["players"])
+    num_players = len(data.players)
 
     card_names = _collect_card_names(data)
     oracle_texts = _get_oracle_texts(sorted(card_names))
@@ -1383,11 +1383,11 @@ def main(gz_path: str) -> float:
     # Skip if already analyzed with the current script version.
     # Missing blunderScriptVersion with existing annotations → v1.
     data = _load_game(gz_path)
-    if "annotations" in data:
-        existing_version = data.get("blunderScriptVersion", 1)
+    if data.annotations is not None:
+        existing_version = data.blunderScriptVersion
         if existing_version >= BLUNDER_SCRIPT_VERSION:
             print(
-                f"Already analyzed (v{existing_version}): {gz_path} ({len(data['annotations'])} annotations)"
+                f"Already analyzed (v{existing_version}): {gz_path} ({len(data.annotations)} annotations)"
             )
             return 0.0
         print(
@@ -1515,7 +1515,7 @@ def main(gz_path: str) -> float:
             print(f"  Raw LLM data saved to {raw_path}")
 
     # Filter out annotations with invalid snapshotIndex (LLM sometimes fabricates indices)
-    num_snapshots = len(data["snapshots"])
+    num_snapshots = len(data.snapshots)
     valid_annotations: list[Annotation] = []
     for ann in annotations:
         idx = ann.snapshotIndex
@@ -1535,7 +1535,7 @@ def main(gz_path: str) -> float:
         print("\nNo blunders found.")
         _write_annotations(gz_path, [])
         _append_blunder_stats(
-            game_id=data["id"],
+            game_id=data.id,
             decisions_analyzed=len(non_forced),
             total_prompt=total_prompt,
             total_completion=total_completion,
@@ -1546,7 +1546,7 @@ def main(gz_path: str) -> float:
         return total_cost
 
     # Display blunders
-    snapshots = data["snapshots"]
+    snapshots = data.snapshots
     print(f"\nFound {len(annotations)} blunder(s):\n")
     for ann in annotations:
         snap_idx = ann.snapshotIndex
@@ -1562,11 +1562,11 @@ def main(gz_path: str) -> float:
     _write_annotations(gz_path, annotations)
 
     # Auto-ingest: add annotated decisions to ground truth for future eval
-    _auto_ingest_ground_truth(data["id"], annotations, decisions, snapshots)
+    _auto_ingest_ground_truth(data.id, annotations, decisions, snapshots)
 
     # Append run stats to blunder-stats.jsonl for internals tracking
     _append_blunder_stats(
-        game_id=data["id"],
+        game_id=data.id,
         decisions_analyzed=len(non_forced),
         total_prompt=total_prompt,
         total_completion=total_completion,

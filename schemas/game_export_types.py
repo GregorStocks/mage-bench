@@ -16,7 +16,7 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import Any, ClassVar, Literal, TypeAlias, TypeVar, cast
 
-from typing_extensions import TypedDict, TypeGuard, TypeIs
+from typing_extensions import TypeGuard, TypeIs
 
 JsonObject: TypeAlias = dict[str, object]
 T = TypeVar("T")
@@ -812,7 +812,17 @@ class CardMetadata:
     defense: str | None = None
 
 
-class _GameExportBase(TypedDict):
+# Fields that are required by the JSON schema but nullable — they must appear
+# in serialized output even when their value is None.
+_NULLABLE_REQUIRED_FIELDS: frozenset[str] = frozenset(
+    {"winner", "gameOver", "tournament"}
+)
+
+
+@dataclass(slots=True)
+class BuiltGameExport:
+    """Game export with optional annotations (pre-annotation stage)."""
+
     version: Literal[8]
     id: str
     timestamp: str
@@ -830,28 +840,129 @@ class _GameExportBase(TypedDict):
     gameOver: GameOver | None
     season: int
     tournament: str | None
+    cardData: dict[str, CardMetadata] | None = None
+    decisions: list[Decision] | None = None
+    errors: list[GameError] | None = None
+    annotations: list[Annotation] | None = None
+    blunderScriptVersion: int | None = None
+
+    def to_dict(self) -> JsonObject:
+        result: JsonObject = {}
+        for f in dataclasses.fields(self):
+            value = getattr(self, f.name)
+            if (
+                value is None
+                and f.default is None
+                and f.name not in _NULLABLE_REQUIRED_FIELDS
+            ):
+                continue
+            result[f.name] = value
+        return result
+
+    @classmethod
+    def from_dict(cls, obj: JsonObject) -> "BuiltGameExport":
+        kwargs: dict[str, object] = {
+            "version": obj["version"],
+            "id": obj["id"],
+            "timestamp": obj["timestamp"],
+            "gameType": obj["gameType"],
+            "deckType": obj["deckType"],
+            "totalTurns": obj["totalTurns"],
+            "winner": obj["winner"],
+            "harnessEpoch": obj["harnessEpoch"],
+            "youtubeUrl": obj["youtubeUrl"],
+            "players": obj["players"],
+            "cardImages": obj["cardImages"],
+            "snapshots": obj["snapshots"],
+            "actions": obj["actions"],
+            "llmEvents": obj["llmEvents"],
+            "gameOver": obj["gameOver"],
+            "season": obj["season"],
+            "tournament": obj["tournament"],
+        }
+        if "cardData" in obj:
+            kwargs["cardData"] = obj["cardData"]
+        if "decisions" in obj:
+            kwargs["decisions"] = obj["decisions"]
+        if "errors" in obj:
+            kwargs["errors"] = obj["errors"]
+        if "annotations" in obj:
+            kwargs["annotations"] = obj["annotations"]
+        if "blunderScriptVersion" in obj:
+            kwargs["blunderScriptVersion"] = obj["blunderScriptVersion"]
+        return cls(**kwargs)  # type: ignore[arg-type]
 
 
-class _OptionalGameExportFields(TypedDict, total=False):
-    cardData: dict[str, CardMetadata]
-    decisions: list[Decision]
-    errors: list[GameError]
+@dataclass(slots=True)
+class GameExport:
+    """Game export with required annotations (post-annotation stage)."""
 
-
-class _AnnotatedGameExportFields(TypedDict):
+    version: Literal[8]
+    id: str
+    timestamp: str
+    gameType: str
+    deckType: str
+    totalTurns: int
+    winner: str | None
+    harnessEpoch: int
+    youtubeUrl: str
+    players: list[Player]
+    cardImages: dict[str, str]
+    snapshots: list[Snapshot]
+    actions: list[Action]
+    llmEvents: list[LlmEvent]
+    gameOver: GameOver | None
+    season: int
+    tournament: str | None
     annotations: list[Annotation]
     blunderScriptVersion: int
+    cardData: dict[str, CardMetadata] | None = None
+    decisions: list[Decision] | None = None
+    errors: list[GameError] | None = None
 
+    def to_dict(self) -> JsonObject:
+        result: JsonObject = {}
+        for f in dataclasses.fields(self):
+            value = getattr(self, f.name)
+            if (
+                value is None
+                and f.default is None
+                and f.name not in _NULLABLE_REQUIRED_FIELDS
+            ):
+                continue
+            result[f.name] = value
+        return result
 
-class GameExport(
-    _GameExportBase, _AnnotatedGameExportFields, _OptionalGameExportFields
-):
-    pass
-
-
-class BuiltGameExport(_GameExportBase, _OptionalGameExportFields, total=False):
-    annotations: list[Annotation]
-    blunderScriptVersion: int
+    @classmethod
+    def from_dict(cls, obj: JsonObject) -> "GameExport":
+        kwargs: dict[str, object] = {
+            "version": obj["version"],
+            "id": obj["id"],
+            "timestamp": obj["timestamp"],
+            "gameType": obj["gameType"],
+            "deckType": obj["deckType"],
+            "totalTurns": obj["totalTurns"],
+            "winner": obj["winner"],
+            "harnessEpoch": obj["harnessEpoch"],
+            "youtubeUrl": obj["youtubeUrl"],
+            "players": obj["players"],
+            "cardImages": obj["cardImages"],
+            "snapshots": obj["snapshots"],
+            "actions": obj["actions"],
+            "llmEvents": obj["llmEvents"],
+            "gameOver": obj["gameOver"],
+            "season": obj["season"],
+            "tournament": obj["tournament"],
+            "annotations": obj["annotations"],
+            "blunderScriptVersion": obj["blunderScriptVersion"],
+        }
+        if "cardData" in obj:
+            kwargs["cardData"] = obj["cardData"]
+        if "decisions" in obj:
+            kwargs["decisions"] = obj["decisions"]
+        if "errors" in obj:
+            kwargs["errors"] = obj["errors"]
+        return cls(**kwargs)  # type: ignore[arg-type]
 
 
 def _type_name(value: object) -> str:
@@ -1939,14 +2050,16 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
     return obj
 
 
-def is_built_game_export(
-    value: object, source: str = "game export"
-) -> TypeIs[BuiltGameExport]:
+def is_built_game_export(value: object, source: str = "game export") -> bool:
+    if isinstance(value, (BuiltGameExport, GameExport)):
+        return True
     _validate_common_game_export(value, source)
     return True
 
 
-def is_game_export(value: object, source: str = "game export") -> TypeIs[GameExport]:
+def is_game_export(value: object, source: str = "game export") -> bool:
+    if isinstance(value, GameExport):
+        return True
     obj = _validate_common_game_export(value, source)
     annotations = _require_key(obj, "annotations", source)
     _require_list(annotations, f"{source}.annotations")
@@ -1958,18 +2071,19 @@ def is_game_export(value: object, source: str = "game export") -> TypeIs[GameExp
 def require_built_game_export(
     value: object, source: str = "game export"
 ) -> BuiltGameExport:
+    if isinstance(value, BuiltGameExport):
+        return value
     assert is_built_game_export(value, source)
-    return cast(
-        BuiltGameExport,
-        _coerce_common_game_export(_require_object(value, source), source),
-    )
+    coerced = _coerce_common_game_export(_require_object(value, source), source)
+    return BuiltGameExport.from_dict(coerced)
 
 
 def require_game_export(value: object, source: str = "game export") -> GameExport:
+    if isinstance(value, GameExport):
+        return value
     assert is_game_export(value, source)
-    return cast(
-        GameExport, _coerce_common_game_export(_require_object(value, source), source)
-    )
+    coerced = _coerce_common_game_export(_require_object(value, source), source)
+    return GameExport.from_dict(coerced)
 
 
 def load_game_export(path: str | Path) -> GameExport:
@@ -2002,6 +2116,8 @@ def json_default(obj: object) -> object:
 
     Usage: ``json.dumps(export, default=json_default)``
     """
+    if isinstance(obj, (GameExport, BuiltGameExport)):
+        return obj.to_dict()
     if isinstance(obj, Decision):
         return obj.to_dict()
     if isinstance(obj, (Choice, MultiAmountItem, PilotContext)):

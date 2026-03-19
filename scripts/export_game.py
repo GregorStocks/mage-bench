@@ -1316,7 +1316,7 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
     """Export a game directory to a website JSON file. Returns the output path."""
     try:
         output = build_export(game_dir)
-        game_id = output["id"]
+        game_id = output.id
 
         website_games_dir.mkdir(parents=True, exist_ok=True)
         output_path = write_raw_game_export(

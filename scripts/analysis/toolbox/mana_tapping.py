@@ -50,11 +50,11 @@ class PlayerStats:
 def analyze_game(gz_path: str) -> list[PlayerStats]:
     """Analyze a single game export and return per-player stats."""
     data = load_game(gz_path)
-    game_id = data["id"]
+    game_id = data.id
 
     # Build player -> model mapping
     player_models: dict[str, str] = {}
-    for p in data["players"]:
+    for p in data.players:
         if not is_pilot_player(p):
             continue
         player_models[p.name] = p.model
@@ -64,7 +64,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
     for name, model in player_models.items():
         stats[name] = PlayerStats(player=name, model=model)
 
-    events = data["llmEvents"]
+    events = data.llmEvents
 
     for i, e in enumerate(events):
         if e.type != "tool_call":

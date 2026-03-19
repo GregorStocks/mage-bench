@@ -424,18 +424,18 @@ def main() -> None:
     data = load_game(gz_path)
 
     # Header
-    print(f"Game: {data['id']}")
-    print(f"Format: {data['deckType']} ({data['gameType']})")
-    print(f"Turns: {data['totalTurns']} | Winner: {data['winner']}")
-    for p in data["players"]:
+    print(f"Game: {data.id}")
+    print(f"Format: {data.deckType} ({data.gameType})")
+    print(f"Turns: {data.totalTurns} | Winner: {data.winner}")
+    for p in data.players:
         model = p.model or "?"
         deck = p.deckName or "?"
         cost = p.totalCostUsd or 0
         print(f"  {p.name} ({model}) — {deck} — ${cost:.2f}")
     print()
 
-    snapshots = data["snapshots"]
-    events = data["llmEvents"]
+    snapshots = data.snapshots
+    events = data.llmEvents
 
     # Parse turn range filter
     turn_range = None

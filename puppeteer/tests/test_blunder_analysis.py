@@ -13,6 +13,7 @@ from schemas.game_export_types import (
     Action,
     CombatCreature,
     CombatGroup,
+    GameExport,
     Snapshot,
     SnapshotPlayer,
     ToolCallEvent,
@@ -568,23 +569,23 @@ class TestCardReferenceForDecision:
 
 class TestCollectCardNames:
     def test_collects_from_snapshots(self) -> None:
-        game = _make_game()
+        game = GameExport.from_dict(_make_game())
         names = _collect_card_names(game)
         assert "Mountain" in names
         assert "Grizzly Bears" in names
 
     def test_filters_tokens(self) -> None:
-        game = _make_game()
-        snap = game["snapshots"][0]
+        game = GameExport.from_dict(_make_game())
+        snap = game.snapshots[0]
         new_player = dataclasses.replace(snap.players[0], battlefield=[{"name": "Otter Token"}])
-        game["snapshots"][0] = dataclasses.replace(snap, players=[new_player, snap.players[1]])
+        game.snapshots[0] = dataclasses.replace(snap, players=[new_player, snap.players[1]])
         names = _collect_card_names(game)
         assert "Otter Token" not in names
 
     def test_collects_from_snapshot_combat(self) -> None:
-        game = _make_game()
-        snap = game["snapshots"][0]
-        game["snapshots"][0] = dataclasses.replace(
+        game = GameExport.from_dict(_make_game())
+        snap = game.snapshots[0]
+        game.snapshots[0] = dataclasses.replace(
             snap,
             combat=[
                 CombatGroup(
@@ -600,8 +601,8 @@ class TestCollectCardNames:
         assert "Wall of Omens" in names
 
     def test_collects_from_llm_event_combat(self) -> None:
-        game = _make_game()
-        game["llmEvents"] = [
+        game = GameExport.from_dict(_make_game())
+        game.llmEvents = [
             ToolCallEvent(
                 type="tool_call",
                 player="Alice",

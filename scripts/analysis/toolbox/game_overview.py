@@ -9,11 +9,11 @@ from scripts.analysis.blunder_eval_common import load_game
 def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
-    print(f"Game: {d['id']}")
-    print(f"Format: {d.get('deckType', '?')} ({d.get('gameType', '?')})")
-    print(f"Turns: {d['totalTurns']}")
-    print(f"Winner: {d['winner']}")
-    for p in d["players"]:
+    print(f"Game: {d.id}")
+    print(f"Format: {d.deckType} ({d.gameType})")
+    print(f"Turns: {d.totalTurns}")
+    print(f"Winner: {d.winner}")
+    for p in d.players:
         cost = p.totalCostUsd or 0
         ok = p.toolCallsOk
         fail = p.toolCallsFailed
@@ -32,7 +32,7 @@ def main(gz_path: str) -> None:
             parts.append(f"thinking: {think:.0f}s")
         print(" - ".join(parts))
 
-    errors = d.get("errors")
+    errors = d.errors
     if errors:
         print(f"\nCritical Errors: {len(errors)}")
         for err in errors:

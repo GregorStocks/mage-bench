@@ -15,7 +15,7 @@ from scripts.analysis.blunder_eval_common import load_game
 def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
-    events = d["llmEvents"]
+    events = d.llmEvents
     if not events:
         print("No LLM events found.")
         return
@@ -86,7 +86,7 @@ def main(gz_path: str) -> None:
         )
 
     # Game-level errors from error logs
-    errors = d.get("errors")
+    errors = d.errors
     if errors:
         print()
         print(f"=== Game Errors ({len(errors)}) ===")

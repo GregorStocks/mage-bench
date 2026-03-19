@@ -49,11 +49,11 @@ def game_context():
 
     oracle_texts = json.loads(ORACLE_CACHE.read_text())
     decisions = extract_decisions(str(GAME_PATH))
-    snapshots = data["snapshots"]
+    snapshots = data.snapshots
     overview = _game_overview(data)
-    game_actions = data["actions"]
+    game_actions = data.actions
     abt = _actions_by_turn(game_actions)
-    num_players = len(data["players"])
+    num_players = len(data.players)
 
     # Build index for quick lookup by decision_index
     by_index = {get_decision_index(d): d for d in decisions}

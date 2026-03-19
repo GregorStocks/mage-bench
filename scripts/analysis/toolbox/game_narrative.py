@@ -28,8 +28,8 @@ ACTION_KEYWORDS = [
 def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
-    snapshots = d["snapshots"]
-    actions = d["actions"]
+    snapshots = d.snapshots
+    actions = d.actions
 
     # Turn-boundary snapshots
     seen: set[int] = set()
