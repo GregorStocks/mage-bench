@@ -1,0 +1,141 @@
+{
+  "decision_index": 113,
+  "turn": 10,
+  "phase": "PRECOMBAT_MAIN",
+  "player": "Gem25P Drama",
+  "message": "Choose spell or ability to playRestless Anchorage",
+  "system": "You are a Magic: The Gathering expert evaluating a single decision from a game replay.\n\
+\n\
+Analyze the decision below. If the play was reasonable, return null.\n\
+If it was a blunder, return a JSON annotation object.\n\
+\n\
+Most decisions are reasonable — only flag clear mistakes or questionable choices.\n\
+\n\
+You may be given prior context showing the board state from earlier and the action log since then. Use this to understand how the game reached the current state.\n\
+\n\
+## Examples of Blunders\n\
+\n\
+Here are some examples of the kinds of mistakes to flag:\n\
+\n\
+- Not attacking for lethal, missing combo kills, burn in hand at low life\n\
+- Casting spells that accomplish nothing, cards with no valid targets, declining pure-upside abilities\n\
+- Removing the wrong threat, fetching the wrong land, naming the wrong card\n\
+- Casting spells before playing lands, creatures before combat when holding tricks\n\
+- Poor attack/block decisions, attacking into unfavorable blocks\n\
+- Missing land drops, not using mana sinks at end of opponent's turn\n\
+- Fundamentally wrong game plan decisions, not countering must-answer threats\n\
+- Overextending into board wipes, running best threat into open counter mana\n\
+- Passing priority in the postcombat main phase (with nothing on the stack) when there are still sorcery-speed actions available this turn — e.g. unplayed land drops, castable creatures or sorceries in hand, planeswalker abilities to activate. Passing here ends the turn and wastes those opportunities. Note: the choices list shows the exact legal actions available — if a player passes (Chosen: False) with playable lands or castable spells among the choices, that is strong evidence of a blunder.\n\
+\n\
+## Understanding \"Chosen: False\"\n\
+\n\
+\"Chosen: False\" means the player passed priority — they declined to act. If the stack is empty, passing means moving to the next phase (e.g. main phase to combat, or postcombat main to end step — ending the turn). If the stack has items, passing lets those items resolve without responding.\n\
+\n\
+## Understanding \"Chosen: (no response)\"\n\
+\n\
+\"Chosen: (no response)\" means the player failed to respond in time (timeout) or their client did not send a valid action. The game engine chose a default for them — typically passing or skipping. Treat this like \"Chosen: False\" for blunder evaluation: if skipping was wrong given the available choices, flag it.\n\
+\n\
+## Understanding batch/text decisions\n\
+\n\
+Some decisions (attack/block declarations, color choices) use batch or text parameters instead of selecting from a numbered list. These show as \"Chosen: Attack with: ...\", \"Chosen: Block with: ...\", or \"Chosen: Text: ...\" instead of a choice name. These are valid responses — the player DID act.\n\
+\n\
+## Severity Levels\n\
+\n\
+- **questionable**: Probably suboptimal but debatable. A human reviewing the game would find this interesting to think about. Use this when there's at least a ~30% chance the play was wrong. Low bar — when in doubt, include as questionable rather than omitting.\n\
+- **minor**: Clearly suboptimal — a small amount of value was lost (e.g. slightly wrong sequencing, fetching a less optimal land, missing a minor advantage).\n\
+- **moderate**: A real mistake with meaningful consequences — wasted a card, missed a significant line, or gave the opponent an unnecessary opening.\n\
+- **major**: Game-losing or close to it — threw away a winning position, wasted multiple cards for nothing, missed lethal, or made an error that directly led to losing.\n\
+\n\
+## Output Format\n\
+\n\
+Return ONLY valid JSON — either `null` (no blunder) or a single annotation object:\n\
+{\n\
+  \"severity\": \"questionable\" | \"minor\" | \"moderate\" | \"major\",\n\
+  \"description\": \"<what went wrong in concrete game terms>\",\n\
+  \"actionTaken\": \"<what they actually did>\",\n\
+  \"betterLine\": \"<what they should have done>\"\n\
+}",
+  "user": "## Game Overview\n\
+Game: game_20260216_074122_g2\n\
+Format: Constructed - Standard (Two Player Duel)\n\
+  Gem3F Valley (google/gemini-3-flash-preview)\n\
+  Gem25P Drama (google/gemini-2.5-pro)\n\
+\n\
+You are evaluating **Gem25P Drama**'s decision.\n\
+\n\
+## Card Reference\n\
+- Bitter Triumph {1}{B} -- Instant: As an additional cost to cast this spell, discard a card or pay 3 life. / Destroy target creature or planeswalker.\n\
+- Consult the Star Charts {1}{U} -- Instant: Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.) / Look at the top X cards of your library, where X is the number of lands you control. Put one of those cards into your hand. If this spell was kicked, put two of those cards into your hand instead. Put the rest on the bottom of your library in a random order.\n\
+- Deadly Cover-Up {3}{B}{B} -- Sorcery: As an additional cost to cast this spell, you may collect evidence 6. / Destroy all creatures. If evidence was collected, exile a card from an opponent's graveyard. Then search its owner's graveyard, hand, and library for any number of cards with that name and exile them. That player shuffles, then draws a card for each card exiled from their hand this way.\n\
+- Demolition Field -- Land: {T}: Add {C}. / {2}, {T}, Sacrifice this land: Destroy target nonbasic land an opponent controls. That land's controller may search their library for a basic land card, put it onto the battlefield, then shuffle. You may search your library for a basic land card, put it onto the battlefield, then shuffle.\n\
+- Elspeth, Storm Slayer {3}{W}{W} -- Legendary Planeswalker — Elspeth: If one or more tokens would be created under your control, twice that many of those tokens are created instead. / +1: Create a 1/1 white Soldier creature token. / 0: Put a +1/+1 counter on each creature you control. Those creatures gain flying until your next turn. / −3: Destroy target creature an opponent controls with mana value 3 or greater.\n\
+- Essence Scatter {1}{U} -- Instant: Counter target creature spell.\n\
+- Fountainport -- Land: {T}: Add {C}. / {2}, {T}, Sacrifice a token: Draw a card. / {3}, {T}, Pay 1 life: Create a 1/1 blue Fish creature token. / {4}, {T}: Create a Treasure token.\n\
+- Get Lost {1}{W} -- Instant: Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")\n\
+- Gloomlake Verge -- Land: {T}: Add {U}. / {T}: Add {B}. Activate only if you control an Island or a Swamp.\n\
+- Hallowed Fountain -- Land — Plains Island: ({T}: Add {W} or {U}.) / As this land enters, you may pay 2 life. If you don't, it enters tapped.\n\
+- No More Lies {W}{U} -- Instant: Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.\n\
+- Requiting Hex {B} -- Instant: As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.) / Destroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life.\n\
+- Restless Anchorage -- Land: This land enters tapped. / {T}: Add {W} or {U}. / {1}{W}{U}: Until end of turn, this land becomes a 2/3 white and blue Bird creature with flying. It's still a land. / Whenever this land attacks, create a Map token.\n\
+- Seam Rip {W} -- Enchantment: When this enchantment enters, exile target nonland permanent an opponent controls with mana value 2 or less until this enchantment leaves the battlefield.\n\
+- Spell Pierce {U} -- Instant: Counter target noncreature spell unless its controller pays {2}.\n\
+- Spell Snare {U} -- Instant: Counter target spell with mana value 2.\n\
+- Stock Up {2}{U} -- Sorcery: Look at the top five cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order.\n\
+- Sunken Citadel -- Land — Cave: This land enters tapped. As it enters, choose a color. / {T}: Add one mana of the chosen color. / {T}: Add two mana of the chosen color. Spend this mana only to activate abilities of land sources.\n\
+- Three Steps Ahead {U} -- Instant: Spree (Choose one or more additional costs.) / + {1}{U} — Counter target spell. / + {3} — Create a token that's a copy of target artifact or creature you control. / + {2} — Draw two cards, then discard a card.\n\
+- Undercity Sewers -- Land — Island Swamp: ({T}: Add {U} or {B}.) / This land enters tapped. / When this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)\n\
+- Wan Shi Tong, Librarian {X}{U}{U} -- Legendary Creature — Bird Spirit 1/1: Flash / Flying, vigilance / When Wan Shi Tong enters, put X +1/+1 counters on him. Then draw half X cards, rounded down. / Whenever an opponent searches their library, put a +1/+1 counter on Wan Shi Tong and draw a card.\n\
+\n\
+## Prior Context (2 turn cycles ago)\n\
+\n\
+Board: Gem3F Valley: 20hp bf=[Gloomlake Verge, Swamp, Fountainport, Undercity Sewers, Undercity Sewers (tapped)] gy=[Stock Up, Undercity Sewers] | Gem25P Drama: 18hp bf=[Hallowed Fountain, Plains, Sunken Citadel]\n\
+\n\
+Gem3F Valley turn 3 (20 - 18)\n\
+Gem3F Valley plays Fountainport\n\
+Gem3F Valley casts Stock Up from hand\n\
+Gem3F Valley puts a card from library into their hand\n\
+Gem3F Valley puts a card from library into their hand\n\
+Gem3F Valley puts a card from library to the bottom of their library (source: Stock Up)\n\
+Gem3F Valley puts a card from library to the bottom of their library (source: Stock Up)\n\
+Gem3F Valley puts a card from library to the bottom of their library (source: Stock Up)\n\
+Gem25P Drama turn 4 (20 - 18)\n\
+Gem3F Valley turn 4 (20 - 18)\n\
+Gem3F Valley plays Undercity Sewers\n\
+Gem3F Valley - Ability triggers: Undercity Sewers - When Undercity Sewers enters, surveil 1.\n\
+Gem3F Valley surveils 1 (source: Undercity Sewers)\n\
+Gem3F Valley puts Undercity Sewers from library into their graveyard (source: Undercity Sewers)\n\
+Gem25P Drama turn 5 (20 - 18)\n\
+Sunken Citadel: Gem25P Drama has chosen White\n\
+Gem25P Drama plays Sunken Citadel\n\
+\n\
+## This Turn\n\
+Gem3F Valley plays Undercity Sewers\n\
+Gem3F Valley - Ability triggers: Undercity Sewers - When Undercity Sewers enters, surveil 1.\n\
+Gem3F Valley surveils 1 (source: Undercity Sewers)\n\
+Gem3F Valley puts a card from library to the top of their library (source: Undercity Sewers)\n\
+\n\
+## Decision\n\
+\n\
+[Decision 113, snapshot=87] Turn 10 PRECOMBAT_MAIN - Gem25P Drama\n\
+  Board: Gem3F Valley: 16hp hand=7 lib=37 bf=[Gloomlake Verge (tapped), Swamp, Fountainport, Undercity Sewers (tapped), Undercity Sewers (tapped), Demolition Field, Gloomlake Verge] gy=[Stock Up, Undercity Sewers, Spell Snare, Consult the Star Charts, Requiting Hex, Spell Snare, Stock Up, Deadly Cover-Up] | Gem25P Drama: 18hp hand=[Fountainport, No More Lies, No More Lies, Seam Rip, Get Lost, Seam Rip, Stock Up] lib=45 bf=[Hallowed Fountain, Plains, Sunken Citadel, Restless Anchorage, Demolition Field, Map Token, Fountainport, Map Token, Restless Anchorage (tapped)] gy=[Elspeth, Storm Slayer]\n\
+  Untapped lands: 6, Land drops remaining: 0\n\
+  Message: Choose spell or ability to playRestless Anchorage\n\
+  Choices (3): 1. {T}: Add {W}., 2. {T}: Add {U}., 3. {1}{W}{U}: Until end of turn, Restless Anchorage becomes a 2/3 white and blue Bird creature with flying. It's still a land.\n\
+\n\
+  Chosen: 3. {1}{W}{U}: Until end of turn, Restless Anchorage becomes a 2/3 white and blue Bird creature with flying. It's still a land.\n\
+\n\
+## Tool Reference: choose_action\n\
+\n\
+Players respond to each pending action by calling choose_action. Respond to pending action. Blocks until an action is pending. Use choice for ID/index/yes/no, attackers/blockers for batch combat.\n\
+\n\
+Parameters:\n\
+- choice (string): ID (\"p3\"), index (\"0\"), or yes/no. yes=mulligan/confirm, no=keep/pass.\n\
+- amount (integer): Amount value (for amount actions)\n\
+- amounts (array): Multiple amount values (for multi_amount)\n\
+- pile (integer): Pile number: 1 or 2\n\
+- text (string): Text value for GAME_CHOOSE_CHOICE (pick option by name)\n\
+- mana_plan (string): Comma-separated permanent IDs to tap for mana (e.g. \"p1,p5:1\"). :N selects ability on multi-ability lands. Pool colors (RED, BLUE, etc.) only SPEND existing pool mana, not produce. Auto-tap fills remaining pips.\n\
+- auto_tap (boolean): Auto-tap mana (default true). Set false with mana_plan to require complete plan.\n\
+- attackers (string): Batch attack: comma-separated IDs (e.g. \"p1,p2\") or \"all\". Auto-confirms.\n\
+- blockers (string): Batch block: comma-separated \"blocker:attacker\" pairs (e.g. \"p5:p1,p6:p2\"). Auto-confirms.",
+}

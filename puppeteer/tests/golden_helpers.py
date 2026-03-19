@@ -50,6 +50,7 @@ from scripts.analysis.blunder_analysis import (
 from scripts.analysis.blunder_eval_common import decision_index
 from scripts.analysis.extract_decisions import extract_decisions
 from scripts.export_game import build_export
+from scripts.json5_utils import dumps_json5, loads_json5
 
 # ---------------------------------------------------------------------------
 # Timing instrumentation
@@ -1858,18 +1859,18 @@ def assert_golden_blunder_prompts(
 
     # Oracle cache: load from golden dir, or generate in update mode
     golden_dir = GOLDEN_BLUNDER_DIR / name
-    oracle_cache_path = golden_dir / "oracle_cache.json"
+    oracle_cache_path = golden_dir / "oracle_cache.json5"
 
     if UPDATE_MODE:
         all_names = _collect_card_names(export_data)
         oracle_texts = _get_oracle_texts(sorted(all_names))
         golden_dir.mkdir(parents=True, exist_ok=True)
-        oracle_cache_path.write_text(json.dumps(oracle_texts, indent=2, sort_keys=True) + "\n")
+        oracle_cache_path.write_text(dumps_json5(oracle_texts, sort_keys=True) + "\n")
     else:
         assert oracle_cache_path.exists(), (
             f"Oracle cache missing: {oracle_cache_path}\nRun 'make regen-golden' to generate."
         )
-        oracle_texts = json.loads(oracle_cache_path.read_text())
+        oracle_texts = loads_json5(oracle_cache_path.read_text())
 
     by_index = {decision_index(d): d for d in decisions}
 
@@ -1899,18 +1900,18 @@ def assert_golden_blunder_prompts(
             "user": user,
         }
 
-        golden_file = golden_dir / f"decision_{idx}.json"
-        actual_json = json.dumps(actual, indent=2) + "\n"
+        golden_file = golden_dir / f"decision_{idx}.json5"
+        actual_json5 = dumps_json5(actual) + "\n"
 
         if UPDATE_MODE:
-            golden_file.write_text(actual_json)
+            golden_file.write_text(actual_json5)
             print(f"Updated golden blunder prompt: {golden_file}")
             continue
 
         assert golden_file.exists(), (
             f"Golden blunder prompt missing: {golden_file}\nRun 'make regen-golden' to generate."
         )
-        expected = json.loads(golden_file.read_text())
+        expected = loads_json5(golden_file.read_text())
 
         if actual["system"] != expected["system"]:
             raise AssertionError(

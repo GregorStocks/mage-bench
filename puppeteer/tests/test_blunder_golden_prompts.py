@@ -9,7 +9,6 @@ To update golden files after intentional changes:
     make regen-blunder-golden
 """
 
-import json
 import os
 from pathlib import Path
 
@@ -23,13 +22,14 @@ from scripts.analysis.blunder_analysis import (
 )
 from scripts.analysis.blunder_eval_common import decision_index as get_decision_index
 from scripts.analysis.extract_decisions import extract_decisions
+from scripts.json5_utils import dumps_json5, loads_json5
 
 GOLDEN_DIR = Path(__file__).parent / "golden" / "blunder_prompts" / "game_20260216_074122_g2"
 _GAMES_DIR = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"
 GAME_PATH = _GAMES_DIR / "game_20260216_074122_g2.json.gz"
 if not GAME_PATH.exists():
     GAME_PATH = _GAMES_DIR / "game_20260216_074122_g2.json"
-ORACLE_CACHE = GOLDEN_DIR / "oracle_cache.json"
+ORACLE_CACHE = GOLDEN_DIR / "oracle_cache.json5"
 
 UPDATE_MODE = bool(os.environ.get("UPDATE_BLUNDER_GOLDEN"))
 
@@ -47,7 +47,7 @@ def game_context():
     """Load game data and build context (once per module, no network calls)."""
     data = load_game_export(GAME_PATH)
 
-    oracle_texts = json.loads(ORACLE_CACHE.read_text())
+    oracle_texts = loads_json5(ORACLE_CACHE.read_text())
     decisions = extract_decisions(str(GAME_PATH))
     snapshots = data.snapshots
     overview = _game_overview(data)
@@ -72,7 +72,7 @@ def game_context():
 @pytest.mark.parametrize("decision_index", GOLDEN_DECISION_INDICES)
 def test_blunder_prompt_golden(game_context, decision_index):
     """Verify blunder annotator prompt matches golden reference."""
-    golden_path = GOLDEN_DIR / f"decision_{decision_index}.json"
+    golden_path = GOLDEN_DIR / f"decision_{decision_index}.json5"
 
     decision = game_context["decisions_by_index"][decision_index]
     assert get_decision_index(decision) == decision_index
@@ -99,13 +99,13 @@ def test_blunder_prompt_golden(game_context, decision_index):
 
     if UPDATE_MODE:
         golden_path.parent.mkdir(parents=True, exist_ok=True)
-        golden_path.write_text(json.dumps(actual, indent=2) + "\n")
+        golden_path.write_text(dumps_json5(actual) + "\n")
         return
 
     assert golden_path.exists(), (
         f"Golden file missing: {golden_path}\nRun UPDATE_BLUNDER_GOLDEN=1 make test to generate."
     )
-    expected = json.loads(golden_path.read_text())
+    expected = loads_json5(golden_path.read_text())
 
     assert actual["system"] == expected["system"], "System prompt changed"
     assert actual["user"] == expected["user"], "User message changed"
