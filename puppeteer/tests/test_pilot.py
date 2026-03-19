@@ -527,6 +527,61 @@ async def test_repeated_pass_error_forces_plain_pass():
 
 
 @pytest.mark.asyncio
+async def test_forced_pass_recovery_updates_cursor_and_logs_recovery_call():
+    """Forced pass recovery should flow through normal tool tracking."""
+    session = MagicMock()
+    tool_calls = []
+    pass_call_count = 0
+    forced_result = '{"action_pending": false, "stop_reason": "passed", "board_cursor": 17, "game_seq": 91}'
+
+    async def fake_call_tool(name, args):
+        nonlocal pass_call_count
+        tool_calls.append((name, dict(args) if args else {}))
+        if name == "pass_priority":
+            pass_call_count += 1
+            if pass_call_count == 1:  # prefetch
+                return _mock_tool_result('{"action_pending": true, "action_type": "GAME_SELECT"}')
+            if pass_call_count in (2, 3, 4):  # LLM turns 1-3: repeated error
+                return _mock_tool_result(_PASS_ERROR)
+            if pass_call_count == 5:  # forced plain pass recovery
+                return _mock_tool_result(forced_result)
+            return _mock_tool_result('{"game_over": true}')
+        return _mock_tool_result("{}")
+
+    session.call_tool = AsyncMock(side_effect=fake_call_tool)
+
+    bad_pass = _make_llm_response("pass_priority", _BAD_PASS_ARGS)
+    exit_pass = _make_llm_response("pass_priority", '{"until":"my_turn"}')
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(side_effect=[bad_pass, bad_pass, bad_pass, exit_pass])
+    game_log = MagicMock()
+
+    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+        await run_pilot_loop(
+            session=session,
+            client=client,
+            model="test-model",
+            system_prompt="You are a test.",
+            tools=_TOOLS,
+            prices={},
+            username="test-player",
+            game_log=game_log,
+        )
+
+    pass_calls = [args for name, args in tool_calls if name == "pass_priority"]
+    assert pass_calls[4] == {}
+    assert pass_calls[5] == {"until": "my_turn", "board_cursor": 17}
+
+    tool_events = [call for call in game_log.emit.call_args_list if call.args and call.args[0] == "tool_call"]
+    assert any(
+        call.kwargs["call_id"].endswith(":forced_pass")
+        and call.kwargs["arguments"] == {}
+        and call.kwargs["result"] == forced_result
+        for call in tool_events
+    )
+
+
+@pytest.mark.asyncio
 async def test_different_pass_errors_dont_trigger_forced_pass():
     """Alternating between different errors should not trigger forced pass."""
     session = MagicMock()
