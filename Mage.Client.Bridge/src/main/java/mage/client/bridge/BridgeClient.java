@@ -58,23 +58,19 @@ public class BridgeClient {
     private static final String PERSONALITY_SLEEPWALKER = "sleepwalker";
 
     public static void main(String[] args) throws Exception {
-        String server = getArg(args, "--server", System.getProperty("xmage.bridge.server", "localhost"));
-        int port = getIntArg(args, "--port", Integer.getInteger("xmage.bridge.port", 17171));
-        String username = getArg(args, "--username", System.getProperty("xmage.bridge.username", "bridge-" + System.currentTimeMillis()));
-        String password = getArg(args, "--password", System.getProperty("xmage.bridge.password", ""));
-        String personalityArg = getArg(args, "--personality", System.getProperty("xmage.bridge.personality", PERSONALITY_POTATO));
-        String personality = personalityArg.toLowerCase(Locale.ROOT);
+        String server = getStringSetting(args, "--server", "xmage.bridge.server", "localhost");
+        int port = getIntSetting(args, "--port", "xmage.bridge.port", 17171);
+        String username = getStringSetting(
+            args, "--username", "xmage.bridge.username", "bridge-" + System.currentTimeMillis()
+        );
+        String password = getStringSetting(args, "--password", "xmage.bridge.password", "");
+        String personality = parsePersonality(
+            getStringSetting(args, "--personality", "xmage.bridge.personality", PERSONALITY_POTATO)
+        );
 
-        boolean isSleepwalker = PERSONALITY_SLEEPWALKER.equalsIgnoreCase(personality);
-        boolean isStaller = PERSONALITY_STALLER.equalsIgnoreCase(personality);
-        boolean isPotato = PERSONALITY_POTATO.equalsIgnoreCase(personality);
+        boolean isSleepwalker = PERSONALITY_SLEEPWALKER.equals(personality);
+        boolean isStaller = PERSONALITY_STALLER.equals(personality);
         boolean keepAlive = Boolean.getBoolean("xmage.bridge.keepAlive");
-
-        if (!isSleepwalker && !isStaller && !isPotato) {
-            logger.warn("Unknown personality '" + personalityArg + "', falling back to '" + PERSONALITY_POTATO + "'");
-            personality = PERSONALITY_POTATO;
-            isPotato = true;
-        }
 
         if (isSleepwalker) {
             logger.info("Starting in SLEEPWALKER mode (MCP server on HTTP)");
@@ -106,9 +102,9 @@ public class BridgeClient {
             callbackHandler.setMcpMode(true);
         }
         int actionDelayMs = isStaller
-                ? Integer.getInteger("xmage.bridge.stallerDelayMs", DEFAULT_STALLER_DELAY_MS)
+                ? getIntProperty("xmage.bridge.stallerDelayMs", DEFAULT_STALLER_DELAY_MS)
                 : DEFAULT_ACTION_DELAY_MS;
-        actionDelayMs = Integer.getInteger("xmage.bridge.actionDelayMs", actionDelayMs);
+        actionDelayMs = getIntProperty("xmage.bridge.actionDelayMs", actionDelayMs);
         callbackHandler.setActionDelayMs(actionDelayMs);
         callbackHandler.setKeepAliveAfterGame(isStaller || keepAlive);
         String errorLogPath = System.getProperty("xmage.bridge.errorlog");
@@ -119,7 +115,7 @@ public class BridgeClient {
         if (bridgeLogPath != null && !bridgeLogPath.isEmpty()) {
             callbackHandler.setBridgeLogPath(bridgeLogPath);
         }
-        Integer maxInteractions = Integer.getInteger("xmage.bridge.maxInteractionsPerTurn");
+        Integer maxInteractions = getOptionalIntProperty("xmage.bridge.maxInteractionsPerTurn");
         if (maxInteractions != null) {
             callbackHandler.setMaxInteractionsPerTurn(maxInteractions);
         }
@@ -178,7 +174,7 @@ public class BridgeClient {
         } else if (keepAlive && !isSleepwalker) {
             logger.info("keepAlive mode: skipping initial table join (stdin commands will drive game lifecycle)");
         } else {
-            String deckPath = getArg(args, "--deck", System.getProperty("xmage.bridge.deck"));
+            String deckPath = getStringSetting(args, "--deck", "xmage.bridge.deck", null);
             DeckCardLists deck = loadDeck(deckPath);
             callbackHandler.setDeckList(deck);
 
@@ -204,7 +200,7 @@ public class BridgeClient {
             }
 
             // Start MCP server on HTTP
-            int mcpPort = Integer.getInteger("xmage.bridge.mcpPort", 0);
+            int mcpPort = getIntProperty("xmage.bridge.mcpPort", 0);
             if (mcpPort == 0) {
                 logger.error("xmage.bridge.mcpPort system property is required for sleepwalker mode");
                 System.exit(1);
@@ -555,25 +551,63 @@ public class BridgeClient {
         return deck;
     }
 
-    private static String getArg(String[] args, String name, String defaultValue) {
-        for (int i = 0; i < args.length - 1; i++) {
+    static String parsePersonality(String personalityArg) {
+        String personality = personalityArg.toLowerCase(Locale.ROOT);
+        return switch (personality) {
+            case PERSONALITY_POTATO, PERSONALITY_STALLER, PERSONALITY_SLEEPWALKER -> personality;
+            default -> throw new IllegalArgumentException(
+                "Unknown bridge personality '" + personalityArg
+                    + "'. Expected one of: potato, staller, sleepwalker"
+            );
+        };
+    }
+
+    static String getStringSetting(String[] args, String argName, String propertyName, String defaultValue) {
+        String argValue = getOptionalArg(args, argName);
+        if (argValue != null) {
+            return argValue;
+        }
+
+        String propertyValue = System.getProperty(propertyName);
+        return propertyValue != null ? propertyValue : defaultValue;
+    }
+
+    static int getIntSetting(String[] args, String argName, String propertyName, int defaultValue) {
+        String argValue = getOptionalArg(args, argName);
+        if (argValue != null) {
+            return parseIntSetting(argValue, argName);
+        }
+        return getIntProperty(propertyName, defaultValue);
+    }
+
+    static int getIntProperty(String propertyName, int defaultValue) {
+        String value = System.getProperty(propertyName);
+        return value != null ? parseIntSetting(value, "-D" + propertyName) : defaultValue;
+    }
+
+    static Integer getOptionalIntProperty(String propertyName) {
+        String value = System.getProperty(propertyName);
+        return value != null ? parseIntSetting(value, "-D" + propertyName) : null;
+    }
+
+    private static String getOptionalArg(String[] args, String name) {
+        for (int i = 0; i < args.length; i++) {
             if (args[i].equals(name)) {
+                if (i + 1 >= args.length || args[i + 1].startsWith("--")) {
+                    throw new IllegalArgumentException("Missing value for " + name);
+                }
                 return args[i + 1];
             }
         }
-        return defaultValue;
+        return null;
     }
 
-    private static int getIntArg(String[] args, String name, int defaultValue) {
-        String value = getArg(args, name, null);
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                logger.warn("Invalid integer for " + name + ": " + value + ", using default: " + defaultValue);
-            }
+    private static int parseIntSetting(String value, String source) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid integer for " + source + ": " + value, e);
         }
-        return defaultValue;
     }
 
 }
