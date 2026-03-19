@@ -35,6 +35,10 @@ public enum CombatManager {
 
     public void showCombat(List<CombatGroupView> combatView, UUID gameId) {
         ArrowBuilder.getBuilder().removeArrowsByType(gameId, ArrowBuilder.Type.COMBAT);
+        if (!canDisplayCombat(gameId)) {
+            hideCombat(gameId);
+            return;
+        }
         displayArrows(combatView, gameId);
     }
 
@@ -72,7 +76,7 @@ public enum CombatManager {
     private void drawAttacker(CombatGroupView group, CardView attacker, UUID gameId) {
         for (PlayAreaPanel pa2 : MageFrame.getGamePlayers(gameId).values()) {
             MageCard attackerCard = pa2.getBattlefieldPanel().getPermanentPanels().get(attacker.getId());
-            if (attackerCard != null) {
+            if (isShowing(attackerCard)) {
                 drawDefender(group, attackerCard, gameId);
                 drawBlockers(group, attackerCard, gameId);
             }
@@ -85,8 +89,11 @@ public enum CombatManager {
             // if attacker was blocked then use another arrow color
             Color attackColor = group.isBlocked() ? ARROW_COLOR_BLOCKED_ATTACKER : ARROW_COLOR_ATTACKER;
             parentPoint = getParentPoint(attackerCard);
+            if (parentPoint == null) {
+                return;
+            }
             PlayAreaPanel p = MageFrame.getGamePlayers(gameId).get(defenderId);
-            if (p != null) {
+            if (isShowing(p)) {
                 // attack to player
                 Point target = p.getLocationOnScreen();
                 target.translate(-parentPoint.x, -parentPoint.y);
@@ -97,7 +104,7 @@ public enum CombatManager {
                 // attack to planeswalker
                 for (PlayAreaPanel pa : MageFrame.getGamePlayers(gameId).values()) {
                     MageCard permanent = pa.getBattlefieldPanel().getPermanentPanels().get(defenderId);
-                    if (permanent != null) {
+                    if (isShowing(permanent)) {
                         Point target = permanent.getCardLocationOnScreen().getCardPoint();
                         target.translate(-parentPoint.x, -parentPoint.y);
                         Point attackerPoint = attackerCard.getCardLocationOnScreen().getCardPoint();
@@ -113,8 +120,11 @@ public enum CombatManager {
         for (CardView blocker : group.getBlockers().values()) {
             for (PlayAreaPanel pa : MageFrame.getGamePlayers(gameId).values()) {
                 MageCard blockerCard = pa.getBattlefieldPanel().getPermanentPanels().get(blocker.getId());
-                if (blockerCard != null) {
+                if (isShowing(blockerCard)) {
                     parentPoint = getParentPoint(blockerCard);
+                    if (parentPoint == null) {
+                        continue;
+                    }
                     Point blockerPoint = blockerCard.getCardLocationOnScreen().getCardPoint();
                     blockerPoint.translate(-parentPoint.x, -parentPoint.y);
                     Point attackerPoint = attackerCard.getCardLocationOnScreen().getCardPoint();
@@ -145,8 +155,28 @@ public enum CombatManager {
     private Point getParentPoint(MageCard permanent) {
         if (parentPoint == null) {
             Component parentComponent = SwingUtilities.getRoot(permanent);
+            if (!isShowing(parentComponent)) {
+                return null;
+            }
             parentPoint = parentComponent.getLocationOnScreen();
         }
         return parentPoint;
+    }
+
+    private boolean canDisplayCombat(UUID gameId) {
+        Map<UUID, PlayAreaPanel> players = MageFrame.getGamePlayers(gameId);
+        if (players == null || players.isEmpty()) {
+            return false;
+        }
+        for (PlayAreaPanel playerPanel : players.values()) {
+            if (!isShowing(playerPanel)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isShowing(Component component) {
+        return component != null && component.isShowing();
     }
 }
