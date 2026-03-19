@@ -26,8 +26,8 @@ Pick and solve exactly **one** issue, then create a PR.
 
    Canonicalize the argument to the basename expected by `scripts/autoclaim-issue.py`:
    - Issue filenames are prefixed `p1-...`, `p2-...`, `p3-...`, `p4-...`, or `blocked-...`
-   - If they passed `issues/<name>.json`, strip the leading `issues/`
-   - If they passed `<name>` without `.json`, try `<name>.json`
+   - If they passed `issues/<name>.json5`, strip the leading `issues/`
+   - If they passed `<name>` without `.json5`, try `<name>.json5`
    - If they passed a path or near-exact basename that uniquely identifies one file under `issues/`, use that file's basename
 
    Do **not** silently switch to a different issue or auto-pick a replacement. If there is no single obvious match, **stop immediately** and ask the user to clarify instead of guessing.
@@ -40,7 +40,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
    Look at the output. If any `blocked-` issue has **higher priority** (lower number) than the highest-priority unblocked issue:
 
-   1. Read the blocked issue's JSON file — the `blocked` field is a string describing why it's blocked
+   1. Read the blocked issue's JSON5 file — the `blocked` field is a string describing why it's blocked
    2. Investigate whether the blocker has been resolved: check the codebase, git history, external conditions described in the blocker string
    3. If the blocker **IS resolved**: remove the `blocked` field from the JSON, rename the file from `blocked-<name>.json` to `p{priority}-<name>.json`, and commit the change (include it in your working branch). Then claim that issue in step 3.
    4. If the blocker **is NOT resolved**: skip it and continue to step 3 with auto-claim
@@ -55,7 +55,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
    This auto-picks the highest-priority unclaimed issue, skipping issues with a truthy `blocked` field (those have preconditions that need manual review). The `blocked` field can be `true` or a string describing the blocker.
 
-   **Only if the user explicitly passed an issue name** (e.g. `/solve-issue populate-deck-strategies` or `/solve-issue issues/populate-deck-strategies.json`), claim that resolved canonical issue instead:
+   **Only if the user explicitly passed an issue name** (e.g. `/solve-issue populate-deck-strategies` or `/solve-issue issues/populate-deck-strategies.json5`), claim that resolved canonical issue instead:
 
    ```bash
    uv run python scripts/autoclaim-issue.py <resolved-issue-name>
@@ -67,7 +67,7 @@ Pick and solve exactly **one** issue, then create a PR.
    - If you later merge `origin/master` and the claimed issue file was renamed (for example because issue filename prefixes changed), immediately update the PR body to use the new canonical `<!-- claim: ... -->` tag before continuing. `finalize-issue-pr.py` preserves the current PR tag verbatim.
    - If the script **fails** (exit 1 or 2): **stop immediately**. Tell the user no issue was claimed and do NOT proceed. You must not work on any issue you haven't successfully claimed — no exceptions. The claiming system prevents multiple Claudes from working on the same issue; bypassing it causes wasted work and merge conflicts.
 4. **Check if already fixed** — before planning anything, check whether the issue was already resolved and the issue file just wasn't cleaned up. Do this by:
-   - Finding when the authoritative claimed issue file was created (`git log --diff-filter=A -- issues/<filename>.json`)
+   - Finding when the authoritative claimed issue file was created (`git log --diff-filter=A -- issues/<filename>.json5`)
    - Reviewing git history since that date for commits that look like they address the issue
    - Reading the relevant code to see if the described bug/problem still exists
 
@@ -104,7 +104,7 @@ Pick and solve exactly **one** issue, then create a PR.
    - If your code changes prompt rendering, bridge responses, MCP tool output, replay behavior, or exported game data, proactively search existing goldens for the affected prompt fragment or behavior and regenerate every impacted golden before moving on. Do not assume a newly added golden is the only file that needs updating, and do not wait for CI to discover stale goldens you could have found locally.
 9. Run `make check` to verify lint, typecheck, and tests pass
 
-10. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
+10. Delete the issue file (e.g., `rm issues/<issue-filename>.json5`) and **include the deletion in the commit** — the issue removal must ship with the fix
 
     - If you merged `origin/master` after claiming, re-check whether the issue file was renamed (for example to add a priority prefix or `blocked-` prefix) and delete the renamed path that now exists on your branch.
 

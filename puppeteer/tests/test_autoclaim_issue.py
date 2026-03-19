@@ -1,8 +1,9 @@
 """Tests for scripts/autoclaim-issue.py."""
 
 import importlib.util
-import json
 from pathlib import Path
+
+from scripts.json5_utils import dumps_json5
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
 
@@ -21,9 +22,15 @@ autoclaim_issue = _import_script("autoclaim-issue")
 def test_load_issues_skips_blocked_and_sorts_by_priority(tmp_path: Path) -> None:
     issues_dir = tmp_path / "issues"
     issues_dir.mkdir()
-    (issues_dir / "p3-third.json").write_text(json.dumps({"title": "Third", "priority": 3}))
-    (issues_dir / "blocked-manual.json").write_text(json.dumps({"title": "Manual", "priority": 1, "blocked": True}))
-    (issues_dir / "p1-first.json").write_text(json.dumps({"title": "First", "priority": 1}))
+    (issues_dir / "p3-third.json5").write_text(dumps_json5({"title": "Third", "priority": 3}))
+    (issues_dir / "blocked-manual.json5").write_text(dumps_json5({"title": "Manual", "priority": 1, "blocked": True}))
+    (issues_dir / "p1-first.json5").write_text(
+        """{
+  title: "First",
+  priority: 1,
+}
+"""
+    )
 
     autoclaim_issue.ISSUES_DIR = issues_dir
 

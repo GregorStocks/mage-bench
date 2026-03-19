@@ -130,17 +130,17 @@ For every potential bug you identify:
    ```
 
    Look for commits that mention the same area (bridge, MCP tools, mana, combat, etc.). If a commit clearly fixes the bug, **skip it** — note in your analysis that the bug existed but has since been fixed, and move on.
-   If an older analysis references an `issues/*.json` file that no longer exists on the current branch, treat that as a strong hint that a fix commit deleted the issue file after landing the fix. Confirm with `git log --all -- issues/<filename>` or `git show <commit>`, then mention the fix instead of re-filing.
+   If an older analysis references an `issues/*.json5` file that no longer exists on the current branch, treat that as a strong hint that a fix commit deleted the issue file after landing the fix. Confirm with `git log --all -- issues/<filename>` or `git show <commit>`, then mention the fix instead of re-filing.
 3. **If unsure whether a fix applies**, file the issue but note the possibly-relevant commit in the description so the next person can verify quickly.
 
 Only file issues for bugs that appear to **still be present** on `origin/master`. The point of fast-analysis is to find bugs we haven't caught yet, not to re-document known/fixed ones.
 
 For each **code bug** found (not model behavior issues), create an issue in `issues/`:
 
-- Filename: `issues/p{priority}-short-kebab-summary.json`
-- Use `issues/blocked-short-kebab-summary.json` only when Gregor explicitly says the issue has manual preconditions; those files should also include `"blocked": true`
+- Filename: `issues/p{priority}-short-kebab-summary.json5`
+- Use `issues/blocked-short-kebab-summary.json5` only when Gregor explicitly says the issue has manual preconditions; those files should also include `"blocked": true`
 
-```json
+```json5
 {
   "title": "Short summary",
   "description": "Description with evidence from gz analysis.\n\nEvidence:\n- game {game_id}: [error pattern description]\n- llmEvents tool_call failures: [count and pattern]\n\nSuggested fix: ...",

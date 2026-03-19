@@ -1,9 +1,9 @@
 """Tests for scripts/checks/lint_issues.py."""
 
-import json
 from pathlib import Path
 
 from scripts.checks.lint_issues import lint_issues
+from scripts.json5_utils import dumps_json5
 
 
 def _make_valid_issue() -> dict:
@@ -20,7 +20,7 @@ def _make_valid_issue() -> dict:
 
 
 def _write_issue(issues_dir: Path, name: str, data: dict) -> None:
-    (issues_dir / f"{name}.json").write_text(json.dumps(data))
+    (issues_dir / f"{name}.json5").write_text(dumps_json5(data))
 
 
 def test_passes_on_valid_issue(tmp_path: Path) -> None:
@@ -45,6 +45,25 @@ def test_passes_with_string_blocked(tmp_path: Path) -> None:
     issue = _make_valid_issue()
     issue["blocked"] = "Waiting for upstream dependency fix."
     _write_issue(issues_dir, "blocked-good-issue", issue)
+    assert lint_issues(tmp_path) == []
+
+
+def test_passes_on_json5_syntax(tmp_path: Path) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    (issues_dir / "p2-json5-issue.json5").write_text(
+        """{
+  title: "Test issue",
+  description: "A test issue",
+  status: "open",
+  priority: 2,
+  type: "bug",
+  labels: ["test"],
+  created_at: "2026-03-01T12:00:00.000000-08:00",
+  updated_at: "2026-03-01T12:00:00.000000-08:00",
+}
+"""
+    )
     assert lint_issues(tmp_path) == []
 
 
@@ -106,6 +125,14 @@ def test_catches_missing_required_prefix(tmp_path: Path) -> None:
     _write_issue(issues_dir, "bad-issue", _make_valid_issue())
     errors = lint_issues(tmp_path)
     assert any("filename must start with p1-/p2-/p3-/p4-/blocked-" in e for e in errors)
+
+
+def test_catches_legacy_json_extension(tmp_path: Path) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    (issues_dir / "p2-legacy.json").write_text("{}")
+    errors = lint_issues(tmp_path)
+    assert errors == ["p2-legacy.json: legacy issue file extension; rename to .json5"]
 
 
 def test_real_issues_directory() -> None:

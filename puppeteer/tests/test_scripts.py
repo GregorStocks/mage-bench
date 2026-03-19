@@ -11,6 +11,7 @@ import pytest
 
 from schemas.game_export_types import ToolCallEvent
 from scripts import scryfall
+from scripts.json5_utils import dumps_json5
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
 CLAIM_NS = 946688400000000000
@@ -46,6 +47,11 @@ def _run_result(stdout: str, returncode: int = 0) -> MagicMock:
     return result
 
 
+def _write_issue(issues_dir: Path, name: str, data: dict, *, as_json5_text: str | None = None) -> None:
+    text = as_json5_text if as_json5_text is not None else dumps_json5(data)
+    (issues_dir / f"{name}.json5").write_text(text)
+
+
 query_issues = _import_script("query-issues")
 claim_issue = _import_script("claim-issue")
 finalize_issue_pr = _import_script("finalize-issue-pr")
@@ -67,9 +73,18 @@ class TestQueryIssues:
     def test_sorted_by_priority(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         issues_dir = tmp_path / "issues"
         issues_dir.mkdir()
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 3}))
-        (issues_dir / "bug-b.json").write_text(json.dumps({"title": "Bug B", "priority": 1}))
-        (issues_dir / "bug-c.json").write_text(json.dumps({"title": "Bug C", "priority": 2}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 3})
+        _write_issue(
+            issues_dir,
+            "bug-b",
+            {"title": "Bug B", "priority": 1},
+            as_json5_text="""{
+  title: "Bug B",
+  priority: 1,
+}
+""",
+        )
+        _write_issue(issues_dir, "bug-c", {"title": "Bug C", "priority": 2})
 
         with (
             patch.object(query_issues, "ISSUES_DIR", issues_dir),
@@ -87,7 +102,7 @@ class TestQueryIssues:
     def test_output_format(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         issues_dir = tmp_path / "issues"
         issues_dir.mkdir()
-        (issues_dir / "my-issue.json").write_text(json.dumps({"title": "My Title", "priority": 2}))
+        _write_issue(issues_dir, "my-issue", {"title": "My Title", "priority": 2})
 
         with (
             patch.object(query_issues, "ISSUES_DIR", issues_dir),
@@ -149,14 +164,14 @@ class TestClaimIssue:
 
     def test_master_branch_exits_2(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
 
         branch_result = MagicMock()
         branch_result.stdout = "master\n"
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-a.json5"]),
             patch.object(claim_issue, "run", return_value=branch_result),
             pytest.raises(SystemExit, match="2"),
         ):
@@ -164,7 +179,7 @@ class TestClaimIssue:
 
     def test_conflicting_open_branch_pr_exits_2(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
 
         branch_result = MagicMock()
         branch_result.stdout = "my-branch\n"
@@ -204,8 +219,8 @@ class TestClaimIssue:
 
     def test_stale_branch_pr_for_other_issue_is_retargeted(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
-        (issues_dir / "bug-b.json").write_text(json.dumps({"title": "Bug B", "priority": 2}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
+        _write_issue(issues_dir, "bug-b", {"title": "Bug B", "priority": 2})
 
         branch_result = MagicMock()
         branch_result.stdout = "my-branch\n"
@@ -290,8 +305,8 @@ class TestClaimIssue:
 
     def test_stale_branch_pr_does_not_hijack_existing_target_claim(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
-        (issues_dir / "bug-b.json").write_text(json.dumps({"title": "Bug B", "priority": 2}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
+        _write_issue(issues_dir, "bug-b", {"title": "Bug B", "priority": 2})
 
         branch_result = MagicMock()
         branch_result.stdout = "my-branch\n"
@@ -383,7 +398,7 @@ class TestClaimIssue:
 
     def test_existing_branch_pr_for_same_issue_is_idempotent(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
 
         branch_result = MagicMock()
         branch_result.stdout = "my-branch\n"
@@ -424,7 +439,7 @@ class TestClaimIssue:
     def test_race_recheck_passes(self, tmp_path: Path) -> None:
         """Both checks return our PR as winner — claim succeeds, sleep is called."""
         issues_dir = tmp_path
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
 
         branch_result = MagicMock()
         branch_result.stdout = "my-branch\n"
@@ -473,7 +488,7 @@ class TestClaimIssue:
     def test_race_recheck_fails(self, tmp_path: Path) -> None:
         """First check passes, re-check finds lower PR — exits 1."""
         issues_dir = tmp_path
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
 
         branch_result = MagicMock()
         branch_result.stdout = "my-branch\n"
@@ -531,7 +546,7 @@ class TestClaimIssue:
     def test_race_first_check_fails_no_sleep(self, tmp_path: Path) -> None:
         """First check already finds lower PR — exits 1 without sleeping."""
         issues_dir = tmp_path
-        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
 
         branch_result = MagicMock()
         branch_result.stdout = "my-branch\n"

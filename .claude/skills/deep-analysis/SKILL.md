@@ -124,10 +124,10 @@ If a commit clearly fixes the bug, skip filing the issue. If unsure, file it and
 
 Create issue files in `issues/`:
 
-- Filename: `issues/p{priority}-short-kebab-summary.json`
-- Use `issues/blocked-short-kebab-summary.json` only when Gregor explicitly says the issue has manual preconditions; those files should also include `"blocked": true`
+- Filename: `issues/p{priority}-short-kebab-summary.json5`
+- Use `issues/blocked-short-kebab-summary.json5` only when Gregor explicitly says the issue has manual preconditions; those files should also include `"blocked": true`
 
-```json
+```json5
 {
   "title": "Short summary",
   "description": "Full description with root cause analysis.\n\nEvidence:\n- ~/.mage-bench/logs/game_.../Player_errors.log: NPE at line 42\n- ~/.mage-bench/logs/game_.../Player_bridge.jsonl: repeated cast-cancel pattern\n\nSource: BridgeCallbackHandler.java:1407 — cv.getDisplayName() returns null\n\nSuggested fix: null-guard displayName before passing to StringBuilder",
