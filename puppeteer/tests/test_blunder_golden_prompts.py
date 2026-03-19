@@ -58,8 +58,16 @@ def game_context():
     # Build index for quick lookup by decision_index
     by_index = {get_decision_index(d): d for d in decisions}
 
+    # Build preceding-decision lookup (same logic as eval_decisions)
+    preceding_by_index: dict[int, object] = {}
+    for i, d in enumerate(decisions):
+        if i > 0:
+            preceding_by_index[get_decision_index(d)] = decisions[i - 1]
+
     return {
         "decisions_by_index": by_index,
+        "preceding_by_index": preceding_by_index,
+        "decisions": decisions,
         "snapshots": snapshots,
         "overview": overview,
         "oracle_texts": oracle_texts,
@@ -109,3 +117,57 @@ def test_blunder_prompt_golden(game_context, decision_index):
 
     assert actual["system"] == expected["system"], "System prompt changed"
     assert actual["user"] == expected["user"], "User message changed"
+
+
+# Test preceding action context (the feature added in v34).
+# Decision 64 has a preceding decision (63) — this golden verifies the
+# "## Preceding Action" section appears in the prompt as the production
+# pipeline would produce it.
+PRECEDING_GOLDEN_INDEX = 64
+
+
+def test_blunder_prompt_with_preceding_action(game_context):
+    """Verify preceding action context appears in prompt like the production pipeline."""
+    golden_path = GOLDEN_DIR / f"decision_{PRECEDING_GOLDEN_INDEX}_with_preceding.json"
+
+    decision = game_context["decisions_by_index"][PRECEDING_GOLDEN_INDEX]
+    preceding = game_context["preceding_by_index"].get(PRECEDING_GOLDEN_INDEX)
+    assert preceding is not None, f"Decision {PRECEDING_GOLDEN_INDEX} has no preceding decision"
+
+    system, user = build_decision_prompt(
+        overview=game_context["overview"],
+        decision=decision,
+        oracle_texts=game_context["oracle_texts"],
+        snapshots=game_context["snapshots"],
+        actions_by_turn=game_context["actions_by_turn"],
+        num_players=game_context["num_players"],
+        all_actions=game_context["all_actions"],
+        preceding_decision=preceding,
+    )
+
+    actual = {
+        "decision_index": PRECEDING_GOLDEN_INDEX,
+        "turn": decision.get("turn"),
+        "phase": decision.get("phase"),
+        "player": decision["player"],
+        "message": decision.get("message", ""),
+        "system": system,
+        "user": user,
+    }
+
+    if UPDATE_MODE:
+        golden_path.parent.mkdir(parents=True, exist_ok=True)
+        golden_path.write_text(json.dumps(actual, indent=2) + "\n")
+        return
+
+    assert golden_path.exists(), (
+        f"Golden file missing: {golden_path}\nRun UPDATE_BLUNDER_GOLDEN=1 make test to generate."
+    )
+    expected = json.loads(golden_path.read_text())
+
+    assert actual["system"] == expected["system"], "System prompt changed"
+    assert actual["user"] == expected["user"], "User message changed"
+    assert "## Preceding Action" in actual["user"], (
+        "Preceding action section missing from prompt — "
+        "build_decision_prompt should include it when preceding_decision is provided"
+    )
