@@ -2,6 +2,7 @@ import { test, expect, describe } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
+import { parseJSON5 } from "../../src/utils/parse-json5.ts";
 import { loadLatestCompletedTournament } from "../../src/utils/season-data.ts";
 import {
   buildReplayTitle,
@@ -38,14 +39,14 @@ function escapeHtml(text) {
 
 function readGameExport(slug) {
   const publicGamesDir = path.join(process.cwd(), "public", "games");
-  const jsonPath = path.join(publicGamesDir, `${slug}.json`);
-  if (fs.existsSync(jsonPath)) {
-    return JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+  const json5Path = path.join(publicGamesDir, `${slug}.json5`);
+  if (fs.existsSync(json5Path)) {
+    return parseJSON5(fs.readFileSync(json5Path, "utf-8"));
   }
 
-  const gzPath = path.join(publicGamesDir, `${slug}.json.gz`);
+  const gzPath = path.join(publicGamesDir, `${slug}.json5.gz`);
   if (fs.existsSync(gzPath)) {
-    return JSON.parse(zlib.gunzipSync(fs.readFileSync(gzPath)).toString("utf-8"));
+    return parseJSON5(zlib.gunzipSync(fs.readFileSync(gzPath)).toString("utf-8"));
   }
 
   throw new Error(`Missing game export for ${slug}`);
@@ -213,10 +214,10 @@ describe("game pages", () => {
     const publicGamesDir = path.join(process.cwd(), "public", "games");
     const gameFiles = fs
       .readdirSync(publicGamesDir)
-      .filter((f) => f.startsWith("game_") && f.endsWith(".json"))
+      .filter((f) => f.startsWith("game_") && f.endsWith(".json5"))
       .sort();
     expect(gameFiles.length).toBeGreaterThan(0);
-    const data = JSON.parse(
+    const data = parseJSON5(
       fs.readFileSync(path.join(publicGamesDir, gameFiles[0]), "utf-8")
     );
     expect(data.totalTurns).toBeGreaterThan(0);

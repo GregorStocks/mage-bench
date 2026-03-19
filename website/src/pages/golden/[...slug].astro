@@ -6,6 +6,7 @@ import '../../styles/game-header.css';
 import '../../styles/shared.css';
 import fs from 'node:fs';
 import path from 'node:path';
+import { parseJSON5 } from '../../utils/parse-json5';
 
 const goldenDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden');
 const exportsDir = path.join(goldenDir, 'exports');
@@ -17,16 +18,16 @@ export function getStaticPaths() {
     return [];
   }
   return fs.readdirSync(exportsDir)
-    .filter((f: string) => f.endsWith('.json'))
-    .map((f: string) => f.replace('.json', ''))
+    .filter((f: string) => f.endsWith('.json5'))
+    .map((f: string) => f.replace('.json5', ''))
     .map((name: string) => ({ params: { slug: name } }));
 }
 
 const { slug } = Astro.params;
 
 // Load export data
-const exportFile = path.join(exportsDir, slug + '.json');
-const exportData: unknown = JSON.parse(fs.readFileSync(exportFile, 'utf-8'));
+const exportFile = path.join(exportsDir, slug + '.json5');
+const exportData: unknown = parseJSON5(fs.readFileSync(exportFile, 'utf-8'));
 
 interface PromptMessage {
   role: string;
@@ -37,7 +38,7 @@ interface PromptMessage {
 
 // Extract MCP tool results from prompt fixture (for the JSON panel)
 function extractMcpFixture(promptFile: string): { gameState: unknown, passPriority: unknown } {
-  const messages = JSON.parse(fs.readFileSync(promptFile, 'utf-8')) as PromptMessage[];
+  const messages = parseJSON5(fs.readFileSync(promptFile, 'utf-8')) as PromptMessage[];
   const toolCallNames: Record<string, string> = {};
   for (const msg of messages) {
     if (msg.role === 'assistant' && msg.tool_calls) {
@@ -60,7 +61,7 @@ function extractMcpFixture(promptFile: string): { gameState: unknown, passPriori
   return { gameState, passPriority };
 }
 
-const promptFile = path.join(promptsDir, slug + '.json');
+const promptFile = path.join(promptsDir, slug + '.json5');
 const fixture = fs.existsSync(promptFile)
   ? extractMcpFixture(promptFile)
   : { gameState: null, passPriority: null };
