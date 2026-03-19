@@ -435,8 +435,8 @@ class TestExportSchema:
         schema = _load_schema(8)
         defs = schema["$defs"]
 
-        _assert_typed_dict_matches_schema(GameExport, schema=schema)
-        _assert_typed_dict_matches_schema(
+        _assert_dataclass_matches_schema(GameExport, schema=schema)
+        _assert_dataclass_matches_schema(
             BuiltGameExport,
             schema=schema,
             required_override=set(schema["required"]) - {"annotations", "blunderScriptVersion"},
@@ -516,9 +516,9 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert game["version"] == 8
-        assert game["players"][0].toolCallsOk == 3
-        assert game["annotations"] == []
+        assert game.version == 8
+        assert game.players[0].toolCallsOk == 3
+        assert game.annotations == []
 
     def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v8.json.gz"
@@ -541,7 +541,7 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert game["id"] == "test_v8"
+        assert game.id == "test_v8"
 
     def test_loader_coerces_board_and_stack_leaf_records_to_dataclasses(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v8.json"
@@ -632,13 +632,14 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        snap = game["snapshots"][0]
+        snap = game.snapshots[0]
         battlefield_card = snap.players[0].battlefield[0]
         stack_item = snap.stack[0]
         target = stack_item.targets[0] if isinstance(stack_item, StackItem) and stack_item.targets else None
         assert snap.combat is not None
         attacker = snap.combat[0].attackers[0]
-        pilot_ctx = game["decisions"][0]["pilotContext"]
+        assert game.decisions is not None
+        pilot_ctx = game.decisions[0]["pilotContext"]
         assert isinstance(pilot_ctx, PilotContext)
         incoming_list = pilot_ctx.get_value("incomingAttackers")
         assert isinstance(incoming_list, list)
@@ -698,7 +699,7 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        snap = game["snapshots"][0]
+        snap = game.snapshots[0]
         assert isinstance(snap.players[0].battlefield[0], Permanent)
         assert isinstance(snap.stack[0], StackItem)
         assert is_game_export(game)
@@ -752,7 +753,7 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        snap = game["snapshots"][0]
+        snap = game.snapshots[0]
         battlefield_card = snap.players[0].battlefield[0]
         assert isinstance(battlefield_card, Permanent)
         assert battlefield_card._extras["_extras"] == {"nested": True}
@@ -788,8 +789,8 @@ class TestExportSchema:
 
         built = require_built_game_export(payload, source="built export")
 
-        assert built["season"] == 1
-        assert "annotations" not in built
+        assert built.season == 1
+        assert built.annotations is None
 
     def test_built_loader_accepts_unannotated_export(self, tmp_path: Path) -> None:
         path = tmp_path / "built_v8.json"
@@ -814,8 +815,8 @@ class TestExportSchema:
 
         built = load_built_game_export(path)
 
-        assert built["version"] == 8
-        assert "annotations" not in built
+        assert built.version == 8
+        assert built.annotations is None
 
     def test_loader_accepts_empty_decision_strings_allowed_by_schema(self, tmp_path: Path) -> None:
         path = tmp_path / "empty_decision_strings.json"
@@ -855,10 +856,11 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert isinstance(game["decisions"][0], Decision)
-        assert game["decisions"][0].actionType == ""
-        assert game["decisions"][0].responseType == ""
-        assert game["decisions"][0].message == ""
+        assert game.decisions is not None
+        assert isinstance(game.decisions[0], Decision)
+        assert game.decisions[0].actionType == ""
+        assert game.decisions[0].responseType == ""
+        assert game.decisions[0].message == ""
 
     def test_loader_coerces_decision_support_records_to_dataclasses(self, tmp_path: Path) -> None:
         path = tmp_path / "decision_support.json"
@@ -913,7 +915,8 @@ class TestExportSchema:
         path.write_text(json.dumps(payload))
 
         game = load_game_export(path)
-        decision = game["decisions"][0]
+        assert game.decisions is not None
+        decision = game.decisions[0]
         choice = decision["choices"][0]
         pilot_context = decision["pilotContext"]
         item = decision["items"][0]
@@ -969,9 +972,11 @@ class TestExportSchema:
         cloned = copy.deepcopy(built)
         json_ready = game_export_to_jsonable(built)
 
-        assert isinstance(built["llmEvents"][0], GameStartEvent)
-        assert isinstance(built["decisions"][0]["choices"][0], Choice)
-        assert isinstance(cloned["decisions"][0]["choices"][0], Choice)
+        assert isinstance(built.llmEvents[0], GameStartEvent)
+        assert built.decisions is not None
+        assert isinstance(built.decisions[0]["choices"][0], Choice)
+        assert cloned.decisions is not None
+        assert isinstance(cloned.decisions[0]["choices"][0], Choice)
         json_round_trip = json.loads(json.dumps(json_ready))
         assert json_round_trip["llmEvents"][0] == {
             "type": "game_start",

@@ -148,7 +148,7 @@ def _lookup_existing_annotation(
     snapshots: Sequence[Snapshot],
 ) -> Annotation | None:
     """Look up the annotation from the game file (may be stale). For display only."""
-    return lookup_annotation_for_decision(decision, game_data["annotations"])
+    return lookup_annotation_for_decision(decision, game_data.annotations)
 
 
 def _get_current_annotation(
@@ -169,9 +169,9 @@ def _get_current_annotation(
     """
     from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
 
-    game_version = game_data["blunderScriptVersion"]
+    game_version = game_data.blunderScriptVersion
     if game_version >= BLUNDER_SCRIPT_VERSION:
-        ann = lookup_annotation_for_decision(decision, game_data["annotations"])
+        ann = lookup_annotation_for_decision(decision, game_data.annotations)
         return ann, BLUNDER_SCRIPT_VERSION
 
     # Stale game — run annotator on just this decision
@@ -387,7 +387,7 @@ def audit_plays(game_filter: str | None = None) -> None:
 
         game_data = game_data_cache[game_id]
         decisions = decisions_cache[game_id]
-        snapshots = game_data["snapshots"]
+        snapshots = game_data.snapshots
         gz_path = str(game_path_for_id(game_id))
 
         # Find the decision
@@ -397,7 +397,7 @@ def audit_plays(game_filter: str | None = None) -> None:
 
         # Show existing annotation for context (may be stale)
         display_annotation = _lookup_existing_annotation(decision, game_data, snapshots)
-        game_actions = game_data["actions"]
+        game_actions = game_data.actions
         print(
             format_play_context(
                 game_id, decision, snapshots, display_annotation, game_actions
@@ -486,7 +486,7 @@ def add_from_url(url: str) -> None:
     gz_path = str(game_path_for_id(game_id))
     game_data = _load_game_data(gz_path)
 
-    snapshots = game_data["snapshots"]
+    snapshots = game_data.snapshots
     assert 0 <= snapshot < len(snapshots), (
         f"Snapshot {snapshot} out of range [0, {len(snapshots)})"
     )
@@ -527,7 +527,7 @@ def add_from_url(url: str) -> None:
     display_annotation = _lookup_existing_annotation(
         best_decision, game_data, snapshots
     )
-    game_actions = game_data["actions"]
+    game_actions = game_data.actions
     print(
         format_play_context(
             game_id, best_decision, snapshots, display_annotation, game_actions

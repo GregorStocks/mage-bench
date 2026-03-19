@@ -11,7 +11,7 @@ from dataclasses import is_dataclass
 from pathlib import Path
 from typing import Any
 
-from schemas.game_export_types import json_default
+from schemas.game_export_types import BuiltGameExport, GameExport, json_default
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
@@ -45,7 +45,7 @@ def load_raw_game_export(path: str | Path) -> dict[str, Any]:
 
 def write_raw_game_export(
     path: str | Path,
-    data: Mapping[str, Any],
+    data: Mapping[str, Any] | GameExport | BuiltGameExport,
     *,
     compress: bool | None = None,
 ) -> Path:

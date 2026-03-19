@@ -5,6 +5,7 @@ import threading
 import time
 from http.server import HTTPServer
 from pathlib import Path
+from types import SimpleNamespace
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -186,8 +187,8 @@ class TestExpectedApiErrors:
         monkeypatch.setattr(
             blunder_audit_web,
             "_load_game_cached",
-            lambda _game_id: {
-                "snapshots": [
+            lambda _game_id: SimpleNamespace(
+                snapshots=[
                     Snapshot(
                         seq=1,
                         turn=1,
@@ -208,9 +209,9 @@ class TestExpectedApiErrors:
                         stack=[],
                     )
                 ],
-                "actions": [],
-                "annotations": [],
-            },
+                actions=[],
+                annotations=[],
+            ),
         )
         monkeypatch.setattr(
             blunder_audit_web,

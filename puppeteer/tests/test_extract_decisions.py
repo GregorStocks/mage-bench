@@ -2,7 +2,7 @@
 
 import json
 
-from schemas.game_export_types import Snapshot, _llm_event_from_dict
+from schemas.game_export_types import BuiltGameExport, Snapshot, _llm_event_from_dict
 from scripts.analysis.extract_decisions import (
     _extract_decisions_v1,
     _extract_decisions_v2,
@@ -419,10 +419,28 @@ def _v2_llm_response(player: str, ts: str, reasoning: str = "thinking") -> dict:
     return {"type": "llm_response", "player": player, "ts": ts, "reasoning": reasoning}
 
 
-def _v2_game_data(llm_events: list[dict]) -> dict:
+def _v2_game_data(llm_events: list[dict]) -> BuiltGameExport:
     """Build minimal v2 game data."""
-    return {
-        "version": 2,
+    return _minimal_built_export(
+        harnessEpoch=20,
+        llmEvents=_convert_events(llm_events),
+    )
+
+
+def _minimal_built_export(**overrides: object) -> BuiltGameExport:
+    """Build a minimal BuiltGameExport with sensible defaults."""
+    defaults: dict[str, object] = {
+        "version": 8,
+        "id": "test_game",
+        "timestamp": "",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed - Standard",
+        "totalTurns": 0,
+        "winner": None,
+        "harnessEpoch": 0,
+        "youtubeUrl": "",
+        "players": [],
+        "cardImages": {},
         "snapshots": [
             Snapshot(
                 seq=0,
@@ -437,8 +455,13 @@ def _v2_game_data(llm_events: list[dict]) -> dict:
             ),
         ],
         "actions": [],
-        "llmEvents": _convert_events(llm_events),
+        "llmEvents": [],
+        "gameOver": None,
+        "season": 0,
+        "tournament": None,
     }
+    defaults.update(overrides)
+    return BuiltGameExport(**defaults)  # type: ignore[arg-type]
 
 
 class TestResolveChosenIndex:
@@ -807,23 +830,7 @@ class TestExtractDecisionsV1:
                 "result": ca_result,
             },
         ]
-        data = {
-            "snapshots": [
-                Snapshot(
-                    seq=0,
-                    ts="T00",
-                    turn=1,
-                    phase="PRECOMBAT_MAIN",
-                    step=None,
-                    active_player=None,
-                    priority_player=None,
-                    players=[],
-                    stack=[],
-                ),
-            ],
-            "actions": [],
-            "llmEvents": _convert_events(events),
-        }
+        data = _minimal_built_export(llmEvents=_convert_events(events))
         decisions = _extract_decisions_v1(data)
         assert len(decisions) == 1
         assert decisions[0]["chosen"] == 0
@@ -869,23 +876,7 @@ class TestExtractDecisionsV1:
                 "result": json.dumps({"success": True, "action_taken": "selected_choice_text_Black"}),
             },
         ]
-        data = {
-            "snapshots": [
-                Snapshot(
-                    seq=0,
-                    ts="T00",
-                    turn=1,
-                    phase="PRECOMBAT_MAIN",
-                    step=None,
-                    active_player=None,
-                    priority_player=None,
-                    players=[],
-                    stack=[],
-                ),
-            ],
-            "actions": [],
-            "llmEvents": _convert_events(events),
-        }
+        data = _minimal_built_export(llmEvents=_convert_events(events))
         decisions = _extract_decisions_v1(data)
         assert len(decisions) == 1
         assert decisions[0]["chosen_args"] == {"text": "Black"}

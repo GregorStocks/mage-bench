@@ -32,10 +32,10 @@ overview = _game_overview(data)
 card_names = _collect_card_names(data)
 oracle_texts = _get_oracle_texts(sorted(card_names))
 
-game_actions = data["actions"]
+game_actions = data.actions
 abt = _actions_by_turn(game_actions)
-game_snapshots = data["snapshots"]
-num_players = len(data["players"])
+game_snapshots = data.snapshots
+num_players = len(data.players)
 
 system_prompt, user_msg = build_decision_prompt(
     overview=overview,
@@ -57,7 +57,7 @@ out_path.write_text(output)
 # Stats
 sys_tokens = len(system_prompt) // 4
 user_tokens = len(user_msg) // 4
-print(f"Game: {data['id']}")
+print(f"Game: {data.id}")
 print(f"Decision {decision.index}, turn {decision.turn}, {decision.player}")
 print(f"Message: {decision.message[:80] if decision.message else ''}")
 print(f"\nSystem prompt: ~{sys_tokens} tokens")

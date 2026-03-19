@@ -87,7 +87,7 @@ class TestLoadGameValidation:
 
         loaded = blunder_eval_common.load_game(export_path)
 
-        assert loaded["id"] == "game_test_001"
+        assert loaded.id == "game_test_001"
 
     def test_loads_relative_repo_export_path(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         repo_root = tmp_path / "repo"
@@ -105,7 +105,7 @@ class TestLoadGameValidation:
 
         loaded = blunder_eval_common.load_game(Path("website/public/games/game_test_001.json"))
 
-        assert loaded["id"] == "game_test_001"
+        assert loaded.id == "game_test_001"
 
     def test_loads_export_from_system_temp(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         temp_root = tmp_path / "system-temp"
@@ -120,7 +120,7 @@ class TestLoadGameValidation:
 
         loaded = blunder_eval_common.load_game(export_path)
 
-        assert loaded["id"] == "game_test_001"
+        assert loaded.id == "game_test_001"
 
     def test_rejects_path_outside_allowed_roots(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", tmp_path / "repo-games")

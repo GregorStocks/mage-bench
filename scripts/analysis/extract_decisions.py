@@ -396,9 +396,9 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
     In v1, LLMs always call get_action_choices to get choices, then
     choose_action to respond. Decisions anchor on get_action_choices events.
     """
-    snapshots = data["snapshots"]
-    actions = data["actions"]
-    llm_events = data["llmEvents"]
+    snapshots = data.snapshots
+    actions = data.actions
+    llm_events = data.llmEvents
 
     # Collect get_action_choices events with their indices
     choices_events: list[tuple[int, ToolCallEvent]] = []
@@ -579,9 +579,9 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     so decisions anchor on pass_priority/get_action_choices events with
     action_pending=true instead of just get_action_choices.
     """
-    snapshots = data["snapshots"]
-    actions = data["actions"]
-    llm_events = data["llmEvents"]
+    snapshots = data.snapshots
+    actions = data.actions
+    llm_events = data.llmEvents
 
     # Collect decision source events
     decision_sources: list[tuple[int, ToolCallEvent]] = []
@@ -763,11 +763,11 @@ def extract_decisions(gz_path: str) -> list[Decision]:
     """
     data = load_built_game_export(gz_path)
 
-    assert "decisions" in data, (
+    assert data.decisions is not None, (
         f"Game export {gz_path} missing decisions[] field — "
         "all exports must have pre-built decisions"
     )
-    return list(data["decisions"])
+    return list(data.decisions)
 
 
 _CAST_PROMPT_PREFIXES = (

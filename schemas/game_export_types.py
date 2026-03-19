@@ -16,7 +16,7 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import Any, ClassVar, Literal, TypeAlias, TypeVar, cast
 
-from typing_extensions import TypedDict, TypeGuard, TypeIs
+from typing_extensions import TypeGuard, TypeIs
 
 JsonObject: TypeAlias = dict[str, object]
 T = TypeVar("T")
@@ -812,7 +812,42 @@ class CardMetadata:
     defense: str | None = None
 
 
-class _GameExportBase(TypedDict):
+def _game_export_to_dict(obj: "BuiltGameExport | GameExport") -> JsonObject:
+    """Shared serializer for game export dataclasses.
+
+    Required fields (no default) are always emitted, even when None.
+    Optional fields (default=None) are omitted when None.
+    """
+    result: JsonObject = {}
+    for f in dataclasses.fields(obj):
+        value = getattr(obj, f.name)
+        if value is None and f.default is None:
+            continue
+        result[f.name] = value
+    return result
+
+
+def _game_export_from_dict(
+    cls: type["BuiltGameExport | GameExport"], obj: JsonObject
+) -> "BuiltGameExport | GameExport":
+    """Shared constructor for game export dataclasses from validated dicts."""
+    kwargs: dict[str, object] = {}
+    for f in dataclasses.fields(cls):
+        if (
+            f.default is not dataclasses.MISSING
+            or f.default_factory is not dataclasses.MISSING
+        ):
+            if f.name in obj:
+                kwargs[f.name] = obj[f.name]
+        else:
+            kwargs[f.name] = obj[f.name]
+    return cls(**kwargs)  # type: ignore[arg-type]
+
+
+@dataclass(slots=True)
+class BuiltGameExport:
+    """Game export with optional annotations (pre-annotation stage)."""
+
     version: Literal[8]
     id: str
     timestamp: str
@@ -830,28 +865,53 @@ class _GameExportBase(TypedDict):
     gameOver: GameOver | None
     season: int
     tournament: str | None
+    cardData: dict[str, CardMetadata] | None = None
+    decisions: list[Decision] | None = None
+    errors: list[GameError] | None = None
+    annotations: list[Annotation] | None = None
+    blunderScriptVersion: int | None = None
+
+    def to_dict(self) -> JsonObject:
+        return _game_export_to_dict(self)
+
+    @classmethod
+    def from_dict(cls, obj: JsonObject) -> "BuiltGameExport":
+        return cast("BuiltGameExport", _game_export_from_dict(cls, obj))
 
 
-class _OptionalGameExportFields(TypedDict, total=False):
-    cardData: dict[str, CardMetadata]
-    decisions: list[Decision]
-    errors: list[GameError]
+@dataclass(slots=True)
+class GameExport:
+    """Game export with required annotations (post-annotation stage)."""
 
-
-class _AnnotatedGameExportFields(TypedDict):
+    version: Literal[8]
+    id: str
+    timestamp: str
+    gameType: str
+    deckType: str
+    totalTurns: int
+    winner: str | None
+    harnessEpoch: int
+    youtubeUrl: str
+    players: list[Player]
+    cardImages: dict[str, str]
+    snapshots: list[Snapshot]
+    actions: list[Action]
+    llmEvents: list[LlmEvent]
+    gameOver: GameOver | None
+    season: int
+    tournament: str | None
     annotations: list[Annotation]
     blunderScriptVersion: int
+    cardData: dict[str, CardMetadata] | None = None
+    decisions: list[Decision] | None = None
+    errors: list[GameError] | None = None
 
+    def to_dict(self) -> JsonObject:
+        return _game_export_to_dict(self)
 
-class GameExport(
-    _GameExportBase, _AnnotatedGameExportFields, _OptionalGameExportFields
-):
-    pass
-
-
-class BuiltGameExport(_GameExportBase, _OptionalGameExportFields, total=False):
-    annotations: list[Annotation]
-    blunderScriptVersion: int
+    @classmethod
+    def from_dict(cls, obj: JsonObject) -> "GameExport":
+        return cast("GameExport", _game_export_from_dict(cls, obj))
 
 
 def _type_name(value: object) -> str:
@@ -1939,14 +1999,16 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
     return obj
 
 
-def is_built_game_export(
-    value: object, source: str = "game export"
-) -> TypeIs[BuiltGameExport]:
+def is_built_game_export(value: object, source: str = "game export") -> bool:
+    if isinstance(value, (BuiltGameExport, GameExport)):
+        return True
     _validate_common_game_export(value, source)
     return True
 
 
-def is_game_export(value: object, source: str = "game export") -> TypeIs[GameExport]:
+def is_game_export(value: object, source: str = "game export") -> bool:
+    if isinstance(value, GameExport):
+        return True
     obj = _validate_common_game_export(value, source)
     annotations = _require_key(obj, "annotations", source)
     _require_list(annotations, f"{source}.annotations")
@@ -1958,18 +2020,23 @@ def is_game_export(value: object, source: str = "game export") -> TypeIs[GameExp
 def require_built_game_export(
     value: object, source: str = "game export"
 ) -> BuiltGameExport:
+    if isinstance(value, (BuiltGameExport, GameExport)):
+        return (
+            value
+            if isinstance(value, BuiltGameExport)
+            else BuiltGameExport.from_dict(value.to_dict())
+        )
     assert is_built_game_export(value, source)
-    return cast(
-        BuiltGameExport,
-        _coerce_common_game_export(_require_object(value, source), source),
-    )
+    coerced = _coerce_common_game_export(_require_object(value, source), source)
+    return BuiltGameExport.from_dict(coerced)
 
 
 def require_game_export(value: object, source: str = "game export") -> GameExport:
+    if isinstance(value, GameExport):
+        return value
     assert is_game_export(value, source)
-    return cast(
-        GameExport, _coerce_common_game_export(_require_object(value, source), source)
-    )
+    coerced = _coerce_common_game_export(_require_object(value, source), source)
+    return GameExport.from_dict(coerced)
 
 
 def load_game_export(path: str | Path) -> GameExport:
@@ -2002,6 +2069,8 @@ def json_default(obj: object) -> object:
 
     Usage: ``json.dumps(export, default=json_default)``
     """
+    if isinstance(obj, (GameExport, BuiltGameExport)):
+        return obj.to_dict()
     if isinstance(obj, Decision):
         return obj.to_dict()
     if isinstance(obj, (Choice, MultiAmountItem, PilotContext)):

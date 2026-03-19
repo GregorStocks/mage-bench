@@ -196,7 +196,7 @@ def _build_play_detail(game_id: str, di: int) -> dict:
     game_data = _load_game_cached(game_id)
     decisions = _load_decisions_cached(game_id)
     decision = _find_decision(decisions, di)
-    snapshots = game_data["snapshots"]
+    snapshots = game_data.snapshots
 
     aftermath_idx = compute_aftermath_index(decision, snapshots)
     snap_idx = get_snapshot_index(decision)
@@ -205,10 +205,10 @@ def _build_play_detail(game_id: str, di: int) -> dict:
     before_snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else None
 
     # Look up annotation
-    annotation = lookup_annotation_for_decision(decision, game_data["annotations"])
+    annotation = lookup_annotation_for_decision(decision, game_data.annotations)
 
     # Recent actions
-    game_actions = game_data["actions"]
+    game_actions = game_data.actions
     recent = _recent_actions_before(game_actions, snapshots, snap_idx)
 
     # Get hand from before-snapshot
@@ -274,7 +274,7 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     game_data = _load_game_cached(game_id)
     decisions = _load_decisions_cached(game_id)
     decision = _find_decision(decisions, di)
-    snapshots = game_data["snapshots"]
+    snapshots = game_data.snapshots
     gz_path = str(game_path_for_id(game_id))
 
     try:
@@ -325,7 +325,7 @@ def _find_decisions_at_snapshot(game_id: str, snap_idx: int) -> list[dict]:
     """
     decisions = _load_decisions_cached(game_id)
     game_data = _load_game_cached(game_id)
-    snapshots = game_data["snapshots"]
+    snapshots = game_data.snapshots
 
     results = []
     seen_di: set[int] = set()

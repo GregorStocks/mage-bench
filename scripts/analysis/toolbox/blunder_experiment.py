@@ -395,7 +395,7 @@ def _approach_inline(
     overview: str,
 ) -> ExperimentResult:
     """Approach A: Inline annotation — one Opus call, annotate each decision as you go."""
-    result = ExperimentResult(approach="A_inline", game_id=data["id"], model=OPUS)
+    result = ExperimentResult(approach="A_inline", game_id=data.id, model=OPUS)
     non_forced = [d for d in decisions if not is_forced(d)]
 
     # Format each decision with a clear separator
@@ -500,7 +500,7 @@ def _approach_per_decision(
     thinking: bool | str = False,
 ) -> ExperimentResult:
     """Per-decision approach: one API call per non-forced decision."""
-    result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
+    result = ExperimentResult(approach=approach_name, game_id=data.id, model=model)
     non_forced = [d for d in decisions if not is_forced(d)]
 
     def make_task(d: dict[str, object]) -> tuple[str, str, str]:
@@ -542,7 +542,7 @@ def _approach_thinking(
     overview: str,
 ) -> ExperimentResult:
     """Approach C: Current single-pass with extended thinking enabled."""
-    result = ExperimentResult(approach="C_thinking", game_id=data["id"], model=OPUS)
+    result = ExperimentResult(approach="C_thinking", game_id=data.id, model=OPUS)
     non_forced = [d for d in decisions if not is_forced(d)]
 
     user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
@@ -570,7 +570,7 @@ def _approach_baseline(
     overview: str,
 ) -> ExperimentResult:
     """Baseline: Current single-pass Opus without thinking (v5 logic)."""
-    result = ExperimentResult(approach="baseline", game_id=data["id"], model=OPUS)
+    result = ExperimentResult(approach="baseline", game_id=data.id, model=OPUS)
     non_forced = [d for d in decisions if not is_forced(d)]
 
     user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
@@ -618,7 +618,7 @@ def _approach_per_decision_minimal(
     approach_name: str,
 ) -> ExperimentResult:
     """Per-decision with minimal context: no game overview, just the decision + board state."""
-    result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
+    result = ExperimentResult(approach=approach_name, game_id=data.id, model=model)
     non_forced = [d for d in decisions if not is_forced(d)]
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
@@ -686,7 +686,7 @@ def _approach_flash_opus(
 ) -> ExperimentResult:
     """Two-phase: Flash screens each decision, Opus analyzes flagged ones."""
     result = ExperimentResult(
-        approach="G_flash_opus", game_id=data["id"], model=f"{FLASH}+{OPUS}"
+        approach="G_flash_opus", game_id=data.id, model=f"{FLASH}+{OPUS}"
     )
     non_forced = [d for d in decisions if not is_forced(d)]
 
@@ -758,7 +758,7 @@ def _approach_flash_sonnet(
 ) -> ExperimentResult:
     """Two-phase: sensitive Flash screens each decision, Sonnet+low analyzes flagged."""
     result = ExperimentResult(
-        approach="Q_flash_sonnet", game_id=data["id"], model=f"{FLASH}+{SONNET}"
+        approach="Q_flash_sonnet", game_id=data.id, model=f"{FLASH}+{SONNET}"
     )
     non_forced = [d for d in decisions if not is_forced(d)]
 
@@ -861,7 +861,7 @@ def _approach_batched(
     batch_size: int = BATCH_SIZE,
 ) -> ExperimentResult:
     """Batched per-decision: send batch_size decisions per API call."""
-    result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
+    result = ExperimentResult(approach=approach_name, game_id=data.id, model=model)
     non_forced = [d for d in decisions if not is_forced(d)]
 
     # Build all batches
@@ -988,7 +988,7 @@ def _approach_conversation(
     approach_name: str,
 ) -> ExperimentResult:
     """Multi-turn conversation: send decisions one at a time, accumulate context."""
-    result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
+    result = ExperimentResult(approach=approach_name, game_id=data.id, model=model)
     non_forced = [d for d in decisions if not is_forced(d)]
 
     # Build conversation history incrementally
@@ -1221,7 +1221,7 @@ def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> No
         if not anns:
             continue
         print(f"\n--- {r['approach']} annotations ---")
-        decisions = data.get("decisions")
+        decisions = data.decisions
         num_decisions = len(decisions) if decisions is not None else 0
         for a in anns:
             dec = a.get("decisionIndex", "?")
@@ -1241,8 +1241,8 @@ def _dry_run(gz_path: str) -> None:
     non_forced = [d for d in decisions if not is_forced(d)]
     overview = _game_overview(data)
 
-    print(f"Game: {data['id']}")
-    print(f"Snapshots: {len(data['snapshots'])}")
+    print(f"Game: {data.id}")
+    print(f"Snapshots: {len(data.snapshots)}")
     print(f"Decisions: {len(decisions)} total, {len(non_forced)} non-forced")
     print()
 
@@ -1313,7 +1313,7 @@ def _dry_run(gz_path: str) -> None:
     )
 
     # Show existing annotations for comparison
-    existing = data["annotations"]
+    existing = data.annotations
     if existing:
         print(f"\n=== Existing v5 annotations ({len(existing)}) ===")
         for a in existing:
@@ -1343,7 +1343,7 @@ def main() -> None:
         return
 
     data = _load_game(args.game)
-    game_id = data["id"]
+    game_id = data.id
 
     if args.compare:
         results = _load_results(game_id)

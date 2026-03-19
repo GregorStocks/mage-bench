@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 from schemas.game_export_types import (
+    BuiltGameExport,
     GameExport,
     LlmErrorEvent,
     LlmResponseEvent,
@@ -190,13 +191,18 @@ FORMAT_LABELS: dict[str, str] = {
 }
 
 
-def derive_format(game: Mapping[str, object]) -> str:
+def derive_format(game: Mapping[str, object] | GameExport | BuiltGameExport) -> str:
     """Derive canonical format name from game data.
 
     Requires deckType to be present on the normalized export shape.
     """
-    deck_type = game.get("deckType")
-    assert isinstance(deck_type, str) and deck_type, f"Game {game.get('id', '<unknown>')} missing deckType"
+    if isinstance(game, (GameExport, BuiltGameExport)):
+        deck_type: object = game.deckType
+        game_id: object = game.id
+    else:
+        deck_type = game.get("deckType")
+        game_id = game.get("id", "<unknown>")
+    assert isinstance(deck_type, str) and deck_type, f"Game {game_id} missing deckType"
     if deck_type in _DECK_TYPE_TO_FORMAT:
         return _DECK_TYPE_TO_FORMAT[deck_type]
     return deck_type.lower().replace(" ", "-")
@@ -321,7 +327,7 @@ def extract_placements(game: Mapping[str, object], games_dir: Path | None = None
         return _placements_from_winner(game)
 
     full_game = _load_game_file(game_path)
-    actions = full_game["actions"]
+    actions = full_game.actions
     player_names: list[str] = [p.name for p in players]
     winner = game.get("winner")
     assert winner is None or isinstance(winner, str), (
@@ -749,22 +755,22 @@ def generate_leaderboard_file(
     games_index = []
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        players = game["players"]
+        players = game.players
 
         game_entry: dict[str, Any] = {
-            "id": game["id"],
-            "timestamp": game["timestamp"],
-            "gameType": game["gameType"],
-            "deckType": game["deckType"],
-            "totalTurns": game["totalTurns"],
-            "winner": game["winner"],
+            "id": game.id,
+            "timestamp": game.timestamp,
+            "gameType": game.gameType,
+            "deckType": game.deckType,
+            "totalTurns": game.totalTurns,
+            "winner": game.winner,
             "players": players,
-            "harnessEpoch": game["harnessEpoch"],
-            "season": game["season"],
+            "harnessEpoch": game.harnessEpoch,
+            "season": game.season,
         }
-        if "annotations" in game:
-            game_entry["annotations"] = game["annotations"]
-        if game["tournament"]:
+        if game.annotations is not None:
+            game_entry["annotations"] = game.annotations
+        if game.tournament:
             game_entry["tournament"] = True
         games_index.append(game_entry)
 
@@ -861,9 +867,9 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        epoch = game["harnessEpoch"]
-        players = game["players"]
-        winner = game["winner"]
+        epoch = game.harnessEpoch
+        players = game.players
+        winner = game.winner
 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
@@ -921,7 +927,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
             b["totalThinkingTimeSecs"] += p.thinkingTimeSecs
 
         # Scan llmEvents for per-player operational stats
-        llm_events = game["llmEvents"]
+        llm_events = game.llmEvents
         for ev in llm_events:
             player_name = ev.player
             if player_name not in name_to_key:
@@ -1030,10 +1036,10 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        epoch = game["harnessEpoch"]
+        epoch = game.harnessEpoch
         game_format = derive_format(game)
-        winner = game["winner"]
-        players = game["players"]
+        winner = game.winner
+        players = game.players
 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
@@ -1056,7 +1062,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Track last event timestamp per player for latency gaps
         last_ts: dict[str, datetime] = {}
 
-        for ev in game["llmEvents"]:
+        for ev in game.llmEvents:
             player_name = ev.player
             if player_name not in name_to_key:
                 continue
@@ -1100,7 +1106,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 last_ts[player_name] = ev_ts
 
         # Parse the game timestamp into ISO format for date-based charting
-        raw_ts = game.get("timestamp")
+        raw_ts = game.timestamp
         iso_ts = ""
         if raw_ts:
             # Timestamps are like "20260210_074307"
@@ -1153,7 +1159,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
         games_out.append(
             {
-                "id": game["id"],
+                "id": game.id,
                 "ts": iso_ts,
                 "epoch": epoch,
                 "format": game_format,
