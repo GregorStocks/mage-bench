@@ -39,7 +39,6 @@ from puppeteer.decision_renderer import (
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Action,
-    Choice,
     Decision,
     Annotation,
     GameExport,
@@ -1067,34 +1066,11 @@ def _format_preceding_action(preceding: DecisionRecord) -> str:
     "Select a creature" — e.g. that a land was just played (triggering landfall),
     not that a spell like Hunter's Insight was cast.
     """
-    msg = preceding.message if isinstance(preceding, Decision) else preceding["message"]
-    chosen = (
-        preceding.chosen if isinstance(preceding, Decision) else preceding.get("chosen")
-    )
-    raw_choices = (
-        preceding.choices if isinstance(preceding, Decision) else preceding["choices"]
-    )
-
-    chosen_name: str | None = None
-    if (
-        isinstance(chosen, int)
-        and isinstance(raw_choices, list)
-        and 0 <= chosen < len(raw_choices)
-    ):
-        c = raw_choices[chosen]
-        if isinstance(c, Choice):
-            chosen_name = c.name or c.description or c.id
-        elif isinstance(c, dict):
-            chosen_name = c.get("name") or c.get("description") or c.get("id")
-    elif isinstance(chosen, bool):
-        chosen_name = str(chosen)
-    elif isinstance(chosen, str):
-        chosen_name = chosen
-
+    msg = preceding["message"]
     di = decision_index(preceding)
     parts = [f"[Decision {di}] {msg}"]
-    if chosen_name is not None:
-        parts.append(f"→ Chose: {chosen_name}")
+    if preceding.get("chosen") is not None:
+        parts.append(f"→ Chose: {_chosen_display(preceding)}")
     return "## Preceding Action\n\n" + " ".join(parts)
 
 
@@ -1364,12 +1340,12 @@ def eval_decisions(
     """Evaluate a list of decisions in parallel. Returns {decision_index: result}."""
     # Build preceding-decision lookup from the full decision list (including
     # forced/filtered decisions) so each decision knows what happened just before.
+    # Decisions are always indexed 0..N-1 in order (enforced by export_game.py).
     all_decisions = game_ctx["decisions"]
-    all_sorted = sorted(all_decisions, key=lambda d: decision_index(d))
     preceding_by_idx: dict[int, DecisionRecord] = {}
-    for i, d in enumerate(all_sorted):
+    for i, d in enumerate(all_decisions):
         if i > 0:
-            preceding_by_idx[decision_index(d)] = all_sorted[i - 1]
+            preceding_by_idx[decision_index(d)] = all_decisions[i - 1]
 
     results_by_idx: dict[int, tuple[list[Annotation], float, bool, dict]] = {}
 
