@@ -4,7 +4,7 @@
     "gem25f-medium": { "model": "google/gemini-2.5-flash", "status": "retired", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "gem3f-medium":  { "model": "google/gemini-3-flash-preview", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "gem25p-medium": { "model": "google/gemini-2.5-pro", "status": "retired", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
-    "gem3p-medium":  { "model": "google/gemini-3-pro-preview", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
+    "gem3p-medium":  { "model": "google/gemini-3-pro-preview", "status": "retired", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "haiku-low":     { "model": "anthropic/claude-haiku-4.5", "status": "active", "reasoning_effort": "low", "system_prompt": "default", "toolset": "default" },
     "haiku-medium":  { "model": "anthropic/claude-haiku-4.5", "status": "retired", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "sonnet-medium": { "model": "anthropic/claude-sonnet-4.5", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
@@ -39,6 +39,9 @@
     "qwen3c":        { "model": "qwen/qwen3-coder", "status": "active", "system_prompt": "default", "toolset": "default" },
     "mistlg":        { "model": "mistralai/mistral-large-2512", "status": "active", "system_prompt": "default", "toolset": "default" },
     "gpt54-medium":  { "model": "openai/gpt-5.4", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
-    "gem31fl":       { "model": "google/gemini-3.1-flash-lite-preview", "status": "active", "system_prompt": "default", "toolset": "default" }
+    "gem31fl":       { "model": "google/gemini-3.1-flash-lite-preview", "status": "active", "system_prompt": "default", "toolset": "default" },
+    "sonnet46-medium": { "model": "anthropic/claude-sonnet-4.6", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
+    "gpt54m-medium": { "model": "openai/gpt-5.4-mini", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
+    "gpt54n-low":    { "model": "openai/gpt-5.4-nano", "status": "active", "reasoning_effort": "low", "system_prompt": "default", "toolset": "default" }
   }
 }

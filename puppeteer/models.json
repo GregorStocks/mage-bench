@@ -458,6 +458,40 @@
       "_thinking": false,
       "_tier": "dirt-cheap",
       "_notes": "Google's most cost-efficient model (March 2026). Approaches Gemini 2.5 Flash quality at lower cost. Optimized for high-volume throughput. No reasoning mode."
+    },
+    {
+      "id": "anthropic/claude-sonnet-4.6",
+      "name": "Claude Sonnet 4.6",
+      "name_part": "Son46",
+      "_input_per_m": 3.00,
+      "_output_per_m": 15.00,
+      "_context_k": 1000,
+      "_thinking": true,
+      "_tier": "mid",
+      "cache_control": {"type": "ephemeral"},
+      "_notes": "Successor to Sonnet 4.5, same price. Frontier performance in coding and agentic tasks. Extended thinking. 1M context."
+    },
+    {
+      "id": "openai/gpt-5.4-mini",
+      "name": "GPT-5.4 Mini",
+      "name_part": "G54m",
+      "_input_per_m": 0.75,
+      "_output_per_m": 4.50,
+      "_context_k": 400,
+      "_thinking": true,
+      "_tier": "cheap",
+      "_notes": "GPT-5.4 family small model (March 2026). 2x+ faster than GPT-5.4. Mandatory reasoning with configurable effort. Internal reasoning only — not exposed in response."
+    },
+    {
+      "id": "openai/gpt-5.4-nano",
+      "name": "GPT-5.4 Nano",
+      "name_part": "G54n",
+      "_input_per_m": 0.20,
+      "_output_per_m": 1.25,
+      "_context_k": 400,
+      "_thinking": true,
+      "_tier": "dirt-cheap",
+      "_notes": "GPT-5.4 family smallest model (March 2026). Most cost-efficient 5.4 variant. Mandatory reasoning with configurable effort. Internal reasoning only — not exposed in response."
     }
   ],
   "_thinking_config": {
