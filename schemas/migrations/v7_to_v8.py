@@ -19,6 +19,7 @@ def _annotation_to_decision_index(data: dict) -> dict[int, int]:
     V7 annotations only have snapshotIndex, so we reverse-map by computing
     aftermath snapshots and matching (snapshotIndex, player).
     """
+    from schemas.game_export_types import _coerce_snapshot
     from scripts.analysis.blunder_eval_common import (
         compute_aftermath_index,
         snapshot_index,
@@ -26,9 +27,12 @@ def _annotation_to_decision_index(data: dict) -> dict[int, int]:
 
     decisions = data.get("decisions", [])
     annotations = data.get("annotations", [])
-    snapshots = data.get("snapshots", [])
+    raw_snapshots = data.get("snapshots", [])
     assert decisions, "v7 -> v8 migration requires decisions[] to be present"
 
+    snapshots = [
+        _coerce_snapshot(s, f"snapshots[{i}]") for i, s in enumerate(raw_snapshots)
+    ]
     decision_aftermaths: list[int] = [
         compute_aftermath_index(d, snapshots) for d in decisions
     ]

@@ -9,8 +9,9 @@ Usage:
 """
 
 import argparse
-import json
 from pathlib import Path
+
+from scripts.issue_files import iter_issue_files, load_issue
 
 ISSUES_DIR = Path("issues")
 
@@ -27,8 +28,8 @@ def main() -> None:
     assert ISSUES_DIR.is_dir(), f"Issues directory not found: {ISSUES_DIR}"
 
     issues = []
-    for f in sorted(ISSUES_DIR.glob("*.json")):
-        data = json.loads(f.read_text())
+    for f in iter_issue_files(ISSUES_DIR):
+        data = load_issue(f)
         data["_filename"] = f.stem
         issues.append(data)
 

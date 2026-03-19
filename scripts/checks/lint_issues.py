@@ -1,9 +1,12 @@
-"""Validate issue JSON files in issues/ directory."""
+"""Validate issue JSON5 files in issues/ directory."""
 
-import json
 import re
 import sys
 from pathlib import Path
+
+import pyjson5
+
+from scripts.issue_files import iter_issue_files, load_issue
 
 REQUIRED_FIELDS = {
     "title",
@@ -33,12 +36,16 @@ def lint_issues(project_root: Path) -> list[str]:
 
     errors = []
 
-    for issue_file in sorted(issues_dir.glob("*.json")):
+    for legacy_issue_file in sorted(issues_dir.glob("*.json")):
+        errors.append(
+            f"{legacy_issue_file.name}: legacy issue file extension; rename to .json5"
+        )
+
+    for issue_file in iter_issue_files(issues_dir):
         try:
-            with open(issue_file) as f:
-                issue = json.load(f)
-        except json.JSONDecodeError as e:
-            errors.append(f"{issue_file.name}: invalid JSON - {e}")
+            issue = load_issue(issue_file)
+        except pyjson5.Json5DecoderException as e:
+            errors.append(f"{issue_file.name}: invalid JSON5 - {e}")
             continue
 
         # Filename is the id
