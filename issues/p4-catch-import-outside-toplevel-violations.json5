@@ -1,0 +1,27 @@
+{
+  "title": "Catch import-outside-toplevel violations in lint",
+  "description": "We discovered that function-local imports are currently slipping past lint even though `PLC0415` (`import-outside-toplevel`) is selected in `puppeteer/pyproject.toml`.\n\
+\n\
+Concrete repro from this branch:\n\
+- `scripts/json5_utils.py` briefly had `import pyjson5` inside `loads_json5()`\n\
+- `uv run --project puppeteer ruff check scripts/json5_utils.py` still reported `All checks passed!`\n\
+- a minimal temporary repro with a function-local import also failed to trigger `PLC0415`; Ruff only reported `F401` when the imported name was unused\n\
+\n\
+This is a tooling gap: we do not want hidden function-local imports to land silently. Investigate whether this is a Ruff version/config limitation or a path/config-resolution issue in our setup. If Ruff cannot enforce it reliably, add a dedicated repo lint for import-outside-toplevel and cover it with tests.\n\
+\n\
+Relevant files:\n\
+- `puppeteer/pyproject.toml`\n\
+- `scripts/json5_utils.py`\n\
+- `scripts/checks/`\n\
+- `puppeteer/tests/`",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "lint",
+    "python",
+    "infrastructure",
+  ],
+  "created_at": "2026-03-18T23:59:27.000000-07:00",
+  "updated_at": "2026-03-18T23:59:27.000000-07:00",
+}
