@@ -31,6 +31,7 @@ from scripts.analysis.blunder_analysis import (
     _format_card_ref,
     _format_current_turn_actions,
     _format_decisions,
+    _format_preceding_action,
     _parse_annotation,
     eval_decisions,
     init_api,
@@ -1107,7 +1108,6 @@ class TestMainIntegration:
 
 class TestPrecedingAction:
     def test_format_preceding_action_with_dict_decision(self) -> None:
-        from scripts.analysis.blunder_analysis import _format_preceding_action
 
         preceding = _make_decision(
             decisionIndex=75,
@@ -1124,7 +1124,6 @@ class TestPrecedingAction:
         assert "→ Chose: Evolving Wilds" in result
 
     def test_format_preceding_action_with_no_chosen(self) -> None:
-        from scripts.analysis.blunder_analysis import _format_preceding_action
 
         preceding = _make_decision(
             decisionIndex=10,

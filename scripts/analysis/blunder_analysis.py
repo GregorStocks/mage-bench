@@ -1068,11 +1068,19 @@ def _format_preceding_action(preceding: DecisionRecord) -> str:
     not that a spell like Hunter's Insight was cast.
     """
     msg = preceding.message if isinstance(preceding, Decision) else preceding["message"]
-    chosen = preceding.chosen if isinstance(preceding, Decision) else preceding.get("chosen")
-    raw_choices = preceding.choices if isinstance(preceding, Decision) else preceding["choices"]
+    chosen = (
+        preceding.chosen if isinstance(preceding, Decision) else preceding.get("chosen")
+    )
+    raw_choices = (
+        preceding.choices if isinstance(preceding, Decision) else preceding["choices"]
+    )
 
     chosen_name: str | None = None
-    if isinstance(chosen, int) and isinstance(raw_choices, list) and 0 <= chosen < len(raw_choices):
+    if (
+        isinstance(chosen, int)
+        and isinstance(raw_choices, list)
+        and 0 <= chosen < len(raw_choices)
+    ):
         c = raw_choices[chosen]
         if isinstance(c, Choice):
             chosen_name = c.name or c.description or c.id
