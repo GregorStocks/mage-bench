@@ -1,35 +1,76 @@
 direction: down
 
-style: {
-  fill: "#000000"
+# ═══════════════════════════════════════════════════════════
+#  PALETTE — change colors here, everything else references these
+# ═══════════════════════════════════════════════════════════
+
+vars: {
+  # Accent (muted lime)
+  accent: "#9ece6a"
+  accent-dim: "#6a9e4a"
+  accent-fill: "#0c1a06"
+
+  # Neutrals
+  bg: "#000000"
+  bg-node: "#080808"
+  bg-container: "#040404"
+  bg-artifact: "#060606"
+  fg: "#dddddd"
+  fg-muted: "#606060"
+  border: "#aaaaaa"
+  border-dim: "#2e2e2e"
+
+  # Containers
+  container-stroke: "#303030"
+  container-label: "#505050"
+
+  # External services
+  ext-stroke: "#282828"
+  ext-label: "#484848"
+
+  # Edges
+  edge-accent: "#9ece6a"
+  edge-dim: "#2e2e2e"
+  edge-mid: "#3a3a3a"
+  edge-label: "#333333"
+  edge-internal: "#555555"
 }
 
+style.fill: "${bg}"
+
+# ═══════════════════════════════════════════════════════════
+#  NODE CLASSES
+# ═══════════════════════════════════════════════════════════
+
 classes: {
+  # Standard component
   core: {
     style: {
-      fill: "#080808"
-      stroke: "#aaaaaa"
-      font-color: "#dddddd"
+      fill: "${bg-node}"
+      stroke: "${border}"
+      font-color: "${fg}"
       border-radius: 10
       stroke-width: 2
       font-size: 16
     }
   }
+  # Highlighted component (accent)
   primary: {
     style: {
-      fill: "#0c1a06"
-      stroke: "#9ece6a"
-      font-color: "#9ece6a"
+      fill: "${accent-fill}"
+      stroke: "${accent}"
+      font-color: "${accent}"
       border-radius: 10
       stroke-width: 2
       font-size: 16
     }
   }
+  # Grouping container
   section: {
     style: {
-      fill: "#040404"
-      stroke: "#303030"
-      font-color: "#505050"
+      fill: "${bg-container}"
+      stroke: "${container-stroke}"
+      font-color: "${container-label}"
       border-radius: 16
       stroke-width: 1
       stroke-dash: 4
@@ -37,38 +78,83 @@ classes: {
       bold: true
     }
   }
+  # External service (dashed, dim)
   ext: {
     style: {
       fill: transparent
-      stroke: "#282828"
-      font-color: "#484848"
+      stroke: "${ext-stroke}"
+      font-color: "${ext-label}"
       border-radius: 10
       stroke-width: 1
       stroke-dash: 3
       font-size: 14
     }
   }
+  # Data artifact
   artifact: {
     style: {
-      fill: "#060606"
-      stroke: "#2e2e2e"
-      font-color: "#606060"
+      fill: "${bg-artifact}"
+      stroke: "${border-dim}"
+      font-color: "${fg-muted}"
       border-radius: 8
       stroke-width: 1
       font-size: 14
     }
   }
+
+  # ─── EDGE CLASSES ───────────────────────────────────────
+
+  # Core feedback loop (accent green)
+  accent-edge: {
+    style: {
+      stroke: "${edge-accent}"
+      stroke-width: 2
+      font-color: "${accent-dim}"
+      font-size: 11
+    }
+  }
+  # Dim structural flow
+  dim-edge: {
+    style: {
+      stroke: "${edge-dim}"
+      stroke-width: 1
+    }
+  }
+  # Medium structural flow (with optional label)
+  mid-edge: {
+    style: {
+      stroke: "${edge-mid}"
+      stroke-width: 1
+      font-color: "${edge-label}"
+      font-size: 11
+    }
+  }
+  # Internal pipeline flow
+  internal-edge: {
+    style: {
+      stroke: "${edge-internal}"
+      stroke-width: 1
+      font-color: "${edge-label}"
+      font-size: 11
+    }
+  }
+  # Connection to external service (dashed)
+  ext-edge: {
+    style: {
+      stroke: "${ext-stroke}"
+      stroke-width: 1
+      stroke-dash: 3
+      font-color: "${edge-label}"
+      font-size: 11
+    }
+  }
 }
 
 # ═══════════════════════════════════════════════════════════
-#  ORCHESTRATOR
+#  STRUCTURE — nodes, containers, and connections
 # ═══════════════════════════════════════════════════════════
 
 orchestrator: Orchestrator {class: primary}
-
-# ═══════════════════════════════════════════════════════════
-#  DUEL
-# ═══════════════════════════════════════════════════════════
 
 duel: DUEL {
   class: section
@@ -80,17 +166,8 @@ duel: DUEL {
     pilot: Pilot {class: primary}
     bridge: Bridge {class: primary}
     llm: LLM API {class: ext}
-    pilot -> bridge: MCP tools {
-      style.stroke: "#9ece6a"
-      style.stroke-width: 2
-      style.font-color: "#6a9e4a"
-      style.font-size: 11
-    }
-    pilot -> llm {
-      style.stroke: "#282828"
-      style.stroke-width: 1
-      style.stroke-dash: 3
-    }
+    pilot -> bridge: MCP tools {class: accent-edge}
+    pilot -> llm {class: ext-edge}
   }
 
   b: PLAYER B {
@@ -98,45 +175,18 @@ duel: DUEL {
     pilot: Pilot {class: primary}
     bridge: Bridge {class: primary}
     llm: LLM API {class: ext}
-    pilot -> bridge: MCP tools {
-      style.stroke: "#9ece6a"
-      style.stroke-width: 2
-      style.font-color: "#6a9e4a"
-      style.font-size: 11
-    }
-    pilot -> llm {
-      style.stroke: "#282828"
-      style.stroke-width: 1
-      style.stroke-dash: 3
-    }
+    pilot -> bridge: MCP tools {class: accent-edge}
+    pilot -> llm {class: ext-edge}
   }
 
   spectator: Spectator {class: core}
 
-  a.bridge <-> server {
-    style.stroke: "#9ece6a"
-    style.stroke-width: 2
-  }
-  b.bridge <-> server {
-    style.stroke: "#9ece6a"
-    style.stroke-width: 2
-  }
-  spectator -> server {
-    style.stroke: "#2e2e2e"
-    style.stroke-width: 1
-  }
+  a.bridge <-> server {class: accent-edge}
+  b.bridge <-> server {class: accent-edge}
+  spectator -> server {class: dim-edge}
 }
 
-orchestrator -> duel: spawns {
-  style.stroke: "#3a3a3a"
-  style.stroke-width: 1
-  style.font-color: "#333333"
-  style.font-size: 11
-}
-
-# ═══════════════════════════════════════════════════════════
-#  ARTIFACTS
-# ═══════════════════════════════════════════════════════════
+orchestrator -> duel: spawns {class: mid-edge}
 
 artifacts: ARTIFACTS {
   class: section
@@ -145,14 +195,7 @@ artifacts: ARTIFACTS {
   video: Video {class: artifact}
 }
 
-duel -> artifacts {
-  style.stroke: "#2e2e2e"
-  style.stroke-width: 1
-}
-
-# ═══════════════════════════════════════════════════════════
-#  PIPELINE
-# ═══════════════════════════════════════════════════════════
+duel -> artifacts {class: dim-edge}
 
 pipeline: PIPELINE {
   class: section
@@ -160,28 +203,13 @@ pipeline: PIPELINE {
   youtube: YouTube Upload {class: core}
   blunder: Blunder Analysis {class: core}
   opus: Claude Opus {class: ext}
-  export -> blunder: decisions {
-    style.stroke: "#555555"
-    style.stroke-width: 1
-    style.font-color: "#3a3a3a"
-    style.font-size: 11
-  }
-  blunder -> opus: annotate {
-    style.stroke: "#282828"
-    style.stroke-width: 1
-    style.stroke-dash: 3
-    style.font-color: "#333333"
-    style.font-size: 11
-  }
+  export -> blunder: decisions {class: internal-edge}
+  blunder -> opus: annotate {class: ext-edge}
 }
 
-artifacts.logs -> pipeline.export {style.stroke: "#2e2e2e"; style.stroke-width: 1}
-artifacts.events -> pipeline.export {style.stroke: "#2e2e2e"; style.stroke-width: 1}
-artifacts.video -> pipeline.youtube {style.stroke: "#2e2e2e"; style.stroke-width: 1}
-
-# ═══════════════════════════════════════════════════════════
-#  WEBSITE
-# ═══════════════════════════════════════════════════════════
+artifacts.logs -> pipeline.export {class: dim-edge}
+artifacts.events -> pipeline.export {class: dim-edge}
+artifacts.video -> pipeline.youtube {class: dim-edge}
 
 website: WEBSITE {
   class: section
@@ -189,11 +217,6 @@ website: WEBSITE {
   viewer: Game Viewer {class: core}
 }
 
-pipeline.export -> website.viewer: game JSON {
-  style.stroke: "#3a3a3a"
-  style.stroke-width: 1
-  style.font-color: "#333333"
-  style.font-size: 11
-}
-pipeline.blunder -> website.leaderboard {style.stroke: "#3a3a3a"; style.stroke-width: 1}
-pipeline.youtube -> website.viewer {style.stroke: "#3a3a3a"; style.stroke-width: 1}
+pipeline.export -> website.viewer: game JSON {class: mid-edge}
+pipeline.blunder -> website.leaderboard {class: mid-edge}
+pipeline.youtube -> website.viewer {class: mid-edge}
