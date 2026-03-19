@@ -34,12 +34,12 @@ def test_format_mcp_tools_json5_preserves_structure_and_uses_json5() -> None:
     ]
 
 
-def test_cli_runs_under_system_python() -> None:
+def test_cli_runs_under_system_python_without_site_packages() -> None:
     python3 = shutil.which("python3")
     assert python3 is not None
 
     result = subprocess.run(
-        [python3, "-m", "scripts.mcp_tools_json5"],
+        [python3, "-S", "-m", "scripts.mcp_tools_json5"],
         cwd=REPO_ROOT / "Mage.Client.Bridge",
         env={**os.environ, "PYTHONPATH": ".."},
         input='[{"name":"choose_action"}]',

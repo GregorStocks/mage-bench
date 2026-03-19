@@ -15,6 +15,81 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class BridgeClientTest {
 
     @Test
+    void normalizesSupportedPersonalityNames() {
+        assertThat(BridgeClient.parsePersonality("SLEEPWALKER")).isEqualTo("sleepwalker");
+        assertThat(BridgeClient.parsePersonality("StAlLeR")).isEqualTo("staller");
+    }
+
+    @Test
+    void rejectsUnknownPersonality() {
+        assertThatThrownBy(() -> BridgeClient.parsePersonality("wizard"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Unknown bridge personality 'wizard'. Expected one of: potato, staller, sleepwalker");
+    }
+
+    @Test
+    void rejectsMissingArgumentValue() {
+        assertThatThrownBy(() -> BridgeClient.getStringSetting(
+            new String[]{"--server"},
+            "--server",
+            "xmage.bridge.server",
+            "localhost"
+        ))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Missing value for --server");
+    }
+
+    @Test
+    void prefersCommandLineIntegerSettingOverProperty() {
+        withSystemProperty("xmage.bridge.port", "17171", () ->
+            assertThat(BridgeClient.getIntSetting(
+                new String[]{"--port", "18181"},
+                "--port",
+                "xmage.bridge.port",
+                16161
+            )).isEqualTo(18181)
+        );
+    }
+
+    @Test
+    void usesDefaultIntegerSettingWhenUnset() {
+        withSystemProperty("xmage.bridge.port", null, () ->
+            assertThat(BridgeClient.getIntSetting(
+                new String[0],
+                "--port",
+                "xmage.bridge.port",
+                17171
+            )).isEqualTo(17171)
+        );
+    }
+
+    @Test
+    void rejectsInvalidIntegerArgument() {
+        assertThatThrownBy(() -> BridgeClient.getIntSetting(
+            new String[]{"--port", "nope"},
+            "--port",
+            "xmage.bridge.port",
+            17171
+        ))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Invalid integer for --port: nope");
+    }
+
+    @Test
+    void rejectsInvalidIntegerProperty() {
+        withSystemProperty("xmage.bridge.port", "nope", () ->
+            assertThatThrownBy(() -> BridgeClient.getIntSetting(
+                new String[0],
+                "--port",
+                "xmage.bridge.port",
+                17171
+            ))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Invalid integer for -Dxmage.bridge.port: nope")
+        );
+    }
+
+    @Test
     void loadsValidDeckFile() throws IOException {
         Path deckFile = writeDeck(
             "# main deck",
@@ -92,5 +167,23 @@ class BridgeClientTest {
         deckFile.toFile().deleteOnExit();
         Files.write(deckFile, List.of(lines));
         return deckFile;
+    }
+
+    private static void withSystemProperty(String name, String value, Runnable assertion) {
+        String originalValue = System.getProperty(name);
+        if (value == null) {
+            System.clearProperty(name);
+        } else {
+            System.setProperty(name, value);
+        }
+        try {
+            assertion.run();
+        } finally {
+            if (originalValue == null) {
+                System.clearProperty(name);
+            } else {
+                System.setProperty(name, originalValue);
+            }
+        }
     }
 }

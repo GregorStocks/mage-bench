@@ -8,11 +8,11 @@ import json
 import re
 from typing import Any
 
-import pyjson5
-
 
 def loads_json5(text: str | bytes) -> Any:
     """Parse a JSON5 string. Also accepts standard JSON."""
+    import pyjson5
+
     if isinstance(text, bytes):
         text = text.decode()
     return pyjson5.loads(text)
