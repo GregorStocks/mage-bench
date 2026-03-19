@@ -1300,9 +1300,18 @@ def load_game_context(gz_path: str) -> dict:
     card_names = _collect_card_names(data)
     oracle_texts = _get_oracle_texts(sorted(card_names))
 
+    # Preceding-decision lookup: for each decision, the one immediately before
+    # it in the game sequence. Used by eval_decisions to give the annotator
+    # context about what triggered generic prompts like "Select a creature".
+    preceding_by_index: dict[int, DecisionRecord] = {}
+    for i, d in enumerate(decisions):
+        if i > 0:
+            preceding_by_index[decision_index(d)] = decisions[i - 1]
+
     return {
         "data": data,
         "decisions": decisions,
+        "preceding_by_index": preceding_by_index,
         "snapshots": snapshots,
         "overview": overview,
         "oracle_texts": oracle_texts,
@@ -1338,15 +1347,7 @@ def eval_decisions(
     prices: dict[str, tuple[float, float]],
 ) -> dict[int, tuple[list[Annotation], float, bool, dict]]:
     """Evaluate a list of decisions in parallel. Returns {decision_index: result}."""
-    # Build preceding-decision lookup from the full decision list (including
-    # forced/filtered decisions) so each decision knows what happened just before.
-    # Decisions are always indexed 0..N-1 in order (enforced by export_game.py).
-    all_decisions = game_ctx["decisions"]
-    preceding_by_idx: dict[int, DecisionRecord] = {}
-    for i, d in enumerate(all_decisions):
-        if i > 0:
-            preceding_by_idx[decision_index(d)] = all_decisions[i - 1]
-
+    preceding_by_idx = game_ctx["preceding_by_index"]
     results_by_idx: dict[int, tuple[list[Annotation], float, bool, dict]] = {}
 
     pool = ThreadPoolExecutor(max_workers=MAX_WORKERS)

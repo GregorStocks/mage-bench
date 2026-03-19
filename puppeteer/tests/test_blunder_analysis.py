@@ -195,6 +195,7 @@ def _make_game_ctx(**overrides: object) -> dict:
         "num_players": 2,
         "all_actions": [],
         "decisions": [],
+        "preceding_by_index": {},
     }
     ctx.update(overrides)
     return ctx
@@ -1138,7 +1139,10 @@ class TestPrecedingAction:
         """eval_decisions should pass the preceding decision to _eval_one_decision."""
         d0 = _make_decision(decisionIndex=0, message="First")
         d1 = _make_decision(decisionIndex=1, message="Second")
-        ctx = _make_game_ctx(decisions=[d0, d1])
+        ctx = _make_game_ctx(
+            decisions=[d0, d1],
+            preceding_by_index={1: d0},
+        )
 
         with patch("scripts.analysis.blunder_analysis._eval_one_decision") as mock_eval:
             mock_eval.return_value = ([], 0.0, True, {})

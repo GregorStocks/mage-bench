@@ -603,11 +603,14 @@ class TestGoldenEpochCoherence:
     2. Bumped harness epoch → all goldens must be regenerated.
     """
 
-    _GOLDEN_PREFIX = "puppeteer/tests/golden/"
+    # Only export goldens (game replay output) require an epoch bump when
+    # modified.  Blunder prompt goldens test post-game analysis prompts, not
+    # the harness itself, so changing them doesn't affect game comparability.
+    _EXPORT_GOLDEN_PREFIX = "puppeteer/tests/golden/exports/"
     _EPOCH_FILE = "puppeteer/src/puppeteer/harness_epoch.py"
 
     def test_golden_changes_require_epoch_bump(self) -> None:
-        """If existing golden output changed, HARNESS_EPOCH must be bumped too."""
+        """If existing export golden output changed, HARNESS_EPOCH must be bumped too."""
         changed = _changed_files_since_master()
         if changed is None:
             pytest.skip("On master or git unavailable")
@@ -621,7 +624,7 @@ class TestGoldenEpochCoherence:
             check=True,
         ).stdout.strip()
         result = subprocess.run(
-            ["git", "diff", "--diff-filter=M", "--name-only", merge_base, "--", self._GOLDEN_PREFIX],
+            ["git", "diff", "--diff-filter=M", "--name-only", merge_base, "--", self._EXPORT_GOLDEN_PREFIX],
             capture_output=True,
             text=True,
             check=True,
@@ -631,8 +634,8 @@ class TestGoldenEpochCoherence:
             return
 
         assert self._EPOCH_FILE in changed, (
-            f"{len(modified_goldens)} golden file(s) modified without bumping HARNESS_EPOCH.\n"
-            "Golden output changes mean the harness changed — bump the epoch.\n"
+            f"{len(modified_goldens)} export golden(s) modified without bumping HARNESS_EPOCH.\n"
+            "Export golden output changes mean the harness changed — bump the epoch.\n"
             "Modified goldens:\n  " + "\n  ".join(sorted(modified_goldens))
         )
 
