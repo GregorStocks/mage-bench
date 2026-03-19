@@ -991,11 +991,13 @@ def _record_pass_priority_result(
         state.consecutive_pass_errors = 0
         state.last_pass_error_msg = ""
 
-    err_msg = pass_result.get("error")
-    if not err_msg:
+    raw_err_msg = pass_result.get("error")
+    if not raw_err_msg:
         state.consecutive_pass_errors = 0
         state.last_pass_error_msg = ""
         return None
+    assert isinstance(raw_err_msg, str), f"pass_priority error must be a string, got {raw_err_msg!r}"
+    err_msg = raw_err_msg
 
     turn_state.had_actionable_opportunity = True
     if err_msg == state.last_pass_error_msg:
