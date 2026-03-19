@@ -1,0 +1,102 @@
+{
+  "decision_index": 0,
+  "turn": 0,
+  "phase": null,
+  "player": "Gem25P Drama",
+  "message": "Select a starting player",
+  "system": "You are a Magic: The Gathering expert evaluating a single decision from a game replay.\n\
+\n\
+Analyze the decision below. If the play was reasonable, return null.\n\
+If it was a blunder, return a JSON annotation object.\n\
+\n\
+Most decisions are reasonable — only flag clear mistakes or questionable choices.\n\
+\n\
+You may be given prior context showing the board state from earlier and the action log since then. Use this to understand how the game reached the current state.\n\
+\n\
+## Examples of Blunders\n\
+\n\
+Here are some examples of the kinds of mistakes to flag:\n\
+\n\
+- Not attacking for lethal, missing combo kills, burn in hand at low life\n\
+- Casting spells that accomplish nothing, cards with no valid targets, declining pure-upside abilities\n\
+- Removing the wrong threat, fetching the wrong land, naming the wrong card\n\
+- Casting spells before playing lands, creatures before combat when holding tricks\n\
+- Poor attack/block decisions, attacking into unfavorable blocks\n\
+- Missing land drops, not using mana sinks at end of opponent's turn\n\
+- Fundamentally wrong game plan decisions, not countering must-answer threats\n\
+- Overextending into board wipes, running best threat into open counter mana\n\
+- Passing priority in the postcombat main phase (with nothing on the stack) when there are still sorcery-speed actions available this turn — e.g. unplayed land drops, castable creatures or sorceries in hand, planeswalker abilities to activate. Passing here ends the turn and wastes those opportunities. Note: the choices list shows the exact legal actions available — if a player passes (Chosen: False) with playable lands or castable spells among the choices, that is strong evidence of a blunder.\n\
+\n\
+## Understanding \"Chosen: False\"\n\
+\n\
+\"Chosen: False\" means the player passed priority — they declined to act. If the stack is empty, passing means moving to the next phase (e.g. main phase to combat, or postcombat main to end step — ending the turn). If the stack has items, passing lets those items resolve without responding.\n\
+\n\
+## Understanding \"Chosen: (no response)\"\n\
+\n\
+\"Chosen: (no response)\" means the player failed to respond in time (timeout) or their client did not send a valid action. The game engine chose a default for them — typically passing or skipping. Treat this like \"Chosen: False\" for blunder evaluation: if skipping was wrong given the available choices, flag it.\n\
+\n\
+## Understanding batch/text decisions\n\
+\n\
+Some decisions (attack/block declarations, color choices) use batch or text parameters instead of selecting from a numbered list. These show as \"Chosen: Attack with: ...\", \"Chosen: Block with: ...\", or \"Chosen: Text: ...\" instead of a choice name. These are valid responses — the player DID act.\n\
+\n\
+## Severity Levels\n\
+\n\
+- **questionable**: Probably suboptimal but debatable. A human reviewing the game would find this interesting to think about. Use this when there's at least a ~30% chance the play was wrong. Low bar — when in doubt, include as questionable rather than omitting.\n\
+- **minor**: Clearly suboptimal — a small amount of value was lost (e.g. slightly wrong sequencing, fetching a less optimal land, missing a minor advantage).\n\
+- **moderate**: A real mistake with meaningful consequences — wasted a card, missed a significant line, or gave the opponent an unnecessary opening.\n\
+- **major**: Game-losing or close to it — threw away a winning position, wasted multiple cards for nothing, missed lethal, or made an error that directly led to losing.\n\
+\n\
+## Output Format\n\
+\n\
+Return ONLY valid JSON — either `null` (no blunder) or a single annotation object:\n\
+{\n\
+  \"severity\": \"questionable\" | \"minor\" | \"moderate\" | \"major\",\n\
+  \"description\": \"<what went wrong in concrete game terms>\",\n\
+  \"actionTaken\": \"<what they actually did>\",\n\
+  \"betterLine\": \"<what they should have done>\"\n\
+}",
+  "user": "## Game Overview\n\
+Game: game_20260216_074122_g2\n\
+Format: Constructed - Standard (Two Player Duel)\n\
+  Gem3F Valley (google/gemini-3-flash-preview)\n\
+  Gem25P Drama (google/gemini-2.5-pro)\n\
+\n\
+You are evaluating **Gem25P Drama**'s decision.\n\
+\n\
+## Card Reference\n\
+- Bitter Triumph {1}{B} -- Instant: As an additional cost to cast this spell, discard a card or pay 3 life. / Destroy target creature or planeswalker.\n\
+- Consult the Star Charts {1}{U} -- Instant: Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.) / Look at the top X cards of your library, where X is the number of lands you control. Put one of those cards into your hand. If this spell was kicked, put two of those cards into your hand instead. Put the rest on the bottom of your library in a random order.\n\
+- Day of Judgment {2}{W}{W} -- Sorcery: Destroy all creatures.\n\
+- Deadly Cover-Up {3}{B}{B} -- Sorcery: As an additional cost to cast this spell, you may collect evidence 6. / Destroy all creatures. If evidence was collected, exile a card from an opponent's graveyard. Then search its owner's graveyard, hand, and library for any number of cards with that name and exile them. That player shuffles, then draws a card for each card exiled from their hand this way.\n\
+- Essence Scatter {1}{U} -- Instant: Counter target creature spell.\n\
+- Floodfarm Verge -- Land: {T}: Add {W}. / {T}: Add {U}. Activate only if you control a Plains or an Island.\n\
+- Requiting Hex {B} -- Instant: As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.) / Destroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life.\n\
+- Spell Snare {U} -- Instant: Counter target spell with mana value 2.\n\
+- Stock Up {2}{U} -- Sorcery: Look at the top five cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order.\n\
+- Three Steps Ahead {U} -- Instant: Spree (Choose one or more additional costs.) / + {1}{U} — Counter target spell. / + {3} — Create a token that's a copy of target artifact or creature you control. / + {2} — Draw two cards, then discard a card.\n\
+- Watery Grave -- Land — Island Swamp: ({T}: Add {U} or {B}.) / As this land enters, you may pay 2 life. If you don't, it enters tapped.\n\
+\n\
+## Decision\n\
+\n\
+[Decision 0, snapshot=0] Turn 0 PREGAME - Gem25P Drama\n\
+  Board: Gem3F Valley: 20hp hand=7 lib=52 | Gem25P Drama: 20hp hand=[Floodfarm Verge, Day of Judgment, Day of Judgment, Stock Up, Consult the Star Charts, Spell Snare, Three Steps Ahead] lib=53\n\
+  Message: Select a starting player\n\
+  Choices (2): Gem3F Valley [id=p1], Gem25P Drama [id=p2]\n\
+\n\
+  Chosen: Gem25P Drama\n\
+\n\
+## Tool Reference: choose_action\n\
+\n\
+Players respond to each pending action by calling choose_action. Respond to pending action. Blocks until an action is pending. Use choice for ID/index/yes/no, attackers/blockers for batch combat.\n\
+\n\
+Parameters:\n\
+- choice (string): ID (\"p3\"), index (\"0\"), or yes/no. yes=mulligan/confirm, no=keep/pass.\n\
+- amount (integer): Amount value (for amount actions)\n\
+- amounts (array): Multiple amount values (for multi_amount)\n\
+- pile (integer): Pile number: 1 or 2\n\
+- text (string): Text value for GAME_CHOOSE_CHOICE (pick option by name)\n\
+- mana_plan (string): Comma-separated permanent IDs to tap for mana (e.g. \"p1,p5:1\"). :N selects ability on multi-ability lands. Pool colors (RED, BLUE, etc.) only SPEND existing pool mana, not produce. Auto-tap fills remaining pips.\n\
+- auto_tap (boolean): Auto-tap mana (default true). Set false with mana_plan to require complete plan.\n\
+- attackers (string): Batch attack: comma-separated IDs (e.g. \"p1,p2\") or \"all\". Auto-confirms.\n\
+- blockers (string): Batch block: comma-separated \"blocker:attacker\" pairs (e.g. \"p5:p1,p6:p2\"). Auto-confirms.",
+}

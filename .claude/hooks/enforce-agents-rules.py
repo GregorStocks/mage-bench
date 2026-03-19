@@ -197,8 +197,7 @@ def check(command: str) -> None:
     if re.search(r"UPDATE_(?:BLUNDER_)?GOLDEN\s*=\s*1", stripped):
         block(
             "Blocked: don't pass UPDATE_GOLDEN / UPDATE_BLUNDER_GOLDEN as env vars. Use make targets instead:\n"
-            "  make regen-golden             # regenerate all golden files\n"
-            "  make regen-blunder-golden     # regenerate blunder prompt golden files"
+            "  make regen-golden             # regenerate all golden files (export + blunder prompts)"
         )
 
     # --- Expensive make targets ---

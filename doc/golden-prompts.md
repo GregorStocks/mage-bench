@@ -277,8 +277,7 @@ that decision point:
 
 ```bash
 make test-golden        # Run all golden tests
-make regen-golden       # Regenerate all golden files after intentional changes
-make regen-blunder-golden  # Regenerate blunder golden files only
+make regen-golden       # Regenerate all golden files (export + blunder prompts)
 ```
 
 `make test-golden` is included in `make check` (which CI runs).

@@ -3,13 +3,13 @@
     "mana_cost": "",
     "name": "Badlands",
     "oracle_text": "({T}: Add {B} or {R}.)",
-    "type_line": "Land \u2014 Swamp Mountain"
+    "type_line": "Land — Swamp Mountain",
   },
   "Lightning Bolt": {
     "mana_cost": "{R}",
     "name": "Lightning Bolt",
     "oracle_text": "Lightning Bolt deals 3 damage to any target.",
-    "type_line": "Instant"
+    "type_line": "Instant",
   },
   "Memnite": {
     "mana_cost": "{0}",
@@ -17,30 +17,30 @@
     "oracle_text": "",
     "power": "1",
     "toughness": "1",
-    "type_line": "Artifact Creature \u2014 Construct"
+    "type_line": "Artifact Creature — Construct",
   },
   "Mountain": {
     "mana_cost": "",
     "name": "Mountain",
     "oracle_text": "({T}: Add {R}.)",
-    "type_line": "Basic Land \u2014 Mountain"
+    "type_line": "Basic Land — Mountain",
   },
   "Plains": {
     "mana_cost": "",
     "name": "Plains",
     "oracle_text": "({T}: Add {W}.)",
-    "type_line": "Basic Land \u2014 Plains"
+    "type_line": "Basic Land — Plains",
   },
   "Plateau": {
     "mana_cost": "",
     "name": "Plateau",
     "oracle_text": "({T}: Add {R} or {W}.)",
-    "type_line": "Land \u2014 Mountain Plains"
+    "type_line": "Land — Mountain Plains",
   },
   "Taiga": {
     "mana_cost": "",
     "name": "Taiga",
     "oracle_text": "({T}: Add {R} or {G}.)",
-    "type_line": "Land \u2014 Mountain Forest"
+    "type_line": "Land — Mountain Forest",
   }
 }
