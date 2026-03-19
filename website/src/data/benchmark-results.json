@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-13T00:24:01.785071+00:00",
+  "generatedAt": "2026-03-19T04:26:59.947312+00:00",
   "totalGames": 208,
   "models": [
     {
@@ -48,7 +48,8 @@
       "avgToolCallsFailed": 3.0,
       "avgThinkingTimeSecs": 1008.5,
       "blunderScore": 0.81,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "inactive": "retired"
     },
     {
       "modelId": "openai/gpt-5.3-codex",
@@ -564,7 +565,7 @@
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-13T00:24:01.779342+00:00",
+      "generatedAt": "2026-03-19T04:26:59.932470+00:00",
       "totalGames": 84,
       "models": [
         {
@@ -613,7 +614,8 @@
           "avgToolCallsFailed": 2.2,
           "avgThinkingTimeSecs": 998.0,
           "blunderScore": 0.85,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "anthropic/claude-opus-4.6",
@@ -1112,7 +1114,7 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-13T00:24:01.780416+00:00",
+      "generatedAt": "2026-03-19T04:26:59.935676+00:00",
       "totalGames": 56,
       "models": [
         {
@@ -1207,7 +1209,8 @@
           "avgToolCallsFailed": 3.2,
           "avgThinkingTimeSecs": 1091.5,
           "blunderScore": 0.92,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "xiaomi/mimo-v2-flash",
@@ -1505,7 +1508,7 @@
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-13T00:24:01.780854+00:00",
+      "generatedAt": "2026-03-19T04:26:59.936769+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -1584,7 +1587,8 @@
           "avgToolCallsFailed": 0.0,
           "avgThinkingTimeSecs": 372.0,
           "blunderScore": 0.23,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "z-ai/glm-4.7",
@@ -1802,7 +1806,7 @@
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-13T00:24:01.781213+00:00",
+      "generatedAt": "2026-03-19T04:26:59.937893+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -1851,7 +1855,8 @@
           "avgToolCallsFailed": 9.0,
           "avgThinkingTimeSecs": 1366.0,
           "blunderScore": 0.71,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "moonshotai/kimi-k2-0905",
@@ -2113,7 +2118,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-13T00:24:01.781986+00:00",
+      "generatedAt": "2026-03-19T04:26:59.940006+00:00",
       "totalGames": 34,
       "exhibition": true,
       "models": [
@@ -2211,7 +2216,8 @@
           "avgToolCallsFailed": 3.9,
           "avgThinkingTimeSecs": 1468.8,
           "blunderScore": 0.43,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "anthropic/claude-sonnet-4.5",
@@ -2555,7 +2561,7 @@
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-13T00:24:01.785071+00:00",
+      "generatedAt": "2026-03-19T04:26:59.947312+00:00",
       "totalGames": 174,
       "models": [
         {
@@ -2604,7 +2610,8 @@
           "avgToolCallsFailed": 3.0,
           "avgThinkingTimeSecs": 1008.5,
           "blunderScore": 0.81,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "openai/gpt-5.3-codex",

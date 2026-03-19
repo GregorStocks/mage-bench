@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-13T00:24:01.765959+00:00",
+  "generatedAt": "2026-03-19T04:26:59.901150+00:00",
   "totalGames": 117,
   "models": [
     {
@@ -127,7 +127,8 @@
       "avgToolCallsFailed": 1.6,
       "avgThinkingTimeSecs": 1706.8,
       "blunderScore": 2.0,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "inactive": "retired"
     },
     {
       "modelId": "xiaomi/mimo-v2-flash",
@@ -357,12 +358,12 @@
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-13T00:24:01.759700+00:00",
+      "generatedAt": "2026-03-19T04:26:59.894815+00:00",
       "totalGames": 0,
       "models": []
     },
     "standard": {
-      "generatedAt": "2026-03-13T00:24:01.760979+00:00",
+      "generatedAt": "2026-03-19T04:26:59.895999+00:00",
       "totalGames": 41,
       "models": [
         {
@@ -507,7 +508,8 @@
           "avgToolCallsFailed": 1.2,
           "avgThinkingTimeSecs": 1555.0,
           "blunderScore": 2.0,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "qwen/qwen3-235b-a22b-2507",
@@ -703,7 +705,7 @@
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-13T00:24:01.761964+00:00",
+      "generatedAt": "2026-03-19T04:26:59.897044+00:00",
       "totalGames": 38,
       "models": [
         {
@@ -850,7 +852,8 @@
           "avgToolCallsFailed": 2.0,
           "avgThinkingTimeSecs": 1219.5,
           "blunderScore": 2.8,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "x-ai/grok-4-fast",
@@ -983,7 +986,7 @@
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-13T00:24:01.762699+00:00",
+      "generatedAt": "2026-03-19T04:26:59.897898+00:00",
       "totalGames": 29,
       "models": [
         {
@@ -1031,7 +1034,8 @@
           "avgToolCallsFailed": 1.8,
           "avgThinkingTimeSecs": 2102.2,
           "blunderScore": 1.74,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "google/gemini-2.5-flash",
@@ -1294,7 +1298,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-13T00:24:01.763102+00:00",
+      "generatedAt": "2026-03-19T04:26:59.898489+00:00",
       "totalGames": 9,
       "exhibition": true,
       "models": [
@@ -1573,7 +1577,7 @@
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-13T00:24:01.765959+00:00",
+      "generatedAt": "2026-03-19T04:26:59.901150+00:00",
       "totalGames": 108,
       "models": [
         {
@@ -1701,7 +1705,8 @@
           "avgToolCallsFailed": 1.6,
           "avgThinkingTimeSecs": 1706.8,
           "blunderScore": 2.0,
-          "reasoningEffort": "medium"
+          "reasoningEffort": "medium",
+          "inactive": "retired"
         },
         {
           "modelId": "xiaomi/mimo-v2-flash",
