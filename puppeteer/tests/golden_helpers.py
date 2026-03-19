@@ -1851,10 +1851,10 @@ def assert_golden_blunder_prompts(
 
     # Build prompt context
     overview = _game_overview(export_data)
-    snapshots = export_data.get("snapshots", [])
-    actions = export_data.get("actions", [])
+    snapshots = export_data.snapshots
+    actions = export_data.actions
     abt = _actions_by_turn(actions)
-    num_players = len(export_data.get("players", []))
+    num_players = len(export_data.players)
 
     # Oracle cache: load from golden dir, or generate in update mode
     golden_dir = GOLDEN_BLUNDER_DIR / name
