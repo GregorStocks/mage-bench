@@ -39,7 +39,7 @@ from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
-from schemas.game_export_types import json_default
+from schemas.game_export_types import Decision, json_default
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -1838,7 +1838,7 @@ def assert_golden_blunder_prompts(
     name: str,
     export_data: dict,
     annotated: list[int],
-    decisions: list[dict],
+    decisions: list[Decision],
 ) -> None:
     """Check blunder analysis prompts for annotated decision indices.
 

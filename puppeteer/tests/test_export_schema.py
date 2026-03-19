@@ -447,9 +447,9 @@ class TestExportSchema:
             schema=defs["Player"],
             required_override=(set(defs["Player"].get("required", [])) | {"model"}) - {"type"},
         )
-        _assert_typed_dict_matches_schema(Snapshot, schema=defs["Snapshot"])
-        _assert_typed_dict_matches_schema(SnapshotPlayer, schema=defs["SnapshotPlayer"])
-        _assert_typed_dict_matches_schema(CombatGroup, schema=defs["CombatGroup"])
+        _assert_dataclass_matches_schema(Snapshot, schema=defs["Snapshot"])
+        _assert_dataclass_matches_schema(SnapshotPlayer, schema=defs["SnapshotPlayer"])
+        _assert_dataclass_matches_schema(CombatGroup, schema=defs["CombatGroup"])
         _assert_dataclass_matches_schema(Action, schema=defs["Action"], field_renames={"from_": "from"})
         # LlmEvent is a Union of discriminated variants — verify the union
         # of all variant keys matches the flat JSON schema properties, and the
@@ -632,10 +632,12 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        battlefield_card = game["snapshots"][0]["players"][0]["battlefield"][0]
-        stack_item = game["snapshots"][0]["stack"][0]
+        snap = game["snapshots"][0]
+        battlefield_card = snap.players[0].battlefield[0]
+        stack_item = snap.stack[0]
         target = stack_item.targets[0] if isinstance(stack_item, StackItem) and stack_item.targets else None
-        attacker = game["snapshots"][0]["combat"][0]["attackers"][0]
+        assert snap.combat is not None
+        attacker = snap.combat[0].attackers[0]
         pilot_ctx = game["decisions"][0]["pilotContext"]
         assert isinstance(pilot_ctx, PilotContext)
         incoming_list = pilot_ctx.get_value("incomingAttackers")
@@ -649,8 +651,8 @@ class TestExportSchema:
         assert isinstance(incoming, CombatCreature)
         assert export_record_field(battlefield_card, "visible_to") == ["Alice"]
         assert export_record_field(battlefield_card, "rules") == "Tap: Add {G}."
-        assert export_record_field(game["snapshots"][0]["players"][0]["hand"][0], "mana_cost") == "{R}"
-        assert export_record_field(game["snapshots"][0]["players"][0]["hand"][0], "type_line") == "Instant"
+        assert export_record_field(snap.players[0].hand[0], "mana_cost") == "{R}"
+        assert export_record_field(snap.players[0].hand[0], "type_line") == "Instant"
         assert export_record_field(stack_item, "controller") == "Alice"
 
     def test_is_game_export_accepts_already_coerced_leaf_dataclasses(self, tmp_path: Path) -> None:
@@ -696,8 +698,9 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert isinstance(game["snapshots"][0]["players"][0]["battlefield"][0], Permanent)
-        assert isinstance(game["snapshots"][0]["stack"][0], StackItem)
+        snap = game["snapshots"][0]
+        assert isinstance(snap.players[0].battlefield[0], Permanent)
+        assert isinstance(snap.stack[0], StackItem)
         assert is_game_export(game)
 
     def test_loader_accepts_schema_valid_leaf_extras_key(self, tmp_path: Path) -> None:
@@ -749,7 +752,8 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        battlefield_card = game["snapshots"][0]["players"][0]["battlefield"][0]
+        snap = game["snapshots"][0]
+        battlefield_card = snap.players[0].battlefield[0]
         assert isinstance(battlefield_card, Permanent)
         assert battlefield_card._extras["_extras"] == {"nested": True}
         assert export_record_field(battlefield_card, "rules") == "Tap: Add {G}."

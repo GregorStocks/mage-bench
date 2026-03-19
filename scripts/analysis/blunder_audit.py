@@ -17,7 +17,6 @@ import subprocess
 import textwrap
 import time
 from collections.abc import Sequence
-from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Annotation, Decision, GameExport, Snapshot
@@ -44,7 +43,6 @@ from scripts.analysis.extract_decisions import extract_decisions
 
 _dev_server_port: int | None = None
 _dev_server_proc: subprocess.Popen | None = None
-DecisionRecord = Decision | dict[str, Any]
 
 
 def _find_free_port() -> int:
@@ -136,7 +134,7 @@ def _load_game_data(gz_path: str) -> GameExport:
     return load_game(gz_path)
 
 
-def _find_decision(decisions: list[DecisionRecord], di: int) -> DecisionRecord:
+def _find_decision(decisions: list[Decision], di: int) -> Decision:
     """Find a decision by index. Asserts if not found."""
     for d in decisions:
         if get_decision_index(d) == di:
@@ -145,7 +143,7 @@ def _find_decision(decisions: list[DecisionRecord], di: int) -> DecisionRecord:
 
 
 def _lookup_existing_annotation(
-    decision: DecisionRecord,
+    decision: Decision,
     game_data: GameExport,
     snapshots: Sequence[Snapshot],
 ) -> Annotation | None:
@@ -154,7 +152,7 @@ def _lookup_existing_annotation(
 
 
 def _get_current_annotation(
-    decision: DecisionRecord,
+    decision: Decision,
     game_data: GameExport,
     snapshots: Sequence[Snapshot],
     gz_path: str,
@@ -215,7 +213,7 @@ def _recent_actions_before(
     """Return the last `count` game action messages before a snapshot's timestamp."""
     if snapshot_index is None or snapshot_index < 0 or snapshot_index >= len(snapshots):
         return []
-    snap_ts = snapshots[snapshot_index].get("ts")
+    snap_ts = snapshots[snapshot_index].ts
     if snap_ts is None:
         return []
     recent: list[str] = []
@@ -241,7 +239,7 @@ def _recent_actions_before(
 
 def format_play_context(
     game_id: str,
-    decision: DecisionRecord,
+    decision: Decision,
     snapshots: Sequence[Snapshot],
     annotation: Annotation | None,
     game_actions: Sequence[Action] | None = None,
@@ -250,7 +248,7 @@ def format_play_context(
     aftermath = compute_aftermath_index(decision, snapshots)
     snap_idx = get_snapshot_index(decision)
     snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else None
-    stack = snapshot["stack"] if snapshot is not None else []
+    stack = snapshot.stack if snapshot is not None else []
     stack_str = ", ".join(export_record_name(s) for s in stack) if stack else "(empty)"
 
     # Find the current player's hand
@@ -259,9 +257,9 @@ def format_play_context(
         f"decision player must be a string, got {player_name!r}"
     )
     hand_str = "?"
-    for p in snapshot["players"] if snapshot is not None else []:
-        if p.get("name") == player_name:
-            hand = p["hand"]
+    for p in snapshot.players if snapshot is not None else []:
+        if p.name == player_name:
+            hand = p.hand
             hand_str = (
                 ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
             )
@@ -370,7 +368,7 @@ def audit_plays(game_filter: str | None = None) -> None:
 
     # Cache game data to avoid re-loading per entry
     game_data_cache: dict[str, GameExport] = {}
-    decisions_cache: dict[str, list[DecisionRecord]] = {}
+    decisions_cache: dict[str, list[Decision]] = {}
 
     audited_count = 0
     skip_game_id: str | None = None

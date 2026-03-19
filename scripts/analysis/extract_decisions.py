@@ -8,18 +8,17 @@ what happened next. Designed to give Claude Code structured data for blunder ana
 
 import json
 import sys
-from collections.abc import Mapping, Sequence
-from typing import Any, cast
+from collections.abc import Sequence
 
 from schemas.game_export_types import (
     BuiltGameExport,
+    CombatGroup,
     Decision,
     JsonObject,
     LlmEvent,
     Snapshot,
     ToolCallEvent,
     export_record_field,
-    game_export_to_jsonable,
     load_built_game_export,
 )
 
@@ -93,24 +92,16 @@ def _summarize_stack_target(target: object) -> str | dict:
     return summary if summary else str(target)
 
 
-def _summarize_combat_group(group: Mapping[str, object]) -> dict[str, object]:
+def _summarize_combat_group(group: CombatGroup) -> dict[str, object]:
     summary: dict[str, object] = {}
-    attackers = group.get("attackers")
-    if attackers is not None:
-        assert isinstance(attackers, list), (
-            f"combat attackers must be a list, got {attackers!r}"
-        )
-        summary["attackers"] = [_summarize_combat_creature(a) for a in attackers]
-    blockers = group.get("blockers")
-    if blockers is not None:
-        assert isinstance(blockers, list), (
-            f"combat blockers must be a list, got {blockers!r}"
-        )
-        summary["blockers"] = [_summarize_combat_creature(b) for b in blockers]
-    if "blocked" in group:
-        summary["blocked"] = group["blocked"]
-    if "defending" in group:
-        summary["defending"] = group["defending"]
+    if group.attackers is not None:
+        summary["attackers"] = [_summarize_combat_creature(a) for a in group.attackers]
+    if group.blockers is not None:
+        summary["blockers"] = [_summarize_combat_creature(b) for b in group.blockers]
+    if group.blocked is not None:
+        summary["blocked"] = group.blocked
+    if group.defending is not None:
+        summary["defending"] = group.defending
     return summary
 
 
@@ -127,79 +118,66 @@ def _summarize_combat_creature(creature: object) -> dict[str, object]:
 def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
     """Summarize a snapshot for decision context."""
     players_summary: list[dict[str, object]] = []
-    for p in snap["players"]:
+    for p in snap.players:
         p_summary: dict[str, object] = {
-            "name": p["name"],
-            "life": p.get("life"),
-            "library_count": p.get("library_size"),
+            "name": p.name,
+            "life": p.life,
+            "library_count": p.library_size,
         }
 
-        hand_cards = p.get("hand")
-        if hand_cards is not None:
-            p_summary["hand"] = [
-                _record_name(c, source="hand card")
-                if not isinstance(c, str)
-                else str(c)
-                for c in hand_cards
-            ]
+        hand_cards = p.hand
+        p_summary["hand"] = [
+            _record_name(c, source="hand card") if not isinstance(c, str) else str(c)
+            for c in hand_cards
+        ]
 
-        hand_count = p.get("hand_count")
-        if hand_count is not None:
-            p_summary["hand_count"] = hand_count
-        elif hand_cards is not None:
+        if p.hand_count is not None:
+            p_summary["hand_count"] = p.hand_count
+        else:
             p_summary["hand_count"] = len(hand_cards)
 
-        battlefield_cards = p.get("battlefield")
-        if battlefield_cards is not None:
-            p_summary["battlefield"] = [
-                _summarize_permanent(c) for c in battlefield_cards
-            ]
+        p_summary["battlefield"] = [_summarize_permanent(c) for c in p.battlefield]
 
-        graveyard_cards = p.get("graveyard")
-        if graveyard_cards is not None:
-            p_summary["graveyard"] = [
-                _record_name(c, source="graveyard card")
-                if not isinstance(c, str)
-                else str(c)
-                for c in graveyard_cards
-            ]
+        p_summary["graveyard"] = [
+            _record_name(c, source="graveyard card")
+            if not isinstance(c, str)
+            else str(c)
+            for c in p.graveyard
+        ]
 
-        exile_cards = p.get("exile")
-        if exile_cards is not None:
+        if p.exile is not None:
             p_summary["exile"] = [
                 _record_name(c, source="exile card")
                 if not isinstance(c, str)
                 else str(c)
-                for c in exile_cards
+                for c in p.exile
             ]
 
-        commander_cards = p.get("commanders")
-        if commander_cards is not None:
+        if p.commanders is not None:
             p_summary["commanders"] = [
                 _record_name(c, source="commander card")
                 if not isinstance(c, str)
                 else c
-                for c in commander_cards
+                for c in p.commanders
             ]
 
-        if p.get("counters"):
-            p_summary["counters"] = p["counters"]
+        if p.counters:
+            p_summary["counters"] = p.counters
 
         players_summary.append(p_summary)
 
     summary: dict[str, object] = {
-        "turn": snap.get("turn"),
-        "phase": snap.get("phase"),
-        "step": snap.get("step"),
-        "active_player": snap.get("active_player"),
-        "priority_player": snap.get("priority_player"),
+        "turn": snap.turn,
+        "phase": snap.phase,
+        "step": snap.step,
+        "active_player": snap.active_player,
+        "priority_player": snap.priority_player,
         "players": players_summary,
-        "stack": [_summarize_stack_item(item) for item in snap["stack"]],
+        "stack": [_summarize_stack_item(item) for item in snap.stack],
     }
     # Combat groups (may be absent in old exports)
-    combat = snap.get("combat")
-    if combat:
-        summary["combat"] = [_summarize_combat_group(group) for group in combat]
+    if snap.combat:
+        summary["combat"] = [_summarize_combat_group(group) for group in snap.combat]
     return summary
 
 
@@ -211,8 +189,7 @@ def _find_snapshot_index(snapshots: Sequence[Snapshot], ts: str) -> int | None:
     """
     best: int | None = None
     for i, snap in enumerate(snapshots):
-        _snap_ts = snap.get("ts")
-        snap_ts = _snap_ts if _snap_ts is not None else ""
+        snap_ts = snap.ts if snap.ts is not None else ""
         if snap_ts <= ts:
             best = i
         else:
@@ -228,7 +205,7 @@ def _find_snapshot_index_by_seq(snapshots: Sequence[Snapshot], seq: int) -> int 
     """
     best: int | None = None
     for i, snap in enumerate(snapshots):
-        snap_seq = snap["seq"]
+        snap_seq = snap.seq
         if snap_seq <= seq:
             best = i
         else:
@@ -776,40 +753,21 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     return decisions
 
 
-def extract_decisions(gz_path: str) -> list[Decision | dict[str, Any]]:
+def extract_decisions(gz_path: str) -> list[Decision]:
     """Extract decision points from a game export file.
 
-    Returns canonical decisions from the export's 'decisions' field when
-    present (built by export_game._build_decisions). Falls back to legacy
-    extraction from llmEvents for older exports without pre-built decisions.
+    Returns canonical Decision dataclass instances from the export's
+    pre-built 'decisions' field.  All current exports have this field;
+    the legacy extraction helpers (_extract_decisions_v1/v2) are retained
+    for their independent test coverage but are no longer called here.
     """
     data = load_built_game_export(gz_path)
 
-    # Use pre-built canonical decisions when available
-    if "decisions" in data:
-        typed_decisions: list[Decision | dict[str, Any]] = []
-        for decision in data["decisions"]:
-            jsonable_decision = game_export_to_jsonable(decision)
-            assert isinstance(jsonable_decision, dict), (
-                f"canonical decision must serialize to an object, got {jsonable_decision!r}"
-            )
-            typed_decisions.append(cast(dict[str, Any], jsonable_decision))
-        return typed_decisions
-
-    # Legacy: extract from llmEvents
-    legacy_decisions = (
-        _extract_decisions_v2(data)
-        if data["harnessEpoch"] >= 20
-        else _extract_decisions_v1(data)
+    assert "decisions" in data, (
+        f"Game export {gz_path} missing decisions[] field — "
+        "all exports must have pre-built decisions"
     )
-
-    # Detect rolled-back casts from [System] Spell cancelled messages
-    # in ANY tool result (get_action_choices, choose_action, pass_priority)
-    llm_events = data["llmEvents"]
-    cancelled = _find_spell_cancelled_events(llm_events)
-    _mark_rolled_back_casts(legacy_decisions, cancelled)
-
-    return cast(list[Decision | dict[str, Any]], legacy_decisions)
+    return list(data["decisions"])
 
 
 _CAST_PROMPT_PREFIXES = (
@@ -906,14 +864,14 @@ def _mark_rolled_back_casts(
 
 
 def main(gz_path: str) -> None:
+    from schemas.game_export_types import json_default
+
     decisions = extract_decisions(gz_path)
     json.dump(
-        [
-            decision.to_dict() if isinstance(decision, Decision) else decision
-            for decision in decisions
-        ],
+        list(decisions),
         sys.stdout,
         indent=2,
+        default=json_default,
     )
     print()
 
