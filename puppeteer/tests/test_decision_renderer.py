@@ -14,7 +14,36 @@ from puppeteer.decision_renderer import (
     permanent_display,
     render_decision,
 )
-from schemas.game_export_types import Choice, MultiAmountItem, PilotContext
+from schemas.game_export_types import (
+    Choice,
+    Decision,
+    MultiAmountItem,
+    Permanent,
+    PilotContext,
+    Snapshot,
+    StackTarget,
+    require_snapshot,
+)
+
+
+def _snapshot_player(player: dict[str, object], *, index: int) -> dict[str, object]:
+    default_name = "Alice" if index == 0 else "Bob" if index == 1 else f"Player {index + 1}"
+    result: dict[str, object] = {
+        "name": default_name,
+        "life": 20,
+        "library_size": 50,
+        "battlefield": [],
+        "graveyard": [],
+        "hand": [],
+        "hand_count": 0,
+        "exile": [],
+    }
+    result.update(player)
+    if "hand_count" not in player:
+        hand = result["hand"]
+        assert isinstance(hand, list), f"snapshot player hand must be a list, got {hand!r}"
+        result["hand_count"] = len(hand)
+    return result
 
 
 def _make_snapshot(
@@ -25,7 +54,7 @@ def _make_snapshot(
     players: list[dict] | None = None,
     stack: list | None = None,
     combat: list | None = None,
-) -> dict:
+) -> Snapshot:
     if players is None:
         players = [
             {
@@ -49,17 +78,20 @@ def _make_snapshot(
                 "exile": [],
             },
         ]
-    return {
-        "seq": 100,
-        "turn": turn,
-        "phase": phase,
-        "step": step,
-        "active_player": "Alice",
-        "priority_player": "Alice",
-        "players": players,
-        "stack": stack or [],
-        "combat": combat or [],
-    }
+    return require_snapshot(
+        {
+            "seq": 100,
+            "turn": turn,
+            "phase": phase,
+            "step": step,
+            "active_player": "Alice",
+            "priority_player": "Alice",
+            "players": [_snapshot_player(player, index=index) for index, player in enumerate(players)],
+            "stack": stack or [],
+            "combat": combat or [],
+        },
+        source="decision renderer test snapshot",
+    )
 
 
 def _make_decision(
@@ -82,7 +114,7 @@ def _make_decision(
     chosen_args: dict | None = None,
     llm_event_indices: list[int] | None = None,
     subsequent_actions: list[str] | None = None,
-) -> dict:
+) -> Decision:
     if choices is None and items is None:
         choices = [
             Choice.from_mapping(
@@ -94,7 +126,7 @@ def _make_decision(
         choices = []
     # Convert any remaining raw dicts to Choice dataclasses
     choices = Choice.coerce_list(choices)
-    d: dict = {
+    d: dict[str, object] = {
         "index": index,
         "snapshotIndex": snapshot_index,
         "player": player,
@@ -122,7 +154,7 @@ def _make_decision(
         d["totalMax"] = total_max
     if pilot_context is not None:
         d["pilotContext"] = pilot_context
-    return d
+    return Decision.from_dict(d)
 
 
 class TestRenderDecision:
@@ -174,7 +206,7 @@ class TestRenderDecision:
     def test_pilot_context_must_be_object(self) -> None:
         snap = _make_snapshot()
         decision = _make_decision()
-        decision["pilotContext"] = "bad"
+        decision.pilotContext = "bad"  # type: ignore[assignment]
 
         with pytest.raises(AssertionError, match="pilotContext must be an object"):
             render_decision(decision, snap)
@@ -317,7 +349,7 @@ class TestRenderDecision:
     def test_cast_rolled_back(self) -> None:
         snap = _make_snapshot()
         decision = _make_decision()
-        decision["castRolledBack"] = True
+        decision.castRolledBack = True
         text = render_decision(
             decision,
             snap,
@@ -422,48 +454,48 @@ class TestFormatChoice:
 
 class TestPermanentDisplay:
     def test_simple_name(self) -> None:
-        assert permanent_display({"name": "Island"}) == "Island"
+        assert permanent_display(Permanent(name="Island")) == "Island"
 
     def test_tapped(self) -> None:
-        assert permanent_display({"name": "Mountain", "tapped": True}) == "Mountain (tapped)"
+        assert permanent_display(Permanent(name="Mountain", tapped=True)) == "Mountain (tapped)"
 
     def test_counters(self) -> None:
-        result = permanent_display({"name": "Thalia", "counters": [{"name": "+1/+1", "count": 2}]})
+        result = permanent_display(Permanent(name="Thalia", counters=[{"name": "+1/+1", "count": 2}]))
         assert "Thalia" in result
         assert "+1/+1=2" in result
 
     def test_power_toughness(self) -> None:
-        assert permanent_display({"name": "Goblin Guide", "pt": "2/2"}) == "Goblin Guide 2/2"
+        assert permanent_display(Permanent(name="Goblin Guide", pt="2/2")) == "Goblin Guide 2/2"
 
     def test_string_input(self) -> None:
         assert permanent_display("Island") == "Island"
 
     def test_loyalty(self) -> None:
-        assert permanent_display({"name": "Karn", "loyalty": 5}) == "Karn (loyalty=5)"
+        assert permanent_display(Permanent(name="Karn", loyalty=5)) == "Karn (loyalty=5)"
 
     def test_token(self) -> None:
-        assert permanent_display({"name": "Soldier", "token": True}) == "Soldier (token)"
+        assert permanent_display(Permanent(name="Soldier", token=True)) == "Soldier (token)"
 
     def test_copy_of_original(self) -> None:
-        result = permanent_display({"name": "Phyrexian Metamorph", "original_card": "Sol Ring"})
+        result = permanent_display(Permanent(name="Phyrexian Metamorph", original_card="Sol Ring"))
         assert result == "Phyrexian Metamorph (copy of Sol Ring)"
 
     def test_copy_without_original(self) -> None:
-        result = permanent_display({"name": "Clone", "copy": True})
+        result = permanent_display(Permanent(name="Clone", copy=True))
         assert result == "Clone (copy)"
 
     def test_power_toughness_integers(self) -> None:
-        result = permanent_display({"name": "Bear", "power": "2", "toughness": "2"})
+        result = permanent_display(Permanent(name="Bear", power="2", toughness="2"))
         assert result == "Bear 2/2"
 
     def test_multiple_extras(self) -> None:
         result = permanent_display(
-            {
-                "name": "Soldier",
-                "tapped": True,
-                "token": True,
-                "counters": [{"name": "+1/+1", "count": 1}],
-            }
+            Permanent(
+                name="Soldier",
+                tapped=True,
+                token=True,
+                counters=[{"name": "+1/+1", "count": 1}],
+            )
         )
         assert "tapped" in result
         assert "token" in result
@@ -575,139 +607,105 @@ class TestChosenDisplay:
 
 class TestResolveManaplan:
     def test_resolves_ids_to_names(self) -> None:
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]},
-            ]
-        }
+        snapshot = _make_snapshot(
+            players=[{"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]}]
+        )
         assert _resolve_mana_plan("p1,p5", snapshot) == "Mountain (p1), Forest (p5)"
 
     def test_multi_ability_land_selector(self) -> None:
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Stomping Ground", "id": "p5"}]},
-            ]
-        }
+        snapshot = _make_snapshot(players=[{"battlefield": [{"name": "Stomping Ground", "id": "p5"}]}])
         assert _resolve_mana_plan("p5:1", snapshot) == "Stomping Ground (p5:1)"
 
     def test_pool_colors_unresolved(self) -> None:
-        snapshot = {"players": [{"battlefield": []}]}
+        snapshot = _make_snapshot(players=[{"battlefield": []}])
         assert _resolve_mana_plan("RED,BLUE", snapshot) == "RED, BLUE"
 
     def test_no_snapshot(self) -> None:
         assert _resolve_mana_plan("p1,p5:1", None) == "p1, p5:1"
 
     def test_mixed_ids_and_colors(self) -> None:
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Mountain", "id": "p1"}]},
-            ]
-        }
+        snapshot = _make_snapshot(players=[{"battlefield": [{"name": "Mountain", "id": "p1"}]}])
         assert _resolve_mana_plan("p1,RED", snapshot) == "Mountain (p1), RED"
 
     def test_list_form_resolves_ids_to_names(self) -> None:
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]},
-            ]
-        }
+        snapshot = _make_snapshot(
+            players=[{"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]}]
+        )
         assert _resolve_mana_plan(["p1", "p5:1"], snapshot) == "Mountain (p1), Forest (p5:1)"
 
     def test_structured_entries_resolve_tap_and_pool(self) -> None:
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Mountain", "id": "p1"}]},
-            ]
-        }
+        snapshot = _make_snapshot(players=[{"battlefield": [{"name": "Mountain", "id": "p1"}]}])
         mana_plan = [{"tap": "p1"}, {"pool": "RED"}]
         assert _resolve_mana_plan(mana_plan, snapshot) == "Mountain (p1), RED"
 
 
 class TestChosenBlockManaPlan:
     def test_shows_mana_plan(self) -> None:
-        decision = {
-            "chosen": 0,
-            "chosenArgs": {"choice": "p3", "mana_plan": "p1,p5"},
-            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
-            "player": "Alice",
-            "subsequentActions": [],
-        }
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]},
-            ]
-        }
+        decision = _make_decision(
+            chosen=0,
+            chosen_args={"choice": "p3", "mana_plan": "p1,p5"},
+            choices=_choice_list({"name": "Lightning Bolt", "id": "p3"}),
+            subsequent_actions=[],
+        )
+        snapshot = _make_snapshot(
+            players=[{"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]}]
+        )
         block = _render_chosen_block(decision, snapshot)
         assert "Chosen: Lightning Bolt" in block
         assert "Mana plan: Mountain (p1), Forest (p5)" in block
 
     def test_shows_list_form_mana_plan(self) -> None:
-        decision = {
-            "chosen": 0,
-            "chosenArgs": {"choice": "p3", "mana_plan": ["p1", "p5:1"]},
-            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
-            "player": "Alice",
-            "subsequentActions": [],
-        }
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]},
-            ]
-        }
+        decision = _make_decision(
+            chosen=0,
+            chosen_args={"choice": "p3", "mana_plan": ["p1", "p5:1"]},
+            choices=_choice_list({"name": "Lightning Bolt", "id": "p3"}),
+            subsequent_actions=[],
+        )
+        snapshot = _make_snapshot(
+            players=[{"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]}]
+        )
         block = _render_chosen_block(decision, snapshot)
         assert "Mana plan: Mountain (p1), Forest (p5:1)" in block
 
     def test_shows_structured_mana_plan(self) -> None:
-        decision = {
-            "chosen": 0,
-            "chosenArgs": {"choice": "p3", "mana_plan": [{"tap": "p1"}, {"pool": "RED"}]},
-            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
-            "player": "Alice",
-            "subsequentActions": [],
-        }
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Mountain", "id": "p1"}]},
-            ]
-        }
+        decision = _make_decision(
+            chosen=0,
+            chosen_args={"choice": "p3", "mana_plan": [{"tap": "p1"}, {"pool": "RED"}]},
+            choices=_choice_list({"name": "Lightning Bolt", "id": "p3"}),
+            subsequent_actions=[],
+        )
+        snapshot = _make_snapshot(players=[{"battlefield": [{"name": "Mountain", "id": "p1"}]}])
         block = _render_chosen_block(decision, snapshot)
         assert "Mana plan: Mountain (p1), RED" in block
 
     def test_shows_auto_tap_false(self) -> None:
-        decision = {
-            "chosen": 0,
-            "chosenArgs": {"choice": "p3", "mana_plan": "p1", "auto_tap": False},
-            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
-            "player": "Alice",
-            "subsequentActions": [],
-        }
-        snapshot = {
-            "players": [
-                {"battlefield": [{"name": "Mountain", "id": "p1"}]},
-            ]
-        }
+        decision = _make_decision(
+            chosen=0,
+            chosen_args={"choice": "p3", "mana_plan": "p1", "auto_tap": False},
+            choices=_choice_list({"name": "Lightning Bolt", "id": "p3"}),
+            subsequent_actions=[],
+        )
+        snapshot = _make_snapshot(players=[{"battlefield": [{"name": "Mountain", "id": "p1"}]}])
         block = _render_chosen_block(decision, snapshot)
         assert "auto_tap=false" in block
 
     def test_no_mana_plan_no_extra_line(self) -> None:
-        decision = {
-            "chosen": 0,
-            "chosenArgs": {"choice": "p3"},
-            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
-            "player": "Alice",
-            "subsequentActions": [],
-        }
+        decision = _make_decision(
+            chosen=0,
+            chosen_args={"choice": "p3"},
+            choices=_choice_list({"name": "Lightning Bolt", "id": "p3"}),
+            subsequent_actions=[],
+        )
         block = _render_chosen_block(decision)
         assert "Mana plan" not in block
 
     def test_chosen_args_must_be_object(self) -> None:
-        decision = {
-            "chosen": 0,
-            "chosenArgs": "bad",
-            "choices": _choice_list({"name": "Lightning Bolt", "id": "p3"}),
-            "player": "Alice",
-            "subsequentActions": [],
-        }
+        decision = _make_decision(
+            chosen=0,
+            choices=_choice_list({"name": "Lightning Bolt", "id": "p3"}),
+            subsequent_actions=[],
+        )
+        decision.chosenArgs = "bad"  # type: ignore[assignment]
 
         with pytest.raises(AssertionError, match="chosenArgs must be an object"):
             _render_chosen_block(decision)
@@ -739,9 +737,9 @@ class TestFailFastOnMissingName:
     """Required 'name' field must crash, not fall back to '?'."""
 
     def test_card_display_crashes_on_missing_name(self) -> None:
-        with pytest.raises(KeyError):
-            card_display({"id": "p1"})
+        with pytest.raises(AssertionError, match="card name must be a string"):
+            card_display(StackTarget(id="p1"))
 
     def test_permanent_display_crashes_on_missing_name(self) -> None:
-        with pytest.raises(KeyError):
-            permanent_display({"tapped": True})
+        with pytest.raises(AssertionError, match="permanent name must be a string"):
+            permanent_display(StackTarget(id="p1"))

@@ -4,7 +4,6 @@ import argparse
 import asyncio
 import json
 import os
-import re
 import sys
 import time
 from collections.abc import Sequence
@@ -33,7 +32,14 @@ from puppeteer.llm_cost import (
 )
 from puppeteer.log import get_logger, log_error, setup_logging
 from puppeteer.tool_error import ToolExecutionError, extract_text_content
-from schemas.game_export_types import Choice, Decision, MultiAmountItem, PilotContext
+from schemas.game_export_types import (
+    Choice,
+    Decision,
+    MultiAmountItem,
+    PilotContext,
+    Snapshot,
+    require_snapshot,
+)
 
 logger = get_logger(__name__)
 
@@ -134,23 +140,66 @@ def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
     return oracle_texts
 
 
-def _build_pilot_snapshot(data: dict, board: list[dict] | None) -> dict:
-    """Build a snapshot-like dict from a pass_priority/get_action_choices result.
+def _normalize_context_token(raw: str | None) -> str | None:
+    if raw is None:
+        return None
+    token = raw.strip()
+    if not token:
+        return None
+    return token.upper().replace(" ", "_")
 
-    Converts the flat board (list of players) into the snapshot format
-    expected by render_decision().
-    """
+
+def _parse_context_metadata(
+    context: object,
+) -> tuple[int | None, str | None, str | None, str | None]:
+    """Parse bridge context strings like 'T3 Precombat Main/Precombat Main (Alice)'."""
+    if context is None:
+        return None, None, None, None
+    assert isinstance(context, str), f"context must be a string when present, got {context!r}"
+
+    header, _, player_suffix = context.partition(" (")
+    active_player = player_suffix.split(")", 1)[0].strip() if player_suffix else None
+    if active_player == "":
+        active_player = None
+
+    parts = header.split(maxsplit=1)
+    assert parts and parts[0].startswith("T"), f"context must start with turn marker, got {context!r}"
+    turn = int(parts[0][1:])
+
+    phase_step = parts[1] if len(parts) > 1 else ""
+    phase_raw, _, step_raw = phase_step.partition("/")
+    phase = _normalize_context_token(phase_raw)
+    step = _normalize_context_token(step_raw) or phase
+    return turn, phase, step, active_player
+
+
+def _build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decision) -> Snapshot:
+    """Build a typed snapshot from a pass_priority/get_action_choices result."""
     players: list[dict] = []
+    active_player: str | None = None
     if board:
         for p in board:
-            player: dict = {
-                "name": p.get("name", "?"),
-                "life": p.get("life", 0),
-                "library_size": p.get("library_size"),
-            }
-            if p.get("hand"):
-                player["hand"] = p["hand"]
+            name = p.get("name")
+            life = p.get("life")
+            library_size = p.get("library_size", 0)
+            assert isinstance(name, str) and name, f"pilot board player missing name: {p!r}"
+            assert isinstance(life, int), f"pilot board player life must be an int, got {life!r}"
+            assert isinstance(library_size, int), (
+                f"pilot board player library_size must be an int, got {library_size!r}"
+            )
+            if p.get("is_active"):
+                active_player = name
             hand = p.get("hand")
+            battlefield = p.get("battlefield")
+            graveyard = p.get("graveyard")
+            player: dict = {
+                "name": name,
+                "life": life,
+                "library_size": library_size,
+                "battlefield": [] if battlefield is None else battlefield,
+                "graveyard": [] if graveyard is None else graveyard,
+                "hand": [] if hand is None else hand,
+            }
             player["hand_count"] = p.get("hand_size", len(hand) if hand is not None else 0)
             for zone in ("battlefield", "graveyard", "exile", "commanders"):
                 if p.get(zone):
@@ -159,12 +208,25 @@ def _build_pilot_snapshot(data: dict, board: list[dict] | None) -> dict:
                 player["counters"] = p["counters"]
             players.append(player)
 
-    snapshot: dict = {"players": players}
-    if data.get("stack"):
-        snapshot["stack"] = data["stack"]
-    if data.get("combat"):
-        snapshot["combat"] = data["combat"]
-    return snapshot
+    _, _, step, context_active_player = _parse_context_metadata(data.get("context"))
+    # Some lightweight live responses omit a stable seq/cursor; the prompt
+    # renderer doesn't consume seq, so use 0 for synthetic snapshots.
+    raw_seq = data.get("game_seq", data.get("board_cursor", 0))
+    assert isinstance(raw_seq, int), f"pilot snapshot missing integer game_seq/board_cursor: {data!r}"
+    stack = data.get("stack")
+    snapshot_payload: dict[str, object] = {
+        "seq": raw_seq,
+        "turn": decision.turn,
+        "phase": decision.phase,
+        "step": step,
+        "active_player": active_player or context_active_player,
+        "priority_player": decision.player,
+        "players": players,
+        "stack": [] if stack is None else stack,
+    }
+    if data.get("combat") is not None:
+        snapshot_payload["combat"] = data["combat"]
+    return require_snapshot(snapshot_payload, source="pilot snapshot")
 
 
 def _build_pilot_decision(data: dict) -> Decision:
@@ -203,12 +265,11 @@ def _build_pilot_decision(data: dict) -> Decision:
     )
 
     # Parse context string for turn/phase: "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN"
-    context = data.get("context")
-    if context:
-        m = re.match(r"T(\d+)\s+(.+?)(?:\s+\(|$)", context)
-        if m:
-            decision.turn = int(m.group(1))
-            decision.phase = m.group(2).split("/")[0].strip().upper().replace(" ", "_")
+    context_turn, context_phase, _, _ = _parse_context_metadata(data.get("context"))
+    if context_turn is not None:
+        decision.turn = context_turn
+    if context_phase is not None:
+        decision.phase = context_phase
 
     # Find player name from board
     board = data.get("board")
@@ -277,8 +338,8 @@ def _render_for_pilot(
     else:
         board = last_board
 
-    snapshot = _build_pilot_snapshot(data, board)
     decision = _build_pilot_decision(data)
+    snapshot = _build_pilot_snapshot(data, board, decision)
 
     # Extract oracle texts from board's rules fields, filtering out
     # cards whose oracle text was already shown in a previous message.

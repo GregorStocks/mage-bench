@@ -2040,6 +2040,11 @@ def require_game_export(value: object, source: str = "game export") -> GameExpor
     return GameExport.from_dict(coerced)
 
 
+def require_snapshot(value: object, source: str = "snapshot") -> Snapshot:
+    """Validate and coerce a snapshot payload to the typed Snapshot dataclass."""
+    return _coerce_snapshot(value, source)
+
+
 def load_game_export(path: str | Path) -> GameExport:
     export_path = Path(path)
     raw = (
@@ -2123,42 +2128,6 @@ def json_default(obj: object) -> object:
     raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
 
-def _dataclass_to_shallow_dict(obj: object) -> dict:
-    """Convert a dataclass instance to a dict, omitting None-valued optional fields."""
-    result: dict = {}
-    extras: Mapping[str, object] = {}
-    for f in dataclasses.fields(obj):  # type: ignore[arg-type]
-        v = getattr(obj, f.name)
-        if f.name == "_extras":
-            if isinstance(v, Mapping):
-                extras = v
-            continue
-        if v is not None or (
-            f.default is dataclasses.MISSING
-            and f.default_factory is dataclasses.MISSING
-        ):
-            result[f.name] = v
-    for key, value in extras.items():
-        result[str(key)] = value
-    return result
-
-
-def snapshot_to_dict(snap: Snapshot) -> dict:
-    """Convert a Snapshot dataclass tree to a plain dict for render_decision().
-
-    Produces a shallow nested dict: Snapshot fields become top-level keys,
-    SnapshotPlayer and CombatGroup instances become dicts, but leaf records
-    (Permanent, StackItem, CombatCreature) remain as dataclass instances.
-    Required fields are always included (even when None), matching the
-    original TypedDict behavior.
-    """
-    result = _dataclass_to_shallow_dict(snap)
-    result["players"] = [_dataclass_to_shallow_dict(p) for p in snap.players]
-    if snap.combat is not None:
-        result["combat"] = [_dataclass_to_shallow_dict(g) for g in snap.combat]
-    return result
-
-
 __all__ = [
     "Action",
     "Annotation",
@@ -2189,7 +2158,6 @@ __all__ = [
     "Player",
     "Snapshot",
     "SnapshotPlayer",
-    "snapshot_to_dict",
     "StackItem",
     "StackTarget",
     "StallEvent",
@@ -2205,4 +2173,5 @@ __all__ = [
     "load_game_export",
     "require_built_game_export",
     "require_game_export",
+    "require_snapshot",
 ]

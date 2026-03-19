@@ -1126,17 +1126,19 @@ class TestBuildPilotDecision:
 class TestBuildPilotSnapshot:
     def test_player_data(self) -> None:
         data = _sample_pass_priority_result()
-        snapshot = _build_pilot_snapshot(data, data["board"])
-        assert len(snapshot["players"]) == 2
-        assert snapshot["players"][0]["name"] == "Alice"
-        assert snapshot["players"][0]["life"] == 20
-        assert len(snapshot["players"][0]["hand"]) == 2
-        assert snapshot["players"][0]["hand_count"] == 2
+        decision = _build_pilot_decision(data)
+        snapshot = _build_pilot_snapshot(data, data["board"], decision)
+        assert len(snapshot.players) == 2
+        assert snapshot.players[0].name == "Alice"
+        assert snapshot.players[0].life == 20
+        assert len(snapshot.players[0].hand) == 2
+        assert snapshot.players[0].hand_count == 2
 
     def test_no_board(self) -> None:
         data = _sample_pass_priority_result()
-        snapshot = _build_pilot_snapshot(data, None)
-        assert snapshot["players"] == []
+        decision = _build_pilot_decision(data)
+        snapshot = _build_pilot_snapshot(data, None, decision)
+        assert snapshot.players == []
 
 
 @pytest.mark.asyncio

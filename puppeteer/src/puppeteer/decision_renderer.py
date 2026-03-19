@@ -17,9 +17,11 @@ from collections.abc import Sequence
 
 from schemas.game_export_types import (
     Choice,
+    CombatGroup,
     Decision,
     MultiAmountItem,
     PilotContext,
+    Snapshot,
     decision_support_get,
     decision_support_has,
     export_record_field,
@@ -41,38 +43,20 @@ BASIC_LAND_NAMES = frozenset(
     ]
 )
 
-DecisionLike = Decision | dict[str, object]
-
-
-def _decision_value(decision: DecisionLike, key: str) -> object:
-    if isinstance(decision, Decision):
-        return getattr(decision, key)
-    return decision[key]
-
-
-def _decision_optional(decision: DecisionLike, key: str) -> object:
-    if isinstance(decision, Decision):
-        return getattr(decision, key)
-    return decision.get(key)
-
 
 def _record_field(record: object, field: str) -> object | None:
     return export_record_field(record, field)
 
 
 def _record_name(record: object, *, source: str) -> str:
-    if isinstance(record, dict):
-        name = record["name"]
-        assert isinstance(name, str), f"{source} name must be a string, got {name!r}"
-        return name
     name = _record_field(record, "name")
     assert isinstance(name, str), f"{source} name must be a string, got {name!r}"
     return name
 
 
 def render_decision(
-    decision: DecisionLike,
-    snapshot: dict,
+    decision: Decision,
+    snapshot: Snapshot,
     oracle_texts: dict[str, dict] | None = None,
     *,
     deciding_player: str | None = None,
@@ -85,8 +69,8 @@ def render_decision(
     """Render a canonical decision into structured text.
 
     Args:
-        decision: Canonical decision dict (from export or built live).
-        snapshot: The referenced snapshot (from export snapshots[] or MCP board).
+        decision: Canonical decision record.
+        snapshot: The referenced snapshot.
         oracle_texts: Card name -> oracle fields dict. Optional.
         deciding_player: Who's deciding (for hand redaction). When set,
             opponent hands show only hand_size/hand_count.
@@ -139,53 +123,47 @@ def render_decision(
 
 
 def _render_decision_block(
-    decision: DecisionLike,
-    snapshot: dict,
+    decision: Decision,
+    snapshot: Snapshot,
     deciding_player: str | None,
 ) -> str:
     """Render the core decision: board state, stack, choices."""
-    turn = _decision_value(decision, "turn")
+    turn = decision.turn
     assert isinstance(turn, int), f"decision turn must be an int, got {turn!r}"
-    phase_value = _decision_value(decision, "phase")
+    phase_value = decision.phase
     if not phase_value:
-        message_value = _decision_value(decision, "message")
+        message_value = decision.message
         assert turn in (0, 1), f"decision has empty phase on turn {turn}: {message_value}"
     phase = phase_value or "PREGAME"
-    player = _decision_value(decision, "player")
-    message = _decision_value(decision, "message")
+    player = decision.player
+    message = decision.message
     assert isinstance(player, str), f"decision player must be a string, got {player!r}"
     assert isinstance(message, str), f"decision message must be a string, got {message!r}"
 
     # Header
     lines: list[str] = [
-        (
-            f"[Decision {_decision_value(decision, 'index')}, "
-            f"snapshot={_decision_value(decision, 'snapshotIndex')}] "
-            f"Turn {turn} {phase} - {player}"
-        )
+        (f"[Decision {decision.index}, snapshot={decision.snapshotIndex}] Turn {turn} {phase} - {player}")
     ]
     pilot_ctx: PilotContext | None = None
-    raw_pilot_ctx = _decision_optional(decision, "pilotContext")
+    raw_pilot_ctx = decision.pilotContext
     if raw_pilot_ctx is not None:
-        assert isinstance(raw_pilot_ctx, (dict, PilotContext)), (
+        assert isinstance(raw_pilot_ctx, PilotContext), (
             f"pilotContext must be an object when present, got {raw_pilot_ctx!r}"
         )
-        pilot_ctx = (
-            raw_pilot_ctx if isinstance(raw_pilot_ctx, PilotContext) else PilotContext.from_mapping(raw_pilot_ctx)
-        )
+        pilot_ctx = raw_pilot_ctx
 
     # Board state from snapshot
     board_line = _render_board(snapshot, deciding_player)
     lines.append(f"  Board: {board_line}")
 
     # Stack
-    stack = snapshot.get("stack")
+    stack = snapshot.stack
     if stack:
         stack_parts = _render_stack(stack)
         lines.append(f"  Stack: [{', '.join(stack_parts)}]")
 
     # Combat
-    combat_groups = snapshot.get("combat")
+    combat_groups = snapshot.combat
     if combat_groups:
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
@@ -222,15 +200,14 @@ def _render_decision_block(
         lines.append(f"  {', '.join(ctx_parts)}")
 
     # Message and choices/items
-    raw_choices = _decision_value(decision, "choices")
-    assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
-    choices = raw_choices
-    items = _decision_optional(decision, "items")
+    choices = decision.choices
+    assert isinstance(choices, list), f"decision choices must be a list, got {choices!r}"
+    items = decision.items
     lines.append(f"  Message: {message if message else ''}")
     if items:
         assert isinstance(items, list), f"decision items must be a list when present, got {items!r}"
-        total_min = _decision_optional(decision, "totalMin")
-        total_max = _decision_optional(decision, "totalMax")
+        total_min = decision.totalMin
+        total_max = decision.totalMax
         header = f"  Items ({len(items)})"
         if total_min is not None and total_max is not None and total_min == total_max:
             header += f": total={total_min}"
@@ -269,20 +246,20 @@ def _render_decision_block(
     return "\n".join(lines)
 
 
-def _render_board(snapshot: dict, deciding_player: str | None) -> str:
+def _render_board(snapshot: Snapshot, deciding_player: str | None) -> str:
     """Render board state from snapshot players."""
     players_parts: list[str] = []
-    for p in snapshot["players"]:
-        name = p["name"]
-        life = p["life"]
-        bf = p.get("battlefield")
-        gy = p.get("graveyard")
-        exile = p.get("exile")
-        hand = p.get("hand")
+    for p in snapshot.players:
+        name = p.name
+        life = p.life
+        bf = p.battlefield
+        gy = p.graveyard
+        exile = p.exile
+        hand = p.hand
 
         # Hand: show full for deciding player, count only for opponents
         if deciding_player and name != deciding_player:
-            hand_count = p["hand_count"] if "hand_count" in p else len(hand) if hand is not None else 0
+            hand_count = p.hand_count if p.hand_count is not None else len(hand)
             s = f"{name}: {life}hp"
             if hand_count:
                 s += f" hand={hand_count}"
@@ -290,10 +267,10 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
             hand_strs = [card_display(c) for c in hand] if hand else []
             s = f"{name}: {life}hp hand=[{', '.join(hand_strs)}]" if hand_strs else f"{name}: {life}hp hand=0"
 
-        s += f" lib={p['library_size']}"
+        s += f" lib={p.library_size}"
 
         # Player counters
-        counters = p.get("counters")
+        counters = p.counters
         if counters:
             s += _format_counters(counters)
 
@@ -376,7 +353,7 @@ def _format_counters(counters: object) -> str:
     return "".join(parts)
 
 
-def _render_stack(stack: list) -> list[str]:
+def _render_stack(stack: Sequence[object]) -> list[str]:
     """Render stack items."""
     parts: list[str] = []
     for item in stack:
@@ -409,25 +386,25 @@ def _render_stack_target(target: object) -> str:
     return str(target)
 
 
-def _render_combat(combat_groups: list) -> str:
+def _render_combat(combat_groups: Sequence[CombatGroup]) -> str:
     """Render combat groups."""
     parts: list[str] = []
     for group in combat_groups:
-        attackers = group.get("attackers")
+        attackers = group.attackers
         atk_names: list[str] = []
         if attackers is not None:
             atk_names = [_record_name(a, source="combat attacker") for a in attackers if _record_field(a, "name")]
-        blockers = group.get("blockers")
+        blockers = group.blockers
         blk_names: list[str] = []
         if blockers is not None:
             blk_names = [_record_name(b, source="combat blocker") for b in blockers if _record_field(b, "name")]
         part = ", ".join(atk_names)
         if blk_names:
             part += f" blocked by {', '.join(blk_names)}"
-        elif group.get("blocked"):
+        elif group.blocked:
             part += " (blocked)"
-        if group.get("defending"):
-            part += f" -> {group['defending']}"
+        if group.defending:
+            part += f" -> {group.defending}"
         parts.append(part)
     return " | ".join(parts)
 
@@ -466,37 +443,24 @@ def _render_incoming_attackers(incoming_attackers: list) -> str:
     return ", ".join(parts)
 
 
-def _as_choice(c: object) -> Choice | None:
-    """Coerce a choice to a Choice dataclass, accepting both Choice and raw dict."""
-    if isinstance(c, Choice):
-        return c
-    if isinstance(c, dict):
-        return Choice.from_mapping(c)
-    return None
-
-
-def _format_choice(c: object) -> str:
+def _format_choice(choice: Choice | str) -> str:
     """Format a single choice for display."""
-    if isinstance(c, str):
-        return c
-    choice = _as_choice(c)
-    if choice is None:
-        return str(c)
-    c = choice
-    raw_name = decision_support_get(c, "name")
+    if isinstance(choice, str):
+        return choice
+    raw_name = decision_support_get(choice, "name")
     if isinstance(raw_name, str) and raw_name:
         name = raw_name
     else:
-        raw_description = decision_support_get(c, "description")
+        raw_description = decision_support_get(choice, "description")
         name = raw_description if isinstance(raw_description, str) and raw_description else "?"
     parts: list[str] = [name]
-    choice_id = decision_support_get(c, "id")
+    choice_id = decision_support_get(choice, "id")
     if isinstance(choice_id, str) and choice_id:
         parts.append(f"id={choice_id}")
-    action = decision_support_get(c, "action")
+    action = decision_support_get(choice, "action")
     if isinstance(action, str) and action:
         parts.append(action)
-    mana_cost = decision_support_get(c, "mana_cost")
+    mana_cost = decision_support_get(choice, "mana_cost")
     if isinstance(mana_cost, str) and mana_cost:
         parts.append(mana_cost)
     if len(parts) > 1:
@@ -504,19 +468,18 @@ def _format_choice(c: object) -> str:
     return parts[0]
 
 
-def _render_chosen_block(decision: DecisionLike, snapshot: dict | None = None) -> str:
+def _render_chosen_block(decision: Decision, snapshot: Snapshot | None = None) -> str:
     """Render what was chosen in a decision."""
     lines: list[str] = []
-    chosen = _decision_optional(decision, "chosen")
-    raw_chosen_args = _decision_optional(decision, "chosenArgs")
+    chosen = decision.chosen
+    raw_chosen_args = decision.chosenArgs
     if raw_chosen_args is not None:
         assert isinstance(raw_chosen_args, dict), f"chosenArgs must be an object when present, got {raw_chosen_args!r}"
         chosen_args = raw_chosen_args
     else:
         chosen_args = {}
-    raw_choices = _decision_value(decision, "choices")
-    assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
-    choices = raw_choices
+    choices = decision.choices
+    assert isinstance(choices, list), f"decision choices must be a list, got {choices!r}"
 
     # Display chosen
     chosen_name = _chosen_display(chosen, chosen_args, choices)
@@ -534,9 +497,9 @@ def _render_chosen_block(decision: DecisionLike, snapshot: dict | None = None) -
     # Show targeting / activation details from subsequent actions.
     # These are part of the decision itself (what the player targeted), not
     # outcome information, so they're safe to include without biasing the annotator.
-    player = _decision_value(decision, "player")
+    player = decision.player
     assert isinstance(player, str), f"decision player must be a string, got {player!r}"
-    subsequent_actions = _decision_value(decision, "subsequentActions")
+    subsequent_actions = decision.subsequentActions
     assert isinstance(subsequent_actions, list), (
         f"decision subsequentActions must be a list, got {subsequent_actions!r}"
     )
@@ -547,7 +510,7 @@ def _render_chosen_block(decision: DecisionLike, snapshot: dict | None = None) -
             lines.append(f"  Result: {action}")
             break
 
-    if _decision_optional(decision, "castRolledBack"):
+    if decision.castRolledBack:
         lines.append(
             "  **NOTE:** This cast was attempted but the game engine rolled it "
             "back because the player could not complete the mana payment."
@@ -556,19 +519,17 @@ def _render_chosen_block(decision: DecisionLike, snapshot: dict | None = None) -
     return "\n".join(lines)
 
 
-def _resolve_mana_plan(mana_plan: object, snapshot: dict | None) -> str:
+def _resolve_mana_plan(mana_plan: object, snapshot: Snapshot | None) -> str:
     """Resolve mana_plan entries to readable names using the snapshot."""
     # Build ID -> name map from battlefield permanents
     id_to_name: dict[str, str] = {}
     if snapshot:
-        for p in snapshot["players"]:
-            battlefield = p.get("battlefield")
-            if battlefield is not None:
-                for perm in battlefield:
-                    perm_id = _record_field(perm, "id")
-                    if isinstance(perm_id, str) and perm_id:
-                        perm_name = _record_field(perm, "name")
-                        id_to_name[perm_id] = perm_name if isinstance(perm_name, str) and perm_name else perm_id
+        for p in snapshot.players:
+            for perm in p.battlefield:
+                perm_id = _record_field(perm, "id")
+                if isinstance(perm_id, str) and perm_id:
+                    perm_name = _record_field(perm, "name")
+                    id_to_name[perm_id] = perm_name if isinstance(perm_name, str) and perm_name else perm_id
 
     parts: list[str] = []
     if isinstance(mana_plan, str):
@@ -625,7 +586,7 @@ def _render_mana_plan_token(token: str, id_to_name: dict[str, str]) -> str:
 def _chosen_display(
     chosen: object,
     chosen_args: dict | None,
-    choices: list,
+    choices: Sequence[Choice],
 ) -> str:
     """Format what was chosen for display."""
     if chosen is None:
@@ -646,17 +607,14 @@ def _chosen_display(
     if isinstance(chosen, bool):
         return str(chosen)
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
-        c = choices[chosen]
-        choice = _as_choice(c)
-        if choice is not None:
-            name = decision_support_get(choice, "name")
-            if isinstance(name, str) and name:
-                return name
-            description = decision_support_get(choice, "description")
-            if isinstance(description, str) and description:
-                return description
-            return str(chosen)
-        return str(c)
+        choice = choices[chosen]
+        name = decision_support_get(choice, "name")
+        if isinstance(name, str) and name:
+            return name
+        description = decision_support_get(choice, "description")
+        if isinstance(description, str) and description:
+            return description
+        return str(chosen)
     return str(chosen)
 
 
@@ -667,7 +625,7 @@ def _attacker_id(entry: object) -> str:
     return str(entry)
 
 
-def _batch_attack_display(attackers: list | str, choices: list) -> str:
+def _batch_attack_display(attackers: list | str, choices: Sequence[Choice]) -> str:
     """Render a batch attack declaration for display."""
     # Handle comma-separated string format (epoch 36+)
     if isinstance(attackers, str):
@@ -675,23 +633,17 @@ def _batch_attack_display(attackers: list | str, choices: list) -> str:
     if attackers == ["all"]:
         # Resolve names from choices (exclude the "All attack" special entry)
         names = []
-        for c in choices:
-            choice = _as_choice(c)
-            if choice is None:
-                continue
+        for choice in choices:
             if decision_support_get(choice, "id") == "all":
                 continue
             name = decision_support_get(choice, "name")
-            names.append(name if isinstance(name, str) and name else str(c))
+            names.append(name if isinstance(name, str) and name else str(choice))
         if names:
             return f"Attack with all ({', '.join(names)})"
         return "Attack with all creatures"
     # Resolve individual attacker IDs to names (entries may be strings or dicts)
     choice_by_id: dict[str, str] = {}
-    for c in choices:
-        choice = _as_choice(c)
-        if choice is None:
-            continue
+    for choice in choices:
         choice_id = decision_support_get(choice, "id")
         if not isinstance(choice_id, str) or not choice_id:
             continue
@@ -701,7 +653,7 @@ def _batch_attack_display(attackers: list | str, choices: list) -> str:
     return f"Attack with {', '.join(names)}"
 
 
-def _batch_block_display(blockers: list | str, choices: list) -> str:
+def _batch_block_display(blockers: list | str, choices: Sequence[Choice]) -> str:
     """Render a batch block declaration for display.
 
     Handles four persisted formats:
@@ -720,10 +672,7 @@ def _batch_block_display(blockers: list | str, choices: list) -> str:
             parsed = [b.strip() for b in blockers.split(",")]
         blockers = parsed
     choice_by_id: dict[str, str] = {}
-    for c in choices:
-        choice = _as_choice(c)
-        if choice is None:
-            continue
+    for choice in choices:
         choice_id = decision_support_get(choice, "id")
         if not isinstance(choice_id, str) or not choice_id:
             continue
@@ -749,16 +698,16 @@ def _batch_block_display(blockers: list | str, choices: list) -> str:
 
 
 def _render_card_reference(
-    decision: DecisionLike,
-    snapshot: dict,
+    decision: Decision,
+    snapshot: Snapshot,
     oracle_texts: dict[str, dict],
 ) -> str:
     """Build a Card Reference section for non-basic cards in the decision."""
     # Collect all card names from snapshot and choices
     names: set[str] = set()
-    for p in snapshot["players"]:
+    for p in snapshot.players:
         for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-            zone_cards = p.get(zone)
+            zone_cards = getattr(p, zone)
             if zone_cards is None:
                 continue
             for c in zone_cards:
@@ -768,23 +717,17 @@ def _render_card_reference(
                     name = _record_field(c, "name")
                     if isinstance(name, str) and name:
                         names.add(name)
-    stack = snapshot.get("stack")
-    if stack is not None:
-        for item in stack:
-            if isinstance(item, str) and item:
-                names.add(item)
-            else:
-                name = _record_field(item, "name")
-                if isinstance(name, str) and name:
-                    names.add(name)
-    raw_choices = _decision_value(decision, "choices")
-    assert isinstance(raw_choices, list), f"decision choices must be a list, got {raw_choices!r}"
-    for c in raw_choices:
-        choice = _as_choice(c)
-        if choice is not None:
-            name = decision_support_get(choice, "name")
+    for item in snapshot.stack:
+        if isinstance(item, str) and item:
+            names.add(item)
+        else:
+            name = _record_field(item, "name")
             if isinstance(name, str) and name:
                 names.add(name)
+    for choice in decision.choices:
+        name = decision_support_get(choice, "name")
+        if isinstance(name, str) and name:
+            names.add(name)
 
     # Filter to non-basic cards with oracle text
     lines: list[str] = []

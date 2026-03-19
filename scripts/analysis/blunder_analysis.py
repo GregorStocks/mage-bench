@@ -38,16 +38,16 @@ from puppeteer.decision_renderer import (
 )
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
-    Action,
-    Decision,
     Annotation,
+    Action,
+    Choice,
+    Decision,
     GameExport,
     Permanent,
     Snapshot,
     SnapshotPlayer,
     export_record_field,
     json_default,
-    snapshot_to_dict,
 )
 from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
@@ -875,10 +875,15 @@ def _chosen_display(d: DecisionRecord) -> str:
     """
     chosen = d.get("chosen")
     chosen_args = d.get("chosenArgs")
-    choices = d.get("choices")
-    return _renderer_chosen_display(
-        chosen, chosen_args, choices if choices is not None else []
-    )
+    raw_choices = d.get("choices")
+    if raw_choices is None:
+        choices: list[Choice] = []
+    else:
+        assert isinstance(raw_choices, list), (
+            f"decision choices must be a list when present, got {raw_choices!r}"
+        )
+        choices = Choice.coerce_list(raw_choices)
+    return _renderer_chosen_display(chosen, chosen_args, choices)
 
 
 def _compute_cost(
@@ -1076,13 +1081,13 @@ def _format_preceding_action(preceding: DecisionRecord) -> str:
 
 def build_decision_prompt(
     overview: str,
-    decision: DecisionRecord,
+    decision: Decision,
     oracle_texts: dict[str, dict],
     snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
     num_players: int,
     all_actions: Sequence[Action],
-    preceding_decision: DecisionRecord | None = None,
+    preceding_decision: Decision | None = None,
 ) -> tuple[str, str]:
     """Build the (system_prompt, user_message) pair for a single decision evaluation.
 
@@ -1101,13 +1106,10 @@ def build_decision_prompt(
     prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn, num_players)
     snap_ts = snap.ts
     turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
-    rendered_decision = decision if isinstance(decision, Decision) else dict(decision)
-    deciding_player = (
-        decision.player if isinstance(decision, Decision) else decision["player"]
-    )
+    deciding_player = decision.player
     formatted = render_decision(
-        rendered_decision,
-        snapshot_to_dict(snap),
+        decision,
+        snap,
         oracle_texts=oracle_texts,
         deciding_player=deciding_player,
         include_card_reference=True,
@@ -1136,14 +1138,14 @@ def _eval_one_decision(
     model: str,
     prices: dict[str, tuple[float, float]],
     overview: str,
-    decision: DecisionRecord,
+    decision: Decision,
     oracle_texts: dict[str, dict],
     snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
     num_players: int,
     all_actions: Sequence[Action],
     label: str | None = None,
-    preceding_decision: DecisionRecord | None = None,
+    preceding_decision: Decision | None = None,
 ) -> tuple[list[Annotation], float, bool, dict]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok, raw_record).
 
@@ -1303,7 +1305,7 @@ def load_game_context(gz_path: str) -> dict:
     # Preceding-decision lookup: for each decision, the one immediately before
     # it in the game sequence. Used by eval_decisions to give the annotator
     # context about what triggered generic prompts like "Select a creature".
-    preceding_by_index: dict[int, DecisionRecord] = {}
+    preceding_by_index: dict[int, Decision] = {}
     for i, d in enumerate(decisions):
         if i > 0:
             preceding_by_index[decision_index(d)] = decisions[i - 1]
@@ -1341,7 +1343,7 @@ def init_api() -> tuple[OpenAI, dict[str, tuple[float, float]]]:
 
 
 def eval_decisions(
-    decisions: Sequence[DecisionRecord],
+    decisions: Sequence[Decision],
     game_ctx: dict,
     client: OpenAI,
     prices: dict[str, tuple[float, float]],
@@ -1393,7 +1395,7 @@ def eval_decisions(
 def _auto_ingest_ground_truth(
     game_id: str,
     annotations: Sequence[Annotation],
-    decisions: Sequence[DecisionRecord],
+    decisions: Sequence[Decision],
     snapshots: Sequence[Snapshot],
 ) -> None:
     """Add annotated decisions to ground truth for future eval."""

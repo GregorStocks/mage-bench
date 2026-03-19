@@ -16,9 +16,11 @@ import json
 import textwrap
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import UTC, datetime
+from typing import cast
 from zoneinfo import ZoneInfo
 
 from openai import OpenAIError
+from schemas.game_export_types import Decision
 
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
@@ -253,7 +255,7 @@ def main() -> None:
 
     # Load game contexts and collect all work items
     print("Loading game data...")
-    work_items: list[tuple[str, dict, dict]] = []  # (play_key, decision, game_ctx)
+    work_items: list[tuple[str, Decision, dict]] = []  # (play_key, decision, game_ctx)
     for game_id, entries in sorted(validated_by_game.items()):
         gz_path = str(game_path_for_id(game_id))
         game_ctx = load_game_context(gz_path)
@@ -263,7 +265,7 @@ def main() -> None:
             di = entry["decision_index"]
             assert di in decision_by_idx, f"Decision {di} not found in {game_id}"
             pk = play_key(game_id, di)
-            work_items.append((pk, decision_by_idx[di], game_ctx))
+            work_items.append((pk, cast(Decision, decision_by_idx[di]), game_ctx))
 
     # Evaluate all plays across all games in parallel
     print(f"Submitting {len(work_items)} plays to {MAX_WORKERS} workers...")
