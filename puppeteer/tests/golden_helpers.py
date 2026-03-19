@@ -1644,25 +1644,26 @@ def _normalize_prompt_for_golden(obj: object) -> object:
 
 def assert_golden_prompt(name: str, actual: list[dict]) -> None:
     """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
-    actual_json = _to_sorted_json(_normalize_prompt_for_golden(actual))
-    golden_file = GOLDEN_DIR / f"{name}.json"
+    normalized = _normalize_prompt_for_golden(actual)
+    actual_json5 = dumps_json5(normalized, sort_keys=True)
+    golden_file = GOLDEN_DIR / f"{name}.json5"
 
     if UPDATE_MODE:
         golden_file.parent.mkdir(parents=True, exist_ok=True)
-        golden_file.write_text(actual_json + "\n")
+        golden_file.write_text(actual_json5 + "\n")
         print(f"Updated golden file: {golden_file}")
         return
 
     assert golden_file.exists(), f"Golden file not found: {golden_file}\nRun 'make regen-golden' to generate it."
 
     expected = golden_file.read_text().rstrip()
-    if expected != actual_json:
-        expected_obj = json.loads(expected)
-        actual_obj = json.loads(actual_json)
+    if expected != actual_json5:
+        expected_obj = loads_json5(expected)
+        actual_obj = loads_json5(actual_json5)
         diff_lines = _json_diff(expected_obj, actual_obj)
         diff_text = "\n".join(diff_lines)
         raise AssertionError(
-            f"Golden file mismatch: {name}.json\nRun 'make regen-golden' to regenerate.\n\n{diff_text}"
+            f"Golden file mismatch: {name}.json5\nRun 'make regen-golden' to regenerate.\n\n{diff_text}"
         )
 
 

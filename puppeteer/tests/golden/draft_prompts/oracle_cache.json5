@@ -3,29 +3,31 @@
     "mana_cost": "{1}{W}",
     "name": "Angelic Ascension",
     "oracle_text": "Exile target creature or planeswalker. Its controller creates a 4/4 white Angel creature token with flying.",
-    "type_line": "Instant"
+    "type_line": "Instant",
   },
   "Angelic Edict": {
     "mana_cost": "{4}{W}",
     "name": "Angelic Edict",
     "oracle_text": "Exile target creature or enchantment.",
-    "type_line": "Sorcery"
+    "type_line": "Sorcery",
   },
   "Angelic Page": {
     "mana_cost": "{1}{W}",
     "name": "Angelic Page",
-    "oracle_text": "Flying\n{T}: Target attacking or blocking creature gets +1/+1 until end of turn.",
+    "oracle_text": "Flying\n\
+{T}: Target attacking or blocking creature gets +1/+1 until end of turn.",
     "power": "1",
     "toughness": "1",
-    "type_line": "Creature \u2014 Angel Spirit"
+    "type_line": "Creature — Angel Spirit",
   },
   "Anointed Chorister": {
     "mana_cost": "{W}",
     "name": "Anointed Chorister",
-    "oracle_text": "Lifelink (Damage dealt by this creature also causes you to gain that much life.)\n{4}{W}: This creature gets +3/+3 until end of turn.",
+    "oracle_text": "Lifelink (Damage dealt by this creature also causes you to gain that much life.)\n\
+{4}{W}: This creature gets +3/+3 until end of turn.",
     "power": "1",
     "toughness": "1",
-    "type_line": "Creature \u2014 Human Cleric"
+    "type_line": "Creature — Human Cleric",
   },
   "Baneslayer Angel": {
     "mana_cost": "{3}{W}{W}",
@@ -33,15 +35,16 @@
     "oracle_text": "Flying, first strike, lifelink, protection from Demons and from Dragons",
     "power": "5",
     "toughness": "5",
-    "type_line": "Creature \u2014 Angel"
+    "type_line": "Creature — Angel",
   },
   "Canopy Stalker": {
     "mana_cost": "{3}{G}",
     "name": "Canopy Stalker",
-    "oracle_text": "This creature must be blocked if able.\nWhen this creature dies, you gain 1 life for each creature that died this turn.",
+    "oracle_text": "This creature must be blocked if able.\n\
+When this creature dies, you gain 1 life for each creature that died this turn.",
     "power": "4",
     "toughness": "2",
-    "type_line": "Creature \u2014 Cat"
+    "type_line": "Creature — Cat",
   },
   "Celestial Enforcer": {
     "mana_cost": "{2}{W}",
@@ -49,47 +52,53 @@
     "oracle_text": "{1}{W}, {T}: Tap target creature. Activate only if you control a creature with flying.",
     "power": "2",
     "toughness": "3",
-    "type_line": "Creature \u2014 Human Cleric"
+    "type_line": "Creature — Human Cleric",
   },
   "Crushing Canopy": {
     "mana_cost": "{2}{G}",
     "name": "Crushing Canopy",
-    "oracle_text": "Choose one \u2014\n\u2022 Destroy target creature with flying.\n\u2022 Destroy target enchantment.",
-    "type_line": "Instant"
+    "oracle_text": "Choose one —\n\
+• Destroy target creature with flying.\n\
+• Destroy target enchantment.",
+    "type_line": "Instant",
   },
   "Emancipation Angel": {
     "mana_cost": "{1}{W}{W}",
     "name": "Emancipation Angel",
-    "oracle_text": "Flying\nWhen this creature enters, return a permanent you control to its owner's hand.",
+    "oracle_text": "Flying\n\
+When this creature enters, return a permanent you control to its owner's hand.",
     "power": "3",
     "toughness": "3",
-    "type_line": "Creature \u2014 Angel"
+    "type_line": "Creature — Angel",
   },
   "Enlarge": {
     "mana_cost": "{3}{G}{G}",
     "name": "Enlarge",
     "oracle_text": "Target creature gets +7/+7 and gains trample until end of turn. It must be blocked this turn if able. (A creature with trample can deal excess combat damage to the player or planeswalker it's attacking.)",
-    "type_line": "Sorcery"
+    "type_line": "Sorcery",
   },
   "Feat of Resistance": {
     "mana_cost": "{1}{W}",
     "name": "Feat of Resistance",
     "oracle_text": "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn. (It can't be blocked, targeted, dealt damage, enchanted, or equipped by anything of that color.)",
-    "type_line": "Instant"
+    "type_line": "Instant",
   },
   "Feline Sovereign": {
     "mana_cost": "{2}{G}",
     "name": "Feline Sovereign",
-    "oracle_text": "Other Cats you control get +1/+1 and have protection from Dogs.\nWhenever one or more Cats you control deal combat damage to a player, destroy up to one target artifact or enchantment that player controls.",
+    "oracle_text": "Other Cats you control get +1/+1 and have protection from Dogs.\n\
+Whenever one or more Cats you control deal combat damage to a player, destroy up to one target artifact or enchantment that player controls.",
     "power": "2",
     "toughness": "3",
-    "type_line": "Creature \u2014 Cat"
+    "type_line": "Creature — Cat",
   },
   "Feral Invocation": {
     "mana_cost": "{2}{G}",
     "name": "Feral Invocation",
-    "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nEnchant creature\nEnchanted creature gets +2/+2.",
-    "type_line": "Enchantment \u2014 Aura"
+    "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\n\
+Enchant creature\n\
+Enchanted creature gets +2/+2.",
+    "type_line": "Enchantment — Aura",
   },
   "Feral Prowler": {
     "mana_cost": "{1}{G}",
@@ -97,13 +106,15 @@
     "oracle_text": "When this creature dies, draw a card.",
     "power": "1",
     "toughness": "3",
-    "type_line": "Creature \u2014 Cat"
+    "type_line": "Creature — Cat",
   },
   "Guardian Idol": {
     "mana_cost": "{2}",
     "name": "Guardian Idol",
-    "oracle_text": "This artifact enters tapped.\n{T}: Add {C}.\n{2}: This artifact becomes a 2/2 Golem artifact creature until end of turn.",
-    "type_line": "Artifact"
+    "oracle_text": "This artifact enters tapped.\n\
+{T}: Add {C}.\n\
+{2}: This artifact becomes a 2/2 Golem artifact creature until end of turn.",
+    "type_line": "Artifact",
   },
   "Initiate's Companion": {
     "mana_cost": "{1}{G}",
@@ -111,7 +122,7 @@
     "oracle_text": "Whenever this creature deals combat damage to a player, untap target creature or land.",
     "power": "3",
     "toughness": "1",
-    "type_line": "Creature \u2014 Cat"
+    "type_line": "Creature — Cat",
   },
   "Keeper of Fables": {
     "mana_cost": "{3}{G}{G}",
@@ -119,13 +130,13 @@
     "oracle_text": "Whenever one or more non-Human creatures you control deal combat damage to a player, draw a card.",
     "power": "4",
     "toughness": "5",
-    "type_line": "Creature \u2014 Cat"
+    "type_line": "Creature — Cat",
   },
   "Nature's Way": {
     "mana_cost": "{1}{G}",
     "name": "Nature's Way",
     "oracle_text": "Target creature you control gains vigilance and trample until end of turn. It deals damage equal to its power to target creature you don't control.",
-    "type_line": "Sorcery"
+    "type_line": "Sorcery",
   },
   "Pouncing Cheetah": {
     "mana_cost": "{2}{G}",
@@ -133,15 +144,16 @@
     "oracle_text": "Flash",
     "power": "3",
     "toughness": "2",
-    "type_line": "Creature \u2014 Cat"
+    "type_line": "Creature — Cat",
   },
   "Pridemalkin": {
     "mana_cost": "{2}{G}",
     "name": "Pridemalkin",
-    "oracle_text": "When this creature enters, put a +1/+1 counter on target creature you control.\nEach creature you control with a +1/+1 counter on it has trample. (It can deal excess combat damage to the player or planeswalker it's attacking.)",
+    "oracle_text": "When this creature enters, put a +1/+1 counter on target creature you control.\n\
+Each creature you control with a +1/+1 counter on it has trample. (It can deal excess combat damage to the player or planeswalker it's attacking.)",
     "power": "2",
     "toughness": "1",
-    "type_line": "Creature \u2014 Cat"
+    "type_line": "Creature — Cat",
   },
   "Sabertooth Mauler": {
     "mana_cost": "{3}{G}",
@@ -149,40 +161,44 @@
     "oracle_text": "At the beginning of your end step, if a creature died this turn, put a +1/+1 counter on this creature and untap it.",
     "power": "3",
     "toughness": "3",
-    "type_line": "Creature \u2014 Cat"
+    "type_line": "Creature — Cat",
   },
   "Scroll of Avacyn": {
     "mana_cost": "{1}",
     "name": "Scroll of Avacyn",
     "oracle_text": "{1}, Sacrifice this artifact: Draw a card. If you control an Angel, you gain 5 life.",
-    "type_line": "Artifact"
+    "type_line": "Artifact",
   },
   "Serra Angel": {
     "mana_cost": "{3}{W}{W}",
     "name": "Serra Angel",
-    "oracle_text": "Flying\nVigilance (Attacking doesn't cause this creature to tap.)",
+    "oracle_text": "Flying\n\
+Vigilance (Attacking doesn't cause this creature to tap.)",
     "power": "4",
     "toughness": "4",
-    "type_line": "Creature \u2014 Angel"
+    "type_line": "Creature — Angel",
   },
   "Thriving Grove": {
     "mana_cost": "",
     "name": "Thriving Grove",
-    "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color.",
-    "type_line": "Land"
+    "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n\
+{T}: Add {G} or one mana of the chosen color.",
+    "type_line": "Land",
   },
   "Thriving Heath": {
     "mana_cost": "",
     "name": "Thriving Heath",
-    "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color.",
-    "type_line": "Land"
+    "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n\
+{T}: Add {W} or one mana of the chosen color.",
+    "type_line": "Land",
   },
   "Voice of the Provinces": {
     "mana_cost": "{4}{W}{W}",
     "name": "Voice of the Provinces",
-    "oracle_text": "Flying\nWhen this creature enters, create a 1/1 white Human creature token.",
+    "oracle_text": "Flying\n\
+When this creature enters, create a 1/1 white Human creature token.",
     "power": "3",
     "toughness": "3",
-    "type_line": "Creature \u2014 Angel"
+    "type_line": "Creature — Angel",
   }
 }

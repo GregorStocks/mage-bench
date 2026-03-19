@@ -10,7 +10,6 @@ To update golden files after intentional changes:
     UPDATE_DRAFT_GOLDEN=1 make test
 """
 
-import json
 import os
 from io import StringIO
 from pathlib import Path
@@ -20,6 +19,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from puppeteer.jumpstart import load_jumpstart_themes
+from scripts.json5_utils import dumps_json5, loads_json5
 from scripts.tournament_draft import (
     _fetch_oracle_texts,
     _llm_pick,
@@ -63,16 +63,16 @@ def oracle_cache(golden_packs):
     On first run (or UPDATE_DRAFT_GOLDEN=1), fetches from Scryfall and caches.
     Subsequent runs use the cached file for deterministic, offline tests.
     """
-    cache_path = GOLDEN_DIR / "oracle_cache.json"
+    cache_path = GOLDEN_DIR / "oracle_cache.json5"
 
     if UPDATE_MODE or not cache_path.exists():
         # Fetch real oracle text for the golden packs
         oracle = _fetch_oracle_texts(golden_packs)
         cache_path.parent.mkdir(parents=True, exist_ok=True)
-        cache_path.write_text(json.dumps(oracle, indent=2, sort_keys=True) + "\n")
+        cache_path.write_text(dumps_json5(oracle, sort_keys=True) + "\n")
         return oracle
 
-    return json.loads(cache_path.read_text())
+    return loads_json5(cache_path.read_text())
 
 
 def _minimal_oracle_for_packs(packs) -> dict[str, dict]:
@@ -321,7 +321,7 @@ class TestGoldenDraftPrompts:
 
     def test_round_1_prompt(self, golden_packs, oracle_cache):
         """Golden test for round 1 draft prompt (no prior pick)."""
-        golden_path = GOLDEN_DIR / "round_1_pick.json"
+        golden_path = GOLDEN_DIR / "round_1_pick.json5"
 
         system = build_draft_system_prompt(
             "You play to win. Evaluate every option by expected win rate.",
@@ -334,19 +334,19 @@ class TestGoldenDraftPrompts:
 
         if UPDATE_MODE:
             golden_path.parent.mkdir(parents=True, exist_ok=True)
-            golden_path.write_text(json.dumps(actual, indent=2) + "\n")
+            golden_path.write_text(dumps_json5(actual) + "\n")
             return
 
         assert golden_path.exists(), (
             f"Golden file missing: {golden_path}\nRun UPDATE_DRAFT_GOLDEN=1 make test to generate."
         )
-        expected = json.loads(golden_path.read_text())
+        expected = loads_json5(golden_path.read_text())
         assert actual["system"] == expected["system"], "System prompt changed"
         assert actual["user"] == expected["user"], "User message changed"
 
     def test_round_2_prompt(self, golden_packs, oracle_cache):
         """Golden test for round 2 draft prompt (has prior pick)."""
-        golden_path = GOLDEN_DIR / "round_2_pick.json"
+        golden_path = GOLDEN_DIR / "round_2_pick.json5"
         already_picked = golden_packs[0]  # Angels
 
         system = build_draft_system_prompt(
@@ -360,12 +360,12 @@ class TestGoldenDraftPrompts:
 
         if UPDATE_MODE:
             golden_path.parent.mkdir(parents=True, exist_ok=True)
-            golden_path.write_text(json.dumps(actual, indent=2) + "\n")
+            golden_path.write_text(dumps_json5(actual) + "\n")
             return
 
         assert golden_path.exists(), (
             f"Golden file missing: {golden_path}\nRun UPDATE_DRAFT_GOLDEN=1 make test to generate."
         )
-        expected = json.loads(golden_path.read_text())
+        expected = loads_json5(golden_path.read_text())
         assert actual["system"] == expected["system"], "System prompt changed"
         assert actual["user"] == expected["user"], "User message changed"
