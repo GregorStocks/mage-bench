@@ -64,11 +64,6 @@ const tournamentSize = tournament?.size ?? 0;
           <span class="tab-count">({formats[format].totalGames})</span>
         </button>
       ))}
-      <label class="inactive-toggle" title="Inactive models are no longer in the active evaluation pool. Reasons: retired (superseded or bottom-tier), buggy (tool-use issues), or expensive (too costly for regular rotation). Historical ratings are preserved.">
-        <input type="checkbox" id="show-inactive" />
-        <span class="toggle-track"><span class="toggle-thumb"></span></span>
-        Show inactive models
-      </label>
     </div>
 
     <p class="scoring-link"><a href="/scoring">How scoring works</a></p>
@@ -160,11 +155,6 @@ const tournamentSize = tournament?.size ?? 0;
       return [el.dataset.sort!, el.dataset.type!];
     }),
   ) as Record<string, 'string' | 'number'>;
-  const showInactiveCheckbox = document.getElementById('show-inactive');
-  if (!(showInactiveCheckbox instanceof HTMLInputElement)) {
-    throw new Error('Missing inactive toggle on rankings page');
-  }
-  const inactiveToggle = showInactiveCheckbox;
   const noResults = document.getElementById('no-results');
   if (!(noResults instanceof HTMLElement)) {
     throw new Error('Missing no-results element on rankings page');
@@ -248,8 +238,6 @@ const tournamentSize = tournament?.size ?? 0;
     const url = new URL(window.location.href);
     if (activeFormat !== 'combined') url.searchParams.set('format', activeFormat);
     else url.searchParams.delete('format');
-    if (inactiveToggle.checked) url.searchParams.set('inactive', '1');
-    else url.searchParams.delete('inactive');
     const currentSort = getCurrentSortState();
     if (currentSort) {
       syncRankingsSortStateToUrl(url, currentSort, getActiveTbody().dataset.exhibition === 'true');
@@ -352,21 +340,15 @@ const tournamentSize = tournament?.size ?? 0;
   });
 
   function applyFilters() {
-    const showInactive = inactiveToggle.checked;
     const tbody = getActiveTbody();
     if (!tbody) return;
     const rows = tbody.querySelectorAll('tr:not(.cutoff-row)');
-    let visibleCount = 0;
 
     rows.forEach(row => {
-      const el = row as HTMLElement;
-      const visible = showInactive || !el.dataset.inactive;
-
-      el.style.display = visible ? '' : 'none';
-      if (visible) visibleCount++;
+      (row as HTMLElement).style.display = '';
     });
 
-    noResultsElement.style.display = visibleCount === 0 ? '' : 'none';
+    noResultsElement.style.display = rows.length === 0 ? '' : 'none';
     updateRanks();
   }
 
@@ -409,12 +391,7 @@ const tournamentSize = tournament?.size ?? 0;
     }
   }
 
-  inactiveToggle.addEventListener('change', () => {
-    applyFilters();
-    syncStateToUrl();
-  });
-
-  // On page load, apply format and inactive params
+  // On page load, apply format params
   {
     suppressUrlSync = true;
     try {
@@ -423,10 +400,6 @@ const tournamentSize = tournament?.size ?? 0;
       if (formatParam && tableElement.querySelector(`tbody[data-format="${formatParam}"]`)) {
         switchFormat(formatParam);
       }
-      if (params.get('inactive') === '1') {
-        inactiveToggle.checked = true;
-      }
-
       const sortState = parseRankingsSortState(
         params,
         getActiveTbody().dataset.exhibition === 'true',
@@ -477,57 +450,6 @@ const tournamentSize = tournament?.size ?? 0;
 
   .scoring-link a:hover {
     color: var(--accent-primary);
-  }
-
-  .inactive-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    cursor: pointer;
-    white-space: nowrap;
-    margin-left: auto;
-    border-bottom: 1px dotted var(--text-secondary);
-    padding-bottom: 1px;
-  }
-
-  .inactive-toggle input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .toggle-track {
-    position: relative;
-    display: inline-block;
-    width: 32px;
-    height: 18px;
-    background: var(--border-default);
-    border-radius: 9px;
-    transition: background 0.2s;
-    flex-shrink: 0;
-  }
-
-  .toggle-thumb {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 14px;
-    height: 14px;
-    background: var(--text-secondary);
-    border-radius: 50%;
-    transition: transform 0.2s, background 0.2s;
-  }
-
-  .inactive-toggle input:checked + .toggle-track {
-    background: var(--accent-primary);
-  }
-
-  .inactive-toggle input:checked + .toggle-track .toggle-thumb {
-    transform: translateX(14px);
-    background: #fff;
   }
 
   .table-wrap {
