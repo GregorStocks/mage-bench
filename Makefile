@@ -163,6 +163,11 @@ $(WEBSITE_NPM_STAMP): website/package.json website/package-lock.json
 			touch node_modules/.install-stamp; \
 		fi'
 
+# Render D2 architecture diagram to SVG for the website
+.PHONY: diagrams
+diagrams:
+	~/.local/bin/d2 --layout elk --theme 200 --pad 60 doc/architecture.d2 website/public/architecture.svg
+
 # Export a game log for the website visualizer
 # Usage: make export-game GAME=game_20260208_220934
 .PHONY: export-game

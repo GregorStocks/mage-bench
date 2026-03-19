@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/prose.css';
+import '../../styles/shared.css';
+---
+
+<Base title="Architecture" wide>
+  <div class="arch-page">
+    <p class="page-kicker">Docs</p>
+    <h1 class="arch-title">Duel Architecture</h1>
+    <p class="arch-intro">
+      End-to-end flow of a mage-bench duel — from orchestration through
+      gameplay, recording, export, analysis, and the website.
+    </p>
+
+    <div class="arch-diagram">
+      <img src="/architecture.svg" alt="mage-bench duel architecture diagram" />
+    </div>
+  </div>
+</Base>
+
+<style>
+  .arch-page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .arch-title {
+    font-family: var(--font-heading);
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .arch-intro {
+    font-size: 1.18rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    max-width: 42rem;
+  }
+
+  .arch-diagram {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .arch-diagram img {
+    width: 100%;
+    max-width: 64rem;
+    height: auto;
+  }
+</style>

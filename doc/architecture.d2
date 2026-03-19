@@ -1,0 +1,199 @@
+direction: down
+
+style: {
+  fill: "#000000"
+}
+
+classes: {
+  core: {
+    style: {
+      fill: "#080808"
+      stroke: "#aaaaaa"
+      font-color: "#dddddd"
+      border-radius: 10
+      stroke-width: 2
+      font-size: 16
+    }
+  }
+  primary: {
+    style: {
+      fill: "#0c1a06"
+      stroke: "#9ece6a"
+      font-color: "#9ece6a"
+      border-radius: 10
+      stroke-width: 2
+      font-size: 16
+    }
+  }
+  section: {
+    style: {
+      fill: "#040404"
+      stroke: "#303030"
+      font-color: "#505050"
+      border-radius: 16
+      stroke-width: 1
+      stroke-dash: 4
+      font-size: 13
+      bold: true
+    }
+  }
+  ext: {
+    style: {
+      fill: transparent
+      stroke: "#282828"
+      font-color: "#484848"
+      border-radius: 10
+      stroke-width: 1
+      stroke-dash: 3
+      font-size: 14
+    }
+  }
+  artifact: {
+    style: {
+      fill: "#060606"
+      stroke: "#2e2e2e"
+      font-color: "#606060"
+      border-radius: 8
+      stroke-width: 1
+      font-size: 14
+    }
+  }
+}
+
+# ═══════════════════════════════════════════════════════════
+#  ORCHESTRATOR
+# ═══════════════════════════════════════════════════════════
+
+orchestrator: Orchestrator {class: primary}
+
+# ═══════════════════════════════════════════════════════════
+#  DUEL
+# ═══════════════════════════════════════════════════════════
+
+duel: DUEL {
+  class: section
+
+  server: XMage Server {class: core}
+
+  a: PLAYER A {
+    class: section
+    pilot: Pilot {class: primary}
+    bridge: Bridge {class: primary}
+    llm: LLM API {class: ext}
+    pilot -> bridge: MCP tools {
+      style.stroke: "#9ece6a"
+      style.stroke-width: 2
+      style.font-color: "#6a9e4a"
+      style.font-size: 11
+    }
+    pilot -> llm {
+      style.stroke: "#282828"
+      style.stroke-width: 1
+      style.stroke-dash: 3
+    }
+  }
+
+  b: PLAYER B {
+    class: section
+    pilot: Pilot {class: primary}
+    bridge: Bridge {class: primary}
+    llm: LLM API {class: ext}
+    pilot -> bridge: MCP tools {
+      style.stroke: "#9ece6a"
+      style.stroke-width: 2
+      style.font-color: "#6a9e4a"
+      style.font-size: 11
+    }
+    pilot -> llm {
+      style.stroke: "#282828"
+      style.stroke-width: 1
+      style.stroke-dash: 3
+    }
+  }
+
+  spectator: Spectator {class: core}
+
+  a.bridge <-> server {
+    style.stroke: "#9ece6a"
+    style.stroke-width: 2
+  }
+  b.bridge <-> server {
+    style.stroke: "#9ece6a"
+    style.stroke-width: 2
+  }
+  spectator -> server {
+    style.stroke: "#2e2e2e"
+    style.stroke-width: 1
+  }
+}
+
+orchestrator -> duel: spawns {
+  style.stroke: "#3a3a3a"
+  style.stroke-width: 1
+  style.font-color: "#333333"
+  style.font-size: 11
+}
+
+# ═══════════════════════════════════════════════════════════
+#  ARTIFACTS
+# ═══════════════════════════════════════════════════════════
+
+artifacts: ARTIFACTS {
+  class: section
+  logs: Pilot Logs {class: artifact}
+  events: Game Events {class: artifact}
+  video: Video {class: artifact}
+}
+
+duel -> artifacts {
+  style.stroke: "#2e2e2e"
+  style.stroke-width: 1
+}
+
+# ═══════════════════════════════════════════════════════════
+#  PIPELINE
+# ═══════════════════════════════════════════════════════════
+
+pipeline: PIPELINE {
+  class: section
+  export: Export {class: core}
+  youtube: YouTube Upload {class: core}
+  blunder: Blunder Analysis {class: core}
+  opus: Claude Opus {class: ext}
+  export -> blunder: decisions {
+    style.stroke: "#555555"
+    style.stroke-width: 1
+    style.font-color: "#3a3a3a"
+    style.font-size: 11
+  }
+  blunder -> opus: annotate {
+    style.stroke: "#282828"
+    style.stroke-width: 1
+    style.stroke-dash: 3
+    style.font-color: "#333333"
+    style.font-size: 11
+  }
+}
+
+artifacts.logs -> pipeline.export {style.stroke: "#2e2e2e"; style.stroke-width: 1}
+artifacts.events -> pipeline.export {style.stroke: "#2e2e2e"; style.stroke-width: 1}
+artifacts.video -> pipeline.youtube {style.stroke: "#2e2e2e"; style.stroke-width: 1}
+
+# ═══════════════════════════════════════════════════════════
+#  WEBSITE
+# ═══════════════════════════════════════════════════════════
+
+website: WEBSITE {
+  class: section
+  leaderboard: Leaderboard {class: core}
+  viewer: Game Viewer {class: core}
+}
+
+pipeline.export -> website.viewer: game JSON {
+  style.stroke: "#3a3a3a"
+  style.stroke-width: 1
+  style.font-color: "#333333"
+  style.font-size: 11
+}
+pipeline.blunder -> website.leaderboard {style.stroke: "#3a3a3a"; style.stroke-width: 1}
+pipeline.youtube -> website.viewer {style.stroke: "#3a3a3a"; style.stroke-width: 1}
