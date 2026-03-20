@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-03-20T05:06:42.839927+00:00",
-  "totalGames": 208,
+  "generatedAt": "2026-03-20T07:06:15.728251+00:00",
+  "totalGames": 209,
   "models": [
     {
       "modelId": "anthropic/claude-opus-4.6",
@@ -258,6 +258,21 @@
       "blunderScore": 0.93
     },
     {
+      "modelId": "google/gemini-3.1-flash-lite-preview",
+      "modelName": "Gemini 3.1 Flash Lite",
+      "provider": "Google",
+      "rating": 1595,
+      "gamesPlayed": 9,
+      "winRate": 0.4444,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 0.18,
+      "avgToolCallsOk": 74.3,
+      "avgToolCallsFailed": 6.0,
+      "avgThinkingTimeSecs": 157.2,
+      "blunderScore": 0.33
+    },
+    {
       "modelId": "qwen/qwen3-max-thinking",
       "modelName": "Qwen3 Max Thinking (low)",
       "provider": "Qwen",
@@ -352,19 +367,20 @@
       "reasoningEffort": "medium"
     },
     {
-      "modelId": "google/gemini-3.1-flash-lite-preview",
-      "modelName": "Gemini 3.1 Flash Lite",
-      "provider": "Google",
-      "rating": 1578,
-      "gamesPlayed": 8,
-      "winRate": 0.375,
+      "modelId": "openai/gpt-5.4-nano",
+      "modelName": "GPT-5.4 Nano (low)",
+      "provider": "OpenAI",
+      "rating": 1583,
+      "gamesPlayed": 1,
+      "winRate": 0.0,
       "timeoutLosses": 0,
       "timeoutLossRate": 0.0,
-      "avgApiCost": 0.18,
-      "avgToolCallsOk": 73.6,
-      "avgToolCallsFailed": 6.0,
-      "avgThinkingTimeSecs": 163.1,
-      "blunderScore": 0.26
+      "avgApiCost": 0.08,
+      "avgToolCallsOk": 45.0,
+      "avgToolCallsFailed": 1.0,
+      "avgThinkingTimeSecs": 128.7,
+      "blunderScore": 0.29,
+      "reasoningEffort": "low"
     },
     {
       "modelId": "google/gemini-2.5-flash",
@@ -564,8 +580,8 @@
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-20T05:06:42.837067+00:00",
-      "totalGames": 84,
+      "generatedAt": "2026-03-20T07:06:15.725089+00:00",
+      "totalGames": 85,
       "models": [
         {
           "modelId": "openai/gpt-5.2",
@@ -856,6 +872,21 @@
           "reasoningEffort": "medium"
         },
         {
+          "modelId": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "provider": "Google",
+          "rating": 1593,
+          "gamesPlayed": 9,
+          "winRate": 0.4444,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.18,
+          "avgToolCallsOk": 74.3,
+          "avgToolCallsFailed": 6.0,
+          "avgThinkingTimeSecs": 157.2,
+          "blunderScore": 0.33
+        },
+        {
           "modelId": "qwen/qwen3-235b-a22b-2507",
           "modelName": "Qwen3 235B",
           "provider": "Qwen",
@@ -953,6 +984,22 @@
           "reasoningEffort": "medium"
         },
         {
+          "modelId": "openai/gpt-5.4-nano",
+          "modelName": "GPT-5.4 Nano (low)",
+          "provider": "OpenAI",
+          "rating": 1583,
+          "gamesPlayed": 1,
+          "winRate": 0.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.08,
+          "avgToolCallsOk": 45.0,
+          "avgToolCallsFailed": 1.0,
+          "avgThinkingTimeSecs": 128.7,
+          "blunderScore": 0.29,
+          "reasoningEffort": "low"
+        },
+        {
           "modelId": "openai/o3",
           "modelName": "o3 (medium)",
           "provider": "OpenAI",
@@ -967,21 +1014,6 @@
           "avgThinkingTimeSecs": 1159.6,
           "blunderScore": 1.41,
           "reasoningEffort": "medium"
-        },
-        {
-          "modelId": "google/gemini-3.1-flash-lite-preview",
-          "modelName": "Gemini 3.1 Flash Lite",
-          "provider": "Google",
-          "rating": 1576,
-          "gamesPlayed": 8,
-          "winRate": 0.375,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.18,
-          "avgToolCallsOk": 73.6,
-          "avgToolCallsFailed": 6.0,
-          "avgThinkingTimeSecs": 163.1,
-          "blunderScore": 0.26
         },
         {
           "modelId": "meta-llama/llama-4-maverick",
@@ -1112,7 +1144,7 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-20T05:06:42.837627+00:00",
+      "generatedAt": "2026-03-20T07:06:15.725641+00:00",
       "totalGames": 56,
       "models": [
         {
@@ -1505,7 +1537,7 @@
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-20T05:06:42.837856+00:00",
+      "generatedAt": "2026-03-20T07:06:15.725876+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -1802,7 +1834,7 @@
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-20T05:06:42.838086+00:00",
+      "generatedAt": "2026-03-20T07:06:15.726111+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -2113,7 +2145,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-20T05:06:42.838570+00:00",
+      "generatedAt": "2026-03-20T07:06:15.726643+00:00",
       "totalGames": 34,
       "exhibition": true,
       "models": [
@@ -2555,8 +2587,8 @@
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-20T05:06:42.839927+00:00",
-      "totalGames": 174,
+      "generatedAt": "2026-03-20T07:06:15.728251+00:00",
+      "totalGames": 175,
       "models": [
         {
           "modelId": "anthropic/claude-opus-4.6",
@@ -2814,6 +2846,21 @@
           "blunderScore": 0.93
         },
         {
+          "modelId": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "provider": "Google",
+          "rating": 1595,
+          "gamesPlayed": 9,
+          "winRate": 0.4444,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.18,
+          "avgToolCallsOk": 74.3,
+          "avgToolCallsFailed": 6.0,
+          "avgThinkingTimeSecs": 157.2,
+          "blunderScore": 0.33
+        },
+        {
           "modelId": "qwen/qwen3-max-thinking",
           "modelName": "Qwen3 Max Thinking (low)",
           "provider": "Qwen",
@@ -2908,19 +2955,20 @@
           "reasoningEffort": "medium"
         },
         {
-          "modelId": "google/gemini-3.1-flash-lite-preview",
-          "modelName": "Gemini 3.1 Flash Lite",
-          "provider": "Google",
-          "rating": 1578,
-          "gamesPlayed": 8,
-          "winRate": 0.375,
+          "modelId": "openai/gpt-5.4-nano",
+          "modelName": "GPT-5.4 Nano (low)",
+          "provider": "OpenAI",
+          "rating": 1583,
+          "gamesPlayed": 1,
+          "winRate": 0.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 0.18,
-          "avgToolCallsOk": 73.6,
-          "avgToolCallsFailed": 6.0,
-          "avgThinkingTimeSecs": 163.1,
-          "blunderScore": 0.26
+          "avgApiCost": 0.08,
+          "avgToolCallsOk": 45.0,
+          "avgToolCallsFailed": 1.0,
+          "avgThinkingTimeSecs": 128.7,
+          "blunderScore": 0.29,
+          "reasoningEffort": "low"
         },
         {
           "modelId": "google/gemini-2.5-flash",

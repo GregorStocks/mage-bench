@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-20T06:27:06.264735+00:00",
+  "generatedAt": "2026-03-20T07:07:08.915134+00:00",
   "models": {
     "anthropic/claude-haiku-4.5::low": {
       "modelId": "anthropic/claude-haiku-4.5",
@@ -2177,23 +2177,23 @@
           "latencySamples": 1018
         },
         "55": {
-          "gamesPlayed": 1,
-          "wins": 0,
+          "gamesPlayed": 2,
+          "wins": 1,
           "timerTimeoutLosses": 0,
-          "totalCostUsd": 0.0352,
-          "totalToolCallsOk": 27,
-          "totalToolCallsFailed": 0,
-          "totalThinkingTimeSecs": 41.1,
-          "totalPromptTokens": 137702,
-          "totalCompletionTokens": 496,
-          "totalCachedTokens": 17937,
+          "totalCostUsd": 0.2109,
+          "totalToolCallsOk": 107,
+          "totalToolCallsFailed": 6,
+          "totalThinkingTimeSecs": 151.4,
+          "totalPromptTokens": 831154,
+          "totalCompletionTokens": 2040,
+          "totalCachedTokens": 52083,
           "totalReasoningTokens": 0,
-          "successfulResponses": 28,
+          "successfulResponses": 114,
           "errors": {},
           "contextResets": 0,
-          "latencyP50": 0.8,
-          "latencyP95": 1.6,
-          "latencySamples": 56
+          "latencyP50": 0.6,
+          "latencyP95": 1.4,
+          "latencySamples": 229
         }
       }
     },
@@ -4901,6 +4901,33 @@
           "latencyP50": 0.7,
           "latencyP95": 7.1,
           "latencySamples": 47
+        }
+      }
+    },
+    "openai/gpt-5.4-nano::low": {
+      "modelId": "openai/gpt-5.4-nano",
+      "modelName": "GPT-5.4 Nano (low)",
+      "provider": "OpenAI",
+      "reasoningEffort": "low",
+      "epochs": {
+        "55": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 0.0789,
+          "totalToolCallsOk": 45,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 128.7,
+          "totalPromptTokens": 354128,
+          "totalCompletionTokens": 6436,
+          "totalCachedTokens": 121856,
+          "totalReasoningTokens": 4469,
+          "successfulResponses": 47,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.8,
+          "latencyP95": 4.7,
+          "latencySamples": 95
         }
       }
     },
