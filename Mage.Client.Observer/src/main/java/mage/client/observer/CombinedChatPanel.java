@@ -42,6 +42,10 @@ public class CombinedChatPanel extends ChatPanelBasic {
     // Pattern to match "TURN <number>" at the start of a message (e.g. "TURN 13 for Mad AI 2 (40 - 40)")
     private static final Pattern TURN_MSG_PATTERN = Pattern.compile("^TURN \\d+");
 
+    private static boolean isNoWindowObserver() {
+        return Boolean.getBoolean("xmage.observer.noWindow");
+    }
+
     /**
      * Replace the raw turn number in turnInfo (e.g. "T5.1") with the game round ("T2.1").
      */
@@ -73,11 +77,12 @@ public class CombinedChatPanel extends ChatPanelBasic {
     @Override
     public void receiveMessage(String username, String message, Date time,
             String turnInfo, MessageType messageType, MessageColor color) {
+        boolean noWindowObserver = isNoWindowObserver();
         // Route player chat messages to the separate chat panel
         if (messageType == MessageType.TALK
                 || messageType == MessageType.WHISPER_FROM
                 || messageType == MessageType.WHISPER_TO) {
-            if (playerChatPanel != null) {
+            if (!noWindowObserver && playerChatPanel != null) {
                 playerChatPanel.receiveMessage(username, message, time, turnInfo, messageType, color);
             }
             if (gamePanel != null && message != null && !message.isEmpty()) {
@@ -93,6 +98,13 @@ public class CombinedChatPanel extends ChatPanelBasic {
             String logMessage = (username != null && !username.isEmpty())
                     ? username + message : message;
             gamePanel.logChatEvent("game_action", logMessage, null);
+        }
+
+        // In no-window mode the chat panes are never visible, but appending HTML
+        // still runs on the EDT and can starve observer callbacks during
+        // watchGame startup. The JSONL log above is the source of truth for tests.
+        if (noWindowObserver) {
+            return;
         }
 
         // Game log messages stay here, with spam filtering
