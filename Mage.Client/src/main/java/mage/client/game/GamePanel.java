@@ -394,6 +394,9 @@ public class GamePanel extends javax.swing.JPanel {
 
     public void cleanUp() {
         MageFrame.removeGame(gameId);
+        if (feedbackPanel != null) {
+            feedbackPanel.cancelPendingAutoClose();
+        }
 
         this.gameChatPanel.cleanUp();
         this.userChatPanel.cleanUp();

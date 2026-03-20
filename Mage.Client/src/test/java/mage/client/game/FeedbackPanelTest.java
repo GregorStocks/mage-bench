@@ -26,9 +26,7 @@ public class FeedbackPanelTest {
         ScheduledFuture<?> pendingTask = getPendingTask(panel);
         assertNotNull("Expected END mode to schedule an auto-close task", pendingTask);
 
-        Method invalidate = FeedbackPanel.class.getDeclaredMethod("invalidateAutoCloseLocked");
-        invalidate.setAccessible(true);
-        invalidate.invoke(panel);
+        panel.cancelPendingAutoClose();
 
         assertTrue("Expected the pending auto-close task to be cancelled", pendingTask.isCancelled());
         assertNull("Expected the panel to clear its pending auto-close task", getPendingTask(panel));

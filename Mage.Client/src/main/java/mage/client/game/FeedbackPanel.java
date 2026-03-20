@@ -214,6 +214,12 @@ public class FeedbackPanel extends javax.swing.JPanel {
         }
     }
 
+    public void cancelPendingAutoClose() {
+        synchronized (this) {
+            invalidateAutoCloseLocked();
+        }
+    }
+
     public void updateOptions(Map<String, Serializable> options) {
         this.lastOptions = options;
 
