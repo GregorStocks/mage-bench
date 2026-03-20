@@ -10,7 +10,7 @@
     "sonnet-medium": { "model": "anthropic/claude-sonnet-4.5", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "opus-medium":   { "model": "anthropic/claude-opus-4.6", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "o3-medium":     { "model": "openai/o3", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
-    "grok4-medium":  { "model": "x-ai/grok-4", "status": "expensive", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
+    "grok4-medium":  { "model": "x-ai/grok-4", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "grok4f-medium": { "model": "x-ai/grok-4-fast", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "kimik25-medium":{ "model": "moonshotai/kimi-k2.5", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "kimik2-medium": { "model": "moonshotai/kimi-k2-0905", "status": "retired", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
