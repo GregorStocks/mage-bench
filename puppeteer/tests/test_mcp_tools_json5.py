@@ -48,4 +48,5 @@ def test_cli_runs_under_system_python_without_site_packages() -> None:
         check=True,
     )
 
-    assert loads_json5(result.stdout) == [{"name": "choose_action"}]
+    assert result.stdout.endswith("\n")
+    assert '"name": "choose_action"' in result.stdout

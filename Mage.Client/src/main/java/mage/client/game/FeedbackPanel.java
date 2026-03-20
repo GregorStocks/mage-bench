@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -52,13 +53,18 @@ public class FeedbackPanel extends javax.swing.JPanel {
     private static final ScheduledExecutorService AUTO_CLOSE_EXECUTOR = Executors.newSingleThreadScheduledExecutor(
             new XmageThreadFactory(ThreadUtils.THREAD_PREFIX_CLIENT_AUTO_CLOSE_TIMER)
     );
+    private long autoCloseGeneration = 0;
+    private ScheduledFuture<?> pendingAutoCloseTask;
 
     public FeedbackPanel() {
         customInitComponents();
     }
 
     public void init(UUID gameId, BigCard bigCard) {
-        this.gameId = gameId;
+        synchronized (this) {
+            invalidateAutoCloseLocked();
+            this.gameId = gameId;
+        }
         helper.init(gameId, bigCard);
         setGUISize();
     }
@@ -76,6 +82,7 @@ public class FeedbackPanel extends javax.swing.JPanel {
         synchronized (this) {
             this.lastOptions = options;
             this.mode = mode;
+            invalidateAutoCloseLocked();
         }
 
         // build secondary message (will use smaller font)
@@ -162,11 +169,26 @@ public class FeedbackPanel extends javax.swing.JPanel {
      * Close game window by pressing OK button after 8 seconds
      */
     private void endWithTimeout() {
+        final UUID scheduledGameId;
+        final long scheduledGeneration;
+        synchronized (this) {
+            scheduledGameId = gameId;
+            scheduledGeneration = autoCloseGeneration;
+        }
         // TODO: add auto-close disable, e.g. keep opened game and chat for longer period like 5 minutes
         Runnable task = () -> {
             SwingUtilities.invokeLater(() -> {
+                synchronized (this) {
+                    if (scheduledGeneration != autoCloseGeneration
+                            || mode != FeedbackMode.END
+                            || scheduledGameId == null
+                            || !scheduledGameId.equals(gameId)) {
+                        return;
+                    }
+                    pendingAutoCloseTask = null;
+                }
                 LOGGER.info("Ending game...");
-                Component c = MageFrame.getGame(gameId);
+                Component c = MageFrame.getGame(scheduledGameId);
                 while (c != null && !(c instanceof GamePane)) {
                     c = c.getParent();
                 }
@@ -175,7 +197,21 @@ public class FeedbackPanel extends javax.swing.JPanel {
                 }
             });
         };
-        AUTO_CLOSE_EXECUTOR.schedule(task, AUTO_CLOSE_END_DIALOG_TIMEOUT_SECS, TimeUnit.SECONDS);
+        synchronized (this) {
+            pendingAutoCloseTask = AUTO_CLOSE_EXECUTOR.schedule(
+                    task,
+                    AUTO_CLOSE_END_DIALOG_TIMEOUT_SECS,
+                    TimeUnit.SECONDS
+            );
+        }
+    }
+
+    private void invalidateAutoCloseLocked() {
+        autoCloseGeneration++;
+        if (pendingAutoCloseTask != null) {
+            pendingAutoCloseTask.cancel(false);
+            pendingAutoCloseTask = null;
+        }
     }
 
     public void updateOptions(Map<String, Serializable> options) {
