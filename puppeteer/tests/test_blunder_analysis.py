@@ -13,6 +13,7 @@ from schemas.game_export_types import (
     Action,
     CombatCreature,
     CombatGroup,
+    Decision,
     GameExport,
     Snapshot,
     SnapshotPlayer,
@@ -23,15 +24,11 @@ from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
     BlunderAnalysisError,
-    _card_names_in_decision,
-    _card_reference_for_decision,
     _chosen_display,
     _collect_card_names,
     _compute_cost,
-    _extract_oracle_fields,
-    _format_card_ref,
+    _eval_one_decision,
     _format_current_turn_actions,
-    _format_decisions,
     _format_preceding_action,
     _parse_annotation,
     eval_decisions,
@@ -46,44 +43,31 @@ _TEST_PRICES = {
 }
 
 
-def _make_decision(**overrides: object) -> dict:
-    d: dict = {
-        "decision_index": 0,
-        "snapshot_index": 0,
+def _make_decision(**overrides: object) -> Decision:
+    d: dict[str, object] = {
+        "index": 0,
+        "snapshotIndex": 0,
         "player": "Alice",
         "turn": 1,
         "phase": "PRECOMBAT_MAIN",
         "message": "Play spells",
-        "action_type": "GAME_SELECT",
-        "response_type": "select",
+        "actionType": "GAME_SELECT",
+        "responseType": "select",
         "choices": [
             {"index": 0, "name": "Mountain"},
             {"index": 1, "name": "Lightning Bolt"},
         ],
-        "choice_count": 2,
+        "choiceCount": 2,
         "chosen": 0,
-        "chosen_args": {"index": 0},
-        "action_result": {"success": True},
-        "reasoning": "I should play a land.",
-        "is_forced": False,
-        "game_state": {
-            "turn": 1,
-            "phase": "PRECOMBAT_MAIN",
-            "players": [
-                {
-                    "name": "Alice",
-                    "life": 20,
-                    "hand": ["Mountain", "Lightning Bolt"],
-                    "hand_count": 2,
-                    "battlefield": [],
-                },
-                {"name": "Bob", "life": 20, "hand_count": 7, "battlefield": ["Grizzly Bears"]},
-            ],
-        },
-        "subsequent_actions": ["Alice plays Mountain"],
+        "chosenArgs": {"index": 0},
+        "actionResult": {"success": True},
+        "isForced": False,
+        "llmEventIndices": [],
+        "subsequentActions": ["Alice plays Mountain"],
+        "actionSeq": 1,
     }
     d.update(overrides)
-    return d
+    return Decision.from_dict(d)
 
 
 def _make_game() -> dict:
@@ -203,6 +187,45 @@ def _make_game_ctx(**overrides: object) -> dict:
     return ctx
 
 
+def _make_snapshot(
+    *,
+    seq: int,
+    turn: int = 1,
+    phase: str = "PRECOMBAT_MAIN",
+    ts: str | None = None,
+) -> Snapshot:
+    return Snapshot(
+        seq=seq,
+        turn=turn,
+        phase=phase,
+        step=phase,
+        active_player="Alice",
+        priority_player="Alice",
+        players=[
+            SnapshotPlayer(
+                name="Alice",
+                life=20,
+                library_size=53,
+                hand=[{"name": "Mountain"}],
+                battlefield=[],
+                graveyard=[],
+                commanders=[],
+            ),
+            SnapshotPlayer(
+                name="Bob",
+                life=20,
+                library_size=53,
+                hand=[],
+                battlefield=[],
+                graveyard=[],
+                commanders=[],
+            ),
+        ],
+        stack=[],
+        ts=ts,
+    )
+
+
 def _mock_response(content: str, prompt_tokens: int = 2000, completion_tokens: int = 200) -> MagicMock:
     """Create a mock API response."""
     response = MagicMock()
@@ -277,40 +300,40 @@ class TestFormatCurrentTurnActions:
         ]
 
     def test_shows_current_turn_actions(self) -> None:
-        decision = {"turn": 1}
+        decision = _make_decision(turn=1)
         result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
         assert "## This Turn" in result
         assert "Alice plays Mountain" in result
         assert "Alice casts Sol Ring from hand" in result
 
     def test_filters_noise(self) -> None:
-        decision = {"turn": 1}
+        decision = _make_decision(turn=1)
         result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
         # "puts from stack" and "skip attack" are noise
         assert "Sol Ring from stack" not in result
         assert "skip attack" not in result
 
     def test_respects_cutoff_timestamp(self) -> None:
-        decision = {"turn": 1}
+        decision = _make_decision(turn=1)
         # Cutoff before Sol Ring cast
         result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:02.500")
         assert "Alice plays Mountain" in result
         assert "Sol Ring" not in result
 
     def test_no_actions_yet(self) -> None:
-        decision = {"turn": 1}
+        decision = _make_decision(turn=1)
         # Cutoff before any non-TURN action
         result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:01.500")
         assert "(no actions yet)" in result
 
     def test_wrong_turn_excluded(self) -> None:
-        decision = {"turn": 2}
+        decision = _make_decision(turn=2)
         result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:20.000")
         assert "Bob plays Forest" in result
         assert "Alice plays Mountain" not in result
 
     def test_no_turn_returns_empty(self) -> None:
-        decision = {"turn": None}
+        decision = _make_decision(turn=0)
         assert _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:10.000") == ""
 
 
@@ -343,7 +366,7 @@ class TestChosenDisplay:
         assert _chosen_display(d) == "False"
 
     def test_none_choice_no_args(self) -> None:
-        d = _make_decision(chosen=None, chosen_args={})
+        d = _make_decision(chosen=None, chosenArgs={})
         assert _chosen_display(d) == "(no response)"
 
     def test_none_choice_with_attackers(self) -> None:
@@ -361,216 +384,6 @@ class TestChosenDisplay:
     def test_out_of_range(self) -> None:
         d = _make_decision(chosen=99)
         assert _chosen_display(d) == "99"
-
-
-# --- _format_decisions ---
-
-
-class TestFormatDecisions:
-    def test_skips_forced(self) -> None:
-        decisions = [
-            _make_decision(decision_index=0, snapshot_index=0, is_forced=True),
-            _make_decision(decision_index=1, snapshot_index=5, is_forced=False),
-        ]
-        result = _format_decisions(decisions)
-        assert "[Decision 0" not in result
-        assert "[Decision 1, snapshot=5]" in result
-
-    def test_includes_key_fields(self) -> None:
-        result = _format_decisions([_make_decision()])
-        assert "Alice" in result
-        assert "Mountain" in result
-        assert "Lightning Bolt" in result
-        assert "I should play a land." in result
-        assert "Bob" in result
-
-    def test_shows_hand_for_deciding_player_only(self) -> None:
-        result = _format_decisions([_make_decision()])
-        # Alice (deciding player) should show full hand
-        assert "hand=[Mountain, Lightning Bolt]" in result
-        # Bob (opponent) should not show hand count (hidden info)
-        assert "Bob: 20hp bf=" in result
-        assert "hand=" not in result.split("Bob:")[1].split("\n")[0]
-
-    def test_truncates_reasoning(self) -> None:
-        long_reasoning = "x" * 1000
-        result = _format_decisions([_make_decision(reasoning=long_reasoning)])
-        # Should be truncated to 500 chars
-        assert "x" * 500 in result
-        assert "x" * 501 not in result
-
-
-# --- Oracle text helpers ---
-
-
-_BOLT_SCRYFALL = {
-    "name": "Lightning Bolt",
-    "mana_cost": "{R}",
-    "type_line": "Instant",
-    "oracle_text": "Lightning Bolt deals 3 damage to any target.",
-}
-
-_AJANI_SCRYFALL = {
-    "name": "Ajani, Outland Chaperone",
-    "mana_cost": "{1}{W}{W}",
-    "type_line": "Legendary Planeswalker \u2014 Ajani",
-    "oracle_text": "+1: Create a 1/1 Kithkin.\n\u22122: Deal 4 to tapped creature.",
-    "loyalty": "3",
-}
-
-_BEARS_SCRYFALL = {
-    "name": "Grizzly Bears",
-    "mana_cost": "{1}{G}",
-    "type_line": "Creature \u2014 Bear",
-    "oracle_text": "",
-    "power": "2",
-    "toughness": "2",
-}
-
-_DFC_SCRYFALL = {
-    "name": "Delver of Secrets // Insectile Aberration",
-    "card_faces": [
-        {
-            "name": "Delver of Secrets",
-            "mana_cost": "{U}",
-            "type_line": "Creature \u2014 Human Wizard",
-            "oracle_text": "At the beginning of your upkeep, look at the top card.",
-            "power": "1",
-            "toughness": "1",
-        },
-        {
-            "name": "Insectile Aberration",
-            "mana_cost": "",
-            "type_line": "Creature \u2014 Human Insect",
-            "oracle_text": "Flying",
-            "power": "3",
-            "toughness": "2",
-        },
-    ],
-}
-
-
-class TestExtractOracleFields:
-    def test_creature(self) -> None:
-        fields = _extract_oracle_fields(_BEARS_SCRYFALL)
-        assert fields["name"] == "Grizzly Bears"
-        assert fields["mana_cost"] == "{1}{G}"
-        assert fields["power"] == "2"
-        assert "loyalty" not in fields
-
-    def test_planeswalker(self) -> None:
-        fields = _extract_oracle_fields(_AJANI_SCRYFALL)
-        assert fields["loyalty"] == "3"
-        assert "power" not in fields
-
-    def test_dfc(self) -> None:
-        fields = _extract_oracle_fields(_DFC_SCRYFALL)
-        assert len(fields["card_faces"]) == 2
-        assert fields["card_faces"][0]["name"] == "Delver of Secrets"
-        assert fields["card_faces"][1]["power"] == "3"
-
-
-class TestFormatCardRef:
-    def test_instant(self) -> None:
-        ref = _format_card_ref(_extract_oracle_fields(_BOLT_SCRYFALL))
-        assert "Lightning Bolt {R}" in ref
-        assert "Instant" in ref
-        assert "3 damage" in ref
-
-    def test_creature_pt(self) -> None:
-        ref = _format_card_ref(_extract_oracle_fields(_BEARS_SCRYFALL))
-        assert "2/2" in ref
-
-    def test_planeswalker_loyalty(self) -> None:
-        ref = _format_card_ref(_extract_oracle_fields(_AJANI_SCRYFALL))
-        assert "[Loyalty: 3]" in ref
-
-    def test_dfc_both_faces(self) -> None:
-        ref = _format_card_ref(_extract_oracle_fields(_DFC_SCRYFALL))
-        assert "Delver of Secrets" in ref
-        assert "Insectile Aberration" in ref
-        assert " // " in ref
-
-
-class TestCardNamesInDecision:
-    def test_extracts_from_all_zones(self) -> None:
-        d = _make_decision()
-        names = _card_names_in_decision(d)
-        assert "Mountain" in names
-        assert "Lightning Bolt" in names
-        assert "Grizzly Bears" in names
-
-    def test_extracts_from_dict_permanents(self) -> None:
-        """Dict-form permanents (tapped, counters, etc.) should be extracted."""
-        d = _make_decision()
-        d["game_state"]["players"][1]["battlefield"] = [
-            {"name": "Llanowar Elves", "tapped": True},
-            "Forest",
-        ]
-        names = _card_names_in_decision(d)
-        assert "Llanowar Elves" in names
-        assert "Forest" in names
-
-    def test_extracts_from_choices(self) -> None:
-        d = _make_decision()
-        names = _card_names_in_decision(d)
-        # Choices include Mountain and Lightning Bolt
-        assert "Mountain" in names
-        assert "Lightning Bolt" in names
-
-    def test_extracts_from_combat_fields(self) -> None:
-        d = _make_decision(
-            combat=[
-                {
-                    "attackers": [{"name": "Goblin Guide", "power": "2", "toughness": "2"}],
-                    "blockers": [{"name": "Wall of Omens", "power": "0", "toughness": "4"}],
-                    "blocked": True,
-                    "defending": "Bob",
-                }
-            ],
-            already_attacking=[{"name": "Monastery Swiftspear", "power": "1", "toughness": "2"}],
-            incoming_attackers=[{"name": "Tarmogoyf", "power": "4", "toughness": "5"}],
-            game_state={
-                "turn": 1,
-                "phase": "COMBAT",
-                "players": [
-                    {"name": "Alice", "life": 20, "hand": [], "battlefield": []},
-                    {"name": "Bob", "life": 18, "battlefield": []},
-                ],
-                "combat": [
-                    {
-                        "attackers": [{"name": "Ragavan, Nimble Pilferer"}],
-                        "blockers": [],
-                        "blocked": False,
-                        "defending": "Bob",
-                    }
-                ],
-            },
-        )
-        names = _card_names_in_decision(d)
-        assert "Goblin Guide" in names
-        assert "Wall of Omens" in names
-        assert "Monastery Swiftspear" in names
-        assert "Tarmogoyf" in names
-        assert "Ragavan, Nimble Pilferer" in names
-
-
-class TestCardReferenceForDecision:
-    def test_builds_reference(self) -> None:
-        d = _make_decision()
-        oracle = {
-            "Lightning Bolt": _extract_oracle_fields(_BOLT_SCRYFALL),
-            "Grizzly Bears": _extract_oracle_fields(_BEARS_SCRYFALL),
-        }
-        ref = _card_reference_for_decision(d, oracle)
-        assert "## Card Reference" in ref
-        assert "Lightning Bolt" in ref
-        assert "Grizzly Bears" in ref
-
-    def test_empty_when_no_matches(self) -> None:
-        d = _make_decision()
-        ref = _card_reference_for_decision(d, {})
-        assert ref == ""
 
 
 class TestCollectCardNames:
@@ -634,117 +447,47 @@ class TestCollectCardNames:
         assert "Tarmogoyf" in names
 
 
-class TestFormatDecisionsStack:
-    def test_shows_stack_with_targets(self) -> None:
-        d = _make_decision(
-            game_state={
-                "turn": 2,
-                "phase": "PRECOMBAT_MAIN",
-                "players": [
-                    {
-                        "name": "Alice",
-                        "life": 20,
-                        "hand": ["Counterspell"],
-                        "hand_count": 1,
-                        "battlefield": ["Island", "Island"],
-                    },
-                    {"name": "Bob", "life": 20, "battlefield": []},
-                ],
-                "stack": [
-                    {"name": "Lightning Bolt", "targets": ["Alice"]},
-                ],
-            },
+class TestEvalOneDecision:
+    @patch("scripts.analysis.blunder_analysis._call_llm")
+    def test_uses_shared_aftermath_index(self, mock_call_llm: MagicMock) -> None:
+        mock_call_llm.return_value = (
+            json.dumps(
+                {
+                    "severity": "minor",
+                    "description": "test",
+                    "actionTaken": "test",
+                    "betterLine": "test",
+                }
+            ),
+            2000,
+            200,
+            0,
         )
-        result = _format_decisions([d])
-        assert "Lightning Bolt -> Alice" in result
 
-    def test_shows_stack_without_targets(self) -> None:
-        d = _make_decision(
-            game_state={
-                "turn": 1,
-                "phase": "PRECOMBAT_MAIN",
-                "players": [
-                    {"name": "Alice", "life": 20, "hand": [], "battlefield": []},
-                    {"name": "Bob", "life": 20, "battlefield": []},
-                ],
-                "stack": ["Brainstorm"],
-            },
+        decision = _make_decision(snapshotIndex=0, actionSeq=1)
+        snapshots = [
+            _make_snapshot(seq=1),
+            _make_snapshot(seq=1),
+            _make_snapshot(seq=1),
+            _make_snapshot(seq=2, phase="COMBAT"),
+        ]
+
+        annotations, _cost, parsed_ok, _raw = _eval_one_decision(
+            MagicMock(),
+            OPUS_MODEL,
+            _TEST_PRICES,
+            "Test overview",
+            decision,
+            {},
+            snapshots,
+            {},
+            2,
+            [],
         )
-        result = _format_decisions([d])
-        assert "Stack: [Brainstorm]" in result
 
-    def test_stack_multiple_targets(self) -> None:
-        d = _make_decision(
-            game_state={
-                "turn": 3,
-                "phase": "PRECOMBAT_MAIN",
-                "players": [
-                    {"name": "Alice", "life": 20, "hand": [], "battlefield": []},
-                    {"name": "Bob", "life": 20, "battlefield": []},
-                ],
-                "stack": [
-                    {"name": "Decimate", "targets": ["Sol Ring", "Birds of Paradise", "Propaganda", "Forest"]},
-                ],
-            },
-        )
-        result = _format_decisions([d])
-        assert "Decimate -> Sol Ring, Birds of Paradise, Propaganda, Forest" in result
-
-
-class TestCardNamesInDecisionStack:
-    def test_extracts_from_dict_stack_items(self) -> None:
-        d = _make_decision(
-            game_state={
-                "turn": 1,
-                "phase": "PRECOMBAT_MAIN",
-                "players": [
-                    {"name": "Alice", "life": 20, "hand": [], "battlefield": []},
-                    {"name": "Bob", "life": 20, "battlefield": []},
-                ],
-                "stack": [
-                    {"name": "Lightning Bolt", "targets": ["Goblin Guide"]},
-                ],
-            },
-        )
-        names = _card_names_in_decision(d)
-        assert "Lightning Bolt" in names
-
-
-class TestFormatDecisionsCombat:
-    def test_shows_combat_context(self) -> None:
-        d = _make_decision(
-            phase="COMBAT",
-            game_state={
-                "turn": 3,
-                "phase": "COMBAT",
-                "players": [
-                    {
-                        "name": "Alice",
-                        "life": 20,
-                        "hand": [],
-                        "battlefield": ["Mountain"],
-                    },
-                    {"name": "Bob", "life": 18, "battlefield": ["Wall of Omens"]},
-                ],
-                "combat": [
-                    {
-                        "attackers": [{"name": "Goblin Guide", "power": "2", "toughness": "2"}],
-                        "blockers": [{"name": "Wall of Omens", "power": "0", "toughness": "4"}],
-                        "blocked": True,
-                        "defending": "Bob",
-                    }
-                ],
-            },
-        )
-        result = _format_decisions([d])
-        assert "Combat:" in result
-        assert "Goblin Guide" in result
-        assert "blocked by Wall of Omens" in result
-
-    def test_shows_combat_phase(self) -> None:
-        d = _make_decision(combat_phase="declare_blockers")
-        result = _format_decisions([d])
-        assert "Combat Phase: declare_blockers" in result
+        assert parsed_ok is True
+        assert len(annotations) == 1
+        assert annotations[0].snapshotIndex == 3
 
 
 # --- Integration: main with mocked API ---
@@ -1113,10 +856,10 @@ class TestMainIntegration:
 
 
 class TestPrecedingAction:
-    def test_format_preceding_action_with_dict_decision(self) -> None:
+    def test_format_preceding_action(self) -> None:
 
         preceding = _make_decision(
-            decisionIndex=75,
+            index=75,
             message="Play spells and abilities",
             chosen=0,
             choices=[
@@ -1132,7 +875,7 @@ class TestPrecedingAction:
     def test_format_preceding_action_with_no_chosen(self) -> None:
 
         preceding = _make_decision(
-            decisionIndex=10,
+            index=10,
             message="Play instants",
             chosen=None,
         )
@@ -1142,8 +885,8 @@ class TestPrecedingAction:
 
     def test_eval_decisions_passes_preceding(self) -> None:
         """eval_decisions should pass the preceding decision to _eval_one_decision."""
-        d0 = _make_decision(decisionIndex=0, message="First")
-        d1 = _make_decision(decisionIndex=1, message="Second")
+        d0 = _make_decision(index=0, message="First")
+        d1 = _make_decision(index=1, message="Second")
         ctx = _make_game_ctx(
             decisions=[d0, d1],
             preceding_by_index={1: d0},
@@ -1158,7 +901,7 @@ class TestPrecedingAction:
             for call in mock_eval.call_args_list:
                 di = call.args[4]  # decision is 5th positional arg
                 preceding = call.kwargs.get("preceding_decision")
-                idx = di["decisionIndex"]
+                idx = di.index
                 calls_by_idx[idx] = preceding
 
             assert calls_by_idx[0] is None

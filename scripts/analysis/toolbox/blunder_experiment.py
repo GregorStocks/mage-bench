@@ -29,16 +29,19 @@ import argparse
 import json
 import os
 import time
+from collections.abc import Sequence
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import cast
 
 from openai import OpenAI
 
-from schemas.game_export_types import GameExport
+from puppeteer.decision_renderer import (
+    _chosen_display as _renderer_chosen_display,
+)
+from puppeteer.decision_renderer import _format_choice
+from schemas.game_export_types import Decision, GameExport
 from scripts.analysis.blunder_analysis import (
-    _format_decisions,
     _game_overview,
     _load_game,
 )
@@ -143,6 +146,41 @@ PRICES: dict[str, tuple[float, float]] = {
 
 # Max parallel API calls for per-decision approaches
 MAX_WORKERS = 8
+
+
+def _format_decisions(decisions: Sequence[Decision]) -> str:
+    """Compact local formatter for the historical experiment prompts.
+
+    Keep this formatter in the experiment module so the live annotator no longer
+    needs to carry dead private helpers just for old toolbox scripts.
+    """
+    parts: list[str] = []
+    for decision in decisions:
+        if is_forced(decision):
+            continue
+        phase = decision.phase or "PREGAME"
+        choices = ", ".join(_format_choice(choice) for choice in decision.choices)
+        chosen = _renderer_chosen_display(
+            decision.chosen, decision.chosenArgs, decision.choices
+        )
+        lines = [
+            (
+                f"[Decision {decision.index}, snapshot={decision.snapshotIndex}] "
+                f"Turn {decision.turn} {phase} - {decision.player}"
+            ),
+            f"  Message: {decision.message}" if decision.message else "  Message:",
+            f"  Choices ({len(decision.choices)}): {choices}",
+            f"  Chosen: {chosen}",
+        ]
+        own_actions = [
+            action
+            for action in decision.subsequentActions
+            if action.startswith(decision.player)
+        ]
+        if own_actions:
+            lines.append(f"  After: {'; '.join(own_actions)}")
+        parts.append("\n".join(lines))
+    return "\n\n".join(parts)
 
 
 def _compute_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
@@ -391,7 +429,7 @@ Use the Decision number from the decision header as decisionIndex."""
 def _approach_inline(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
     """Approach A: Inline annotation — one Opus call, annotate each decision as you go."""
@@ -493,7 +531,7 @@ def _eval_one_decision(
 def _approach_per_decision(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
     model: str,
     approach_name: str,
@@ -503,7 +541,7 @@ def _approach_per_decision(
     result = ExperimentResult(approach=approach_name, game_id=data.id, model=model)
     non_forced = [d for d in decisions if not is_forced(d)]
 
-    def make_task(d: dict[str, object]) -> tuple[str, str, str]:
+    def make_task(d: Decision) -> tuple[str, str, str]:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
         label = f"decision_{decision_index(d)}"
@@ -538,7 +576,7 @@ def _approach_per_decision(
 def _approach_thinking(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
     """Approach C: Current single-pass with extended thinking enabled."""
@@ -566,7 +604,7 @@ def _approach_thinking(
 def _approach_baseline(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
     """Baseline: Current single-pass Opus without thinking (v5 logic)."""
@@ -612,7 +650,7 @@ Use the Decision number from the decision header as decisionIndex."""
 def _approach_per_decision_minimal(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     _overview: str,
     model: str,
     approach_name: str,
@@ -681,7 +719,7 @@ correct play. The expert review is cheap — your job is just to save time on th
 def _approach_flash_opus(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
     """Two-phase: Flash screens each decision, Opus analyzes flagged ones."""
@@ -691,7 +729,7 @@ def _approach_flash_opus(
     non_forced = [d for d in decisions if not is_forced(d)]
 
     # Phase 1: Flash screens each decision (parallel)
-    def screen_one(d: dict[str, object]) -> tuple[int, CallTrace, bool]:
+    def screen_one(d: Decision) -> tuple[int, CallTrace, bool]:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
         trace = _call_llm(
@@ -711,7 +749,7 @@ def _approach_flash_opus(
             idx, trace, was_flagged = fut.result()
             screen_results[idx] = (trace, was_flagged)
 
-    flagged_decisions: list[dict[str, object]] = []
+    flagged_decisions: list[Decision] = []
     for d in non_forced:
         trace, was_flagged = screen_results[decision_index(d)]
         result.calls.append(trace)
@@ -753,7 +791,7 @@ def _approach_flash_opus(
 def _approach_flash_sonnet(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
     """Two-phase: sensitive Flash screens each decision, Sonnet+low analyzes flagged."""
@@ -763,7 +801,7 @@ def _approach_flash_sonnet(
     non_forced = [d for d in decisions if not is_forced(d)]
 
     # Phase 1: Flash screens each decision (parallel) with sensitive prompt
-    def screen_one(d: dict[str, object]) -> tuple[int, CallTrace, bool]:
+    def screen_one(d: Decision) -> tuple[int, CallTrace, bool]:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
         trace = _call_llm(
@@ -783,7 +821,7 @@ def _approach_flash_sonnet(
             idx, trace, was_flagged = fut.result()
             screen_results[idx] = (trace, was_flagged)
 
-    flagged_decisions: list[dict[str, object]] = []
+    flagged_decisions: list[Decision] = []
     for d in non_forced:
         trace, was_flagged = screen_results[decision_index(d)]
         result.calls.append(trace)
@@ -853,7 +891,7 @@ Use the Decision number from each decision header as decisionIndex."""
 def _approach_batched(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
     model: str,
     approach_name: str,
@@ -865,7 +903,7 @@ def _approach_batched(
     non_forced = [d for d in decisions if not is_forced(d)]
 
     # Build all batches
-    batches: list[tuple[list[dict[str, object]], str, str]] = []
+    batches: list[tuple[list[Decision], str, str]] = []
     for batch_start in range(0, len(non_forced), batch_size):
         batch = non_forced[batch_start : batch_start + batch_size]
         batch_indices = [decision_index(d) for d in batch]
@@ -982,7 +1020,7 @@ def _call_llm_messages(
 def _approach_conversation(
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
     model: str,
     approach_name: str,
@@ -1069,7 +1107,7 @@ def run_approach(
     approach: str,
     client: OpenAI,
     data: GameExport,
-    decisions: list[dict[str, object]],
+    decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
     """Run a specific approach and return the result."""
@@ -1380,7 +1418,7 @@ def main() -> None:
             approach,
             client,
             data,
-            cast(list[dict[str, object]], decisions),
+            decisions,
             overview,
         )
         path = _save_result(result)

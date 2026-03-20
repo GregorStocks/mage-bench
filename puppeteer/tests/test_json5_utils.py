@@ -1,5 +1,9 @@
 """Tests for scripts.json5_utils — JSON5 serialization with multi-line strings."""
 
+import builtins
+
+import pytest
+
 from scripts.json5_utils import dumps_json5, loads_json5
 
 
@@ -186,3 +190,18 @@ def test_multiline_with_unicode() -> None:
     s = "Line with \u2014 dash\nNext line"
     result = dumps_json5(s, ensure_ascii=False)
     assert loads_json5(result) == s
+
+
+def test_dumps_json5_does_not_require_pyjson5(monkeypatch: pytest.MonkeyPatch) -> None:
+    real_import = builtins.__import__
+
+    def fake_import(name: str, *args: object, **kwargs: object) -> object:
+        if name == "pyjson5":
+            raise ModuleNotFoundError("No module named 'pyjson5'")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
+
+    assert '"key": "value"' in dumps_json5({"key": "value"})
+    with pytest.raises(ModuleNotFoundError, match="pyjson5"):
+        loads_json5('{"key": "value"}')

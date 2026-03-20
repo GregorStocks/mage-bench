@@ -40,7 +40,6 @@ from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Annotation,
     Action,
-    Choice,
     Decision,
     GameExport,
     Permanent,
@@ -53,6 +52,7 @@ from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
 from scripts.analysis.blunder_eval_common import (
     action_result,
+    compute_aftermath_index,
     decision_index,
     is_cast_rolled_back,
     is_forced,
@@ -79,7 +79,6 @@ BASE_URL = "https://openrouter.ai/api/v1"
 # automatically with exponential backoff.
 MAX_WORKERS = 50
 _LOG_TZ = ZoneInfo("America/Los_Angeles")
-DecisionRecord = Decision | dict[str, Any]
 
 # Bump this when the analysis pipeline changes enough to warrant re-running.
 # Games analyzed with an older version will be automatically re-analyzed.
@@ -262,7 +261,6 @@ _load_game = load_game
 # --- Oracle text via Scryfall with disk cache ---
 
 
-_extract_oracle_fields = scryfall.extract_oracle_fields
 _get_oracle_texts = scryfall.get_oracle_texts
 
 
@@ -387,133 +385,6 @@ def _collect_card_names(data: GameExport) -> set[str]:
     return {n for n in names if "Token" not in n}
 
 
-def _format_card_ref(card: dict) -> str:
-    """Format a single card for the reference section (compact one-liner)."""
-    if card.get("card_faces"):
-        parts = [_format_card_ref(face).lstrip("- ") for face in card["card_faces"]]
-        return "- " + " // ".join(parts)
-    name = card["name"]
-    mana = card.get("mana_cost")
-    type_line = card.get("type_line")
-    oracle = card.get("oracle_text")
-    # Collapse newlines in oracle text to ` / ` for single-line display
-    if oracle:
-        oracle = oracle.replace("\n", " / ")
-    pt = f" {card['power']}/{card['toughness']}" if card.get("power") else ""
-    loyalty = f" [Loyalty: {card['loyalty']}]" if card.get("loyalty") else ""
-    mana_part = f" {mana}" if mana else ""
-    type_part = f" -- {type_line}" if type_line else ""
-    line = f"- {name}{mana_part}{type_part}{pt}{loyalty}"
-    if oracle:
-        line += f": {oracle}"
-    return line
-
-
-def _decision_game_state(decision: DecisionRecord) -> dict:
-    """Return a decision's game_state, asserting on malformed inputs."""
-    assert "game_state" in decision, f"decision missing game_state: {decision!r}"
-    game_state = decision["game_state"]
-    assert isinstance(game_state, dict), (
-        f"game_state must be an object, got {game_state!r}"
-    )
-    return game_state
-
-
-def _card_names_in_decision(decision: DecisionRecord) -> set[str]:
-    """Extract card names referenced in a decision's game state and choices."""
-    names: set[str] = set()
-    gs = _decision_game_state(decision)
-    gs_players = gs.get("players")
-    if gs_players is None:
-        gs_players = []
-    for p in gs_players:
-        for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-            zone_cards = p.get(zone)
-            if zone_cards is not None:
-                for c in zone_cards:
-                    if isinstance(c, str) and c:
-                        names.add(c)
-                    elif isinstance(c, dict) and c.get("name"):
-                        names.add(c["name"])
-    stack = gs.get("stack")
-    if stack is not None:
-        for item in stack:
-            if isinstance(item, str) and item:
-                names.add(item)
-            elif isinstance(item, dict) and item.get("name"):
-                names.add(item["name"])
-    gs_combat = gs.get("combat")
-    if gs_combat is not None:
-        for group in gs_combat:
-            group_attackers = group.get("attackers")
-            if group_attackers is not None:
-                for a in group_attackers:
-                    if isinstance(a, dict) and a.get("name"):
-                        names.add(a["name"])
-            group_blockers = group.get("blockers")
-            if group_blockers is not None:
-                for b in group_blockers:
-                    if isinstance(b, dict) and b.get("name"):
-                        names.add(b["name"])
-    decision_choices = decision.get("choices")
-    if decision_choices is not None:
-        for c in decision_choices:
-            name = c.get("name") if "name" in c else c.get("description")
-            if name:
-                names.add(name)
-    decision_already_attacking = decision.get("already_attacking")
-    if decision_already_attacking is not None:
-        for a in decision_already_attacking:
-            if isinstance(a, dict) and a.get("name"):
-                names.add(a["name"])
-    decision_incoming = decision.get("incoming_attackers")
-    if decision_incoming is not None:
-        for a in decision_incoming:
-            if isinstance(a, dict) and a.get("name"):
-                names.add(a["name"])
-    decision_combat = decision.get("combat")
-    if decision_combat is not None:
-        for group in decision_combat:
-            group_attackers = group.get("attackers")
-            if group_attackers is not None:
-                for a in group_attackers:
-                    if isinstance(a, dict) and a.get("name"):
-                        names.add(a["name"])
-            group_blockers = group.get("blockers")
-            if group_blockers is not None:
-                for b in group_blockers:
-                    if isinstance(b, dict) and b.get("name"):
-                        names.add(b["name"])
-    return names
-
-
-_BASIC_LANDS = {
-    "Plains",
-    "Island",
-    "Swamp",
-    "Mountain",
-    "Forest",
-    "Snow-Covered Plains",
-    "Snow-Covered Island",
-    "Snow-Covered Swamp",
-    "Snow-Covered Mountain",
-    "Snow-Covered Forest",
-    "Wastes",
-}
-
-
-def _card_reference_for_decision(
-    decision: DecisionRecord, oracle_texts: dict[str, dict]
-) -> str:
-    """Build a card reference section for a single decision."""
-    names = _card_names_in_decision(decision) & set(oracle_texts.keys())
-    names -= _BASIC_LANDS
-    if not names:
-        return ""
-    lines = [_format_card_ref(oracle_texts[n]) for n in sorted(names)]
-    return "## Card Reference\n\n" + "\n".join(lines)
-
-
 _ACTION_NOISE = re.compile(
     r" draws a card$"
     r"|^spectator\d+ has started watching$"
@@ -569,7 +440,7 @@ def _snapshot_for_turn(snapshots: Sequence[Snapshot], turn: int) -> Snapshot | N
 
 
 def _format_prior_context(
-    decision: DecisionRecord,
+    decision: Decision,
     snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
     num_players: int,
@@ -579,10 +450,7 @@ def _format_prior_context(
     A turn cycle = one turn per player. So 2 cycles back = 2 * num_players
     turn numbers back from the current turn.
     """
-    current_turn = decision.get("turn")
-    assert isinstance(current_turn, int) or current_turn is None, (
-        f"decision turn must be an int when present, got {current_turn!r}"
-    )
+    current_turn = decision.turn
     lookback = 2 * num_players
     if not current_turn or current_turn <= lookback:
         return ""
@@ -618,7 +486,7 @@ def _format_prior_context(
 
 
 def _format_current_turn_actions(
-    decision: DecisionRecord,
+    decision: Decision,
     all_actions: Sequence[Action],
     cutoff_ts: str | None,
 ) -> str:
@@ -627,10 +495,7 @@ def _format_current_turn_actions(
     Helps the LLM see what happened (or didn't happen) this turn,
     e.g. whether a land was already played or spells were cast.
     """
-    current_turn = decision.get("turn")
-    assert isinstance(current_turn, int) or current_turn is None, (
-        f"decision turn must be an int when present, got {current_turn!r}"
-    )
+    current_turn = decision.turn
     if not current_turn or not cutoff_ts:
         return ""
 
@@ -695,196 +560,12 @@ def _game_overview(data: GameExport) -> str:
     return "\n".join(lines)
 
 
-def _format_choice(c: dict) -> str:
-    """Format a single choice with structured info when available."""
-    raw_name = c.get("name")
-    if isinstance(raw_name, str) and raw_name:
-        name = raw_name
-    else:
-        raw_description = c.get("description")
-        name = (
-            raw_description
-            if isinstance(raw_description, str) and raw_description
-            else f"option_{c.get('index', '?')}"
-        )
-    extras: list[str] = []
-    if c.get("id"):
-        extras.append(f"id={c['id']}")
-    if c.get("action"):
-        extras.append(c["action"])
-    if c.get("mana_cost"):
-        extras.append(c["mana_cost"])
-    if c.get("power") is not None and c.get("toughness") is not None:
-        extras.append(f"{c['power']}/{c['toughness']}")
-    if extras:
-        return f"{name} ({', '.join(extras)})"
-    return name
-
-
-def _format_decisions(decisions: Sequence[DecisionRecord]) -> str:
-    """Compact decision format for analysis."""
-    parts: list[str] = []
-    for d in decisions:
-        if d["is_forced"]:
-            continue
-        gs = _decision_game_state(d)
-        deciding_player = d["player"]
-        players: list[str] = []
-        gs_players = gs.get("players")
-        if gs_players is None:
-            gs_players = []
-        for p in gs_players:
-            bf = p.get("battlefield")
-            lib = p.get("library_size")
-            if p["name"] == deciding_player:
-                # Show full hand for the deciding player
-                hand = p.get("hand")
-                if hand:
-                    s = f"{p['name']}: {p.get('life', '?')}hp hand=[{', '.join(str(x) for x in hand)}]"
-                else:
-                    s = f"{p['name']}: {p.get('life', '?')}hp hand=0"
-            else:
-                # Only show public info for opponents
-                s = f"{p['name']}: {p.get('life', '?')}hp"
-            if lib is not None:
-                s += f" lib={lib}"
-            # Player counters (poison, energy, etc.)
-            counters = p.get("counters")
-            if counters:
-                if isinstance(counters, list):
-                    for ctr in counters:
-                        if isinstance(ctr, dict) and ctr.get("name"):
-                            s += f" {ctr['name']}={ctr.get('count', '?')}"
-                elif isinstance(counters, dict):
-                    for ctr_name, ctr_val in counters.items():
-                        s += f" {ctr_name}={ctr_val}"
-            if bf:
-                s += f" bf=[{', '.join(str(x) for x in bf)}]"
-            gy = p.get("graveyard")
-            if gy:
-                s += f" gy=[{', '.join(str(x) for x in gy)}]"
-            exile = p.get("exile")
-            if exile:
-                s += f" exile=[{', '.join(str(x) for x in exile)}]"
-            players.append(s)
-
-        d_choices = d.get("choices")
-        choice_descs = (
-            [_format_choice(c) for c in d_choices] if d_choices is not None else []
-        )
-
-        chosen_name = _chosen_display(d)
-
-        stack = gs.get("stack")
-        stack_line = ""
-        if stack:
-            stack_descs: list[str] = []
-            for s in stack:
-                if isinstance(s, str):
-                    stack_descs.append(s)
-                elif isinstance(s, dict):
-                    desc = s.get("name", "?")
-                    targets = s.get("targets")
-                    if targets:
-                        desc += " -> " + ", ".join(str(t) for t in targets)
-                    stack_descs.append(desc)
-                else:
-                    stack_descs.append(str(s))
-            stack_line = f"  Stack: [{', '.join(stack_descs)}]"
-
-        turn = d.get("turn")
-        if turn is None:
-            turn = 0
-        if not d.get("phase"):
-            assert turn in (0, 1), (
-                f"decision has empty phase on turn {turn}: {d.get('message')}"
-            )
-        phase = d.get("phase") or "PREGAME"
-        lines = [
-            f"[Decision {d['decision_index']}, snapshot={d['snapshot_index']}] Turn {turn} {phase} - {d['player']}",
-            f"  Board: {' | '.join(players)}",
-        ]
-        if stack_line:
-            lines.append(stack_line)
-        # Combat context from game state snapshot or choices result
-        combat_groups = gs.get("combat") or d.get("combat")
-        if combat_groups:
-            combat_parts: list[str] = []
-            for group in combat_groups:
-                group_attackers = group.get("attackers")
-                atk_names = (
-                    [
-                        a["name"]
-                        for a in group_attackers
-                        if isinstance(a, dict) and a.get("name")
-                    ]
-                    if group_attackers is not None
-                    else []
-                )
-                group_blockers = group.get("blockers")
-                blk_names = (
-                    [
-                        b["name"]
-                        for b in group_blockers
-                        if isinstance(b, dict) and b.get("name")
-                    ]
-                    if group_blockers is not None
-                    else []
-                )
-                part = ", ".join(atk_names)
-                if blk_names:
-                    part += f" blocked by {', '.join(blk_names)}"
-                elif group.get("blocked"):
-                    part += " (blocked)"
-                if group.get("defending"):
-                    part += f" -> {group['defending']}"
-                combat_parts.append(part)
-            lines.append(f"  Combat: {' | '.join(combat_parts)}")
-        if d.get("combat_phase"):
-            lines.append(f"  Combat Phase: {d['combat_phase']}")
-        dec_msg = d.get("message")
-        lines += [
-            f"  Message: {dec_msg}" if dec_msg else "  Message:",
-            f"  Choices ({len(d_choices) if d_choices is not None else 0}): {', '.join(choice_descs)}",
-            f"  Chosen: {chosen_name}",
-        ]
-        if dec_msg and "Pick triggered ability" in dec_msg:
-            lines.append(
-                "  NOTE: This decision only determines the order triggered abilities"
-                " are placed on the stack. Targets are chosen in separate decisions."
-            )
-        if d.get("reasoning"):
-            lines.append(f"  Reasoning: {d['reasoning'][:500]}")
-        # Show what the deciding player did next (but not opponent actions)
-        subsequent = d.get("subsequent_actions")
-        own_actions = (
-            [a for a in subsequent if a.startswith(deciding_player)]
-            if subsequent is not None
-            else []
-        )
-        if own_actions:
-            lines.append(f"  After: {'; '.join(own_actions)}")
-        parts.append("\n".join(lines))
-    return "\n\n".join(parts)
-
-
-def _chosen_display(d: DecisionRecord) -> str:
+def _chosen_display(d: Decision) -> str:
     """Human-readable name of what was chosen in a decision.
 
-    Delegates to the canonical renderer's _chosen_display, extracting
-    the relevant fields from the decision dict.
+    Delegates to the canonical renderer helper used by the live prompt path.
     """
-    chosen = d.get("chosen")
-    chosen_args = d.get("chosenArgs")
-    raw_choices = d.get("choices")
-    if raw_choices is None:
-        choices: list[Choice] = []
-    else:
-        assert isinstance(raw_choices, list), (
-            f"decision choices must be a list when present, got {raw_choices!r}"
-        )
-        choices = Choice.coerce_list(raw_choices)
-    return _renderer_chosen_display(chosen, chosen_args, choices)
+    return _renderer_chosen_display(d.chosen, d.chosenArgs, d.choices)
 
 
 def _compute_cost(
@@ -1065,17 +746,17 @@ def _append_blunder_stats(
     print(f"  Blunder stats appended to {stats_path}")
 
 
-def _format_preceding_action(preceding: DecisionRecord) -> str:
+def _format_preceding_action(preceding: Decision) -> str:
     """Format a brief summary of the preceding decision for context.
 
     This helps the LLM understand what triggered a generic prompt like
     "Select a creature" — e.g. that a land was just played (triggering landfall),
     not that a spell like Hunter's Insight was cast.
     """
-    msg = preceding["message"]
+    msg = preceding.message
     di = decision_index(preceding)
     parts = [f"[Decision {di}] {msg}"]
-    if preceding.get("chosen") is not None:
+    if preceding.chosen is not None:
         parts.append(f"→ Chose: {_chosen_display(preceding)}")
     return "## Preceding Action\n\n" + " ".join(parts)
 
@@ -1229,7 +910,7 @@ def _eval_one_decision(
 
     raw_record = {
         "decision_index": d_idx,
-        "player": decision["player"],
+        "player": decision.player,
         "snapshot_index": s_idx,
         "model": model,
         "system_prompt": PER_DECISION_SYSTEM,
@@ -1247,36 +928,14 @@ def _eval_one_decision(
     if ann is None:
         return [], cost, True, raw_record
 
-    # Inject constant fields the LLM doesn't need to generate.
-    # snapshotIndex points to the first snapshot AFTER the action resolved,
-    # so the viewer shows the annotation alongside its consequences.
-    # action_seq/actionSeq is the gameSeq of the choose_action call, which
-    # represents the state BEFORE the action processes.  The resulting game
-    # actions get strictly higher seq values, so we need > (not >=).
-    action_seq = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
-    action_ts = decision.get("action_ts")
-    if action_seq:
-        # v2: find first snapshot strictly after action_seq
-        aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
-        for i in range(s_idx, len(snapshots)):
-            if snapshots[i].seq > action_seq:
-                aftermath_idx = i
-                break
-    elif action_ts:
-        # v1: find first snapshot strictly after action_ts
-        aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
-        for i in range(s_idx, len(snapshots)):
-            snap_ts_val = snapshots[i].ts
-            if snap_ts_val and snap_ts_val > action_ts:
-                aftermath_idx = i
-                break
-    else:
-        aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
+    # snapshotIndex points to the first snapshot AFTER the action resolved so
+    # the viewer shows the annotation alongside its consequences.
+    aftermath_idx = compute_aftermath_index(decision, snapshots)
     ann_obj = Annotation(
         type="blunder",
         decisionIndex=d_idx,
         snapshotIndex=aftermath_idx,
-        player=decision["player"],
+        player=decision.player,
         severity=ann["severity"],
         description=ann["description"],
         actionTaken=ann["actionTaken"],
