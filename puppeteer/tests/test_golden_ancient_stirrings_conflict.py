@@ -1,15 +1,14 @@
 """Golden test: Ancient Stirrings triggers lookedAt zone short ID conflict."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_ANCIENT_STIRRINGS,
     DECK_FILLER,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("ancient_stirrings_short_id")
 def test_ancient_stirrings_short_id_conflict(
     xmage_server,
     tmp_path,

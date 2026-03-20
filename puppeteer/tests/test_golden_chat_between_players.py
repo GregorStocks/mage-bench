@@ -1,14 +1,13 @@
 """Golden prompt test: players chatting to each other."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_FILLER,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("chat_between_players")
 def test_chat_between_players(
     xmage_server,
     tmp_path,

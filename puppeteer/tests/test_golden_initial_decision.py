@@ -1,15 +1,14 @@
 """Golden prompt test: initial decision point."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("initial_decision")
 def test_initial_decision(xmage_server, tmp_path, project_root, bridge_session, opponent_session, spectator_process):
     """Verify the prompt at the very first LLM decision point.
 

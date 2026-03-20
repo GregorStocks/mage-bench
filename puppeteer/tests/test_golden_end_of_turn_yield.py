@@ -1,15 +1,14 @@
 """Golden prompt test: pass_priority until=end_of_turn skips playable cards."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_BOLT_AND_BURN,
     DECK_FILLER,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("end_of_turn_yield")
 def test_end_of_turn_yield(
     xmage_server,
     tmp_path,

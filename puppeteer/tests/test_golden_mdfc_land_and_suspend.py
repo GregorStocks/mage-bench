@@ -1,15 +1,14 @@
 """Golden prompt test: MDFC played as land and suspend card through resolution."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_FILLER,
     DECK_MDFC_LAND_AND_SUSPEND,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("mdfc_land_and_suspend")
 def test_mdfc_land_and_suspend(
     xmage_server,
     tmp_path,

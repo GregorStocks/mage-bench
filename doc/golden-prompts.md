@@ -102,35 +102,33 @@ A golden test has three inputs:
 1. Session-scoped fixtures start (once per test run):
    - Compile Java project
    - Start XMage server on a random port
-   - Start two bridge JVMs (Player A + Opponent) with keepAlive=true
-   - Start spectator/observer JVM with keepAlive=true
 
 2. For each test:
-   a. Spectator creates a game table
-   b. Both bridges join the table concurrently
-   c. Both replay scripts run concurrently:
+   a. Start fresh bridge JVMs (Player A + Opponent) with unique usernames
+   b. Start a fresh spectator/observer JVM with a unique username
+   c. Spectator creates a game table
+   d. Both bridges join the table concurrently
+   e. Both replay scripts run concurrently:
       - Player A executes the test's script
       - Player B auto-passes (or runs its own script)
-   d. Player A's prompt is captured after the script completes
-   e. Spectator confirms game end
-   f. Compare prompt against golden file
-   g. Run export pipeline on game logs, compare against golden file
-   h. If script has blunder annotations, compare blunder prompts
-   i. Both bridges concede (cleanup for next test)
+   f. Player A's prompt is captured after the script completes
+   g. Spectator confirms game end
+   h. Compare prompt against golden file
+   i. Run export pipeline on game logs, compare against golden file
+   j. If script has blunder annotations, compare blunder prompts
+   k. Both bridges concede and all three per-test JVMs exit
 ```
 
-### Why persistent JVMs?
+### Why only the server is shared
 
-The bridge JVMs are session-scoped (shared across all tests) rather than
-started fresh per test. JVM startup is expensive (~5-10s each), and with
-3 JVMs (server, bridge A, bridge B) plus the spectator, per-test startup
-would dominate the test suite's runtime.
+The XMage server is still session-scoped because compilation plus server
+startup is the most expensive one-time setup. The bridge JVMs and spectator
+are fresh per test so state cannot leak across games.
 
-The tradeoff is that a failed test can leave a bridge in a stuck state.
-`BridgeManager` handles this with health checks between tests — if the
-bridge can't respond to a `tools/list` RPC within 5 seconds, it's killed
-and restarted. This prevents cascading failures without paying the full
-startup cost for every test.
+This split keeps the suite fast enough for CI while giving each golden test
+a clean client/session boundary. It also enables `pytest -n 2` against one
+shared XMage server, as long as every golden test declares distinct bridge
+and spectator usernames.
 
 ## Determinism: the priority serialization invariant
 

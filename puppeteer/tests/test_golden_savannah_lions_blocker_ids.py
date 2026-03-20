@@ -1,14 +1,13 @@
 """Golden prompt test: blocker prompt renders incoming attacker IDs."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_SAVANNAH_LIONS,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("savannah_lions_blocker_ids")
 def test_savannah_lions_blocker_ids(
     xmage_server,
     tmp_path,

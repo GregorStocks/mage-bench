@@ -1,15 +1,14 @@
 """Golden prompt test: GAME_GET_MULTI_AMOUNT combat damage distribution."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_GRIZZLY_BEARS,
     DECK_TWO_MEMNITES,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("multi_amount_combat")
 def test_multi_amount_combat(
     xmage_server,
     tmp_path,

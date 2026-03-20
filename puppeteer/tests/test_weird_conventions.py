@@ -333,7 +333,7 @@ class TestAllConfigsLoad:
 
 
 # ---------------------------------------------------------------------------
-# Test 9: Golden test files all have the @pytest.mark.golden marker
+# Test 9: Real golden test files all use the @golden_test decorator
 # ---------------------------------------------------------------------------
 
 
@@ -343,6 +343,7 @@ class TestGoldenFilesHaveMarker:
     _INFRA_FILES: ClassVar[set[str]] = {
         "test_golden_helpers_health.py",
         "test_golden_helpers_normalization.py",
+        "test_golden_test_identities.py",
         "test_golden_timing.py",
     }
 
@@ -356,10 +357,10 @@ class TestGoldenFilesHaveMarker:
             if path.name in self._INFRA_FILES:
                 continue
             source = path.read_text()
-            if "pytest.mark.golden" not in source:
+            if "@golden_test(" not in source:
                 missing_marker.append(path.name)
 
-        assert not missing_marker, "Golden test files without @pytest.mark.golden:\n  " + "\n  ".join(missing_marker)
+        assert not missing_marker, "Golden test files without @golden_test(...):\n  " + "\n  ".join(missing_marker)
 
     def test_infra_files_exist(self) -> None:
         """Ensure the infra allowlist doesn't reference deleted files."""

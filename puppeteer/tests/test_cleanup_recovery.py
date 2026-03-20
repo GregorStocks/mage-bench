@@ -33,6 +33,8 @@ class _FakeBridgeManager:
     ) -> None:
         self.session = session
         self._label = label
+        self.label = label
+        self.username = "TestPlayer" if label == "bridge" else "Opponent"
         self.restart_calls = 0
         self.reconnect_checks: list[str] = []
         self.events: list[str] = []
@@ -61,6 +63,8 @@ class _FakeBridgeManager:
 
 
 class _FakeSpectator:
+    label = "spectator"
+
     def wait_for_watching(self, _game_dir: Path) -> None:
         pass
 

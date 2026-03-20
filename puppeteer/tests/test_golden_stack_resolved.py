@@ -1,15 +1,14 @@
 """Golden prompt test: Lightning Bolt with stack_resolved yield."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_BOLT_AND_BURN,
     DECK_FILLER,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("stack_resolved")
 def test_stack_resolved(xmage_server, tmp_path, project_root, bridge_session, opponent_session, spectator_process):
     """Cast Lightning Bolt, then pass_priority(until="stack_resolved") to let it resolve.
 

@@ -1,15 +1,14 @@
 """Golden prompt test: board cursor dedup eliminates redundant board payloads."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_BOLT_AND_BURN,
     DECK_FILLER,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("board_cursor_dedup")
 def test_board_cursor_dedup(xmage_server, tmp_path, project_root, bridge_session, opponent_session, spectator_process):
     """Verify board_unchanged=true when get_action_choices follows pass_priority.
 

@@ -18,6 +18,7 @@ import io
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -412,6 +413,20 @@ def _build_java_cmd(
     return cmd
 
 
+def wrap_with_xvfb(cmd: list[str]) -> list[str]:
+    """Run golden-test JVMs on isolated virtual displays on Linux."""
+    if sys.platform != "linux":
+        return cmd
+
+    xvfb = shutil.which("xvfb-run")
+    assert xvfb is not None, (
+        "Golden tests require xvfb-run on Linux so bridge and observer JVMs can use "
+        "isolated displays. Install xvfb for your distribution "
+        "(e.g. apt-get install xvfb or dnf install xorg-x11-server-Xvfb)."
+    )
+    return [xvfb, "--auto-servernum", "--server-args=-screen 0 1920x1080x24", *cmd]
+
+
 # ---------------------------------------------------------------------------
 # Persistent process wrappers for session-scoped JVM reuse
 # ---------------------------------------------------------------------------
@@ -536,6 +551,14 @@ class BridgeManager:
 
     def _log_dir(self) -> Path:
         return self._project_root / "tmp" / f"golden-{self._label}"
+
+    @property
+    def username(self) -> str:
+        return self._username
+
+    @property
+    def label(self) -> str:
+        return self._label
 
     def _prepare_live_log_path(self, filename: str = "bridge.log") -> Path:
         """Rotate a live log so restarts preserve earlier bridge output."""
@@ -664,6 +687,7 @@ class BridgeManager:
             },
             max_heap="256m",
         )
+        bridge_cmd = wrap_with_xvfb(bridge_cmd)
         self._log_fh = open(bridge_log, "w")
 
         self._proc = subprocess.Popen(
@@ -743,10 +767,18 @@ class SpectatorProcess:
     auto-watches the game.
     """
 
-    def __init__(self, proc: subprocess.Popen[bytes], log_path: Path, *, health_port: int = 0) -> None:
+    def __init__(
+        self,
+        proc: subprocess.Popen[bytes],
+        log_path: Path,
+        *,
+        health_port: int = 0,
+        label: str = "spectator",
+    ) -> None:
         self.proc = proc
         self.log_path = log_path
         self.health_port = health_port
+        self.label = label
         assert proc.stdin is not None, "SpectatorProcess requires stdin=PIPE"
         self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
 
@@ -1239,8 +1271,8 @@ def run_golden_scenario(
     bridge_b: BridgeManager,
     spectator: SpectatorProcess,
     script_b: list[dict] | None = None,
-    player_a_name: str = "TestPlayer",
-    player_b_name: str = "Opponent",
+    player_a_name: str | None = None,
+    player_b_name: str | None = None,
     game_type: str = "Two Player Duel",
     deck_type: str = "Constructed - Legacy",
 ) -> list[dict]:
@@ -1257,6 +1289,14 @@ def run_golden_scenario(
     Returns the captured prompt messages array (what the LLM would see).
     """
     game_dir.mkdir(parents=True, exist_ok=True)
+    if player_a_name is None:
+        player_a_name = bridge_a.username
+    if player_b_name is None:
+        player_b_name = bridge_b.username
+    canonical_name_map = {
+        player_a_name: "TestPlayer",
+        player_b_name: "Opponent",
+    }
 
     _write_game_meta(
         game_dir,
@@ -1385,7 +1425,7 @@ def run_golden_scenario(
 
         record_registered_rss_snapshot(
             f"{golden_name}_post_replay",
-            ["server", bridge_a._label, bridge_b._label, "spectator"],
+            ["server", bridge_a.label, bridge_b.label, spectator.label],
         )
 
         # Player A errors are fatal; player B errors are usually benign
@@ -1403,20 +1443,26 @@ def run_golden_scenario(
             spectator.wait_for_game_end(game_dir)
 
         with timed_phase(golden_name, "prompt_compare"):
-            assert_golden_prompt(golden_name, prompt_a)
+            assert_golden_prompt(golden_name, prompt_a, name_map=canonical_name_map)
 
         with timed_phase(golden_name, "export_build"):
             export_data = build_export(game_dir)
 
         with timed_phase(golden_name, "export_compare"):
-            assert_golden_export(golden_name, export_data)
+            assert_golden_export(golden_name, export_data, name_map=canonical_name_map)
 
         annotated_blunders = _script_blunder_indices(script_a)
         if annotated_blunders:
             with timed_phase(golden_name, "blunder_extract"):
                 decisions = extract_blunder_decisions(export_data, game_dir)
             with timed_phase(golden_name, "blunder_prompt_compare"):
-                assert_golden_blunder_prompts(golden_name, export_data, annotated_blunders, decisions)
+                assert_golden_blunder_prompts(
+                    golden_name,
+                    export_data,
+                    annotated_blunders,
+                    decisions,
+                    name_map=canonical_name_map,
+                )
 
         return prompt_a
 
@@ -1543,6 +1589,28 @@ def _json_ready(obj: object) -> object:
     return obj
 
 
+def _canonicalize_golden_names(obj: object, name_map: Mapping[str, str] | None) -> object:
+    """Replace runtime-unique test usernames with stable golden-comparison names."""
+    if not name_map:
+        return obj
+    if isinstance(obj, dict):
+        normalized = {key: _canonicalize_golden_names(value, name_map) for key, value in obj.items()}
+        log_text = normalized.get("text")
+        if not isinstance(log_text, str):
+            log_text = normalized.get("log")
+        if isinstance(log_text, str) and isinstance(normalized.get("total_length"), int):
+            normalized["total_length"] = len(log_text)
+        return normalized
+    if isinstance(obj, list):
+        return [_canonicalize_golden_names(value, name_map) for value in obj]
+    if isinstance(obj, str):
+        text = obj
+        for actual, canonical in name_map.items():
+            text = text.replace(actual, canonical)
+        return text
+    return obj
+
+
 def _brief(value: object, max_len: int = 80) -> str:
     """Short representation of a JSON value for diff output."""
     value = _json_ready(value)
@@ -1637,9 +1705,10 @@ def _normalize_prompt_for_golden(obj: object) -> object:
     return obj
 
 
-def assert_golden_prompt(name: str, actual: list[dict]) -> None:
+def assert_golden_prompt(name: str, actual: list[dict], *, name_map: Mapping[str, str] | None = None) -> None:
     """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
     normalized = _normalize_prompt_for_golden(actual)
+    normalized = _canonicalize_golden_names(normalized, name_map)
     actual_json5 = dumps_json5(normalized, sort_keys=True)
     golden_file = GOLDEN_DIR / f"{name}.json5"
 
@@ -1746,19 +1815,20 @@ def _strip_volatile(data: dict) -> None:
     data.get("llmTrace", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
 
-def _normalize_export_for_golden(export_data: dict) -> dict:
+def _normalize_export_for_golden(export_data: dict, *, name_map: Mapping[str, str] | None = None) -> dict:
     """Return a deterministic export copy for golden comparison."""
     normalized = _json_ready(export_data)
     assert isinstance(normalized, dict), f"expected export normalization to produce an object, got {normalized!r}"
     _strip_volatile(normalized)
     normalized = _normalize_embedded_json(normalized)
+    normalized = _canonicalize_golden_names(normalized, name_map)
     # Round-trip through JSON to convert dataclass instances to plain dicts
     return json.loads(json.dumps(normalized, default=json_default))
 
 
-def assert_golden_export(name: str, export_data: dict) -> None:
+def assert_golden_export(name: str, export_data: dict, *, name_map: Mapping[str, str] | None = None) -> None:
     """Compare export data against a golden file."""
-    normalized_export = _normalize_export_for_golden(export_data)
+    normalized_export = _normalize_export_for_golden(export_data, name_map=name_map)
     actual_json5 = dumps_json5(normalized_export, sort_keys=True)
     golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json5"
 
@@ -1836,6 +1906,8 @@ def assert_golden_blunder_prompts(
     export_data: dict,
     annotated: list[int],
     decisions: list[Decision],
+    *,
+    name_map: Mapping[str, str] | None = None,
 ) -> None:
     """Check blunder analysis prompts for annotated decision indices.
 
@@ -1895,6 +1967,7 @@ def assert_golden_blunder_prompts(
             "system": system,
             "user": user,
         }
+        actual = _canonicalize_golden_names(actual, name_map)
 
         golden_file = golden_dir / f"decision_{idx}.json5"
         actual_json5 = dumps_json5(actual) + "\n"

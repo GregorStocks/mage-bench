@@ -8,6 +8,7 @@ import tests.golden_helpers as golden_helpers
 from schemas.game_export_types import Choice, CombatCreature, Permanent, StackItem, StackTarget
 from scripts.json5_utils import dumps_json5, loads_json5
 from tests.golden_helpers import (
+    _canonicalize_golden_names,
     _CapturedPilotRequest,
     _json_diff,
     _json_ready,
@@ -224,6 +225,53 @@ def test_normalize_prompt_preserves_game_seq():
     normalized = _normalize_prompt_for_golden(payload)
 
     assert normalized[0]["content"] == {"game_seq": 77, "id": "p3", "nested": {"game_seq": 12}}
+
+
+def test_canonicalize_golden_names_rewrites_runtime_usernames_in_strings():
+    payload = {
+        "player": "gt-initial-abc123-a",
+        "log": "[Chat] gt-initial-abc123-b: hello",
+        "nested": [{"name": "gt-initial-abc123-a"}],
+    }
+
+    normalized = _canonicalize_golden_names(
+        payload,
+        {
+            "gt-initial-abc123-a": "TestPlayer",
+            "gt-initial-abc123-b": "Opponent",
+        },
+    )
+
+    assert normalized == {
+        "player": "TestPlayer",
+        "log": "[Chat] Opponent: hello",
+        "nested": [{"name": "TestPlayer"}],
+    }
+
+
+def test_canonicalize_golden_names_recomputes_total_length_for_canonicalized_text():
+    payload = {
+        "log": "[Chat] oppo_abcd: hello",
+        "total_length": len("[Chat] oppo_abcd: hello"),
+    }
+
+    normalized = _canonicalize_golden_names(
+        payload,
+        {
+            "oppo_abcd": "Opponent",
+        },
+    )
+
+    assert normalized == {
+        "log": "[Chat] Opponent: hello",
+        "total_length": len("[Chat] Opponent: hello"),
+    }
+
+
+def test_canonicalize_golden_names_noops_without_map():
+    payload = {"player": "gt-foo-a"}
+
+    assert _canonicalize_golden_names(payload, None) == payload
 
 
 def test_pilot_script_from_replay_script_drops_initial_prefetch_call():

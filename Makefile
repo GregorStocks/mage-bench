@@ -6,6 +6,7 @@
 # Alternatively, you can set this variable in the .env file
 TARGET_DIR ?= deploy/
 WEBSITE_NPM_STAMP := website/node_modules/.install-stamp
+GOLDEN_N ?= 2
 
 .PHONY: clean
 clean:
@@ -70,7 +71,7 @@ check:
 
 .PHONY: test-golden
 test-golden:
-	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest -m golden -v $(if $(K),-k "$(K)")
+	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest -m golden -v $(if $(GOLDEN_N),-n $(GOLDEN_N) --dist=load,) $(if $(K),-k "$(K)")
 
 .PHONY: regen-golden
 regen-golden:

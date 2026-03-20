@@ -1,15 +1,14 @@
 """Golden prompt test: Emancipation Angel ETB target prompt."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_EMANCIPATION_ANGEL,
     DECK_FILLER,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("emancipation_angel_trigger")
 def test_emancipation_angel_trigger(
     xmage_server,
     tmp_path,

@@ -1,15 +1,14 @@
 """Golden prompt test: Dark Depths combo with Marit Lage lethal attack."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_DARK_DEPTHS_COMBO,
     DECK_FILLER,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("dark_depths_combo")
 def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session, opponent_session, spectator_process):
     """Dark Depths + Thespian's Stage combo into Marit Lage lethal attack.
 

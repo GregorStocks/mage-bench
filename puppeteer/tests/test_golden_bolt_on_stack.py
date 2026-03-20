@@ -1,15 +1,14 @@
 """Golden prompt test: two Lightning Bolts on the stack."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_BOLT_AND_BURN,
     DECK_FILLER,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("bolt_on_stack")
 def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, opponent_session, spectator_process):
     """Two Lightning Bolts on the stack, one targeting Memnite, one targeting Opponent.
 

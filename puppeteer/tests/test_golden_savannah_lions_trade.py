@@ -1,14 +1,13 @@
 """Golden prompt test: Savannah Lions trade in combat."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_SAVANNAH_LIONS,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("savannah_lions_trade")
 def test_savannah_lions_trade(
     xmage_server,
     tmp_path,

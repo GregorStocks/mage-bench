@@ -1,15 +1,14 @@
 """Golden prompt test: Mana Drain into Fact or Fiction."""
 
-import pytest
-
 from tests.golden_helpers import (
     DECK_BLACK_LOTUS_DIVINATION,
     DECK_MANA_DRAIN_FOF,
     run_golden_scenario,
 )
+from tests.golden_test_identities import golden_test
 
 
-@pytest.mark.golden
+@golden_test("mana_drain_fact_or_fiction")
 def test_mana_drain_into_fact_or_fiction(
     xmage_server,
     tmp_path,
