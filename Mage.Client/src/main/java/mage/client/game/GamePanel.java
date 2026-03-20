@@ -1262,7 +1262,9 @@ public class GamePanel extends javax.swing.JPanel {
         // sideboard dialogs is unattached all the time -- user opens it by command
 
         showCompanion(lastGameData.game);
-        if (!lastGameData.game.getCombat().isEmpty()) {
+        if (!isShowing()) {
+            CombatManager.instance.hideCombat(gameId);
+        } else if (!lastGameData.game.getCombat().isEmpty()) {
             CombatManager.instance.showCombat(lastGameData.game.getCombat(), gameId);
         } else {
             CombatManager.instance.hideCombat(gameId);
