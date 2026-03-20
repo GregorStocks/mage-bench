@@ -40,6 +40,7 @@ from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Annotation,
     Action,
+    BuiltGameExport,
     Decision,
     GameExport,
     Permanent,
@@ -57,7 +58,7 @@ from scripts.analysis.blunder_eval_common import (
     is_cast_rolled_back,
     is_forced,
     is_mana_ability_subdecision,
-    load_game,
+    load_game_for_annotation,
     snapshot_index,
 )
 from scripts.analysis.extract_decisions import extract_decisions
@@ -255,7 +256,7 @@ Return ONLY valid JSON — either `null` (no blunder) or a single annotation obj
 {ANNOTATION_SCHEMA}"""
 
 
-_load_game = load_game
+_load_game = load_game_for_annotation
 
 
 # --- Oracle text via Scryfall with disk cache ---
@@ -280,7 +281,7 @@ def _snapshot_zone_cards(
     return cards
 
 
-def _collect_card_names(data: GameExport) -> set[str]:
+def _collect_card_names(data: BuiltGameExport | GameExport) -> set[str]:
     """Collect all unique card names from game snapshots and choices."""
     names: set[str] = set()
     for snap in data.snapshots:
@@ -548,7 +549,7 @@ def _format_current_turn_actions(
     return "## This Turn\n" + "\n".join(lines)
 
 
-def _game_overview(data: GameExport) -> str:
+def _game_overview(data: BuiltGameExport | GameExport) -> str:
     lines = [
         f"Game: {data.id}",
         f"Format: {data.deckType} ({data.gameType})",

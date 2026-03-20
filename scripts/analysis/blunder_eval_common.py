@@ -13,6 +13,7 @@ from typing import Any
 
 from schemas.game_export_types import (
     Annotation,
+    BuiltGameExport,
     Choice,
     Decision,
     GameExport,
@@ -20,6 +21,7 @@ from schemas.game_export_types import (
     Snapshot,
     decision_support_get,
     export_record_field,
+    load_built_game_export,
     load_game_export,
 )
 from scripts.game_exports import GAMES_DIR, glob_game_export_paths
@@ -198,8 +200,13 @@ def _validate_export_path(path: str | Path) -> Path:
 
 
 def load_game(path: str | Path) -> GameExport:
-    """Load a game export file (.json or .json.gz)."""
+    """Load a game export file (.json or .json.gz). Requires annotations."""
     return load_game_export(_validate_export_path(path))
+
+
+def load_game_for_annotation(path: str | Path) -> BuiltGameExport:
+    """Load a game export that may not have annotations yet."""
+    return load_built_game_export(_validate_export_path(path))
 
 
 def export_record_name(record: object) -> str:

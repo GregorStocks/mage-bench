@@ -1028,7 +1028,6 @@ def _update_website_youtube_url(game_dir: Path, url: str, project_root: Path) ->
 class AnnotationFailure:
     """A game that was exported but failed annotation, pending user decision."""
 
-    tmp_path: Path
     final_path: Path
     error: str
     game_id: str
@@ -1091,17 +1090,15 @@ def resolve_annotation_failures(failures: list[AnnotationFailure]) -> None:
         while True:
             action = _prompt_annotation_failure(failure.game_id, failure.error)
             if action == "retry":
-                err, _cost = _attempt_annotation(failure.tmp_path, max_retries=0)
+                err, _cost = _attempt_annotation(failure.final_path, max_retries=0)
                 if err is None:
-                    _finalize_export(failure.tmp_path, failure.final_path)
                     break
                 failure.error = err
                 continue  # re-prompt
             if action == "emit":
-                _finalize_export(failure.tmp_path, failure.final_path)
                 break
             # skip
-            failure.tmp_path.unlink(missing_ok=True)
+            failure.final_path.unlink(missing_ok=True)
             logger.info("  Skipped %s", failure.game_id)
             break
 
@@ -1159,22 +1156,22 @@ def upload_and_export(
             post_game_failures.append(f"{game_id}: Website export failed: {e}")
         return 0.0
 
+    # Move to final location before annotation — the blunder analysis
+    # validator requires a proper game_* filename, not the .tmp_ prefix.
+    _finalize_export(tmp_path, final_path)
+
     # Blunder analysis (requires OPENROUTER_API_KEY; skips already-analyzed games)
     if not os.environ.get("OPENROUTER_API_KEY"):
-        # No API key — emit without annotation
-        _finalize_export(tmp_path, final_path)
         return 0.0
 
-    err, cost = _attempt_annotation(tmp_path)
+    err, cost = _attempt_annotation(final_path)
     if err is None:
-        # Annotation succeeded
-        _finalize_export(tmp_path, final_path)
         return cost
 
     # Annotation failed after retries
     if deferred_failures is not None:
         # Batch mode: defer to end
-        deferred_failures.append(AnnotationFailure(tmp_path, final_path, err, game_id))
+        deferred_failures.append(AnnotationFailure(final_path, err, game_id))
         logger.info("  Deferred annotation failure for %s (will ask at end)", game_id)
         return 0.0
 
@@ -1182,20 +1179,18 @@ def upload_and_export(
     while True:
         action = _prompt_annotation_failure(game_id, err)
         if action == "retry":
-            err, cost = _attempt_annotation(tmp_path, max_retries=0)
+            err, cost = _attempt_annotation(final_path, max_retries=0)
             if err is None:
-                _finalize_export(tmp_path, final_path)
                 return cost
             continue  # re-prompt
         if action == "emit":
             if post_game_failures is not None:
                 post_game_failures.append(f"{game_id}: Blunder analysis failed: {err}")
-            _finalize_export(tmp_path, final_path)
             return 0.0
-        # skip
+        # skip — remove the exported file
         if post_game_failures is not None:
             post_game_failures.append(f"{game_id}: Blunder analysis failed (skipped): {err}")
-        tmp_path.unlink(missing_ok=True)
+        final_path.unlink(missing_ok=True)
         logger.info("  Skipped %s", game_id)
         return 0.0
 

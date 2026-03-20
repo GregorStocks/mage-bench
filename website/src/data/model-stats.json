@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-10T15:53:30.486404+00:00",
+  "generatedAt": "2026-03-20T06:27:06.264735+00:00",
   "models": {
     "anthropic/claude-haiku-4.5::low": {
       "modelId": "anthropic/claude-haiku-4.5",
@@ -2175,6 +2175,25 @@
           "latencyP50": 0.8,
           "latencyP95": 1.4,
           "latencySamples": 1018
+        },
+        "55": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 0.0352,
+          "totalToolCallsOk": 27,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 41.1,
+          "totalPromptTokens": 137702,
+          "totalCompletionTokens": 496,
+          "totalCachedTokens": 17937,
+          "totalReasoningTokens": 0,
+          "successfulResponses": 28,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.8,
+          "latencyP95": 1.6,
+          "latencySamples": 56
         }
       }
     },
@@ -4855,6 +4874,33 @@
           "latencyP50": 0.8,
           "latencyP95": 20.0,
           "latencySamples": 2306
+        }
+      }
+    },
+    "openai/gpt-5.4-mini::medium": {
+      "modelId": "openai/gpt-5.4-mini",
+      "modelName": "GPT-5.4 Mini (medium)",
+      "provider": "OpenAI",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "55": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 0.1088,
+          "totalToolCallsOk": 23,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 92.0,
+          "totalPromptTokens": 113995,
+          "totalCompletionTokens": 5184,
+          "totalCachedTokens": 78336,
+          "totalReasoningTokens": 4085,
+          "successfulResponses": 24,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.7,
+          "latencyP95": 7.1,
+          "latencySamples": 47
         }
       }
     },
