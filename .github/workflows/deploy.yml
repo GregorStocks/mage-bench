@@ -33,80 +33,16 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         id: deploy
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          IS_PULL_REQUEST: ${{ github.event_name == 'pull_request' }}
-          PAGES_BRANCH: ${{ github.head_ref || github.ref_name }}
-        working-directory: website
-        run: |
-          set -euo pipefail
-
-          command=(
-            npx
-            --yes
-            wrangler@4.75.0
-            pages
-            deploy
-            dist/
-            --project-name=mage-bench
-            --branch="$PAGES_BRANCH"
-            --commit-dirty=true
-          )
-
-          attempt=1
-          while true; do
-            log_file="$(mktemp)"
-            set +e
-            "${command[@]}" 2>&1 | tee "$log_file"
-            status=${PIPESTATUS[0]}
-            set -e
-
-            if [ "$status" -eq 0 ]; then
-              deployment_url="$(
-                tr -d '\r' < "$log_file" |
-                  sed -n 's/^.*Take a peek over at \(https:\/\/[^ ]*\)$/\1/p' |
-                  tail -n 1
-              )"
-              test -n "$deployment_url"
-              echo "deployment-url=$deployment_url" >> "$GITHUB_OUTPUT"
-
-              if [ "$IS_PULL_REQUEST" = "true" ]; then
-                alias_url="$(
-                  tr -d '\r' < "$log_file" |
-                    sed -n 's/^.*Deployment alias URL: \(https:\/\/[^ ]*\)$/\1/p' |
-                    tail -n 1
-                )"
-                test -n "$alias_url"
-                echo "target-url=$alias_url" >> "$GITHUB_OUTPUT"
-              else
-                echo "target-url=$deployment_url" >> "$GITHUB_OUTPUT"
-              fi
-
-              rm -f "$log_file"
-              break
-            fi
-
-            if ! grep -Eq 'upstream request timeout|504 Gateway Timeout' "$log_file"; then
-              rm -f "$log_file"
-              exit "$status"
-            fi
-
-            if [ "$attempt" -ge 3 ]; then
-              rm -f "$log_file"
-              exit "$status"
-            fi
-
-            rm -f "$log_file"
-            echo "Cloudflare Pages API timed out on attempt $attempt; retrying..."
-            sleep $((attempt * 15))
-            attempt=$((attempt + 1))
-          done
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy website/dist/ --project-name=mage-bench --branch=${{ github.head_ref || github.ref_name }}
 
       - name: Print deployment URL
         run: |
           echo "Deployed to ${{ steps.deploy.outputs.deployment-url }}"
-          echo "Target URL: ${{ steps.deploy.outputs.target-url }}"
+          echo "Branch URL: https://${{ github.head_ref || github.ref_name }}.mage-bench.pages.dev"
 
       - name: Add preview link to commit status
         env:
@@ -115,6 +51,6 @@ jobs:
           gh api "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
             --method POST \
             -f state=success \
-            -f target_url="${{ steps.deploy.outputs.target-url }}" \
+            -f target_url="https://${{ github.head_ref || github.ref_name }}.mage-bench.pages.dev" \
             -f description="Deployed to Cloudflare Pages" \
             -f context="Preview"
