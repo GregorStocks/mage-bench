@@ -22,8 +22,7 @@ _ROOT = Path(__file__).resolve().parent.parent.parent.parent
 _GAMES_DIR = _ROOT / "website" / "public" / "games"
 _PRESETS_JSON = _ROOT / "puppeteer" / "presets.json"
 _MODELS_JSON = _ROOT / "puppeteer" / "models.json"
-
-_CALIBRATION_GAMES = 3  # Models with fewer games are "underrated" and get capped in round-robin
+_SEASON_JSON = _ROOT / "data" / "season.json"
 
 
 def get_active_presets(presets_data: dict) -> list[str]:
@@ -57,9 +56,18 @@ def _load_games_index(games_dir: Path) -> list[dict]:
     return games
 
 
-def _load_rated_games(games_dir: Path) -> list[dict]:
-    """Load game index filtered to the current season (season >= 1)."""
-    return [g for g in _load_games_index(games_dir) if g["season"] >= 1]
+def _get_current_season(season_path: Path = _SEASON_JSON) -> int:
+    """Read the current season number from data/season.json."""
+    data = json.loads(season_path.read_text())
+    season = data["current_season"]
+    assert isinstance(season, int) and season >= 1, f"Invalid current_season: {season!r}"
+    return season
+
+
+def _load_rated_games(games_dir: Path, season_path: Path = _SEASON_JSON) -> list[dict]:
+    """Load game index filtered to the current season only."""
+    current = _get_current_season(season_path)
+    return [g for g in _load_games_index(games_dir) if g["season"] == current]
 
 
 def _build_key_to_preset(presets_path: Path) -> dict[str, str]:
@@ -177,6 +185,7 @@ def get_round_robin_matchup(
     presets_path: Path = _PRESETS_JSON,
     models_path: Path = _MODELS_JSON,
     extra_matchups: list[tuple[str, ...]] | None = None,
+    season_path: Path = _SEASON_JSON,
 ) -> list[str]:
     """Return preset names for a coverage-maximizing matchup.
 
@@ -191,7 +200,7 @@ def get_round_robin_matchup(
     """
     is_commander = not deck_type or "Commander" in deck_type
 
-    season_games = _load_rated_games(games_dir)
+    season_games = _load_rated_games(games_dir, season_path)
 
     # Filter by format
     if is_commander:
@@ -209,20 +218,9 @@ def get_round_robin_matchup(
     # Build matchup matrix
     pair_counts, game_counts = _build_matchup_matrix(pool_games, key_to_preset, extra_matchups)
 
-    # Calibration cap: limit underrated models per game so new models face
-    # established opponents and their ratings converge quickly.
-    underrated = {p for p in active if game_counts.get(p, 0) < _CALIBRATION_GAMES}
-    rated_count = len(active) - len(underrated)
-    # Only apply cap if enough rated models exist to fill the remaining seats
-    max_underrated = num_seats  # no cap by default
-    if underrated and rated_count >= num_seats:
-        max_underrated = 1
-
     # Score all possible groups
     candidates: list[tuple[int, int, tuple[str, ...]]] = []
     for combo in combinations(active, num_seats):
-        if sum(1 for p in combo if p in underrated) > max_underrated:
-            continue
         pair_score = sum(pair_counts.get(pair, 0) for pair in combinations(sorted(combo), 2))
         games_score = sum(game_counts.get(p, 0) for p in combo)
         candidates.append((pair_score, games_score, combo))
@@ -248,13 +246,6 @@ def get_round_robin_matchup(
     total_pairs = len(list(combinations(active, 2)))
     covered = sum(1 for pair in combinations(sorted(active), 2) if pair_counts.get(pair, 0) > 0)
     logger.info("  Coverage: %d/%d pairs have been played", covered, total_pairs)
-    if underrated and max_underrated < num_seats:
-        logger.info(
-            "  Calibration: %d underrated models (<%d games), capped at %d/game",
-            len(underrated),
-            _CALIBRATION_GAMES,
-            max_underrated,
-        )
 
     return selected
 
@@ -274,6 +265,7 @@ def pick_round_robin_format(
     games_dir: Path = _GAMES_DIR,
     presets_path: Path = _PRESETS_JSON,
     extra_format_picks: list[str] | None = None,
+    season_path: Path = _SEASON_JSON,
 ) -> str:
     """Pick the format that best balances per-bot format distribution.
 
@@ -285,7 +277,7 @@ def pick_round_robin_format(
     """
     assert len(candidates) > 1, "pick_round_robin_format requires multiple candidates"
 
-    season_games = _load_rated_games(games_dir)
+    season_games = _load_rated_games(games_dir, season_path)
 
     # Build key -> preset mapping
     key_to_preset = _build_key_to_preset(presets_path)

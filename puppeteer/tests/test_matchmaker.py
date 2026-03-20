@@ -8,7 +8,6 @@ import pytest
 
 from puppeteer.config import PilotPlayer, _resolve_randoms
 from puppeteer.matchmaker import (
-    _CALIBRATION_GAMES,
     _build_key_to_preset,
     _build_matchup_matrix,
     _load_games_index,
@@ -96,18 +95,20 @@ def _make_commander_game(
     }
 
 
-def _setup_fixtures(tmp_path: Path, n: int = 3) -> tuple[Path, Path, Path]:
-    """Create games dir, presets, and models. Returns (games_dir, presets_path, models_path)."""
+def _setup_fixtures(tmp_path: Path, n: int = 3) -> tuple[Path, Path, Path, Path]:
+    """Create games dir, presets, models, and season.json. Returns (games_dir, presets_path, models_path, season_path)."""
     games_dir = tmp_path / "games"
     games_dir.mkdir()
     presets_path = tmp_path / "presets.json"
     models_path = tmp_path / "models.json"
+    season_path = tmp_path / "season.json"
 
     names = ["alpha", "beta", "gamma", "delta", "epsilon"][:n]
     presets = {f"{name}-medium": {"model": f"v/{name}", "reasoning_effort": "medium"} for name in names}
     _write_presets(presets_path, presets)
     _write_models(models_path, [{"id": f"v/{name}", "name": name.title()} for name in names])
-    return games_dir, presets_path, models_path
+    season_path.write_text(json.dumps({"current_season": 1}))
+    return games_dir, presets_path, models_path, season_path
 
 
 class TestLoadGamesIndex:
@@ -192,7 +193,7 @@ class TestBuildMatchupMatrix:
         assert game_counts == {}
 
     def test_counts_1v1_pairs(self, tmp_path: Path) -> None:
-        _games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        _games_dir, presets_path, _models_path, _season_path = _setup_fixtures(tmp_path)
         key_to_preset = _build_key_to_preset(presets_path)
 
         games = [
@@ -206,7 +207,7 @@ class TestBuildMatchupMatrix:
         assert game_counts["beta-medium"] == 2
 
     def test_counts_commander_pairs(self, tmp_path: Path) -> None:
-        _games_dir, presets_path, _models_path = _setup_fixtures(tmp_path, n=4)
+        _games_dir, presets_path, _models_path, _season_path = _setup_fixtures(tmp_path, n=4)
         key_to_preset = _build_key_to_preset(presets_path)
 
         models = [("v/alpha", "medium"), ("v/beta", "medium"), ("v/gamma", "medium"), ("v/delta", "medium")]
@@ -218,7 +219,7 @@ class TestBuildMatchupMatrix:
         assert all(v == 1 for v in pair_counts.values())
 
     def test_ignores_non_active_players(self, tmp_path: Path) -> None:
-        _games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        _games_dir, presets_path, _models_path, _season_path = _setup_fixtures(tmp_path)
         key_to_preset = _build_key_to_preset(presets_path)
 
         # "v/unknown" is not in the active pool
@@ -239,13 +240,14 @@ class TestBuildMatchupMatrix:
 class TestGetRoundRobinMatchup:
     def test_zero_games_returns_valid_group(self, tmp_path: Path) -> None:
         """With no history, any valid group is acceptable."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path)
         picks = get_round_robin_matchup(
             "Constructed - Standard",
             2,
             games_dir=games_dir,
             presets_path=presets_path,
             models_path=models_path,
+            season_path=season_path,
         )
         assert len(picks) == 2
         assert picks[0] != picks[1]
@@ -254,7 +256,7 @@ class TestGetRoundRobinMatchup:
 
     def test_prefers_unplayed_pair(self, tmp_path: Path) -> None:
         """Should prefer the pair that has never played each other."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path)
 
         # Alpha vs Beta played 5 times, gamma untouched
         for i in range(5):
@@ -270,6 +272,7 @@ class TestGetRoundRobinMatchup:
             games_dir=games_dir,
             presets_path=presets_path,
             models_path=models_path,
+            season_path=season_path,
         )
         picked = set(picks)
         # Should include gamma (untouched) paired with either alpha or beta
@@ -277,7 +280,7 @@ class TestGetRoundRobinMatchup:
 
     def test_tiebreaks_by_games_played(self, tmp_path: Path) -> None:
         """Among pairs with equal matchup count, prefer models with fewer games."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=4)
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path, n=4)
 
         # alpha-beta: 1 game, alpha-gamma: 1 game
         # Unplayed pairs: alpha-delta, beta-gamma, beta-delta, gamma-delta
@@ -300,6 +303,7 @@ class TestGetRoundRobinMatchup:
             games_dir=games_dir,
             presets_path=presets_path,
             models_path=models_path,
+            season_path=season_path,
         )
         picked = set(picks)
         # delta (0 games) should be in the pick
@@ -308,20 +312,21 @@ class TestGetRoundRobinMatchup:
         assert "alpha-medium" not in picked
 
     def test_commander_four_seats(self, tmp_path: Path) -> None:
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path, n=5)
         picks = get_round_robin_matchup(
             "",
             4,
             games_dir=games_dir,
             presets_path=presets_path,
             models_path=models_path,
+            season_path=season_path,
         )
         assert len(picks) == 4
         assert len(set(picks)) == 4  # All unique
 
     def test_filters_by_format(self, tmp_path: Path) -> None:
         """1v1 matchmaker should only count 1v1 games, not commander."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=4)
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path, n=4)
 
         # Alpha-beta played in commander (should be ignored for 1v1)
         models = [("v/alpha", "medium"), ("v/beta", "medium"), ("v/gamma", "medium"), ("v/delta", "medium")]
@@ -343,6 +348,7 @@ class TestGetRoundRobinMatchup:
             games_dir=games_dir,
             presets_path=presets_path,
             models_path=models_path,
+            season_path=season_path,
         )
         picked = set(picks)
         # Commander game ignored for 1v1. Only alpha-gamma counts.
@@ -351,20 +357,27 @@ class TestGetRoundRobinMatchup:
         assert "delta-medium" in picked
 
     def test_filters_by_season(self, tmp_path: Path) -> None:
-        """Pre-season games (season=0) should be ignored."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+        """Only games from the current season are counted."""
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path)
+        # Current season is 1 (set in _setup_fixtures)
 
-        # Write pre-season game — should be ignored
+        # Write a season-0 game (pre-season) — should be ignored
         _write_game(
             games_dir,
             "game_old",
             _make_1v1_game("game_old", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta", season=0),
         )
-        # Write game with current epoch — alpha-gamma is played
+        # Write a season-2 game (future season) — should also be ignored
         _write_game(
             games_dir,
-            "game_new",
-            _make_1v1_game("game_new", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma"),
+            "game_future",
+            _make_1v1_game("game_future", "2026-03-01T00:00:00Z", "P1", "v/alpha", "v/gamma", season=2),
+        )
+        # Write a current-season game — alpha-gamma is played
+        _write_game(
+            games_dir,
+            "game_current",
+            _make_1v1_game("game_current", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma", season=1),
         )
 
         picks = get_round_robin_matchup(
@@ -373,9 +386,10 @@ class TestGetRoundRobinMatchup:
             games_dir=games_dir,
             presets_path=presets_path,
             models_path=models_path,
+            season_path=season_path,
         )
         picked = set(picks)
-        # The old alpha-beta game was ignored. Only alpha-gamma counts.
+        # Only the season-1 alpha-gamma game counts.
         # Unplayed pairs: alpha-beta, beta-gamma. beta has 0 games, so
         # alpha-beta (2+0=2) or beta-gamma (0+1=1) are candidates.
         # beta-gamma has lower games_score, so it should be picked.
@@ -383,7 +397,7 @@ class TestGetRoundRobinMatchup:
 
     def test_extra_matchups_shifts_selection(self, tmp_path: Path) -> None:
         """extra_matchups from parallel batch should prevent duplicate selections."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path)
 
         # No historical games. First pick could be anything.
         # With extra_matchups claiming alpha-beta, should pick a different pair.
@@ -394,109 +408,12 @@ class TestGetRoundRobinMatchup:
             presets_path=presets_path,
             models_path=models_path,
             extra_matchups=[("alpha-medium", "beta-medium")],
+            season_path=season_path,
         )
         picked = set(picks)
         # Should NOT be alpha-beta (already "played" in this batch)
         assert picked != {"alpha-medium", "beta-medium"}
 
-
-class TestCalibrationCap:
-    """Tests for the underrated model cap in round-robin matchmaking."""
-
-    def test_caps_underrated_with_enough_rated(self, tmp_path: Path) -> None:
-        """New model should be paired with rated anchors, not other new models."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
-
-        # Give alpha, beta, gamma enough games to be "rated" (>= _CALIBRATION_GAMES each)
-        for i in range(_CALIBRATION_GAMES):
-            _write_game(
-                games_dir,
-                f"game_ab_{i}",
-                _make_1v1_game(f"game_ab_{i}", f"2026-01-{i + 1:02d}T00:00:00Z", "P1", "v/alpha", "v/beta"),
-            )
-            _write_game(
-                games_dir,
-                f"game_ag_{i}",
-                _make_1v1_game(f"game_ag_{i}", f"2026-02-{i + 1:02d}T00:00:00Z", "P1", "v/alpha", "v/gamma"),
-            )
-
-        # delta and epsilon have 0 games — both underrated
-        picks = get_round_robin_matchup(
-            "Constructed - Standard",
-            2,
-            games_dir=games_dir,
-            presets_path=presets_path,
-            models_path=models_path,
-        )
-        picked = set(picks)
-        underrated = {"delta-medium", "epsilon-medium"}
-        # At most 1 underrated model in the pick
-        assert len(picked & underrated) <= 1
-
-    def test_no_cap_when_all_underrated(self, tmp_path: Path) -> None:
-        """When all models are underrated (bootstrap), no filtering — any combo is valid."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
-        # No games at all
-        picks = get_round_robin_matchup(
-            "Constructed - Standard",
-            2,
-            games_dir=games_dir,
-            presets_path=presets_path,
-            models_path=models_path,
-        )
-        assert len(picks) == 2
-
-    def test_no_cap_when_insufficient_rated(self, tmp_path: Path) -> None:
-        """When too few rated models to fill seats, cap is relaxed."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
-
-        # alpha and beta each have _CALIBRATION_GAMES games (rated).
-        # gamma, delta, epsilon have 0 (underrated).
-        # For 4-seat commander: rated_count=2 < num_seats=4, so cap is relaxed.
-        for i in range(_CALIBRATION_GAMES):
-            _write_game(
-                games_dir,
-                f"game_{i}",
-                _make_1v1_game(f"game_{i}", f"2026-01-{i + 1:02d}T00:00:00Z", "P1", "v/alpha", "v/beta"),
-            )
-        picks = get_round_robin_matchup(
-            "",  # commander
-            4,
-            games_dir=games_dir,
-            presets_path=presets_path,
-            models_path=models_path,
-        )
-        assert len(picks) == 4
-        # With only 2 rated models and 4 seats, cap is relaxed — multiple underrated allowed
-        underrated = {"gamma-medium", "delta-medium", "epsilon-medium"}
-        assert len(set(picks) & underrated) >= 2
-
-    def test_commander_caps_underrated(self, tmp_path: Path) -> None:
-        """In commander (4 seats), underrated models should be capped at 1."""
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
-
-        # Give alpha, beta, gamma, delta enough games to be rated
-        models = [("v/alpha", "medium"), ("v/beta", "medium"), ("v/gamma", "medium"), ("v/delta", "medium")]
-        for i in range(_CALIBRATION_GAMES):
-            _write_game(
-                games_dir,
-                f"game_c_{i}",
-                _make_commander_game(f"game_c_{i}", f"2026-01-{i + 1:02d}T00:00:00Z", "P1", models),
-            )
-
-        # epsilon has 0 games — underrated
-        picks = get_round_robin_matchup(
-            "",  # commander
-            4,
-            games_dir=games_dir,
-            presets_path=presets_path,
-            models_path=models_path,
-        )
-        picked = set(picks)
-        # epsilon should appear (it's underrated, gets priority)
-        # but no more than 1 underrated model
-        underrated = {"epsilon-medium"}
-        assert len(picked & underrated) <= 1
 
 
 class TestResolveRandomsRoundRobin:
@@ -593,7 +510,7 @@ class TestResolveRandomsRoundRobin:
 class TestPickRoundRobinFormat:
     def test_picks_least_played_format(self, tmp_path: Path) -> None:
         """Should pick the format where the selected bots have fewest games."""
-        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        games_dir, presets_path, _models_path, season_path = _setup_fixtures(tmp_path)
 
         # alpha and beta have 3 Standard games, 0 Modern games
         for i in range(3):
@@ -616,12 +533,13 @@ class TestPickRoundRobinFormat:
             ["alpha-medium", "beta-medium"],
             games_dir=games_dir,
             presets_path=presets_path,
+            season_path=season_path,
         )
         assert chosen == "Constructed - Modern"
 
     def test_equal_counts_picks_any(self, tmp_path: Path) -> None:
         """When all formats have equal counts, any is valid."""
-        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        games_dir, presets_path, _models_path, season_path = _setup_fixtures(tmp_path)
 
         candidates = ["Constructed - Standard", "Constructed - Modern", "Constructed - Legacy"]
         chosen = pick_round_robin_format(
@@ -629,12 +547,13 @@ class TestPickRoundRobinFormat:
             ["alpha-medium", "beta-medium"],
             games_dir=games_dir,
             presets_path=presets_path,
+            season_path=season_path,
         )
         assert chosen in candidates
 
     def test_extra_format_picks_shifts_selection(self, tmp_path: Path) -> None:
         """Parallel batch coordination: earlier picks should shift selection."""
-        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        games_dir, presets_path, _models_path, season_path = _setup_fixtures(tmp_path)
 
         candidates = ["Constructed - Standard", "Constructed - Modern"]
         chosen = pick_round_robin_format(
@@ -643,12 +562,13 @@ class TestPickRoundRobinFormat:
             games_dir=games_dir,
             presets_path=presets_path,
             extra_format_picks=["Constructed - Standard"],
+            season_path=season_path,
         )
         assert chosen == "Constructed - Modern"
 
     def test_single_candidate_asserts(self, tmp_path: Path) -> None:
         """Single candidate should assert."""
-        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        games_dir, presets_path, _models_path, season_path = _setup_fixtures(tmp_path)
 
         with pytest.raises(AssertionError, match="multiple candidates"):
             pick_round_robin_format(
@@ -656,11 +576,12 @@ class TestPickRoundRobinFormat:
                 ["alpha-medium"],
                 games_dir=games_dir,
                 presets_path=presets_path,
+                season_path=season_path,
             )
 
     def test_balances_per_bot(self, tmp_path: Path) -> None:
         """Should consider per-bot counts, not just global totals."""
-        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        games_dir, presets_path, _models_path, season_path = _setup_fixtures(tmp_path)
 
         # alpha has 2 Standard games (with beta), 0 Modern
         # gamma has 0 Standard, 2 Modern (with beta)
@@ -698,12 +619,13 @@ class TestPickRoundRobinFormat:
             ["alpha-medium", "beta-medium"],
             games_dir=games_dir,
             presets_path=presets_path,
+            season_path=season_path,
         )
         assert chosen == "Constructed - Modern"
 
-    def test_ignores_preseason_games(self, tmp_path: Path) -> None:
-        """Pre-season games (season=0) should not affect format selection."""
-        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+    def test_ignores_other_season_games(self, tmp_path: Path) -> None:
+        """Only current-season games should affect format selection."""
+        games_dir, presets_path, _models_path, season_path = _setup_fixtures(tmp_path)
 
         # Pre-season game in Modern (should be ignored)
         _write_game(
@@ -739,6 +661,7 @@ class TestPickRoundRobinFormat:
             ["alpha-medium", "beta-medium"],
             games_dir=games_dir,
             presets_path=presets_path,
+            season_path=season_path,
         )
         # Old Modern game ignored, only Standard game counts -> Modern wins
         assert chosen == "Constructed - Modern"
