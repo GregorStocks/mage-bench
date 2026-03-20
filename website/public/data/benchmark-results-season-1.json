@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-19T04:26:59.923931+00:00",
+  "generatedAt": "2026-03-20T05:06:42.834936+00:00",
   "totalGames": 208,
   "models": [
     {
@@ -559,13 +559,12 @@
       "avgToolCallsFailed": 1.2,
       "avgThinkingTimeSecs": 2637.3,
       "blunderScore": 0.41,
-      "reasoningEffort": "medium",
-      "inactive": "expensive"
+      "reasoningEffort": "medium"
     }
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-19T04:26:59.909253+00:00",
+      "generatedAt": "2026-03-20T05:06:42.831682+00:00",
       "totalGames": 84,
       "models": [
         {
@@ -1046,8 +1045,7 @@
           "avgToolCallsFailed": 3.0,
           "avgThinkingTimeSecs": 2656.3,
           "blunderScore": 1.0,
-          "reasoningEffort": "medium",
-          "inactive": "expensive"
+          "reasoningEffort": "medium"
         },
         {
           "modelId": "mistralai/mistral-medium-3.1",
@@ -1114,7 +1112,7 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-19T04:26:59.911969+00:00",
+      "generatedAt": "2026-03-20T05:06:42.832335+00:00",
       "totalGames": 56,
       "models": [
         {
@@ -1502,13 +1500,12 @@
           "avgToolCallsFailed": 0.9,
           "avgThinkingTimeSecs": 2184.7,
           "blunderScore": 0.1,
-          "reasoningEffort": "medium",
-          "inactive": "expensive"
+          "reasoningEffort": "medium"
         }
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-19T04:26:59.913084+00:00",
+      "generatedAt": "2026-03-20T05:06:42.832613+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -1800,13 +1797,12 @@
           "avgToolCallsFailed": 0.0,
           "avgThinkingTimeSecs": 3339.6,
           "blunderScore": 0.07,
-          "reasoningEffort": "medium",
-          "inactive": "expensive"
+          "reasoningEffort": "medium"
         }
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-19T04:26:59.914219+00:00",
+      "generatedAt": "2026-03-20T05:06:42.832886+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -2095,8 +2091,7 @@
           "avgToolCallsFailed": 2.0,
           "avgThinkingTimeSecs": 3500.1,
           "blunderScore": 0.73,
-          "reasoningEffort": "medium",
-          "inactive": "expensive"
+          "reasoningEffort": "medium"
         },
         {
           "modelId": "openai/gpt-5-nano",
@@ -2118,7 +2113,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-19T04:26:59.916469+00:00",
+      "generatedAt": "2026-03-20T05:06:42.833419+00:00",
       "totalGames": 34,
       "exhibition": true,
       "models": [
@@ -2491,8 +2486,7 @@
           "avgToolCallsFailed": 3.5,
           "avgThinkingTimeSecs": 3480.1,
           "blunderScore": 0.14,
-          "reasoningEffort": "medium",
-          "inactive": "expensive"
+          "reasoningEffort": "medium"
         },
         {
           "modelId": "openai/gpt-5.2",
@@ -2561,7 +2555,7 @@
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-19T04:26:59.923931+00:00",
+      "generatedAt": "2026-03-20T05:06:42.834936+00:00",
       "totalGames": 174,
       "models": [
         {
@@ -3121,8 +3115,7 @@
           "avgToolCallsFailed": 1.2,
           "avgThinkingTimeSecs": 2637.3,
           "blunderScore": 0.41,
-          "reasoningEffort": "medium",
-          "inactive": "expensive"
+          "reasoningEffort": "medium"
         }
       ]
     }
@@ -3130,6 +3123,7 @@
   "minBlunderVersion": 11,
   "availableSeasons": [
     0,
-    1
+    1,
+    2
   ]
 }

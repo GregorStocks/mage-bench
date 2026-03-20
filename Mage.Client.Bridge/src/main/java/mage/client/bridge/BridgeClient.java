@@ -1,5 +1,6 @@
 package mage.client.bridge;
 
+import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardScanner;
 import mage.constants.TableState;
@@ -19,6 +20,8 @@ import java.util.Collection;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Main entry point for the bridge XMage client.
@@ -52,6 +55,12 @@ public class BridgeClient {
     private static final int DEFAULT_STALLER_DELAY_MS = 15000;
     private static final int MAX_RECONNECT_ATTEMPTS = 5;
     private static final int[] RECONNECT_BACKOFF_MS = {2000, 4000, 8000, 16000, 30000};
+    private static final String DECK_NAME_PREFIX = "NAME:";
+    private static final String DECK_AUTHOR_PREFIX = "AUTHOR:";
+    private static final String DECK_LAYOUT_PREFIX = "LAYOUT ";
+    private static final Pattern DCK_CARD_LINE_PATTERN = Pattern.compile(
+        "^(SB:)?\\s*(\\d+)\\s*\\[([^]:]+):([^]:]+)\\]\\s*(.*)\\s*$"
+    );
 
     private static final String PERSONALITY_POTATO = "potato";
     private static final String PERSONALITY_STALLER = "staller";
@@ -498,11 +507,8 @@ public class BridgeClient {
         }
 
         // Parse deck file directly without needing CardRepository.
-        // Format: "count [SET:number] Card Name" or "SB: count [SET:number] Card Name"
+        // Accept the standard XMage .dck metadata/header lines plus deck card rows.
         DeckCardLists deck = new DeckCardLists();
-        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
-            "^(SB:\\s*)?(\\d+)\\s+\\[([^:]+):(\\d+)\\]\\s+(.+)$"
-        );
 
         try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(deckFile))) {
             String rawLine;
@@ -514,7 +520,19 @@ public class BridgeClient {
                     continue;
                 }
 
-                java.util.regex.Matcher matcher = pattern.matcher(line);
+                if (line.startsWith(DECK_NAME_PREFIX)) {
+                    deck.setName(line.substring(DECK_NAME_PREFIX.length()));
+                    continue;
+                }
+                if (line.startsWith(DECK_AUTHOR_PREFIX)) {
+                    deck.setAuthor(line.substring(DECK_AUTHOR_PREFIX.length()));
+                    continue;
+                }
+                if (line.startsWith(DECK_LAYOUT_PREFIX)) {
+                    continue;
+                }
+
+                Matcher matcher = DCK_CARD_LINE_PATTERN.matcher(line);
                 if (!matcher.matches()) {
                     throw new IllegalArgumentException(
                         "Invalid deck line " + lineNumber + " in " + deckPath + ": " + line
@@ -527,7 +545,7 @@ public class BridgeClient {
                 String cardNumber = matcher.group(4);
                 String cardName = matcher.group(5).trim();
 
-                mage.cards.decks.DeckCardInfo cardInfo = new mage.cards.decks.DeckCardInfo(
+                DeckCardInfo cardInfo = new DeckCardInfo(
                     cardName, cardNumber, setCode, count
                 );
 

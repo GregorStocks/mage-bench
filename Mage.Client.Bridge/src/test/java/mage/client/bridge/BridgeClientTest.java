@@ -116,6 +116,27 @@ class BridgeClientTest {
     }
 
     @Test
+    void loadsStandardDeckMetadataAndLayoutLines() throws IOException {
+        Path deckFile = writeDeck(
+            "NAME:Jumpstart Pair",
+            "AUTHOR:Test Harness",
+            "1 [SPG:17a] Signature Spell",
+            "LAYOUT MAIN:(1,1)(NONE,false,50)|([SPG:17a])",
+            "SB: 2 [M10:230] Plains"
+        );
+
+        DeckCardLists deck = BridgeClient.loadDeck(deckFile.toString());
+
+        assertThat(deck.getName()).isEqualTo("Jumpstart Pair");
+        assertThat(deck.getAuthor()).isEqualTo("Test Harness");
+        assertThat(deck.getCards()).hasSize(1);
+        assertThat(deck.getCards().get(0).getCardNumber()).isEqualTo("17a");
+        assertThat(deck.getCards().get(0).getCardName()).isEqualTo("Signature Spell");
+        assertThat(deck.getSideboard()).hasSize(1);
+        assertThat(deck.getSideboard().get(0).getAmount()).isEqualTo(2);
+    }
+
+    @Test
     void requiresDeckPath() {
         assertThatThrownBy(() -> BridgeClient.loadDeck(null))
             .isInstanceOf(IllegalArgumentException.class)
