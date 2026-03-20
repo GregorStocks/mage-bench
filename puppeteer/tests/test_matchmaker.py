@@ -96,7 +96,7 @@ def _make_commander_game(
 
 
 def _setup_fixtures(tmp_path: Path, n: int = 3) -> tuple[Path, Path, Path, Path]:
-    """Create games dir, presets, models, and season.json. Returns (games_dir, presets_path, models_path, season_path)."""
+    """Create games dir, presets, models, and season.json."""
     games_dir = tmp_path / "games"
     games_dir.mkdir()
     presets_path = tmp_path / "presets.json"
@@ -413,7 +413,6 @@ class TestGetRoundRobinMatchup:
         picked = set(picks)
         # Should NOT be alpha-beta (already "played" in this batch)
         assert picked != {"alpha-medium", "beta-medium"}
-
 
 
 class TestResolveRandomsRoundRobin:
