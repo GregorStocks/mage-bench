@@ -5,9 +5,7 @@ import gzip
 import json
 import os
 import re
-import shutil
 import subprocess
-import sys
 import time
 from collections.abc import Generator, Iterator, Mapping
 from pathlib import Path
@@ -273,9 +271,7 @@ def xmage_server(project_root, request: pytest.FixtureRequest):
 def golden_identity(request: pytest.FixtureRequest) -> GoldenTestIdentity:
     """Per-test identity bundle for real golden integration tests."""
     identity = get_golden_test_identity(getattr(request.node, "obj", None))
-    assert identity is not None, (
-        f"{request.node.nodeid} uses golden fixtures but is missing @golden_test(...)."
-    )
+    assert identity is not None, f"{request.node.nodeid} uses golden fixtures but is missing @golden_test(...)."
     return identity
 
 

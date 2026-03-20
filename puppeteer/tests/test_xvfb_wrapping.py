@@ -1,5 +1,7 @@
 """Tests for Linux xvfb wrapping in the golden harness."""
 
+import pytest
+
 from tests import golden_helpers
 
 
@@ -29,9 +31,5 @@ def test_wrap_with_xvfb_requires_xvfb_on_linux(monkeypatch):
     monkeypatch.setattr(golden_helpers.sys, "platform", "linux")
     monkeypatch.setattr(golden_helpers.shutil, "which", lambda _name: None)
 
-    try:
+    with pytest.raises(AssertionError, match="xvfb-run"):
         golden_helpers.wrap_with_xvfb(["java", "-version"])
-    except AssertionError as exc:
-        assert "xvfb-run" in str(exc)
-    else:
-        raise AssertionError("Expected wrap_with_xvfb to require xvfb-run on Linux")

@@ -108,18 +108,12 @@ def validate_golden_test_identities(cases: Iterable[tuple[str, GoldenTestIdentit
                 seen[value] = (nodeid, field)
                 continue
             prior_nodeid, prior_field = prior
-            duplicate_lines.append(
-                f"{value!r}: {prior_nodeid} ({prior_field}) conflicts with {nodeid} ({field})"
-            )
+            duplicate_lines.append(f"{value!r}: {prior_nodeid} ({prior_field}) conflicts with {nodeid} ({field})")
 
     problems: list[str] = []
     if missing:
-        problems.append(
-            "Golden tests missing @golden_test(...):\n  " + "\n  ".join(sorted(missing))
-        )
+        problems.append("Golden tests missing @golden_test(...):\n  " + "\n  ".join(sorted(missing)))
     if duplicate_lines:
-        problems.append(
-            "Duplicate golden test identities:\n  " + "\n  ".join(sorted(duplicate_lines))
-        )
+        problems.append("Duplicate golden test identities:\n  " + "\n  ".join(sorted(duplicate_lines)))
     if problems:
         raise pytest.UsageError("\n\n".join(problems))
