@@ -1884,7 +1884,12 @@ public class BridgeCallbackHandler {
                         "\"all\" is not available in current choices", true, action, true);
                 }
             } else {
-                UUID resolvedUuid = shortIds.resolve(id);
+                UUID resolvedUuid = shortIds.tryResolve(id);
+                if (resolvedUuid == null) {
+                    return buildError(result, "invalid_choice",
+                        "Unknown short ID: " + id + ". Call get_action_choices to see current options.",
+                        true, action, true);
+                }
                 if (choices != null) {
                     for (int i = 0; i < choices.size(); i++) {
                         if (resolvedUuid.equals(choices.get(i))) {

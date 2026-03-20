@@ -38,6 +38,14 @@ jq '.players[] | {name, toolCallsFailed}' website/public/games/GAME_ID.json
 uv run python scripts/export_game.py GAME_ID
 ```
 
+If a player summary still says `toolCallsFailed: 0` after an obvious mid-game
+crash, compare the tail of `*_llm.jsonl` and `*_pilot.log`. A final
+`llm_response` with no matching `tool_call` often means the MCP request died
+before the pilot could log a structured result. `scripts/export_game.py`
+currently only counts serialized `tool_call` results with `success=false` and
+only surfaces `*_errors.log`, so these pilot-only crashes can look clean in the
+export.
+
 ## Chat messages
 
 Chat messages are the most human-readable signal. Always check them first.
@@ -86,6 +94,15 @@ tail -1 "$GAME_DIR/game_events.jsonl" | jq -r .timestamp
 
 # Turn count
 jq -r 'select(.type=="turn") | "\(.timestamp) Turn \(.turn_number) - \(.active_player)"' "$GAME_DIR/game_events.jsonl" | tail -5
+```
+
+`game_timeline.py` currently goes through the post-annotation loader and can
+crash on normal fresh v8 exports that do not have `annotations` yet:
+
+```bash
+# If this asserts "missing annotations", fall back to raw game_events.jsonl or
+# extract_decisions.py instead of assuming the export itself is bad.
+uv run python scripts/analysis/toolbox/game_timeline.py GAME_ID
 ```
 
 ## LLM cost analysis

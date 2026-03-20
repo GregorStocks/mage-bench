@@ -1084,7 +1084,9 @@ def main(gz_path: str) -> float:
     # Missing blunderScriptVersion with existing annotations → v1.
     data = _load_game(gz_path)
     if data.annotations is not None:
-        existing_version = data.blunderScriptVersion
+        existing_version = (
+            data.blunderScriptVersion if data.blunderScriptVersion is not None else 1
+        )
         if existing_version >= BLUNDER_SCRIPT_VERSION:
             print(
                 f"Already analyzed (v{existing_version}): {gz_path} ({len(data.annotations)} annotations)"

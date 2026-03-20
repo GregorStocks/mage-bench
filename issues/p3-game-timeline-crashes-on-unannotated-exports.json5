@@ -1,0 +1,10 @@
+{
+  "title": "game_timeline.py crashes on unannotated exports",
+  "description": "The analysis timeline tool rejects valid pre-annotation v8 exports.\n\nEvidence:\n- `uv run python scripts/analysis/toolbox/game_timeline.py game_20260319_235454` crashes with `AssertionError: game_20260319_235454.json5: missing annotations` while analyzing `~/.mage-bench/logs/game_20260319_235454/` against a freshly exported pre-annotation v8 game file.\n- `scripts/analysis/toolbox/game_timeline.py:55-56` calls `_load_game_common()`.\n- `scripts/analysis/blunder_eval_common.py:202-204` routes that through `load_game()`, whose docstring explicitly says it requires annotations.\n- `schemas/game_export_types.py:2010-2017` then hard-requires `annotations` and `blunderScriptVersion`.\n- The same type module defines a pre-annotation export shape with optional annotations at `schemas/game_export_types.py:848-873`.\n\nRoot cause: `game_timeline.py` uses the post-annotation loader (`GameExport`) even though the tool only needs general game data and should accept the pre-annotation export shape (`BuiltGameExport`).\n\nSuggested fix: make `game_timeline.py` load pre-annotation exports with `load_game_for_annotation()` or another loader that accepts both shapes. If v8 exports are supposed to always include empty annotations, then enforce that in export writing instead and keep the schema/tooling consistent.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["puppeteer"],
+  "created_at": "2026-03-20T00:14:29.000000-07:00",
+  "updated_at": "2026-03-20T00:14:29.000000-07:00"
+}

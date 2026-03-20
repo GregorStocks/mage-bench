@@ -4,6 +4,7 @@ import asyncio
 import json
 import logging
 import sys
+from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -475,6 +476,53 @@ async def test_run_pilot_loop_raises_on_tool_failure():
             prices={},
             username="test-player",
         )
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_run_pilot_loop_logs_failed_tool_call_before_reraising():
+    session = MagicMock()
+    session.call_tool = AsyncMock(side_effect=RuntimeError("bridge died"))
+
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(return_value=_make_llm_response("choose_action", '{"choice":"no"}'))
+
+    game_log = MagicMock()
+    with (
+        patch("puppeteer.pilot.log_error") as log_error_mock,
+        pytest.raises(ToolExecutionError, match="MCP tool choose_action failed: bridge died"),
+    ):
+        await run_pilot_loop(
+            session=session,
+            client=client,
+            model="test-model",
+            system_prompt="You are a test.",
+            tools=[{"type": "function", "function": {"name": "choose_action", "parameters": {}}}],
+            prices={},
+            username="test-player",
+            game_dir=Path("/tmp/test-game"),
+            game_log=game_log,
+        )
+
+    failed_tool_calls = [call for call in game_log.emit.call_args_list if call.args and call.args[0] == "tool_call"]
+    assert len(failed_tool_calls) == 1
+    failed_call = failed_tool_calls[0]
+    assert failed_call.kwargs["tool"] == "choose_action"
+    assert failed_call.kwargs["arguments"] == {"choice": "no"}
+    failed_result = json.loads(failed_call.kwargs["result"])
+    assert failed_result == {
+        "success": False,
+        "error": "MCP tool choose_action failed: bridge died",
+        "error_code": "tool_execution_error",
+        "retryable": False,
+    }
+    game_log.emit.assert_any_call(
+        "llm_error",
+        error_type="ToolExecutionError",
+        error_message="MCP tool choose_action failed: bridge died",
+    )
+    log_error_mock.assert_called_once()
+    assert log_error_mock.call_args.args[3] == "[pilot] Fatal tool error: MCP tool choose_action failed: bridge died"
 
 
 @pytest.mark.asyncio

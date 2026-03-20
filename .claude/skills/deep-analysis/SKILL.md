@@ -55,6 +55,8 @@ Bootstrap caveat: `game-gz-bootstrap.py` currently overcounts failed tool calls 
 
 Retry caveat: if an annotation claims a timeout/default choice on `GAME_CHOOSE_CHOICE`, verify it against raw `*_llm.jsonl`. `scripts/export_game.py` can currently record the first failed `choose_action` attempt and drop the later successful retry into a blank follow-up decision, which makes the annotation look like a timeout when the model actually recovered.
 
+Crash-accounting caveat: if a player's export summary says `toolCallsFailed=0` but the game clearly ended on a bad tool call, compare the tail of `*_llm.jsonl` and `*_pilot.log`. A final `llm_response` with no matching `tool_call` usually means the MCP request crashed before it could be logged. Those pilot-only crashes currently do not surface into export `errors` unless they also hit `*_errors.log`.
+
 **Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. Pass the export path, not just the game ID (for example: `uv run python scripts/analysis/extract_decisions.py website/public/games/${GAME_ID}.json`). This is often more useful than manually correlating events across log files.
 
 ### Step 3: Read game metadata
@@ -64,7 +66,7 @@ Read `config.json` and `game_meta.json` — understand who played, what models/d
 ### Step 4: Check existing issues
 
 ```bash
-uv run python scripts/list-issues.py
+uv run python scripts/query-issues.py
 ```
 
 ### Step 5: Analyze log files in parallel
@@ -90,7 +92,7 @@ uv run python scripts/list-issues.py
     - `choose_action out-of-range diagnostic` in `$GAME_DIR` with glob `*_mcp.log`
     - `Index .* out of range` in `$GAME_DIR` with glob `*_errors.log` or `*_pilot.log`
   - For output schema validation errors (OpenAI structured outputs), grep for `Invalid structured content returned by tool` in `*_pilot.log`. These mean the bridge returned data that doesn't match the tool's output schema — the action succeeds server-side but the model gets an error. See `doc/investigating-game-logs.md` for details.
-- **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies. For targeted investigation, use `scripts/analysis/toolbox/game_timeline.py` from the export — it supports `--turns`, `--player`, `--mana`, and `-v` flags to drill into specific turns or mana behavior. Caveat: some v7 exports omit `snapshots[].ts`, which currently makes `game_timeline.py --turns ...` misclassify every event as the final turn or print zero events. Sanity-check the output before relying on that filter.
+- **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies. For targeted investigation, use `scripts/analysis/toolbox/game_timeline.py` from the export — it supports `--turns`, `--player`, `--mana`, and `-v` flags to drill into specific turns or mana behavior. Caveat: some v7 exports omit `snapshots[].ts`, which currently makes `game_timeline.py --turns ...` misclassify every event as the final turn or print zero events. Fresh v8 exports without blunder annotations can also crash `game_timeline.py` with `missing annotations` because it currently uses the post-annotation loader. Sanity-check the output before relying on that filter; if it crashes, fall back to `game_events.jsonl` or `extract_decisions.py`.
 
 ### Step 6: Cross-reference findings
 

@@ -730,6 +730,32 @@ async def execute_tool(session: ClientSession, name: str, arguments: dict) -> st
     return extract_text_content(name, result)
 
 
+def _tool_execution_error_result(error: ToolExecutionError, game_seq: int | None) -> str:
+    """Build a structured tool_call payload for fatal MCP execution failures."""
+    result: dict[str, object] = {
+        "success": False,
+        "error": str(error),
+        "error_code": "tool_execution_error",
+        "retryable": False,
+    }
+    if game_seq is not None:
+        result["game_seq"] = game_seq
+    return json.dumps(result, separators=(",", ":"))
+
+
+def _record_tool_execution_failure(
+    error: ToolExecutionError,
+    username: str,
+    game_dir: Path | None,
+    game_log: GameLogWriter | None,
+) -> None:
+    """Persist fatal MCP tool failures so exports don't look falsely clean."""
+    error_str = str(error)
+    if game_log:
+        game_log.emit("llm_error", error_type=type(error).__name__, error_message=error_str[:500])
+    log_error(logger, game_dir, username, f"[pilot] Fatal tool error: {error_str}")
+
+
 _BOARD_CURSOR_TOOLS = frozenset({"pass_priority", "get_action_choices"})
 
 
@@ -964,7 +990,21 @@ async def _process_tool_calls(
             if fn.name == "send_chat_message":
                 turn_state.chat_messages_this_turn += 1
             tool_start = time.monotonic()
-            result_text = await execute_tool(session, fn.name, args)
+            try:
+                result_text = await execute_tool(session, fn.name, args)
+            except ToolExecutionError as e:
+                tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
+                if game_log:
+                    game_log.emit(
+                        "tool_call",
+                        call_id=tool_call.id,
+                        tool=fn.name,
+                        arguments=args,
+                        result=_tool_execution_error_result(e, state.last_game_seq),
+                        latency_ms=tool_latency_ms,
+                        game_seq=state.last_game_seq,
+                    )
+                raise
             tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
 
         result_data = _maybe_extract_result_dict(result_text)
@@ -1263,7 +1303,11 @@ async def run_pilot_loop(
     """Run the LLM-driven game-playing loop."""
     # Pre-fetch the first decision so the LLM knows what it's deciding
     # instead of blindly calling pass_priority with confusing yield params.
-    initial_message = await _prefetch_first_action(session)
+    try:
+        initial_message = await _prefetch_first_action(session)
+    except ToolExecutionError as e:
+        _record_tool_execution_failure(e, username, game_dir, game_log)
+        raise
     state = PilotLoopState(history=[{"role": "user", "content": initial_message}])
     model_price = get_model_price(model, prices)
     game_start = time.monotonic()
@@ -1458,7 +1502,8 @@ async def run_pilot_loop(
         except TimeoutError:
             await _handle_timeout(session, state, game_log)
 
-        except ToolExecutionError:
+        except ToolExecutionError as e:
+            _record_tool_execution_failure(e, username, game_dir, game_log)
             raise
 
         except OpenAIError as e:

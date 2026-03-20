@@ -739,6 +739,34 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void chooseActionReturnsStructuredErrorForUnknownShortId() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        GameView view = gameView(7);
+        setField(handler, "lastGameView", view);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(view, Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            7
+        ));
+
+        var result = handler.chooseAction(
+            null, "p", null, null, null, null, null, null, null, null, null
+        );
+
+        assertThat(result.success).isFalse();
+        assertThat(result.error_code).isEqualTo("invalid_choice");
+        assertThat(result.retryable).isTrue();
+        assertThat(result.error)
+            .contains("Unknown short ID: p")
+            .contains("get_action_choices");
+    }
+
+    @Test
     void chooseActionWaitsForNextDecisionInsteadOfReturningSingleTargetFollowup() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();

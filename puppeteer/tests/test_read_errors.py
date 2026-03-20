@@ -140,3 +140,22 @@ def test_read_errors_mixed_formats():
         assert errors[1]["ts"] == "14:33:38"
         assert errors[1]["source"] == "mcp"
         assert errors[1]["message"].startswith("Server short ID collision:")
+
+
+def test_read_errors_keeps_fatal_tool_execution_failures():
+    """Fatal MCP tool crashes should surface as export errors."""
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        (game_dir / "Alice_errors.log").write_text(
+            "[10:31:30] [pilot] Fatal tool error: MCP tool choose_action failed: bridge died\n"
+        )
+        errors = _read_errors(game_dir)
+        assert errors == [
+            {
+                "ts": "10:31:30",
+                "player": "Alice",
+                "source": "pilot",
+                "message": "Fatal tool error: MCP tool choose_action failed: bridge died",
+            }
+        ]

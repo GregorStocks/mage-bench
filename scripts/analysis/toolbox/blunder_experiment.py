@@ -33,6 +33,7 @@ from collections.abc import Sequence
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import TypeAlias
 
 from openai import OpenAI
 
@@ -40,13 +41,16 @@ from puppeteer.decision_renderer import (
     _chosen_display as _renderer_chosen_display,
 )
 from puppeteer.decision_renderer import _format_choice
-from schemas.game_export_types import Decision, GameExport
+from schemas.game_export_types import BuiltGameExport, Decision, GameExport
 from scripts.analysis.blunder_analysis import (
     _game_overview,
     _load_game,
 )
 from scripts.analysis.blunder_eval_common import decision_index, is_forced
 from scripts.analysis.extract_decisions import extract_decisions
+
+
+GameData: TypeAlias = BuiltGameExport | GameExport
 
 
 def _parse_json_array(text: str) -> list:
@@ -428,7 +432,7 @@ Use the Decision number from the decision header as decisionIndex."""
 
 def _approach_inline(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
@@ -530,7 +534,7 @@ def _eval_one_decision(
 
 def _approach_per_decision(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
     model: str,
@@ -575,7 +579,7 @@ def _approach_per_decision(
 
 def _approach_thinking(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
@@ -603,7 +607,7 @@ def _approach_thinking(
 
 def _approach_baseline(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
@@ -649,7 +653,7 @@ Use the Decision number from the decision header as decisionIndex."""
 
 def _approach_per_decision_minimal(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     _overview: str,
     model: str,
@@ -718,7 +722,7 @@ correct play. The expert review is cheap — your job is just to save time on th
 
 def _approach_flash_opus(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
@@ -790,7 +794,7 @@ def _approach_flash_opus(
 
 def _approach_flash_sonnet(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
@@ -890,7 +894,7 @@ Use the Decision number from each decision header as decisionIndex."""
 
 def _approach_batched(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
     model: str,
@@ -1019,7 +1023,7 @@ def _call_llm_messages(
 
 def _approach_conversation(
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
     model: str,
@@ -1106,7 +1110,7 @@ APPROACHES: dict[str, tuple[str, object]] = {
 def run_approach(
     approach: str,
     client: OpenAI,
-    data: GameExport,
+    data: GameData,
     decisions: list[Decision],
     overview: str,
 ) -> ExperimentResult:
@@ -1224,7 +1228,7 @@ def _load_results(game_id: str) -> list[dict]:
     return results
 
 
-def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> None:
+def _print_comparison(game_id: str, results: list[dict], data: GameData) -> None:
     """Print a comparison table of approach results."""
     print(f"\n{'=' * 80}")
     print(f"Comparison for {game_id}")
