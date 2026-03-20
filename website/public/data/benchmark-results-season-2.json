@@ -1,21 +1,37 @@
 {
-  "generatedAt": "2026-03-20T07:06:15.723833+00:00",
-  "totalGames": 1,
+  "generatedAt": "2026-03-20T17:42:38.504630+00:00",
+  "totalGames": 2,
   "models": [
     {
-      "modelId": "google/gemini-3.1-flash-lite-preview",
-      "modelName": "Gemini 3.1 Flash Lite",
-      "provider": "Google",
-      "rating": 1616,
+      "modelId": "openai/gpt-5.4-mini",
+      "modelName": "GPT-5.4 Mini (medium)",
+      "provider": "OpenAI",
+      "rating": 1617,
       "gamesPlayed": 1,
       "winRate": 1.0,
       "timeoutLosses": 0,
       "timeoutLossRate": 0.0,
-      "avgApiCost": 0.18,
-      "avgToolCallsOk": 80.0,
-      "avgToolCallsFailed": 6.0,
-      "avgThinkingTimeSecs": 110.3,
-      "blunderScore": 0.93
+      "avgApiCost": 1.28,
+      "avgToolCallsOk": 138.0,
+      "avgToolCallsFailed": 14.0,
+      "avgThinkingTimeSecs": 828.6,
+      "blunderScore": 0.9,
+      "reasoningEffort": "medium"
+    },
+    {
+      "modelId": "google/gemini-3.1-flash-lite-preview",
+      "modelName": "Gemini 3.1 Flash Lite",
+      "provider": "Google",
+      "rating": 1599,
+      "gamesPlayed": 2,
+      "winRate": 0.5,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 0.3,
+      "avgToolCallsOk": 116.0,
+      "avgToolCallsFailed": 6.5,
+      "avgThinkingTimeSecs": 162.4,
+      "blunderScore": 1.69
     },
     {
       "modelId": "openai/gpt-5.4-nano",
@@ -36,23 +52,39 @@
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-20T07:06:15.723793+00:00",
-      "totalGames": 1,
+      "generatedAt": "2026-03-20T17:42:38.504569+00:00",
+      "totalGames": 2,
       "models": [
         {
-          "modelId": "google/gemini-3.1-flash-lite-preview",
-          "modelName": "Gemini 3.1 Flash Lite",
-          "provider": "Google",
-          "rating": 1616,
+          "modelId": "openai/gpt-5.4-mini",
+          "modelName": "GPT-5.4 Mini (medium)",
+          "provider": "OpenAI",
+          "rating": 1617,
           "gamesPlayed": 1,
           "winRate": 1.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 0.18,
-          "avgToolCallsOk": 80.0,
-          "avgToolCallsFailed": 6.0,
-          "avgThinkingTimeSecs": 110.3,
-          "blunderScore": 0.93
+          "avgApiCost": 1.28,
+          "avgToolCallsOk": 138.0,
+          "avgToolCallsFailed": 14.0,
+          "avgThinkingTimeSecs": 828.6,
+          "blunderScore": 0.9,
+          "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "provider": "Google",
+          "rating": 1599,
+          "gamesPlayed": 2,
+          "winRate": 0.5,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.3,
+          "avgToolCallsOk": 116.0,
+          "avgToolCallsFailed": 6.5,
+          "avgThinkingTimeSecs": 162.4,
+          "blunderScore": 1.69
         },
         {
           "modelId": "openai/gpt-5.4-nano",
@@ -73,44 +105,60 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-20T07:06:15.723801+00:00",
+      "generatedAt": "2026-03-20T17:42:38.504580+00:00",
       "totalGames": 0,
       "models": []
     },
     "modern": {
-      "generatedAt": "2026-03-20T07:06:15.723804+00:00",
+      "generatedAt": "2026-03-20T17:42:38.504583+00:00",
       "totalGames": 0,
       "models": []
     },
     "legacy": {
-      "generatedAt": "2026-03-20T07:06:15.723806+00:00",
+      "generatedAt": "2026-03-20T17:42:38.504586+00:00",
       "totalGames": 0,
       "models": []
     },
     "commander": {
-      "generatedAt": "2026-03-20T07:06:15.723808+00:00",
+      "generatedAt": "2026-03-20T17:42:38.504588+00:00",
       "totalGames": 0,
       "exhibition": true,
       "models": []
     },
     "combined": {
-      "generatedAt": "2026-03-20T07:06:15.723833+00:00",
-      "totalGames": 1,
+      "generatedAt": "2026-03-20T17:42:38.504630+00:00",
+      "totalGames": 2,
       "models": [
         {
-          "modelId": "google/gemini-3.1-flash-lite-preview",
-          "modelName": "Gemini 3.1 Flash Lite",
-          "provider": "Google",
-          "rating": 1616,
+          "modelId": "openai/gpt-5.4-mini",
+          "modelName": "GPT-5.4 Mini (medium)",
+          "provider": "OpenAI",
+          "rating": 1617,
           "gamesPlayed": 1,
           "winRate": 1.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 0.18,
-          "avgToolCallsOk": 80.0,
-          "avgToolCallsFailed": 6.0,
-          "avgThinkingTimeSecs": 110.3,
-          "blunderScore": 0.93
+          "avgApiCost": 1.28,
+          "avgToolCallsOk": 138.0,
+          "avgToolCallsFailed": 14.0,
+          "avgThinkingTimeSecs": 828.6,
+          "blunderScore": 0.9,
+          "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "provider": "Google",
+          "rating": 1599,
+          "gamesPlayed": 2,
+          "winRate": 0.5,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.3,
+          "avgToolCallsOk": 116.0,
+          "avgToolCallsFailed": 6.5,
+          "avgThinkingTimeSecs": 162.4,
+          "blunderScore": 1.69
         },
         {
           "modelId": "openai/gpt-5.4-nano",

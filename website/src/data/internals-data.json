@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-20T15:09:23.693712+00:00",
+  "generatedAt": "2026-03-20T17:44:16.558377+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -19180,6 +19180,52 @@
           "otherErrors": 0,
           "contextResets": 0,
           "latencyP50": 1.5
+        }
+      ]
+    },
+    {
+      "id": "game_20260320_102217",
+      "ts": "2026-03-20T10:22:17",
+      "epoch": 55,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "openai/gpt-5.4-mini::medium",
+          "modelName": "GPT-5.4 Mini (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 1.2767,
+          "promptTokens": 1400847,
+          "completionTokens": 50226,
+          "cachedTokens": 287232,
+          "reasoningTokens": 43238,
+          "toolCallsOk": 138,
+          "toolCallsFailed": 14,
+          "thinkingTimeSecs": 828.6,
+          "responses": 143,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 1.6
+        },
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.4312,
+          "promptTokens": 1708100,
+          "completionTokens": 2769,
+          "cachedTokens": 50779,
+          "reasoningTokens": 0,
+          "toolCallsOk": 152,
+          "toolCallsFailed": 7,
+          "thinkingTimeSecs": 214.5,
+          "responses": 159,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     }

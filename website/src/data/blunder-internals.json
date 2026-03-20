@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-20T07:08:00.017640+00:00",
+  "generatedAt": "2026-03-20T17:44:16.569904+00:00",
   "runs": [
     {
       "gameId": "game_20260302_005956_g1",
@@ -1287,6 +1287,17 @@
       "completionTokens": 25925,
       "cachedTokens": 0,
       "costUsd": 1.7675
+    },
+    {
+      "gameId": "game_20260320_102217",
+      "ts": "2026-03-20T17:41:47.661320+00:00",
+      "version": 34,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 234,
+      "promptTokens": 637365,
+      "completionTokens": 68116,
+      "cachedTokens": 0,
+      "costUsd": 4.8897
     }
   ]
 }

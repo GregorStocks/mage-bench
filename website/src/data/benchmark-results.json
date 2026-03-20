@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-03-20T07:06:15.728251+00:00",
-  "totalGames": 209,
+  "generatedAt": "2026-03-20T17:42:38.510701+00:00",
+  "totalGames": 210,
   "models": [
     {
       "modelId": "anthropic/claude-opus-4.6",
@@ -195,6 +195,22 @@
       "reasoningEffort": "medium"
     },
     {
+      "modelId": "openai/gpt-5.4-mini",
+      "modelName": "GPT-5.4 Mini (medium)",
+      "provider": "OpenAI",
+      "rating": 1616,
+      "gamesPlayed": 1,
+      "winRate": 1.0,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 1.28,
+      "avgToolCallsOk": 138.0,
+      "avgToolCallsFailed": 14.0,
+      "avgThinkingTimeSecs": 828.6,
+      "blunderScore": 0.9,
+      "reasoningEffort": "medium"
+    },
+    {
       "modelId": "openai/o3",
       "modelName": "o3 (medium)",
       "provider": "OpenAI",
@@ -256,21 +272,6 @@
       "avgToolCallsFailed": 3.3,
       "avgThinkingTimeSecs": 442.4,
       "blunderScore": 0.93
-    },
-    {
-      "modelId": "google/gemini-3.1-flash-lite-preview",
-      "modelName": "Gemini 3.1 Flash Lite",
-      "provider": "Google",
-      "rating": 1595,
-      "gamesPlayed": 9,
-      "winRate": 0.4444,
-      "timeoutLosses": 0,
-      "timeoutLossRate": 0.0,
-      "avgApiCost": 0.18,
-      "avgToolCallsOk": 74.3,
-      "avgToolCallsFailed": 6.0,
-      "avgThinkingTimeSecs": 157.2,
-      "blunderScore": 0.33
     },
     {
       "modelId": "qwen/qwen3-max-thinking",
@@ -381,6 +382,21 @@
       "avgThinkingTimeSecs": 128.7,
       "blunderScore": 0.29,
       "reasoningEffort": "low"
+    },
+    {
+      "modelId": "google/gemini-3.1-flash-lite-preview",
+      "modelName": "Gemini 3.1 Flash Lite",
+      "provider": "Google",
+      "rating": 1579,
+      "gamesPlayed": 10,
+      "winRate": 0.4,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 0.2,
+      "avgToolCallsOk": 82.1,
+      "avgToolCallsFailed": 6.1,
+      "avgThinkingTimeSecs": 163.0,
+      "blunderScore": 0.57
     },
     {
       "modelId": "google/gemini-2.5-flash",
@@ -580,8 +596,8 @@
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-20T07:06:15.725089+00:00",
-      "totalGames": 85,
+      "generatedAt": "2026-03-20T17:42:38.506682+00:00",
+      "totalGames": 86,
       "models": [
         {
           "modelId": "openai/gpt-5.2",
@@ -711,6 +727,22 @@
           "blunderScore": 0.94,
           "reasoningEffort": "medium",
           "inactive": "retired"
+        },
+        {
+          "modelId": "openai/gpt-5.4-mini",
+          "modelName": "GPT-5.4 Mini (medium)",
+          "provider": "OpenAI",
+          "rating": 1616,
+          "gamesPlayed": 1,
+          "winRate": 1.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 1.28,
+          "avgToolCallsOk": 138.0,
+          "avgToolCallsFailed": 14.0,
+          "avgThinkingTimeSecs": 828.6,
+          "blunderScore": 0.9,
+          "reasoningEffort": "medium"
         },
         {
           "modelId": "anthropic/claude-haiku-4.5",
@@ -872,21 +904,6 @@
           "reasoningEffort": "medium"
         },
         {
-          "modelId": "google/gemini-3.1-flash-lite-preview",
-          "modelName": "Gemini 3.1 Flash Lite",
-          "provider": "Google",
-          "rating": 1593,
-          "gamesPlayed": 9,
-          "winRate": 0.4444,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.18,
-          "avgToolCallsOk": 74.3,
-          "avgToolCallsFailed": 6.0,
-          "avgThinkingTimeSecs": 157.2,
-          "blunderScore": 0.33
-        },
-        {
           "modelId": "qwen/qwen3-235b-a22b-2507",
           "modelName": "Qwen3 235B",
           "provider": "Qwen",
@@ -1014,6 +1031,21 @@
           "avgThinkingTimeSecs": 1159.6,
           "blunderScore": 1.41,
           "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "provider": "Google",
+          "rating": 1577,
+          "gamesPlayed": 10,
+          "winRate": 0.4,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.2,
+          "avgToolCallsOk": 82.1,
+          "avgToolCallsFailed": 6.1,
+          "avgThinkingTimeSecs": 163.0,
+          "blunderScore": 0.57
         },
         {
           "modelId": "meta-llama/llama-4-maverick",
@@ -1144,7 +1176,7 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-20T07:06:15.725641+00:00",
+      "generatedAt": "2026-03-20T17:42:38.507437+00:00",
       "totalGames": 56,
       "models": [
         {
@@ -1537,7 +1569,7 @@
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-20T07:06:15.725876+00:00",
+      "generatedAt": "2026-03-20T17:42:38.507731+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -1834,7 +1866,7 @@
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-20T07:06:15.726111+00:00",
+      "generatedAt": "2026-03-20T17:42:38.508032+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -2145,7 +2177,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-20T07:06:15.726643+00:00",
+      "generatedAt": "2026-03-20T17:42:38.508674+00:00",
       "totalGames": 34,
       "exhibition": true,
       "models": [
@@ -2587,8 +2619,8 @@
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-20T07:06:15.728251+00:00",
-      "totalGames": 175,
+      "generatedAt": "2026-03-20T17:42:38.510701+00:00",
+      "totalGames": 176,
       "models": [
         {
           "modelId": "anthropic/claude-opus-4.6",
@@ -2783,6 +2815,22 @@
           "reasoningEffort": "medium"
         },
         {
+          "modelId": "openai/gpt-5.4-mini",
+          "modelName": "GPT-5.4 Mini (medium)",
+          "provider": "OpenAI",
+          "rating": 1616,
+          "gamesPlayed": 1,
+          "winRate": 1.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 1.28,
+          "avgToolCallsOk": 138.0,
+          "avgToolCallsFailed": 14.0,
+          "avgThinkingTimeSecs": 828.6,
+          "blunderScore": 0.9,
+          "reasoningEffort": "medium"
+        },
+        {
           "modelId": "openai/o3",
           "modelName": "o3 (medium)",
           "provider": "OpenAI",
@@ -2844,21 +2892,6 @@
           "avgToolCallsFailed": 3.3,
           "avgThinkingTimeSecs": 442.4,
           "blunderScore": 0.93
-        },
-        {
-          "modelId": "google/gemini-3.1-flash-lite-preview",
-          "modelName": "Gemini 3.1 Flash Lite",
-          "provider": "Google",
-          "rating": 1595,
-          "gamesPlayed": 9,
-          "winRate": 0.4444,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.18,
-          "avgToolCallsOk": 74.3,
-          "avgToolCallsFailed": 6.0,
-          "avgThinkingTimeSecs": 157.2,
-          "blunderScore": 0.33
         },
         {
           "modelId": "qwen/qwen3-max-thinking",
@@ -2969,6 +3002,21 @@
           "avgThinkingTimeSecs": 128.7,
           "blunderScore": 0.29,
           "reasoningEffort": "low"
+        },
+        {
+          "modelId": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "provider": "Google",
+          "rating": 1579,
+          "gamesPlayed": 10,
+          "winRate": 0.4,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.2,
+          "avgToolCallsOk": 82.1,
+          "avgToolCallsFailed": 6.1,
+          "avgThinkingTimeSecs": 163.0,
+          "blunderScore": 0.57
         },
         {
           "modelId": "google/gemini-2.5-flash",
