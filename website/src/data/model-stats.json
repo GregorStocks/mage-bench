@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-20T07:07:08.915134+00:00",
+  "generatedAt": "2026-03-20T15:06:30.896092+00:00",
   "models": {
     "anthropic/claude-haiku-4.5::low": {
       "modelId": "anthropic/claude-haiku-4.5",
@@ -2177,23 +2177,23 @@
           "latencySamples": 1018
         },
         "55": {
-          "gamesPlayed": 2,
+          "gamesPlayed": 1,
           "wins": 1,
           "timerTimeoutLosses": 0,
-          "totalCostUsd": 0.2109,
-          "totalToolCallsOk": 107,
+          "totalCostUsd": 0.1757,
+          "totalToolCallsOk": 80,
           "totalToolCallsFailed": 6,
-          "totalThinkingTimeSecs": 151.4,
-          "totalPromptTokens": 831154,
-          "totalCompletionTokens": 2040,
-          "totalCachedTokens": 52083,
+          "totalThinkingTimeSecs": 110.3,
+          "totalPromptTokens": 693452,
+          "totalCompletionTokens": 1544,
+          "totalCachedTokens": 34146,
           "totalReasoningTokens": 0,
-          "successfulResponses": 114,
+          "successfulResponses": 86,
           "errors": {},
           "contextResets": 0,
-          "latencyP50": 0.6,
+          "latencyP50": 0.3,
           "latencyP95": 1.4,
-          "latencySamples": 229
+          "latencySamples": 173
         }
       }
     },
@@ -4874,33 +4874,6 @@
           "latencyP50": 0.8,
           "latencyP95": 20.0,
           "latencySamples": 2306
-        }
-      }
-    },
-    "openai/gpt-5.4-mini::medium": {
-      "modelId": "openai/gpt-5.4-mini",
-      "modelName": "GPT-5.4 Mini (medium)",
-      "provider": "OpenAI",
-      "reasoningEffort": "medium",
-      "epochs": {
-        "55": {
-          "gamesPlayed": 1,
-          "wins": 0,
-          "timerTimeoutLosses": 0,
-          "totalCostUsd": 0.1088,
-          "totalToolCallsOk": 23,
-          "totalToolCallsFailed": 0,
-          "totalThinkingTimeSecs": 92.0,
-          "totalPromptTokens": 113995,
-          "totalCompletionTokens": 5184,
-          "totalCachedTokens": 78336,
-          "totalReasoningTokens": 4085,
-          "successfulResponses": 24,
-          "errors": {},
-          "contextResets": 0,
-          "latencyP50": 0.7,
-          "latencyP95": 7.1,
-          "latencySamples": 47
         }
       }
     },
