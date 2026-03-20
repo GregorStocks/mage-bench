@@ -902,12 +902,29 @@ public class GamePanel extends javax.swing.JPanel {
         this.gameChatPanel.clear();
         SessionHandler.getGameChatId(gameId).ifPresent(uuid
                 -> this.gameChatPanel.connect(uuid));
-        if (!SessionHandler.watchGame(gameId)) {
-            removeGame();
-        }
+        requestWatchGameAsync(gameId);
         for (PlayAreaPanel panel : players.values()) {
             panel.setPlayingMode(false);
         }
+    }
+
+    /**
+     * Don't block the EDT on watchGame(): the server immediately sends GAME_INIT
+     * back to the same client as part of the attach flow.
+     */
+    private void requestWatchGameAsync(UUID requestedGameId) {
+        Thread watcher = new Thread(() -> {
+            if (SessionHandler.watchGame(requestedGameId)) {
+                return;
+            }
+            SwingUtilities.invokeLater(() -> {
+                if (requestedGameId.equals(this.gameId)) {
+                    removeGame();
+                }
+            });
+        }, "Watch-Game-" + requestedGameId);
+        watcher.setDaemon(true);
+        watcher.start();
     }
 
     public synchronized void replayGame(UUID gameId) {
