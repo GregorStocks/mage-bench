@@ -210,13 +210,3 @@ pipeline: PIPELINE {
 artifacts.logs -> pipeline.export {class: dim-edge}
 artifacts.events -> pipeline.export {class: dim-edge}
 artifacts.video -> pipeline.youtube {class: dim-edge}
-
-website: WEBSITE {
-  class: section
-  leaderboard: Leaderboard {class: core}
-  viewer: Game Viewer {class: core}
-}
-
-pipeline.export -> website.viewer: game JSON {class: mid-edge}
-pipeline.blunder -> website.leaderboard {class: mid-edge}
-pipeline.youtube -> website.viewer {class: mid-edge}
