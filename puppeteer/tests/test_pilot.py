@@ -376,7 +376,7 @@ async def test_prefetch_mulligan():
     """Pre-fetch should detect mulligan from pass_priority inline choices."""
     session = MagicMock()
 
-    async def fake_call_tool(name, args):
+    async def fake_call_tool(name, _args):
         if name == "pass_priority":
             # pass_priority returns choices inline (including message)
             return _mock_tool_result(
@@ -397,7 +397,7 @@ async def test_prefetch_waits_for_action():
     session = MagicMock()
     calls = []
 
-    async def fake_call_tool(name, args):
+    async def fake_call_tool(name, _args):
         calls.append(name)
         if name == "pass_priority":
             # pass_priority returns choices inline
@@ -541,9 +541,9 @@ async def test_repeated_pass_error_forces_plain_pass():
     tool_calls = []
     pass_call_count = 0
 
-    async def fake_call_tool(name, args):
+    async def fake_call_tool(name, _args):
         nonlocal pass_call_count
-        tool_calls.append((name, dict(args) if args else {}))
+        tool_calls.append((name, dict(_args) if _args else {}))
         if name == "pass_priority":
             pass_call_count += 1
             if pass_call_count == 1:  # prefetch
@@ -986,7 +986,7 @@ async def test_chat_messages_rate_limited_per_turn():
     session = MagicMock()
     chat_calls_forwarded = 0
 
-    async def fake_call_tool(name, args):
+    async def fake_call_tool(name, _args):
         nonlocal chat_calls_forwarded
         if name == "send_chat_message":
             chat_calls_forwarded += 1

@@ -140,5 +140,5 @@ def test_wait_for_port_timeout():
     with patch("puppeteer.port.is_port_in_use", return_value=False), patch("puppeteer.port.time") as mock_time:
         # Simulate time passing: first call returns 0, second returns timeout+1
         mock_time.time.side_effect = [0, 0, 2]
-        mock_time.sleep = lambda x: None
+        mock_time.sleep = lambda _seconds: None
         assert wait_for_port("127.0.0.1", 19999, timeout=1) is False
