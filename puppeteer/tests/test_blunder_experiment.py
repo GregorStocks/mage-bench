@@ -9,6 +9,13 @@ from scripts.analysis.toolbox.blunder_experiment import OPUS, _call_llm, _parse_
 
 def _ann(**overrides: object) -> dict:
     """Create a minimal valid annotation dict."""
+    json_key_by_field = {
+        "decision_index": "decisionIndex",
+        "action_taken": "actionTaken",
+        "better_line": "betterLine",
+        "snapshot_index": "snapshotIndex",
+        "llm_reasoning": "llmReasoning",
+    }
     base: dict = {
         "decisionIndex": 0,
         "player": "A",
@@ -19,7 +26,7 @@ def _ann(**overrides: object) -> dict:
         "actionTaken": "a",
         "betterLine": "b",
     }
-    base.update(overrides)
+    base.update({json_key_by_field.get(field_name, field_name): value for field_name, value in overrides.items()})
     return base
 
 
@@ -29,7 +36,7 @@ class TestParseInlineResponse:
         assert _parse_inline_response(text) == []
 
     def test_single_annotation(self) -> None:
-        a = _ann(decisionIndex=5, category="unused_mana", description="test")
+        a = _ann(decision_index=5, category="unused_mana", description="test")
         text = f"PASS\n{json.dumps(a)}\nPASS"
         result = _parse_inline_response(text)
         assert len(result) == 1
@@ -37,8 +44,8 @@ class TestParseInlineResponse:
         assert result[0]["severity"] == "minor"
 
     def test_multiple_annotations(self) -> None:
-        a1 = _ann(decisionIndex=3, severity="major")
-        a2 = _ann(decisionIndex=7, player="B", category="y")
+        a1 = _ann(decision_index=3, severity="major")
+        a2 = _ann(decision_index=7, player="B", category="y")
         text = f"PASS\n{json.dumps(a1)}\nPASS\nPASS\n{json.dumps(a2)}\n"
         result = _parse_inline_response(text)
         assert len(result) == 2
@@ -46,14 +53,14 @@ class TestParseInlineResponse:
         assert result[1]["decisionIndex"] == 7
 
     def test_ignores_non_annotation_json(self) -> None:
-        a = _ann(decisionIndex=1)
+        a = _ann(decision_index=1)
         text = f'{{"foo": "bar"}}\nPASS\n{json.dumps(a)}'
         result = _parse_inline_response(text)
         assert len(result) == 1
         assert result[0]["decisionIndex"] == 1
 
     def test_handles_markdown_wrapped_json(self) -> None:
-        a = _ann(decisionIndex=2, severity="moderate")
+        a = _ann(decision_index=2, severity="moderate")
         text = f"PASS\n\n```json\n{json.dumps(a)}\n```\n\nPASS"
         result = _parse_inline_response(text)
         assert len(result) == 1
@@ -63,7 +70,7 @@ class TestParseInlineResponse:
         assert _parse_inline_response("") == []
 
     def test_nested_json_in_strings(self) -> None:
-        a = _ann(decisionIndex=4, description="cast {2}{R}{R} spell")
+        a = _ann(decision_index=4, description="cast {2}{R}{R} spell")
         text = f"PASS\n{json.dumps(a)}\nPASS"
         result = _parse_inline_response(text)
         assert len(result) == 1

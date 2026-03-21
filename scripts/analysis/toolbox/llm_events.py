@@ -15,7 +15,7 @@ from scripts.analysis.blunder_eval_common import load_game
 def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
-    events = d.llmEvents
+    events = d.llm_events
     if not events:
         print("No LLM events found.")
         return
@@ -79,8 +79,8 @@ def main(gz_path: str) -> None:
         pr = [e for e in responses if e.player == player]
         if not pr:
             continue
-        prompt_tokens = sum((e.usage.promptTokens or 0) for e in pr if e.usage)
-        completion_tokens = sum((e.usage.completionTokens or 0) for e in pr if e.usage)
+        prompt_tokens = sum((e.usage.prompt_tokens or 0) for e in pr if e.usage)
+        completion_tokens = sum((e.usage.completion_tokens or 0) for e in pr if e.usage)
         print(
             f"{player}: {len(pr)} responses, {prompt_tokens:,} prompt, {completion_tokens:,} completion tokens"
         )

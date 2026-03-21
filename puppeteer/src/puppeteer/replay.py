@@ -21,7 +21,10 @@ from puppeteer.bridge_transport import build_bridge_launch_args, spawn_bridge_ht
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.log import get_logger, setup_logging
-from puppeteer.pilot import BoardCursorTracker, _render_context, _render_for_pilot, build_initial_message, execute_tool
+from puppeteer.pilot import build_initial_message
+from puppeteer.pilot_bridge import execute_tool
+from puppeteer.pilot_rendering import render_context, render_for_pilot
+from puppeteer.pilot_state import BoardCursorTracker
 
 logger = get_logger(__name__)
 _ASSERT_ACTION_STEP = "assert_action"
@@ -151,7 +154,7 @@ async def execute_replay_script(
         # so golden prompts match what the LLM actually sees.
         display_text = result_text
         if name in rendered_tools:
-            display_text, last_board = _render_for_pilot(result_text, last_board, seen_oracle_cards)
+            display_text, last_board = render_for_pilot(result_text, last_board, seen_oracle_cards)
 
         # Add assistant tool call + tool result to history
         tool_call_id = f"call_{tool_call_count}"
@@ -252,7 +255,7 @@ async def execute_replay_script(
             }
         )
 
-    return _render_context(history, system_prompt, state_summary="")
+    return render_context(history, system_prompt, state_summary="")
 
 
 async def run_replay(

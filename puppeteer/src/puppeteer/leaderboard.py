@@ -189,7 +189,7 @@ def generate_leaderboard(
         for player in game["players"]:
             if player.type != "pilot" or not player.model:
                 continue
-            key = player_key(player.model, player.reasoningEffort)
+            key = player_key(player.model, player.reasoning_effort)
             if key not in stats:
                 stats[key] = {
                     "games_played": 0,
@@ -205,12 +205,12 @@ def generate_leaderboard(
             stats[key]["games_played"] += 1
             if game.get("winner") == player.name:
                 stats[key]["wins"] += 1
-            if player.timedOut:
+            if player.timed_out:
                 stats[key]["timeout_losses"] += 1
-            stats[key]["total_cost"] += player.totalCostUsd or 0.0
-            stats[key]["total_tool_calls_ok"] += player.toolCallsOk
-            stats[key]["total_tool_calls_failed"] += player.toolCallsFailed
-            stats[key]["total_thinking_time"] += player.thinkingTimeSecs
+            stats[key]["total_cost"] += player.total_cost_usd or 0.0
+            stats[key]["total_tool_calls_ok"] += player.tool_calls_ok
+            stats[key]["total_tool_calls_failed"] += player.tool_calls_failed
+            stats[key]["total_thinking_time"] += player.thinking_time_secs
             assert annotations is not None, f"Game {game.get('id')} has no annotations"
             assert total_turns > 0, f"Game {game.get('id')} has no turns"
             stats[key]["total_annotated_turns"] += total_turns
@@ -281,7 +281,7 @@ def generate_exhibition_leaderboard(
         for player in game["players"]:
             if player.type != "pilot" or not player.model:
                 continue
-            key = player_key(player.model, player.reasoningEffort)
+            key = player_key(player.model, player.reasoning_effort)
             if key not in stats:
                 stats[key] = {
                     "games_played": 0,
@@ -297,12 +297,12 @@ def generate_exhibition_leaderboard(
             stats[key]["games_played"] += 1
             if game.get("winner") == player.name:
                 stats[key]["wins"] += 1
-            if player.timedOut:
+            if player.timed_out:
                 stats[key]["timeout_losses"] += 1
-            stats[key]["total_cost"] += player.totalCostUsd or 0.0
-            stats[key]["total_tool_calls_ok"] += player.toolCallsOk
-            stats[key]["total_tool_calls_failed"] += player.toolCallsFailed
-            stats[key]["total_thinking_time"] += player.thinkingTimeSecs
+            stats[key]["total_cost"] += player.total_cost_usd or 0.0
+            stats[key]["total_tool_calls_ok"] += player.tool_calls_ok
+            stats[key]["total_tool_calls_failed"] += player.tool_calls_failed
+            stats[key]["total_thinking_time"] += player.thinking_time_secs
             assert annotations is not None, f"Game {game.get('id')} has no annotations"
             assert total_turns > 0, f"Game {game.get('id')} has no turns"
             stats[key]["total_annotated_turns"] += total_turns
@@ -393,12 +393,12 @@ def generate_leaderboard_file(
         game_entry: dict[str, Any] = {
             "id": game_export.id,
             "timestamp": game_export.timestamp,
-            "gameType": game_export.gameType,
-            "deckType": game_export.deckType,
-            "totalTurns": game_export.totalTurns,
+            "gameType": game_export.game_type,
+            "deckType": game_export.deck_type,
+            "totalTurns": game_export.total_turns,
             "winner": game_export.winner,
             "players": game_export.players,
-            "harnessEpoch": game_export.harnessEpoch,
+            "harnessEpoch": game_export.harness_epoch,
             "season": game_export.season,
         }
         if game_export.annotations is not None:

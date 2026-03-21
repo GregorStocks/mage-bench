@@ -422,8 +422,8 @@ def _v2_llm_response(player: str, ts: str, reasoning: str = "thinking") -> dict:
 def _v2_game_data(llm_events: list[dict]) -> BuiltGameExport:
     """Build minimal v2 game data."""
     return _minimal_built_export(
-        harnessEpoch=20,
-        llmEvents=_convert_events(llm_events),
+        harness_epoch=20,
+        llm_events=_convert_events(llm_events),
     )
 
 
@@ -433,14 +433,14 @@ def _minimal_built_export(**overrides: object) -> BuiltGameExport:
         "version": 8,
         "id": "test_game",
         "timestamp": "",
-        "gameType": "Two Player Duel",
-        "deckType": "Constructed - Standard",
-        "totalTurns": 0,
+        "game_type": "Two Player Duel",
+        "deck_type": "Constructed - Standard",
+        "total_turns": 0,
         "winner": None,
-        "harnessEpoch": 0,
-        "youtubeUrl": "",
+        "harness_epoch": 0,
+        "youtube_url": "",
         "players": [],
-        "cardImages": {},
+        "card_images": {},
         "snapshots": [
             Snapshot(
                 seq=0,
@@ -455,13 +455,13 @@ def _minimal_built_export(**overrides: object) -> BuiltGameExport:
             ),
         ],
         "actions": [],
-        "llmEvents": [],
-        "gameOver": None,
+        "llm_events": [],
+        "game_over": None,
         "season": 0,
         "tournament": None,
     }
     defaults.update(overrides)
-    return BuiltGameExport(**defaults)  # type: ignore[arg-type]
+    return BuiltGameExport(**defaults)
 
 
 class TestResolveChosenIndex:
@@ -830,7 +830,7 @@ class TestExtractDecisionsV1:
                 "result": ca_result,
             },
         ]
-        data = _minimal_built_export(llmEvents=_convert_events(events))
+        data = _minimal_built_export(llm_events=_convert_events(events))
         decisions = _extract_decisions_v1(data)
         assert len(decisions) == 1
         assert decisions[0]["chosen"] == 0
@@ -876,7 +876,7 @@ class TestExtractDecisionsV1:
                 "result": json.dumps({"success": True, "action_taken": "selected_choice_text_Black"}),
             },
         ]
-        data = _minimal_built_export(llmEvents=_convert_events(events))
+        data = _minimal_built_export(llm_events=_convert_events(events))
         decisions = _extract_decisions_v1(data)
         assert len(decisions) == 1
         assert decisions[0]["chosen_args"] == {"text": "Black"}

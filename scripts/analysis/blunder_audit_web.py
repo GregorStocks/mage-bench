@@ -54,7 +54,7 @@ CONFIG_PATH = Path.home() / ".mage-bench" / "config.json"
 # Remote audit sessions often run on a dev server and are browsed from a second
 # machine, so wildcard binding remains the default. Use --bind-host 127.0.0.1
 # for local-only access.
-DEFAULT_BIND_HOST = "0.0.0.0"
+DEFAULT_BIND_HOST = "0.0.0.0"  # noqa: S104 - remote audit sessions are intentionally shared on a LAN
 
 # Files the standalone audit UI serves directly from the website sources.
 STATIC_FILES: dict[str, Path] = {
@@ -247,8 +247,8 @@ def _build_play_detail(game_id: str, di: int) -> dict:
         "annotation": {
             "severity": annotation.severity if annotation else None,
             "description": annotation.description if annotation else None,
-            "actionTaken": annotation.actionTaken if annotation else None,
-            "betterLine": annotation.betterLine if annotation else None,
+            "actionTaken": annotation.action_taken if annotation else None,
+            "betterLine": annotation.better_line if annotation else None,
         },
         "verdict": gt_entry.get("verdict") if gt_entry else None,
         "human_notes": gt_entry.get("human_notes") if gt_entry else None,

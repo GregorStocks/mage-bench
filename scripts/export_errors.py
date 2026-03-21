@@ -85,7 +85,7 @@ def _link_errors_to_decisions(
     """
     player_decisions: dict[str, list[tuple[str, int]]] = {}
     for decision in decisions:
-        indices = decision.llmEventIndices
+        indices = decision.llm_event_indices
         if not indices:
             continue
         source_event = llm_events[indices[0]]

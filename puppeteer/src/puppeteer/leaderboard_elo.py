@@ -123,12 +123,12 @@ def compute_elo_ratings(
         if len(pilots) < 2:
             for pilot in pilots:
                 assert isinstance(pilot.model, str) and pilot.model
-                key = player_key(pilot.model, pilot.reasoningEffort)
+                key = player_key(pilot.model, pilot.reasoning_effort)
                 if key not in ratings:
                     ratings[key] = float(_ELO_START)
             if pilots:
                 assert isinstance(pilots[0].model, str) and pilots[0].model
-                key = player_key(pilots[0].model, pilots[0].reasoningEffort)
+                key = player_key(pilots[0].model, pilots[0].reasoning_effort)
                 per_game.append(
                     {
                         "id": game["id"],
@@ -141,14 +141,14 @@ def compute_elo_ratings(
 
         for pilot in pilots:
             assert isinstance(pilot.model, str) and pilot.model
-            key = player_key(pilot.model, pilot.reasoningEffort)
+            key = player_key(pilot.model, pilot.reasoning_effort)
             if key not in ratings:
                 ratings[key] = float(_ELO_START)
 
         pilot_keys: list[str] = []
         for pilot in pilots:
             assert isinstance(pilot.model, str) and pilot.model
-            pilot_keys.append(player_key(pilot.model, pilot.reasoningEffort))
+            pilot_keys.append(player_key(pilot.model, pilot.reasoning_effort))
 
         before = {key: round(ratings[key]) for key in pilot_keys}
 

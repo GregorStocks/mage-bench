@@ -54,14 +54,14 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
     for gz_path in glob_game_files(games_dir):
         game = load_game_file(gz_path)
-        epoch = game.harnessEpoch
+        epoch = game.harness_epoch
         winner = game.winner
 
         name_to_key: dict[str, str] = {}
         for player in game.players:
             if not is_pilot_player(player):
                 continue
-            key = player_key(player.model, player.reasoningEffort)
+            key = player_key(player.model, player.reasoning_effort)
             name_to_key[player.name] = key
 
             if key not in model_meta:
@@ -90,14 +90,14 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
             bucket["gamesPlayed"] += 1
             if winner == player.name:
                 bucket["wins"] += 1
-            if player.timedOut:
+            if player.timed_out:
                 bucket["timerTimeoutLosses"] += 1
-            bucket["totalCostUsd"] += player.totalCostUsd or 0.0
-            bucket["totalToolCallsOk"] += player.toolCallsOk
-            bucket["totalToolCallsFailed"] += player.toolCallsFailed
-            bucket["totalThinkingTimeSecs"] += player.thinkingTimeSecs
+            bucket["totalCostUsd"] += player.total_cost_usd or 0.0
+            bucket["totalToolCallsOk"] += player.tool_calls_ok
+            bucket["totalToolCallsFailed"] += player.tool_calls_failed
+            bucket["totalThinkingTimeSecs"] += player.thinking_time_secs
 
-        for event in game.llmEvents:
+        for event in game.llm_events:
             player_name = event.player
             if player_name not in name_to_key:
                 continue
@@ -111,22 +111,22 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
                 bucket["successfulResponses"] += 1
                 usage = event.usage
                 if usage is not None:
-                    bucket["totalPromptTokens"] += usage.promptTokens or 0
-                    bucket["totalCompletionTokens"] += usage.completionTokens or 0
-                    bucket["totalCachedTokens"] += usage.cachedTokens or 0
-                    bucket["totalReasoningTokens"] += usage.reasoningTokens or 0
+                    bucket["totalPromptTokens"] += usage.prompt_tokens or 0
+                    bucket["totalCompletionTokens"] += usage.completion_tokens or 0
+                    bucket["totalCachedTokens"] += usage.cached_tokens or 0
+                    bucket["totalReasoningTokens"] += usage.reasoning_tokens or 0
             elif isinstance(event, LlmErrorEvent):
-                error_type = event.errorType or "unknown"
+                error_type = event.error_type or "unknown"
                 bucket["errors"][error_type] = bucket["errors"].get(error_type, 0) + 1
             elif event.type == "context_reset":
                 bucket["contextResets"] += 1
 
-        for index in range(len(game.llmEvents) - 1):
-            player_name = game.llmEvents[index].player
+        for index in range(len(game.llm_events) - 1):
+            player_name = game.llm_events[index].player
             if player_name not in name_to_key:
                 continue
-            ts_a = game.llmEvents[index].ts
-            ts_b = game.llmEvents[index + 1].ts
+            ts_a = game.llm_events[index].ts
+            ts_b = game.llm_events[index + 1].ts
             if not ts_a or not ts_b:
                 continue
             try:
@@ -188,7 +188,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for player in game.players:
             if not is_pilot_player(player):
                 continue
-            name_to_key[player.name] = player_key(player.model, player.reasoningEffort)
+            name_to_key[player.name] = player_key(player.model, player.reasoning_effort)
 
         player_responses: dict[str, int] = {}
         player_timeouts: dict[str, int] = {}
@@ -201,7 +201,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         player_latencies: dict[str, list[float]] = {}
         last_ts: dict[str, datetime] = {}
 
-        for event in game.llmEvents:
+        for event in game.llm_events:
             player_name = event.player
             if player_name not in name_to_key:
                 continue
@@ -211,19 +211,19 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 usage = event.usage
                 if usage is not None:
                     player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + (
-                        usage.promptTokens or 0
+                        usage.prompt_tokens or 0
                     )
                     player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + (
-                        usage.completionTokens or 0
+                        usage.completion_tokens or 0
                     )
                     player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + (
-                        usage.cachedTokens or 0
+                        usage.cached_tokens or 0
                     )
                     player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + (
-                        usage.reasoningTokens or 0
+                        usage.reasoning_tokens or 0
                     )
             elif isinstance(event, LlmErrorEvent):
-                error_type = event.errorType or "unknown"
+                error_type = event.error_type or "unknown"
                 if error_type == "timeout":
                     player_timeouts[player_name] = player_timeouts.get(player_name, 0) + 1
                 else:
@@ -247,7 +247,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for player in game.players:
             if not is_pilot_player(player):
                 continue
-            key = player_key(player.model, player.reasoningEffort)
+            key = player_key(player.model, player.reasoning_effort)
             durations = player_latencies.get(player.name)
             if durations is not None:
                 durations.sort()
@@ -259,15 +259,15 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                     "key": key,
                     "modelName": _build_model_metadata(key, model_registry)["modelName"],
                     "won": winner == player.name,
-                    "timedOut": bool(player.timedOut),
-                    "costUsd": round(player.totalCostUsd or 0.0, 4),
+                    "timedOut": bool(player.timed_out),
+                    "costUsd": round(player.total_cost_usd or 0.0, 4),
                     "promptTokens": player_prompt_tokens.get(player.name, 0),
                     "completionTokens": player_completion_tokens.get(player.name, 0),
                     "cachedTokens": player_cached_tokens.get(player.name, 0),
                     "reasoningTokens": player_reasoning_tokens.get(player.name, 0),
-                    "toolCallsOk": player.toolCallsOk,
-                    "toolCallsFailed": player.toolCallsFailed,
-                    "thinkingTimeSecs": round(player.thinkingTimeSecs, 1),
+                    "toolCallsOk": player.tool_calls_ok,
+                    "toolCallsFailed": player.tool_calls_failed,
+                    "thinkingTimeSecs": round(player.thinking_time_secs, 1),
                     "responses": player_responses.get(player.name, 0),
                     "timeouts": player_timeouts.get(player.name, 0),
                     "otherErrors": player_other_errors.get(player.name, 0),
@@ -280,7 +280,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
             {
                 "id": game.id,
                 "ts": _parse_game_timestamp(game.timestamp),
-                "epoch": game.harnessEpoch,
+                "epoch": game.harness_epoch,
                 "format": derive_format(game),
                 "players": player_records,
             }

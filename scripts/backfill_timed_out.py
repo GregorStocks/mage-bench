@@ -2,7 +2,7 @@
 """Backfill timedOut field on player entries in existing game exports.
 
 Reads each .json/.json.gz in website/public/games/, scans actions for the
-"has run out of time, losing the match." message, and sets timedOut=true on
+"has run out of time, losing the match." message, and sets timed_out=true on
 matching players.
 
 Skips games where any player already has timedOut set.

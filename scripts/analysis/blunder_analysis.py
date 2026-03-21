@@ -156,7 +156,7 @@ def _chosen_display(d: Decision) -> str:
 
     Delegates to the canonical renderer helper used by the live prompt path.
     """
-    return _renderer_chosen_display(d.chosen, d.chosenArgs, d.choices)
+    return _renderer_chosen_display(d.chosen, d.chosen_args, d.choices)
 
 
 def _write_annotations(gz_path: str, annotations: list[Annotation]) -> None:
@@ -389,14 +389,14 @@ def _eval_one_decision(
     aftermath_idx = compute_aftermath_index(decision, snapshots)
     ann_obj = Annotation(
         type="blunder",
-        decisionIndex=d_idx,
-        snapshotIndex=aftermath_idx,
+        decision_index=d_idx,
+        snapshot_index=aftermath_idx,
         player=decision.player,
         severity=ann["severity"],
         description=ann["description"],
-        actionTaken=ann["actionTaken"],
-        betterLine=ann["betterLine"],
-        llmReasoning=ann.get("llmReasoning"),
+        action_taken=ann["actionTaken"],
+        better_line=ann["betterLine"],
+        llm_reasoning=ann.get("llmReasoning"),
     )
 
     return [ann_obj], cost, True, raw_record
@@ -533,7 +533,9 @@ def main(gz_path: str) -> float:
     data = _load_game(gz_path)
     if data.annotations is not None:
         existing_version = (
-            data.blunderScriptVersion if data.blunderScriptVersion is not None else 1
+            data.blunder_script_version
+            if data.blunder_script_version is not None
+            else 1
         )
         if existing_version >= BLUNDER_SCRIPT_VERSION:
             print(
@@ -668,7 +670,7 @@ def main(gz_path: str) -> float:
     num_snapshots = len(data.snapshots)
     valid_annotations: list[Annotation] = []
     for ann in annotations:
-        idx = ann.snapshotIndex
+        idx = ann.snapshot_index
         if not isinstance(idx, int) or idx < 0 or idx >= num_snapshots:
             print(
                 f"  WARNING: Dropping annotation with invalid snapshotIndex {idx} (max {num_snapshots - 1})"
@@ -699,14 +701,14 @@ def main(gz_path: str) -> float:
     snapshots = data.snapshots
     print(f"\nFound {len(annotations)} blunder(s):\n")
     for ann in annotations:
-        snap_idx = ann.snapshotIndex
+        snap_idx = ann.snapshot_index
         assert snap_idx is not None
         turn = snapshots[snap_idx].turn if snap_idx < len(snapshots) else "?"
         sev = ann.severity.upper()
         print(f"  Turn {turn} ({ann.player}) - {sev}")
         print(f"    {ann.description}")
-        if ann.betterLine:
-            print(f"    Better: {ann.betterLine}")
+        if ann.better_line:
+            print(f"    Better: {ann.better_line}")
         print()
 
     _write_annotations(gz_path, annotations)

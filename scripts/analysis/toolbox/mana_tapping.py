@@ -64,7 +64,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
     for name, model in player_models.items():
         stats[name] = PlayerStats(player=name, model=model)
 
-    events = data.llmEvents
+    events = data.llm_events
 
     for i, e in enumerate(events):
         if e.type != "tool_call":

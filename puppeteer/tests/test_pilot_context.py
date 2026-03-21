@@ -6,20 +6,22 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 
 from puppeteer.pilot import (
+    _build_loop_messages,
+    _mark_tail_cache_breakpoint,
+)
+from puppeteer.pilot_rendering import (
     CONTEXT_RECENT_COUNT,
     CONTEXT_SUMMARY_COUNT,
     RENDER_INTERVAL,
     TOOL_SUMMARY_TRIGGER_CHARS,
-    PilotLoopState,
-    _build_loop_messages,
     _build_reset_message,
     _extract_last_reasoning,
     _find_tool_name,
-    _mark_tail_cache_breakpoint,
-    _render_context,
     _summarize_tool_result,
     _with_cache_control,
+    render_context,
 )
+from puppeteer.pilot_state import PilotLoopState
 
 # ---------------------------------------------------------------------------
 # _summarize_tool_result
@@ -339,7 +341,7 @@ def test_find_tool_name_requires_function_payload():
 
 
 # ---------------------------------------------------------------------------
-# _render_context
+# render_context
 # ---------------------------------------------------------------------------
 
 SYSTEM_PROMPT = "You are a test pilot."
@@ -361,7 +363,7 @@ def _make_history(n: int) -> list[dict]:
 def test_render_short_history():
     """Under threshold: all messages at full fidelity, no state bridge."""
     history = _make_history(5)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
     # system prompt + all 5 history entries
     assert len(messages) == 6
     assert messages[0] == {"role": "system", "content": SYSTEM_PROMPT}
@@ -394,7 +396,7 @@ def test_render_long_history_summarizes_old():
         ),
     )
     assert len(history[10]["content"]) > TOOL_SUMMARY_TRIGGER_CHARS
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
 
     # Should have: system + summarised slice + state bridge + recent slice
     assert messages[0]["role"] == "system"
@@ -420,7 +422,7 @@ def test_render_preserves_recent_full():
     """Last CONTEXT_RECENT_COUNT messages should be at full fidelity."""
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
 
     # The last CONTEXT_RECENT_COUNT messages should match history exactly
     recent_history = history[-CONTEXT_RECENT_COUNT:]
@@ -431,7 +433,7 @@ def test_render_preserves_recent_full():
 def test_render_includes_state_summary():
     """State bridge message should be present after summarised section, before recent."""
     history = _make_history(CONTEXT_RECENT_COUNT + 5)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
     # Find the state bridge by content
     bridge = None
     bridge_idx = None
@@ -449,7 +451,7 @@ def test_render_no_orphaned_tool_results():
     """Every tool message in rendered output should have its assistant pair."""
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
 
     # Check that every tool message has its tool_call_id in a preceding assistant message
     seen_call_ids: set[str] = set()
@@ -473,7 +475,7 @@ def test_render_keeps_tool_results_contiguous():
             _make_tool_msg("call_act", '{"success": true}'),
         ]
     )
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
 
     remaining_call_ids: set[str] = set()
     for msg in messages:
@@ -558,7 +560,7 @@ def test_render_state_bridge_after_summarized():
     """State bridge should appear after summarized section, before recent window."""
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
 
     # Find the state bridge by content
     bridge_idx = None
@@ -585,7 +587,7 @@ async def test_build_loop_messages_matches_fresh_render_after_history_growth():
 
     with patch("puppeteer.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY) as fetch:
         first = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
-        assert first == _render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
+        assert first == render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
 
         state.history.extend(
             [
@@ -598,7 +600,7 @@ async def test_build_loop_messages_matches_fresh_render_after_history_growth():
 
         second = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
 
-    assert second == _render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
+    assert second == render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
     assert fetch.await_count == 1
 
 
@@ -666,7 +668,7 @@ def test_render_cache_control_content_block():
     """With cache_control, system message uses content block array format."""
     history = _make_history(5)
     cc = {"type": "ephemeral"}
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
     sys_msg = messages[0]
     assert sys_msg["role"] == "system"
     assert isinstance(sys_msg["content"], list)
@@ -680,7 +682,7 @@ def test_render_cache_control_content_block():
 def test_render_no_cache_control_plain_string():
     """Without cache_control, system message uses plain string format."""
     history = _make_history(5)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=None)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=None)
     sys_msg = messages[0]
     assert sys_msg["role"] == "system"
     assert sys_msg["content"] == SYSTEM_PROMPT
@@ -690,7 +692,7 @@ def test_render_cache_control_with_no_strategy():
     """cache_control without strategy: system prompt used directly."""
     history = _make_history(5)
     cc = {"type": "ephemeral"}
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
     sys_msg = messages[0]
     assert isinstance(sys_msg["content"], list)
     block = sys_msg["content"][0]
@@ -703,7 +705,7 @@ def test_render_cache_control_on_state_bridge():
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
     cc = {"type": "ephemeral"}
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
 
     # Find the state bridge
     bridge = None
@@ -723,7 +725,7 @@ def test_render_no_cache_on_state_bridge_without_cache_control():
     """Without cache_control, state bridge uses plain string content."""
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=None)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=None)
 
     bridge = None
     for msg in messages:
@@ -738,7 +740,7 @@ def test_render_short_history_no_state_bridge():
     """Short history has no state bridge (and no crash with cache_control)."""
     history = _make_history(5)
     cc = {"type": "ephemeral"}
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
     for msg in messages:
         if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
             raise AssertionError("State bridge should not appear in short history")
@@ -850,7 +852,7 @@ def test_short_history_tail_breakpoint():
     """Short-history path marks the last message with cache_control."""
     history = _make_history(6)  # Well under CONTEXT_RECENT_COUNT
     cc = {"type": "ephemeral"}
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+    messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
 
     # Simulate the short-history tail breakpoint logic from run_pilot_loop
     # (cached_render is None, so tail_idx = len(messages) - 1)

@@ -3,7 +3,6 @@
 import json
 import tempfile
 from pathlib import Path
-from unittest.mock import MagicMock
 
 import pytest
 
@@ -15,6 +14,7 @@ from puppeteer.llm_cost import (
     required_api_key_env,
     write_cost_file,
 )
+from scripts import http_utils
 
 
 def test_default_provider():
@@ -90,10 +90,39 @@ def test_write_cost_file():
 
 
 def test_fetch_openrouter_prices_returns_empty_dict_on_invalid_json(monkeypatch):
-    response = MagicMock()
-    response.__enter__.return_value = response
-    response.__exit__.return_value = None
-    response.read.return_value = b"{not json"
-    monkeypatch.setattr("urllib.request.urlopen", lambda *_args, **_kwargs: response)
+    monkeypatch.setattr(http_utils, "fetch_https_bytes", lambda *_args, **_kwargs: b"{not json")
 
     assert fetch_openrouter_prices() == {}
+
+
+def test_fetch_openrouter_prices_uses_validated_https_fetch(monkeypatch):
+    calls: list[tuple[str, frozenset[str], float | None]] = []
+
+    def fake_fetch(
+        url: str,
+        *,
+        allowed_hosts: set[str] | frozenset[str],
+        timeout: float | None = None,
+        data: bytes | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> bytes:
+        assert data is None
+        assert headers is None
+        calls.append((url, frozenset(allowed_hosts), timeout))
+        return json.dumps(
+            {
+                "data": [
+                    {
+                        "id": "openai/gpt-5",
+                        "pricing": {"prompt": "0.0000015", "completion": "0.0000025"},
+                    }
+                ]
+            }
+        ).encode()
+
+    monkeypatch.setattr(http_utils, "fetch_https_bytes", fake_fetch)
+
+    assert fetch_openrouter_prices() == {"openai/gpt-5": (1.5, 2.5)}
+    assert calls == [
+        ("https://openrouter.ai/api/v1/models", frozenset({"openrouter.ai"}), 10),
+    ]

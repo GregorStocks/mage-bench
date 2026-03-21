@@ -72,7 +72,7 @@ def _collect_card_names(data: BuiltGameExport | GameExport) -> set[str]:
                         if isinstance(name, str) and name:
                             names.add(name)
     # Also from choice names and combat fields in llm events
-    for ev in data.llmEvents:
+    for ev in data.llm_events:
         if ev.type == "tool_call" and ev.tool == "get_action_choices":
             try:
                 result = json.loads(ev.result)
@@ -308,10 +308,10 @@ def _format_current_turn_actions(
 def _game_overview(data: BuiltGameExport | GameExport) -> str:
     lines = [
         f"Game: {data.id}",
-        f"Format: {data.deckType} ({data.gameType})",
+        f"Format: {data.deck_type} ({data.game_type})",
     ]
     for p in data.players:
         lines.append(f"  {p.name} ({p.model or '?'})")
-        if p.deckStrategy:
-            lines.append(f"    Deck: {p.deckStrategy}")
+        if p.deck_strategy:
+            lines.append(f"    Deck: {p.deck_strategy}")
     return "\n".join(lines)

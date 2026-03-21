@@ -12,10 +12,11 @@ Example:
 
 import re
 import sys
-import urllib.request
 from pathlib import Path
 
-from scripts import scryfall
+from scripts import http_utils, scryfall
+
+_MTGGOLDFISH_HOSTS = frozenset({"www.mtggoldfish.com"})
 
 
 def download_deck_text(url: str) -> str:
@@ -24,8 +25,10 @@ def download_deck_text(url: str) -> str:
     assert m, f"Could not extract deck ID from URL: {url}"
     deck_id = m.group(1)
     download_url = f"https://www.mtggoldfish.com/deck/download/{deck_id}"
-    with urllib.request.urlopen(download_url) as resp:
-        body = resp.read()
+    body = http_utils.fetch_https_bytes(
+        download_url,
+        allowed_hosts=_MTGGOLDFISH_HOSTS,
+    )
     assert isinstance(body, bytes), (
         f"MTGGoldfish returned non-bytes response: {type(body).__name__}"
     )

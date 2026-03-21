@@ -131,7 +131,7 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
             continue
         player_models[p.name] = p.model
 
-    events = data.llmEvents
+    events = data.llm_events
     errors: list[ErrorEvent] = []
 
     for i, e in enumerate(events):

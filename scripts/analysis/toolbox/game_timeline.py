@@ -102,7 +102,7 @@ def _find_snapshot_index_for_event(
     snapshots: Sequence[Snapshot], event: LlmEvent
 ) -> int | None:
     """Resolve the snapshot index for an event using the best available coordinate."""
-    game_seq = event.gameSeq
+    game_seq = event.game_seq
     if isinstance(game_seq, int) and not isinstance(game_seq, bool):
         return _find_snapshot_index_by_seq(snapshots, game_seq)
     ts = event.ts
@@ -344,7 +344,7 @@ def print_event(
         tool = event.tool
         args = event.args
         result_str = event.result
-        latency = event.latencyMs or 0
+        latency = event.latency_ms or 0
 
         args_fmt = fmt_args(tool, args)
         result_fmt = fmt_result(
@@ -359,9 +359,9 @@ def print_event(
 
     if event.type == "llm_response":
         reasoning = event.reasoning
-        tool_calls = event.toolCalls
+        tool_calls = event.tool_calls
         usage = event.usage
-        cost = event.costUsd if event.costUsd is not None else 0.0
+        cost = event.cost_usd if event.cost_usd is not None else 0.0
         if not isinstance(tool_calls, list):
             tool_calls = []
 
@@ -371,8 +371,8 @@ def print_event(
         tc_summary = ", ".join(
             str(tc.get("name", "?")) for tc in tool_calls if isinstance(tc, dict)
         )
-        prompt_t = (usage.promptTokens or 0) if usage else 0
-        comp_t = (usage.completionTokens or 0) if usage else 0
+        prompt_t = (usage.prompt_tokens or 0) if usage else 0
+        comp_t = (usage.completion_tokens or 0) if usage else 0
 
         print(
             f"{ts_short} {context:<30} {player:<25} {prefix}LLM -> {tc_summary} (${cost:.4f}, {prompt_t}+{comp_t} tok)"
@@ -388,7 +388,7 @@ def print_event(
         return True
 
     if event.type == "stall":
-        detail = f"turns={event.turnsWithoutProgress or '?'}"
+        detail = f"turns={event.turns_without_progress or '?'}"
         print(f"{ts_short} {context:<30} {player:<25} *** STALL: {detail} ***")
         return True
 
@@ -399,7 +399,7 @@ def print_event(
         return True
 
     if event.type == "llm_error":
-        error_msg = event.errorMessage
+        error_msg = event.error_message
         detail = str(error_msg)[:100] if error_msg is not None else ""
         print(f"{ts_short} {context:<30} {player:<25} *** LLM_ERROR: {detail} ***")
         return True
@@ -430,17 +430,17 @@ def main() -> None:
 
     # Header
     print(f"Game: {data.id}")
-    print(f"Format: {data.deckType} ({data.gameType})")
-    print(f"Turns: {data.totalTurns} | Winner: {data.winner}")
+    print(f"Format: {data.deck_type} ({data.game_type})")
+    print(f"Turns: {data.total_turns} | Winner: {data.winner}")
     for p in data.players:
         model = p.model or "?"
-        deck = p.deckName or "?"
-        cost = p.totalCostUsd or 0
+        deck = p.deck_name or "?"
+        cost = p.total_cost_usd or 0
         print(f"  {p.name} ({model}) — {deck} — ${cost:.2f}")
     print()
 
     snapshots = data.snapshots
-    events = data.llmEvents
+    events = data.llm_events
 
     # Parse turn range filter
     turn_range = None

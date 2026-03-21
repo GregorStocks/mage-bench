@@ -93,18 +93,18 @@ def _build_pilot_decision(data: dict) -> Decision:
     assert message is None or isinstance(message, str), f"message must be a string when present, got {message!r}"
     decision = Decision(
         index=0,
-        snapshotIndex=0,
+        snapshot_index=0,
         player="You",
         turn=0,
         phase="",
-        actionType="" if action_type is None else action_type,
-        responseType="" if response_type is None else response_type,
+        action_type="" if action_type is None else action_type,
+        response_type="" if response_type is None else response_type,
         message="" if message is None else message,
         choices=choices,
-        choiceCount=len(choices),
-        isForced=len(choices) <= 1,
-        llmEventIndices=[],
-        subsequentActions=[],
+        choice_count=len(choices),
+        is_forced=len(choices) <= 1,
+        llm_event_indices=[],
+        subsequent_actions=[],
     )
 
     context_turn, context_phase, _, _ = _parse_context_metadata(data.get("context"))
@@ -134,15 +134,15 @@ def _build_pilot_decision(data: dict) -> Decision:
     if "mana_pool" in data:
         pilot_ctx["manaPool"] = data["mana_pool"]
     if pilot_ctx:
-        decision.pilotContext = PilotContext.from_mapping(pilot_ctx)
+        decision.pilot_context = PilotContext.from_mapping(pilot_ctx)
 
     raw_items = data.get("items")
     if raw_items:
         decision.items = MultiAmountItem.coerce_list(raw_items)
         if "total_min" in data:
-            decision.totalMin = data["total_min"]
+            decision.total_min = data["total_min"]
         if "total_max" in data:
-            decision.totalMax = data["total_max"]
+            decision.total_max = data["total_max"]
 
     return decision
 

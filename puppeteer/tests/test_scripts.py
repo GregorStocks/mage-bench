@@ -3,6 +3,7 @@
 import importlib.util
 import json
 import sys
+import urllib.request
 from contextlib import contextmanager
 from pathlib import Path
 from unittest.mock import MagicMock, call, patch
@@ -10,7 +11,7 @@ from unittest.mock import MagicMock, call, patch
 import pytest
 
 from schemas.game_export_types import ToolCallEvent
-from scripts import scryfall
+from scripts import http_utils, scryfall
 from scripts.json5_utils import dumps_json5
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
@@ -112,6 +113,71 @@ class TestQueryIssues:
 
         out = capsys.readouterr().out.strip()
         assert out == "my-issue: 2\tMy Title"
+
+
+# ===========================================================================
+# http_utils
+# ===========================================================================
+
+
+class TestHttpUtils:
+    def test_fetch_https_bytes_rejects_non_https_scheme(self) -> None:
+        with pytest.raises(AssertionError, match="Expected https URL"):
+            http_utils.fetch_https_bytes(
+                "http://api.scryfall.com/cards/search?q=bolt",
+                allowed_hosts={"api.scryfall.com"},
+            )
+
+    def test_fetch_https_bytes_rejects_unexpected_host(self) -> None:
+        with pytest.raises(AssertionError, match="Unexpected HTTPS host"):
+            http_utils.fetch_https_bytes(
+                "https://example.com/cards/search?q=bolt",
+                allowed_hosts={"api.scryfall.com"},
+            )
+
+    def test_fetch_https_bytes_passes_headers_body_and_timeout(self) -> None:
+        opener = MagicMock()
+        response = MagicMock()
+        response.__enter__.return_value = response
+        response.__exit__.return_value = None
+        response.read.return_value = b"{}"
+        opener.open.return_value = response
+
+        with patch.object(http_utils.urllib.request, "build_opener", return_value=opener):
+            body = http_utils.fetch_https_bytes(
+                "https://api.scryfall.com/cards/search?q=bolt",
+                allowed_hosts={"api.scryfall.com"},
+                data=b"payload",
+                headers={
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                },
+                timeout=3.5,
+            )
+
+        assert body == b"{}"
+        opener.open.assert_called_once()
+        request = opener.open.call_args.args[0]
+        assert isinstance(request, urllib.request.Request)
+        assert request.full_url == "https://api.scryfall.com/cards/search?q=bolt"
+        assert request.data == b"payload"
+        assert request.get_header("Accept") == "application/json"
+        assert request.get_header("Content-type") == "application/json"
+        assert opener.open.call_args.kwargs == {"timeout": 3.5}
+
+    def test_redirect_handler_rejects_unexpected_host(self) -> None:
+        handler = http_utils._ValidatedHttpsRedirectHandler(allowed_hosts=frozenset({"api.scryfall.com"}))
+        req = urllib.request.Request("https://api.scryfall.com/cards/search?q=bolt")
+
+        with pytest.raises(AssertionError, match="Unexpected HTTPS host"):
+            handler.redirect_request(
+                req,
+                None,
+                302,
+                "Found",
+                {},
+                "https://evil.example/cards/search?q=bolt",
+            )
 
 
 # ===========================================================================
@@ -773,6 +839,16 @@ class TestWorktreeSetup:
 
 
 class TestImportDeck:
+    def test_download_deck_text_uses_validated_https_fetch(self) -> None:
+        with patch.object(http_utils, "fetch_https_bytes", return_value=b"4 Lightning Bolt\n") as mock_fetch:
+            deck_text = import_deck.download_deck_text("https://www.mtggoldfish.com/deck/7616949")
+
+        assert deck_text == "4 Lightning Bolt\n"
+        mock_fetch.assert_called_once_with(
+            "https://www.mtggoldfish.com/deck/download/7616949",
+            allowed_hosts=import_deck._MTGGOLDFISH_HOSTS,
+        )
+
     def test_parse_deck_text(self) -> None:
         text = "4 Lightning Bolt\n2 Mountain\n\n1 Pyroblast\n"
         cards = import_deck.parse_deck_text(text)
@@ -844,7 +920,7 @@ class TestImportDeck:
         with (
             patch.object(scryfall, "_cache", {}),
             patch.object(scryfall, "_save_cache"),
-            patch("urllib.request.urlopen", return_value=fake_resp),
+            patch.object(http_utils, "fetch_https_bytes", return_value=fake_resp.read.return_value),
         ):
             resolved = import_deck.resolve_cards(["Wear/Tear", "Lightning Bolt"])
 
@@ -866,24 +942,21 @@ class TestImportDeck:
         }
         call_count = 0
 
-        def fake_urlopen(_req):
+        def fake_fetch(url: str, **_kwargs: object) -> bytes:
             nonlocal call_count
             call_count += 1
-            resp = MagicMock()
-            resp.__enter__ = MagicMock(return_value=resp)
-            resp.__exit__ = MagicMock(return_value=False)
             if call_count == 1:
                 # First call: collection endpoint returns not_found
-                resp.read.return_value = json.dumps(collection_response).encode()
-            else:
-                # Second call: named endpoint returns the card
-                resp.read.return_value = json.dumps(named_response).encode()
-            return resp
+                assert url.startswith("https://api.scryfall.com/cards/collection")
+                return json.dumps(collection_response).encode()
+            assert url.startswith("https://api.scryfall.com/cards/named?")
+            # Second call: named endpoint returns the card
+            return json.dumps(named_response).encode()
 
         with (
             patch.object(scryfall, "_cache", {}),
             patch.object(scryfall, "_save_cache"),
-            patch("urllib.request.urlopen", side_effect=fake_urlopen),
+            patch.object(http_utils, "fetch_https_bytes", side_effect=fake_fetch),
         ):
             resolved = import_deck.resolve_cards(["Wear/Tear"])
 
@@ -1284,6 +1357,35 @@ class TestConcludeTournament:
 
 
 class TestImportMetagame:
+    def test_fetch_archetype_urls_uses_validated_https_fetch(self) -> None:
+        html = """
+            <a href="/archetype/legacy-death-s-shadow">Shadow</a>
+            <a href="/archetype/legacy-sneak-and-show">Sneak</a>
+            <a href="/archetype/legacy-death-s-shadow">Shadow again</a>
+        """
+        with patch.object(http_utils, "fetch_https_text", return_value=html) as mock_fetch:
+            urls = import_metagame.fetch_archetype_urls("legacy", 5)
+
+        assert urls == [
+            "/archetype/legacy-death-s-shadow",
+            "/archetype/legacy-sneak-and-show",
+        ]
+        mock_fetch.assert_called_once_with(
+            "https://www.mtggoldfish.com/metagame/legacy/full#paper",
+            allowed_hosts=import_metagame._MTGGOLDFISH_HOSTS,
+        )
+
+    def test_get_deck_id_uses_validated_https_fetch(self) -> None:
+        html = '<a href="/deck/7616949">Deck</a>'
+        with patch.object(http_utils, "fetch_https_text", return_value=html) as mock_fetch:
+            deck_id = import_metagame.get_deck_id("https://www.mtggoldfish.com/archetype/legacy-death-s-shadow#paper")
+
+        assert deck_id == "7616949"
+        mock_fetch.assert_called_once_with(
+            "https://www.mtggoldfish.com/archetype/legacy-death-s-shadow#paper",
+            allowed_hosts=import_metagame._MTGGOLDFISH_HOSTS,
+        )
+
     def test_clean_archetype_name_uuid(self) -> None:
         assert (
             import_metagame.clean_archetype_name("4c-reanimator-70c5fc5f-0149-4242-8b1c-dd0b72eeb297")

@@ -21,7 +21,7 @@ RENDER_INTERVAL = 5
 _CACHE_BREAKPOINT_MARKER = "All cards listed are playable right now."
 
 
-def _render_for_pilot(
+def render_for_pilot(
     result_text: str,
     last_board: list[dict] | None,
     seen_oracle_cards: set[str] | None = None,
@@ -262,7 +262,7 @@ def _find_cache_breakpoint_idx(messages: list[dict]) -> int:
     return len(messages) - 1
 
 
-def _render_context(
+def render_context(
     history: list[dict],
     system_prompt: str,
     state_summary: str,

@@ -41,7 +41,8 @@ GAME_EXPORT_FILENAME_PATTERN = re.compile(
 
 
 # --- Decision format helpers ---
-# All decisions are now canonical Decision dataclass instances (camelCase).
+# All decisions are now canonical Decision dataclass instances (snake_case attrs,
+# camelCase JSON keys via Decision.__getitem__/get()).
 # DecisionLike is kept as a union so callers passing plain dicts (tests,
 # blunder_experiment.py) continue to work via Decision.__getitem__/get().
 
@@ -68,7 +69,7 @@ def snapshot_index(d: DecisionLike) -> int:
 
 def annotation_decision_index(annotation: Annotation) -> int:
     """Get the canonical decision index for an annotation."""
-    return annotation.decisionIndex
+    return annotation.decision_index
 
 
 def is_forced(d: DecisionLike) -> bool:
