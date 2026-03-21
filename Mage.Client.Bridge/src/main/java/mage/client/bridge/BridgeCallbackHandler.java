@@ -5067,33 +5067,8 @@ public class BridgeCallbackHandler {
 
                 case GAME_TARGET:
                     if (mcpMode) {
-                        // Auto-select when required and only one legal target.
-                        // Fall back to storePendingAction for ordinary auto-select bugs,
-                        // but rethrow delivery failures so actionable callbacks fail fast
-                        // instead of queueing a pending action after playerDead=true.
-                        boolean targetAutoHandled = false;
-                        try {
-                            GameClientMessage targetCallbackMsg = (GameClientMessage) callback.getData();
-                            UUID onlyTarget = selectSingleRequiredTarget(targetCallbackMsg);
-                            if (onlyTarget != null) {
-                                logger.info("[" + client.getUsername() + "] Auto-selecting single mandatory target: " + onlyTarget.toString().substring(0, 8));
-                                // Update game view if available
-                                GameView gv = targetCallbackMsg.getGameView();
-                                updateLastGameView(gv, "auto_target");
-                                sendUuidOrDie(objectId, onlyTarget, "callback:auto_target_single_required");
-                                targetAutoHandled = true;
-                                actionableOutcome.sentResponse("auto GAME_TARGET single_required_target");
-                            }
-                        } catch (ResponseDeliveryException e) {
-                            throw e;
-                        } catch (Exception e) {
-                            logError("Target auto-select exception: " + e.getMessage());
-                            logger.debug("[" + client.getUsername() + "] Target auto-select stack trace", e);
-                        }
-                        if (!targetAutoHandled) {
-                            storePendingAction(objectId, method, callback);
-                            actionableOutcome.storedPendingAction("mcp GAME_TARGET");
-                        }
+                        storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("mcp GAME_TARGET");
                     } else {
                         handleGameTarget(objectId, callback);
                         actionableOutcome.sentResponse("auto GAME_TARGET");

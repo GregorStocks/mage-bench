@@ -1007,7 +1007,7 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void handleCallbackFailsFastWhenAutoTargetDeliveryFailsInMcpMode() throws Exception {
+    void handleCallbackStoresSingleTargetAsPendingActionInMcpMode() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
         handler.setMcpMode(true);
@@ -1016,6 +1016,7 @@ class BridgeCallbackHandlerTest {
         UUID playerId = UUID.randomUUID();
         UUID onlyTarget = UUID.randomUUID();
         AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+        GameView targetView = gameView(33);
 
         client.setSession((Session) Proxy.newProxyInstance(
             Session.class.getClassLoader(),
@@ -1040,7 +1041,7 @@ class BridgeCallbackHandlerTest {
             ClientCallbackMethod.GAME_TARGET,
             gameId,
             new GameClientMessage(
-                gameView(33),
+                targetView,
                 Collections.<String, Serializable>emptyMap(),
                 "Choose a creature to copy",
                 new CardsView(),
@@ -1052,9 +1053,16 @@ class BridgeCallbackHandlerTest {
 
         handler.handleCallback(callback);
 
-        assertThat(sendPlayerUuidCalls.get()).isEqualTo(1);
-        assertThat(getField(handler, "pendingAction")).isNull();
-        assertThat(getField(handler, "playerDead")).isEqualTo(true);
+        PendingAction pendingAction = (PendingAction) getField(handler, "pendingAction");
+        assertThat(sendPlayerUuidCalls.get()).isZero();
+        assertThat(pendingAction).isNotNull();
+        assertThat(pendingAction.gameId()).isEqualTo(gameId);
+        assertThat(pendingAction.method()).isEqualTo(ClientCallbackMethod.GAME_TARGET);
+        assertThat(pendingAction.message()).isEqualTo("Choose a creature to copy");
+        assertThat(pendingAction.gameSeq()).isEqualTo(33);
+        assertThat(((GameClientMessage) pendingAction.data()).getGameView()).isSameAs(targetView);
+        assertThat(getField(handler, "lastGameView")).isSameAs(targetView);
+        assertThat(getField(handler, "playerDead")).isEqualTo(false);
     }
 
     @Test
