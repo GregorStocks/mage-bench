@@ -160,7 +160,7 @@ def analyze_consensus_blunders(
 
             # Check decision index agreement
             all_decs = []
-            for approach, anns in found.items():
+            for anns in found.values():
                 for ann in anns:
                     d = ann.get("decisionIndex")
                     if isinstance(d, int):
@@ -359,7 +359,7 @@ def analyze_decision_accuracy(
     approach_majority: dict[str, int] = defaultdict(int)
     approach_minority: dict[str, int] = defaultdict(int)
 
-    for game_id, decs, details in merge_candidates:
+    for _game_id, decs, details in merge_candidates:
         dec_votes_list: list[int] = []
         for d, info in details.items():
             dec_votes_list.extend([d] * len(info["approaches_that_found"]))

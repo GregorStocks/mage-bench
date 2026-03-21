@@ -34,12 +34,10 @@ def lint_issues(project_root: Path) -> list[str]:
     if not issues_dir.exists():
         return []
 
-    errors = []
-
-    for legacy_issue_file in sorted(issues_dir.glob("*.json")):
-        errors.append(
-            f"{legacy_issue_file.name}: legacy issue file extension; rename to .json5"
-        )
+    errors = [
+        f"{legacy_issue_file.name}: legacy issue file extension; rename to .json5"
+        for legacy_issue_file in sorted(issues_dir.glob("*.json"))
+    ]
 
     for issue_file in iter_issue_files(issues_dir):
         try:
