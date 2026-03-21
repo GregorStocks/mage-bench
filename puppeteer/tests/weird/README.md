@@ -3,4 +3,4 @@
 These tests encode repository conventions that are easy to miss in code
 review and tedious to police manually.
 
-Reference: https://www.jmduke.com/posts/weird-tests-2.html
+Reference: [Weird tests](https://www.jmduke.com/posts/weird-tests-2.html)
