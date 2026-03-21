@@ -85,6 +85,7 @@ Constraints:
 - default to one class per file unless there is a strong reason not to
 - aim for separate top-level areas for the three major pieces:
   listener/callback ingress, processor state/event/command loop, and MCP/tool-facing command/query surface
+- keep `BridgeProcessor` generic infrastructure only; callback-specific dispatch/apply logic should live in separate classes under the processor package
 
 Likely shape:
 
@@ -160,6 +161,7 @@ Instead, it should:
 - validate/decompress callback data
 - build a `BridgeEvent`
 - enqueue it for the processor
+- keep callback dispatch/apply logic in processor-side classes, not in `BridgeCallbackHandler`
 
 The important review constraint for steps 1-2:
 
