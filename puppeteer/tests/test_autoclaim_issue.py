@@ -1,4 +1,4 @@
-"""Tests for scripts/autoclaim-issue.py."""
+"""Tests for scripts/autoclaim_issue.py."""
 
 import importlib.util
 from pathlib import Path
@@ -16,7 +16,7 @@ def _import_script(name: str):
     return mod
 
 
-autoclaim_issue = _import_script("autoclaim-issue")
+autoclaim_issue = _import_script("autoclaim_issue")
 
 
 def test_load_issues_skips_blocked_and_sorts_by_priority(tmp_path: Path) -> None:

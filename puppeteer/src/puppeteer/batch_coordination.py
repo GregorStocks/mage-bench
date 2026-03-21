@@ -13,21 +13,21 @@ from pathlib import Path
 from puppeteer.config import Config
 from puppeteer.deck_choice import resolve_choice_decks
 from puppeteer.game_finalization import (
-    _ensure_game_over_event,
-    _git,
-    _print_game_summary,
-    _write_error_log,
-    _write_game_meta,
+    ensure_game_over_event,
+    print_game_summary,
+    run_git,
+    write_error_log,
+    write_game_meta,
 )
 from puppeteer.game_log import merge_game_log
 from puppeteer.game_processes import (
-    _wait_for_game_start,
-    _wait_for_spectator_table,
     start_gui_client,
     start_observer_client,
     start_pilot_client,
     start_replay_client,
     start_sleepwalker_client,
+    wait_for_game_start,
+    wait_for_spectator_table,
 )
 from puppeteer.log import get_logger
 from puppeteer.post_game_analysis import AnnotationFailure, upload_and_export
@@ -47,7 +47,7 @@ class GameSession:
     pilot_procs: list[tuple[str, subprocess.Popen]] = field(default_factory=list)
 
 
-def _setup_game(
+def setup_game(
     index: int,
     num_games: int,
     base_config: Config,
@@ -99,9 +99,9 @@ def _setup_game(
 
     manifest: dict[str, str | list[str] | int | None] = {
         "timestamp": timestamp,
-        "branch": _git("rev-parse --abbrev-ref HEAD", project_root),
-        "commit": _git("rev-parse HEAD", project_root),
-        "commit_log": _git("log --oneline -10", project_root).splitlines(),
+        "branch": run_git("rev-parse --abbrev-ref HEAD", project_root),
+        "commit": run_git("rev-parse HEAD", project_root),
+        "commit_log": run_git("log --oneline -10", project_root).splitlines(),
         "command": sys.argv,
         "config_file": str(game_config.config_file) if game_config.config_file else None,
     }
@@ -115,7 +115,7 @@ def _setup_game(
 
     resolve_choice_decks(game_config.pilot_players, project_root, game_config.deck_type)
     game_config.resolve_random_decks(project_root)
-    _write_game_meta(game_dir, game_config, project_root)
+    write_game_meta(game_dir, game_config, project_root)
 
     spectator_log = game_dir / "spectator.log"
     logger.info("%sGame logs: %s", game_label, game_dir)
@@ -144,7 +144,7 @@ def _setup_game(
 
     try:
         if bridge_count > 0:
-            _wait_for_spectator_table(spectator_log, spectator_proc, timeout=300)
+            wait_for_spectator_table(spectator_log, spectator_proc, timeout=300)
 
             for sleepwalker_player in game_config.sleepwalker_players:
                 log_path = game_dir / f"{sleepwalker_player.name}_mcp.log"
@@ -180,7 +180,7 @@ def _setup_game(
                 session.pilot_procs.append((replay_player.name, proc))
 
             if batch:
-                _wait_for_game_start(spectator_log, spectator_proc)
+                wait_for_game_start(spectator_log, spectator_proc)
     except (TimeoutError, RuntimeError):
         if spectator_proc.poll() is None:
             spectator_proc.terminate()
@@ -192,7 +192,7 @@ def _setup_game(
     return session
 
 
-def _wait_for_all_games(
+def wait_for_all_games(
     sessions: list[GameSession],
     poll_interval: float = 2.0,
 ) -> dict[int, int]:
@@ -237,7 +237,7 @@ def _wait_for_all_games(
     return results
 
 
-def _finalize_game(
+def finalize_game(
     session: GameSession,
     project_root: Path,
     spectator_rc: int,
@@ -247,15 +247,15 @@ def _finalize_game(
 ) -> tuple[float, float]:
     """Run post-game processing for a single game session."""
     game_label = f"Game {session.index + 1}: " if session.config.num_games > 1 else ""
-    _ensure_game_over_event(session.game_dir, spectator_rc)
-    _write_error_log(session.game_dir)
+    ensure_game_over_event(session.game_dir, spectator_rc)
+    write_error_log(session.game_dir)
     try:
         merge_game_log(session.game_dir)
         logger.info("  %sMerged game log: %s", game_label, session.game_dir / "game.jsonl")
     except (OSError, UnicodeError) as exc:
         logger.warning("  %sFailed to merge game log: %s", game_label, exc)
 
-    pilot_cost = _print_game_summary(session.game_dir)
+    pilot_cost = print_game_summary(session.game_dir)
     if not session.config.skip_post_game_prompts:
         blunder_cost = upload_and_export(
             session.game_dir,

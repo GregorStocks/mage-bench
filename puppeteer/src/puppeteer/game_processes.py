@@ -21,7 +21,7 @@ _SPECTATOR_TABLE_READY = "AI Puppeteer: waiting for"
 _SPECTATOR_GAME_STARTED = "AI Puppeteer: all players joined"
 
 
-def _wait_for_spectator_table(log_path: Path, proc: subprocess.Popen, timeout: int = 300) -> None:
+def wait_for_spectator_table(log_path: Path, proc: subprocess.Popen, timeout: int = 300) -> None:
     """Block until the spectator log indicates the game table is ready."""
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
@@ -35,7 +35,7 @@ def _wait_for_spectator_table(log_path: Path, proc: subprocess.Popen, timeout: i
     raise TimeoutError(f"Spectator did not create a table within {timeout}s — check {log_path}")
 
 
-def _wait_for_game_start(log_path: Path, proc: subprocess.Popen, timeout: int = 600) -> None:
+def wait_for_game_start(log_path: Path, proc: subprocess.Popen, timeout: int = 600) -> None:
     """Block until the spectator log indicates the game started."""
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
@@ -65,7 +65,7 @@ def bring_to_foreground_macos() -> None:
     )
 
 
-def _wait_with_pilot_monitoring(
+def wait_with_pilot_monitoring(
     spectator_proc: subprocess.Popen,
     pilot_procs: list[tuple[str, subprocess.Popen]],
     pm: ProcessManager,

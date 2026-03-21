@@ -10,7 +10,6 @@ import json
 import sys
 from collections.abc import Sequence
 
-from scripts.analysis.blunder_eval_common import load_game_for_annotation
 from schemas.game_export_types import (
     BuiltGameExport,
     CombatGroup,
@@ -22,6 +21,7 @@ from schemas.game_export_types import (
     export_record_field,
     json_default,
 )
+from scripts.analysis.blunder_eval_common import load_game_for_annotation
 
 
 def _record_field(record: object, field: str) -> object | None:

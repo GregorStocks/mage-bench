@@ -1,4 +1,4 @@
-"""Tests for YouTube upload and related orchestrator functions."""
+"""Tests for YouTube upload and related post-game analysis functions."""
 
 import json
 import tempfile
@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
-from puppeteer.orchestrator import _save_youtube_url, _update_website_youtube_url, upload_and_export
+from puppeteer.post_game_analysis import save_youtube_url, update_website_youtube_url, upload_and_export
 from scripts.export_game import GameExportError, export_game
 from scripts.upload_youtube import (
     YouTubeUploadError,
@@ -127,7 +127,7 @@ def test_save_youtube_url():
         meta = {"timestamp": "20260210_120000", "players": []}
         (game_dir / "game_meta.json").write_text(json.dumps(meta))
 
-        _save_youtube_url(game_dir, "https://youtu.be/abc123")
+        save_youtube_url(game_dir, "https://youtu.be/abc123")
 
         updated = json.loads((game_dir / "game_meta.json").read_text())
         assert updated["youtube_url"] == "https://youtu.be/abc123"
@@ -138,7 +138,7 @@ def test_save_youtube_url_no_meta():
     """Should do nothing if game_meta.json doesn't exist."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        _save_youtube_url(game_dir, "https://youtu.be/abc123")
+        save_youtube_url(game_dir, "https://youtu.be/abc123")
         assert not (game_dir / "game_meta.json").exists()
 
 
@@ -158,7 +158,7 @@ def test_update_website_youtube_url_patches_game_json():
         index_data = [{"id": game_id, "totalTurns": 10}]
         (games_dir / "index.json").write_text(json.dumps(index_data))
 
-        _update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
+        update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
 
         updated_game = json.loads((games_dir / f"{game_id}.json").read_text())
         assert updated_game["youtubeUrl"] == "https://youtu.be/xyz"
@@ -173,7 +173,7 @@ def test_update_website_youtube_url_no_files():
         project_root = Path(tmpdir)
         game_dir = Path(tmpdir) / "game_20260210_120000"
         # Should not raise
-        _update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
+        update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
 
 
 def test_export_game_wraps_operational_errors():

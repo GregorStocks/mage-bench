@@ -5,8 +5,8 @@ Merges origin/master first, then either claims the named issue or picks the
 highest-priority unclaimed non-blocked issue.
 
 Usage:
-    autoclaim-issue.py                  Auto-pick highest priority issue
-    autoclaim-issue.py <issue-name>     Claim a specific issue (bypasses blocked)
+    autoclaim_issue.py                  Auto-pick highest priority issue
+    autoclaim_issue.py <issue-name>     Claim a specific issue (bypasses blocked)
 
 Exit codes:
     0  Claimed successfully (prints issue filename and PR number)
@@ -74,7 +74,7 @@ def claim(issue_stem: str) -> bool:
     Raises SystemExit on bad input (exit code 2) — no point retrying.
     """
     result = subprocess.run(
-        ["uv", "run", "python", "scripts/claim-issue.py", issue_stem],
+        ["uv", "run", "python", "scripts/claim_issue.py", issue_stem],
     )
     if result.returncode == 2:
         sys.exit(2)

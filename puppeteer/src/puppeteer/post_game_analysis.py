@@ -22,7 +22,7 @@ from scripts.upload_youtube import upload_to_youtube as _upload_to_youtube
 logger = get_logger("puppeteer.orchestrator")
 
 
-def _save_youtube_url(game_dir: Path, url: str) -> None:
+def save_youtube_url(game_dir: Path, url: str) -> None:
     """Save a YouTube URL to game_meta.json if it exists."""
     meta_path = game_dir / "game_meta.json"
     if meta_path.exists():
@@ -31,7 +31,7 @@ def _save_youtube_url(game_dir: Path, url: str) -> None:
         meta_path.write_text(json.dumps(meta, indent=2) + "\n")
 
 
-def _update_website_youtube_url(game_dir: Path, url: str, project_root: Path) -> None:
+def update_website_youtube_url(game_dir: Path, url: str, project_root: Path) -> None:
     """Patch a YouTube URL into exported website data if it already exists."""
     game_id = game_dir.name
     website_games_dir = project_root / "website" / "public" / "games"
@@ -138,8 +138,8 @@ def upload_and_export(
             url = _upload_to_youtube(game_dir)
             if url:
                 logger.info("  YouTube: %s", url)
-                _save_youtube_url(game_dir, url)
-                _update_website_youtube_url(game_dir, url, project_root)
+                save_youtube_url(game_dir, url)
+                update_website_youtube_url(game_dir, url, project_root)
         except (YouTubeUploadError, OSError, json.JSONDecodeError) as exc:
             logger.warning("  YouTube upload failed: %s", exc)
             if post_game_failures is not None:

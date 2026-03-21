@@ -2,10 +2,10 @@
 """Query issues from the issues/ directory.
 
 Usage:
-    query-issues.py                          # list all with priority
-    query-issues.py --label headless-client   # filter by label
-    query-issues.py --max-priority 2          # P1 and P2 only
-    query-issues.py --search "streaming"      # search titles and descriptions
+    query_issues.py                          # list all with priority
+    query_issues.py --label headless-client   # filter by label
+    query_issues.py --max-priority 2          # P1 and P2 only
+    query_issues.py --search "streaming"      # search titles and descriptions
 """
 
 import argparse

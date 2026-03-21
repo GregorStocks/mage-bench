@@ -25,7 +25,7 @@ def main() -> None:
 
     print("Installing cloud environment dependencies...")
 
-    # Ensure scratch directory exists (needed before worktree-setup.py runs)
+    # Ensure scratch directory exists (needed before worktree_setup.py runs)
     (PROJECT_ROOT / "tmp").mkdir(exist_ok=True)
 
     # Maven (needed for make build / make regen-golden)
@@ -34,7 +34,7 @@ def main() -> None:
         run(["sudo", "apt-get", "update", "-qq"])
         run(["sudo", "apt-get", "install", "-y", "-qq", "maven"])
 
-    # GitHub CLI (needed for claim-issue.py)
+    # GitHub CLI (needed for claim_issue.py)
     if not shutil.which("gh"):
         print("Installing GitHub CLI...")
         gh_archive = f"gh_{GH_VERSION}_linux_amd64.tar.gz"
@@ -64,7 +64,7 @@ def main() -> None:
             shutil.rmtree(gh_extracted)
 
     # Run workspace setup (creates tmp/, symlinks, .env, etc.)
-    run(["uv", "run", "python", "scripts/worktree-setup.py"], cwd=PROJECT_ROOT)
+    run(["uv", "run", "python", "scripts/worktree_setup.py"], cwd=PROJECT_ROOT)
 
     # Mark as done so subsequent sessions are instant.
     MARKER.touch()

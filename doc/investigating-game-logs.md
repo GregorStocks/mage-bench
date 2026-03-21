@@ -22,7 +22,7 @@ ls -dt ~/.mage-bench/logs/game_* | head -5
 
 ## Bootstrap notes
 
-`game-gz-bootstrap.py` is useful for a quick overview:
+`game_gz_bootstrap.py` is useful for a quick overview:
 
 - it auto-exports missing games from `~/.mage-bench/logs`
 - it only counts structured tool error payloads as failed calls

@@ -4,8 +4,8 @@ Provides data structures, I/O, and matching logic used by the seed,
 audit, baseline, eval, and promote scripts.
 """
 
-import json
 import gzip
+import json
 import re
 import tempfile
 from collections.abc import Mapping, Sequence

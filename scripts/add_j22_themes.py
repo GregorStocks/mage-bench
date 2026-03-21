@@ -6,7 +6,7 @@ then appends all 46 J22 themes (124 half-deck variants) to the jumpstart
 text files used by the deck generation script.
 
 Usage:
-    uv run python scripts/add-j22-themes.py
+    uv run python scripts/add_j22_themes.py
 """
 
 from __future__ import annotations
