@@ -18,6 +18,7 @@ import mage.remote.Session;
 import mage.util.MultiAmountMessage;
 import mage.util.ShortIdRegistry;
 import mage.util.SubTypes;
+import mage.view.AbilityPickerView;
 import mage.view.CardView;
 import mage.view.CardsView;
 import mage.view.GameClientMessage;
@@ -840,6 +841,97 @@ class BridgeCallbackHandlerTest {
         assertThat(result.action_taken).isEqualTo("yes");
         assertThat(result.warning).isNull();
         assertThat(result.game_seq).isEqualTo(12);
+        assertThat(result.action_pending).isTrue();
+        assertThat(result.action_type).isEqualTo("GAME_SELECT");
+        assertThat(result.response_type).isEqualTo("boolean");
+        assertThat(result.message).isEqualTo("Play spells and abilities");
+    }
+
+    @Test
+    void chooseActionWaitsThroughMultipleAutoResolvedFollowups() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID onlyTarget = UUID.randomUUID();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+
+        GameView askView = gameView(20);
+        GameView targetView = gameView(21);
+        GameView abilityView = gameView(22);
+        GameView nextDecisionView = gameView(23);
+        GameClientMessage targetMessage = new GameClientMessage(
+            targetView,
+            Collections.<String, Serializable>emptyMap(),
+            "Choose a creature to copy",
+            new CardsView(),
+            Set.of(onlyTarget),
+            true
+        );
+        AbilityPickerView emptyAbilityPicker = new AbilityPickerView(
+            abilityView,
+            new LinkedHashMap<>(),
+            "Choose spell or ability"
+        );
+        GameClientMessage nextDecisionMessage = new GameClientMessage(
+            nextDecisionView,
+            Collections.<String, Serializable>emptyMap(),
+            "Play spells and abilities"
+        );
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", askView);
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(true);
+                        enqueueCallback(handler, ClientCallbackMethod.GAME_TARGET, gameId, targetMessage);
+                        return true;
+                    }
+                    case "sendPlayerUUID" -> {
+                        sendPlayerUuidCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        if (sendPlayerUuidCalls.get() == 1) {
+                            assertThat(args[1]).isEqualTo(onlyTarget);
+                            enqueueCallback(handler, ClientCallbackMethod.GAME_CHOOSE_ABILITY, gameId, emptyAbilityPicker);
+                        } else {
+                            assertThat(sendPlayerUuidCalls.get()).isEqualTo(2);
+                            assertThat(args[1]).isNull();
+                            enqueueCallback(handler, ClientCallbackMethod.GAME_SELECT, gameId, nextDecisionMessage);
+                        }
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_ASK,
+            new GameClientMessage(askView, Collections.<String, Serializable>emptyMap(), "Use effect of Clone?"),
+            "Use effect of Clone?",
+            20
+        ));
+
+        var result = handler.chooseAction(
+            null, null, true, null, null, null, null, null, null, null, null
+        );
+
+        assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+        assertThat(sendPlayerUuidCalls.get()).isEqualTo(2);
+        assertThat(result.success).isTrue();
+        assertThat(result.action_taken).isEqualTo("yes");
+        assertThat(result.game_seq).isEqualTo(23);
         assertThat(result.action_pending).isTrue();
         assertThat(result.action_type).isEqualTo("GAME_SELECT");
         assertThat(result.response_type).isEqualTo("boolean");
