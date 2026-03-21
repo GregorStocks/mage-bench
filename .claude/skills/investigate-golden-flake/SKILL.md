@@ -52,6 +52,8 @@ Identify from the logs:
 
 Golden flakes fall into a few known categories. Match the diff against these patterns:
 
+- **Deterministic prompt text drift**: If the diff is only wording/punctuation in prompt `content` fields and reproduces locally every time, check recent Python prompt-rendering changes first. Refactors that "only" touch strings (for example swapping an em dash for a hyphen in a chat reminder) can break prompt goldens without any Java race.
+
 ### Race conditions (timing-dependent)
 
 - **`game_seq` drift**: Same payload, different `game_seq` values. Caused by `lastGameView` being updated from asynchronous `gameUpdate` callbacks instead of the authoritative callback. Look at `updateLastGameView()` call sites in `BridgeCallbackHandler.java`.
