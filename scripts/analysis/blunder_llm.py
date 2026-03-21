@@ -2,6 +2,7 @@
 
 import json
 import re
+import time
 from typing import Any
 
 from openai import OpenAI, OpenAIError
@@ -34,8 +35,6 @@ def _call_llm(
 
     Returns (text, prompt_tokens, completion_tokens, cached_tokens).
     """
-    import time
-
     for attempt in range(retries + 1):
         # cache_control is an OpenRouter/Anthropic vendor extension
         # not in OpenAI's type stubs — typed as Any to bypass
