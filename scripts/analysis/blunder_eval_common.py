@@ -268,7 +268,7 @@ def game_path_for_id(game_id: str) -> Path:
     for export_path in glob_game_export_paths(GAMES_DIR):
         if export_path.name in expected_names:
             return export_path
-    assert False, f"Game file not found for {game_id!r}"
+    raise AssertionError(f"Game file not found for {game_id!r}")
 
 
 def _gt_path(game_id: str) -> Path:
@@ -418,7 +418,9 @@ def reverse_map_annotations(
             f"decision player must be a string, got {decision_player_raw!r}"
         )
         assert decision_player_raw == ann.player, (
-            f"annotation player {ann.player!r} does not match decision {direct_decision_idx} player {decision_player_raw!r}"
+            "annotation player "
+            f"{ann.player!r} does not match decision {direct_decision_idx} "
+            f"player {decision_player_raw!r}"
         )
         result[ann_idx] = direct_decision_idx
 

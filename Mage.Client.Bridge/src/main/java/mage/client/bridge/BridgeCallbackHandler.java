@@ -793,6 +793,10 @@ public class BridgeCallbackHandler {
     }
 
     public Map<String, Object> executeDefaultAction() {
+        return processor.submit(BridgeCommand.of(this::executeDefaultActionImpl));
+    }
+
+    private Map<String, Object> executeDefaultActionImpl() {
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
         if (action == null) {
@@ -926,6 +930,11 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     public ActionResult getActionChoices(Long boardCursorParam) {
+        return processor.submit(BridgeCommand.of(() -> getActionChoicesImpl(boardCursorParam)));
+    }
+
+    @SuppressWarnings("unchecked")
+    private ActionResult getActionChoicesImpl(Long boardCursorParam) {
         PendingAction action = pendingAction;
         ActionResult result = buildActionChoices(action, boardCursorParam, true);
         if (action == null) {
@@ -1996,6 +2005,22 @@ public class BridgeCallbackHandler {
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
     public ChooseActionTool.Result chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
+        return processor.submit(BridgeCommand.of(() -> chooseActionImpl(
+            index,
+            id,
+            answer,
+            amount,
+            amounts,
+            pile,
+            text,
+            manaPlanArray,
+            autoTap,
+            attackers,
+            blockersArray
+        )));
+    }
+
+    private ChooseActionTool.Result chooseActionImpl(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
         interactionsThisTurn++;
         var result = new ChooseActionTool.Result();
         // Local copies of parameters that may be nulled/reassigned during validation
@@ -2580,6 +2605,32 @@ public class BridgeCallbackHandler {
     // ── Batch combat ──────────────────────────────────────────────────────
 
     /**
+     * Transitional step-3 behavior: some MCP commands still block on the
+     * processor thread while waiting for later callbacks. In that state we must
+     * keep pumping callback events instead of sleeping on actionLock, otherwise
+     * the processor deadlocks waiting on the very callbacks it is supposed to
+     * consume.
+     *
+     * TODO: Remove this once pass/choose flows become split-phase processor
+     * requests that suspend via processor-owned state and future completion
+     * rather than monopolizing the processor thread.
+     */
+    private boolean waitForCallbackProgress(long timeoutMs) {
+        if (processor.isProcessorThread()) {
+            return processor.processNextCallback(timeoutMs);
+        }
+        synchronized (actionLock) {
+            try {
+                actionLock.wait(timeoutMs);
+                return true;
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return false;
+            }
+        }
+    }
+
+    /**
      * Block indefinitely until a pending action arrives or the game ends.
      * Shared by choose_action (initial + post-action waits) and batch combat.
      */
@@ -2588,13 +2639,8 @@ public class BridgeCallbackHandler {
             if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 break;
             }
-            synchronized (actionLock) {
-                try {
-                    actionLock.wait(200);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
+            if (!waitForCallbackProgress(200) && Thread.currentThread().isInterrupted()) {
+                break;
             }
         }
         return pendingAction;
@@ -2656,13 +2702,8 @@ public class BridgeCallbackHandler {
                 logger.warn("[" + client.getUsername() + "] waitForNextCallback: timed out after 10s");
                 return null;
             }
-            synchronized (actionLock) {
-                try {
-                    actionLock.wait(200);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return null;
-                }
+            if (!waitForCallbackProgress(200) && Thread.currentThread().isInterrupted()) {
+                return null;
             }
         }
     }
@@ -3282,6 +3323,10 @@ public class BridgeCallbackHandler {
      * Send a chat message. Returns null on success, or an error string on failure.
      */
     public String sendChatMessage(String message) {
+        return processor.submit(BridgeCommand.of(() -> sendChatMessageImpl(message)));
+    }
+
+    private String sendChatMessageImpl(String message) {
         UUID gameId = currentGameId;
         if (gameId == null) {
             logger.warn("[" + client.getUsername() + "] Cannot send chat: no active game");
@@ -3492,16 +3537,18 @@ public class BridgeCallbackHandler {
      * immediately without a separate round-trip.
      */
     public ActionResult passPriority(String until, Long boardCursorParam) {
-        try {
-            return passPriorityImpl(until, boardCursorParam);
-        } catch (ResponseDeliveryException e) {
-            var result = new ActionResult();
-            result.action_pending = false;
-            result.stop_reason = "game_over";
-            result.error = e.getMessage();
-            attachUnseenChat(result);
-            return result;
-        }
+        return processor.submit(BridgeCommand.of(() -> {
+            try {
+                return passPriorityImpl(until, boardCursorParam);
+            } catch (ResponseDeliveryException e) {
+                var result = new ActionResult();
+                result.action_pending = false;
+                result.stop_reason = "game_over";
+                result.error = e.getMessage();
+                attachUnseenChat(result);
+                return result;
+            }
+        }));
     }
 
     private ActionResult passPriorityImpl(String until, Long boardCursorParam) {
@@ -3871,13 +3918,8 @@ public class BridgeCallbackHandler {
                 // Continue waiting for the server to send us the next callback
             }
 
-            synchronized (actionLock) {
-                try {
-                    actionLock.wait(200);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
+            if (!waitForCallbackProgress(200) && Thread.currentThread().isInterrupted()) {
+                break;
             }
             waitLoops++;
 
@@ -3955,6 +3997,10 @@ public class BridgeCallbackHandler {
 
 
     public GetGameStateTool.Result getGameState(Long cursor) {
+        return processor.submit(BridgeCommand.of(() -> getGameStateWithCursorImpl(cursor)));
+    }
+
+    private GetGameStateTool.Result getGameStateWithCursorImpl(Long cursor) {
         GetGameStateTool.Result fullState = getGameState();
         if (!Boolean.TRUE.equals(fullState.available)) {
             return fullState;
@@ -3972,6 +4018,10 @@ public class BridgeCallbackHandler {
     }
 
     public GetGameStateTool.Result getGameState() {
+        return processor.submit(BridgeCommand.of(this::getGameStateImpl));
+    }
+
+    private GetGameStateTool.Result getGameStateImpl() {
         var state = new GetGameStateTool.Result();
         GameView gameView = lastGameView;
         if (gameView == null) {
