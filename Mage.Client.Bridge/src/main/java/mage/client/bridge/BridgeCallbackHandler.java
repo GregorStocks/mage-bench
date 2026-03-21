@@ -3355,10 +3355,6 @@ public class BridgeCallbackHandler {
      * and unable to join the next table — causing a bridge_join timeout flake.
      */
     public boolean concede() {
-        return processor.submit(BridgeCommand.of(this::concedeImpl));
-    }
-
-    private boolean concedeImpl() {
         UUID gameId = currentGameId;
         if (gameId == null) {
             logger.warn("[" + client.getUsername() + "] Cannot concede: no active game");
@@ -3372,23 +3368,22 @@ public class BridgeCallbackHandler {
         }
         logger.info("[" + client.getUsername() + "] Conceding game " + gameId);
         session.sendPlayerAction(PlayerAction.CONCEDE, gameId, null);
-        // In keepAlive mode, keep pumping callbacks until the same
-        // gameFinishedLatch signal the old code awaited fires, otherwise the
-        // processor thread can deadlock waiting on the callback it needs to
-        // consume itself.
+        // In keepAlive mode, wait for the server to end the game before returning.
+        // handleGameOver fires gameFinishedLatch when the server confirms the game ended.
         if (keepAliveAfterGame) {
-            long deadlineMs = System.currentTimeMillis() + (KEEPALIVE_CONCEDE_WAIT_SECONDS * 1000);
-            while (gameFinishedLatch.getCount() > 0 && client.isRunning()) {
-                if (System.currentTimeMillis() >= deadlineMs) {
+            try {
+                boolean finished = gameFinishedLatch.await(
+                    KEEPALIVE_CONCEDE_WAIT_SECONDS,
+                    java.util.concurrent.TimeUnit.SECONDS
+                );
+                if (!finished) {
                     logger.warn(
                         "[" + client.getUsername() + "] Concede sent but GAME_OVER not received within "
                             + KEEPALIVE_CONCEDE_WAIT_SECONDS + "s"
                     );
-                    break;
                 }
-                if (!waitForCallbackProgress(200) && Thread.currentThread().isInterrupted()) {
-                    break;
-                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         }
         return true;
