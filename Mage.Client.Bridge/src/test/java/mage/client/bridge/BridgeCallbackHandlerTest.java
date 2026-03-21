@@ -3,7 +3,6 @@ package mage.client.bridge;
 import mage.cards.repository.CardInfo;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
-import mage.client.bridge.tools.ChooseActionTool;
 import mage.client.bridge.tools.GetOracleTextTool;
 import mage.constants.CardType;
 import mage.game.BridgeLogEntry;
@@ -1066,7 +1065,6 @@ class BridgeCallbackHandlerTest {
         assertThat(pendingAction.message()).isEqualTo("Choose a creature to copy");
         assertThat(pendingAction.gameSeq()).isEqualTo(33);
         assertThat(((GameClientMessage) pendingAction.data()).getGameView()).isSameAs(targetView);
-        assertThat(getField(handler, "pendingActionReady")).isEqualTo(true);
         assertThat(getField(handler, "lastGameView")).isSameAs(targetView);
         assertThat(getField(handler, "playerDead")).isEqualTo(false);
     }
@@ -1167,67 +1165,6 @@ class BridgeCallbackHandlerTest {
         assertThat(pending.method()).isEqualTo(ClientCallbackMethod.GAME_PLAY_MANA);
         assertThat(pending.message()).isEqualTo("Pay {1}");
         assertThat(pending.gameSeq()).isEqualTo(77);
-        assertThat(getField(handler, "pendingActionReady")).isEqualTo(true);
-    }
-
-    @Test
-    void chooseActionWaitsForReadyPendingActionInMcpMode() throws Exception {
-        BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        BridgeCallbackHandler handler = client.getCallbackHandler();
-        handler.setMcpMode(true);
-
-        UUID gameId = UUID.randomUUID();
-        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
-        CountDownLatch sentResponse = new CountDownLatch(1);
-
-        client.setSession((Session) Proxy.newProxyInstance(
-            Session.class.getClassLoader(),
-            new Class<?>[]{Session.class},
-            (proxy, method, args) -> {
-                if ("sendPlayerBoolean".equals(method.getName())) {
-                    sendPlayerBooleanCalls.incrementAndGet();
-                    assertThat(args[0]).isEqualTo(gameId);
-                    assertThat(args[1]).isEqualTo(false);
-                    setField(handler, "playerDead", true);
-                    sentResponse.countDown();
-                    notifyActionLock(handler);
-                    return true;
-                }
-                return defaultReturnValue(method.getReturnType());
-            }
-        ));
-
-        PendingAction action = new PendingAction(
-            gameId,
-            ClientCallbackMethod.GAME_ASK,
-            new GameClientMessage(gameView(70), Collections.<String, Serializable>emptyMap(), "Decline trigger?"),
-            "Decline trigger?",
-            70
-        );
-        setField(handler, "pendingAction", action);
-        setField(handler, "pendingActionReady", false);
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        try {
-            Future<ChooseActionTool.Result> future = executor.submit(() -> handler.chooseAction(
-                null, null, false, null, null, null, null, null, null, null, null
-            ));
-
-            assertThat(sentResponse.await(200, TimeUnit.MILLISECONDS)).isFalse();
-            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
-                .isInstanceOf(TimeoutException.class);
-
-            setField(handler, "pendingActionReady", true);
-            notifyActionLock(handler);
-
-            ChooseActionTool.Result result = future.get(1, TimeUnit.SECONDS);
-            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
-            assertThat(result.success).isTrue();
-            assertThat(result.action_taken).isEqualTo("no");
-        } finally {
-            executor.shutdownNow();
-            executor.awaitTermination(1, TimeUnit.SECONDS);
-        }
     }
 
     @Test
@@ -1274,7 +1211,7 @@ class BridgeCallbackHandlerTest {
             "Pay {G}",
             60
         );
-        setReadyPendingAction(handler, action);
+        setField(handler, "pendingAction", action);
 
         assertThat(invokeDecisionBoundaryStatus(handler, action, "test"))
             .isEqualTo("AUTO_HANDLED");
@@ -1329,7 +1266,7 @@ class BridgeCallbackHandlerTest {
         );
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", manaView);
-        setReadyPendingAction(handler, action);
+        setField(handler, "pendingAction", action);
 
         ActionResult result = handler.passPriority(null, null);
 
@@ -1667,11 +1604,6 @@ class BridgeCallbackHandlerTest {
         synchronized (actionLock) {
             actionLock.notifyAll();
         }
-    }
-
-    private static void setReadyPendingAction(BridgeCallbackHandler handler, PendingAction action) throws Exception {
-        setField(handler, "pendingAction", action);
-        setField(handler, "pendingActionReady", true);
     }
 
     private static Object getField(Object target, String name) throws Exception {

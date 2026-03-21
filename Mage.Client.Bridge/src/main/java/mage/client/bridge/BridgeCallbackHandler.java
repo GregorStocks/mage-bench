@@ -115,9 +115,6 @@ public class BridgeCallbackHandler {
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
     private volatile PendingAction pendingAction = null;
-    // In MCP mode, callback threads publish the callback first and only make it
-    // visible to tool threads after handleCallback finishes processing it.
-    private volatile boolean pendingActionReady = false;
     private final Object actionLock = new Object(); // For wait_for_action blocking
     private volatile UUID currentGameId = null;
     private volatile UUID currentPlayerId = null; // retained after GAME_OVER for postgame fetches
@@ -663,7 +660,6 @@ public class BridgeCallbackHandler {
         activeGames.clear();
         gameChatIds.clear();
         pendingAction = null;
-        pendingActionReady = false;
         currentGameId = null;
         currentPlayerId = null;
         gameEverStarted = false;
@@ -688,12 +684,12 @@ public class BridgeCallbackHandler {
     // MCP mode methods
 
     public boolean isActionPending() {
-        return currentReadyPendingAction() != null;
+        return pendingAction != null;
     }
 
     public Map<String, Object> executeDefaultAction() {
         var result = new HashMap<String, Object>();
-        PendingAction action = currentReadyPendingAction();
+        PendingAction action = pendingAction;
         if (action == null) {
             result.put("success", false);
             result.put("error", "No pending action");
@@ -704,7 +700,7 @@ public class BridgeCallbackHandler {
         // Clear pending action only if it hasn't been overwritten by a new callback.
         synchronized (actionLock) {
             if (pendingAction == action) {
-                clearPendingActionLocked();
+                pendingAction = null;
             }
         }
 
@@ -1567,40 +1563,10 @@ public class BridgeCallbackHandler {
         return result;
     }
 
-    private void clearPendingActionLocked() {
-        pendingAction = null;
-        pendingActionReady = false;
-    }
-
-    private void restorePendingActionLocked(PendingAction action) {
-        pendingAction = action;
-        pendingActionReady = true;
-    }
-
-    private PendingAction currentReadyPendingAction() {
-        PendingAction action = pendingAction;
-        if (action == null) {
-            return null;
-        }
-        if (!mcpMode || pendingActionReady) {
-            return action;
-        }
-        return null;
-    }
-
-    private void markPendingActionReady(PendingAction action) {
-        synchronized (actionLock) {
-            if (pendingAction == action) {
-                pendingActionReady = true;
-                actionLock.notifyAll();
-            }
-        }
-    }
-
     private boolean clearPendingActionIfCurrent(PendingAction action) {
         synchronized (actionLock) {
             if (pendingAction == action) {
-                clearPendingActionLocked();
+                pendingAction = null;
                 return true;
             }
         }
@@ -1707,7 +1673,7 @@ public class BridgeCallbackHandler {
 
         synchronized (actionLock) {
             if (pendingAction == null) {
-                restorePendingActionLocked(action);
+                pendingAction = action;
             }
         }
         return pendingAction != action
@@ -1850,13 +1816,7 @@ public class BridgeCallbackHandler {
         result.error = message;
         result.error_code = errorCode;
         result.retryable = retryable;
-        synchronized (actionLock) {
-            if (action == null) {
-                clearPendingActionLocked();
-            } else {
-                restorePendingActionLocked(action);
-            }
-        }
+        pendingAction = action;
         if (attachChoices) {
             attachChoicesToError(result);
         }
@@ -1938,7 +1898,7 @@ public class BridgeCallbackHandler {
         String[] effectiveAttackers = attackers;
         String[] effectiveBlockers = blockersArray;
         String[] effectiveManaPlan = manaPlanArray;
-        PendingAction action = currentReadyPendingAction();
+        PendingAction action = pendingAction;
         if (action != null) {
             result.game_seq = action.gameSeq();
         }
@@ -2080,7 +2040,7 @@ public class BridgeCallbackHandler {
         // Without this CAS, a callback arriving between our read and this write would be lost.
         synchronized (actionLock) {
             if (pendingAction == action) {
-                clearPendingActionLocked();
+                pendingAction = null;
             }
         }
 
@@ -2519,7 +2479,7 @@ public class BridgeCallbackHandler {
      * Shared by choose_action (initial + post-action waits) and batch combat.
      */
     private PendingAction awaitPendingAction() {
-        while (currentReadyPendingAction() == null) {
+        while (pendingAction == null) {
             if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 break;
             }
@@ -2532,7 +2492,7 @@ public class BridgeCallbackHandler {
                 }
             }
         }
-        return currentReadyPendingAction();
+        return pendingAction;
     }
 
     /**
@@ -2560,7 +2520,7 @@ public class BridgeCallbackHandler {
      */
     private PendingAction currentDecisionAction() {
         while (true) {
-            PendingAction action = currentReadyPendingAction();
+            PendingAction action = pendingAction;
             if (action == null) {
                 return null;
             }
@@ -2580,7 +2540,7 @@ public class BridgeCallbackHandler {
     private PendingAction waitForNextCallback() {
         long waitStart = System.currentTimeMillis();
         while (true) {
-            PendingAction next = currentReadyPendingAction();
+            PendingAction next = pendingAction;
             if (next != null) {
                 return next;
             }
@@ -2631,7 +2591,7 @@ public class BridgeCallbackHandler {
         if (attackerIds.length == 1 && "all".equals(attackerIds[0])) {
             synchronized (actionLock) {
                 if (pendingAction == action) {
-                    clearPendingActionLocked();
+                    pendingAction = null;
                 }
             }
             sendStringOrDie(gameId, "special", "batchAttack:all");
@@ -2640,7 +2600,7 @@ public class BridgeCallbackHandler {
             if (next != null && next.method() == ClientCallbackMethod.GAME_SELECT) {
                 synchronized (actionLock) {
                     if (pendingAction == next) {
-                        clearPendingActionLocked();
+                        pendingAction = null;
                     }
                 }
                 sendBooleanOrDie(gameId, true, "batchAttack:confirm_all");
@@ -2677,7 +2637,7 @@ public class BridgeCallbackHandler {
             // Clear pending action and send the attacker UUID
             synchronized (actionLock) {
                 if (pendingAction != null) {
-                    clearPendingActionLocked();
+                    pendingAction = null;
                 }
             }
             sendUuidOrDie(gameId, attackerUuid, "batchAttack:declare_attacker");
@@ -2707,7 +2667,7 @@ public class BridgeCallbackHandler {
         if (!Boolean.TRUE.equals(result.interrupted)) {
             synchronized (actionLock) {
                 if (pendingAction != null) {
-                    clearPendingActionLocked();
+                    pendingAction = null;
                 }
             }
             sendBooleanOrDie(gameId, true, "batchAttack:confirm");
@@ -2789,7 +2749,7 @@ public class BridgeCallbackHandler {
             // Clear pending action and send the blocker UUID
             synchronized (actionLock) {
                 if (pendingAction != null) {
-                    clearPendingActionLocked();
+                    pendingAction = null;
                 }
             }
             sendUuidOrDie(gameId, blockerUuid, "batchBlock:declare_blocker");
@@ -2812,7 +2772,7 @@ public class BridgeCallbackHandler {
                     // Cancel the target selection
                     synchronized (actionLock) {
                         if (pendingAction == next) {
-                            clearPendingActionLocked();
+                            pendingAction = null;
                         }
                     }
                     sendBooleanOrDie(gameId, false, "batchBlock:cancel_unknown_attacker");
@@ -2832,7 +2792,7 @@ public class BridgeCallbackHandler {
                         "attacker " + attackerShortId + " is not a valid block target"));
                     synchronized (actionLock) {
                         if (pendingAction == next) {
-                            clearPendingActionLocked();
+                            pendingAction = null;
                         }
                     }
                     sendBooleanOrDie(gameId, false, "batchBlock:cancel_invalid_target");
@@ -2847,7 +2807,7 @@ public class BridgeCallbackHandler {
                 // Send the attacker UUID as the target
                 synchronized (actionLock) {
                     if (pendingAction == next) {
-                        clearPendingActionLocked();
+                        pendingAction = null;
                     }
                 }
                 sendUuidOrDie(gameId, attackerUuid, "batchBlock:select_attacker");
@@ -2889,7 +2849,7 @@ public class BridgeCallbackHandler {
         if (!Boolean.TRUE.equals(result.interrupted)) {
             synchronized (actionLock) {
                 if (pendingAction != null) {
-                    clearPendingActionLocked();
+                    pendingAction = null;
                 }
             }
             sendBooleanOrDie(gameId, true, "batchBlock:confirm");
@@ -3915,7 +3875,7 @@ public class BridgeCallbackHandler {
                 if (armedClientSideYield && currentAction != null) {
                     lastSeenGameSeq = currentAction.gameSeq();
                     synchronized (actionLock) {
-                        clearPendingActionLocked();
+                        pendingAction = null;
                     }
                     sendBooleanOrDie(gameId, false, "passPriority:yield_arm");
                     // The yield consumed the current priority — count it as a pass.
@@ -4053,7 +4013,7 @@ public class BridgeCallbackHandler {
                         // Not our turn — auto-pass
                         synchronized (actionLock) {
                             if (pendingAction == action) {
-                                clearPendingActionLocked();
+                                pendingAction = null;
                             }
                         }
                         sendBooleanOrDie(action.gameId(), false, "passPriority:yield_my_turn");
@@ -4085,7 +4045,7 @@ public class BridgeCallbackHandler {
                         // Not end of turn yet — auto-pass
                         synchronized (actionLock) {
                             if (pendingAction == action) {
-                                clearPendingActionLocked();
+                                pendingAction = null;
                             }
                         }
                         sendBooleanOrDie(action.gameId(), false, "passPriority:yield_end_of_turn");
@@ -4124,7 +4084,7 @@ public class BridgeCallbackHandler {
                     // Not at target step: auto-pass (skip playable-cards check)
                     synchronized (actionLock) {
                         if (pendingAction == action) {
-                            clearPendingActionLocked();
+                            pendingAction = null;
                         }
                     }
                     sendBooleanOrDie(action.gameId(), false, "passPriority:step_yield");
@@ -4187,7 +4147,7 @@ public class BridgeCallbackHandler {
                 // No playable cards — auto-pass this priority
                 synchronized (actionLock) {
                     if (pendingAction == action) {
-                        clearPendingActionLocked();
+                        pendingAction = null;
                     }
                 }
                 sendBooleanOrDie(action.gameId(), false, "passPriority:auto_pass");
@@ -5161,7 +5121,6 @@ public class BridgeCallbackHandler {
             ActionableCallbackOutcome actionableOutcome = ACTIONABLE_CALLBACKS.contains(method)
                     ? new ActionableCallbackOutcome(method)
                     : null;
-            PendingAction storedPending = null;
 
             // Bridge JSONL dump: log every callback
             if (bridgeLogPath != null) {
@@ -5195,7 +5154,7 @@ public class BridgeCallbackHandler {
 
                 case GAME_ASK:
                     if (mcpMode) {
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp GAME_ASK");
                     } else {
                         handleGameAsk(objectId, callback);
@@ -5205,7 +5164,7 @@ public class BridgeCallbackHandler {
 
                 case GAME_SELECT:
                     if (mcpMode) {
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp GAME_SELECT");
                     } else {
                         handleGameSelect(objectId, callback);
@@ -5215,7 +5174,7 @@ public class BridgeCallbackHandler {
 
                 case GAME_TARGET:
                     if (mcpMode) {
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp GAME_TARGET");
                     } else {
                         handleGameTarget(objectId, callback);
@@ -5228,7 +5187,7 @@ public class BridgeCallbackHandler {
                     // Mana-plan consumption and empty-choices auto-handling happen in
                     // maybeAutoHandleNonDecisionAction, not on the callback thread.
                     if (mcpMode) {
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_ABILITY");
                     } else {
                         handleGameChooseAbility(objectId, callback);
@@ -5239,7 +5198,7 @@ public class BridgeCallbackHandler {
 
                 case GAME_CHOOSE_CHOICE:
                     if (mcpMode) {
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_CHOICE");
                     } else {
                         handleGameChooseChoice(objectId, callback);
@@ -5249,7 +5208,7 @@ public class BridgeCallbackHandler {
 
                 case GAME_CHOOSE_PILE:
                     if (mcpMode) {
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_PILE");
                     } else {
                         handleGameChoosePile(objectId, callback);
@@ -5265,7 +5224,7 @@ public class BridgeCallbackHandler {
                         // later when we have priority" without first recording the
                         // authoritative callback payload and waking the synchronous tool
                         // thread that will answer it.
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp " + method.name());
                     } else {
                         // Non-MCP mode keeps the legacy callback-time auto-tap path.
@@ -5290,7 +5249,7 @@ public class BridgeCallbackHandler {
 
                 case GAME_GET_AMOUNT:
                     if (mcpMode) {
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp GAME_GET_AMOUNT");
                     } else {
                         handleGameGetAmount(objectId, callback);
@@ -5300,7 +5259,7 @@ public class BridgeCallbackHandler {
 
                 case GAME_GET_MULTI_AMOUNT:
                     if (mcpMode) {
-                        storedPending = storePendingAction(objectId, method, callback);
+                        storePendingAction(objectId, method, callback);
                         actionableOutcome.storedPendingAction("mcp GAME_GET_MULTI_AMOUNT");
                     } else {
                         handleGameGetMultiAmount(objectId, callback);
@@ -5337,9 +5296,6 @@ public class BridgeCallbackHandler {
             if (actionableOutcome != null) {
                 actionableOutcome.verifyRecorded();
             }
-            if (storedPending != null) {
-                markPendingActionReady(storedPending);
-            }
         } catch (Exception e) {
             logError("Error handling callback " + callback.getMethod() + ": " + e.getMessage());
             logger.debug("[" + client.getUsername() + "] Callback error stack trace", e);
@@ -5358,7 +5314,7 @@ public class BridgeCallbackHandler {
         }
     }
 
-    private PendingAction storePendingAction(UUID gameId, ClientCallbackMethod method, ClientCallback callback) {
+    private void storePendingAction(UUID gameId, ClientCallbackMethod method, ClientCallback callback) {
         Object data = callback.getData();
         String message = extractMessage(data);
         // Capture GameView and game_seq from the decision callback itself,
@@ -5374,8 +5330,8 @@ public class BridgeCallbackHandler {
         PendingAction newAction = new PendingAction(gameId, method, data, message, gameSeq);
         synchronized (actionLock) {
             replacedAction = pendingAction;
-            pendingActionReady = false;
             pendingAction = newAction;
+            actionLock.notifyAll();
         }
         if (replacedAction != null) {
             String summary = "old=" + summarizePendingAction(replacedAction)
@@ -5384,7 +5340,6 @@ public class BridgeCallbackHandler {
             logBridgeEvent("PENDING_ACTION_REPLACED", gameId, summary);
         }
         logger.debug("[" + client.getUsername() + "] Stored pending action: " + method + " - " + message);
-        return newAction;
     }
 
     private static GameView extractGameView(Object data) {
