@@ -111,8 +111,6 @@ public class BridgeCallbackHandler {
     // MCP mode fields
     private volatile boolean mcpMode = false;
     private volatile int actionDelayMs = DEFAULT_ACTION_DELAY_MS;
-    private volatile int actionsProcessed = 0;
-    private static final int ACTION_DELAY_WARMUP_ACTIONS = 20;
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
     private volatile PendingAction pendingAction = null;
@@ -666,7 +664,6 @@ public class BridgeCallbackHandler {
         gameEverStarted = false;
         lastGameView = null;
         lastChoices = null;
-        actionsProcessed = 0;
         lastActionableCallbackAt = 0;
         cachedBridgeEvents.clear();
         bridgeEventCursor = 0;
@@ -676,13 +673,8 @@ public class BridgeCallbackHandler {
     }
 
     private void sleepBeforeAction() {
-        int delay = actionDelayMs;
-        if (actionsProcessed < ACTION_DELAY_WARMUP_ACTIONS) {
-            delay = Math.min(delay, DEFAULT_ACTION_DELAY_MS);
-            actionsProcessed++;
-        }
         try {
-            Thread.sleep(delay);
+            Thread.sleep(actionDelayMs);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
