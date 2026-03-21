@@ -1,0 +1,13 @@
+{
+  "title": "Remove mcpMode as dead code",
+  "description": "The bridge runtime no longer has a real non-MCP mode. `BridgeCallbackHandler` still carries an `mcpMode` flag and many `if (mcpMode) ... else ...` branches, but `BridgeClient` unconditionally calls `setMcpMode(true)` during startup and fresh keep-alive handlers copy the same value forward. There is no shipped launch path that sets it back to false.\n\nThis looks vestigial from the older bridge personalities / pre-unified-decision transition. Keeping both sides of the branch makes callback handling and decision-boundary cleanup harder to reason about because every change has to preserve a code path that the real bridge never executes.\n\nSuggested fix:\n- Remove the `mcpMode` flag and the dead non-MCP branches from the bridge runtime.\n- If tests still need legacy callback-time helpers, make that explicit in test scaffolding instead of keeping dormant production branching.\n- Re-audit bridge docs and comments so they stop implying a supported non-MCP runtime mode when only the MCP bridge is real.",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": [
+    "bridge",
+    "cleanup",
+  ],
+  "created_at": "2026-03-20T20:46:46.531428-07:00",
+  "updated_at": "2026-03-20T20:46:46.531428-07:00",
+}
