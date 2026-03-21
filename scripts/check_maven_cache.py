@@ -2,12 +2,12 @@
 """Check Maven build cache effectiveness.
 
 Usage:
-    check-maven-cache.py [maven-args]
+    check_maven_cache.py [maven-args]
 
 Examples:
-    check-maven-cache.py                    # Run default install
-    check-maven-cache.py -pl Mage           # Build specific module
-    check-maven-cache.py -DskipTests        # Skip tests
+    check_maven_cache.py                    # Run default install
+    check_maven_cache.py -pl Mage           # Build specific module
+    check_maven_cache.py -DskipTests        # Skip tests
 """
 
 import subprocess

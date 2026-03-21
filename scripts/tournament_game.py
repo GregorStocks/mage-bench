@@ -26,12 +26,14 @@ from puppeteer.config import (
 )
 from puppeteer.log import setup_logging
 from puppeteer.orchestrator import (
-    AnnotationFailure,
     clean_stale_h2_locks,
     compile_project,
     refresh_observer_resources,
-    resolve_annotation_failures,
     run_orchestrator,
+)
+from puppeteer.post_game_analysis import (
+    AnnotationFailure,
+    resolve_annotation_failures,
     upload_and_export,
 )
 from scripts.export_game import read_game_winner

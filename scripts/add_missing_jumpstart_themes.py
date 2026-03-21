@@ -6,7 +6,7 @@ This script adds the 15 missing themes by resolving card names
 to JMP/M21 collector numbers via Scryfall.
 
 Usage:
-    uv run python scripts/add-missing-jumpstart-themes.py
+    uv run python scripts/add_missing_jumpstart_themes.py
 """
 
 from __future__ import annotations

@@ -2,10 +2,10 @@
 """List recent games from ~/mage-bench-logs/.
 
 Usage:
-    list-recent-games.py                   # 5 most recent games with metadata
-    list-recent-games.py --count 10        # 10 most recent games
-    list-recent-games.py --symlinks        # show all last-* symlinks
-    list-recent-games.py --config round-robin-1v1 # resolve a config symlink
+    list_recent_games.py                   # 5 most recent games with metadata
+    list_recent_games.py --count 10        # 10 most recent games
+    list_recent_games.py --symlinks        # show all last-* symlinks
+    list_recent_games.py --config round-robin-1v1 # resolve a config symlink
 """
 
 import argparse

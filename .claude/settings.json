@@ -25,8 +25,8 @@
       "Bash(make:*)",
       "Bash(mvn:*)",
       "Bash(python3:*)",
-      "Bash(scripts/autoclaim-issue.py:*)",
-      "Bash(scripts/claim-issue.sh:*)",
+      "Bash(scripts/autoclaim_issue.py:*)",
+      "Bash(scripts/claim_issue.sh:*)",
       "Bash(scripts/list-issues.sh:*)",
       "Bash(sort:*)",
       "Bash(tail:*)",
@@ -61,7 +61,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run python \"$CLAUDE_PROJECT_DIR/scripts/install-cloud-deps.py\"",
+            "command": "uv run python \"$CLAUDE_PROJECT_DIR/scripts/install_cloud_deps.py\"",
             "timeout": 120
           }
         ]

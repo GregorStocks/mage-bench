@@ -21,8 +21,8 @@ from typing import cast
 from zoneinfo import ZoneInfo
 
 from openai import OpenAIError
-from schemas.game_export_types import Decision
 
+from schemas.game_export_types import Decision
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     MAX_WORKERS,

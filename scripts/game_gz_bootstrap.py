@@ -2,7 +2,7 @@
 """Bootstrap game analysis: export gz if needed, print quick overview.
 
 Usage:
-    game-gz-bootstrap.py <game_id>
+    game_gz_bootstrap.py <game_id>
 
 Looks for website/public/games/<game_id>.json.gz or .json. If neither exists
 but raw logs are available at ~/.mage-bench/logs/<game_id>/game_events.jsonl,
