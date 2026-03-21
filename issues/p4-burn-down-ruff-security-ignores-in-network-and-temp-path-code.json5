@@ -1,0 +1,25 @@
+{
+  "title": "Burn down Ruff security ignores in network and temp-path code",
+  "description": "Root Ruff lint is currently suppressing security rules in a few focused areas: `S310` for network access in `puppeteer/src/puppeteer/llm_cost.py`, `scripts/import-deck.py`, `scripts/import-metagame.py`, and `scripts/scryfall.py`; `S108` for intentional `/tmp` paths in runtime and tests; and `S104` in `scripts/analysis/blunder_audit_web.py`.\n\
+\n\
+Audit these ignores and either replace the underlying patterns with lint-clean equivalents or narrow the exceptions further. The goal is to make the security suppressions intentional and minimal instead of permanent blanket ignores.\n\
+\n\
+Relevant files:\n\
+- `ruff-lint.toml`\n\
+- `puppeteer/src/puppeteer/llm_cost.py`\n\
+- `puppeteer/src/puppeteer/port.py`\n\
+- `scripts/import-deck.py`\n\
+- `scripts/import-metagame.py`\n\
+- `scripts/scryfall.py`\n\
+- `scripts/analysis/blunder_audit_web.py`",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "lint",
+    "security",
+    "python",
+  ],
+  "created_at": "2026-03-20T23:57:00.000000-07:00",
+  "updated_at": "2026-03-20T23:57:00.000000-07:00",
+}
