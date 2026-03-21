@@ -3,7 +3,6 @@ package mage.client.bridge;
 import mage.cards.repository.CardInfo;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
-import mage.client.bridge.tools.ChooseActionTool;
 import mage.client.bridge.tools.GetOracleTextTool;
 import mage.constants.CardType;
 import mage.game.BridgeLogEntry;
@@ -198,7 +197,7 @@ class BridgeCallbackHandlerTest {
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", upkeepView);
         setField(handler, "lastTurnNumber", 3);
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_SELECT,
             new GameClientMessage(upkeepView, Collections.<String, Serializable>emptyMap(), "Pass"),
@@ -214,7 +213,7 @@ class BridgeCallbackHandlerTest {
             assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
                 .isInstanceOf(TimeoutException.class);
 
-            setReadyPendingAction(handler, new PendingAction(
+            setField(handler, "pendingAction", new PendingAction(
                 gameId,
                 ClientCallbackMethod.GAME_SELECT,
                 new GameClientMessage(postcombatMainView, Collections.<String, Serializable>emptyMap(), "Pass after overshoot"),
@@ -250,7 +249,7 @@ class BridgeCallbackHandlerTest {
             )
         ), 2, 2);
 
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             UUID.randomUUID(),
             ClientCallbackMethod.GAME_GET_MULTI_AMOUNT,
             message,
@@ -350,7 +349,7 @@ class BridgeCallbackHandlerTest {
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", upkeepView);
         setField(handler, "lastTurnNumber", 3);
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_SELECT,
             new GameClientMessage(upkeepView, Collections.<String, Serializable>emptyMap(), "Pass"),
@@ -366,7 +365,7 @@ class BridgeCallbackHandlerTest {
             assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
                 .isInstanceOf(TimeoutException.class);
 
-            setReadyPendingAction(handler, new PendingAction(
+            setField(handler, "pendingAction", new PendingAction(
                 gameId,
                 ClientCallbackMethod.GAME_SELECT,
                 new GameClientMessage(nextTurnUntapView, Collections.<String, Serializable>emptyMap(), "Pass on next turn"),
@@ -401,7 +400,7 @@ class BridgeCallbackHandlerTest {
         GameView stackOccupied = gameView(7, watchedStackObjectId);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", stackOccupied);
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_SELECT,
             new GameClientMessage(stackOccupied, Collections.<String, Serializable>emptyMap(), "Pass"),
@@ -422,7 +421,7 @@ class BridgeCallbackHandlerTest {
             assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
                 .isInstanceOf(TimeoutException.class);
 
-            setReadyPendingAction(handler, new PendingAction(
+            setField(handler, "pendingAction", new PendingAction(
                 gameId,
                 ClientCallbackMethod.GAME_SELECT,
                 new GameClientMessage(stackCleared, Collections.<String, Serializable>emptyMap(), "Pass after resolve"),
@@ -455,7 +454,7 @@ class BridgeCallbackHandlerTest {
         GameView emptyStack = gameView(7);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", emptyStack);
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_SELECT,
             new GameClientMessage(emptyStack, Collections.<String, Serializable>emptyMap(), "Pass"),
@@ -472,7 +471,7 @@ class BridgeCallbackHandlerTest {
                 .isInstanceOf(TimeoutException.class);
 
             GameView nextActionView = gameView(8);
-            setReadyPendingAction(handler, new PendingAction(
+            setField(handler, "pendingAction", new PendingAction(
                 gameId,
                 ClientCallbackMethod.GAME_ASK,
                 new GameClientMessage(nextActionView, Collections.<String, Serializable>emptyMap(), "Mulligan hand?"),
@@ -713,7 +712,7 @@ class BridgeCallbackHandlerTest {
         UUID gameId = UUID.randomUUID();
         GameView view = gameView(7);
         setField(handler, "lastGameView", view);
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_CHOOSE_CHOICE,
             new GameClientMessage(view, Collections.<String, Serializable>emptyMap(), choice),
@@ -746,7 +745,7 @@ class BridgeCallbackHandlerTest {
         UUID gameId = UUID.randomUUID();
         GameView view = gameView(7);
         setField(handler, "lastGameView", view);
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_SELECT,
             new GameClientMessage(view, Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
@@ -802,7 +801,7 @@ class BridgeCallbackHandlerTest {
                         sendPlayerBooleanCalls.incrementAndGet();
                         assertThat(args[0]).isEqualTo(gameId);
                         assertThat(args[1]).isEqualTo(true);
-                        setReadyPendingAction(handler, new PendingAction(
+                        setField(handler, "pendingAction", new PendingAction(
                             gameId,
                             ClientCallbackMethod.GAME_TARGET,
                             targetMessage,
@@ -816,7 +815,7 @@ class BridgeCallbackHandlerTest {
                         sendPlayerUuidCalls.incrementAndGet();
                         assertThat(args[0]).isEqualTo(gameId);
                         assertThat(args[1]).isEqualTo(onlyTarget);
-                        setReadyPendingAction(handler, new PendingAction(
+                        setField(handler, "pendingAction", new PendingAction(
                             gameId,
                             ClientCallbackMethod.GAME_SELECT,
                             nextDecisionMessage,
@@ -833,7 +832,7 @@ class BridgeCallbackHandlerTest {
             }
         ));
 
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_ASK,
             new GameClientMessage(askView, Collections.<String, Serializable>emptyMap(), "Use effect of Clone?"),
@@ -893,7 +892,7 @@ class BridgeCallbackHandlerTest {
                         sendPlayerBooleanCalls.incrementAndGet();
                         assertThat(args[0]).isEqualTo(gameId);
                         assertThat(args[1]).isEqualTo(false);
-                        setReadyPendingAction(handler, new PendingAction(
+                        setField(handler, "pendingAction", new PendingAction(
                             gameId,
                             ClientCallbackMethod.GAME_TARGET,
                             targetMessage,
@@ -907,7 +906,7 @@ class BridgeCallbackHandlerTest {
                         sendPlayerUuidCalls.incrementAndGet();
                         assertThat(args[0]).isEqualTo(gameId);
                         assertThat(args[1]).isEqualTo(onlyTarget);
-                        setReadyPendingAction(handler, new PendingAction(
+                        setField(handler, "pendingAction", new PendingAction(
                             gameId,
                             ClientCallbackMethod.GAME_ASK,
                             nextDecisionMessage,
@@ -926,7 +925,7 @@ class BridgeCallbackHandlerTest {
 
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", initialView);
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_SELECT,
             new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Pass"),
@@ -972,7 +971,7 @@ class BridgeCallbackHandlerTest {
                     sendPlayerBooleanCalls.incrementAndGet();
                     assertThat(args[0]).isEqualTo(gameId);
                     assertThat(args[1]).isEqualTo(false);
-                    setReadyPendingAction(handler, new PendingAction(
+                    setField(handler, "pendingAction", new PendingAction(
                         gameId,
                         ClientCallbackMethod.GAME_SELECT,
                         combatMessage,
@@ -988,7 +987,7 @@ class BridgeCallbackHandlerTest {
 
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", initialView);
-        setReadyPendingAction(handler, new PendingAction(
+        setField(handler, "pendingAction", new PendingAction(
             gameId,
             ClientCallbackMethod.GAME_SELECT,
             new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Pass"),
@@ -1060,7 +1059,6 @@ class BridgeCallbackHandlerTest {
         assertThat(pendingAction.message()).isEqualTo("Choose a creature to copy");
         assertThat(pendingAction.gameSeq()).isEqualTo(33);
         assertThat(((GameClientMessage) pendingAction.data()).getGameView()).isSameAs(targetView);
-        assertThat(getField(handler, "pendingActionReady")).isEqualTo(true);
         assertThat(getField(handler, "lastGameView")).isSameAs(targetView);
         assertThat(getField(handler, "playerDead")).isEqualTo(false);
     }
@@ -1096,7 +1094,7 @@ class BridgeCallbackHandlerTest {
             41
         );
 
-        setReadyPendingAction(handler, replacementAction);
+        setField(handler, "pendingAction", replacementAction);
 
         assertThat(invokeDecisionBoundaryStatus(handler, staleTargetAction, "test"))
             .isEqualTo("CHANGED");
@@ -1160,66 +1158,6 @@ class BridgeCallbackHandlerTest {
         assertThat(pending.method()).isEqualTo(ClientCallbackMethod.GAME_PLAY_MANA);
         assertThat(pending.message()).isEqualTo("Pay {1}");
         assertThat(pending.gameSeq()).isEqualTo(77);
-        assertThat(getField(handler, "pendingActionReady")).isEqualTo(true);
-    }
-
-    @Test
-    void chooseActionWaitsForReadyPendingAction() throws Exception {
-        BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        BridgeCallbackHandler handler = client.getCallbackHandler();
-
-        UUID gameId = UUID.randomUUID();
-        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
-        CountDownLatch sentResponse = new CountDownLatch(1);
-
-        client.setSession((Session) Proxy.newProxyInstance(
-            Session.class.getClassLoader(),
-            new Class<?>[]{Session.class},
-            (proxy, method, args) -> {
-                if ("sendPlayerBoolean".equals(method.getName())) {
-                    sendPlayerBooleanCalls.incrementAndGet();
-                    assertThat(args[0]).isEqualTo(gameId);
-                    assertThat(args[1]).isEqualTo(false);
-                    setField(handler, "playerDead", true);
-                    sentResponse.countDown();
-                    notifyActionLock(handler);
-                    return true;
-                }
-                return defaultReturnValue(method.getReturnType());
-            }
-        ));
-
-        PendingAction action = new PendingAction(
-            gameId,
-            ClientCallbackMethod.GAME_ASK,
-            new GameClientMessage(gameView(70), Collections.<String, Serializable>emptyMap(), "Decline trigger?"),
-            "Decline trigger?",
-            70
-        );
-        setField(handler, "pendingAction", action);
-        setField(handler, "pendingActionReady", false);
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        try {
-            Future<ChooseActionTool.Result> future = executor.submit(() -> handler.chooseAction(
-                null, null, false, null, null, null, null, null, null, null, null
-            ));
-
-            assertThat(sentResponse.await(200, TimeUnit.MILLISECONDS)).isFalse();
-            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
-                .isInstanceOf(TimeoutException.class);
-
-            setField(handler, "pendingActionReady", true);
-            notifyActionLock(handler);
-
-            ChooseActionTool.Result result = future.get(1, TimeUnit.SECONDS);
-            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
-            assertThat(result.success).isTrue();
-            assertThat(result.action_taken).isEqualTo("no");
-        } finally {
-            executor.shutdownNow();
-            executor.awaitTermination(1, TimeUnit.SECONDS);
-        }
     }
 
     @Test
@@ -1265,7 +1203,7 @@ class BridgeCallbackHandlerTest {
             "Pay {G}",
             60
         );
-        setReadyPendingAction(handler, action);
+        setField(handler, "pendingAction", action);
 
         assertThat(invokeDecisionBoundaryStatus(handler, action, "test"))
             .isEqualTo("AUTO_HANDLED");
@@ -1319,7 +1257,7 @@ class BridgeCallbackHandlerTest {
         );
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", manaView);
-        setReadyPendingAction(handler, action);
+        setField(handler, "pendingAction", action);
 
         ActionResult result = handler.passPriority(null, null);
 
@@ -1621,11 +1559,6 @@ class BridgeCallbackHandlerTest {
         synchronized (actionLock) {
             actionLock.notifyAll();
         }
-    }
-
-    private static void setReadyPendingAction(BridgeCallbackHandler handler, PendingAction action) throws Exception {
-        setField(handler, "pendingAction", action);
-        setField(handler, "pendingActionReady", true);
     }
 
     private static Object getField(Object target, String name) throws Exception {

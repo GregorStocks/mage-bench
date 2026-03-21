@@ -106,7 +106,6 @@ Pick and solve exactly **one** issue, then create a PR.
 
    - If you need live progress or a concrete failing sub-target, prefer `make check VERBOSE=1` over launching a second blind `make check`. The quiet wrapper can hide long-running child jobs, and overlapping retries leave duplicate Maven/pytest work chewing through the same branch.
    - For large Java refactors, especially under `Mage.Client.Bridge/`, use a module-scoped Maven loop for fast feedback while iterating (for example `mvn -pl Mage.Client.Bridge -DskipTests compile` or `mvn -pl Mage.Client.Bridge test -Dtest=...`). Still finish with the full `make check` before deleting the issue file or finalizing the PR.
-   - If `make check` dirties unrelated generated files (for example `website/package-lock.json`) and you did not intend to change dependencies, inspect that diff and remove it before finalizing the PR.
 
 10. Delete the issue file (e.g., `rm issues/<issue-filename>.json5`) and **include the deletion in the commit** — the issue removal must ship with the fix
 
