@@ -47,7 +47,6 @@ public class BridgeClient {
     private static final int TABLE_POLL_INTERVAL_MS = 1000;
     private static final int TABLE_POLL_TIMEOUT_MS = 60000;
     private static final int PING_INTERVAL_MS = 20000; // 20 seconds, same as normal client
-    private static final int DEFAULT_ACTION_DELAY_MS = 500;
     private static final int MAX_RECONNECT_ATTEMPTS = 5;
     private static final int[] RECONNECT_BACKOFF_MS = {2000, 4000, 8000, 16000, 30000};
     private static final String DECK_NAME_PREFIX = "NAME:";
@@ -89,11 +88,7 @@ public class BridgeClient {
         Session session = new SessionImpl(client);
         client.setSession(session);
 
-        // Get callback handler and configure MCP mode
         BridgeCallbackHandler callbackHandler = client.getCallbackHandler();
-        callbackHandler.setMcpMode(true);
-        int actionDelayMs = getIntProperty("xmage.bridge.actionDelayMs", DEFAULT_ACTION_DELAY_MS);
-        callbackHandler.setActionDelayMs(actionDelayMs);
         callbackHandler.setKeepAliveAfterGame(keepAlive);
         String errorLogPath = System.getProperty("xmage.bridge.errorlog");
         if (errorLogPath != null && !errorLogPath.isEmpty()) {

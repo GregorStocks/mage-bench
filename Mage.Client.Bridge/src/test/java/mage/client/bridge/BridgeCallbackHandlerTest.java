@@ -1011,10 +1011,9 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void handleCallbackStoresSingleTargetAsPendingActionInMcpMode() throws Exception {
+    void handleCallbackStoresSingleTargetAsPendingAction() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        handler.setMcpMode(true);
 
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
@@ -1107,10 +1106,9 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void handleCallbackStoresPendingManaActionInMcpMode() throws Exception {
+    void handleCallbackStoresPendingManaAction() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        handler.setMcpMode(true);
 
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
@@ -1171,7 +1169,6 @@ class BridgeCallbackHandlerTest {
     void transitionToDecisionBoundaryAutoHandlesStoredManaAction() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        handler.setMcpMode(true);
 
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
@@ -1223,7 +1220,6 @@ class BridgeCallbackHandlerTest {
     void passPriorityReturnsManualManaChoiceWhenPoolSelectionIsAmbiguous() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        handler.setMcpMode(true);
 
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();

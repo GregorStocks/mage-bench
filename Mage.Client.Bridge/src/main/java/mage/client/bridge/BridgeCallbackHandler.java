@@ -76,14 +76,13 @@ import java.util.regex.Pattern;
 
 /**
  * Callback handler for the bridge client.
- * Supports the bridge's generic MCP mode, storing pending actions for
- * external clients to handle via MCP. Higher-level controller roles such as
+ * Stores pending actions for external clients to handle via MCP.
+ * Higher-level controller roles such as
  * pilot, replay, and the Python-side sleepwalker live above this layer.
  */
 public class BridgeCallbackHandler {
 
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
-    private static final int DEFAULT_ACTION_DELAY_MS = 500;
     /** Chat message captured for interleaving with bridge events in game log rendering. */
     private record ChatLogEntry(int eventCursor, String message, String rendered) {}
     /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
@@ -109,9 +108,6 @@ public class BridgeCallbackHandler {
     private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>(); // gameId -> playerId
     private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>(); // gameId -> chatId
 
-    // MCP mode fields
-    private volatile boolean mcpMode = false;
-    private volatile int actionDelayMs = DEFAULT_ACTION_DELAY_MS;
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
     private volatile PendingAction pendingAction = null;
@@ -554,20 +550,6 @@ public class BridgeCallbackHandler {
         this.session = session;
     }
 
-    public void setMcpMode(boolean enabled) {
-        this.mcpMode = enabled;
-        logger.info("[" + client.getUsername() + "] MCP mode " + (enabled ? "enabled" : "disabled"));
-    }
-
-    public boolean isMcpMode() {
-        return mcpMode;
-    }
-
-    public void setActionDelayMs(int actionDelayMs) {
-        this.actionDelayMs = Math.max(0, actionDelayMs);
-        logger.info("[" + client.getUsername() + "] action delay set to " + this.actionDelayMs + " ms");
-    }
-
     public void setKeepAliveAfterGame(boolean keepAliveAfterGame) {
         this.keepAliveAfterGame = keepAliveAfterGame;
         logger.info("[" + client.getUsername() + "] keepAliveAfterGame=" + keepAliveAfterGame);
@@ -601,8 +583,6 @@ public class BridgeCallbackHandler {
 
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
         fresh.session = this.session;
-        fresh.mcpMode = this.mcpMode;
-        fresh.actionDelayMs = this.actionDelayMs;
         fresh.keepAliveAfterGame = this.keepAliveAfterGame;
         fresh.maxInteractionsPerTurn = this.maxInteractionsPerTurn;
         fresh.errorLogPath = this.errorLogPath;
@@ -672,16 +652,6 @@ public class BridgeCallbackHandler {
             chatLog.clear();
         }
     }
-
-    private void sleepBeforeAction() {
-        try {
-            Thread.sleep(actionDelayMs);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    // MCP mode methods
 
     public boolean isActionPending() {
         return pendingAction != null;
@@ -5153,118 +5123,57 @@ public class BridgeCallbackHandler {
                     break;
 
                 case GAME_ASK:
-                    if (mcpMode) {
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp GAME_ASK");
-                    } else {
-                        handleGameAsk(objectId, callback);
-                        actionableOutcome.sentResponse("auto GAME_ASK");
-                    }
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction("GAME_ASK");
                     break;
 
                 case GAME_SELECT:
-                    if (mcpMode) {
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp GAME_SELECT");
-                    } else {
-                        handleGameSelect(objectId, callback);
-                        actionableOutcome.sentResponse("auto GAME_SELECT");
-                    }
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction("GAME_SELECT");
                     break;
 
                 case GAME_TARGET:
-                    if (mcpMode) {
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp GAME_TARGET");
-                    } else {
-                        handleGameTarget(objectId, callback);
-                        actionableOutcome.sentResponse("auto GAME_TARGET");
-                    }
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction("GAME_TARGET");
                     break;
 
-                case GAME_CHOOSE_ABILITY: {
-                    // In MCP mode, always defer to the synchronous decision boundary.
+                case GAME_CHOOSE_ABILITY:
+                    // Always defer to the synchronous decision boundary.
                     // Mana-plan consumption and empty-choices auto-handling happen in
                     // maybeAutoHandleNonDecisionAction, not on the callback thread.
-                    if (mcpMode) {
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_ABILITY");
-                    } else {
-                        handleGameChooseAbility(objectId, callback);
-                        actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY");
-                    }
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction("GAME_CHOOSE_ABILITY");
                     break;
-                }
 
                 case GAME_CHOOSE_CHOICE:
-                    if (mcpMode) {
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_CHOICE");
-                    } else {
-                        handleGameChooseChoice(objectId, callback);
-                        actionableOutcome.sentResponse("auto GAME_CHOOSE_CHOICE");
-                    }
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction("GAME_CHOOSE_CHOICE");
                     break;
 
                 case GAME_CHOOSE_PILE:
-                    if (mcpMode) {
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_PILE");
-                    } else {
-                        handleGameChoosePile(objectId, callback);
-                        actionableOutcome.sentResponse("auto GAME_CHOOSE_PILE");
-                    }
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction("GAME_CHOOSE_PILE");
                     break;
 
                 case GAME_PLAY_MANA:
-                case GAME_PLAY_XMANA: {
-                    if (mcpMode) {
-                        // XMage is blocked on this exact callback and only accepts the
-                        // corresponding sendPlayer* response. We cannot "wait until
-                        // later when we have priority" without first recording the
-                        // authoritative callback payload and waking the synchronous tool
-                        // thread that will answer it.
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp " + method.name());
-                    } else {
-                        // Non-MCP mode keeps the legacy callback-time auto-tap path.
-                        boolean manaHandled = false;
-                        try {
-                            manaHandled = handleGamePlayManaAuto(objectId, callback);
-                        } catch (ResponseDeliveryException e) {
-                            throw e;
-                        } catch (Exception e) {
-                            logError("Mana auto-handler exception: " + e.getMessage());
-                            logger.debug("[" + client.getUsername() + "] Mana auto-handler stack trace", e);
-                        }
-                        if (!manaHandled) {
-                            sendBooleanOrDie(objectId, false, "callback:cancel_" + method.name());
-                            actionableOutcome.sentResponse("cancel " + method.name());
-                        } else {
-                            actionableOutcome.sentResponse("auto " + method.name());
-                        }
-                    }
+                case GAME_PLAY_XMANA:
+                    // XMage is blocked on this exact callback and only accepts the
+                    // corresponding sendPlayer* response. We cannot "wait until
+                    // later when we have priority" without first recording the
+                    // authoritative callback payload and waking the synchronous tool
+                    // thread that will answer it.
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction(method.name());
                     break;
-                }
 
                 case GAME_GET_AMOUNT:
-                    if (mcpMode) {
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp GAME_GET_AMOUNT");
-                    } else {
-                        handleGameGetAmount(objectId, callback);
-                        actionableOutcome.sentResponse("auto GAME_GET_AMOUNT");
-                    }
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction("GAME_GET_AMOUNT");
                     break;
 
                 case GAME_GET_MULTI_AMOUNT:
-                    if (mcpMode) {
-                        storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("mcp GAME_GET_MULTI_AMOUNT");
-                    } else {
-                        handleGameGetMultiAmount(objectId, callback);
-                        actionableOutcome.sentResponse("auto GAME_GET_MULTI_AMOUNT");
-                    }
+                    storePendingAction(objectId, method, callback);
+                    actionableOutcome.storedPendingAction("GAME_GET_MULTI_AMOUNT");
                     break;
 
                 case GAME_OVER:
@@ -5374,7 +5283,7 @@ public class BridgeCallbackHandler {
      * wrong game flow.
      */
     private String nonCurrentGameCallbackIgnoreReason(UUID callbackGameId, ClientCallbackMethod method) {
-        if (!mcpMode || callbackGameId == null) {
+        if (callbackGameId == null) {
             return null;
         }
 
@@ -5569,38 +5478,6 @@ public class BridgeCallbackHandler {
         }
     }
 
-    private void handleGameAsk(UUID gameId, ClientCallback callback) {
-        GameClientMessage message = (GameClientMessage) callback.getData();
-        logger.info("[" + client.getUsername() + "] Ask: \"" + message.getMessage() + "\" -> NO");
-        sleepBeforeAction();
-        session.sendPlayerBoolean(gameId, false);
-    }
-
-    private void handleGameSelect(UUID gameId, ClientCallback callback) {
-        GameClientMessage message = (GameClientMessage) callback.getData();
-        logger.info("[" + client.getUsername() + "] Select: \"" + message.getMessage() + "\" -> PASS");
-        sleepBeforeAction();
-        session.sendPlayerBoolean(gameId, false);
-    }
-
-    private void handleGameTarget(UUID gameId, ClientCallback callback) {
-        GameClientMessage message = (GameClientMessage) callback.getData();
-        boolean required = message.isFlag();
-
-        // Try to find valid targets from multiple sources
-        Set<UUID> targets = findValidTargets(message);
-
-        sleepBeforeAction();
-        if (required && targets != null && !targets.isEmpty()) {
-            UUID firstTarget = selectDeterministicTarget(targets, null);
-            logger.info("[" + client.getUsername() + "] Target (required): \"" + message.getMessage() + "\" -> " + firstTarget);
-            session.sendPlayerUUID(gameId, firstTarget);
-        } else {
-            logger.info("[" + client.getUsername() + "] Target (optional): \"" + message.getMessage() + "\" -> CANCEL");
-            session.sendPlayerBoolean(gameId, false);
-        }
-    }
-
     /**
      * Find valid targets from multiple sources in a GameClientMessage.
      * This handles both standard targeting (message.getTargets()) and
@@ -5679,63 +5556,6 @@ public class BridgeCallbackHandler {
             }
         }
         return selected;
-    }
-
-    private void handleGameChooseAbility(UUID gameId, ClientCallback callback) {
-        AbilityPickerView picker = (AbilityPickerView) callback.getData();
-        Map<UUID, String> choices = picker.getChoices();
-
-        sleepBeforeAction();
-        if (choices != null && !choices.isEmpty()) {
-            UUID firstChoice = choices.keySet().iterator().next();
-            String choiceText = choices.get(firstChoice);
-            logger.info("[" + client.getUsername() + "] Ability: \"" + picker.getMessage() + "\" -> " + choiceText);
-            session.sendPlayerUUID(gameId, firstChoice);
-        } else {
-            logger.warn("[" + client.getUsername() + "] Ability: no choices available, sending null");
-            session.sendPlayerUUID(gameId, null);
-        }
-    }
-
-    private void handleGameChooseChoice(UUID gameId, ClientCallback callback) {
-        GameClientMessage message = (GameClientMessage) callback.getData();
-        Choice choice = message.getChoice();
-
-        if (choice == null) {
-            logger.warn("[" + client.getUsername() + "] Choice: null choice object");
-            session.sendPlayerString(gameId, null);
-            return;
-        }
-
-        sleepBeforeAction();
-        if (choice.isKeyChoice()) {
-            Map<String, String> keyChoices = choice.getKeyChoices();
-            if (keyChoices != null && !keyChoices.isEmpty()) {
-                String firstKey = keyChoices.keySet().iterator().next();
-                logger.info("[" + client.getUsername() + "] Choice (key): \"" + choice.getMessage() + "\" -> " + firstKey + " (" + keyChoices.get(firstKey) + ")");
-                session.sendPlayerString(gameId, firstKey);
-            } else {
-                logger.warn("[" + client.getUsername() + "] Choice (key): no choices available");
-                session.sendPlayerString(gameId, null);
-            }
-        } else {
-            Set<String> choices = choice.getChoices();
-            if (choices != null && !choices.isEmpty()) {
-                String firstChoice = choices.iterator().next();
-                logger.info("[" + client.getUsername() + "] Choice: \"" + choice.getMessage() + "\" -> " + firstChoice);
-                session.sendPlayerString(gameId, firstChoice);
-            } else {
-                logger.warn("[" + client.getUsername() + "] Choice: no choices available");
-                session.sendPlayerString(gameId, null);
-            }
-        }
-    }
-
-    private void handleGameChoosePile(UUID gameId, ClientCallback callback) {
-        GameClientMessage message = (GameClientMessage) callback.getData();
-        logger.info("[" + client.getUsername() + "] Pile: \"" + message.getMessage() + "\" -> pile 1");
-        sleepBeforeAction();
-        session.sendPlayerBoolean(gameId, true);
     }
 
     private UUID extractPayingForId(String message) {
@@ -5910,12 +5730,10 @@ public class BridgeCallbackHandler {
         }
         manaPlan = null;
         manaPlanAbilityIndex = null;
-        if (mcpMode) {
-            synchronized (unseenChat) {
-                unseenChat.add("[System] Spell cancelled — mana plan was incorrect or incomplete.");
-            }
-            logBridgeEvent("SPELL_CANCELLED", "mana plan was incorrect or incomplete");
+        synchronized (unseenChat) {
+            unseenChat.add("[System] Spell cancelled — mana plan was incorrect or incomplete.");
         }
+        logBridgeEvent("SPELL_CANCELLED", "mana plan was incorrect or incomplete");
         sendBooleanOrDie(gameId, false, "cancelSpellFromBadManaPlan");
         return true;
     }
@@ -5934,10 +5752,6 @@ public class BridgeCallbackHandler {
      * Try to auto-tap a mana source. Returns true if a source was tapped,
      * false if no suitable source was found (caller should fall through to LLM).
      */
-    private boolean handleGamePlayManaAuto(UUID gameId, ClientCallback callback) {
-        return handleGamePlayManaAuto(gameId, (GameClientMessage) callback.getData());
-    }
-
     private boolean handleGamePlayManaAuto(UUID gameId, GameClientMessage message) {
         GameView gameView = message.getGameView();
         updateLastGameView(gameView, "GAME_PLAY_MANA_AUTO");
@@ -6092,26 +5906,20 @@ public class BridgeCallbackHandler {
                     if (payingForId != null) {
                         failedManaCasts.add(payingForId);
                     }
-                    if (mcpMode) {
-                        synchronized (unseenChat) {
-                            unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-                        }
-                        logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
+                    synchronized (unseenChat) {
+                        unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
                     }
+                    logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
                     sendBooleanOrDie(gameId, false, "manaAuto:pool_loop_cancel");
                     return true;
                 }
 
-                if (!canAutoSelectPoolType && mcpMode) {
+                if (!canAutoSelectPoolType) {
                     logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> pool has multiple options, waiting for manual choice");
                     return false;
                 }
                 ManaType manaType = poolChoices.get(0);
-                if (canAutoSelectPoolType) {
-                    logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> using pool " + manaType.toString());
-                } else {
-                    logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> using first available pool type " + manaType.toString());
-                }
+                logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> using pool " + manaType.toString());
                 sendManaTypeOrDie(gameId, manaPlayerId, manaType, "manaAuto:pool");
                 return true;
             }
@@ -6125,40 +5933,12 @@ public class BridgeCallbackHandler {
         }
         manaPlan = null;
         manaPlanAbilityIndex = null;
-        if (mcpMode) {
-            synchronized (unseenChat) {
-                unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-            }
-            logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
+        synchronized (unseenChat) {
+            unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
         }
+        logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
         sendBooleanOrDie(gameId, false, "manaAuto:no_source_cancel");
         return true;
-    }
-
-    private void handleGameGetAmount(UUID gameId, ClientCallback callback) {
-        GameClientMessage message = (GameClientMessage) callback.getData();
-        int min = message.getMin();
-        logger.info("[" + client.getUsername() + "] Amount: \"" + message.getMessage() + "\" (min=" + min + ", max=" + message.getMax() + ") -> " + min);
-        sleepBeforeAction();
-        session.sendPlayerInteger(gameId, min);
-    }
-
-    private void handleGameGetMultiAmount(UUID gameId, ClientCallback callback) {
-        GameClientMessage message = (GameClientMessage) callback.getData();
-        int count = message.getMessages() != null ? message.getMessages().size() : 0;
-
-        var sb = new StringBuilder();
-        if (message.getMessages() != null) {
-            for (int i = 0; i < count; i++) {
-                if (i > 0) sb.append(" ");
-                sb.append(message.getMessages().get(i).defaultValue);
-            }
-        }
-
-        String result = sb.toString();
-        logger.info("[" + client.getUsername() + "] MultiAmount: " + count + " values, defaults -> " + result);
-        sleepBeforeAction();
-        session.sendPlayerString(gameId, result);
     }
 
     /**
@@ -6205,14 +5985,11 @@ public class BridgeCallbackHandler {
             // The Python side (join_table tool) drives the next game.
             logger.info("[" + client.getUsername() + "] Game ended (keepAlive mode, staying connected)");
             gameFinishedLatch.countDown();
-        } else if (mcpMode) {
-            // In MCP mode, each game gets its own pilot process + bridge client.
+        } else {
+            // Each game gets its own pilot process + bridge client.
             // Disconnect immediately so the XMage server doesn't auto-join us
             // into the next game in a parallel gauntlet.
-            logger.info("[" + client.getUsername() + "] Game ended (MCP mode, stopping client)");
-            client.stop();
-        } else if (activeGames.isEmpty()) {
-            logger.info("[" + client.getUsername() + "] No more active games, stopping client");
+            logger.info("[" + client.getUsername() + "] Game ended, stopping client");
             client.stop();
         }
     }
@@ -6240,11 +6017,8 @@ public class BridgeCallbackHandler {
             + " (GAME_OVER was likely dropped)");
         if (keepAliveAfterGame) {
             gameFinishedLatch.countDown();
-        } else if (mcpMode) {
-            logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (MCP mode, missed GAME_OVER)");
-            client.stop();
-        } else if (activeGames.isEmpty() && gameEverStarted) {
-            logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (no more active games, missed GAME_OVER)");
+        } else {
+            logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (missed GAME_OVER)");
             client.stop();
         }
     }
