@@ -96,15 +96,6 @@ tail -1 "$GAME_DIR/game_events.jsonl" | jq -r .timestamp
 jq -r 'select(.type=="turn") | "\(.timestamp) Turn \(.turn_number) - \(.active_player)"' "$GAME_DIR/game_events.jsonl" | tail -5
 ```
 
-`game_timeline.py` currently goes through the post-annotation loader and can
-crash on normal fresh v8 exports that do not have `annotations` yet:
-
-```bash
-# If this asserts "missing annotations", fall back to raw game_events.jsonl or
-# extract_decisions.py instead of assuming the export itself is bad.
-uv run python scripts/analysis/toolbox/game_timeline.py GAME_ID
-```
-
 ## LLM cost analysis
 
 ```bash
