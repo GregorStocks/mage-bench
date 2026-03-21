@@ -4,7 +4,6 @@ import ast
 from functools import cache
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PUPPETEER_DIR = REPO_ROOT / "puppeteer"
 
