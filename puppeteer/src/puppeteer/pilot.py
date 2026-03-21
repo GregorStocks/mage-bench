@@ -6,20 +6,16 @@ import json
 import os
 import sys
 import time
-from collections.abc import Sequence
 from contextlib import ExitStack
-from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Protocol
 
 from mcp import ClientSession
-from mcp.types import Tool
 from openai import AsyncOpenAI, OpenAIError
 
 from puppeteer.auto_pass import auto_pass_loop
 from puppeteer.bridge_transport import build_bridge_launch_args, spawn_bridge_http
 from puppeteer.config import load_prompts
-from puppeteer.decision_renderer import BASIC_LAND_NAMES, render_decision
 from puppeteer.game_log import GameLogWriter
 from puppeteer.llm_cost import (
     DEFAULT_LLM_PROVIDER,
@@ -31,29 +27,60 @@ from puppeteer.llm_cost import (
     write_cost_file,
 )
 from puppeteer.log import get_logger, log_error, setup_logging
-from puppeteer.tool_error import ToolExecutionError, extract_text_content
-from schemas.game_export_types import (
-    Choice,
-    Decision,
-    MultiAmountItem,
-    PilotContext,
-    Snapshot,
-    require_snapshot,
+from puppeteer.pilot_bridge import (
+    _build_pilot_decision,
+    _build_pilot_snapshot,
+    _tool_execution_error_result,
+    execute_tool,
+    mcp_tools_to_openai,
 )
+from puppeteer.pilot_bridge import (
+    _record_tool_execution_failure as _record_tool_execution_failure_impl,
+)
+from puppeteer.pilot_game_state import (
+    _extract_oracle_texts_from_board,
+    _normalize_context_token,
+    _parse_context_metadata,
+)
+from puppeteer.pilot_recovery import (
+    _classify_permanent_llm_failure,
+)
+from puppeteer.pilot_recovery import (
+    _handle_timeout as _handle_timeout_impl,
+)
+from puppeteer.pilot_recovery import (
+    _handle_truncated_response as _handle_truncated_response_impl,
+)
+from puppeteer.pilot_recovery import (
+    _recover_from_stall as _recover_from_stall_impl,
+)
+from puppeteer.pilot_rendering import (
+    CONTEXT_RECENT_COUNT,
+    CONTEXT_SUMMARY_COUNT,
+    RENDER_INTERVAL,
+    TOOL_SUMMARY_TRIGGER_CHARS,
+    _build_reset_message,
+    _extract_last_reasoning,
+    _fetch_state_summary,
+    _find_cache_breakpoint_idx,
+    _find_tool_name,
+    _message_text,
+    _render_context,
+    _render_for_pilot,
+    _summarize_tool_result,
+    _with_cache_control,
+)
+from puppeteer.pilot_state import BoardCursorTracker, PilotLoopState, PilotTurnState, _reset_context
+from puppeteer.tool_error import ToolExecutionError
 
 logger = get_logger(__name__)
 
 DEFAULT_MODEL = "google/gemini-2.0-flash-001"
 
 # Exit code returned when the LLM permanently fails (404 model not found,
-# 402/403 credits exhausted).  The orchestrator checks for this to abort the
+# 402/403 credits exhausted). The orchestrator checks for this to abort the
 # game early instead of wasting API tokens on the other player.
 PERMANENT_FAILURE_EXIT_CODE = 3
-
-
-class PermanentLLMError(Exception):
-    """Raised when the LLM is permanently unreachable (model not found, credits exhausted)."""
-
 
 MAX_TOKENS = 20_000
 LLM_REQUEST_TIMEOUT_SECS = 120
@@ -65,16 +92,57 @@ MAX_CONSECUTIVE_PASS_ERRORS = 3
 MAX_CONSECUTIVE_TRUNCATIONS = 3
 MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
 MAX_EMPTY_RESPONSES = 10
-
-# Context window management.
-# History is append-only; before each LLM call we render a bounded context
-# window from history: recent messages at full fidelity, older messages
-# with tool results summarised to save tokens.
-CONTEXT_RECENT_COUNT = 40  # recent history entries kept at full fidelity
-CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
-TOOL_SUMMARY_TRIGGER_CHARS = 200  # tool messages longer than this enter the summary path
-RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
+
+__all__ = [
+    "CONTEXT_RECENT_COUNT",
+    "CONTEXT_SUMMARY_COUNT",
+    "DEFAULT_MODEL",
+    "MAX_CHAT_MESSAGES_PER_TURN",
+    "MAX_CONSECUTIVE_EMPTY_CHOICES",
+    "MAX_TOKENS",
+    "PERMANENT_FAILURE_EXIT_CODE",
+    "RENDER_INTERVAL",
+    "TOOL_SUMMARY_TRIGGER_CHARS",
+    "BoardCursorTracker",
+    "PermanentLLMError",
+    "PilotLoopState",
+    "PilotTurnState",
+    "_build_loop_messages",
+    "_build_pilot_decision",
+    "_build_pilot_snapshot",
+    "_build_reset_message",
+    "_classify_permanent_llm_failure",
+    "_extract_last_reasoning",
+    "_extract_oracle_texts_from_board",
+    "_fetch_state_summary",
+    "_find_cache_breakpoint_idx",
+    "_find_tool_name",
+    "_handle_timeout",
+    "_handle_truncated_response",
+    "_mark_tail_cache_breakpoint",
+    "_message_text",
+    "_normalize_context_token",
+    "_parse_context_metadata",
+    "_prefetch_first_action",
+    "_record_tool_execution_failure",
+    "_recover_from_stall",
+    "_render_context",
+    "_render_for_pilot",
+    "_summarize_tool_result",
+    "_tool_execution_error_result",
+    "_with_cache_control",
+    "build_initial_message",
+    "execute_tool",
+    "main",
+    "mcp_tools_to_openai",
+    "run_pilot",
+    "run_pilot_loop",
+]
+
+
+class PermanentLLMError(Exception):
+    """Raised when the LLM is permanently unreachable (model not found, credits exhausted)."""
 
 
 class _ToolFunctionLike(Protocol):
@@ -105,587 +173,71 @@ class _ResponseLike(Protocol):
     usage: _UsageLike | None
 
 
-def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
-    """Extract oracle text from board payload's rules fields.
-
-    The bridge includes `rules` on every card (hand, battlefield, etc.).
-    Convert these to the oracle_texts format expected by render_decision().
-    """
-    oracle_texts: dict[str, dict] = {}
-    for player in board:
-        for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-            zone_cards = player.get(zone)
-            if zone_cards is None:
-                continue
-            for card in zone_cards:
-                if not isinstance(card, dict):
-                    continue
-                name = card["name"]
-                if not name or name in BASIC_LAND_NAMES or name in oracle_texts:
-                    continue
-                rules = card.get("rules")
-                if not rules:
-                    continue
-                entry: dict[str, str] = {}
-                if card.get("mana_cost"):
-                    entry["mana_cost"] = card["mana_cost"]
-                # Build type_line from available info
-                if card.get("is_land"):
-                    entry["type_line"] = "Land"
-                if card.get("power") is not None:
-                    entry["power_toughness"] = f"{card['power']}/{card['toughness']}"
-                if rules:
-                    entry["oracle_text"] = " / ".join(rules)
-                oracle_texts[name] = entry
-    return oracle_texts
-
-
-def _normalize_context_token(raw: str | None) -> str | None:
-    if raw is None:
-        return None
-    token = raw.strip()
-    if not token:
-        return None
-    return token.upper().replace(" ", "_")
-
-
-def _parse_context_metadata(
-    context: object,
-) -> tuple[int | None, str | None, str | None, str | None]:
-    """Parse bridge context strings like 'T3 Precombat Main/Precombat Main (Alice)'."""
-    if context is None:
-        return None, None, None, None
-    assert isinstance(context, str), f"context must be a string when present, got {context!r}"
-
-    parts = context.split(maxsplit=1)
-    assert parts and parts[0].startswith("T"), f"context must start with turn marker, got {context!r}"
-    turn = int(parts[0][1:])
-
-    active_player: str | None = None
-    phase_step = parts[1] if len(parts) > 1 else ""
-    if phase_step and phase_step != "()":
-        phase_prefix, sep, suffix = phase_step.partition(" (")
-        if sep:
-            player_name, closing, _ = suffix.partition(")")
-            if closing:
-                phase_step = phase_prefix
-                active_player = player_name.strip() or None
-
-    phase_raw, _, step_raw = phase_step.partition("/")
-    phase = _normalize_context_token(phase_raw)
-    step = _normalize_context_token(step_raw) or phase
-    return turn, phase, step, active_player
-
-
-def _build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decision) -> Snapshot:
-    """Build a typed snapshot from a pass_priority/get_action_choices result."""
-    players: list[dict] = []
-    active_player: str | None = None
-    if board:
-        for p in board:
-            name = p.get("name")
-            life = p.get("life")
-            library_size = p.get("library_size", 0)
-            assert isinstance(name, str) and name, f"pilot board player missing name: {p!r}"
-            assert isinstance(life, int), f"pilot board player life must be an int, got {life!r}"
-            assert isinstance(library_size, int), (
-                f"pilot board player library_size must be an int, got {library_size!r}"
-            )
-            if p.get("is_active"):
-                active_player = name
-            hand = p.get("hand")
-            battlefield = p.get("battlefield")
-            graveyard = p.get("graveyard")
-            player: dict = {
-                "name": name,
-                "life": life,
-                "library_size": library_size,
-                "battlefield": [] if battlefield is None else battlefield,
-                "graveyard": [] if graveyard is None else graveyard,
-                "hand": [] if hand is None else hand,
-            }
-            player["hand_count"] = p.get("hand_size", len(hand) if hand is not None else 0)
-            for zone in ("battlefield", "graveyard", "exile", "commanders"):
-                if p.get(zone):
-                    player[zone] = p[zone]
-            if p.get("counters"):
-                player["counters"] = p["counters"]
-            players.append(player)
-
-    _, _, step, context_active_player = _parse_context_metadata(data.get("context"))
-    # Some lightweight live responses omit a stable seq/cursor; the prompt
-    # renderer doesn't consume seq, so use 0 for synthetic snapshots.
-    raw_seq = data.get("game_seq", data.get("board_cursor", 0))
-    assert isinstance(raw_seq, int), f"pilot snapshot missing integer game_seq/board_cursor: {data!r}"
-    stack = data.get("stack")
-    snapshot_payload: dict[str, object] = {
-        "seq": raw_seq,
-        "turn": decision.turn,
-        "phase": decision.phase,
-        "step": step,
-        "active_player": active_player or context_active_player,
-        "priority_player": decision.player,
-        "players": players,
-        "stack": [] if stack is None else stack,
-    }
-    if data.get("combat") is not None:
-        snapshot_payload["combat"] = data["combat"]
-    return require_snapshot(snapshot_payload, source="pilot snapshot")
-
-
-def _build_pilot_decision(data: dict) -> Decision:
-    """Build a decision-like dict from a pass_priority/get_action_choices result.
-
-    Extracts the fields that render_decision() reads from a decision.
-    """
-    raw_choices = data.get("choices")
-    if raw_choices is None:
-        raw_choices = []
-    choices = Choice.coerce_list(raw_choices)
-    action_type = data.get("action_type")
-    response_type = data.get("response_type")
-    message = data.get("message")
-    assert action_type is None or isinstance(action_type, str), (
-        f"action_type must be a string when present, got {action_type!r}"
-    )
-    assert response_type is None or isinstance(response_type, str), (
-        f"response_type must be a string when present, got {response_type!r}"
-    )
-    assert message is None or isinstance(message, str), f"message must be a string when present, got {message!r}"
-    decision = Decision(
-        index=0,
-        snapshotIndex=0,
-        player="You",
-        turn=0,
-        phase="",
-        actionType="" if action_type is None else action_type,
-        responseType="" if response_type is None else response_type,
-        message="" if message is None else message,
-        choices=choices,
-        choiceCount=len(choices),
-        isForced=len(choices) <= 1,
-        llmEventIndices=[],
-        subsequentActions=[],
+def _record_tool_execution_failure(
+    error: ToolExecutionError,
+    username: str,
+    game_dir: Path | None,
+    game_log: GameLogWriter | None,
+) -> None:
+    """Persist fatal MCP tool failures so exports don't look falsely clean."""
+    _record_tool_execution_failure_impl(
+        error,
+        username,
+        game_dir,
+        game_log,
+        logger=logger,
+        log_error_fn=log_error,
     )
 
-    # Parse context string for turn/phase: "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN"
-    context_turn, context_phase, _, _ = _parse_context_metadata(data.get("context"))
-    if context_turn is not None:
-        decision.turn = context_turn
-    if context_phase is not None:
-        decision.phase = context_phase
 
-    # Find player name from board
-    board = data.get("board")
-    if isinstance(board, list):
-        for p in board:
-            if isinstance(p, dict) and p.get("is_you"):
-                decision.player = p["name"]
-                break
-
-    # Pilot context overlay
-    pilot_ctx: dict = {}
-    if "untapped_lands" in data:
-        pilot_ctx["untappedLands"] = data["untapped_lands"]
-    if "land_drops_used" in data:
-        pilot_ctx["landDropsUsed"] = data["land_drops_used"]
-    if "combat_phase" in data:
-        pilot_ctx["combatPhase"] = data["combat_phase"]
-    if "already_attacking" in data:
-        pilot_ctx["alreadyAttacking"] = data["already_attacking"]
-    if "incoming_attackers" in data:
-        pilot_ctx["incomingAttackers"] = data["incoming_attackers"]
-    if "mana_pool" in data:
-        pilot_ctx["manaPool"] = data["mana_pool"]
-    if pilot_ctx:
-        decision.pilotContext = PilotContext.from_mapping(pilot_ctx)
-
-    # Multi-amount items (e.g. combat damage distribution targets)
-    raw_items = data.get("items")
-    if raw_items:
-        decision.items = MultiAmountItem.coerce_list(raw_items)
-        if "total_min" in data:
-            decision.totalMin = data["total_min"]
-        if "total_max" in data:
-            decision.totalMax = data["total_max"]
-
-    return decision
-
-
-def _render_for_pilot(
-    result_text: str,
-    last_board: list[dict] | None,
-    seen_oracle_cards: set[str] | None = None,
-) -> tuple[str, list[dict] | None]:
-    """Render an action result for LLM consumption.
-
-    Handles pass_priority, get_action_choices, and choose_action results.
-    Returns (rendered_text, updated_board). The board is tracked so that
-    board_unchanged results can use the last-known board. Results without
-    action_pending are passed through as raw JSON.
-    """
-    try:
-        data = json.loads(result_text)
-    except (json.JSONDecodeError, TypeError):
-        return result_text, last_board
-
-    if not isinstance(data, dict) or not data.get("action_pending"):
-        # Not a decision — pass through the raw JSON
-        return result_text, last_board
-
-    # Get board (current or last-known)
-    board = data.get("board")
-    if isinstance(board, list):
-        last_board = board
-    elif board is None:
-        board = last_board
-    else:
-        board = last_board
-
-    decision = _build_pilot_decision(data)
-    snapshot = _build_pilot_snapshot(data, board, decision)
-
-    # Extract oracle texts from board's rules fields, filtering out
-    # cards whose oracle text was already shown in a previous message.
-    oracle_texts = _extract_oracle_texts_from_board(board) if board else {}
-    if seen_oracle_cards is not None:
-        oracle_texts = {k: v for k, v in oracle_texts.items() if k not in seen_oracle_cards}
-        seen_oracle_cards.update(oracle_texts)
-
-    deciding_player = decision.player
-
-    rendered = render_decision(
-        decision,
-        snapshot,
-        oracle_texts=oracle_texts,
-        deciding_player=deciding_player,
-        include_card_reference=True,
+def _handle_truncated_response(
+    state: PilotLoopState,
+    choice: _ChoiceLike,
+    response: _ResponseLike,
+    game_log: GameLogWriter | None,
+) -> bool:
+    """Handle max-token truncation and reset context after repeated failures."""
+    return _handle_truncated_response_impl(
+        state,
+        choice,
+        response,
+        game_log,
+        logger=logger,
+        max_tokens=MAX_TOKENS,
+        max_consecutive_truncations=MAX_CONSECUTIVE_TRUNCATIONS,
     )
 
-    # Append operational metadata the LLM needs to respond
-    lines = [rendered]
-    resp_type = data.get("response_type")
-    respond_with = data.get("respond_with")
-    if respond_with:
-        # When total_min == total_max, the Items header shows "total=N" instead
-        # of "total_min=N, total_max=N", so adjust the respond_with text to match.
-        total_min = data.get("total_min")
-        total_max = data.get("total_max")
-        if total_min is not None and total_max is not None and total_min == total_max:
-            respond_with = respond_with.replace(
-                "sum between total_min and total_max",
-                f"sum must equal total ({total_min})",
-            )
-        lines.append(f"  Respond: {respond_with}")
-    elif resp_type:
-        lines.append(f"  Response type: {resp_type}")
 
-    mana_pool = data.get("mana_pool")
-    if mana_pool and any(v > 0 for v in mana_pool.values()):
-        pool_str = ", ".join(f"{k}={v}" for k, v in mana_pool.items() if v > 0)
-        lines.append(f"  Mana pool: {pool_str}")
-
-    recent_chat = data.get("recent_chat")
-    if recent_chat:
-        lines.append("  Recent chat: " + " | ".join(recent_chat))
-
-    return "\n".join(lines), last_board
-
-
-def _summarize_tool_result(tool_name: str, content: str) -> str:
-    """Compress a tool result to a short summary for older context entries.
-
-    Parses the JSON result and extracts key fields per tool type.
-    Falls back to the original content for unknown tools or invalid JSON.
-    """
-    try:
-        data = json.loads(content)
-    except (json.JSONDecodeError, TypeError):
-        return content
-
-    if tool_name == "pass_priority":
-        if data.get("player_dead"):
-            return "player_dead"
-        if data.get("action_pending"):
-            stop = data.get("stop_reason")
-            action_type = data.get("action_type", "?")
-            parts = []
-            if stop:
-                parts.append(f"action_pending({action_type}, {stop})")
-            else:
-                parts.append(f"action_pending({action_type})")
-            # Include choice summary (pass_priority now returns choices inline)
-            resp_type = data.get("response_type")
-            if resp_type:
-                parts.append(resp_type)
-            choices = data.get("choices")
-            if choices:
-                names = [c.get("name", c.get("description", "?"))[:30] for c in choices[:3]]
-                parts.append(f"{len(choices)} choices: {', '.join(names)}")
-            msg = data.get("message")
-            if msg and not choices:
-                parts.append(msg[:60])
-            return "; ".join(parts)
-        stop = data.get("stop_reason")
-        if isinstance(stop, str) and stop:
-            return stop
-        return "passed"
-
-    if tool_name == "choose_action":
-        if data.get("success"):
-            summary = f"OK: {data.get('action_taken', '?')}"
-            if data.get("mana_plan_set"):
-                summary += f" (mana_plan: {data.get('mana_plan_size', '?')} entries)"
-            return summary
-        return f"FAIL: {data.get('error', '?')[:100]}"
-
-    if tool_name == "get_action_choices":
-        parts = [data.get("action_type", "?")]
-        resp_type = data.get("response_type")
-        if resp_type:
-            parts.append(resp_type)
-        choices = data.get("choices")
-        if choices:
-            names = [c.get("name", c.get("description", "?"))[:30] for c in choices[:3]]
-            parts.append(f"{len(choices)} choices: {', '.join(names)}")
-        msg = data.get("message")
-        if msg and not choices:
-            parts.append(msg[:60])
-        return "; ".join(parts)
-
-    if tool_name == "get_game_state":
-        parts = []
-        if "turn" in data:
-            parts.append(f"T{data['turn']}")
-        if "phase" in data:
-            parts.append(data["phase"])
-        players = data.get("players")
-        if players is not None:
-            for p in players:
-                name = p.get("name", "?")
-                life = p.get("life", "?")
-                bf_zone = p.get("battlefield")
-                bf = len(bf_zone) if bf_zone is not None else 0
-                parts.append(f"{name}:{life}hp/{bf}perm")
-        return "; ".join(parts) if parts else content
-
-    if tool_name == "get_game_log":
-        total = data.get("total_length", "?")
-        truncated = data.get("truncated", False)
-        since = data.get("since_turn")
-        log_text = data.get("log")
-        prefix = f"log({total} chars"
-        if since is not None:
-            prefix += f", since_turn={since}"
-        if truncated:
-            prefix += ", truncated"
-        prefix += "): "
-        if log_text:
-            lines = [line.strip() for line in log_text.splitlines() if line.strip()]
-            if lines:
-                excerpt = " / ".join(lines[:4])
-                if len(lines) > 4:
-                    excerpt += " / ..."
-                return prefix + excerpt
-        return prefix.rstrip(": ")
-
-    # get_oracle_text, send_chat_message, unknown
-    return content
-
-
-def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str) -> str:
-    """Find the tool name for a tool result by searching backward for its assistant message."""
-    for j in range(tool_result_idx - 1, -1, -1):
-        msg = history[j]
-        if msg.get("role") == "assistant":
-            tool_calls = msg.get("tool_calls")
-            if tool_calls is None:
-                continue
-            for tc in tool_calls:
-                if tc.get("id") == tool_call_id:
-                    function = tc.get("function")
-                    assert isinstance(function, dict), (
-                        f"assistant tool call {tool_call_id!r} missing function payload: {tc!r}"
-                    )
-                    name = function.get("name")
-                    assert isinstance(name, str), f"assistant tool call {tool_call_id!r} missing function name: {tc!r}"
-                    return name
-            break
-    return ""
-
-
-def _extract_last_reasoning(history: list[dict]) -> str:
-    """Extract the last assistant reasoning text from history (for context resets)."""
-    for msg in reversed(history):
-        if msg.get("role") == "assistant":
-            content = msg.get("content")
-            if isinstance(content, str) and content:
-                return content[:300]
-    return ""
-
-
-def _build_reset_message(
-    base_text: str,
-    last_reasoning: str,
-) -> str:
-    """Build the user message for a context reset."""
-    parts = [base_text]
-    if last_reasoning:
-        parts.append(f"Before your context was reset, you were thinking: {last_reasoning}")
-    return "\n\n".join(parts)
-
-
-def _with_cache_control(msg: dict, cache_control: dict) -> dict:
-    """Return a copy of msg with cache_control added to its content.
-
-    Converts string content to content-block format with cache_control attached.
-    Works for user, assistant (with text content), and tool messages.
-    Returns the message unchanged if the content isn't suitable (e.g. None/empty).
-    """
-    role = msg["role"]
-    content = msg.get("content")
-
-    if role in ("user", "tool"):
-        if isinstance(content, str):
-            return {**msg, "content": [{"type": "text", "text": content, "cache_control": cache_control}]}
-        if isinstance(content, list):
-            new_content = [dict(block) for block in content]
-            for block in reversed(new_content):
-                if isinstance(block, dict) and block.get("type") == "text":
-                    block["cache_control"] = cache_control
-                    break
-            return {**msg, "content": new_content}
-    elif role == "assistant" and isinstance(content, str) and content:
-        return {**msg, "content": [{"type": "text", "text": content, "cache_control": cache_control}]}
-
-    return msg
-
-
-_CACHE_BREAKPOINT_MARKER = "All cards listed are playable right now."
-
-
-def _message_text(msg: dict) -> str:
-    """Extract concatenated text content from a rendered message."""
-    content = msg.get("content")
-    if isinstance(content, str):
-        return content
-    if isinstance(content, list):
-        return "".join(block["text"] for block in content if isinstance(block, dict) and block.get("type") == "text")
-    return ""
-
-
-def _find_cache_breakpoint_idx(messages: list[dict]) -> int:
-    """Return the message index that ends the stable cacheable prefix."""
-    for idx in range(len(messages) - 1, -1, -1):
-        if messages[idx].get("role") == "user" and _CACHE_BREAKPOINT_MARKER in _message_text(messages[idx]):
-            return idx
-    return len(messages) - 1
-
-
-def _render_context(
-    history: list[dict],
-    system_prompt: str,
-    state_summary: str,
-    cache_control: dict | None = None,
-) -> list[dict]:
-    """Build the LLM messages list from append-only history.
-
-    Recent messages (last CONTEXT_RECENT_COUNT) are included at full fidelity.
-    Older messages (up to CONTEXT_SUMMARY_COUNT before the recent window) have
-    their tool results summarised to save tokens. Everything older is dropped.
-    """
-    messages: list[dict]
-    if cache_control:
-        # Use content block format with cache_control for providers that need it
-        # (e.g. Anthropic via OpenRouter)
-        messages = [
-            {
-                "role": "system",
-                "content": [{"type": "text", "text": system_prompt, "cache_control": cache_control}],
-            }
-        ]
-    else:
-        messages = [{"role": "system", "content": system_prompt}]
-
-    if len(history) <= CONTEXT_RECENT_COUNT:
-        # Short history — include everything at full fidelity
-        messages.extend(history)
-        return messages
-
-    # Long history — summarised prefix (cacheable), state bridge, recent slice.
-    # State bridge is placed after the summarised section so the prefix
-    # (system + summarised) stays stable across iterations for prompt caching.
-
-    # Find a clean boundary for the recent slice — don't split assistant/tool pairs.
-    # Walk the recent boundary backward so it doesn't start on a tool message.
-    recent_start = len(history) - CONTEXT_RECENT_COUNT
-    while recent_start > 0 and history[recent_start].get("role") == "tool":
-        recent_start -= 1
-
-    # Summarised older slice
-    summary_start = max(0, recent_start - CONTEXT_SUMMARY_COUNT)
-    # Same clean-boundary logic for the summary start
-    while summary_start > 0 and history[summary_start].get("role") == "tool":
-        summary_start -= 1
-
-    for i in range(summary_start, recent_start):
-        msg = history[i]
-        if msg.get("role") == "tool" and len(msg["content"]) > TOOL_SUMMARY_TRIGGER_CHARS:
-            tool_name = _find_tool_name(history, i, msg["tool_call_id"])
-            messages.append({**msg, "content": _summarize_tool_result(tool_name, msg["content"])})
-        else:
-            messages.append(msg)
-
-    # State bridge — after cacheable prefix, before recent window.
-    # With cache_control, this marks the end of the cacheable prefix (system +
-    # summarised section).  For models with a 4096-token minimum (Opus), the
-    # prefix at this point is ~6k tokens — comfortably above the threshold.
-    bridge_text = (
-        f"{state_summary}"
-        "Continue playing. Call pass_priority to get your next decision, "
-        "then choose_action to respond. "
-        "All cards listed are playable right now. "
-        "Play cards with choice=pN, pass with choice=no."
+async def _recover_from_stall(
+    session: ClientSession,
+    state: PilotLoopState,
+    game_log: GameLogWriter | None,
+    turn_tools_called: set[str],
+) -> None:
+    """Auto-pass once, then reset conversation after a stalled turn sequence."""
+    await _recover_from_stall_impl(
+        session,
+        state,
+        game_log,
+        turn_tools_called,
+        logger=logger,
     )
-    if cache_control:
-        messages.append(
-            {
-                "role": "user",
-                "content": [{"type": "text", "text": bridge_text, "cache_control": cache_control}],
-            }
-        )
-    else:
-        messages.append({"role": "user", "content": bridge_text})
-
-    # Recent slice — full fidelity
-    messages.extend(history[recent_start:])
-    return messages
 
 
-async def _fetch_state_summary(session: ClientSession) -> str:
-    """Fetch a compact game state summary for context bridging."""
-    state_result = await execute_tool(session, "get_game_state", {})
-    try:
-        state_data = json.loads(state_result)
-    except (json.JSONDecodeError, TypeError) as exc:
-        raise ToolExecutionError(f"get_game_state returned invalid JSON: {state_result!r}") from exc
-    if not isinstance(state_data, dict):
-        raise ToolExecutionError(f"get_game_state returned non-object payload: {state_data!r}")
-    if "error" in state_data:
-        raise ToolExecutionError(f"get_game_state returned error: {state_data['error']}")
-    parts: list[str] = []
-    if "turn" in state_data:
-        parts.append(f"Turn {state_data['turn']}")
-    if "phase" in state_data:
-        parts.append(state_data["phase"])
-    for p in state_data["players"]:
-        name = p.get("name", "?")
-        life = p.get("life", "?")
-        bf_zone = p.get("battlefield")
-        bf = len(bf_zone) if bf_zone is not None else 0
-        hand = p.get("hand_count", p.get("hand_size", "?"))
-        parts.append(f"{name}: {life}hp, {bf} permanents, {hand} cards")
-    return "Current game state: " + "; ".join(parts) + ". "
+async def _handle_timeout(
+    session: ClientSession,
+    state: PilotLoopState,
+    game_log: GameLogWriter | None,
+) -> None:
+    """Keep the game moving across request timeouts and reset repeated failures."""
+    await _handle_timeout_impl(
+        session,
+        state,
+        game_log,
+        logger=logger,
+        llm_request_timeout_secs=LLM_REQUEST_TIMEOUT_SECS,
+        max_consecutive_timeouts=MAX_CONSECUTIVE_TIMEOUTS,
+    )
 
 
 # Tools that are purely informational (don't advance game state).
@@ -700,172 +252,13 @@ def _load_default_system_prompt() -> str:
     return prompts["default"]
 
 
-def mcp_tools_to_openai(mcp_tools: Sequence[Tool], allowed_tools: set[str] | None = None) -> list[dict]:
-    """Convert MCP tool definitions to OpenAI function calling format.
-
-    Args:
-        mcp_tools: Tool definitions from the MCP session.
-        allowed_tools: Set of tool names to include. None means include all.
-    """
-    return [
-        {
-            "type": "function",
-            "function": {
-                "name": tool.name,
-                "description": tool.description,
-                "parameters": tool.inputSchema or {"type": "object", "properties": {}},
-            },
-        }
-        for tool in mcp_tools
-        if allowed_tools is None or tool.name in allowed_tools
-    ]
-
-
-async def execute_tool(session: ClientSession, name: str, arguments: dict) -> str:
-    """Route a tool call through the MCP session and return the result text."""
-    try:
-        result = await session.call_tool(name, arguments)
-    except Exception as exc:
-        raise ToolExecutionError(f"MCP tool {name} failed: {exc}") from exc
-    return extract_text_content(name, result)
-
-
-def _tool_execution_error_result(error: ToolExecutionError, game_seq: int | None) -> str:
-    """Build a structured tool_call payload for fatal MCP execution failures."""
-    result: dict[str, object] = {
-        "success": False,
-        "error": str(error),
-        "error_code": "tool_execution_error",
-        "retryable": False,
-    }
-    if game_seq is not None:
-        result["game_seq"] = game_seq
-    return json.dumps(result, separators=(",", ":"))
-
-
-def _record_tool_execution_failure(
-    error: ToolExecutionError,
-    username: str,
-    game_dir: Path | None,
-    game_log: GameLogWriter | None,
-) -> None:
-    """Persist fatal MCP tool failures so exports don't look falsely clean."""
-    error_str = str(error)
-    if game_log:
-        game_log.emit("llm_error", error_type=type(error).__name__, error_message=error_str[:500])
-    log_error(logger, game_dir, username, f"[pilot] Fatal tool error: {error_str}")
-
-
-_BOARD_CURSOR_TOOLS = frozenset({"pass_priority", "get_action_choices"})
-
-
-class BoardCursorTracker:
-    """Tracks board_cursor across tool calls for board state dedup.
-
-    Injects board_cursor into pass_priority/get_action_choices args so the
-    bridge can omit the board payload when it hasn't changed. Extracts the
-    cursor from tool results to keep it up to date.
-    """
-
-    def __init__(self) -> None:
-        self.cursor: int | None = None
-
-    def inject(self, tool_name: str, args: dict) -> None:
-        """Inject board_cursor into args if applicable."""
-        if tool_name in _BOARD_CURSOR_TOOLS and self.cursor is not None:
-            args["board_cursor"] = self.cursor
-
-    def extract(self, result_text: str) -> None:
-        """Extract board_cursor from a tool result string."""
-        try:
-            data = json.loads(result_text)
-            if isinstance(data, dict) and "board_cursor" in data:
-                self.cursor = data["board_cursor"]
-        except (json.JSONDecodeError, TypeError):
-            pass
-
-    def reset(self) -> None:
-        """Force full board on the next call (e.g. after context reset)."""
-        self.cursor = None
-
-
-@dataclass
-class PilotLoopState:
-    """Mutable state for the pilot loop."""
-
-    history: list[dict]
-    state_summary: str = ""
-    cumulative_cost: float = 0.0
-    empty_responses: int = 0
-    last_was_empty: bool = False
-    consecutive_timeouts: int = 0
-    consecutive_empty_choices: int = 0
-    turns_without_progress: int = 0
-    consecutive_pass_errors: int = 0
-    last_pass_error_msg: str = ""
-    consecutive_truncations: int = 0
-    consecutive_empty_errors: int = 0
-    last_game_seq: int | None = None
-    board_tracker: BoardCursorTracker = field(default_factory=BoardCursorTracker)
-    last_board: list[dict] | None = None
-    current_game_turn: int = 0
-    last_chat_turn: int = 0
-    seen_oracle_cards: set[str] = field(default_factory=set)
-    cache_breakpoint_idx: int | None = None
-    render_counter: int = 0
-
-
-@dataclass
-class PilotTurnState:
-    """Per-response tool execution state used for stall detection."""
-
-    had_successful_action: bool = False
-    had_actionable_opportunity: bool = False
-    tools_called: set[str] = field(default_factory=set)
-    chat_messages_this_turn: int = 0
-
-
-def _reset_render_cache(state: PilotLoopState) -> None:
-    """Drop cached prompt metadata after a context reset."""
-    state.state_summary = ""
-    state.cache_breakpoint_idx = None
-    state.render_counter = 0
-
-
-def _reset_context(
-    state: PilotLoopState,
-    base_text: str,
-    *,
-    reset_board_context: bool,
-) -> None:
-    """Reset the conversation while preserving the last assistant reasoning."""
-    last_reasoning = _extract_last_reasoning(state.history)
-    state.history = [
-        {
-            "role": "user",
-            "content": _build_reset_message(base_text, last_reasoning),
-        },
-    ]
-    _reset_render_cache(state)
-    state.seen_oracle_cards.clear()
-    if reset_board_context:
-        state.board_tracker.reset()
-        state.last_board = None
-
-
 async def _build_loop_messages(
     state: PilotLoopState,
     session: ClientSession,
     system_prompt: str,
     cache_control: dict | None,
 ) -> list[dict]:
-    """Render the next LLM request from the current history.
-
-    Reusing an old full render can leave the recent window stale even when the
-    history has grown. Refreshing the rendered messages each turn keeps the
-    assistant/tool transcript aligned with the current history while still
-    reusing the cheaper state summary between refreshes.
-    """
+    """Render the next LLM request from the current history."""
     if len(state.history) > CONTEXT_RECENT_COUNT:
         state.render_counter += 1
         if not state.state_summary or state.render_counter % RENDER_INTERVAL == 0:
@@ -902,14 +295,14 @@ def _build_assistant_tool_message(message: _AssistantMessageLike) -> dict:
     if message.tool_calls:
         assistant_msg["tool_calls"] = [
             {
-                "id": tc.id,
+                "id": tool_call.id,
                 "type": "function",
                 "function": {
-                    "name": tc.function.name,
-                    "arguments": tc.function.arguments,
+                    "name": tool_call.function.name,
+                    "arguments": tool_call.function.arguments,
                 },
             }
-            for tc in message.tool_calls
+            for tool_call in message.tool_calls
         ]
     return assistant_msg
 
@@ -921,41 +314,6 @@ def _maybe_extract_result_dict(result_text: str) -> dict | None:
     except (json.JSONDecodeError, TypeError):
         return None
     return data if isinstance(data, dict) else None
-
-
-def _handle_truncated_response(
-    state: PilotLoopState,
-    choice: _ChoiceLike,
-    response: _ResponseLike,
-    game_log: GameLogWriter | None,
-) -> bool:
-    """Handle max-token truncation and reset context after repeated failures."""
-    if choice.finish_reason != "length":
-        state.consecutive_truncations = 0
-        return False
-
-    state.consecutive_truncations += 1
-    tokens_used = (response.usage.completion_tokens or 0) if response.usage else "?"
-    logger.warning(
-        "[pilot] OUTPUT TRUNCATED: finish_reason=length, completion_tokens=%s/%s. "
-        "Model hit max_tokens cap before producing a tool call. [%d]",
-        tokens_used,
-        MAX_TOKENS,
-        state.consecutive_truncations,
-    )
-    if state.consecutive_truncations < MAX_CONSECUTIVE_TRUNCATIONS:
-        return False
-
-    logger.warning("[pilot] Repeated truncations, resetting conversation context")
-    if game_log:
-        game_log.emit("context_reset", reason="repeated_truncations")
-    _reset_context(
-        state,
-        "Continue playing. Be concise. Call pass_priority.",
-        reset_board_context=True,
-    )
-    state.consecutive_truncations = 0
-    return True
 
 
 async def _process_tool_calls(
@@ -984,7 +342,7 @@ async def _process_tool_calls(
         logger.info("[pilot] Tool: %s(%s)", fn.name, json.dumps(args, separators=(",", ":")))
 
         if fn.name == "send_chat_message" and turn_state.chat_messages_this_turn >= MAX_CHAT_MESSAGES_PER_TURN:
-            result_text = json.dumps({"success": False, "error": "Chat limit reached — focus on gameplay."})
+            result_text = json.dumps({"success": False, "error": "Chat limit reached - focus on gameplay."})
             tool_latency_ms = 0
         else:
             if fn.name == "send_chat_message":
@@ -992,7 +350,7 @@ async def _process_tool_calls(
             tool_start = time.monotonic()
             try:
                 result_text = await execute_tool(session, fn.name, args)
-            except ToolExecutionError as e:
+            except ToolExecutionError as exc:
                 tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
                 if game_log:
                     game_log.emit(
@@ -1000,7 +358,7 @@ async def _process_tool_calls(
                         call_id=tool_call.id,
                         tool=fn.name,
                         arguments=args,
-                        result=_tool_execution_error_result(e, state.last_game_seq),
+                        result=_tool_execution_error_result(exc, state.last_game_seq),
                         latency_ms=tool_latency_ms,
                         game_seq=state.last_game_seq,
                     )
@@ -1030,7 +388,7 @@ async def _process_tool_calls(
                     logger,
                     game_dir,
                     username,
-                    f"[pilot] {state.consecutive_empty_errors} consecutive empty errors — bridge is dead, exiting",
+                    f"[pilot] {state.consecutive_empty_errors} consecutive empty errors - bridge is dead, exiting",
                 )
                 if game_log:
                     game_log.emit(
@@ -1134,7 +492,7 @@ async def _process_tool_calls(
             if turns_since_chat >= 2 and display_text != result_text and chat_budget_left:
                 display_text += (
                     f"\n\n[It's been {turns_since_chat} turns since you last "
-                    f"chatted — send a message to your opponent!]"
+                    f"chatted - send a message to your opponent!]"
                 )
 
         state.history.append(
@@ -1154,99 +512,8 @@ async def _process_tool_calls(
     return False, turn_state.tools_called
 
 
-async def _recover_from_stall(
-    session: ClientSession,
-    state: PilotLoopState,
-    game_log: GameLogWriter | None,
-    turn_tools_called: set[str],
-) -> None:
-    """Auto-pass once, then reset conversation after a stalled turn sequence."""
-    last_tools = sorted(turn_tools_called)
-    logger.warning(
-        "[pilot] Stalled: %d turns without progress, last tools: %s, auto-passing until next event",
-        state.turns_without_progress,
-        last_tools or "none",
-    )
-    if game_log:
-        game_log.emit(
-            "stall",
-            turns_without_progress=state.turns_without_progress,
-            last_tools=last_tools,
-        )
-    try:
-        await execute_tool(
-            session,
-            "send_chat_message",
-            {"message": "Brain freeze! Auto-passing until next turn..."},
-        )
-    except ToolExecutionError:
-        pass
-    try:
-        await execute_tool(session, "pass_priority", {})
-        logger.info("[pilot] Auto-passed stalled action")
-    except ToolExecutionError as e:
-        logger.warning("[pilot] Auto-pass failed: %s", e)
-
-    state.turns_without_progress = 0
-    _reset_context(
-        state,
-        "A new turn has started. Call pass_priority to continue.",
-        reset_board_context=False,
-    )
-
-
-async def _handle_timeout(
-    session: ClientSession,
-    state: PilotLoopState,
-    game_log: GameLogWriter | None,
-) -> None:
-    """Keep the game moving across request timeouts and reset repeated failures."""
-    state.consecutive_timeouts += 1
-    logger.warning(
-        "[pilot] LLM request timed out after %ss [%d]",
-        LLM_REQUEST_TIMEOUT_SECS,
-        state.consecutive_timeouts,
-    )
-    if game_log:
-        game_log.emit(
-            "llm_error",
-            error_type="timeout",
-            error_message=f"Timed out after {LLM_REQUEST_TIMEOUT_SECS}s [{state.consecutive_timeouts}]",
-        )
-    try:
-        await execute_tool(session, "pass_priority", {})
-    except ToolExecutionError:
-        await asyncio.sleep(5)
-
-    if state.consecutive_timeouts < MAX_CONSECUTIVE_TIMEOUTS:
-        return
-
-    logger.warning("[pilot] Repeated LLM timeouts, resetting conversation context")
-    if game_log:
-        game_log.emit("context_reset", reason="repeated_timeouts")
-    _reset_context(
-        state,
-        "Continue playing. Call pass_priority.",
-        reset_board_context=True,
-    )
-    state.consecutive_timeouts = 0
-
-
-def _classify_permanent_llm_failure(error_str: str) -> str | None:
-    """Return the permanent failure reason, if the error should abort the game."""
-    permanent_codes = {"401", "402", "403", "404"}
-    if not any(code in error_str for code in permanent_codes):
-        return None
-    is_not_found = "404" in error_str and "401" not in error_str
-    return "Model not found" if is_not_found else "Credits exhausted"
-
-
 def build_initial_message(pass_priority_result: dict) -> str:
-    """Build the initial user message from a pass_priority result.
-
-    Used both by the real pilot loop (via _prefetch_first_action) and by
-    golden prompt tests.
-    """
+    """Build the initial user message from a pass_priority result."""
     if pass_priority_result.get("game_over"):
         return "The game is over."
     if not pass_priority_result.get("action_pending"):
@@ -1258,24 +525,18 @@ def build_initial_message(pass_priority_result: dict) -> str:
     if message and ("Mulligan" in message or "mulligan" in message.lower()):
         return (
             f"The game is starting. Your first decision: {message}\n"
-            f"Call get_action_choices to see your hand, then choose_action to decide."
+            "Call get_action_choices to see your hand, then choose_action to decide."
         )
     if action_type:
         return (
             f"The game is starting. Your first decision ({action_type}): {message if message else ''}\n"
-            f"Call get_action_choices to see your options, then choose_action to decide."
+            "Call get_action_choices to see your options, then choose_action to decide."
         )
     return "The game is starting. Call pass_priority to get your first decision."
 
 
 async def _prefetch_first_action(session: ClientSession) -> str:
-    """Wait for the first game decision and return a descriptive initial message.
-
-    Calls pass_priority() which blocks until a decision arrives (e.g.
-    mulligan, choose play/draw). Since pass_priority returns choices inline,
-    we extract action_type and message directly — no separate get_action_choices
-    round-trip needed.
-    """
+    """Wait for the first game decision and return a descriptive initial message."""
     result_text = await execute_tool(session, "pass_priority", {})
     try:
         result = json.loads(result_text)
@@ -1301,12 +562,10 @@ async def run_pilot_loop(
     cache_control: dict | None = None,
 ) -> None:
     """Run the LLM-driven game-playing loop."""
-    # Pre-fetch the first decision so the LLM knows what it's deciding
-    # instead of blindly calling pass_priority with confusing yield params.
     try:
         initial_message = await _prefetch_first_action(session)
-    except ToolExecutionError as e:
-        _record_tool_execution_failure(e, username, game_dir, game_log)
+    except ToolExecutionError as exc:
+        _record_tool_execution_failure(exc, username, game_dir, game_log)
         raise
     state = PilotLoopState(history=[{"role": "user", "content": initial_message}])
     model_price = get_model_price(model, prices)
@@ -1376,7 +635,6 @@ async def run_pilot_loop(
             if _handle_truncated_response(state, choice, response, game_log):
                 continue
 
-            # Log full LLM request/response to trace file
             if trace_log:
                 trace_log.emit(
                     "llm_call",
@@ -1384,7 +642,6 @@ async def run_pilot_loop(
                     response=response.model_dump(),
                 )
 
-            # Track token usage and cost
             call_cost = 0.0
             if response.usage and model_price is not None:
                 input_cost = (response.usage.prompt_tokens or 0) * model_price[0] / 1_000_000
@@ -1394,42 +651,39 @@ async def run_pilot_loop(
                 if game_dir:
                     write_cost_file(game_dir, username, state.cumulative_cost)
 
-            # Log LLM response to JSONL
             if game_log:
                 llm_event = {"reasoning": choice.message.content}
-                # Capture extended thinking / chain-of-thought if present.
-                # OpenRouter returns this as `reasoning_content` for models
-                # that support it (Claude, Gemini 2.5 thinking mode, etc.).
-                # The openai SDK preserves it as an extra field.
                 thinking = getattr(choice.message, "reasoning_content", None)
                 if thinking:
                     llm_event["thinking"] = thinking
                 if choice.message.tool_calls:
                     llm_event["tool_calls"] = [
-                        {"name": tc.function.name, "arguments": tc.function.arguments}
-                        for tc in choice.message.tool_calls
+                        {"name": tool_call.function.name, "arguments": tool_call.function.arguments}
+                        for tool_call in choice.message.tool_calls
                     ]
                 if response.usage:
                     usage_dict: dict = {
                         "prompt_tokens": response.usage.prompt_tokens or 0,
                         "completion_tokens": response.usage.completion_tokens or 0,
                     }
-                    ptd = response.usage.prompt_tokens_details
-                    if ptd and getattr(ptd, "cached_tokens", None):
-                        usage_dict["cached_tokens"] = ptd.cached_tokens
+                    prompt_details = response.usage.prompt_tokens_details
+                    if prompt_details and getattr(prompt_details, "cached_tokens", None):
+                        usage_dict["cached_tokens"] = prompt_details.cached_tokens
                         total_prompt = response.usage.prompt_tokens or 0
-                        if ptd.cached_tokens > total_prompt > 0:
+                        if prompt_details.cached_tokens > total_prompt > 0:
                             logger.warning(
-                                "[pilot] cached_tokens (%d) > prompt_tokens (%d) — upstream API bug",
-                                ptd.cached_tokens,
+                                "[pilot] cached_tokens (%d) > prompt_tokens (%d) - upstream API bug",
+                                prompt_details.cached_tokens,
                                 total_prompt,
                             )
                         elif total_prompt > 0:
-                            hit_pct = ptd.cached_tokens / total_prompt * 100
-                            logger.debug("[pilot] Cache: %d/%d (%.0f%%)", ptd.cached_tokens, total_prompt, hit_pct)
-                    ctd = response.usage.completion_tokens_details
-                    if ctd and getattr(ctd, "reasoning_tokens", None):
-                        usage_dict["reasoning_tokens"] = ctd.reasoning_tokens
+                            hit_pct = prompt_details.cached_tokens / total_prompt * 100
+                            logger.debug(
+                                "[pilot] Cache: %d/%d (%.0f%%)", prompt_details.cached_tokens, total_prompt, hit_pct
+                            )
+                    completion_details = response.usage.completion_tokens_details
+                    if completion_details and getattr(completion_details, "reasoning_tokens", None):
+                        usage_dict["reasoning_tokens"] = completion_details.reasoning_tokens
                     llm_event["usage"] = usage_dict
                 llm_event["cost_usd"] = round(call_cost, 6)
                 llm_event["cumulative_cost_usd"] = round(state.cumulative_cost, 6)
@@ -1450,7 +704,6 @@ async def run_pilot_loop(
                 if finished:
                     return
             else:
-                # LLM stopped calling tools — always counts as stalling
                 state.turns_without_progress += 1
                 content = choice.message.content
                 if content:
@@ -1461,7 +714,6 @@ async def run_pilot_loop(
                     state.empty_responses = 0
                     state.last_was_empty = False
                 elif not state.last_was_empty:
-                    # First empty response: retry immediately without counting
                     logger.warning("[pilot] Empty response from LLM, retrying...")
                     state.last_was_empty = True
                     continue
@@ -1502,19 +754,17 @@ async def run_pilot_loop(
         except TimeoutError:
             await _handle_timeout(session, state, game_log)
 
-        except ToolExecutionError as e:
-            _record_tool_execution_failure(e, username, game_dir, game_log)
+        except ToolExecutionError as exc:
+            _record_tool_execution_failure(exc, username, game_dir, game_log)
             raise
 
-        except OpenAIError as e:
+        except OpenAIError as exc:
             state.consecutive_timeouts = 0
-            error_str = str(e)
-            logger.warning("[pilot] LLM error: %s", e)
+            error_str = str(exc)
+            logger.warning("[pilot] LLM error: %s", exc)
             if game_log:
-                game_log.emit("llm_error", error_type=type(e).__name__, error_message=error_str[:500])
+                game_log.emit("llm_error", error_type=type(exc).__name__, error_message=error_str[:500])
 
-            # Permanent failures - abort immediately to avoid wasting
-            # API tokens on the other player(s).
             reason = _classify_permanent_llm_failure(error_str)
             if reason is not None:
                 logger.warning("[pilot] %s, aborting", reason)
@@ -1530,7 +780,6 @@ async def run_pilot_loop(
                     pass
                 raise PermanentLLMError(reason) from None
 
-            # Transient error - keep actions flowing while waiting to retry
             try:
                 await execute_tool(session, "pass_priority", {})
             except ToolExecutionError:
@@ -1583,7 +832,6 @@ async def run_pilot(
         )
         assert provider_order is None, f"provider_order requires provider={DEFAULT_LLM_PROVIDER!r}, got {provider!r}"
 
-    # Initialize OpenAI-compatible client
     llm_client = AsyncOpenAI(
         api_key=api_key,
         base_url=base_url,
@@ -1622,9 +870,8 @@ async def run_pilot(
                 logger.debug("[pilot] MCP initialized: %s", result.serverInfo)
 
                 tools_result = await session.list_tools()
-                # Fail fast if toolset references tools the MCP bridge doesn't have
                 if tools is not None:
-                    available_mcp_names = {t.name for t in tools_result.tools}
+                    available_mcp_names = {tool.name for tool in tools_result.tools}
                     unknown = tools - available_mcp_names
                     if unknown:
                         raise ValueError(
@@ -1632,7 +879,7 @@ async def run_pilot(
                             f"Available: {sorted(available_mcp_names)}"
                         )
                 openai_tools = mcp_tools_to_openai(tools_result.tools, tools)
-                tool_names = [t["function"]["name"] for t in openai_tools]
+                tool_names = [tool["function"]["name"] for tool in openai_tools]
                 logger.debug("[pilot] Available tools: %s", tool_names)
 
                 if game_log:
@@ -1688,7 +935,6 @@ def main() -> int:
     parser.add_argument("--cache-control", default="", help="JSON cache_control config for prompt caching")
     args = parser.parse_args()
 
-    # Determine project root
     if args.project_root:
         project_root = args.project_root.resolve()
     else:
@@ -1700,7 +946,6 @@ def main() -> int:
 
     provider = args.provider or DEFAULT_LLM_PROVIDER
 
-    # API key: CLI arg > provider-specific env var based on provider.
     api_key = args.api_key
     if not api_key.strip():
         required_key_env = required_api_key_env(provider)
@@ -1713,10 +958,8 @@ def main() -> int:
     prices = load_prices()
     logger.debug("[pilot] Project root: %s", project_root)
 
-    # Load system prompt: CLI arg > prompts.json default
     system_prompt = args.system_prompt or _load_default_system_prompt()
 
-    # Parse tool names: CLI arg > default
     pilot_tools = set(args.tools.split(",")) if args.tools else None
     ignore_providers = args.ignore_providers.split(",") if args.ignore_providers else None
     provider_order = args.provider_order.split(",") if args.provider_order else None
@@ -1753,8 +996,8 @@ def main() -> int:
         )
     except KeyboardInterrupt:
         pass
-    except PermanentLLMError as e:
-        logger.error("[pilot] Permanent LLM failure: %s", e)
+    except PermanentLLMError as exc:
+        logger.error("[pilot] Permanent LLM failure: %s", exc)
         return PERMANENT_FAILURE_EXIT_CODE
 
     return 0

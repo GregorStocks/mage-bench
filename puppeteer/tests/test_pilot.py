@@ -11,6 +11,8 @@ import pytest
 from mcp.types import CallToolResult, TextContent
 from openai import OpenAIError
 
+import puppeteer.pilot as pilot_module
+from puppeteer import pilot_bridge, pilot_game_state, pilot_rendering, pilot_state
 from puppeteer.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
     MAX_CONSECUTIVE_EMPTY_CHOICES,
@@ -335,6 +337,13 @@ def _make_mcp_tool(name: str) -> MagicMock:
     tool.description = f"Description for {name}"
     tool.inputSchema = {"type": "object", "properties": {}}
     return tool
+
+
+def test_pilot_module_reexports_split_helpers():
+    assert pilot_module.execute_tool is pilot_bridge.execute_tool
+    assert pilot_module._extract_oracle_texts_from_board is pilot_game_state._extract_oracle_texts_from_board
+    assert pilot_module._render_context is pilot_rendering._render_context
+    assert pilot_module.BoardCursorTracker is pilot_state.BoardCursorTracker
 
 
 def test_mcp_tools_to_openai_no_filter():
