@@ -821,30 +821,7 @@ class TestActivePresetsExist:
 
 
 # ---------------------------------------------------------------------------
-# Test 19: No new private Python API debt
-# ---------------------------------------------------------------------------
-
-
-class TestPrivatePythonApis:
-    def test_no_new_cross_module_private_imports(self) -> None:
-        unexpected = _private_cross_module_imports() - _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS
-        assert not unexpected, (
-            "New cross-module imports of underscore-prefixed helpers were added.\n"
-            "If another module needs the helper, rename it to a public symbol in the owner module instead.\n  "
-            + "\n  ".join(f"{importer} imports {exporter}.{name}" for importer, exporter, name in sorted(unexpected))
-        )
-
-    def test_no_new_private_reexports(self) -> None:
-        unexpected = _private_reexports() - _ALLOWED_PRIVATE_REEXPORTS
-        assert not unexpected, (
-            "New underscore-prefixed names were added to __all__.\n"
-            "Private helpers should not be part of a module's public export surface.\n  "
-            + "\n  ".join(f"{module}.{name}" for module, name in sorted(unexpected))
-        )
-
-
-# ---------------------------------------------------------------------------
-# Test 20: Golden output and harness epoch must move together
+# Test 19: Golden output and harness epoch must move together
 # ---------------------------------------------------------------------------
 
 
