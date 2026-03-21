@@ -70,6 +70,7 @@ Pick and solve exactly **one** issue, then create a PR.
    - Finding when the authoritative claimed issue file was created (`git log --diff-filter=A -- issues/<filename>.json5`)
    - Reviewing git history since that date for commits that look like they address the issue
    - Reading the relevant code to see if the described bug/problem still exists
+   - For lint-ignore cleanup issues, verify the underlying violation without the ignore in effect (for example `ruff check --isolated ...`); a normal lint run can still pass because the suppression you are trying to remove is active
 
    If the issue **is already fixed**: skip the planning/implementation steps entirely. Just delete the issue file, commit it, push, and finalize the PR as a cleanup. The PR title should be something like "Clean up outdated issue: \<title\>" and the body should briefly explain that the issue was already resolved (mention the commit or change that fixed it). Conceptually this is a zero-line fix — the only change is removing the stale issue file.
 
@@ -105,6 +106,7 @@ Pick and solve exactly **one** issue, then create a PR.
 9. Run `make check` to verify lint, typecheck, and tests pass
 
    - If you need live progress or a concrete failing sub-target, prefer `make check VERBOSE=1` over launching a second blind `make check`. The quiet wrapper can hide long-running child jobs, and overlapping retries leave duplicate Maven/pytest work chewing through the same branch.
+   - If the quiet wrapper prints some target results and then appears stuck, inspect the listed failing sub-targets directly instead of waiting indefinitely. The expensive child jobs may already be done, and targeted reruns (`make format-check`, `make test`, etc.) recover the concrete failures faster.
    - For large Java refactors, especially under `Mage.Client.Bridge/`, use a module-scoped Maven loop for fast feedback while iterating (for example `mvn -pl Mage.Client.Bridge -DskipTests compile` or `mvn -pl Mage.Client.Bridge test -Dtest=...`). Still finish with the full `make check` before deleting the issue file or finalizing the PR.
 
 10. Delete the issue file (e.g., `rm issues/<issue-filename>.json5`) and **include the deletion in the commit** — the issue removal must ship with the fix

@@ -230,7 +230,7 @@ class TestBuildMatchupMatrix:
         assert game_counts.get("alpha-medium") == 1
         assert "unknown" not in str(game_counts)
 
-    def test_extra_matchups(self, tmp_path: Path) -> None:
+    def test_extra_matchups(self) -> None:
         pair_counts, game_counts = _build_matchup_matrix([], {}, extra_matchups=[("alpha-medium", "beta-medium")])
         assert pair_counts[("alpha-medium", "beta-medium")] == 1
         assert game_counts["alpha-medium"] == 1

@@ -1289,6 +1289,7 @@ def run_golden_scenario(
 
     Returns the captured prompt messages array (what the LLM would see).
     """
+    _ = server, port
     game_dir.mkdir(parents=True, exist_ok=True)
     if player_a_name is None:
         player_a_name = bridge_a.username

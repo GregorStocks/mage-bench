@@ -20,8 +20,7 @@ def dumps_json5(
         obj, indent=indent, sort_keys=sort_keys, ensure_ascii=ensure_ascii
     )
     text = _add_trailing_commas(text)
-    text = _expand_multiline_strings(text)
-    return text
+    return _expand_multiline_strings(text)
 
 
 def _add_trailing_commas(text: str) -> str:

@@ -194,11 +194,11 @@ def find_ready_matches(tournament: dict) -> list[tuple[dict, dict]]:
                 _advance_round(rounds, i)
             continue
 
-        ready = []
-        for match in matches:
-            if match["winner_seed"] is None and match["seed_a"] is not None:
-                ready.append((current_round, match))
-        return ready
+        return [
+            (current_round, match)
+            for match in matches
+            if match["winner_seed"] is None and match["seed_a"] is not None
+        ]
 
     return []
 

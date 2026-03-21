@@ -504,6 +504,7 @@ def pytest_unconfigure(config: pytest.Config) -> None:
 
 
 def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
+    _ = config
     golden_cases: list[tuple[str, GoldenTestIdentity | None]] = []
     for item in items:
         if item.get_closest_marker("golden") is None:
@@ -523,6 +524,7 @@ def pytest_runtest_setup(item: pytest.Item) -> None:
 
 @pytest.hookimpl(wrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo[None]) -> Generator[None, object, object]:
+    _ = call
     report = yield
     if item.get_closest_marker("golden") is None:
         return report
@@ -533,5 +535,6 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo[None]) ->
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
     """Print aggregate golden test timing summary at session end."""
+    _ = session, exitstatus
     print_timing_summary()
     print_rss_summary()
