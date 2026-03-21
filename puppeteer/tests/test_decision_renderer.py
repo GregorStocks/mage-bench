@@ -583,8 +583,10 @@ class TestChosenDisplay:
         assert result == "Bear blocks Goblin"
 
     def test_boolean_chosen(self) -> None:
-        assert _chosen_display(True, {}, []) == "True"
-        assert _chosen_display(False, {}, []) == "False"
+        true_value = True
+        false_value = False
+        assert _chosen_display(true_value, {}, []) == "True"
+        assert _chosen_display(false_value, {}, []) == "False"
 
     def test_index_chosen(self) -> None:
         choices = _choice_list({"name": "Lightning Bolt"}, {"name": "Mountain"})

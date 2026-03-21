@@ -486,7 +486,7 @@ def test_run_match_batch_plays_each_series_until_decided(monkeypatch, tmp_path: 
     ]
     seen_matchups: list[list[tuple[int, int]]] = []
 
-    def fake_run_games(tournament_arg, matchups, skip_compile=False):
+    def fake_run_games(tournament_arg, matchups, *, skip_compile=False):
         seen_matchups.append(matchups)
         return results_by_call.pop(0)
 

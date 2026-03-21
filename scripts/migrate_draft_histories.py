@@ -17,7 +17,11 @@ from scripts.draft_history import (
 
 
 def migrate_tournament(
-    path: Path, target_version: int, dry_run: bool, force: bool
+    path: Path,
+    target_version: int,
+    *,
+    dry_run: bool,
+    force: bool,
 ) -> bool:
     """Migrate one tournament file if needed. Returns True if it changed."""
     tournament = json.loads(path.read_text())
@@ -64,7 +68,12 @@ def main() -> None:
     migrated = 0
     skipped = 0
     for path in iter_tournament_paths():
-        if migrate_tournament(path, args.target_version, args.dry_run, args.force):
+        if migrate_tournament(
+            path,
+            args.target_version,
+            dry_run=args.dry_run,
+            force=args.force,
+        ):
             action = "would migrate" if args.dry_run else "migrated"
             print(f"  {path.name}: {action} to v{args.target_version}")
             migrated += 1

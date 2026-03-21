@@ -488,6 +488,7 @@ def _read_game_result(
 def _run_games(
     tournament: dict,
     matchups: list[tuple[int, int]],
+    *,
     skip_compile: bool = False,
 ) -> list[tuple[Path, int]]:
     """Run one game for each matchup and return the winner for each."""
@@ -556,6 +557,7 @@ def _run_match_on(
     tournament_path: Path,
     round_dict: dict,
     match: dict,
+    *,
     skip_compile: bool = False,
     deferred_failures: list[AnnotationFailure] | None = None,
 ) -> None:
@@ -604,6 +606,7 @@ def _run_match_batch(
     tournament: dict,
     tournament_path: Path,
     batch: list[tuple[dict, dict]],
+    *,
     skip_compile: bool = False,
     deferred_failures: list[AnnotationFailure] | None = None,
 ) -> None:

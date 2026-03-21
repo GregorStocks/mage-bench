@@ -93,6 +93,7 @@ def _pilot(
     tool_calls_failed: int = 0,
     thinking_time_secs: float = 0.0,
     reasoning_effort: str | None = None,
+    *,
     timed_out: bool | None = None,
 ) -> Player:
     return Player(

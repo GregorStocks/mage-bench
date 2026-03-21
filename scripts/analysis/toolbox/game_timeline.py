@@ -240,7 +240,7 @@ def fmt_args(tool: str, args: JsonObject) -> str:
     return json.dumps(args)[:200]
 
 
-def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
+def fmt_result(tool: str, result_str: str, *, verbose: bool = False) -> str:
     """Format tool result readably."""
     try:
         result = json.loads(result_str)
@@ -323,6 +323,7 @@ def fmt_result(tool: str, result_str: str, verbose: bool = False) -> str:
 def print_event(
     event: LlmEvent,
     snapshots: list[Snapshot],
+    *,
     mana_only: bool,
     verbose: bool,
 ) -> bool:

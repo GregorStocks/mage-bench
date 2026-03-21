@@ -102,6 +102,7 @@ async def execute_replay_script(
     script: list[dict],
     system_prompt: str,
     game_log: GameLogWriter | None = None,
+    *,
     skip_postscript: bool = False,
 ) -> list[dict]:
     """Execute a replay script and return the captured prompt messages.
@@ -263,6 +264,7 @@ async def run_replay(
     deck_path: Path | None = None,
     game_dir: Path | None = None,
     table_id: str | None = None,
+    *,
     skip_postscript: bool = False,
 ) -> list[dict]:
     """Run the replay pilot.

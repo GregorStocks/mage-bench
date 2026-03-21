@@ -12,8 +12,10 @@ def test_round_trip_null() -> None:
 
 
 def test_round_trip_bool() -> None:
-    assert loads_json5(dumps_json5(True)) is True
-    assert loads_json5(dumps_json5(False)) is False
+    true_value = True
+    false_value = False
+    assert loads_json5(dumps_json5(true_value)) is True
+    assert loads_json5(dumps_json5(false_value)) is False
 
 
 def test_round_trip_int() -> None:

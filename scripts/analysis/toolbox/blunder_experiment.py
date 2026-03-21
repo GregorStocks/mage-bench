@@ -277,7 +277,7 @@ def _call_llm(
     model: str,
     system: str,
     user: str,
-    thinking: bool | str = False,
+    reasoning_effort: str | None = None,
     label: str = "",
 ) -> CallTrace:
     """Call LLM and return a full CallTrace with all intermediate data."""
@@ -290,10 +290,9 @@ def _call_llm(
         "max_tokens": 16384,
     }
 
-    if thinking:
+    if reasoning_effort is not None:
         # OpenRouter extended thinking via extra_body
-        effort = thinking if isinstance(thinking, str) else "high"
-        kwargs["extra_body"] = {"reasoning": {"effort": effort}}
+        kwargs["extra_body"] = {"reasoning": {"effort": reasoning_effort}}
         # Can't use temperature with thinking mode on some models
     else:
         kwargs["temperature"] = 0
@@ -520,10 +519,17 @@ def _eval_one_decision(
     system: str,
     user_msg: str,
     label: str,
-    thinking: bool | str = False,
+    reasoning_effort: str | None = None,
 ) -> tuple[CallTrace, list[dict]]:
     """Evaluate a single decision and return (trace, annotations)."""
-    trace = _call_llm(client, model, system, user_msg, thinking=thinking, label=label)
+    trace = _call_llm(
+        client,
+        model,
+        system,
+        user_msg,
+        reasoning_effort=reasoning_effort,
+        label=label,
+    )
     anns: list[dict] = []
     try:
         anns = _parse_json_array(trace.response_text)
@@ -539,7 +545,7 @@ def _approach_per_decision(
     overview: str,
     model: str,
     approach_name: str,
-    thinking: bool | str = False,
+    reasoning_effort: str | None = None,
 ) -> ExperimentResult:
     """Per-decision approach: one API call per non-forced decision."""
     result = ExperimentResult(approach=approach_name, game_id=data.id, model=model)
@@ -556,7 +562,13 @@ def _approach_per_decision(
         for d in non_forced:
             user_msg, label, system = make_task(d)
             fut = pool.submit(
-                _eval_one_decision, client, model, system, user_msg, label, thinking
+                _eval_one_decision,
+                client,
+                model,
+                system,
+                user_msg,
+                label,
+                reasoning_effort=reasoning_effort,
             )
             futures[fut] = decision_index(d)
 
@@ -590,7 +602,12 @@ def _approach_thinking(
     user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
 
     trace = _call_llm(
-        client, OPUS, OPUS_SYSTEM, user_msg, thinking=True, label="full_game"
+        client,
+        OPUS,
+        OPUS_SYSTEM,
+        user_msg,
+        reasoning_effort="high",
+        label="full_game",
     )
     result.calls.append(trace)
 
@@ -850,7 +867,7 @@ def _approach_flash_sonnet(
                 PER_DECISION_SYSTEM,
                 user_msg,
                 label,
-                "low",
+                reasoning_effort="low",
             )
             eval_futures[eval_fut] = decision_index(d)
 
@@ -899,7 +916,7 @@ def _approach_batched(
     overview: str,
     model: str,
     approach_name: str,
-    thinking: bool | str = False,
+    reasoning_effort: str | None = None,
     batch_size: int = BATCH_SIZE,
 ) -> ExperimentResult:
     """Batched per-decision: send batch_size decisions per API call."""
@@ -935,7 +952,7 @@ def _approach_batched(
                 BATCHED_SYSTEM,
                 user_msg,
                 label,
-                thinking,
+                reasoning_effort=reasoning_effort,
             )
             futures[fut] = i
 
@@ -1151,7 +1168,13 @@ def run_approach(
         )
     if approach == "K_opus_thinking":
         return _approach_per_decision(
-            client, data, decisions, overview, OPUS, "K_opus_thinking", thinking=True
+            client,
+            data,
+            decisions,
+            overview,
+            OPUS,
+            "K_opus_thinking",
+            reasoning_effort="high",
         )
     if approach == "L_sonnet_thinking":
         return _approach_per_decision(
@@ -1161,7 +1184,7 @@ def run_approach(
             overview,
             SONNET,
             "L_sonnet_thinking",
-            thinking=True,
+            reasoning_effort="high",
         )
     if approach == "M_sonnet_batched_medium":
         return _approach_batched(
@@ -1171,7 +1194,7 @@ def run_approach(
             overview,
             SONNET,
             "M_sonnet_batched_medium",
-            thinking="medium",
+            reasoning_effort="medium",
         )
     if approach == "N_sonnet_batched_high":
         return _approach_batched(
@@ -1181,7 +1204,7 @@ def run_approach(
             overview,
             SONNET,
             "N_sonnet_batched_high",
-            thinking=True,
+            reasoning_effort="high",
         )
     if approach == "O_sonnet_medium":
         return _approach_per_decision(
@@ -1191,7 +1214,7 @@ def run_approach(
             overview,
             SONNET,
             "O_sonnet_medium",
-            thinking="medium",
+            reasoning_effort="medium",
         )
     if approach == "P_sonnet_low":
         return _approach_per_decision(
@@ -1201,7 +1224,7 @@ def run_approach(
             overview,
             SONNET,
             "P_sonnet_low",
-            thinking="low",
+            reasoning_effort="low",
         )
     if approach == "Q_flash_sonnet":
         return _approach_flash_sonnet(client, data, decisions, overview)

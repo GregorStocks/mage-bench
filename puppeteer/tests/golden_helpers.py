@@ -829,6 +829,7 @@ def _run_replay_on_bridge(
     script: list[dict],
     game_dir: Path,
     player_name: str,
+    *,
     skip_postscript: bool = False,
     write_log: bool = True,
     should_concede: bool = True,
@@ -1066,6 +1067,7 @@ def _run_pilot_on_bridge(
     game_dir: Path,
     player_name: str,
     deck_path: str,
+    *,
     should_concede: bool = True,
 ) -> list[dict]:
     """Run the real pilot loop with a scripted fake client and capture the prompt."""

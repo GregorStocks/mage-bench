@@ -565,6 +565,7 @@ def parse_args() -> Config:
 
 def compile_project(
     project_root: Path,
+    *,
     observer: bool = False,
     populate_local_repo: bool = False,
 ) -> bool:

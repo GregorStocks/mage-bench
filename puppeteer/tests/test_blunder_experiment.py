@@ -1,8 +1,10 @@
 """Tests for the blunder experiment approaches."""
 
 import json
+from types import SimpleNamespace
+from unittest.mock import MagicMock
 
-from scripts.analysis.toolbox.blunder_experiment import _parse_inline_response
+from scripts.analysis.toolbox.blunder_experiment import OPUS, _call_llm, _parse_inline_response
 
 
 def _ann(**overrides: object) -> dict:
@@ -67,3 +69,36 @@ class TestParseInlineResponse:
         assert len(result) == 1
         assert result[0]["decisionIndex"] == 4
         assert "{2}{R}{R}" in result[0]["description"]
+
+
+def _fake_completion_response() -> SimpleNamespace:
+    return SimpleNamespace(
+        choices=[SimpleNamespace(message=SimpleNamespace(content="[]"))],
+        usage=SimpleNamespace(
+            prompt_tokens=10,
+            completion_tokens=5,
+            completion_tokens_details=None,
+        ),
+    )
+
+
+def test_call_llm_uses_temperature_without_reasoning_effort() -> None:
+    create = MagicMock(return_value=_fake_completion_response())
+    client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+
+    _call_llm(client, OPUS, "system", "user", label="baseline")
+
+    kwargs = create.call_args.kwargs
+    assert kwargs["temperature"] == 0
+    assert "extra_body" not in kwargs
+
+
+def test_call_llm_uses_reasoning_effort_when_requested() -> None:
+    create = MagicMock(return_value=_fake_completion_response())
+    client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+
+    _call_llm(client, OPUS, "system", "user", reasoning_effort="medium", label="reasoned")
+
+    kwargs = create.call_args.kwargs
+    assert kwargs["extra_body"] == {"reasoning": {"effort": "medium"}}
+    assert "temperature" not in kwargs

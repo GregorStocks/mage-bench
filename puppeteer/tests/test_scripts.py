@@ -1359,7 +1359,7 @@ class TestGameGzBootstrap:
 
         export_path.write_text(json.dumps(export_data))
 
-        def fake_run(cmd: list[str], check: bool) -> MagicMock:
+        def fake_run(cmd: list[str], *, check: bool) -> MagicMock:
             assert cmd == ["uv", "run", "python", "scripts/export_game.py", game_id]
             assert check is True
             export_path.write_text(json.dumps(export_data))

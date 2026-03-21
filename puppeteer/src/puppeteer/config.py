@@ -384,13 +384,19 @@ def _resolve_randoms(
             # Mark as having a name so _resolve_personality skips the name requirement
             had_explicit_name = True
 
-        _resolve_personality(player, personalities, models_data, had_explicit_name)
+        _resolve_personality(
+            player,
+            personalities,
+            models_data,
+            had_explicit_name=had_explicit_name,
+        )
 
 
 def _resolve_personality(
     player: PilotPlayer,
     personalities: dict[str, dict],
     models_data: dict,
+    *,
     had_explicit_name: bool,
 ) -> None:
     """Apply personality defaults to a player in-place (prompt_suffix and name only)."""
