@@ -3922,7 +3922,7 @@ public class BridgeCallbackHandler {
     }
 
     private long updateGameStateCursor(Map<String, Object> state) {
-        String signature = buildStateSignature(state);
+        String signature = BridgeGameStateBuilder.buildStateSignature(state);
         synchronized (stateCursorLock) {
             if (lastGameStateSignature == null || !lastGameStateSignature.equals(signature)) {
                 gameStateCursor++;
@@ -3933,7 +3933,7 @@ public class BridgeCallbackHandler {
     }
 
     private long updateBoardCursor(List<Map<String, Object>> players) {
-        String signature = buildStateSignature(players);
+        String signature = BridgeGameStateBuilder.buildStateSignature(players);
         synchronized (boardCursorLock) {
             if (lastBoardSignature == null || !lastBoardSignature.equals(signature)) {
                 boardCursor++;
@@ -3941,10 +3941,6 @@ public class BridgeCallbackHandler {
             }
             return boardCursor;
         }
-    }
-
-    private String buildStateSignature(Object value) {
-        return BridgeGameStateBuilder.buildStateSignature(value);
     }
 
     public Map<String, Object> getMyDecklist() {

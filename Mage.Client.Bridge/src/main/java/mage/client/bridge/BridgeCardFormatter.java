@@ -90,7 +90,7 @@ final class BridgeCardFormatter {
     }
 
     String describeTarget(UUID targetId, CardsView cardsView, GameView gameView) {
-        GameView view = gameView != null ? gameView : null;
+        GameView view = gameView;
         if (cardsView != null) {
             CardView cv = cardsView.get(targetId);
             if (cv != null) {
