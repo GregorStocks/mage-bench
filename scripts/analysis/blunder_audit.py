@@ -315,7 +315,7 @@ def collect_verdict() -> tuple[str | None, str | None]:
             )
         except (EOFError, KeyboardInterrupt):
             print()
-            raise SystemExit(0)
+            raise SystemExit(0) from None
 
         if resp in ("q", "quit"):
             raise SystemExit(0)
@@ -337,7 +337,7 @@ def collect_verdict() -> tuple[str | None, str | None]:
             notes = input("Notes (Enter=skip): ").strip() or None
         except (EOFError, KeyboardInterrupt):
             print()
-            raise SystemExit(0)
+            raise SystemExit(0) from None
 
         return verdict, notes
 

@@ -331,10 +331,7 @@ def print_event(
     ts = event.ts
     player = event.player
     # Short timestamp (just time portion)
-    if ts:
-        ts_short = ts.split("T")[-1][:12] if "T" in ts else ts[:12]
-    else:
-        ts_short = ""
+    ts_short = (ts.split("T")[-1][:12] if "T" in ts else ts[:12]) if ts else ""
     context = find_context_for_event(snapshots, event)
 
     is_mana = is_mana_event(event)

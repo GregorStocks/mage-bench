@@ -152,10 +152,10 @@ def _get_authenticated_service() -> Any:
         from google.oauth2.credentials import Credentials
         from google_auth_oauthlib.flow import InstalledAppFlow
         from googleapiclient.discovery import build
-    except ImportError:
+    except ImportError as exc:
         raise ImportError(
             "YouTube upload requires google-api-python-client and google-auth-oauthlib.\nRun: cd puppeteer && uv sync"
-        )
+        ) from exc
 
     creds = None
 
