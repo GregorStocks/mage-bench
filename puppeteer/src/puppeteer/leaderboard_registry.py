@@ -46,7 +46,7 @@ def load_model_registry(models_json: Path) -> dict[str, str]:
     return registry
 
 
-def _load_inactive_statuses(presets_json: Path) -> dict[str, str] | None:
+def load_inactive_statuses(presets_json: Path) -> dict[str, str] | None:
     """Load inactive statuses for non-active presets from presets.json."""
     if not presets_json.exists():
         return None

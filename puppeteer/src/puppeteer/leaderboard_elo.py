@@ -1,10 +1,9 @@
-"""Elo, placement, and model-entry helpers for leaderboard generation."""
+"""Elo and placement helpers for leaderboard generation."""
 
 from __future__ import annotations
 
 import re
 from collections.abc import Mapping
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -17,71 +16,14 @@ _ELO_START = 1600
 _ELO_K = 32
 
 
-@dataclass(frozen=True, slots=True)
-class _ModelEntry:
-    model_id: str
-    model_name: str
-    provider: str
-    rating: int | None
-    games_played: int
-    win_rate: float
-    timeout_losses: int
-    timeout_loss_rate: float
-    avg_api_cost: float
-    avg_tool_calls_ok: float
-    avg_tool_calls_failed: float
-    avg_thinking_time_secs: float
-    blunder_score: float
-    reasoning_effort: str | None = None
-
-    def to_dict(self) -> dict[str, Any]:
-        entry: dict[str, Any] = {
-            "modelId": self.model_id,
-            "modelName": self.model_name,
-            "provider": self.provider,
-            "rating": self.rating,
-            "gamesPlayed": self.games_played,
-            "winRate": self.win_rate,
-            "timeoutLosses": self.timeout_losses,
-            "timeoutLossRate": self.timeout_loss_rate,
-            "avgApiCost": self.avg_api_cost,
-            "avgToolCallsOk": self.avg_tool_calls_ok,
-            "avgToolCallsFailed": self.avg_tool_calls_failed,
-            "avgThinkingTimeSecs": self.avg_thinking_time_secs,
-            "blunderScore": self.blunder_score,
-        }
-        if self.reasoning_effort is not None:
-            entry["reasoningEffort"] = self.reasoning_effort
-        return entry
-
-
-def _serialize_model_entries(models: list[_ModelEntry]) -> list[dict[str, Any]]:
-    return [model.to_dict() for model in models]
-
-
-def _reasoning_effort_sort_key(model: _ModelEntry) -> tuple[str, ...]:
-    if model.reasoning_effort is None:
-        return ()
-    return (model.reasoning_effort,)
-
-
-def _rated_sort_key(model: _ModelEntry) -> tuple[int, int, str, tuple[str, ...]]:
-    assert model.rating is not None
-    return (-model.rating, -model.games_played, model.model_id, _reasoning_effort_sort_key(model))
-
-
-def _exhibition_sort_key(model: _ModelEntry) -> tuple[float, int, str, tuple[str, ...]]:
-    return (-model.win_rate, -model.games_played, model.model_id, _reasoning_effort_sort_key(model))
-
-
-def _player_key(model: str, reasoning_effort: str | None = None) -> str:
+def player_key(model: str, reasoning_effort: str | None = None) -> str:
     """Build aggregation key: 'model_id::effort' or just 'model_id'."""
     if reasoning_effort:
         return f"{model}::{reasoning_effort}"
     return model
 
 
-def _split_key(key: str) -> tuple[str, str | None]:
+def split_key(key: str) -> tuple[str, str | None]:
     """Split aggregation key into (model_id, reasoning_effort)."""
     if "::" in key:
         model_id, effort = key.split("::", 1)
@@ -181,12 +123,12 @@ def compute_elo_ratings(
         if len(pilots) < 2:
             for pilot in pilots:
                 assert isinstance(pilot.model, str) and pilot.model
-                key = _player_key(pilot.model, pilot.reasoningEffort)
+                key = player_key(pilot.model, pilot.reasoningEffort)
                 if key not in ratings:
                     ratings[key] = float(_ELO_START)
             if pilots:
                 assert isinstance(pilots[0].model, str) and pilots[0].model
-                key = _player_key(pilots[0].model, pilots[0].reasoningEffort)
+                key = player_key(pilots[0].model, pilots[0].reasoningEffort)
                 per_game.append(
                     {
                         "id": game["id"],
@@ -199,14 +141,14 @@ def compute_elo_ratings(
 
         for pilot in pilots:
             assert isinstance(pilot.model, str) and pilot.model
-            key = _player_key(pilot.model, pilot.reasoningEffort)
+            key = player_key(pilot.model, pilot.reasoningEffort)
             if key not in ratings:
                 ratings[key] = float(_ELO_START)
 
         pilot_keys: list[str] = []
         for pilot in pilots:
             assert isinstance(pilot.model, str) and pilot.model
-            pilot_keys.append(_player_key(pilot.model, pilot.reasoningEffort))
+            pilot_keys.append(player_key(pilot.model, pilot.reasoningEffort))
 
         before = {key: round(ratings[key]) for key in pilot_keys}
 

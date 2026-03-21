@@ -19,8 +19,6 @@ from puppeteer import (
 )
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.leaderboard import (
-    _player_key,
-    _split_key,
     capitalize_provider,
     compute_elo_ratings,
     compute_thinking_time,
@@ -34,6 +32,7 @@ from puppeteer.leaderboard import (
     generate_model_stats,
     load_model_registry,
 )
+from puppeteer.leaderboard_elo import player_key, split_key
 from schemas.game_export_types import Annotation, Player
 
 
@@ -178,9 +177,11 @@ def test_load_model_registry_missing_file():
     assert load_model_registry(Path("/nonexistent/models.json")) == {}
 
 
-def test_leaderboard_module_reexports_split_helpers():
-    assert leaderboard_module._player_key is leaderboard_elo._player_key
-    assert leaderboard_module._split_key is leaderboard_elo._split_key
+def test_leaderboard_module_uses_owner_module_public_helpers():
+    assert not hasattr(leaderboard_module, "_player_key")
+    assert not hasattr(leaderboard_module, "_split_key")
+    assert leaderboard_elo.player_key is player_key
+    assert leaderboard_elo.split_key is split_key
     assert leaderboard_module.compute_elo_ratings is leaderboard_elo.compute_elo_ratings
     assert leaderboard_module.extract_placements is leaderboard_elo.extract_placements
     assert leaderboard_module.derive_format is leaderboard_formats.derive_format
@@ -1012,27 +1013,27 @@ def test_generate_leaderboard_file_has_formats_key():
         assert result["formats"]["legacy"]["totalGames"] == 1
 
 
-# --- _player_key / _split_key ---
+# --- player_key / split_key ---
 
 
 def test_player_key_without_effort():
-    assert _player_key("a/x") == "a/x"
+    assert player_key("a/x") == "a/x"
 
 
 def test_player_key_with_effort():
-    assert _player_key("a/x", "medium") == "a/x::medium"
+    assert player_key("a/x", "medium") == "a/x::medium"
 
 
 def test_player_key_with_none_effort():
-    assert _player_key("a/x", None) == "a/x"
+    assert player_key("a/x", None) == "a/x"
 
 
 def test_split_key_without_effort():
-    assert _split_key("a/x") == ("a/x", None)
+    assert split_key("a/x") == ("a/x", None)
 
 
 def test_split_key_with_effort():
-    assert _split_key("a/x::medium") == ("a/x", "medium")
+    assert split_key("a/x::medium") == ("a/x", "medium")
 
 
 # --- reasoning effort in leaderboard ---

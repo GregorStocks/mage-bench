@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -18,15 +19,10 @@ from puppeteer.leaderboard_common import (
     write_if_changed as _write_if_changed,
 )
 from puppeteer.leaderboard_elo import (
-    _ELO_START,
-    _exhibition_sort_key,
-    _ModelEntry,
-    _player_key,
-    _rated_sort_key,
-    _serialize_model_entries,
-    _split_key,
     compute_elo_ratings,
     extract_placements,
+    player_key,
+    split_key,
 )
 from puppeteer.leaderboard_formats import (
     EXHIBITION_POOLS as _EXHIBITION_POOLS,
@@ -42,9 +38,9 @@ from puppeteer.leaderboard_formats import (
     RATED_POOLS as _RATED_POOLS,
 )
 from puppeteer.leaderboard_registry import (
-    _load_inactive_statuses,
     capitalize_provider,
     derive_display_name,
+    load_inactive_statuses,
     load_model_registry,
 )
 from puppeteer.leaderboard_stats import (
@@ -56,8 +52,6 @@ from puppeteer.leaderboard_stats import (
 __all__ = [
     "BLUNDER_WEIGHTS",
     "FORMAT_LABELS",
-    "_player_key",
-    "_split_key",
     "capitalize_provider",
     "compute_elo_ratings",
     "compute_thinking_time",
@@ -81,6 +75,63 @@ BLUNDER_WEIGHTS: dict[str, int] = {
     "moderate": 2,
     "major": 4,
 }
+
+
+@dataclass(frozen=True, slots=True)
+class _ModelEntry:
+    model_id: str
+    model_name: str
+    provider: str
+    rating: int | None
+    games_played: int
+    win_rate: float
+    timeout_losses: int
+    timeout_loss_rate: float
+    avg_api_cost: float
+    avg_tool_calls_ok: float
+    avg_tool_calls_failed: float
+    avg_thinking_time_secs: float
+    blunder_score: float
+    reasoning_effort: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        entry: dict[str, Any] = {
+            "modelId": self.model_id,
+            "modelName": self.model_name,
+            "provider": self.provider,
+            "rating": self.rating,
+            "gamesPlayed": self.games_played,
+            "winRate": self.win_rate,
+            "timeoutLosses": self.timeout_losses,
+            "timeoutLossRate": self.timeout_loss_rate,
+            "avgApiCost": self.avg_api_cost,
+            "avgToolCallsOk": self.avg_tool_calls_ok,
+            "avgToolCallsFailed": self.avg_tool_calls_failed,
+            "avgThinkingTimeSecs": self.avg_thinking_time_secs,
+            "blunderScore": self.blunder_score,
+        }
+        if self.reasoning_effort is not None:
+            entry["reasoningEffort"] = self.reasoning_effort
+        return entry
+
+
+def _serialize_model_entries(models: list[_ModelEntry]) -> list[dict[str, Any]]:
+    return [model.to_dict() for model in models]
+
+
+def _reasoning_effort_sort_key(model: _ModelEntry) -> tuple[str, ...]:
+    if model.reasoning_effort is None:
+        return ()
+    return (model.reasoning_effort,)
+
+
+def _rated_sort_key(model: _ModelEntry) -> tuple[int, int, str, tuple[str, ...]]:
+    assert model.rating is not None
+    return (-model.rating, -model.games_played, model.model_id, _reasoning_effort_sort_key(model))
+
+
+def _exhibition_sort_key(model: _ModelEntry) -> tuple[float, int, str, tuple[str, ...]]:
+    return (-model.win_rate, -model.games_played, model.model_id, _reasoning_effort_sort_key(model))
 
 
 def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
@@ -138,7 +189,7 @@ def generate_leaderboard(
         for player in game["players"]:
             if player.type != "pilot" or not player.model:
                 continue
-            key = _player_key(player.model, player.reasoningEffort)
+            key = player_key(player.model, player.reasoningEffort)
             if key not in stats:
                 stats[key] = {
                     "games_played": 0,
@@ -167,12 +218,13 @@ def generate_leaderboard(
 
     models: list[_ModelEntry] = []
     for key, stat in stats.items():
-        model_id, effort = _split_key(key)
+        model_id, effort = split_key(key)
         games_played = int(stat["games_played"])
         wins = int(stat["wins"])
         provider_slug = model_id.split("/", 1)[0]
         total_annotated_turns = int(stat["total_annotated_turns"])
         assert total_annotated_turns > 0, f"Model {model_id} has no annotated turns"
+        assert key in final_ratings, f"Missing final rating for {key}"
 
         display_name = model_registry.get(model_id) or derive_display_name(model_id)
         if effort:
@@ -184,7 +236,7 @@ def generate_leaderboard(
                 model_id=model_id,
                 model_name=display_name,
                 provider=capitalize_provider(provider_slug),
-                rating=final_ratings.get(key, _ELO_START),
+                rating=final_ratings[key],
                 games_played=games_played,
                 win_rate=round(wins / games_played, 4),
                 timeout_losses=timeout_losses,
@@ -229,7 +281,7 @@ def generate_exhibition_leaderboard(
         for player in game["players"]:
             if player.type != "pilot" or not player.model:
                 continue
-            key = _player_key(player.model, player.reasoningEffort)
+            key = player_key(player.model, player.reasoningEffort)
             if key not in stats:
                 stats[key] = {
                     "games_played": 0,
@@ -258,7 +310,7 @@ def generate_exhibition_leaderboard(
 
     models: list[_ModelEntry] = []
     for key, stat in stats.items():
-        model_id, effort = _split_key(key)
+        model_id, effort = split_key(key)
         games_played = int(stat["games_played"])
         wins = int(stat["wins"])
         provider_slug = model_id.split("/", 1)[0]
@@ -356,7 +408,7 @@ def generate_leaderboard_file(
         games_index.append(game_entry)
 
     model_registry = load_model_registry(models_json)
-    inactive_statuses = _load_inactive_statuses(models_json.parent / "presets.json")
+    inactive_statuses = load_inactive_statuses(models_json.parent / "presets.json")
 
     def _mark_inactive(format_results: dict[str, Any]) -> None:
         if inactive_statuses is None:
@@ -365,7 +417,7 @@ def generate_leaderboard_file(
             for model in format_data["models"]:
                 model_id = model["modelId"]
                 effort = model.get("reasoningEffort")
-                key = f"{model_id}::{effort}" if effort else model_id
+                key = player_key(model_id, effort)
                 if key in inactive_statuses:
                     model["inactive"] = inactive_statuses[key]
 

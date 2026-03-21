@@ -10,7 +10,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from puppeteer.leaderboard_common import glob_game_files, load_game_file, write_if_changed
-from puppeteer.leaderboard_elo import _player_key, _split_key
+from puppeteer.leaderboard_elo import player_key, split_key
 from puppeteer.leaderboard_formats import derive_format
 from puppeteer.leaderboard_registry import capitalize_provider, derive_display_name, load_model_registry
 from schemas.game_export_types import LlmErrorEvent, LlmResponseEvent, is_pilot_player
@@ -19,7 +19,7 @@ _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 
 
 def _build_model_metadata(key: str, model_registry: dict[str, str]) -> dict[str, str]:
-    model_id, effort = _split_key(key)
+    model_id, effort = split_key(key)
     display_name = model_registry.get(model_id) or derive_display_name(model_id)
     if effort:
         display_name = f"{display_name} ({effort})"
@@ -61,7 +61,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         for player in game.players:
             if not is_pilot_player(player):
                 continue
-            key = _player_key(player.model, player.reasoningEffort)
+            key = player_key(player.model, player.reasoningEffort)
             name_to_key[player.name] = key
 
             if key not in model_meta:
@@ -188,7 +188,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for player in game.players:
             if not is_pilot_player(player):
                 continue
-            name_to_key[player.name] = _player_key(player.model, player.reasoningEffort)
+            name_to_key[player.name] = player_key(player.model, player.reasoningEffort)
 
         player_responses: dict[str, int] = {}
         player_timeouts: dict[str, int] = {}
@@ -247,7 +247,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for player in game.players:
             if not is_pilot_player(player):
                 continue
-            key = _player_key(player.model, player.reasoningEffort)
+            key = player_key(player.model, player.reasoningEffort)
             durations = player_latencies.get(player.name)
             if durations is not None:
                 durations.sort()
