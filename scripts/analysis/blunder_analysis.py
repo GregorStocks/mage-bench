@@ -25,10 +25,7 @@ from zoneinfo import ZoneInfo
 
 from openai import OpenAI, OpenAIError
 
-from puppeteer.decision_renderer import (
-    _chosen_display as _renderer_chosen_display,
-)
-from puppeteer.decision_renderer import render_decision
+from puppeteer.decision_renderer import chosen_display, render_decision
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Action,
@@ -39,12 +36,12 @@ from schemas.game_export_types import (
 )
 from scripts.analysis.annotate_game import annotate_game
 from scripts.analysis.blunder_context import (
-    _actions_by_turn,
-    _collect_card_names,
-    _format_current_turn_actions,
-    _format_prior_context,
-    _game_overview,
-    _get_oracle_texts,
+    actions_by_turn,
+    collect_card_names,
+    format_current_turn_actions,
+    format_prior_context,
+    game_overview,
+    get_oracle_texts,
 )
 from scripts.analysis.blunder_eval_common import (
     action_result,
@@ -61,10 +58,10 @@ from scripts.analysis.blunder_eval_common import (
     snapshot_index,
 )
 from scripts.analysis.blunder_llm import (
-    _LLM_REQUIRED_FIELDS,
-    _call_llm,
-    _compute_cost,
-    _parse_annotation,
+    LLM_REQUIRED_FIELDS,
+    call_llm,
+    compute_cost,
+    parse_annotation,
 )
 from scripts.analysis.blunder_prompts import PER_DECISION_SYSTEM, TOOL_REFERENCE
 from scripts.analysis.extract_decisions import extract_decisions
@@ -148,17 +145,6 @@ class BlunderAnalysisError(RuntimeError):
     """Expected operational failure during blunder annotation."""
 
 
-_load_game = load_game_for_annotation
-
-
-def _chosen_display(d: Decision) -> str:
-    """Human-readable name of what was chosen in a decision.
-
-    Delegates to the canonical renderer helper used by the live prompt path.
-    """
-    return _renderer_chosen_display(d.chosen, d.chosen_args, d.choices)
-
-
 def _write_annotations(gz_path: str, annotations: list[Annotation]) -> None:
     """Write annotations (possibly empty) to the game file."""
     TMP_DIR.mkdir(exist_ok=True)
@@ -213,7 +199,9 @@ def _format_preceding_action(preceding: Decision) -> str:
     di = decision_index(preceding)
     parts = [f"[Decision {di}] {msg}"]
     if preceding.chosen is not None:
-        parts.append(f"→ Chose: {_chosen_display(preceding)}")
+        parts.append(
+            f"→ Chose: {chosen_display(preceding.chosen, preceding.chosen_args, preceding.choices)}"
+        )
     return "## Preceding Action\n\n" + " ".join(parts)
 
 
@@ -229,7 +217,7 @@ def build_decision_prompt(
 ) -> tuple[str, str]:
     """Build the (system_prompt, user_message) pair for a single decision evaluation.
 
-    Pure function with no side effects. Used by _eval_one_decision() and
+    Pure function with no side effects. Used by evaluate_one_decision() and
     tested via golden prompt tests.
 
     """
@@ -241,9 +229,9 @@ def build_decision_prompt(
         preceding_ctx = _format_preceding_action(preceding_decision)
 
     assert snap is not None, f"decision references missing snapshot index {snap_idx}"
-    prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn, num_players)
+    prior_ctx = format_prior_context(decision, snapshots, actions_by_turn, num_players)
     snap_ts = snap.ts
-    turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
+    turn_ctx = format_current_turn_actions(decision, all_actions, snap_ts)
     deciding_player = decision.player
     formatted = render_decision(
         decision,
@@ -271,7 +259,7 @@ def build_decision_prompt(
     return PER_DECISION_SYSTEM, user_msg
 
 
-def _eval_one_decision(
+def evaluate_one_decision(
     client: OpenAI,
     model: str,
     prices: dict[str, tuple[float, float]],
@@ -313,10 +301,10 @@ def _eval_one_decision(
     parsed_ok = True
 
     for attempt in range(max_attempts):
-        text, in_tok, out_tok, cached_tok = _call_llm(
+        text, in_tok, out_tok, cached_tok = call_llm(
             client, model, PER_DECISION_SYSTEM, user_msg
         )
-        attempt_cost = _compute_cost(prices, model, in_tok, out_tok)
+        attempt_cost = compute_cost(prices, model, in_tok, out_tok)
         total_cost += attempt_cost
         suffix = f" (attempt {attempt + 1})" if attempt > 0 else ""
         cache_info = ""
@@ -327,7 +315,7 @@ def _eval_one_decision(
         )
 
         try:
-            ann = _parse_annotation(text)
+            ann = parse_annotation(text)
         except (json.JSONDecodeError, AssertionError) as e:
             print(f"  WARNING: Failed to parse response for {label}: {e}")
             print(f"    Raw response: {text[:200]!r}")
@@ -341,9 +329,9 @@ def _eval_one_decision(
             break
 
         # Validate LLM-generated fields are present and non-null strings
-        missing = _LLM_REQUIRED_FIELDS - set(ann.keys())
+        missing = LLM_REQUIRED_FIELDS - set(ann.keys())
         null_fields = {
-            f for f in _LLM_REQUIRED_FIELDS if f in ann and not isinstance(ann[f], str)
+            f for f in LLM_REQUIRED_FIELDS if f in ann and not isinstance(ann[f], str)
         }
         if not missing and not null_fields:
             break
@@ -407,16 +395,16 @@ def load_game_context(gz_path: str) -> dict:
 
     Shared by blunder_analysis.main() and blunder_eval.py.
     """
-    data = _load_game(gz_path)
+    data = load_game_for_annotation(gz_path)
     decisions = extract_decisions(gz_path)
     snapshots = data.snapshots
-    overview = _game_overview(data)
+    overview = game_overview(data)
     game_actions = data.actions
-    abt = _actions_by_turn(game_actions)
+    abt = actions_by_turn(game_actions)
     num_players = len(data.players)
 
-    card_names = _collect_card_names(data)
-    oracle_texts = _get_oracle_texts(sorted(card_names))
+    card_names = collect_card_names(data)
+    oracle_texts = get_oracle_texts(sorted(card_names))
 
     # Preceding-decision lookup: for each decision, the one immediately before
     # it in the game sequence. Used by eval_decisions to give the annotator
@@ -473,7 +461,7 @@ def eval_decisions(
     for d in decisions:
         di = decision_index(d)
         fut = pool.submit(
-            _eval_one_decision,
+            evaluate_one_decision,
             client,
             OPUS_MODEL,
             prices,
@@ -530,7 +518,7 @@ def _auto_ingest_ground_truth(
 def main(gz_path: str) -> float:
     # Skip if already analyzed with the current script version.
     # Missing blunderScriptVersion with existing annotations → v1.
-    data = _load_game(gz_path)
+    data = load_game_for_annotation(gz_path)
     if data.annotations is not None:
         existing_version = (
             data.blunder_script_version
@@ -548,7 +536,7 @@ def main(gz_path: str) -> float:
 
     client, prices = init_api()
 
-    overview = _game_overview(data)
+    overview = game_overview(data)
     print(overview)
     print()
 

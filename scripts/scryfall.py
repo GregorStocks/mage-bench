@@ -11,13 +11,15 @@ import json
 import time
 import urllib.error
 import urllib.parse
-import urllib.request
 from pathlib import Path
+
+from scripts import http_utils
 
 _HEADERS = {
     "User-Agent": "mage-bench/1.0",
     "Accept": "application/json",
 }
+_SCRYFALL_HOSTS = frozenset({"api.scryfall.com"})
 
 _CACHE_PATH = Path.home() / ".mage-bench" / "scryfall-cache.json"
 
@@ -76,13 +78,14 @@ def _fetch_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     assert len(names) <= 75, f"Scryfall collection batch max is 75, got {len(names)}"
     _rate_limit()
     body = json.dumps({"identifiers": [{"name": n} for n in names]}).encode()
-    req = urllib.request.Request(
-        "https://api.scryfall.com/cards/collection",
-        data=body,
-        headers={**_HEADERS, "Content-Type": "application/json"},
+    data = json.loads(
+        http_utils.fetch_https_bytes(
+            "https://api.scryfall.com/cards/collection",
+            allowed_hosts=_SCRYFALL_HOSTS,
+            data=body,
+            headers={**_HEADERS, "Content-Type": "application/json"},
+        )
     )
-    with urllib.request.urlopen(req) as resp:
-        data = json.loads(resp.read())
     assert isinstance(data, dict), "Scryfall collection returned non-object payload"
     found_data = data.get("data")
     not_found_data = data.get("not_found")
@@ -154,13 +157,14 @@ def named(name: str) -> dict | None:
 
     _rate_limit()
     qs = urllib.parse.urlencode({"exact": name})
-    req = urllib.request.Request(
-        f"https://api.scryfall.com/cards/named?{qs}",
-        headers=_HEADERS,
-    )
     try:
-        with urllib.request.urlopen(req) as resp:
-            card = json.loads(resp.read())
+        card = json.loads(
+            http_utils.fetch_https_bytes(
+                f"https://api.scryfall.com/cards/named?{qs}",
+                allowed_hosts=_SCRYFALL_HOSTS,
+                headers=_HEADERS,
+            )
+        )
         assert isinstance(card, dict), (
             f"Scryfall named({name!r}) returned non-object payload"
         )
@@ -194,13 +198,14 @@ def search_token(token_name: str) -> str | None:
     qs = urllib.parse.urlencode(
         {"q": query, "unique": "art", "order": "released", "dir": "desc"}
     )
-    req = urllib.request.Request(
-        f"https://api.scryfall.com/cards/search?{qs}",
-        headers=_HEADERS,
-    )
     try:
-        with urllib.request.urlopen(req) as resp:
-            data = json.loads(resp.read())
+        data = json.loads(
+            http_utils.fetch_https_bytes(
+                f"https://api.scryfall.com/cards/search?{qs}",
+                allowed_hosts=_SCRYFALL_HOSTS,
+                headers=_HEADERS,
+            )
+        )
         assert isinstance(data, dict), (
             f"Scryfall token search for {token_name!r} returned non-object payload"
         )
@@ -343,13 +348,14 @@ def search(query: str) -> list[dict]:
     """
     _rate_limit()
     qs = urllib.parse.urlencode({"q": query})
-    req = urllib.request.Request(
-        f"https://api.scryfall.com/cards/search?{qs}",
-        headers=_HEADERS,
-    )
     try:
-        with urllib.request.urlopen(req) as resp:
-            data = json.loads(resp.read())
+        data = json.loads(
+            http_utils.fetch_https_bytes(
+                f"https://api.scryfall.com/cards/search?{qs}",
+                allowed_hosts=_SCRYFALL_HOSTS,
+                headers=_HEADERS,
+            )
+        )
         assert isinstance(data, dict), (
             f"Scryfall search({query!r}) returned non-object payload"
         )

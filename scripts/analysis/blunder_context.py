@@ -18,7 +18,7 @@ from schemas.game_export_types import (
 )
 from scripts import scryfall
 
-_get_oracle_texts = scryfall.get_oracle_texts
+get_oracle_texts = scryfall.get_oracle_texts
 
 
 def _record_field(record: object, field: str) -> object | None:
@@ -37,7 +37,7 @@ def _snapshot_zone_cards(
     return cards
 
 
-def _collect_card_names(data: BuiltGameExport | GameExport) -> set[str]:
+def collect_card_names(data: BuiltGameExport | GameExport) -> set[str]:
     """Collect all unique card names from game snapshots and choices."""
     names: set[str] = set()
     for snap in data.snapshots:
@@ -153,7 +153,7 @@ _ACTION_NOISE = re.compile(
 )
 
 
-def _actions_by_turn(actions: Sequence[Action]) -> dict[int, list[str]]:
+def actions_by_turn(actions: Sequence[Action]) -> dict[int, list[str]]:
     """Split action log messages into per-turn buckets using TURN markers.
 
     Rewrites TURN headers from XMage's sequential numbering to per-player
@@ -196,7 +196,7 @@ def _snapshot_for_turn(snapshots: Sequence[Snapshot], turn: int) -> Snapshot | N
     return None
 
 
-def _format_prior_context(
+def format_prior_context(
     decision: Decision,
     snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
@@ -242,7 +242,7 @@ def _format_prior_context(
     return "\n".join(lines)
 
 
-def _format_current_turn_actions(
+def format_current_turn_actions(
     decision: Decision,
     all_actions: Sequence[Action],
     cutoff_ts: str | None,
@@ -305,7 +305,7 @@ def _format_current_turn_actions(
     return "## This Turn\n" + "\n".join(lines)
 
 
-def _game_overview(data: BuiltGameExport | GameExport) -> str:
+def game_overview(data: BuiltGameExport | GameExport) -> str:
     lines = [
         f"Game: {data.id}",
         f"Format: {data.deck_type} ({data.game_type})",

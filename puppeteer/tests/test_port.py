@@ -6,6 +6,7 @@ from unittest.mock import patch
 import pytest
 
 from puppeteer.port import (
+    _lock_path_for_port,
     can_bind_port,
     find_available_port,
     is_port_in_use,
@@ -67,6 +68,12 @@ def test_find_available_port():
         assert reservation.port < 19100
     finally:
         reservation.release()
+
+
+def test_lock_path_uses_tempdir():
+    """Port lock files live under the active temp directory."""
+    with patch("puppeteer.port.tempfile.gettempdir", return_value="/var/tmp/mage-tests"):
+        assert _lock_path_for_port(19000) == "/var/tmp/mage-tests/mage-port-19000.lock"
 
 
 def test_find_available_port_exhausted():

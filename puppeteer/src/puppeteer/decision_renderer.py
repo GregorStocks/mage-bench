@@ -233,7 +233,7 @@ def _render_decision_block(
             suffix = f" [{', '.join(constraints)}]" if constraints else ""
             lines.append(f"    {i}: {desc}{suffix}")
     else:
-        choice_descs = [_format_choice(c) for c in choices]
+        choice_descs = [format_choice(c) for c in choices]
         lines.append(f"  Choices ({len(choices)}): {', '.join(choice_descs)}")
 
     # Triggered ability note
@@ -443,7 +443,7 @@ def _render_incoming_attackers(incoming_attackers: list) -> str:
     return ", ".join(parts)
 
 
-def _format_choice(choice: Choice | str) -> str:
+def format_choice(choice: Choice | str) -> str:
     """Format a single choice for display."""
     if isinstance(choice, str):
         return choice
@@ -482,7 +482,7 @@ def _render_chosen_block(decision: Decision, snapshot: Snapshot | None = None) -
     assert isinstance(choices, list), f"decision choices must be a list, got {choices!r}"
 
     # Display chosen
-    chosen_name = _chosen_display(chosen, chosen_args, choices)
+    chosen_name = chosen_display(chosen, chosen_args, choices)
     lines.append(f"  Chosen: {chosen_name}")
 
     # Show mana plan if the player specified one
@@ -583,7 +583,7 @@ def _render_mana_plan_token(token: str, id_to_name: dict[str, str]) -> str:
     return token
 
 
-def _chosen_display(
+def chosen_display(
     chosen: object,
     chosen_args: dict | None,
     choices: Sequence[Choice],

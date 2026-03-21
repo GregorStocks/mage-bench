@@ -9,10 +9,10 @@ from openai import OpenAI, OpenAIError
 
 from puppeteer.llm_cost import get_model_price
 
-_LLM_REQUIRED_FIELDS = {"severity", "description", "actionTaken", "betterLine"}
+LLM_REQUIRED_FIELDS = {"severity", "description", "actionTaken", "betterLine"}
 
 
-def _compute_cost(
+def compute_cost(
     prices: dict[str, tuple[float, float]],
     model: str,
     prompt_tokens: int,
@@ -24,7 +24,7 @@ def _compute_cost(
     return (prompt_tokens * input_price + completion_tokens * output_price) / 1_000_000
 
 
-def _call_llm(
+def call_llm(
     client: OpenAI,
     model: str,
     system: str,
@@ -84,7 +84,7 @@ def _call_llm(
     )
 
 
-def _parse_annotation(text: str) -> dict | None:
+def parse_annotation(text: str) -> dict | None:
     """Parse a JSON annotation (object or null) from LLM response.
 
     Strips markdown fences if present. Returns None for null/empty responses,

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run the blunder annotator against validated ground truth plays.
 
-For each validated play, calls _eval_one_decision() and records whether
+For each validated play, calls evaluate_one_decision() and records whether
 the annotator detected a blunder. Compares against the baseline.
 
 THIS COSTS MONEY (LLM API calls).
@@ -27,7 +27,7 @@ from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     MAX_WORKERS,
     OPUS_MODEL,
-    _eval_one_decision,
+    evaluate_one_decision,
     init_api,
     load_game_context,
 )
@@ -275,7 +275,7 @@ def main() -> None:
         futures = {}
         for pk, decision, game_ctx in work_items:
             fut = pool.submit(
-                _eval_one_decision,
+                evaluate_one_decision,
                 client,
                 OPUS_MODEL,
                 prices,

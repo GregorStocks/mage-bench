@@ -45,7 +45,7 @@ def game_context():
     """Load game context via the production code path, with cached oracle texts."""
     oracle_texts = loads_json5(ORACLE_CACHE.read_text())
     with patch(
-        "scripts.analysis.blunder_analysis._get_oracle_texts",
+        "scripts.analysis.blunder_analysis.get_oracle_texts",
         return_value=oracle_texts,
     ):
         return load_game_context(str(GAME_PATH))

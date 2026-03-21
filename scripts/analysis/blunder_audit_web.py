@@ -18,7 +18,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Decision, GameExport, Snapshot
-from scripts.analysis.blunder_audit import _get_current_annotation
+from scripts.analysis.blunder_audit import get_current_annotation
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
@@ -54,7 +54,7 @@ CONFIG_PATH = Path.home() / ".mage-bench" / "config.json"
 # Remote audit sessions often run on a dev server and are browsed from a second
 # machine, so wildcard binding remains the default. Use --bind-host 127.0.0.1
 # for local-only access.
-DEFAULT_BIND_HOST = "0.0.0.0"
+DEFAULT_BIND_HOST = "0.0.0.0"  # noqa: S104 - remote audit sessions are intentionally shared on a LAN
 
 # Files the standalone audit UI serves directly from the website sources.
 STATIC_FILES: dict[str, Path] = {
@@ -277,7 +277,7 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     gz_path = str(game_path_for_id(game_id))
 
     try:
-        annotation, ann_version = _get_current_annotation(
+        annotation, ann_version = get_current_annotation(
             decision, game_data, snapshots, gz_path
         )
     except (AssertionError, FileNotFoundError, OSError, json.JSONDecodeError) as exc:

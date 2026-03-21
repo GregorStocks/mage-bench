@@ -38,15 +38,16 @@ from typing import TypeAlias
 from openai import OpenAI
 
 from puppeteer.decision_renderer import (
-    _chosen_display as _renderer_chosen_display,
+    chosen_display,
+    format_choice,
 )
-from puppeteer.decision_renderer import _format_choice
 from schemas.game_export_types import BuiltGameExport, Decision, GameExport
-from scripts.analysis.blunder_analysis import (
-    _game_overview,
-    _load_game,
+from scripts.analysis.blunder_context import game_overview
+from scripts.analysis.blunder_eval_common import (
+    decision_index,
+    is_forced,
+    load_game_for_annotation,
 )
-from scripts.analysis.blunder_eval_common import decision_index, is_forced
 from scripts.analysis.extract_decisions import extract_decisions
 
 GameData: TypeAlias = BuiltGameExport | GameExport
@@ -162,10 +163,8 @@ def _format_decisions(decisions: Sequence[Decision]) -> str:
         if is_forced(decision):
             continue
         phase = decision.phase or "PREGAME"
-        choices = ", ".join(_format_choice(choice) for choice in decision.choices)
-        chosen = _renderer_chosen_display(
-            decision.chosen, decision.chosen_args, decision.choices
-        )
+        choices = ", ".join(format_choice(choice) for choice in decision.choices)
+        chosen = chosen_display(decision.chosen, decision.chosen_args, decision.choices)
         lines = [
             (
                 f"[Decision {decision.index}, snapshot={decision.snapshot_index}] "
@@ -1310,10 +1309,10 @@ def _print_comparison(game_id: str, results: list[dict], data: GameData) -> None
 
 def _dry_run(gz_path: str) -> None:
     """Print formatted inputs without calling APIs."""
-    data = _load_game(gz_path)
+    data = load_game_for_annotation(gz_path)
     decisions = extract_decisions(gz_path)
     non_forced = [d for d in decisions if not is_forced(d)]
-    overview = _game_overview(data)
+    overview = game_overview(data)
 
     print(f"Game: {data.id}")
     print(f"Snapshots: {len(data.snapshots)}")
@@ -1416,7 +1415,7 @@ def main() -> None:
         _dry_run(args.game)
         return
 
-    data = _load_game(args.game)
+    data = load_game_for_annotation(args.game)
     game_id = data.id
 
     if args.compare:
@@ -1432,7 +1431,7 @@ def main() -> None:
 
     client = OpenAI(base_url=BASE_URL, api_key=api_key)
     decisions = extract_decisions(args.game)
-    overview = _game_overview(data)
+    overview = game_overview(data)
     non_forced = [d for d in decisions if not is_forced(d)]
 
     print(f"Game: {game_id}")

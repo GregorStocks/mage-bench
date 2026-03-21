@@ -9,6 +9,7 @@ sequentially to avoid contending over `website/node_modules`.
 import os
 import subprocess
 import sys
+import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -54,12 +55,34 @@ def _make_env() -> dict[str, str]:
     return env
 
 
+def _run_command_with_captured_output(
+    command: list[str], *, env: dict[str, str]
+) -> subprocess.CompletedProcess:
+    # `subprocess.run(..., capture_output=True)` waits for pipe EOF, which can
+    # hang if the target exits while a descendant still has stdout/stderr open.
+    with tempfile.TemporaryFile(mode="w+", encoding="utf-8") as output_file:
+        process = subprocess.Popen(
+            command,
+            stdout=output_file,
+            stderr=subprocess.STDOUT,
+            env=env,
+        )
+        returncode = process.wait()
+        output_file.seek(0)
+        output = output_file.read()
+    return subprocess.CompletedProcess(command, returncode, output, "")
+
+
 def _run_make(target: str, *, capture_output: bool) -> subprocess.CompletedProcess:
+    command = ["make", target]
+    env = _make_env()
+    if capture_output:
+        return _run_command_with_captured_output(command, env=env)
     return subprocess.run(
-        ["make", target],
-        capture_output=capture_output,
+        command,
+        capture_output=False,
         text=True,
-        env=_make_env(),
+        env=env,
     )
 
 

@@ -3,12 +3,12 @@
 
 from pathlib import Path
 
-from scripts.analysis.blunder_analysis import (
-    _actions_by_turn,
-    _collect_card_names,
-    _game_overview,
-    _get_oracle_texts,
-    build_decision_prompt,
+from scripts.analysis.blunder_analysis import build_decision_prompt
+from scripts.analysis.blunder_context import (
+    actions_by_turn,
+    collect_card_names,
+    game_overview,
+    get_oracle_texts,
 )
 from scripts.analysis.blunder_eval_common import load_game
 from scripts.analysis.extract_decisions import extract_decisions
@@ -28,12 +28,12 @@ non_forced = [d for d in decisions if not d.is_forced]
 mid_idx = len(non_forced) // 2
 decision = non_forced[mid_idx]
 
-overview = _game_overview(data)
-card_names = _collect_card_names(data)
-oracle_texts = _get_oracle_texts(sorted(card_names))
+overview = game_overview(data)
+card_names = collect_card_names(data)
+oracle_texts = get_oracle_texts(sorted(card_names))
 
 game_actions = data.actions
-abt = _actions_by_turn(game_actions)
+abt = actions_by_turn(game_actions)
 game_snapshots = data.snapshots
 num_players = len(data.players)
 

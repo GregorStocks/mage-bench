@@ -1,5 +1,8 @@
 """Tests for scripts/checks/quiet_check.py."""
 
+import os
+import shlex
+import signal
 import subprocess
 from pathlib import Path
 
@@ -9,6 +12,7 @@ from scripts.checks.quiet_check import (
     SERIAL_TARGETS,
     TARGETS,
     _make_env,
+    _run_command_with_captured_output,
     _run_make,
 )
 
@@ -67,7 +71,7 @@ def test_make_env_strips_recursive_make_state(monkeypatch) -> None:
         assert key not in env
 
 
-def test_run_make_uses_clean_env(monkeypatch) -> None:
+def test_run_make_live_output_uses_clean_env(monkeypatch) -> None:
     called: dict[str, object] = {}
 
     def fake_run(*args, **kwargs):
@@ -77,9 +81,58 @@ def test_run_make_uses_clean_env(monkeypatch) -> None:
 
     monkeypatch.setattr("scripts.checks.quiet_check.subprocess.run", fake_run)
 
-    _run_make("lint", capture_output=True)
+    _run_make("lint", capture_output=False)
 
     assert called["args"] == (["make", "lint"],)
-    assert called["kwargs"]["capture_output"] is True
+    assert called["kwargs"]["capture_output"] is False
     assert called["kwargs"]["text"] is True
     assert called["kwargs"]["env"] == _make_env()
+
+
+def test_run_make_capture_uses_clean_env(monkeypatch) -> None:
+    called: dict[str, object] = {}
+
+    class FakePopen:
+        def __init__(self, *args, **kwargs):
+            called["args"] = args
+            called["kwargs"] = kwargs
+
+        def wait(self) -> int:
+            return 0
+
+    monkeypatch.setattr("scripts.checks.quiet_check.subprocess.Popen", FakePopen)
+
+    result = _run_make("lint", capture_output=True)
+
+    assert result.returncode == 0
+    assert result.stdout == ""
+    assert result.stderr == ""
+    assert called["args"] == (["make", "lint"],)
+    assert called["kwargs"]["env"] == _make_env()
+    assert called["kwargs"]["stderr"] == subprocess.STDOUT
+
+
+def test_captured_output_returns_after_child_exit_even_if_descendant_holds_fd(
+    tmp_path: Path,
+) -> None:
+    pid_path = tmp_path / "sleep.pid"
+    command = [
+        "sh",
+        "-c",
+        f"sleep 5 & echo $! > {shlex.quote(str(pid_path))}; echo child-exiting",
+    ]
+
+    result = _run_command_with_captured_output(command, env=os.environ.copy())
+
+    assert result.returncode == 0
+    assert result.stdout == "child-exiting\n"
+    descendant_pid = int(pid_path.read_text().strip())
+    try:
+        os.kill(descendant_pid, 0)
+    except ProcessLookupError as exc:
+        raise AssertionError("captured output blocked until the descendant exited") from exc
+    finally:
+        try:
+            os.kill(descendant_pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass

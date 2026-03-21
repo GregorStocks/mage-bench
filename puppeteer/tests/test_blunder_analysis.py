@@ -20,23 +20,21 @@ from schemas.game_export_types import (
     ToolCallEvent,
     json_default,
 )
-from scripts.analysis import blunder_analysis, blunder_context, blunder_llm
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
     BlunderAnalysisError,
-    _chosen_display,
-    _eval_one_decision,
     _format_preceding_action,
     eval_decisions,
+    evaluate_one_decision,
     init_api,
     main,
 )
 from scripts.analysis.blunder_context import (
-    _collect_card_names,
-    _format_current_turn_actions,
+    collect_card_names,
+    format_current_turn_actions,
 )
-from scripts.analysis.blunder_llm import _compute_cost, _parse_annotation
+from scripts.analysis.blunder_llm import compute_cost, parse_annotation
 from scripts.game_exports import load_raw_game_export
 
 # Fake prices for testing
@@ -244,52 +242,52 @@ def _mock_response(content: str, prompt_tokens: int = 2000, completion_tokens: i
     return response
 
 
-# --- _parse_annotation ---
+# --- parse_annotation ---
 
 
 class TestParseAnnotation:
     def test_plain_object(self) -> None:
-        assert _parse_annotation('{"a": 1}') == {"a": 1}
+        assert parse_annotation('{"a": 1}') == {"a": 1}
 
     def test_null(self) -> None:
-        assert _parse_annotation("null") is None
+        assert parse_annotation("null") is None
 
     def test_empty_array_compat(self) -> None:
-        assert _parse_annotation("[]") is None
+        assert parse_annotation("[]") is None
 
     def test_single_element_array_compat(self) -> None:
-        assert _parse_annotation('[{"a": 1}]') == {"a": 1}
+        assert parse_annotation('[{"a": 1}]') == {"a": 1}
 
     def test_markdown_json_fence(self) -> None:
         text = '```json\n{"a": 1}\n```'
-        assert _parse_annotation(text) == {"a": 1}
+        assert parse_annotation(text) == {"a": 1}
 
     def test_markdown_null_fence(self) -> None:
         text = "```json\nnull\n```"
-        assert _parse_annotation(text) is None
+        assert parse_annotation(text) is None
 
     def test_surrounding_text(self) -> None:
         text = 'Here is the result:\n{"a": 1}\nDone.'
-        assert _parse_annotation(text) == {"a": 1}
+        assert parse_annotation(text) == {"a": 1}
 
     def test_text_with_null(self) -> None:
-        assert _parse_annotation("The play was reasonable.\n\nnull") is None
+        assert parse_annotation("The play was reasonable.\n\nnull") is None
 
     def test_text_with_reasonable(self) -> None:
-        assert _parse_annotation("This is a reasonable play.") is None
+        assert parse_annotation("This is a reasonable play.") is None
 
     def test_unquoted_keys(self) -> None:
         text = '{severity: "minor", description: "d", actionTaken: "a", betterLine: "b"}'
-        result = _parse_annotation(text)
+        result = parse_annotation(text)
         assert result is not None
         assert result["severity"] == "minor"
 
     def test_rejects_garbage(self) -> None:
         with pytest.raises((json.JSONDecodeError, AssertionError)):
-            _parse_annotation("no json here at all")
+            parse_annotation("no json here at all")
 
 
-# --- _format_current_turn_actions ---
+# --- format_current_turn_actions ---
 
 
 class TestFormatCurrentTurnActions:
@@ -306,14 +304,14 @@ class TestFormatCurrentTurnActions:
 
     def test_shows_current_turn_actions(self) -> None:
         decision = _make_decision(turn=1)
-        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
         assert "## This Turn" in result
         assert "Alice plays Mountain" in result
         assert "Alice casts Sol Ring from hand" in result
 
     def test_filters_noise(self) -> None:
         decision = _make_decision(turn=1)
-        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
         # "puts from stack" and "skip attack" are noise
         assert "Sol Ring from stack" not in result
         assert "skip attack" not in result
@@ -321,80 +319,47 @@ class TestFormatCurrentTurnActions:
     def test_respects_cutoff_timestamp(self) -> None:
         decision = _make_decision(turn=1)
         # Cutoff before Sol Ring cast
-        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:02.500")
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:02.500")
         assert "Alice plays Mountain" in result
         assert "Sol Ring" not in result
 
     def test_no_actions_yet(self) -> None:
         decision = _make_decision(turn=1)
         # Cutoff before any non-TURN action
-        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:01.500")
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:01.500")
         assert "(no actions yet)" in result
 
     def test_wrong_turn_excluded(self) -> None:
         decision = _make_decision(turn=2)
-        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:20.000")
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:20.000")
         assert "Bob plays Forest" in result
         assert "Alice plays Mountain" not in result
 
     def test_no_turn_returns_empty(self) -> None:
         decision = _make_decision(turn=0)
-        assert _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:10.000") == ""
+        assert format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:10.000") == ""
 
 
-# --- _compute_cost ---
+# --- compute_cost ---
 
 
 class TestComputeCost:
     def test_opus_million_tokens(self) -> None:
-        cost = _compute_cost(_TEST_PRICES, OPUS_MODEL, 1_000_000, 1_000_000)
+        cost = compute_cost(_TEST_PRICES, OPUS_MODEL, 1_000_000, 1_000_000)
         assert cost == pytest.approx(30.0)
 
     def test_zero_tokens(self) -> None:
-        assert _compute_cost(_TEST_PRICES, OPUS_MODEL, 0, 0) == 0.0
+        assert compute_cost(_TEST_PRICES, OPUS_MODEL, 0, 0) == 0.0
 
     def test_missing_model_raises(self) -> None:
         with pytest.raises(AssertionError, match="No pricing found"):
-            _compute_cost({}, "unknown/model", 100, 100)
-
-
-# --- _chosen_display ---
-
-
-class TestChosenDisplay:
-    def test_index_choice(self) -> None:
-        d = _make_decision(chosen=1)
-        assert _chosen_display(d) == "Lightning Bolt"
-
-    def test_boolean_choice(self) -> None:
-        d = _make_decision(chosen=False)
-        assert _chosen_display(d) == "False"
-
-    def test_none_choice_no_args(self) -> None:
-        d = _make_decision(chosen=None, chosen_args={})
-        assert _chosen_display(d) == "(no response)"
-
-    def test_none_choice_with_attackers(self) -> None:
-        d = _make_decision(chosen=None, chosen_args={"attackers": "p5,p12"})
-        assert _chosen_display(d) == "Attack with p5, p12"
-
-    def test_none_choice_with_blockers(self) -> None:
-        d = _make_decision(chosen=None, chosen_args={"blockers": "p3:p64"})
-        assert _chosen_display(d) == "p3 blocks p64"
-
-    def test_none_choice_with_text(self) -> None:
-        d = _make_decision(chosen=None, chosen_args={"text": "Green"})
-        assert _chosen_display(d) == "Text: Green"
-
-    def test_out_of_range(self) -> None:
-        d = _make_decision(chosen=99)
-        assert _chosen_display(d) == "99"
+            compute_cost({}, "unknown/model", 100, 100)
 
 
 class TestCollectCardNames:
     def test_collects_from_snapshots(self) -> None:
         game = GameExport.from_dict(_make_game())
-        names = _collect_card_names(game)
+        names = collect_card_names(game)
         assert "Mountain" in names
         assert "Grizzly Bears" in names
 
@@ -403,7 +368,7 @@ class TestCollectCardNames:
         snap = game.snapshots[0]
         new_player = dataclasses.replace(snap.players[0], battlefield=[{"name": "Otter Token"}])
         game.snapshots[0] = dataclasses.replace(snap, players=[new_player, snap.players[1]])
-        names = _collect_card_names(game)
+        names = collect_card_names(game)
         assert "Otter Token" not in names
 
     def test_collects_from_snapshot_combat(self) -> None:
@@ -420,7 +385,7 @@ class TestCollectCardNames:
                 )
             ],
         )
-        names = _collect_card_names(game)
+        names = collect_card_names(game)
         assert "Goblin Guide" in names
         assert "Wall of Omens" in names
 
@@ -447,13 +412,13 @@ class TestCollectCardNames:
                 ),
             )
         ]
-        names = _collect_card_names(game)
+        names = collect_card_names(game)
         assert "Ragavan, Nimble Pilferer" in names
         assert "Tarmogoyf" in names
 
 
 class TestEvalOneDecision:
-    @patch("scripts.analysis.blunder_analysis._call_llm")
+    @patch("scripts.analysis.blunder_analysis.call_llm")
     def test_uses_shared_aftermath_index(self, mock_call_llm: MagicMock) -> None:
         mock_call_llm.return_value = (
             json.dumps(
@@ -477,7 +442,7 @@ class TestEvalOneDecision:
             _make_snapshot(seq=2, phase="COMBAT"),
         ]
 
-        annotations, _cost, parsed_ok, _raw = _eval_one_decision(
+        annotations, _cost, parsed_ok, _raw = evaluate_one_decision(
             MagicMock(),
             OPUS_MODEL,
             _TEST_PRICES,
@@ -576,7 +541,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
     @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
     @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_full_flow_with_blunders(
@@ -632,7 +597,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
     @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
     @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_no_blunders_found(
@@ -689,7 +654,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
     @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
     @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_injects_metadata_fields(
@@ -731,7 +696,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
     @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
     @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_majority_parse_failure_raises(
@@ -760,7 +725,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
     @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
     @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_reanalyzes_old_version(
@@ -790,7 +755,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
     @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
     @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_skips_noop_decisions(
@@ -889,7 +854,7 @@ class TestPrecedingAction:
         assert "Chose" not in result
 
     def test_eval_decisions_passes_preceding(self) -> None:
-        """eval_decisions should pass the preceding decision to _eval_one_decision."""
+        """eval_decisions should pass the preceding decision to evaluate_one_decision."""
         d0 = _make_decision(index=0, message="First")
         d1 = _make_decision(index=1, message="Second")
         ctx = _make_game_ctx(
@@ -897,7 +862,7 @@ class TestPrecedingAction:
             preceding_by_index={1: d0},
         )
 
-        with patch("scripts.analysis.blunder_analysis._eval_one_decision") as mock_eval:
+        with patch("scripts.analysis.blunder_analysis.evaluate_one_decision") as mock_eval:
             mock_eval.return_value = ([], 0.0, True, {})
             eval_decisions([d0, d1], ctx, MagicMock(), _TEST_PRICES)
 
@@ -913,16 +878,9 @@ class TestPrecedingAction:
             assert calls_by_idx[1] is d0
 
 
-def test_blunder_analysis_reexports_extracted_helpers() -> None:
-    assert blunder_analysis._collect_card_names is blunder_context._collect_card_names
-    assert blunder_analysis._format_current_turn_actions is blunder_context._format_current_turn_actions
-    assert blunder_analysis._compute_cost is blunder_llm._compute_cost
-    assert blunder_analysis._parse_annotation is blunder_llm._parse_annotation
-
-
 class TestOperationalFailures:
     @patch(
-        "scripts.analysis.blunder_analysis._eval_one_decision",
+        "scripts.analysis.blunder_analysis.evaluate_one_decision",
         side_effect=OpenAIError("temporary upstream failure"),
     )
     def test_eval_decisions_continues_on_openai_error(self, _mock_eval: MagicMock) -> None:
@@ -936,7 +894,7 @@ class TestOperationalFailures:
         assert results[0] == ([], 0.0, False, {})
 
     @patch(
-        "scripts.analysis.blunder_analysis._eval_one_decision",
+        "scripts.analysis.blunder_analysis.evaluate_one_decision",
         side_effect=AssertionError("unexpected bug"),
     )
     def test_eval_decisions_propagates_non_openai_error(self, _mock_eval: MagicMock) -> None:

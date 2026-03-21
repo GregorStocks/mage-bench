@@ -5,12 +5,12 @@ import pytest
 from puppeteer.decision_renderer import (
     _batch_attack_display,
     _batch_block_display,
-    _chosen_display,
-    _format_choice,
     _render_card_reference,
     _render_chosen_block,
     _resolve_mana_plan,
     card_display,
+    chosen_display,
+    format_choice,
     permanent_display,
     render_decision,
 )
@@ -433,20 +433,20 @@ class TestItemsRendering:
 
 class TestFormatChoice:
     def test_simple_string(self) -> None:
-        assert _format_choice("Yes") == "Yes"
+        assert format_choice("Yes") == "Yes"
 
     def test_choice_with_name(self) -> None:
         c = Choice.from_mapping({"name": "Mountain", "id": "p5", "action": "land"})
-        assert _format_choice(c) == "Mountain [id=p5, land]"
+        assert format_choice(c) == "Mountain [id=p5, land]"
 
     def test_choice_with_mana_cost(self) -> None:
         c = Choice.from_mapping({"name": "Lightning Bolt", "id": "p3", "action": "cast", "mana_cost": "{R}"})
-        result = _format_choice(c)
+        result = format_choice(c)
         assert "Lightning Bolt" in result
         assert "{R}" in result
 
     def test_dataclass_choice(self) -> None:
-        result = _format_choice(Choice.from_mapping({"name": "Lightning Bolt", "id": "p3", "action": "cast"}))
+        result = format_choice(Choice.from_mapping({"name": "Lightning Bolt", "id": "p3", "action": "cast"}))
         assert result == "Lightning Bolt [id=p3, cast]"
 
 
@@ -571,38 +571,38 @@ class TestChosenDisplay:
     def test_batch_attackers_string(self) -> None:
         """String-format attackers in chosen_args (epoch 36+)."""
         choices = _choice_list({"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"})
-        result = _chosen_display(None, {"attackers": "p1,p2"}, choices)
+        result = chosen_display(None, {"attackers": "p1,p2"}, choices)
         assert result == "Attack with Bear, Elf"
 
     def test_batch_blockers_string(self) -> None:
         """String-format blockers in chosen_args (epoch 36+)."""
         choices = _choice_list({"name": "Bear", "id": "p1"}, {"name": "Goblin", "id": "p3"})
-        result = _chosen_display(None, {"blockers": "p1:p3"}, choices)
+        result = chosen_display(None, {"blockers": "p1:p3"}, choices)
         assert result == "Bear blocks Goblin"
 
     def test_boolean_chosen(self) -> None:
         true_value = True
         false_value = False
-        assert _chosen_display(true_value, {}, []) == "True"
-        assert _chosen_display(false_value, {}, []) == "False"
+        assert chosen_display(true_value, {}, []) == "True"
+        assert chosen_display(false_value, {}, []) == "False"
 
     def test_index_chosen(self) -> None:
         choices = _choice_list({"name": "Lightning Bolt"}, {"name": "Mountain"})
-        assert _chosen_display(0, {}, choices) == "Lightning Bolt"
+        assert chosen_display(0, {}, choices) == "Lightning Bolt"
 
     def test_index_chosen_dataclass(self) -> None:
         choices = [Choice(name="Lightning Bolt"), Choice(name="Mountain")]
-        assert _chosen_display(0, {}, choices) == "Lightning Bolt"
+        assert chosen_display(0, {}, choices) == "Lightning Bolt"
 
     def test_text_chosen(self) -> None:
         """Text-based choices (e.g. color picking) show the text value."""
-        result = _chosen_display(None, {"text": "Green"}, [])
+        result = chosen_display(None, {"text": "Green"}, [])
         assert result == "Text: Green"
 
     def test_no_response(self) -> None:
         """chosen=None with empty chosen_args returns (no response)."""
-        assert _chosen_display(None, {}, []) == "(no response)"
-        assert _chosen_display(None, None, []) == "(no response)"
+        assert chosen_display(None, {}, []) == "(no response)"
+        assert chosen_display(None, None, []) == "(no response)"
 
 
 class TestResolveManaplan:
