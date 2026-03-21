@@ -17,13 +17,13 @@ Determine which game to analyze:
 - If the user said "most recent" or similar, find the latest:
 
   ```bash
-  uv run python scripts/list-recent-games.py
+  uv run python scripts/list_recent_games.py
   ```
 
 - If the user mentioned a config name (e.g. "round-robin-commander", "jumpstart-dumb", "modern-staller"), use the corresponding symlink:
 
   ```bash
-  uv run python scripts/list-recent-games.py --config {config}
+  uv run python scripts/list_recent_games.py --config {config}
   ```
 
   where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
@@ -42,12 +42,12 @@ If the full log directory doesn't exist but the game export exists in `website/p
 If `website/public/games/${GAME_ID}.json` or `.json.gz` exists (either on the current branch or generatable from the logs), extract a quick overview before diving into raw logs:
 
 ```bash
-uv run python scripts/game-gz-bootstrap.py ${GAME_ID}
+uv run python scripts/game_gz_bootstrap.py ${GAME_ID}
 ```
 
 This gives you a roadmap — you'll know which players had errors, roughly when, and what to look for in the raw logs.
 
-Bootstrap caveat: `game-gz-bootstrap.py` currently overcounts failed tool calls because it substring-matches normal fields like `required`, and its auto-export fallback still checks `~/mage-bench-logs` instead of `~/.mage-bench/logs`. Treat its failure count as advisory and run `uv run python scripts/export_game.py ${GAME_ID}` manually if the export is missing.
+Bootstrap caveat: `game_gz_bootstrap.py` currently overcounts failed tool calls because it substring-matches normal fields like `required`, and its auto-export fallback still checks `~/mage-bench-logs` instead of `~/.mage-bench/logs`. Treat its failure count as advisory and run `uv run python scripts/export_game.py ${GAME_ID}` manually if the export is missing.
 
 **Check the `errors` array first**: The export may contain an `errors` field with critical issues surfaced from the per-player error logs (loop detection, uncaught exceptions, short ID collisions). These are high-signal bug indicators — always check and call them out before diving into raw logs.
 
@@ -66,7 +66,7 @@ Read `config.json` and `game_meta.json` — understand who played, what models/d
 ### Step 4: Check existing issues
 
 ```bash
-uv run python scripts/query-issues.py
+uv run python scripts/query_issues.py
 ```
 
 ### Step 5: Analyze log files in parallel

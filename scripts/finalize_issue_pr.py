@@ -2,7 +2,7 @@
 """Push, update PR with claim tag preserved, and mark ready.
 
 Usage:
-    finalize-issue-pr.py --title "PR title" --body "PR body"
+    finalize_issue_pr.py --title "PR title" --body "PR body"
 
 Extracts the <!-- claim: ... --> tag from the current PR body,
 appends it to the new body, pushes, edits the PR, and marks it ready.

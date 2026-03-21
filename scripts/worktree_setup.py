@@ -6,7 +6,7 @@ Sets up per-worktree Maven local repository to prevent cross-worktree
 artifact corruption.
 
 Usage:
-    worktree-setup.py
+    worktree_setup.py
 """
 
 import hashlib

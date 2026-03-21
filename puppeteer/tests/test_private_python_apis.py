@@ -22,16 +22,6 @@ _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
     ("puppeteer.batch_coordination", "puppeteer.game_processes", "_wait_for_game_start"),
     ("puppeteer.batch_coordination", "puppeteer.game_processes", "_wait_for_spectator_table"),
     ("puppeteer.deck_choice", "puppeteer.config", "_DECK_TYPE_TO_FORMAT_DIR"),
-    ("puppeteer.leaderboard", "puppeteer.leaderboard_elo", "_ELO_START"),
-    ("puppeteer.leaderboard", "puppeteer.leaderboard_elo", "_ModelEntry"),
-    ("puppeteer.leaderboard", "puppeteer.leaderboard_elo", "_exhibition_sort_key"),
-    ("puppeteer.leaderboard", "puppeteer.leaderboard_elo", "_player_key"),
-    ("puppeteer.leaderboard", "puppeteer.leaderboard_elo", "_rated_sort_key"),
-    ("puppeteer.leaderboard", "puppeteer.leaderboard_elo", "_serialize_model_entries"),
-    ("puppeteer.leaderboard", "puppeteer.leaderboard_elo", "_split_key"),
-    ("puppeteer.leaderboard", "puppeteer.leaderboard_registry", "_load_inactive_statuses"),
-    ("puppeteer.leaderboard_stats", "puppeteer.leaderboard_elo", "_player_key"),
-    ("puppeteer.leaderboard_stats", "puppeteer.leaderboard_elo", "_split_key"),
     ("puppeteer.orchestrator", "puppeteer.batch_coordination", "_finalize_game"),
     ("puppeteer.orchestrator", "puppeteer.batch_coordination", "_setup_game"),
     ("puppeteer.orchestrator", "puppeteer.batch_coordination", "_wait_for_all_games"),
@@ -113,8 +103,6 @@ _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
 }
 
 _ALLOWED_PRIVATE_REEXPORTS = {
-    ("puppeteer.leaderboard", "_player_key"),
-    ("puppeteer.leaderboard", "_split_key"),
     ("puppeteer.orchestrator", "_check_regular_season_block"),
     ("puppeteer.orchestrator", "_ensure_game_over_event"),
     ("puppeteer.orchestrator", "_finalize_game"),

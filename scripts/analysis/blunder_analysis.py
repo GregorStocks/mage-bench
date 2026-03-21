@@ -31,8 +31,8 @@ from puppeteer.decision_renderer import (
 from puppeteer.decision_renderer import render_decision
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
-    Annotation,
     Action,
+    Annotation,
     Decision,
     Snapshot,
     json_default,

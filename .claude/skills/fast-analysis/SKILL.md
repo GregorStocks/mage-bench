@@ -17,13 +17,13 @@ Determine which game(s) to analyze:
 - If the user said "most recent" or similar, find the latest:
 
   ```bash
-  uv run python scripts/list-recent-games.py
+  uv run python scripts/list_recent_games.py
   ```
 
 - If the user mentioned a config name (e.g. "round-robin-commander", "jumpstart-dumb", "modern-staller"), use the corresponding symlink:
 
   ```bash
-  uv run python scripts/list-recent-games.py --config {config}
+  uv run python scripts/list_recent_games.py --config {config}
   ```
 
   where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
@@ -117,7 +117,7 @@ These are **recurring model behavior issues** seen across many games and models.
 **You are likely analyzing a game that was played days or weeks ago.** Bugs you find may have already been fixed in the interim. You MUST check before filing.
 
 ```bash
-uv run python scripts/list-issues.py
+uv run python scripts/query_issues.py
 ```
 
 For every potential bug you identify:

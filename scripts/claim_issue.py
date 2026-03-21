@@ -2,8 +2,8 @@
 """Claim an issue by creating a draft PR. Earliest claim timestamp wins ties.
 
 Usage:
-    claim-issue.py <issue-filename>   Claim an issue
-    claim-issue.py --list             List already-claimed issues
+    claim_issue.py <issue-filename>   Claim an issue
+    claim_issue.py --list             List already-claimed issues
 
 Exit codes:
     0  Claimed successfully (or --list succeeded)
@@ -11,12 +11,12 @@ Exit codes:
     2  Bad input / branch already tied to a different open PR
 """
 
+import json
 import re
 import subprocess
 import sys
 import time
 from datetime import datetime
-import json
 from pathlib import Path
 
 from scripts.issue_files import issue_path, issue_stem, load_issue
@@ -204,8 +204,8 @@ def repurpose_branch_pr(
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: claim-issue.py <issue-filename>", file=sys.stderr)
-        print("       claim-issue.py --list", file=sys.stderr)
+        print("Usage: claim_issue.py <issue-filename>", file=sys.stderr)
+        print("       claim_issue.py --list", file=sys.stderr)
         sys.exit(2)
 
     if sys.argv[1] == "--list":

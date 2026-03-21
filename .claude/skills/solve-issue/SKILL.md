@@ -24,7 +24,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
 1. **Resolve a user-supplied issue argument** — only if the user explicitly passed an issue name/path. Use your judgment to determine the issue file they very obviously meant before invoking the claim script.
 
-   Canonicalize the argument to the basename expected by `scripts/autoclaim-issue.py`:
+   Canonicalize the argument to the basename expected by `scripts/autoclaim_issue.py`:
    - Issue filenames are prefixed `p1-...`, `p2-...`, `p3-...`, `p4-...`, or `blocked-...`
    - If they passed `issues/<name>.json5`, strip the leading `issues/`
    - If they passed `<name>` without `.json5`, try `<name>.json5`
@@ -35,7 +35,7 @@ Pick and solve exactly **one** issue, then create a PR.
 2. **Check blocked issues** — before auto-claiming, check if any blocked issues deserve to be unblocked. Skip this step if the user explicitly passed an issue name.
 
    ```bash
-   uv run python scripts/query-issues.py
+   uv run python scripts/query_issues.py
    ```
 
    Look at the output. If any `blocked-` issue has **higher priority** (lower number) than the highest-priority unblocked issue:
@@ -50,7 +50,7 @@ Pick and solve exactly **one** issue, then create a PR.
 3. **Claim an issue** by running:
 
    ```bash
-   uv run python scripts/autoclaim-issue.py
+   uv run python scripts/autoclaim_issue.py
    ```
 
    This auto-picks the highest-priority unclaimed issue, skipping issues with a truthy `blocked` field (those have preconditions that need manual review). The `blocked` field can be `true` or a string describing the blocker.
@@ -58,13 +58,13 @@ Pick and solve exactly **one** issue, then create a PR.
    **Only if the user explicitly passed an issue name** (e.g. `/solve-issue populate-deck-strategies` or `/solve-issue issues/populate-deck-strategies.json5`), claim that resolved canonical issue instead:
 
    ```bash
-   uv run python scripts/autoclaim-issue.py <resolved-issue-name>
+   uv run python scripts/autoclaim_issue.py <resolved-issue-name>
    ```
 
    Never pick a specific issue on your own — always use the auto-pick unless the user told you which issue to work on.
 
    - If the script **succeeds** (exit 0): immediately inspect the current branch PR (`gh pr view --json body,url`) and extract the `<!-- claim: ... -->` tag from that PR body. Treat that PR claim tag as the authoritative claimed issue for all later steps. If there is no open PR or the claim tag is missing/mismatched, **stop immediately** and tell the user the claim workflow is inconsistent.
-   - If you later merge `origin/master` and the claimed issue file was renamed (for example because issue filename prefixes changed), immediately update the PR body to use the new canonical `<!-- claim: ... -->` tag before continuing. `finalize-issue-pr.py` preserves the current PR tag verbatim.
+   - If you later merge `origin/master` and the claimed issue file was renamed (for example because issue filename prefixes changed), immediately update the PR body to use the new canonical `<!-- claim: ... -->` tag before continuing. `finalize_issue_pr.py` preserves the current PR tag verbatim.
    - If the script **fails** (exit 1 or 2): **stop immediately**. Tell the user no issue was claimed and do NOT proceed. You must not work on any issue you haven't successfully claimed — no exceptions. The claiming system prevents multiple Claudes from working on the same issue; bypassing it causes wasted work and merge conflicts.
 4. **Check if already fixed** — before planning anything, check whether the issue was already resolved and the issue file just wasn't cleaned up. Do this by:
    - Finding when the authoritative claimed issue file was created (`git log --diff-filter=A -- issues/<filename>.json5`)
@@ -89,7 +89,7 @@ Pick and solve exactly **one** issue, then create a PR.
    - [ ] Delete the issue file and include deletion in the commit
    - [ ] Run `/simplify` to review changed code
    - [ ] Push final changes: `git push origin HEAD`
-   - [ ] Finalize PR: `uv run python scripts/finalize-issue-pr.py --title "..." --body "..."`
+   - [ ] Finalize PR: `uv run python scripts/finalize_issue_pr.py --title "..." --body "..."`
    ```
 
    This checklist survives the plan mode boundary and ensures no steps are skipped even if earlier context is compressed.
@@ -119,7 +119,7 @@ Pick and solve exactly **one** issue, then create a PR.
 13. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
 
     ```bash
-    uv run python scripts/finalize-issue-pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"
+    uv run python scripts/finalize_issue_pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"
     ```
 
     The PR body must include a short **issue context** section near the top that explains what the original issue was and why this change fixes it. Write it for a reader who may not remember the issue they filed days earlier.
@@ -129,7 +129,7 @@ Pick and solve exactly **one** issue, then create a PR.
 14. **Watch CI and address feedback.** Run the watcher — it polls every 30s, returns as soon as any check fails or all pass (up to 30 min):
 
     ```bash
-    uv run python scripts/watch-pr.py
+    uv run python scripts/watch_pr.py
     ```
 
     - **Exit 0** (all green, no comments): Done — leave remaining issues for the next Claude.
@@ -142,11 +142,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
 ## Abandoning an Issue
 
-If you determine an issue isn't worth fixing after claiming it, clean up your claim:
-
-```bash
-uv run python scripts/abandon-issue.py
-```
+If you determine an issue isn't worth fixing after claiming it, do **not** improvise claim cleanup. If the current tree has a documented abandon helper, use it. Otherwise stop, tell Gregor the issue should be abandoned, and wait for direction before touching the PR claim metadata manually.
 
 Then restart from step 1 to pick a different issue.
 
