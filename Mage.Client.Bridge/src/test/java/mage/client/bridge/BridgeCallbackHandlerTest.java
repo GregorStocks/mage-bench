@@ -17,6 +17,7 @@ import mage.remote.Session;
 import mage.util.MultiAmountMessage;
 import mage.util.ShortIdRegistry;
 import mage.util.SubTypes;
+import mage.view.AbilityPickerView;
 import mage.view.CardView;
 import mage.view.CardsView;
 import mage.view.GameClientMessage;
@@ -1061,6 +1062,45 @@ class BridgeCallbackHandlerTest {
         assertThat(((GameClientMessage) pendingAction.data()).getGameView()).isSameAs(targetView);
         assertThat(getField(handler, "lastGameView")).isSameAs(targetView);
         assertThat(getField(handler, "playerDead")).isEqualTo(false);
+    }
+
+    @Test
+    void handleCallbackStoresAbilityPickerPendingAction() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID abilityId = UUID.randomUUID();
+        GameView abilityView = gameView(34);
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        activeGames.put(gameId, playerId);
+        setField(handler, "currentGameId", gameId);
+
+        AbilityPickerView picker = new AbilityPickerView(
+            abilityView,
+            Collections.singletonMap(abilityId, "1. Add {G}."),
+            "Choose mana ability"
+        );
+        ClientCallback callback = new ClientCallback(
+            ClientCallbackMethod.GAME_CHOOSE_ABILITY,
+            gameId,
+            picker,
+            false
+        );
+
+        handler.handleCallback(callback);
+
+        PendingAction pendingAction = (PendingAction) getField(handler, "pendingAction");
+        assertThat(pendingAction).isNotNull();
+        assertThat(pendingAction.gameId()).isEqualTo(gameId);
+        assertThat(pendingAction.method()).isEqualTo(ClientCallbackMethod.GAME_CHOOSE_ABILITY);
+        assertThat(pendingAction.message()).isEqualTo("Choose mana ability");
+        assertThat(pendingAction.gameSeq()).isEqualTo(34);
+        assertThat(pendingAction.data()).isSameAs(picker);
+        assertThat(getField(handler, "lastGameView")).isSameAs(abilityView);
     }
 
     @Test
