@@ -8,6 +8,15 @@ from pathlib import Path
 
 import pytest
 
+from puppeteer import (
+    leaderboard as leaderboard_module,
+)
+from puppeteer import (
+    leaderboard_elo,
+    leaderboard_formats,
+    leaderboard_registry,
+    leaderboard_stats,
+)
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.leaderboard import (
     _player_key,
@@ -166,6 +175,20 @@ def test_load_model_registry():
 
 def test_load_model_registry_missing_file():
     assert load_model_registry(Path("/nonexistent/models.json")) == {}
+
+
+def test_leaderboard_module_reexports_split_helpers():
+    assert leaderboard_module._player_key is leaderboard_elo._player_key
+    assert leaderboard_module._split_key is leaderboard_elo._split_key
+    assert leaderboard_module.compute_elo_ratings is leaderboard_elo.compute_elo_ratings
+    assert leaderboard_module.extract_placements is leaderboard_elo.extract_placements
+    assert leaderboard_module.derive_format is leaderboard_formats.derive_format
+    assert leaderboard_module.capitalize_provider is leaderboard_registry.capitalize_provider
+    assert leaderboard_module.derive_display_name is leaderboard_registry.derive_display_name
+    assert leaderboard_module.load_model_registry is leaderboard_registry.load_model_registry
+    assert leaderboard_module.generate_model_stats is leaderboard_stats.generate_model_stats
+    assert leaderboard_module.generate_internals_data is leaderboard_stats.generate_internals_data
+    assert leaderboard_module.generate_blunder_stats is leaderboard_stats.generate_blunder_stats
 
 
 # --- extract_placements ---
