@@ -1,0 +1,25 @@
+{
+  "title": "Untangle private helper dependencies inside the pilot subsystem",
+  "description": "Even after the `pilot.py` façade is cleaned up, the pilot implementation modules still reach into each other's private helpers: `_parse_context_metadata`, `_build_pilot_decision`, `_build_pilot_snapshot`, `_extract_oracle_texts_from_board`, `_build_reset_message`, `_extract_last_reasoning`, and `_reset_context` all cross module boundaries today.\n\
+\n\
+This needs an explicit internal boundary instead of a mesh of private imports. Likely fixes are: promote a small number of truly shared helpers to public names, or extract a new helper module owned by the pilot subsystem so rendering/state/bridge/recovery stop importing each other's underscore names.\n\
+\n\
+Scope:\n\
+- `puppeteer/src/puppeteer/pilot_bridge.py`\n\
+- `puppeteer/src/puppeteer/pilot_game_state.py`\n\
+- `puppeteer/src/puppeteer/pilot_recovery.py`\n\
+- `puppeteer/src/puppeteer/pilot_rendering.py`\n\
+- `puppeteer/src/puppeteer/pilot_state.py`\n\
+- `puppeteer/tests/test_weird_conventions.py` (remove the allowlist entries as debt is retired)",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "pilot",
+    "python",
+    "refactor",
+  ],
+  "blocked": "Blocked by p4-burn-down-private-helper-boundary-in-pilot-surface.json5. Remove the public pilot.py facade first so the remaining private-import graph reflects the real internal boundary instead of today’s accidental export surface.",
+  "created_at": "2026-03-21T10:35:12.655832-07:00",
+  "updated_at": "2026-03-21T10:39:22.992891-07:00",
+}

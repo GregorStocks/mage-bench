@@ -20,12 +20,20 @@ from collections.abc import Sequence
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Annotation, Decision, GameExport, Snapshot
+from scripts.analysis.blunder_analysis import (
+    BLUNDER_SCRIPT_VERSION,
+    OPUS_MODEL,
+    _eval_one_decision,
+    init_api,
+    load_game_context,
+)
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
     export_record_name,
     game_path_for_id,
+    load_game,
     load_game_ground_truth,
     load_ground_truth,
     lookup_annotation_for_decision,
@@ -129,8 +137,6 @@ def viewer_url(game_id: str, aftermath_index: int) -> str:
 
 def _load_game_data(gz_path: str) -> GameExport:
     """Load a game's JSON data from a .json or .json.gz file."""
-    from scripts.analysis.blunder_eval_common import load_game
-
     return load_game(gz_path)
 
 
@@ -167,21 +173,12 @@ def _get_current_annotation(
 
     Returns (annotation_dict_or_None, annotation_version).
     """
-    from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
-
     game_version = game_data.blunderScriptVersion
     if game_version >= BLUNDER_SCRIPT_VERSION:
         ann = lookup_annotation_for_decision(decision, game_data.annotations)
         return ann, BLUNDER_SCRIPT_VERSION
 
     # Stale game — run annotator on just this decision
-    from scripts.analysis.blunder_analysis import (
-        OPUS_MODEL,
-        _eval_one_decision,
-        init_api,
-        load_game_context,
-    )
-
     print(
         f"  Running annotator (game v{game_version}, current v{BLUNDER_SCRIPT_VERSION})..."
     )

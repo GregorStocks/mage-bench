@@ -12,6 +12,7 @@ Usage:
 Requires OPENROUTER_API_KEY environment variable.
 """
 
+import argparse
 import json
 import textwrap
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -195,8 +196,6 @@ def print_report(comparison: dict) -> None:
 
 
 def main() -> None:
-    import argparse
-
     parser = argparse.ArgumentParser(
         description="Run blunder eval against ground truth"
     )

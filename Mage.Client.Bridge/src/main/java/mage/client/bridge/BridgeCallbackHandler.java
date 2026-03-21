@@ -1,5 +1,11 @@
 package mage.client.bridge;
 
+import mage.client.bridge.processor.BridgeActionableCallbackOutcome;
+import mage.client.bridge.processor.BridgeCallbackDispatcher;
+import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
+import mage.client.bridge.processor.BridgeCallbackEvent;
+import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeProcessor;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.game.BridgeLogEntry;
@@ -91,7 +97,10 @@ public class BridgeCallbackHandler {
     private final BridgeCardFormatter cardFormatter;
     private final BridgeGameStateBuilder gameStateBuilder;
     private final BridgeOracleTextService oracleTextService;
-    private Session session;
+    // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
+    // while MCP methods still read transitional shared fields until step 3 lands.
+    private final BridgeProcessor processor;
+    private volatile Session session;
     private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>(); // gameId -> playerId
     private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>(); // gameId -> chatId
 
@@ -224,6 +233,110 @@ public class BridgeCallbackHandler {
         this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
         this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
+        BridgeCallbackDispatcher dispatcher = new BridgeCallbackDispatcher(new BridgeCallbackDispatcherContext() {
+            @Override
+            public String nonCurrentGameCallbackIgnoreReason(UUID callbackGameId, ClientCallbackMethod method) {
+                return BridgeCallbackHandler.this.nonCurrentGameCallbackIgnoreReason(callbackGameId, method);
+            }
+
+            @Override
+            public void logCallbackReceived(UUID callbackGameId, ClientCallbackMethod method, String ignoreReason) {
+                BridgeCallbackHandler.this.logCallbackReceived(callbackGameId, method, ignoreReason);
+            }
+
+            @Override
+            public boolean shouldIgnoreNonCurrentGameCallback(
+                    UUID callbackGameId,
+                    ClientCallbackMethod method,
+                    String ignoreReason) {
+                return BridgeCallbackHandler.this.shouldIgnoreNonCurrentGameCallback(callbackGameId, method, ignoreReason);
+            }
+
+            @Override
+            public void recordCallbackArrival(ClientCallbackMethod method) {
+                BridgeCallbackHandler.this.recordCallbackArrival(method);
+            }
+
+            @Override
+            public BridgeActionableCallbackOutcome createActionableOutcome(ClientCallbackMethod method) {
+                return new ActionableCallbackOutcome(method);
+            }
+
+            @Override
+            public boolean shouldLogBridgeEvents() {
+                return bridgeLogPath != null;
+            }
+
+            @Override
+            public String buildBridgeStateSummary() {
+                return BridgeCallbackHandler.this.buildBridgeStateSummary();
+            }
+
+            @Override
+            public void logBridgeEvent(ClientCallbackMethod method, UUID gameId, String summary) {
+                BridgeCallbackHandler.this.logBridgeEvent(method, gameId, summary);
+            }
+
+            @Override
+            public void storePendingAction(UUID gameId, ClientCallbackMethod method, Object data) {
+                BridgeCallbackHandler.this.storePendingAction(gameId, method, data);
+            }
+
+            @Override
+            public void handleStartGame(UUID gameId, Object data) {
+                BridgeCallbackHandler.this.handleStartGame(gameId, data);
+            }
+
+            @Override
+            public void handleGameInit(Object data) {
+                BridgeCallbackHandler.this.handleGameInit(data);
+            }
+
+            @Override
+            public void logGameState(Object data) {
+                BridgeCallbackHandler.this.logGameState(data);
+            }
+
+            @Override
+            public void handleGameOver(UUID gameId, Object data) {
+                BridgeCallbackHandler.this.handleGameOver(gameId, data);
+            }
+
+            @Override
+            public void handleEndGameInfo(UUID gameId) {
+                BridgeCallbackHandler.this.handleEndGameInfo(gameId);
+            }
+
+            @Override
+            public void handleChatMessage(Object data) {
+                BridgeCallbackHandler.this.handleChatMessage(data);
+            }
+
+            @Override
+            public void logEvent(ClientCallbackMethod method, Object data) {
+                BridgeCallbackHandler.this.logEvent(method, data);
+            }
+
+            @Override
+            public void handleUserRequestDialog(Object data) {
+                BridgeCallbackHandler.this.handleUserRequestDialog(data);
+            }
+
+            @Override
+            public void logUnhandledCallback(ClientCallbackMethod method) {
+                logger.debug("[" + client.getUsername() + "] Unhandled callback: " + method);
+            }
+
+            @Override
+            public void handleProcessorCallbackException(
+                    ClientCallbackMethod method,
+                    Exception e,
+                    boolean actionable) {
+                BridgeCallbackHandler.this.handleCallbackException(method, e, actionable);
+            }
+        });
+        this.processor = new BridgeProcessor(client.getUsername(), logger, dispatcher::process);
+        this.processor.start();
     }
 
     /**
@@ -295,7 +408,7 @@ public class BridgeCallbackHandler {
         throw new ResponseDeliveryException(msg);
     }
 
-    private final class ActionableCallbackOutcome {
+    private final class ActionableCallbackOutcome implements BridgeActionableCallbackOutcome {
         private final ClientCallbackMethod method;
         private String outcome = null;
 
@@ -303,15 +416,18 @@ public class BridgeCallbackHandler {
             this.method = method;
         }
 
-        void storedPendingAction(String detail) {
+        @Override
+        public void storedPendingAction(String detail) {
             record("stored_pending_action:" + detail);
         }
 
-        void sentResponse(String detail) {
+        @Override
+        public void sentResponse(String detail) {
             record("sent_response:" + detail);
         }
 
-        void verifyRecorded() {
+        @Override
+        public void verifyRecorded() {
             if (outcome == null) {
                 throw new IllegalStateException(
                         "Actionable callback " + method
@@ -571,6 +687,7 @@ public class BridgeCallbackHandler {
         synchronized (actionLock) {
             actionLock.notifyAll();
         }
+        processor.shutdown("superseded by createFreshForNextGame");
 
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
         fresh.session = this.session;
@@ -628,6 +745,16 @@ public class BridgeCallbackHandler {
     }
 
     public void reset() {
+        processor.submit(new BridgeCommand<Void>() {
+            @Override
+            public Void execute() {
+                resetProcessorState();
+                return null;
+            }
+        });
+    }
+
+    private void resetProcessorState() {
         activeGames.clear();
         gameChatIds.clear();
         pendingAction = null;
@@ -641,6 +768,23 @@ public class BridgeCallbackHandler {
         bridgeEventCursor = 0;
         synchronized (chatLog) {
             chatLog.clear();
+        }
+    }
+
+    // Visible for tests that need to wait for queued callback processing.
+    void awaitProcessorIdle() {
+        processor.submit(new BridgeCommand<Void>() {
+            @Override
+            public Void execute() {
+                return null;
+            }
+        });
+    }
+
+    void shutdownProcessor(String reason) {
+        processor.shutdown(reason);
+        synchronized (actionLock) {
+            actionLock.notifyAll();
         }
     }
 
@@ -4013,156 +4157,44 @@ public class BridgeCallbackHandler {
     }
 
     public void handleCallback(ClientCallback callback) {
+        ClientCallbackMethod method = callback.getMethod();
         try {
             callback.decompressData();
-            UUID objectId = callback.getObjectId();
-            ClientCallbackMethod method = callback.getMethod();
-            String ignoreReason = nonCurrentGameCallbackIgnoreReason(objectId, method);
-            logCallbackReceived(objectId, method, ignoreReason);
-            if (shouldIgnoreNonCurrentGameCallback(objectId, method, ignoreReason)) {
-                return;
-            }
-            lastCallbackReceivedAt = System.currentTimeMillis();
-            if (ACTIONABLE_CALLBACKS.contains(method)) {
-                lastActionableCallbackAt = System.currentTimeMillis();
-            }
-            ActionableCallbackOutcome actionableOutcome = ACTIONABLE_CALLBACKS.contains(method)
-                    ? new ActionableCallbackOutcome(method)
-                    : null;
-
-            // Bridge JSONL dump: log every callback
-            if (bridgeLogPath != null) {
-                String summary = null;
-                if (method == ClientCallbackMethod.GAME_UPDATE || method == ClientCallbackMethod.GAME_UPDATE_AND_INFORM) {
-                    summary = buildBridgeStateSummary();
-                } else if (method == ClientCallbackMethod.CHATMESSAGE) {
-                    Object chatData = callback.getData();
-                    if (chatData instanceof ChatMessage chatMsg) {
-                        summary = chatMsg.getMessageType() + ": " + chatMsg.getMessage();
-                    }
-                } else if (method == ClientCallbackMethod.GAME_OVER) {
-                    summary = "Game over";
-                }
-                logBridgeEvent(method, objectId, summary);
-            }
-
-            switch (method) {
-                case START_GAME:
-                    handleStartGame(objectId, callback);
-                    break;
-
-                case GAME_INIT: // Initialization: sets first lastGameView; not a recurring passive update
-                    handleGameInit(callback);
-                    break;
-
-                case GAME_UPDATE: // Passive: debug logging only, no state mutation
-                case GAME_UPDATE_AND_INFORM:
-                    logGameState(callback);
-                    break;
-
-                case GAME_ASK:
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction("GAME_ASK");
-                    break;
-
-                case GAME_SELECT:
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction("GAME_SELECT");
-                    break;
-
-                case GAME_TARGET:
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction("GAME_TARGET");
-                    break;
-
-                case GAME_CHOOSE_ABILITY:
-                    // Always defer to the synchronous decision boundary.
-                    // Mana-plan consumption and empty-choices auto-handling happen in
-                    // maybeAutoHandleNonDecisionAction, not on the callback thread.
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction("GAME_CHOOSE_ABILITY");
-                    break;
-
-                case GAME_CHOOSE_CHOICE:
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction("GAME_CHOOSE_CHOICE");
-                    break;
-
-                case GAME_CHOOSE_PILE:
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction("GAME_CHOOSE_PILE");
-                    break;
-
-                case GAME_PLAY_MANA:
-                case GAME_PLAY_XMANA:
-                    // XMage is blocked on this exact callback and only accepts the
-                    // corresponding sendPlayer* response. We cannot "wait until
-                    // later when we have priority" without first recording the
-                    // authoritative callback payload and waking the synchronous tool
-                    // thread that will answer it.
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction(method.name());
-                    break;
-
-                case GAME_GET_AMOUNT:
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction("GAME_GET_AMOUNT");
-                    break;
-
-                case GAME_GET_MULTI_AMOUNT:
-                    storePendingAction(objectId, method, callback);
-                    actionableOutcome.storedPendingAction("GAME_GET_MULTI_AMOUNT");
-                    break;
-
-                case GAME_OVER:
-                    handleGameOver(objectId, callback);
-                    break;
-
-                case END_GAME_INFO:
-                    handleEndGameInfo(objectId);
-                    break;
-
-                case CHATMESSAGE:
-                    handleChatMessage(callback);
-                    break;
-
-                case SERVER_MESSAGE: // Passive: log-only, no state mutation
-                case GAME_ERROR:
-                case GAME_INFORM_PERSONAL:
-                case JOINED_TABLE:
-                    logEvent(callback);
-                    break;
-
-                case USER_REQUEST_DIALOG:
-                    handleUserRequestDialog(callback);
-                    break;
-
-                default:
-                    logger.debug("[" + client.getUsername() + "] Unhandled callback: " + method);
-            }
-            if (actionableOutcome != null) {
-                actionableOutcome.verifyRecorded();
-            }
+            processor.enqueueCallback(new BridgeCallbackEvent(
+                callback.getObjectId(),
+                method,
+                callback.getData()
+            ));
         } catch (Exception e) {
-            logError("Error handling callback " + callback.getMethod() + ": " + e.getMessage());
-            logger.debug("[" + client.getUsername() + "] Callback error stack trace", e);
-            // If this was an actionable callback (one that requires a player response),
-            // the server's game thread is now stuck in waitForResponse() forever because
-            // no response was sent.  Signal playerDead so passPriority/chooseAction exit
-            // immediately instead of hanging until the Python HTTP timeout (120s).
-            if (ACTIONABLE_CALLBACKS.contains(callback.getMethod())) {
-                logger.error("[" + client.getUsername() + "] CRITICAL: Actionable callback " + callback.getMethod()
-                        + " dropped due to exception — declaring player dead to prevent hang");
-                playerDead = true;
-                synchronized (actionLock) {
-                    actionLock.notifyAll();
-                }
+            handleCallbackException(method, e, ACTIONABLE_CALLBACKS.contains(method));
+        }
+    }
+
+    private void recordCallbackArrival(ClientCallbackMethod method) {
+        long now = System.currentTimeMillis();
+        lastCallbackReceivedAt = now;
+        if (ACTIONABLE_CALLBACKS.contains(method)) {
+            lastActionableCallbackAt = now;
+        }
+    }
+
+    private void handleCallbackException(ClientCallbackMethod method, Exception e, boolean actionable) {
+        logError("Error handling callback " + method + ": " + e.getMessage());
+        logger.debug("[" + client.getUsername() + "] Callback error stack trace", e);
+        // If an actionable callback fails before the bridge records or answers it,
+        // XMage remains stuck in waitForResponse() because no response was delivered.
+        // Wake MCP waiters so the bridge fails fast instead of hanging until timeout.
+        if (actionable) {
+            logger.error("[" + client.getUsername() + "] CRITICAL: Actionable callback " + method
+                    + " dropped due to exception — declaring player dead to prevent hang");
+            playerDead = true;
+            synchronized (actionLock) {
+                actionLock.notifyAll();
             }
         }
     }
 
-    private void storePendingAction(UUID gameId, ClientCallbackMethod method, ClientCallback callback) {
-        Object data = callback.getData();
+    private void storePendingAction(UUID gameId, ClientCallbackMethod method, Object data) {
         String message = extractMessage(data);
         // Capture GameView and game_seq from the decision callback itself,
         // not from lastGameView (which can be updated by later gameUpdate
@@ -4296,8 +4328,7 @@ public class BridgeCallbackHandler {
     //  REQUIRED  – unseenChat buffering: surfaces player-to-player chat + system messages via attachUnseenChat()
     //  REQUIRED  – chatLog capture: TALK messages interleaved with bridge events by renderGameLogFlat()
     //  DONE      – gameLog accumulation: migrated to server-side bridge events (epoch 55)
-    private void handleChatMessage(ClientCallback callback) {
-        Object data = callback.getData();
+    private void handleChatMessage(Object data) {
         if (data instanceof ChatMessage chatMsg) {
             if (chatMsg.getMessageType() == ChatMessage.MessageType.GAME) {
                 String msg = chatMsg.getMessage();
@@ -4329,12 +4360,12 @@ public class BridgeCallbackHandler {
             }
             logger.debug("[" + client.getUsername() + "] Chat: " + chatMsg.getMessage());
         } else {
-            logEvent(callback);
+            logEvent(ClientCallbackMethod.CHATMESSAGE, data);
         }
     }
 
-    private void handleStartGame(UUID gameId, ClientCallback callback) {
-        TableClientMessage message = (TableClientMessage) callback.getData();
+    private void handleStartGame(UUID gameId, Object data) {
+        TableClientMessage message = (TableClientMessage) data;
         UUID startTableId = message.getCurrentTableId();
         if (keepAliveAfterGame && !startGameArmed) {
             logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
@@ -4374,8 +4405,8 @@ public class BridgeCallbackHandler {
         gameStartLatch.countDown();
     }
 
-    private void handleGameInit(ClientCallback callback) {
-        GameView gameView = (GameView) callback.getData();
+    private void handleGameInit(Object data) {
+        GameView gameView = (GameView) data;
         updateLastGameView(gameView, "GAME_INIT");
         logger.info("[" + client.getUsername() + "] Game initialized: " + gameView.getPlayers().size() + " players");
     }
@@ -4384,8 +4415,7 @@ public class BridgeCallbackHandler {
     // No state mutation — actionable callbacks provide fresh GameViews at decision time via
     // storePendingAction(). Short ID registration for non-CardView objects (players, lookedAt
     // cards) happens in getStableShortId() which checks the GameView's lookedAt zone directly.
-    private void logGameState(ClientCallback callback) {
-        Object data = callback.getData();
+    private void logGameState(Object data) {
         if (data instanceof GameView gameView) {
             logger.debug("[" + client.getUsername() + "] Game update: turn " + gameView.getTurn() +
                     ", phase " + gameView.getPhase() + ", active player " + gameView.getActivePlayerName());
@@ -4875,8 +4905,8 @@ public class BridgeCallbackHandler {
         return wasActive;
     }
 
-    private void handleGameOver(UUID gameId, ClientCallback callback) {
-        GameClientMessage message = (GameClientMessage) callback.getData();
+    private void handleGameOver(UUID gameId, Object data) {
+        GameClientMessage message = (GameClientMessage) data;
 
         // Update lastGameView with the final game-over GameView BEFORE
         // removing from activeGames.  The game-over callback carries the
@@ -4939,8 +4969,8 @@ public class BridgeCallbackHandler {
         }
     }
 
-    private void handleUserRequestDialog(ClientCallback callback) {
-        UserRequestMessage request = (UserRequestMessage) callback.getData();
+    private void handleUserRequestDialog(Object data) {
+        UserRequestMessage request = (UserRequestMessage) data;
         // Auto-accept hand permission requests from observers
         if (request.getButton1Action() == PlayerAction.ADD_PERMISSION_TO_SEE_HAND_CARDS) {
             UUID gameId = request.getGameId();
@@ -4952,7 +4982,7 @@ public class BridgeCallbackHandler {
         }
     }
 
-    private void logEvent(ClientCallback callback) {
-        logger.debug("[" + client.getUsername() + "] Event: " + callback.getMethod() + " - " + callback.getData());
+    private void logEvent(ClientCallbackMethod method, Object data) {
+        logger.debug("[" + client.getUsername() + "] Event: " + method + " - " + data);
     }
 }
