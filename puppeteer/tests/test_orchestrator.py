@@ -9,25 +9,17 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+from puppeteer.batch_coordination import GameSession, finalize_game, setup_game, wait_for_all_games
 from puppeteer.config import Config, PilotPlayer
-from puppeteer.orchestrator import (
-    GameSession,
-    _check_regular_season_block,
-    _ensure_game_over_event,
-    _finalize_game,
-    _git,
-    _missing_llm_api_keys,
-    _print_game_summary,
-    _setup_game,
-    _wait_for_all_games,
-    _wait_for_game_start,
-    _wait_with_pilot_monitoring,
-    _write_error_log,
-    _write_game_meta,
-    compile_project,
-    parse_args,
-    start_observer_client,
+from puppeteer.game_finalization import (
+    ensure_game_over_event,
+    print_game_summary,
+    run_git,
+    write_error_log,
+    write_game_meta,
 )
+from puppeteer.game_processes import start_observer_client, wait_for_game_start, wait_with_pilot_monitoring
+from puppeteer.orchestrator import _check_regular_season_block, _missing_llm_api_keys, compile_project, parse_args
 
 
 def test_missing_llm_api_keys_none():
@@ -204,7 +196,7 @@ def test_ensure_game_over_event_already_present():
             + "\n"
         )
 
-        _ensure_game_over_event(game_dir)
+        ensure_game_over_event(game_dir)
 
         lines = events_file.read_text().strip().splitlines()
         game_over_count = sum(1 for line in lines if json.loads(line).get("type") == "game_over")
@@ -218,7 +210,7 @@ def test_ensure_game_over_event_appended():
         events_file = game_dir / "game_events.jsonl"
         events_file.write_text(json.dumps({"ts": "2024-01-01T00:00:00", "seq": 42, "type": "game_start"}) + "\n")
 
-        _ensure_game_over_event(game_dir)
+        ensure_game_over_event(game_dir)
 
         lines = events_file.read_text().strip().splitlines()
         assert len(lines) == 2
@@ -235,7 +227,7 @@ def test_ensure_game_over_event_spectator_closed():
         events_file = game_dir / "game_events.jsonl"
         events_file.write_text(json.dumps({"ts": "2024-01-01T00:00:00", "seq": 10, "type": "game_start"}) + "\n")
 
-        _ensure_game_over_event(game_dir, spectator_exit_code=0)
+        ensure_game_over_event(game_dir, spectator_exit_code=0)
 
         lines = events_file.read_text().strip().splitlines()
         assert len(lines) == 2
@@ -253,7 +245,7 @@ def test_ensure_game_over_event_spectator_crashed():
         events_file = game_dir / "game_events.jsonl"
         events_file.write_text(json.dumps({"ts": "2024-01-01T00:00:00", "seq": 10, "type": "game_start"}) + "\n")
 
-        _ensure_game_over_event(game_dir, spectator_exit_code=1)
+        ensure_game_over_event(game_dir, spectator_exit_code=1)
 
         lines = events_file.read_text().strip().splitlines()
         assert len(lines) == 2
@@ -267,7 +259,7 @@ def test_ensure_game_over_event_no_file():
     """Should create the file with a game_over event if it doesn't exist."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        _ensure_game_over_event(game_dir)
+        ensure_game_over_event(game_dir)
 
         events_file = game_dir / "game_events.jsonl"
         assert events_file.exists()
@@ -286,7 +278,7 @@ def test_print_game_summary_from_events_jsonl(caplog):
         )
 
         with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
-            _print_game_summary(game_dir)
+            print_game_summary(game_dir)
 
         output = caplog.text
         assert "Player1 wins" in output
@@ -300,7 +292,7 @@ def test_print_game_summary_from_pilot_log(caplog):
         (game_dir / "ace_pilot.log").write_text("INFO Game over: Player1 won the game\n")
 
         with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
-            _print_game_summary(game_dir)
+            print_game_summary(game_dir)
 
         output = caplog.text
         assert "Player1 won the game" in output
@@ -313,7 +305,7 @@ def test_print_game_summary_no_logs(caplog):
         game_dir = Path(tmpdir)
 
         with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
-            _print_game_summary(game_dir)
+            print_game_summary(game_dir)
 
         output = caplog.text
         assert "did not finish" in output
@@ -337,7 +329,7 @@ def test_print_game_summary_synthetic_game_over(caplog):
         )
 
         with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
-            _print_game_summary(game_dir)
+            print_game_summary(game_dir)
 
         output = caplog.text
         assert "did not finish" in output
@@ -361,7 +353,7 @@ def test_print_game_summary_spectator_closed(caplog):
         )
 
         with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
-            _print_game_summary(game_dir)
+            print_game_summary(game_dir)
 
         output = caplog.text
         assert "spectator window closed" in output
@@ -386,7 +378,7 @@ def test_print_game_summary_spectator_crashed(caplog):
         )
 
         with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
-            _print_game_summary(game_dir)
+            print_game_summary(game_dir)
 
         output = caplog.text
         assert "did not finish" in output
@@ -427,7 +419,7 @@ def test_print_game_summary_turns_and_actions(caplog):
         (game_dir / "Bob_cost.json").write_text(json.dumps({"cost_usd": 0.03}))
 
         with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
-            _print_game_summary(game_dir)
+            print_game_summary(game_dir)
 
         output = caplog.text
         assert "Turns: 3" in output
@@ -443,7 +435,7 @@ def test_write_error_log_combines():
         (game_dir / "alice_errors.log").write_text("Error on turn 3\nBad mana\n")
         (game_dir / "bob_errors.log").write_text("Timeout\n")
 
-        _write_error_log(game_dir)
+        write_error_log(game_dir)
 
         error_log = game_dir / "errors.log"
         assert error_log.exists()
@@ -457,7 +449,7 @@ def test_write_error_log_empty():
     """Should write 'No errors detected.' when no error logs exist."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        _write_error_log(game_dir)
+        write_error_log(game_dir)
 
         error_log = game_dir / "errors.log"
         assert error_log.exists()
@@ -473,7 +465,7 @@ def test_git_returns_output():
         stderr="",
     )
     with patch("puppeteer.game_finalization.subprocess.run", return_value=completed) as mock:
-        result = _git("rev-parse --abbrev-ref HEAD", Path("/fake"))
+        result = run_git("rev-parse --abbrev-ref HEAD", Path("/fake"))
     assert result == "main"
     mock.assert_called_once_with(
         ["git", "rev-parse", "--abbrev-ref", "HEAD"],
@@ -497,7 +489,7 @@ def test_git_raises_on_failure():
         ),
         pytest.raises(RuntimeError, match="fatal: not a git repository"),
     ):
-        _git("rev-parse HEAD", Path("/fake"))
+        run_git("rev-parse HEAD", Path("/fake"))
 
 
 def test_write_game_meta_raises_on_missing_deck(tmp_path: Path):
@@ -518,7 +510,7 @@ def test_write_game_meta_raises_on_missing_deck(tmp_path: Path):
     config.pilot_players = [PilotPlayer(name="ace", deck="missing.dck", model="test/model")]
 
     with pytest.raises(FileNotFoundError):
-        _write_game_meta(game_dir, config, tmp_path)
+        write_game_meta(game_dir, config, tmp_path)
 
 
 @pytest.mark.parametrize(
@@ -550,10 +542,10 @@ def test_write_game_meta_requires_non_empty_format_fields(
     )
 
     with pytest.raises(AssertionError, match=message):
-        _write_game_meta(game_dir, config, tmp_path)
+        write_game_meta(game_dir, config, tmp_path)
 
 
-# --- _wait_with_pilot_monitoring tests ---
+# --- wait_with_pilot_monitoring tests ---
 
 
 def _mock_proc(poll_returns: list[int | None]) -> MagicMock:
@@ -570,7 +562,7 @@ def test_pilot_monitoring_spectator_exits_normally(_mock_sleep):
     pilot = _mock_proc([None, None, None])
     pm = MagicMock()
 
-    rc = _wait_with_pilot_monitoring(spectator, [("alice", pilot)], pm)
+    rc = wait_with_pilot_monitoring(spectator, [("alice", pilot)], pm)
 
     assert rc == 0
     pm.cleanup.assert_not_called()
@@ -583,7 +575,7 @@ def test_pilot_monitoring_pilot_fails(_mock_sleep):
     pilot = _mock_proc([None, 3])
     pm = MagicMock()
 
-    rc = _wait_with_pilot_monitoring(spectator, [("alice", pilot)], pm)
+    rc = wait_with_pilot_monitoring(spectator, [("alice", pilot)], pm)
 
     assert rc == -1
     pm.cleanup.assert_called_once()
@@ -598,13 +590,13 @@ def test_pilot_monitoring_pilot_exits_zero_ignored(_mock_sleep):
     pilot = _mock_proc([None, 0, 0, 0])
     pm = MagicMock()
 
-    rc = _wait_with_pilot_monitoring(spectator, [("alice", pilot)], pm)
+    rc = wait_with_pilot_monitoring(spectator, [("alice", pilot)], pm)
 
     assert rc == 0
     pm.cleanup.assert_not_called()
 
 
-# --- _wait_for_game_start tests ---
+# --- wait_for_game_start tests ---
 
 
 @patch("puppeteer.game_processes.time.sleep")
@@ -615,7 +607,7 @@ def test_wait_for_game_start_finds_marker(_mock_sleep):
         log_path.write_text("AI Puppeteer: all players joined, starting match for table abc\n")
         proc = _mock_proc([None])  # Still running
 
-        _wait_for_game_start(log_path, proc, timeout=5)
+        wait_for_game_start(log_path, proc, timeout=5)
         # Should not raise
 
 
@@ -626,7 +618,7 @@ def test_wait_for_game_start_process_exited(_mock_sleep):
         log_path = Path(tmpdir) / "spectator.log"
         proc = _mock_proc([0])  # Already exited
 
-        _wait_for_game_start(log_path, proc, timeout=5)
+        wait_for_game_start(log_path, proc, timeout=5)
         # Should not raise — game may have started and ended quickly
 
 
@@ -639,10 +631,10 @@ def test_wait_for_game_start_timeout(_mock_sleep):
         proc = _mock_proc([None] * 100)  # Never exits
 
         with patch("puppeteer.game_processes.time.monotonic", side_effect=[0, 0, 100]), pytest.raises(TimeoutError):
-            _wait_for_game_start(log_path, proc, timeout=5)
+            wait_for_game_start(log_path, proc, timeout=5)
 
 
-# --- _wait_for_all_games tests ---
+# --- wait_for_all_games tests ---
 
 
 @patch("puppeteer.batch_coordination.time.sleep")
@@ -653,7 +645,7 @@ def test_wait_for_all_games_all_complete(_mock_sleep):
     s2 = GameSession(index=1, game_dir=Path("/fake/g2"), config=Config())
     s2.spectator_proc = _mock_proc([None, None, 0])
 
-    results = _wait_for_all_games([s1, s2])
+    results = wait_for_all_games([s1, s2])
 
     assert results == {0: 0, 1: 0}
 
@@ -673,18 +665,18 @@ def test_wait_for_all_games_pilot_fails(_mock_sleep):
     s2.pilot_procs = [("bob", bob_proc)]
 
     with patch("puppeteer.batch_coordination.kill_tree"):
-        results = _wait_for_all_games([s1, s2])
+        results = wait_for_all_games([s1, s2])
 
     assert results[0] == 0
     assert results[1] == -1
     s2.spectator_proc.terminate.assert_called_once()
 
 
-# --- _finalize_game tests ---
+# --- finalize_game tests ---
 
 
 def test_finalize_game_writes_logs():
-    """_finalize_game should write error log and ensure game_over event."""
+    """finalize_game should write error log and ensure game_over event."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "alice_errors.log").write_text("Some error\n")
@@ -694,7 +686,7 @@ def test_finalize_game_writes_logs():
         config = Config()
         config.skip_post_game_prompts = True
         session = GameSession(index=0, game_dir=game_dir, config=config)
-        _finalize_game(session, Path("/fake/root"), spectator_rc=0)
+        finalize_game(session, Path("/fake/root"), spectator_rc=0)
 
         assert (game_dir / "errors.log").exists()
         # game_over event should have been appended
@@ -716,9 +708,9 @@ def test_finalize_game_tolerates_merge_io_error():
 
         with (
             patch("puppeteer.batch_coordination.merge_game_log", side_effect=OSError("disk full")),
-            patch("puppeteer.batch_coordination._print_game_summary", return_value=1.25),
+            patch("puppeteer.batch_coordination.print_game_summary", return_value=1.25),
         ):
-            pilot_cost, blunder_cost = _finalize_game(session, Path("/fake/root"), spectator_rc=0)
+            pilot_cost, blunder_cost = finalize_game(session, Path("/fake/root"), spectator_rc=0)
 
         assert pilot_cost == 1.25
         assert blunder_cost == 0.0
@@ -743,7 +735,7 @@ def test_finalize_game_propagates_unexpected_merge_error():
             ),
             pytest.raises(RuntimeError, match="unexpected merge bug"),
         ):
-            _finalize_game(session, Path("/fake/root"), spectator_rc=0)
+            finalize_game(session, Path("/fake/root"), spectator_rc=0)
 
 
 # --- Config num_games tests ---
@@ -762,9 +754,9 @@ def test_config_num_games_set():
 
 
 @patch("puppeteer.batch_coordination.start_observer_client")
-@patch("puppeteer.batch_coordination._write_game_meta")
+@patch("puppeteer.batch_coordination.write_game_meta")
 @patch("puppeteer.batch_coordination.resolve_choice_decks")
-@patch("puppeteer.batch_coordination._git", side_effect=["main", "abc123", "abc123 test"])
+@patch("puppeteer.batch_coordination.run_git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_uses_batch_specific_config(
     _mock_git,
     _mock_resolve,
@@ -792,7 +784,7 @@ def test_setup_game_uses_batch_specific_config(
     log_dir = tmp_path / "logs"
     log_dir.mkdir()
 
-    session = _setup_game(
+    session = setup_game(
         1,
         2,
         base_config,
@@ -807,15 +799,15 @@ def test_setup_game_uses_batch_specific_config(
     assert json.loads((session.game_dir / "config.json").read_text())["players"][0]["name"] == "beta"
 
 
-# --- _setup_game cleanup on failure tests ---
+# --- setup_game cleanup on failure tests ---
 
 
-@patch("puppeteer.batch_coordination._wait_for_spectator_table")
+@patch("puppeteer.batch_coordination.wait_for_spectator_table")
 @patch("puppeteer.batch_coordination.start_pilot_client")
 @patch("puppeteer.batch_coordination.start_observer_client")
-@patch("puppeteer.batch_coordination._write_game_meta")
+@patch("puppeteer.batch_coordination.write_game_meta")
 @patch("puppeteer.batch_coordination.resolve_choice_decks")
-@patch("puppeteer.batch_coordination._git", side_effect=["main", "abc123", "abc123 test"])
+@patch("puppeteer.batch_coordination.run_git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_cleans_up_on_spectator_crash(
     _mock_git,
     _mock_resolve,
@@ -824,7 +816,7 @@ def test_setup_game_cleans_up_on_spectator_crash(
     mock_start_pilot,
     mock_wait_table,
 ):
-    """When the spectator crashes before table creation, _setup_game should terminate it and re-raise."""
+    """When the spectator crashes before table creation, setup_game should terminate it and re-raise."""
     with tempfile.TemporaryDirectory() as tmpdir:
         log_dir = Path(tmpdir)
 
@@ -838,25 +830,25 @@ def test_setup_game_cleans_up_on_spectator_crash(
 
         mock_wait_table.side_effect = RuntimeError("Spectator process exited before creating the game table")
 
-        # Use num_games=1 (non-batch) so _setup_game uses the config directly
+        # Use num_games=1 (non-batch) so setup_game uses the config directly
         # without creating a new Config and calling load_config.
         config = Config(observer=True, num_games=1)
         config.pilot_players = [PilotPlayer(name="ace", model="test/model")]
 
         with pytest.raises(RuntimeError, match="Spectator process exited"):
-            _setup_game(0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000")
+            setup_game(0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000")
 
         spectator_proc.terminate.assert_called_once()
         # Pilots were not started yet (crash happened before bridge client launch)
         mock_start_pilot.assert_not_called()
 
 
-@patch("puppeteer.batch_coordination._wait_for_spectator_table")
+@patch("puppeteer.batch_coordination.wait_for_spectator_table")
 @patch("puppeteer.batch_coordination.start_pilot_client")
 @patch("puppeteer.batch_coordination.start_observer_client")
-@patch("puppeteer.batch_coordination._write_game_meta")
+@patch("puppeteer.batch_coordination.write_game_meta")
 @patch("puppeteer.batch_coordination.resolve_choice_decks")
-@patch("puppeteer.batch_coordination._git", side_effect=["main", "abc123", "abc123 test"])
+@patch("puppeteer.batch_coordination.run_git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_cleans_up_pilots_on_timeout(
     _mock_git,
     _mock_resolve,
@@ -865,7 +857,7 @@ def test_setup_game_cleans_up_pilots_on_timeout(
     mock_start_pilot,
     mock_wait_table,
 ):
-    """When _wait_for_spectator_table times out after pilots started, should terminate all."""
+    """When wait_for_spectator_table times out after pilots started, should terminate all."""
     with tempfile.TemporaryDirectory() as tmpdir:
         log_dir = Path(tmpdir)
 
@@ -878,9 +870,9 @@ def test_setup_game_cleans_up_pilots_on_timeout(
         mock_start_pilot.return_value = pilot_proc
 
         # Table wait succeeds, but we simulate a timeout after pilots start
-        # by making _wait_for_spectator_table succeed and raising from a later point.
-        # Since _wait_for_game_start is only called in batch mode, test with
-        # a TimeoutError from _wait_for_spectator_table after pilot launch
+        # by making wait_for_spectator_table succeed and raising from a later point.
+        # Since wait_for_game_start is only called in batch mode, test with
+        # a TimeoutError from wait_for_spectator_table after pilot launch
         # doesn't apply. Instead, test that pilots are terminated when the
         # except block runs (by raising from within the try block after pilots).
         mock_wait_table.side_effect = TimeoutError("Spectator did not create a table within 300s")
@@ -889,7 +881,7 @@ def test_setup_game_cleans_up_pilots_on_timeout(
         config.pilot_players = [PilotPlayer(name="ace", model="test/model")]
 
         with pytest.raises(TimeoutError, match="300s"):
-            _setup_game(0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000")
+            setup_game(0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000")
 
         spectator_proc.terminate.assert_called_once()
 

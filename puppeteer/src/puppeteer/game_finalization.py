@@ -24,7 +24,7 @@ logger = get_logger("puppeteer.orchestrator")
 _LOG_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 
 
-def _git(cmd: str, cwd: Path) -> str:
+def run_git(cmd: str, cwd: Path) -> str:
     """Run a git command and return stripped stdout."""
     argv = ["git", *shlex.split(cmd)]
     try:
@@ -43,7 +43,7 @@ def _git(cmd: str, cwd: Path) -> str:
         raise RuntimeError(f"git command failed in {cwd}: {' '.join(argv)}: {detail}") from exc
 
 
-def _ensure_game_over_event(game_dir: Path, spectator_exit_code: int = -1) -> None:
+def ensure_game_over_event(game_dir: Path, spectator_exit_code: int = -1) -> None:
     """Append a game_over event to game_events.jsonl if one is missing."""
     events_file = game_dir / "game_events.jsonl"
     has_game_over = False
@@ -90,7 +90,7 @@ def _ensure_game_over_event(game_dir: Path, spectator_exit_code: int = -1) -> No
             pass
 
 
-def _write_error_log(game_dir: Path) -> None:
+def write_error_log(game_dir: Path) -> None:
     """Combine per-player error logs into a unified errors.log."""
     error_lines: list[str] = []
     for log_file in sorted(game_dir.glob("*_errors.log")):
@@ -109,7 +109,7 @@ def _write_error_log(game_dir: Path) -> None:
         error_log.write_text("No errors detected.\n")
 
 
-def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None:
+def write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None:
     """Write game metadata with player configs, decklists, and git info."""
     assert config.game_type, "game_meta requires non-empty config.game_type"
     assert config.deck_type, "game_meta requires non-empty config.deck_type"
@@ -148,15 +148,15 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
         "harness_epoch": HARNESS_EPOCH,
         "season": json.loads((project_root / "data" / "season.json").read_text())["current_season"],
         "players": players,
-        "git_branch": _git("rev-parse --abbrev-ref HEAD", project_root),
-        "git_commit": _git("rev-parse --short HEAD", project_root),
+        "git_branch": run_git("rev-parse --abbrev-ref HEAD", project_root),
+        "git_commit": run_git("rev-parse --short HEAD", project_root),
     }
     if config.tournament_game:
         meta["tournament_game"] = True
     (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
 
-def _print_game_summary(game_dir: Path) -> float:
+def print_game_summary(game_dir: Path) -> float:
     """Print a summary of game results and costs after the game ends."""
     logger.info("=" * 60)
     logger.info("GAME SUMMARY")
@@ -269,7 +269,7 @@ def _print_game_summary(game_dir: Path) -> float:
     return total_cost
 
 
-def _print_run_cost_summary(
+def print_run_cost_summary(
     sessions: list[GameSession],
     pilot_costs: dict[int, float],
     blunder_costs: dict[int, float],
