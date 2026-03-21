@@ -14,6 +14,13 @@ Re-running CI (`gh run rerun`, `gh run retry`) is blocked by the enforcement hoo
 
 **Never bypass enforcement hooks.** Don't `touch tmp/.check-passed` to fake a passing check, don't write stamp files manually, and don't work around hook failures. If `make check` fails, fix the failures or ask Gregor. The hooks exist to catch real problems — circumventing them defeats the purpose.
 
+## Branches
+
+When starting new work on a worktree, create a fresh branch from `origin/master`.
+Name the branch with the worktree name as a prefix so the branch is obviously
+associated with the current worktree. For example, in worktree
+`bridge-cairn-salt`, use branch names like `bridge-cairn-salt-<topic>`.
+
 ## Pull Requests
 
 Before adding commits to an existing PR, verify it's still open:

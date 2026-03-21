@@ -1,6 +1,6 @@
 """Validate the per-version game-export JSON Schemas (structure, rejects bad input).
 
-Full per-game validation is in test_weird_conventions.py::TestAllExportsValid.
+Full per-game validation is in tests/weird/test_convention_exports.py::TestAllExportsValid.
 """
 
 import copy

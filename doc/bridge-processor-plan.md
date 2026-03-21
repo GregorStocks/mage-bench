@@ -225,6 +225,69 @@ the adapter instead of polishing it.
 
 This step cashes in the simplification. It should shrink the handler and the processor core meaningfully.
 
+#### Current checkpoint after the non-batch `choose_action` flow
+
+After the split-phase non-batch `choose_action` work lands, steps 1-3 are
+substantially complete, but step 4 is not. The main remaining transitional
+behavior is the batch-combat `choose_action` path, which still blocks and pumps
+callbacks from inside `BridgeCallbackHandler`.
+
+That remaining path currently keeps these escape hatches alive:
+
+- `waitForCallbackProgress(...)`
+- `awaitPendingAction()`
+- `awaitDecisionAction()`
+- `waitForNextCallback()`
+- `BridgeProcessor.processNextCallback(...)`
+- deferred nested-command draining in `BridgeProcessor`
+
+Those pieces should be treated as temporary compatibility scaffolding, not as
+part of the desired processor design.
+
+#### Expected remaining PRs after the current `choose_action` PR
+
+Recommended minimum:
+
+- **One required PR** to finish step 4's behavioral transition:
+  convert batch-combat `choose_action` to a split-phase processor-owned flow so
+  no MCP command needs to block while "owning" the processor thread.
+- **One required PR** to finish step 4's structural cleanup:
+  delete the now-unused callback-pumping machinery, move remaining
+  processor-owned state/helpers out of `BridgeCallbackHandler`, and remove the
+  broad flow-context adapters.
+- **One optional PR** for step 5:
+  published immutable snapshots / append-only log read model.
+
+In other words: after the current PR, expect **2 required PRs** to finish the
+core processor refactor, plus **1 optional followup PR** if the published read
+model still looks worthwhile.
+
+#### Recommended split of the remaining required work
+
+The remaining required work should stay split. Do not combine it into one large
+cleanup PR.
+
+Recommended cut:
+
+- **PR A: Batch combat split-phase flow**
+  Replace the remaining blocking batch-combat `choose_action` path with a
+  processor-owned flow that suspends via processor state and future completion
+  instead of callback-pumping waits.
+- **PR B: Delete transitional machinery and shrink the handler**
+  Remove `waitForCallbackProgress(...)`, `awaitPendingAction()`,
+  `awaitDecisionAction()`, `waitForNextCallback()`,
+  `BridgeProcessor.processNextCallback(...)`, and deferred nested-command
+  draining once nothing depends on them. In the same PR, move remaining
+  processor-owned helper/state ownership out of `BridgeCallbackHandler` and
+  delete adapters like `createPassPriorityFlowContext()` and
+  `createChooseActionFlowContext()`.
+
+If PR B turns out larger than expected in review, split it again:
+
+- **PR B1:** delete the now-unused blocking/callback-pumping machinery
+- **PR B2:** move remaining processor-owned helpers/state out of the handler and
+  remove the context adapters
+
 ### Step 5: Published Read Model / Append-Only Log
 
 Separate followup.
@@ -276,7 +339,24 @@ Expected review focus:
 - side-effect serialization
 - removal of direct shared-state access from MCP threads
 
-### PR 3+: Cleanup / Published Read Model
+### PR 3: Finish Step 4
+
+Expected review focus:
+
+- semantic parity for batch-combat `choose_action`
+- removal of processor-thread wait ownership from the last remaining MCP flow
+- confirmation that callback-pumping escape hatches are now dead code or close
+  to it
+
+### PR 4: Structural Cleanup
+
+Expected review focus:
+
+- deletion of obsolete synchronization and callback-pumping helpers
+- movement of processor-owned state/helpers out of `BridgeCallbackHandler`
+- removal of large handler-to-processor context adapters
+
+### PR 5+: Published Read Model
 
 Expected review focus:
 

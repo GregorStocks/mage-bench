@@ -4,6 +4,10 @@ import mage.client.bridge.processor.BridgeActionableCallbackOutcome;
 import mage.client.bridge.processor.BridgeCallbackDispatcher;
 import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
 import mage.client.bridge.processor.BridgeCallbackEvent;
+import mage.client.bridge.processor.BridgeChooseActionFlow;
+import mage.client.bridge.processor.BridgeChooseActionFlowContext;
+import mage.client.bridge.processor.BridgeChooseActionInput;
+import mage.client.bridge.processor.BridgeChooseActionStartResult;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
@@ -101,6 +105,7 @@ public class BridgeCallbackHandler {
     private final BridgeCardFormatter cardFormatter;
     private final BridgeGameStateBuilder gameStateBuilder;
     private final BridgeOracleTextService oracleTextService;
+    private final BridgeChooseActionFlowContext chooseActionFlowContext;
     private final BridgePassPriorityFlowContext passPriorityFlowContext;
     // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
     // while MCP methods still read transitional shared fields until step 3 lands.
@@ -112,6 +117,7 @@ public class BridgeCallbackHandler {
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
     private volatile PendingAction pendingAction = null;
+    private BridgeChooseActionFlow pendingChooseActionFlow = null;
     private BridgePassPriorityFlow pendingPassPriorityFlow = null;
     private final Object actionLock = new Object(); // For wait_for_action blocking
     private volatile UUID currentGameId = null;
@@ -225,9 +231,6 @@ public class BridgeCallbackHandler {
         ClientCallbackMethod.GAME_PLAY_MANA, ClientCallbackMethod.GAME_PLAY_XMANA,
         ClientCallbackMethod.GAME_GET_AMOUNT, ClientCallbackMethod.GAME_GET_MULTI_AMOUNT);
     private volatile long lastActionableCallbackAt = 0;
-    // choose_action blocks indefinitely (like pass_priority) after taking an
-    // action, waiting for the next callback so the LLM always wakes up to a
-    // pending decision.  Terminated by game-over / zombie detection.
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter TIME_FMT =
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX");
@@ -238,6 +241,7 @@ public class BridgeCallbackHandler {
         this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
         this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
+        this.chooseActionFlowContext = createChooseActionFlowContext();
         this.passPriorityFlowContext = createPassPriorityFlowContext();
         BridgeCallbackDispatcher dispatcher = new BridgeCallbackDispatcher(new BridgeCallbackDispatcherContext() {
             @Override
@@ -343,6 +347,80 @@ public class BridgeCallbackHandler {
         });
         this.processor = new BridgeProcessor(client.getUsername(), logger, dispatcher::process);
         this.processor.start();
+    }
+
+    private BridgeChooseActionFlowContext createChooseActionFlowContext() {
+        return new BridgeChooseActionFlowContext() {
+            @Override
+            public PendingAction currentDecisionAction() {
+                return BridgeCallbackHandler.this.currentDecisionAction();
+            }
+
+            @Override
+            public boolean requestCannotContinue() {
+                return superseded
+                    || playerDead
+                    || (activeGames.isEmpty() && gameEverStarted)
+                    || !client.isRunning();
+            }
+
+            @Override
+            public ChooseActionTool.Result noPendingActionResult() {
+                var result = new ChooseActionTool.Result();
+                return buildError(result, "no_pending_action", "No pending action (game over or shutting down)", false, null);
+            }
+
+            @Override
+            public BridgeChooseActionStartResult applyChooseAction(BridgeChooseActionInput input, PendingAction action) {
+                return BridgeCallbackHandler.this.applyChooseActionNow(input, action, false);
+            }
+
+            @Override
+            public void finishChooseActionWithNextDecision(
+                    ChooseActionTool.Result result,
+                    PendingAction previousAction,
+                    PendingAction nextAction) {
+                result.game_seq = nextAction.gameSeq();
+                mergeActionChoices(result, null, nextAction);
+                String summary = "after=" + summarizePendingAction(previousAction)
+                    + ",woke_to=" + summarizePendingAction(nextAction)
+                    + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
+                logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+                logBridgeEvent("CHOOSE_ACTION_WAKEUP", nextAction.gameId(), summary);
+            }
+
+            @Override
+            public void finishChooseActionWithoutNextDecision(
+                    ChooseActionTool.Result result,
+                    PendingAction previousAction) {
+                String summary = "after=" + summarizePendingAction(previousAction)
+                    + ",woke_to=game_over"
+                    + ",playerDead=" + playerDead
+                    + ",activeGames=" + activeGames.size()
+                    + ",clientRunning=" + client.isRunning();
+                logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+                logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
+                attachUnseenChat(result);
+            }
+
+            @Override
+            public ChooseActionTool.Result interruptedChooseActionResult(
+                    PendingAction previousAction,
+                    ChooseActionTool.Result partialResult) {
+                ChooseActionTool.Result result = partialResult != null ? partialResult : new ChooseActionTool.Result();
+                result.success = false;
+                result.error = "Interrupted while waiting for choose_action";
+                result.error_code = "interrupted";
+                result.retryable = false;
+                attachUnseenChat(result);
+                if (previousAction != null) {
+                    String summary = "after=" + summarizePendingAction(previousAction) + ",woke_to=interrupted";
+                    logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+                    logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
+                }
+                return result;
+            }
+        };
     }
 
     // TODO: Delete this adapter once processor-owned state/helpers move out of
@@ -883,12 +961,13 @@ public class BridgeCallbackHandler {
      */
     public BridgeCallbackHandler createFreshForNextGame() {
         // Mark this handler as superseded so threads stuck in
-        // awaitPendingAction / passPriority bail out immediately
+        // awaitPendingAction / passPriority / chooseAction bail out immediately
         // instead of blocking for 120+ seconds on an abandoned handler.
         this.superseded = true;
         synchronized (actionLock) {
             actionLock.notifyAll();
         }
+        advancePendingFlowsBeforeShutdown();
         processor.shutdown("superseded by createFreshForNextGame");
 
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
@@ -984,6 +1063,7 @@ public class BridgeCallbackHandler {
     }
 
     void shutdownProcessor(String reason) {
+        advancePendingFlowsBeforeShutdown();
         processor.shutdown(reason);
         synchronized (actionLock) {
             actionLock.notifyAll();
@@ -2207,7 +2287,7 @@ public class BridgeCallbackHandler {
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
     public ChooseActionTool.Result chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
-        return processor.submit(BridgeCommand.of(() -> chooseActionImpl(
+        BridgeChooseActionInput input = new BridgeChooseActionInput(
             index,
             id,
             answer,
@@ -2219,21 +2299,63 @@ public class BridgeCallbackHandler {
             autoTap,
             attackers,
             blockersArray
-        )));
+        );
+        if (input.usesBatchCombat()) {
+            return processor.submit(BridgeCommand.of(() -> chooseActionBlockingImpl(input)));
+        }
+
+        BridgeChooseActionFlow flow = processor.submit(BridgeCommand.of(() -> {
+            if (pendingChooseActionFlow != null) {
+                return null;
+            }
+            return startChooseActionFlow(input);
+        }));
+        if (flow == null) {
+            return processor.submit(BridgeCommand.of(() -> {
+                var result = new ChooseActionTool.Result();
+                result.success = false;
+                result.error = "choose_action already pending";
+                result.error_code = "choose_action_already_pending";
+                result.retryable = true;
+                attachUnseenChat(result);
+                return result;
+            }));
+        }
+
+        while (true) {
+            try {
+                return flow.awaitResult(200);
+            } catch (TimeoutException e) {
+                try {
+                    processor.submit(BridgeCommand.of(() -> {
+                        tickPendingChooseActionFlow(flow);
+                        return null;
+                    }));
+                } catch (IllegalStateException ignored) {
+                    return finishChooseActionAfterProcessorShutdown(flow);
+                }
+            } catch (InterruptedException e) {
+                ChooseActionTool.Result interruptedResult;
+                try {
+                    interruptedResult = processor.submit(BridgeCommand.of(() -> interruptChooseActionFlow(flow)));
+                } catch (IllegalStateException ignored) {
+                    interruptedResult = finishChooseActionAfterProcessorShutdown(flow);
+                }
+                Thread.currentThread().interrupt();
+                return interruptedResult;
+            } catch (ExecutionException e) {
+                Throwable cause = e.getCause();
+                if (cause instanceof RuntimeException runtimeException) {
+                    throw runtimeException;
+                }
+                throw new IllegalStateException("chooseAction request failed", cause);
+            }
+        }
     }
 
-    private ChooseActionTool.Result chooseActionImpl(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
+    private ChooseActionTool.Result chooseActionBlockingImpl(BridgeChooseActionInput input) {
         interactionsThisTurn++;
-        var result = new ChooseActionTool.Result();
-        // Local copies of parameters that may be nulled/reassigned during validation
-        Integer resolvedIndex = index;
-        String[] effectiveAttackers = attackers;
-        String[] effectiveBlockers = blockersArray;
-        String[] effectiveManaPlan = manaPlanArray;
         PendingAction action = pendingAction;
-        if (action != null) {
-            result.game_seq = action.gameSeq();
-        }
 
         // Block until a pending action arrives (like pass_priority does).
         // The LLM may call choose_action before the next callback arrives
@@ -2242,11 +2364,67 @@ public class BridgeCallbackHandler {
         if (action == null) {
             action = awaitPendingAction();
             if (action == null) {
-                attachUnseenChat(result);
-                return buildError(result, "no_pending_action", "No pending action (game over or shutting down)", false, null);
+                return chooseActionFlowContext.noPendingActionResult();
             }
-            result.game_seq = action.gameSeq();
         }
+
+        BridgeChooseActionStartResult startResult = applyChooseActionNow(input, action, true);
+        ChooseActionTool.Result result = startResult.result();
+        if (!startResult.waitForNextDecision()) {
+            return result;
+        }
+
+        // After successful action, block until the next real decision arrives.
+        // Transient callbacks that can be auto-resolved should not leak back to the model.
+        // awaitDecisionAction() can trigger sendBooleanOrDie/sendUuidOrDie via
+        // transitionToDecisionBoundary auto-resolve, so catch delivery failures here too.
+        try {
+            PendingAction next = awaitDecisionAction();
+            if (next != null) {
+                chooseActionFlowContext.finishChooseActionWithNextDecision(result, action, next);
+            } else {
+                chooseActionFlowContext.finishChooseActionWithoutNextDecision(result, action);
+            }
+        } catch (ResponseDeliveryException e) {
+            result.success = false;
+            result.error = e.getMessage();
+            result.error_code = "response_delivery_failed";
+            result.retryable = false;
+            attachUnseenChat(result);
+        }
+
+        return result;
+    }
+
+    private static BridgeChooseActionStartResult chooseActionDone(ChooseActionTool.Result result) {
+        return new BridgeChooseActionStartResult(result, false);
+    }
+
+    private static BridgeChooseActionStartResult chooseActionAwaitNextDecision(ChooseActionTool.Result result) {
+        return new BridgeChooseActionStartResult(result, true);
+    }
+
+    private BridgeChooseActionStartResult applyChooseActionNow(
+            BridgeChooseActionInput input,
+            PendingAction action,
+            boolean allowBatchCombat) {
+        if (!allowBatchCombat && input.usesBatchCombat()) {
+            throw new IllegalStateException("Batch combat choose_action must use the blocking path");
+        }
+        var result = new ChooseActionTool.Result();
+        result.game_seq = action.gameSeq();
+        // Local copies of parameters that may be nulled/reassigned during validation
+        Integer resolvedIndex = input.index();
+        String[] effectiveAttackers = input.attackers();
+        String[] effectiveBlockers = input.blockers();
+        String[] effectiveManaPlan = input.manaPlan();
+        String id = input.id();
+        Boolean answer = input.answer();
+        Integer amount = input.amount();
+        int[] amounts = input.amounts();
+        Integer pile = input.pile();
+        String text = input.text();
+        Boolean autoTap = input.autoTap();
 
         // Loop detection: model has made too many interactions this turn — auto-handle
         if (interactionsThisTurn > maxInteractionsPerTurn) {
@@ -2261,19 +2439,19 @@ public class BridgeCallbackHandler {
                 result.error_code = "response_delivery_failed";
                 result.retryable = false;
                 attachUnseenChat(result);
-                return result;
+                return chooseActionDone(result);
             }
             result.success = true;
             result.action_taken = "auto_passed_loop_detected";
             result.warning = "Too many interactions this turn (" + interactionsThisTurn + "). Auto-passing until next turn.";
-            return result;
+            return chooseActionDone(result);
         }
 
         // Batch combat: attackers
-        if (effectiveAttackers != null && effectiveAttackers.length > 0) {
+        if (allowBatchCombat && effectiveAttackers != null && effectiveAttackers.length > 0) {
             String combatType = detectCombatSelect(action);
             if ("attackers".equals(combatType)) {
-                return handleBatchAttackers(effectiveAttackers, action, result);
+                return chooseActionDone(handleBatchAttackers(effectiveAttackers, action, result));
             }
             // Not in declare_attackers — ignore the param and fall through
             logger.warn("[" + client.getUsername() + "] choose_action: ignoring attackers param (not in declare_attackers)");
@@ -2282,10 +2460,10 @@ public class BridgeCallbackHandler {
         }
 
         // Batch combat: blockers
-        if (effectiveBlockers != null && effectiveBlockers.length > 0) {
+        if (allowBatchCombat && effectiveBlockers != null && effectiveBlockers.length > 0) {
             String combatType = detectCombatSelect(action);
             if ("blockers".equals(combatType)) {
-                return handleBatchBlockers(effectiveBlockers, action, result);
+                return chooseActionDone(handleBatchBlockers(effectiveBlockers, action, result));
             }
             // Not in declare_blockers — ignore the param and fall through
             logger.warn("[" + client.getUsername() + "] choose_action: ignoring blockers param (not in declare_blockers)");
@@ -2315,7 +2493,7 @@ public class BridgeCallbackHandler {
                     result.error_code = "response_delivery_failed";
                     result.retryable = false;
                     attachUnseenChat(result);
-                    return result;
+                    return chooseActionDone(result);
                 }
                 choices = lastChoices;
             }
@@ -2330,15 +2508,15 @@ public class BridgeCallbackHandler {
                     }
                 }
                 if (resolvedIndex == null) {
-                    return buildError(result, "invalid_choice",
-                        "\"all\" is not available in current choices", true, action, true);
+                    return chooseActionDone(buildError(result, "invalid_choice",
+                        "\"all\" is not available in current choices", true, action, true));
                 }
             } else {
                 UUID resolvedUuid = shortIds.tryResolve(id);
                 if (resolvedUuid == null) {
-                    return buildError(result, "invalid_choice",
+                    return chooseActionDone(buildError(result, "invalid_choice",
                         "Unknown short ID: " + id + ". Call get_action_choices to see current options.",
-                        true, action, true);
+                        true, action, true));
                 }
                 if (choices != null) {
                     for (int i = 0; i < choices.size(); i++) {
@@ -2349,8 +2527,8 @@ public class BridgeCallbackHandler {
                     }
                 }
                 if (resolvedIndex == null) {
-                    return buildError(result, "invalid_choice",
-                        "Object " + id + " not found in current choices", true, action, true);
+                    return chooseActionDone(buildError(result, "invalid_choice",
+                        "Object " + id + " not found in current choices", true, action, true));
                 }
             }
         }
@@ -2387,9 +2565,9 @@ public class BridgeCallbackHandler {
                     // GAME_ASK is boolean-only; ignore index if also provided
                     // (some models send all params with defaults)
                     if (answer == null) {
-                        return buildError(result, "missing_param",
+                        return chooseActionDone(buildError(result, "missing_param",
                             "GAME_ASK requires choice=\"yes\" or choice=\"no\". "
-                            + "This is a yes/no question.", true, action);
+                            + "This is a yes/no question.", true, action));
                     }
                     if (resolvedIndex != null) {
                         logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + resolvedIndex + " for GAME_ASK (boolean-only)");
@@ -2412,10 +2590,10 @@ public class BridgeCallbackHandler {
                                 logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
                                     + " out of range, falling through to answer=" + answer + " for GAME_SELECT");
                             } else {
-                                return buildError(result, "index_out_of_range",
+                                return chooseActionDone(buildError(result, "index_out_of_range",
                                     "Index " + resolvedIndex + " is out of range"
                                     + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                                    + ". Call get_action_choices to see current options.", true, action, true);
+                                    + ". Call get_action_choices to see current options.", true, action, true));
                             }
                         } else {
                             Object chosen = choices.get(resolvedIndex);
@@ -2427,15 +2605,15 @@ public class BridgeCallbackHandler {
                                     try {
                                         parsedPlan = parseManaPlan(effectiveManaPlan);
                                     } catch (IllegalArgumentException e) {
-                                        return buildError(result, "invalid_mana_plan",
+                                        return chooseActionDone(buildError(result, "invalid_mana_plan",
                                             "Invalid mana_plan: " + e.getMessage()
-                                            + ". Expected: [\"p1\",\"p2:0\",\"RED\"]", true, action);
+                                            + ". Expected: [\"p1\",\"p2:0\",\"RED\"]", true, action));
                                     }
                                     for (ManaPlanEntry entry : parsedPlan) {
                                         if ("tap".equals(entry.type()) && shortIds.tryResolve(entry.value()) == null) {
-                                            return buildError(result, "invalid_mana_plan",
+                                            return chooseActionDone(buildError(result, "invalid_mana_plan",
                                                 "Mana plan references unknown permanent '" + entry.value()
-                                                + "'. Check the board state for correct permanent IDs.", true, action);
+                                                + "'. Check the board state for correct permanent IDs.", true, action));
                                         }
                                     }
                                     manaPlan = parsedPlan;
@@ -2457,8 +2635,8 @@ public class BridgeCallbackHandler {
                                 result.action_taken = "special_" + chosenStr;
                                 usedIndex = true;
                             } else {
-                                return buildError(result, "internal_error",
-                                    "Unexpected choice type at index " + resolvedIndex, false, action);
+                                return chooseActionDone(buildError(result, "internal_error",
+                                    "Unexpected choice type at index " + resolvedIndex, false, action));
                             }
                         }
                     }
@@ -2467,10 +2645,10 @@ public class BridgeCallbackHandler {
                             sendBooleanOrDie(gameId, answer, "chooseAction:GAME_SELECT_answer");
                             result.action_taken = answer ? "confirmed" : "passed_priority";
                         } else {
-                            return buildError(result, "missing_param",
+                            return chooseActionDone(buildError(result, "missing_param",
                                 "GAME_SELECT requires choice=pN to play a card, "
                                 + "or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-                                true, action, true);
+                                true, action, true));
                         }
                     }
                     break;
@@ -2489,10 +2667,10 @@ public class BridgeCallbackHandler {
                                 logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
                                     + " out of range, falling through to cancel for GAME_PLAY_MANA");
                             } else {
-                                return buildError(result, "index_out_of_range",
+                                return chooseActionDone(buildError(result, "index_out_of_range",
                                     "Index " + resolvedIndex + " is out of range"
                                     + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                                    + ". Call get_action_choices to see current options.", true, action, true);
+                                    + ". Call get_action_choices to see current options.", true, action, true));
                             }
                         } else {
                             Object manaChoice = choices.get(resolvedIndex);
@@ -2503,15 +2681,15 @@ public class BridgeCallbackHandler {
                             } else if (manaChoice instanceof ManaType manaType) {
                                 UUID manaPlayerId = getManaPoolPlayerId(gameId, lastGameView);
                                 if (manaPlayerId == null) {
-                                    return buildError(result, "internal_error",
-                                        "Could not resolve player ID for mana pool selection", false, action);
+                                    return chooseActionDone(buildError(result, "internal_error",
+                                        "Could not resolve player ID for mana pool selection", false, action));
                                 }
                                 sendManaTypeOrDie(gameId, manaPlayerId, manaType, "chooseAction:GAME_PLAY_MANA_pool");
                                 result.action_taken = "used_pool_" + manaType.toString();
                                 usedManaIndex = true;
                             } else {
-                                return buildError(result, "internal_error",
-                                    "Unsupported mana choice type at index " + resolvedIndex, false, action);
+                                return chooseActionDone(buildError(result, "internal_error",
+                                    "Unsupported mana choice type at index " + resolvedIndex, false, action));
                             }
                         }
                     }
@@ -2540,9 +2718,9 @@ public class BridgeCallbackHandler {
                             sendBooleanOrDie(gameId, false, "chooseAction:GAME_PLAY_MANA_cancel");
                             result.action_taken = "cancelled_spell";
                         } else {
-                            return buildError(result, "missing_param",
+                            return chooseActionDone(buildError(result, "missing_param",
                                 "GAME_PLAY_MANA requires choice=pN to choose a mana source, or choice=\"no\" to cancel the spell. "
-                                + "Call get_action_choices first to see available mana sources.", true, action, true);
+                                + "Call get_action_choices first to see available mana sources.", true, action, true));
                         }
                     }
                     break;
@@ -2570,10 +2748,10 @@ public class BridgeCallbackHandler {
                         // the model can retry with a valid index or answer=false.
                         if (!required) {
                             List<Object> targetChoices = lastChoices;
-                            return buildError(result, "index_out_of_range",
+                            return chooseActionDone(buildError(result, "index_out_of_range",
                                 "Index " + resolvedIndex + " is out of range"
                                 + (targetChoices != null ? " (valid: 0-" + (targetChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                                + ". Call get_action_choices to see current targets.", true, action, true);
+                                + ". Call get_action_choices to see current targets.", true, action, true));
                         }
                         logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
                             + " out of range for required GAME_TARGET (choices="
@@ -2589,9 +2767,9 @@ public class BridgeCallbackHandler {
                         logger.warn("[" + client.getUsername() + "] choose_action: answer=false invalid for required GAME_TARGET, auto-selecting");
                     } else if (!required) {
                         // No index, no answer=false — return error for optional targets
-                        return buildError(result, "missing_param",
+                        return chooseActionDone(buildError(result, "missing_param",
                             "GAME_TARGET requires choice=pN to select a target, or choice=\"no\" to cancel targeting. "
-                            + "Call get_action_choices first to see available targets.", true, action, true);
+                            + "Call get_action_choices first to see available targets.", true, action, true));
                     }
 
                     // Auto-select for required targets when index was invalid/missing
@@ -2612,18 +2790,18 @@ public class BridgeCallbackHandler {
 
                 case GAME_CHOOSE_ABILITY: {
                     if (resolvedIndex == null) {
-                        return buildError(result, "missing_param",
+                        return chooseActionDone(buildError(result, "missing_param",
                             "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see "
                             + "the available abilities, then choose_action with the index of the one you want.",
-                            true, action, true);
+                            true, action, true));
                     }
                     List<Object> abilityChoices = lastChoices; // snapshot volatile to prevent TOCTOU race
                     if (abilityChoices == null || resolvedIndex < 0 || resolvedIndex >= abilityChoices.size()) {
                         logChoiceOutOfRangeDiagnostic(method, resolvedIndex, abilityChoices);
-                        return buildError(result, "index_out_of_range",
+                        return chooseActionDone(buildError(result, "index_out_of_range",
                             "Index " + resolvedIndex + " is out of range"
                             + (abilityChoices != null ? " (valid: 0-" + (abilityChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                            + ". Call get_action_choices to see current options.", true, action, true);
+                            + ". Call get_action_choices to see current options.", true, action, true));
                     }
                     UUID abilityUUID = (UUID) abilityChoices.get(resolvedIndex);
                     sendUuidOrDie(gameId, abilityUUID, "chooseAction:GAME_CHOOSE_ABILITY");
@@ -2637,7 +2815,7 @@ public class BridgeCallbackHandler {
                         GameClientMessage choiceMsg = (GameClientMessage) data;
                         Choice choiceObj = choiceMsg.getChoice();
                         if (choiceObj == null) {
-                            return buildError(result, "internal_error", "No choice available", false, action);
+                            return chooseActionDone(buildError(result, "internal_error", "No choice available", false, action));
                         }
                         // Validate text is a legal choice
                         if (choiceObj.isKeyChoice()) {
@@ -2653,8 +2831,8 @@ public class BridgeCallbackHandler {
                                 }
                             }
                             if (matchedKey == null) {
-                                return buildError(result, "invalid_choice",
-                                    "'" + text + "' is not a valid choice", true, action, true);
+                                return chooseActionDone(buildError(result, "invalid_choice",
+                                    "'" + text + "' is not a valid choice", true, action, true));
                             }
                             sendStringOrDie(gameId, matchedKey, "chooseAction:GAME_CHOOSE_CHOICE_key");
                         } else {
@@ -2670,8 +2848,8 @@ public class BridgeCallbackHandler {
                                 }
                             }
                             if (matched == null) {
-                                return buildError(result, "invalid_choice",
-                                    "'" + text + "' is not a valid choice", true, action, true);
+                                return chooseActionDone(buildError(result, "invalid_choice",
+                                    "'" + text + "' is not a valid choice", true, action, true));
                             }
                             sendStringOrDie(gameId, matched, "chooseAction:GAME_CHOOSE_CHOICE");
                         }
@@ -2679,22 +2857,22 @@ public class BridgeCallbackHandler {
                         break;
                     }
                     if (id != null && !id.isEmpty()) {
-                        return buildError(result, "invalid_choice",
+                        return chooseActionDone(buildError(result, "invalid_choice",
                             "GAME_CHOOSE_CHOICE does not accept choice=\"" + id + "\" by name. "
                             + "Use text=\"" + id + "\" or choice=N with the current options.",
-                            true, action, true);
+                            true, action, true));
                     }
                     if (resolvedIndex == null) {
-                        return buildError(result, "missing_param",
-                            "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE", true, action, true);
+                        return chooseActionDone(buildError(result, "missing_param",
+                            "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE", true, action, true));
                     }
                     List<Object> choiceChoices = lastChoices; // snapshot volatile to prevent TOCTOU race
                     if (choiceChoices == null || resolvedIndex < 0 || resolvedIndex >= choiceChoices.size()) {
                         logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceChoices);
-                        return buildError(result, "index_out_of_range",
+                        return chooseActionDone(buildError(result, "index_out_of_range",
                             "Index " + resolvedIndex + " is out of range"
                             + (choiceChoices != null ? " (valid: 0-" + (choiceChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                            + ". Call get_action_choices to see current options.", true, action, true);
+                            + ". Call get_action_choices to see current options.", true, action, true));
                     }
                     String choiceStr = (String) choiceChoices.get(resolvedIndex);
                     sendStringOrDie(gameId, choiceStr, "chooseAction:GAME_CHOOSE_CHOICE_index");
@@ -2704,8 +2882,8 @@ public class BridgeCallbackHandler {
 
                 case GAME_CHOOSE_PILE:
                     if (pile == null) {
-                        return buildError(result, "missing_param",
-                            "Integer 'pile' (1 or 2) required for GAME_CHOOSE_PILE", true, action);
+                        return chooseActionDone(buildError(result, "missing_param",
+                            "Integer 'pile' (1 or 2) required for GAME_CHOOSE_PILE", true, action));
                     }
                     boolean pileChoice = pile == 1;
                     sendBooleanOrDie(gameId, pileChoice, "chooseAction:GAME_CHOOSE_PILE");
@@ -2714,8 +2892,8 @@ public class BridgeCallbackHandler {
 
                 case GAME_GET_AMOUNT: {
                     if (amount == null) {
-                        return buildError(result, "missing_param",
-                            "Integer 'amount' required for GAME_GET_AMOUNT", true, action);
+                        return chooseActionDone(buildError(result, "missing_param",
+                            "Integer 'amount' required for GAME_GET_AMOUNT", true, action));
                     }
                     GameClientMessage msg = (GameClientMessage) data;
                     int clamped = Math.max(msg.getMin(), Math.min(msg.getMax(), amount));
@@ -2726,18 +2904,18 @@ public class BridgeCallbackHandler {
 
                 case GAME_GET_MULTI_AMOUNT: {
                     if (amounts == null) {
-                        return buildError(result, "missing_param",
-                            "Array 'amounts' required for GAME_GET_MULTI_AMOUNT", true, action);
+                        return chooseActionDone(buildError(result, "missing_param",
+                            "Array 'amounts' required for GAME_GET_MULTI_AMOUNT", true, action));
                     }
                     GameClientMessage msg = (GameClientMessage) data;
                     String validationError;
                     try {
                         validationError = validateMultiAmountInput(msg, amounts);
                     } catch (IllegalStateException e) {
-                        return buildError(result, "internal_error", e.getMessage(), false, action);
+                        return chooseActionDone(buildError(result, "internal_error", e.getMessage(), false, action));
                     }
                     if (validationError != null) {
-                        return buildError(result, "invalid_multi_amount", validationError, true, action);
+                        return chooseActionDone(buildError(result, "invalid_multi_amount", validationError, true, action));
                     }
                     var sb = new StringBuilder();
                     for (int i = 0; i < amounts.length; i++) {
@@ -2751,7 +2929,7 @@ public class BridgeCallbackHandler {
                 }
 
                 default:
-                    buildError(result, "unknown_action_type", "Unknown action type: " + method, false, null);
+                    return chooseActionDone(buildError(result, "unknown_action_type", "Unknown action type: " + method, false, null));
             }
         } catch (ResponseDeliveryException e) {
             result.success = false;
@@ -2759,7 +2937,7 @@ public class BridgeCallbackHandler {
             result.error_code = "response_delivery_failed";
             result.retryable = false;
             attachUnseenChat(result);
-            return result;
+            return chooseActionDone(result);
         } finally {
             lastChoices = null;
             if (Boolean.FALSE.equals(result.success)) {
@@ -2767,55 +2945,106 @@ public class BridgeCallbackHandler {
             }
         }
 
-        // After successful action, block until the next real decision arrives.
-        // Transient callbacks that can be auto-resolved should not leak back to the model.
-        // awaitDecisionAction() can trigger sendBooleanOrDie/sendUuidOrDie via
-        // transitionToDecisionBoundary auto-resolve, so catch delivery failures here too.
-        if (Boolean.TRUE.equals(result.success)) {
-            try {
-                PendingAction next = awaitDecisionAction();
-                if (next != null) {
-                    result.game_seq = next.gameSeq();
-                    mergeActionChoices(result, null, next);
-                    String summary = "after=" + summarizePendingAction(action)
-                        + ",woke_to=" + summarizePendingAction(next)
-                        + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
-                    logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
-                    logBridgeEvent("CHOOSE_ACTION_WAKEUP", next.gameId(), summary);
-                } else {
-                    String summary = "after=" + summarizePendingAction(action)
-                        + ",woke_to=game_over"
-                        + ",playerDead=" + playerDead
-                        + ",activeGames=" + activeGames.size()
-                        + ",clientRunning=" + client.isRunning();
-                    logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
-                    logBridgeEvent("CHOOSE_ACTION_WAKEUP", action.gameId(), summary);
-                    attachUnseenChat(result);
-                }
-            } catch (ResponseDeliveryException e) {
-                result.success = false;
-                result.error = e.getMessage();
-                result.error_code = "response_delivery_failed";
-                result.retryable = false;
-                attachUnseenChat(result);
+        return chooseActionAwaitNextDecision(result);
+    }
+
+    private BridgeChooseActionFlow startChooseActionFlow(BridgeChooseActionInput input) {
+        BridgeChooseActionFlow flow = new BridgeChooseActionFlow(chooseActionFlowContext, input);
+        pendingChooseActionFlow = flow;
+        interactionsThisTurn++;
+        try {
+            flow.start();
+        } catch (ResponseDeliveryException e) {
+            flow.finish(chooseActionDeliveryErrorResult(e.getMessage()));
+        } catch (RuntimeException e) {
+            if (pendingChooseActionFlow == flow) {
+                pendingChooseActionFlow = null;
+            }
+            throw e;
+        }
+        if (flow.isDone() && pendingChooseActionFlow == flow) {
+            pendingChooseActionFlow = null;
+        }
+        return flow;
+    }
+
+    private void advancePendingChooseActionFlow() {
+        BridgeChooseActionFlow flow = pendingChooseActionFlow;
+        if (flow == null) {
+            return;
+        }
+        try {
+            flow.advance();
+        } catch (ResponseDeliveryException e) {
+            flow.finish(chooseActionDeliveryErrorResult(e.getMessage()));
+        }
+        if (flow.isDone() && pendingChooseActionFlow == flow) {
+            pendingChooseActionFlow = null;
+        }
+    }
+
+    private void tickPendingChooseActionFlow(BridgeChooseActionFlow flow) {
+        if (pendingChooseActionFlow != flow) {
+            return;
+        }
+        advancePendingChooseActionFlow();
+    }
+
+    private ChooseActionTool.Result interruptChooseActionFlow(BridgeChooseActionFlow flow) {
+        try {
+            return flow.interrupt();
+        } finally {
+            if (pendingChooseActionFlow == flow) {
+                pendingChooseActionFlow = null;
             }
         }
+    }
 
+    private ChooseActionTool.Result chooseActionDeliveryErrorResult(String message) {
+        var result = new ChooseActionTool.Result();
+        result.success = false;
+        result.error = message;
+        result.error_code = "response_delivery_failed";
+        result.retryable = false;
+        attachUnseenChat(result);
         return result;
+    }
+
+    private ChooseActionTool.Result finishChooseActionAfterProcessorShutdown(BridgeChooseActionFlow flow) {
+        try {
+            return flow.finishAfterProcessorShutdown();
+        } finally {
+            if (pendingChooseActionFlow == flow) {
+                pendingChooseActionFlow = null;
+            }
+        }
+    }
+
+    private void advancePendingFlowsBeforeShutdown() {
+        try {
+            processor.submit(BridgeCommand.of(() -> {
+                advancePendingChooseActionFlow();
+                advancePendingPassPriorityFlow();
+                return null;
+            }));
+        } catch (IllegalStateException ignored) {
+            // Processor is already gone; pending callers will observe shutdown state.
+        }
     }
 
     // ── Batch combat ──────────────────────────────────────────────────────
 
     /**
-     * Transitional step-3 behavior: some MCP commands still block on the
+     * Transitional step-4 behavior: the remaining batch-combat choose_action
+     * helpers still block on the
      * processor thread while waiting for later callbacks. In that state we must
      * keep pumping callback events instead of sleeping on actionLock, otherwise
      * the processor deadlocks waiting on the very callbacks it is supposed to
      * consume.
      *
-     * TODO: Remove this once the remaining choose_action / batch-combat flows
-     * become split-phase processor requests that suspend via processor-owned
-     * state and future completion rather than monopolizing the processor thread.
+     * TODO: Remove this once batch combat becomes a split-phase processor
+     * request that suspends via processor-owned state and future completion
+     * rather than monopolizing the processor thread.
      */
     private boolean waitForCallbackProgress(long timeoutMs) {
         if (processor.isProcessorThread()) {
@@ -2834,7 +3063,7 @@ public class BridgeCallbackHandler {
 
     /**
      * Block indefinitely until a pending action arrives or the game ends.
-     * Shared by choose_action (initial + post-action waits) and batch combat.
+     * Shared by the remaining blocking batch-combat choose_action path.
      */
     private PendingAction awaitPendingAction() {
         while (pendingAction == null) {
@@ -2851,7 +3080,8 @@ public class BridgeCallbackHandler {
     /**
      * Block until the next real player decision is pending.
      * Auto-resolves deterministic non-decisions (for example single-target mandatory
-     * selections) instead of returning them to the model.
+     * selections) instead of returning them to the model. Used by the remaining
+     * blocking batch-combat choose_action path.
      */
     private PendingAction awaitDecisionAction() {
         while (true) {
@@ -3743,8 +3973,14 @@ public class BridgeCallbackHandler {
                     return null;
                 }));
             } catch (InterruptedException e) {
+                ActionResult interruptedResult;
+                try {
+                    interruptedResult = processor.submit(BridgeCommand.of(() -> interruptPassPriorityFlow(flow)));
+                } catch (IllegalStateException ignored) {
+                    interruptedResult = interruptPassPriorityFlow(flow);
+                }
                 Thread.currentThread().interrupt();
-                return processor.submit(BridgeCommand.of(() -> interruptPassPriorityFlow(flow)));
+                return interruptedResult;
             } catch (ExecutionException e) {
                 Throwable cause = e.getCause();
                 if (cause instanceof RuntimeException runtimeException) {
@@ -4055,6 +4291,7 @@ public class BridgeCallbackHandler {
             }
             try {
                 processor.submit(BridgeCommand.of(() -> {
+                    advancePendingChooseActionFlow();
                     advancePendingPassPriorityFlow();
                     return null;
                 }));
@@ -4089,6 +4326,7 @@ public class BridgeCallbackHandler {
             logBridgeEvent("PENDING_ACTION_REPLACED", gameId, summary);
         }
         logger.debug("[" + client.getUsername() + "] Stored pending action: " + method + " - " + message);
+        advancePendingChooseActionFlow();
         advancePendingPassPriorityFlow();
     }
 
@@ -4809,6 +5047,7 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] Game ended, stopping client");
             client.stop();
         }
+        advancePendingChooseActionFlow();
         advancePendingPassPriorityFlow();
     }
 
@@ -4839,6 +5078,7 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (missed GAME_OVER)");
             client.stop();
         }
+        advancePendingChooseActionFlow();
         advancePendingPassPriorityFlow();
     }
 
