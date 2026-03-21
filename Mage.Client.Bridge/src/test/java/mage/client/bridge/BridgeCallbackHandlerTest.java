@@ -1110,6 +1110,47 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void executeDefaultActionRunsOnProcessorThread() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        AtomicReference<String> sendThreadName = new AtomicReference<>();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerBoolean".equals(method.getName())) {
+                    sendThreadName.set(Thread.currentThread().getName());
+                    assertThat(args[0]).isEqualTo(gameId);
+                    assertThat(args[1]).isEqualTo(false);
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        GameView view = gameView(7);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(view, Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            7
+        ));
+
+        String callerThreadName = Thread.currentThread().getName();
+        Map<String, Object> result = handler.executeDefaultAction();
+
+        assertThat(result).containsEntry("success", true);
+        assertThat(result).containsEntry("action_type", "GAME_SELECT");
+        assertThat(result).containsEntry("action_taken", "passed_priority");
+        assertThat(sendThreadName.get()).startsWith("bridge-processor-TestPlayer");
+        assertThat(sendThreadName.get()).isNotEqualTo(callerThreadName);
+    }
+
+    @Test
     void transitionToDecisionBoundaryTreatsReplacedTargetActionAsChanged() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();

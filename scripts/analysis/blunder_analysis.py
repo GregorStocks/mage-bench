@@ -512,7 +512,6 @@ def _auto_ingest_ground_truth(
     game_id: str,
     annotations: Sequence[Annotation],
     decisions: Sequence[Decision],
-    snapshots: Sequence[Snapshot],
 ) -> None:
     """Add annotated decisions to ground truth for future eval."""
     mapping = reverse_map_annotations(annotations, decisions)
@@ -713,7 +712,7 @@ def main(gz_path: str) -> float:
     _write_annotations(gz_path, annotations)
 
     # Auto-ingest: add annotated decisions to ground truth for future eval
-    _auto_ingest_ground_truth(data.id, annotations, decisions, snapshots)
+    _auto_ingest_ground_truth(data.id, annotations, decisions)
 
     # Append run stats to blunder-stats.jsonl for internals tracking
     _append_blunder_stats(

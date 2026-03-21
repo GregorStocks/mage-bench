@@ -338,22 +338,23 @@ def test_make_runner_config_for_batch(tmp_path: Path):
 
 def test_run_games_reads_winners_in_session_order(monkeypatch):
     """Shared game runner should map each finished game back to its matchup."""
-    monkeypatch.setattr(
-        tournament_game,
-        "build_game_config",
-        lambda tournament, seed_a, seed_b, root: Path(f"/tmp/{seed_a}-vs-{seed_b}.json"),
-    )
-    monkeypatch.setattr(
-        tournament_game,
-        "run_orchestrator",
-        lambda config, project_root: MagicMock(
+
+    def fake_run_orchestrator(config, project_root):
+        _ = config, project_root
+        return MagicMock(
             exit_code=0,
             sessions=[
                 MagicMock(game_dir=Path("/tmp/game_1")),
                 MagicMock(game_dir=Path("/tmp/game_2")),
             ],
-        ),
+        )
+
+    monkeypatch.setattr(
+        tournament_game,
+        "build_game_config",
+        lambda _tournament, seed_a, seed_b, _root: Path(f"/tmp/{seed_a}-vs-{seed_b}.json"),
     )
+    monkeypatch.setattr(tournament_game, "run_orchestrator", fake_run_orchestrator)
     monkeypatch.setattr(
         tournament_game,
         "read_game_winner",
@@ -362,7 +363,7 @@ def test_run_games_reads_winners_in_session_order(monkeypatch):
     monkeypatch.setattr(
         tournament_game,
         "map_winner_to_seed",
-        lambda winner_name, seed_a, seed_b, tournament: seed_a if winner_name == "alice" else seed_b,
+        lambda winner_name, seed_a, seed_b, _tournament: seed_a if winner_name == "alice" else seed_b,
     )
 
     results = tournament_game._run_games(
@@ -442,9 +443,9 @@ def test_run_match_on_resumes_partial_series(monkeypatch, tmp_path: Path):
     monkeypatch.setattr(
         tournament_game,
         "_run_games",
-        lambda *args, **kwargs: [(Path("/tmp/game_2"), 1)],
+        lambda *_args, **_kwargs: [(Path("/tmp/game_2"), 1)],
     )
-    monkeypatch.setattr(tournament_game, "upload_and_export", lambda *args, **kwargs: None)
+    monkeypatch.setattr(tournament_game, "upload_and_export", lambda *_args, **_kwargs: None)
 
     tournament_game._run_match_on(
         tournament,
@@ -487,11 +488,12 @@ def test_run_match_batch_plays_each_series_until_decided(monkeypatch, tmp_path: 
     seen_matchups: list[list[tuple[int, int]]] = []
 
     def fake_run_games(tournament_arg, matchups, *, skip_compile=False):
+        _ = tournament_arg, skip_compile
         seen_matchups.append(matchups)
         return results_by_call.pop(0)
 
     monkeypatch.setattr(tournament_game, "_run_games", fake_run_games)
-    monkeypatch.setattr(tournament_game, "upload_and_export", lambda *args, **kwargs: None)
+    monkeypatch.setattr(tournament_game, "upload_and_export", lambda *_args, **_kwargs: None)
 
     tournament_game._run_match_batch(
         tournament,
@@ -533,14 +535,14 @@ def test_main_parallel_uses_batch_runner(monkeypatch):
     monkeypatch.setattr(
         tournament_game,
         "load_tournament",
-        lambda allowed_phases=None: (tournament, Path("/tmp/tournament.json")),
+        lambda _allowed_phases=None: (tournament, Path("/tmp/tournament.json")),
     )
-    monkeypatch.setattr(tournament_game, "compile_project", lambda *args, **kwargs: True)
-    monkeypatch.setattr(tournament_game, "refresh_observer_resources", lambda *args, **kwargs: True)
-    monkeypatch.setattr(tournament_game, "clean_stale_h2_locks", lambda *args, **kwargs: None)
+    monkeypatch.setattr(tournament_game, "compile_project", lambda *_args, **_kwargs: True)
+    monkeypatch.setattr(tournament_game, "refresh_observer_resources", lambda *_args, **_kwargs: True)
+    monkeypatch.setattr(tournament_game, "clean_stale_h2_locks", lambda *_args, **_kwargs: None)
     monkeypatch.setattr(tournament_game, "find_ready_matches", lambda _tournament: ready)
     monkeypatch.setattr(tournament_game, "_run_match_batch", run_match_batch)
-    monkeypatch.setattr(tournament_game, "resolve_annotation_failures", lambda *args, **kwargs: None)
+    monkeypatch.setattr(tournament_game, "resolve_annotation_failures", lambda *_args, **_kwargs: None)
     monkeypatch.setattr(tournament_game, "generate_all_website_data", lambda: None)
     monkeypatch.setattr(sys, "argv", ["tournament_game.py", "--games", "2"])
 

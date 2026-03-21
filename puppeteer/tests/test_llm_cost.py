@@ -90,7 +90,7 @@ def test_write_cost_file():
 
 
 def test_fetch_openrouter_prices_returns_empty_dict_on_invalid_json(monkeypatch):
-    monkeypatch.setattr(http_utils, "fetch_https_bytes", lambda *args, **kwargs: b"{not json")
+    monkeypatch.setattr(http_utils, "fetch_https_bytes", lambda *_args, **_kwargs: b"{not json")
 
     assert fetch_openrouter_prices() == {}
 

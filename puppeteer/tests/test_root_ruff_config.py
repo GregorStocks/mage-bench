@@ -145,3 +145,69 @@ def test_root_ruff_config_catches_boolean_traps(
     output = result.stdout + result.stderr
     assert result.returncode == 1
     assert "FBT001" in output
+
+
+@pytest.mark.parametrize(
+    ("stdin_filename", "source", "expected_codes"),
+    [
+        (
+            "puppeteer/tests/_lint_unused_argument_repro.py",
+            "class T:\n    def f(self, arg):\n        return 1\n\nx = lambda y: 1\n",
+            ["ARG002", "ARG005"],
+        ),
+        (
+            "puppeteer/src/puppeteer/orchestrator.py",
+            "def f(arg):\n    return 1\n",
+            ["ARG001"],
+        ),
+        (
+            "schemas/game_export_types.py",
+            "def f(arg):\n    return 1\n",
+            ["ARG001"],
+        ),
+        (
+            "scripts/analysis/blunder_analysis.py",
+            "def f(arg):\n    return 1\n",
+            ["ARG001"],
+        ),
+        (
+            "scripts/analysis/blunder_audit.py",
+            "def f(arg):\n    return 1\n",
+            ["ARG001"],
+        ),
+    ],
+)
+def test_root_ruff_config_catches_unused_arguments(
+    stdin_filename: str,
+    source: str,
+    expected_codes: list[str],
+) -> None:
+    project_root = Path(__file__).resolve().parent.parent.parent
+
+    result = subprocess.run(
+        [
+            "uv",
+            "run",
+            "--project",
+            "puppeteer",
+            "ruff",
+            "check",
+            "--config",
+            "ruff-lint.toml",
+            "--select",
+            "ARG",
+            "--stdin-filename",
+            stdin_filename,
+            "-",
+        ],
+        input=source,
+        capture_output=True,
+        text=True,
+        check=False,
+        cwd=project_root,
+    )
+
+    output = result.stdout + result.stderr
+    assert result.returncode == 1
+    for expected_code in expected_codes:
+        assert expected_code in output
