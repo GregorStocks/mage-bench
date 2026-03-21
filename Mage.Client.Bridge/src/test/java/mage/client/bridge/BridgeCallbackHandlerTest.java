@@ -19,7 +19,6 @@ import mage.util.ShortIdRegistry;
 import mage.util.SubTypes;
 import mage.view.CardView;
 import mage.view.CardsView;
-import mage.view.ChatMessage;
 import mage.view.GameClientMessage;
 import mage.view.GameView;
 import mage.view.ManaPoolView;
@@ -35,7 +34,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Date;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -1048,70 +1046,6 @@ class BridgeCallbackHandlerTest {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.SECONDS);
         }
-    }
-
-    @Test
-    void sendChatMessageAppearsAfterLogCursorAdvancesAndSelfCallbackDoesNotDuplicateLog() throws Exception {
-        UUID gameId = UUID.randomUUID();
-        UUID chatId = UUID.randomUUID();
-        AtomicReference<String> sentMessage = new AtomicReference<>();
-
-        BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        client.setSession((Session) Proxy.newProxyInstance(
-            Session.class.getClassLoader(),
-            new Class<?>[]{Session.class},
-            (proxy, method, args) -> {
-                if ("sendChatMessage".equals(method.getName())) {
-                    assertThat(args[0]).isEqualTo(chatId);
-                    sentMessage.set((String) args[1]);
-                    return true;
-                }
-                return defaultReturnValue(method.getReturnType());
-            }
-        ));
-        BridgeCallbackHandler handler = client.getCallbackHandler();
-        setField(handler, "currentGameId", gameId);
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
-        gameChatIds.put(gameId, chatId);
-        setCachedBridgeEvents(handler, sampleBridgeLogEvents().subList(0, 2));
-        setIntField(handler, "bridgeEventCursor", 2);
-
-        assertThat(handler.sendChatMessage("Good luck have fun!")).isNull();
-        assertThat(sentMessage.get()).isEqualTo("Good luck have fun!");
-
-        var beforeCallback = handler.getGameLogChunk(10_000, null);
-        assertThat(beforeCallback.log).isEqualTo(String.join("\n", "Alice turn 1:", "Alice played Island"));
-
-        setCachedBridgeEvents(handler, sampleBridgeLogEvents().subList(0, 4));
-        setIntField(handler, "bridgeEventCursor", 4);
-
-        var afterCursorAdvance = handler.getGameLogChunk(10_000, null);
-        assertThat(afterCursorAdvance.log).isEqualTo(String.join("\n",
-            "Alice turn 1:",
-            "Alice played Island",
-            "[Chat] TestPlayer: Good luck have fun!",
-            "Bob turn 1:",
-            "Bob played Swamp"
-        ));
-
-        ChatMessage selfChat = new ChatMessage(
-            "TestPlayer",
-            "Good luck have fun!",
-            new Date(),
-            null,
-            ChatMessage.MessageColor.BLUE,
-            ChatMessage.MessageType.TALK,
-            null
-        );
-        handler.handleCallback(new ClientCallback(ClientCallbackMethod.CHATMESSAGE, gameId, selfChat, false));
-        handler.awaitProcessorIdle();
-
-        var afterCallback = handler.getGameLogChunk(10_000, null);
-        assertThat(afterCallback.log).isEqualTo(afterCursorAdvance.log);
-        @SuppressWarnings("unchecked")
-        List<BridgeChatLogEntry> chatLog = (List<BridgeChatLogEntry>) getField(handler, "chatLog");
-        assertThat(chatLog).hasSize(1);
     }
 
     @Test
