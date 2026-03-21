@@ -17,7 +17,10 @@ def up(data: dict) -> dict:
     assert data["version"] == 6, f"Expected v6, got v{data['version']}"
 
     from schemas.migrations.v3_to_v4 import compute_season
-    from scripts.export_game import compute_thinking_time, compute_tool_call_counts
+    from scripts.export_llm_events import (
+        compute_thinking_time,
+        compute_tool_call_counts,
+    )
 
     if "season" not in data:
         data["season"] = compute_season(data["harnessEpoch"])

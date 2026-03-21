@@ -19,7 +19,8 @@ from schemas.migrations import (
     v7_to_v8,
 )
 from scripts.backfill_decisions import backfill_game
-from scripts.export_game import _build_decisions, _collect_card_names, _trim_card
+from scripts.export_card_data import _collect_card_names, _trim_card
+from scripts.export_decisions import _build_decisions
 from scripts.game_exports import (
     glob_game_export_paths,
     load_raw_game_export,

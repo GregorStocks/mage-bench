@@ -11,7 +11,7 @@ Usage:
 import argparse
 from pathlib import Path
 
-from scripts.export_game import _build_decisions
+from scripts.export_decisions import _build_decisions
 from scripts.game_exports import (
     GAMES_DIR,
     glob_game_export_paths,
