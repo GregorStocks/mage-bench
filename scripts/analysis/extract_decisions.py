@@ -20,7 +20,6 @@ from schemas.game_export_types import (
     Snapshot,
     ToolCallEvent,
     export_record_field,
-    json_default,
 )
 
 
@@ -865,6 +864,8 @@ def _mark_rolled_back_casts(
 
 
 def main(gz_path: str) -> None:
+    from schemas.game_export_types import json_default
+
     decisions = extract_decisions(gz_path)
     json.dump(
         list(decisions),

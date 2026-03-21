@@ -1,0 +1,101 @@
+target-version = "py311"
+line-length = 120
+
+[lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific rules
+    "PLC0415",  # import-outside-toplevel
+    "T10",  # flake8-debugger: catch leftover pdb/breakpoint() calls
+    "ISC",  # flake8-implicit-str-concat: catch accidental string concatenation
+    "PIE",  # flake8-pie: unnecessary pass, startswith tuple, etc.
+    "LOG",  # flake8-logging: proper logging patterns
+    "TID",  # flake8-tidy-imports: import clarity
+    "RET",  # flake8-return: consistent return patterns
+    "PERF", # perflint: catch inefficient patterns
+    "BLE001",  # blind-except
+    "DTZ005",  # datetime.now without tz
+    "DTZ007",  # datetime.strptime without zone
+    "A002",  # builtin argument shadowing
+    "ANN401",  # Any in public signatures
+    "C4",   # flake8-comprehensions: unnecessary comprehension patterns
+    "ERA",  # eradicate: commented-out code
+    "N",    # pep8-naming: naming conventions
+    "PT",   # flake8-pytest-style: pytest best practices
+    "S",    # flake8-bandit: security checks
+    "ARG",  # flake8-unused-arguments
+    "FBT",  # flake8-boolean-trap: boolean positional arguments
+]
+ignore = [
+    "SIM105",  # contextlib.suppress - try/except/pass is fine
+    "SIM115",  # context manager for open - not always appropriate
+    "PERF203", # try-except in loop - intentional for fault tolerance
+    "PT015",  # assert-False - used as unreachable-code marker in production scripts
+    "PT018",  # composite assertions - intentional isinstance+truthy checks
+    "PT019",  # fixture-param-without-value - idiomatic side-effect fixture pattern
+    "S101",   # assert - used pervasively for fail-fast validation
+    "S311",   # non-crypto random - game/matchmaking randomization, not security
+    "S603",   # subprocess-without-shell-equals-true - all subprocess calls are intentional
+    "S607",   # partial-path subprocess - mvn/git/java expected on PATH
+    "S314",   # xml.etree - parsing trusted local XMage config files
+    "SIM401", # dict-get-or-default - conflicts with no-fallback lint (AGENTS.md)
+]
+external = []
+
+[lint.flake8-tidy-imports.banned-api]
+"typing.cast".msg = "Don't use cast — fix the underlying types or use assert to narrow."
+
+[lint.isort]
+known-first-party = ["puppeteer", "scripts", "schemas"]
+
+[lint.pycodestyle]
+max-line-length = 120
+
+[lint.per-file-ignores]
+"puppeteer/tests/**" = [
+    "S105", "S106", "S108", "S310",   # test data: fake credentials, /tmp paths, localhost URLs
+    "ARG001", "ARG002", "ARG005",     # fixtures, protocol methods, lambda stubs
+    "FBT001", "FBT002", "FBT003",     # boolean params in test helpers
+    "ERA001",                          # documentation comments that look like code
+    "N815",                            # inputSchema — MCP protocol field name
+]
+"puppeteer/src/puppeteer/orchestrator.py" = ["ARG001", "FBT001", "FBT002"]  # boolean params, polymorphic signatures
+"puppeteer/src/puppeteer/replay.py" = ["FBT001", "FBT002"]  # skip_postscript boolean params
+"puppeteer/src/puppeteer/pilot.py" = ["N815"]  # inputSchema — MCP protocol field name
+"puppeteer/src/puppeteer/config.py" = ["FBT001"]  # _resolve_personality boolean param
+"puppeteer/src/puppeteer/port.py" = ["S108"]  # intentional /tmp lock file
+"puppeteer/src/puppeteer/llm_cost.py" = ["S310"]  # HTTPS fetch from OpenRouter API
+"schemas/game_export_types.py" = ["ANN401", "ARG001", "N815", "RUF022", "SIM108", "TID251", "UP035"]
+"schemas/migrations/*.py" = ["PLC0415"]
+"scripts/*-*.py" = ["N999"]  # hyphenated script filenames are intentional CLI names
+"scripts/add-missing-jumpstart-themes.py" = ["ERA001"]  # deck-variant section labels
+"scripts/analysis/blunder_analysis.py" = ["ARG001", "I001", "PLC0415"]
+"scripts/analysis/blunder_audit.py" = ["ARG001", "B904", "PLC0415"]
+"scripts/analysis/blunder_audit_web.py" = ["PLC0415", "S104"]
+"scripts/analysis/blunder_eval.py" = ["I001", "PLC0415", "TID251"]
+"scripts/analysis/blunder_eval_common.py" = ["B011", "E501", "I001"]
+"scripts/analysis/blunder_promote.py" = ["PLC0415"]
+"scripts/analysis/blunder_seed.py" = ["PLC0415"]
+"scripts/analysis/extract_decisions.py" = ["I001", "PLC0415"]
+"scripts/analysis/toolbox/blunder_experiment.py" = ["B007", "E501", "FBT001", "FBT002", "I001"]
+"scripts/analysis/toolbox/blunder_quality_analysis.py" = ["B007", "N806"]  # intentional UPPERCASE local constants
+"scripts/analysis/toolbox/game_timeline.py" = ["FBT001", "FBT002", "SIM108"]
+"scripts/checks/lint_issues.py" = ["PERF401"]
+"scripts/claim-issue.py" = ["I001"]
+"scripts/export_game.py" = ["FBT001", "I001", "PLC0415", "SIM102"]
+"scripts/game_exports.py" = ["ANN401", "B011", "RET504"]
+"scripts/import-deck.py" = ["S310"]
+"scripts/import-metagame.py" = ["E501", "S310"]
+"scripts/json5_utils.py" = ["ANN401"]
+"scripts/migrate_draft_histories.py" = ["FBT001"]
+"scripts/json5_writer.py" = ["RET504"]
+"scripts/scryfall.py" = ["S310"]
+"scripts/tournament_draft.py" = ["B007", "PERF401", "PLC0415"]
+"scripts/tournament_game.py" = ["FBT001", "FBT002", "PERF401"]
+"scripts/upload_youtube.py" = ["ANN401", "B904", "PLC0415"]

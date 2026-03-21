@@ -19,7 +19,6 @@ import os
 import re
 import sys
 import tempfile
-import time
 from collections.abc import Sequence
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import UTC, datetime
@@ -593,6 +592,8 @@ def _call_llm(
 
     Returns (text, prompt_tokens, completion_tokens, cached_tokens).
     """
+    import time
+
     for attempt in range(retries + 1):
         # cache_control is an OpenRouter/Anthropic vendor extension
         # not in OpenAI's type stubs — typed as Any to bypass
@@ -727,6 +728,8 @@ def _append_blunder_stats(
     total_cost: float,
 ) -> None:
     """Append a run record to blunder-stats.jsonl for internals tracking."""
+    from datetime import datetime
+
     stats_path = REPO_ROOT / "website" / "src" / "data" / "blunder-stats.jsonl"
     record = {
         "gameId": game_id,
