@@ -2,7 +2,7 @@
 
 import json
 
-from tests.repo_convention_helpers import DECKS_DIR, EXPECTED_DECK_FORMATS
+from tests.weird.repo_convention_helpers import DECKS_DIR, EXPECTED_DECK_FORMATS
 
 
 class TestNoOrphanedDecks:

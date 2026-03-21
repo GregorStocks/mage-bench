@@ -6,7 +6,7 @@ import subprocess
 
 import pytest
 
-from tests.repo_convention_helpers import REPO_ROOT, changed_files_since_master
+from tests.weird.repo_convention_helpers import REPO_ROOT, changed_files_since_master
 
 
 class TestHarnessEpochMonotonic:

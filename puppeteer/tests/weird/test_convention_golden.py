@@ -2,7 +2,7 @@
 
 from typing import ClassVar
 
-from tests.repo_convention_helpers import REPO_ROOT
+from tests.weird.repo_convention_helpers import REPO_ROOT
 
 
 class TestGoldenFilesHaveMarker:

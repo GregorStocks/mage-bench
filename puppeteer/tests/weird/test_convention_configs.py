@@ -6,7 +6,7 @@ from typing import ClassVar
 
 import pytest
 
-from tests.repo_convention_helpers import (
+from tests.weird.repo_convention_helpers import (
     CONFIGS_DIR,
     PUPPETEER_DIR,
     SPECIAL_PERSONALITY_KEYWORDS,

@@ -1,7 +1,7 @@
 """Convention tests for presets, toolsets, prompts, and name-part catalogs."""
 
 from scripts.json5_utils import loads_json5
-from tests.repo_convention_helpers import PUPPETEER_DIR, REPO_ROOT, load_json
+from tests.weird.repo_convention_helpers import PUPPETEER_DIR, REPO_ROOT, load_json
 
 
 class TestPresetsReferenceValidModels:

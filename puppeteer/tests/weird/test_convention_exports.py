@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.repo_convention_helpers import (
+from tests.weird.repo_convention_helpers import (
     PUPPETEER_DIR,
     RETIRED_MODELS,
     changed_files_since_master,
