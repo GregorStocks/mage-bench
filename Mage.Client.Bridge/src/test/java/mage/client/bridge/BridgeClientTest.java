@@ -23,7 +23,7 @@ class BridgeClientTest {
     void rejectsUnknownPersonality() {
         assertThatThrownBy(() -> BridgeClient.parsePersonality("wizard"))
             .isInstanceOf(IllegalArgumentException.class)
-            .hasMessage("Unknown bridge personality 'wizard'. Expected: sleepwalker");
+            .hasMessage("Unknown bridge personality 'wizard'. Expected: sleepwalker (legacy token for the MCP bridge mode)");
     }
 
     @Test

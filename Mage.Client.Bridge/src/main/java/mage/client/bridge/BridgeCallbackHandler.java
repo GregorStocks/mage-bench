@@ -76,8 +76,9 @@ import java.util.regex.Pattern;
 
 /**
  * Callback handler for the bridge client.
- * Supports the MCP (sleepwalker) bridge mode, storing pending actions for
- * external clients to handle via MCP.
+ * Supports the bridge's generic MCP mode, storing pending actions for
+ * external clients to handle via MCP. Higher-level controller roles such as
+ * pilot, replay, and the Python-side sleepwalker live above this layer.
  */
 public class BridgeCallbackHandler {
 
