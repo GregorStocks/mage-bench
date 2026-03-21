@@ -91,6 +91,9 @@ public class BridgeCallbackHandler {
     private final BridgeCardFormatter cardFormatter;
     private final BridgeGameStateBuilder gameStateBuilder;
     private final BridgeOracleTextService oracleTextService;
+    private final BridgeActionChoicesBuilder actionChoicesBuilder;
+    private final BridgeBatchCombatHandler batchCombatHandler;
+    private final BridgeChooseActionExecutor chooseActionExecutor;
     private Session session;
     private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>(); // gameId -> playerId
     private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>(); // gameId -> chatId
@@ -183,11 +186,6 @@ public class BridgeCallbackHandler {
     }
     private volatile JoinHandler joinHandler = null;
 
-    private record ManaPlanEntry(String type, String value, Integer abilityIndex) {
-        ManaPlanEntry(String type, String value) { this(type, value, null); }
-    }
-    private record TargetChoice(UUID targetId, Map<String, Object> entry, CardView cardView) {
-    }
     private enum DecisionBoundaryStatus {
         READY,
         AUTO_HANDLED,
@@ -224,6 +222,216 @@ public class BridgeCallbackHandler {
         this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
         this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
+        this.actionChoicesBuilder = new BridgeActionChoicesBuilder(
+            client,
+            roundTracker,
+            gameStateBuilder,
+            cardFormatter,
+            viewLocator,
+            () -> lastGameView,
+            () -> currentGameId,
+            this::playerIdForGame,
+            this::observeTurnForDecisionState,
+            failedManaCasts::contains,
+            this::updateBoardCursor,
+            this::findValidTargets,
+            this::getPoolManaChoices,
+            this::getManaPoolCount,
+            this::prettyManaType,
+            () -> deckList != null,
+            this::getDeckCreatureTypes,
+            pending -> {
+                clearPendingActionIfCurrent(pending);
+                sendBooleanOrDie(pending.gameId(), false, "buildActionChoices:auto_cancel_no_targets");
+            }
+        );
+        this.batchCombatHandler = new BridgeBatchCombatHandler(shortIds, new BridgeBatchCombatHandler.Context() {
+            @Override
+            public void clearPendingAction() {
+                synchronized (actionLock) {
+                    if (pendingAction != null) {
+                        pendingAction = null;
+                    }
+                }
+            }
+
+            @Override
+            public PendingAction waitForNextCallback() {
+                return BridgeCallbackHandler.this.waitForNextCallback();
+            }
+
+            @Override
+            public PendingAction awaitDecisionAction() {
+                return BridgeCallbackHandler.this.awaitDecisionAction();
+            }
+
+            @Override
+            public void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
+                BridgeCallbackHandler.this.mergeActionChoices(result, boardCursorParam, action);
+            }
+
+            @Override
+            public void attachUnseenChat(ActionResult result) {
+                BridgeCallbackHandler.this.attachUnseenChat(result);
+            }
+
+            @Override
+            public ChooseActionTool.Result buildError(
+                    ChooseActionTool.Result result,
+                    String errorCode,
+                    String message,
+                    boolean retryable,
+                    PendingAction action,
+                    boolean attachChoices
+            ) {
+                return BridgeCallbackHandler.this.buildError(
+                    result,
+                    errorCode,
+                    message,
+                    retryable,
+                    action,
+                    attachChoices
+                );
+            }
+
+            @Override
+            public Set<UUID> findValidTargets(GameClientMessage message) {
+                return BridgeCallbackHandler.this.findValidTargets(message);
+            }
+
+            @Override
+            public void sendBooleanOrDie(UUID gameId, boolean data, String context) {
+                BridgeCallbackHandler.this.sendBooleanOrDie(gameId, data, context);
+            }
+
+            @Override
+            public void sendStringOrDie(UUID gameId, String data, String context) {
+                BridgeCallbackHandler.this.sendStringOrDie(gameId, data, context);
+            }
+
+            @Override
+            public void sendUuidOrDie(UUID gameId, UUID data, String context) {
+                BridgeCallbackHandler.this.sendUuidOrDie(gameId, data, context);
+            }
+        });
+        this.chooseActionExecutor = new BridgeChooseActionExecutor(
+            client,
+            logger,
+            new BridgeChooseActionExecutor.Context() {
+                @Override
+                public List<Object> lastChoices() {
+                    return lastChoices;
+                }
+
+                @Override
+                public ChooseActionTool.Result buildError(
+                        ChooseActionTool.Result result,
+                        String errorCode,
+                        String message,
+                        boolean retryable,
+                        PendingAction action,
+                        boolean attachChoices
+                ) {
+                    return BridgeCallbackHandler.this.buildError(
+                        result,
+                        errorCode,
+                        message,
+                        retryable,
+                        action,
+                        attachChoices
+                    );
+                }
+
+                @Override
+                public void logChoiceOutOfRangeDiagnostic(
+                        ClientCallbackMethod method,
+                        Integer index,
+                        List<Object> choices
+                ) {
+                    BridgeCallbackHandler.this.logChoiceOutOfRangeDiagnostic(method, index, choices);
+                }
+
+                @Override
+                public CopyOnWriteArrayList<ManaPlanEntry> parseManaPlan(String[] arr) {
+                    return BridgeCallbackHandler.this.parseManaPlan(arr);
+                }
+
+                @Override
+                public UUID tryResolveShortId(String id) {
+                    return shortIds.tryResolve(id);
+                }
+
+                @Override
+                public void setManaPlan(CopyOnWriteArrayList<ManaPlanEntry> plan) {
+                    manaPlan = plan;
+                }
+
+                @Override
+                public void setManaPlanAbilityIndex(Integer abilityIndex) {
+                    manaPlanAbilityIndex = abilityIndex;
+                }
+
+                @Override
+                public void setManaPlanAutoTapFallback(boolean autoTapFallback) {
+                    manaPlanAutoTapFallback = autoTapFallback;
+                }
+
+                @Override
+                public void addFailedManaCast(UUID objectId) {
+                    failedManaCasts.add(objectId);
+                }
+
+                @Override
+                public UUID extractPayingForId(String message) {
+                    return BridgeCallbackHandler.this.extractPayingForId(message);
+                }
+
+                @Override
+                public UUID getManaPoolPlayerId(UUID gameId, GameView gameView) {
+                    return BridgeCallbackHandler.this.getManaPoolPlayerId(gameId, gameView);
+                }
+
+                @Override
+                public GameView lastGameView() {
+                    return lastGameView;
+                }
+
+                @Override
+                public Set<UUID> findValidTargets(GameClientMessage message) {
+                    return BridgeCallbackHandler.this.findValidTargets(message);
+                }
+
+                @Override
+                public UUID selectDeterministicTarget(Set<UUID> targets, List<Object> choices) {
+                    return BridgeCallbackHandler.this.selectDeterministicTarget(targets, choices);
+                }
+
+                @Override
+                public void sendBooleanOrDie(UUID gameId, boolean data, String context) {
+                    BridgeCallbackHandler.this.sendBooleanOrDie(gameId, data, context);
+                }
+
+                @Override
+                public void sendUuidOrDie(UUID gameId, UUID data, String context) {
+                    BridgeCallbackHandler.this.sendUuidOrDie(gameId, data, context);
+                }
+
+                @Override
+                public void sendStringOrDie(UUID gameId, String data, String context) {
+                    BridgeCallbackHandler.this.sendStringOrDie(gameId, data, context);
+                }
+
+                @Override
+                public void sendIntegerOrDie(UUID gameId, int data, String context) {
+                    BridgeCallbackHandler.this.sendIntegerOrDie(gameId, data, context);
+                }
+
+                @Override
+                public void sendManaTypeOrDie(UUID gameId, UUID playerId, ManaType manaType, String context) {
+                    BridgeCallbackHandler.this.sendManaTypeOrDie(gameId, playerId, manaType, context);
+                }
+            }
+        );
     }
 
     /**
@@ -648,6 +856,18 @@ public class BridgeCallbackHandler {
         return pendingAction != null;
     }
 
+    private void observeTurnForDecisionState(int turn) {
+        if (turn != lastTurnNumber) {
+            lastTurnNumber = turn;
+            failedManaCasts.clear();
+            interactionsThisTurn = 0;
+            poolManaAttempts = 0;
+            poolManaPayingForId = null;
+            manaPlan = null;
+            manaPlanAbilityIndex = null;
+        }
+    }
+
     public Map<String, Object> executeDefaultAction() {
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
@@ -807,716 +1027,15 @@ public class BridgeCallbackHandler {
 
     @SuppressWarnings("unchecked")
     private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam, boolean allowAutoResolve) {
-        var result = new ActionResult();
-        // Prefer the action's own GameView over lastGameView — a concurrent GAME_UPDATE
-        // can overwrite lastGameView with a view from a different phase (race condition).
-        GameView gameView = null;
-        if (action != null && action.data() instanceof GameClientMessage gcm) {
-            gameView = gcm.getGameView();
-        }
-        if (gameView == null) {
-            gameView = lastGameView;
-        }
-        // Capture for use in lambdas (must be effectively final).
-        final GameView gv = gameView;
-        if (action != null) {
-            result.game_seq = action.gameSeq();
-        }
-
-        if (action == null) {
-            result.action_pending = false;
-            clearChoiceSnapshot();
-            return result;
-        }
-
-        result.action_pending = true;
-        result.action_type = action.method().name();
-        result.message = stripHtml(action.message());
-
-        // Add compact phase context and player summary
-        if (gameView != null) {
-            int turn = roundTracker.update(gameView);
-            boolean isMyTurn = client.getUsername().equals(gameView.getActivePlayerName());
-            boolean isMainPhase = gameView.getPhase() != null && gameView.getPhase().isMain();
-
-            var ctx = new StringBuilder();
-            ctx.append("T").append(turn);
-            if (gameView.getPhase() != null) {
-                ctx.append(" ").append(gameView.getPhase());
-            }
-            if (gameView.getStep() != null) {
-                ctx.append("/").append(gameView.getStep());
-            }
-            ctx.append(" (").append(gameView.getActivePlayerName()).append(")");
-            if (isMyTurn && isMainPhase) {
-                ctx.append(" YOUR_MAIN");
-            }
-            result.context = ctx.toString();
-
-            // Full board state: players with battlefield, graveyard, exile, hand, etc.
-            // Board cursor dedup: skip the board payload when caller already has it.
-            List<Map<String, Object>> players = buildPlayersArray(gameView);
-            long currentBoardCursor = updateBoardCursor(players);
-            result.board_cursor = currentBoardCursor;
-            if (boardCursorParam != null && boardCursorParam.longValue() == currentBoardCursor) {
-                result.board_unchanged = true;
-            } else {
-                result.board = players;
-            }
-
-            // Convenience top-level fields (also available per-player in board)
-            PlayerView myPlayer = gameView.getMyPlayer();
-            if (myPlayer != null && myPlayer.getBattlefield() != null) {
-                int untappedLands = 0;
-                for (PermanentView perm : myPlayer.getBattlefield().values()) {
-                    if (perm.isLand() && !perm.isTapped()) {
-                        untappedLands++;
-                    }
-                }
-                if (untappedLands > 0) {
-                    result.untapped_lands = untappedLands;
-                }
-            }
-            // Analogous to Arena highlighting your lands when you have a land drop left.
-            // Helps LLMs remember they can play a land this turn.
-            // Uses the authoritative server value from PlayerView, not chat-message counting.
-            if (isMyTurn && isMainPhase && myPlayer != null) {
-                result.land_drops_used = myPlayer.getLandsPlayed();
-            }
-
-            // Stack summary — helps LLMs see what's pending before casting instants/counters
-            List<Map<String, Object>> stackSummary = buildStackItems(gameView, false, false);
-            if (!stackSummary.isEmpty()) {
-                result.stack = stackSummary;
-            }
-
-            // Combat context — show attackers/blockers during any combat step
-            // so LLMs see the combat state when casting instants or activating abilities
-            List<Map<String, Object>> combatGroups = buildCombatGroups(gameView);
-            if (combatGroups != null) {
-                result.combat = combatGroups;
-            }
-        }
-
-        ClientCallbackMethod method = action.method();
-        Object data = action.data();
-
-        switch (method) {
-            case GAME_ASK: {
-                result.response_type = "boolean";
-                result.respond_with = "choice=yes or choice=no";
-                lastChoices = null;
-
-                // For mulligan decisions, include hand contents so LLM can evaluate
-                String askMsg = action.message();
-                if (askMsg != null && askMsg.toLowerCase().contains("mulligan") && gameView != null) {
-                    CardsView hand = gameView.getMyHand();
-                    if (hand != null && !hand.isEmpty()) {
-                        // Sort hand by card name for deterministic ordering
-                        var sortedHand = new ArrayList<>(hand.values());
-                        sortedHand.sort(Comparator.comparing(c -> safeDisplayName(c)));
-
-                        var handCards = new ArrayList<Map<String, Object>>();
-                        for (CardView card : sortedHand) {
-                            handCards.add(buildCardInfoMap(card));
-                        }
-                        result.your_hand = handCards;
-                    }
-                }
-                break;
-            }
-
-            case GAME_SELECT: {
-                // Check for playable cards in the current game view
-                PlayableObjectsList playable = gameView != null ? gameView.getCanPlayObjects() : null;
-                var choiceList = new ArrayList<Map<String, Object>>();
-                var indexToUuid = new ArrayList<Object>();
-
-                if (playable != null && !playable.isEmpty()) {
-                    // Clear failed casts and loop counters on turn change
-                    if (gameView != null) {
-                        int turn = gameView.getTurn();
-                        if (turn != lastTurnNumber) {
-                            lastTurnNumber = turn;
-                            failedManaCasts.clear();
-                            interactionsThisTurn = 0;
-                            poolManaAttempts = 0;
-                            poolManaPayingForId = null;
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
-                        }
-                    }
-
-                    // Sort playable objects by card name for deterministic ordering
-                    // (HashMap iteration order depends on UUID hashCodes, which vary across JVM runs)
-                    var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
-                    sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
-                        CardView cv = findCardViewById(e.getKey(), gv);
-                        return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gv))));
-
-                    int idx = 0;
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
-                        UUID objectId = entry.getKey();
-                        PlayableObjectStats stats = entry.getValue();
-
-                        // Skip spells that failed mana payment (can't afford them)
-                        if (failedManaCasts.contains(objectId)) {
-                            continue;
-                        }
-
-                        // Skip objects whose only abilities are mana abilities
-                        // (mana payment is handled during GAME_PLAY_MANA, not GAME_SELECT)
-                        List<String> abilityNames = stats.getPlayableAbilityNames();
-                        List<String> manaNames = stats.getAllManaAbilityNames();
-                        if (!abilityNames.isEmpty() && manaNames.size() == abilityNames.size()) {
-                            continue;
-                        }
-
-                        // Determine where this object lives (hand = cast, battlefield = activate)
-                        CardView cardView = findCardViewById(objectId, gameView);
-                        var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
-                        choiceEntry.put("id", getStableShortId(objectId, cardView));
-
-                        boolean isOnBattlefield = false;
-                        if (cardView == null) {
-                            // not found in hand/stack, check battlefield directly
-                            isOnBattlefield = true;
-                        } else if (gameView.getMyHand().get(objectId) == null
-                                   && gameView.getStack().get(objectId) == null) {
-                            isOnBattlefield = true;
-                        }
-
-                        if (cardView != null) {
-                            choiceEntry.put("name", safeDisplayName(cardView));
-                            if (isOnBattlefield) {
-                                choiceEntry.put("action", "activate");
-                                // Filter out mana abilities
-                                var manaNameSet = new HashSet<>(stats.getAllManaAbilityNames());
-                                var nonManaAbilities = new ArrayList<String>();
-                                for (String name : abilityNames) {
-                                    if (!manaNameSet.contains(name)) {
-                                        nonManaAbilities.add(name);
-                                    }
-                                }
-                                if (!nonManaAbilities.isEmpty()) {
-                                    choiceEntry.put("playable_abilities", nonManaAbilities);
-                                }
-                            } else {
-                                if (cardView.isLand()) {
-                                    choiceEntry.put("action", "land");
-                                } else {
-                                    choiceEntry.put("action", "cast");
-                                }
-                                String manaCost = cardView.getManaCostStr();
-                                if (manaCost != null && !manaCost.isEmpty()) {
-                                    choiceEntry.put("mana_cost", manaCost);
-                                }
-                                if (cardView.isCreature() && cardView.getPower() != null) {
-                                    choiceEntry.put("power", cardView.getPower());
-                                    choiceEntry.put("toughness", cardView.getToughness());
-                                }
-                            }
-                        } else {
-                            choiceEntry.put("name", "Unknown (" + objectId.toString().substring(0, 8) + ")");
-                        }
-
-                        choiceList.add(choiceEntry);
-                        indexToUuid.add(objectId);
-                        idx++;
-                    }
-                }
-
-                // Check for combat selections (declare attackers / declare blockers)
-                if (data instanceof GameClientMessage gcm) {
-                    Map<String, Serializable> options = gcm.getOptions();
-                    if (options != null) {
-                        @SuppressWarnings("unchecked")
-                        List<UUID> possibleAttackerIds = (List<UUID>) options.get("possibleAttackers");
-                        @SuppressWarnings("unchecked")
-                        List<UUID> possibleBlockerIds = (List<UUID>) options.get("possibleBlockers");
-
-                        if (possibleAttackerIds != null && !possibleAttackerIds.isEmpty()) {
-                            result.combat_phase = "declare_attackers";
-
-                            // Show which creatures are already attacking
-                            var alreadyAttacking = new ArrayList<Map<String, Object>>();
-                            if (gameView != null && gameView.getCombat() != null) {
-                                for (CombatGroupView group : gameView.getCombat()) {
-                                    for (CardView attacker : group.getAttackers().values()) {
-                                        var aInfo = new HashMap<String, Object>();
-                                        if (attacker.getId() != null) {
-                                            aInfo.put("id", getStableShortId(attacker.getId(), attacker));
-                                        }
-                                        aInfo.put("name", safeDisplayName(attacker));
-                                        if (attacker.getPower() != null) {
-                                            aInfo.put("power", attacker.getPower());
-                                            aInfo.put("toughness", attacker.getToughness());
-                                        }
-                                        alreadyAttacking.add(aInfo);
-                                    }
-                                }
-                            }
-                            if (!alreadyAttacking.isEmpty()) {
-                                result.already_attacking = alreadyAttacking;
-                            }
-
-                            int idx = choiceList.size();
-                            for (UUID attackerId : possibleAttackerIds) {
-                                PermanentView perm = findPermanentViewById(attackerId, gameView);
-                                if (perm == null) continue;
-
-                                var choiceEntry = new HashMap<String, Object>();
-                                choiceEntry.put("index", idx);
-                                choiceEntry.put("id", getStableShortId(attackerId, perm));
-                                choiceEntry.put("name", safeDisplayName(perm));
-                                if (perm.getPower() != null) {
-                                    choiceEntry.put("power", perm.getPower());
-                                    choiceEntry.put("toughness", perm.getToughness());
-                                }
-                                choiceEntry.put("choice_type", "attacker");
-                                choiceList.add(choiceEntry);
-                                indexToUuid.add(attackerId);
-                                idx++;
-                            }
-
-                            // Add "All attack" special option if available
-                            if (options.containsKey("specialButton")) {
-                                var allAttackEntry = new HashMap<String, Object>();
-                                allAttackEntry.put("index", idx);
-                                allAttackEntry.put("id", "all");
-                                allAttackEntry.put("name", "All attack");
-                                allAttackEntry.put("choice_type", "special");
-                                choiceList.add(allAttackEntry);
-                                indexToUuid.add("special");
-                                idx++;
-                            }
-                        }
-
-                        if (possibleBlockerIds != null && !possibleBlockerIds.isEmpty()) {
-                            result.combat_phase = "declare_blockers";
-
-                            // Show attacking creatures for context
-                            var incomingAttackers = new ArrayList<Map<String, Object>>();
-                            if (gameView != null && gameView.getCombat() != null) {
-                                for (CombatGroupView group : gameView.getCombat()) {
-                                    for (CardView attacker : group.getAttackers().values()) {
-                                        var aInfo = new HashMap<String, Object>();
-                                        if (attacker.getId() != null) {
-                                            aInfo.put("id", getStableShortId(attacker.getId(), attacker));
-                                        }
-                                        aInfo.put("name", attacker.getDisplayName());
-                                        if (attacker.getPower() != null) {
-                                            aInfo.put("power", attacker.getPower());
-                                            aInfo.put("toughness", attacker.getToughness());
-                                        }
-                                        incomingAttackers.add(aInfo);
-                                    }
-                                }
-                            }
-                            if (!incomingAttackers.isEmpty()) {
-                                result.incoming_attackers = incomingAttackers;
-                            }
-
-                            int idx = choiceList.size();
-                            for (UUID blockerId : possibleBlockerIds) {
-                                PermanentView perm = findPermanentViewById(blockerId, gameView);
-                                if (perm == null) continue;
-
-                                var choiceEntry = new HashMap<String, Object>();
-                                choiceEntry.put("index", idx);
-                                choiceEntry.put("id", getStableShortId(blockerId, perm));
-                                choiceEntry.put("name", safeDisplayName(perm));
-                                if (perm.getPower() != null) {
-                                    choiceEntry.put("power", perm.getPower());
-                                    choiceEntry.put("toughness", perm.getToughness());
-                                }
-                                choiceEntry.put("choice_type", "blocker");
-                                choiceList.add(choiceEntry);
-                                indexToUuid.add(blockerId);
-                                idx++;
-                            }
-                        }
-                    }
-                }
-
-                if (!choiceList.isEmpty()) {
-                    result.response_type = "select";
-                    result.choices = choiceList;
-                    lastChoices = indexToUuid;
-                    String combatPhase = result.combat_phase;
-                    if ("declare_attackers".equals(combatPhase)) {
-                        result.respond_with = "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)";
-                    } else if ("declare_blockers".equals(combatPhase)) {
-                        result.respond_with = "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)";
-                    } else {
-                        result.respond_with = "choice=pN to play, or choice=no to pass";
-                    }
-                } else {
-                    result.response_type = "boolean";
-                    result.respond_with = "choice=yes (confirm) or choice=no (pass)";
-                    lastChoices = null;
-                }
-                break;
-            }
-
-            case GAME_PLAY_MANA:
-            case GAME_PLAY_XMANA: {
-                // Auto-tap couldn't find a source — show available mana sources to the LLM
-                GameClientMessage manaMsg = (GameClientMessage) data;
-                PlayableObjectsList manaPlayable = gameView != null ? gameView.getCanPlayObjects() : null;
-                var manaChoiceList = new ArrayList<Map<String, Object>>();
-                var manaIndexToChoice = new ArrayList<Object>();
-                UUID payingForId = extractPayingForId(manaMsg.getMessage());
-
-                if (manaPlayable != null) {
-                    // Sort mana sources by card name for deterministic ordering
-                    var sortedManaEntries = new ArrayList<>(manaPlayable.getObjects().entrySet());
-                    sortedManaEntries.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
-                        CardView cv = findCardViewById(e.getKey(), gv);
-                        return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gv))));
-
-                    int idx = 0;
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : sortedManaEntries) {
-                        UUID manaObjectId = entry.getKey();
-                        if (manaObjectId.equals(payingForId)) {
-                            continue;
-                        }
-                        PlayableObjectStats stats = entry.getValue();
-                        List<String> manaAbilities = stats.getAllManaAbilityNames();
-                        if (manaAbilities.isEmpty()) {
-                            continue;
-                        }
-
-                        CardView cardView = findCardViewById(manaObjectId, gameView);
-                        String cardName;
-                        if (cardView != null) {
-                            cardName = cardView.getDisplayName();
-                        } else {
-                            cardName = "Unknown (" + manaObjectId.toString().substring(0, 8) + ")";
-                        }
-
-                        for (String manaAbilityText : manaAbilities) {
-                            var choiceEntry = new HashMap<String, Object>();
-                            choiceEntry.put("index", idx);
-                            choiceEntry.put("id", getStableShortId(manaObjectId, cardView));
-                            boolean isTap = manaAbilityText.contains("{T}");
-                            choiceEntry.put("choice_type", isTap ? "tap_source" : "mana_source");
-                            choiceEntry.put("name", cardName);
-                            choiceEntry.put("ability", manaAbilityText);
-                            manaChoiceList.add(choiceEntry);
-                            manaIndexToChoice.add(manaObjectId);
-                            idx++;
-                        }
-                    }
-                }
-
-                List<ManaType> poolChoices = getPoolManaChoices(gameView, manaMsg.getMessage());
-                if (!poolChoices.isEmpty()) {
-                    int idx = manaChoiceList.size();
-                    ManaPoolView manaPool = getMyManaPoolView(gameView);
-                    for (ManaType manaType : poolChoices) {
-                        var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
-                        choiceEntry.put("choice_type", "pool_mana");
-                        choiceEntry.put("name", prettyManaType(manaType));
-                        choiceEntry.put("count", getManaPoolCount(manaPool, manaType));
-                        manaChoiceList.add(choiceEntry);
-                        manaIndexToChoice.add(manaType);
-                        idx++;
-                    }
-                }
-
-                if (!manaChoiceList.isEmpty()) {
-                    result.response_type = "select";
-                    result.respond_with = "choice=pN to tap, or choice=no to cancel";
-                    result.choices = manaChoiceList;
-                    lastChoices = manaIndexToChoice;
-                } else {
-                    result.response_type = "boolean";
-                    result.respond_with = "choice=no to cancel";
-                    lastChoices = null;
-                }
-                break;
-            }
-
-            case GAME_TARGET: {
-                GameClientMessage msg = (GameClientMessage) data;
-                result.response_type = "index";
-                boolean required = msg.isFlag();
-                result.required = required;
-                result.can_cancel = !required;
-                result.respond_with = required
-                    ? "choice=pN — must pick a target"
-                    : "choice=pN, or choice=no to cancel";
-
-                Set<UUID> targets = findValidTargets(msg);
-                var choiceList = new ArrayList<Map<String, Object>>();
-                var indexToUuid = new ArrayList<Object>();
-
-                if (targets != null) {
-                    CardsView cardsView = msg.getCardsView1();
-                    GameView targetGameView = msg.getGameView() != null ? msg.getGameView() : lastGameView;
-                    UUID gameId = currentGameId;
-                    UUID myPlayerId = playerIdForGame(gameId);
-                    var targetChoices = new ArrayList<TargetChoice>();
-                    for (UUID targetId : targets) {
-                        var choiceEntry = new HashMap<String, Object>();
-                        // ID assigned after sorting — see below
-                        CardView resolvedCv = buildTargetInfo(choiceEntry, targetId, cardsView, targetGameView, myPlayerId);
-                        targetChoices.add(new TargetChoice(targetId, choiceEntry, resolvedCv));
-                    }
-
-                    // Sort all target choices deterministically: "you" first, then alphabetical.
-                    // HashMap iteration order depends on UUID hashCodes which vary across JVM runs.
-                    // IDs are assigned AFTER sorting so they're deterministic.
-                    targetChoices.sort((a, b) -> {
-                        boolean aIsYou = Boolean.TRUE.equals(a.entry().get("is_you"));
-                        boolean bIsYou = Boolean.TRUE.equals(b.entry().get("is_you"));
-                        int youCmp = Boolean.compare(bIsYou, aIsYou);
-                        if (youCmp != 0) {
-                            return youCmp;
-                        }
-                        String aName = Objects.toString(a.entry().get("name"), "");
-                        String bName = Objects.toString(b.entry().get("name"), "");
-                        int nameCmp = String.CASE_INSENSITIVE_ORDER.compare(aName, bName);
-                        if (nameCmp != 0) {
-                            return nameCmp;
-                        }
-                        return Integer.compare(
-                            getStableShortIdSequence(a.targetId(), a.cardView()),
-                            getStableShortIdSequence(b.targetId(), b.cardView()));
-                    });
-
-                    int idx = 0;
-                    for (TargetChoice tc : targetChoices) {
-                        tc.entry().put("id", getStableShortId(tc.targetId(), tc.cardView()));
-                        tc.entry().put("index", idx);
-                        choiceList.add(tc.entry());
-                        indexToUuid.add(tc.targetId());
-                        idx++;
-                    }
-                }
-
-                // Optional GAME_TARGET with no valid targets: auto-cancel
-                if (choiceList.isEmpty() && !required && allowAutoResolve) {
-                    clearPendingActionIfCurrent(action);
-                    sendBooleanOrDie(action.gameId(), false, "buildActionChoices:auto_cancel_no_targets");
-                    result.action_pending = false;
-                    result.action_taken = "auto_cancelled_no_targets";
-                    result.message = stripHtml(msg.getMessage());
-                    lastChoices = null;
-                    break;
-                }
-
-                result.choices = choiceList;
-                lastChoices = indexToUuid;
-                break;
-            }
-
-            case GAME_CHOOSE_ABILITY: {
-                AbilityPickerView picker = (AbilityPickerView) data;
-                Map<UUID, String> choices = picker.getChoices();
-                result.response_type = "index";
-                result.respond_with = "choice=0, choice=1, etc. (not yes/no)";
-
-                var choiceList = new ArrayList<Map<String, Object>>();
-                var indexToUuid = new ArrayList<Object>();
-
-                boolean allManaAbilities = choices != null && !choices.isEmpty();
-                if (choices != null) {
-                    int idx = 0;
-                    for (Map.Entry<UUID, String> entry : choices.entrySet()) {
-                        var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
-                        String desc = stripAbilityPickerOrdinalPrefix(stripHtml(entry.getValue()), idx);
-                        choiceEntry.put("description", desc);
-                        choiceList.add(choiceEntry);
-                        indexToUuid.add(entry.getKey());
-                        idx++;
-                        // Check if this looks like a mana ability (e.g. "{T}: Add {W}.")
-                        if (!desc.contains("Add {")) {
-                            allManaAbilities = false;
-                        }
-                    }
-                }
-
-                // When all choices are mana abilities, rewrite the message to clarify
-                // this is a mana payment step, not a game action choice. Models often
-                // get confused when they see "Choose spell or ability" during mana payment.
-                if (allManaAbilities) {
-                    String msg = result.message;
-                    if (msg != null && msg.startsWith("Choose spell or ability")) {
-                        // Extract the card name after ": " (from stripHtml's <br> replacement)
-                        int colonIdx = msg.indexOf(": ");
-                        String cardName = colonIdx >= 0 ? msg.substring(colonIdx + 2).trim() : "";
-                        if (!cardName.isEmpty()) {
-                            result.message = "Choose which mana to produce from " + cardName
-                                    + " (tapping to pay for a spell)";
-                        }
-                    }
-                }
-
-                result.choices = choiceList;
-                lastChoices = indexToUuid;
-                break;
-            }
-
-            case GAME_CHOOSE_CHOICE: {
-                GameClientMessage msg = (GameClientMessage) data;
-                Choice choice = msg.getChoice();
-                result.response_type = "index";
-                result.respond_with = "choice=0, choice=1, etc. or text=Name (not yes/no)";
-
-                var choiceList = new ArrayList<Map<String, Object>>();
-                var indexToKey = new ArrayList<Object>();
-
-                if (choice != null) {
-                    if (choice.isKeyChoice()) {
-                        Map<String, String> keyChoices = choice.getKeyChoices();
-                        if (keyChoices != null) {
-                            int idx = 0;
-                            for (Map.Entry<String, String> entry : keyChoices.entrySet()) {
-                                var choiceEntry = new HashMap<String, Object>();
-                                choiceEntry.put("index", idx);
-                                choiceEntry.put("description", stripHtml(entry.getValue()));
-                                choiceList.add(choiceEntry);
-                                indexToKey.add(entry.getKey());
-                                idx++;
-                            }
-                        }
-                    } else {
-                        Set<String> choices = choice.getChoices();
-                        if (choices != null) {
-                            int idx = 0;
-                            for (String c : choices) {
-                                var choiceEntry = new HashMap<String, Object>();
-                                choiceEntry.put("index", idx);
-                                choiceEntry.put("description", c);
-                                choiceList.add(choiceEntry);
-                                indexToKey.add(c);
-                                idx++;
-                            }
-                        }
-                    }
-                }
-
-                // Filter large choice lists to deck-relevant options
-                int totalChoices = choiceList.size();
-                if (totalChoices >= 50 && deckList != null) {
-                    Set<String> deckTypes = getDeckCreatureTypes();
-                    if (!deckTypes.isEmpty()) {
-                        var filtered = new ArrayList<Map<String, Object>>();
-                        var filteredKeys = new ArrayList<Object>();
-                        int idx = 0;
-                        for (int i = 0; i < choiceList.size(); i++) {
-                            String desc = (String) choiceList.get(i).get("description");
-                            if (deckTypes.contains(desc)) {
-                                var entry = new HashMap<String, Object>();
-                                entry.put("index", idx);
-                                entry.put("description", desc);
-                                filtered.add(entry);
-                                filteredKeys.add(indexToKey.get(i));
-                                idx++;
-                            }
-                        }
-                        if (!filtered.isEmpty()) {
-                            choiceList = filtered;
-                            indexToKey = filteredKeys;
-                            result.note = "Showing " + filtered.size()
-                                + " types from your deck (" + totalChoices
-                                + " total available). Use choose_action(text='TypeName') for any other type.";
-                        }
-                    }
-                }
-
-                result.choices = choiceList;
-                lastChoices = indexToKey;
-                break;
-            }
-
-            case GAME_CHOOSE_PILE: {
-                GameClientMessage msg = (GameClientMessage) data;
-                result.response_type = "pile";
-                result.respond_with = "pile=1 or pile=2";
-
-                var pile1 = new ArrayList<Map<String, Object>>();
-                var pile2 = new ArrayList<Map<String, Object>>();
-                if (msg.getCardsView1() != null) {
-                    for (CardView card : msg.getCardsView1().values()) {
-                        pile1.add(buildCardInfoMap(card));
-                    }
-                }
-                if (msg.getCardsView2() != null) {
-                    for (CardView card : msg.getCardsView2().values()) {
-                        pile2.add(buildCardInfoMap(card));
-                    }
-                }
-                result.pile1 = pile1;
-                result.pile2 = pile2;
-                lastChoices = null;
-                break;
-            }
-
-            case GAME_GET_AMOUNT: {
-                GameClientMessage msg = (GameClientMessage) data;
-                result.response_type = "amount";
-                result.respond_with = "amount=N (min=" + msg.getMin() + ", max=" + msg.getMax() + ")";
-                result.min = msg.getMin();
-                result.max = msg.getMax();
-                lastChoices = null;
-                break;
-            }
-
-            case GAME_GET_MULTI_AMOUNT: {
-                GameClientMessage msg = (GameClientMessage) data;
-                result.response_type = "multi_amount";
-                result.respond_with = "amounts=[N,N,...] — one per item, sum between total_min and total_max";
-                result.total_min = msg.getMin();
-                result.total_max = msg.getMax();
-
-                var items = new ArrayList<Map<String, Object>>();
-                if (msg.getMessages() != null) {
-                    for (MultiAmountMessage mam : msg.getMessages()) {
-                        var item = new HashMap<String, Object>();
-                        item.put("description", stripHtml(mam.message));
-                        item.put("min", mam.min);
-                        item.put("max", mam.max);
-                        item.put("default", mam.defaultValue);
-                        items.add(item);
-                    }
-                }
-                result.items = items;
-                // The multi-amount GameClientMessage constructor doesn't set
-                // the message field; the useful context ("Assign combat damage
-                // among creatures blocking X" etc.) lives in options.header
-                // from MultiAmountType.
-                if ((result.message == null || result.message.isEmpty())
-                        && msg.getOptions() != null) {
-                    Object header = msg.getOptions().get("header");
-                    if (header instanceof String) {
-                        result.message = stripHtml((String) header);
-                    }
-                }
-                lastChoices = null;
-                break;
-            }
-
-            default:
-                result.response_type = "unknown";
-                result.error = "Unhandled action type: " + method;
-                lastChoices = null;
-        }
+        BridgeActionChoicesBuilder.BuildResult built =
+            actionChoicesBuilder.build(action, boardCursorParam, allowAutoResolve);
+        ActionResult result = built.result();
+        lastChoices = built.choiceMapping();
 
         String responseType = result.response_type;
-        if (responseType != null) {
-            int choiceCount = -1;
-            if (result.choices != null) {
-                choiceCount = result.choices.size();
-            }
-            recordChoiceSnapshot(method.name(), responseType, choiceCount);
+        if (responseType != null && action != null) {
+            int choiceCount = result.choices != null ? result.choices.size() : -1;
+            recordChoiceSnapshot(action.method().name(), responseType, choiceCount);
         } else {
             clearChoiceSnapshot();
         }
@@ -1836,18 +1355,6 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Build a human-readable error message from batch combat failed entries.
-     */
-    private String batchFailedMessage(List<Map<String, Object>> failed) {
-        var sb = new StringBuilder();
-        for (var entry : failed) {
-            if (sb.length() > 0) sb.append("; ");
-            sb.append(entry.get("id")).append(": ").append(entry.get("reason"));
-        }
-        return sb.toString();
-    }
-
-    /**
      * Respond to the current pending action with a specific choice.
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
@@ -2005,383 +1512,22 @@ public class BridgeCallbackHandler {
             }
         }
 
-        UUID gameId = action.gameId();
-        Object data = action.data();
-
         result.success = true;
 
         try {
-            switch (method) {
-                case GAME_ASK:
-                    // GAME_ASK is boolean-only; ignore index if also provided
-                    // (some models send all params with defaults)
-                    if (answer == null) {
-                        return buildError(result, "missing_param",
-                            "GAME_ASK requires choice=\"yes\" or choice=\"no\". "
-                            + "This is a yes/no question.", true, action);
-                    }
-                    if (resolvedIndex != null) {
-                        logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + resolvedIndex + " for GAME_ASK (boolean-only)");
-                    }
-                    sendBooleanOrDie(gameId, answer, "chooseAction:GAME_ASK");
-                    result.action_taken = answer ? "yes" : "no";
-                    break;
-
-                case GAME_SELECT: {
-                    // Support both index (play a card) and answer (pass priority).
-                    // When both are provided (some models send all params with defaults),
-                    // try index first but fall through to answer if index is invalid.
-                    boolean usedIndex = false;
-                    if (resolvedIndex != null) {
-                        List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                        if (choices == null || resolvedIndex < 0 || resolvedIndex >= choices.size()) {
-                            logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
-                            // Index is invalid — if answer is also available, fall through
-                            if (answer != null) {
-                                logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
-                                    + " out of range, falling through to answer=" + answer + " for GAME_SELECT");
-                            } else {
-                                return buildError(result, "index_out_of_range",
-                                    "Index " + resolvedIndex + " is out of range"
-                                    + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                                    + ". Call get_action_choices to see current options.", true, action, true);
-                            }
-                        } else {
-                            Object chosen = choices.get(resolvedIndex);
-                            if (chosen instanceof UUID chosenUuid) {
-                                // Validate mana plan before sending spell to server —
-                                // once sent, cancellation is async and confuses the model
-                                if (effectiveManaPlan != null) {
-                                    CopyOnWriteArrayList<ManaPlanEntry> parsedPlan;
-                                    try {
-                                        parsedPlan = parseManaPlan(effectiveManaPlan);
-                                    } catch (IllegalArgumentException e) {
-                                        return buildError(result, "invalid_mana_plan",
-                                            "Invalid mana_plan: " + e.getMessage()
-                                            + ". Expected: [\"p1\",\"p2:0\",\"RED\"]", true, action);
-                                    }
-                                    for (ManaPlanEntry entry : parsedPlan) {
-                                        if ("tap".equals(entry.type()) && shortIds.tryResolve(entry.value()) == null) {
-                                            return buildError(result, "invalid_mana_plan",
-                                                "Mana plan references unknown permanent '" + entry.value()
-                                                + "'. Check the board state for correct permanent IDs.", true, action);
-                                        }
-                                    }
-                                    manaPlan = parsedPlan;
-                                    // auto_tap controls fallback when plan runs out:
-                                    // false = cancel spell, true/null = fall through to auto-tap
-                                    manaPlanAutoTapFallback = !(autoTap != null && !autoTap);
-                                    result.mana_plan_set = true;
-                                    result.mana_plan_size = manaPlan.size();
-                                } else if (autoTap != null && autoTap) {
-                                    manaPlan = null;  // Explicit auto-tap mode
-                                    manaPlanAbilityIndex = null;
-                                    manaPlanAutoTapFallback = true;
-                                }
-                                sendUuidOrDie(gameId, chosenUuid, "chooseAction:GAME_SELECT_index");
-                                result.action_taken = "selected_" + resolvedIndex;
-                                usedIndex = true;
-                            } else if (chosen instanceof String chosenStr) {
-                                sendStringOrDie(gameId, chosenStr, "chooseAction:GAME_SELECT_special");
-                                result.action_taken = "special_" + chosenStr;
-                                usedIndex = true;
-                            } else {
-                                return buildError(result, "internal_error",
-                                    "Unexpected choice type at index " + resolvedIndex, false, action);
-                            }
-                        }
-                    }
-                    if (!usedIndex) {
-                        if (answer != null) {
-                            sendBooleanOrDie(gameId, answer, "chooseAction:GAME_SELECT_answer");
-                            result.action_taken = answer ? "confirmed" : "passed_priority";
-                        } else {
-                            return buildError(result, "missing_param",
-                                "GAME_SELECT requires choice=pN to play a card, "
-                                + "or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-                                true, action, true);
-                        }
-                    }
-                    break;
-                }
-
-                case GAME_PLAY_MANA:
-                case GAME_PLAY_XMANA: {
-                    // index = tap a mana source OR spend a mana type from pool, answer=false = cancel.
-                    // When both are provided and index is invalid, fall through to answer.
-                    boolean usedManaIndex = false;
-                    if (resolvedIndex != null) {
-                        List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                        if (choices == null || resolvedIndex < 0 || resolvedIndex >= choices.size()) {
-                            logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
-                            if (answer != null && !answer) {
-                                logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
-                                    + " out of range, falling through to cancel for GAME_PLAY_MANA");
-                            } else {
-                                return buildError(result, "index_out_of_range",
-                                    "Index " + resolvedIndex + " is out of range"
-                                    + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                                    + ". Call get_action_choices to see current options.", true, action, true);
-                            }
-                        } else {
-                            Object manaChoice = choices.get(resolvedIndex);
-                            if (manaChoice instanceof UUID manaUuid) {
-                                sendUuidOrDie(gameId, manaUuid, "chooseAction:GAME_PLAY_MANA");
-                                result.action_taken = "tapped_mana_" + resolvedIndex;
-                                usedManaIndex = true;
-                            } else if (manaChoice instanceof ManaType manaType) {
-                                UUID manaPlayerId = getManaPoolPlayerId(gameId, lastGameView);
-                                if (manaPlayerId == null) {
-                                    return buildError(result, "internal_error",
-                                        "Could not resolve player ID for mana pool selection", false, action);
-                                }
-                                sendManaTypeOrDie(gameId, manaPlayerId, manaType, "chooseAction:GAME_PLAY_MANA_pool");
-                                result.action_taken = "used_pool_" + manaType.toString();
-                                usedManaIndex = true;
-                            } else {
-                                return buildError(result, "internal_error",
-                                    "Unsupported mana choice type at index " + resolvedIndex, false, action);
-                            }
-                        }
-                    }
-                    if (!usedManaIndex) {
-                        boolean cancel = false;
-                        if (answer != null && !answer) {
-                            cancel = true;
-                        } else if (answer != null && answer) {
-                            // answer=true with no mana sources: treat as cancel.
-                            // When the choice list is empty, storePendingAction sends response_type "boolean".
-                            // Models interpret this as a confirmation and send true, but cancel is the only option.
-                            List<Object> choices = lastChoices;
-                            if (choices == null || choices.isEmpty()) {
-                                logger.warn("[" + client.getUsername() + "] choose_action: answer=true for GAME_PLAY_MANA with no mana sources, auto-cancelling");
-                                cancel = true;
-                            }
-                        }
-                        if (cancel) {
-                            // Mark spell as failed to prevent infinite retry loop
-                            UUID payingForId = extractPayingForId(action.message());
-                            if (payingForId != null) {
-                                failedManaCasts.add(payingForId);
-                            }
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
-                            sendBooleanOrDie(gameId, false, "chooseAction:GAME_PLAY_MANA_cancel");
-                            result.action_taken = "cancelled_spell";
-                        } else {
-                            return buildError(result, "missing_param",
-                                "GAME_PLAY_MANA requires choice=pN to choose a mana source, or choice=\"no\" to cancel the spell. "
-                                + "Call get_action_choices first to see available mana sources.", true, action, true);
-                        }
-                    }
-                    break;
-                }
-
-                case GAME_TARGET: {
-                    GameClientMessage targetMsg = (GameClientMessage) data;
-                    boolean required = targetMsg.isFlag();
-
-                    // Index takes priority over answer:false (models sometimes send both)
-                    if (resolvedIndex != null) {
-                        if (answer != null) {
-                            logger.warn("[" + client.getUsername() + "] choose_action: ignoring answer=" + answer + " because index was also provided for GAME_TARGET");
-                        }
-                        List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                        if (choices != null && resolvedIndex >= 0 && resolvedIndex < choices.size()) {
-                            UUID targetUUID = (UUID) choices.get(resolvedIndex);
-                            sendUuidOrDie(gameId, targetUUID, "chooseAction:GAME_TARGET_index");
-                            result.action_taken = "selected_target_" + resolvedIndex;
-                            break;
-                        }
-                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
-                        // Index out of range. For required targets, auto-select to avoid
-                        // infinite retry loops. For optional targets, return an error so
-                        // the model can retry with a valid index or answer=false.
-                        if (!required) {
-                            List<Object> targetChoices = lastChoices;
-                            return buildError(result, "index_out_of_range",
-                                "Index " + resolvedIndex + " is out of range"
-                                + (targetChoices != null ? " (valid: 0-" + (targetChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                                + ". Call get_action_choices to see current targets.", true, action, true);
-                        }
-                        logger.warn("[" + client.getUsername() + "] choose_action: index " + resolvedIndex
-                            + " out of range for required GAME_TARGET (choices="
-                            + (choices == null ? "null" : choices.size()) + "), auto-selecting");
-                    } else if (answer != null && !answer) {
-                        // Explicit cancel via answer=false
-                        if (!required) {
-                            sendBooleanOrDie(gameId, false, "chooseAction:GAME_TARGET_cancel");
-                            result.action_taken = "cancelled";
-                            break;
-                        }
-                        // Required target — can't cancel, fall through to auto-select
-                        logger.warn("[" + client.getUsername() + "] choose_action: answer=false invalid for required GAME_TARGET, auto-selecting");
-                    } else if (!required) {
-                        // No index, no answer=false — return error for optional targets
-                        return buildError(result, "missing_param",
-                            "GAME_TARGET requires choice=pN to select a target, or choice=\"no\" to cancel targeting. "
-                            + "Call get_action_choices first to see available targets.", true, action, true);
-                    }
-
-                    // Auto-select for required targets when index was invalid/missing
-                    Set<UUID> autoTargets = findValidTargets(targetMsg);
-                    if (autoTargets != null && !autoTargets.isEmpty()) {
-                        UUID firstTarget = selectDeterministicTarget(autoTargets, lastChoices);
-                        logger.warn("[" + client.getUsername() + "] choose_action: auto-selecting first target for required GAME_TARGET");
-                        sendUuidOrDie(gameId, firstTarget, "chooseAction:GAME_TARGET_auto_select");
-                        result.action_taken = "auto_selected_required_target";
-                        result.warning = "Required target auto-selected. Use get_action_choices first, then index=N.";
-                    } else {
-                        logger.error("[" + client.getUsername() + "] Required GAME_TARGET has no valid targets — cancelling to avoid infinite loop");
-                        sendBooleanOrDie(gameId, false, "chooseAction:GAME_TARGET_no_valid");
-                        result.action_taken = "cancelled_no_valid_targets";
-                    }
-                    break;
-                }
-
-                case GAME_CHOOSE_ABILITY: {
-                    if (resolvedIndex == null) {
-                        return buildError(result, "missing_param",
-                            "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see "
-                            + "the available abilities, then choose_action with the index of the one you want.",
-                            true, action, true);
-                    }
-                    List<Object> abilityChoices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                    if (abilityChoices == null || resolvedIndex < 0 || resolvedIndex >= abilityChoices.size()) {
-                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, abilityChoices);
-                        return buildError(result, "index_out_of_range",
-                            "Index " + resolvedIndex + " is out of range"
-                            + (abilityChoices != null ? " (valid: 0-" + (abilityChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                            + ". Call get_action_choices to see current options.", true, action, true);
-                    }
-                    UUID abilityUUID = (UUID) abilityChoices.get(resolvedIndex);
-                    sendUuidOrDie(gameId, abilityUUID, "chooseAction:GAME_CHOOSE_ABILITY");
-                    result.action_taken = "selected_ability_" + resolvedIndex;
-                    break;
-                }
-
-                case GAME_CHOOSE_CHOICE: {
-                    // Support text parameter for choosing by name (e.g. creature type not in filtered list)
-                    if (text != null && !text.isEmpty()) {
-                        GameClientMessage choiceMsg = (GameClientMessage) data;
-                        Choice choiceObj = choiceMsg.getChoice();
-                        if (choiceObj == null) {
-                            return buildError(result, "internal_error", "No choice available", false, action);
-                        }
-                        // Validate text is a legal choice
-                        if (choiceObj.isKeyChoice()) {
-                            // For key choices, text must match a value; find the key
-                            Map<String, String> keyChoices = choiceObj.getKeyChoices();
-                            String matchedKey = null;
-                            if (keyChoices != null) {
-                                for (Map.Entry<String, String> entry : keyChoices.entrySet()) {
-                                    if (entry.getValue().equalsIgnoreCase(text) || entry.getKey().equalsIgnoreCase(text)) {
-                                        matchedKey = entry.getKey();
-                                        break;
-                                    }
-                                }
-                            }
-                            if (matchedKey == null) {
-                                return buildError(result, "invalid_choice",
-                                    "'" + text + "' is not a valid choice", true, action, true);
-                            }
-                            sendStringOrDie(gameId, matchedKey, "chooseAction:GAME_CHOOSE_CHOICE_key");
-                        } else {
-                            // For plain choices, text must match a choice string
-                            Set<String> choices = choiceObj.getChoices();
-                            String matched = null;
-                            if (choices != null) {
-                                for (String c : choices) {
-                                    if (c.equalsIgnoreCase(text)) {
-                                        matched = c;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (matched == null) {
-                                return buildError(result, "invalid_choice",
-                                    "'" + text + "' is not a valid choice", true, action, true);
-                            }
-                            sendStringOrDie(gameId, matched, "chooseAction:GAME_CHOOSE_CHOICE");
-                        }
-                        result.action_taken = "selected_choice_text_" + text;
-                        break;
-                    }
-                    if (id != null && !id.isEmpty()) {
-                        return buildError(result, "invalid_choice",
-                            "GAME_CHOOSE_CHOICE does not accept choice=\"" + id + "\" by name. "
-                            + "Use text=\"" + id + "\" or choice=N with the current options.",
-                            true, action, true);
-                    }
-                    if (resolvedIndex == null) {
-                        return buildError(result, "missing_param",
-                            "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE", true, action, true);
-                    }
-                    List<Object> choiceChoices = lastChoices; // snapshot volatile to prevent TOCTOU race
-                    if (choiceChoices == null || resolvedIndex < 0 || resolvedIndex >= choiceChoices.size()) {
-                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceChoices);
-                        return buildError(result, "index_out_of_range",
-                            "Index " + resolvedIndex + " is out of range"
-                            + (choiceChoices != null ? " (valid: 0-" + (choiceChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
-                            + ". Call get_action_choices to see current options.", true, action, true);
-                    }
-                    String choiceStr = (String) choiceChoices.get(resolvedIndex);
-                    sendStringOrDie(gameId, choiceStr, "chooseAction:GAME_CHOOSE_CHOICE_index");
-                    result.action_taken = "selected_choice_" + resolvedIndex;
-                    break;
-                }
-
-                case GAME_CHOOSE_PILE:
-                    if (pile == null) {
-                        return buildError(result, "missing_param",
-                            "Integer 'pile' (1 or 2) required for GAME_CHOOSE_PILE", true, action);
-                    }
-                    boolean pileChoice = pile == 1;
-                    sendBooleanOrDie(gameId, pileChoice, "chooseAction:GAME_CHOOSE_PILE");
-                    result.action_taken = "selected_pile_" + pile;
-                    break;
-
-                case GAME_GET_AMOUNT: {
-                    if (amount == null) {
-                        return buildError(result, "missing_param",
-                            "Integer 'amount' required for GAME_GET_AMOUNT", true, action);
-                    }
-                    GameClientMessage msg = (GameClientMessage) data;
-                    int clamped = Math.max(msg.getMin(), Math.min(msg.getMax(), amount));
-                    sendIntegerOrDie(gameId, clamped, "chooseAction:GAME_GET_AMOUNT");
-                    result.action_taken = "amount_" + clamped;
-                    break;
-                }
-
-                case GAME_GET_MULTI_AMOUNT: {
-                    if (amounts == null) {
-                        return buildError(result, "missing_param",
-                            "Array 'amounts' required for GAME_GET_MULTI_AMOUNT", true, action);
-                    }
-                    GameClientMessage msg = (GameClientMessage) data;
-                    String validationError;
-                    try {
-                        validationError = validateMultiAmountInput(msg, amounts);
-                    } catch (IllegalStateException e) {
-                        return buildError(result, "internal_error", e.getMessage(), false, action);
-                    }
-                    if (validationError != null) {
-                        return buildError(result, "invalid_multi_amount", validationError, true, action);
-                    }
-                    var sb = new StringBuilder();
-                    for (int i = 0; i < amounts.length; i++) {
-                        if (i > 0) sb.append(" ");
-                        sb.append(amounts[i]);
-                    }
-                    String multiAmountStr = sb.toString();
-                    sendStringOrDie(gameId, multiAmountStr, "chooseAction:GAME_GET_MULTI_AMOUNT");
-                    result.action_taken = "multi_amount";
-                    break;
-                }
-
-                default:
-                    buildError(result, "unknown_action_type", "Unknown action type: " + method, false, null);
-            }
+            result = chooseActionExecutor.execute(
+                action,
+                result,
+                resolvedIndex,
+                id,
+                answer,
+                amount,
+                amounts,
+                pile,
+                text,
+                effectiveManaPlan,
+                autoTap
+            );
         } catch (ResponseDeliveryException e) {
             result.success = false;
             result.error = e.getMessage();
@@ -2530,122 +1676,7 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     private ChooseActionTool.Result handleBatchAttackers(String[] attackerIds, PendingAction action, ChooseActionTool.Result result) {
-        try {
-            return handleBatchAttackersBody(attackerIds, action, result);
-        } catch (ResponseDeliveryException e) {
-            result.success = false;
-            result.error = e.getMessage();
-            result.error_code = "response_delivery_failed";
-            result.retryable = false;
-            attachUnseenChat(result);
-            return result;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private ChooseActionTool.Result handleBatchAttackersBody(String[] attackerIds, PendingAction action, ChooseActionTool.Result result) {
-        UUID gameId = action.gameId();
-        var declared = new ArrayList<Map<String, Object>>();
-        var failed = new ArrayList<Map<String, Object>>();
-
-        // Special case: "all" attack
-        if (attackerIds.length == 1 && "all".equals(attackerIds[0])) {
-            synchronized (actionLock) {
-                if (pendingAction == action) {
-                    pendingAction = null;
-                }
-            }
-            sendStringOrDie(gameId, "special", "batchAttack:all");
-            // Wait for next callback (server will send a new GAME_SELECT to confirm)
-            PendingAction next = waitForNextCallback();
-            if (next != null && next.method() == ClientCallbackMethod.GAME_SELECT) {
-                synchronized (actionLock) {
-                    if (pendingAction == next) {
-                        pendingAction = null;
-                    }
-                }
-                sendBooleanOrDie(gameId, true, "batchAttack:confirm_all");
-            }
-            result.success = true;
-            result.action_taken = "batch_attack";
-            declared.add(Map.of("id", "all"));
-            result.declared = new ArrayList<>(declared);
-            lastChoices = null;
-            waitForNextActionAfterBatch(result);
-            return result;
-        }
-
-        // Get possibleAttackers from the current action's options
-        GameClientMessage gcm = (GameClientMessage) action.data();
-        Map<String, Serializable> options = gcm.getOptions();
-        List<UUID> possibleAttackerUuids = (List<UUID>) options.get("possibleAttackers");
-
-        for (String shortId : attackerIds) {
-            UUID attackerUuid;
-            try {
-                attackerUuid = shortIds.resolve(shortId);
-            } catch (IllegalArgumentException e) {
-                failed.add(Map.of("id", shortId, "reason", "unknown short ID"));
-                continue;
-            }
-
-            // Verify this attacker is in the possible list
-            if (possibleAttackerUuids == null || !possibleAttackerUuids.contains(attackerUuid)) {
-                failed.add(Map.of("id", shortId, "reason", "not a valid attacker"));
-                continue;
-            }
-
-            // Clear pending action and send the attacker UUID
-            synchronized (actionLock) {
-                if (pendingAction != null) {
-                    pendingAction = null;
-                }
-            }
-            sendUuidOrDie(gameId, attackerUuid, "batchAttack:declare_attacker");
-            declared.add(Map.of("id", shortId));
-
-            // Wait for next callback
-            PendingAction next = waitForNextCallback();
-            if (next == null) {
-                result.interrupted = true;
-                break;
-            }
-            if (next.method() != ClientCallbackMethod.GAME_SELECT) {
-                // Interrupted by a trigger or other callback
-                result.interrupted = true;
-                break;
-            }
-            // Update possibleAttackers from the new callback for validation
-            if (next.data() instanceof GameClientMessage nextGcm) {
-                Map<String, Serializable> nextOptions = nextGcm.getOptions();
-                if (nextOptions != null && nextOptions.containsKey("possibleAttackers")) {
-                    possibleAttackerUuids = (List<UUID>) nextOptions.get("possibleAttackers");
-                }
-            }
-        }
-
-        // Confirm attackers (send true)
-        if (!Boolean.TRUE.equals(result.interrupted)) {
-            synchronized (actionLock) {
-                if (pendingAction != null) {
-                    pendingAction = null;
-                }
-            }
-            sendBooleanOrDie(gameId, true, "batchAttack:confirm");
-        }
-
-        result.success = !Boolean.TRUE.equals(result.interrupted) && failed.isEmpty();
-        result.action_taken = "batch_attack";
-        result.declared = new ArrayList<>(declared);
-        if (!failed.isEmpty()) {
-            result.failed = new ArrayList<>(failed);
-            result.error = batchFailedMessage(failed);
-            result.error_code = "batch_failed";
-            result.retryable = true;
-        }
-        lastChoices = null;
-        waitForNextActionAfterBatch(result);
-        return result;
+        return batchCombatHandler.handleBatchAttackers(attackerIds, action, result);
     }
 
     /**
@@ -2655,224 +1686,12 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     private ChooseActionTool.Result handleBatchBlockers(String[] blockersArray, PendingAction action, ChooseActionTool.Result result) {
-        try {
-            return handleBatchBlockersBody(blockersArray, action, result);
-        } catch (ResponseDeliveryException e) {
-            result.success = false;
-            result.error = e.getMessage();
-            result.error_code = "response_delivery_failed";
-            result.retryable = false;
-            attachUnseenChat(result);
-            return result;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private ChooseActionTool.Result handleBatchBlockersBody(String[] blockersArray, PendingAction action, ChooseActionTool.Result result) {
-        UUID gameId = action.gameId();
-        var declared = new ArrayList<Map<String, Object>>();
-        var failed = new ArrayList<Map<String, Object>>();
-
-        // Parse blocker assignments
-        // Expected: ["p5:p1","p6:p2"] (blocker_id:attacker_id)
-        List<Map<String, String>> assignments;
-        try {
-            assignments = parseBlockerAssignments(blockersArray);
-        } catch (IllegalArgumentException e) {
-            return buildError(result, "invalid_blockers",
-                "Invalid blockers: " + e.getMessage()
-                + ". Expected: [\"blocker:attacker\",...]", false, action);
-        }
-
-        // Get possibleBlockers from the current action's options
-        GameClientMessage gcm = (GameClientMessage) action.data();
-        Map<String, Serializable> options = gcm.getOptions();
-        List<UUID> possibleBlockerUuids = (List<UUID>) options.get("possibleBlockers");
-
-        for (Map<String, String> assignment : assignments) {
-            String blockerShortId = assignment.get("id");
-            String attackerShortId = assignment.get("blocks");
-
-            UUID blockerUuid;
-            try {
-                blockerUuid = shortIds.resolve(blockerShortId);
-            } catch (IllegalArgumentException e) {
-                failed.add(Map.of("id", blockerShortId, "reason", "unknown short ID"));
-                continue;
-            }
-
-            // Verify this blocker is in the possible list
-            if (possibleBlockerUuids == null || !possibleBlockerUuids.contains(blockerUuid)) {
-                failed.add(Map.of("id", blockerShortId, "reason", "not a valid blocker"));
-                continue;
-            }
-
-            // Clear pending action and send the blocker UUID
-            synchronized (actionLock) {
-                if (pendingAction != null) {
-                    pendingAction = null;
-                }
-            }
-            sendUuidOrDie(gameId, blockerUuid, "batchBlock:declare_blocker");
-
-            // Wait for next callback — could be GAME_TARGET (pick which attacker)
-            // or GAME_SELECT (single attacker, auto-assigned)
-            PendingAction next = waitForNextCallback();
-            if (next == null) {
-                result.interrupted = true;
-                break;
-            }
-
-            if (next.method() == ClientCallbackMethod.GAME_TARGET) {
-                // Multiple attackers — server asks which one to block
-                UUID attackerUuid;
-                try {
-                    attackerUuid = shortIds.resolve(attackerShortId);
-                } catch (IllegalArgumentException e) {
-                    failed.add(Map.of("id", blockerShortId, "reason", "unknown attacker ID: " + attackerShortId));
-                    // Cancel the target selection
-                    synchronized (actionLock) {
-                        if (pendingAction == next) {
-                            pendingAction = null;
-                        }
-                    }
-                    sendBooleanOrDie(gameId, false, "batchBlock:cancel_unknown_attacker");
-                    next = waitForNextCallback();
-                    if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                        result.interrupted = true;
-                        break;
-                    }
-                    continue;
-                }
-
-                // Verify the attacker UUID is a valid target
-                GameClientMessage targetMsg = (GameClientMessage) next.data();
-                Set<UUID> validTargets = findValidTargets(targetMsg);
-                if (validTargets == null || !validTargets.contains(attackerUuid)) {
-                    failed.add(Map.of("id", blockerShortId, "reason",
-                        "attacker " + attackerShortId + " is not a valid block target"));
-                    synchronized (actionLock) {
-                        if (pendingAction == next) {
-                            pendingAction = null;
-                        }
-                    }
-                    sendBooleanOrDie(gameId, false, "batchBlock:cancel_invalid_target");
-                    next = waitForNextCallback();
-                    if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                        result.interrupted = true;
-                        break;
-                    }
-                    continue;
-                }
-
-                // Send the attacker UUID as the target
-                synchronized (actionLock) {
-                    if (pendingAction == next) {
-                        pendingAction = null;
-                    }
-                }
-                sendUuidOrDie(gameId, attackerUuid, "batchBlock:select_attacker");
-                declared.add(Map.of("id", blockerShortId, "blocks", attackerShortId));
-
-                // Wait for next GAME_SELECT (back to blocker selection)
-                next = waitForNextCallback();
-                if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                    result.interrupted = true;
-                    break;
-                }
-
-                // Update possibleBlockers from the new callback
-                if (next.data() instanceof GameClientMessage nextGcm) {
-                    Map<String, Serializable> nextOptions = nextGcm.getOptions();
-                    if (nextOptions != null && nextOptions.containsKey("possibleBlockers")) {
-                        possibleBlockerUuids = (List<UUID>) nextOptions.get("possibleBlockers");
-                    }
-                }
-            } else if (next.method() == ClientCallbackMethod.GAME_SELECT) {
-                // Single attacker — auto-assigned by the server (lines 3010-3024 in handleCallback)
-                declared.add(Map.of("id", blockerShortId, "blocks", attackerShortId));
-
-                // Update possibleBlockers from the new callback
-                if (next.data() instanceof GameClientMessage nextGcm2) {
-                    Map<String, Serializable> nextOptions = nextGcm2.getOptions();
-                    if (nextOptions != null && nextOptions.containsKey("possibleBlockers")) {
-                        possibleBlockerUuids = (List<UUID>) nextOptions.get("possibleBlockers");
-                    }
-                }
-            } else {
-                // Interrupted by unexpected callback
-                result.interrupted = true;
-                break;
-            }
-        }
-
-        // Confirm blockers (send true)
-        if (!Boolean.TRUE.equals(result.interrupted)) {
-            synchronized (actionLock) {
-                if (pendingAction != null) {
-                    pendingAction = null;
-                }
-            }
-            sendBooleanOrDie(gameId, true, "batchBlock:confirm");
-        }
-
-        result.success = !Boolean.TRUE.equals(result.interrupted) && failed.isEmpty();
-        result.action_taken = "batch_block";
-        result.declared = new ArrayList<>(declared);
-        if (!failed.isEmpty()) {
-            result.failed = new ArrayList<>(failed);
-            result.error = batchFailedMessage(failed);
-            result.error_code = "batch_failed";
-            result.retryable = true;
-        }
-        lastChoices = null;
-        waitForNextActionAfterBatch(result);
-        return result;
-    }
-
-    /**
-     * Parse blocker assignments: ["p5:p1","p6:p2"] where each entry is "blocker_id:attacker_id".
-     */
-    private List<Map<String, String>> parseBlockerAssignments(String[] arr) {
-        var assignments = new ArrayList<Map<String, String>>();
-        for (int i = 0; i < arr.length; i++) {
-            String entry = arr[i];
-            int colonIdx = entry.indexOf(':');
-            if (colonIdx < 0) {
-                throw new IllegalArgumentException("blockers entry " + i + " must be \"blocker:attacker\", got: " + entry);
-            }
-            String blockerId = entry.substring(0, colonIdx);
-            String attackerId = entry.substring(colonIdx + 1);
-            if (blockerId.isEmpty() || attackerId.isEmpty()) {
-                throw new IllegalArgumentException("blockers entry " + i + " has empty id in: " + entry);
-            }
-            assignments.add(Map.of("id", blockerId, "blocks", attackerId));
-        }
-        return assignments;
-    }
-
-    /**
-     * After batch combat, block until the next pending action arrives.
-     * Populates full ActionResult fields via mergeActionChoices.
-     */
-    private void waitForNextActionAfterBatch(ChooseActionTool.Result result) {
-        PendingAction next = awaitDecisionAction();
-        if (next != null) {
-            result.game_seq = next.gameSeq();
-            mergeActionChoices(result, null, next);
-        } else {
-            attachUnseenChat(result);
-        }
+        return batchCombatHandler.handleBatchBlockers(blockersArray, action, result);
     }
 
     // ── End batch combat ──────────────────────────────────────────────────
 
     /** Populate target info and return the resolved CardView (null if target is a player or unknown). */
-    private CardView buildTargetInfo(Map<String, Object> entry, UUID targetId,
-                                  CardsView cardsView, GameView gameView, UUID myPlayerId) {
-        return cardFormatter.buildTargetInfo(entry, targetId, cardsView, gameView, myPlayerId);
-    }
-
     private List<Map<String, Object>> buildStackItems(GameView gameView, boolean includeIds, boolean includeRules) {
         return cardFormatter.buildStackItems(gameView, includeIds, includeRules);
     }
@@ -2885,10 +1704,6 @@ public class BridgeCallbackHandler {
      * Build a structured info map for a card: name, mana_cost, is_land, power/toughness, rules.
      * Used for hand cards, pile decisions, and mulligan hands.
      */
-    private Map<String, Object> buildCardInfoMap(CardView cv) {
-        return cardFormatter.buildCardInfoMap(cv);
-    }
-
     public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
         GameLogSnapshot snapshot = snapshotGameLog();
         List<BridgeLogEntry> allEvents = snapshot.events();
@@ -3965,10 +2780,6 @@ public class BridgeCallbackHandler {
         return oracleTextService.getOracleText(cardName, objectId, cardNames, objectIds);
     }
 
-    private String getStableShortId(UUID objectId, CardView cardView) {
-        return viewLocator.getStableShortId(objectId, cardView);
-    }
-
     private int getStableShortIdSequence(UUID objectId) {
         return viewLocator.getStableShortIdSequence(objectId);
     }
@@ -4008,10 +2819,6 @@ public class BridgeCallbackHandler {
     /**
      * Look up a PermanentView by UUID from all players' battlefields.
      */
-    private PermanentView findPermanentViewById(UUID objectId, GameView gameView) {
-        return viewLocator.findPermanentViewById(objectId, gameView);
-    }
-
     public void handleCallback(ClientCallback callback) {
         try {
             callback.decompressData();
@@ -4276,14 +3083,6 @@ public class BridgeCallbackHandler {
             callbackGameId,
             method.name() + " | " + summarizeCallbackContext(callbackGameId, ignoreReason));
         return true;
-    }
-
-    /**
-     * Clean a string for LLM consumption: strip HTML tags and 3-char hex ID suffixes.
-     * Must be applied after internal HTML parsing (cast owner tracking, mana payment extraction).
-     */
-    private static String stripHtml(String s) {
-        return BridgePromptFormatting.stripHtml(s);
     }
 
     static String stripAbilityPickerOrdinalPrefix(String description, int zeroBasedIndex) {
