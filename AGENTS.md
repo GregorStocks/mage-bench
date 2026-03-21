@@ -36,7 +36,7 @@ If the PR is closed/merged, create a new one instead of pushing to a dead branch
    )"
    ```
 
-3. **Run the CI watcher**: `uv run python scripts/watch-pr.py` — wait for CI to finish and check for review feedback. If CI fails or feedback arrives, fix it, then do all three steps again (cap at 3 iterations).
+3. **Run the CI watcher**: `uv run python scripts/watch_pr.py` — wait for CI to finish and check for review feedback. If CI fails or feedback arrives, fix it, then do all three steps again (cap at 3 iterations).
 
 ## Build System
 
@@ -99,7 +99,7 @@ Game logs go to `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/`. See `doc/logging.md`
 
 Use `make website` for all website development — it handles leaderboard generation, npm dependencies, and the Astro dev server.
 
-Each worktree gets a unique port assigned by `worktree-setup.py` (written to `.env` as `WEBSITE_PORT`). Check your `.env` to find your port. Key pages (substitute your port):
+Each worktree gets a unique port assigned by `worktree_setup.py` (written to `.env` as `WEBSITE_PORT`). Check your `.env` to find your port. Key pages (substitute your port):
 
 - Home: `http://localhost:$WEBSITE_PORT/`
 - Leaderboard: `http://localhost:$WEBSITE_PORT/leaderboard`

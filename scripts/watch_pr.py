@@ -2,7 +2,7 @@
 """Watch a PR until CI completes, then report results and review feedback.
 
 Usage:
-    watch-pr.py [<pr-number>]
+    watch_pr.py [<pr-number>]
 
 Polls CI checks every 30s. Once all checks finish, also reports any
 review comments or change requests on the PR.

@@ -74,7 +74,7 @@ Create a pull request for the current branch's changes.
 9. **Watch CI and address feedback.** Run the watcher — it polls every 30s, returns as soon as any check fails or all pass (up to 30 min):
 
    ```bash
-   uv run python scripts/watch-pr.py
+   uv run python scripts/watch_pr.py
    ```
 
    - **Exit 0** (all green, no comments): Done.

@@ -2,12 +2,12 @@
 """Scrape top decks from MTGGoldfish metagame pages and import them as .dck files.
 
 Usage:
-    import-metagame.py <format> [count]
+    import_metagame.py <format> [count]
 
 Examples:
-    import-metagame.py legacy        # Import top 20 Legacy decks
-    import-metagame.py modern 15     # Import top 15 Modern decks
-    import-metagame.py standard 20   # Import top 20 Standard decks
+    import_metagame.py legacy        # Import top 20 Legacy decks
+    import_metagame.py modern 15     # Import top 15 Modern decks
+    import_metagame.py standard 20   # Import top 20 Standard decks
 """
 
 import re
@@ -19,7 +19,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
-IMPORT_DECK = SCRIPT_DIR / "import-deck.py"
+IMPORT_DECK = SCRIPT_DIR / "import_deck.py"
 DECK_DIR = PROJECT_ROOT / "Mage.Client" / "release" / "sample-decks"
 
 FORMATS = {

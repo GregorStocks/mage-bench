@@ -47,7 +47,7 @@ Rules:
 If you know the mechanic but not the exact cards, use `card-finder` before
 inventing a deck from memory. Start with
 `.claude/skills/card-finder/references/golden-test-cards.md`, then use
-`uv run python scripts/find-test-cards.py --list-recipes` or a targeted
+`uv run python scripts/find_test_cards.py --list-recipes` or a targeted
 `--query` search. Prefer reusable utility cards from that reference first, then
 use the helper to find narrower one-off cards when the scenario really needs
 them.

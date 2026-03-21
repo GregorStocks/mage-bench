@@ -49,7 +49,6 @@ from scripts.analysis.blunder_analysis import (
 from scripts.analysis.blunder_eval_common import decision_index, is_forced
 from scripts.analysis.extract_decisions import extract_decisions
 
-
 GameData: TypeAlias = BuiltGameExport | GameExport
 
 

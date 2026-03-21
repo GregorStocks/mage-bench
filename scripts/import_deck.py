@@ -4,10 +4,10 @@
 Uses Scryfall API to resolve card names to set codes and collector numbers.
 
 Usage:
-    import-deck.py <mtggoldfish-url> <output-file>
+    import_deck.py <mtggoldfish-url> <output-file>
 
 Example:
-    import-deck.py https://www.mtggoldfish.com/deck/7616949 output.dck
+    import_deck.py https://www.mtggoldfish.com/deck/7616949 output.dck
 """
 
 import re

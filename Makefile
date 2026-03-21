@@ -147,7 +147,7 @@ regen-mcp-tools:
 run-client:
 	cd Mage.Client && mvn -q exec:java
 
-# Run the website dev server (port is set per-worktree in .env by worktree-setup.py)
+# Run the website dev server (port is set per-worktree in .env by worktree_setup.py)
 WEBSITE_PORT ?= 4321
 .PHONY: website
 website: leaderboard $(WEBSITE_NPM_STAMP)

@@ -52,20 +52,20 @@ def _write_issue(issues_dir: Path, name: str, data: dict, *, as_json5_text: str 
     (issues_dir / f"{name}.json5").write_text(text)
 
 
-query_issues = _import_script("query-issues")
-claim_issue = _import_script("claim-issue")
-finalize_issue_pr = _import_script("finalize-issue-pr")
-worktree_setup = _import_script("worktree-setup")
-import_deck = _import_script("import-deck")
-import_metagame = _import_script("import-metagame")
+query_issues = _import_script("query_issues")
+claim_issue = _import_script("claim_issue")
+finalize_issue_pr = _import_script("finalize_issue_pr")
+worktree_setup = _import_script("worktree_setup")
+import_deck = _import_script("import_deck")
+import_metagame = _import_script("import_metagame")
 conclude_season = _import_script("conclude_season")
 conclude_tournament = _import_script("conclude_tournament")
-game_gz_bootstrap = _import_script("game-gz-bootstrap")
-find_test_cards = _import_script("find-test-cards")
+game_gz_bootstrap = _import_script("game_gz_bootstrap")
+find_test_cards = _import_script("find_test_cards")
 
 
 # ===========================================================================
-# query-issues
+# query_issues
 # ===========================================================================
 
 
@@ -88,7 +88,7 @@ class TestQueryIssues:
 
         with (
             patch.object(query_issues, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["query-issues.py"]),
+            patch.object(sys, "argv", ["query_issues.py"]),
         ):
             query_issues.main()
 
@@ -106,7 +106,7 @@ class TestQueryIssues:
 
         with (
             patch.object(query_issues, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["query-issues.py"]),
+            patch.object(sys, "argv", ["query_issues.py"]),
         ):
             query_issues.main()
 
@@ -115,7 +115,7 @@ class TestQueryIssues:
 
 
 # ===========================================================================
-# claim-issue
+# claim_issue
 # ===========================================================================
 
 
@@ -153,13 +153,13 @@ class TestClaimIssue:
     def test_missing_issue_exits_2(self, tmp_path: Path) -> None:
         with (
             patch.object(claim_issue, "ISSUES_DIR", tmp_path),
-            patch.object(sys, "argv", ["claim-issue.py", "nonexistent"]),
+            patch.object(sys, "argv", ["claim_issue.py", "nonexistent"]),
             pytest.raises(SystemExit, match="2"),
         ):
             claim_issue.main()
 
     def test_no_args_exits_2(self) -> None:
-        with patch.object(sys, "argv", ["claim-issue.py"]), pytest.raises(SystemExit, match="2"):
+        with patch.object(sys, "argv", ["claim_issue.py"]), pytest.raises(SystemExit, match="2"):
             claim_issue.main()
 
     def test_master_branch_exits_2(self, tmp_path: Path) -> None:
@@ -171,7 +171,7 @@ class TestClaimIssue:
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-a.json5"]),
+            patch.object(sys, "argv", ["claim_issue.py", "bug-a.json5"]),
             patch.object(claim_issue, "run", return_value=branch_result),
             pytest.raises(SystemExit, match="2"),
         ):
@@ -208,7 +208,7 @@ class TestClaimIssue:
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch("subprocess.run") as mock_subprocess,
             pytest.raises(SystemExit, match="2"),
@@ -277,7 +277,7 @@ class TestClaimIssue:
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-b"]),
+            patch.object(sys, "argv", ["claim_issue.py", "bug-b"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
             patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
@@ -369,7 +369,7 @@ class TestClaimIssue:
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-b"]),
+            patch.object(sys, "argv", ["claim_issue.py", "bug-b"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
             patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
@@ -426,7 +426,7 @@ class TestClaimIssue:
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
             patch("subprocess.run") as mock_subprocess,
@@ -475,7 +475,7 @@ class TestClaimIssue:
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
             patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
@@ -531,7 +531,7 @@ class TestClaimIssue:
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
             patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
@@ -584,7 +584,7 @@ class TestClaimIssue:
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
             patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
@@ -598,7 +598,7 @@ class TestClaimIssue:
 
 
 # ===========================================================================
-# finalize-issue-pr
+# finalize_issue_pr
 # ===========================================================================
 
 
@@ -613,7 +613,7 @@ class TestFinalizeIssuePr:
 
 
 # ===========================================================================
-# worktree-setup
+# worktree_setup
 # ===========================================================================
 
 
@@ -633,7 +633,7 @@ class TestWorktreeSetup:
         shared_images: Path,
         main_worktree_root: Path | None = None,
     ):
-        """Common patches for worktree-setup tests."""
+        """Common patches for worktree_setup tests."""
         with (
             patch.object(worktree_setup, "PROJECT_ROOT", project_root),
             patch.object(worktree_setup, "SHARED_IMAGES", shared_images),
@@ -768,7 +768,7 @@ class TestWorktreeSetup:
 
 
 # ===========================================================================
-# import-deck
+# import_deck
 # ===========================================================================
 
 
@@ -903,7 +903,7 @@ class TestImportDeck:
 
 
 # ===========================================================================
-# find-test-cards
+# find_test_cards
 # ===========================================================================
 
 
@@ -950,7 +950,7 @@ class TestFindTestCards:
         assert "If you don't, it enters tapped." in summary
 
     def test_main_lists_recipes(self, capsys: pytest.CaptureFixture[str]) -> None:
-        with patch.object(sys, "argv", ["find-test-cards.py", "--list-recipes"]):
+        with patch.object(sys, "argv", ["find_test_cards.py", "--list-recipes"]):
             find_test_cards.main()
 
         out = capsys.readouterr().out
@@ -984,7 +984,7 @@ class TestFindTestCards:
                 sys,
                 "argv",
                 [
-                    "find-test-cards.py",
+                    "find_test_cards.py",
                     "--recipe",
                     "zero-mana-body",
                     "--limit",
@@ -1007,7 +1007,7 @@ class TestFindTestCards:
             patch.object(
                 sys,
                 "argv",
-                ["find-test-cards.py", "--query", "game:paper unique:cards t:artifact"],
+                ["find_test_cards.py", "--query", "game:paper unique:cards t:artifact"],
             ),
             pytest.raises(SystemExit, match="No cards found for query"),
         ):
@@ -1279,7 +1279,7 @@ class TestConcludeTournament:
 
 
 # ===========================================================================
-# import-metagame
+# import_metagame
 # ===========================================================================
 
 
@@ -1302,7 +1302,7 @@ class TestImportMetagame:
 
 
 # ===========================================================================
-# game-gz-bootstrap
+# game_gz_bootstrap
 # ===========================================================================
 
 
