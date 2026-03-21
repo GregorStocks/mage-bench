@@ -227,7 +227,7 @@ class TestComputeAftermathIndex:
             _snap(seq=1),
             _snap(seq=5),
         ]
-        # actionSeq=5, we need strictly greater, so snapshot seq=5 is not > 5
+        # action_seq=5, we need strictly greater, so snapshot seq=5 is not > 5
         decision = {"snapshotIndex": 0, "actionSeq": 4}
         assert compute_aftermath_index(decision, snapshots) == 1
 
@@ -306,8 +306,8 @@ class TestReverseMapAnnotations:
                 type="blunder",
                 severity="minor",
                 description="",
-                actionTaken="",
-                betterLine="",
+                action_taken="",
+                better_line="",
             )
 
 
@@ -409,14 +409,14 @@ def _ann(
 ) -> Annotation:
     """Create a minimal Annotation for testing."""
     return Annotation(
-        decisionIndex=decision_index,
+        decision_index=decision_index,
         player=player,
         type="blunder",
         severity=severity,
         description=description,
-        actionTaken=action_taken,
-        betterLine=better_line,
-        snapshotIndex=snapshot_index,
+        action_taken=action_taken,
+        better_line=better_line,
+        snapshot_index=snapshot_index,
     )
 
 
@@ -475,7 +475,7 @@ class TestLookupAnnotationForDecision:
         annotations = [_ann(1, "Alice", snapshot_index=0)]
         result = lookup_annotation_for_decision(decision, annotations)
         assert result is not None
-        assert result.decisionIndex == 1
+        assert result.decision_index == 1
 
 
 # --- merge_into_ground_truth ---

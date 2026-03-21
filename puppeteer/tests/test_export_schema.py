@@ -125,7 +125,7 @@ def _dataclass_keys(
     ignored = ignored_fields or set()
     renamed = renames or {}
     return {
-        renamed.get(field.name, field.name)
+        renamed.get(field.name, field.metadata.get("json_key", field.name))
         for field in fields(cls)
         if not field.name.startswith("_") and field.name not in ignored
     }
@@ -140,7 +140,7 @@ def _dataclass_required_keys(
     ignored = ignored_fields or set()
     renamed = renames or {}
     return {
-        renamed.get(field.name, field.name)
+        renamed.get(field.name, field.metadata.get("json_key", field.name))
         for field in fields(cls)
         if not field.name.startswith("_")
         and field.name not in ignored
@@ -494,7 +494,7 @@ class TestExportSchema:
         _assert_dataclass_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_dataclass_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_dataclass_matches_schema(Annotation, schema=defs["Annotation"])
-        _assert_dataclass_matches_schema(Decision, schema=defs["Decision"], extra_fields={"actionSeq"})
+        _assert_dataclass_matches_schema(Decision, schema=defs["Decision"], extra_fields={"action_seq"})
         _assert_dataclass_matches_schema(GameError, schema=defs["GameError"])
         _assert_dataclass_matches_schema(CardMetadata, schema=defs["CardMetadata"])
         _assert_dataclass_matches_schema(PilotContext, schema=defs["PilotContext"])
@@ -527,7 +527,7 @@ class TestExportSchema:
         game = _parse_export_path(path)
 
         assert game.version == 8
-        assert game.players[0].toolCallsOk == 3
+        assert game.players[0].tool_calls_ok == 3
         assert game.annotations == []
 
     def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
@@ -868,8 +868,8 @@ class TestExportSchema:
 
         assert game.decisions is not None
         assert isinstance(game.decisions[0], Decision)
-        assert game.decisions[0].actionType == ""
-        assert game.decisions[0].responseType == ""
+        assert game.decisions[0].action_type == ""
+        assert game.decisions[0].response_type == ""
         assert game.decisions[0].message == ""
 
     def test_loader_coerces_decision_support_records_to_dataclasses(self, tmp_path: Path) -> None:
@@ -936,9 +936,9 @@ class TestExportSchema:
         assert choice.name == "Memnite"
         assert choice.extras["power"] == "1"
         assert isinstance(pilot_context, PilotContext)
-        assert pilot_context.landDropsUsed == 0
+        assert pilot_context.land_drops_used == 0
         assert pilot_context.has_field("combatPhase")
-        assert pilot_context.combatPhase is None
+        assert pilot_context.combat_phase is None
         assert pilot_context.extras["manaPool"] == {"WHITE": 1}
         assert isinstance(item, MultiAmountItem)
         assert item.description == "Assign damage to Memnite"
@@ -982,7 +982,7 @@ class TestExportSchema:
         cloned = copy.deepcopy(built)
         json_ready = game_export_to_jsonable(built)
 
-        assert isinstance(built.llmEvents[0], GameStartEvent)
+        assert isinstance(built.llm_events[0], GameStartEvent)
         assert built.decisions is not None
         assert isinstance(built.decisions[0]["choices"][0], Choice)
         assert cloned.decisions is not None
@@ -1084,9 +1084,9 @@ class TestExportSchema:
             name="Alice",
             type="pilot",
             model="test/model",
-            toolCallsOk=0,
-            toolCallsFailed=0,
-            thinkingTimeSecs=0.0,
+            tool_calls_ok=0,
+            tool_calls_failed=0,
+            thinking_time_secs=0.0,
         )
         assert is_pilot_player(player)
 
@@ -1094,9 +1094,9 @@ class TestExportSchema:
         player = Player(
             name="Bot",
             type="cpu",
-            toolCallsOk=0,
-            toolCallsFailed=0,
-            thinkingTimeSecs=0.0,
+            tool_calls_ok=0,
+            tool_calls_failed=0,
+            thinking_time_secs=0.0,
         )
         assert not is_pilot_player(player)
 
@@ -1104,9 +1104,9 @@ class TestExportSchema:
         player = Player(
             name="Alice",
             type="pilot",
-            toolCallsOk=0,
-            toolCallsFailed=0,
-            thinkingTimeSecs=0.0,
+            tool_calls_ok=0,
+            tool_calls_failed=0,
+            thinking_time_secs=0.0,
         )
         with pytest.raises(AssertionError, match="pilot player missing model"):
             is_pilot_player(player)

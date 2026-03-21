@@ -46,6 +46,9 @@ _TEST_PRICES = {
 
 
 def _make_decision(**overrides: object) -> Decision:
+    json_key_by_field = {
+        field.name: field.metadata.get("json_key", field.name) for field in dataclasses.fields(Decision)
+    }
     d: dict[str, object] = {
         "index": 0,
         "snapshotIndex": 0,
@@ -68,7 +71,7 @@ def _make_decision(**overrides: object) -> Decision:
         "subsequentActions": ["Alice plays Mountain"],
         "actionSeq": 1,
     }
-    d.update(overrides)
+    d.update({str(json_key_by_field.get(field_name, field_name)): value for field_name, value in overrides.items()})
     return Decision.from_dict(d)
 
 
@@ -368,19 +371,19 @@ class TestChosenDisplay:
         assert _chosen_display(d) == "False"
 
     def test_none_choice_no_args(self) -> None:
-        d = _make_decision(chosen=None, chosenArgs={})
+        d = _make_decision(chosen=None, chosen_args={})
         assert _chosen_display(d) == "(no response)"
 
     def test_none_choice_with_attackers(self) -> None:
-        d = _make_decision(chosen=None, chosenArgs={"attackers": "p5,p12"})
+        d = _make_decision(chosen=None, chosen_args={"attackers": "p5,p12"})
         assert _chosen_display(d) == "Attack with p5, p12"
 
     def test_none_choice_with_blockers(self) -> None:
-        d = _make_decision(chosen=None, chosenArgs={"blockers": "p3:p64"})
+        d = _make_decision(chosen=None, chosen_args={"blockers": "p3:p64"})
         assert _chosen_display(d) == "p3 blocks p64"
 
     def test_none_choice_with_text(self) -> None:
-        d = _make_decision(chosen=None, chosenArgs={"text": "Green"})
+        d = _make_decision(chosen=None, chosen_args={"text": "Green"})
         assert _chosen_display(d) == "Text: Green"
 
     def test_out_of_range(self) -> None:
@@ -423,7 +426,7 @@ class TestCollectCardNames:
 
     def test_collects_from_llm_event_combat(self) -> None:
         game = GameExport.from_dict(_make_game())
-        game.llmEvents = [
+        game.llm_events = [
             ToolCallEvent(
                 type="tool_call",
                 player="Alice",
@@ -466,7 +469,7 @@ class TestEvalOneDecision:
             0,
         )
 
-        decision = _make_decision(snapshotIndex=0, actionSeq=1)
+        decision = _make_decision(snapshot_index=0, action_seq=1)
         snapshots = [
             _make_snapshot(seq=1),
             _make_snapshot(seq=1),
@@ -489,7 +492,7 @@ class TestEvalOneDecision:
 
         assert parsed_ok is True
         assert len(annotations) == 1
-        assert annotations[0].snapshotIndex == 3
+        assert annotations[0].snapshot_index == 3
 
 
 # --- Integration: main with mocked API ---

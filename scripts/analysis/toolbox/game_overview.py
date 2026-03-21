@@ -10,15 +10,15 @@ def main(gz_path: str) -> None:
     d = load_game(gz_path)
 
     print(f"Game: {d.id}")
-    print(f"Format: {d.deckType} ({d.gameType})")
-    print(f"Turns: {d.totalTurns}")
+    print(f"Format: {d.deck_type} ({d.game_type})")
+    print(f"Turns: {d.total_turns}")
     print(f"Winner: {d.winner}")
     for p in d.players:
-        cost = p.totalCostUsd or 0
-        ok = p.toolCallsOk
-        fail = p.toolCallsFailed
-        think = p.thinkingTimeSecs
-        effort = p.reasoningEffort
+        cost = p.total_cost_usd or 0
+        ok = p.tool_calls_ok
+        fail = p.tool_calls_failed
+        think = p.thinking_time_secs
+        effort = p.reasoning_effort
         model: str = p.model or "?"
         if effort:
             model = f"{model} ({effort})"

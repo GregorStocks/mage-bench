@@ -164,11 +164,11 @@ def _format_decisions(decisions: Sequence[Decision]) -> str:
         phase = decision.phase or "PREGAME"
         choices = ", ".join(_format_choice(choice) for choice in decision.choices)
         chosen = _renderer_chosen_display(
-            decision.chosen, decision.chosenArgs, decision.choices
+            decision.chosen, decision.chosen_args, decision.choices
         )
         lines = [
             (
-                f"[Decision {decision.index}, snapshot={decision.snapshotIndex}] "
+                f"[Decision {decision.index}, snapshot={decision.snapshot_index}] "
                 f"Turn {decision.turn} {phase} - {decision.player}"
             ),
             f"  Message: {decision.message}" if decision.message else "  Message:",
@@ -177,7 +177,7 @@ def _format_decisions(decisions: Sequence[Decision]) -> str:
         ]
         own_actions = [
             action
-            for action in decision.subsequentActions
+            for action in decision.subsequent_actions
             if action.startswith(decision.player)
         ]
         if own_actions:
@@ -1391,7 +1391,7 @@ def _dry_run(gz_path: str) -> None:
     if existing:
         print(f"\n=== Existing v5 annotations ({len(existing)}) ===")
         for a in existing:
-            print(f"  decision={a.decisionIndex} {a.player} {a.severity.upper()}")
+            print(f"  decision={a.decision_index} {a.player} {a.severity.upper()}")
             print(
                 f"       {a.description[:120] if a.description else '(no description)'}"
             )

@@ -41,7 +41,7 @@ def find_outdated_games(limit: int) -> list[str]:
         data = load_game(game_path)
         if (
             data.annotations is None
-            or data.blunderScriptVersion < BLUNDER_SCRIPT_VERSION
+            or data.blunder_script_version < BLUNDER_SCRIPT_VERSION
         ):
             outdated.append(str(game_path))
     return outdated
@@ -67,7 +67,7 @@ def main() -> None:
     if args.game:
         gz = str(game_path_for_id(args.game))
         data = load_game(gz)
-        current_v = data.blunderScriptVersion if data.annotations is not None else 0
+        current_v = data.blunder_script_version if data.annotations is not None else 0
         old_count = len(data.annotations) if data.annotations is not None else 0
         print(f"{args.game}: v{current_v} -> v{BLUNDER_SCRIPT_VERSION}")
         print(f"{'=' * 60}")
@@ -90,7 +90,7 @@ def main() -> None:
     for gz in games:
         game_id = Path(gz).stem.replace(".json", "")
         data = load_game(gz)
-        current_v = data.blunderScriptVersion if data.annotations is not None else 0
+        current_v = data.blunder_script_version if data.annotations is not None else 0
         print(f"  {game_id}: v{current_v} -> v{BLUNDER_SCRIPT_VERSION}")
 
     print()

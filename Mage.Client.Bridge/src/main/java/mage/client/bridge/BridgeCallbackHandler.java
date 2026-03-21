@@ -5,6 +5,8 @@ import mage.client.bridge.processor.BridgeCallbackDispatcher;
 import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
 import mage.client.bridge.processor.BridgeCallbackEvent;
 import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgePassPriorityFlow;
+import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
@@ -67,6 +69,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
@@ -97,6 +101,7 @@ public class BridgeCallbackHandler {
     private final BridgeCardFormatter cardFormatter;
     private final BridgeGameStateBuilder gameStateBuilder;
     private final BridgeOracleTextService oracleTextService;
+    private final BridgePassPriorityFlowContext passPriorityFlowContext;
     // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
     // while MCP methods still read transitional shared fields until step 3 lands.
     private final BridgeProcessor processor;
@@ -107,6 +112,7 @@ public class BridgeCallbackHandler {
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
     private volatile PendingAction pendingAction = null;
+    private BridgePassPriorityFlow pendingPassPriorityFlow = null;
     private final Object actionLock = new Object(); // For wait_for_action blocking
     private volatile UUID currentGameId = null;
     private volatile UUID currentPlayerId = null; // retained after GAME_OVER for postgame fetches
@@ -222,7 +228,6 @@ public class BridgeCallbackHandler {
     // choose_action blocks indefinitely (like pass_priority) after taking an
     // action, waiting for the next callback so the LLM always wakes up to a
     // pending decision.  Terminated by game-over / zombie detection.
-    private static final long ZOMBIE_GAME_TIMEOUT_MS = 60 * 60 * 1000; // no actionable callback for 60min = zombie
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter TIME_FMT =
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX");
@@ -233,6 +238,7 @@ public class BridgeCallbackHandler {
         this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
         this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
+        this.passPriorityFlowContext = createPassPriorityFlowContext();
         BridgeCallbackDispatcher dispatcher = new BridgeCallbackDispatcher(new BridgeCallbackDispatcherContext() {
             @Override
             public String nonCurrentGameCallbackIgnoreReason(UUID callbackGameId, ClientCallbackMethod method) {
@@ -337,6 +343,202 @@ public class BridgeCallbackHandler {
         });
         this.processor = new BridgeProcessor(client.getUsername(), logger, dispatcher::process);
         this.processor.start();
+    }
+
+    // TODO: Delete this adapter once processor-owned state/helpers move out of
+    // BridgeCallbackHandler. Processor flows should depend on processor-local
+    // state/services, not a broad facade back into the handler.
+    private BridgePassPriorityFlowContext createPassPriorityFlowContext() {
+        return new BridgePassPriorityFlowContext() {
+            @Override
+            public String username() {
+                return client.getUsername();
+            }
+
+            @Override
+            public PendingAction currentPendingAction() {
+                return pendingAction;
+            }
+
+            @Override
+            public PendingAction currentDecisionAction() {
+                return BridgeCallbackHandler.this.currentDecisionAction();
+            }
+
+            @Override
+            public PendingAction resolvePassPriorityAction(PendingAction action) {
+                DecisionBoundaryTransition transition =
+                    transitionToDecisionBoundary(action, "passPriority");
+                return transition.status() == DecisionBoundaryStatus.READY ? transition.action() : null;
+            }
+
+            @Override
+            public GameView preparePassPriorityActionView(PendingAction action) {
+                if (action.data() instanceof GameClientMessage gcm) {
+                    GameView gv = gcm.getGameView();
+                    if (gv != null) {
+                        updateLastGameView(gv, "passPriority:" + action.method().name());
+                        int turn = gv.getTurn();
+                        if (turn != lastTurnNumber) {
+                            lastTurnNumber = turn;
+                            failedManaCasts.clear();
+                            interactionsThisTurn = 0;
+                            poolManaAttempts = 0;
+                            poolManaPayingForId = null;
+                            manaPlan = null;
+                            manaPlanAbilityIndex = null;
+                        }
+                    }
+                }
+                if (action.data() instanceof GameClientMessage gcm) {
+                    return gcm.getGameView();
+                }
+                return lastGameView;
+            }
+
+            @Override
+            public int interactionsThisTurn() {
+                return interactionsThisTurn;
+            }
+
+            @Override
+            public int maxInteractionsPerTurn() {
+                return maxInteractionsPerTurn;
+            }
+
+            @Override
+            public void executeDefaultAction() {
+                BridgeCallbackHandler.this.executeDefaultAction();
+            }
+
+            @Override
+            public String detectCombatSelect(PendingAction action) {
+                return BridgeCallbackHandler.this.detectCombatSelect(action);
+            }
+
+            @Override
+            public ActionResult pendingActionResult(PendingAction action, String stopReason, Long boardCursorParam) {
+                return BridgeCallbackHandler.this.pendingActionResult(action, stopReason, boardCursorParam);
+            }
+
+            @Override
+            public ActionResult pendingActionResult(
+                    PendingAction action,
+                    String stopReason,
+                    Long boardCursorParam,
+                    Consumer<ActionResult> customizer) {
+                return BridgeCallbackHandler.this.pendingActionResult(action, stopReason, boardCursorParam, customizer);
+            }
+
+            @Override
+            public ActionResult stepYieldResult(PendingAction action, GameView gameView, String stopReason, Long boardCursorParam) {
+                return BridgeCallbackHandler.this.stepYieldResult(action, gameView, stopReason, boardCursorParam);
+            }
+
+            @Override
+            public ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
+                return BridgeCallbackHandler.this.stackResolvedResult(action, boardCursorParam);
+            }
+
+            @Override
+            public UUID lowestStackObjectId(GameView gameView) {
+                return BridgeCallbackHandler.this.lowestStackObjectId(gameView);
+            }
+
+            @Override
+            public boolean stackContains(GameView gameView, UUID stackObjectId) {
+                return BridgeCallbackHandler.this.stackContains(gameView, stackObjectId);
+            }
+
+            @Override
+            public boolean clearPendingActionIfCurrent(PendingAction action) {
+                return BridgeCallbackHandler.this.clearPendingActionIfCurrent(action);
+            }
+
+            @Override
+            public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
+                BridgeCallbackHandler.this.sendBooleanOrDie(gameId, data, sendContext);
+            }
+
+            @Override
+            public UUID currentGameId() {
+                return currentGameId;
+            }
+
+            @Override
+            public GameView lastGameView() {
+                return lastGameView;
+            }
+
+            @Override
+            public int lastTurnNumber() {
+                return lastTurnNumber;
+            }
+
+            @Override
+            public int activeGamesSize() {
+                return activeGames.size();
+            }
+
+            @Override
+            public boolean superseded() {
+                return superseded;
+            }
+
+            @Override
+            public boolean playerDead() {
+                return playerDead;
+            }
+
+            @Override
+            public boolean gameEverStarted() {
+                return gameEverStarted;
+            }
+
+            @Override
+            public boolean clientRunning() {
+                return client.isRunning();
+            }
+
+            @Override
+            public long lastActionableCallbackAt() {
+                return lastActionableCallbackAt;
+            }
+
+            @Override
+            public long lastCallbackReceivedAt() {
+                return lastCallbackReceivedAt;
+            }
+
+            @Override
+            public void declareZombieGame(long absoluteIdleMs) {
+                logger.error("[" + client.getUsername() + "] Zombie game detected: "
+                    + "no actionable callback for " + absoluteIdleMs + "ms, declaring game dead");
+                logError("Zombie game detected: no actionable callback for " + absoluteIdleMs + "ms");
+                playerDead = true;
+            }
+
+            @Override
+            public boolean failedManaCast(UUID objectId) {
+                return failedManaCasts.contains(objectId);
+            }
+
+            @Override
+            public void finalizePassPriorityResult(
+                    BridgePassPriorityFlow flow,
+                    String until,
+                    int actionsPassed,
+                    PendingAction action,
+                    GameView view,
+                    ActionResult result,
+                    boolean actionPending) {
+                if (pendingPassPriorityFlow == flow) {
+                    pendingPassPriorityFlow = null;
+                }
+                attachUnseenChat(result);
+                logPassPriorityReturn(until, actionsPassed, action, view, result, actionPending);
+            }
+        };
     }
 
     /**
@@ -2611,9 +2813,9 @@ public class BridgeCallbackHandler {
      * the processor deadlocks waiting on the very callbacks it is supposed to
      * consume.
      *
-     * TODO: Remove this once pass/choose flows become split-phase processor
-     * requests that suspend via processor-owned state and future completion
-     * rather than monopolizing the processor thread.
+     * TODO: Remove this once the remaining choose_action / batch-combat flows
+     * become split-phase processor requests that suspend via processor-owned
+     * state and future completion rather than monopolizing the processor thread.
      */
     private boolean waitForCallbackProgress(long timeoutMs) {
         if (processor.isProcessorThread()) {
@@ -3424,27 +3626,6 @@ public class BridgeCallbackHandler {
         }
     }
 
-    // Cross-turn yield values handled client-side.  These used to be server-side
-    // yields (sendPlayerAction → skip()), but skip() bypasses waitResponseOpen()
-    // which causes stale responses to answer the wrong waitForResponse(), producing
-    // nondeterministic auto-passes.  Client-side handling eliminates the race.
-    private static final Set<String> CLIENT_SIDE_YIELDS = Set.of(
-        "end_of_turn", "stack_resolved", "my_turn"
-    );
-
-    // Mapping from "until" parameter values to PhaseStep enum constants (client-side yield).
-    // Only steps where players normally receive priority are exposed.
-    private static final Map<String, PhaseStep> STEP_PHASES = Map.of(
-        "upkeep", PhaseStep.UPKEEP,
-        "draw", PhaseStep.DRAW,
-        "precombat_main", PhaseStep.PRECOMBAT_MAIN,
-        "begin_combat", PhaseStep.BEGIN_COMBAT,
-        "declare_attackers", PhaseStep.DECLARE_ATTACKERS,
-        "declare_blockers", PhaseStep.DECLARE_BLOCKERS,
-        "end_combat", PhaseStep.END_COMBAT,
-        "postcombat_main", PhaseStep.POSTCOMBAT_MAIN
-    );
-
     private void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
         ActionResult choices = buildActionChoices(action, boardCursorParam, false);
         if (!Boolean.TRUE.equals(choices.action_pending)) {
@@ -3537,454 +3718,85 @@ public class BridgeCallbackHandler {
      * immediately without a separate round-trip.
      */
     public ActionResult passPriority(String until, Long boardCursorParam) {
-        return processor.submit(BridgeCommand.of(() -> {
-            try {
-                return passPriorityImpl(until, boardCursorParam);
-            } catch (ResponseDeliveryException e) {
+        BridgePassPriorityFlow flow = processor.submit(BridgeCommand.of(() -> {
+            if (pendingPassPriorityFlow != null) {
+                return null;
+            }
+            return startPassPriorityFlow(until, boardCursorParam);
+        }));
+
+        if (flow == null) {
+            return processor.submit(BridgeCommand.of(() -> {
                 var result = new ActionResult();
-                result.action_pending = false;
-                result.stop_reason = "game_over";
-                result.error = e.getMessage();
+                result.error = "pass_priority already pending";
                 attachUnseenChat(result);
                 return result;
-            }
-        }));
-    }
-
-    private ActionResult passPriorityImpl(String until, Long boardCursorParam) {
-        interactionsThisTurn++;
-
-        int actionsPassed = 0;
-        int lastSeenGameSeq = 0; // deterministic game_seq from actionable callbacks (not lastGameView)
-
-        // Route the "until" parameter: check step phases first, then cross-turn yields
-        boolean yieldActive = false;
-        PhaseStep targetStep = null;
-        boolean yieldUntilMyTurn = false;
-        boolean yieldUntilEndOfTurn = false;
-        boolean yieldUntilStackResolved = false;
-        UUID yieldUntilStackResolvedObjectId = null;
-        int yieldStartTurn = lastTurnNumber;
-        if (until != null) {
-            targetStep = STEP_PHASES.get(until);
-            if (targetStep != null) {
-                // Client-side step yield: do NOT sendPlayerAction.
-                yieldActive = true;
-            } else if (CLIENT_SIDE_YIELDS.contains(until)) {
-                UUID gameId = currentGameId;
-                if (gameId == null) {
-                    var result = new ActionResult();
-                    result.error = "No active game for yield";
-                    logPassPriorityReturn(until, actionsPassed, null, lastGameView, result, false);
-                    return result;
-                }
-                // If a real non-priority decision is already pending, return it
-                // instead of arming a yield that would auto-pass through it.
-                // This guard must run BEFORE the stack_resolved fast-path below,
-                // which otherwise returns early with stop_reason="stack_resolved"
-                // instead of "non_priority_action" when the stack is empty.
-                PendingAction currentAction = currentDecisionAction();
-                if (currentAction != null
-                        && currentAction.method() != ClientCallbackMethod.GAME_SELECT) {
-                    logger.info("[" + client.getUsername()
-                        + "] passPriority: until=" + until
-                        + " blocked by pending " + currentAction.method()
-                        + " — returning choices instead of auto-passing");
-                    ActionResult result = pendingActionResult(
-                        currentAction,
-                        "non_priority_action",
-                        boardCursorParam
-                    );
-                    logPassPriorityReturn(
-                        until,
-                        actionsPassed,
-                        currentAction,
-                        extractGameView(currentAction.data()),
-                        result,
-                        true);
-                    return result;
-                }
-                // For stack_resolved: only arm the client-side yield when there
-                // is actually a stack object to watch. Otherwise this falls
-                // through to normal one-pass priority advancement.
-                boolean armedClientSideYield = false;
-                if ("stack_resolved".equals(until)) {
-                    GameView gv = lastGameView;
-                    UUID lowestStackObjectId = lowestStackObjectId(gv);
-                    if (lowestStackObjectId != null) {
-                        yieldUntilStackResolved = true;
-                        yieldUntilStackResolvedObjectId = lowestStackObjectId;
-                        armedClientSideYield = true;
-                    }
-                } else if ("my_turn".equals(until)) {
-                    yieldUntilMyTurn = true;
-                    armedClientSideYield = true;
-                } else if ("end_of_turn".equals(until)) {
-                    yieldUntilEndOfTurn = true;
-                    armedClientSideYield = true;
-                }
-                // Auto-pass the current priority locally via sendPlayerBoolean
-                // instead of sendPlayerAction+skip().  This avoids the race where
-                // skip() bypasses waitResponseOpen() and stale responses answer
-                // the wrong waitForResponse().
-                //
-                // Only auto-pass if there IS a pending GAME_SELECT action.
-                // Without this guard, calling pass_priority when no callback has
-                // arrived yet sends a stale sendPlayerBoolean(false) that the
-                // XMage server consumes for the NEXT query — creating a one-response
-                // offset between bridge and server.  On slow CI machines this race
-                // causes golden test flakes (missing snapshots, timeouts).
-                if (armedClientSideYield && currentAction != null) {
-                    lastSeenGameSeq = currentAction.gameSeq();
-                    synchronized (actionLock) {
-                        pendingAction = null;
-                    }
-                    sendBooleanOrDie(gameId, false, "passPriority:yield_arm");
-                    // The yield consumed the current priority — count it as a pass.
-                    actionsPassed++;
-                }
-                yieldActive = armedClientSideYield;
-            } else {
-                var allValues = new ArrayList<>(STEP_PHASES.keySet());
-                allValues.addAll(CLIENT_SIDE_YIELDS);
-                var result = new ActionResult();
-                result.error = "Invalid until value: " + until
-                    + ". Valid values: " + String.join(", ", allValues);
-                logPassPriorityReturn(until, actionsPassed, null, lastGameView, result, false);
-                return result;
-            }
+            }));
         }
-
-        long startTime = System.currentTimeMillis();
-        long lastProgressLogAt = startTime;
-        int waitLoops = 0;
-        logger.info("[" + client.getUsername() + "] passPriority ENTER: until=" + until
-            + " yieldActive=" + yieldActive
-            + " pendingAction=" + (pendingAction != null)
-            + " activeGames=" + activeGames.size()
-            + " lastActionableCallbackAt=" + lastActionableCallbackAt);
 
         while (true) {
-            PendingAction action = pendingAction;
-            if (action != null) {
-                lastSeenGameSeq = action.gameSeq();
-                DecisionBoundaryTransition transition =
-                    transitionToDecisionBoundary(action, "passPriority");
-                if (transition.status() == DecisionBoundaryStatus.AUTO_HANDLED) {
-                    actionsPassed++;
-                    continue;
+            try {
+                return flow.awaitResult(200);
+            } catch (TimeoutException e) {
+                processor.submit(BridgeCommand.of(() -> {
+                    tickPendingPassPriorityFlow(flow);
+                    return null;
+                }));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return processor.submit(BridgeCommand.of(() -> interruptPassPriorityFlow(flow)));
+            } catch (ExecutionException e) {
+                Throwable cause = e.getCause();
+                if (cause instanceof RuntimeException runtimeException) {
+                    throw runtimeException;
                 }
-                if (transition.status() == DecisionBoundaryStatus.CHANGED) {
-                    continue;
-                }
-                action = transition.action();
-
-                ClientCallbackMethod method = action.method();
-
-                // Update game view and reset loop counter on turn change.
-                // This MUST run before the loop detection check below, otherwise
-                // the `continue` in the loop detection branch skips it and the
-                // counter never resets, permanently disabling the player.
-                // Check any callback carrying GameView, not just GAME_SELECT —
-                // a new turn can start with upkeep triggers (GAME_TARGET, GAME_ASK, etc.).
-                if (action.data() instanceof GameClientMessage gcm) {
-                    GameView gv = gcm.getGameView();
-                    if (gv != null) {
-                        updateLastGameView(gv, "passPriority:" + action.method().name());
-                        int turn = gv.getTurn();
-                        if (turn != lastTurnNumber) {
-                            lastTurnNumber = turn;
-                            failedManaCasts.clear();
-                            interactionsThisTurn = 0;
-                            poolManaAttempts = 0;
-                            poolManaPayingForId = null;
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
-                        }
-                    }
-                }
-
-                GameView actionView = (action.data() instanceof GameClientMessage gcm2)
-                    ? gcm2.getGameView() : lastGameView;
-
-                // Step-specific yield: stop on any later turn, even if the target
-                // step was skipped by auto-passes or never arrived as a callback.
-                if (targetStep != null && lastTurnNumber != yieldStartTurn) {
-                    ActionResult result = stepYieldResult(action, actionView, "step_not_reached", boardCursorParam);
-                    logPassPriorityReturn(until, actionsPassed, action, actionView, result, true);
-                    return result;
-                }
-
-                // Generic loop detection: too many interactions this turn — auto-pass everything
-                if (interactionsThisTurn > maxInteractionsPerTurn) {
-                    logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
-                        + " interactions on turn " + lastTurnNumber + "), auto-passing " + method.name());
-                    // Not a critical error — LLM is stuck in a loop, not a code bug
-                    executeDefaultAction();
-                    actionsPassed++;
-                    continue;
-                }
-
-                // Non-GAME_SELECT always needs LLM input — return immediately
-                if (method != ClientCallbackMethod.GAME_SELECT) {
-                    ActionResult result = pendingActionResult(
-                        action,
-                        "non_priority_action",
-                        boardCursorParam
-                    );
-                    logPassPriorityReturn(
-                        until,
-                        actionsPassed,
-                        action,
-                        extractGameView(action.data()),
-                        result,
-                        true);
-                    return result;
-                }
-
-                // Combat selections (declare attackers/blockers) always need LLM input
-                String combatType = detectCombatSelect(action);
-                if (combatType != null) {
-                    ActionResult result = pendingActionResult(
-                        action,
-                        "combat",
-                        boardCursorParam,
-                        built -> built.combat_phase = combatType
-                    );
-                    logPassPriorityReturn(
-                        until,
-                        actionsPassed,
-                        action,
-                        extractGameView(action.data()),
-                        result,
-                        true);
-                    return result;
-                }
-
-                // Client-side cross-turn yield: my_turn
-                // Auto-pass all callbacks during the opponent's turn.  Once it's
-                // our turn, clear the flag and fall through to the playable-cards
-                // check (which will return if there are meaningful choices).
-                if (yieldUntilMyTurn) {
-                    GameView gv = actionView;
-                    if (gv != null && client.getUsername().equals(gv.getActivePlayerName())) {
-                        // We've become the active player — stop yielding
-                        yieldUntilMyTurn = false;
-                        // Fall through to playable-cards check below
-                    } else {
-                        // Not our turn — auto-pass
-                        synchronized (actionLock) {
-                            if (pendingAction == action) {
-                                pendingAction = null;
-                            }
-                        }
-                        sendBooleanOrDie(action.gameId(), false, "passPriority:yield_my_turn");
-                        actionsPassed++;
-                        continue;
-                    }
-                }
-
-                // Client-side yield: end_of_turn
-                // Auto-pass all callbacks until the end of turn step is reached.
-                if (yieldUntilEndOfTurn) {
-                    GameView gv = actionView;
-                    PhaseStep step = gv != null ? gv.getStep() : null;
-                    int turnNum = gv != null ? gv.getTurn() : yieldStartTurn;
-                    if (step == PhaseStep.END_TURN || step == PhaseStep.CLEANUP
-                            || turnNum > yieldStartTurn) {
-                        // End of turn reached (or turn advanced past END_TURN/CLEANUP
-                        // due to server-side skip settings) — return immediately so we
-                        // don't fall through to the playable-cards check, which loops
-                        // forever for players with no playable non-mana cards.
-                        String reason = (turnNum > yieldStartTurn)
-                            ? "turn_advanced" : "end_of_turn";
-                        ActionResult result = pendingActionResult(
-                            action, reason, boardCursorParam);
-                        logPassPriorityReturn(
-                            until, actionsPassed, action, actionView, result, true);
-                        return result;
-                    } else {
-                        // Not end of turn yet — auto-pass
-                        synchronized (actionLock) {
-                            if (pendingAction == action) {
-                                pendingAction = null;
-                            }
-                        }
-                        sendBooleanOrDie(action.gameId(), false, "passPriority:yield_end_of_turn");
-                        actionsPassed++;
-                        continue;
-                    }
-                }
-
-                // Client-side cross-turn yield: stack_resolved
-                // Watch the stack objects that existed when the yield started.
-                // Once the lowest of those objects is gone, the next actionable
-                // callback should wake the model instead of auto-passing again.
-                if (yieldUntilStackResolved) {
-                    GameView gv = actionView;
-                    if (!stackContains(gv, yieldUntilStackResolvedObjectId)) {
-                        ActionResult result = stackResolvedResult(action, boardCursorParam);
-                        logPassPriorityReturn(until, actionsPassed, action, gv, result, true);
-                        return result;
-                    }
-                    // A watched stack object is still present — keep auto-passing.
-                }
-
-                // Step-specific yield: check if we've reached the target step
-                // Use the action's own GameView — lastGameView can be clobbered by GAME_UPDATE.
-                if (targetStep != null) {
-                    GameView gv = actionView;
-                    if (gv != null && gv.getStep() != null
-                            && (gv.getStep() == targetStep || gv.getStep().isAfter(targetStep))) {
-                        // If a later same-turn callback overtook the target-step
-                        // priority, stop immediately instead of auto-passing into
-                        // an even later prompt.
-                        ActionResult result = stepYieldResult(action, gv, "reached_step", boardCursorParam);
-                        logPassPriorityReturn(until, actionsPassed, action, gv, result, true);
-                        return result;
-                    }
-                    // Not at target step: auto-pass (skip playable-cards check)
-                    synchronized (actionLock) {
-                        if (pendingAction == action) {
-                            pendingAction = null;
-                        }
-                    }
-                    sendBooleanOrDie(action.gameId(), false, "passPriority:step_yield");
-                    actionsPassed++;
-                    continue;
-                }
-
-                // Check if there are playable cards (non-mana-only, excluding failed casts)
-                // Use the action's own GameView, not lastGameView — a concurrent GAME_UPDATE
-                // can overwrite lastGameView with a view from a different phase (forward overwrite).
-                GameView viewForPlayableCheck = ((GameClientMessage) action.data()).getGameView();
-                PlayableObjectsList playable = viewForPlayableCheck != null ? viewForPlayableCheck.getCanPlayObjects() : null;
-                boolean hasPlayableCards = false;
-                if (playable != null && !playable.isEmpty()) {
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : playable.getObjects().entrySet()) {
-                        if (failedManaCasts.contains(entry.getKey())) {
-                            continue;
-                        }
-                        PlayableObjectStats stats = entry.getValue();
-                        List<String> abilityNames = stats.getPlayableAbilityNames();
-                        List<String> manaNames = stats.getAllManaAbilityNames();
-                        boolean allMana = !abilityNames.isEmpty() && manaNames.size() == abilityNames.size();
-                        if (!allMana) {
-                            hasPlayableCards = true;
-                            break;
-                        }
-                    }
-                }
-
-                // Determinism debugging: always log the playable-cards check result
-                // to diagnose both Mode 1 (game_seq drift) and Mode 2 (phase divergence).
-                {
-                    int cbSeq = action.gameSeq();
-                    int viewSeq = viewForPlayableCheck != null ? viewForPlayableCheck.getGameSeq() : -1;
-                    String viewStep = viewForPlayableCheck != null && viewForPlayableCheck.getStep() != null
-                        ? viewForPlayableCheck.getStep().toString() : "null";
-                    logger.debug("[" + client.getUsername() + "] passPriority playable check:"
-                        + " callback_seq=" + cbSeq
-                        + " view_seq=" + viewSeq
-                        + " view_step=" + viewStep
-                        + " hasPlayable=" + hasPlayableCards
-                        + " actionsPassed=" + actionsPassed
-                        + " thread=" + Thread.currentThread().getName());
-                }
-
-                if (hasPlayableCards && actionsPassed > 0) {
-                    // Already passed at least once — return so LLM can decide
-                    ActionResult result = pendingActionResult(
-                        action,
-                        "playable_cards",
-                        boardCursorParam,
-                        built -> built.has_playable_cards = true
-                    );
-                    logPassPriorityReturn(until, actionsPassed, action, viewForPlayableCheck, result, true);
-                    return result;
-                }
-                // If we found playable cards on the first pass, intentionally
-                // fall through and auto-pass once so the game advances.
-
-                // No playable cards — auto-pass this priority
-                synchronized (actionLock) {
-                    if (pendingAction == action) {
-                        pendingAction = null;
-                    }
-                }
-                sendBooleanOrDie(action.gameId(), false, "passPriority:auto_pass");
-                actionsPassed++;
-
-                // Continue waiting for the server to send us the next callback
-            }
-
-            if (!waitForCallbackProgress(200) && Thread.currentThread().isInterrupted()) {
-                break;
-            }
-            waitLoops++;
-
-            // Periodic progress log: every 30s when the loop is spinning without returning
-            {
-                long now = System.currentTimeMillis();
-                if (now - lastProgressLogAt >= 30_000) {
-                    lastProgressLogAt = now;
-                    long totalElapsed = now - startTime;
-                    logger.warn("[" + client.getUsername() + "] passPriority STILL WAITING:"
-                        + " elapsed=" + totalElapsed + "ms"
-                        + " waitLoops=" + waitLoops
-                        + " actionsPassed=" + actionsPassed
-                        + " pendingAction=" + (pendingAction != null)
-                        + " playerDead=" + playerDead
-                        + " activeGames=" + activeGames.size()
-                        + " gameEverStarted=" + gameEverStarted
-                        + " lastActionableCallbackAt=" + (lastActionableCallbackAt > 0 ? (now - lastActionableCallbackAt) + "ms ago" : "never")
-                        + " lastCallbackReceivedAt=" + (lastCallbackReceivedAt > 0 ? (now - lastCallbackReceivedAt) + "ms ago" : "never")
-                        + " currentGameId=" + currentGameId);
-                }
-            }
-
-            // Game over bail-out: don't block forever if the game ended
-            if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                long elapsed = System.currentTimeMillis() - startTime;
-                logger.info("[" + client.getUsername() + "] passPriority EXIT game_over:"
-                    + " elapsed=" + elapsed + "ms"
-                    + " playerDead=" + playerDead
-                    + " activeGames=" + activeGames.size()
-                    + " actionsPassed=" + actionsPassed);
-                var result = new ActionResult();
-                result.action_pending = false;
-                result.stop_reason = "game_over";
-                // Use the last actionable callback's game_seq, not lastGameView which
-                // races with GAME_OVER / END_GAME_INFO callback ordering.
-                result.game_seq = lastSeenGameSeq;
-                GameView gvSnap = lastGameView;
-                attachUnseenChat(result);
-                logPassPriorityReturn(until, actionsPassed, null, gvSnap, result, false);
-                return result;
-            }
-
-            // Zombie game detection: no actionable callback for too long means the
-            // server game thread is dead. Declare the game over so the pilot exits.
-            if (lastActionableCallbackAt > 0) {
-                long absoluteIdle = System.currentTimeMillis() - lastActionableCallbackAt;
-                if (absoluteIdle > ZOMBIE_GAME_TIMEOUT_MS) {
-                    logger.error("[" + client.getUsername() + "] Zombie game detected: "
-                            + "no actionable callback for " + absoluteIdle + "ms, declaring game dead");
-                    logError("Zombie game detected: no actionable callback for " + absoluteIdle + "ms");
-                    playerDead = true;
-                }
+                throw new IllegalStateException("passPriority request failed", cause);
             }
         }
+    }
 
-        // InterruptedException break
-        var result = new ActionResult();
-        result.action_pending = false;
-        result.stop_reason = "interrupted";
-        result.game_seq = lastSeenGameSeq;
-        GameView gvSnap = lastGameView;
-        attachUnseenChat(result);
-        logPassPriorityReturn(until, actionsPassed, null, gvSnap, result, false);
-        return result;
+    private BridgePassPriorityFlow startPassPriorityFlow(String until, Long boardCursorParam) {
+        BridgePassPriorityFlow flow = new BridgePassPriorityFlow(passPriorityFlowContext, until, boardCursorParam);
+        pendingPassPriorityFlow = flow;
+        interactionsThisTurn++;
+        try {
+            flow.start();
+        } catch (ResponseDeliveryException e) {
+            flow.finishWithDeliveryError(e.getMessage());
+        } catch (RuntimeException e) {
+            if (pendingPassPriorityFlow == flow) {
+                pendingPassPriorityFlow = null;
+            }
+            throw e;
+        }
+        return flow;
+    }
+
+    private void advancePendingPassPriorityFlow() {
+        BridgePassPriorityFlow flow = pendingPassPriorityFlow;
+        if (flow == null) {
+            return;
+        }
+        try {
+            flow.advance();
+        } catch (ResponseDeliveryException e) {
+            flow.finishWithDeliveryError(e.getMessage());
+        }
+    }
+
+    private void tickPendingPassPriorityFlow(BridgePassPriorityFlow flow) {
+        if (pendingPassPriorityFlow != flow) {
+            return;
+        }
+        try {
+            flow.tick();
+        } catch (ResponseDeliveryException e) {
+            flow.finishWithDeliveryError(e.getMessage());
+        }
+    }
+
+    private ActionResult interruptPassPriorityFlow(BridgePassPriorityFlow flow) {
+        return flow.interrupt();
     }
 
     /**
@@ -4241,6 +4053,14 @@ public class BridgeCallbackHandler {
             synchronized (actionLock) {
                 actionLock.notifyAll();
             }
+            try {
+                processor.submit(BridgeCommand.of(() -> {
+                    advancePendingPassPriorityFlow();
+                    return null;
+                }));
+            } catch (IllegalStateException ignored) {
+                // Processor is already gone; there is nothing left to wake.
+            }
         }
     }
 
@@ -4269,6 +4089,7 @@ public class BridgeCallbackHandler {
             logBridgeEvent("PENDING_ACTION_REPLACED", gameId, summary);
         }
         logger.debug("[" + client.getUsername() + "] Stored pending action: " + method + " - " + message);
+        advancePendingPassPriorityFlow();
     }
 
     private static GameView extractGameView(Object data) {
@@ -4988,6 +4809,7 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] Game ended, stopping client");
             client.stop();
         }
+        advancePendingPassPriorityFlow();
     }
 
     /**
@@ -5017,6 +4839,7 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (missed GAME_OVER)");
             client.stop();
         }
+        advancePendingPassPriorityFlow();
     }
 
     private void handleUserRequestDialog(Object data) {

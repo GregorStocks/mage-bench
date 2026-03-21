@@ -142,10 +142,10 @@ def _render_decision_block(
 
     # Header
     lines: list[str] = [
-        (f"[Decision {decision.index}, snapshot={decision.snapshotIndex}] Turn {turn} {phase} - {player}")
+        (f"[Decision {decision.index}, snapshot={decision.snapshot_index}] Turn {turn} {phase} - {player}")
     ]
     pilot_ctx: PilotContext | None = None
-    raw_pilot_ctx = decision.pilotContext
+    raw_pilot_ctx = decision.pilot_context
     if raw_pilot_ctx is not None:
         assert isinstance(raw_pilot_ctx, PilotContext), (
             f"pilotContext must be an object when present, got {raw_pilot_ctx!r}"
@@ -168,7 +168,7 @@ def _render_decision_block(
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
 
-    combat_phase = pilot_ctx.combatPhase if pilot_ctx is not None else None
+    combat_phase = pilot_ctx.combat_phase if pilot_ctx is not None else None
     assert combat_phase is None or isinstance(combat_phase, str), (
         f"combatPhase must be a string when present, got {combat_phase!r}"
     )
@@ -176,7 +176,7 @@ def _render_decision_block(
         lines.append(f"  Combat Phase: {combat_phase}")
 
     # Pilot context overlay
-    incoming_attackers = pilot_ctx.incomingAttackers if pilot_ctx is not None else None
+    incoming_attackers = pilot_ctx.incoming_attackers if pilot_ctx is not None else None
     assert incoming_attackers is None or isinstance(incoming_attackers, list), (
         f"incomingAttackers must be a list when present, got {incoming_attackers!r}"
     )
@@ -187,11 +187,11 @@ def _render_decision_block(
     if pilot_ctx is not None and (pilot_ctx.has_field("untappedLands") or pilot_ctx.has_field("landDropsUsed")):
         ctx_parts: list[str] = []
         if pilot_ctx.has_field("untappedLands"):
-            untapped_lands = pilot_ctx.untappedLands
+            untapped_lands = pilot_ctx.untapped_lands
             assert isinstance(untapped_lands, int), f"untappedLands must be an int when present, got {untapped_lands!r}"
             ctx_parts.append(f"Untapped lands: {untapped_lands}")
         if pilot_ctx.has_field("landDropsUsed"):
-            land_drops_used = pilot_ctx.landDropsUsed
+            land_drops_used = pilot_ctx.land_drops_used
             assert isinstance(land_drops_used, int), (
                 f"landDropsUsed must be an int when present, got {land_drops_used!r}"
             )
@@ -206,8 +206,8 @@ def _render_decision_block(
     lines.append(f"  Message: {message if message else ''}")
     if items:
         assert isinstance(items, list), f"decision items must be a list when present, got {items!r}"
-        total_min = decision.totalMin
-        total_max = decision.totalMax
+        total_min = decision.total_min
+        total_max = decision.total_max
         header = f"  Items ({len(items)})"
         if total_min is not None and total_max is not None and total_min == total_max:
             header += f": total={total_min}"
@@ -472,7 +472,7 @@ def _render_chosen_block(decision: Decision, snapshot: Snapshot | None = None) -
     """Render what was chosen in a decision."""
     lines: list[str] = []
     chosen = decision.chosen
-    raw_chosen_args = decision.chosenArgs
+    raw_chosen_args = decision.chosen_args
     if raw_chosen_args is not None:
         assert isinstance(raw_chosen_args, dict), f"chosenArgs must be an object when present, got {raw_chosen_args!r}"
         chosen_args = raw_chosen_args
@@ -499,7 +499,7 @@ def _render_chosen_block(decision: Decision, snapshot: Snapshot | None = None) -
     # outcome information, so they're safe to include without biasing the annotator.
     player = decision.player
     assert isinstance(player, str), f"decision player must be a string, got {player!r}"
-    subsequent_actions = decision.subsequentActions
+    subsequent_actions = decision.subsequent_actions
     assert isinstance(subsequent_actions, list), (
         f"decision subsequentActions must be a list, got {subsequent_actions!r}"
     )
@@ -510,7 +510,7 @@ def _render_chosen_block(decision: Decision, snapshot: Snapshot | None = None) -
             lines.append(f"  Result: {action}")
             break
 
-    if decision.castRolledBack:
+    if decision.cast_rolled_back:
         lines.append(
             "  **NOTE:** This cast was attempted but the game engine rolled it "
             "back because the player could not complete the mana payment."

@@ -3,7 +3,7 @@
 
 The pilot used to emit history_size/rendered_size but the export script
 expected messages_before/messages_after, so all exported context_trim
-events have messagesBefore=0, messagesAfter=0.  This script reads the
+events have messages_before=0, messages_after=0.  This script reads the
 correct values from the raw llm logs and patches the exports in place.
 """
 

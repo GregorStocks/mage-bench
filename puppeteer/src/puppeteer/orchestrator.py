@@ -11,33 +11,23 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from puppeteer.batch_coordination import GameSession, _finalize_game, _setup_game, _wait_for_all_games
+from puppeteer.batch_coordination import GameSession, finalize_game, setup_game, wait_for_all_games
 from puppeteer.config import Config
 from puppeteer.game_finalization import (
-    _ensure_game_over_event,
-    _git,
-    _print_game_summary,
-    _print_run_cost_summary,
-    _write_error_log,
-    _write_game_meta,
+    print_run_cost_summary,
+    run_git,
 )
 from puppeteer.game_processes import (
-    _wait_for_game_start,
-    _wait_for_spectator_table,
-    _wait_with_pilot_monitoring,
     bring_to_foreground_macos,
-    start_observer_client,
     start_server,
+    wait_with_pilot_monitoring,
 )
 from puppeteer.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
 from puppeteer.log import get_logger, setup_logging
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.post_game_analysis import (
     AnnotationFailure,
-    _save_youtube_url,
-    _update_website_youtube_url,
     resolve_annotation_failures,
-    upload_and_export,
 )
 from puppeteer.process_manager import ProcessManager, jvm_oom_preexec_fn
 from puppeteer.xml_config import modify_server_config
@@ -48,33 +38,13 @@ logger = get_logger(__name__)
 _LOG_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 
 __all__ = [
-    "AnnotationFailure",
-    "GameSession",
     "OrchestratorRunResult",
-    "_check_regular_season_block",
-    "_ensure_game_over_event",
-    "_finalize_game",
-    "_git",
-    "_missing_llm_api_keys",
-    "_print_game_summary",
-    "_save_youtube_url",
-    "_setup_game",
-    "_update_website_youtube_url",
-    "_wait_for_all_games",
-    "_wait_for_game_start",
-    "_wait_for_spectator_table",
-    "_wait_with_pilot_monitoring",
-    "_write_error_log",
-    "_write_game_meta",
     "clean_stale_h2_locks",
     "compile_project",
     "main",
     "parse_args",
     "refresh_observer_resources",
-    "resolve_annotation_failures",
     "run_orchestrator",
-    "start_observer_client",
-    "upload_and_export",
 ]
 
 
@@ -376,7 +346,7 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
         cross_game_format_picks: list[str] = []
         for index in range(config.num_games):
             try:
-                session = _setup_game(
+                session = setup_game(
                     index,
                     config.num_games,
                     config,
@@ -408,7 +378,7 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
             last_link = log_dir / f"last-{config.run_tag}"
             last_link.unlink(missing_ok=True)
             last_link.symlink_to(last_game_dir.name)
-        branch = _git("rev-parse --abbrev-ref HEAD", project_root)
+        branch = run_git("rev-parse --abbrev-ref HEAD", project_root)
         if branch:
             safe_branch = branch.replace("/", "-")
             branch_link = log_dir / f"last-branch-{safe_branch}"
@@ -416,11 +386,11 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
             branch_link.symlink_to(last_game_dir.name)
 
         if batch:
-            results = _wait_for_all_games(sessions)
+            results = wait_for_all_games(sessions)
             deferred: list[AnnotationFailure] = []
             for session in sessions:
                 spectator_rc = results.get(session.index, -1)
-                pilot_costs[session.index], blunder_costs[session.index] = _finalize_game(
+                pilot_costs[session.index], blunder_costs[session.index] = finalize_game(
                     session,
                     project_root,
                     spectator_rc,
@@ -432,17 +402,17 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
             session = sessions[0]
             assert session.spectator_proc is not None
             if session.pilot_procs:
-                spectator_rc = _wait_with_pilot_monitoring(session.spectator_proc, session.pilot_procs, pm)
+                spectator_rc = wait_with_pilot_monitoring(session.spectator_proc, session.pilot_procs, pm)
             else:
                 spectator_rc = session.spectator_proc.wait()
-            pilot_costs[session.index], blunder_costs[session.index] = _finalize_game(
+            pilot_costs[session.index], blunder_costs[session.index] = finalize_game(
                 session,
                 project_root,
                 spectator_rc,
                 post_game_failures=post_game_failures,
             )
 
-        _print_run_cost_summary(sessions, pilot_costs, blunder_costs)
+        print_run_cost_summary(sessions, pilot_costs, blunder_costs)
 
         if post_game_failures:
             logger.error("")

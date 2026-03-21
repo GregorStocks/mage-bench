@@ -399,7 +399,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
     """
     snapshots = data.snapshots
     actions = data.actions
-    llm_events = data.llmEvents
+    llm_events = data.llm_events
 
     # Collect get_action_choices events with their indices
     choices_events: list[tuple[int, ToolCallEvent]] = []
@@ -582,7 +582,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     """
     snapshots = data.snapshots
     actions = data.actions
-    llm_events = data.llmEvents
+    llm_events = data.llm_events
 
     # Collect decision source events
     decision_sources: list[tuple[int, ToolCallEvent]] = []
@@ -670,7 +670,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
                 )
                 if ev.ts is not None:
                     action_ts = ev.ts
-                game_seq_raw = ev.gameSeq if ev.gameSeq is not None else action_seq
+                game_seq_raw = ev.game_seq if ev.game_seq is not None else action_seq
                 if isinstance(game_seq_raw, int) and not isinstance(game_seq_raw, bool):
                     action_seq = game_seq_raw
                 if _is_failed_choose_action_result(action_result):
@@ -684,7 +684,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         # Use seq-based snapshot lookup for v2 (snapshots have seq, not ts).
         # Fall back to timestamp if gameSeq is missing (e.g. discard-to-hand-size
         # events from older harness versions that didn't emit gameSeq).
-        choices_seq_raw = source_event.gameSeq
+        choices_seq_raw = source_event.game_seq
         choices_seq = (
             choices_seq_raw
             if isinstance(choices_seq_raw, int)
@@ -708,7 +708,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
 
         next_choices_seq = 0
         if ds_idx + 1 < len(decision_sources):
-            next_game_seq_raw = decision_sources[ds_idx + 1][1].gameSeq
+            next_game_seq_raw = decision_sources[ds_idx + 1][1].game_seq
             if isinstance(next_game_seq_raw, int) and not isinstance(
                 next_game_seq_raw, bool
             ):

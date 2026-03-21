@@ -247,8 +247,8 @@ def _build_play_detail(game_id: str, di: int) -> dict:
         "annotation": {
             "severity": annotation.severity if annotation else None,
             "description": annotation.description if annotation else None,
-            "actionTaken": annotation.actionTaken if annotation else None,
-            "betterLine": annotation.betterLine if annotation else None,
+            "actionTaken": annotation.action_taken if annotation else None,
+            "betterLine": annotation.better_line if annotation else None,
         },
         "verdict": gt_entry.get("verdict") if gt_entry else None,
         "human_notes": gt_entry.get("human_notes") if gt_entry else None,

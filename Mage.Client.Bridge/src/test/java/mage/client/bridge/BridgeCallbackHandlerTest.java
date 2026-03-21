@@ -196,6 +196,7 @@ class BridgeCallbackHandlerTest {
         UUID gameId = UUID.randomUUID();
         GameView upkeepView = gameView(7, 3, PhaseStep.UPKEEP);
         GameView postcombatMainView = gameView(8, 3, PhaseStep.POSTCOMBAT_MAIN);
+        addActiveGame(handler, gameId);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", upkeepView);
         setField(handler, "lastTurnNumber", 3);
@@ -215,14 +216,12 @@ class BridgeCallbackHandlerTest {
             assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
                 .isInstanceOf(TimeoutException.class);
 
-            setField(handler, "pendingAction", new PendingAction(
-                gameId,
+            enqueueCallback(
+                handler,
                 ClientCallbackMethod.GAME_SELECT,
-                new GameClientMessage(postcombatMainView, Collections.<String, Serializable>emptyMap(), "Pass after overshoot"),
-                "Pass after overshoot",
-                8
-            ));
-            notifyActionLock(handler);
+                gameId,
+                new GameClientMessage(postcombatMainView, Collections.<String, Serializable>emptyMap(), "Pass after overshoot")
+            );
 
             ActionResult result = future.get(1, TimeUnit.SECONDS);
             assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
@@ -348,6 +347,7 @@ class BridgeCallbackHandlerTest {
         UUID gameId = UUID.randomUUID();
         GameView upkeepView = gameView(7, 3, PhaseStep.UPKEEP);
         GameView nextTurnUntapView = gameView(8, 4, PhaseStep.UNTAP);
+        addActiveGame(handler, gameId);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", upkeepView);
         setField(handler, "lastTurnNumber", 3);
@@ -367,14 +367,12 @@ class BridgeCallbackHandlerTest {
             assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
                 .isInstanceOf(TimeoutException.class);
 
-            setField(handler, "pendingAction", new PendingAction(
-                gameId,
+            enqueueCallback(
+                handler,
                 ClientCallbackMethod.GAME_SELECT,
-                new GameClientMessage(nextTurnUntapView, Collections.<String, Serializable>emptyMap(), "Pass on next turn"),
-                "Pass on next turn",
-                8
-            ));
-            notifyActionLock(handler);
+                gameId,
+                new GameClientMessage(nextTurnUntapView, Collections.<String, Serializable>emptyMap(), "Pass on next turn")
+            );
 
             ActionResult result = future.get(1, TimeUnit.SECONDS);
             assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
@@ -400,6 +398,7 @@ class BridgeCallbackHandlerTest {
         UUID gameId = UUID.randomUUID();
         UUID watchedStackObjectId = UUID.randomUUID();
         GameView stackOccupied = gameView(7, watchedStackObjectId);
+        addActiveGame(handler, gameId);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", stackOccupied);
         setField(handler, "pendingAction", new PendingAction(
@@ -418,19 +417,16 @@ class BridgeCallbackHandlerTest {
 
             GameView stackCleared = gameView(8);
             setField(handler, "lastGameView", stackCleared);
-            notifyActionLock(handler);
 
             assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
                 .isInstanceOf(TimeoutException.class);
 
-            setField(handler, "pendingAction", new PendingAction(
-                gameId,
+            enqueueCallback(
+                handler,
                 ClientCallbackMethod.GAME_SELECT,
-                new GameClientMessage(stackCleared, Collections.<String, Serializable>emptyMap(), "Pass after resolve"),
-                "Pass after resolve",
-                8
-            ));
-            notifyActionLock(handler);
+                gameId,
+                new GameClientMessage(stackCleared, Collections.<String, Serializable>emptyMap(), "Pass after resolve")
+            );
 
             ActionResult result = future.get(1, TimeUnit.SECONDS);
             assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
@@ -454,6 +450,7 @@ class BridgeCallbackHandlerTest {
 
         UUID gameId = UUID.randomUUID();
         GameView emptyStack = gameView(7);
+        addActiveGame(handler, gameId);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", emptyStack);
         setField(handler, "pendingAction", new PendingAction(
@@ -473,14 +470,12 @@ class BridgeCallbackHandlerTest {
                 .isInstanceOf(TimeoutException.class);
 
             GameView nextActionView = gameView(8);
-            setField(handler, "pendingAction", new PendingAction(
-                gameId,
+            enqueueCallback(
+                handler,
                 ClientCallbackMethod.GAME_ASK,
-                new GameClientMessage(nextActionView, Collections.<String, Serializable>emptyMap(), "Mulligan hand?"),
-                "Mulligan hand?",
-                8
-            ));
-            notifyActionLock(handler);
+                gameId,
+                new GameClientMessage(nextActionView, Collections.<String, Serializable>emptyMap(), "Mulligan hand?")
+            );
 
             ActionResult result = future.get(1, TimeUnit.SECONDS);
             assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
@@ -897,28 +892,14 @@ class BridgeCallbackHandlerTest {
                         sendPlayerBooleanCalls.incrementAndGet();
                         assertThat(args[0]).isEqualTo(gameId);
                         assertThat(args[1]).isEqualTo(false);
-                        setField(handler, "pendingAction", new PendingAction(
-                            gameId,
-                            ClientCallbackMethod.GAME_TARGET,
-                            targetMessage,
-                            "Choose a creature to copy",
-                            31
-                        ));
-                        notifyActionLock(handler);
+                        enqueueCallback(handler, ClientCallbackMethod.GAME_TARGET, gameId, targetMessage);
                         return true;
                     }
                     case "sendPlayerUUID" -> {
                         sendPlayerUuidCalls.incrementAndGet();
                         assertThat(args[0]).isEqualTo(gameId);
                         assertThat(args[1]).isEqualTo(onlyTarget);
-                        setField(handler, "pendingAction", new PendingAction(
-                            gameId,
-                            ClientCallbackMethod.GAME_ASK,
-                            nextDecisionMessage,
-                            "Mulligan hand?",
-                            32
-                        ));
-                        notifyActionLock(handler);
+                        enqueueCallback(handler, ClientCallbackMethod.GAME_ASK, gameId, nextDecisionMessage);
                         return true;
                     }
                     default -> {
@@ -928,6 +909,7 @@ class BridgeCallbackHandlerTest {
             }
         ));
 
+        addActiveGame(handler, gameId);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", initialView);
         setField(handler, "pendingAction", new PendingAction(
@@ -976,20 +958,14 @@ class BridgeCallbackHandlerTest {
                     sendPlayerBooleanCalls.incrementAndGet();
                     assertThat(args[0]).isEqualTo(gameId);
                     assertThat(args[1]).isEqualTo(false);
-                    setField(handler, "pendingAction", new PendingAction(
-                        gameId,
-                        ClientCallbackMethod.GAME_SELECT,
-                        combatMessage,
-                        "Declare attackers",
-                        51
-                    ));
-                    notifyActionLock(handler);
+                    enqueueCallback(handler, ClientCallbackMethod.GAME_SELECT, gameId, combatMessage);
                     return true;
                 }
                 return defaultReturnValue(method.getReturnType());
             }
         ));
 
+        addActiveGame(handler, gameId);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", initialView);
         setField(handler, "pendingAction", new PendingAction(
@@ -1148,6 +1124,70 @@ class BridgeCallbackHandlerTest {
         assertThat(result).containsEntry("action_taken", "passed_priority");
         assertThat(sendThreadName.get()).startsWith("bridge-processor-TestPlayer");
         assertThat(sendThreadName.get()).isNotEqualTo(callerThreadName);
+    }
+
+    @Test
+    void passPriorityDoesNotMonopolizeProcessorThreadWhileWaiting() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        GameView initialView = gameView(90);
+        GameView nextDecisionView = gameView(91);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerBoolean".equals(method.getName())) {
+                    sendPlayerBooleanCalls.incrementAndGet();
+                    autoPassSent.countDown();
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", initialView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            90
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority(null, null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            handler.awaitProcessorIdle();
+
+            enqueueCallback(
+                handler,
+                ClientCallbackMethod.GAME_ASK,
+                gameId,
+                new GameClientMessage(nextDecisionView, Collections.<String, Serializable>emptyMap(), "Mulligan hand?")
+            );
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("non_priority_action");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_ASK");
+            assertThat(result.game_seq).isEqualTo(91);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
     }
 
     @Test
@@ -1426,6 +1466,20 @@ class BridgeCallbackHandlerTest {
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Failed to access Unsafe", e);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void addActiveGame(BridgeCallbackHandler handler, UUID gameId) throws Exception {
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        activeGames.put(gameId, UUID.randomUUID());
+    }
+
+    private static void enqueueCallback(
+            BridgeCallbackHandler handler,
+            ClientCallbackMethod method,
+            UUID gameId,
+            Object data) {
+        handler.handleCallback(new ClientCallback(method, gameId, data, false));
     }
 
     private static GameView gameView(int gameSeq, UUID... stackObjectIds) throws Exception {

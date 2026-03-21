@@ -36,7 +36,8 @@ import psutil
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
-from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
+from puppeteer.pilot import DEFAULT_MODEL, run_pilot_loop
+from puppeteer.pilot_bridge import mcp_tools_to_openai
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
@@ -1773,7 +1774,8 @@ def _strip_volatile(data: dict) -> None:
     players = data.get("players", [])
     for i, player in enumerate(players):
         if dataclasses.is_dataclass(player) and not isinstance(player, type):
-            d = {k: v for k, v in dataclasses.asdict(player).items() if v is not None}
+            d = json_default(player)
+            assert isinstance(d, dict), f"expected json_default(player) to return dict, got {d!r}"
             d.pop("thinkingTimeSecs", None)
             players[i] = d
         elif isinstance(player, dict):

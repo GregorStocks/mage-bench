@@ -37,7 +37,7 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
         return game_id, []
 
     # Need llmEvents to extract decisions
-    if not data.llmEvents:
+    if not data.llm_events:
         print(f"  SKIP {game_id}: no llmEvents", file=sys.stderr)
         return game_id, []
 
