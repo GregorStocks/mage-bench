@@ -16,6 +16,13 @@ Re-running CI (`gh run rerun`, `gh run retry`) is blocked by the enforcement hoo
 
 ## Pull Requests
 
+## Branches
+
+When starting new work on a worktree, create a fresh branch from `origin/master`.
+Name the branch with the worktree name as a prefix so the branch is obviously
+associated with the current worktree. For example, in worktree
+`bridge-cairn-salt`, use branch names like `bridge-cairn-salt-<topic>`.
+
 Before adding commits to an existing PR, verify it's still open:
 
 ```bash

@@ -3,6 +3,7 @@ package mage.client.bridge;
 import mage.cards.repository.CardInfo;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
+import mage.client.bridge.tools.ChooseActionTool;
 import mage.client.bridge.tools.GetOracleTextTool;
 import mage.constants.CardType;
 import mage.game.BridgeLogEntry;
@@ -792,6 +793,9 @@ class BridgeCallbackHandlerTest {
             "Play spells and abilities"
         );
 
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", askView);
         client.setSession((Session) Proxy.newProxyInstance(
             Session.class.getClassLoader(),
             new Class<?>[]{Session.class},
@@ -801,28 +805,14 @@ class BridgeCallbackHandlerTest {
                         sendPlayerBooleanCalls.incrementAndGet();
                         assertThat(args[0]).isEqualTo(gameId);
                         assertThat(args[1]).isEqualTo(true);
-                        setField(handler, "pendingAction", new PendingAction(
-                            gameId,
-                            ClientCallbackMethod.GAME_TARGET,
-                            targetMessage,
-                            "Choose a creature to copy",
-                            11
-                        ));
-                        notifyActionLock(handler);
+                        enqueueCallback(handler, ClientCallbackMethod.GAME_TARGET, gameId, targetMessage);
                         return true;
                     }
                     case "sendPlayerUUID" -> {
                         sendPlayerUuidCalls.incrementAndGet();
                         assertThat(args[0]).isEqualTo(gameId);
                         assertThat(args[1]).isEqualTo(onlyTarget);
-                        setField(handler, "pendingAction", new PendingAction(
-                            gameId,
-                            ClientCallbackMethod.GAME_SELECT,
-                            nextDecisionMessage,
-                            "Play spells and abilities",
-                            12
-                        ));
-                        notifyActionLock(handler);
+                        enqueueCallback(handler, ClientCallbackMethod.GAME_SELECT, gameId, nextDecisionMessage);
                         return true;
                     }
                     default -> {
@@ -854,6 +844,73 @@ class BridgeCallbackHandlerTest {
         assertThat(result.action_type).isEqualTo("GAME_SELECT");
         assertThat(result.response_type).isEqualTo("boolean");
         assertThat(result.message).isEqualTo("Play spells and abilities");
+    }
+
+    @Test
+    void chooseActionDoesNotMonopolizeProcessorThreadWhileWaiting() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        CountDownLatch sendPlayerBooleanCalled = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView initialView = gameView(40);
+        GameView nextDecisionView = gameView(41);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerBoolean".equals(method.getName())) {
+                    sendPlayerBooleanCalls.incrementAndGet();
+                    sendPlayerBooleanCalled.countDown();
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", initialView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_ASK,
+            new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Use effect of Clone?"),
+            "Use effect of Clone?",
+            40
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ChooseActionTool.Result> future = executor.submit(() -> handler.chooseAction(
+                null, null, true, null, null, null, null, null, null, null, null
+            ));
+
+            assertThat(sendPlayerBooleanCalled.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            handler.awaitProcessorIdle();
+
+            enqueueCallback(
+                handler,
+                ClientCallbackMethod.GAME_SELECT,
+                gameId,
+                new GameClientMessage(nextDecisionView, Collections.<String, Serializable>emptyMap(), "Play spells and abilities")
+            );
+
+            ChooseActionTool.Result result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.success).isTrue();
+            assertThat(result.action_taken).isEqualTo("yes");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_SELECT");
+            assertThat(result.game_seq).isEqualTo(41);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
     }
 
     @Test
@@ -1694,13 +1751,6 @@ class BridgeCallbackHandlerTest {
         List<BridgeLogEntry> cached = (List<BridgeLogEntry>) getField(handler, "cachedBridgeEvents");
         cached.clear();
         cached.addAll(events);
-    }
-
-    private static void notifyActionLock(BridgeCallbackHandler handler) throws Exception {
-        Object actionLock = getField(handler, "actionLock");
-        synchronized (actionLock) {
-            actionLock.notifyAll();
-        }
     }
 
     private static Object getField(Object target, String name) throws Exception {
