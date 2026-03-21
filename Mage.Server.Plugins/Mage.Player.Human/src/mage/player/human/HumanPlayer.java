@@ -94,6 +94,8 @@ public class HumanPlayer extends PlayerImpl {
     // * - CALL thread: on opened response - save answer to player's response object and notify GAME thread about it by response.notifyAll
     // * - GAME thread: on notify from response - check new answer value and process it (if it bad then repeat and wait the next one);
     private transient volatile boolean responseOpenedForAnswer = false; // GAME thread waiting new answer
+    private transient volatile long responsePromptSerial = 0; // increments for each newly announced prompt
+    private transient volatile long responseWindowSerial = 0; // increments for each freshly opened response window
     private transient long responseLastWaitingThreadId = 0;
     private final transient PlayerResponse response; // data receiver from a client side (must be shared for one player between multiple clients)
     private final int RESPONSE_WAITING_TIME_SECS = 30; // waiting time before cancel current response
@@ -191,9 +193,9 @@ public class HumanPlayer extends PlayerImpl {
      * Waiting for opened response and save new value in it
      * Use it in CALL threads only, e.g. for client commands
      *
-     * @return on true result game can use response value, on false result - it's outdated response
+     * @return opened response window serial, or null if the caller waited on a stale response
      */
-    protected boolean waitResponseOpen() {
+    protected Long waitResponseOpen() {
         // client send commands in async mode and can come too early
         // so if next command come too fast then wait here until game ready
         //
@@ -214,12 +216,24 @@ public class HumanPlayer extends PlayerImpl {
         int currentTimesWaiting = 0;
         int maxTimesWaiting = RESPONSE_WAITING_TIME_SECS * 1000 / RESPONSE_WAITING_CHECK_MS;
         long currentThreadId = Thread.currentThread().getId();
+        long observedPromptSerial = responsePromptSerial;
         // it's a latest response
         responseLastWaitingThreadId = currentThreadId;
         while (!responseOpenedForAnswer && canRespond()) {
             if (responseLastWaitingThreadId != currentThreadId) {
                 // there is another latest response, so cancel current
-                return false;
+                return null;
+            }
+            if (responsePromptSerial != observedPromptSerial) {
+                logger.info(String.format(
+                        "Discarding stale response after response prompt advanced. User: %s; oldPrompt=%d; newPrompt=%d; action: %s; game: %s",
+                        this.getName(),
+                        observedPromptSerial,
+                        responsePromptSerial,
+                        response.getActiveAction(),
+                        response.getActiveGameInfo()
+                ));
+                return null;
             }
 
             // keep waiting
@@ -241,13 +255,25 @@ public class HumanPlayer extends PlayerImpl {
                         possibleReason,
                         response.getActiveGameInfo()
                 ));
-                return false;
+                return null;
             }
 
             try {
                 Thread.sleep(RESPONSE_WAITING_CHECK_MS);
             } catch (InterruptedException ignore) {
             }
+        }
+
+        if (responsePromptSerial != observedPromptSerial) {
+            logger.info(String.format(
+                    "Discarding stale response after response prompt advanced before open. User: %s; oldPrompt=%d; newPrompt=%d; action: %s; game: %s",
+                    this.getName(),
+                    observedPromptSerial,
+                    responsePromptSerial,
+                    response.getActiveAction(),
+                    response.getActiveGameInfo()
+            ));
+            return null;
         }
 
         long waitedMs = (long) currentTimesWaiting * RESPONSE_WAITING_CHECK_MS;
@@ -262,7 +288,35 @@ public class HumanPlayer extends PlayerImpl {
             ));
         }
 
-        return true; // can use new value
+        return responseOpenedForAnswer ? responseWindowSerial : null;
+    }
+
+    private void openResponseWindow(Game game, String actionName, boolean newPrompt) {
+        synchronized (response) {
+            response.clear();
+            response.setActiveAction(game, actionName);
+            if (newPrompt) {
+                responsePromptSerial++;
+            }
+            responseWindowSerial++;
+            responseOpenedForAnswer = true;
+        }
+    }
+
+    private boolean responseWindowMatches(long expectedWindowSerial, String responseType) {
+        if (!responseOpenedForAnswer || responseWindowSerial != expectedWindowSerial) {
+            logger.info(String.format(
+                    "Discarding stale %s response. User: %s; expectedWindow=%d; currentWindow=%d; action: %s; game: %s",
+                    responseType,
+                    this.getName(),
+                    expectedWindowSerial,
+                    responseWindowSerial,
+                    response.getActiveAction(),
+                    response.getActiveGameInfo()
+            ));
+            return false;
+        }
+        return true;
     }
 
     protected boolean pullResponseFromQueue(Game game) {
@@ -321,11 +375,7 @@ public class HumanPlayer extends PlayerImpl {
         // Open the response window before firing the callback so an immediate
         // bridge reply cannot sit in waitResponseOpen() and get stranded until a
         // later prompt reuses the same response object.
-        synchronized (response) {
-            response.clear();
-            response.setActiveAction(game, DebugUtil.getMethodNameWithSource(1, "method"));
-            responseOpenedForAnswer = true;
-        }
+        openResponseWindow(game, DebugUtil.getMethodNameWithSource(1, "method"), true);
     }
 
     /**
@@ -358,9 +408,7 @@ public class HumanPlayer extends PlayerImpl {
             loop = false;
             synchronized (response) { // TODO: synchronized response smells bad here, possible deadlocks? Need research
                 if (!firstWait) {
-                    response.clear();
-                    response.setActiveAction(game, activeAction);
-                    responseOpenedForAnswer = true;
+                    openResponseWindow(game, activeAction, false);
                 }
                 try {
                     // The callback may already have been answered before we got
@@ -2655,10 +2703,14 @@ public class HumanPlayer extends PlayerImpl {
 
     @Override
     public void setResponseString(String responseString) {
-        if (!waitResponseOpen()) {
+        Long windowSerial = waitResponseOpen();
+        if (windowSerial == null) {
             return;
         }
         synchronized (response) {
+            if (!responseWindowMatches(windowSerial, "string")) {
+                return;
+            }
             response.setString(responseString);
             response.notifyAll();
             logger.debug("Got response string from player: " + getId());
@@ -2667,10 +2719,14 @@ public class HumanPlayer extends PlayerImpl {
 
     @Override
     public void setResponseManaType(UUID manaTypePlayerId, ManaType manaType) {
-        if (!waitResponseOpen()) {
+        Long windowSerial = waitResponseOpen();
+        if (windowSerial == null) {
             return;
         }
         synchronized (response) {
+            if (!responseWindowMatches(windowSerial, "mana")) {
+                return;
+            }
             response.setManaType(manaType);
             response.setResponseManaPlayerId(manaTypePlayerId);
             response.notifyAll();
@@ -2680,10 +2736,14 @@ public class HumanPlayer extends PlayerImpl {
 
     @Override
     public void setResponseUUID(UUID responseUUID) {
-        if (!waitResponseOpen()) {
+        Long windowSerial = waitResponseOpen();
+        if (windowSerial == null) {
             return;
         }
         synchronized (response) {
+            if (!responseWindowMatches(windowSerial, "UUID")) {
+                return;
+            }
             response.setUUID(responseUUID);
             response.notifyAll();
             logger.debug("Got response UUID from player: " + getId());
@@ -2692,10 +2752,14 @@ public class HumanPlayer extends PlayerImpl {
 
     @Override
     public void setResponseBoolean(Boolean responseBoolean) {
-        if (!waitResponseOpen()) {
+        Long windowSerial = waitResponseOpen();
+        if (windowSerial == null) {
             return;
         }
         synchronized (response) {
+            if (!responseWindowMatches(windowSerial, "boolean")) {
+                return;
+            }
             response.setBoolean(responseBoolean);
             response.notifyAll();
             logger.debug("Got response boolean from player: " + getId());
@@ -2704,10 +2768,14 @@ public class HumanPlayer extends PlayerImpl {
 
     @Override
     public void setResponseInteger(Integer responseInteger) {
-        if (!waitResponseOpen()) {
+        Long windowSerial = waitResponseOpen();
+        if (windowSerial == null) {
             return;
         }
         synchronized (response) {
+            if (!responseWindowMatches(windowSerial, "integer")) {
+                return;
+            }
             response.setInteger(responseInteger);
             response.notifyAll();
             logger.debug("Got response integer from player: " + getId());

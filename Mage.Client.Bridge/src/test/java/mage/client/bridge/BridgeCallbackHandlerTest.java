@@ -3,6 +3,7 @@ package mage.client.bridge;
 import mage.cards.repository.CardInfo;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
+import mage.client.bridge.tools.ChooseActionTool;
 import mage.client.bridge.tools.GetOracleTextTool;
 import mage.constants.CardType;
 import mage.game.BridgeLogEntry;
@@ -1101,6 +1102,75 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void buildErrorRestoresPendingActionWhenNoNewerCallbackArrived() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        PendingAction staleAction = new PendingAction(
+            UUID.randomUUID(),
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(gameView(40), Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            40
+        );
+
+        setField(handler, "pendingAction", null);
+
+        ChooseActionTool.Result result = invokeBuildError(
+            handler,
+            new ChooseActionTool.Result(),
+            "invalid_choice",
+            "Bad index",
+            true,
+            staleAction,
+            false
+        );
+
+        assertThat(result.success).isFalse();
+        assertThat(result.error_code).isEqualTo("invalid_choice");
+        assertThat(getField(handler, "pendingAction")).isSameAs(staleAction);
+    }
+
+    @Test
+    void buildErrorPreservesNewerPendingAction() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        PendingAction staleAction = new PendingAction(
+            UUID.randomUUID(),
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(gameView(40), Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            40
+        );
+        PendingAction newerAction = new PendingAction(
+            UUID.randomUUID(),
+            ClientCallbackMethod.GAME_ASK,
+            new GameClientMessage(gameView(41), Collections.<String, Serializable>emptyMap(), "Mulligan hand?"),
+            "Mulligan hand?",
+            41
+        );
+
+        setField(handler, "pendingAction", newerAction);
+
+        ChooseActionTool.Result result = invokeBuildError(
+            handler,
+            new ChooseActionTool.Result(),
+            "invalid_choice",
+            "Bad index",
+            true,
+            staleAction,
+            true
+        );
+
+        assertThat(result.success).isFalse();
+        assertThat(result.error_code).isEqualTo("invalid_choice");
+        assertThat(result.warning).contains("Pending action advanced");
+        assertThat(result.choices).isNull();
+        assertThat(getField(handler, "pendingAction")).isSameAs(newerAction);
+    }
+
+    @Test
     void handleCallbackStoresPendingManaAction() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -1513,6 +1583,36 @@ class BridgeCallbackHandlerTest {
         statusMethod.setAccessible(true);
         Object status = statusMethod.invoke(transition);
         return status.toString();
+    }
+
+    private static ChooseActionTool.Result invokeBuildError(
+            BridgeCallbackHandler handler,
+            ChooseActionTool.Result result,
+            String errorCode,
+            String message,
+            boolean retryable,
+            PendingAction action,
+            boolean attachChoices
+    ) throws Exception {
+        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
+            "buildError",
+            ChooseActionTool.Result.class,
+            String.class,
+            String.class,
+            boolean.class,
+            PendingAction.class,
+            boolean.class
+        );
+        method.setAccessible(true);
+        return (ChooseActionTool.Result) method.invoke(
+            handler,
+            result,
+            errorCode,
+            message,
+            retryable,
+            action,
+            attachChoices
+        );
     }
 
     private static Object defaultReturnValue(Class<?> returnType) {

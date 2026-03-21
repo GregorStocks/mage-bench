@@ -7,11 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,10 +42,79 @@ class HumanPlayerResponseWindowTest {
         assertThat(player.currentBooleanResponse()).isTrue();
     }
 
+    @Test
+    void rejectsStaleResponseInsteadOfLeakingIntoNextWindow() throws Exception {
+        TestHumanPlayer player = new TestHumanPlayer();
+        setIntField(player, "RESPONSE_WAITING_TIME_SECS", 1);
+
+        GameState state = new GameState();
+        state.setPriorityPlayerId(player.getId());
+        Game game = gameProxy(state);
+
+        AtomicReference<Boolean> sendFinished = new AtomicReference<>(Boolean.FALSE);
+        Thread staleResponseThread = new Thread(() -> {
+            player.setResponseBoolean(Boolean.TRUE);
+            sendFinished.set(Boolean.TRUE);
+        }, "CALL stale-response");
+        staleResponseThread.start();
+
+        Thread.sleep(150);
+        player.prepareForResponseForTest(game);
+        staleResponseThread.join(1_000);
+
+        assertThat(sendFinished.get()).isTrue();
+        assertThat(player.currentBooleanResponse()).isNull();
+    }
+
+    @Test
+    void acceptsResponseThatWaitsForReopenedWindowOfSamePrompt() throws Exception {
+        TestHumanPlayer player = new TestHumanPlayer();
+        setIntField(player, "RESPONSE_WAITING_TIME_SECS", 1);
+
+        GameState state = new GameState();
+        state.setPriorityPlayerId(player.getId());
+        Game game = gameProxy(state);
+
+        player.prepareForResponseForTest(game);
+        setBooleanField(player, "responseOpenedForAnswer", false);
+
+        AtomicReference<Boolean> sendFinished = new AtomicReference<>(Boolean.FALSE);
+        Thread retryResponseThread = new Thread(() -> {
+            player.setResponseBoolean(Boolean.TRUE);
+            sendFinished.set(Boolean.TRUE);
+        }, "CALL retry-response");
+        retryResponseThread.start();
+
+        Thread.sleep(150);
+        reopenResponseWindow(player, game, "retry");
+        retryResponseThread.join(1_000);
+
+        assertThat(sendFinished.get()).isTrue();
+        assertThat(player.currentBooleanResponse()).isTrue();
+    }
+
     private static void setIntField(Object target, String fieldName, int value) throws Exception {
         Field field = HumanPlayer.class.getDeclaredField(fieldName);
         field.setAccessible(true);
         field.setInt(target, value);
+    }
+
+    private static void setBooleanField(Object target, String fieldName, boolean value) throws Exception {
+        Field field = HumanPlayer.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.setBoolean(target, value);
+    }
+
+    private static void reopenResponseWindow(TestHumanPlayer player, Game game, String actionName)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Method method = HumanPlayer.class.getDeclaredMethod(
+            "openResponseWindow",
+            Game.class,
+            String.class,
+            boolean.class
+        );
+        method.setAccessible(true);
+        method.invoke(player, game, actionName, false);
     }
 
     private static Game gameProxy(GameState state) {

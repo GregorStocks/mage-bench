@@ -43,11 +43,16 @@ public class CallbackClientImpl implements CallbackClient {
     private final MageFrame frame;
     private final Map<ClientCallbackType, Integer> lastMessages;
     private final Map<UUID, GameClientMessage> firstGameData;
+    private final Map<UUID, CachedGameView> firstGameViews;
+
+    private record CachedGameView(int messageId, GameView gameView) {
+    }
 
     public CallbackClientImpl(MageFrame frame) {
         this.frame = frame;
         this.lastMessages = new HashMap<>();
         this.firstGameData = new HashMap<>();
+        this.firstGameViews = new HashMap<>();
         Arrays.stream(ClientCallbackType.values()).forEach(t -> this.lastMessages.put(t, 0));
     }
 
@@ -56,6 +61,40 @@ public class CallbackClientImpl implements CallbackClient {
         // must clean temp data for each new connection
         this.lastMessages.clear();
         this.firstGameData.clear();
+        this.firstGameViews.clear();
+    }
+
+    private static GameView extractInitialGameView(Object data) {
+        if (data instanceof GameView gameView) {
+            return gameView;
+        }
+        if (data instanceof GameClientMessage message) {
+            return message.getGameView();
+        }
+        if (data instanceof AbilityPickerView pickerView) {
+            return pickerView.getGameView();
+        }
+        return null;
+    }
+
+    void cacheInitialGameView(UUID gameId, int messageId, GameView gameView) {
+        if (gameId == null || gameView == null || gameView.getPlayers().isEmpty()) {
+            return;
+        }
+        firstGameViews.putIfAbsent(gameId, new CachedGameView(messageId, gameView));
+    }
+
+    private void hydrateMissingGameData(UUID gameId) {
+        GamePanel gamePanel = MageFrame.getGame(gameId);
+        if (gamePanel == null || !gamePanel.isMissGameData()) {
+            return;
+        }
+        CachedGameView cachedGameView = firstGameViews.remove(gameId);
+        if (cachedGameView == null) {
+            return;
+        }
+        logger.warn("Found miss game data for watched game, applying cached initial state");
+        gamePanel.init(cachedGameView.messageId(), cachedGameView.gameView(), true);
     }
 
     @Override
@@ -71,6 +110,11 @@ public class CallbackClientImpl implements CallbackClient {
         if (callback.getData() instanceof GameClientMessage) {
             firstGameData.putIfAbsent(callback.getObjectId(), (GameClientMessage) callback.getData());
         }
+        cacheInitialGameView(
+            callback.getObjectId(),
+            callback.getMessageId(),
+            extractInitialGameView(callback.getData())
+        );
 
         // all GUI related code must be executed in swing thread
         SwingUtilities.invokeLater(() -> {
@@ -157,6 +201,7 @@ public class CallbackClientImpl implements CallbackClient {
                     case WATCHGAME: {
                         TableClientMessage message = (TableClientMessage) callback.getData();
                         watchGame(message.getCurrentTableId(), message.getParentTableId(), callback.getObjectId());
+                        hydrateMissingGameData(callback.getObjectId());
                         break;
                     }
 

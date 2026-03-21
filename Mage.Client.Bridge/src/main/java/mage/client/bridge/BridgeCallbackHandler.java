@@ -1771,15 +1771,38 @@ public class BridgeCallbackHandler {
      * Build a standardized error response for choose_action failures.
      * Must reuse the caller's result map so the finally block can read success=false.
      */
+    private boolean restorePendingActionIfStillCurrent(PendingAction action, String source) {
+        if (action == null) {
+            return false;
+        }
+        synchronized (actionLock) {
+            if (pendingAction == null) {
+                pendingAction = action;
+                return true;
+            }
+            if (pendingAction == action) {
+                return true;
+            }
+            logger.info("[" + client.getUsername() + "] " + source
+                + ": preserving newer pending action instead of restoring stale one"
+                + " (stale=" + summarizePendingAction(action)
+                + ", current=" + summarizePendingAction(pendingAction) + ")");
+            return false;
+        }
+    }
+
     private ChooseActionTool.Result buildError(ChooseActionTool.Result result, String errorCode,
             String message, boolean retryable, PendingAction action, boolean attachChoices) {
         result.success = false;
         result.error = message;
         result.error_code = errorCode;
         result.retryable = retryable;
-        pendingAction = action;
-        if (attachChoices) {
+        boolean restoredAction = restorePendingActionIfStillCurrent(action, "buildError");
+        if (attachChoices && restoredAction) {
             attachChoicesToError(result);
+        } else if (attachChoices && action != null) {
+            result.warning = "Pending action advanced while handling the error. "
+                + "Call get_action_choices for the current options.";
         }
         attachUnseenChat(result);
         return result;
