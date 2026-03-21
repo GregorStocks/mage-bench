@@ -1591,6 +1591,10 @@ public class BridgeCallbackHandler {
     }
 
     private NonDecisionActionStatus maybeAutoHandleNonDecisionAction(PendingAction action, String source) {
+        if (action.method() == ClientCallbackMethod.GAME_PLAY_MANA
+                || action.method() == ClientCallbackMethod.GAME_PLAY_XMANA) {
+            return maybeAutoHandlePendingManaAction(action, source);
+        }
         if (action.method() != ClientCallbackMethod.GAME_TARGET) {
             return NonDecisionActionStatus.NOT_HANDLED;
         }
@@ -1627,6 +1631,39 @@ public class BridgeCallbackHandler {
             clearChoiceSnapshot();
             sendUuidOrDie(action.gameId(), onlyTarget, "auto-select single required GAME_TARGET");
             return NonDecisionActionStatus.AUTO_HANDLED;
+        }
+        return pendingAction != action
+            ? NonDecisionActionStatus.CHANGED
+            : NonDecisionActionStatus.NOT_HANDLED;
+    }
+
+    private NonDecisionActionStatus maybeAutoHandlePendingManaAction(PendingAction action, String source) {
+        if (!clearPendingActionIfCurrent(action)) {
+            return pendingAction != action
+                ? NonDecisionActionStatus.CHANGED
+                : NonDecisionActionStatus.NOT_HANDLED;
+        }
+
+        try {
+            lastChoices = null;
+            clearChoiceSnapshot();
+            boolean handled = handleGamePlayManaAuto(action.gameId(), (GameClientMessage) action.data());
+            if (handled) {
+                logger.info("[" + client.getUsername() + "] " + source
+                    + ": auto-resolved pending " + action.method().name() + " at decision boundary");
+                return NonDecisionActionStatus.AUTO_HANDLED;
+            }
+        } catch (ResponseDeliveryException e) {
+            throw e;
+        } catch (Exception e) {
+            logError("Pending mana auto-handler exception: " + e.getMessage());
+            logger.debug("[" + client.getUsername() + "] Pending mana auto-handler stack trace", e);
+        }
+
+        synchronized (actionLock) {
+            if (pendingAction == null) {
+                pendingAction = action;
+            }
         }
         return pendingAction != action
             ? NonDecisionActionStatus.CHANGED
@@ -3836,26 +3873,6 @@ public class BridgeCallbackHandler {
                     continue;
                 }
 
-                // GAME_PLAY_MANA: auto-tapper couldn't handle it, cancel the spell
-                if (method == ClientCallbackMethod.GAME_PLAY_MANA || method == ClientCallbackMethod.GAME_PLAY_XMANA) {
-                    UUID payingForId = extractPayingForId(action.message());
-                    if (payingForId != null) {
-                        failedManaCasts.add(payingForId);
-                    }
-                    synchronized (actionLock) {
-                        if (pendingAction == action) {
-                            pendingAction = null;
-                        }
-                    }
-                    synchronized (unseenChat) {
-                        unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-                    }
-                    logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
-                    sendBooleanOrDie(action.gameId(), false, "passPriority:spell_cancel");
-                    actionsPassed++;
-                    continue;
-                }
-
                 // Non-GAME_SELECT always needs LLM input — return immediately
                 if (method != ClientCallbackMethod.GAME_SELECT) {
                     ActionResult result = pendingActionResult(
@@ -5192,29 +5209,31 @@ public class BridgeCallbackHandler {
 
                 case GAME_PLAY_MANA:
                 case GAME_PLAY_XMANA: {
-                    // Try auto-tap first; fall back to LLM choice for ordinary auto-tap
-                    // bugs, but rethrow delivery failures so transport issues terminate
-                    // instead of queueing a pending action after playerDead=true.
-                    boolean manaHandled = false;
-                    try {
-                        manaHandled = handleGamePlayManaAuto(objectId, callback);
-                    } catch (ResponseDeliveryException e) {
-                        throw e;
-                    } catch (Exception e) {
-                        logError("Mana auto-handler exception: " + e.getMessage());
-                        logger.debug("[" + client.getUsername() + "] Mana auto-handler stack trace", e);
-                    }
-                    if (!manaHandled) {
-                        if (mcpMode) {
-                            storePendingAction(objectId, method, callback);
-                            actionableOutcome.storedPendingAction("mcp " + method.name());
-                        } else {
-                            // Non-MCP mode: cancel the payment
+                    if (mcpMode) {
+                        // XMage is blocked on this exact callback and only accepts the
+                        // corresponding sendPlayer* response. We cannot "wait until
+                        // later when we have priority" without first recording the
+                        // authoritative callback payload and waking the synchronous tool
+                        // thread that will answer it.
+                        storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("mcp " + method.name());
+                    } else {
+                        // Non-MCP mode keeps the legacy callback-time auto-tap path.
+                        boolean manaHandled = false;
+                        try {
+                            manaHandled = handleGamePlayManaAuto(objectId, callback);
+                        } catch (ResponseDeliveryException e) {
+                            throw e;
+                        } catch (Exception e) {
+                            logError("Mana auto-handler exception: " + e.getMessage());
+                            logger.debug("[" + client.getUsername() + "] Mana auto-handler stack trace", e);
+                        }
+                        if (!manaHandled) {
                             sendBooleanOrDie(objectId, false, "callback:cancel_" + method.name());
                             actionableOutcome.sentResponse("cancel " + method.name());
+                        } else {
+                            actionableOutcome.sentResponse("auto " + method.name());
                         }
-                    } else {
-                        actionableOutcome.sentResponse("auto " + method.name());
                     }
                     break;
                 }

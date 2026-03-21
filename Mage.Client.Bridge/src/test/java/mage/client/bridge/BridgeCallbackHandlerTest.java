@@ -11,6 +11,8 @@ import mage.constants.SubType;
 import mage.constants.SuperType;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
+import mage.players.PlayableObjectStats;
+import mage.players.PlayableObjectsList;
 import mage.remote.Session;
 import mage.util.MultiAmountMessage;
 import mage.util.SubTypes;
@@ -18,6 +20,8 @@ import mage.view.CardView;
 import mage.view.CardsView;
 import mage.view.GameClientMessage;
 import mage.view.GameView;
+import mage.view.ManaPoolView;
+import mage.view.PermanentView;
 import mage.view.PlayerView;
 import mage.view.StackAbilityView;
 import org.junit.jupiter.api.Test;
@@ -1094,6 +1098,185 @@ class BridgeCallbackHandlerTest {
             .isEqualTo("CHANGED");
     }
 
+    @Test
+    void handleCallbackStoresPendingManaActionInMcpMode() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setMcpMode(true);
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+        AtomicInteger sendPlayerManaTypeCalls = new AtomicInteger();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        return true;
+                    }
+                    case "sendPlayerUUID" -> {
+                        sendPlayerUuidCalls.incrementAndGet();
+                        return true;
+                    }
+                    case "sendPlayerManaType" -> {
+                        sendPlayerManaTypeCalls.incrementAndGet();
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        activeGames.put(gameId, playerId);
+        setField(handler, "currentGameId", gameId);
+
+        GameView manaView = gameView(77);
+        ClientCallback callback = new ClientCallback(
+            ClientCallbackMethod.GAME_PLAY_MANA,
+            gameId,
+            new GameClientMessage(manaView, Collections.<String, Serializable>emptyMap(), "Pay {1}"),
+            false
+        );
+
+        handler.handleCallback(callback);
+
+        PendingAction pending = (PendingAction) getField(handler, "pendingAction");
+        assertThat(sendPlayerBooleanCalls.get()).isEqualTo(0);
+        assertThat(sendPlayerUuidCalls.get()).isEqualTo(0);
+        assertThat(sendPlayerManaTypeCalls.get()).isEqualTo(0);
+        assertThat(pending).isNotNull();
+        assertThat(pending.method()).isEqualTo(ClientCallbackMethod.GAME_PLAY_MANA);
+        assertThat(pending.message()).isEqualTo("Pay {1}");
+        assertThat(pending.gameSeq()).isEqualTo(77);
+    }
+
+    @Test
+    void transitionToDecisionBoundaryAutoHandlesStoredManaAction() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setMcpMode(true);
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID forestId = UUID.randomUUID();
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerUUID".equals(method.getName())) {
+                    sendPlayerUuidCalls.incrementAndGet();
+                    assertThat(args[0]).isEqualTo(gameId);
+                    assertThat(args[1]).isEqualTo(forestId);
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        PlayerView player = playerView(playerId, "TestPlayer", "p99");
+        PermanentView forest = permanentView(forestId, "p1", "Forest", false);
+        @SuppressWarnings("unchecked")
+        Map<UUID, Object> battlefield = (Map<UUID, Object>) getField(player, "battlefield");
+        battlefield.put(forestId, forest);
+
+        GameView manaView = gameView(60, List.of(player), new CardsView());
+        setField(manaView, "myPlayerId", playerId);
+        setField(manaView, "canPlayObjects", playableObjects(Map.of(
+            forestId, manaStats("{T}: Add {G}.")
+        )));
+
+        PendingAction action = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_PLAY_MANA,
+            new GameClientMessage(manaView, Collections.<String, Serializable>emptyMap(), "Pay {G}"),
+            "Pay {G}",
+            60
+        );
+        setField(handler, "pendingAction", action);
+
+        assertThat(invokeDecisionBoundaryStatus(handler, action, "test"))
+            .isEqualTo("AUTO_HANDLED");
+        assertThat(sendPlayerUuidCalls.get()).isEqualTo(1);
+        assertThat(getField(handler, "pendingAction")).isNull();
+    }
+
+    @Test
+    void passPriorityReturnsManualManaChoiceWhenPoolSelectionIsAmbiguous() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setMcpMode(true);
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        AtomicInteger sendPlayerManaTypeCalls = new AtomicInteger();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        return true;
+                    }
+                    case "sendPlayerManaType" -> {
+                        sendPlayerManaTypeCalls.incrementAndGet();
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        PlayerView player = playerView(playerId, "TestPlayer", "p99");
+        setField(player, "manaPool", manaPoolView(1, 0, 1, 0, 0, 0));
+
+        GameView manaView = gameView(61, List.of(player), new CardsView());
+        setField(manaView, "myPlayerId", playerId);
+        setField(manaView, "canPlayObjects", new PlayableObjectsList());
+
+        PendingAction action = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_PLAY_MANA,
+            new GameClientMessage(manaView, Collections.<String, Serializable>emptyMap(), "Pay 1 mana"),
+            "Pay 1 mana",
+            61
+        );
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", manaView);
+        setField(handler, "pendingAction", action);
+
+        ActionResult result = handler.passPriority(null, null);
+
+        assertThat(sendPlayerBooleanCalls.get()).isEqualTo(0);
+        assertThat(sendPlayerManaTypeCalls.get()).isEqualTo(0);
+        assertThat(result.stop_reason).isEqualTo("non_priority_action");
+        assertThat(result.action_pending).isTrue();
+        assertThat(result.action_type).isEqualTo("GAME_PLAY_MANA");
+        assertThat(result.response_type).isEqualTo("select");
+        assertThat(result.choices).hasSize(2);
+        assertThat(result.choices)
+            .extracting(choice -> choice.get("choice_type"))
+            .containsExactly("pool_mana", "pool_mana");
+        assertThat(result.choices)
+            .extracting(choice -> choice.get("name"))
+            .containsExactly("Blue", "Red");
+    }
+
     private static GameClientMessage multiAmountMessage(List<MultiAmountMessage> items, int min, int max) {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
     }
@@ -1213,6 +1396,18 @@ class BridgeCallbackHandlerTest {
         return view;
     }
 
+    private static PermanentView permanentView(UUID id, String shortId, String name, boolean tapped) throws Exception {
+        PermanentView view = (PermanentView) UNSAFE.allocateInstance(PermanentView.class);
+        setField(view, "id", id);
+        setField(view, "shortId", shortId);
+        setField(view, "name", name);
+        setField(view, "displayName", name);
+        setField(view, "rules", List.of());
+        setField(view, "cardTypes", List.of(CardType.LAND));
+        setField(view, "tapped", tapped);
+        return view;
+    }
+
     private static CardView cardView(UUID id, String shortId, String name) throws Exception {
         CardView view = (CardView) UNSAFE.allocateInstance(CardView.class);
         setField(view, "id", id);
@@ -1222,6 +1417,42 @@ class BridgeCallbackHandlerTest {
         setField(view, "rules", List.of());
         setField(view, "cardTypes", List.of());
         return view;
+    }
+
+    private static ManaPoolView manaPoolView(int red, int green, int blue, int white, int black, int colorless)
+            throws Exception {
+        ManaPoolView view = (ManaPoolView) UNSAFE.allocateInstance(ManaPoolView.class);
+        setField(view, "red", red);
+        setField(view, "green", green);
+        setField(view, "blue", blue);
+        setField(view, "white", white);
+        setField(view, "black", black);
+        setField(view, "colorless", colorless);
+        return view;
+    }
+
+    private static PlayableObjectsList playableObjects(Map<UUID, PlayableObjectStats> objects) throws Exception {
+        PlayableObjectsList list = new PlayableObjectsList();
+        setField(list, "objects", new LinkedHashMap<>(objects));
+        return list;
+    }
+
+    private static PlayableObjectStats manaStats(String... manaAbilities) throws Exception {
+        PlayableObjectStats stats = new PlayableObjectStats();
+        List<Object> records = new java.util.ArrayList<>();
+        for (int i = 0; i < manaAbilities.length; i++) {
+            records.add(playableObjectRecord(UUID.randomUUID(), manaAbilities[i]));
+        }
+        setField(stats, "allManaAbilities", records);
+        setField(stats, "basicManaAbilities", records);
+        return stats;
+    }
+
+    private static Object playableObjectRecord(UUID id, String value) throws Exception {
+        Class<?> recordClass = Class.forName("mage.players.PlayableObjectRecord");
+        var ctor = recordClass.getDeclaredConstructor(UUID.class, String.class);
+        ctor.setAccessible(true);
+        return ctor.newInstance(id, value);
     }
 
     private static StackAbilityView stackAbilityView(UUID id, CardView sourceCard, String rule, UUID targetId)

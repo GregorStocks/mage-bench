@@ -68,9 +68,10 @@ epoch directly.
 #  53 - Simplify multi-amount total display: total=N when min==max; consistent respond text (Mar 15)
 #  54 - Stop passive GAME_UPDATE state mutation; stack owner from CardView.controllerId (Mar 15)
 #  55 - Migrate GetGameLogTool from client-side chat accumulation to server-side bridge events (Mar 15)
+#  56 - Move GAME_PLAY_MANA auto-handling from callback thread to decision boundary (Mar 20)
 #  --- Golden exports updated: add model to test pilot players for stricter export validation (Mar 16)
 #  --- Golden exports updated: dataclass serialization includes null optional fields (Mar 17)
-HARNESS_EPOCH = 55
+HARNESS_EPOCH = 56
 
 # First epoch that counts as season 1. Used only for games that predate
 # run-time season tracking (no "season" in game_meta.json). Export and
