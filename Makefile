@@ -161,7 +161,7 @@ $(WEBSITE_NPM_STAMP): website/package.json website/package-lock.json
 	@flock tmp/website-npm-install.lock sh -c '\
 		cd website && \
 		if [ ! -f node_modules/.install-stamp ] || find package.json package-lock.json -newer node_modules/.install-stamp | grep -q .; then \
-			npm install --prefer-offline --no-audit --no-fund; \
+			npm ci --prefer-offline --no-audit --no-fund; \
 			touch node_modules/.install-stamp; \
 		fi'
 

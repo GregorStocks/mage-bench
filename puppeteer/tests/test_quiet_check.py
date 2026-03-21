@@ -47,6 +47,14 @@ def test_make_check_serializes_website_targets() -> None:
     assert set(PARALLEL_TARGETS).isdisjoint(SERIAL_TARGETS)
 
 
+def test_website_install_stamp_uses_npm_ci() -> None:
+    project_root = Path(__file__).resolve().parent.parent.parent
+    makefile = (project_root / "Makefile").read_text()
+
+    assert "npm ci --prefer-offline --no-audit --no-fund" in makefile
+    assert "npm install --prefer-offline --no-audit --no-fund" not in makefile
+
+
 def test_make_env_strips_recursive_make_state(monkeypatch) -> None:
     monkeypatch.setenv("KEEP_ME", "1")
     for key in RECURSIVE_MAKE_ENV_VARS:
