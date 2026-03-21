@@ -1,5 +1,8 @@
 package mage.client.bridge;
 
+import mage.client.bridge.processor.BridgeCallbackEvent;
+import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeProcessor;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.game.BridgeLogEntry;
@@ -58,13 +61,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
@@ -79,15 +78,6 @@ public class BridgeCallbackHandler {
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
     /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
     private record GameLogSnapshot(List<BridgeLogEntry> events, int cursor) {}
-    private interface RuntimeMessage {}
-    private record CallbackRuntimeEvent(UUID objectId, ClientCallbackMethod method, Object data)
-        implements RuntimeMessage {}
-    private record ShutdownRuntimeMessage(String reason) implements RuntimeMessage {}
-    private abstract static class RuntimeCommand<T> implements RuntimeMessage {
-        private final CompletableFuture<T> result = new CompletableFuture<>();
-
-        abstract T execute(BridgeCallbackHandler handler);
-    }
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -104,9 +94,9 @@ public class BridgeCallbackHandler {
     private final BridgeCardFormatter cardFormatter;
     private final BridgeGameStateBuilder gameStateBuilder;
     private final BridgeOracleTextService oracleTextService;
-    // Step 1/2 runtime scaffold: callback ingress now goes through the processor thread,
-    // while MCP/runtime methods still read transitional shared fields until step 3 lands.
-    private final RuntimeProcessor runtimeProcessor;
+    // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
+    // while MCP methods still read transitional shared fields until step 3 lands.
+    private final BridgeProcessor processor;
     private volatile Session session;
     private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>(); // gameId -> playerId
     private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>(); // gameId -> chatId
@@ -234,106 +224,14 @@ public class BridgeCallbackHandler {
     private static final DateTimeFormatter TIME_FMT =
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX");
 
-    private final class RuntimeProcessor {
-        private final BlockingQueue<RuntimeMessage> mailbox = new LinkedBlockingQueue<>();
-        private final Thread thread;
-        private volatile boolean closed = false;
-
-        private RuntimeProcessor() {
-            this.thread = new Thread(this::runLoop, "bridge-runtime-" + client.getUsername());
-            this.thread.setDaemon(true);
-        }
-
-        private void start() {
-            thread.start();
-        }
-
-        private boolean isProcessorThread() {
-            return Thread.currentThread() == thread;
-        }
-
-        private void enqueueCallback(CallbackRuntimeEvent event) {
-            if (closed) {
-                logger.warn("[" + client.getUsername() + "] Dropping callback after runtime shutdown: "
-                    + event.method());
-                return;
-            }
-            mailbox.offer(event);
-        }
-
-        private <T> T submit(RuntimeCommand<T> command) {
-            if (isProcessorThread()) {
-                return command.execute(BridgeCallbackHandler.this);
-            }
-            if (closed) {
-                throw new IllegalStateException("Runtime processor is shut down");
-            }
-            mailbox.offer(command);
-            try {
-                return command.result.get();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new IllegalStateException("Interrupted while waiting for runtime processor", e);
-            } catch (ExecutionException e) {
-                Throwable cause = e.getCause();
-                if (cause instanceof RuntimeException runtimeException) {
-                    throw runtimeException;
-                }
-                throw new IllegalStateException("Runtime processor command failed", cause);
-            }
-        }
-
-        private void shutdown(String reason) {
-            if (closed) {
-                return;
-            }
-            closed = true;
-            mailbox.offer(new ShutdownRuntimeMessage(reason));
-        }
-
-        private void runLoop() {
-            while (true) {
-                RuntimeMessage message;
-                try {
-                    message = mailbox.take();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
-
-                if (message instanceof ShutdownRuntimeMessage shutdown) {
-                    logger.info("[" + client.getUsername() + "] Runtime processor stopped: "
-                        + shutdown.reason());
-                    return;
-                }
-                if (message instanceof CallbackRuntimeEvent event) {
-                    processCallbackEvent(event);
-                    continue;
-                }
-                if (message instanceof RuntimeCommand<?> command) {
-                    executeCommand(command);
-                }
-            }
-        }
-
-        private <T> void executeCommand(RuntimeCommand<T> command) {
-            try {
-                T value = command.execute(BridgeCallbackHandler.this);
-                command.result.complete(value);
-            } catch (Throwable t) {
-                command.result.completeExceptionally(t);
-            }
-        }
-    }
-
     public BridgeCallbackHandler(BridgeMageClient client) {
         this.client = client;
         this.viewLocator = new BridgeViewLocator(shortIds, () -> lastGameView, this::logError);
         this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
         this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
-        this.runtimeProcessor = new RuntimeProcessor();
-        this.runtimeProcessor.start();
+        this.processor = new BridgeProcessor(client.getUsername(), logger, this::processCallbackEvent);
+        this.processor.start();
     }
 
     /**
@@ -681,7 +579,7 @@ public class BridgeCallbackHandler {
         synchronized (actionLock) {
             actionLock.notifyAll();
         }
-        runtimeProcessor.shutdown("superseded by createFreshForNextGame");
+        processor.shutdown("superseded by createFreshForNextGame");
 
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
         fresh.session = this.session;
@@ -739,16 +637,16 @@ public class BridgeCallbackHandler {
     }
 
     public void reset() {
-        runtimeProcessor.submit(new RuntimeCommand<Void>() {
+        processor.submit(new BridgeCommand<Void>() {
             @Override
-            Void execute(BridgeCallbackHandler handler) {
-                handler.resetRuntimeState();
+            public Void execute() {
+                resetProcessorState();
                 return null;
             }
         });
     }
 
-    private void resetRuntimeState() {
+    private void resetProcessorState() {
         activeGames.clear();
         gameChatIds.clear();
         pendingAction = null;
@@ -766,17 +664,17 @@ public class BridgeCallbackHandler {
     }
 
     // Visible for tests that need to wait for queued callback processing.
-    void awaitRuntimeProcessorIdle() {
-        runtimeProcessor.submit(new RuntimeCommand<Void>() {
+    void awaitProcessorIdle() {
+        processor.submit(new BridgeCommand<Void>() {
             @Override
-            Void execute(BridgeCallbackHandler handler) {
+            public Void execute() {
                 return null;
             }
         });
     }
 
-    void shutdownRuntimeProcessor(String reason) {
-        runtimeProcessor.shutdown(reason);
+    void shutdownProcessor(String reason) {
+        processor.shutdown(reason);
         synchronized (actionLock) {
             actionLock.notifyAll();
         }
@@ -4154,7 +4052,7 @@ public class BridgeCallbackHandler {
         ClientCallbackMethod method = callback.getMethod();
         try {
             callback.decompressData();
-            runtimeProcessor.enqueueCallback(new CallbackRuntimeEvent(
+            processor.enqueueCallback(new BridgeCallbackEvent(
                 callback.getObjectId(),
                 method,
                 callback.getData()
@@ -4177,7 +4075,7 @@ public class BridgeCallbackHandler {
         }
     }
 
-    private void processCallbackEvent(CallbackRuntimeEvent event) {
+    private void processCallbackEvent(BridgeCallbackEvent event) {
         UUID objectId = event.objectId();
         ClientCallbackMethod method = event.method();
         Object data = event.data();

@@ -54,7 +54,7 @@ public class BridgeMageClient implements MageClient {
 
     public void stop() {
         running = false;
-        callbackHandler.shutdownRuntimeProcessor("client.stop()");
+        callbackHandler.shutdownProcessor("client.stop()");
     }
 
     public void setRunning(boolean running) {

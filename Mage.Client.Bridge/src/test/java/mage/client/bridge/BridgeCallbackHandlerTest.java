@@ -607,7 +607,7 @@ class BridgeCallbackHandlerTest {
         );
         handler.handleCallback(callback);
 
-        handler.awaitRuntimeProcessorIdle();
+        handler.awaitProcessorIdle();
         assertThat(activeGames).doesNotContainKey(gameId);
         assertThat(handler.awaitGameFinished(100)).isTrue();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
@@ -652,7 +652,7 @@ class BridgeCallbackHandlerTest {
             false
         );
         handler.handleCallback(gameOverCallback);
-        handler.awaitRuntimeProcessorIdle();
+        handler.awaitProcessorIdle();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
 
         // Send END_GAME_INFO second — should be a no-op
@@ -663,7 +663,7 @@ class BridgeCallbackHandlerTest {
             false
         );
         handler.handleCallback(endGameInfoCallback);
-        handler.awaitRuntimeProcessorIdle();
+        handler.awaitProcessorIdle();
 
         // leaveChat should NOT have been called a second time
         assertThat(leaveChatCalls.get()).isEqualTo(1);
@@ -1055,7 +1055,7 @@ class BridgeCallbackHandlerTest {
         );
 
         handler.handleCallback(callback);
-        handler.awaitRuntimeProcessorIdle();
+        handler.awaitProcessorIdle();
 
         PendingAction pendingAction = (PendingAction) getField(handler, "pendingAction");
         assertThat(sendPlayerUuidCalls.get()).isZero();
@@ -1070,7 +1070,7 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void handleCallbackProcessesStartGameOnRuntimeProcessorThread() throws Exception {
+    void handleCallbackProcessesStartGameOnProcessorThread() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
 
@@ -1101,9 +1101,9 @@ class BridgeCallbackHandlerTest {
 
         String listenerThreadName = Thread.currentThread().getName();
         handler.handleCallback(callback);
-        handler.awaitRuntimeProcessorIdle();
+        handler.awaitProcessorIdle();
 
-        assertThat(joinGameThreadName.get()).startsWith("bridge-runtime-TestPlayer");
+        assertThat(joinGameThreadName.get()).startsWith("bridge-processor-TestPlayer");
         assertThat(joinGameThreadName.get()).isNotEqualTo(listenerThreadName);
         assertThat(getField(handler, "currentGameId")).isEqualTo(gameId);
         assertThat(getField(handler, "currentPlayerId")).isEqualTo(playerId);
@@ -1195,7 +1195,7 @@ class BridgeCallbackHandlerTest {
         );
 
         handler.handleCallback(callback);
-        handler.awaitRuntimeProcessorIdle();
+        handler.awaitProcessorIdle();
 
         PendingAction pending = (PendingAction) getField(handler, "pendingAction");
         assertThat(sendPlayerBooleanCalls.get()).isEqualTo(0);
