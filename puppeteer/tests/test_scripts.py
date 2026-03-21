@@ -148,17 +148,22 @@ class TestHttpUtils:
                 "https://api.scryfall.com/cards/search?q=bolt",
                 allowed_hosts={"api.scryfall.com"},
                 data=b"payload",
-                headers={"Accept": "application/json"},
+                headers={
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                },
                 timeout=3.5,
             )
 
         assert body == b"{}"
-        assert opener.addheaders == [("Accept", "application/json")]
-        opener.open.assert_called_once_with(
-            "https://api.scryfall.com/cards/search?q=bolt",
-            data=b"payload",
-            timeout=3.5,
-        )
+        opener.open.assert_called_once()
+        request = opener.open.call_args.args[0]
+        assert isinstance(request, urllib.request.Request)
+        assert request.full_url == "https://api.scryfall.com/cards/search?q=bolt"
+        assert request.data == b"payload"
+        assert request.get_header("Accept") == "application/json"
+        assert request.get_header("Content-type") == "application/json"
+        assert opener.open.call_args.kwargs == {"timeout": 3.5}
 
     def test_redirect_handler_rejects_unexpected_host(self) -> None:
         handler = http_utils._ValidatedHttpsRedirectHandler(allowed_hosts=frozenset({"api.scryfall.com"}))

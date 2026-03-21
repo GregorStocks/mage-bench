@@ -62,13 +62,18 @@ def fetch_https_bytes(
         _ValidatedHttpsRedirectHandler(allowed_hosts=allowed_host_set)
     )
     if headers is None:
-        opener.addheaders = []
+        request_headers: dict[str, str] = {}
     else:
-        opener.addheaders = list(headers.items())
+        request_headers = dict(headers)
+    request = urllib.request.Request(  # noqa: S310 - scheme, host, port, and redirects are validated above
+        url,
+        data=data,
+        headers=request_headers,
+    )
     response = (
-        opener.open(url, data=data)
+        opener.open(request)
         if timeout is None
-        else opener.open(url, data=data, timeout=timeout)
+        else opener.open(request, timeout=timeout)
     )
     with response as resp:
         body = resp.read()
