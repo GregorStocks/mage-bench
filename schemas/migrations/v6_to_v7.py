@@ -8,6 +8,9 @@ Version 7 bakes the normalized fields into the export so readers can fail fast
 and consume a single shape.
 """
 
+from schemas.migrations.v3_to_v4 import compute_season
+from scripts.export_llm_events import compute_thinking_time, compute_tool_call_counts
+
 SOURCE_VERSION = 6
 TARGET_VERSION = 7
 
@@ -15,12 +18,6 @@ TARGET_VERSION = 7
 def up(data: dict) -> dict:
     """Migrate from v6 to v7: normalize player stats and top-level season data."""
     assert data["version"] == 6, f"Expected v6, got v{data['version']}"
-
-    from schemas.migrations.v3_to_v4 import compute_season
-    from scripts.export_llm_events import (
-        compute_thinking_time,
-        compute_tool_call_counts,
-    )
 
     if "season" not in data:
         data["season"] = compute_season(data["harnessEpoch"])

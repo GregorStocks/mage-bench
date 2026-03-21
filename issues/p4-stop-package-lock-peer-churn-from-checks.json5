@@ -1,0 +1,23 @@
+{
+  "title": "Stop package-lock peer metadata churn from website checks",
+  "description": "Website-related checks keep dirtying `website/package-lock.json` by adding repeated `\"peer\": true` entries even when no dependency change was intended. This happens during normal validation (`make check`) and forces manual cleanup before commits and PRs.\n\
+\n\
+Find which website/npm step is rewriting the lockfile and make the checks reproducibly clean on an otherwise clean tree. The fix should eliminate the spurious lockfile churn rather than teaching contributors to clean it up by hand every time.\n\
+\n\
+Scope:\n\
+- `website/package-lock.json`\n\
+- `website/package.json`\n\
+- `Makefile`\n\
+- `scripts/checks/quiet_check.py`\n\
+- any website build/check scripts that run npm install or otherwise rewrite the lockfile",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "website",
+    "build",
+    "refactor",
+  ],
+  "created_at": "2026-03-21T10:57:38.731283-07:00",
+  "updated_at": "2026-03-21T10:57:38.731283-07:00",
+}
