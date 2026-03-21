@@ -9,9 +9,7 @@ blobs.
 import copy
 import dataclasses
 from collections.abc import Callable, Mapping
-import gzip
 from dataclasses import dataclass, field, fields
-from pathlib import Path
 from types import MappingProxyType
 from typing import Any, ClassVar, Literal, TypeAlias, TypeVar, cast
 
@@ -2045,24 +2043,16 @@ def require_snapshot(value: object, source: str = "snapshot") -> Snapshot:
     return _coerce_snapshot(value, source)
 
 
-def load_game_export(path: str | Path) -> GameExport:
-    export_path = Path(path)
-    raw = (
-        gzip.decompress(export_path.read_bytes()).decode()
-        if export_path.suffix == ".gz"
-        else export_path.read_text()
-    )
-    return require_game_export(loads_json5(raw), source=export_path.name)
+def parse_game_export(raw: str, *, source: str = "game export") -> GameExport:
+    """Validate a serialized game export and return the typed dataclass."""
+    return require_game_export(loads_json5(raw), source=source)
 
 
-def load_built_game_export(path: str | Path) -> BuiltGameExport:
-    export_path = Path(path)
-    raw = (
-        gzip.decompress(export_path.read_bytes()).decode()
-        if export_path.suffix == ".gz"
-        else export_path.read_text()
-    )
-    return require_built_game_export(loads_json5(raw), source=export_path.name)
+def parse_built_game_export(
+    raw: str, *, source: str = "built game export"
+) -> BuiltGameExport:
+    """Validate a serialized built export that may omit annotations."""
+    return require_built_game_export(loads_json5(raw), source=source)
 
 
 def json_default(obj: object) -> object:
@@ -2169,8 +2159,8 @@ __all__ = [
     "is_built_game_export",
     "is_game_export",
     "is_pilot_player",
-    "load_built_game_export",
-    "load_game_export",
+    "parse_built_game_export",
+    "parse_game_export",
     "require_built_game_export",
     "require_game_export",
     "require_snapshot",

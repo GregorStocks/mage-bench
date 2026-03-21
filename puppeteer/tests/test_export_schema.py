@@ -47,8 +47,8 @@ from schemas.game_export_types import (
     game_export_to_jsonable,
     is_game_export,
     is_pilot_player,
-    load_built_game_export,
-    load_game_export,
+    parse_built_game_export,
+    parse_game_export,
     require_built_game_export,
 )
 
@@ -59,6 +59,16 @@ SCHEMA_DIR = REPO_ROOT / "schemas"
 def _load_schema(version: int) -> dict:
     path = SCHEMA_DIR / f"game-export-v{version}.schema.json"
     return json.loads(path.read_text())
+
+
+def _parse_export_path(path: Path) -> GameExport:
+    raw = gzip.decompress(path.read_bytes()).decode("utf-8") if path.suffix == ".gz" else path.read_text()
+    return parse_game_export(raw, source=path.name)
+
+
+def _parse_built_export_path(path: Path) -> BuiltGameExport:
+    raw = gzip.decompress(path.read_bytes()).decode("utf-8") if path.suffix == ".gz" else path.read_text()
+    return parse_built_game_export(raw, source=path.name)
 
 
 def _minimal_export(version: int, **overrides) -> dict:
@@ -514,7 +524,7 @@ class TestExportSchema:
         )
         path.write_text(json.dumps(payload))
 
-        game = load_game_export(path)
+        game = _parse_export_path(path)
 
         assert game.version == 8
         assert game.players[0].toolCallsOk == 3
@@ -539,7 +549,7 @@ class TestExportSchema:
         )
         path.write_bytes(gzip.compress(json.dumps(payload).encode("utf-8")))
 
-        game = load_game_export(path)
+        game = _parse_export_path(path)
 
         assert game.id == "test_v8"
 
@@ -630,7 +640,7 @@ class TestExportSchema:
         )
         path.write_text(json.dumps(payload))
 
-        game = load_game_export(path)
+        game = _parse_export_path(path)
 
         snap = game.snapshots[0]
         battlefield_card = snap.players[0].battlefield[0]
@@ -697,7 +707,7 @@ class TestExportSchema:
         )
         path.write_text(json.dumps(payload))
 
-        game = load_game_export(path)
+        game = _parse_export_path(path)
 
         snap = game.snapshots[0]
         assert isinstance(snap.players[0].battlefield[0], Permanent)
@@ -751,7 +761,7 @@ class TestExportSchema:
         )
         path.write_text(json.dumps(payload))
 
-        game = load_game_export(path)
+        game = _parse_export_path(path)
 
         snap = game.snapshots[0]
         battlefield_card = snap.players[0].battlefield[0]
@@ -766,7 +776,7 @@ class TestExportSchema:
         path.write_text(json.dumps(payload))
 
         with pytest.raises(AssertionError, match="annotations"):
-            load_game_export(path)
+            _parse_export_path(path)
 
     def test_built_export_validator_allows_missing_annotation_fields(self) -> None:
         payload = _minimal_export(
@@ -813,7 +823,7 @@ class TestExportSchema:
         del payload["blunderScriptVersion"]
         path.write_text(json.dumps(payload))
 
-        built = load_built_game_export(path)
+        built = _parse_built_export_path(path)
 
         assert built.version == 8
         assert built.annotations is None
@@ -854,7 +864,7 @@ class TestExportSchema:
         )
         path.write_text(json.dumps(payload))
 
-        game = load_game_export(path)
+        game = _parse_export_path(path)
 
         assert game.decisions is not None
         assert isinstance(game.decisions[0], Decision)
@@ -914,7 +924,7 @@ class TestExportSchema:
         )
         path.write_text(json.dumps(payload))
 
-        game = load_game_export(path)
+        game = _parse_export_path(path)
         assert game.decisions is not None
         decision = game.decisions[0]
         choice = decision["choices"][0]
