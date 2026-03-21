@@ -1295,9 +1295,7 @@ def _setup_game(
 
     # Count bridge clients
     bridge_count = (
-        len(game_config.sleepwalker_players)
-        + len(game_config.pilot_players)
-        + len(game_config.replay_players)
+        len(game_config.sleepwalker_players) + len(game_config.pilot_players) + len(game_config.replay_players)
     )
 
     try:

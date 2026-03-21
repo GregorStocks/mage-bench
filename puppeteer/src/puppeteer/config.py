@@ -672,11 +672,7 @@ class Config:
                     raise AssertionError(f"Unknown player type {player_type!r}")
 
             # Validate: only pilot players can have deck="choice"
-            non_pilot = (
-                self.sleepwalker_players
-                + self.replay_players
-                + self.cpu_players
-            )
+            non_pilot = self.sleepwalker_players + self.replay_players + self.cpu_players
             non_pilot_choice = [p.name for p in non_pilot if p.deck == "choice"]
             assert not non_pilot_choice, (
                 f"deck='choice' requires a pilot player (has LLM), but found on non-pilot player(s): {non_pilot_choice}"
@@ -756,12 +752,7 @@ class Config:
     def resolve_random_decks(self, project_root: Path) -> None:
         """Replace any deck="random" with a randomly chosen deck from the registry."""
         # Fail fast if any player still has deck="choice" — caller must resolve those first
-        all_typed_players = (
-            self.sleepwalker_players
-            + self.pilot_players
-            + self.replay_players
-            + self.cpu_players
-        )
+        all_typed_players = self.sleepwalker_players + self.pilot_players + self.replay_players + self.cpu_players
         choice_names = [p.name for p in all_typed_players if p.deck == "choice"]
         assert not choice_names, (
             f"Unresolved deck='choice' for {choice_names} — call resolve_choice_decks() before resolve_random_decks()"
