@@ -189,6 +189,10 @@ These methods are the real cross-thread API boundary. Once they stop reading sha
 
 This should likely be a second PR, shortly after steps 1-2, to keep review size manageable.
 
+Important: this step may still use transitional long-running processor commands for
+flows like `pass_priority` and `choose_action`. That is acceptable as an
+intermediate state for correctness, but it is not the desired end state.
+
 ### Step 4: Remove Transitional Shared-State Machinery
 
 After the command migration lands, delete the old synchronization model:
@@ -197,6 +201,19 @@ After the command migration lands, delete the old synchronization model:
 - `wait()/notifyAll()`-style pending-action loops
 - extra `volatile` fields that only existed for cross-thread visibility
 - temporary bridge code that mirrors old and new control flow
+- long-running command handlers that block while "owning" the processor thread
+- callback-pumping escape hatches such as `processNextCallback(...)` and deferred nested-command draining
+
+Replace them with split-phase processor-owned requests:
+
+- an MCP/tool thread submits a request and waits on a future
+- the processor records that request in processor-owned state and returns to the normal event loop
+- incoming callbacks advance the request state machine
+- the processor completes the waiting future once the request reaches a real decision/result boundary
+
+In the end state, MCP commands should not monopolize the processor thread while
+waiting for future callbacks. The processor should remain in its normal event loop
+and satisfy requests incrementally as events arrive.
 
 This step cashes in the simplification. It should shrink the handler and the processor core meaningfully.
 

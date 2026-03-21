@@ -2605,9 +2605,15 @@ public class BridgeCallbackHandler {
     // ── Batch combat ──────────────────────────────────────────────────────
 
     /**
-     * When a long-running MCP command owns the processor thread, it must keep
-     * pumping callback events instead of sleeping on actionLock, otherwise the
-     * processor deadlocks waiting on the very callbacks it is supposed to consume.
+     * Transitional step-3 behavior: some MCP commands still block on the
+     * processor thread while waiting for later callbacks. In that state we must
+     * keep pumping callback events instead of sleeping on actionLock, otherwise
+     * the processor deadlocks waiting on the very callbacks it is supposed to
+     * consume.
+     *
+     * TODO: Remove this once pass/choose flows become split-phase processor
+     * requests that suspend via processor-owned state and future completion
+     * rather than monopolizing the processor thread.
      */
     private boolean waitForCallbackProgress(long timeoutMs) {
         if (processor.isProcessorThread()) {
