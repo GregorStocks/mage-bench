@@ -42,7 +42,6 @@ def build_bridge_launch_args(
     server: str,
     port: int,
     username: str,
-    personality: str,
     deck_path: Path | None = None,
     heap_size_mb: int | None = None,
     table_id: str | None = None,
@@ -60,7 +59,6 @@ def build_bridge_launch_args(
         [
             f"-Dxmage.bridge.server={server}",
             f"-Dxmage.bridge.port={port}",
-            f"-Dxmage.bridge.personality={personality}",
         ]
     )
     if table_id is not None:

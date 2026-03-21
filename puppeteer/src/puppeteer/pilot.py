@@ -1595,7 +1595,6 @@ async def run_pilot(
         server=server,
         port=port,
         username=username,
-        personality="sleepwalker",
         deck_path=deck_path,
         heap_size_mb=512,
         error_log_path=game_dir / f"{username}_errors.log" if game_dir else None,

@@ -679,7 +679,6 @@ class BridgeManager:
             {
                 "xmage.bridge.server": self._server,
                 "xmage.bridge.port": str(self._port),
-                "xmage.bridge.personality": "sleepwalker",
                 "xmage.bridge.keepAlive": "true",
                 "xmage.bridge.mcpPort": str(mcp_port),
                 "xmage.bridge.username": self._username,

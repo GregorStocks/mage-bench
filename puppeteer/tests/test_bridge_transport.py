@@ -10,17 +10,12 @@ def test_build_bridge_launch_args_for_sleepwalker() -> None:
         server="example.org",
         port=17171,
         username="Sleeper",
-        personality="sleepwalker",
         deck_path=Path("/tmp/decks/sleeper.dck"),
         heap_size_mb=512,
     )
 
     assert launch_args.jvm_args == (
-        "--add-opens=java.base/java.io=ALL-UNNAMED "
-        "-Xmx512m "
-        "-Dxmage.bridge.server=example.org "
-        "-Dxmage.bridge.port=17171 "
-        "-Dxmage.bridge.personality=sleepwalker"
+        "--add-opens=java.base/java.io=ALL-UNNAMED -Xmx512m -Dxmage.bridge.server=example.org -Dxmage.bridge.port=17171"
     )
     assert launch_args.mvn_args == [
         "-q",
@@ -37,7 +32,6 @@ def test_build_bridge_launch_args_for_pilot_with_logs() -> None:
         server="localhost",
         port=17171,
         username="Pilot",
-        personality="sleepwalker",
         deck_path=Path("/tmp/decks/pilot.dck"),
         heap_size_mb=512,
         error_log_path=game_dir / "Pilot_errors.log",
@@ -46,11 +40,7 @@ def test_build_bridge_launch_args_for_pilot_with_logs() -> None:
     )
 
     assert launch_args.jvm_args == (
-        "--add-opens=java.base/java.io=ALL-UNNAMED "
-        "-Xmx512m "
-        "-Dxmage.bridge.server=localhost "
-        "-Dxmage.bridge.port=17171 "
-        "-Dxmage.bridge.personality=sleepwalker"
+        "--add-opens=java.base/java.io=ALL-UNNAMED -Xmx512m -Dxmage.bridge.server=localhost -Dxmage.bridge.port=17171"
     )
     assert launch_args.mvn_args == [
         "-q",
@@ -68,7 +58,6 @@ def test_build_bridge_launch_args_for_replay_with_table_id() -> None:
         server="localhost",
         port=17171,
         username="Replay",
-        personality="sleepwalker",
         table_id="table-123",
         error_log_path=Path("/tmp/game-002/Replay_errors.log"),
     )
@@ -77,7 +66,6 @@ def test_build_bridge_launch_args_for_replay_with_table_id() -> None:
         "--add-opens=java.base/java.io=ALL-UNNAMED "
         "-Dxmage.bridge.server=localhost "
         "-Dxmage.bridge.port=17171 "
-        "-Dxmage.bridge.personality=sleepwalker "
         "-Dxmage.bridge.tableId=table-123"
     )
     assert launch_args.mvn_args == [
@@ -95,13 +83,11 @@ def test_build_bridge_launch_args_adds_darwin_ui_flag(monkeypatch) -> None:
         server="localhost",
         port=17171,
         username="MacPilot",
-        personality="sleepwalker",
     )
 
     assert launch_args.jvm_args == (
         "--add-opens=java.base/java.io=ALL-UNNAMED "
         "-Dxmage.bridge.server=localhost "
         "-Dxmage.bridge.port=17171 "
-        "-Dxmage.bridge.personality=sleepwalker "
         "-Dapple.awt.UIElement=true"
     )

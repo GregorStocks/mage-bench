@@ -281,7 +281,6 @@ async def run_replay(
         server=server,
         port=port,
         username=username,
-        personality="sleepwalker",
         deck_path=deck_path,
         table_id=table_id,
         error_log_path=game_dir / f"{username}_errors.log" if game_dir else None,

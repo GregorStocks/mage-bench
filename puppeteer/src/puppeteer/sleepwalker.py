@@ -54,7 +54,6 @@ async def run_sleepwalker(
         server=server,
         port=port,
         username=username,
-        personality="sleepwalker",
         deck_path=deck_path,
         heap_size_mb=512,
     )

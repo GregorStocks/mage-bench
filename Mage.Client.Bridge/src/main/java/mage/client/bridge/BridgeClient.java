@@ -18,7 +18,6 @@ import org.apache.log4j.Logger;
 
 import java.util.Collection;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,20 +30,16 @@ import java.util.regex.Pattern;
  *
  * Higher-level player roles such as pilot, replay, and the Python-side
  * sleepwalker are not Java bridge personalities; they are Python processes
- * layered on top of this bridge JVM. The only supported bridge personality
- * token is the legacy string "sleepwalker", which now just means "run the
- * generic MCP bridge".
+ * layered on top of this bridge JVM.
  *
  * Usage:
  *   java -jar mage-client-bridge.jar --server localhost --port 17171 --username bot1
- *   java -jar mage-client-bridge.jar --personality sleepwalker --server localhost --port 17171
  *
  * Or via system properties:
  *   -Dxmage.bridge.server=localhost
  *   -Dxmage.bridge.port=17171
  *   -Dxmage.bridge.username=bot1
  *   -Dxmage.bridge.password=
- *   -Dxmage.bridge.personality=sleepwalker
  */
 public class BridgeClient {
 
@@ -62,9 +57,6 @@ public class BridgeClient {
         "^(SB:)?\\s*(\\d+)\\s*\\[([^]:]+):([^]:]+)\\]\\s*(.*)\\s*$"
     );
 
-    // Legacy bridge personality token for the generic MCP bridge mode.
-    private static final String MCP_BRIDGE_PERSONALITY = "sleepwalker";
-
     public static void main(String[] args) throws Exception {
         String server = getStringSetting(args, "--server", "xmage.bridge.server", "localhost");
         int port = getIntSetting(args, "--port", "xmage.bridge.port", 17171);
@@ -72,9 +64,6 @@ public class BridgeClient {
             args, "--username", "xmage.bridge.username", "bridge-" + System.currentTimeMillis()
         );
         String password = getStringSetting(args, "--password", "xmage.bridge.password", "");
-        String bridgePersonality = parsePersonality(
-            getStringSetting(args, "--personality", "xmage.bridge.personality", MCP_BRIDGE_PERSONALITY)
-        );
 
         boolean keepAlive = Boolean.getBoolean("xmage.bridge.keepAlive");
 
@@ -89,7 +78,7 @@ public class BridgeClient {
             }
         } catch (Exception ignored) {}
 
-        logger.info("Starting bridge client: " + username + "@" + server + ":" + port + " [" + bridgePersonality + "]");
+        logger.info("Starting bridge client: " + username + "@" + server + ":" + port);
 
         // Skip bulk card scanning — CardRepository.findCard() lazily loads
         // individual cards on demand from ExpansionSet definitions. This avoids
@@ -420,17 +409,6 @@ public class BridgeClient {
                 deck.getCards().size() + " main deck cards and " +
                 deck.getSideboard().size() + " sideboard cards");
         return deck;
-    }
-
-    static String parsePersonality(String personalityArg) {
-        String personality = personalityArg.toLowerCase(Locale.ROOT);
-        return switch (personality) {
-            case MCP_BRIDGE_PERSONALITY -> personality;
-            default -> throw new IllegalArgumentException(
-                "Unknown bridge personality '" + personalityArg
-                    + "'. Expected: sleepwalker (legacy token for the MCP bridge mode)"
-            );
-        };
     }
 
     static String getStringSetting(String[] args, String argName, String propertyName, String defaultValue) {
