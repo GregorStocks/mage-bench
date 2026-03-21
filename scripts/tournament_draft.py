@@ -142,10 +142,8 @@ def _format_pack_option(
         else:
             non_lands.append(card)
 
-    for card in non_lands:
-        lines.append(_format_card_line(card.name, card.count, oracle))
-    for card in lands:
-        lines.append(_format_card_line(card.name, card.count, oracle))
+    lines.extend(_format_card_line(card.name, card.count, oracle) for card in non_lands)
+    lines.extend(_format_card_line(card.name, card.count, oracle) for card in lands)
 
     return "\n".join(lines)
 
@@ -529,7 +527,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
 
     # Set up API clients (one per unique key+provider)
     client_cache: dict[tuple[str, str], AsyncOpenAI] = {}
-    for model, provider, _, _ in entrant_configs.values():
+    for _model, provider, _, _ in entrant_configs.values():
         key_env = required_api_key_env(provider)
         api_key = os.environ.get(key_env)
         assert api_key, f"Missing API key: set {key_env} environment variable"

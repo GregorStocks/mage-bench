@@ -24,13 +24,14 @@ def _assert_game_export_path(path: Path) -> None:
     for ext in _VALID_EXTENSIONS:
         if path.name.endswith(ext):
             return
-    assert False, f"Expected game export path ending in {_VALID_EXTENSIONS}, got {path}"
+    raise AssertionError(
+        f"Expected game export path ending in {_VALID_EXTENSIONS}, got {path}"
+    )
 
 
 def _base_game_export_path(path: Path) -> Path:
     _assert_game_export_path(path)
-    stripped = path.with_suffix("") if path.suffix == ".gz" else path
-    return stripped
+    return path.with_suffix("") if path.suffix == ".gz" else path
 
 
 def load_raw_game_export(path: str | Path) -> dict[str, Any]:

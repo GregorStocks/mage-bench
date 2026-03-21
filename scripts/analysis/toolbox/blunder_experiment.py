@@ -599,7 +599,12 @@ def _approach_thinking(
     result = ExperimentResult(approach="C_thinking", game_id=data.id, model=OPUS)
     non_forced = [d for d in decisions if not is_forced(d)]
 
-    user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
+    user_msg = (
+        "## Game Overview\n"
+        f"{overview}\n\n"
+        f"## Decisions ({len(non_forced)} non-forced)\n\n"
+        f"{_format_decisions(decisions)}"
+    )
 
     trace = _call_llm(
         client,
@@ -632,7 +637,12 @@ def _approach_baseline(
     result = ExperimentResult(approach="baseline", game_id=data.id, model=OPUS)
     non_forced = [d for d in decisions if not is_forced(d)]
 
-    user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
+    user_msg = (
+        "## Game Overview\n"
+        f"{overview}\n\n"
+        f"## Decisions ({len(non_forced)} non-forced)\n\n"
+        f"{_format_decisions(decisions)}"
+    )
 
     trace = _call_llm(client, OPUS, OPUS_SYSTEM, user_msg, label="full_game")
     result.calls.append(trace)
@@ -944,7 +954,7 @@ def _approach_batched(
     # Run all batches in parallel
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         futures = {}
-        for i, (batch, user_msg, label) in enumerate(batches):
+        for i, (_batch, user_msg, label) in enumerate(batches):
             fut = pool.submit(
                 _eval_one_decision,
                 client,
