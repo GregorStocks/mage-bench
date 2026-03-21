@@ -472,7 +472,7 @@ def test_git_returns_output():
         stdout="  main\n",
         stderr="",
     )
-    with patch("puppeteer.orchestrator.subprocess.run", return_value=completed) as mock:
+    with patch("puppeteer.game_finalization.subprocess.run", return_value=completed) as mock:
         result = _git("rev-parse --abbrev-ref HEAD", Path("/fake"))
     assert result == "main"
     mock.assert_called_once_with(
@@ -488,7 +488,7 @@ def test_git_raises_on_failure():
     """Git failures should surface immediately."""
     with (
         patch(
-            "puppeteer.orchestrator.subprocess.run",
+            "puppeteer.game_finalization.subprocess.run",
             side_effect=subprocess.CalledProcessError(
                 1,
                 ["git", "rev-parse", "HEAD"],
@@ -563,7 +563,7 @@ def _mock_proc(poll_returns: list[int | None]) -> MagicMock:
     return proc
 
 
-@patch("puppeteer.orchestrator.time.sleep")
+@patch("puppeteer.game_processes.time.sleep")
 def test_pilot_monitoring_spectator_exits_normally(mock_sleep):
     """When spectator exits first, should return its exit code."""
     spectator = _mock_proc([None, None, 0])
@@ -576,7 +576,7 @@ def test_pilot_monitoring_spectator_exits_normally(mock_sleep):
     pm.cleanup.assert_not_called()
 
 
-@patch("puppeteer.orchestrator.time.sleep")
+@patch("puppeteer.game_processes.time.sleep")
 def test_pilot_monitoring_pilot_fails(mock_sleep):
     """When a pilot exits with non-zero, should abort and return -1."""
     spectator = _mock_proc([None, None])
@@ -589,7 +589,7 @@ def test_pilot_monitoring_pilot_fails(mock_sleep):
     pm.cleanup.assert_called_once()
 
 
-@patch("puppeteer.orchestrator.time.sleep")
+@patch("puppeteer.game_processes.time.sleep")
 def test_pilot_monitoring_pilot_exits_zero_ignored(mock_sleep):
     """A pilot exiting with code 0 should not trigger abort."""
     # Spectator: None, None, None, 0
@@ -607,7 +607,7 @@ def test_pilot_monitoring_pilot_exits_zero_ignored(mock_sleep):
 # --- _wait_for_game_start tests ---
 
 
-@patch("puppeteer.orchestrator.time.sleep")
+@patch("puppeteer.game_processes.time.sleep")
 def test_wait_for_game_start_finds_marker(mock_sleep):
     """Should return once the spectator log contains the game-started marker."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -619,7 +619,7 @@ def test_wait_for_game_start_finds_marker(mock_sleep):
         # Should not raise
 
 
-@patch("puppeteer.orchestrator.time.sleep")
+@patch("puppeteer.game_processes.time.sleep")
 def test_wait_for_game_start_process_exited(mock_sleep):
     """Should return immediately if the spectator process has already exited."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -630,7 +630,7 @@ def test_wait_for_game_start_process_exited(mock_sleep):
         # Should not raise — game may have started and ended quickly
 
 
-@patch("puppeteer.orchestrator.time.sleep")
+@patch("puppeteer.game_processes.time.sleep")
 def test_wait_for_game_start_timeout(mock_sleep):
     """Should raise TimeoutError if the marker never appears."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -638,14 +638,14 @@ def test_wait_for_game_start_timeout(mock_sleep):
         log_path.write_text("Some other log line\n")
         proc = _mock_proc([None] * 100)  # Never exits
 
-        with patch("puppeteer.orchestrator.time.monotonic", side_effect=[0, 0, 100]), pytest.raises(TimeoutError):
+        with patch("puppeteer.game_processes.time.monotonic", side_effect=[0, 0, 100]), pytest.raises(TimeoutError):
             _wait_for_game_start(log_path, proc, timeout=5)
 
 
 # --- _wait_for_all_games tests ---
 
 
-@patch("puppeteer.orchestrator.time.sleep")
+@patch("puppeteer.batch_coordination.time.sleep")
 def test_wait_for_all_games_all_complete(mock_sleep):
     """All games complete normally — returns their exit codes."""
     s1 = GameSession(index=0, game_dir=Path("/fake/g1"), config=Config())
@@ -658,7 +658,7 @@ def test_wait_for_all_games_all_complete(mock_sleep):
     assert results == {0: 0, 1: 0}
 
 
-@patch("puppeteer.orchestrator.time.sleep")
+@patch("puppeteer.batch_coordination.time.sleep")
 def test_wait_for_all_games_pilot_fails(mock_sleep):
     """A pilot failure should terminate that game's spectator but not others."""
     s1 = GameSession(index=0, game_dir=Path("/fake/g1"), config=Config())
@@ -672,7 +672,7 @@ def test_wait_for_all_games_pilot_fails(mock_sleep):
     bob_proc = _mock_proc([None, 3, 3])
     s2.pilot_procs = [("bob", bob_proc)]
 
-    with patch("puppeteer.orchestrator.kill_tree"):
+    with patch("puppeteer.batch_coordination.kill_tree"):
         results = _wait_for_all_games([s1, s2])
 
     assert results[0] == 0
@@ -715,8 +715,8 @@ def test_finalize_game_tolerates_merge_io_error():
         session = GameSession(index=0, game_dir=game_dir, config=config)
 
         with (
-            patch("puppeteer.orchestrator.merge_game_log", side_effect=OSError("disk full")),
-            patch("puppeteer.orchestrator._print_game_summary", return_value=1.25),
+            patch("puppeteer.batch_coordination.merge_game_log", side_effect=OSError("disk full")),
+            patch("puppeteer.batch_coordination._print_game_summary", return_value=1.25),
         ):
             pilot_cost, blunder_cost = _finalize_game(session, Path("/fake/root"), spectator_rc=0)
 
@@ -738,7 +738,7 @@ def test_finalize_game_propagates_unexpected_merge_error():
 
         with (
             patch(
-                "puppeteer.orchestrator.merge_game_log",
+                "puppeteer.batch_coordination.merge_game_log",
                 side_effect=RuntimeError("unexpected merge bug"),
             ),
             pytest.raises(RuntimeError, match="unexpected merge bug"),
@@ -761,10 +761,10 @@ def test_config_num_games_set():
     assert config.num_games == 3
 
 
-@patch("puppeteer.orchestrator.start_observer_client")
-@patch("puppeteer.orchestrator._write_game_meta")
-@patch("puppeteer.orchestrator.resolve_choice_decks")
-@patch("puppeteer.orchestrator._git", side_effect=["main", "abc123", "abc123 test"])
+@patch("puppeteer.batch_coordination.start_observer_client")
+@patch("puppeteer.batch_coordination._write_game_meta")
+@patch("puppeteer.batch_coordination.resolve_choice_decks")
+@patch("puppeteer.batch_coordination._git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_uses_batch_specific_config(
     mock_git,
     mock_resolve,
@@ -810,13 +810,12 @@ def test_setup_game_uses_batch_specific_config(
 # --- _setup_game cleanup on failure tests ---
 
 
-@patch("puppeteer.orchestrator.time.sleep")
-@patch("puppeteer.orchestrator._wait_for_spectator_table")
-@patch("puppeteer.orchestrator.start_pilot_client")
-@patch("puppeteer.orchestrator.start_observer_client")
-@patch("puppeteer.orchestrator._write_game_meta")
-@patch("puppeteer.orchestrator.resolve_choice_decks")
-@patch("puppeteer.orchestrator._git", side_effect=["main", "abc123", "abc123 test"])
+@patch("puppeteer.batch_coordination._wait_for_spectator_table")
+@patch("puppeteer.batch_coordination.start_pilot_client")
+@patch("puppeteer.batch_coordination.start_observer_client")
+@patch("puppeteer.batch_coordination._write_game_meta")
+@patch("puppeteer.batch_coordination.resolve_choice_decks")
+@patch("puppeteer.batch_coordination._git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_cleans_up_on_spectator_crash(
     mock_git,
     mock_resolve,
@@ -824,7 +823,6 @@ def test_setup_game_cleans_up_on_spectator_crash(
     mock_start_spectator,
     mock_start_pilot,
     mock_wait_table,
-    mock_sleep,
 ):
     """When the spectator crashes before table creation, _setup_game should terminate it and re-raise."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -853,13 +851,12 @@ def test_setup_game_cleans_up_on_spectator_crash(
         mock_start_pilot.assert_not_called()
 
 
-@patch("puppeteer.orchestrator.time.sleep")
-@patch("puppeteer.orchestrator._wait_for_spectator_table")
-@patch("puppeteer.orchestrator.start_pilot_client")
-@patch("puppeteer.orchestrator.start_observer_client")
-@patch("puppeteer.orchestrator._write_game_meta")
-@patch("puppeteer.orchestrator.resolve_choice_decks")
-@patch("puppeteer.orchestrator._git", side_effect=["main", "abc123", "abc123 test"])
+@patch("puppeteer.batch_coordination._wait_for_spectator_table")
+@patch("puppeteer.batch_coordination.start_pilot_client")
+@patch("puppeteer.batch_coordination.start_observer_client")
+@patch("puppeteer.batch_coordination._write_game_meta")
+@patch("puppeteer.batch_coordination.resolve_choice_decks")
+@patch("puppeteer.batch_coordination._git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_cleans_up_pilots_on_timeout(
     mock_git,
     mock_resolve,
@@ -867,7 +864,6 @@ def test_setup_game_cleans_up_pilots_on_timeout(
     mock_start_spectator,
     mock_start_pilot,
     mock_wait_table,
-    mock_sleep,
 ):
     """When _wait_for_spectator_table times out after pilots started, should terminate all."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -901,8 +897,8 @@ def test_setup_game_cleans_up_pilots_on_timeout(
 # --- start_observer_client headless detection tests ---
 
 
-@patch("puppeteer.orchestrator.shutil.which", return_value="/usr/bin/xvfb-run")
-@patch("puppeteer.orchestrator.sys.platform", "linux")
+@patch("puppeteer.game_processes.shutil.which", return_value="/usr/bin/xvfb-run")
+@patch("puppeteer.game_processes.sys.platform", "linux")
 def test_start_observer_xvfb_on_headless_linux(mock_which):
     """On headless Linux (no DISPLAY), observer args should be prefixed with xvfb-run."""
     with patch.dict("os.environ", {}, clear=True):
@@ -916,7 +912,7 @@ def test_start_observer_xvfb_on_headless_linux(mock_which):
         assert "mvn" in args
 
 
-@patch("puppeteer.orchestrator.sys.platform", "linux")
+@patch("puppeteer.game_processes.sys.platform", "linux")
 def test_start_observer_no_xvfb_when_display_set():
     """With DISPLAY set, observer args should NOT be prefixed with xvfb-run."""
     with patch.dict("os.environ", {"DISPLAY": ":1"}, clear=True):
@@ -928,8 +924,8 @@ def test_start_observer_no_xvfb_when_display_set():
         assert args[0] == "mvn"
 
 
-@patch("puppeteer.orchestrator.shutil.which", return_value=None)
-@patch("puppeteer.orchestrator.sys.platform", "linux")
+@patch("puppeteer.game_processes.shutil.which", return_value=None)
+@patch("puppeteer.game_processes.sys.platform", "linux")
 def test_start_observer_fails_without_xvfb(mock_which):
     """On headless Linux without xvfb-run, should raise AssertionError."""
     with patch.dict("os.environ", {}, clear=True):

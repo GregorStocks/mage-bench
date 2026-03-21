@@ -218,8 +218,8 @@ def test_upload_and_export_returns_zero_without_api_key():
         (game_dir / "game_events.jsonl").write_text("")
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
-            patch("puppeteer.orchestrator._export_game") as mock_export,
-            patch("puppeteer.orchestrator._upload_to_youtube"),
+            patch("puppeteer.post_game_analysis._export_game") as mock_export,
+            patch("puppeteer.post_game_analysis._upload_to_youtube"),
         ):
             # _export_game returns a path to the temp export file
             export_path = Path(tmpdir) / "export" / "game_20260210_120000.json"
@@ -241,8 +241,8 @@ def test_upload_and_export_skips_youtube_without_recording():
         (game_dir / "game_events.jsonl").write_text("")
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
-            patch("puppeteer.orchestrator._upload_to_youtube") as mock_yt,
-            patch("puppeteer.orchestrator._export_game") as mock_export,
+            patch("puppeteer.post_game_analysis._upload_to_youtube") as mock_yt,
+            patch("puppeteer.post_game_analysis._export_game") as mock_export,
         ):
             export_path = Path(tmpdir) / "export" / "game_20260210_120000.json"
             export_path.parent.mkdir(parents=True)
@@ -267,10 +267,10 @@ def test_upload_and_export_continues_after_youtube_upload_error():
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
             patch(
-                "puppeteer.orchestrator._upload_to_youtube",
+                "puppeteer.post_game_analysis._upload_to_youtube",
                 side_effect=YouTubeUploadError("auth failed"),
             ),
-            patch("puppeteer.orchestrator._export_game") as mock_export,
+            patch("puppeteer.post_game_analysis._export_game") as mock_export,
         ):
             export_path = Path(tmpdir) / "export" / f"{game_id}.json"
             export_path.parent.mkdir(parents=True)
@@ -295,7 +295,7 @@ def test_upload_and_export_returns_zero_on_export_error():
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
             patch(
-                "puppeteer.orchestrator._export_game",
+                "puppeteer.post_game_analysis._export_game",
                 side_effect=GameExportError("bad export"),
             ),
         ):
