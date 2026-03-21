@@ -44,7 +44,7 @@ def test_main_continues_on_openai_error(monkeypatch: pytest.MonkeyPatch, tmp_pat
     _configure_runtime(monkeypatch, tmp_path)
     monkeypatch.setattr(
         blunder_eval,
-        "_eval_one_decision",
+        "evaluate_one_decision",
         MagicMock(side_effect=OpenAIError("temporary upstream failure")),
     )
 
@@ -60,7 +60,7 @@ def test_main_propagates_non_openai_error(monkeypatch: pytest.MonkeyPatch, tmp_p
     _configure_runtime(monkeypatch, tmp_path)
     monkeypatch.setattr(
         blunder_eval,
-        "_eval_one_decision",
+        "evaluate_one_decision",
         MagicMock(side_effect=AssertionError("unexpected bug")),
     )
 

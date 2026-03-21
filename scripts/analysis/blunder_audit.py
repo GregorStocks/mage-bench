@@ -23,7 +23,7 @@ from schemas.game_export_types import Action, Annotation, Decision, GameExport, 
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
-    _eval_one_decision,
+    evaluate_one_decision,
     init_api,
     load_game_context,
 )
@@ -156,7 +156,7 @@ def _lookup_existing_annotation(
     return lookup_annotation_for_decision(decision, game_data.annotations)
 
 
-def _get_current_annotation(
+def get_current_annotation(
     decision: Decision,
     game_data: GameExport,
     snapshots: Sequence[Snapshot],
@@ -184,7 +184,7 @@ def _get_current_annotation(
     client, prices = init_api()
     game_ctx = load_game_context(gz_path)
 
-    anns, cost, _parsed_ok, _raw = _eval_one_decision(
+    anns, cost, _parsed_ok, _raw = evaluate_one_decision(
         client,
         OPUS_MODEL,
         prices,
@@ -411,7 +411,7 @@ def audit_plays(game_filter: str | None = None) -> None:
             continue
 
         # Get current-version annotation (re-runs annotator if game is stale)
-        annotation, ann_version = _get_current_annotation(
+        annotation, ann_version = get_current_annotation(
             decision, game_data, snapshots, gz_path
         )
 
@@ -535,7 +535,7 @@ def add_from_url(url: str) -> None:
         notes = None
 
     # Get current-version annotation (re-runs annotator if game is stale)
-    annotation, ann_version = _get_current_annotation(
+    annotation, ann_version = get_current_annotation(
         best_decision, game_data, snapshots, gz_path
     )
     audited_entry = make_audited_entry(

@@ -42,12 +42,12 @@ from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
 from schemas.game_export_types import Decision, json_default
-from scripts.analysis.blunder_analysis import (
-    _actions_by_turn,
-    _collect_card_names,
-    _game_overview,
-    _get_oracle_texts,
-    build_decision_prompt,
+from scripts.analysis.blunder_analysis import build_decision_prompt
+from scripts.analysis.blunder_context import (
+    actions_by_turn,
+    collect_card_names,
+    game_overview,
+    get_oracle_texts,
 )
 from scripts.analysis.blunder_eval_common import decision_index
 from scripts.analysis.extract_decisions import extract_decisions
@@ -1923,10 +1923,10 @@ def assert_golden_blunder_prompts(
         return
 
     # Build prompt context
-    overview = _game_overview(export_data)
+    overview = game_overview(export_data)
     snapshots = export_data.snapshots
     actions = export_data.actions
-    abt = _actions_by_turn(actions)
+    abt = actions_by_turn(actions)
     num_players = len(export_data.players)
 
     # Oracle cache: load from golden dir, or generate in update mode
@@ -1934,8 +1934,8 @@ def assert_golden_blunder_prompts(
     oracle_cache_path = golden_dir / "oracle_cache.json5"
 
     if UPDATE_MODE:
-        all_names = _collect_card_names(export_data)
-        oracle_texts = _get_oracle_texts(sorted(all_names))
+        all_names = collect_card_names(export_data)
+        oracle_texts = get_oracle_texts(sorted(all_names))
         golden_dir.mkdir(parents=True, exist_ok=True)
         oracle_cache_path.write_text(dumps_json5(oracle_texts, sort_keys=True) + "\n")
     else:

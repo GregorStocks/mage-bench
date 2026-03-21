@@ -18,7 +18,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Decision, GameExport, Snapshot
-from scripts.analysis.blunder_audit import _get_current_annotation
+from scripts.analysis.blunder_audit import get_current_annotation
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
@@ -277,7 +277,7 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     gz_path = str(game_path_for_id(game_id))
 
     try:
-        annotation, ann_version = _get_current_annotation(
+        annotation, ann_version = get_current_annotation(
             decision, game_data, snapshots, gz_path
         )
     except (AssertionError, FileNotFoundError, OSError, json.JSONDecodeError) as exc:
