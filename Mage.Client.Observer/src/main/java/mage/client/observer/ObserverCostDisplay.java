@@ -31,11 +31,11 @@ final class ObserverCostDisplay {
         if (costPollingInitialized) {
             return;
         }
-        costPollingInitialized = true;
 
         if (gameDirPath == null) {
             return;
         }
+        costPollingInitialized = true;
         this.gameDirPath = gameDirPath;
 
         llmPlayerNames.addAll(parseLlmPlayerNames(configJson));
@@ -135,6 +135,8 @@ final class ObserverCostDisplay {
                     playerCosts.put(username, cost);
                 }
             } catch (Exception ignored) {
+                // Cost files are written asynchronously by another process; retry on the next poll
+                // if we catch a partial write or transient parse/read error.
             }
         }
     }

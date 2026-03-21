@@ -624,7 +624,7 @@ final class ObserverGameEventLogger {
     }
 
     private static String resolveTargetName(UUID targetId, GameView game) {
-        if (game == null || targetId == null) {
+        if (game == null || targetId == null || game.getPlayers() == null) {
             return "Unknown";
         }
 
@@ -636,19 +636,26 @@ final class ObserverGameEventLogger {
         }
 
         for (PlayerView player : game.getPlayers()) {
-            PermanentView perm = player.getBattlefield().get(targetId);
-            if (perm != null) {
-                return safe(perm.getDisplayName());
+            if (player.getBattlefield() != null) {
+                PermanentView perm = player.getBattlefield().get(targetId);
+                if (perm != null) {
+                    return safe(perm.getDisplayName());
+                }
             }
 
-            CardView found = player.getGraveyard().get(targetId);
-            if (found != null) {
-                return safe(found.getDisplayName());
+            CardView found = null;
+            if (player.getGraveyard() != null) {
+                found = player.getGraveyard().get(targetId);
+                if (found != null) {
+                    return safe(found.getDisplayName());
+                }
             }
 
-            found = player.getExile().get(targetId);
-            if (found != null) {
-                return safe(found.getDisplayName());
+            if (player.getExile() != null) {
+                found = player.getExile().get(targetId);
+                if (found != null) {
+                    return safe(found.getDisplayName());
+                }
             }
         }
 
@@ -658,10 +665,12 @@ final class ObserverGameEventLogger {
             }
         }
 
-        for (ExileView exileZone : game.getExile()) {
-            for (CardView card : exileZone.values()) {
-                if (card.getId().equals(targetId)) {
-                    return safe(card.getDisplayName());
+        if (game.getExile() != null) {
+            for (ExileView exileZone : game.getExile()) {
+                for (CardView card : exileZone.values()) {
+                    if (card.getId().equals(targetId)) {
+                        return safe(card.getDisplayName());
+                    }
                 }
             }
         }

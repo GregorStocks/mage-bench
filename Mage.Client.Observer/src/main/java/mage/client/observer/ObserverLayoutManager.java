@@ -294,7 +294,8 @@ final class ObserverLayoutManager {
                         f.setAccessible(true);
                         Map<String, ?> m = (Map<String, ?>) f.get(panel);
                         m.remove(dialogKey);
-                    } catch (Exception ignored) {
+                    } catch (Exception ex) {
+                        logger.warn("Failed to remove dismissed dialog from " + fieldName + " map: " + dialogKey, ex);
                     }
                     scheduledDismissals.remove(key);
                 });
