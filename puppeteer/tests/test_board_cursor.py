@@ -6,7 +6,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from mcp.types import CallToolResult, TextContent
 
-from puppeteer.pilot import BoardCursorTracker, run_pilot_loop
+from puppeteer.pilot import run_pilot_loop
+from puppeteer.pilot_state import BoardCursorTracker
 
 # --- BoardCursorTracker unit tests ---
 

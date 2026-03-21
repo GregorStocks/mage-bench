@@ -28,20 +28,9 @@ from puppeteer.llm_cost import (
 )
 from puppeteer.log import get_logger, log_error, setup_logging
 from puppeteer.pilot_bridge import (
-    _build_pilot_decision,
-    _build_pilot_snapshot,
-    _tool_execution_error_result,
-    execute_tool,
-    mcp_tools_to_openai,
-)
-from puppeteer.pilot_bridge import (
     _record_tool_execution_failure as _record_tool_execution_failure_impl,
 )
-from puppeteer.pilot_game_state import (
-    _extract_oracle_texts_from_board,
-    _normalize_context_token,
-    _parse_context_metadata,
-)
+from puppeteer.pilot_bridge import _tool_execution_error_result, execute_tool, mcp_tools_to_openai
 from puppeteer.pilot_recovery import (
     _classify_permanent_llm_failure,
 )
@@ -56,21 +45,14 @@ from puppeteer.pilot_recovery import (
 )
 from puppeteer.pilot_rendering import (
     CONTEXT_RECENT_COUNT,
-    CONTEXT_SUMMARY_COUNT,
     RENDER_INTERVAL,
-    TOOL_SUMMARY_TRIGGER_CHARS,
-    _build_reset_message,
-    _extract_last_reasoning,
     _fetch_state_summary,
     _find_cache_breakpoint_idx,
-    _find_tool_name,
-    _message_text,
-    _render_context,
-    _render_for_pilot,
-    _summarize_tool_result,
     _with_cache_control,
+    render_context,
+    render_for_pilot,
 )
-from puppeteer.pilot_state import BoardCursorTracker, PilotLoopState, PilotTurnState, _reset_context
+from puppeteer.pilot_state import PilotLoopState, PilotTurnState, _reset_context
 from puppeteer.tool_error import ToolExecutionError
 
 logger = get_logger(__name__)
@@ -95,47 +77,14 @@ MAX_EMPTY_RESPONSES = 10
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
 
 __all__ = [
-    "CONTEXT_RECENT_COUNT",
-    "CONTEXT_SUMMARY_COUNT",
     "DEFAULT_MODEL",
     "MAX_CHAT_MESSAGES_PER_TURN",
     "MAX_CONSECUTIVE_EMPTY_CHOICES",
     "MAX_TOKENS",
     "PERMANENT_FAILURE_EXIT_CODE",
-    "RENDER_INTERVAL",
-    "TOOL_SUMMARY_TRIGGER_CHARS",
-    "BoardCursorTracker",
     "PermanentLLMError",
-    "PilotLoopState",
-    "PilotTurnState",
-    "_build_loop_messages",
-    "_build_pilot_decision",
-    "_build_pilot_snapshot",
-    "_build_reset_message",
-    "_classify_permanent_llm_failure",
-    "_extract_last_reasoning",
-    "_extract_oracle_texts_from_board",
-    "_fetch_state_summary",
-    "_find_cache_breakpoint_idx",
-    "_find_tool_name",
-    "_handle_timeout",
-    "_handle_truncated_response",
-    "_mark_tail_cache_breakpoint",
-    "_message_text",
-    "_normalize_context_token",
-    "_parse_context_metadata",
-    "_prefetch_first_action",
-    "_record_tool_execution_failure",
-    "_recover_from_stall",
-    "_render_context",
-    "_render_for_pilot",
-    "_summarize_tool_result",
-    "_tool_execution_error_result",
-    "_with_cache_control",
     "build_initial_message",
-    "execute_tool",
     "main",
-    "mcp_tools_to_openai",
     "run_pilot",
     "run_pilot_loop",
 ]
@@ -264,11 +213,11 @@ async def _build_loop_messages(
         if not state.state_summary or state.render_counter % RENDER_INTERVAL == 0:
             state.state_summary = await _fetch_state_summary(session)
             state.render_counter = 0
-        messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
+        messages = render_context(state.history, system_prompt, state.state_summary, cache_control)
         state.cache_breakpoint_idx = _find_cache_breakpoint_idx(messages)
         return messages
 
-    messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
+    messages = render_context(state.history, system_prompt, state.state_summary, cache_control)
     state.cache_breakpoint_idx = len(messages) - 1 if messages else None
     state.render_counter = 0
     return messages
@@ -486,7 +435,7 @@ async def _process_tool_calls(
 
         display_text = result_text
         if fn.name in ("pass_priority", "get_action_choices", "choose_action"):
-            display_text, state.last_board = _render_for_pilot(result_text, state.last_board, state.seen_oracle_cards)
+            display_text, state.last_board = render_for_pilot(result_text, state.last_board, state.seen_oracle_cards)
             turns_since_chat = state.current_game_turn - state.last_chat_turn
             chat_budget_left = turn_state.chat_messages_this_turn < MAX_CHAT_MESSAGES_PER_TURN
             if turns_since_chat >= 2 and display_text != result_text and chat_budget_left:

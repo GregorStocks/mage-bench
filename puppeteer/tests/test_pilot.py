@@ -11,24 +11,18 @@ import pytest
 from mcp.types import CallToolResult, TextContent
 from openai import OpenAIError
 
-import puppeteer.pilot as pilot_module
-from puppeteer import pilot_bridge, pilot_game_state, pilot_rendering, pilot_state
 from puppeteer.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
     MAX_CONSECUTIVE_EMPTY_CHOICES,
     MAX_TOKENS,
     PermanentLLMError,
-    _build_pilot_decision,
-    _build_pilot_snapshot,
-    _extract_oracle_texts_from_board,
-    _fetch_state_summary,
     _prefetch_first_action,
-    _render_for_pilot,
-    execute_tool,
     main,
-    mcp_tools_to_openai,
     run_pilot_loop,
 )
+from puppeteer.pilot_bridge import _build_pilot_decision, _build_pilot_snapshot, execute_tool, mcp_tools_to_openai
+from puppeteer.pilot_game_state import _extract_oracle_texts_from_board
+from puppeteer.pilot_rendering import _fetch_state_summary, render_for_pilot
 from puppeteer.tool_error import ToolExecutionError
 from schemas.game_export_types import Decision, PilotContext
 
@@ -337,13 +331,6 @@ def _make_mcp_tool(name: str) -> MagicMock:
     tool.description = f"Description for {name}"
     tool.inputSchema = {"type": "object", "properties": {}}
     return tool
-
-
-def test_pilot_module_reexports_split_helpers():
-    assert pilot_module.execute_tool is pilot_bridge.execute_tool
-    assert pilot_module._extract_oracle_texts_from_board is pilot_game_state._extract_oracle_texts_from_board
-    assert pilot_module._render_context is pilot_rendering._render_context
-    assert pilot_module.BoardCursorTracker is pilot_state.BoardCursorTracker
 
 
 def test_mcp_tools_to_openai_no_filter():
@@ -1080,7 +1067,7 @@ def _sample_pass_priority_result() -> dict:
 class TestRenderForPilot:
     def test_basic_render(self) -> None:
         result = json.dumps(_sample_pass_priority_result())
-        text, board = _render_for_pilot(result, None)
+        text, board = render_for_pilot(result, None)
         assert "Alice" in text
         assert "Lightning Bolt" in text
         assert "Mountain" in text
@@ -1089,7 +1076,7 @@ class TestRenderForPilot:
 
     def test_non_action_passthrough(self) -> None:
         result = json.dumps({"stop_reason": "game_over", "game_over": True})
-        text, board = _render_for_pilot(result, None)
+        text, board = render_for_pilot(result, None)
         # Non-action_pending results pass through as-is
         assert "game_over" in text
         assert board is None
@@ -1097,7 +1084,7 @@ class TestRenderForPilot:
     def test_board_unchanged_uses_last_board(self) -> None:
         # First call: has board
         first_result = json.dumps(_sample_pass_priority_result())
-        text1, board = _render_for_pilot(first_result, None)
+        text1, board = render_for_pilot(first_result, None)
         assert board is not None
         assert "Alice" in text1
 
@@ -1105,41 +1092,41 @@ class TestRenderForPilot:
         no_board = _sample_pass_priority_result()
         del no_board["board"]
         second_result = json.dumps(no_board)
-        text2, board2 = _render_for_pilot(second_result, board)
+        text2, board2 = render_for_pilot(second_result, board)
         assert "Alice" in text2  # Still renders board from last_board
         assert board2 is board  # Board reference preserved
 
     def test_respond_with_line(self) -> None:
         result = json.dumps(_sample_pass_priority_result())
-        text, _ = _render_for_pilot(result, None)
+        text, _ = render_for_pilot(result, None)
         assert "Respond:" in text
 
     def test_card_reference_included(self) -> None:
         result = json.dumps(_sample_pass_priority_result())
-        text, _ = _render_for_pilot(result, None)
+        text, _ = render_for_pilot(result, None)
         assert "## Card Reference" in text
         assert "3 damage" in text
 
     def test_invalid_json_passthrough(self) -> None:
-        text, board = _render_for_pilot("not json", None)
+        text, board = render_for_pilot("not json", None)
         assert text == "not json"
         assert board is None
 
     def test_seen_oracle_cards_filters_repeat(self) -> None:
         result = json.dumps(_sample_pass_priority_result())
         seen: set[str] = set()
-        text1, board = _render_for_pilot(result, None, seen)
+        text1, board = render_for_pilot(result, None, seen)
         assert "3 damage" in text1
         assert "Lightning Bolt" in seen
         # Second render: oracle text should not repeat
-        text2, _ = _render_for_pilot(result, board, seen)
+        text2, _ = render_for_pilot(result, board, seen)
         assert "3 damage" not in text2
 
     def test_seen_oracle_cards_none_always_shows(self) -> None:
         result = json.dumps(_sample_pass_priority_result())
-        text1, board = _render_for_pilot(result, None, None)
+        text1, board = render_for_pilot(result, None, None)
         assert "3 damage" in text1
-        text2, _ = _render_for_pilot(result, board, None)
+        text2, _ = render_for_pilot(result, board, None)
         assert "3 damage" in text2
 
 
