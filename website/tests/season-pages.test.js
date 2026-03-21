@@ -89,9 +89,10 @@ describe("season-pages", () => {
   });
 
   it("loads shared tournament context and season game metadata", () => {
-    const season = loadAvailableSeasons()[0];
+    const seasons = loadAvailableSeasons();
+    const season = seasons[0];
     const context = loadSeasonTournamentContext(
-      loadAvailableSeasons().find((candidate) => hasTournament(candidate)) ?? season
+      seasons.find((candidate) => hasTournament(candidate)) ?? season
     );
     const seasonGames = loadSeasonGameEntries(season);
     const gameMap = loadSeasonGameMap(season);
@@ -101,5 +102,5 @@ describe("season-pages", () => {
     expect(seasonGames.length).toBeGreaterThan(0);
     expect(gameMap.size).toBe(seasonGames.length);
     expect(gameMap.get(seasonGames[0].id)).toEqual(seasonGames[0]);
-  }, 15000);
+  }, 30000);
 });

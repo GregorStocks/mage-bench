@@ -6,33 +6,24 @@ import mage.game.BridgeLogEntry;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
 import mage.choices.Choice;
-import mage.constants.CardType;
 import mage.constants.ManaType;
 import mage.constants.PhaseStep;
 import mage.constants.PlayerAction;
 import mage.constants.SubType;
 import mage.constants.SubTypeSet;
-import mage.constants.SuperType;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
 import mage.view.AbilityPickerView;
-import mage.view.CommandObjectView;
-import mage.view.CommanderView;
-import mage.view.CounterView;
 import mage.view.CardsView;
 import mage.view.CardView;
 import mage.view.ChatMessage;
 import mage.view.CombatGroupView;
-import mage.view.ExileView;
 import mage.view.GameClientMessage;
 import mage.view.GameView;
-import mage.view.LookedAtView;
 import mage.view.ManaPoolView;
 import mage.view.PermanentView;
 import mage.view.PlayerView;
-import mage.view.SimpleCardView;
-import mage.view.StackAbilityView;
 import mage.view.TableClientMessage;
 import mage.view.UserRequestMessage;
 import mage.players.PlayableObjectsList;
@@ -66,7 +57,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -83,8 +73,6 @@ import java.util.regex.Pattern;
 public class BridgeCallbackHandler {
 
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
-    /** Chat message captured for interleaving with bridge events in game log rendering. */
-    private record ChatLogEntry(int eventCursor, String message, String rendered) {}
     /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
     private record GameLogSnapshot(List<BridgeLogEntry> events, int cursor) {}
 
@@ -97,13 +85,12 @@ public class BridgeCallbackHandler {
     private static final Pattern REGEX_RED = Pattern.compile("\\x7b.{0,2}R.{0,2}\\x7d");
     private static final Pattern REGEX_GREEN = Pattern.compile("\\x7b.{0,2}G.{0,2}\\x7d");
     private static final Pattern REGEX_COLORLESS = Pattern.compile("\\x7b.{0,2}C.{0,2}\\x7d");
-    // Pattern to strip HTML tags from XMage messages before sending to LLMs
-    private static final Pattern HTML_TAG_PATTERN = Pattern.compile("<[^>]+>");
-    // Pattern to strip 3-char hex ID suffixes (e.g. " [8ad]") that XMage appends to card names.
-    // These are the first 3 chars of the object UUID, useful for the Swing UI but confusing for LLMs.
-    private static final Pattern HEX_SUFFIX_PATTERN = Pattern.compile(" \\[[0-9a-f]{3}\\]");
 
     private final BridgeMageClient client;
+    private final BridgeViewLocator viewLocator;
+    private final BridgeCardFormatter cardFormatter;
+    private final BridgeGameStateBuilder gameStateBuilder;
+    private final BridgeOracleTextService oracleTextService;
     private Session session;
     private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>(); // gameId -> playerId
     private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>(); // gameId -> chatId
@@ -177,7 +164,7 @@ public class BridgeCallbackHandler {
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
     private final List<String> unseenChat = new ArrayList<>(); // Chat messages from other players not yet shown to LLM
     private volatile boolean playerDead = false; // Set when we see "{name} has lost the game" in chat
-    private final List<ChatLogEntry> chatLog = new ArrayList<>(); // Chat messages interleaved with bridge events at render time
+    private final List<BridgeChatLogEntry> chatLog = new ArrayList<>(); // Chat messages interleaved with bridge events at render time
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
@@ -233,6 +220,10 @@ public class BridgeCallbackHandler {
 
     public BridgeCallbackHandler(BridgeMageClient client) {
         this.client = client;
+        this.viewLocator = new BridgeViewLocator(shortIds, () -> lastGameView, this::logError);
+        this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
+        this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
+        this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
     }
 
     /**
@@ -2876,189 +2867,18 @@ public class BridgeCallbackHandler {
 
     // ── End batch combat ──────────────────────────────────────────────────
 
-    private String describeTarget(UUID targetId, CardsView cardsView, GameView gameView) {
-        GameView view = gameView != null ? gameView : lastGameView;
-        // Try cardsView first (cards presented in the targeting UI)
-        if (cardsView != null) {
-            CardView cv = cardsView.get(targetId);
-            if (cv != null) {
-                return buildCardDescription(cv) + controllerSuffix(targetId, view);
-            }
-        }
-        // Fall back to game state lookup
-        CardView cv = findCardViewById(targetId, view);
-        if (cv != null) {
-            return buildCardDescription(cv) + controllerSuffix(targetId, view);
-        }
-        // Check if the target is a player
-        if (view != null) {
-            UUID gameId = currentGameId; // snapshot volatile to prevent TOCTOU race
-            UUID myPlayerId = playerIdForGame(gameId);
-            for (PlayerView player : view.getPlayers()) {
-                if (player.getPlayerId().equals(targetId)) {
-                    String desc = player.getName();
-                    if (player.getPlayerId().equals(myPlayerId)) {
-                        desc += " (you)";
-                    }
-                    return desc;
-                }
-            }
-        }
-        return "Unknown (" + targetId.toString().substring(0, 8) + ")";
-    }
-
-    /**
-     * Populate a choice entry map with structured target fields: name, target_type,
-     * is_you, controller, power, toughness, tapped.
-     */
     /** Populate target info and return the resolved CardView (null if target is a player or unknown). */
     private CardView buildTargetInfo(Map<String, Object> entry, UUID targetId,
                                   CardsView cardsView, GameView gameView, UUID myPlayerId) {
-        // Try cardsView first (cards presented in the targeting UI)
-        CardView cv = null;
-        if (cardsView != null) {
-            cv = cardsView.get(targetId);
-        }
-        if (cv == null) {
-            cv = findCardViewById(targetId, gameView);
-        }
-        if (cv != null) {
-            entry.put("name", safeDisplayName(cv));
-            if (cv instanceof PermanentView pv) {
-                entry.put("target_type", "permanent");
-                if (pv.isCreature() && cv.getPower() != null) {
-                    entry.put("power", cv.getPower());
-                    entry.put("toughness", cv.getToughness());
-                }
-                if (pv.isTapped()) {
-                    entry.put("tapped", true);
-                }
-            } else {
-                entry.put("target_type", "card");
-            }
-            // Add controller info for permanents on the battlefield
-            if (gameView != null) {
-                for (PlayerView player : gameView.getPlayers()) {
-                    if (player.getBattlefield().get(targetId) != null) {
-                        if (!player.getPlayerId().equals(myPlayerId)) {
-                            entry.put("controller", player.getName());
-                        }
-                        break;
-                    }
-                }
-            }
-            return cv;
-        }
-        // Check if the target is a player
-        if (gameView != null) {
-            for (PlayerView player : gameView.getPlayers()) {
-                if (player.getPlayerId().equals(targetId)) {
-                    entry.put("name", player.getName());
-                    entry.put("target_type", "player");
-                    if (player.getPlayerId().equals(myPlayerId)) {
-                        entry.put("is_you", true);
-                    }
-                    return null;
-                }
-            }
-        }
-        entry.put("name", "Unknown (" + targetId.toString().substring(0, 8) + ")");
-        entry.put("target_type", "card");
-        return null;
-    }
-
-    /**
-     * Return a suffix like " (yours)" or " (PlayerName's)" indicating who controls
-     * the permanent with the given ID. Returns "" if not found on any battlefield.
-     */
-    private String controllerSuffix(UUID objectId, GameView gameView) {
-        if (gameView == null) return "";
-        UUID gameId = currentGameId;
-        UUID myPlayerId = playerIdForGame(gameId);
-        for (PlayerView player : gameView.getPlayers()) {
-            if (player.getBattlefield().get(objectId) != null) {
-                if (player.getPlayerId().equals(myPlayerId)) {
-                    return " (yours)";
-                } else {
-                    return " (" + player.getName() + "'s)";
-                }
-            }
-        }
-        return "";
+        return cardFormatter.buildTargetInfo(entry, targetId, cardsView, gameView, myPlayerId);
     }
 
     private List<Map<String, Object>> buildStackItems(GameView gameView, boolean includeIds, boolean includeRules) {
-        var stack = new ArrayList<Map<String, Object>>();
-        if (gameView == null || gameView.getStack() == null || gameView.getStack().isEmpty()) {
-            return stack;
-        }
-        for (CardView card : gameView.getStack().values()) {
-            stack.add(buildStackItem(card, gameView, includeIds, includeRules));
-        }
-        return stack;
-    }
-
-    private Map<String, Object> buildStackItem(CardView card, GameView gameView, boolean includeId, boolean includeRules) {
-        var item = new HashMap<String, Object>();
-        if (includeId && card.getId() != null) {
-            item.put("id", getStableShortId(card.getId(), card));
-        }
-        item.put("name", safeDisplayName(card));
-        addStackAbilityContext(item, card);
-        if (includeRules) {
-            item.put("rules", stripHtmlList(card.getRules()));
-        }
-        if (card.getControllerId() != null && gameView != null) {
-            String owner = gameView.getPlayerName(card.getControllerId());
-            if (owner != null) {
-                item.put("owner", owner);
-            }
-        }
-        if (card.getTargets() != null && !card.getTargets().isEmpty()) {
-            var targets = new ArrayList<Map<String, Object>>();
-            for (UUID targetId : card.getTargets()) {
-                var target = new HashMap<String, Object>();
-                target.put("id", getStableShortId(targetId, findCardViewById(targetId, gameView)));
-                target.put("name", describeTarget(targetId, null, gameView));
-                targets.add(target);
-            }
-            item.put("targets", targets);
-        }
-        return item;
-    }
-
-    private void addStackAbilityContext(Map<String, Object> item, CardView card) {
-        if (!(card instanceof StackAbilityView sav)) {
-            return;
-        }
-        CardView sourceCard = sav.getSourceCard();
-        if (sourceCard != null) {
-            item.put("source_card", safeDisplayName(sourceCard));
-        }
-        List<String> rules = stripHtmlList(card.getRules());
-        if (rules != null && !rules.isEmpty()) {
-            item.put("ability_text", rules.get(0));
-        }
+        return cardFormatter.buildStackItems(gameView, includeIds, includeRules);
     }
 
     private String safeDisplayName(CardView cv) {
-        if (cv instanceof StackAbilityView sav) {
-            CardView sourceCard = sav.getSourceCard();
-            if (sourceCard != null) {
-                String sourceName = sourceCard.getDisplayName();
-                if (sourceName == null || sourceName.isEmpty()) {
-                    sourceName = sourceCard.getName();
-                }
-                if (sourceName != null && !sourceName.isEmpty()) {
-                    return sourceName;
-                }
-            }
-        }
-        String name = cv.getDisplayName();
-        if (name == null || name.isEmpty()) {
-            name = cv.getName() != null ? cv.getName() : "Unknown";
-        }
-        return name;
+        return cardFormatter.safeDisplayName(cv);
     }
 
     /**
@@ -3066,41 +2886,7 @@ public class BridgeCallbackHandler {
      * Used for hand cards, pile decisions, and mulligan hands.
      */
     private Map<String, Object> buildCardInfoMap(CardView cv) {
-        var info = new HashMap<String, Object>();
-        info.put("name", safeDisplayName(cv));
-        String manaCost = cv.getManaCostStr();
-        if (manaCost != null && !manaCost.isEmpty()) {
-            info.put("mana_cost", manaCost);
-        }
-        if (cv.isLand()) {
-            info.put("is_land", true);
-        }
-        if (cv.isCreature() && cv.getPower() != null) {
-            info.put("power", cv.getPower());
-            info.put("toughness", cv.getToughness());
-        }
-        List<String> rules = stripHtmlList(cv.getRules());
-        if (rules != null && !rules.isEmpty()) {
-            info.put("rules", rules);
-        }
-        return info;
-    }
-
-    private String buildCardDescription(CardView cv) {
-        String displayName = cv.getDisplayName();
-        if (displayName == null) {
-            displayName = cv.getName() != null ? cv.getName() : "Unknown";
-        }
-        var sb = new StringBuilder(displayName);
-        if (cv instanceof PermanentView pv) {
-            if (pv.isCreature() && cv.getPower() != null && cv.getToughness() != null) {
-                sb.append(" (").append(cv.getPower()).append("/").append(cv.getToughness()).append(")");
-            }
-            if (pv.isTapped()) {
-                sb.append(" [tapped]");
-            }
-        }
-        return sb.toString();
+        return cardFormatter.buildCardInfoMap(cv);
     }
 
     public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
@@ -3140,16 +2926,6 @@ public class BridgeCallbackHandler {
             String rendered = renderGameLogFlat(allEvents, Map.of(), 0, true);
             return buildGameLogResult(snapshot, rendered, rendered.length(), maxChars);
         }
-    }
-
-    /** Truncate text from the front to maxChars, trimming to the next newline boundary. */
-    private static String truncateFromFront(String text, int maxChars) {
-        String truncated = text.substring(text.length() - maxChars);
-        int nl = truncated.indexOf('\n');
-        if (nl >= 0 && nl < truncated.length() - 1) {
-            truncated = truncated.substring(nl + 1);
-        }
-        return truncated;
     }
 
     /**
@@ -3220,6 +2996,12 @@ public class BridgeCallbackHandler {
         return new GameLogSnapshot(allEvents, nextBridgeEventCursor(allEvents));
     }
 
+    private List<BridgeChatLogEntry> snapshotChatLog() {
+        synchronized (chatLog) {
+            return new ArrayList<>(chatLog);
+        }
+    }
+
     private static int nextBridgeEventCursor(List<BridgeLogEntry> allEvents) {
         return allEvents.isEmpty() ? 0 : allEvents.get(allEvents.size() - 1).index() + 1;
     }
@@ -3229,27 +3011,7 @@ public class BridgeCallbackHandler {
             String rendered,
             Integer totalLength,
             Integer maxChars) {
-        var result = new GetGameLogTool.Result();
-        result.cursor = snapshot.cursor();
-        if (totalLength != null) {
-            result.total_length = totalLength;
-        }
-        if (maxChars != null) {
-            applyGameLogCharLimit(result, rendered, maxChars);
-        } else {
-            result.log = rendered;
-        }
-        return result;
-    }
-
-    private static void applyGameLogCharLimit(GetGameLogTool.Result result, String rendered, int maxChars) {
-        if (maxChars > 0 && rendered.length() > maxChars) {
-            result.log = truncateFromFront(rendered, maxChars);
-            result.truncated = true;
-        } else {
-            result.log = rendered;
-            result.truncated = false;
-        }
+        return BridgeGameLogFormatter.buildGameLogResult(snapshot.cursor(), rendered, totalLength, maxChars);
     }
 
     /**
@@ -3343,108 +3105,7 @@ public class BridgeCallbackHandler {
                     .filter(e -> e.turn() >= sinceTurn)
                     .toList();
         }
-
-        if (events.isEmpty()) {
-            var result = new GetGameHistoryTool.Result();
-            result.history = "No game events recorded yet.";
-            result.cursor = newCursor;
-            result.event_count = 0;
-            return result;
-        }
-
-        // Group events by turn, then by phase+step
-        StringBuilder sb = new StringBuilder();
-        int currentTurn = -1;
-        String currentPhaseStep = null;
-
-        for (BridgeLogEntry entry : events) {
-            // Turn header
-            if (entry.turn() != currentTurn) {
-                currentTurn = entry.turn();
-                currentPhaseStep = null;
-                if (sb.length() > 0) sb.append("\n");
-                sb.append("Turn ").append(currentTurn);
-                if (entry.activePlayer() != null) {
-                    sb.append(" (").append(entry.activePlayer()).append(")");
-                }
-                sb.append(":\n");
-            }
-
-            // Phase/step sub-header
-            String phaseStep = formatPhaseStep(entry.phase(), entry.step());
-            if (phaseStep != null && !phaseStep.equals(currentPhaseStep)) {
-                currentPhaseStep = phaseStep;
-                sb.append("  ").append(phaseStep).append(":\n");
-            }
-
-            // Event description
-            String desc = formatBridgeEvent(entry);
-            if (desc != null) {
-                sb.append("    - ").append(desc).append("\n");
-            }
-        }
-
-        var result = new GetGameHistoryTool.Result();
-        result.history = sb.toString();
-        result.cursor = newCursor;
-        result.event_count = events.size();
-        return result;
-    }
-
-    /** Format a phase+step pair into a human-readable header. */
-    private static String formatPhaseStep(String phase, String step) {
-        if (phase == null && step == null) return null;
-        if (step != null) {
-            return switch (step) {
-                case "UPKEEP" -> "Upkeep";
-                case "DRAW" -> "Draw";
-                case "PRECOMBAT_MAIN" -> "Precombat Main";
-                case "BEGIN_COMBAT" -> "Begin Combat";
-                case "DECLARE_ATTACKERS" -> "Declare Attackers";
-                case "DECLARE_BLOCKERS" -> "Declare Blockers";
-                case "FIRST_COMBAT_DAMAGE", "COMBAT_DAMAGE" -> "Combat Damage";
-                case "END_COMBAT" -> "End Combat";
-                case "POSTCOMBAT_MAIN" -> "Postcombat Main";
-                case "END_TURN" -> "End Step";
-                case "CLEANUP" -> "Cleanup";
-                default -> step.replace('_', ' ').toLowerCase();
-            };
-        }
-        return phase.replace('_', ' ').toLowerCase();
-    }
-
-    /** Format a single BridgeLogEntry into a human-readable action description. */
-    private static String formatBridgeEvent(BridgeLogEntry entry) {
-        String player = entry.player();
-        String card = entry.cardName();
-        String target = entry.targetName();
-        int amount = entry.amount();
-
-        return switch (entry.type()) {
-            case "SPELL_CAST" -> player + " cast " + (card != null ? card : "a spell")
-                    + (target != null ? " targeting " + target : "");
-            case "LAND_PLAYED" -> player + " played " + (card != null ? card : "a land");
-            case "ACTIVATED_ABILITY" -> player + " activated "
-                    + (card != null ? card + "'s ability" : "an ability")
-                    + (target != null ? " targeting " + target : "");
-            case "ATTACKER_DECLARED" -> player + " attacked with " + (card != null ? card : "a creature")
-                    + (target != null ? " (attacking " + target + ")" : "");
-            case "BLOCKER_DECLARED" -> player + " blocked"
-                    + (target != null ? " " + target : "")
-                    + (card != null ? " with " + card : "");
-            case "DESTROYED_PERMANENT" -> (card != null ? card : "A permanent") + " was destroyed"
-                    + (player != null ? " (" + player + ")" : "");
-            case "SACRIFICED_PERMANENT" -> player + " sacrificed " + (card != null ? card : "a permanent");
-            case "COUNTERED" -> (card != null ? card : "A spell") + " was countered"
-                    + (target != null ? " (targeting " + target + ")" : "");
-            case "GAINED_LIFE" -> player + " gained " + amount + " life";
-            case "LOST_LIFE" -> player + " lost " + amount + " life";
-            case "DREW_CARD" -> player + " drew"
-                    + (card != null ? " " + card : " a card");
-            case "BEGIN_TURN" -> null; // Handled by turn header
-            default -> entry.type() + (player != null ? " by " + player : "")
-                    + (card != null ? " (" + card + ")" : "");
-        };
+        return BridgeGameLogFormatter.buildGameHistoryResult(events, newCursor);
     }
 
     /**
@@ -3464,73 +3125,13 @@ public class BridgeCallbackHandler {
                                      Map<String, Integer> initialTurnCounts,
                                      int minChatCursor,
                                      boolean includeChat) {
-        StringBuilder sb = new StringBuilder();
-        Map<String, Integer> perPlayerTurns = new HashMap<>(initialTurnCounts);
-        String lastTurnHeader = null;
-
-        // Snapshot chatLog for interleaving, sorted by (eventCursor, message).
-        // Messages at the same cursor have no reliable chronological ordering (callback
-        // arrival order is nondeterministic). Sort by message content (not the rendered
-        // "[Chat] Player: msg" prefix) so ordering reflects message text, not player name.
-        List<ChatLogEntry> chats = List.of();
-        int chatIdx = 0;
-        if (includeChat) {
-            synchronized (chatLog) {
-                chats = new ArrayList<>(chatLog);
-            }
-            chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparing(ChatLogEntry::message));
-            // Skip chat entries before the requested cursor range
-            while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() < minChatCursor) {
-                chatIdx++;
-            }
-        }
-
-        // Skip events before the first BEGIN_TURN (opening hand draws, etc.)
-        // These are game setup, not strategic actions.
-        boolean seenFirstTurn = !initialTurnCounts.isEmpty(); // slices already past setup
-        for (BridgeLogEntry entry : events) {
-            if (!seenFirstTurn) {
-                if ("BEGIN_TURN".equals(entry.type())) {
-                    seenFirstTurn = true;
-                } else {
-                    continue; // skip pre-turn events (opening draws)
-                }
-            }
-
-            // Insert chat messages that arrived before this event
-            while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() <= entry.index()) {
-                if (sb.length() > 0) sb.append("\n");
-                sb.append(chats.get(chatIdx).rendered());
-                chatIdx++;
-            }
-
-            if ("BEGIN_TURN".equals(entry.type())) {
-                String active = entry.activePlayer();
-                int playerTurn = perPlayerTurns.merge(active, 1, Integer::sum);
-                String header = active + " turn " + playerTurn + ":";
-                if (!header.equals(lastTurnHeader)) {
-                    if (sb.length() > 0) sb.append("\n");
-                    sb.append(header);
-                    lastTurnHeader = header;
-                }
-                continue;
-            }
-
-            String desc = formatBridgeEvent(entry);
-            if (desc != null) {
-                if (sb.length() > 0) sb.append("\n");
-                sb.append(desc);
-            }
-        }
-
-        // Append any remaining chat messages in range
-        while (chatIdx < chats.size()) {
-            if (sb.length() > 0) sb.append("\n");
-            sb.append(chats.get(chatIdx).rendered());
-            chatIdx++;
-        }
-
-        return sb.toString();
+        return BridgeGameLogFormatter.renderGameLogFlat(
+            events,
+            snapshotChatLog(),
+            initialTurnCounts,
+            minChatCursor,
+            includeChat
+        );
     }
 
     /**
@@ -4273,226 +3874,13 @@ public class BridgeCallbackHandler {
         return state;
     }
 
-    private List<PlayerView> getStablePlayers(GameView gameView, UUID myPlayerId) {
-        var players = new ArrayList<PlayerView>(gameView.getPlayers());
-        players.sort((a, b) -> {
-            boolean aIsYou = myPlayerId != null && myPlayerId.equals(a.getPlayerId());
-            boolean bIsYou = myPlayerId != null && myPlayerId.equals(b.getPlayerId());
-            int youCmp = Boolean.compare(bIsYou, aIsYou);
-            if (youCmp != 0) {
-                return youCmp;
-            }
-            String aName = a.getName() != null ? a.getName() : "";
-            String bName = b.getName() != null ? b.getName() : "";
-            int nameCmp = String.CASE_INSENSITIVE_ORDER.compare(aName, bName);
-            if (nameCmp != 0) {
-                return nameCmp;
-            }
-            return a.getPlayerId().toString().compareTo(b.getPlayerId().toString());
-        });
-        return players;
-    }
-
     /**
      * Build the full players array with board state. Includes hand (ours only),
      * battlefield (with rules), graveyard, exile, mana pool, counters, commanders.
      * Shared by getGameState() and getActionChoices().
      */
     private List<Map<String, Object>> buildPlayersArray(GameView gameView) {
-        var players = new ArrayList<Map<String, Object>>();
-        UUID gameId = currentGameId; // snapshot volatile to prevent TOCTOU race
-        UUID myPlayerId = playerIdForGame(gameId);
-
-        for (PlayerView player : getStablePlayers(gameView, myPlayerId)) {
-            var playerInfo = new HashMap<String, Object>();
-            playerInfo.put("name", player.getName());
-            playerInfo.put("life", player.getLife());
-            playerInfo.put("library_size", player.getLibraryCount());
-            playerInfo.put("hand_size", player.getHandCount());
-            playerInfo.put("is_active", player.isActive());
-
-            boolean isMe = player.getPlayerId().equals(myPlayerId);
-            playerInfo.put("is_you", isMe);
-
-            // Hand cards (only for our player)
-            if (isMe && gameView.getMyHand() != null) {
-                var handCards = new ArrayList<Map<String, Object>>();
-                PlayableObjectsList playable = gameView.getCanPlayObjects();
-
-                // Sort hand by card name, then by short ID for deterministic ordering
-                var sortedHand = new ArrayList<>(gameView.getMyHand().entrySet());
-                sortedHand.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> getStableShortIdSequence(e.getKey(), e.getValue())));
-
-                for (Map.Entry<UUID, CardView> handEntry : sortedHand) {
-                    var cardInfo = buildCardInfoMap(handEntry.getValue());
-                    cardInfo.put("id", getStableShortId(handEntry.getKey(), handEntry.getValue()));
-                    if (playable != null && playable.containsObject(handEntry.getKey())) {
-                        cardInfo.put("playable", true);
-                    }
-                    handCards.add(cardInfo);
-                }
-                playerInfo.put("hand", handCards);
-            }
-
-            // Battlefield — sort by name, then by short ID for deterministic ordering
-            var battlefield = new ArrayList<Map<String, Object>>();
-            if (player.getBattlefield() != null) {
-                var sortedBattlefield = new ArrayList<>(player.getBattlefield().values());
-                sortedBattlefield.sort(Comparator.<PermanentView, String>comparing(p -> safeDisplayName(p))
-                    .thenComparingInt(p -> getStableShortIdSequence(p.getId(), p)));
-                for (PermanentView perm : sortedBattlefield) {
-                    var permInfo = new HashMap<String, Object>();
-                    permInfo.put("id", getStableShortId(perm.getId(), perm));
-                    permInfo.put("name", safeDisplayName(perm));
-                    permInfo.put("tapped", perm.isTapped());
-
-                    // P/T for creatures
-                    if (perm.isCreature()) {
-                        permInfo.put("power", perm.getPower());
-                        permInfo.put("toughness", perm.getToughness());
-                    }
-
-                    // Loyalty for planeswalkers
-                    if (perm.isPlaneswalker()) {
-                        permInfo.put("loyalty", perm.getLoyalty());
-                    }
-
-                    // Counters
-                    if (perm.getCounters() != null && !perm.getCounters().isEmpty()) {
-                        var counters = new HashMap<String, Integer>();
-                        for (CounterView counter : perm.getCounters()) {
-                            counters.put(counter.getName(), counter.getCount());
-                        }
-                        permInfo.put("counters", counters);
-                    }
-
-                    // Summoning sickness
-                    if (perm.isCreature()) {
-                        permInfo.put("summoning_sick", perm.hasSummoningSickness());
-                    }
-
-                    // State-deviation flags: info the LLM can't infer from card name alone
-                    if (perm.isToken()) {
-                        permInfo.put("token", true);
-                    }
-
-                    // Detect modified permanents: compare current rules vs printed card rules.
-                    // PermanentView.getOriginal() is built with game=null (base abilities only).
-                    boolean modified = false;
-                    CardView orig = perm.getOriginal();
-                    if (orig != null) {
-                        modified = !Objects.equals(stripHtmlList(perm.getRules()), stripHtmlList(orig.getRules()));
-                    }
-                    if (modified) {
-                        permInfo.put("modified", true);
-                    }
-
-                    // Include oracle text (rules) for all permanents
-                    List<String> rules = stripHtmlList(perm.getRules());
-                    if (rules != null && !rules.isEmpty()) {
-                        permInfo.put("rules", rules);
-                    }
-
-                    // Original card name when identity has changed (copy, transform, flip, MDFC, meld)
-                    String altName = perm.getAlternateName();
-                    if (altName != null && !altName.isEmpty()) {
-                        permInfo.put("original_card", altName);
-                    }
-                    if (perm.isCopy()) {
-                        permInfo.put("copy", true);
-                    }
-                    if (perm.isMorphed() || perm.isManifested()) {
-                        permInfo.put("face_down", true);
-                    }
-
-                    battlefield.add(permInfo);
-                }
-            }
-            if (!battlefield.isEmpty()) {
-                playerInfo.put("battlefield", battlefield);
-            }
-
-            // Graveyard — sort by name, then by short ID for deterministic ordering
-            var graveyard = new ArrayList<Map<String, Object>>();
-            if (player.getGraveyard() != null) {
-                var sortedGraveyard = new ArrayList<>(player.getGraveyard().entrySet());
-                sortedGraveyard.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> getStableShortIdSequence(e.getKey(), e.getValue())));
-                for (Map.Entry<UUID, CardView> entry : sortedGraveyard) {
-                    var cardInfo = new HashMap<String, Object>();
-                    cardInfo.put("id", getStableShortId(entry.getKey(), entry.getValue()));
-                    cardInfo.put("name", safeDisplayName(entry.getValue()));
-                    List<String> gyRules = stripHtmlList(entry.getValue().getRules());
-                    if (gyRules != null && !gyRules.isEmpty()) {
-                        cardInfo.put("rules", gyRules);
-                    }
-                    graveyard.add(cardInfo);
-                }
-            }
-            if (!graveyard.isEmpty()) {
-                playerInfo.put("graveyard", graveyard);
-            }
-
-            // Exile — sort by name, then by short ID for deterministic ordering
-            var exileCards = new ArrayList<Map<String, Object>>();
-            if (player.getExile() != null) {
-                var sortedExile = new ArrayList<>(player.getExile().entrySet());
-                sortedExile.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> getStableShortIdSequence(e.getKey(), e.getValue())));
-                for (Map.Entry<UUID, CardView> entry : sortedExile) {
-                    var cardInfo = new HashMap<String, Object>();
-                    cardInfo.put("id", getStableShortId(entry.getKey(), entry.getValue()));
-                    cardInfo.put("name", safeDisplayName(entry.getValue()));
-                    List<String> exileRules = stripHtmlList(entry.getValue().getRules());
-                    if (exileRules != null && !exileRules.isEmpty()) {
-                        cardInfo.put("rules", exileRules);
-                    }
-                    exileCards.add(cardInfo);
-                }
-            }
-            if (!exileCards.isEmpty()) {
-                playerInfo.put("exile", exileCards);
-            }
-
-            // Mana pool
-            ManaPoolView pool = player.getManaPool();
-            if (pool != null) {
-                int total = pool.getRed() + pool.getGreen() + pool.getBlue()
-                          + pool.getWhite() + pool.getBlack() + pool.getColorless();
-                if (total > 0) {
-                    var mana = new HashMap<String, Integer>();
-                    if (pool.getRed() > 0) mana.put("R", pool.getRed());
-                    if (pool.getGreen() > 0) mana.put("G", pool.getGreen());
-                    if (pool.getBlue() > 0) mana.put("U", pool.getBlue());
-                    if (pool.getWhite() > 0) mana.put("W", pool.getWhite());
-                    if (pool.getBlack() > 0) mana.put("B", pool.getBlack());
-                    if (pool.getColorless() > 0) mana.put("C", pool.getColorless());
-                    playerInfo.put("mana_pool", mana);
-                }
-            }
-
-            // Player counters (poison, etc.)
-            if (player.getCounters() != null && !player.getCounters().isEmpty()) {
-                var counters = new HashMap<String, Integer>();
-                for (CounterView counter : player.getCounters()) {
-                    counters.put(counter.getName(), counter.getCount());
-                }
-                playerInfo.put("counters", counters);
-            }
-
-            // Commander info
-            if (player.getCommandObjectList() != null && !player.getCommandObjectList().isEmpty()) {
-                var commanders = new ArrayList<String>();
-                for (CommandObjectView cmd : player.getCommandObjectList()) {
-                    commanders.add(cmd.getName());
-                }
-                playerInfo.put("commanders", commanders);
-            }
-
-            players.add(playerInfo);
-        }
-        return players;
+        return gameStateBuilder.buildPlayersArray(gameView);
     }
 
     /**
@@ -4500,51 +3888,11 @@ public class BridgeCallbackHandler {
      * Shared by getActionChoices() and getGameState().
      */
     private List<Map<String, Object>> buildCombatGroups(GameView gameView) {
-        if (gameView == null || gameView.getCombat() == null || gameView.getCombat().isEmpty()) {
-            return null;
-        }
-        var combatGroups = new ArrayList<Map<String, Object>>();
-        for (CombatGroupView group : gameView.getCombat()) {
-            var groupInfo = new HashMap<String, Object>();
-            var attackers = new ArrayList<Map<String, Object>>();
-            for (CardView attacker : group.getAttackers().values()) {
-                var aInfo = new HashMap<String, Object>();
-                if (attacker.getId() != null) {
-                    aInfo.put("id", getStableShortId(attacker.getId(), attacker));
-                }
-                aInfo.put("name", safeDisplayName(attacker));
-                if (attacker.getPower() != null) {
-                    aInfo.put("power", attacker.getPower());
-                    aInfo.put("toughness", attacker.getToughness());
-                }
-                attackers.add(aInfo);
-            }
-            groupInfo.put("attackers", attackers);
-            var blockers = new ArrayList<Map<String, Object>>();
-            for (CardView blocker : group.getBlockers().values()) {
-                var bInfo = new HashMap<String, Object>();
-                if (blocker.getId() != null) {
-                    bInfo.put("id", getStableShortId(blocker.getId(), blocker));
-                }
-                bInfo.put("name", safeDisplayName(blocker));
-                if (blocker.getPower() != null) {
-                    bInfo.put("power", blocker.getPower());
-                    bInfo.put("toughness", blocker.getToughness());
-                }
-                blockers.add(bInfo);
-            }
-            if (!blockers.isEmpty()) {
-                groupInfo.put("blockers", blockers);
-            }
-            groupInfo.put("blocked", group.isBlocked());
-            groupInfo.put("defending", group.getDefenderName());
-            combatGroups.add(groupInfo);
-        }
-        return combatGroups;
+        return gameStateBuilder.buildCombatGroups(gameView);
     }
 
     private long updateGameStateCursor(Map<String, Object> state) {
-        String signature = buildStateSignature(state);
+        String signature = BridgeGameStateBuilder.buildStateSignature(state);
         synchronized (stateCursorLock) {
             if (lastGameStateSignature == null || !lastGameStateSignature.equals(signature)) {
                 gameStateCursor++;
@@ -4555,7 +3903,7 @@ public class BridgeCallbackHandler {
     }
 
     private long updateBoardCursor(List<Map<String, Object>> players) {
-        String signature = buildStateSignature(players);
+        String signature = BridgeGameStateBuilder.buildStateSignature(players);
         synchronized (boardCursorLock) {
             if (lastBoardSignature == null || !lastBoardSignature.equals(signature)) {
                 boardCursor++;
@@ -4563,39 +3911,6 @@ public class BridgeCallbackHandler {
             }
             return boardCursor;
         }
-    }
-
-    private String buildStateSignature(Object value) {
-        if (value == null) {
-            return "null";
-        }
-        if (value instanceof Map<?, ?> map) {
-            var sorted = new TreeMap<String, Object>();
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                sorted.put(String.valueOf(entry.getKey()), entry.getValue());
-            }
-            var sb = new StringBuilder("{");
-            boolean first = true;
-            for (Map.Entry<String, Object> entry : sorted.entrySet()) {
-                if (!first) sb.append(",");
-                sb.append(entry.getKey()).append(":").append(buildStateSignature(entry.getValue()));
-                first = false;
-            }
-            sb.append("}");
-            return sb.toString();
-        }
-        if (value instanceof List<?> list) {
-            var sb = new StringBuilder("[");
-            boolean first = true;
-            for (Object item : list) {
-                if (!first) sb.append(",");
-                sb.append(buildStateSignature(item));
-                first = false;
-            }
-            sb.append("]");
-            return sb.toString();
-        }
-        return String.valueOf(value);
     }
 
     public Map<String, Object> getMyDecklist() {
@@ -4647,395 +3962,23 @@ public class BridgeCallbackHandler {
     }
 
     public GetOracleTextTool.Result getOracleText(String cardName, String objectId, String[] cardNames, String[] objectIds) {
-        var result = new GetOracleTextTool.Result();
-
-        boolean hasCardName = cardName != null && !cardName.isEmpty();
-        boolean hasObjectId = objectId != null && !objectId.isEmpty();
-        boolean hasCardNames = cardNames != null && cardNames.length > 0;
-        boolean hasObjectIds = objectIds != null && objectIds.length > 0;
-
-        // Validate: exactly one parameter type should be provided
-        int providedCount = (hasCardName ? 1 : 0) + (hasObjectId ? 1 : 0) + (hasCardNames ? 1 : 0) + (hasObjectIds ? 1 : 0);
-        if (providedCount != 1) {
-            result.success = false;
-            result.error = "Provide exactly one of: card_name, object_id, card_names, or object_ids";
-            return result;
-        }
-
-        // Batch lookup by object IDs
-        if (hasObjectIds) {
-            var results = new ArrayList<Map<String, Object>>();
-            for (String oid : objectIds) {
-                var entry = new HashMap<String, Object>();
-                if (oid == null) {
-                    entry.put("object_id", null);
-                    entry.put("error", "null object_id");
-                } else {
-                    entry.put("object_id", oid);
-                    try {
-                        UUID uuid = shortIds.resolve(oid);
-                        CardView cardView = findCardViewById(uuid);
-                        if (cardView != null) {
-                            populateCardFields(entry, cardView);
-                        } else {
-                            entry.put("error", "not found");
-                        }
-                    } catch (IllegalArgumentException e) {
-                        entry.put("error", "unknown short ID: " + oid);
-                    }
-                }
-                results.add(entry);
-            }
-            result.success = true;
-            result.cards = results;
-            return result;
-        }
-
-        // Batch lookup by card names
-        if (hasCardNames) {
-            var results = new ArrayList<Map<String, Object>>();
-            for (String name : cardNames) {
-                var entry = new HashMap<String, Object>();
-                entry.put("name", name);
-                CardInfo cardInfo = CardRepository.instance.findCard(name);
-                if (cardInfo != null) {
-                    populateCardFields(entry, cardInfo);
-                } else {
-                    entry.put("error", "not found");
-                }
-                results.add(entry);
-            }
-            result.success = true;
-            result.cards = results;
-            return result;
-        }
-
-        // Object ID lookup (in-game, uses short IDs like "p1", "p2")
-        if (hasObjectId) {
-            try {
-                UUID uuid = shortIds.resolve(objectId);
-                CardView cardView = findCardViewById(uuid);
-                if (cardView != null) {
-                    result.success = true;
-                    populateCardFields(result, cardView);
-                    return result;
-                } else {
-                    result.success = false;
-                    result.error = "Object not found in current game state: " + objectId;
-                    return result;
-                }
-            } catch (IllegalArgumentException e) {
-                result.success = false;
-                result.error = "Unknown short ID: " + objectId;
-                return result;
-            }
-        }
-
-        // Card name lookup (database)
-        CardInfo cardInfo = CardRepository.instance.findCard(cardName);
-        if (cardInfo != null) {
-            result.success = true;
-            populateCardFields(result, cardInfo);
-            return result;
-        } else {
-            result.success = false;
-            result.error = "Card not found in database: " + cardName;
-            return result;
-        }
-    }
-
-    private record OracleCardFields(
-        String name,
-        String manaCost,
-        String type,
-        List<String> rules,
-        String power,
-        String toughness,
-        String startingLoyalty,
-        String startingDefense,
-        OracleCardFields secondFace
-    ) {
-        private void populate(Map<String, Object> entry) {
-            entry.put("name", name);
-            if (manaCost != null) {
-                entry.put("mana_cost", manaCost);
-            }
-            if (type != null) {
-                entry.put("type", type);
-            }
-            entry.put("rules", rules);
-            if (power != null) {
-                entry.put("power", power);
-                entry.put("toughness", toughness);
-            }
-            if (startingLoyalty != null) {
-                entry.put("starting_loyalty", startingLoyalty);
-            }
-            if (startingDefense != null) {
-                entry.put("starting_defense", startingDefense);
-            }
-            if (secondFace != null) {
-                entry.put("second_face", secondFace.toMap());
-            }
-        }
-
-        private Map<String, Object> toMap() {
-            var face = new HashMap<String, Object>();
-            populate(face);
-            return face;
-        }
-
-        private void populate(GetOracleTextTool.Result result) {
-            result.name = name;
-            result.mana_cost = manaCost;
-            result.type = type;
-            result.rules = rules;
-            result.power = power;
-            result.toughness = toughness;
-            result.starting_loyalty = startingLoyalty;
-            result.starting_defense = startingDefense;
-            result.second_face = secondFace != null ? secondFace.toMap() : null;
-        }
-    }
-
-    private void populateCardFields(Map<String, Object> entry, CardView cv) {
-        extractOracleCardFields(cv).populate(entry);
-    }
-
-    private void populateCardFields(Map<String, Object> entry, CardInfo ci) {
-        extractOracleCardFields(ci, true).populate(entry);
-    }
-
-    private void populateCardFields(GetOracleTextTool.Result result, CardView cv) {
-        extractOracleCardFields(cv).populate(result);
-    }
-
-    private void populateCardFields(GetOracleTextTool.Result result, CardInfo ci) {
-        extractOracleCardFields(ci, true).populate(result);
-    }
-
-    private static OracleCardFields extractOracleCardFields(CardView cv) {
-        CardView secondFace = cv.getSecondCardFace();
-        return new OracleCardFields(
-            cv.getDisplayName(),
-            normalizeOptionalField(cv.getManaCostStr()),
-            normalizeOptionalType(cv.getTypeText()),
-            stripHtmlList(cv.getRules()),
-            cv.isCreature() && cv.getPower() != null ? cv.getPower() : null,
-            cv.isCreature() && cv.getPower() != null ? cv.getToughness() : null,
-            cv.isPlaneswalker() ? normalizeNonZeroField(cv.getStartingLoyalty()) : null,
-            cv.isBattle() ? normalizeNonZeroField(cv.getStartingDefense()) : null,
-            secondFace != null ? extractOracleCardFields(secondFace) : null
-        );
-    }
-
-    private static OracleCardFields extractOracleCardFields(CardInfo ci, boolean includeSecondFace) {
-        CardInfo secondFace = includeSecondFace ? findSecondFace(ci) : null;
-        return new OracleCardFields(
-            ci.getName(),
-            joinManaCosts(ci.getManaCosts(CardInfo.ManaCostSide.ALL)),
-            normalizeOptionalType(buildTypeLine(ci)),
-            stripHtmlList(ci.getRules()),
-            ci.getTypes().contains(CardType.CREATURE) && ci.getPower() != null ? ci.getPower() : null,
-            ci.getTypes().contains(CardType.CREATURE) && ci.getPower() != null ? ci.getToughness() : null,
-            ci.getTypes().contains(CardType.PLANESWALKER) ? normalizeNonZeroField(ci.getStartingLoyalty()) : null,
-            ci.getTypes().contains(CardType.BATTLE) ? normalizeNonZeroField(ci.getStartingDefense()) : null,
-            secondFace != null ? extractOracleCardFields(secondFace, false) : null
-        );
-    }
-
-    private static CardInfo findSecondFace(CardInfo ci) {
-        String secondName = ci.getSecondSideName();
-        if (secondName == null || secondName.isEmpty()) {
-            secondName = ci.getDoubleFacedSecondSideName();
-        }
-        if (secondName == null || secondName.isEmpty()) {
-            secondName = ci.getFlipCardName();
-        }
-        if (secondName == null || secondName.isEmpty()) {
-            secondName = ci.getSpellOptionCardName();
-        }
-        if (secondName == null || secondName.isEmpty()) {
-            return null;
-        }
-        return CardRepository.instance.findCard(secondName);
-    }
-
-    private static String joinManaCosts(List<String> manaCosts) {
-        if (manaCosts == null || manaCosts.isEmpty()) {
-            return null;
-        }
-        return String.join("", manaCosts);
-    }
-
-    private static String normalizeOptionalField(String value) {
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
-        return value;
-    }
-
-    private static String normalizeOptionalType(String value) {
-        if (value == null) {
-            return null;
-        }
-        String trimmed = value.trim();
-        return trimmed.isEmpty() ? null : trimmed;
-    }
-
-    private static String normalizeNonZeroField(String value) {
-        if (value == null || value.isEmpty() || value.equals("0")) {
-            return null;
-        }
-        return value;
-    }
-
-    private static String buildTypeLine(CardInfo ci) {
-        StringBuilder sb = new StringBuilder();
-        if (!ci.getSupertypes().isEmpty()) {
-            sb.append(ci.getSupertypes().stream().map(SuperType::toString).collect(java.util.stream.Collectors.joining(" ")));
-            sb.append(" ");
-        }
-        if (!ci.getTypes().isEmpty()) {
-            sb.append(ci.getTypes().stream().map(CardType::toString).collect(java.util.stream.Collectors.joining(" ")));
-        }
-        if (!ci.getSubTypes().isEmpty()) {
-            sb.append(" — ");
-            sb.append(ci.getSubTypes().stream().map(SubType::toString).collect(java.util.stream.Collectors.joining(" ")));
-        }
-        return sb.toString().trim();
-    }
-
-    private CardView findCardViewById(UUID objectId) {
-        return findCardViewById(objectId, lastGameView);
+        return oracleTextService.getOracleText(cardName, objectId, cardNames, objectIds);
     }
 
     private String getStableShortId(UUID objectId, CardView cardView) {
-        Objects.requireNonNull(objectId, "objectId");
-        if (cardView != null) {
-            String serverShortId = cardView.getShortId();
-            if (serverShortId != null && !serverShortId.isBlank()) {
-                // Detect server ID collision before register() overwrites the mapping
-                UUID existing = shortIds.tryResolve(serverShortId);
-                if (existing != null && !existing.equals(objectId)) {
-                    logError("Server short ID collision: " + serverShortId
-                        + " was mapped to " + existing + " but server now says " + objectId);
-                }
-                shortIds.register(objectId, serverShortId);
-                return serverShortId;
-            }
-        }
-        // Check non-CardView objects in the current GameView: players and lookedAt cards
-        // are SimpleCardView/PlayerView (not found by findCardViewById) but carry server short IDs.
-        String found = findNonCardViewShortId(objectId, lastGameView);
-        if (found != null) {
-            shortIds.register(objectId, found);
-            return found;
-        }
-        return shortIds.getOrAssign(objectId);
-    }
-
-    /** Look up a server-assigned short ID for non-CardView objects (players, lookedAt cards). */
-    private String findNonCardViewShortId(UUID objectId, GameView gv) {
-        if (gv == null) return null;
-        for (PlayerView pv : gv.getPlayers()) {
-            if (pv.getPlayerId().equals(objectId)) {
-                String sid = pv.getShortId();
-                if (sid != null && !sid.isBlank()) return sid;
-            }
-        }
-        for (LookedAtView lv : gv.getLookedAt()) {
-            for (SimpleCardView sv : lv.getCards().values()) {
-                if (sv.getId().equals(objectId)) {
-                    String sid = sv.getShortId();
-                    if (sid != null && !sid.isBlank()) return sid;
-                }
-            }
-        }
-        return null;
+        return viewLocator.getStableShortId(objectId, cardView);
     }
 
     private int getStableShortIdSequence(UUID objectId) {
-        return getStableShortIdSequence(objectId, findCardViewById(objectId));
+        return viewLocator.getStableShortIdSequence(objectId);
     }
 
     private int getStableShortIdSequence(UUID objectId, CardView cardView) {
-        return parseShortIdSequence(getStableShortId(objectId, cardView));
-    }
-
-    private static int parseShortIdSequence(String shortId) {
-        if (shortId == null || shortId.length() < 2 || (shortId.charAt(0) != 'p' && shortId.charAt(0) != 'l')) {
-            return Integer.MAX_VALUE;
-        }
-        try {
-            return Integer.parseInt(shortId.substring(1));
-        } catch (NumberFormatException e) {
-            return Integer.MAX_VALUE;
-        }
+        return viewLocator.getStableShortIdSequence(objectId, cardView);
     }
 
     private CardView findCardViewById(UUID objectId, GameView gameView) {
-        if (gameView == null) return null;
-
-        // Check player's hand
-        CardView found = gameView.getMyHand().get(objectId);
-        if (found != null) {
-            return found;
-        }
-
-        // Check stack
-        found = gameView.getStack().get(objectId);
-        if (found != null) {
-            return found;
-        }
-
-        // Check all players' zones
-        for (PlayerView player : gameView.getPlayers()) {
-            // Check battlefield
-            PermanentView permanent = player.getBattlefield().get(objectId);
-            if (permanent != null) {
-                return permanent;
-            }
-
-            // Check graveyard
-            found = player.getGraveyard().get(objectId);
-            if (found != null) {
-                return found;
-            }
-
-            // Check exile
-            found = player.getExile().get(objectId);
-            if (found != null) {
-                return found;
-            }
-
-            // Check command zone (commanders castable from command zone)
-            for (CommandObjectView cmd : player.getCommandObjectList()) {
-                if (cmd instanceof CommanderView cv && cmd.getId().equals(objectId)) {
-                    return cv;
-                }
-            }
-        }
-
-        // Check exile zones
-        for (ExileView exileZone : gameView.getExile()) {
-            for (CardView card : exileZone.values()) {
-                if (card.getId().equals(objectId)) {
-                    return card;
-                }
-            }
-        }
-
-        // Check secondary faces of MDFCs in hand — the back face has its own
-        // UUID in the playable list but isn't keyed directly in the hand map.
-        for (CardView card : gameView.getMyHand().values()) {
-            CardView secondFace = card.getSecondCardFace();
-            if (secondFace != null && secondFace.getId().equals(objectId)) {
-                return secondFace;
-            }
-        }
-
-        return null;
+        return viewLocator.findCardViewById(objectId, gameView);
     }
 
     /**
@@ -5066,12 +4009,7 @@ public class BridgeCallbackHandler {
      * Look up a PermanentView by UUID from all players' battlefields.
      */
     private PermanentView findPermanentViewById(UUID objectId, GameView gameView) {
-        if (gameView == null) return null;
-        for (PlayerView player : gameView.getPlayers()) {
-            PermanentView perm = player.getBattlefield().get(objectId);
-            if (perm != null) return perm;
-        }
-        return null;
+        return viewLocator.findPermanentViewById(objectId, gameView);
     }
 
     public void handleCallback(ClientCallback callback) {
@@ -5345,33 +4283,11 @@ public class BridgeCallbackHandler {
      * Must be applied after internal HTML parsing (cast owner tracking, mana payment extraction).
      */
     private static String stripHtml(String s) {
-        if (s == null || s.isEmpty()) return s;
-        // Replace <br> tags with ": " before stripping other tags.
-        // XMage uses <br> to separate label from card name (e.g. "Choose spell or ability to play<br>Hallowed Fountain").
-        // Without this, the tag is stripped and the words run together.
-        String result = s.replaceAll("(?i)<br\\s*/?>", ": ");
-        result = HTML_TAG_PATTERN.matcher(result).replaceAll("");
-        result = HEX_SUFFIX_PATTERN.matcher(result).replaceAll("");
-        return result;
+        return BridgePromptFormatting.stripHtml(s);
     }
 
     static String stripAbilityPickerOrdinalPrefix(String description, int zeroBasedIndex) {
-        String normalized = Objects.requireNonNull(description, "Ability choice description must not be null");
-        String expectedPrefix = (zeroBasedIndex + 1) + ". ";
-        if (normalized.startsWith(expectedPrefix)) {
-            return normalized.substring(expectedPrefix.length());
-        }
-        return normalized;
-    }
-
-    /** Strip HTML tags and hex suffixes from each string in a list (e.g. card rules). */
-    private static List<String> stripHtmlList(List<String> list) {
-        if (list == null) return null;
-        var result = new ArrayList<String>(list.size());
-        for (String s : list) {
-            result.add(stripHtml(s));
-        }
-        return result;
+        return BridgePromptFormatting.stripAbilityPickerOrdinalPrefix(description, zeroBasedIndex);
     }
 
     // Passive callback: CHATMESSAGE
@@ -5401,7 +4317,7 @@ public class BridgeCallbackHandler {
                     // cursor=0, placing it before game events — chronologically correct since
                     // the chat predates the first event pull.
                     synchronized (chatLog) {
-                        chatLog.add(new ChatLogEntry(bridgeEventCursor, msg, "[Chat] " + user + ": " + msg));
+                        chatLog.add(new BridgeChatLogEntry(bridgeEventCursor, msg, "[Chat] " + user + ": " + msg));
                     }
                     // Buffer chat from other players so pass_priority can surface it
                     if (!user.equals(client.getUsername())) {

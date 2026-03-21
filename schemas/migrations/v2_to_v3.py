@@ -13,7 +13,7 @@ def up(data: dict) -> dict:
     """Migrate from v2 to v3: add cardData and token images via Scryfall."""
     assert data["version"] == 2, f"Expected v2, got v{data['version']}"
 
-    from scripts.export_game import _build_card_data
+    from scripts.export_card_data import _build_card_data
 
     card_images, card_data = _build_card_data(
         data.get("cardImages", {}),

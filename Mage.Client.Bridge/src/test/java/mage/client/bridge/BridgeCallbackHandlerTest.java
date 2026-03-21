@@ -15,6 +15,7 @@ import mage.players.PlayableObjectStats;
 import mage.players.PlayableObjectsList;
 import mage.remote.Session;
 import mage.util.MultiAmountMessage;
+import mage.util.ShortIdRegistry;
 import mage.util.SubTypes;
 import mage.view.CardView;
 import mage.view.CardsView;
@@ -266,9 +267,6 @@ class BridgeCallbackHandlerTest {
 
     @Test
     void populateCardFieldsMapForCardViewPreservesSharedOracleFields() throws Exception {
-        BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        BridgeCallbackHandler handler = client.getCallbackHandler();
-
         CardView secondFace = cardView(UUID.randomUUID(), "p2", "Awakened Insight");
         setField(secondFace, "manaCostLeftStr", List.of());
         setField(secondFace, "manaCostRightStr", List.of());
@@ -289,7 +287,8 @@ class BridgeCallbackHandlerTest {
         setField(frontFace, "toughness", "4");
         setField(frontFace, "secondCardFace", secondFace);
 
-        Map<String, Object> entry = invokePopulateCardFieldsMap(handler, frontFace);
+        Map<String, Object> entry = new LinkedHashMap<>();
+        oracleTextService().populateCardFields(entry, frontFace);
 
         assertThat(entry)
             .containsEntry("name", "Test Front")
@@ -310,8 +309,6 @@ class BridgeCallbackHandlerTest {
 
     @Test
     void populateCardFieldsResultForCardInfoPreservesSharedOracleFields() throws Exception {
-        BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        BridgeCallbackHandler handler = client.getCallbackHandler();
         CardInfo battle = new CardInfo();
         setField(battle, "name", "Test Invasion");
         battle.setManaCosts(List.of("{1}", "{W}"));
@@ -324,7 +321,8 @@ class BridgeCallbackHandlerTest {
         ));
         setField(battle, "startingDefense", "4");
 
-        GetOracleTextTool.Result result = invokePopulateCardFieldsResult(handler, battle);
+        GetOracleTextTool.Result result = new GetOracleTextTool.Result();
+        oracleTextService().populateCardFields(result, battle);
 
         assertThat(result.name).isEqualTo("Test Invasion");
         assertThat(result.mana_cost).isEqualTo("{1}{W}");
@@ -668,9 +666,6 @@ class BridgeCallbackHandlerTest {
 
     @Test
     void stackAbilitySummaryIncludesSourceCardAbilityTextAndReadableTargets() throws Exception {
-        BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        BridgeCallbackHandler handler = client.getCallbackHandler();
-
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
         UUID stackObjectId = UUID.randomUUID();
@@ -685,12 +680,12 @@ class BridgeCallbackHandlerTest {
         CardsView stack = new CardsView();
         stack.put(stackObjectId, stackAbility);
         GameView view = gameView(7, List.of(playerView(playerId, "TestPlayer", "p2")), stack);
-        setField(handler, "currentGameId", gameId);
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        activeGames.put(gameId, playerId);
-
-        Map<String, Object> stackItem = invokeBuildStackItem(handler, stackAbility, view, false, false);
+        Map<String, Object> stackItem = cardFormatter(view, gameId, playerId).buildStackItem(
+            stackAbility,
+            view,
+            false,
+            false
+        );
         assertThat(stackItem)
             .containsEntry("name", "Emancipation Angel")
             .containsEntry("source_card", "Emancipation Angel")
@@ -1472,54 +1467,18 @@ class BridgeCallbackHandlerTest {
         return view;
     }
 
-    @SuppressWarnings("unchecked")
-    private static Map<String, Object> invokeBuildStackItem(
-            BridgeCallbackHandler handler,
-            CardView card,
-            GameView view,
-            boolean includeId,
-            boolean includeRules
-    ) throws Exception {
-        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
-            "buildStackItem",
-            CardView.class,
-            GameView.class,
-            boolean.class,
-            boolean.class
-        );
-        method.setAccessible(true);
-        return (Map<String, Object>) method.invoke(handler, card, view, includeId, includeRules);
+    private static BridgeCardFormatter cardFormatter(GameView lastGameView, UUID currentGameId, UUID playerId) {
+        ShortIdRegistry shortIds = new ShortIdRegistry("l");
+        BridgeViewLocator viewLocator = new BridgeViewLocator(shortIds, () -> lastGameView, ignored -> {
+        });
+        return new BridgeCardFormatter(viewLocator, () -> currentGameId, ignored -> playerId);
     }
 
-    @SuppressWarnings("unchecked")
-    private static Map<String, Object> invokePopulateCardFieldsMap(
-            BridgeCallbackHandler handler,
-            CardView card
-    ) throws Exception {
-        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
-            "populateCardFields",
-            Map.class,
-            CardView.class
-        );
-        method.setAccessible(true);
-        Map<String, Object> entry = new LinkedHashMap<>();
-        method.invoke(handler, entry, card);
-        return entry;
-    }
-
-    private static GetOracleTextTool.Result invokePopulateCardFieldsResult(
-            BridgeCallbackHandler handler,
-            CardInfo card
-    ) throws Exception {
-        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
-            "populateCardFields",
-            GetOracleTextTool.Result.class,
-            CardInfo.class
-        );
-        method.setAccessible(true);
-        GetOracleTextTool.Result result = new GetOracleTextTool.Result();
-        method.invoke(handler, result, card);
-        return result;
+    private static BridgeOracleTextService oracleTextService() {
+        ShortIdRegistry shortIds = new ShortIdRegistry("l");
+        BridgeViewLocator viewLocator = new BridgeViewLocator(shortIds, () -> null, ignored -> {
+        });
+        return new BridgeOracleTextService(shortIds, viewLocator);
     }
 
     private static Session sessionProxy(CountDownLatch autoPassSent, AtomicInteger sendPlayerBooleanCalls) {

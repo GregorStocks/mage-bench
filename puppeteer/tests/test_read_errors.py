@@ -1,9 +1,9 @@
-"""Tests for _read_errors() in export_game.py."""
+"""Tests for _read_errors() in export_errors.py."""
 
 import tempfile
 from pathlib import Path
 
-from scripts.export_game import _read_errors
+from scripts.export_errors import _read_errors
 
 
 def test_read_errors_parses_code_bugs():
