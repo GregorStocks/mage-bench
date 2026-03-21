@@ -2,11 +2,21 @@ package mage.client.bridge.processor;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Supplier;
 
 public abstract class BridgeCommand<T> implements BridgeProcessorMessage {
     private final CompletableFuture<T> result = new CompletableFuture<>();
 
     public abstract T execute();
+
+    public static <T> BridgeCommand<T> of(Supplier<T> supplier) {
+        return new BridgeCommand<>() {
+            @Override
+            public T execute() {
+                return supplier.get();
+            }
+        };
+    }
 
     public final T awaitResult() {
         try {
