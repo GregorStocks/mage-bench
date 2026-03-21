@@ -2335,8 +2335,14 @@ public class BridgeCallbackHandler {
                     return finishChooseActionAfterProcessorShutdown(flow);
                 }
             } catch (InterruptedException e) {
+                ChooseActionTool.Result interruptedResult;
+                try {
+                    interruptedResult = processor.submit(BridgeCommand.of(() -> interruptChooseActionFlow(flow)));
+                } catch (IllegalStateException ignored) {
+                    interruptedResult = finishChooseActionAfterProcessorShutdown(flow);
+                }
                 Thread.currentThread().interrupt();
-                return processor.submit(BridgeCommand.of(() -> interruptChooseActionFlow(flow)));
+                return interruptedResult;
             } catch (ExecutionException e) {
                 Throwable cause = e.getCause();
                 if (cause instanceof RuntimeException runtimeException) {
@@ -3967,8 +3973,14 @@ public class BridgeCallbackHandler {
                     return null;
                 }));
             } catch (InterruptedException e) {
+                ActionResult interruptedResult;
+                try {
+                    interruptedResult = processor.submit(BridgeCommand.of(() -> interruptPassPriorityFlow(flow)));
+                } catch (IllegalStateException ignored) {
+                    interruptedResult = interruptPassPriorityFlow(flow);
+                }
                 Thread.currentThread().interrupt();
-                return processor.submit(BridgeCommand.of(() -> interruptPassPriorityFlow(flow)));
+                return interruptedResult;
             } catch (ExecutionException e) {
                 Throwable cause = e.getCause();
                 if (cause instanceof RuntimeException runtimeException) {

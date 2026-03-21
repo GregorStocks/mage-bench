@@ -51,6 +51,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -1059,6 +1060,76 @@ class BridgeCallbackHandlerTest {
         } finally {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void chooseActionReturnsInterruptedResultWhenCallerThreadIsInterrupted() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        CountDownLatch sendPlayerBooleanCalled = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView initialView = gameView(60);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerBoolean".equals(method.getName())) {
+                    sendPlayerBooleanCalls.incrementAndGet();
+                    sendPlayerBooleanCalled.countDown();
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", initialView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_ASK,
+            new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Use effect of Clone?"),
+            "Use effect of Clone?",
+            60
+        ));
+
+        AtomicReference<ChooseActionTool.Result> resultRef = new AtomicReference<>();
+        AtomicReference<Throwable> errorRef = new AtomicReference<>();
+        AtomicBoolean interruptFlagAfterReturn = new AtomicBoolean(false);
+        CountDownLatch done = new CountDownLatch(1);
+
+        Thread worker = new Thread(() -> {
+            try {
+                resultRef.set(handler.chooseAction(
+                    null, null, true, null, null, null, null, null, null, null, null
+                ));
+                interruptFlagAfterReturn.set(Thread.currentThread().isInterrupted());
+            } catch (Throwable t) {
+                errorRef.set(t);
+            } finally {
+                done.countDown();
+            }
+        }, "choose-action-interrupt-test");
+
+        worker.start();
+        try {
+            assertThat(sendPlayerBooleanCalled.await(1, TimeUnit.SECONDS)).isTrue();
+
+            worker.interrupt();
+
+            assertThat(done.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThat(errorRef.get()).isNull();
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(resultRef.get()).isNotNull();
+            assertThat(resultRef.get().success).isFalse();
+            assertThat(resultRef.get().error_code).isEqualTo("interrupted");
+            assertThat(interruptFlagAfterReturn.get()).isTrue();
+        } finally {
+            worker.join(1000);
         }
     }
 
