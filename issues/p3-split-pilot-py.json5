@@ -1,0 +1,13 @@
+{
+  "title": "Split pilot.py (1764 lines) into focused modules",
+  "description": "pilot.py is the LLM game-playing loop — 1764 lines mixing rendering, context management, tool execution, recovery logic, and CLI entry point.\n\nSuggested extraction targets:\n\n1. **pilot_rendering.py** (~350 lines) — _render_context (78 lines, core context window builder), _render_for_pilot (80 lines), _summarize_tool_result (100 lines), _with_cache_control, _find_tool_name, _extract_last_reasoning, _build_reset_message. All text/board formatting for LLM consumption.\n\n2. **pilot_bridge.py** (~250 lines) — _build_pilot_snapshot, _build_pilot_decision (79 lines), execute_tool, mcp_tools_to_openai, _tool_execution_error_result, _record_tool_execution_failure. Bridge API response conversion and MCP tool execution.\n\n3. **pilot_recovery.py** (~150 lines) — _recover_from_stall (39 lines), _handle_timeout (35 lines), _handle_truncated_response (33 lines), _classify_permanent_llm_failure. All fallback/resilience logic grouped together.\n\n4. **pilot_game_state.py** (~100 lines) — _extract_oracle_texts_from_board, _normalize_context_token, _parse_context_metadata. Game state metadata extraction and parsing.\n\n5. **pilot_state.py** (~60 lines) — PilotLoopState, PilotTurnState, BoardCursorTracker dataclasses/trackers.\n\nThe remaining core (~850 lines) would keep: run_pilot_loop, _process_tool_calls (194 lines), run_pilot, main, and the constants/protocols. Still substantial but focused on the main loop orchestration.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "puppeteer",
+    "refactoring",
+  ],
+  "created_at": "2026-03-20T23:26:20-07:00",
+  "updated_at": "2026-03-20T23:26:20-07:00",
+}

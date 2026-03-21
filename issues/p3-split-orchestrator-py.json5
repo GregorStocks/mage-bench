@@ -1,0 +1,13 @@
+{
+  "title": "Split orchestrator.py (1692 lines) into focused modules",
+  "description": "orchestrator.py orchestrates the entire game lifecycle — from Maven builds through YouTube upload. 1692 lines spanning process management, game setup, finalization, cost tracking, and annotation.\n\nSuggested extraction targets:\n\n1. **game_finalization.py** (~300 lines) — _ensure_game_over_event (55 lines), _write_error_log (21 lines), _write_game_meta (45 lines), _print_game_summary (122 lines), _print_run_cost_summary (37 lines). Post-game log processing, metadata serialization, and cost reporting.\n\n2. **post_game_analysis.py** (~170 lines) — AnnotationFailure dataclass, _attempt_annotation, _prompt_annotation_failure, _finalize_export, resolve_annotation_failures, upload_and_export (91 lines), _save_youtube_url, _update_website_youtube_url. YouTube upload + website export + blunder annotation workflow.\n\n3. **game_processes.py** (~400 lines) — start_server, start_gui_client, start_sleepwalker_client, start_replay_client, start_pilot_client (81 lines), start_observer_client (79 lines). All JVM/Python process spawning with log file routing. Also _wait_for_spectator_table, _wait_for_game_start, _wait_with_pilot_monitoring.\n\n4. **batch_coordination.py** (~250 lines) — GameSession dataclass, _setup_game (168 lines), _wait_for_all_games (56 lines), _finalize_game (30 lines). Multi-game orchestration.\n\nThe remaining core (~500 lines) would keep: OrchestratorRunResult, run_orchestrator, main, parse_args, compile_project, and validation helpers.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "puppeteer",
+    "refactoring",
+  ],
+  "created_at": "2026-03-20T23:26:20-07:00",
+  "updated_at": "2026-03-20T23:26:20-07:00",
+}

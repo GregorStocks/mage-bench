@@ -1,0 +1,13 @@
+{
+  "title": "Split BridgeCallbackHandler.java (6268 lines) into focused modules",
+  "description": "BridgeCallbackHandler.java is a 6268-line god object with at least 10 distinct responsibilities crammed into one class. Three methods alone account for ~1750 lines: buildActionChoices (717), chooseAction (588), and passPriorityImpl (445).\n\nSuggested extraction targets (roughly ordered by independence/payoff):\n\n1. **ManaHandler** — All mana pool logic: getPoolManaChoices, handleGamePlayManaAuto (200+ lines), parseManaPlan, cancelSpellFromBadManaPlan. Self-contained domain with clear boundaries.\n\n2. **GameStateBuilder** — Board state serialization: buildPlayersArray (201 lines), buildCombatGroups, getGameState, updateBoardCursor, buildStateSignature. Produces JSON snapshots consumed by MCP tools.\n\n3. **OracleDataProvider** — getOracleText (151 lines) plus ~108 lines of oracle field helpers. Standalone card database interface.\n\n4. **GameLogService** — getGameLogChunk, getGameLogSinceTurn, getGameHistory (97 lines), renderGameLogFlat (76 lines), pullBridgeEvents. Log aggregation and formatting.\n\n5. **ActionChoicesBuilder** — buildActionChoices (717 lines) and executeDefaultAction (123 lines). Builds indexed choice sets for 9+ action types. Could potentially split further by action type.\n\n6. **BatchCombatHandler** — handleBatchAttackersBody (111 lines), handleBatchBlockersBody (165 lines), parseBlockerAssignments. Self-contained combat declaration logic.\n\n7. **BridgeLogger** — logBridgeEvent family, logCallbackReceived, logPassPriorityReturn, buildBridgeStateSummary, escapeJsonString. ~180 lines of JSONL observability.\n\n8. **CardAndTargetFormatter** — describeTarget (95 lines), buildCardInfoMap, buildCardDescription, safeDisplayName, controllerSuffix. Card data transformation.\n\nThe remaining core (~2500 lines) would keep: callback dispatch, decision boundary, priority/pass loop, session delivery, and configuration. That's still large but more cohesive.\n\nNote: The existing p1-remove-mcpmode-dead-code issue should be done first — removing the dead non-MCP branches will simplify this split significantly.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "bridge",
+    "refactoring",
+  ],
+  "created_at": "2026-03-20T23:26:20-07:00",
+  "updated_at": "2026-03-20T23:26:20-07:00",
+}

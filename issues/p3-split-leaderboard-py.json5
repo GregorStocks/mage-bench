@@ -1,0 +1,13 @@
+{
+  "title": "Split leaderboard.py (1211 lines) into focused modules",
+  "description": "leaderboard.py has 7 pipeline stages packed into one file: model registry, game file I/O, placement extraction, Elo rating, leaderboard generation, exhibition leaderboard, and stats file generation.\n\nSuggested extraction targets:\n\n1. **leaderboard_stats.py** (~460 lines) — generate_model_stats (107 lines), generate_internals_data (174 lines), generate_blunder_stats (25 lines). These produce supporting JSON files and are self-contained output generators that don't interact with leaderboard computation.\n\n2. **leaderboard_elo.py** (~130 lines) — compute_elo_ratings (85 lines), placement extraction helpers, _ModelEntry dataclass. Elo rating math and player key management.\n\n3. **leaderboard_registry.py** (~70 lines) — load_model_registry, _load_inactive_statuses, derive_display_name, capitalize_provider. Model metadata and display name resolution.\n\nThe remaining core (~550 lines) would keep: generate_leaderboard, generate_exhibition_leaderboard, generate_all_leaderboards, generate_leaderboard_file, game file I/O, and main.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "puppeteer",
+    "refactoring",
+  ],
+  "created_at": "2026-03-20T23:26:20-07:00",
+  "updated_at": "2026-03-20T23:26:20-07:00",
+}

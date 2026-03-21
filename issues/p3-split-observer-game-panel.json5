@@ -1,0 +1,13 @@
+{
+  "title": "Split ObserverGamePanel.java (2584 lines) into focused components",
+  "description": "ObserverGamePanel.java has 10 distinct responsibility areas packed into one class. The largest method, writeStateSnapshotIfChanged, is ~466 lines alone.\n\nSuggested extraction targets:\n\n1. **ObserverGameStateLogger** (~510 lines) — initGameEventLog, writeGameEvent, writeStateSnapshotIfChanged (466 lines). The snapshot method serializes player state, stack, combat groups, revealed/companion zones, and emblems. This is the biggest win — it's a self-contained serialization concern.\n\n2. **ObserverHandManager** (~290 lines) — requestHandPermissions, distributeHands, updateHandIncrementally, addCardToHandWithDimension, layoutHandCards. Incremental hand card distribution with dedup tracking.\n\n3. **ObserverZonePanelManager** (~280 lines) — distributeGraveyards, distributeExile, injectZonePanels (reflection-based panel replacement), distributeCommanders, replaceAvatarsWithCommanderArt, cropCardArt.\n\n4. **ObserverPlayerPanelStyler** (~340 lines) — stylePlayerPanels, updatePlayerHighlights, overrideNameHighlight, updatePlayerPanelVisibility, cleanupPlayerPanel, stripMouseListeners, resizePlayerPanel, setCounterVisibleIfNonZero.\n\n5. **ObserverLayoutManager** (~260 lines) — hideHandContainer, reparentStackPanel, relayoutStackVertically, hideBigCardPanel, adjustBattlefieldCardSizes, removeSplitterFromRestore, schedulePopupDismissal, restoreDeadPlayerPanelSizes.\n\n6. **ObserverCostDisplay** (~100 lines) — initCostPolling, pollCostFiles, updateCostLabel, parseLlmPlayers. LLM cost polling and label injection.\n\nThe remaining core (~400 lines) would keep: init, watchGame, updateGame, endMessage, recording lifecycle, and orchestration of the extracted components.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "observer",
+    "refactoring",
+  ],
+  "created_at": "2026-03-20T23:26:20-07:00",
+  "updated_at": "2026-03-20T23:26:20-07:00",
+}
