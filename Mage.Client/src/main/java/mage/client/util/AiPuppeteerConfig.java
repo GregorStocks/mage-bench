@@ -19,7 +19,6 @@ import java.util.List;
  * - "pilot": LLM-powered strategic game player with MCP control (creates HUMAN slot)
  * - "replay": Headless client with scripted MCP tool calls for golden tests (creates HUMAN slot)
  * - "bridge": Headless client (creates HUMAN slot)
- * - "skeleton": Legacy alias for "bridge" (creates HUMAN slot)
  *
  * Example config file (.context/ai-puppeteer-config.json):
  * {
@@ -88,7 +87,7 @@ public class AiPuppeteerConfig {
     }
 
     public static class PlayerConfig {
-        public String type; // "cpu"/"bot", "sleepwalker", "pilot", "replay", "bridge", "skeleton"
+        public String type; // "cpu"/"bot", "sleepwalker", "pilot", "replay", "bridge"
         public String ai;   // for bots: "COMPUTER_MAD", "COMPUTER_MONTE_CARLO"
         public String name;
         public String deck; // optional path to .dck file (relative to project root)
@@ -104,7 +103,7 @@ public class AiPuppeteerConfig {
          * Returns true if this is a headless client player (needs HUMAN slot).
          */
         public boolean isHeadless() {
-            return "bridge".equals(type) || "skeleton".equals(type) || "sleepwalker".equals(type) || "pilot".equals(type) || "replay".equals(type);
+            return "bridge".equals(type) || "sleepwalker".equals(type) || "pilot".equals(type) || "replay".equals(type);
         }
 
         public PlayerType getPlayerType() {
@@ -113,7 +112,7 @@ public class AiPuppeteerConfig {
             }
             if (!isBot()) {
                 throw new IllegalArgumentException("Unknown player type: \"" + type + "\". " +
-                        "Valid types: cpu, bot, sleepwalker, pilot, replay, bridge, skeleton");
+                        "Valid types: cpu, bot, sleepwalker, pilot, replay, bridge");
             }
             // Bot/CPU player
             if (ai == null || ai.isEmpty()) {
