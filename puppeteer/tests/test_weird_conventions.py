@@ -831,10 +831,7 @@ class TestPrivatePythonApis:
         assert not unexpected, (
             "New cross-module imports of underscore-prefixed helpers were added.\n"
             "If another module needs the helper, rename it to a public symbol in the owner module instead.\n  "
-            + "\n  ".join(
-                f"{importer} imports {exporter}.{name}"
-                for importer, exporter, name in sorted(unexpected)
-            )
+            + "\n  ".join(f"{importer} imports {exporter}.{name}" for importer, exporter, name in sorted(unexpected))
         )
 
     def test_no_new_private_reexports(self) -> None:
@@ -842,10 +839,7 @@ class TestPrivatePythonApis:
         assert not unexpected, (
             "New underscore-prefixed names were added to __all__.\n"
             "Private helpers should not be part of a module's public export surface.\n  "
-            + "\n  ".join(
-                f"{module}.{name}"
-                for module, name in sorted(unexpected)
-            )
+            + "\n  ".join(f"{module}.{name}" for module, name in sorted(unexpected))
         )
 
 
