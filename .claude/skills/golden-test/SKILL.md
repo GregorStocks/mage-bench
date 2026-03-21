@@ -98,8 +98,8 @@ Mark gameplay goldens with `@pytest.mark.golden`.
 
 If you are adding a helper/unit test around golden infrastructure rather than a
 real golden integration, do **not** name it `test_golden_*.py` unless it is
-actually marked `@pytest.mark.golden`; `test_weird_conventions.py` enforces
-that naming contract.
+actually marked `@pytest.mark.golden`; the golden naming convention tests
+enforce that contract.
 
 ## Regeneration And Validation
 
