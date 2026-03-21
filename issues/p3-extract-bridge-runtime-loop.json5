@@ -1,0 +1,13 @@
+{
+  "title": "Extract passPriority and callback runtime from BridgeCallbackHandler.java",
+  "description": "The current split removed a large amount of read-only helper code, but the bridge runtime core is still very large. `passPriorityImpl()` starts around line 3429, while callback/logging lifecycle code is still clustered around `logBridgeEvent()`, `logCallbackReceived()`, `logPassPriorityReturn()`, `handleStartGame()`, and `handleCallback()`.\n\nThat remaining core still mixes:\n- client-side yield semantics and wait-loop control for `pass_priority`\n- decision-boundary transitions and pending-action lifecycle\n- callback dispatch for every actionable XMage callback type\n- keepAlive multi-game lifecycle handling (`START_GAME`, `GAME_OVER`, `END_GAME_INFO`)\n- JSONL observability and callback tracing\n\nSuggested split:\n1. `PassPriorityController` for yield semantics and wait-loop transitions\n2. `CallbackRuntime` for callback dispatch and pending-action storage\n3. `BridgeLogger` for JSONL/diagnostic event formatting\n\nThe file is more manageable after the current extraction, but this runtime core is still the main reason `BridgeCallbackHandler.java` remains above 5k lines.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "bridge",
+    "refactoring",
+  ],
+  "created_at": "2026-03-21T00:02:18.900310-07:00",
+  "updated_at": "2026-03-21T00:02:18.900310-07:00",
+}
