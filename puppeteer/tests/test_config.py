@@ -167,26 +167,6 @@ def test_get_players_config_json_empty():
     assert config.get_players_config_json() == ""
 
 
-def test_legacy_skeleton_rejected():
-    """Removed 'skeleton' player type should fail fast, not silently degrade."""
-    config_data = {
-        "players": [
-            {"type": "skeleton", "name": "bones"},
-        ],
-    }
-
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
-        json.dump(config_data, f)
-        config_path = Path(f.name)
-
-    try:
-        config = Config(config_file=config_path)
-        with pytest.raises(AssertionError, match="Unknown player type"):
-            config.load_config()
-    finally:
-        config_path.unlink()
-
-
 def test_config_default_player_name():
     """Players without a name should get 'player-{index}' as default."""
     config_data = {

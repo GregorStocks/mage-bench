@@ -23,7 +23,7 @@ def _import_game_timeline():
 game_timeline = _import_game_timeline()
 
 
-def _write_export(tmp_path: Path) -> Path:
+def _write_export(tmp_path: Path, *, annotated: bool = True) -> Path:
     export = {
         "version": 8,
         "id": "game_test",
@@ -138,13 +138,14 @@ def _write_export(tmp_path: Path) -> Path:
             },
         ],
         "gameOver": None,
-        "annotations": [],
-        "blunderScriptVersion": 0,
         "harnessEpoch": 46,
         "youtubeUrl": "",
         "season": 1,
         "tournament": None,
     }
+    if annotated:
+        export["annotations"] = []
+        export["blunderScriptVersion"] = 0
     path = tmp_path / "game_test.json5"
     path.write_text(json.dumps(export))
     return path
@@ -211,3 +212,18 @@ def test_turn_filter_excludes_unresolved_events(tmp_path: Path, capsys: pytest.C
     assert "T1 PRECOMBAT_MAIN (Alice)" in out
     assert "T2 PRECOMBAT_MAIN (Bob)" not in out
     assert "(1 events shown)" in out
+
+
+def test_unannotated_exports_are_supported(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    export_path = _write_export(tmp_path, annotated=False)
+
+    with patch.object(sys, "argv", ["game_timeline.py", str(export_path)]):
+        game_timeline.main()
+
+    out = capsys.readouterr().out
+
+    assert "Game: game_test" in out
+    assert "Turns: 2 | Winner: Alice" in out
+    assert "T1 PRECOMBAT_MAIN (Alice)" in out
+    assert "T2 PRECOMBAT_MAIN (Bob)" in out
+    assert "(3 events shown)" in out

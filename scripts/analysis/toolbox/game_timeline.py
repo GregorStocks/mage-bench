@@ -16,9 +16,16 @@ import os
 import sys
 from collections.abc import Sequence
 
-from schemas.game_export_types import GameExport, JsonObject, LlmEvent, Snapshot
+from schemas.game_export_types import (
+    BuiltGameExport,
+    JsonObject,
+    LlmEvent,
+    Snapshot,
+)
 from scripts.analysis.blunder_eval_common import GAMES_DIR
-from scripts.analysis.blunder_eval_common import load_game as _load_game_common
+from scripts.analysis.blunder_eval_common import (
+    load_game_for_annotation as _load_game_common,
+)
 
 MANA_KEYWORDS = {
     "mana_plan",
@@ -52,7 +59,7 @@ def resolve_game_path(path_or_id: str) -> str:
     return str(matches[0])
 
 
-def load_game(gz_path: str) -> GameExport:
+def load_game(gz_path: str) -> BuiltGameExport:
     return _load_game_common(gz_path)
 
 
