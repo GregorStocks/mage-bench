@@ -342,7 +342,7 @@ async def _process_tool_calls(
         logger.info("[pilot] Tool: %s(%s)", fn.name, json.dumps(args, separators=(",", ":")))
 
         if fn.name == "send_chat_message" and turn_state.chat_messages_this_turn >= MAX_CHAT_MESSAGES_PER_TURN:
-            result_text = json.dumps({"success": False, "error": "Chat limit reached - focus on gameplay."})
+            result_text = json.dumps({"success": False, "error": "Chat limit reached — focus on gameplay."})
             tool_latency_ms = 0
         else:
             if fn.name == "send_chat_message":
@@ -388,7 +388,7 @@ async def _process_tool_calls(
                     logger,
                     game_dir,
                     username,
-                    f"[pilot] {state.consecutive_empty_errors} consecutive empty errors - bridge is dead, exiting",
+                    f"[pilot] {state.consecutive_empty_errors} consecutive empty errors — bridge is dead, exiting",
                 )
                 if game_log:
                     game_log.emit(
@@ -492,7 +492,7 @@ async def _process_tool_calls(
             if turns_since_chat >= 2 and display_text != result_text and chat_budget_left:
                 display_text += (
                     f"\n\n[It's been {turns_since_chat} turns since you last "
-                    f"chatted - send a message to your opponent!]"
+                    f"chatted — send a message to your opponent!]"
                 )
 
         state.history.append(
@@ -672,7 +672,7 @@ async def run_pilot_loop(
                         total_prompt = response.usage.prompt_tokens or 0
                         if prompt_details.cached_tokens > total_prompt > 0:
                             logger.warning(
-                                "[pilot] cached_tokens (%d) > prompt_tokens (%d) - upstream API bug",
+                                "[pilot] cached_tokens (%d) > prompt_tokens (%d) — upstream API bug",
                                 prompt_details.cached_tokens,
                                 total_prompt,
                             )
