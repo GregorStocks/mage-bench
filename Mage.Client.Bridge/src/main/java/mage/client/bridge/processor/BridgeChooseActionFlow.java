@@ -5,6 +5,8 @@ import mage.client.bridge.tools.ChooseActionTool;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public final class BridgeChooseActionFlow {
     private enum Phase {
@@ -54,12 +56,32 @@ public final class BridgeChooseActionFlow {
         return interrupted;
     }
 
-    public ChooseActionTool.Result awaitResult() throws InterruptedException, ExecutionException {
-        return result.get();
+    public ChooseActionTool.Result awaitResult(long timeoutMs)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        return result.get(timeoutMs, TimeUnit.MILLISECONDS);
     }
 
     public void finish(ChooseActionTool.Result finalResult) {
         result.complete(finalResult);
+    }
+
+    public ChooseActionTool.Result finishAfterProcessorShutdown() {
+        if (result.isDone()) {
+            return result.join();
+        }
+        if (!context.requestCannotContinue()) {
+            throw new IllegalStateException("Bridge processor shut down while choose_action was still waiting");
+        }
+
+        ChooseActionTool.Result finalResult;
+        if (phase == Phase.WAITING_FOR_ACTION) {
+            finalResult = context.noPendingActionResult();
+        } else {
+            context.finishChooseActionWithoutNextDecision(partialResult, previousAction);
+            finalResult = partialResult;
+        }
+        result.complete(finalResult);
+        return finalResult;
     }
 
     private void advanceWaitingForAction() {

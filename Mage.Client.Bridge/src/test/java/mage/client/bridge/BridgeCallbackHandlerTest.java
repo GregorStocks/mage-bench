@@ -1006,6 +1006,63 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void chooseActionReturnsAfterClientStopWithoutFollowupCallback() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        CountDownLatch sendPlayerBooleanCalled = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView initialView = gameView(50);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerBoolean".equals(method.getName())) {
+                    sendPlayerBooleanCalls.incrementAndGet();
+                    sendPlayerBooleanCalled.countDown();
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", initialView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_ASK,
+            new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Use effect of Clone?"),
+            "Use effect of Clone?",
+            50
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ChooseActionTool.Result> future = executor.submit(() -> handler.chooseAction(
+                null, null, true, null, null, null, null, null, null, null, null
+            ));
+
+            assertThat(sendPlayerBooleanCalled.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            client.stop();
+
+            ChooseActionTool.Result result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.success).isTrue();
+            assertThat(result.action_taken).isEqualTo("yes");
+            assertThat(result.action_pending).isNull();
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
     void passPriorityAutoHandlesSingleTargetFollowupBeforeReturningDecision() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();

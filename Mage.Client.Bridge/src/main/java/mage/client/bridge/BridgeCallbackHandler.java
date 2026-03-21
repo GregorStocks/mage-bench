@@ -961,12 +961,13 @@ public class BridgeCallbackHandler {
      */
     public BridgeCallbackHandler createFreshForNextGame() {
         // Mark this handler as superseded so threads stuck in
-        // awaitPendingAction / passPriority bail out immediately
+        // awaitPendingAction / passPriority / chooseAction bail out immediately
         // instead of blocking for 120+ seconds on an abandoned handler.
         this.superseded = true;
         synchronized (actionLock) {
             actionLock.notifyAll();
         }
+        advancePendingFlowsBeforeShutdown();
         processor.shutdown("superseded by createFreshForNextGame");
 
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
@@ -1062,6 +1063,7 @@ public class BridgeCallbackHandler {
     }
 
     void shutdownProcessor(String reason) {
+        advancePendingFlowsBeforeShutdown();
         processor.shutdown(reason);
         synchronized (actionLock) {
             actionLock.notifyAll();
@@ -2320,17 +2322,28 @@ public class BridgeCallbackHandler {
             }));
         }
 
-        try {
-            return flow.awaitResult();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return processor.submit(BridgeCommand.of(() -> interruptChooseActionFlow(flow)));
-        } catch (ExecutionException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof RuntimeException runtimeException) {
-                throw runtimeException;
+        while (true) {
+            try {
+                return flow.awaitResult(200);
+            } catch (TimeoutException e) {
+                try {
+                    processor.submit(BridgeCommand.of(() -> {
+                        tickPendingChooseActionFlow(flow);
+                        return null;
+                    }));
+                } catch (IllegalStateException ignored) {
+                    return finishChooseActionAfterProcessorShutdown(flow);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return processor.submit(BridgeCommand.of(() -> interruptChooseActionFlow(flow)));
+            } catch (ExecutionException e) {
+                Throwable cause = e.getCause();
+                if (cause instanceof RuntimeException runtimeException) {
+                    throw runtimeException;
+                }
+                throw new IllegalStateException("chooseAction request failed", cause);
             }
-            throw new IllegalStateException("chooseAction request failed", cause);
         }
     }
 
@@ -2964,6 +2977,13 @@ public class BridgeCallbackHandler {
         }
     }
 
+    private void tickPendingChooseActionFlow(BridgeChooseActionFlow flow) {
+        if (pendingChooseActionFlow != flow) {
+            return;
+        }
+        advancePendingChooseActionFlow();
+    }
+
     private ChooseActionTool.Result interruptChooseActionFlow(BridgeChooseActionFlow flow) {
         try {
             return flow.interrupt();
@@ -2982,6 +3002,28 @@ public class BridgeCallbackHandler {
         result.retryable = false;
         attachUnseenChat(result);
         return result;
+    }
+
+    private ChooseActionTool.Result finishChooseActionAfterProcessorShutdown(BridgeChooseActionFlow flow) {
+        try {
+            return flow.finishAfterProcessorShutdown();
+        } finally {
+            if (pendingChooseActionFlow == flow) {
+                pendingChooseActionFlow = null;
+            }
+        }
+    }
+
+    private void advancePendingFlowsBeforeShutdown() {
+        try {
+            processor.submit(BridgeCommand.of(() -> {
+                advancePendingChooseActionFlow();
+                advancePendingPassPriorityFlow();
+                return null;
+            }));
+        } catch (IllegalStateException ignored) {
+            // Processor is already gone; pending callers will observe shutdown state.
+        }
     }
 
     // ── Batch combat ──────────────────────────────────────────────────────
