@@ -4209,12 +4209,9 @@ public class BridgeCallbackHandler {
     public void handleCallback(ClientCallback callback) {
         ClientCallbackMethod method = callback.getMethod();
         try {
-            callback.decompressData();
-            processor.enqueueCallback(new BridgeCallbackEvent(
-                callback.getObjectId(),
-                method,
-                callback.getData()
-            ));
+            // Keep the server callback thread lean: just enqueue the raw callback
+            // and let the bridge processor thread do decompression + dispatch.
+            processor.enqueueCallback(new BridgeCallbackEvent(callback));
         } catch (Exception e) {
             handleCallbackException(method, e, ACTIONABLE_CALLBACKS.contains(method));
         }

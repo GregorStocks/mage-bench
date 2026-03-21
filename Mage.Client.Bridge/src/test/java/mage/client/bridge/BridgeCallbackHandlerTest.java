@@ -1011,6 +1011,44 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void handleCallbackReturnsBeforeProcessorDecompressesPayload() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        CountDownLatch decompressStarted = new CountDownLatch(1);
+        CountDownLatch allowDecompress = new CountDownLatch(1);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            ClientCallback callback = new ClientCallback(
+                ClientCallbackMethod.CHATMESSAGE,
+                UUID.randomUUID(),
+                null,
+                false
+            ) {
+                @Override
+                public void decompressData() {
+                    decompressStarted.countDown();
+                    try {
+                        assertThat(allowDecompress.await(1, TimeUnit.SECONDS)).isTrue();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new RuntimeException(e);
+                    }
+                }
+            };
+
+            Future<?> future = executor.submit(() -> handler.handleCallback(callback));
+
+            future.get(200, TimeUnit.MILLISECONDS);
+            assertThat(decompressStarted.await(1, TimeUnit.SECONDS)).isTrue();
+        } finally {
+            allowDecompress.countDown();
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
     void handleCallbackStoresSingleTargetAsPendingAction() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();

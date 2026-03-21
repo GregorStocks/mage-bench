@@ -33,7 +33,7 @@ public final class BridgeProcessor {
     public void enqueueCallback(BridgeCallbackEvent event) {
         if (closed) {
             logger.warn("[" + username + "] Dropping callback after processor shutdown: "
-                + event.method());
+                + event.callback().getMethod());
             return;
         }
         mailbox.offer(event);
