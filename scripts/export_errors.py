@@ -5,7 +5,6 @@ from pathlib import Path
 
 from schemas.game_export_types import Decision
 
-
 _ERROR_LINE_RE = re.compile(r"^\[(\d{2}:\d{2}:\d{2})\]\s+\[(\w+)\]\s+(.+)$")
 _ERROR_LINE_ISO_RE = re.compile(
     r"^\[\d{4}-\d{2}-\d{2}T(\d{2}:\d{2}:\d{2})\.\d+[-+]\d{2}:\d{2}\]\s+\[(\w+)\]\s+(.+)$"

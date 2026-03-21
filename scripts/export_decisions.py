@@ -63,7 +63,7 @@ def _is_failed_choose_action_result(result: dict) -> bool:
 
 
 def _has_followup_choose_action(
-    llm_events: list[dict], event_idx: int, player: str, is_v2: bool
+    llm_events: list[dict], event_idx: int, player: str, *, uses_v2_sources: bool
 ) -> bool:
     """Return True if the source is followed by another choose_action response."""
     for j in range(event_idx + 1, len(llm_events)):
@@ -72,9 +72,9 @@ def _has_followup_choose_action(
             continue
         if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
             return True
-        if is_v2 and _is_decision_source(ev):
+        if uses_v2_sources and _is_decision_source(ev):
             return False
-        if not is_v2 and _is_v1_decision_source(ev):
+        if not uses_v2_sources and _is_v1_decision_source(ev):
             return False
     return False
 
@@ -83,7 +83,8 @@ def _follows_failed_choose_action_retry(
     llm_events: list[dict],
     decision_sources: list[tuple[int, dict]],
     source_idx: int,
-    is_v2: bool,
+    *,
+    uses_v2_sources: bool,
 ) -> bool:
     """Return True when a choose_action source only exists after a failed retry."""
     event_idx, source_event = decision_sources[source_idx]
@@ -102,12 +103,15 @@ def _follows_failed_choose_action_retry(
         ev = llm_events[j]
         if ev.get("player") != player:
             continue
-        if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
-            if _is_failed_choose_action_result(_parse_json(ev.get("result"))):
-                return True
-        if is_v2 and _is_decision_source(ev):
+        if (
+            ev.get("type") == "tool_call"
+            and ev.get("tool") == "choose_action"
+            and _is_failed_choose_action_result(_parse_json(ev.get("result")))
+        ):
+            return True
+        if uses_v2_sources and _is_decision_source(ev):
             break
-        if not is_v2 and _is_v1_decision_source(ev):
+        if not uses_v2_sources and _is_v1_decision_source(ev):
             break
     return False
 
@@ -133,8 +137,16 @@ def _collect_decision_sources(
             continue
         player = source_event["player"]
         if _follows_failed_choose_action_retry(
-            llm_events, candidate_sources, source_idx, is_v2
-        ) and not _has_followup_choose_action(llm_events, event_idx, player, is_v2):
+            llm_events,
+            candidate_sources,
+            source_idx,
+            uses_v2_sources=is_v2,
+        ) and not _has_followup_choose_action(
+            llm_events,
+            event_idx,
+            player,
+            uses_v2_sources=is_v2,
+        ):
             continue
         decision_sources.append((event_idx, source_event))
     return decision_sources

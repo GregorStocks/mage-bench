@@ -4,7 +4,6 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-
 _LLM_EVENT_TYPES = {
     "game_start",
     "llm_response",

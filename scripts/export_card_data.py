@@ -4,7 +4,6 @@ import re
 
 from scripts import scryfall
 
-
 DECKLIST_RE = re.compile(r"(?:SB:\s*)?(\d+)\s+\[([^:]+):([^\]]+)\]\s+(.+)")
 
 _CARD_DATA_FIELDS = (
