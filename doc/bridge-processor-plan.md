@@ -1,11 +1,11 @@
-# Bridge Runtime Processor Plan
+# Bridge Processor Refactor Plan
 
 ## Context
 
 `BridgeCallbackHandler.java` still acts as both:
 
 - the XMage callback listener
-- the runtime state machine for pending decisions
+- the processor-owned state machine for pending decisions
 - the MCP-facing query/command surface
 - the place where `sendPlayer*` side effects happen
 
@@ -17,7 +17,7 @@ That means multiple threads currently touch the same mutable state:
 
 The bridge has accumulated `volatile` fields, `wait()/notifyAll()`, ad hoc compare-and-swap clears, latches, and thread-sensitive helper semantics to keep this working. Recent fixes like the `pendingActionReady` handshake are valid, but they are also a signal that the current ownership model is wrong: the architecture makes races easy to create and hard to reason about.
 
-This document is the persistent plan for moving the bridge runtime to a single-owner-thread model.
+This document is the persistent plan for moving the bridge to a single-owner-thread processor model.
 
 Related issues:
 
@@ -27,15 +27,15 @@ Related issues:
 
 ## Goal
 
-Move the bridge toward an actor-style runtime:
+Move the bridge toward an actor-style processor architecture:
 
-- one listener thread receives XMage callbacks and enqueues immutable runtime events
-- one processor thread owns all mutable bridge runtime state
-- MCP/tool threads do not read or mutate runtime fields directly
+- one listener thread receives XMage callbacks and enqueues immutable bridge events
+- one processor thread owns all mutable bridge processor state
+- MCP/tool threads do not read or mutate processor-owned fields directly
 - MCP/tool threads communicate with the processor through commands and await results
 - `sendPlayer*` responses are serialized through the processor thread
 
-In short: no shared mutable runtime state across threads, only message passing.
+In short: no shared mutable processor state across threads, only message passing.
 
 ## Non-Goals
 
@@ -53,26 +53,44 @@ The first milestone is about state ownership and side-effect ordering, not about
 ### Threads
 
 1. **Listener thread**
-   Receives XMage callbacks and turns them into immutable `RuntimeEvent` values.
-   It does not mutate runtime state directly.
+   Receives XMage callbacks and turns them into immutable `BridgeEvent` values.
+   It does not mutate processor-owned state directly.
 
 2. **Processor thread**
-   Owns `RuntimeState`, processes callback events and MCP commands in a single serialized stream, and is the only place allowed to call `sendPlayer*`.
+   Owns `BridgeProcessorState`, processes callback events and MCP commands in a single serialized stream, and is the only place allowed to call `sendPlayer*`.
 
 3. **MCP/tool threads**
-   Submit `RuntimeCommand`s and await typed results. They do not read bridge runtime fields directly.
+   Submit `BridgeCommand`s and await typed results. They do not read bridge processor fields directly.
 
 ### Core types
 
-The exact names can change, but the design wants something close to:
+The design should use explicit processor-oriented names, something close to:
 
-- `RuntimeState`
-- `RuntimeEvent`
-- `RuntimeCommand`
-- `RuntimeResult`
-- `RuntimeProcessor`
+- `BridgeProcessorState`
+- `BridgeEvent`
+- `BridgeCommand`
+- `BridgeCommandResult`
+- `BridgeProcessor`
 
-`RuntimeCommand` handlers should return via `CompletableFuture` (or equivalent), so callers can block synchronously without sharing memory.
+`BridgeCommand` handlers should return via `CompletableFuture` (or equivalent), so callers can block synchronously without sharing memory.
+
+### Code organization
+
+This refactor should improve code layout, not just thread ownership.
+
+Constraints:
+
+- do not grow `BridgeCallbackHandler.java` with new processor abstractions
+- keep the processor code in its own directory/package, not as nested helper classes inside the handler
+- default to one class per file unless there is a strong reason not to
+- aim for separate top-level areas for the three major pieces:
+  listener/callback ingress, processor state/event/command loop, and MCP/tool-facing command/query surface
+
+Likely shape:
+
+- `mage.client.bridge.listener`
+- `mage.client.bridge.processor`
+- `mage.client.bridge.mcp` (or equivalent)
 
 ### Ownership rules
 
@@ -105,7 +123,7 @@ This refactor should eliminate an entire class of bugs where:
 
 It also gives a simpler correctness rule:
 
-> If it affects live bridge runtime behavior, the processor thread owns it.
+> If it affects live bridge processor behavior, the processor thread owns it.
 
 That is much easier to review and test than a web of `volatile` fields and condition-variable style waits.
 
@@ -121,25 +139,26 @@ Purpose:
 - keep the design reviewable across multiple PRs
 - make it easy to refine the plan before code moves
 
-### Step 1: Introduce Processor Runtime Scaffolding
+### Step 1: Introduce Processor Scaffolding
 
 Add the processor-layer types and plumbing:
 
-- runtime processor thread
+- processor thread
 - event queue
 - command/result plumbing
-- `RuntimeState` container
+- `BridgeProcessorState` container
+- dedicated processor package/directory with one class per file by default
 
 At this step the goal is scaffolding, not semantic change.
 
 ### Step 2: Make Callback Handling Enqueue-Only
 
-Change the callback listener path so `handleCallback()` stops being the place where runtime state is mutated directly.
+Change the callback listener path so `handleCallback()` stops being the place where processor-owned state is mutated directly.
 
 Instead, it should:
 
 - validate/decompress callback data
-- build a `RuntimeEvent`
+- build a `BridgeEvent`
 - enqueue it for the processor
 
 The important review constraint for steps 1-2:
@@ -147,11 +166,11 @@ The important review constraint for steps 1-2:
 - do not claim the shared-state model is gone yet
 - do not try to partially reroute half the MCP methods in the same PR
 
-This first PR should be understandable as "introduce processor runtime and move callback ingestion onto it."
+This first PR should be understandable as "introduce the processor package and move callback ingestion onto it."
 
-### Step 3: Move MCP Runtime Methods to Commands
+### Step 3: Move MCP Methods to Commands
 
-Convert the core MCP/runtime methods to command/response calls into the processor:
+Convert the core MCP methods to command/response calls into the processor:
 
 - `pass_priority`
 - `choose_action`
@@ -164,7 +183,7 @@ Likely also:
 - `concede`
 - `send_chat_message`
 
-These methods are the real cross-thread API boundary. Once they stop reading shared fields directly, the runtime can actually become processor-owned.
+These methods are the real cross-thread API boundary. Once they stop reading shared fields directly, the processor state can actually become single-owned.
 
 This should likely be a second PR, shortly after steps 1-2, to keep review size manageable.
 
@@ -174,10 +193,10 @@ After the command migration lands, delete the old synchronization model:
 
 - `actionLock`
 - `wait()/notifyAll()`-style pending-action loops
-- extra `volatile` runtime fields that only existed for cross-thread visibility
+- extra `volatile` fields that only existed for cross-thread visibility
 - temporary bridge code that mirrors old and new control flow
 
-This step cashes in the simplification. It should shrink the runtime core meaningfully.
+This step cashes in the simplification. It should shrink the handler and the processor core meaningfully.
 
 ### Step 5: Published Read Model / Append-Only Log
 
@@ -185,7 +204,7 @@ Separate followup.
 
 Possible followup work:
 
-- publish immutable runtime snapshots from the processor
+- publish immutable processor snapshots from the processor
 - maintain an append-only event log for MCP readers and debugging
 - make read-only surfaces consume that published state instead of querying the processor directly
 
@@ -246,7 +265,7 @@ These do not block the overall direction, but should be resolved during implemen
    We can use one unified queue for both events and commands, or separate queues with a single processor loop multiplexing them.
 
 2. **How should command replies work?**
-   `CompletableFuture<RuntimeResult>` is the straightforward default.
+   `CompletableFuture<BridgeCommandResult>` is the straightforward default.
 
 3. **Should `sendPlayer*` be processor-only from the first migration?**
    The design intent says yes. If any helper still sends directly from another thread, the model is only partially fixed.
@@ -261,9 +280,9 @@ These do not block the overall direction, but should be resolved during implemen
 
 After steps 1-3 land, we should be able to say:
 
-- callback listener threads no longer mutate runtime state directly
-- core MCP methods no longer read runtime state directly from shared fields
-- runtime state has one logical owner thread
+- callback listener threads no longer mutate processor-owned state directly
+- core MCP methods no longer read processor state directly from shared fields
+- processor state has one logical owner thread
 - `sendPlayer*` side effects are serialized through that owner
 - the bridge no longer depends on `pendingActionReady`-style publication barriers for correctness
 
