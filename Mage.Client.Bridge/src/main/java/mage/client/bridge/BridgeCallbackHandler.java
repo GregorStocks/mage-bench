@@ -1591,10 +1591,21 @@ public class BridgeCallbackHandler {
     }
 
     private NonDecisionActionStatus maybeAutoHandleNonDecisionAction(PendingAction action, String source) {
-        if (action.method() != ClientCallbackMethod.GAME_TARGET) {
+        if (action.method() != ClientCallbackMethod.GAME_TARGET
+                && action.method() != ClientCallbackMethod.GAME_CHOOSE_ABILITY) {
             return NonDecisionActionStatus.NOT_HANDLED;
         }
 
+        // --- GAME_TARGET auto-handling ---
+        if (action.method() == ClientCallbackMethod.GAME_TARGET) {
+            return maybeAutoHandleGameTarget(action, source);
+        }
+
+        // --- GAME_CHOOSE_ABILITY auto-handling ---
+        return maybeAutoHandleGameChooseAbility(action, source);
+    }
+
+    private NonDecisionActionStatus maybeAutoHandleGameTarget(PendingAction action, String source) {
         GameClientMessage targetMsg = (GameClientMessage) action.data();
         Set<UUID> targets = findValidTargets(targetMsg);
         boolean required = targetMsg.isFlag();
@@ -1631,6 +1642,85 @@ public class BridgeCallbackHandler {
         return pendingAction != action
             ? NonDecisionActionStatus.CHANGED
             : NonDecisionActionStatus.NOT_HANDLED;
+    }
+
+    private NonDecisionActionStatus maybeAutoHandleGameChooseAbility(PendingAction action, String source) {
+        AbilityPickerView picker = (AbilityPickerView) action.data();
+        Map<UUID, String> choices = picker.getChoices();
+
+        // No choices: auto-send null
+        if (choices == null || choices.isEmpty()) {
+            if (clearPendingActionIfCurrent(action)) {
+                logger.warn("[" + client.getUsername() + "] " + source
+                    + ": auto-selecting ability: no choices, sending null");
+                lastChoices = null;
+                clearChoiceSnapshot();
+                sendUuidOrDie(action.gameId(), null, "auto GAME_CHOOSE_ABILITY null_choice");
+                return NonDecisionActionStatus.AUTO_HANDLED;
+            }
+            return pendingAction != action
+                ? NonDecisionActionStatus.CHANGED
+                : NonDecisionActionStatus.NOT_HANDLED;
+        }
+
+        // Mana plan active: consume ability index and select
+        if (manaPlan != null) {
+            if (clearPendingActionIfCurrent(action)) {
+                Integer abilityIdx = manaPlanAbilityIndex;
+                manaPlanAbilityIndex = null;  // consume
+                UUID selected;
+                if (abilityIdx != null) {
+                    List<UUID> abilityIds = new ArrayList<>(choices.keySet());
+                    if (abilityIdx >= 0 && abilityIdx < abilityIds.size()) {
+                        selected = abilityIds.get(abilityIdx);
+                        logger.info("[" + client.getUsername() + "] " + source
+                            + ": mana plan selecting ability " + abilityIdx + ": \""
+                            + picker.getMessage() + "\" -> " + choices.get(selected));
+                    } else {
+                        // Bad ability index: send null to satisfy the UUID callback,
+                        // then clean up mana plan state.
+                        logger.warn("[" + client.getUsername() + "] " + source
+                            + ": mana plan ability index " + abilityIdx
+                            + " out of range (0-" + (abilityIds.size() - 1) + ") for \""
+                            + picker.getMessage() + "\", cancelling spell");
+                        manaPlan = null;
+                        synchronized (unseenChat) {
+                            unseenChat.add("[System] Spell cancelled — mana plan ability index was incorrect.");
+                        }
+                        logBridgeEvent("SPELL_CANCELLED", "mana plan ability index out of range");
+                        lastChoices = null;
+                        clearChoiceSnapshot();
+                        sendUuidOrDie(action.gameId(), null,
+                            "auto GAME_CHOOSE_ABILITY bad_mana_plan");
+                        return NonDecisionActionStatus.AUTO_HANDLED;
+                    }
+                } else {
+                    // No explicit ability index: pick first
+                    selected = choices.keySet().iterator().next();
+                    if (choices.size() == 1) {
+                        logger.info("[" + client.getUsername() + "] " + source
+                            + ": mana plan auto-selecting sole ability: \""
+                            + picker.getMessage() + "\" -> " + choices.get(selected));
+                    } else {
+                        logger.info("[" + client.getUsername() + "] " + source
+                            + ": mana plan no ability index, picking first of "
+                            + choices.size() + ": \"" + picker.getMessage()
+                            + "\" -> " + choices.get(selected));
+                    }
+                }
+                lastChoices = null;
+                clearChoiceSnapshot();
+                sendUuidOrDie(action.gameId(), selected,
+                    "auto GAME_CHOOSE_ABILITY mana_plan");
+                return NonDecisionActionStatus.AUTO_HANDLED;
+            }
+            return pendingAction != action
+                ? NonDecisionActionStatus.CHANGED
+                : NonDecisionActionStatus.NOT_HANDLED;
+        }
+
+        // Has choices, no mana plan: let the LLM decide
+        return NonDecisionActionStatus.NOT_HANDLED;
     }
 
     private void recordChoiceSnapshot(String actionType, String responseType, int choiceCount) {
@@ -5101,71 +5191,15 @@ public class BridgeCallbackHandler {
                     break;
 
                 case GAME_CHOOSE_ABILITY: {
-                    // Fall back to storePendingAction for ordinary auto-handler bugs,
-                    // but rethrow delivery failures so actionable callbacks fail fast.
-                    boolean abilityAutoHandled = false;
-                    try {
-                        AbilityPickerView picker = (AbilityPickerView) callback.getData();
-                        Map<UUID, String> choices = picker.getChoices();
-                        GameView gv = picker.getGameView();
-                        updateLastGameView(gv, "GAME_CHOOSE_ABILITY");
-
-                        if (mcpMode && choices != null && !choices.isEmpty()) {
-                            if (manaPlan != null) {
-                                // Mana plan mode: use ability index if specified, otherwise pick first.
-                                Integer abilityIdx = manaPlanAbilityIndex;
-                                manaPlanAbilityIndex = null;  // consume
-                                UUID selected;
-                                if (abilityIdx != null) {
-                                    List<UUID> abilityIds = new ArrayList<>(choices.keySet());
-                                    if (abilityIdx >= 0 && abilityIdx < abilityIds.size()) {
-                                        selected = abilityIds.get(abilityIdx);
-                                        logger.info("[" + client.getUsername() + "] Mana plan: selecting ability " + abilityIdx + ": \""
-                                                + picker.getMessage() + "\" -> " + choices.get(selected));
-                                    } else {
-                                        logger.warn("[" + client.getUsername() + "] Mana plan: ability index " + abilityIdx
-                                                + " out of range (0-" + (abilityIds.size() - 1) + ") for \""
-                                                + picker.getMessage() + "\", cancelling spell");
-                                        cancelSpellFromBadManaPlan(objectId, null);
-                                        abilityAutoHandled = true;
-                                        actionableOutcome.sentResponse("cancel GAME_CHOOSE_ABILITY bad_mana_plan");
-                                        break;
-                                    }
-                                } else {
-                                    selected = choices.keySet().iterator().next();
-                                    if (choices.size() == 1) {
-                                        logger.info("[" + client.getUsername() + "] Mana plan: auto-selecting sole ability: \""
-                                                + picker.getMessage() + "\" -> " + choices.get(selected));
-                                    } else {
-                                        logger.info("[" + client.getUsername() + "] Mana plan: no ability index, picking first of "
-                                                + choices.size() + ": \"" + picker.getMessage() + "\" -> " + choices.get(selected));
-                                    }
-                                }
-                                sendUuidOrDie(objectId, selected, "callback:GAME_CHOOSE_ABILITY_mana_plan");
-                                actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY mana_plan");
-                            } else {
-                                // No mana plan: let the LLM choose the ability
-                                storePendingAction(objectId, method, callback);
-                                actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_ABILITY");
-                            }
-                        } else if (mcpMode) {
-                            logger.warn("[" + client.getUsername() + "] Auto-selecting ability: no choices, sending null");
-                            sendUuidOrDie(objectId, null, "callback:GAME_CHOOSE_ABILITY_null");
-                            actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY null_choice");
-                        } else {
-                            handleGameChooseAbility(objectId, callback);
-                            actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY");
-                        }
-                        abilityAutoHandled = true;
-                    } catch (ResponseDeliveryException e) {
-                        throw e;
-                    } catch (Exception e) {
-                        logError("Ability auto-handler exception: " + e.getMessage());
-                        logger.debug("[" + client.getUsername() + "] Ability auto-handler stack trace", e);
-                    }
-                    if (!abilityAutoHandled && mcpMode) {
+                    // In MCP mode, always defer to the synchronous decision boundary.
+                    // Mana-plan consumption and empty-choices auto-handling happen in
+                    // maybeAutoHandleNonDecisionAction, not on the callback thread.
+                    if (mcpMode) {
                         storePendingAction(objectId, method, callback);
-                        actionableOutcome.storedPendingAction("fallback GAME_CHOOSE_ABILITY");
+                        actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_ABILITY");
+                    } else {
+                        handleGameChooseAbility(objectId, callback);
+                        actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY");
                     }
                     break;
                 }
