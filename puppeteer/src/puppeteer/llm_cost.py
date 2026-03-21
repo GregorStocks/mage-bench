@@ -5,10 +5,10 @@ helpers for cost estimation and file-based cost reporting.
 """
 
 import json
-import urllib.request
 from pathlib import Path
 
 from puppeteer.log import get_logger
+from scripts import http_utils
 
 logger = get_logger(__name__)
 
@@ -29,6 +29,7 @@ _PROVIDER_API_KEY_ENVS = {
     "gemini": "GEMINI_API_KEY",
 }
 SUPPORTED_LLM_PROVIDERS = tuple(_PROVIDER_BASE_URLS)
+_OPENROUTER_HOSTS = frozenset({"openrouter.ai"})
 
 
 def _resolve_llm_provider(provider: str | None) -> str:
@@ -58,9 +59,13 @@ def fetch_openrouter_prices() -> dict[str, tuple[float, float]]:
     Returns empty dict on any failure.
     """
     try:
-        req = urllib.request.Request(OPENROUTER_MODELS_URL)
-        with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT_SECS) as resp:
-            data = json.loads(resp.read())
+        data = json.loads(
+            http_utils.fetch_https_bytes(
+                OPENROUTER_MODELS_URL,
+                allowed_hosts=_OPENROUTER_HOSTS,
+                timeout=FETCH_TIMEOUT_SECS,
+            )
+        )
     except (OSError, json.JSONDecodeError) as e:
         logger.warning("[llm_cost] Failed to fetch OpenRouter prices: %s", e)
         return {}

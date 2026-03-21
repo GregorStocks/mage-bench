@@ -14,8 +14,9 @@ import re
 import subprocess
 import sys
 import time
-import urllib.request
 from pathlib import Path
+
+from scripts import http_utils
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
@@ -27,6 +28,7 @@ FORMATS = {
     "modern": "Modern",
     "standard": "Standard",
 }
+_MTGGOLDFISH_HOSTS = frozenset({"www.mtggoldfish.com"})
 
 
 def slug_to_title_case(slug: str) -> str:
@@ -45,8 +47,10 @@ def clean_archetype_name(name: str) -> str:
 def fetch_archetype_urls(fmt: str, count: int) -> list[str]:
     """Fetch archetype URLs from MTGGoldfish metagame page."""
     metagame_url = f"https://www.mtggoldfish.com/metagame/{fmt}/full#paper"
-    with urllib.request.urlopen(metagame_url) as resp:
-        html = resp.read().decode()
+    html = http_utils.fetch_https_text(
+        metagame_url,
+        allowed_hosts=_MTGGOLDFISH_HOSTS,
+    )
 
     pattern = f"/archetype/{fmt}-[a-z0-9-]+"
     all_matches = re.findall(pattern, html)
@@ -64,8 +68,10 @@ def fetch_archetype_urls(fmt: str, count: int) -> list[str]:
 
 def get_deck_id(archetype_url: str) -> str | None:
     """Get first deck ID from an archetype page."""
-    with urllib.request.urlopen(archetype_url) as resp:
-        html = resp.read().decode()
+    html = http_utils.fetch_https_text(
+        archetype_url,
+        allowed_hosts=_MTGGOLDFISH_HOSTS,
+    )
     m = re.search(r"/deck/(\d+)", html)
     return m.group(1) if m else None
 

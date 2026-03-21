@@ -53,7 +53,7 @@ CONFIG_PATH = Path.home() / ".mage-bench" / "config.json"
 # Remote audit sessions often run on a dev server and are browsed from a second
 # machine, so wildcard binding remains the default. Use --bind-host 127.0.0.1
 # for local-only access.
-DEFAULT_BIND_HOST = "0.0.0.0"
+DEFAULT_BIND_HOST = "0.0.0.0"  # noqa: S104 - remote audit sessions are intentionally shared on a LAN
 
 # Files the standalone audit UI serves directly from the website sources.
 STATIC_FILES: dict[str, Path] = {

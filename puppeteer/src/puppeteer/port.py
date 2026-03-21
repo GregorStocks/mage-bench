@@ -3,6 +3,7 @@
 import fcntl
 import os
 import socket
+import tempfile
 import time
 from types import TracebackType
 
@@ -45,7 +46,7 @@ def _try_lock_port(port: int) -> int | None:
     Returns the open file descriptor on success, or None if another
     process already holds the lock.
     """
-    lock_path = f"/tmp/mage-port-{port}.lock"
+    lock_path = _lock_path_for_port(port)
     try:
         fd = os.open(lock_path, os.O_CREAT | os.O_RDWR, 0o644)
     except OSError:
@@ -56,6 +57,11 @@ def _try_lock_port(port: int) -> int | None:
     except OSError:
         os.close(fd)
         return None
+
+
+def _lock_path_for_port(port: int) -> str:
+    """Return the lock-file path for a reserved port."""
+    return os.path.join(tempfile.gettempdir(), f"mage-port-{port}.lock")
 
 
 def is_port_in_use(host: str, port: int, timeout: float = 1.0) -> bool:
