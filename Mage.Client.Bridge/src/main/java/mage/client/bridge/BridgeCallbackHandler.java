@@ -21,7 +21,6 @@ import mage.view.ChatMessage;
 import mage.view.CombatGroupView;
 import mage.view.GameClientMessage;
 import mage.view.GameView;
-import mage.view.ManaPoolView;
 import mage.view.PermanentView;
 import mage.view.PlayerView;
 import mage.view.TableClientMessage;
@@ -59,10 +58,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Consumer;
-import java.util.regex.Pattern;
 
 /**
  * Callback handler for the bridge client.
@@ -76,21 +73,12 @@ public class BridgeCallbackHandler {
     /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
     private record GameLogSnapshot(List<BridgeLogEntry> events, int cursor) {}
 
-    // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
-    // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
-    // Matches {W}, {W/U}, {W/P}, {W/U/P}, {2/W}, {C/W}, etc.
-    private static final Pattern REGEX_WHITE = Pattern.compile("\\x7b.{0,2}W.{0,2}\\x7d");
-    private static final Pattern REGEX_BLUE = Pattern.compile("\\x7b.{0,2}U.{0,2}\\x7d");
-    private static final Pattern REGEX_BLACK = Pattern.compile("\\x7b.{0,2}B.{0,2}\\x7d");
-    private static final Pattern REGEX_RED = Pattern.compile("\\x7b.{0,2}R.{0,2}\\x7d");
-    private static final Pattern REGEX_GREEN = Pattern.compile("\\x7b.{0,2}G.{0,2}\\x7d");
-    private static final Pattern REGEX_COLORLESS = Pattern.compile("\\x7b.{0,2}C.{0,2}\\x7d");
-
     private final BridgeMageClient client;
     private final BridgeViewLocator viewLocator;
     private final BridgeCardFormatter cardFormatter;
     private final BridgeGameStateBuilder gameStateBuilder;
     private final BridgeOracleTextService oracleTextService;
+    private final BridgeManaHandler manaHandler;
     private Session session;
     private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>(); // gameId -> playerId
     private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>(); // gameId -> chatId
@@ -148,14 +136,7 @@ public class BridgeCallbackHandler {
     private final Object boardCursorLock = new Object();
     private volatile long boardCursor = 0; // Monotonic cursor for board state dedup in pass_priority/get_action_choices
     private volatile String lastBoardSignature = null; // Canonicalized board signature for cursoring
-    private final Set<UUID> failedManaCasts = ConcurrentHashMap.newKeySet(); // Spells that failed mana payment (avoid retry loops)
-    private volatile UUID poolManaPayingForId = null; // Tracks which spell pool-mana is being paid for (loop detection)
-    private volatile int poolManaAttempts = 0; // Consecutive pool-mana sends for the same spell
-    private static final int MAX_POOL_MANA_ATTEMPTS = 10; // Cancel payment after this many pool retries
-    private volatile CopyOnWriteArrayList<ManaPlanEntry> manaPlan = null; // Explicit mana sourcing plan from LLM
-    private volatile Integer manaPlanAbilityIndex = null; // Ability index from last consumed mana plan entry (for GAME_CHOOSE_ABILITY)
-    private volatile boolean manaPlanAutoTapFallback = true; // When mana plan is exhausted, fall through to auto-tap (true) or cancel (false)
-    private volatile int lastTurnNumber = -1; // For clearing failedManaCasts on turn change
+    private volatile int lastTurnNumber = -1; // For clearing mana-payment state on turn change
     private volatile int interactionsThisTurn = 0; // Generic loop detection: count model interactions per turn
     private volatile int maxInteractionsPerTurn = 25; // Configurable per-model; after this many, auto-pass rest of turn
 
@@ -183,9 +164,6 @@ public class BridgeCallbackHandler {
     }
     private volatile JoinHandler joinHandler = null;
 
-    private record ManaPlanEntry(String type, String value, Integer abilityIndex) {
-        ManaPlanEntry(String type, String value) { this(type, value, null); }
-    }
     private record TargetChoice(UUID targetId, Map<String, Object> entry, CardView cardView) {
     }
     private enum DecisionBoundaryStatus {
@@ -224,6 +202,31 @@ public class BridgeCallbackHandler {
         this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
         this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
+        this.manaHandler = new BridgeManaHandler(
+            client.getUsername(),
+            shortIds,
+            viewLocator,
+            cardFormatter,
+            this::playerIdForGame,
+            this::appendSystemChatMessage,
+            this::logBridgeEvent,
+            new BridgeManaHandler.ResponseSink() {
+                @Override
+                public void sendBooleanOrDie(UUID gameId, boolean data, String context) {
+                    BridgeCallbackHandler.this.sendBooleanOrDie(gameId, data, context);
+                }
+
+                @Override
+                public void sendUuidOrDie(UUID gameId, UUID data, String context) {
+                    BridgeCallbackHandler.this.sendUuidOrDie(gameId, data, context);
+                }
+
+                @Override
+                public void sendManaTypeOrDie(UUID gameId, UUID playerId, ManaType data, String context) {
+                    BridgeCallbackHandler.this.sendManaTypeOrDie(gameId, playerId, data, context);
+                }
+            }
+        );
     }
 
     /**
@@ -938,12 +941,8 @@ public class BridgeCallbackHandler {
                         int turn = gameView.getTurn();
                         if (turn != lastTurnNumber) {
                             lastTurnNumber = turn;
-                            failedManaCasts.clear();
                             interactionsThisTurn = 0;
-                            poolManaAttempts = 0;
-                            poolManaPayingForId = null;
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
+                            manaHandler.resetForTurnChange();
                         }
                     }
 
@@ -961,7 +960,7 @@ public class BridgeCallbackHandler {
                         PlayableObjectStats stats = entry.getValue();
 
                         // Skip spells that failed mana payment (can't afford them)
-                        if (failedManaCasts.contains(objectId)) {
+                        if (manaHandler.hasFailedManaCast(objectId)) {
                             continue;
                         }
 
@@ -1165,75 +1164,16 @@ public class BridgeCallbackHandler {
             case GAME_PLAY_XMANA: {
                 // Auto-tap couldn't find a source — show available mana sources to the LLM
                 GameClientMessage manaMsg = (GameClientMessage) data;
-                PlayableObjectsList manaPlayable = gameView != null ? gameView.getCanPlayObjects() : null;
-                var manaChoiceList = new ArrayList<Map<String, Object>>();
-                var manaIndexToChoice = new ArrayList<Object>();
-                UUID payingForId = extractPayingForId(manaMsg.getMessage());
+                BridgeManaHandler.ManualChoiceSet manualChoiceSet = manaHandler.buildManualChoiceSet(
+                    gameView,
+                    manaMsg.getMessage()
+                );
 
-                if (manaPlayable != null) {
-                    // Sort mana sources by card name for deterministic ordering
-                    var sortedManaEntries = new ArrayList<>(manaPlayable.getObjects().entrySet());
-                    sortedManaEntries.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
-                        CardView cv = findCardViewById(e.getKey(), gv);
-                        return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gv))));
-
-                    int idx = 0;
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : sortedManaEntries) {
-                        UUID manaObjectId = entry.getKey();
-                        if (manaObjectId.equals(payingForId)) {
-                            continue;
-                        }
-                        PlayableObjectStats stats = entry.getValue();
-                        List<String> manaAbilities = stats.getAllManaAbilityNames();
-                        if (manaAbilities.isEmpty()) {
-                            continue;
-                        }
-
-                        CardView cardView = findCardViewById(manaObjectId, gameView);
-                        String cardName;
-                        if (cardView != null) {
-                            cardName = cardView.getDisplayName();
-                        } else {
-                            cardName = "Unknown (" + manaObjectId.toString().substring(0, 8) + ")";
-                        }
-
-                        for (String manaAbilityText : manaAbilities) {
-                            var choiceEntry = new HashMap<String, Object>();
-                            choiceEntry.put("index", idx);
-                            choiceEntry.put("id", getStableShortId(manaObjectId, cardView));
-                            boolean isTap = manaAbilityText.contains("{T}");
-                            choiceEntry.put("choice_type", isTap ? "tap_source" : "mana_source");
-                            choiceEntry.put("name", cardName);
-                            choiceEntry.put("ability", manaAbilityText);
-                            manaChoiceList.add(choiceEntry);
-                            manaIndexToChoice.add(manaObjectId);
-                            idx++;
-                        }
-                    }
-                }
-
-                List<ManaType> poolChoices = getPoolManaChoices(gameView, manaMsg.getMessage());
-                if (!poolChoices.isEmpty()) {
-                    int idx = manaChoiceList.size();
-                    ManaPoolView manaPool = getMyManaPoolView(gameView);
-                    for (ManaType manaType : poolChoices) {
-                        var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
-                        choiceEntry.put("choice_type", "pool_mana");
-                        choiceEntry.put("name", prettyManaType(manaType));
-                        choiceEntry.put("count", getManaPoolCount(manaPool, manaType));
-                        manaChoiceList.add(choiceEntry);
-                        manaIndexToChoice.add(manaType);
-                        idx++;
-                    }
-                }
-
-                if (!manaChoiceList.isEmpty()) {
+                if (!manualChoiceSet.choices().isEmpty()) {
                     result.response_type = "select";
                     result.respond_with = "choice=pN to tap, or choice=no to cancel";
-                    result.choices = manaChoiceList;
-                    lastChoices = manaIndexToChoice;
+                    result.choices = manualChoiceSet.choices();
+                    lastChoices = manualChoiceSet.indexToChoice();
                 } else {
                     result.response_type = "boolean";
                     result.respond_with = "choice=no to cancel";
@@ -1619,7 +1559,9 @@ public class BridgeCallbackHandler {
         try {
             lastChoices = null;
             clearChoiceSnapshot();
-            boolean handled = handleGamePlayManaAuto(action.gameId(), (GameClientMessage) action.data());
+            GameClientMessage manaMessage = (GameClientMessage) action.data();
+            updateLastGameView(manaMessage.getGameView(), source + ":" + action.method().name());
+            boolean handled = manaHandler.autoHandleGamePlayMana(action.gameId(), manaMessage);
             if (handled) {
                 logger.info("[" + client.getUsername() + "] " + source
                     + ": auto-resolved pending " + action.method().name() + " at decision boundary");
@@ -1662,54 +1604,11 @@ public class BridgeCallbackHandler {
         }
 
         // Mana plan active: consume ability index and select
-        if (manaPlan != null) {
+        if (manaHandler.hasActiveManaPlan()) {
             if (clearPendingActionIfCurrent(action)) {
-                Integer abilityIdx = manaPlanAbilityIndex;
-                manaPlanAbilityIndex = null;  // consume
-                UUID selected;
-                if (abilityIdx != null) {
-                    List<UUID> abilityIds = new ArrayList<>(choices.keySet());
-                    if (abilityIdx >= 0 && abilityIdx < abilityIds.size()) {
-                        selected = abilityIds.get(abilityIdx);
-                        logger.info("[" + client.getUsername() + "] " + source
-                            + ": mana plan selecting ability " + abilityIdx + ": \""
-                            + picker.getMessage() + "\" -> " + choices.get(selected));
-                    } else {
-                        // Bad ability index: send null to satisfy the UUID callback,
-                        // then clean up mana plan state.
-                        logger.warn("[" + client.getUsername() + "] " + source
-                            + ": mana plan ability index " + abilityIdx
-                            + " out of range (0-" + (abilityIds.size() - 1) + ") for \""
-                            + picker.getMessage() + "\", cancelling spell");
-                        manaPlan = null;
-                        synchronized (unseenChat) {
-                            unseenChat.add("[System] Spell cancelled — mana plan ability index was incorrect.");
-                        }
-                        logBridgeEvent("SPELL_CANCELLED", "mana plan ability index out of range");
-                        lastChoices = null;
-                        clearChoiceSnapshot();
-                        sendUuidOrDie(action.gameId(), null,
-                            "auto GAME_CHOOSE_ABILITY bad_mana_plan");
-                        return NonDecisionActionStatus.AUTO_HANDLED;
-                    }
-                } else {
-                    // No explicit ability index: pick first
-                    selected = choices.keySet().iterator().next();
-                    if (choices.size() == 1) {
-                        logger.info("[" + client.getUsername() + "] " + source
-                            + ": mana plan auto-selecting sole ability: \""
-                            + picker.getMessage() + "\" -> " + choices.get(selected));
-                    } else {
-                        logger.info("[" + client.getUsername() + "] " + source
-                            + ": mana plan no ability index, picking first of "
-                            + choices.size() + ": \"" + picker.getMessage()
-                            + "\" -> " + choices.get(selected));
-                    }
-                }
                 lastChoices = null;
                 clearChoiceSnapshot();
-                sendUuidOrDie(action.gameId(), selected,
-                    "auto GAME_CHOOSE_ABILITY mana_plan");
+                manaHandler.autoHandleChooseAbility(action.gameId(), picker, source);
                 return NonDecisionActionStatus.AUTO_HANDLED;
             }
             return pendingAction != action
@@ -2052,31 +1951,19 @@ public class BridgeCallbackHandler {
                                 // Validate mana plan before sending spell to server —
                                 // once sent, cancellation is async and confuses the model
                                 if (effectiveManaPlan != null) {
-                                    CopyOnWriteArrayList<ManaPlanEntry> parsedPlan;
                                     try {
-                                        parsedPlan = parseManaPlan(effectiveManaPlan);
+                                        result.mana_plan_size = manaHandler.storeManaPlan(
+                                            effectiveManaPlan,
+                                            !(autoTap != null && !autoTap)
+                                        );
                                     } catch (IllegalArgumentException e) {
                                         return buildError(result, "invalid_mana_plan",
                                             "Invalid mana_plan: " + e.getMessage()
                                             + ". Expected: [\"p1\",\"p2:0\",\"RED\"]", true, action);
                                     }
-                                    for (ManaPlanEntry entry : parsedPlan) {
-                                        if ("tap".equals(entry.type()) && shortIds.tryResolve(entry.value()) == null) {
-                                            return buildError(result, "invalid_mana_plan",
-                                                "Mana plan references unknown permanent '" + entry.value()
-                                                + "'. Check the board state for correct permanent IDs.", true, action);
-                                        }
-                                    }
-                                    manaPlan = parsedPlan;
-                                    // auto_tap controls fallback when plan runs out:
-                                    // false = cancel spell, true/null = fall through to auto-tap
-                                    manaPlanAutoTapFallback = !(autoTap != null && !autoTap);
                                     result.mana_plan_set = true;
-                                    result.mana_plan_size = manaPlan.size();
                                 } else if (autoTap != null && autoTap) {
-                                    manaPlan = null;  // Explicit auto-tap mode
-                                    manaPlanAbilityIndex = null;
-                                    manaPlanAutoTapFallback = true;
+                                    manaHandler.clearForExplicitAutoTap();
                                 }
                                 sendUuidOrDie(gameId, chosenUuid, "chooseAction:GAME_SELECT_index");
                                 result.action_taken = "selected_" + resolvedIndex;
@@ -2125,22 +2012,17 @@ public class BridgeCallbackHandler {
                             }
                         } else {
                             Object manaChoice = choices.get(resolvedIndex);
-                            if (manaChoice instanceof UUID manaUuid) {
-                                sendUuidOrDie(gameId, manaUuid, "chooseAction:GAME_PLAY_MANA");
-                                result.action_taken = "tapped_mana_" + resolvedIndex;
+                            try {
+                                result.action_taken = manaHandler.applyManualChoice(
+                                    gameId,
+                                    manaChoice,
+                                    lastGameView,
+                                    resolvedIndex
+                                );
                                 usedManaIndex = true;
-                            } else if (manaChoice instanceof ManaType manaType) {
-                                UUID manaPlayerId = getManaPoolPlayerId(gameId, lastGameView);
-                                if (manaPlayerId == null) {
-                                    return buildError(result, "internal_error",
-                                        "Could not resolve player ID for mana pool selection", false, action);
-                                }
-                                sendManaTypeOrDie(gameId, manaPlayerId, manaType, "chooseAction:GAME_PLAY_MANA_pool");
-                                result.action_taken = "used_pool_" + manaType.toString();
-                                usedManaIndex = true;
-                            } else {
+                            } catch (IllegalStateException e) {
                                 return buildError(result, "internal_error",
-                                    "Unsupported mana choice type at index " + resolvedIndex, false, action);
+                                    e.getMessage(), false, action);
                             }
                         }
                     }
@@ -2160,12 +2042,7 @@ public class BridgeCallbackHandler {
                         }
                         if (cancel) {
                             // Mark spell as failed to prevent infinite retry loop
-                            UUID payingForId = extractPayingForId(action.message());
-                            if (payingForId != null) {
-                                failedManaCasts.add(payingForId);
-                            }
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
+                            manaHandler.recordManualCancel(action.message());
                             sendBooleanOrDie(gameId, false, "chooseAction:GAME_PLAY_MANA_cancel");
                             result.action_taken = "cancelled_spell";
                         } else {
@@ -3235,6 +3112,12 @@ public class BridgeCallbackHandler {
         }
     }
 
+    private void appendSystemChatMessage(String message) {
+        synchronized (unseenChat) {
+            unseenChat.add(message);
+        }
+    }
+
     // Cross-turn yield values handled client-side.  These used to be server-side
     // yields (sendPlayerAction → skip()), but skip() bypasses waitResponseOpen()
     // which causes stale responses to answer the wrong waitForResponse(), producing
@@ -3503,12 +3386,8 @@ public class BridgeCallbackHandler {
                         int turn = gv.getTurn();
                         if (turn != lastTurnNumber) {
                             lastTurnNumber = turn;
-                            failedManaCasts.clear();
                             interactionsThisTurn = 0;
-                            poolManaAttempts = 0;
-                            poolManaPayingForId = null;
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
+                            manaHandler.resetForTurnChange();
                         }
                     }
                 }
@@ -3671,7 +3550,7 @@ public class BridgeCallbackHandler {
                 boolean hasPlayableCards = false;
                 if (playable != null && !playable.isEmpty()) {
                     for (Map.Entry<UUID, PlayableObjectStats> entry : playable.getObjects().entrySet()) {
-                        if (failedManaCasts.contains(entry.getKey())) {
+                        if (manaHandler.hasFailedManaCast(entry.getKey())) {
                             continue;
                         }
                         PlayableObjectStats stats = entry.getValue();
@@ -4472,389 +4351,6 @@ public class BridgeCallbackHandler {
             }
         }
         return selected;
-    }
-
-    private UUID extractPayingForId(String message) {
-        // Extract object_id='...' from callback HTML so we can avoid tapping the paid object itself.
-        if (message == null) {
-            return null;
-        }
-        int idx = message.indexOf("object_id='");
-        if (idx < 0) {
-            return null;
-        }
-        int start = idx + "object_id='".length();
-        int end = message.indexOf("'", start);
-        if (end <= start) {
-            return null;
-        }
-        try {
-            return UUID.fromString(message.substring(start, end));
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
-
-    private ManaPoolView getMyManaPoolView(GameView gameView) {
-        if (gameView == null) {
-            return null;
-        }
-        PlayerView myPlayer = gameView.getMyPlayer();
-        if (myPlayer == null) {
-            return null;
-        }
-        return myPlayer.getManaPool();
-    }
-
-    private int getManaPoolCount(ManaPoolView manaPool, ManaType manaType) {
-        if (manaPool == null) {
-            return 0;
-        }
-        return switch (manaType) {
-            case WHITE -> manaPool.getWhite();
-            case BLUE -> manaPool.getBlue();
-            case BLACK -> manaPool.getBlack();
-            case RED -> manaPool.getRed();
-            case GREEN -> manaPool.getGreen();
-            case COLORLESS -> manaPool.getColorless();
-            case GENERIC -> 0;
-        };
-    }
-
-    private String prettyManaType(ManaType manaType) {
-        return switch (manaType) {
-            case WHITE -> "White";
-            case BLUE -> "Blue";
-            case BLACK -> "Black";
-            case RED -> "Red";
-            case GREEN -> "Green";
-            case COLORLESS -> "Colorless";
-            case GENERIC -> "Generic";
-        };
-    }
-
-    private void addPreferredPoolManaChoice(List<ManaType> orderedChoices, ManaPoolView manaPool, ManaType manaType) {
-        if (getManaPoolCount(manaPool, manaType) > 0 && !orderedChoices.contains(manaType)) {
-            orderedChoices.add(manaType);
-        }
-    }
-
-    private boolean hasExplicitManaSymbol(String promptText) {
-        if (promptText == null) {
-            return false;
-        }
-        return REGEX_WHITE.matcher(promptText).find()
-                || REGEX_BLUE.matcher(promptText).find()
-                || REGEX_BLACK.matcher(promptText).find()
-                || REGEX_RED.matcher(promptText).find()
-                || REGEX_GREEN.matcher(promptText).find()
-                || REGEX_COLORLESS.matcher(promptText).find();
-    }
-
-    private boolean addExplicitPoolChoices(List<ManaType> orderedChoices, ManaPoolView manaPool, String promptText) {
-        if (promptText == null) {
-            return false;
-        }
-        boolean hasExplicitSymbols = false;
-        if (REGEX_WHITE.matcher(promptText).find()) {
-            hasExplicitSymbols = true;
-            addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.WHITE);
-        }
-        if (REGEX_BLUE.matcher(promptText).find()) {
-            hasExplicitSymbols = true;
-            addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.BLUE);
-        }
-        if (REGEX_BLACK.matcher(promptText).find()) {
-            hasExplicitSymbols = true;
-            addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.BLACK);
-        }
-        if (REGEX_RED.matcher(promptText).find()) {
-            hasExplicitSymbols = true;
-            addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.RED);
-        }
-        if (REGEX_GREEN.matcher(promptText).find()) {
-            hasExplicitSymbols = true;
-            addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.GREEN);
-        }
-        if (REGEX_COLORLESS.matcher(promptText).find()) {
-            hasExplicitSymbols = true;
-            addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.COLORLESS);
-        }
-        return hasExplicitSymbols;
-    }
-
-    private List<ManaType> getPoolManaChoices(GameView gameView, String promptText) {
-        ManaPoolView manaPool = getMyManaPoolView(gameView);
-        if (manaPool == null) {
-            return new ArrayList<>();
-        }
-
-        var orderedChoices = new ArrayList<ManaType>();
-        boolean hasExplicitSymbols = addExplicitPoolChoices(orderedChoices, manaPool, promptText);
-        if (hasExplicitSymbols) {
-            // If explicit symbols are present (e.g. "{G}"), only offer matching pool mana types.
-            return orderedChoices;
-        }
-
-        // Generic/no-symbol payment: allow any available pool mana in stable order.
-        addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.WHITE);
-        addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.BLUE);
-        addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.BLACK);
-        addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.RED);
-        addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.GREEN);
-        addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.COLORLESS);
-
-        return orderedChoices;
-    }
-
-    /**
-     * Parse a mana plan String[] into a list of ManaPlanEntry.
-     * Format: ["p1", "p2:0", "RED"] — short IDs activate mana abilities (with optional
-     * :N ability index for multi-ability permanents), color names spend from pool.
-     */
-    private CopyOnWriteArrayList<ManaPlanEntry> parseManaPlan(String[] arr) {
-        var plan = new CopyOnWriteArrayList<ManaPlanEntry>();
-        for (String entry : arr) {
-            if (isPoolColor(entry)) {
-                plan.add(new ManaPlanEntry("pool", entry));
-            } else {
-                int colonIdx = entry.indexOf(':');
-                if (colonIdx >= 0) {
-                    String shortId = entry.substring(0, colonIdx);
-                    int abilityIndex = Integer.parseInt(entry.substring(colonIdx + 1));
-                    plan.add(new ManaPlanEntry("tap", shortId, abilityIndex));
-                } else {
-                    plan.add(new ManaPlanEntry("tap", entry));
-                }
-            }
-        }
-        return plan;
-    }
-
-    private static boolean isPoolColor(String s) {
-        try { ManaType.valueOf(s); return true; }
-        catch (IllegalArgumentException e) { return false; }
-    }
-
-    /**
-     * Cancel a spell because the mana plan was incorrect (entry failed or plan exhausted).
-     * Marks the spell as failed, clears the plan, and notifies the LLM.
-     */
-    private boolean cancelSpellFromBadManaPlan(UUID gameId, UUID payingForId) {
-        if (payingForId != null) {
-            failedManaCasts.add(payingForId);
-        }
-        manaPlan = null;
-        manaPlanAbilityIndex = null;
-        synchronized (unseenChat) {
-            unseenChat.add("[System] Spell cancelled — mana plan was incorrect or incomplete.");
-        }
-        logBridgeEvent("SPELL_CANCELLED", "mana plan was incorrect or incomplete");
-        sendBooleanOrDie(gameId, false, "cancelSpellFromBadManaPlan");
-        return true;
-    }
-
-    private UUID getManaPoolPlayerId(UUID gameId, GameView gameView) {
-        if (gameView != null) {
-            PlayerView myPlayer = gameView.getMyPlayer();
-            if (myPlayer != null && myPlayer.getPlayerId() != null) {
-                return myPlayer.getPlayerId();
-            }
-        }
-        return playerIdForGame(gameId);
-    }
-
-    /**
-     * Try to auto-tap a mana source. Returns true if a source was tapped,
-     * false if no suitable source was found (caller should fall through to LLM).
-     */
-    private boolean handleGamePlayManaAuto(UUID gameId, GameClientMessage message) {
-        GameView gameView = message.getGameView();
-        updateLastGameView(gameView, "GAME_PLAY_MANA_AUTO");
-
-        String msg = message.getMessage();
-        UUID payingForId = extractPayingForId(msg);
-
-        // Consume explicit mana plan if active.
-        // If any entry fails or the plan is exhausted, cancel the spell — the LLM
-        // must either pass a CORRECT plan, fill the pool in advance, or use auto_tap.
-        CopyOnWriteArrayList<ManaPlanEntry> plan = manaPlan;
-        if (plan != null && !plan.isEmpty()) {
-            ManaPlanEntry entry = plan.remove(0);  // consume first entry
-
-            if ("tap".equals(entry.type())) {
-                manaPlanAbilityIndex = entry.abilityIndex();  // save for GAME_CHOOSE_ABILITY
-                UUID targetId = shortIds.tryResolve(entry.value());
-                if (targetId == null) {
-                    logger.warn("[" + client.getUsername() + "] Mana plan: unknown short ID '" + entry.value() + "', cancelling spell");
-                    return cancelSpellFromBadManaPlan(gameId, payingForId);
-                }
-                PlayableObjectsList playableForPlan = gameView != null ? gameView.getCanPlayObjects() : null;
-                if (playableForPlan != null) {
-                    PlayableObjectStats stats = playableForPlan.getObjects().get(targetId);
-                    if (stats != null && !targetId.equals(payingForId) && !failedManaCasts.contains(targetId)) {
-                        logger.info("[" + client.getUsername() + "] Mana plan: \"" + msg + "\" -> tapping " + entry.value());
-                        poolManaAttempts = 0;
-                        sendUuidOrDie(gameId, targetId, "manaAuto:plan_tap");
-                        return true;
-                    }
-                }
-                // ID not found/not available — cancel spell
-                logger.warn("[" + client.getUsername() + "] Mana plan: tap target " + entry.value() + " not available, cancelling spell");
-                return cancelSpellFromBadManaPlan(gameId, payingForId);
-            }
-
-            if ("pool".equals(entry.type())) {
-                ManaType manaType = ManaType.valueOf(entry.value());
-                UUID manaPlayerId = getManaPoolPlayerId(gameId, gameView);
-                if (manaPlayerId != null) {
-                    logger.info("[" + client.getUsername() + "] Mana plan: \"" + msg + "\" -> using pool " + manaType);
-                    sendManaTypeOrDie(gameId, manaPlayerId, manaType, "manaAuto:plan_pool");
-                    return true;
-                }
-                logger.warn("[" + client.getUsername() + "] Mana plan: pool entry failed (no player ID), cancelling spell");
-                return cancelSpellFromBadManaPlan(gameId, payingForId);
-            }
-
-            // Unknown entry type — cancel spell
-            logger.warn("[" + client.getUsername() + "] Mana plan: unknown entry type '" + entry.type() + "', cancelling spell");
-            return cancelSpellFromBadManaPlan(gameId, payingForId);
-        }
-
-        // Plan exists but is exhausted — either fall through to auto-tap or cancel
-        if (plan != null) {
-            if (manaPlanAutoTapFallback) {
-                logger.info("[" + client.getUsername() + "] Mana plan: exhausted, falling through to auto-tap for remaining pips");
-                manaPlan = null;
-                manaPlanAbilityIndex = null;
-                // Fall through to auto-tap code below
-            } else {
-                logger.warn("[" + client.getUsername() + "] Mana plan: exhausted with pips remaining, cancelling spell (auto_tap=false)");
-                return cancelSpellFromBadManaPlan(gameId, payingForId);
-            }
-        }
-
-        // Find a mana source from canPlayObjects and tap it
-        PlayableObjectsList playable = gameView != null ? gameView.getCanPlayObjects() : null;
-        if (playable != null && !playable.isEmpty()) {
-            // Build a deterministic ordering for mana sources.
-            // Prefer battlefield insertion order to avoid HashMap iteration nondeterminism.
-            var battlefieldOrder = new HashMap<UUID, Integer>();
-            if (gameView != null) {
-                int order = 0;
-                for (PlayerView player : gameView.getPlayers()) {
-                    for (UUID permanentId : player.getBattlefield().keySet()) {
-                        battlefieldOrder.put(permanentId, order++);
-                    }
-                }
-            }
-            var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
-            sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>>comparingInt(e -> {
-                Integer idx = battlefieldOrder.get(e.getKey());
-                return idx != null ? idx : Integer.MAX_VALUE;
-            }).thenComparing(e -> {
-                CardView cv = findCardViewById(e.getKey(), gameView);
-                return cv != null ? safeDisplayName(cv) : "";
-            }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gameView))));
-
-            // Find the first object that has a mana ability (but skip the object being paid for)
-            for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
-                UUID objectId = entry.getKey();
-                // Don't tap the source we're paying for — it may need {T}/sacrifice as part of its cost
-                if (objectId.equals(payingForId)) {
-                    continue;
-                }
-                // Don't re-tap a source whose activation cost already failed to pay
-                if (failedManaCasts.contains(objectId)) {
-                    continue;
-                }
-                PlayableObjectStats stats = entry.getValue();
-                // Only auto-tap mana abilities that use {T} with no additional mana cost.
-                // Non-tap mana abilities (sacrifice, discard, etc.) have strategic cost.
-                // Abilities like "{1}, {T}: Add {B}{R}" (Shadowblood Ridge) cost mana to
-                // activate — tapping them triggers a sub-payment that can loop infinitely.
-                boolean hasTapManaAbility = false;
-                for (String name : stats.getAllManaAbilityNames()) {
-                    if (name.contains("{T}")) {
-                        // Check that the activation cost (before ':') doesn't require mana
-                        int colonPos = name.indexOf(':');
-                        if (colonPos > 0) {
-                            String costPart = name.substring(0, colonPos);
-                            if (costPart.matches(".*\\{[0-9WUBRGC]\\}.*")) {
-                                continue; // Non-free activation cost — skip
-                            }
-                        }
-                        hasTapManaAbility = true;
-                        break;
-                    }
-                }
-                if (hasTapManaAbility) {
-                    logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> tapping " + objectId.toString().substring(0, 8));
-                    poolManaAttempts = 0; // Reset pool counter — tap may produce needed mana
-                    sendUuidOrDie(gameId, objectId, "manaAuto:tap");
-                    return true;
-                }
-            }
-        }
-
-        // Try to spend mana already in pool.
-        List<ManaType> poolChoices = getPoolManaChoices(gameView, msg);
-        if (!poolChoices.isEmpty()) {
-            UUID manaPlayerId = getManaPoolPlayerId(gameId, gameView);
-            boolean canAutoSelectPoolType = poolChoices.size() == 1 || hasExplicitManaSymbol(msg);
-            if (manaPlayerId != null) {
-                // Track consecutive pool payment attempts for the same spell.
-                // If XMage keeps re-sending GAME_PLAY_MANA after we send pool mana,
-                // the payment isn't actually progressing — cancel to break the loop.
-                if (payingForId != null && payingForId.equals(poolManaPayingForId)) {
-                    poolManaAttempts++;
-                } else {
-                    poolManaPayingForId = payingForId;
-                    poolManaAttempts = 1;
-                }
-                if (poolManaAttempts > MAX_POOL_MANA_ATTEMPTS) {
-                    logger.warn("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> pool payment not progressing after "
-                            + poolManaAttempts + " attempts, cancelling spell");
-                    poolManaAttempts = 0;
-                    poolManaPayingForId = null;
-                    manaPlan = null;
-                    manaPlanAbilityIndex = null;
-                    if (payingForId != null) {
-                        failedManaCasts.add(payingForId);
-                    }
-                    synchronized (unseenChat) {
-                        unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-                    }
-                    logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
-                    sendBooleanOrDie(gameId, false, "manaAuto:pool_loop_cancel");
-                    return true;
-                }
-
-                if (!canAutoSelectPoolType) {
-                    logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> pool has multiple options, waiting for manual choice");
-                    return false;
-                }
-                ManaType manaType = poolChoices.get(0);
-                logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> using pool " + manaType.toString());
-                sendManaTypeOrDie(gameId, manaPlayerId, manaType, "manaAuto:pool");
-                return true;
-            }
-            logger.warn("[" + client.getUsername() + "] Mana: couldn't resolve player ID for mana pool payment");
-        }
-
-        // No suitable source/pool choice found — cancel spell and mark as failed.
-        logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> no mana source available, cancelling spell");
-        if (payingForId != null) {
-            failedManaCasts.add(payingForId);
-        }
-        manaPlan = null;
-        manaPlanAbilityIndex = null;
-        synchronized (unseenChat) {
-            unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-        }
-        logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
-        sendBooleanOrDie(gameId, false, "manaAuto:no_source_cancel");
-        return true;
     }
 
     /**
