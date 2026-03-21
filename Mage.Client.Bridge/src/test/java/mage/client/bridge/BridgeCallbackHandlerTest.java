@@ -25,6 +25,7 @@ import mage.view.ManaPoolView;
 import mage.view.PermanentView;
 import mage.view.PlayerView;
 import mage.view.StackAbilityView;
+import mage.view.TableClientMessage;
 import org.junit.jupiter.api.Test;
 import sun.misc.Unsafe;
 
@@ -48,6 +49,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -605,6 +607,7 @@ class BridgeCallbackHandlerTest {
         );
         handler.handleCallback(callback);
 
+        handler.awaitRuntimeProcessorIdle();
         assertThat(activeGames).doesNotContainKey(gameId);
         assertThat(handler.awaitGameFinished(100)).isTrue();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
@@ -649,6 +652,7 @@ class BridgeCallbackHandlerTest {
             false
         );
         handler.handleCallback(gameOverCallback);
+        handler.awaitRuntimeProcessorIdle();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
 
         // Send END_GAME_INFO second — should be a no-op
@@ -659,6 +663,7 @@ class BridgeCallbackHandlerTest {
             false
         );
         handler.handleCallback(endGameInfoCallback);
+        handler.awaitRuntimeProcessorIdle();
 
         // leaveChat should NOT have been called a second time
         assertThat(leaveChatCalls.get()).isEqualTo(1);
@@ -1050,6 +1055,7 @@ class BridgeCallbackHandlerTest {
         );
 
         handler.handleCallback(callback);
+        handler.awaitRuntimeProcessorIdle();
 
         PendingAction pendingAction = (PendingAction) getField(handler, "pendingAction");
         assertThat(sendPlayerUuidCalls.get()).isZero();
@@ -1061,6 +1067,46 @@ class BridgeCallbackHandlerTest {
         assertThat(((GameClientMessage) pendingAction.data()).getGameView()).isSameAs(targetView);
         assertThat(getField(handler, "lastGameView")).isSameAs(targetView);
         assertThat(getField(handler, "playerDead")).isEqualTo(false);
+    }
+
+    @Test
+    void handleCallbackProcessesStartGameOnRuntimeProcessorThread() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        AtomicReference<String> joinGameThreadName = new AtomicReference<>();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("joinGame".equals(method.getName())) {
+                    joinGameThreadName.set(Thread.currentThread().getName());
+                    assertThat(args[0]).isEqualTo(gameId);
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        ClientCallback callback = new ClientCallback(
+            ClientCallbackMethod.START_GAME,
+            gameId,
+            new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+            false
+        );
+
+        String listenerThreadName = Thread.currentThread().getName();
+        handler.handleCallback(callback);
+        handler.awaitRuntimeProcessorIdle();
+
+        assertThat(joinGameThreadName.get()).startsWith("bridge-runtime-TestPlayer");
+        assertThat(joinGameThreadName.get()).isNotEqualTo(listenerThreadName);
+        assertThat(getField(handler, "currentGameId")).isEqualTo(gameId);
+        assertThat(getField(handler, "currentPlayerId")).isEqualTo(playerId);
     }
 
     @Test
@@ -1149,6 +1195,7 @@ class BridgeCallbackHandlerTest {
         );
 
         handler.handleCallback(callback);
+        handler.awaitRuntimeProcessorIdle();
 
         PendingAction pending = (PendingAction) getField(handler, "pendingAction");
         assertThat(sendPlayerBooleanCalls.get()).isEqualTo(0);
