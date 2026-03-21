@@ -1772,7 +1772,8 @@ def _strip_volatile(data: dict) -> None:
     players = data.get("players", [])
     for i, player in enumerate(players):
         if dataclasses.is_dataclass(player) and not isinstance(player, type):
-            d = {k: v for k, v in dataclasses.asdict(player).items() if v is not None}
+            d = json_default(player)
+            assert isinstance(d, dict), f"expected json_default(player) to return dict, got {d!r}"
             d.pop("thinkingTimeSecs", None)
             players[i] = d
         elif isinstance(player, dict):

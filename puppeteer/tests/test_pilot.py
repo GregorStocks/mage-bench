@@ -1176,8 +1176,8 @@ class TestBuildPilotDecision:
         data = _sample_pass_priority_result()
         decision = _build_pilot_decision(data)
         assert isinstance(decision, Decision)
-        assert isinstance(decision.pilotContext, PilotContext)
-        assert decision.pilotContext.landDropsUsed == 0
+        assert isinstance(decision.pilot_context, PilotContext)
+        assert decision.pilot_context.land_drops_used == 0
 
     def test_preserves_empty_pregame_phase_marker(self) -> None:
         data = _sample_pass_priority_result()

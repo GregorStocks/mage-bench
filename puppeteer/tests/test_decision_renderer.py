@@ -206,7 +206,7 @@ class TestRenderDecision:
     def test_pilot_context_must_be_object(self) -> None:
         snap = _make_snapshot()
         decision = _make_decision()
-        decision.pilotContext = "bad"  # type: ignore[assignment]
+        decision.pilot_context = "bad"  # type: ignore[assignment]
 
         with pytest.raises(AssertionError, match="pilotContext must be an object"):
             render_decision(decision, snap)
@@ -349,7 +349,7 @@ class TestRenderDecision:
     def test_cast_rolled_back(self) -> None:
         snap = _make_snapshot()
         decision = _make_decision()
-        decision.castRolledBack = True
+        decision.cast_rolled_back = True
         text = render_decision(
             decision,
             snap,
@@ -378,10 +378,8 @@ class TestRenderDecision:
 
     def test_turn_none_crashes(self) -> None:
         """Decision turn is schema-required and should fail fast when missing."""
-        snap = _make_snapshot(turn=0, phase="")
-        decision = _make_decision(turn=None, phase=None)
-        with pytest.raises(AssertionError, match="decision turn must be an int"):
-            render_decision(decision, snap)
+        with pytest.raises(AssertionError, match=r"Decision\.turn: expected int"):
+            _make_decision(turn=None, phase=None)
 
     def test_empty_phase_after_turn_1_crashes(self) -> None:
         """Empty phase on turn > 1 indicates data corruption and should crash."""
@@ -707,7 +705,7 @@ class TestChosenBlockManaPlan:
             choices=_choice_list({"name": "Lightning Bolt", "id": "p3"}),
             subsequent_actions=[],
         )
-        decision.chosenArgs = "bad"  # type: ignore[assignment]
+        decision.chosen_args = "bad"  # type: ignore[assignment]
 
         with pytest.raises(AssertionError, match="chosenArgs must be an object"):
             _render_chosen_block(decision)

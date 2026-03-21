@@ -32,7 +32,7 @@ FORMAT_POOLS = RATED_POOLS + EXHIBITION_POOLS
 def derive_format(game: Mapping[str, object] | GameExport | BuiltGameExport) -> str:
     """Derive canonical format name from game data."""
     if isinstance(game, (GameExport, BuiltGameExport)):
-        deck_type: object = game.deckType
+        deck_type: object = game.deck_type
         game_id: object = game.id
     else:
         deck_type = game.get("deckType")

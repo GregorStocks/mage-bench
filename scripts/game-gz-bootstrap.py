@@ -99,12 +99,12 @@ def main(game_id: str) -> None:
 
     d = load_game(export_path)
 
-    print(f"Game: {d.id} | {d.deckType} | {d.totalTurns} turns | Winner: {d.winner}")
+    print(f"Game: {d.id} | {d.deck_type} | {d.total_turns} turns | Winner: {d.winner}")
     for p in d.players:
-        cost = p.totalCostUsd or 0
+        cost = p.total_cost_usd or 0
         print(f"  {p.name} ({p.model or '?'}) ${cost:.2f}")
 
-    events = d.llmEvents
+    events = d.llm_events
     errors = _failed_tool_calls(events)
     print(f"LLM events: {len(events)} | Failed tool calls: {len(errors)}")
     for e in errors[:5]:

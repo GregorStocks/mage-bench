@@ -803,7 +803,7 @@ def _make_deck_registry(root: Path, fmt_dir: str, decks: dict[str, list[str]]) -
 
 
 def test_resolve_random_decks_legacy_format():
-    """With deckType='Constructed - Legacy', decks should come from Legacy dir."""
+    """With deck_type='Constructed - Legacy', decks should come from Legacy dir."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         _make_deck_registry(
@@ -825,7 +825,7 @@ def test_resolve_random_decks_legacy_format():
 
 
 def test_resolve_random_decks_modern_format():
-    """With deckType='Constructed - Modern', decks should come from Modern dir."""
+    """With deck_type='Constructed - Modern', decks should come from Modern dir."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         _make_deck_registry(root, "modern", {"Burn": ["4 [M21:1] Lightning Bolt"]})
@@ -839,7 +839,7 @@ def test_resolve_random_decks_modern_format():
 
 
 def test_resolve_random_decks_commander_format():
-    """With deckType='Variant Magic - Commander', decks should come from commander dir."""
+    """With deck_type='Variant Magic - Commander', decks should come from commander dir."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         _make_deck_registry(root, "commander", {"Precon": ["1 [CMD:1] Sol Ring"]})

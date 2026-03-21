@@ -34,7 +34,7 @@ from puppeteer.leaderboard import (
     generate_model_stats,
     load_model_registry,
 )
-from schemas.game_export_types import Annotation, Player
+from schemas.game_export_types import Annotation, Player, json_default
 
 
 class _PlayerEncoder(json.JSONEncoder):
@@ -42,7 +42,7 @@ class _PlayerEncoder(json.JSONEncoder):
 
     def default(self, obj: object) -> object:
         if dataclasses.is_dataclass(obj) and not isinstance(obj, type):
-            return {k: v for k, v in dataclasses.asdict(obj).items() if v is not None}
+            return json_default(obj)
         return super().default(obj)
 
 
@@ -100,13 +100,13 @@ def _pilot(
         name=name,
         type="pilot",
         model=model,
-        totalCostUsd=cost,
-        toolCallsOk=tool_calls_ok,
-        toolCallsFailed=tool_calls_failed,
-        thinkingTimeSecs=thinking_time_secs,
+        total_cost_usd=cost,
+        tool_calls_ok=tool_calls_ok,
+        tool_calls_failed=tool_calls_failed,
+        thinking_time_secs=thinking_time_secs,
         placement=placement,
-        reasoningEffort=reasoning_effort,
-        timedOut=timed_out if timed_out else None,
+        reasoning_effort=reasoning_effort,
+        timed_out=timed_out if timed_out else None,
     )
 
 
@@ -115,9 +115,9 @@ def _cpu(name: str) -> Player:
         name=name,
         type="cpu",
         commander="Some Commander",
-        toolCallsOk=0,
-        toolCallsFailed=0,
-        thinkingTimeSecs=0.0,
+        tool_calls_ok=0,
+        tool_calls_failed=0,
+        thinking_time_secs=0.0,
     )
 
 
@@ -1097,10 +1097,10 @@ def _blunder(player: str, severity: str) -> Annotation:
         type="blunder",
         player=player,
         severity=severity,
-        decisionIndex=0,
+        decision_index=0,
         description="",
-        actionTaken="",
-        betterLine="",
+        action_taken="",
+        better_line="",
     )
 
 
@@ -1126,7 +1126,7 @@ def test_generate_leaderboard_blunder_score():
             ],
         ),
     ]
-    # totalTurns=10 per game (from _make_game)
+    # total_turns=10 per game (from _make_game)
     games[0]["annotations"] = [
         _blunder("Alice", "major"),  # weight 4
         _blunder("Alice", "minor"),  # weight 1
@@ -1162,7 +1162,7 @@ def test_generate_leaderboard_blunder_score_excludes_questionable():
             ],
         ),
     ]
-    # totalTurns=10
+    # total_turns=10
     games[0]["annotations"] = [
         _blunder("Alice", "major"),  # weight 4
         _blunder("Alice", "questionable"),  # weight 0
@@ -1190,7 +1190,7 @@ def test_generate_leaderboard_blunder_score_no_annotations():
 
 
 def test_generate_leaderboard_blunder_score_zero_turns():
-    """Games with totalTurns=0 should crash."""
+    """Games with total_turns=0 should crash."""
     game = _make_game(
         "g1",
         "20260101_000000",
@@ -1411,10 +1411,10 @@ def test_generate_leaderboard_thinking_time():
         ),
     ]
     # Add thinking time to players
-    games[0]["players"][0] = dataclasses.replace(games[0]["players"][0], thinkingTimeSecs=120.0)
-    games[0]["players"][1] = dataclasses.replace(games[0]["players"][1], thinkingTimeSecs=90.0)
-    games[1]["players"][0] = dataclasses.replace(games[1]["players"][0], thinkingTimeSecs=80.0)
-    games[1]["players"][1] = dataclasses.replace(games[1]["players"][1], thinkingTimeSecs=110.0)
+    games[0]["players"][0] = dataclasses.replace(games[0]["players"][0], thinking_time_secs=120.0)
+    games[0]["players"][1] = dataclasses.replace(games[0]["players"][1], thinking_time_secs=90.0)
+    games[1]["players"][0] = dataclasses.replace(games[1]["players"][0], thinking_time_secs=80.0)
+    games[1]["players"][1] = dataclasses.replace(games[1]["players"][1], thinking_time_secs=110.0)
 
     result, _ = generate_leaderboard(games, {})
 
@@ -1516,8 +1516,8 @@ def test_generate_model_stats_basic():
             epoch=10,
         )
         # Override the default zero values so aggregation exercises non-zero totals.
-        game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=60.0)
-        game["players"][1] = dataclasses.replace(game["players"][1], thinkingTimeSecs=30.0)
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=60.0)
+        game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=30.0)
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1648,7 +1648,7 @@ def test_generate_model_stats_epoch_bucketing():
                 ],
                 epoch=epoch,
             )
-            game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
+            game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
             (games_dir / f"{game_id}.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1696,7 +1696,7 @@ def test_generate_model_stats_error_types():
             ],
             epoch=10,
         )
-        game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1735,7 +1735,7 @@ def test_generate_model_stats_includes_no_winner_games():
             ],
             epoch=10,
         )
-        game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1814,8 +1814,8 @@ def test_generate_model_stats_reasoning_effort():
             ],
             epoch=10,
         )
-        game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
-        game["players"][1] = dataclasses.replace(game["players"][1], thinkingTimeSecs=20.0)
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
+        game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=20.0)
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1885,8 +1885,8 @@ def test_generate_internals_data_basic():
             ],
             epoch=10,
         )
-        game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=60.0)
-        game["players"][1] = dataclasses.replace(game["players"][1], thinkingTimeSecs=30.0)
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=60.0)
+        game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=30.0)
         (games_dir / "game_20260115_120000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1948,8 +1948,8 @@ def test_generate_internals_data_format_detection():
             epoch=10,
         )
         game["deckType"] = "Constructed - Standard"
-        game["players"][0] = dataclasses.replace(game["players"][0], thinkingTimeSecs=10.0)
-        game["players"][1] = dataclasses.replace(game["players"][1], thinkingTimeSecs=10.0)
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
+        game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=10.0)
         (games_dir / "game_20260116_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"

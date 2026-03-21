@@ -169,7 +169,7 @@ def _get_current_annotation(
     """
     from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
 
-    game_version = game_data.blunderScriptVersion
+    game_version = game_data.blunder_script_version
     if game_version >= BLUNDER_SCRIPT_VERSION:
         ann = lookup_annotation_for_decision(decision, game_data.annotations)
         return ann, BLUNDER_SCRIPT_VERSION

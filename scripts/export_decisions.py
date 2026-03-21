@@ -311,16 +311,16 @@ def _mark_rolled_back_casts(
             decision = decisions[j]
             if decision.player != player:
                 continue
-            indices = decision.llmEventIndices
+            indices = decision.llm_event_indices
             if not indices:
                 continue
             if indices[0] > cancel_idx:
                 continue
-            if decision.castRolledBack:
+            if decision.cast_rolled_back:
                 break
             msg = decision.message
             if msg and msg.startswith(_CAST_PROMPT_PREFIXES):
-                decision.castRolledBack = True
+                decision.cast_rolled_back = True
                 break
 
 
@@ -445,36 +445,36 @@ def _build_decisions(
 
         decision = Decision(
             index=len(decisions),
-            snapshotIndex=snap_idx_val,
+            snapshot_index=snap_idx_val,
             player=player,
             turn=snap.get("turn", 0),
             phase=snap.get("phase"),
             step=snap.get("step"),
-            actionType=action_type,
-            responseType=response_type,
+            action_type=action_type,
+            response_type=response_type,
             message=message,
             choices=typed_choices,
-            choiceCount=len(typed_choices),
-            isForced=_is_forced(response_type, message, typed_choices),
+            choice_count=len(typed_choices),
+            is_forced=_is_forced(response_type, message, typed_choices),
             chosen=chosen_index,
-            chosenArgs=chosen_args,
-            actionResult=action_result,
-            llmEventIndices=llm_event_indices,
-            subsequentActions=subsequent,
-            actionSeq=action_seq,
+            chosen_args=chosen_args,
+            action_result=action_result,
+            llm_event_indices=llm_event_indices,
+            subsequent_actions=subsequent,
+            action_seq=action_seq,
         )
 
         pilot_ctx = _extract_pilot_context(choices_result)
         if pilot_ctx:
-            decision.pilotContext = pilot_ctx
+            decision.pilot_context = pilot_ctx
 
         multi_items = choices_result.get("items")
         if multi_items:
             decision.items = MultiAmountItem.coerce_list(multi_items)
             if "total_min" in choices_result:
-                decision.totalMin = choices_result["total_min"]
+                decision.total_min = choices_result["total_min"]
             if "total_max" in choices_result:
-                decision.totalMax = choices_result["total_max"]
+                decision.total_max = choices_result["total_max"]
 
         decisions.append(decision)
 

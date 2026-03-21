@@ -68,7 +68,6 @@ max-line-length = 120
 "puppeteer/src/puppeteer/pilot.py" = ["N815"]  # inputSchema — MCP protocol field name
 "puppeteer/src/puppeteer/port.py" = ["S108"]  # intentional /tmp lock file
 "puppeteer/src/puppeteer/llm_cost.py" = ["S310"]  # HTTPS fetch from OpenRouter API
-"schemas/game_export_types.py" = ["ANN401", "ARG001", "N815", "RUF022", "SIM108", "TID251", "UP035"]
 "schemas/migrations/*.py" = ["PLC0415"]
 "scripts/*-*.py" = ["N999"]  # hyphenated script filenames are intentional CLI names
 "scripts/add-missing-jumpstart-themes.py" = ["ERA001"]  # deck-variant section labels

@@ -22,7 +22,7 @@ gz_path = str(REPO_ROOT / "website/public/games/game_20260216_155314_g7.json.gz"
 data = load_game(gz_path)
 
 decisions = extract_decisions(gz_path)
-non_forced = [d for d in decisions if not d.isForced]
+non_forced = [d for d in decisions if not d.is_forced]
 
 # Pick a mid-game decision (around the middle of the game)
 mid_idx = len(non_forced) // 2
