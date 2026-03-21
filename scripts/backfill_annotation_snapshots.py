@@ -17,7 +17,7 @@ Usage:
 import sys
 from pathlib import Path
 
-from scripts.export_decisions import _build_decisions
+from scripts.export_decisions import build_decisions
 from scripts.game_exports import (
     GAMES_DIR,
     glob_game_export_paths,
@@ -51,7 +51,7 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
     # Re-build decisions to add actionSeq field
     decisions_rebuilt = 0
     if snapshots and data.get("llmEvents"):
-        new_decisions = _build_decisions(
+        new_decisions = build_decisions(
             snapshots,
             data["actions"],
             data["llmEvents"],

@@ -20,7 +20,7 @@ from schemas.migrations import (
 )
 from scripts.backfill_decisions import backfill_game
 from scripts.export_card_data import _collect_card_names, _trim_card
-from scripts.export_decisions import _build_decisions
+from scripts.export_decisions import build_decisions
 from scripts.game_exports import (
     glob_game_export_paths,
     load_raw_game_export,
@@ -544,7 +544,7 @@ class TestExportGameHelpers:
             },
         ]
 
-        decisions = _build_decisions(snapshots, [], llm_events, harness_epoch=40)
+        decisions = build_decisions(snapshots, [], llm_events, harness_epoch=40)
 
         assert len(decisions) == 2
         assert decisions[1]["message"] == "Choose color"

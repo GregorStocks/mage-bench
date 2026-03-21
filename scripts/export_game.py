@@ -8,10 +8,10 @@ from pathlib import Path
 
 from schemas.game_export_types import BuiltGameExport, require_built_game_export
 from schemas.migrations.v3_to_v4 import compute_season
-from scripts.export_card_data import DECKLIST_RE, _build_card_data, _build_card_images
-from scripts.export_decisions import _build_decisions
-from scripts.export_errors import _link_errors_to_decisions, _read_errors
-from scripts.export_llm_events import _read_llm_events
+from scripts.export_card_data import DECKLIST_RE, build_card_data
+from scripts.export_decisions import build_decisions
+from scripts.export_errors import link_errors_to_decisions, read_errors
+from scripts.export_llm_events import read_llm_events
 from scripts.game_exports import GAMES_DIR as WEBSITE_GAMES_DIR
 from scripts.game_exports import write_raw_game_export
 from scripts.generate_leaderboard import generate_all_website_data
@@ -42,6 +42,26 @@ _COMMANDER_DECK_TYPES = {
     "Variant Magic - Freeform Commander",
     "Variant Magic - Commander",
 }
+
+
+def _build_card_images(players_meta: list[dict]) -> dict[str, str]:
+    """Build card name -> Scryfall small image URL map from decklists."""
+    images = {}
+    for player in players_meta:
+        decklist = player.get("decklist")
+        if decklist is None:
+            continue
+        for entry in decklist:
+            m = DECKLIST_RE.match(entry)
+            if not m:
+                continue
+            set_code = m.group(2).lower()
+            card_num = m.group(3)
+            card_name = m.group(4).strip()
+            images[card_name] = (
+                f"https://api.scryfall.com/cards/{set_code}/{card_num}?format=image&version=small"
+            )
+    return images
 
 
 def _extract_commander(player_meta: dict) -> str | None:
@@ -197,13 +217,13 @@ def build_export(game_dir: Path) -> BuiltGameExport:
 
     # Read LLM logs
     llm_events, player_costs, player_tools, player_tool_calls, player_thinking = (
-        _read_llm_events(game_dir)
+        read_llm_events(game_dir)
     )
     # Build card images map from decklists
     card_images = _build_card_images(meta["players"])
 
     # Build card data (Scryfall metadata) and add token images
-    card_images, card_data = _build_card_data(card_images, snapshots)
+    card_images, card_data = build_card_data(card_images, snapshots)
 
     # Extract game metadata
     game_id = game_dir.name
@@ -337,15 +357,15 @@ def build_export(game_dir: Path) -> BuiltGameExport:
         output["blunderScriptVersion"] = 0
 
     # Build canonical decisions
-    decisions = _build_decisions(snapshots, actions, llm_events, harness_epoch)
+    decisions = build_decisions(snapshots, actions, llm_events, harness_epoch)
     if decisions:
         output["decisions"] = decisions
 
     # Read error logs and link to decisions
-    errors = _read_errors(game_dir)
+    errors = read_errors(game_dir)
     if errors:
         if decisions:
-            _link_errors_to_decisions(errors, decisions, llm_events)
+            link_errors_to_decisions(errors, decisions, llm_events)
         output["errors"] = errors
 
     return require_built_game_export(output, source=game_dir.name)

@@ -11,7 +11,7 @@ Usage:
 import argparse
 from pathlib import Path
 
-from scripts.export_decisions import _build_decisions
+from scripts.export_decisions import build_decisions
 from scripts.game_exports import (
     GAMES_DIR,
     glob_game_export_paths,
@@ -33,7 +33,7 @@ def backfill_game(
         )
         return "skipped", len(existing)
 
-    decisions = _build_decisions(
+    decisions = build_decisions(
         data["snapshots"],
         data["actions"],
         data["llmEvents"],
