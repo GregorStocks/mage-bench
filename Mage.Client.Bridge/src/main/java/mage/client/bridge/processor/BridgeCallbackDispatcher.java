@@ -1,7 +1,6 @@
 package mage.client.bridge.processor;
 
 import mage.interfaces.callback.ClientCallbackMethod;
-import mage.interfaces.callback.ClientCallback;
 import mage.view.ChatMessage;
 
 import java.util.EnumSet;
@@ -22,13 +21,11 @@ public final class BridgeCallbackDispatcher {
     }
 
     public void process(BridgeCallbackEvent event) {
-        ClientCallback callback = event.callback();
-        UUID objectId = callback.getObjectId();
-        ClientCallbackMethod method = callback.getMethod();
+        UUID objectId = event.objectId();
+        ClientCallbackMethod method = event.method();
+        Object data = event.data();
         boolean actionable = ACTIONABLE_CALLBACKS.contains(method);
         try {
-            callback.decompressData();
-            Object data = callback.getData();
             String ignoreReason = context.nonCurrentGameCallbackIgnoreReason(objectId, method);
             context.logCallbackReceived(objectId, method, ignoreReason);
             if (context.shouldIgnoreNonCurrentGameCallback(objectId, method, ignoreReason)) {

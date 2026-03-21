@@ -1,6 +1,9 @@
 package mage.client.bridge.processor;
 
-import mage.interfaces.callback.ClientCallback;
+import mage.interfaces.callback.ClientCallbackMethod;
 
-public record BridgeCallbackEvent(ClientCallback callback) implements BridgeProcessorMessage {
+import java.util.UUID;
+
+public record BridgeCallbackEvent(UUID objectId, ClientCallbackMethod method, Object data)
+    implements BridgeProcessorMessage {
 }
