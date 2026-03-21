@@ -94,6 +94,6 @@ def test_fetch_openrouter_prices_returns_empty_dict_on_invalid_json(monkeypatch)
     response.__enter__.return_value = response
     response.__exit__.return_value = None
     response.read.return_value = b"{not json"
-    monkeypatch.setattr("urllib.request.urlopen", lambda *args, **kwargs: response)
+    monkeypatch.setattr("urllib.request.urlopen", lambda *_args, **_kwargs: response)
 
     assert fetch_openrouter_prices() == {}

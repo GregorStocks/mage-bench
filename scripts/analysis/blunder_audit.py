@@ -151,7 +151,6 @@ def _find_decision(decisions: list[Decision], di: int) -> Decision:
 def _lookup_existing_annotation(
     decision: Decision,
     game_data: GameExport,
-    snapshots: Sequence[Snapshot],
 ) -> Annotation | None:
     """Look up the annotation from the game file (may be stale). For display only."""
     return lookup_annotation_for_decision(decision, game_data.annotations)
@@ -393,7 +392,7 @@ def audit_plays(game_filter: str | None = None) -> None:
         decision = _find_decision(decisions, di)
 
         # Show existing annotation for context (may be stale)
-        display_annotation = _lookup_existing_annotation(decision, game_data, snapshots)
+        display_annotation = _lookup_existing_annotation(decision, game_data)
         game_actions = game_data.actions
         print(
             format_play_context(
@@ -521,9 +520,7 @@ def add_from_url(url: str) -> None:
             return
 
     # Show existing annotation for context (may be stale)
-    display_annotation = _lookup_existing_annotation(
-        best_decision, game_data, snapshots
-    )
+    display_annotation = _lookup_existing_annotation(best_decision, game_data)
     game_actions = game_data.actions
     print(
         format_play_context(

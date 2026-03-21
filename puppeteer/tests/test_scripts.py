@@ -197,7 +197,7 @@ class TestClaimIssue:
         )
         winner_result = _run_result(json.dumps([_open_claim_pr(1059, "bug-b", "2000-01-01T00:00:00Z")]))
 
-        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
@@ -266,7 +266,7 @@ class TestClaimIssue:
             ]
         )
 
-        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
@@ -358,7 +358,7 @@ class TestClaimIssue:
             ]
         )
 
-        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
@@ -417,7 +417,7 @@ class TestClaimIssue:
 
         race_result = _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T00:00:00Z")]))
 
-        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
@@ -462,7 +462,7 @@ class TestClaimIssue:
             ]
         )
 
-        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:2] == ["git", "log"]:
@@ -518,7 +518,7 @@ class TestClaimIssue:
             ]
         )
 
-        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:2] == ["git", "log"]:
@@ -571,7 +571,7 @@ class TestClaimIssue:
             )
         )
 
-        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:2] == ["git", "log"]:
@@ -866,7 +866,7 @@ class TestImportDeck:
         }
         call_count = 0
 
-        def fake_urlopen(req):
+        def fake_urlopen(_req):
             nonlocal call_count
             call_count += 1
             resp = MagicMock()
@@ -1114,7 +1114,7 @@ class TestConcludeSeason:
             patch.object(conclude_season, "_BENCHMARK_RESULTS", benchmark_file),
             patch.object(conclude_season, "_PRESETS_JSON", presets_file),
             patch.object(conclude_season, "_PERSONALITIES_JSON", personalities_file),
-            patch.object(conclude_season.random, "shuffle", lambda items: None),
+            patch.object(conclude_season.random, "shuffle", lambda _items: None),
             patch.object(sys, "argv", ["conclude_season.py", "8"]),
         ):
             assert conclude_season.main() == 0

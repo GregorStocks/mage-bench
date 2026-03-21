@@ -1225,7 +1225,6 @@ def _coerce_card_list(value: object, source: str) -> list[str | Permanent]:
 
 def _coerce_extra_fields(
     obj: JsonObject,
-    source: str,
     known_fields: set[str],
 ) -> JsonObject:
     # Preserve schema-allowed additional properties separately so the typed
@@ -1259,7 +1258,7 @@ def _coerce_permanent(value: object, source: str) -> Permanent:
         counters=obj.get("counters"),
         original_card=cast(str | None, obj.get("original_card")),
         copy=cast(bool | None, obj.get("copy")),
-        _extras=_coerce_extra_fields(obj, source, _PERMANENT_FIELDS),
+        _extras=_coerce_extra_fields(obj, _PERMANENT_FIELDS),
     )
 
 
@@ -1271,7 +1270,7 @@ def _coerce_stack_target(value: object, source: str) -> StackTarget:
     return StackTarget(
         name=cast(str | None, obj.get("name")),
         id=cast(str | None, obj.get("id")),
-        _extras=_coerce_extra_fields(obj, source, _STACK_TARGET_FIELDS),
+        _extras=_coerce_extra_fields(obj, _STACK_TARGET_FIELDS),
     )
 
 
@@ -1293,7 +1292,7 @@ def _coerce_stack_item(value: object, source: str) -> StackItem:
             if targets is not None
             else None
         ),
-        _extras=_coerce_extra_fields(obj, source, _STACK_ITEM_FIELDS),
+        _extras=_coerce_extra_fields(obj, _STACK_ITEM_FIELDS),
     )
 
 
@@ -1309,7 +1308,7 @@ def _coerce_combat_creature(value: object, source: str) -> CombatCreature:
         toughness=cast(int | str | None, obj.get("toughness")),
         power_toughness=cast(str | None, obj.get("power_toughness")),
         pt=cast(str | None, obj.get("pt")),
-        _extras=_coerce_extra_fields(obj, source, _COMBAT_CREATURE_FIELDS),
+        _extras=_coerce_extra_fields(obj, _COMBAT_CREATURE_FIELDS),
     )
 
 
@@ -1841,7 +1840,7 @@ def _coerce_combat_group(value: object, source: str) -> CombatGroup:
         else None,
         blocked=cast(bool | None, obj.get("blocked")),
         defending=cast(str | None, obj.get("defending")),
-        _extras=_coerce_extra_fields(obj, source, _COMBAT_GROUP_FIELDS),
+        _extras=_coerce_extra_fields(obj, _COMBAT_GROUP_FIELDS),
     )
 
 

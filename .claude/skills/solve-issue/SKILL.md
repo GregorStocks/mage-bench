@@ -106,6 +106,7 @@ Pick and solve exactly **one** issue, then create a PR.
 9. Run `make check` to verify lint, typecheck, and tests pass
 
    - If you need live progress or a concrete failing sub-target, prefer `make check VERBOSE=1` over launching a second blind `make check`. The quiet wrapper can hide long-running child jobs, and overlapping retries leave duplicate Maven/pytest work chewing through the same branch.
+   - If the quiet wrapper prints some target results and then appears stuck, inspect the listed failing sub-targets directly instead of waiting indefinitely. The expensive child jobs may already be done, and targeted reruns (`make format-check`, `make test`, etc.) recover the concrete failures faster.
    - For large Java refactors, especially under `Mage.Client.Bridge/`, use a module-scoped Maven loop for fast feedback while iterating (for example `mvn -pl Mage.Client.Bridge -DskipTests compile` or `mvn -pl Mage.Client.Bridge test -Dtest=...`). Still finish with the full `make check` before deleting the issue file or finalizing the PR.
 
 10. Delete the issue file (e.g., `rm issues/<issue-filename>.json5`) and **include the deletion in the commit** — the issue removal must ship with the fix

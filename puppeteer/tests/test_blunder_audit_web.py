@@ -127,7 +127,7 @@ class TestHostnameConfig:
     def test_reads_hostname(self, _temp_config: Path, _temp_ground_truth: Path) -> None:
         assert blunder_audit_web._get_hostname() == "my-server.local"
 
-    def test_defaults_to_localhost(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_defaults_to_localhost(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr(blunder_audit_web, "CONFIG_PATH", Path("/nonexistent/config.json"))
         assert blunder_audit_web._get_hostname() == "localhost"
 
