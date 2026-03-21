@@ -17,24 +17,6 @@ _CARD_DATA_FIELDS = (
 )
 
 
-def _build_card_images(players_meta: list[dict]) -> dict[str, str]:
-    """Build card name -> Scryfall small image URL map from decklists."""
-    images = {}
-    for player in players_meta:
-        decklist = player.get("decklist")
-        if decklist is not None:
-            for entry in decklist:
-                m = DECKLIST_RE.match(entry)
-                if m:
-                    set_code = m.group(2).lower()
-                    card_num = m.group(3)
-                    card_name = m.group(4).strip()
-                    images[card_name] = (
-                        f"https://api.scryfall.com/cards/{set_code}/{card_num}?format=image&version=small"
-                    )
-    return images
-
-
 def _trim_card(card: dict) -> dict:
     """Extract only the fields the renderer needs from a Scryfall card object."""
     trimmed: dict = {}
@@ -92,7 +74,7 @@ def _collect_card_names(snapshots: list[dict]) -> tuple[set[str], set[str]]:
     return real_cards, tokens
 
 
-def _build_card_data(
+def build_card_data(
     card_images: dict[str, str], snapshots: list[dict]
 ) -> tuple[dict[str, str], dict[str, dict]]:
     """Build cardData metadata and add token images to cardImages.

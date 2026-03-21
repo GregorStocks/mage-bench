@@ -73,7 +73,7 @@ def compute_tool_call_counts(llm_events: list[dict]) -> dict[str, tuple[int, int
     return player_tool_calls
 
 
-def _read_llm_events(
+def read_llm_events(
     game_dir: Path,
 ) -> tuple[
     list[dict],

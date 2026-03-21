@@ -345,7 +345,7 @@ def _is_forced(response_type: str | None, message: str | None, choices: list) ->
     return False
 
 
-def _build_decisions(
+def build_decisions(
     snapshots: list[dict],
     actions: list[dict],
     llm_events: list[dict],

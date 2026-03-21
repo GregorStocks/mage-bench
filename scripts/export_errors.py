@@ -33,7 +33,7 @@ def _is_llm_error(message: str) -> bool:
     return any(message.startswith(prefix) for prefix in _LLM_ERROR_PREFIXES)
 
 
-def _read_errors(game_dir: Path) -> list[dict]:
+def read_errors(game_dir: Path) -> list[dict]:
     """Read per-player error logs and return structured error entries.
 
     Each entry has: ts (HH:MM:SS or ""), player, source (pilot/mcp/unknown),
@@ -75,7 +75,7 @@ def _read_errors(game_dir: Path) -> list[dict]:
     return errors
 
 
-def _link_errors_to_decisions(
+def link_errors_to_decisions(
     errors: list[dict], decisions: list[Decision], llm_events: list[dict]
 ) -> None:
     """Add decisionIndex to each error by matching player + timestamp.

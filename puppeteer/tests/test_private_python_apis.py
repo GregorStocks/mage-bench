@@ -42,16 +42,7 @@ _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
     ("puppeteer.pilot_rendering", "puppeteer.pilot_game_state", "_extract_oracle_texts_from_board"),
     ("puppeteer.pilot_state", "puppeteer.pilot_rendering", "_build_reset_message"),
     ("puppeteer.pilot_state", "puppeteer.pilot_rendering", "_extract_last_reasoning"),
-    ("schemas.migrations.v2_to_v3", "scripts.export_card_data", "_build_card_data"),
     ("schemas.migrations.v7_to_v8", "schemas.game_export_types", "_coerce_snapshot"),
-    ("scripts.backfill_annotation_snapshots", "scripts.export_decisions", "_build_decisions"),
-    ("scripts.backfill_decisions", "scripts.export_decisions", "_build_decisions"),
-    ("scripts.export_game", "scripts.export_card_data", "_build_card_data"),
-    ("scripts.export_game", "scripts.export_card_data", "_build_card_images"),
-    ("scripts.export_game", "scripts.export_decisions", "_build_decisions"),
-    ("scripts.export_game", "scripts.export_errors", "_link_errors_to_decisions"),
-    ("scripts.export_game", "scripts.export_errors", "_read_errors"),
-    ("scripts.export_game", "scripts.export_llm_events", "_read_llm_events"),
     ("scripts.tournament_game", "puppeteer.config", "_generate_player_name"),
 }
 
