@@ -72,6 +72,28 @@ class TestGameIdValidation:
         with pytest.raises(AssertionError, match="Invalid game_id"):
             game_path_for_id("../etc/passwd")
 
+    def test_game_path_for_id_prefers_gz_export(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        games_dir = tmp_path / "website" / "public" / "games"
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
+        gz_path = games_dir / "game_20260320_123456.json5.gz"
+        json5_path = games_dir / "game_20260320_123456.json5"
+        _write_export(gz_path)
+        _write_export(json5_path)
+
+        resolved = game_path_for_id("game_20260320_123456")
+
+        assert resolved == gz_path
+
+    def test_game_path_for_id_falls_back_to_json5(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        games_dir = tmp_path / "website" / "public" / "games"
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
+        json5_path = games_dir / "game_20260320_123456_g1.json5"
+        _write_export(json5_path)
+
+        resolved = game_path_for_id("game_20260320_123456_g1")
+
+        assert resolved == json5_path
+
 
 class TestLoadGameValidation:
     def test_loads_export_from_games_dir(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

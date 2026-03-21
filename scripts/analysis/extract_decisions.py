@@ -10,6 +10,7 @@ import json
 import sys
 from collections.abc import Sequence
 
+from scripts.analysis.blunder_eval_common import load_game_for_annotation
 from schemas.game_export_types import (
     BuiltGameExport,
     CombatGroup,
@@ -19,7 +20,6 @@ from schemas.game_export_types import (
     Snapshot,
     ToolCallEvent,
     export_record_field,
-    load_built_game_export,
 )
 
 
@@ -761,7 +761,7 @@ def extract_decisions(gz_path: str) -> list[Decision]:
     the legacy extraction helpers (_extract_decisions_v1/v2) are retained
     for their independent test coverage but are no longer called here.
     """
-    data = load_built_game_export(gz_path)
+    data = load_game_for_annotation(gz_path)
 
     assert data.decisions is not None, (
         f"Game export {gz_path} missing decisions[] field — "

@@ -11,6 +11,26 @@ export function escapeHtml(str: string): string {
     .replace(/"/g, '&quot;');
 }
 
+export function decodeHtmlEntitiesOnce(str: string): string {
+  return str.replace(/&(amp|lt|gt|quot|#39|#x27|#\d+);/g, (match, entity: string) => {
+    switch (entity) {
+      case 'amp':
+        return '&';
+      case 'lt':
+        return '<';
+      case 'gt':
+        return '>';
+      case 'quot':
+        return '"';
+      case '#39':
+      case '#x27':
+        return "'";
+      default:
+        return String.fromCodePoint(parseInt(entity.slice(1), 10));
+    }
+  });
+}
+
 export function formatToolArgs(args: Record<string, unknown> | undefined | null): string {
   if (!args || typeof args !== 'object') return '';
   const keys = Object.keys(args);

@@ -5,6 +5,7 @@ audit, baseline, eval, and promote scripts.
 """
 
 import json
+import gzip
 import re
 import tempfile
 from collections.abc import Mapping, Sequence
@@ -21,8 +22,8 @@ from schemas.game_export_types import (
     Snapshot,
     decision_support_get,
     export_record_field,
-    load_built_game_export,
-    load_game_export,
+    parse_built_game_export,
+    parse_game_export,
 )
 from scripts.game_exports import GAMES_DIR, glob_game_export_paths
 
@@ -199,14 +200,27 @@ def _validate_export_path(path: str | Path) -> Path:
     return resolved
 
 
+def _read_export_text(export_path: Path) -> str:
+    """Read a validated export path as decoded JSON5 text."""
+    return (
+        gzip.decompress(export_path.read_bytes()).decode()
+        if export_path.suffix == ".gz"
+        else export_path.read_text()
+    )
+
+
 def load_game(path: str | Path) -> GameExport:
     """Load a game export file (.json or .json.gz). Requires annotations."""
-    return load_game_export(_validate_export_path(path))
+    export_path = _validate_export_path(path)
+    return parse_game_export(_read_export_text(export_path), source=export_path.name)
 
 
 def load_game_for_annotation(path: str | Path) -> BuiltGameExport:
     """Load a game export that may not have annotations yet."""
-    return load_built_game_export(_validate_export_path(path))
+    export_path = _validate_export_path(path)
+    return parse_built_game_export(
+        _read_export_text(export_path), source=export_path.name
+    )
 
 
 def export_record_name(record: object) -> str:
@@ -247,12 +261,14 @@ def play_key(game_id: str, decision_index: int) -> str:
 def game_path_for_id(game_id: str) -> Path:
     """Resolve the export path for a game ID (.json5.gz or .json5)."""
     game_id = validate_game_id(game_id)
-    gz_path = GAMES_DIR / f"{game_id}.json5.gz"
-    if gz_path.exists():
-        return gz_path
-    json5_path = GAMES_DIR / f"{game_id}.json5"
-    assert json5_path.exists(), f"Game file not found: {gz_path} or {json5_path}"
-    return json5_path
+    expected_names = {
+        validate_export_filename(f"{game_id}.json5.gz"),
+        validate_export_filename(f"{game_id}.json5"),
+    }
+    for export_path in glob_game_export_paths(GAMES_DIR):
+        if export_path.name in expected_names:
+            return export_path
+    assert False, f"Game file not found for {game_id!r}"
 
 
 def _gt_path(game_id: str) -> Path:

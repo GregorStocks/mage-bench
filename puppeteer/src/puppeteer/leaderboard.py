@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gzip
 import json
 import math
 import re
@@ -20,7 +21,7 @@ from schemas.game_export_types import (
     LlmResponseEvent,
     Player,
     is_pilot_player,
-    load_game_export,
+    parse_game_export,
 )
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
@@ -109,7 +110,8 @@ def _write_if_changed(path: Path, content: str) -> bool:
 
 def _load_game_file(path: Path) -> GameExport:
     """Load a game export file (.json or .json.gz)."""
-    return load_game_export(path)
+    raw = gzip.decompress(path.read_bytes()).decode() if path.suffix == ".gz" else path.read_text()
+    return parse_game_export(raw, source=path.name)
 
 
 def _assert_int(value: object, message: str) -> None:

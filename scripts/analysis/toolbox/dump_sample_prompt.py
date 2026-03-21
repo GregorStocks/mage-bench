@@ -3,7 +3,6 @@
 
 from pathlib import Path
 
-from schemas.game_export_types import load_game_export
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -11,6 +10,7 @@ from scripts.analysis.blunder_analysis import (
     _get_oracle_texts,
     build_decision_prompt,
 )
+from scripts.analysis.blunder_eval_common import load_game
 from scripts.analysis.extract_decisions import extract_decisions
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
@@ -19,7 +19,7 @@ TMP_DIR = REPO_ROOT / "tmp"
 # Pick a game with enough turns
 gz_path = str(REPO_ROOT / "website/public/games/game_20260216_155314_g7.json.gz")
 
-data = load_game_export(gz_path)
+data = load_game(gz_path)
 
 decisions = extract_decisions(gz_path)
 non_forced = [d for d in decisions if not d.isForced]

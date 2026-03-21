@@ -10,6 +10,7 @@
 import type { GameExportV8, LlmEvent, Decision, Annotation } from '../types/game-export';
 import {
   chosenDisplayText,
+  decodeHtmlEntitiesOnce,
   escapeHtml,
   extractSystemMessages,
   formatToolArgs,
@@ -39,18 +40,6 @@ const STEP_LABELS: Record<string, string> = {
 const SPAM_RE = / skip attack$|^Attacker: .+ unblocked$/;
 
 // ── Helpers ──
-
-function decodeHtmlEntities(html: string): string {
-  return html
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&#x27;/g, "'")
-    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(parseInt(code, 10)));
-}
-
 
 function formatPhaseStep(phase: string | null | undefined, step: string | null | undefined): string {
   const key = step || phase || '';
@@ -564,7 +553,7 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
   const chatDedup = new Set<string>();
   for (const a of (game.actions || [])) {
     if (a.type === 'chat') {
-      const decoded = decodeHtmlEntities(a.message || '');
+      const decoded = decodeHtmlEntitiesOnce(a.message || '');
       chatDedup.add((a.from || '') + '|' + decoded);
     }
   }
