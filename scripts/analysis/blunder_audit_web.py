@@ -18,6 +18,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from schemas.game_export_types import Action, Decision, GameExport, Snapshot
+from scripts.analysis.blunder_audit import _get_current_annotation
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
@@ -258,8 +259,6 @@ def _build_play_detail(game_id: str, di: int) -> dict:
 
 def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     """Process a verdict submission."""
-    from scripts.analysis.blunder_audit import _get_current_annotation
-
     if not isinstance(body, dict):
         raise AuditApiError("Expected JSON object body")
 

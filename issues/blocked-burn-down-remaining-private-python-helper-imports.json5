@@ -1,0 +1,24 @@
+{
+  "title": "Burn down remaining one-off private Python helper imports",
+  "description": "After the larger subsystem issues land, a small set of one-off private imports will still remain and should be cleaned up rather than left behind forever. Current stragglers include `_DECK_TYPE_TO_FORMAT_DIR` in `puppeteer/deck_choice.py`, `_generate_player_name` in `scripts/tournament_game.py`, `_coerce_snapshot` in `schemas/migrations/v7_to_v8.py`, and any leftover entries in the private-API allowlist once the bigger clusters are addressed.\n\
+\n\
+This should be the mop-up pass that gets the ratchet close to zero debt: remove the last underscore imports, make any truly shared helpers public in their owner module, and delete the corresponding allowlist entries from the weird-conventions test.\n\
+\n\
+Scope:\n\
+- `puppeteer/src/puppeteer/config.py`\n\
+- `puppeteer/src/puppeteer/deck_choice.py`\n\
+- `scripts/tournament_game.py`\n\
+- `schemas/migrations/v7_to_v8.py`\n\
+- `schemas/game_export_types.py`\n\
+- `puppeteer/tests/test_weird_conventions.py`",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "python",
+    "refactor",
+  ],
+  "blocked": "Blocked until the larger subsystem issues land: p4-burn-down-private-helper-boundary-in-leaderboard.json5, p4-burn-down-private-helper-boundary-in-orchestrator.json5, p4-burn-down-private-helper-boundary-in-pilot-surface.json5, p3-untangle-pilot-private-helper-dependencies.json5, p3-make-export-helper-apis-public-or-local.json5, and p3-make-blunder-analysis-helper-apis-explicit.json5. This issue is the final mop-up pass once those slices stop moving the allowlist.",
+  "created_at": "2026-03-21T10:35:12.655832-07:00",
+  "updated_at": "2026-03-21T10:39:22.992891-07:00",
+}

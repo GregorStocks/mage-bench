@@ -113,6 +113,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
 11. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
 12. Run `/simplify` to review the changed code for reuse, quality, and efficiency, and fix any issues found. If `/simplify` is unavailable in the current session, do the equivalent manually by reviewing your diff for unnecessary duplication, dead code, and avoidable complexity, then continue.
+    - While doing that manual review, inspect `website/package-lock.json` before you commit. `make check` / website tooling can add incidental `"peer": true` lockfile churn even when you did not intentionally change website dependencies; drop unrelated lockfile noise so the issue PR stays scoped.
 13. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
 
     ```bash

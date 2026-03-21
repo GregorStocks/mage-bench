@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Upload a game recording to YouTube."""
 
+import importlib
 import json
 import os
 import re
 import sys
+from functools import cache
 from pathlib import Path
 from typing import Any
 
@@ -34,6 +36,31 @@ _DECK_TYPE_TO_FORMAT: dict[str, str] = {
 
 class YouTubeUploadError(RuntimeError):
     """Operational upload failure that callers may treat as non-fatal."""
+
+
+@cache
+def _load_google_api_symbols() -> dict[str, Any]:
+    """Load optional Google API symbols only when YouTube upload is used."""
+    try:
+        request_module = importlib.import_module("google.auth.transport.requests")
+        credentials_module = importlib.import_module("google.oauth2.credentials")
+        flow_module = importlib.import_module("google_auth_oauthlib.flow")
+        discovery_module = importlib.import_module("googleapiclient.discovery")
+        errors_module = importlib.import_module("googleapiclient.errors")
+        http_module = importlib.import_module("googleapiclient.http")
+    except ImportError as exc:
+        raise ImportError(
+            "YouTube upload requires google-api-python-client and google-auth-oauthlib.\nRun: cd puppeteer && uv sync"
+        ) from exc
+
+    return {
+        "Request": request_module.Request,
+        "Credentials": credentials_module.Credentials,
+        "InstalledAppFlow": flow_module.InstalledAppFlow,
+        "build": discovery_module.build,
+        "HttpError": errors_module.HttpError,
+        "MediaFileUpload": http_module.MediaFileUpload,
+    }
 
 
 def _format_label(meta: dict) -> str:
@@ -147,31 +174,27 @@ def _build_description(meta: dict, game_dir: Path) -> str:
 
 def _get_authenticated_service() -> Any:
     """Build an authenticated YouTube API service."""
-    try:
-        from google.auth.transport.requests import Request
-        from google.oauth2.credentials import Credentials
-        from google_auth_oauthlib.flow import InstalledAppFlow
-        from googleapiclient.discovery import build
-    except ImportError:
-        raise ImportError(
-            "YouTube upload requires google-api-python-client and google-auth-oauthlib.\nRun: cd puppeteer && uv sync"
-        )
+    google_api = _load_google_api_symbols()
+    request_cls = google_api["Request"]
+    credentials_cls = google_api["Credentials"]
+    installed_app_flow_cls = google_api["InstalledAppFlow"]
+    build = google_api["build"]
 
     creds = None
 
     if TOKEN_FILE.exists():
-        creds = Credentials.from_authorized_user_file(str(TOKEN_FILE), SCOPES)
+        creds = credentials_cls.from_authorized_user_file(str(TOKEN_FILE), SCOPES)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            creds.refresh(request_cls())
         else:
             if not CLIENT_SECRETS_FILE.exists():
                 raise FileNotFoundError(
                     f"YouTube client secrets not found at {CLIENT_SECRETS_FILE}.\n"
                     "See doc/youtube.md for setup instructions."
                 )
-            flow = InstalledAppFlow.from_client_secrets_file(
+            flow = installed_app_flow_cls.from_client_secrets_file(
                 str(CLIENT_SECRETS_FILE), SCOPES
             )
             creds = flow.run_local_server(port=0)
@@ -188,8 +211,9 @@ def upload_to_youtube(game_dir: Path) -> str | None:
     Returns the YouTube video URL on success, None if no recording exists.
     """
     try:
-        from googleapiclient.errors import HttpError
-        from googleapiclient.http import MediaFileUpload
+        google_api = _load_google_api_symbols()
+        http_error_cls = google_api["HttpError"]
+        media_file_upload_cls = google_api["MediaFileUpload"]
     except ImportError as exc:
         raise YouTubeUploadError(str(exc)) from exc
 
@@ -231,7 +255,7 @@ def upload_to_youtube(game_dir: Path) -> str | None:
             },
         }
 
-        media = MediaFileUpload(
+        media = media_file_upload_cls(
             str(recording),
             mimetype="video/quicktime",
             resumable=True,
@@ -268,14 +292,14 @@ def upload_to_youtube(game_dir: Path) -> str | None:
                 },
             ).execute()
             print("  Added to playlist")
-        except HttpError as e:
+        except http_error_cls as e:
             print(f"  Warning: failed to add to playlist: {e}")
     except (
         ImportError,
         FileNotFoundError,
         OSError,
         json.JSONDecodeError,
-        HttpError,
+        http_error_cls,
     ) as exc:
         raise YouTubeUploadError(str(exc)) from exc
 

@@ -1,0 +1,27 @@
+{
+  "title": "Burn down private helper imports in orchestrator modules",
+  "description": "The orchestrator boundary is currently a façade over other modules' private helpers. `puppeteer/orchestrator.py` imports underscore-prefixed helpers from `batch_coordination`, `game_finalization`, `game_processes`, and `post_game_analysis`, then re-exports many of them via `__all__`. Tests and scripts now treat those internals as part of the orchestrator surface.\n\
+\n\
+Clean this up by making ownership explicit: callers should import the owning module directly, or the owning module should expose a deliberate public name. This issue should also cover the similar private imports already present in `batch_coordination.py` from `game_finalization.py` and `game_processes.py`.\n\
+\n\
+Scope:\n\
+- `puppeteer/src/puppeteer/orchestrator.py`\n\
+- `puppeteer/src/puppeteer/batch_coordination.py`\n\
+- `puppeteer/src/puppeteer/game_finalization.py`\n\
+- `puppeteer/src/puppeteer/game_processes.py`\n\
+- `puppeteer/src/puppeteer/post_game_analysis.py`\n\
+- `puppeteer/tests/test_orchestrator.py`\n\
+- `puppeteer/tests/test_youtube.py`\n\
+- `scripts/tournament_game.py`\n\
+- `puppeteer/tests/test_weird_conventions.py` (remove the allowlist entries as debt is retired)",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "puppeteer",
+    "python",
+    "refactor",
+  ],
+  "created_at": "2026-03-21T10:35:12.655832-07:00",
+  "updated_at": "2026-03-21T10:35:12.655832-07:00",
+}

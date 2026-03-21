@@ -1,0 +1,24 @@
+{
+  "title": "Burn down private helper imports in leaderboard modules",
+  "description": "The leaderboard stack currently treats several underscore-prefixed helpers as cross-module API. `puppeteer/leaderboard.py` imports `_ELO_START`, `_ModelEntry`, `_exhibition_sort_key`, `_player_key`, `_rated_sort_key`, `_serialize_model_entries`, `_split_key`, and `_load_inactive_statuses`; `puppeteer/leaderboard_stats.py` also imports `_player_key` and `_split_key`.\n\
+\n\
+That leaks internal ownership and led us to explicitly re-export `_player_key` and `_split_key` from `leaderboard.py`, with tests pinning the behavior. Decide helper by helper whether it should become public in the owning module or stay private and be inlined/localized.\n\
+\n\
+Scope:\n\
+- `puppeteer/src/puppeteer/leaderboard.py`\n\
+- `puppeteer/src/puppeteer/leaderboard_elo.py`\n\
+- `puppeteer/src/puppeteer/leaderboard_registry.py`\n\
+- `puppeteer/src/puppeteer/leaderboard_stats.py`\n\
+- `puppeteer/tests/test_leaderboard.py`\n\
+- `puppeteer/tests/test_weird_conventions.py` (remove the allowlist entries as debt is retired)",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "leaderboard",
+    "python",
+    "refactor",
+  ],
+  "created_at": "2026-03-21T10:35:12.655832-07:00",
+  "updated_at": "2026-03-21T10:35:12.655832-07:00",
+}

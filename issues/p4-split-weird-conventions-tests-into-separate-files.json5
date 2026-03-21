@@ -1,0 +1,21 @@
+{
+  "title": "Split weird conventions tests into separate files",
+  "description": "`puppeteer/tests/test_weird_conventions.py` has become a catch-all bundle of unrelated policy tests. That makes it hard to find a single convention, noisy to review, and awkward to keep growing. This PR moved the new private-Python-API ratchet into its own file as a first step; continue that cleanup for the existing conventions.\n\
+\n\
+Prefer one convention per file, or at least small domain-grouped files with a clear name, so reviewers can find and edit the relevant policy without opening an 800+ line bucket.\n\
+\n\
+Scope:\n\
+- `puppeteer/tests/test_weird_conventions.py`\n\
+- `puppeteer/tests/test_private_python_apis.py`\n\
+- additional new `puppeteer/tests/test_*.py` files as conventions are split out",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "python",
+    "tests",
+    "refactor",
+  ],
+  "created_at": "2026-03-21T10:50:14.833694-07:00",
+  "updated_at": "2026-03-21T10:50:14.833694-07:00",
+}

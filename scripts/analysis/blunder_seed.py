@@ -15,6 +15,7 @@ import sys
 from scripts.analysis.blunder_eval_common import (
     GAMES_DIR,
     decision_index,
+    glob_game_files,
     load_game,
     make_seed_entry,
     merge_into_ground_truth,
@@ -63,8 +64,6 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
 
 
 def main() -> None:
-    from scripts.analysis.blunder_eval_common import glob_game_files
-
     game_files = glob_game_files(GAMES_DIR)
     assert game_files, f"No game files found in {GAMES_DIR}"
 
