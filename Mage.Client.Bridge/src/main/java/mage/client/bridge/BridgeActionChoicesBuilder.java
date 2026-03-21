@@ -163,20 +163,22 @@ final class BridgeActionChoicesBuilder {
 
             case GAME_SELECT -> {
                 var selectChoices = buildSelectChoices((GameClientMessage) data, gameView, gv, result);
-                result.response_type = selectChoices.choiceMapping() != null && !selectChoices.choiceMapping().isEmpty()
-                    ? "select"
-                    : "boolean";
+                boolean hasSelectChoices =
+                    selectChoices.choiceMapping() != null && !selectChoices.choiceMapping().isEmpty();
+                result.response_type = hasSelectChoices ? "select" : "boolean";
                 if ("declare_attackers".equals(result.combat_phase)) {
                     result.respond_with = "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)";
                 } else if ("declare_blockers".equals(result.combat_phase)) {
                     result.respond_with = "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)";
-                } else if ("select".equals(result.response_type)) {
+                } else if (hasSelectChoices) {
                     result.respond_with = "choice=pN to play, or choice=no to pass";
                 } else {
                     result.respond_with = "choice=yes (confirm) or choice=no (pass)";
                 }
-                result.choices = selectChoices.choices();
-                choiceMapping = selectChoices.choiceMapping();
+                if (hasSelectChoices) {
+                    result.choices = selectChoices.choices();
+                    choiceMapping = selectChoices.choiceMapping();
+                }
             }
 
             case GAME_PLAY_MANA, GAME_PLAY_XMANA -> {

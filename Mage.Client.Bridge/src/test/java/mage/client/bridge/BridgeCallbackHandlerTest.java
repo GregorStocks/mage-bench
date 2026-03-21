@@ -766,6 +766,31 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void getActionChoicesOmitsEmptyChoicesForBooleanGameSelect() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        GameView view = gameView(7);
+        setField(handler, "lastGameView", view);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(view, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        ));
+
+        ActionResult result = handler.getActionChoices(null);
+
+        assertThat(result.action_pending).isTrue();
+        assertThat(result.action_type).isEqualTo("GAME_SELECT");
+        assertThat(result.response_type).isEqualTo("boolean");
+        assertThat(result.respond_with).isEqualTo("choice=yes (confirm) or choice=no (pass)");
+        assertThat(result.choices).isNull();
+    }
+
+    @Test
     void chooseActionWaitsForNextDecisionInsteadOfReturningSingleTargetFollowup() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
