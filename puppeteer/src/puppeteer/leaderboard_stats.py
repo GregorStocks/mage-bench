@@ -188,9 +188,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         for player in game.players:
             if not is_pilot_player(player):
                 continue
-            name_to_key[player.name] = player_key(
-                player.model, player.reasoning_effort
-            )
+            name_to_key[player.name] = player_key(player.model, player.reasoning_effort)
 
         player_responses: dict[str, int] = {}
         player_timeouts: dict[str, int] = {}
