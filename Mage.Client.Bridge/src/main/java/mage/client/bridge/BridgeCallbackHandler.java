@@ -345,6 +345,9 @@ public class BridgeCallbackHandler {
         this.processor.start();
     }
 
+    // TODO: Delete this adapter once processor-owned state/helpers move out of
+    // BridgeCallbackHandler. Processor flows should depend on processor-local
+    // state/services, not a broad facade back into the handler.
     private BridgePassPriorityFlowContext createPassPriorityFlowContext() {
         return new BridgePassPriorityFlowContext() {
             @Override

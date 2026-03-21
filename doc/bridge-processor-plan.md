@@ -215,6 +215,14 @@ In the end state, MCP commands should not monopolize the processor thread while
 waiting for future callbacks. The processor should remain in its normal event loop
 and satisfy requests incrementally as events arrive.
 
+This step should also delete transitional adapter seams created during step 3.
+In particular, processor-side flows should not depend on large handler-owned
+context adapters like `createPassPriorityFlowContext()`. If a processor flow
+still needs a broad facade back into `BridgeCallbackHandler`, that is a sign the
+underlying state, helper logic, or side-effect plumbing still lives in the
+wrong place. Move that ownership into `mage.client.bridge.processor` and remove
+the adapter instead of polishing it.
+
 This step cashes in the simplification. It should shrink the handler and the processor core meaningfully.
 
 ### Step 5: Published Read Model / Append-Only Log
