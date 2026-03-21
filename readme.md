@@ -39,9 +39,6 @@ Other configs:
 # Default: no API keys needed (2 CPU Jumpstart duel)
 make run
 
-# Long-lived test server (stays running between games)
-make run CONFIG=modern-staller
-
 # List all available configs
 make list-configs
 
@@ -75,10 +72,8 @@ Game logic and XMage workarounds live in the Java bridge layer. The puppeteer st
 | Type | LLM? | Description |
 | ------ | ------ | ------------- |
 | **Pilot** | Yes | Strategic LLM player — sees board state, chooses actions |
-| **Sleepwalker** | No | MCP auto-player with chat, no LLM |
+| **Sleepwalker** | No | MCP auto-player for infra/testing, no LLM |
 | **CPU** | No | XMage's built-in AI (COMPUTER_MAD) |
-| **Potato** | No | Dumbest auto-player |
-| **Staller** | No | Like potato but slow; stays connected between games |
 
 Configure players in JSON config files (see `configs/`).
 

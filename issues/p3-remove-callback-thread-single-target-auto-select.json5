@@ -1,0 +1,14 @@
+{
+  "title": "Remove callback-thread auto-select for single required GAME_TARGET",
+  "description": "Single-target `GAME_TARGET` resolution still happens in two places, and one of them is the old callback-thread path the bridge is moving away from.\n\nCurrent behavior in `Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java`:\n- The callback switch still auto-selects a single required target around lines 5075-5102.\n- The newer synchronous decision-boundary path already has matching logic in `maybeAutoHandleNonDecisionAction()` around lines 1601-1635.\n- Both paths also update `lastGameView` before sending the UUID.\n\nWhy this is a bug:\n- It duplicates the same auto-resolution rule in callback-time and decision-time code.\n- It violates the newer invariant that decision-like behavior should happen when the player thread processes pending actions, not in the raw callback handler.\n- The duplication creates drift risk if one path changes and the other does not.\n\nSuggested fix:\n- Delete the callback-thread auto-select branch for MCP mode.\n- Always store the pending `GAME_TARGET` action and let `transitionToDecisionBoundary()` / `maybeAutoHandleNonDecisionAction()` perform the single-target auto-select synchronously.\n- Keep the callback handler responsible only for recording the callback and waking the waiter.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "bridge",
+    "mcp",
+    "cleanup",
+  ],
+  "created_at": "2026-03-20T17:25:15.945300-07:00",
+  "updated_at": "2026-03-20T17:25:15.945300-07:00",
+}

@@ -24,26 +24,6 @@ class DeckEntry:
 
 
 @dataclass
-class PotatoPlayer:
-    """Potato personality: pure Java, auto-responds to everything (dumbest)."""
-
-    name: str
-    deck: str | None = None  # Path to .dck file, relative to project root
-    deck_name: str | None = None  # Display name from deck registry
-    deck_strategy: str | None = None  # Strategy summary from deck registry
-
-
-@dataclass
-class StallerPlayer:
-    """Staller personality: pure Java, intentionally slow auto-responder."""
-
-    name: str
-    deck: str | None = None  # Path to .dck file, relative to project root
-    deck_name: str | None = None
-    deck_strategy: str | None = None
-
-
-@dataclass
 class SleepwalkerPlayer:
     """Sleepwalker personality: MCP-based, Python client controls via stdio."""
 
@@ -97,7 +77,7 @@ class CpuPlayer:
 
 
 # Union type for all player types
-Player = PotatoPlayer | StallerPlayer | SleepwalkerPlayer | PilotPlayer | ReplayPlayer | CpuPlayer
+Player = SleepwalkerPlayer | PilotPlayer | ReplayPlayer | CpuPlayer
 
 # XMage server username constraints (from Mage.Server/config/config.xml)
 MIN_USERNAME_LENGTH = 3
@@ -584,8 +564,6 @@ class Config:
     timestamp: str = ""
 
     # Player lists by type
-    potato_players: list[PotatoPlayer] = field(default_factory=list)
-    staller_players: list[StallerPlayer] = field(default_factory=list)
     sleepwalker_players: list[SleepwalkerPlayer] = field(default_factory=list)
     pilot_players: list[PilotPlayer] = field(default_factory=list)
     replay_players: list[ReplayPlayer] = field(default_factory=list)
@@ -681,10 +659,11 @@ class Config:
                     )
                     llm_players.append((p, has_explicit_name))
                     self.pilot_players.append(p)
-                elif player_type == "potato":
-                    self.potato_players.append(PotatoPlayer(name=name, deck=deck))
-                elif player_type == "staller":
-                    self.staller_players.append(StallerPlayer(name=name, deck=deck))
+                elif player_type in ("potato", "staller"):
+                    raise AssertionError(
+                        f"Player type {player_type!r} has been removed. "
+                        "Use 'sleepwalker' for an MCP auto-player or 'pilot' for an LLM player."
+                    )
                 elif player_type == "replay":
                     self.replay_players.append(ReplayPlayer(name=name, deck=deck, script=player.get("script")))
                 elif player_type == "cpu":
@@ -694,9 +673,7 @@ class Config:
 
             # Validate: only pilot players can have deck="choice"
             non_pilot = (
-                self.potato_players
-                + self.staller_players
-                + self.sleepwalker_players
+                self.sleepwalker_players
                 + self.replay_players
                 + self.cpu_players
             )
@@ -757,16 +734,6 @@ class Config:
             if p.deck:
                 d["deck"] = p.deck
             players.append(d)
-        for p in self.potato_players:
-            d = {"type": "potato", "name": p.name}
-            if p.deck:
-                d["deck"] = p.deck
-            players.append(d)
-        for p in self.staller_players:
-            d = {"type": "staller", "name": p.name}
-            if p.deck:
-                d["deck"] = p.deck
-            players.append(d)
         for p in self.replay_players:
             d = {"type": "replay", "name": p.name}
             if p.deck:
@@ -790,9 +757,7 @@ class Config:
         """Replace any deck="random" with a randomly chosen deck from the registry."""
         # Fail fast if any player still has deck="choice" — caller must resolve those first
         all_typed_players = (
-            self.potato_players
-            + self.staller_players
-            + self.sleepwalker_players
+            self.sleepwalker_players
             + self.pilot_players
             + self.replay_players
             + self.cpu_players
@@ -802,14 +767,7 @@ class Config:
             f"Unresolved deck='choice' for {choice_names} — call resolve_choice_decks() before resolve_random_decks()"
         )
 
-        all_players = (
-            self.potato_players
-            + self.staller_players
-            + self.sleepwalker_players
-            + self.pilot_players
-            + self.replay_players
-            + self.cpu_players
-        )
+        all_players = self.sleepwalker_players + self.pilot_players + self.replay_players + self.cpu_players
         if not any(p.deck == "random" for p in all_players):
             return
 
@@ -854,14 +812,7 @@ class Config:
         Called after all deck resolution is complete. Looks up static deck paths
         in the registry by matching card content.
         """
-        all_players = (
-            self.potato_players
-            + self.staller_players
-            + self.sleepwalker_players
-            + self.pilot_players
-            + self.replay_players
-            + self.cpu_players
-        )
+        all_players = self.sleepwalker_players + self.pilot_players + self.replay_players + self.cpu_players
         for player in all_players:
             # Skip players that already have metadata (from random/choice resolution)
             # or don't have a deck path

@@ -194,7 +194,6 @@ class TestAllowedCommands:
             "make check",
             "make run",
             "make run CONFIG=jumpstart-dumb",
-            "make run CONFIG=modern-staller",
             "make website",
             "make regen-mcp-tools",
             "make test-golden",

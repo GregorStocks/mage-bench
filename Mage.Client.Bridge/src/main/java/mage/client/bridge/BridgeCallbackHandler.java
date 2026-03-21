@@ -76,10 +76,8 @@ import java.util.regex.Pattern;
 
 /**
  * Callback handler for the bridge client.
- * Supports multiple modes:
- * - potato mode (default): Always passes priority and chooses the first available option
- * - staller mode: Same decisions as potato, but intentionally delayed and kept alive between games
- * - MCP mode (sleepwalker): Stores pending actions for external client to handle via MCP
+ * Supports the MCP (sleepwalker) bridge mode, storing pending actions for
+ * external clients to handle via MCP.
  */
 public class BridgeCallbackHandler {
 
@@ -114,7 +112,7 @@ public class BridgeCallbackHandler {
     private volatile boolean mcpMode = false;
     private volatile int actionDelayMs = DEFAULT_ACTION_DELAY_MS;
     private volatile int actionsProcessed = 0;
-    private static final int STALLER_WARMUP_ACTIONS = 20;
+    private static final int ACTION_DELAY_WARMUP_ACTIONS = 20;
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
     private volatile PendingAction pendingAction = null;
@@ -625,7 +623,7 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Block until {@code handleGameOver()} fires. Used by potato keepAlive loop.
+     * Block until {@code handleGameOver()} fires. Used by keepAlive session management.
      * @return true if game finished, false if timed out
      */
     public boolean awaitGameFinished(long timeoutMs) throws InterruptedException {
@@ -679,7 +677,7 @@ public class BridgeCallbackHandler {
 
     private void sleepBeforeAction() {
         int delay = actionDelayMs;
-        if (actionsProcessed < STALLER_WARMUP_ACTIONS) {
+        if (actionsProcessed < ACTION_DELAY_WARMUP_ACTIONS) {
             delay = Math.min(delay, DEFAULT_ACTION_DELAY_MS);
             actionsProcessed++;
         }
@@ -3479,7 +3477,7 @@ public class BridgeCallbackHandler {
      * Blocking until GAME_OVER is critical for multi-game (keepAlive) sessions:
      * the Python test harness starts the next game immediately after concede
      * returns.  If we return before the server processes the game end, the
-     * opponent (potato) may still be in handleGameOver pulling bridge events
+     * opponent bridge may still be in handleGameOver pulling bridge events
      * and unable to join the next table — causing a bridge_join timeout flake.
      */
     public boolean concede() {
@@ -6183,7 +6181,7 @@ public class BridgeCallbackHandler {
 
         if (keepAliveAfterGame) {
             // Multi-game session: signal game finished but keep the client alive.
-            // The Python side (join_table tool or potato stdin) drives the next game.
+            // The Python side (join_table tool) drives the next game.
             logger.info("[" + client.getUsername() + "] Game ended (keepAlive mode, staying connected)");
             gameFinishedLatch.countDown();
         } else if (mcpMode) {

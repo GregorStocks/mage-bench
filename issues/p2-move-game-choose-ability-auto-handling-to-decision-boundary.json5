@@ -1,0 +1,14 @@
+{
+  "title": "Move GAME_CHOOSE_ABILITY auto-handling out of the callback thread",
+  "description": "The bridge is supposed to defer game decisions until the synchronous player-priority boundary, but `BridgeCallbackHandler` still makes `GAME_CHOOSE_ABILITY` decisions directly on the callback thread.\n\nCurrent behavior in `Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java`:\n- `GAME_CHOOSE_ABILITY` updates `lastGameView` immediately in the callback switch around lines 5110-5168.\n- When a `manaPlan` is active, it consumes `manaPlanAbilityIndex` and sends the selected UUID from the callback thread.\n- When XMage reports no choices, it sends `null` from the callback thread instead of surfacing the callback to the synchronous decision boundary.\n- Only the non-mana-plan branch falls through to `storePendingAction()`.\n\nWhy this is a bug:\n- It violates the newer bridge invariant that nothing decision-like should happen asynchronously in response to callbacks.\n- It leaves `lastGameView` mutation split across callback-time and decision-time paths, which makes sequencing harder to reason about.\n- It keeps mana-plan behavior in a different control flow from the rest of the synchronous priority handling.\n\nSuggested fix:\n- Convert `GAME_CHOOSE_ABILITY` into a stored pending action in MCP mode.\n- Move mana-plan consumption and the `null` auto-response logic into the synchronous decision-boundary path that already handles pending actions.\n- Keep `lastGameView` updates sourced from the authoritative stored callback / decision-boundary transition rather than from ad hoc callback-thread auto-handling.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": [
+    "bridge",
+    "mcp",
+    "determinism",
+  ],
+  "created_at": "2026-03-20T17:25:15.945300-07:00",
+  "updated_at": "2026-03-20T17:25:15.945300-07:00",
+}

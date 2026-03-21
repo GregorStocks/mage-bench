@@ -6,7 +6,7 @@ When changing Python code in `puppeteer/`, add or update tests in `puppeteer/tes
 
 **CI flakes are not acceptable. Never re-run CI to work around a failure.** If a golden test or any other CI job fails, the failure has a root cause — find it and fix it. Common golden test flakes have real causes:
 
-- **bridge_join timeout**: The potato or bridge didn't join the table in time. Usually a keepAlive loop issue where the previous game's cleanup races with the next game's setup.
+- **bridge_join timeout**: The bridge didn't join the table in time. Usually a keepAlive loop issue where the previous game's cleanup races with the next game's setup.
 - **Nondeterministic game replay**: Auto-pass or priority logic behaves differently across runs.
 - **game_seq drift**: The `game_seq` in tool results comes from `lastGameView`, which is updated asynchronously. If `game_seq` is nondeterministic, the fix is to make the source deterministic (e.g. update `lastGameView` from the authoritative callback), **not** to strip `game_seq` from golden comparisons or the `_strip_volatile` function.
 

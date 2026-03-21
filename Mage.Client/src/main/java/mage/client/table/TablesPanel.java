@@ -1798,7 +1798,7 @@ public class TablesPanel extends javax.swing.JPanel {
                 }
 
                 if (player.isHeadless()) {
-                    // Headless players (sleepwalker, potato, bridge) join via the headless client
+                    // Headless players (sleepwalker, pilot, replay, bridge) join via the headless client
                     LOGGER.info("AI Puppeteer: slot reserved for headless client: " + name);
                 } else {
                     boolean joined = SessionHandler.joinTable(roomId, table.getTableId(), name, playerType, 1, deckToUse, "");

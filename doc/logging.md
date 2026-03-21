@@ -7,7 +7,7 @@ All game logs live in `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/`.
 | File pattern | Source | Contents |
 | --- | --- | --- |
 | `{name}_pilot.log` | `pilot.py` stdout | LLM reasoning, tool calls, game actions, errors |
-| `{name}_mcp.log` | `sleepwalker.py` / potato stdout | Auto-play actions, game log excerpts |
+| `{name}_mcp.log` | Bridge JVM stdout (spawned by `pilot.py`, `sleepwalker.py`, or `replay.py`) | Bridge startup, MCP tool activity, auto-play actions, game log excerpts |
 | `{name}_errors.log` | Python `_log_error()` + Java `logError()` | Errors only (written in real-time from both sides) |
 | `{name}_cost.txt` | `llm_cost.py` | Cumulative LLM API cost in USD |
 

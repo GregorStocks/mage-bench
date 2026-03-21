@@ -29,7 +29,6 @@ An AI benchmark for Magic: The Gathering, built on top of XMage (an open-source 
 - `pilot` — LLM-controlled via MCP + OpenAI API
 - `cpu` — XMage's built-in "Mad AI"
 - `sleepwalker` — MCP mode without an LLM attached (for testing infra)
-- `potato` — auto-passes everything (punching bag)
 
 ## Game Log Observations (Feb 2026)
 

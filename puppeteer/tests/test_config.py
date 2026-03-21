@@ -11,7 +11,7 @@ from puppeteer.config import (
     Config,
     CpuPlayer,
     PilotPlayer,
-    PotatoPlayer,
+    SleepwalkerPlayer,
     _generate_player_name,
     _resolve_personality,
     _resolve_randoms,
@@ -29,14 +29,14 @@ def test_config_defaults():
     config = Config()
     assert config.server == "localhost"
     assert config.start_port == 17171
-    assert config.potato_players == []
+    assert config.sleepwalker_players == []
     assert config.pilot_players == []
 
 
 def test_config_load_players_from_json():
     config_data = {
         "players": [
-            {"type": "potato", "name": "spud"},
+            {"type": "sleepwalker", "name": "spud"},
             {"type": "cpu", "name": "skynet"},
             {"type": "pilot", "name": "ace", "preset": "test-preset", "provider": "openai"},
         ],
@@ -65,8 +65,8 @@ def test_config_load_players_from_json():
         config = Config(config_file=config_path)
         config.load_config()
 
-        assert len(config.potato_players) == 1
-        assert config.potato_players[0].name == "spud"
+        assert len(config.sleepwalker_players) == 1
+        assert config.sleepwalker_players[0].name == "spud"
         assert len(config.cpu_players) == 1
         assert isinstance(config.cpu_players[0], CpuPlayer)
         assert len(config.pilot_players) == 1
@@ -112,11 +112,11 @@ def test_config_rejects_base_url_field():
 
 
 def test_player_dataclass_fields():
-    player = PotatoPlayer(name="test")
+    player = SleepwalkerPlayer(name="test")
     assert player.name == "test"
     assert player.deck is None
 
-    player_with_deck = PotatoPlayer(name="test", deck="decks/test.dck")
+    player_with_deck = SleepwalkerPlayer(name="test", deck="decks/test.dck")
     assert player_with_deck.deck == "decks/test.dck"
 
 
@@ -138,7 +138,7 @@ def test_get_players_config_json_roundtrip():
 
         config_data = {
             "players": [
-                {"type": "potato", "name": "spud", "deck": "decks/burn.dck"},
+                {"type": "sleepwalker", "name": "spud", "deck": "decks/burn.dck"},
                 {"type": "pilot", "name": "ace", "preset": "test-preset", "deck": "decks/control.dck"},
                 {"type": "cpu", "name": "skynet"},
             ],
@@ -191,7 +191,7 @@ def test_config_default_player_name():
     """Players without a name should get 'player-{index}' as default."""
     config_data = {
         "players": [
-            {"type": "potato"},
+            {"type": "sleepwalker"},
             {"type": "cpu"},
         ],
     }
@@ -203,7 +203,7 @@ def test_config_default_player_name():
     try:
         config = Config(config_file=config_path)
         config.load_config()
-        assert config.potato_players[0].name == "player-0"
+        assert config.sleepwalker_players[0].name == "player-0"
         assert config.cpu_players[0].name == "player-1"
     finally:
         config_path.unlink()
@@ -1059,7 +1059,7 @@ def test_load_config_choice_on_non_pilot_crashes():
     """deck='choice' on a non-pilot player should crash during load_config."""
     config_data = {
         "players": [
-            {"type": "potato", "name": "spud", "deck": "choice"},
+            {"type": "sleepwalker", "name": "spud", "deck": "choice"},
         ],
     }
     with tempfile.TemporaryDirectory() as tmpdir:

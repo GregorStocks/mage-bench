@@ -17,14 +17,13 @@ class BridgeClientTest {
     @Test
     void normalizesSupportedPersonalityNames() {
         assertThat(BridgeClient.parsePersonality("SLEEPWALKER")).isEqualTo("sleepwalker");
-        assertThat(BridgeClient.parsePersonality("StAlLeR")).isEqualTo("staller");
     }
 
     @Test
     void rejectsUnknownPersonality() {
         assertThatThrownBy(() -> BridgeClient.parsePersonality("wizard"))
             .isInstanceOf(IllegalArgumentException.class)
-            .hasMessage("Unknown bridge personality 'wizard'. Expected one of: potato, staller, sleepwalker");
+            .hasMessage("Unknown bridge personality 'wizard'. Expected: sleepwalker");
     }
 
     @Test

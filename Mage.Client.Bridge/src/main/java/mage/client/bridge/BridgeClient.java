@@ -26,13 +26,8 @@ import java.util.regex.Pattern;
 /**
  * Main entry point for the bridge XMage client.
  *
- * This client connects to an XMage server, joins the first available table
- * with an open human slot, and responds to all game callbacks automatically.
- *
- * Supports three personalities:
- * - potato (default): Auto-responds to all callbacks (passes priority, picks first option)
- * - staller: Same responses as potato, but intentionally delayed and kept alive between games
- * - sleepwalker: Exposes MCP server on stdio for external client control
+ * This client connects to an XMage server and exposes the bridge MCP server
+ * over HTTP for external control.
  *
  * Usage:
  *   java -jar mage-client-bridge.jar --server localhost --port 17171 --username bot1
@@ -43,7 +38,7 @@ import java.util.regex.Pattern;
  *   -Dxmage.bridge.port=17171
  *   -Dxmage.bridge.username=bot1
  *   -Dxmage.bridge.password=
- *   -Dxmage.bridge.personality=potato
+ *   -Dxmage.bridge.personality=sleepwalker
  */
 public class BridgeClient {
 
@@ -52,7 +47,6 @@ public class BridgeClient {
     private static final int TABLE_POLL_TIMEOUT_MS = 60000;
     private static final int PING_INTERVAL_MS = 20000; // 20 seconds, same as normal client
     private static final int DEFAULT_ACTION_DELAY_MS = 500;
-    private static final int DEFAULT_STALLER_DELAY_MS = 15000;
     private static final int MAX_RECONNECT_ATTEMPTS = 5;
     private static final int[] RECONNECT_BACKOFF_MS = {2000, 4000, 8000, 16000, 30000};
     private static final String DECK_NAME_PREFIX = "NAME:";
@@ -62,8 +56,6 @@ public class BridgeClient {
         "^(SB:)?\\s*(\\d+)\\s*\\[([^]:]+):([^]:]+)\\]\\s*(.*)\\s*$"
     );
 
-    private static final String PERSONALITY_POTATO = "potato";
-    private static final String PERSONALITY_STALLER = "staller";
     private static final String PERSONALITY_SLEEPWALKER = "sleepwalker";
 
     public static void main(String[] args) throws Exception {
@@ -74,16 +66,12 @@ public class BridgeClient {
         );
         String password = getStringSetting(args, "--password", "xmage.bridge.password", "");
         String personality = parsePersonality(
-            getStringSetting(args, "--personality", "xmage.bridge.personality", PERSONALITY_POTATO)
+            getStringSetting(args, "--personality", "xmage.bridge.personality", PERSONALITY_SLEEPWALKER)
         );
 
-        boolean isSleepwalker = PERSONALITY_SLEEPWALKER.equals(personality);
-        boolean isStaller = PERSONALITY_STALLER.equals(personality);
         boolean keepAlive = Boolean.getBoolean("xmage.bridge.keepAlive");
 
-        if (isSleepwalker) {
-            logger.info("Starting in SLEEPWALKER mode (MCP server on HTTP)");
-        }
+        logger.info("Starting in SLEEPWALKER mode (MCP server on HTTP)");
 
         // Log class file timestamp to verify build freshness
         try {
@@ -107,15 +95,10 @@ public class BridgeClient {
 
         // Get callback handler and configure MCP mode
         BridgeCallbackHandler callbackHandler = client.getCallbackHandler();
-        if (isSleepwalker) {
-            callbackHandler.setMcpMode(true);
-        }
-        int actionDelayMs = isStaller
-                ? getIntProperty("xmage.bridge.stallerDelayMs", DEFAULT_STALLER_DELAY_MS)
-                : DEFAULT_ACTION_DELAY_MS;
-        actionDelayMs = getIntProperty("xmage.bridge.actionDelayMs", actionDelayMs);
+        callbackHandler.setMcpMode(true);
+        int actionDelayMs = getIntProperty("xmage.bridge.actionDelayMs", DEFAULT_ACTION_DELAY_MS);
         callbackHandler.setActionDelayMs(actionDelayMs);
-        callbackHandler.setKeepAliveAfterGame(isStaller || keepAlive);
+        callbackHandler.setKeepAliveAfterGame(keepAlive);
         String errorLogPath = System.getProperty("xmage.bridge.errorlog");
         if (errorLogPath != null && !errorLogPath.isEmpty()) {
             callbackHandler.setErrorLogPath(errorLogPath);
@@ -175,13 +158,10 @@ public class BridgeClient {
             System.exit(1);
         }
 
-        // In keepAlive mode for sleepwalker, skip initial deck load and table join —
-        // the join_table MCP tool handles everything. For potato keepAlive, the stdin
-        // loop below handles deck loading and table joining.
-        if (keepAlive && isSleepwalker) {
+        // In keepAlive mode, skip initial deck load and table join — the join_table
+        // MCP tool handles the game lifecycle.
+        if (keepAlive) {
             logger.info("keepAlive mode: skipping initial table join (join_table tool will drive game lifecycle)");
-        } else if (keepAlive && !isSleepwalker) {
-            logger.info("keepAlive mode: skipping initial table join (stdin commands will drive game lifecycle)");
         } else {
             String deckPath = getStringSetting(args, "--deck", "xmage.bridge.deck", null);
             DeckCardLists deck = loadDeck(deckPath);
@@ -199,251 +179,117 @@ public class BridgeClient {
             logger.info("Joined table, waiting for game to start (table creator will start match)...");
         }
 
-        if (isSleepwalker) {
-            // Set up JoinHandler so the join_table MCP tool can trigger table joining
-            if (keepAlive) {
-                callbackHandler.setJoinHandler((deckPath, targetTableId) -> {
-                    DeckCardLists d = loadDeck(deckPath);
-                    return tryJoinTable(session, roomId, username, d, targetTableId);
-                });
-            }
-
-            // Start MCP server on HTTP
-            int mcpPort = getIntProperty("xmage.bridge.mcpPort", 0);
-            if (mcpPort == 0) {
-                logger.error("xmage.bridge.mcpPort system property is required for sleepwalker mode");
-                System.exit(1);
-            }
-            logger.info("Starting MCP HTTP server on port " + mcpPort + "...");
-            McpServer mcpServer = new McpServer(client, keepAlive);
-
-            // Run MCP server in separate thread so we can monitor client state
-            Thread.ofVirtual().name("MCP-Server").start(() -> mcpServer.start(mcpPort));
-
-            // In keepAlive mode, stdin is the lifecycle signal — when the Python
-            // side closes stdin, we shut down.  In non-keepAlive mode, we watch
-            // client.isRunning() (game over) instead.
-            //
-            // Start a stdin-reader thread that sets stdinClosed when EOF is reached.
-            java.util.concurrent.atomic.AtomicBoolean stdinClosed = new java.util.concurrent.atomic.AtomicBoolean(false);
-            Thread.ofVirtual().name("MCP-Stdin-Watcher").start(() -> {
-                try {
-                    // Block until stdin is closed
-                    for (int nextByte = System.in.read(); nextByte != -1; nextByte = System.in.read()) {
-                        continue;
-                    }
-                } catch (IOException ignored) {
-                }
-                stdinClosed.set(true);
+        // Set up JoinHandler so the join_table MCP tool can trigger table joining
+        if (keepAlive) {
+            callbackHandler.setJoinHandler((deckPath, targetTableId) -> {
+                DeckCardLists d = loadDeck(deckPath);
+                return tryJoinTable(session, roomId, username, d, targetTableId);
             });
+        }
 
-            int reconnectAttempts = 0;
-            outer:
-            while (true) {
-                long lastPingTime = System.currentTimeMillis();
-                while (keepAlive ? !stdinClosed.get() : client.isRunning()) {
-                    try {
-                        Thread.sleep(1000);
-                        long now = System.currentTimeMillis();
-                        if (now - lastPingTime >= PING_INTERVAL_MS) {
-                            session.ping();
-                            lastPingTime = now;
-                        }
-                    } catch (InterruptedException e) {
-                        logger.info("Interrupted, stopping...");
-                        client.stop();
-                        mcpServer.stop();
-                        break outer;
-                    }
-                }
+        // Start MCP server on HTTP
+        int mcpPort = getIntProperty("xmage.bridge.mcpPort", 0);
+        if (mcpPort == 0) {
+            logger.error("xmage.bridge.mcpPort system property is required for sleepwalker mode");
+            System.exit(1);
+        }
+        logger.info("Starting MCP HTTP server on port " + mcpPort + "...");
+        McpServer mcpServer = new McpServer(client, keepAlive);
 
-                if (keepAlive) {
-                    // Stdin closed — Python side is done, exit cleanly
-                    logger.info("Stdin closed (keepAlive mode), shutting down");
-                    break;
-                }
+        // Run MCP server in separate thread so we can monitor client state
+        Thread.ofVirtual().name("MCP-Server").start(() -> mcpServer.start(mcpPort));
 
-                // Client stopped — check if we should reconnect
-                if (client.isReconnectable() && reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-                    String oldSessionId = session.getSessionId();
-                    logger.info("Connection lost — attempting reconnection (session=" + oldSessionId + ")");
-                    session.setRestoreSessionId(oldSessionId);
-                    client.suppressDisconnectCallbacks(true);
-
-                    boolean reconnected = false;
-                    for (int i = reconnectAttempts; i < MAX_RECONNECT_ATTEMPTS; i++) {
-                        int backoffMs = RECONNECT_BACKOFF_MS[i];
-                        logger.info("Reconnect attempt " + (i + 1) + "/" + MAX_RECONNECT_ATTEMPTS + " in " + backoffMs + "ms...");
-                        try {
-                            Thread.sleep(backoffMs);
-                        } catch (InterruptedException e) {
-                            logger.info("Interrupted during reconnect backoff");
-                            break;
-                        }
-                        if (session.connectStart(connection)) {
-                            logger.info("Reconnected successfully on attempt " + (i + 1));
-                            client.suppressDisconnectCallbacks(false);
-                            client.setRunning(true);
-                            reconnectAttempts = 0;
-                            reconnected = true;
-                            continue outer;
-                        }
-                        logger.warn("Reconnect attempt " + (i + 1) + " failed: " + session.getLastError());
-                        reconnectAttempts = i + 1;
-                    }
-
-                    client.suppressDisconnectCallbacks(false);
-                    if (!reconnected) {
-                        logger.error("All " + MAX_RECONNECT_ATTEMPTS + " reconnect attempts failed — giving up");
-                        break;
-                    }
-                } else {
-                    // Game ended — wait for stdin to close (replay client
-                    // disconnect) before stopping the MCP server, so
-                    // in-flight tool calls (get_game_history, concede) can
-                    // complete cleanly.
-                    logger.info("Game ended, waiting for replay client to disconnect...");
-                    while (!stdinClosed.get()) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            break;
-                        }
-                    }
-                    logger.info("Replay client disconnected, shutting down MCP server...");
-                    break;
-                }
-            }
-            mcpServer.stop();
-        } else if (keepAlive) {
-            // Potato/staller keepAlive mode: read deck paths from stdin, join tables, play games.
-            // Each line on stdin is an absolute path to a deck file. The potato loads it,
-            // resets state, joins the next available table, plays the game, then reads again.
-            // When stdin closes, exit cleanly.
-            logger.info("Entering keepAlive stdin loop (potato mode)...");
-            // Signal readiness so the test harness knows we're connected and ready.
-            // Python polls the log file for this marker before sending the first game.
-            System.out.println("POTATO_READY");
-            System.out.flush();
-            @SuppressWarnings("PMD.CloseResource") // Wraps System.in — must not be closed
-            java.io.BufferedReader stdinReader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
-
-            // Background thread for pinging the server to stay connected
-            Thread pingThread = Thread.ofVirtual().name("Potato-Ping").start(() -> {
-                while (!Thread.currentThread().isInterrupted()) {
-                    try {
-                        Thread.sleep(PING_INTERVAL_MS);
-                        session.ping();
-                    } catch (InterruptedException e) {
-                        break;
-                    }
-                }
-            });
-
+        // In keepAlive mode, stdin is the lifecycle signal — when the Python
+        // side closes stdin, we shut down. In non-keepAlive mode, we watch
+        // client.isRunning() (game over) instead.
+        java.util.concurrent.atomic.AtomicBoolean stdinClosed = new java.util.concurrent.atomic.AtomicBoolean(false);
+        Thread.ofVirtual().name("MCP-Stdin-Watcher").start(() -> {
             try {
-                String line;
-                while ((line = stdinReader.readLine()) != null) {
-                    String trimmed = line.trim();
-                    if (trimmed.isEmpty()) continue;
-
-                    // Parse stdin: JSON object with deck_path + optional table_id,
-                    // or plain deck path string for backwards compatibility.
-                    String deckPathLine;
-                    UUID targetTableId = null;
-                    if (trimmed.startsWith("{")) {
-                        com.google.gson.JsonObject obj = com.google.gson.JsonParser.parseString(trimmed).getAsJsonObject();
-                        deckPathLine = obj.get("deck_path").getAsString();
-                        if (obj.has("table_id") && !obj.get("table_id").isJsonNull()) {
-                            targetTableId = UUID.fromString(obj.get("table_id").getAsString());
-                        }
-                    } else {
-                        deckPathLine = trimmed;
-                    }
-
-                    logger.info("keepAlive: received deck path: " + deckPathLine
-                        + (targetTableId != null ? " (table_id=" + targetTableId + ")" : ""));
-                    DeckCardLists deck = loadDeck(deckPathLine);
-                    BridgeCallbackHandler fresh = client.getCallbackHandler().createFreshForNextGame();
-                    fresh.setDeckList(deck);
-                    UUID tableId = tryJoinTable(session, roomId, username, deck, targetTableId);
-                    if (tableId == null) {
-                        logger.error("keepAlive: failed to join table, continuing to read stdin...");
-                        System.out.println("POTATO_READY");
-                        System.out.flush();
-                        continue;
-                    }
-                    logger.info("keepAlive: joined table " + tableId + ", waiting for game to finish...");
-                    fresh.awaitGameFinished(600_000); // 10 min max per game
-                    logger.info("keepAlive: game finished, ready for next");
-                    System.out.println("POTATO_READY");
-                    System.out.flush();
+                for (int nextByte = System.in.read(); nextByte != -1; nextByte = System.in.read()) {
+                    continue;
                 }
-            } catch (IOException e) {
-                logger.info("keepAlive: stdin read error: " + e.getMessage());
+            } catch (IOException ignored) {
+            }
+            stdinClosed.set(true);
+        });
+
+        int reconnectAttempts = 0;
+        outer:
+        while (true) {
+            long lastPingTime = System.currentTimeMillis();
+            while (keepAlive ? !stdinClosed.get() : client.isRunning()) {
+                try {
+                    Thread.sleep(1000);
+                    long now = System.currentTimeMillis();
+                    if (now - lastPingTime >= PING_INTERVAL_MS) {
+                        session.ping();
+                        lastPingTime = now;
+                    }
+                } catch (InterruptedException e) {
+                    logger.info("Interrupted, stopping...");
+                    client.stop();
+                    mcpServer.stop();
+                    break outer;
+                }
             }
 
-            pingThread.interrupt();
-            logger.info("keepAlive: stdin closed, exiting");
-        } else {
-            // Potato/staller mode: keep alive while client is running, with reconnection support
-            int reconnectAttempts = 0;
-            outer:
-            while (true) {
-                long lastPingTime = System.currentTimeMillis();
-                while (client.isRunning()) {
+            if (keepAlive) {
+                logger.info("Stdin closed (keepAlive mode), shutting down");
+                break;
+            }
+
+            // Client stopped — check if we should reconnect
+            if (client.isReconnectable() && reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+                String oldSessionId = session.getSessionId();
+                logger.info("Connection lost — attempting reconnection (session=" + oldSessionId + ")");
+                session.setRestoreSessionId(oldSessionId);
+                client.suppressDisconnectCallbacks(true);
+
+                boolean reconnected = false;
+                for (int i = reconnectAttempts; i < MAX_RECONNECT_ATTEMPTS; i++) {
+                    int backoffMs = RECONNECT_BACKOFF_MS[i];
+                    logger.info("Reconnect attempt " + (i + 1) + "/" + MAX_RECONNECT_ATTEMPTS + " in " + backoffMs + "ms...");
                     try {
-                        Thread.sleep(1000);
-                        long now = System.currentTimeMillis();
-                        if (now - lastPingTime >= PING_INTERVAL_MS) {
-                            session.ping();
-                            lastPingTime = now;
-                        }
+                        Thread.sleep(backoffMs);
                     } catch (InterruptedException e) {
-                        logger.info("Interrupted, stopping...");
-                        client.stop();
-                        break outer;
-                    }
-                }
-
-                // Client stopped — check if we should reconnect
-                if (client.isReconnectable() && reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-                    String oldSessionId = session.getSessionId();
-                    logger.info("Connection lost — attempting reconnection (session=" + oldSessionId + ")");
-                    session.setRestoreSessionId(oldSessionId);
-                    client.suppressDisconnectCallbacks(true);
-
-                    boolean reconnected = false;
-                    for (int i = reconnectAttempts; i < MAX_RECONNECT_ATTEMPTS; i++) {
-                        int backoffMs = RECONNECT_BACKOFF_MS[i];
-                        logger.info("Reconnect attempt " + (i + 1) + "/" + MAX_RECONNECT_ATTEMPTS + " in " + backoffMs + "ms...");
-                        try {
-                            Thread.sleep(backoffMs);
-                        } catch (InterruptedException e) {
-                            logger.info("Interrupted during reconnect backoff");
-                            break;
-                        }
-                        if (session.connectStart(connection)) {
-                            logger.info("Reconnected successfully on attempt " + (i + 1));
-                            client.suppressDisconnectCallbacks(false);
-                            client.setRunning(true);
-                            reconnectAttempts = 0;
-                            reconnected = true;
-                            continue outer;
-                        }
-                        logger.warn("Reconnect attempt " + (i + 1) + " failed: " + session.getLastError());
-                        reconnectAttempts = i + 1;
-                    }
-
-                    client.suppressDisconnectCallbacks(false);
-                    if (!reconnected) {
-                        logger.error("All " + MAX_RECONNECT_ATTEMPTS + " reconnect attempts failed — giving up");
+                        logger.info("Interrupted during reconnect backoff");
                         break;
                     }
-                } else {
+                    if (session.connectStart(connection)) {
+                        logger.info("Reconnected successfully on attempt " + (i + 1));
+                        client.suppressDisconnectCallbacks(false);
+                        client.setRunning(true);
+                        reconnectAttempts = 0;
+                        reconnected = true;
+                        continue outer;
+                    }
+                    logger.warn("Reconnect attempt " + (i + 1) + " failed: " + session.getLastError());
+                    reconnectAttempts = i + 1;
+                }
+
+                client.suppressDisconnectCallbacks(false);
+                if (!reconnected) {
+                    logger.error("All " + MAX_RECONNECT_ATTEMPTS + " reconnect attempts failed — giving up");
                     break;
                 }
+            } else {
+                // Game ended — wait for stdin to close (replay client
+                // disconnect) before stopping the MCP server, so
+                // in-flight tool calls (get_game_history, concede) can
+                // complete cleanly.
+                logger.info("Game ended, waiting for replay client to disconnect...");
+                while (!stdinClosed.get()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                }
+                logger.info("Replay client disconnected, shutting down MCP server...");
+                break;
             }
         }
+        mcpServer.stop();
 
         logger.info("Disconnecting...");
         session.connectStop(false, false);
@@ -572,10 +418,10 @@ public class BridgeClient {
     static String parsePersonality(String personalityArg) {
         String personality = personalityArg.toLowerCase(Locale.ROOT);
         return switch (personality) {
-            case PERSONALITY_POTATO, PERSONALITY_STALLER, PERSONALITY_SLEEPWALKER -> personality;
+            case PERSONALITY_SLEEPWALKER -> personality;
             default -> throw new IllegalArgumentException(
                 "Unknown bridge personality '" + personalityArg
-                    + "'. Expected one of: potato, staller, sleepwalker"
+                    + "'. Expected: sleepwalker"
             );
         };
     }

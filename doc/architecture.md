@@ -12,12 +12,12 @@ Each player is backed by a headless Java client (`BridgeCallbackHandler.java`) t
 
 Instead of rendering a UI, the bridge exposes [MCP](https://modelcontextprotocol.io) (Model Context Protocol) tools via HTTP JSON-RPC 2.0 on `127.0.0.1:{port}/mcp`. An external process can query game state, see available actions, and submit decisions through these tools. The available tools are: `pass_priority`, `get_action_choices`, `choose_action`, `get_game_state`, `get_game_log`, `get_oracle_text`, `send_chat_message`, and `concede`.
 
-The bridge supports four player modes:
+The bridge now runs in a single MCP-oriented mode:
 
-- **pilot** (MCP mode): Stores pending actions for an external LLM to handle via MCP tools. This is the primary mode for evaluation.
-- **potato**: Always passes priority and picks the first available option. Used as a baseline opponent.
-- **staller**: Like potato but with configurable delays and keepAlive between games. Used as a deterministic test opponent.
-- **cpu**: XMage's built-in AI.
+- **sleepwalker**: Exposes pending actions via MCP and can auto-pass simple flows without an LLM. Used for infra and deterministic testing.
+- **pilot**: A Python LLM loop layered on top of the same MCP bridge. This is the primary evaluation path.
+- **replay**: A scripted Python controller layered on top of the same MCP bridge for golden tests.
+- **cpu**: XMage's built-in AI and not a bridge mode.
 
 The bridge also handles several things automatically so the LLM doesn't have to micromanage:
 

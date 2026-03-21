@@ -278,8 +278,6 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
     all_players: list[tuple[Player, str]] = [
         *((p, "pilot") for p in config.pilot_players),
         *((p, "sleepwalker") for p in config.sleepwalker_players),
-        *((p, "potato") for p in config.potato_players),
-        *((p, "staller") for p in config.staller_players),
         *((p, "cpu") for p in config.cpu_players),
     ]
     for player, ptype in all_players:
@@ -701,43 +699,6 @@ def start_gui_client(
     return pm.start_jvm_process(
         args=["mvn", "-q", "exec:java"],
         cwd=project_root / "Mage.Client",
-        env=env,
-        log_file=log_path,
-    )
-
-
-def start_potato_client(
-    pm: ProcessManager,
-    project_root: Path,
-    config: Config,
-    name: str,
-    deck_path: str | None,
-    log_path: Path,
-    personality: str = "potato",
-) -> subprocess.Popen:
-    """Start an auto-responder bridge client (potato/staller)."""
-    jvm_args_list = [
-        config.jvm_bridge_opts,
-        "-Xmx512m",
-        f"-Dxmage.bridge.server={config.server}",
-        f"-Dxmage.bridge.port={config.port}",
-        f"-Dxmage.bridge.personality={personality}",
-    ]
-
-    jvm_args = " ".join(jvm_args_list)
-    env = {"MAVEN_OPTS": jvm_args}
-
-    # Pass values that may contain spaces as Maven CLI args (not in MAVEN_OPTS)
-    # because MAVEN_OPTS gets shell-split by the mvn script.
-    mvn_args = ["mvn", "-q", f"-Dxmage.bridge.username={name}"]
-    if deck_path:
-        resolved_path = project_root / deck_path
-        mvn_args.append(f"-Dxmage.bridge.deck={resolved_path}")
-    mvn_args.append("exec:java")
-
-    return pm.start_jvm_process(
-        args=mvn_args,
-        cwd=project_root / "Mage.Client.Bridge",
         env=env,
         log_file=log_path,
     )
@@ -1265,12 +1226,7 @@ def _setup_game(
         # Two bridge clients with the same XMage username create an
         # infinite disconnect/reconnect loop (same-host kick race).
         if used_player_names is not None:
-            all_players = (
-                game_config.pilot_players
-                + game_config.potato_players
-                + game_config.staller_players
-                + game_config.sleepwalker_players
-            )
+            all_players = game_config.pilot_players + game_config.sleepwalker_players
             for p in all_players:
                 assert p.name not in used_player_names, (
                     f"Duplicate player name {p.name!r} across parallel games — "
@@ -1342,8 +1298,6 @@ def _setup_game(
         len(game_config.sleepwalker_players)
         + len(game_config.pilot_players)
         + len(game_config.replay_players)
-        + len(game_config.potato_players)
-        + len(game_config.staller_players)
     )
 
     try:
@@ -1378,24 +1332,6 @@ def _setup_game(
                     game_dir=game_dir,
                 )
                 session.pilot_procs.append((replay_player.name, proc))
-
-            for potato_player in game_config.potato_players:
-                log_path = game_dir / f"{potato_player.name}_mcp.log"
-                logger.info("%sPotato (%s) log: %s", game_label, potato_player.name, log_path)
-                start_potato_client(pm, project_root, game_config, potato_player.name, potato_player.deck, log_path)
-
-            for staller_player in game_config.staller_players:
-                log_path = game_dir / f"{staller_player.name}_mcp.log"
-                logger.info("%sStaller (%s) log: %s", game_label, staller_player.name, log_path)
-                start_potato_client(
-                    pm,
-                    project_root,
-                    game_config,
-                    staller_player.name,
-                    staller_player.deck,
-                    log_path,
-                    personality="staller",
-                )
 
             # In parallel mode, wait for the game to actually start (table leaves
             # WAITING state) before returning.  This prevents the next game's

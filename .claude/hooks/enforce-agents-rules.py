@@ -174,7 +174,7 @@ def check(command: str) -> None:
     if re.search(rf"make\s+run\b.*CONFIG\s*=\s*({paid_pattern})\b", stripped):
         block(
             "Blocked: this config consumes real API tokens and costs money.\n"
-            "For testing, use free configs: 'make run' (jumpstart-dumb) or 'make run CONFIG=modern-staller'."
+            "For testing, use free configs: 'make run' or 'make run CONFIG=jumpstart-dumb'."
         )
 
     # --- Golden tests — use make targets ---
