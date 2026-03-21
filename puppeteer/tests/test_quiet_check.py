@@ -25,6 +25,15 @@ def test_make_check_routes_java_validation_through_lint_java() -> None:
     assert "$(MAKE) verify-mcp-tools" in makefile
 
 
+def test_make_lint_uses_explicit_import_lint_and_puppeteer_scoped_ruff() -> None:
+    project_root = Path(__file__).resolve().parent.parent.parent
+    makefile = (project_root / "Makefile").read_text()
+
+    assert "uv run python scripts/checks/lint_import_outside_toplevel.py" in makefile
+    assert "cd puppeteer && uv run ruff check src tests" in makefile
+    assert "cd puppeteer && uv run ruff check --fix src tests" in makefile
+
+
 def test_make_check_serializes_website_targets() -> None:
     assert SERIAL_TARGETS == [
         "lint-website",

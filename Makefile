@@ -17,7 +17,9 @@ lint:
 	uv run python scripts/checks/lint_issues.py
 	uv run python scripts/checks/lint_scripts_are_python.py
 	uv run python scripts/checks/lint_no_fallback.py
-	uv run --project puppeteer ruff check puppeteer/ scripts/ schemas/
+	uv run python scripts/checks/lint_import_outside_toplevel.py
+	cd puppeteer && uv run ruff check src tests
+	uv run --project puppeteer ruff check scripts/ schemas/
 
 .PHONY: lint-java
 lint-java:
@@ -26,7 +28,9 @@ lint-java:
 
 .PHONY: lint-fix
 lint-fix:
-	uv run --project puppeteer ruff check --fix puppeteer/ scripts/ schemas/
+	cd puppeteer && uv run ruff check --fix src tests
+	uv run --project puppeteer ruff check --fix scripts/ schemas/
+	uv run python scripts/checks/lint_import_outside_toplevel.py
 
 .PHONY: format
 format:
