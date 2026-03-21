@@ -5,7 +5,8 @@ import mage.client.bridge.processor.BridgeCallbackDispatcher;
 import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
 import mage.client.bridge.processor.BridgeCallbackEvent;
 import mage.client.bridge.processor.BridgeCommand;
-import mage.client.bridge.processor.BridgePassPriorityRequest;
+import mage.client.bridge.processor.BridgePassPriorityFlow;
+import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
@@ -100,6 +101,7 @@ public class BridgeCallbackHandler {
     private final BridgeCardFormatter cardFormatter;
     private final BridgeGameStateBuilder gameStateBuilder;
     private final BridgeOracleTextService oracleTextService;
+    private final BridgePassPriorityFlowContext passPriorityFlowContext;
     // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
     // while MCP methods still read transitional shared fields until step 3 lands.
     private final BridgeProcessor processor;
@@ -110,7 +112,7 @@ public class BridgeCallbackHandler {
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
     private volatile PendingAction pendingAction = null;
-    private BridgePassPriorityRequest pendingPassPriorityRequest = null;
+    private BridgePassPriorityFlow pendingPassPriorityFlow = null;
     private final Object actionLock = new Object(); // For wait_for_action blocking
     private volatile UUID currentGameId = null;
     private volatile UUID currentPlayerId = null; // retained after GAME_OVER for postgame fetches
@@ -226,7 +228,6 @@ public class BridgeCallbackHandler {
     // choose_action blocks indefinitely (like pass_priority) after taking an
     // action, waiting for the next callback so the LLM always wakes up to a
     // pending decision.  Terminated by game-over / zombie detection.
-    private static final long ZOMBIE_GAME_TIMEOUT_MS = 60 * 60 * 1000; // no actionable callback for 60min = zombie
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter TIME_FMT =
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX");
@@ -237,6 +238,7 @@ public class BridgeCallbackHandler {
         this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
         this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
+        this.passPriorityFlowContext = createPassPriorityFlowContext();
         BridgeCallbackDispatcher dispatcher = new BridgeCallbackDispatcher(new BridgeCallbackDispatcherContext() {
             @Override
             public String nonCurrentGameCallbackIgnoreReason(UUID callbackGameId, ClientCallbackMethod method) {
@@ -341,6 +343,199 @@ public class BridgeCallbackHandler {
         });
         this.processor = new BridgeProcessor(client.getUsername(), logger, dispatcher::process);
         this.processor.start();
+    }
+
+    private BridgePassPriorityFlowContext createPassPriorityFlowContext() {
+        return new BridgePassPriorityFlowContext() {
+            @Override
+            public String username() {
+                return client.getUsername();
+            }
+
+            @Override
+            public PendingAction currentPendingAction() {
+                return pendingAction;
+            }
+
+            @Override
+            public PendingAction currentDecisionAction() {
+                return BridgeCallbackHandler.this.currentDecisionAction();
+            }
+
+            @Override
+            public PendingAction resolvePassPriorityAction(PendingAction action) {
+                DecisionBoundaryTransition transition =
+                    transitionToDecisionBoundary(action, "passPriority");
+                return transition.status() == DecisionBoundaryStatus.READY ? transition.action() : null;
+            }
+
+            @Override
+            public GameView preparePassPriorityActionView(PendingAction action) {
+                if (action.data() instanceof GameClientMessage gcm) {
+                    GameView gv = gcm.getGameView();
+                    if (gv != null) {
+                        updateLastGameView(gv, "passPriority:" + action.method().name());
+                        int turn = gv.getTurn();
+                        if (turn != lastTurnNumber) {
+                            lastTurnNumber = turn;
+                            failedManaCasts.clear();
+                            interactionsThisTurn = 0;
+                            poolManaAttempts = 0;
+                            poolManaPayingForId = null;
+                            manaPlan = null;
+                            manaPlanAbilityIndex = null;
+                        }
+                    }
+                }
+                if (action.data() instanceof GameClientMessage gcm) {
+                    return gcm.getGameView();
+                }
+                return lastGameView;
+            }
+
+            @Override
+            public int interactionsThisTurn() {
+                return interactionsThisTurn;
+            }
+
+            @Override
+            public int maxInteractionsPerTurn() {
+                return maxInteractionsPerTurn;
+            }
+
+            @Override
+            public void executeDefaultAction() {
+                BridgeCallbackHandler.this.executeDefaultAction();
+            }
+
+            @Override
+            public String detectCombatSelect(PendingAction action) {
+                return BridgeCallbackHandler.this.detectCombatSelect(action);
+            }
+
+            @Override
+            public ActionResult pendingActionResult(PendingAction action, String stopReason, Long boardCursorParam) {
+                return BridgeCallbackHandler.this.pendingActionResult(action, stopReason, boardCursorParam);
+            }
+
+            @Override
+            public ActionResult pendingActionResult(
+                    PendingAction action,
+                    String stopReason,
+                    Long boardCursorParam,
+                    Consumer<ActionResult> customizer) {
+                return BridgeCallbackHandler.this.pendingActionResult(action, stopReason, boardCursorParam, customizer);
+            }
+
+            @Override
+            public ActionResult stepYieldResult(PendingAction action, GameView gameView, String stopReason, Long boardCursorParam) {
+                return BridgeCallbackHandler.this.stepYieldResult(action, gameView, stopReason, boardCursorParam);
+            }
+
+            @Override
+            public ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
+                return BridgeCallbackHandler.this.stackResolvedResult(action, boardCursorParam);
+            }
+
+            @Override
+            public UUID lowestStackObjectId(GameView gameView) {
+                return BridgeCallbackHandler.this.lowestStackObjectId(gameView);
+            }
+
+            @Override
+            public boolean stackContains(GameView gameView, UUID stackObjectId) {
+                return BridgeCallbackHandler.this.stackContains(gameView, stackObjectId);
+            }
+
+            @Override
+            public boolean clearPendingActionIfCurrent(PendingAction action) {
+                return BridgeCallbackHandler.this.clearPendingActionIfCurrent(action);
+            }
+
+            @Override
+            public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
+                BridgeCallbackHandler.this.sendBooleanOrDie(gameId, data, sendContext);
+            }
+
+            @Override
+            public UUID currentGameId() {
+                return currentGameId;
+            }
+
+            @Override
+            public GameView lastGameView() {
+                return lastGameView;
+            }
+
+            @Override
+            public int lastTurnNumber() {
+                return lastTurnNumber;
+            }
+
+            @Override
+            public int activeGamesSize() {
+                return activeGames.size();
+            }
+
+            @Override
+            public boolean superseded() {
+                return superseded;
+            }
+
+            @Override
+            public boolean playerDead() {
+                return playerDead;
+            }
+
+            @Override
+            public boolean gameEverStarted() {
+                return gameEverStarted;
+            }
+
+            @Override
+            public boolean clientRunning() {
+                return client.isRunning();
+            }
+
+            @Override
+            public long lastActionableCallbackAt() {
+                return lastActionableCallbackAt;
+            }
+
+            @Override
+            public long lastCallbackReceivedAt() {
+                return lastCallbackReceivedAt;
+            }
+
+            @Override
+            public void declareZombieGame(long absoluteIdleMs) {
+                logger.error("[" + client.getUsername() + "] Zombie game detected: "
+                    + "no actionable callback for " + absoluteIdleMs + "ms, declaring game dead");
+                logError("Zombie game detected: no actionable callback for " + absoluteIdleMs + "ms");
+                playerDead = true;
+            }
+
+            @Override
+            public boolean failedManaCast(UUID objectId) {
+                return failedManaCasts.contains(objectId);
+            }
+
+            @Override
+            public void finalizePassPriorityResult(
+                    BridgePassPriorityFlow flow,
+                    String until,
+                    int actionsPassed,
+                    PendingAction action,
+                    GameView view,
+                    ActionResult result,
+                    boolean actionPending) {
+                if (pendingPassPriorityFlow == flow) {
+                    pendingPassPriorityFlow = null;
+                }
+                attachUnseenChat(result);
+                logPassPriorityReturn(until, actionsPassed, action, view, result, actionPending);
+            }
+        };
     }
 
     /**
@@ -3428,27 +3623,6 @@ public class BridgeCallbackHandler {
         }
     }
 
-    // Cross-turn yield values handled client-side.  These used to be server-side
-    // yields (sendPlayerAction → skip()), but skip() bypasses waitResponseOpen()
-    // which causes stale responses to answer the wrong waitForResponse(), producing
-    // nondeterministic auto-passes.  Client-side handling eliminates the race.
-    private static final Set<String> CLIENT_SIDE_YIELDS = Set.of(
-        "end_of_turn", "stack_resolved", "my_turn"
-    );
-
-    // Mapping from "until" parameter values to PhaseStep enum constants (client-side yield).
-    // Only steps where players normally receive priority are exposed.
-    private static final Map<String, PhaseStep> STEP_PHASES = Map.of(
-        "upkeep", PhaseStep.UPKEEP,
-        "draw", PhaseStep.DRAW,
-        "precombat_main", PhaseStep.PRECOMBAT_MAIN,
-        "begin_combat", PhaseStep.BEGIN_COMBAT,
-        "declare_attackers", PhaseStep.DECLARE_ATTACKERS,
-        "declare_blockers", PhaseStep.DECLARE_BLOCKERS,
-        "end_combat", PhaseStep.END_COMBAT,
-        "postcombat_main", PhaseStep.POSTCOMBAT_MAIN
-    );
-
     private void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
         ActionResult choices = buildActionChoices(action, boardCursorParam, false);
         if (!Boolean.TRUE.equals(choices.action_pending)) {
@@ -3541,33 +3715,33 @@ public class BridgeCallbackHandler {
      * immediately without a separate round-trip.
      */
     public ActionResult passPriority(String until, Long boardCursorParam) {
-        BridgePassPriorityRequest request = new BridgePassPriorityRequest(until, boardCursorParam);
-        processor.submit(BridgeCommand.of(() -> {
-            startPassPriorityRequest(request);
-            return null;
+        BridgePassPriorityFlow flow = processor.submit(BridgeCommand.of(() -> {
+            if (pendingPassPriorityFlow != null) {
+                return null;
+            }
+            return startPassPriorityFlow(until, boardCursorParam);
         }));
+
+        if (flow == null) {
+            return processor.submit(BridgeCommand.of(() -> {
+                var result = new ActionResult();
+                result.error = "pass_priority already pending";
+                attachUnseenChat(result);
+                return result;
+            }));
+        }
 
         while (true) {
             try {
-                return request.awaitResult(200);
+                return flow.awaitResult(200);
             } catch (TimeoutException e) {
                 processor.submit(BridgeCommand.of(() -> {
-                    tickPendingPassPriorityRequest(request);
+                    tickPendingPassPriorityFlow(flow);
                     return null;
                 }));
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                processor.submit(BridgeCommand.of(() -> {
-                    cancelPendingPassPriorityRequest(request);
-                    return null;
-                }));
-                var result = new ActionResult();
-                result.action_pending = false;
-                result.stop_reason = "interrupted";
-                result.game_seq = request.lastSeenGameSeq();
-                attachUnseenChat(result);
-                logPassPriorityReturn(until, request.actionsPassed(), null, lastGameView, result, false);
-                return result;
+                return processor.submit(BridgeCommand.of(() -> interruptPassPriorityFlow(flow)));
             } catch (ExecutionException e) {
                 Throwable cause = e.getCause();
                 if (cause instanceof RuntimeException runtimeException) {
@@ -3578,392 +3752,48 @@ public class BridgeCallbackHandler {
         }
     }
 
-    private void startPassPriorityRequest(BridgePassPriorityRequest request) {
-        if (pendingPassPriorityRequest != null) {
-            var result = new ActionResult();
-            result.error = "pass_priority already pending";
-            attachUnseenChat(result);
-            request.complete(result);
-            return;
-        }
-
-        pendingPassPriorityRequest = request;
-        long now = System.currentTimeMillis();
-        request.setStartTimeMs(now);
-        request.setLastProgressLogAtMs(now);
+    private BridgePassPriorityFlow startPassPriorityFlow(String until, Long boardCursorParam) {
+        BridgePassPriorityFlow flow = new BridgePassPriorityFlow(passPriorityFlowContext, until, boardCursorParam);
+        pendingPassPriorityFlow = flow;
         interactionsThisTurn++;
         try {
-            boolean yieldActive = initializePassPriorityRequest(request);
-            if (request.isDone()) {
-                return;
-            }
-            logger.info("[" + client.getUsername() + "] passPriority ENTER: until=" + request.until()
-                + " yieldActive=" + yieldActive
-                + " pendingAction=" + (pendingAction != null)
-                + " activeGames=" + activeGames.size()
-                + " lastActionableCallbackAt=" + lastActionableCallbackAt);
-            advancePendingPassPriorityRequest();
+            flow.start();
         } catch (ResponseDeliveryException e) {
-            finishPassPriorityRequestWithDeliveryError(request, e);
+            flow.finishWithDeliveryError(e.getMessage());
         } catch (RuntimeException e) {
-            if (pendingPassPriorityRequest == request) {
-                pendingPassPriorityRequest = null;
+            if (pendingPassPriorityFlow == flow) {
+                pendingPassPriorityFlow = null;
             }
-            request.completeExceptionally(e);
+            throw e;
         }
+        return flow;
     }
 
-    private boolean initializePassPriorityRequest(BridgePassPriorityRequest request) {
-        String until = request.until();
-        boolean yieldActive = false;
-        request.setYieldStartTurn(lastTurnNumber);
-        if (until != null) {
-            PhaseStep targetStep = STEP_PHASES.get(until);
-            if (targetStep != null) {
-                request.setTargetStep(targetStep);
-                yieldActive = true;
-            } else if (CLIENT_SIDE_YIELDS.contains(until)) {
-                UUID gameId = currentGameId;
-                if (gameId == null) {
-                    var result = new ActionResult();
-                    result.error = "No active game for yield";
-                    finishPassPriorityRequest(request, result, null, lastGameView, false);
-                    return false;
-                }
-                PendingAction currentAction = currentDecisionAction();
-                if (currentAction != null
-                        && currentAction.method() != ClientCallbackMethod.GAME_SELECT) {
-                    logger.info("[" + client.getUsername()
-                        + "] passPriority: until=" + until
-                        + " blocked by pending " + currentAction.method()
-                        + " — returning choices instead of auto-passing");
-                    ActionResult result = pendingActionResult(
-                        currentAction,
-                        "non_priority_action",
-                        request.boardCursorParam()
-                    );
-                    finishPassPriorityRequest(
-                        request,
-                        result,
-                        currentAction,
-                        extractGameView(currentAction.data()),
-                        true);
-                    return false;
-                }
-                boolean armedClientSideYield = false;
-                if ("stack_resolved".equals(until)) {
-                    GameView gv = lastGameView;
-                    UUID lowestStackObjectId = lowestStackObjectId(gv);
-                    if (lowestStackObjectId != null) {
-                        request.setYieldUntilStackResolved(true);
-                        request.setYieldUntilStackResolvedObjectId(lowestStackObjectId);
-                        armedClientSideYield = true;
-                    }
-                } else if ("my_turn".equals(until)) {
-                    request.setYieldUntilMyTurn(true);
-                    armedClientSideYield = true;
-                } else if ("end_of_turn".equals(until)) {
-                    request.setYieldUntilEndOfTurn(true);
-                    armedClientSideYield = true;
-                }
-                if (armedClientSideYield && currentAction != null) {
-                    request.setLastSeenGameSeq(currentAction.gameSeq());
-                    if (pendingAction == currentAction) {
-                        pendingAction = null;
-                    }
-                    sendBooleanOrDie(gameId, false, "passPriority:yield_arm");
-                    request.incrementActionsPassed();
-                }
-                yieldActive = armedClientSideYield;
-            } else {
-                var allValues = new ArrayList<>(STEP_PHASES.keySet());
-                allValues.addAll(CLIENT_SIDE_YIELDS);
-                var result = new ActionResult();
-                result.error = "Invalid until value: " + until
-                    + ". Valid values: " + String.join(", ", allValues);
-                finishPassPriorityRequest(request, result, null, lastGameView, false);
-                return false;
-            }
-        }
-        return yieldActive;
-    }
-
-    private void advancePendingPassPriorityRequest() {
-        BridgePassPriorityRequest request = pendingPassPriorityRequest;
-        if (request == null || request.isDone()) {
+    private void advancePendingPassPriorityFlow() {
+        BridgePassPriorityFlow flow = pendingPassPriorityFlow;
+        if (flow == null) {
             return;
         }
-        while (true) {
-            PendingAction action = pendingAction;
-            if (action != null) {
-                request.setLastSeenGameSeq(action.gameSeq());
-                DecisionBoundaryTransition transition =
-                    transitionToDecisionBoundary(action, "passPriority");
-                if (transition.status() == DecisionBoundaryStatus.AUTO_HANDLED) {
-                    request.incrementActionsPassed();
-                    continue;
-                }
-                if (transition.status() == DecisionBoundaryStatus.CHANGED) {
-                    continue;
-                }
-                action = transition.action();
-
-                ClientCallbackMethod method = action.method();
-
-                // Update game view and reset loop counter on turn change.
-                // This MUST run before the loop detection check below, otherwise
-                // the `continue` in the loop detection branch skips it and the
-                // counter never resets, permanently disabling the player.
-                // Check any callback carrying GameView, not just GAME_SELECT —
-                // a new turn can start with upkeep triggers (GAME_TARGET, GAME_ASK, etc.).
-                if (action.data() instanceof GameClientMessage gcm) {
-                    GameView gv = gcm.getGameView();
-                    if (gv != null) {
-                        updateLastGameView(gv, "passPriority:" + action.method().name());
-                        int turn = gv.getTurn();
-                        if (turn != lastTurnNumber) {
-                            lastTurnNumber = turn;
-                            failedManaCasts.clear();
-                            interactionsThisTurn = 0;
-                            poolManaAttempts = 0;
-                            poolManaPayingForId = null;
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
-                        }
-                    }
-                }
-
-                GameView actionView = (action.data() instanceof GameClientMessage gcm2)
-                    ? gcm2.getGameView() : lastGameView;
-
-                if (request.targetStep() != null && lastTurnNumber != request.yieldStartTurn()) {
-                    ActionResult result = stepYieldResult(action, actionView, "step_not_reached", request.boardCursorParam());
-                    finishPassPriorityRequest(request, result, action, actionView, true);
-                    return;
-                }
-
-                if (interactionsThisTurn > maxInteractionsPerTurn) {
-                    logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
-                        + " interactions on turn " + lastTurnNumber + "), auto-passing " + method.name());
-                    executeDefaultAction();
-                    request.incrementActionsPassed();
-                    continue;
-                }
-
-                if (method != ClientCallbackMethod.GAME_SELECT) {
-                    ActionResult result = pendingActionResult(
-                        action,
-                        "non_priority_action",
-                        request.boardCursorParam()
-                    );
-                    finishPassPriorityRequest(request, result, action, extractGameView(action.data()), true);
-                    return;
-                }
-
-                String combatType = detectCombatSelect(action);
-                if (combatType != null) {
-                    ActionResult result = pendingActionResult(
-                        action,
-                        "combat",
-                        request.boardCursorParam(),
-                        built -> built.combat_phase = combatType
-                    );
-                    finishPassPriorityRequest(request, result, action, extractGameView(action.data()), true);
-                    return;
-                }
-
-                if (request.yieldUntilMyTurn()) {
-                    GameView gv = actionView;
-                    if (gv != null && client.getUsername().equals(gv.getActivePlayerName())) {
-                        request.setYieldUntilMyTurn(false);
-                    } else {
-                        if (pendingAction == action) {
-                            pendingAction = null;
-                        }
-                        sendBooleanOrDie(action.gameId(), false, "passPriority:yield_my_turn");
-                        request.incrementActionsPassed();
-                        continue;
-                    }
-                }
-
-                if (request.yieldUntilEndOfTurn()) {
-                    GameView gv = actionView;
-                    PhaseStep step = gv != null ? gv.getStep() : null;
-                    int turnNum = gv != null ? gv.getTurn() : request.yieldStartTurn();
-                    if (step == PhaseStep.END_TURN || step == PhaseStep.CLEANUP
-                            || turnNum > request.yieldStartTurn()) {
-                        String reason = (turnNum > request.yieldStartTurn())
-                            ? "turn_advanced" : "end_of_turn";
-                        ActionResult result = pendingActionResult(
-                            action, reason, request.boardCursorParam());
-                        finishPassPriorityRequest(request, result, action, actionView, true);
-                        return;
-                    } else {
-                        if (pendingAction == action) {
-                            pendingAction = null;
-                        }
-                        sendBooleanOrDie(action.gameId(), false, "passPriority:yield_end_of_turn");
-                        request.incrementActionsPassed();
-                        continue;
-                    }
-                }
-
-                if (request.yieldUntilStackResolved()) {
-                    GameView gv = actionView;
-                    if (!stackContains(gv, request.yieldUntilStackResolvedObjectId())) {
-                        ActionResult result = stackResolvedResult(action, request.boardCursorParam());
-                        finishPassPriorityRequest(request, result, action, gv, true);
-                        return;
-                    }
-                }
-
-                if (request.targetStep() != null) {
-                    GameView gv = actionView;
-                    if (gv != null && gv.getStep() != null
-                            && (gv.getStep() == request.targetStep() || gv.getStep().isAfter(request.targetStep()))) {
-                        ActionResult result = stepYieldResult(action, gv, "reached_step", request.boardCursorParam());
-                        finishPassPriorityRequest(request, result, action, gv, true);
-                        return;
-                    }
-                    if (pendingAction == action) {
-                        pendingAction = null;
-                    }
-                    sendBooleanOrDie(action.gameId(), false, "passPriority:step_yield");
-                    request.incrementActionsPassed();
-                    continue;
-                }
-
-                GameView viewForPlayableCheck = ((GameClientMessage) action.data()).getGameView();
-                PlayableObjectsList playable = viewForPlayableCheck != null ? viewForPlayableCheck.getCanPlayObjects() : null;
-                boolean hasPlayableCards = false;
-                if (playable != null && !playable.isEmpty()) {
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : playable.getObjects().entrySet()) {
-                        if (failedManaCasts.contains(entry.getKey())) {
-                            continue;
-                        }
-                        PlayableObjectStats stats = entry.getValue();
-                        List<String> abilityNames = stats.getPlayableAbilityNames();
-                        List<String> manaNames = stats.getAllManaAbilityNames();
-                        boolean allMana = !abilityNames.isEmpty() && manaNames.size() == abilityNames.size();
-                        if (!allMana) {
-                            hasPlayableCards = true;
-                            break;
-                        }
-                    }
-                }
-
-                // Determinism debugging: always log the playable-cards check result
-                // to diagnose both Mode 1 (game_seq drift) and Mode 2 (phase divergence).
-                {
-                    int cbSeq = action.gameSeq();
-                    int viewSeq = viewForPlayableCheck != null ? viewForPlayableCheck.getGameSeq() : -1;
-                    String viewStep = viewForPlayableCheck != null && viewForPlayableCheck.getStep() != null
-                        ? viewForPlayableCheck.getStep().toString() : "null";
-                    logger.debug("[" + client.getUsername() + "] passPriority playable check:"
-                        + " callback_seq=" + cbSeq
-                        + " view_seq=" + viewSeq
-                        + " view_step=" + viewStep
-                        + " hasPlayable=" + hasPlayableCards
-                        + " actionsPassed=" + request.actionsPassed()
-                        + " thread=" + Thread.currentThread().getName());
-                }
-
-                if (hasPlayableCards && request.actionsPassed() > 0) {
-                    ActionResult result = pendingActionResult(
-                        action,
-                        "playable_cards",
-                        request.boardCursorParam(),
-                        built -> built.has_playable_cards = true
-                    );
-                    finishPassPriorityRequest(request, result, action, viewForPlayableCheck, true);
-                    return;
-                }
-
-                if (pendingAction == action) {
-                    pendingAction = null;
-                }
-                sendBooleanOrDie(action.gameId(), false, "passPriority:auto_pass");
-                request.incrementActionsPassed();
-            } else {
-                if (lastActionableCallbackAt > 0) {
-                    long absoluteIdle = System.currentTimeMillis() - lastActionableCallbackAt;
-                    if (absoluteIdle > ZOMBIE_GAME_TIMEOUT_MS) {
-                        logger.error("[" + client.getUsername() + "] Zombie game detected: "
-                                + "no actionable callback for " + absoluteIdle + "ms, declaring game dead");
-                        logError("Zombie game detected: no actionable callback for " + absoluteIdle + "ms");
-                        playerDead = true;
-                    }
-                }
-                if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                    long elapsed = System.currentTimeMillis() - request.startTimeMs();
-                    logger.info("[" + client.getUsername() + "] passPriority EXIT game_over:"
-                        + " elapsed=" + elapsed + "ms"
-                        + " playerDead=" + playerDead
-                        + " activeGames=" + activeGames.size()
-                        + " actionsPassed=" + request.actionsPassed());
-                    var result = new ActionResult();
-                    result.action_pending = false;
-                    result.stop_reason = "game_over";
-                    result.game_seq = request.lastSeenGameSeq();
-                    finishPassPriorityRequest(request, result, null, lastGameView, false);
-                }
-                return;
-            }
+        try {
+            flow.advance();
+        } catch (ResponseDeliveryException e) {
+            flow.finishWithDeliveryError(e.getMessage());
         }
     }
 
-    private void tickPendingPassPriorityRequest(BridgePassPriorityRequest request) {
-        if (pendingPassPriorityRequest != request || request.isDone()) {
+    private void tickPendingPassPriorityFlow(BridgePassPriorityFlow flow) {
+        if (pendingPassPriorityFlow != flow) {
             return;
         }
-        request.incrementWaitLoops();
-        long now = System.currentTimeMillis();
-        if (now - request.lastProgressLogAtMs() >= 30_000) {
-            request.setLastProgressLogAtMs(now);
-            long totalElapsed = now - request.startTimeMs();
-            logger.warn("[" + client.getUsername() + "] passPriority STILL WAITING:"
-                + " elapsed=" + totalElapsed + "ms"
-                + " waitLoops=" + request.waitLoops()
-                + " actionsPassed=" + request.actionsPassed()
-                + " pendingAction=" + (pendingAction != null)
-                + " playerDead=" + playerDead
-                + " activeGames=" + activeGames.size()
-                + " gameEverStarted=" + gameEverStarted
-                + " lastActionableCallbackAt=" + (lastActionableCallbackAt > 0 ? (now - lastActionableCallbackAt) + "ms ago" : "never")
-                + " lastCallbackReceivedAt=" + (lastCallbackReceivedAt > 0 ? (now - lastCallbackReceivedAt) + "ms ago" : "never")
-                + " currentGameId=" + currentGameId);
-        }
-        advancePendingPassPriorityRequest();
-    }
-
-    private void cancelPendingPassPriorityRequest(BridgePassPriorityRequest request) {
-        if (pendingPassPriorityRequest == request) {
-            pendingPassPriorityRequest = null;
+        try {
+            flow.tick();
+        } catch (ResponseDeliveryException e) {
+            flow.finishWithDeliveryError(e.getMessage());
         }
     }
 
-    private void finishPassPriorityRequestWithDeliveryError(
-            BridgePassPriorityRequest request,
-            ResponseDeliveryException e) {
-        var result = new ActionResult();
-        result.action_pending = false;
-        result.stop_reason = "game_over";
-        result.error = e.getMessage();
-        finishPassPriorityRequest(request, result, null, lastGameView, false);
-    }
-
-    private void finishPassPriorityRequest(
-            BridgePassPriorityRequest request,
-            ActionResult result,
-            PendingAction action,
-            GameView view,
-            boolean actionPending) {
-        if (pendingPassPriorityRequest == request) {
-            pendingPassPriorityRequest = null;
-        }
-        attachUnseenChat(result);
-        logPassPriorityReturn(request.until(), request.actionsPassed(), action, view, result, actionPending);
-        request.complete(result);
+    private ActionResult interruptPassPriorityFlow(BridgePassPriorityFlow flow) {
+        return flow.interrupt();
     }
 
     /**
@@ -4222,7 +4052,7 @@ public class BridgeCallbackHandler {
             }
             try {
                 processor.submit(BridgeCommand.of(() -> {
-                    advancePendingPassPriorityRequest();
+                    advancePendingPassPriorityFlow();
                     return null;
                 }));
             } catch (IllegalStateException ignored) {
@@ -4256,7 +4086,7 @@ public class BridgeCallbackHandler {
             logBridgeEvent("PENDING_ACTION_REPLACED", gameId, summary);
         }
         logger.debug("[" + client.getUsername() + "] Stored pending action: " + method + " - " + message);
-        advancePendingPassPriorityRequest();
+        advancePendingPassPriorityFlow();
     }
 
     private static GameView extractGameView(Object data) {
@@ -4976,7 +4806,7 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] Game ended, stopping client");
             client.stop();
         }
-        advancePendingPassPriorityRequest();
+        advancePendingPassPriorityFlow();
     }
 
     /**
@@ -5006,7 +4836,7 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (missed GAME_OVER)");
             client.stop();
         }
-        advancePendingPassPriorityRequest();
+        advancePendingPassPriorityFlow();
     }
 
     private void handleUserRequestDialog(Object data) {
