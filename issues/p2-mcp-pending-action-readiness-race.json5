@@ -1,0 +1,14 @@
+{
+  "title": "MCP pendingAction can become visible before callback processing finishes",
+  "description": "GitHub Actions run 23374510772, job 68004186411, failed `tests/test_golden_mana_drain_fact_or_fiction.py::test_mana_drain_into_fact_or_fiction` with `choose_action {\\\"choice\\\":\\\"no\\\"}` timing out immediately after `pass_priority` returned `gameSeq=53`.\n\nThe failing CI trace showed player A returning from `passPriority` on that `GAME_SELECT`, issuing `choose_action \\\"no\\\"`, and then never receiving the usual follow-up callback that advances the replay to Fact or Fiction. The same point in a passing local trace wakes to `gameSeq=57` and continues normally. The opponent-side hang later in the trace is downstream: it is waiting on the game state that player A never advanced.\n\nThe strongest root-cause hypothesis is an ordering race inside `BridgeCallbackHandler`: the callback thread stores a new MCP `pendingAction` and wakes tool threads before `handleCallback()` has finished its bookkeeping (`ActionableCallbackOutcome`, bridge-event recording, and related callback-finalization work). A tool thread can observe and answer that callback too early, effectively replying before the bridge has crossed the real decision boundary.\n\nSuggested fix:\n- Add an MCP-only readiness handshake so stored `pendingAction` values are not visible to `chooseAction()` / `passPriority()` until `handleCallback()` finishes processing that callback.\n- Keep the decision-boundary helpers (`awaitPendingAction`, `currentDecisionAction`, `waitForNextCallback`, `isActionPending`) reading only ready pending actions.\n- Update `BridgeCallbackHandlerTest` reflection helpers/tests too: any test that injects `pendingAction` directly in MCP mode must also mark it ready, or it will stop exercising the real MCP path.\n\nThis may already be fixed by another branch or instance; if so, close it by deleting this file once the canonical fix lands.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": [
+    "bridge",
+    "mcp",
+    "golden",
+  ],
+  "created_at": "2026-03-21T08:29:25-07:00",
+  "updated_at": "2026-03-21T08:29:25-07:00",
+}
