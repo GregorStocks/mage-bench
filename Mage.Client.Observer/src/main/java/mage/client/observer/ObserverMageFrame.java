@@ -25,6 +25,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Field;
 import java.net.SocketException;
 import java.nio.file.Path;
@@ -255,6 +256,21 @@ public class ObserverMageFrame extends MageFrame {
      */
     @Override
     public void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            try {
+                SwingUtilities.invokeAndWait(() -> watchGameOnEdt(currentTableId, parentTableId, gameId));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Interrupted while dispatching observer watchGame on EDT", e);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException("Failed to dispatch observer watchGame on EDT", e.getCause());
+            }
+            return;
+        }
+        watchGameOnEdt(currentTableId, parentTableId, gameId);
+    }
+
+    private void watchGameOnEdt(UUID currentTableId, UUID parentTableId, UUID gameId) {
         // Check if we're already watching this game
         for (Component component : getDesktop().getComponents()) {
             if (component instanceof ObserverGamePane ogp
@@ -271,6 +287,9 @@ public class ObserverMageFrame extends MageFrame {
         }
 
         // Create observer game pane
+        // The watch attach path can synchronously trigger GAME_INIT once the
+        // background SessionHandler.watchGame call starts, so finish building the
+        // pane on the EDT before we kick off watchGame().
         ObserverGamePane gamePane = new ObserverGamePane();
         if (healthServer != null) {
             gamePane.setHealthServer(healthServer);

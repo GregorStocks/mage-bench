@@ -21,10 +21,8 @@ public class ObserverGamePane extends MagePane {
 
     public ObserverGamePane() {
         initComponents();
-        SwingUtilities.invokeLater(() -> {
-            gamePanel.setJLayeredPane(this);
-            gamePanel.installComponents();
-        });
+        gamePanel.setJLayeredPane(this);
+        gamePanel.installComponents();
     }
 
     private void initComponents() {
