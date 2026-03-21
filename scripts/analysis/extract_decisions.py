@@ -19,6 +19,7 @@ from schemas.game_export_types import (
     Snapshot,
     ToolCallEvent,
     export_record_field,
+    json_default,
 )
 from scripts.analysis.blunder_eval_common import load_game_for_annotation
 
@@ -864,8 +865,6 @@ def _mark_rolled_back_casts(
 
 
 def main(gz_path: str) -> None:
-    from schemas.game_export_types import json_default
-
     decisions = extract_decisions(gz_path)
     json.dump(
         list(decisions),

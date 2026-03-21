@@ -7,12 +7,14 @@ import sys
 from pathlib import Path
 
 from schemas.game_export_types import BuiltGameExport, require_built_game_export
+from schemas.migrations.v3_to_v4 import compute_season
 from scripts.export_card_data import DECKLIST_RE, _build_card_data, _build_card_images
 from scripts.export_decisions import _build_decisions
 from scripts.export_errors import _link_errors_to_decisions, _read_errors
 from scripts.export_llm_events import _read_llm_events
 from scripts.game_exports import GAMES_DIR as WEBSITE_GAMES_DIR
 from scripts.game_exports import write_raw_game_export
+from scripts.generate_leaderboard import generate_all_website_data
 
 _ROOT = Path(__file__).resolve().parent.parent
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"
@@ -318,8 +320,6 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     if "season" in meta:
         output["season"] = meta["season"]
     else:
-        from schemas.migrations.v3_to_v4 import compute_season
-
         output["season"] = compute_season(harness_epoch)
     tournament_id: str | None = None
     if meta.get("tournament_game", False):
@@ -385,8 +385,6 @@ def main() -> None:
     print(f"Exported {game_id} -> {output_path} ({size_kb} KB)")
 
     # Regenerate leaderboard data so committed files stay in sync
-    from scripts.generate_leaderboard import generate_all_website_data
-
     generate_all_website_data(games_dir=games_dir)
     print("Website data regenerated")
 

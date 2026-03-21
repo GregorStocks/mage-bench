@@ -1,0 +1,27 @@
+{
+  "title": "Make export pipeline helper APIs public or local",
+  "description": "The export pipeline currently works by importing private helpers across modules. `scripts/export_game.py` depends on `_build_card_data`, `_build_card_images`, `_build_decisions`, `_link_errors_to_decisions`, `_read_errors`, and `_read_llm_events`; `scripts/backfill_decisions.py`, `scripts/backfill_annotation_snapshots.py`, and `schemas/migrations/v2_to_v3.py` also import private export helpers.\n\
+\n\
+Decide the real ownership boundary here. Shared helpers should get public names in their owner modules; one-off helpers should stay private and be kept local. The current arrangement makes `export_game.py` look like a coordinator while its real API lives in other files' underscore names.\n\
+\n\
+Scope:\n\
+- `scripts/export_game.py`\n\
+- `scripts/export_card_data.py`\n\
+- `scripts/export_decisions.py`\n\
+- `scripts/export_errors.py`\n\
+- `scripts/export_llm_events.py`\n\
+- `scripts/backfill_decisions.py`\n\
+- `scripts/backfill_annotation_snapshots.py`\n\
+- `schemas/migrations/v2_to_v3.py`\n\
+- `puppeteer/tests/test_weird_conventions.py` (remove the allowlist entries as debt is retired)",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "export",
+    "python",
+    "refactor",
+  ],
+  "created_at": "2026-03-21T10:35:12.655832-07:00",
+  "updated_at": "2026-03-21T10:35:12.655832-07:00",
+}
