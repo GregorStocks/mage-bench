@@ -48,6 +48,7 @@ from scripts.draft_history import (
     CURRENT_DRAFT_HISTORY_VERSION,
     assert_current_draft_history_version,
 )
+from scripts.tournament_game import load_tournament
 
 _ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"
@@ -76,8 +77,6 @@ def draft_order(num_entrants: int) -> list[int]:
 def _load_tournament() -> tuple[dict, Path]:
     """Load the current tournament JSON. Returns (tournament_data, file_path)."""
     # Delegate to shared implementation in tournament_game.py
-    from scripts.tournament_game import load_tournament
-
     return load_tournament()
 
 
