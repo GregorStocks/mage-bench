@@ -20,21 +20,23 @@ from schemas.game_export_types import (
     ToolCallEvent,
     json_default,
 )
+from scripts.analysis import blunder_analysis, blunder_context, blunder_llm
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
     BlunderAnalysisError,
     _chosen_display,
-    _collect_card_names,
-    _compute_cost,
     _eval_one_decision,
-    _format_current_turn_actions,
     _format_preceding_action,
-    _parse_annotation,
     eval_decisions,
     init_api,
     main,
 )
+from scripts.analysis.blunder_context import (
+    _collect_card_names,
+    _format_current_turn_actions,
+)
+from scripts.analysis.blunder_llm import _compute_cost, _parse_annotation
 from scripts.game_exports import load_raw_game_export
 
 # Fake prices for testing
@@ -906,6 +908,13 @@ class TestPrecedingAction:
 
             assert calls_by_idx[0] is None
             assert calls_by_idx[1] is d0
+
+
+def test_blunder_analysis_reexports_extracted_helpers() -> None:
+    assert blunder_analysis._collect_card_names is blunder_context._collect_card_names
+    assert blunder_analysis._format_current_turn_actions is blunder_context._format_current_turn_actions
+    assert blunder_analysis._compute_cost is blunder_llm._compute_cost
+    assert blunder_analysis._parse_annotation is blunder_llm._parse_annotation
 
 
 class TestOperationalFailures:

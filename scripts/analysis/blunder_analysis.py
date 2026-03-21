@@ -12,18 +12,15 @@ Accepts either a file path or a bare game ID (e.g. game_20260214_185313_g1).
 Requires OPENROUTER_API_KEY environment variable.
 """
 
-import html
 import json
 import logging
 import os
-import re
 import sys
 import tempfile
 from collections.abc import Sequence
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
 from zoneinfo import ZoneInfo
 
 from openai import OpenAI, OpenAIError
@@ -31,26 +28,24 @@ from openai import OpenAI, OpenAIError
 from puppeteer.decision_renderer import (
     _chosen_display as _renderer_chosen_display,
 )
-from puppeteer.decision_renderer import (
-    card_display,
-    permanent_display,
-    render_decision,
-)
+from puppeteer.decision_renderer import render_decision
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from schemas.game_export_types import (
     Annotation,
     Action,
-    BuiltGameExport,
     Decision,
-    GameExport,
-    Permanent,
     Snapshot,
-    SnapshotPlayer,
-    export_record_field,
     json_default,
 )
-from scripts import scryfall
 from scripts.analysis.annotate_game import annotate_game
+from scripts.analysis.blunder_context import (
+    _actions_by_turn,
+    _collect_card_names,
+    _format_current_turn_actions,
+    _format_prior_context,
+    _game_overview,
+    _get_oracle_texts,
+)
 from scripts.analysis.blunder_eval_common import (
     action_result,
     compute_aftermath_index,
@@ -61,8 +56,14 @@ from scripts.analysis.blunder_eval_common import (
     load_game_for_annotation,
     snapshot_index,
 )
+from scripts.analysis.blunder_llm import (
+    _LLM_REQUIRED_FIELDS,
+    _call_llm,
+    _compute_cost,
+    _parse_annotation,
+)
+from scripts.analysis.blunder_prompts import PER_DECISION_SYSTEM, TOOL_REFERENCE
 from scripts.analysis.extract_decisions import extract_decisions
-from scripts.json5_utils import loads_json5
 
 # Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -142,423 +143,7 @@ class BlunderAnalysisError(RuntimeError):
     """Expected operational failure during blunder annotation."""
 
 
-# --- Prompt components ---
-
-BLUNDER_EXAMPLES = """\
-## Examples of Blunders
-
-Here are some examples of the kinds of mistakes to flag:
-
-- Not attacking for lethal, missing combo kills, burn in hand at low life
-- Casting spells that accomplish nothing, cards with no valid targets, declining pure-upside abilities
-- Removing the wrong threat, fetching the wrong land, naming the wrong card
-- Casting spells before playing lands, creatures before combat when holding tricks
-- Poor attack/block decisions, attacking into unfavorable blocks
-- Missing land drops, not using mana sinks at end of opponent's turn
-- Fundamentally wrong game plan decisions, not countering must-answer threats
-- Overextending into board wipes, running best threat into open counter mana
-- Passing priority in the postcombat main phase (with nothing on the stack) when \
-there are still sorcery-speed actions available this turn — e.g. unplayed land drops, \
-castable creatures or sorceries in hand, planeswalker abilities to activate. Passing \
-here ends the turn and wastes those opportunities. Note: the choices list shows the \
-exact legal actions available — if a player passes (Chosen: False) with playable lands \
-or castable spells among the choices, that is strong evidence of a blunder."""
-
-SHARED_SEVERITY = """\
-## Severity Levels
-
-- **questionable**: Probably suboptimal but debatable. A human reviewing the game would \
-find this interesting to think about. Use this when there's at least a ~30% chance the \
-play was wrong. Low bar — when in doubt, include as questionable rather than omitting.
-- **minor**: Clearly suboptimal — a small amount of value was lost (e.g. slightly wrong \
-sequencing, fetching a less optimal land, missing a minor advantage).
-- **moderate**: A real mistake with meaningful consequences — wasted a card, missed a \
-significant line, or gave the opponent an unnecessary opening.
-- **major**: Game-losing or close to it — threw away a winning position, wasted multiple \
-cards for nothing, missed lethal, or made an error that directly led to losing."""
-
-ANNOTATION_SCHEMA = """\
-{
-  "severity": "questionable" | "minor" | "moderate" | "major",
-  "description": "<what went wrong in concrete game terms>",
-  "actionTaken": "<what they actually did>",
-  "betterLine": "<what they should have done>"
-}"""
-
-CHOSEN_FALSE_GUIDANCE = """\
-## Understanding "Chosen: False"
-
-"Chosen: False" means the player passed priority — they declined to act. \
-If the stack is empty, passing means moving to the next phase (e.g. main phase \
-to combat, or postcombat main to end step — ending the turn). If the stack has \
-items, passing lets those items resolve without responding.
-
-## Understanding "Chosen: (no response)"
-
-"Chosen: (no response)" means the player failed to respond in time (timeout) \
-or their client did not send a valid action. The game engine chose a default \
-for them — typically passing or skipping. Treat this like "Chosen: False" \
-for blunder evaluation: if skipping was wrong given the available choices, \
-flag it.
-
-## Understanding batch/text decisions
-
-Some decisions (attack/block declarations, color choices) use batch or text \
-parameters instead of selecting from a numbered list. These show as \
-"Chosen: Attack with: ...", "Chosen: Block with: ...", or "Chosen: Text: ..." \
-instead of a choice name. These are valid responses — the player DID act."""
-
-
-def _build_tool_reference() -> str:
-    """Build a tool reference section from the MCP tool spec for choose_action."""
-    mcp_tools_path = REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json5"
-    mcp_tools = loads_json5(mcp_tools_path.read_text())
-    tool = next((t for t in mcp_tools if t["name"] == "choose_action"), None)
-    assert tool is not None, "choose_action not found in mcp-tools.json5"
-
-    lines = [
-        "## Tool Reference: choose_action",
-        "",
-        f"Players respond to each pending action by calling choose_action. {tool['description']}",
-        "",
-        "Parameters:",
-    ]
-    for name, schema in tool["inputSchema"]["properties"].items():
-        desc = schema.get("description")
-        type_ = schema.get("type")
-        lines.append(f"- {name} ({type_ if type_ else ''}): {desc if desc else ''}")
-
-    return "\n".join(lines)
-
-
-TOOL_REFERENCE = _build_tool_reference()
-
-PER_DECISION_SYSTEM = f"""\
-You are a Magic: The Gathering expert evaluating a single decision from a game replay.
-
-Analyze the decision below. If the play was reasonable, return null.
-If it was a blunder, return a JSON annotation object.
-
-Most decisions are reasonable — only flag clear mistakes or questionable choices.
-
-You may be given prior context showing the board state from earlier and the action log \
-since then. Use this to understand how the game reached the current state.
-
-{BLUNDER_EXAMPLES}
-
-{CHOSEN_FALSE_GUIDANCE}
-
-{SHARED_SEVERITY}
-
-## Output Format
-
-Return ONLY valid JSON — either `null` (no blunder) or a single annotation object:
-{ANNOTATION_SCHEMA}"""
-
-
 _load_game = load_game_for_annotation
-
-
-# --- Oracle text via Scryfall with disk cache ---
-
-
-_get_oracle_texts = scryfall.get_oracle_texts
-
-
-def _record_field(record: object, field: str) -> object | None:
-    return export_record_field(record, field)
-
-
-_SNAPSHOT_ZONES = frozenset({"hand", "battlefield", "graveyard", "exile", "commanders"})
-
-
-def _snapshot_zone_cards(
-    player: SnapshotPlayer, zone: str
-) -> list[str | Permanent] | None:
-    """Return a snapshot player's cards for a supported public/private zone."""
-    assert zone in _SNAPSHOT_ZONES, f"unexpected zone {zone!r}"
-    cards: list[str | Permanent] | None = getattr(player, zone)
-    return cards
-
-
-def _collect_card_names(data: BuiltGameExport | GameExport) -> set[str]:
-    """Collect all unique card names from game snapshots and choices."""
-    names: set[str] = set()
-    for snap in data.snapshots:
-        for p in snap.players:
-            for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-                zone_cards = _snapshot_zone_cards(p, zone)
-                if zone_cards is not None:
-                    for c in zone_cards:
-                        if isinstance(c, str) and c:
-                            names.add(c)
-                        else:
-                            name = _record_field(c, "name")
-                            if isinstance(name, str) and name:
-                                names.add(name)
-        for item in snap.stack:
-            if isinstance(item, str) and item:
-                names.add(item)
-            else:
-                name = _record_field(item, "name")
-                if isinstance(name, str) and name:
-                    names.add(name)
-        if snap.combat is not None:
-            for group in snap.combat:
-                if group.attackers is not None:
-                    for a in group.attackers:
-                        name = _record_field(a, "name")
-                        if isinstance(name, str) and name:
-                            names.add(name)
-                if group.blockers is not None:
-                    for b in group.blockers:
-                        name = _record_field(b, "name")
-                        if isinstance(name, str) and name:
-                            names.add(name)
-    # Also from choice names and combat fields in llm events
-    for ev in data.llmEvents:
-        if ev.type == "tool_call" and ev.tool == "get_action_choices":
-            try:
-                result = json.loads(ev.result)
-                if not isinstance(result, dict):
-                    continue
-                result_choices = result.get("choices")
-                if result_choices is not None:
-                    for c in result_choices:
-                        if not isinstance(c, dict):
-                            continue
-                        name = c.get("name")
-                        # Skip non-card choices: player targets, special actions,
-                        # and entries without an id (e.g. mana ability descriptions)
-                        if (
-                            not isinstance(name, str)
-                            or not name
-                            or "target_type" in c
-                            or c.get("choice_type") == "special"
-                        ):
-                            continue
-                        if "id" in c:
-                            names.add(name)
-                result_already_attacking = result.get("already_attacking")
-                if result_already_attacking is not None:
-                    for a in result_already_attacking:
-                        if (
-                            isinstance(a, dict)
-                            and isinstance(a.get("name"), str)
-                            and a["name"]
-                        ):
-                            names.add(a["name"])
-                result_incoming = result.get("incoming_attackers")
-                if result_incoming is not None:
-                    for a in result_incoming:
-                        if (
-                            isinstance(a, dict)
-                            and isinstance(a.get("name"), str)
-                            and a["name"]
-                        ):
-                            names.add(a["name"])
-                result_combat = result.get("combat")
-                if result_combat is not None:
-                    for group in result_combat:
-                        if not isinstance(group, dict):
-                            continue
-                        group_attackers = group.get("attackers")
-                        if group_attackers is not None:
-                            for a in group_attackers:
-                                if (
-                                    isinstance(a, dict)
-                                    and isinstance(a.get("name"), str)
-                                    and a["name"]
-                                ):
-                                    names.add(a["name"])
-                        group_blockers = group.get("blockers")
-                        if group_blockers is not None:
-                            for b in group_blockers:
-                                if (
-                                    isinstance(b, dict)
-                                    and isinstance(b.get("name"), str)
-                                    and b["name"]
-                                ):
-                                    names.add(b["name"])
-            except (json.JSONDecodeError, TypeError):
-                pass
-    # Filter out tokens (not in Scryfall)
-    return {n for n in names if "Token" not in n}
-
-
-_ACTION_NOISE = re.compile(
-    r" draws a card$"
-    r"|^spectator\d+ has started watching$"
-    r"| skip attack$"
-    r"| keeps hand$"
-    r"| skips Draw step$"
-    r"| puts .+ from stack (onto the Battlefield|into their graveyard)$"
-    r"| puts .+ from hand onto the Battlefield$"
-)
-
-
-def _actions_by_turn(actions: Sequence[Action]) -> dict[int, list[str]]:
-    """Split action log messages into per-turn buckets using TURN markers.
-
-    Rewrites TURN headers from XMage's sequential numbering to per-player
-    turn numbers: "TURN 5 for Alice (20 - 18)" → "Alice turn 3 (20 - 18)".
-    Filters out noisy/redundant messages (draw step, skip attack, zone moves).
-    """
-    by_turn: dict[int, list[str]] = {}
-    current_turn = 0
-    player_turn_counts: dict[str, int] = {}
-    for a in actions:
-        msg = a.message
-        if msg is None:
-            continue
-        assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
-        # Skip chat messages — LLM personality flavor adds noise and can bias
-        # the blunder annotator
-        if a.type == "chat":
-            continue
-        msg = html.unescape(msg)
-        m = re.match(r"^TURN (\d+) for (.+?)( \(.+\))$", msg)
-        if m:
-            current_turn = int(m.group(1))
-            player_name = m.group(2)
-            life_info = m.group(3)
-            player_turn_counts[player_name] = player_turn_counts.get(player_name, 0) + 1
-            pt = player_turn_counts[player_name]
-            msg = f"{player_name} turn {pt}{life_info}"
-        elif _ACTION_NOISE.search(msg):
-            continue
-        if current_turn > 0 and msg:
-            by_turn.setdefault(current_turn, []).append(msg)
-    return by_turn
-
-
-def _snapshot_for_turn(snapshots: Sequence[Snapshot], turn: int) -> Snapshot | None:
-    """Find the first snapshot for a given turn number."""
-    for snap in snapshots:
-        if snap.turn == turn:
-            return snap
-    return None
-
-
-def _format_prior_context(
-    decision: Decision,
-    snapshots: Sequence[Snapshot],
-    actions_by_turn: dict[int, list[str]],
-    num_players: int,
-) -> str:
-    """Build prior context: snapshot from 2 turn cycles ago + action deltas.
-
-    A turn cycle = one turn per player. So 2 cycles back = 2 * num_players
-    turn numbers back from the current turn.
-    """
-    current_turn = decision.turn
-    lookback = 2 * num_players
-    if not current_turn or current_turn <= lookback:
-        return ""
-
-    ref_turn = current_turn - lookback
-    ref_snap = _snapshot_for_turn(snapshots, ref_turn)
-    if ref_snap is None:
-        return ""
-
-    # Format the reference snapshot using shared renderer display functions
-    players_parts: list[str] = []
-    for p in ref_snap.players:
-        bf = p.battlefield
-        s = f"{p.name}: {p.life}hp"
-        if bf:
-            s += f" bf=[{', '.join(permanent_display(x) for x in bf)}]"
-        gy = p.graveyard
-        if gy:
-            s += f" gy=[{', '.join(card_display(x) for x in gy)}]"
-        players_parts.append(s)
-
-    lines = ["## Prior Context (2 turn cycles ago)\n"]
-    lines.append(f"Board: {' | '.join(players_parts)}")
-
-    # Add action deltas for turns ref_turn through current_turn - 1
-    lines.append("")
-    for t in range(ref_turn, current_turn):
-        turn_actions = actions_by_turn.get(t)
-        if turn_actions is not None:
-            lines.extend(turn_actions)
-
-    return "\n".join(lines)
-
-
-def _format_current_turn_actions(
-    decision: Decision,
-    all_actions: Sequence[Action],
-    cutoff_ts: str | None,
-) -> str:
-    """Format actions from the current turn before this decision.
-
-    Helps the LLM see what happened (or didn't happen) this turn,
-    e.g. whether a land was already played or spells were cast.
-    """
-    current_turn = decision.turn
-    if not current_turn or not cutoff_ts:
-        return ""
-
-    in_current_turn = False
-    lines: list[str] = []
-    for a in all_actions:
-        msg = a.message
-        ts = a.ts
-        if msg is None:
-            continue
-        assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
-        assert isinstance(ts, str) or ts is None, (
-            f"action ts must be a string when present, got {ts!r}"
-        )
-
-        # Track TURN markers to find current turn boundaries
-        m = re.match(r"^TURN (\d+) for", msg)
-        if m:
-            turn_num = int(m.group(1))
-            if turn_num == current_turn:
-                in_current_turn = True
-                continue
-            if turn_num > current_turn:
-                break
-            in_current_turn = False
-            continue
-
-        if not in_current_turn:
-            continue
-
-        # Only actions before the decision was presented
-        if ts and ts >= cutoff_ts:
-            break
-
-        # Skip chat messages — LLM personality flavor adds noise
-        if a.type == "chat":
-            continue
-        msg = html.unescape(msg)
-
-        # Filter noise (same as prior context)
-        if _ACTION_NOISE.search(msg):
-            continue
-
-        if msg:
-            lines.append(msg)
-
-    if not lines:
-        return "## This Turn\n(no actions yet)"
-
-    return "## This Turn\n" + "\n".join(lines)
-
-
-def _game_overview(data: BuiltGameExport | GameExport) -> str:
-    lines = [
-        f"Game: {data.id}",
-        f"Format: {data.deckType} ({data.gameType})",
-    ]
-    for p in data.players:
-        lines.append(f"  {p.name} ({p.model or '?'})")
-        if p.deckStrategy:
-            lines.append(f"    Deck: {p.deckStrategy}")
-    return "\n".join(lines)
 
 
 def _chosen_display(d: Decision) -> str:
@@ -567,139 +152,6 @@ def _chosen_display(d: Decision) -> str:
     Delegates to the canonical renderer helper used by the live prompt path.
     """
     return _renderer_chosen_display(d.chosen, d.chosenArgs, d.choices)
-
-
-def _compute_cost(
-    prices: dict[str, tuple[float, float]],
-    model: str,
-    prompt_tokens: int,
-    completion_tokens: int,
-) -> float:
-    price = get_model_price(model, prices)
-    assert price is not None, f"No pricing found for model {model}"
-    input_price, output_price = price
-    return (prompt_tokens * input_price + completion_tokens * output_price) / 1_000_000
-
-
-def _call_llm(
-    client: OpenAI,
-    model: str,
-    system: str,
-    user: str,
-    retries: int = 3,
-) -> tuple[str, int, int, int]:
-    """Call LLM with retry on server errors.
-
-    Returns (text, prompt_tokens, completion_tokens, cached_tokens).
-    """
-    import time
-
-    for attempt in range(retries + 1):
-        # cache_control is an OpenRouter/Anthropic vendor extension
-        # not in OpenAI's type stubs — typed as Any to bypass
-        system_msg: Any = {
-            "role": "system",
-            "content": [
-                {
-                    "type": "text",
-                    "text": system,
-                    "cache_control": {"type": "ephemeral"},
-                }
-            ],
-        }
-        try:
-            response = client.chat.completions.create(
-                model=model,
-                messages=[
-                    system_msg,
-                    {"role": "user", "content": user},
-                ],
-                max_tokens=16384,
-            )
-        except OpenAIError as e:
-            err_str = str(e)
-            retryable = (
-                "500" in err_str
-                or "502" in err_str
-                or "503" in err_str
-                or "401" in err_str
-            )
-            if attempt < retries and retryable:
-                print(f"    Retrying after error (attempt {attempt + 1})...")
-                time.sleep(2 ** (attempt + 1))
-            else:
-                raise
-        text = response.choices[0].message.content
-        assert text is not None, "LLM returned no content"
-        usage = response.usage
-        assert usage is not None, "API response missing usage data"
-        cached = 0
-        ptd = usage.prompt_tokens_details
-        if ptd is not None and ptd.cached_tokens is not None:
-            cached = ptd.cached_tokens
-        return text, usage.prompt_tokens, usage.completion_tokens, cached
-    raise AssertionError(
-        f"unreachable: loop over {retries + 1} attempts completed without return or raise"
-    )
-
-
-_LLM_REQUIRED_FIELDS = {"severity", "description", "actionTaken", "betterLine"}
-
-
-def _parse_annotation(text: str) -> dict | None:
-    """Parse a JSON annotation (object or null) from LLM response.
-
-    Strips markdown fences if present. Returns None for null/empty responses,
-    or a dict for a blunder annotation.
-    """
-    text = text.strip()
-    # Strip markdown code fences (may appear at start or after analysis text)
-    fence_match = re.search(r"```(?:json)?\s*\n", text)
-    if fence_match:
-        after_fence = text[fence_match.end() :]
-        close = after_fence.find("```")
-        text = after_fence[:close].strip() if close != -1 else after_fence.strip()
-
-    # Check for null-like responses
-    text_lower = text.lower()
-    if text_lower in ("null", "[]", "none"):
-        return None
-
-    # Look for a JSON object — must start with `{"` or `{word:` (not mana like {T}, {1})
-    json_match = re.search(r'\{\s*"|\{\w+\s*:', text)
-    if json_match is None:
-        # No JSON object — if text is analysis concluding "reasonable", treat as null
-        if (
-            "null" in text_lower
-            or "no blunder" in text_lower
-            or "reasonable" in text_lower
-            or "not a blunder" in text_lower
-        ):
-            return None
-        raise AssertionError(
-            f"No JSON found and can't interpret as null:\n{text[:500]}"
-        )
-
-    start = json_match.start()
-    end = text.rfind("}")
-    assert end > start, f"Unmatched braces in response:\n{text[:500]}"
-    json_str = text[start : end + 1]
-
-    try:
-        result = json.loads(json_str)
-    except json.JSONDecodeError:
-        # Fix common LLM JSON errors: unquoted keys
-        fixed = re.sub(r"(?<=\{|,)\s*(\w+)\s*:", r' "\1":', json_str)
-        result = json.loads(fixed)
-
-    if result is None:
-        return None
-    if isinstance(result, list):
-        return result[0] if result else None
-    assert isinstance(result, dict), (
-        f"Expected JSON object or null, got {type(result).__name__}"
-    )
-    return result
 
 
 def _write_annotations(gz_path: str, annotations: list[Annotation]) -> None:
@@ -728,8 +180,6 @@ def _append_blunder_stats(
     total_cost: float,
 ) -> None:
     """Append a run record to blunder-stats.jsonl for internals tracking."""
-    from datetime import datetime
-
     stats_path = REPO_ROOT / "website" / "src" / "data" / "blunder-stats.jsonl"
     record = {
         "gameId": game_id,

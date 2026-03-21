@@ -104,6 +104,8 @@ Pick and solve exactly **one** issue, then create a PR.
    - If your code changes prompt rendering, bridge responses, MCP tool output, replay behavior, or exported game data, proactively search existing goldens for the affected prompt fragment or behavior and regenerate every impacted golden before moving on. Do not assume a newly added golden is the only file that needs updating, and do not wait for CI to discover stale goldens you could have found locally.
 9. Run `make check` to verify lint, typecheck, and tests pass
 
+   - If you need live progress or a concrete failing sub-target, prefer `make check VERBOSE=1` over launching a second blind `make check`. The quiet wrapper can hide long-running child jobs, and overlapping retries leave duplicate Maven/pytest work chewing through the same branch.
+
 10. Delete the issue file (e.g., `rm issues/<issue-filename>.json5`) and **include the deletion in the commit** — the issue removal must ship with the fix
 
     - If you merged `origin/master` after claiming, re-check whether the issue file was renamed (for example to add a priority prefix or `blocked-` prefix) and delete the renamed path that now exists on your branch.
