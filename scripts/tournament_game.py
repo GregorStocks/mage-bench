@@ -20,7 +20,7 @@ from pathlib import Path
 
 from puppeteer.config import (
     Config,
-    _generate_player_name,
+    generate_player_name,
     load_models,
     load_personalities,
 )
@@ -397,7 +397,7 @@ def map_winner_to_seed(
     name_to_seed: dict[str, int] = {}
     for seed in (seed_a, seed_b):
         entrant = entrants_by_seed[seed]
-        name = _generate_player_name(
+        name = generate_player_name(
             entrant["model"], entrant["personality"], models_data, personalities
         )
         name_to_seed[name] = seed

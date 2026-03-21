@@ -229,7 +229,7 @@ def _validate_name_parts(personalities: dict[str, dict], presets_data: dict, mod
         raise ValueError("Invalid name_part combinations:\n  " + "\n  ".join(errors))
 
 
-def _generate_player_name(
+def generate_player_name(
     model_id: str,
     personality_key: str,
     models_data: dict,
@@ -361,7 +361,7 @@ def _resolve_randoms(
         if was_random_personality and not had_explicit_name:
             assert player.model is not None, "Model must be set before name generation"
             assert player.personality is not None, "Personality must be set before name generation"
-            player.name = _generate_player_name(player.model, player.personality, models_data, personalities)
+            player.name = generate_player_name(player.model, player.personality, models_data, personalities)
 
             # Avoid cross-game name collisions in parallel batches.  Two bridge
             # clients with the same XMage username on the same server will
@@ -379,7 +379,7 @@ def _resolve_randoms(
                     chosen_p = random.choice(remaining)
                     used_personalities.add(chosen_p)
                     player.personality = chosen_p
-                    player.name = _generate_player_name(player.model, player.personality, models_data, personalities)
+                    player.name = generate_player_name(player.model, player.personality, models_data, personalities)
 
             # Mark as having a name so _resolve_personality skips the name requirement
             had_explicit_name = True
@@ -413,7 +413,7 @@ def _resolve_personality(
         # Use name_part as a fallback, but it may be too short on its own.
         if player.model:
             # Generate from model + personality
-            player.name = _generate_player_name(player.model, player.personality, models_data, personalities)
+            player.name = generate_player_name(player.model, player.personality, models_data, personalities)
         else:
             # No model set — use name_part directly
             p_part = pdata.get("name_part", player.personality[:7])
@@ -440,6 +440,13 @@ _DECK_TYPE_TO_FORMAT_DIR: dict[str, str] = {
     "Constructed - Standard": "standard",
     "Limited": "jumpstart",
 }
+
+
+def deck_registry_format_dir(deck_type: str, *, source: str) -> str:
+    """Return the deck registry directory for an XMage deck type."""
+    format_dir = _DECK_TYPE_TO_FORMAT_DIR.get(deck_type)
+    assert format_dir, f"Unknown deck type for {source}: {deck_type!r}"
+    return format_dir
 
 
 def load_deck_registry(project_root: Path, format_dir: str) -> list[DeckEntry]:
@@ -784,8 +791,7 @@ class Config:
             return
 
         assert self.deck_type is not None, "deck_type must be set for registry lookup"
-        format_dir = _DECK_TYPE_TO_FORMAT_DIR.get(self.deck_type)
-        assert format_dir, f"Unknown deck type for registry lookup: {self.deck_type!r}"
+        format_dir = deck_registry_format_dir(self.deck_type, source="registry lookup")
         registry = load_deck_registry(project_root, format_dir)
 
         used: set[str] = set()

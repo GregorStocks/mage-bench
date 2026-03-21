@@ -12,10 +12,11 @@ from puppeteer.config import (
     CpuPlayer,
     PilotPlayer,
     SleepwalkerPlayer,
-    _generate_player_name,
     _resolve_personality,
     _resolve_randoms,
     _validate_name_parts,
+    deck_registry_format_dir,
+    generate_player_name,
     load_models,
     load_personalities,
     load_presets,
@@ -571,20 +572,29 @@ def test_validate_name_parts_real_data():
 
 def test_generate_player_name():
     """Name should be '{model_part} {personality_part}'."""
-    name = _generate_player_name("test/model-a", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
+    name = generate_player_name("test/model-a", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
     assert name == "ModA Hero"
 
 
 def test_generate_player_name_requires_known_model():
     """Unknown model IDs should fail fast."""
     with pytest.raises(AssertionError, match="Unknown model"):
-        _generate_player_name("unknown/model", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
+        generate_player_name("unknown/model", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
 
 
 def test_generate_player_name_requires_known_personality():
     """Unknown personalities should fail fast."""
     with pytest.raises(AssertionError, match="Unknown personality"):
-        _generate_player_name("test/model-a", "unknown", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
+        generate_player_name("test/model-a", "unknown", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
+
+
+def test_deck_registry_format_dir():
+    assert deck_registry_format_dir("Constructed - Modern", source="registry") == "modern"
+
+
+def test_deck_registry_format_dir_requires_known_deck_type():
+    with pytest.raises(AssertionError, match="Unknown deck type for registry"):
+        deck_registry_format_dir("unknown", source="registry")
 
 
 def test_resolve_randoms_picks_personality_and_preset():

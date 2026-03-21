@@ -9,7 +9,7 @@ snapshotIndex is retained as-is so downgrades can simply drop decisionIndex.
 Newly written v8 annotations still emit the canonical aftermath snapshotIndex.
 """
 
-from schemas.game_export_types import _coerce_snapshot
+from schemas.game_export_types import require_snapshot
 from scripts.analysis.blunder_eval_common import (
     compute_aftermath_index,
     snapshot_index,
@@ -31,7 +31,7 @@ def _annotation_to_decision_index(data: dict) -> dict[int, int]:
     assert decisions, "v7 -> v8 migration requires decisions[] to be present"
 
     snapshots = [
-        _coerce_snapshot(s, f"snapshots[{i}]") for i, s in enumerate(raw_snapshots)
+        require_snapshot(s, f"snapshots[{i}]") for i, s in enumerate(raw_snapshots)
     ]
     decision_aftermaths: list[int] = [
         compute_aftermath_index(d, snapshots) for d in decisions

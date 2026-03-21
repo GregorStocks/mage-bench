@@ -7,9 +7,9 @@ from pathlib import Path
 from openai import OpenAI
 
 from puppeteer.config import (
-    _DECK_TYPE_TO_FORMAT_DIR,
     DeckEntry,
     PilotPlayer,
+    deck_registry_format_dir,
     generate_dck_file,
     load_deck_registry,
 )
@@ -76,8 +76,7 @@ def _summarize_entry(entry: DeckEntry) -> str:
 
 def list_available_decks(project_root: Path, deck_type: str) -> list[DeckEntry]:
     """Load all decks for the format from the registry. Returns entries sorted by name."""
-    format_dir = _DECK_TYPE_TO_FORMAT_DIR.get(deck_type)
-    assert format_dir, f"Unknown deck type for registry: {deck_type!r}"
+    format_dir = deck_registry_format_dir(deck_type, source="registry")
     entries = load_deck_registry(project_root, format_dir)
     entries.sort(key=lambda e: e.name.lower())
     return entries
