@@ -56,6 +56,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -81,6 +82,7 @@ public class BridgeCallbackHandler {
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
     /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
     private record GameLogSnapshot(List<BridgeLogEntry> events, int cursor) {}
+    private record PendingSelfChatEcho(int eventCursor, String message, String rendered) {}
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -174,6 +176,7 @@ public class BridgeCallbackHandler {
     private final List<String> unseenChat = new ArrayList<>(); // Chat messages from other players not yet shown to LLM
     private volatile boolean playerDead = false; // Set when we see "{name} has lost the game" in chat
     private final List<BridgeChatLogEntry> chatLog = new ArrayList<>(); // Chat messages interleaved with bridge events at render time
+    private final ArrayDeque<PendingSelfChatEcho> pendingSelfChatMessages = new ArrayDeque<>(); // self chat waiting for callback confirmation
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
@@ -768,6 +771,7 @@ public class BridgeCallbackHandler {
         bridgeEventCursor = 0;
         synchronized (chatLog) {
             chatLog.clear();
+            pendingSelfChatMessages.clear();
         }
     }
 
@@ -3183,7 +3187,13 @@ public class BridgeCallbackHandler {
 
     private List<BridgeChatLogEntry> snapshotChatLog() {
         synchronized (chatLog) {
-            return new ArrayList<>(chatLog);
+            List<BridgeChatLogEntry> snapshot = new ArrayList<>(chatLog);
+            for (PendingSelfChatEcho pending : pendingSelfChatMessages) {
+                if (pending.eventCursor() < bridgeEventCursor) {
+                    snapshot.add(new BridgeChatLogEntry(pending.eventCursor(), pending.message(), pending.rendered()));
+                }
+            }
+            return snapshot;
         }
     }
 
@@ -3343,10 +3353,25 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] Suppressing duplicate chat message");
             return null; // Pretend success so the model doesn't retry
         }
+        // Anchor the outgoing chat after the latest known bridge event so later
+        // get_game_log calls interleave it with deterministic event ordering.
+        pullBridgeEvents();
         lastChatMessage = message;
         lastChatTimeMs = now;
         if (!session.sendChatMessage(chatId, message)) {
             return "server rejected the message";
+        }
+        // The TALK callback now shares the processor queue with MCP commands, so a
+        // follow-up get_game_log call can arrive before the callback is dispatched.
+        // Queue the local echo against the current event cursor; render it once the
+        // bridge log has advanced past this point, and treat the later self callback
+        // as confirmation so we don't duplicate it.
+        synchronized (chatLog) {
+            pendingSelfChatMessages.addLast(new PendingSelfChatEcho(
+                bridgeEventCursor,
+                message,
+                "[Chat] " + client.getUsername() + ": " + message
+            ));
         }
         return null;
     }
@@ -4389,12 +4414,31 @@ public class BridgeCallbackHandler {
                 String user = chatMsg.getUsername();
                 String msg = chatMsg.getMessage();
                 if (user != null && msg != null && !msg.isEmpty()) {
-                    // Capture chat for game log rendering (interleaved with bridge events).
-                    // bridgeEventCursor is the best-known event position; it advances when
-                    // pullBridgeEvents() runs. Chat arriving before the first pull gets
-                    // cursor=0, placing it before game events — chronologically correct since
-                    // the chat predates the first event pull.
                     synchronized (chatLog) {
+                        PendingSelfChatEcho confirmedSelfEcho = null;
+                        if (user.equals(client.getUsername())) {
+                            for (PendingSelfChatEcho pending : pendingSelfChatMessages) {
+                                if (pending.message().equals(msg)) {
+                                    confirmedSelfEcho = pending;
+                                    break;
+                                }
+                            }
+                            if (confirmedSelfEcho != null) {
+                                pendingSelfChatMessages.remove(confirmedSelfEcho);
+                                chatLog.add(new BridgeChatLogEntry(
+                                    confirmedSelfEcho.eventCursor(),
+                                    confirmedSelfEcho.message(),
+                                    confirmedSelfEcho.rendered()
+                                ));
+                                logger.debug("[" + client.getUsername() + "] Self chat callback confirmed queued echo");
+                                return;
+                            }
+                        }
+                        // Capture chat for game log rendering (interleaved with bridge events).
+                        // bridgeEventCursor is the best-known event position; it advances when
+                        // pullBridgeEvents() runs. Chat arriving before the first pull gets
+                        // cursor=0, placing it before game events — chronologically correct since
+                        // the chat predates the first event pull.
                         chatLog.add(new BridgeChatLogEntry(bridgeEventCursor, msg, "[Chat] " + user + ": " + msg));
                     }
                     // Buffer chat from other players so pass_priority can surface it
