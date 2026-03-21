@@ -1,5 +1,7 @@
 """Migration: v3 -> v4 (add season and tournament)."""
 
+from puppeteer.harness_epoch import SEASON_1_START_EPOCH
+
 SOURCE_VERSION = 3
 TARGET_VERSION = 4
 
@@ -10,8 +12,6 @@ def compute_season(harness_epoch: int) -> int:
     Season 0: pre-season (harnessEpoch < SEASON_1_START_EPOCH)
     Season 1: everything else
     """
-    from puppeteer.harness_epoch import SEASON_1_START_EPOCH
-
     if harness_epoch < SEASON_1_START_EPOCH:
         return 0
     return 1

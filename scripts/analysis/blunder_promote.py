@@ -8,6 +8,7 @@ Usage:
     uv run --project puppeteer python scripts/analysis/blunder_promote.py [PATH]
 """
 
+import argparse
 import json
 from pathlib import Path
 
@@ -22,8 +23,6 @@ def find_latest_eval() -> Path:
 
 
 def main() -> None:
-    import argparse
-
     parser = argparse.ArgumentParser(description="Promote eval results to baseline")
     parser.add_argument(
         "path", nargs="?", help="Path to eval file (default: most recent)"

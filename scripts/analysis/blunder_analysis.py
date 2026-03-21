@@ -50,10 +50,14 @@ from scripts.analysis.blunder_eval_common import (
     action_result,
     compute_aftermath_index,
     decision_index,
+    game_path_for_id,
     is_cast_rolled_back,
     is_forced,
     is_mana_ability_subdecision,
     load_game_for_annotation,
+    make_seed_entry,
+    merge_into_ground_truth,
+    reverse_map_annotations,
     snapshot_index,
 )
 from scripts.analysis.blunder_llm import (
@@ -64,6 +68,7 @@ from scripts.analysis.blunder_llm import (
 )
 from scripts.analysis.blunder_prompts import PER_DECISION_SYSTEM, TOOL_REFERENCE
 from scripts.analysis.extract_decisions import extract_decisions
+from scripts.generate_leaderboard import generate_all_website_data
 
 # Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -510,12 +515,6 @@ def _auto_ingest_ground_truth(
     snapshots: Sequence[Snapshot],
 ) -> None:
     """Add annotated decisions to ground truth for future eval."""
-    from scripts.analysis.blunder_eval_common import (
-        make_seed_entry,
-        merge_into_ground_truth,
-        reverse_map_annotations,
-    )
-
     mapping = reverse_map_annotations(annotations, decisions)
 
     entries: list[dict] = []
@@ -737,8 +736,6 @@ def resolve_game_path(arg: str) -> str:
       - A file path (e.g. website/public/games/game_xxx.json.gz)
       - A bare game ID (e.g. game_20260225_174042_g2)
     """
-    from scripts.analysis.blunder_eval_common import game_path_for_id
-
     p = Path(arg)
     if p.exists():
         return str(p)
@@ -754,7 +751,5 @@ if __name__ == "__main__":
         )
         sys.exit(1)
     main(resolve_game_path(sys.argv[1]))
-    from scripts.generate_leaderboard import generate_all_website_data
-
     generate_all_website_data()
     print("Website data regenerated", file=sys.stderr)

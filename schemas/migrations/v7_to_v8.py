@@ -9,6 +9,12 @@ snapshotIndex is retained as-is so downgrades can simply drop decisionIndex.
 Newly written v8 annotations still emit the canonical aftermath snapshotIndex.
 """
 
+from schemas.game_export_types import _coerce_snapshot
+from scripts.analysis.blunder_eval_common import (
+    compute_aftermath_index,
+    snapshot_index,
+)
+
 SOURCE_VERSION = 7
 TARGET_VERSION = 8
 
@@ -19,12 +25,6 @@ def _annotation_to_decision_index(data: dict) -> dict[int, int]:
     V7 annotations only have snapshotIndex, so we reverse-map by computing
     aftermath snapshots and matching (snapshotIndex, player).
     """
-    from schemas.game_export_types import _coerce_snapshot
-    from scripts.analysis.blunder_eval_common import (
-        compute_aftermath_index,
-        snapshot_index,
-    )
-
     decisions = data.get("decisions", [])
     annotations = data.get("annotations", [])
     raw_snapshots = data.get("snapshots", [])
