@@ -427,6 +427,29 @@ If review size gets too large, split `E2` again:
   logic, then shrink `BridgeCallbackHandler` to a compatibility shell or remove
   it entirely
 
+#### Current checkpoint after the listener extraction PR
+
+After the listener extraction work lands:
+
+- XMage callback ingress lives under `mage.client.bridge.listener`
+- `BridgeCallbackHandler.handleCallback(...)` is reduced to an immediate
+  delegation into the listener package
+- callback decompression/enqueue error handling is no longer inline in the
+  handler's public callback entrypoint
+- processor-side callback dispatch/apply logic still lives where it was before
+
+That means the bridge now has a visibly separate listener layer, but it still
+does not have a visibly separate MCP layer.
+
+At that point there should be:
+
+- **1 required PR** left for the core processor refactor:
+  extract the MCP-facing query/command surface into `mage.client.bridge.mcp`
+- **1 optional split** of that final PR if review size gets too large:
+  `E2a` read-mostly MCP queries, then `E2b` action commands plus final handler
+  shrink-wrap cleanup
+- **1 optional PR** left for the published read model
+
 ### Step 5: Published Read Model / Append-Only Log
 
 Separate followup.

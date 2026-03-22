@@ -1,5 +1,6 @@
 package mage.client.bridge;
 
+import mage.client.bridge.listener.BridgeCallbackIngress;
 import mage.client.bridge.processor.BridgeActionableCallbackOutcome;
 import mage.client.bridge.processor.BridgeCallbackDispatcher;
 import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
@@ -114,6 +115,7 @@ public class BridgeCallbackHandler {
     private final BridgeOracleTextService oracleTextService;
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
+    private final BridgeCallbackIngress callbackIngress;
     // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
     // while MCP methods still read transitional shared fields until step 3 lands.
     private final BridgeProcessor processor;
@@ -275,6 +277,11 @@ public class BridgeCallbackHandler {
         });
         this.processor = new BridgeProcessor(client.getUsername(), logger, dispatcher::process);
         this.processor.start();
+        this.callbackIngress = new BridgeCallbackIngress(
+            ACTIONABLE_CALLBACKS::contains,
+            processor::enqueueCallback,
+            this::handleCallbackException
+        );
         this.chooseActionFlowManager = new BridgeChooseActionFlowManager(
             processor,
             client.getUsername(),
@@ -3315,17 +3322,7 @@ public class BridgeCallbackHandler {
     }
 
     public void handleCallback(ClientCallback callback) {
-        ClientCallbackMethod method = callback.getMethod();
-        try {
-            callback.decompressData();
-            processor.enqueueCallback(new BridgeCallbackEvent(
-                callback.getObjectId(),
-                method,
-                callback.getData()
-            ));
-        } catch (Exception e) {
-            handleCallbackException(method, e, ACTIONABLE_CALLBACKS.contains(method));
-        }
+        callbackIngress.handleCallback(callback);
     }
 
     private void recordCallbackArrival(ClientCallbackMethod method) {
