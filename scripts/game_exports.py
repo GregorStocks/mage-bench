@@ -10,8 +10,8 @@ from dataclasses import is_dataclass
 from pathlib import Path
 from typing import Any
 
+from magebench.common.json5_utils import dumps_json5, loads_json5
 from schemas.game_export_types import BuiltGameExport, GameExport, json_default
-from scripts.json5_utils import dumps_json5, loads_json5
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"

@@ -3,7 +3,7 @@
 import builtins
 from typing import Any
 
-from scripts.json5_writer import dumps_json5
+from magebench.common.json5_writer import dumps_json5
 
 __all__ = ["dumps_json5", "loads_json5"]
 

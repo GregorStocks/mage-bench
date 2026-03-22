@@ -15,12 +15,12 @@ from unittest.mock import patch
 
 import pytest
 
+from magebench.common.json5_utils import dumps_json5, loads_json5
 from scripts.analysis.blunder_analysis import (
     build_decision_prompt,
     load_game_context,
 )
 from scripts.analysis.blunder_eval_common import decision_index as get_decision_index
-from scripts.json5_utils import dumps_json5, loads_json5
 
 GOLDEN_DIR = Path(__file__).parent / "golden" / "blunder_prompts" / "game_20260216_074122_g2"
 _GAMES_DIR = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"

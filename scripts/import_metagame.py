@@ -16,7 +16,7 @@ import sys
 import time
 from pathlib import Path
 
-from scripts import http_utils
+from magebench.common import http_utils
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent

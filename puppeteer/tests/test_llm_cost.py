@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from magebench.common import http_utils
 from puppeteer.llm_cost import (
     DEFAULT_LLM_PROVIDER,
     fetch_openrouter_prices,
@@ -14,7 +15,6 @@ from puppeteer.llm_cost import (
     required_api_key_env,
     write_cost_file,
 )
-from scripts import http_utils
 
 
 def test_default_provider():

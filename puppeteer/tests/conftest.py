@@ -13,11 +13,11 @@ from pathlib import Path
 import jsonschema
 import pytest
 
+from magebench.common.json5_utils import loads_json5
 from puppeteer.orchestrator import compile_project
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.xml_config import modify_server_config
-from scripts.json5_utils import loads_json5
 from tests.golden_fail_fast import GoldenFailureGate
 from tests.golden_helpers import (
     DECK_GOBLINS,

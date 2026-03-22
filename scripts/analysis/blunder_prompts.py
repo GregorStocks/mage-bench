@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from scripts.json5_utils import loads_json5
+from magebench.common.json5_utils import loads_json5
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 

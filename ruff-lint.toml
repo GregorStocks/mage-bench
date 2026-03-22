@@ -74,5 +74,5 @@ max-line-length = 120
 "scripts/analysis/toolbox/blunder_quality_analysis.py" = ["N806"]  # intentional UPPERCASE local constants
 "scripts/game_exports.py" = ["ANN401"]
 "scripts/import_metagame.py" = ["E501"]
-"scripts/json5_utils.py" = ["ANN401"]
+"src/magebench/common/json5_utils.py" = ["ANN401"]
 "scripts/upload_youtube.py" = ["ANN401"]

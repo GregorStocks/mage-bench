@@ -5,7 +5,7 @@ import json
 import sys
 from typing import Any
 
-from scripts.json5_writer import dumps_json5
+from magebench.common.json5_writer import dumps_json5
 
 
 def format_mcp_tools_json5(raw_json: str) -> str:

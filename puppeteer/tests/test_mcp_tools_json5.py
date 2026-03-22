@@ -5,7 +5,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from scripts.json5_utils import loads_json5
+from magebench.common.json5_utils import loads_json5
 from scripts.mcp_tools_json5 import format_mcp_tools_json5
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -37,11 +37,12 @@ def test_format_mcp_tools_json5_preserves_structure_and_uses_json5() -> None:
 def test_cli_runs_under_system_python_without_site_packages() -> None:
     python3 = shutil.which("python3")
     assert python3 is not None
+    pythonpath = os.pathsep.join(["../src", ".."])
 
     result = subprocess.run(
         [python3, "-S", "-m", "scripts.mcp_tools_json5"],
         cwd=REPO_ROOT / "Mage.Client.Bridge",
-        env={**os.environ, "PYTHONPATH": ".."},
+        env={**os.environ, "PYTHONPATH": pythonpath},
         input='[{"name":"choose_action"}]',
         capture_output=True,
         text=True,

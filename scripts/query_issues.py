@@ -11,7 +11,7 @@ Usage:
 import argparse
 from pathlib import Path
 
-from scripts.issue_files import iter_issue_files, load_issue
+from magebench.common.issue_files import iter_issue_files, load_issue
 
 ISSUES_DIR = Path("issues")
 

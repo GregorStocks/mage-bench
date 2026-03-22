@@ -15,7 +15,7 @@ from typing import ClassVar, Literal, TypeAlias, TypeGuard, TypeVar
 
 from typing_extensions import TypeIs
 
-from scripts.json5_utils import loads_json5
+from magebench.common.json5_utils import loads_json5
 
 JsonObject: TypeAlias = dict[str, object]
 T = TypeVar("T")

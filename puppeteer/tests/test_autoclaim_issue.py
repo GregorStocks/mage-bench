@@ -3,7 +3,7 @@
 import importlib.util
 from pathlib import Path
 
-from scripts.json5_utils import dumps_json5
+from magebench.common.json5_utils import dumps_json5
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
 

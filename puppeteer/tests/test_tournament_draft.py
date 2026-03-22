@@ -18,8 +18,8 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
+from magebench.common.json5_utils import dumps_json5, loads_json5
 from puppeteer.jumpstart import load_jumpstart_themes
-from scripts.json5_utils import dumps_json5, loads_json5
 from scripts.tournament_draft import (
     _fetch_oracle_texts,
     _llm_pick,

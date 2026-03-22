@@ -19,7 +19,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from scripts.issue_files import issue_path, issue_stem, load_issue
+from magebench.common.issue_files import issue_path, issue_stem, load_issue
 
 ISSUES_DIR = Path("issues")
 RACE_SETTLE_SECONDS = 5

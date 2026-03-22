@@ -2,8 +2,8 @@
 
 from pathlib import Path
 
+from magebench.common.json5_utils import dumps_json5
 from scripts.checks.lint_issues import lint_issues
-from scripts.json5_utils import dumps_json5
 
 
 def _make_valid_issue() -> dict:

@@ -140,7 +140,7 @@ list-configs:
 regen-mcp-tools:
 	mvn -q -pl Mage.Client.Bridge -am -DskipTests -Dmaven.build.cache.enabled=false install
 	cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
-		| PYTHONPATH=.. python3 -m scripts.mcp_tools_json5 > ../website/src/data/mcp-tools.json5
+		| PYTHONPATH=../src:.. python3 -m scripts.mcp_tools_json5 > ../website/src/data/mcp-tools.json5
 
 # Launch the desktop client (for image downloads, deck building, etc.)
 .PHONY: run-client
@@ -256,7 +256,7 @@ verify-schema-types: $(WEBSITE_NPM_STAMP)
 verify-mcp-tools:
 	@mvn -q -pl Mage.Client.Bridge -am -DskipTests -Dmaven.build.cache.enabled=false install
 	@cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
-		| PYTHONPATH=.. python3 -m scripts.mcp_tools_json5 \
+		| PYTHONPATH=../src:.. python3 -m scripts.mcp_tools_json5 \
 		| diff --unified - ../website/src/data/mcp-tools.json5 > /tmp/mcp-tools-diff.txt 2>&1 \
 		|| (echo "ERROR: website/src/data/mcp-tools.json5 is out of date. Run 'make regen-mcp-tools' to regenerate." && head -60 /tmp/mcp-tools-diff.txt && exit 1)
 

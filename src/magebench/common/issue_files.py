@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Any
 
-from scripts.json5_utils import loads_json5
+from magebench.common.json5_utils import loads_json5
 
 ISSUE_SUFFIX = ".json5"
 

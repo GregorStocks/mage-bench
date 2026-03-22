@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pyjson5
 
-from scripts.issue_files import iter_issue_files, load_issue
+from magebench.common.issue_files import iter_issue_files, load_issue
 
 REQUIRED_FIELDS = {
     "title",

@@ -7,8 +7,8 @@ helpers for cost estimation and file-based cost reporting.
 import json
 from pathlib import Path
 
+from magebench.common import http_utils
 from puppeteer.log import get_logger
-from scripts import http_utils
 
 logger = get_logger(__name__)
 

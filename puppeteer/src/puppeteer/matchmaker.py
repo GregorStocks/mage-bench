@@ -12,9 +12,9 @@ from collections import defaultdict
 from itertools import combinations
 from pathlib import Path
 
+from magebench.common.json5_utils import loads_json5
 from puppeteer.leaderboard import derive_format
 from puppeteer.log import get_logger
-from scripts.json5_utils import loads_json5
 
 logger = get_logger(__name__)
 

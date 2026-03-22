@@ -13,7 +13,7 @@ import urllib.error
 import urllib.parse
 from pathlib import Path
 
-from scripts import http_utils
+from magebench.common import http_utils
 
 _HEADERS = {
     "User-Agent": "mage-bench/1.0",

@@ -1,10 +1,10 @@
-"""Tests for scripts.json5_utils — JSON5 serialization with multi-line strings."""
+"""Tests for magebench.common.json5_utils JSON5 serialization helpers."""
 
 import builtins
 
 import pytest
 
-from scripts.json5_utils import dumps_json5, loads_json5
+from magebench.common.json5_utils import dumps_json5, loads_json5
 
 
 def test_round_trip_null() -> None:

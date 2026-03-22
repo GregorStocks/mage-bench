@@ -5,8 +5,8 @@ from pathlib import Path
 import pytest
 
 import tests.golden_helpers as golden_helpers
+from magebench.common.json5_utils import dumps_json5, loads_json5
 from schemas.game_export_types import Choice, CombatCreature, Permanent, StackItem, StackTarget
-from scripts.json5_utils import dumps_json5, loads_json5
 from tests.golden_helpers import (
     _canonicalize_golden_names,
     _CapturedPilotRequest,

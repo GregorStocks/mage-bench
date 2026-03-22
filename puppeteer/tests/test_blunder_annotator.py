@@ -7,10 +7,10 @@ from pathlib import Path
 
 import pytest
 
+from magebench.common.json5_utils import loads_json5
 from schemas.game_export_types import Choice, Decision
 from scripts.analysis.extract_decisions import extract_decisions
 from scripts.game_exports import load_raw_game_export
-from scripts.json5_utils import loads_json5
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts" / "analysis"
 

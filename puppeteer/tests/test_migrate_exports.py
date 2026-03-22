@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
+from magebench.common.json5_utils import loads_json5
 from puppeteer.harness_epoch import SEASON_1_START_EPOCH
 from schemas.game_export_types import Action, Choice, MultiAmountItem, PilotContext
 from schemas.migrations import (
@@ -26,7 +27,6 @@ from scripts.game_exports import (
     load_raw_game_export,
     write_raw_game_export,
 )
-from scripts.json5_utils import loads_json5
 from scripts.migrate_exports import find_migration_path
 
 

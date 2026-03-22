@@ -10,9 +10,10 @@ from unittest.mock import MagicMock, call, patch
 
 import pytest
 
+from magebench.common import http_utils
+from magebench.common.json5_utils import dumps_json5
 from schemas.game_export_types import ToolCallEvent
-from scripts import http_utils, scryfall
-from scripts.json5_utils import dumps_json5
+from scripts import scryfall
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
 CLAIM_NS = 946688400000000000
