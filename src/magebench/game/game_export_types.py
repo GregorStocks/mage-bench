@@ -1,6 +1,6 @@
 """Typed helpers for game export JSON.
 
-These types are backed by ``schemas/game-export-v8.schema.json``. Tests keep
+These types are backed by ``src/magebench/game/game-export-v8.schema.json``. Tests keep
 the in-memory Python types aligned with the JSON Schema so callers can load
 validated exports with typed nested payloads instead of raw ``dict[str, object]``
 blobs.

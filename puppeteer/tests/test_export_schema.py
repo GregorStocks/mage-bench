@@ -12,7 +12,7 @@ from pathlib import Path
 import jsonschema
 import pytest
 
-from schemas.game_export_types import (
+from magebench.game.game_export_types import (
     Action,
     Annotation,
     AutoPilotModeEvent,
@@ -53,7 +53,7 @@ from schemas.game_export_types import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-SCHEMA_DIR = REPO_ROOT / "schemas"
+SCHEMA_DIR = REPO_ROOT / "src" / "magebench" / "game"
 
 
 def _load_schema(version: int) -> dict:

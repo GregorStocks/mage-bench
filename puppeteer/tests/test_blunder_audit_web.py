@@ -12,7 +12,7 @@ from urllib.request import Request, urlopen
 import pytest
 
 import scripts.analysis.blunder_audit_web as blunder_audit_web
-from schemas.game_export_types import Permanent, Snapshot, SnapshotPlayer
+from magebench.game.game_export_types import Permanent, Snapshot, SnapshotPlayer
 
 VALID_GAME_ID = "game_20260214_005111_g1"
 

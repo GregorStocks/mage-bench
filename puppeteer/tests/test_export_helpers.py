@@ -6,8 +6,13 @@ from pathlib import Path
 from unittest.mock import patch
 
 from magebench.common.json5_utils import loads_json5
+from magebench.game.game_export_types import (
+    Action,
+    Choice,
+    MultiAmountItem,
+    PilotContext,
+)
 from puppeteer.harness_epoch import SEASON_1_START_EPOCH
-from schemas.game_export_types import Action, Choice, MultiAmountItem, PilotContext
 from scripts.backfill_decisions import backfill_game
 from scripts.export_card_data import _collect_card_names, _trim_card
 from scripts.export_decisions import build_decisions

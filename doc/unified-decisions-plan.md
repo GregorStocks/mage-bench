@@ -215,7 +215,7 @@ No changes needed to Scryfall handling.
 
 | File | Change |
 | ------ | -------- |
-| `schemas/game-export-v8.schema.json` | Add `decisions` array + `Decision` $def |
+| `src/magebench/game/game-export-v8.schema.json` | Add `decisions` array + `Decision` $def |
 | `scripts/export_game.py` | Add `_build_decisions()`. Call from `build_export()` |
 | `doc/export-schema.md` | Update consumers table, describe `decisions` |
 

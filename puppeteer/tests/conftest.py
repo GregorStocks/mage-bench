@@ -462,7 +462,7 @@ def all_games_data() -> Mapping[Path, dict]:
 @pytest.fixture(scope="session")
 def game_export_validator():
     """Per-version game-export JSON Schema validators keyed by version number."""
-    schema_dir = Path(__file__).resolve().parent.parent.parent / "schemas"
+    schema_dir = Path(__file__).resolve().parent.parent.parent / "src" / "magebench" / "game"
     validators = {}
     for path in sorted(schema_dir.glob("game-export-v*.schema.json")):
         schema = json.loads(path.read_text())

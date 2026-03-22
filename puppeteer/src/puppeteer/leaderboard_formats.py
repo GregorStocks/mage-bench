@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-from schemas.game_export_types import BuiltGameExport, GameExport
+from magebench.game.game_export_types import BuiltGameExport, GameExport
 
 _DECK_TYPE_TO_FORMAT: dict[str, str] = {
     "Constructed - Standard": "standard",

@@ -19,7 +19,13 @@ import time
 from collections.abc import Sequence
 from urllib.parse import parse_qs, urlparse
 
-from schemas.game_export_types import Action, Annotation, Decision, GameExport, Snapshot
+from magebench.game.game_export_types import (
+    Action,
+    Annotation,
+    Decision,
+    GameExport,
+    Snapshot,
+)
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,

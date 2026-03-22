@@ -11,6 +11,7 @@ import pytest
 from mcp.types import CallToolResult, TextContent
 from openai import OpenAIError
 
+from magebench.game.game_export_types import Decision, PilotContext
 from puppeteer.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
     MAX_CONSECUTIVE_EMPTY_CHOICES,
@@ -24,7 +25,6 @@ from puppeteer.pilot_bridge import build_pilot_decision, build_pilot_snapshot, e
 from puppeteer.pilot_game_state import extract_oracle_texts_from_board
 from puppeteer.pilot_rendering import _fetch_state_summary, render_for_pilot
 from puppeteer.tool_error import ToolExecutionError
-from schemas.game_export_types import Decision, PilotContext
 
 
 def _make_session() -> MagicMock:

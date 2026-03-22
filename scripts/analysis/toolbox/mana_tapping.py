@@ -16,7 +16,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from schemas.game_export_types import LlmEvent, is_pilot_player
+from magebench.game.game_export_types import LlmEvent, is_pilot_player
 from scripts.analysis.blunder_eval_common import load_game
 
 

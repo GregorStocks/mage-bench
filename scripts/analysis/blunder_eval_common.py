@@ -12,7 +12,7 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-from schemas.game_export_types import (
+from magebench.game.game_export_types import (
     Annotation,
     BuiltGameExport,
     Choice,

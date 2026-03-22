@@ -25,15 +25,15 @@ from zoneinfo import ZoneInfo
 
 from openai import OpenAI, OpenAIError
 
-from puppeteer.decision_renderer import chosen_display, render_decision
-from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
-from schemas.game_export_types import (
+from magebench.game.game_export_types import (
     Action,
     Annotation,
     Decision,
     Snapshot,
     json_default,
 )
+from puppeteer.decision_renderer import chosen_display, render_decision
+from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from scripts.analysis.annotate_game import annotate_game
 from scripts.analysis.blunder_context import (
     actions_by_turn,

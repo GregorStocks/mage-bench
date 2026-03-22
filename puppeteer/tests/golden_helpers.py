@@ -34,6 +34,7 @@ from types import SimpleNamespace
 import psutil
 
 from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.game.game_export_types import Decision, json_default
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
@@ -42,7 +43,6 @@ from puppeteer.pilot_bridge import mcp_tools_to_openai
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
-from schemas.game_export_types import Decision, json_default
 from scripts.analysis.blunder_analysis import build_decision_prompt
 from scripts.analysis.blunder_context import (
     actions_by_turn,

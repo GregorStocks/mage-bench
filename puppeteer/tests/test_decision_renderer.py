@@ -2,6 +2,16 @@
 
 import pytest
 
+from magebench.game.game_export_types import (
+    Choice,
+    Decision,
+    MultiAmountItem,
+    Permanent,
+    PilotContext,
+    Snapshot,
+    StackTarget,
+    require_snapshot,
+)
 from puppeteer.decision_renderer import (
     _batch_attack_display,
     _batch_block_display,
@@ -13,16 +23,6 @@ from puppeteer.decision_renderer import (
     format_choice,
     permanent_display,
     render_decision,
-)
-from schemas.game_export_types import (
-    Choice,
-    Decision,
-    MultiAmountItem,
-    Permanent,
-    PilotContext,
-    Snapshot,
-    StackTarget,
-    require_snapshot,
 )
 
 

@@ -14,7 +14,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from schemas.game_export_types import LlmEvent, ToolCallEvent
+from magebench.game.game_export_types import LlmEvent, ToolCallEvent
 from scripts.analysis.blunder_eval_common import GAMES_DIR, load_game
 from scripts.export_game import LOGS_DIR
 

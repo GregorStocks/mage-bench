@@ -10,7 +10,7 @@ import json
 import sys
 from collections.abc import Sequence
 
-from schemas.game_export_types import (
+from magebench.game.game_export_types import (
     BuiltGameExport,
     CombatGroup,
     Decision,

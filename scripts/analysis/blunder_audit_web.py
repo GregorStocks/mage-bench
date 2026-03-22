@@ -17,7 +17,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from schemas.game_export_types import Action, Decision, GameExport, Snapshot
+from magebench.game.game_export_types import Action, Decision, GameExport, Snapshot
 from scripts.analysis.blunder_audit import get_current_annotation
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,

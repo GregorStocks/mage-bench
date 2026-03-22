@@ -41,7 +41,7 @@ from puppeteer.decision_renderer import (
     chosen_display,
     format_choice,
 )
-from schemas.game_export_types import BuiltGameExport, Decision, GameExport
+from magebench.game.game_export_types import BuiltGameExport, Decision, GameExport
 from scripts.analysis.blunder_context import game_overview
 from scripts.analysis.blunder_eval_common import (
     decision_index,
