@@ -1,4 +1,4 @@
-package mage.client.bridge;
+package mage.client.bridge.mcp;
 
 import mage.client.bridge.processor.BridgeChatLogEntry;
 import mage.client.bridge.tools.GetGameHistoryTool;
@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-final class BridgeGameLogFormatter {
+public final class BridgeGameLogFormatter {
 
     private BridgeGameLogFormatter() {
     }
 
-    static GetGameLogTool.Result buildGameLogResult(
+    public static GetGameLogTool.Result buildGameLogResult(
             int cursor,
             String rendered,
             Integer totalLength,
@@ -35,7 +35,7 @@ final class BridgeGameLogFormatter {
         return result;
     }
 
-    static GetGameHistoryTool.Result buildGameHistoryResult(List<BridgeLogEntry> events, int cursor) {
+    public static GetGameHistoryTool.Result buildGameHistoryResult(List<BridgeLogEntry> events, int cursor) {
         if (events.isEmpty()) {
             var result = new GetGameHistoryTool.Result();
             result.history = "No game events recorded yet.";
@@ -81,7 +81,7 @@ final class BridgeGameLogFormatter {
         return result;
     }
 
-    static String renderGameLogFlat(
+    public static String renderGameLogFlat(
             List<BridgeLogEntry> events,
             List<BridgeChatLogEntry> chatEntries,
             Map<String, Integer> initialTurnCounts,
@@ -154,7 +154,7 @@ final class BridgeGameLogFormatter {
         return sb.toString();
     }
 
-    static String formatPhaseStep(String phase, String step) {
+    public static String formatPhaseStep(String phase, String step) {
         if (phase == null && step == null) {
             return null;
         }
@@ -177,7 +177,7 @@ final class BridgeGameLogFormatter {
         return phase.replace('_', ' ').toLowerCase();
     }
 
-    static String formatBridgeEvent(BridgeLogEntry entry) {
+    public static String formatBridgeEvent(BridgeLogEntry entry) {
         String player = entry.player();
         String card = entry.cardName();
         String target = entry.targetName();

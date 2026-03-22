@@ -1,6 +1,7 @@
 package mage.client.bridge;
 
 import mage.client.bridge.listener.BridgeCallbackIngress;
+import mage.client.bridge.mcp.BridgeMcpQueryApi;
 import mage.client.bridge.processor.BridgeActionableCallbackOutcome;
 import mage.client.bridge.processor.BridgeCallbackDispatcher;
 import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
@@ -9,7 +10,6 @@ import mage.client.bridge.processor.BridgeChooseActionFlow;
 import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
-import mage.client.bridge.processor.BridgeChatLogEntry;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeCursorState;
 import mage.client.bridge.processor.BridgeDecisionState;
@@ -22,7 +22,6 @@ import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
-import mage.game.BridgeLogEntry;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
 import mage.choices.Choice;
@@ -57,7 +56,6 @@ import mage.client.bridge.tools.GetGameHistoryTool;
 import mage.client.bridge.tools.GetGameLogTool;
 import mage.client.bridge.tools.GetGameStateTool;
 import mage.client.bridge.tools.GetOracleTextTool;
-import mage.client.bridge.tools.McpToolRegistry;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -95,8 +93,6 @@ public class BridgeCallbackHandler {
 
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
     private static final int SHUTDOWN_FLOW_DRAIN_MAX_PASSES = 8;
-    /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
-    private record GameLogSnapshot(List<BridgeLogEntry> events, int cursor) {}
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -116,8 +112,7 @@ public class BridgeCallbackHandler {
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
     private final BridgeCallbackIngress callbackIngress;
-    // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
-    // while MCP methods still read transitional shared fields until step 3 lands.
+    private final BridgeMcpQueryApi mcpQueryApi;
     private final BridgeProcessor processor;
     private final BridgeDecisionState decisionState = new BridgeDecisionState();
     private final BridgeGameState gameState = new BridgeGameState();
@@ -281,6 +276,21 @@ public class BridgeCallbackHandler {
             ACTIONABLE_CALLBACKS::contains,
             processor::enqueueCallback,
             this::handleCallbackException
+        );
+        this.mcpQueryApi = new BridgeMcpQueryApi(
+            client.getUsername(),
+            logger,
+            processor,
+            decisionState,
+            gameState,
+            gameLogState,
+            () -> session,
+            () -> deckList,
+            gameStateBuilder::buildPlayersArray,
+            gameStateBuilder::buildCombatGroups,
+            gameView -> buildStackItems(gameView, true, true),
+            this::updateGameStateCursor,
+            oracleTextService::getOracleText
         );
         this.chooseActionFlowManager = new BridgeChooseActionFlowManager(
             processor,
@@ -864,7 +874,7 @@ public class BridgeCallbackHandler {
     }
 
     public boolean isActionPending() {
-        return decisionState.hasPendingAction();
+        return mcpQueryApi.isActionPending();
     }
 
     public Map<String, Object> executeDefaultAction() {
@@ -2668,42 +2678,7 @@ public class BridgeCallbackHandler {
     }
 
     public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
-        GameLogSnapshot snapshot = snapshotGameLog();
-        List<BridgeLogEntry> allEvents = snapshot.events();
-
-        if (cursor != null) {
-            // Incremental: render only events from the cursor onward.
-            // Skip full-log render — total_length is not set for deltas since
-            // it would require an O(history) render just for an informational field.
-            // Exclude chat — cursor-based deltas don't track chat position,
-            // and chat is already surfaced via recent_chat in decision prompts.
-            final int c = cursor;
-            List<BridgeLogEntry> responseEvents = allEvents.stream()
-                    .filter(e -> e.index() >= c)
-                    .toList();
-
-            // Pre-populate turn counts from events before the cursor so turn
-            // headers in the slice use absolute per-player turn numbers.
-            Map<String, Integer> priorTurns = new HashMap<>();
-            for (BridgeLogEntry e : allEvents) {
-                if (e.index() >= c) break;
-                if ("BEGIN_TURN".equals(e.type())) {
-                    priorTurns.merge(e.activePlayer(), 1, Integer::sum);
-                }
-            }
-
-            String rendered = renderGameLogFlat(responseEvents, priorTurns, c, false);
-            GetGameLogTool.Result result = buildGameLogResult(snapshot, rendered, null, maxChars);
-
-            if (!responseEvents.isEmpty() && responseEvents.get(0).index() > cursor) {
-                result.cursor_reset = true;
-            }
-            return result;
-        } else {
-            // Full log: render all events with chat
-            String rendered = renderGameLogFlat(allEvents, Map.of(), 0, true);
-            return buildGameLogResult(snapshot, rendered, rendered.length(), maxChars);
-        }
+        return mcpQueryApi.getGameLogChunk(maxChars, cursor);
     }
 
     /**
@@ -2712,97 +2687,7 @@ public class BridgeCallbackHandler {
      * If player is null, defaults to this client's player name.
      */
     public GetGameLogTool.Result getGameLogSinceTurn(String player, int sinceTurn) {
-        String effectivePlayer = player != null ? player : client.getUsername();
-        GameLogSnapshot snapshot = snapshotGameLog();
-        List<BridgeLogEntry> allEvents = snapshot.events();
-        Map<String, Integer> emptyTurns = Map.of();
-
-        String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0, true);
-
-        // Find the event index where the player's Nth per-player turn starts,
-        // and collect turn counts for all players up to that point so the
-        // rendered slice uses correct absolute turn numbers.
-        Map<String, Integer> priorTurns = new HashMap<>();
-        int startIdx = -1;
-        for (int i = 0; i < allEvents.size(); i++) {
-            BridgeLogEntry e = allEvents.get(i);
-            if ("BEGIN_TURN".equals(e.type())) {
-                int count = priorTurns.merge(e.activePlayer(), 1, Integer::sum);
-                if (effectivePlayer.equals(e.activePlayer()) && count == sinceTurn) {
-                    // Found the target turn — priorTurns already includes this turn's
-                    // count, but renderGameLogFlat will re-count this BEGIN_TURN event,
-                    // so subtract 1 to avoid double-counting.
-                    priorTurns.merge(effectivePlayer, -1, Integer::sum);
-                    startIdx = i;
-                    break;
-                }
-            }
-        }
-
-        if (startIdx >= 0) {
-            List<BridgeLogEntry> subset = allEvents.subList(startIdx, allEvents.size());
-            int minChatCursor = allEvents.get(startIdx).index();
-            GetGameLogTool.Result result = buildGameLogResult(
-                    snapshot,
-                    renderGameLogFlat(subset, priorTurns, minChatCursor, true),
-                    allRendered.length(),
-                    null
-            );
-            result.truncated = false;
-            result.since_turn = sinceTurn;
-            result.since_player = effectivePlayer;
-            return result;
-        } else {
-            // Count total per-player turns to distinguish "trimmed" vs "hasn't happened"
-            int totalPlayerTurns = priorTurns.getOrDefault(effectivePlayer, 0);
-            if (totalPlayerTurns > 0 && sinceTurn <= totalPlayerTurns) {
-                GetGameLogTool.Result result = buildGameLogResult(snapshot, allRendered, allRendered.length(), null);
-                result.truncated = true;
-                result.since_player = effectivePlayer;
-                return result;
-            } else {
-                GetGameLogTool.Result result = buildGameLogResult(snapshot, "", allRendered.length(), null);
-                result.truncated = false;
-                return result;
-            }
-        }
-    }
-
-    private GameLogSnapshot snapshotGameLog() {
-        pullBridgeEvents();
-        List<BridgeLogEntry> allEvents = gameLogState.snapshotBridgeEvents();
-        // TODO(bridge-processor): Replace this handler-side snapshot/cursor
-        // reconstruction with reads from a processor-owned published log that
-        // already carries local monotonic sequence numbers.
-        return new GameLogSnapshot(allEvents, nextBridgeEventCursor(allEvents));
-    }
-
-    private List<BridgeChatLogEntry> snapshotChatLog() {
-        return gameLogState.snapshotChatLog();
-    }
-
-    private static int nextBridgeEventCursor(List<BridgeLogEntry> events) {
-        return events.isEmpty() ? 0 : events.get(events.size() - 1).index() + 1;
-    }
-
-    private static GetGameLogTool.Result buildGameLogResult(
-            GameLogSnapshot snapshot,
-            String rendered,
-            Integer totalLength,
-            Integer maxChars) {
-        return BridgeGameLogFormatter.buildGameLogResult(snapshot.cursor(), rendered, totalLength, maxChars);
-    }
-
-    /**
-     * Pull new bridge events from the server since our last cursor.
-     * Returns the list of new events and advances the cursor.
-     */
-    private List<BridgeLogEntry> pullBridgeEvents() {
-        UUID gameId = gameState.currentGameId();
-        if (gameId == null) return List.of();
-        UUID playerId = playerIdForGame(gameId);
-        if (playerId == null) return List.of();
-        return gameLogState.pullBridgeEvents(session, gameId, playerId, logger, client.getUsername());
+        return mcpQueryApi.getGameLogSinceTurn(player, sinceTurn);
     }
 
     /**
@@ -2816,74 +2701,7 @@ public class BridgeCallbackHandler {
      *         "event_count" (number of events included)
      */
     public GetGameHistoryTool.Result getGameHistory(Integer sinceTurn, Integer sinceCursor) {
-        // Fetch events directly from the server without going through pullBridgeEvents,
-        // which would pollute cachedBridgeEvents with out-of-order entries when sinceCursor
-        // rewinds the fetch window (e.g. sinceCursor=0 after a prior pull from cursor=50).
-        int effectiveCursor = (sinceCursor != null) ? sinceCursor : 0;
-        List<BridgeLogEntry> events = List.of();
-        int newCursor = effectiveCursor;
-        UUID gameId = gameState.currentGameId();
-        UUID playerId = gameId != null ? playerIdForGame(gameId) : null;
-        if (gameId != null && playerId != null) {
-            try {
-                List<BridgeLogEntry> fetched = session.getBridgeEvents(gameId, playerId, effectiveCursor);
-                if (fetched != null && !fetched.isEmpty()) {
-                    events = fetched;
-                    newCursor = fetched.get(fetched.size() - 1).index() + 1;
-                    // History reads may populate the fallback cache, but they must
-                    // not advance the live pull cursor used by pullBridgeEvents().
-                    gameLogState.cacheHistoryEvents(fetched);
-                }
-            } catch (Exception e) {
-                logger.error("[" + client.getUsername() + "] Failed to fetch bridge events for history", e);
-            }
-        }
-
-        // If the server returned nothing (game ended, controller cleaned up),
-        // fall back to cached events from earlier pulls.
-        List<BridgeLogEntry> cachedEvents = gameLogState.snapshotBridgeEvents();
-        if (events.isEmpty() && !cachedEvents.isEmpty()) {
-            if (sinceCursor != null) {
-                events = gameLogState.cachedBridgeEventsSince(sinceCursor);
-            } else {
-                events = cachedEvents;
-            }
-            newCursor = nextBridgeEventCursor(cachedEvents);
-        }
-
-        // Filter by sinceTurn if specified
-        if (sinceTurn != null) {
-            events = events.stream()
-                    .filter(e -> e.turn() >= sinceTurn)
-                    .toList();
-        }
-        return BridgeGameLogFormatter.buildGameHistoryResult(events, newCursor);
-    }
-
-    /**
-     * Render bridge events as flat text with per-player turn headers, interleaved
-     * with chat messages captured during gameplay. Used by GetGameLogTool.
-     * Distinct from getGameHistory() which uses phase sub-headers and global turn numbers.
-     *
-     * @param events the bridge events to render
-     * @param initialTurnCounts pre-populated per-player turn counts (for rendering slices
-     *        with correct absolute turn numbers); empty map starts from turn 1
-     * @param minChatCursor only include chat entries with eventCursor >= this value
-     *        (prevents replaying old chat on incremental cursor-based calls)
-     * @param includeChat whether to interleave chat messages; false for cursor-based
-     *        deltas where chat is already surfaced via recent_chat in decisions
-     */
-    private String renderGameLogFlat(List<BridgeLogEntry> events,
-                                     Map<String, Integer> initialTurnCounts,
-                                     int minChatCursor,
-                                     boolean includeChat) {
-        return BridgeGameLogFormatter.renderGameLogFlat(
-            events,
-            snapshotChatLog(),
-            initialTurnCounts,
-            minChatCursor,
-            includeChat
-        );
+        return mcpQueryApi.getGameHistory(sinceTurn, sinceCursor);
     }
 
     /**
@@ -3124,75 +2942,11 @@ public class BridgeCallbackHandler {
 
 
     public GetGameStateTool.Result getGameState(Long cursor) {
-        return processor.submit(BridgeCommand.of(() -> getGameStateWithCursorImpl(cursor)));
-    }
-
-    private GetGameStateTool.Result getGameStateWithCursorImpl(Long cursor) {
-        GetGameStateTool.Result fullState = getGameState();
-        if (!Boolean.TRUE.equals(fullState.available)) {
-            return fullState;
-        }
-        long currentCursor = updateGameStateCursor(McpToolRegistry.resultToMap(fullState));
-        if (cursor != null && cursor.longValue() == currentCursor) {
-            var unchanged = new GetGameStateTool.Result();
-            unchanged.available = true;
-            unchanged.unchanged = true;
-            unchanged.cursor = currentCursor;
-            return unchanged;
-        }
-        fullState.cursor = currentCursor;
-        return fullState;
+        return mcpQueryApi.getGameState(cursor);
     }
 
     public GetGameStateTool.Result getGameState() {
-        return processor.submit(BridgeCommand.of(this::getGameStateImpl));
-    }
-
-    private GetGameStateTool.Result getGameStateImpl() {
-        var state = new GetGameStateTool.Result();
-        GameView gameView = gameState.lastGameView();
-        if (gameView == null) {
-            state.available = false;
-            state.error = "No game state available yet";
-            return state;
-        }
-
-        state.available = true;
-        state.game_seq = gameView.getGameSeq();
-        // Determinism debugging: log what game_seq getGameState returns
-        {
-            String step = gameView.getStep() != null ? gameView.getStep().toString() : "null";
-            logger.debug("[" + client.getUsername() + "] getGameState returning game_seq="
-                + gameView.getGameSeq() + " step=" + step
-                + " thread=" + Thread.currentThread().getName());
-        }
-        state.turn = gameState.updateRound(gameView);
-
-        // Phase info
-        if (gameView.getPhase() != null) {
-            state.phase = gameView.getPhase().toString();
-        }
-        if (gameView.getStep() != null) {
-            state.step = gameView.getStep().toString();
-        }
-
-        state.active_player = gameView.getActivePlayerName();
-        state.priority_player = gameView.getPriorityPlayerName();
-
-        // Players
-        state.players = buildPlayersArray(gameView);
-
-        // Stack
-        List<Map<String, Object>> stack = buildStackItems(gameView, true, true);
-        state.stack = stack;
-
-        // Combat
-        List<Map<String, Object>> combatGroups = buildCombatGroups(gameView);
-        if (combatGroups != null) {
-            state.combat = combatGroups;
-        }
-
-        return state;
+        return mcpQueryApi.getGameState();
     }
 
     /**
@@ -3223,30 +2977,7 @@ public class BridgeCallbackHandler {
     }
 
     public Map<String, Object> getMyDecklist() {
-        var result = new HashMap<String, Object>();
-        DeckCardLists deck = this.deckList;
-        if (deck == null) {
-            result.put("error", "No deck loaded");
-            return result;
-        }
-
-        var cards = new StringBuilder();
-        for (DeckCardInfo card : deck.getCards()) {
-            if (cards.length() > 0) cards.append("\n");
-            cards.append(card.getAmount()).append("x ").append(card.getCardName());
-        }
-        result.put("cards", cards.toString());
-
-        if (!deck.getSideboard().isEmpty()) {
-            var sb = new StringBuilder();
-            for (DeckCardInfo card : deck.getSideboard()) {
-                if (sb.length() > 0) sb.append("\n");
-                sb.append(card.getAmount()).append("x ").append(card.getCardName());
-            }
-            result.put("sideboard", sb.toString());
-        }
-
-        return result;
+        return mcpQueryApi.getMyDecklist();
     }
 
     /**
@@ -3271,7 +3002,7 @@ public class BridgeCallbackHandler {
     }
 
     public GetOracleTextTool.Result getOracleText(String cardName, String objectId, String[] cardNames, String[] objectIds) {
-        return oracleTextService.getOracleText(cardName, objectId, cardNames, objectIds);
+        return mcpQueryApi.getOracleText(cardName, objectId, cardNames, objectIds);
     }
 
     private String getStableShortId(UUID objectId, CardView cardView) {
