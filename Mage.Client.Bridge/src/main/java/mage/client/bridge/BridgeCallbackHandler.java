@@ -88,6 +88,7 @@ import java.util.regex.Pattern;
 public class BridgeCallbackHandler {
 
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
+    private static final int SHUTDOWN_FLOW_DRAIN_MAX_PASSES = 8;
     /** Snapshot of the cached bridge-event log plus the next cursor to hand back to callers. */
     private record GameLogSnapshot(List<BridgeLogEntry> events, int cursor) {}
 
@@ -2737,7 +2738,21 @@ public class BridgeCallbackHandler {
     private void advancePendingFlowsBeforeShutdown() {
         try {
             processor.submit(BridgeCommand.of(() -> {
-                advancePendingFlows();
+                for (int pass = 0; pass < SHUTDOWN_FLOW_DRAIN_MAX_PASSES; pass++) {
+                    BridgeChooseActionFlow chooseActionBefore = decisionState.pendingChooseActionFlow();
+                    BridgePassPriorityFlow passPriorityBefore = decisionState.pendingPassPriorityFlow();
+                    PendingAction pendingActionBefore = decisionState.pendingAction();
+                    advancePendingFlows();
+                    if (decisionState.pendingChooseActionFlow() == null
+                            && decisionState.pendingPassPriorityFlow() == null) {
+                        return null;
+                    }
+                    if (decisionState.pendingChooseActionFlow() == chooseActionBefore
+                            && decisionState.pendingPassPriorityFlow() == passPriorityBefore
+                            && decisionState.pendingAction() == pendingActionBefore) {
+                        return null;
+                    }
+                }
                 return null;
             }));
         } catch (IllegalStateException ignored) {

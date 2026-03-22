@@ -1322,6 +1322,110 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void chooseActionReturnsAfterClientStopWithBatchTargetCallbackPending() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID blockerUuid = UUID.randomUUID();
+        UUID attackerUuid = UUID.randomUUID();
+        CountDownLatch targetCallbackQueued = new CountDownLatch(1);
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView combatView = gameView(56);
+        GameView targetView = gameView(57);
+
+        registerShortId(handler, blockerUuid, "p5");
+        registerShortId(handler, attackerUuid, "p1");
+
+        var combatOptions = new LinkedHashMap<String, Serializable>();
+        combatOptions.put("possibleBlockers", new ArrayList<>(List.of(blockerUuid)));
+        GameClientMessage combatMessage = new GameClientMessage(combatView, combatOptions, "Declare blockers");
+        GameClientMessage targetMessage = new GameClientMessage(
+            targetView,
+            Collections.<String, Serializable>emptyMap(),
+            "Choose attacker to block",
+            new CardsView(),
+            Set.of(attackerUuid),
+            true
+        );
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerUUID" -> {
+                        sendPlayerUuidCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        if (sendPlayerUuidCalls.get() == 1) {
+                            assertThat(args[1]).isEqualTo(blockerUuid);
+                            enqueueCallback(handler, ClientCallbackMethod.GAME_TARGET, gameId, targetMessage);
+                            targetCallbackQueued.countDown();
+                        } else {
+                            assertThat(sendPlayerUuidCalls.get()).isEqualTo(2);
+                            assertThat(args[1]).isEqualTo(attackerUuid);
+                        }
+                        return true;
+                    }
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", combatView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            combatMessage,
+            "Declare blockers",
+            56
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ChooseActionTool.Result> future = executor.submit(() -> handler.chooseAction(
+                null, null, null, null, null, null, null, null, null, null, new String[]{"p5:p1"}
+            ));
+
+            assertThat(targetCallbackQueued.await(1, TimeUnit.SECONDS)).isTrue();
+            BridgeDecisionState decisionState = (BridgeDecisionState) getField(handler, "decisionState");
+            long deadlineNanos = System.nanoTime() + TimeUnit.SECONDS.toNanos(1);
+            while (System.nanoTime() < deadlineNanos) {
+                PendingAction pendingAction = decisionState.pendingAction();
+                if (pendingAction != null && pendingAction.method() == ClientCallbackMethod.GAME_TARGET) {
+                    break;
+                }
+                Thread.sleep(10);
+            }
+
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            client.stop();
+
+            ChooseActionTool.Result result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerUuidCalls.get()).isEqualTo(2);
+            assertThat(sendPlayerBooleanCalls.get()).isZero();
+            assertThat(result.success).isFalse();
+            assertThat(result.interrupted).isTrue();
+            assertThat(result.action_taken).isEqualTo("batch_block");
+            assertThat(result.declared).containsExactly(Map.of("id", "p5", "blocks", "p1"));
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
     void chooseActionReturnsCancelledResultWhenCallerThreadIsInterrupted() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
