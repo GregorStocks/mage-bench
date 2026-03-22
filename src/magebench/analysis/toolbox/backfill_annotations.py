@@ -5,8 +5,8 @@ Finds the most recent N games that need (re-)annotation and runs blunder_analysi
 on each one sequentially.
 
 Usage:
-    uv run --project puppeteer python scripts/analysis/toolbox/backfill_annotations.py [N]
-    uv run --project puppeteer python scripts/analysis/toolbox/backfill_annotations.py --game GAME_ID
+    uv run python -m magebench.analysis.toolbox.backfill_annotations [N]
+    uv run python -m magebench.analysis.toolbox.backfill_annotations --game GAME_ID
 
 N defaults to 10. Games are processed most-recent-first.
 With --game, re-annotates a specific game regardless of its current version.

@@ -6,7 +6,7 @@ and whether errors were followed by a successful retry. Designed to identify
 which error messages are least helpful to LLMs so we can improve them.
 
 Usage:
-    uv run python scripts/analysis/toolbox/mcp_errors.py <game.json.gz | directory>
+    uv run python -m magebench.analysis.toolbox.mcp_errors <game.json.gz | directory>
 """
 
 import json

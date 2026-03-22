@@ -13,7 +13,7 @@ from magebench.analysis.blunder.blunder_context import (
 from magebench.analysis.blunder.blunder_eval_common import load_game
 from magebench.analysis.blunder.extract_decisions import extract_decisions
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"
 
 # Pick a game with enough turns
