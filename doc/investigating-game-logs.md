@@ -154,6 +154,21 @@ grep "no auto source available" "$GAME_DIR"/*_pilot.log
 jq -r 'select(.method=="GAME_UPDATE" or .method=="GAME_UPDATE_AND_INFORM") | "\(.ts) \(.data)"' "$GAME_DIR"/*_bridge.jsonl | grep -A1 "GAME_PLAY_MANA"
 ```
 
+## Oracle lookup failures
+
+```bash
+# Find broken name-based oracle lookups and malformed mixed-mode requests
+rg -n 'Card not found in database|Provide exactly one of: card_name, object_id, card_names, or object_ids' "$GAME_DIR"/*_llm.jsonl
+```
+
+If ordinary card names fail (`Locthwain Gargoyle`, `Walking Ballista`, etc.)
+but later `get_oracle_text(object_id="pN")` succeeds on the same board,
+localize the bug to
+`Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeOracleTextService.java`
+and the `CardRepository.findCard(name)` path it uses. Also check whether the
+bridge startup path in `BridgeClient.java` skipped bulk card scanning and is
+relying on lazy repository loads.
+
 ## Short ID crashes and remapping
 
 ```bash
