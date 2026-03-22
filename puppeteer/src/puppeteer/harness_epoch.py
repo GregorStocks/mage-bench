@@ -9,6 +9,8 @@ tracking. The leaderboard and matchmaker filter by the season field, not by
 epoch directly.
 """
 
+from magebench.game.season import SEASON_1_START_EPOCH as GAME_EXPORT_SEASON_1_START_EPOCH
+
 # Current harness epoch. Bump when MCP tools, pilot logic, or priority
 # semantics change enough to make game results non-comparable.
 #
@@ -74,10 +76,9 @@ epoch directly.
 #  --- Golden exports updated: dataclass serialization includes null optional fields (Mar 17)
 HARNESS_EPOCH = 56
 
-# First epoch that counts as season 1. Used only for games that predate
-# run-time season tracking (no "season" in game_meta.json). Export and
-# schema migrations use this to assign season 0 vs 1 for old games.
-SEASON_1_START_EPOCH = 11
+# Re-exported here so existing callers keep a stable import path while the
+# canonical season boundary now lives with the export pipeline.
+SEASON_1_START_EPOCH = GAME_EXPORT_SEASON_1_START_EPOCH
 
 # Minimum blunder analysis version for "acceptable" annotations. Games
 # analyzed below this show an "(older analysis)" tag on the website.

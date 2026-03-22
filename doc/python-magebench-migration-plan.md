@@ -26,6 +26,9 @@ Python roots.
 - Avoid long-lived import alias shims. During the migration it is fine for old
   and new roots to coexist, but each moved module should end with exactly one
   canonical implementation.
+- If a step temporarily needs a compatibility wrapper or import shim, mark it
+  clearly as temporary and delete it by Step 12. No old-root shim should
+  survive the end of this plan.
 - Keep the repo green after each step.
 
 ## Dependency Tracking
@@ -172,4 +175,6 @@ Scope:
 - replace legacy command entrypoints with thin `magebench.cli` wrappers
 - update Makefile commands, docs, and local workflows to the final paths
 - delete `scripts/`, `schemas/`, and `puppeteer/src/puppeteer/`
+- delete any remaining transitional compatibility wrappers or import shims from
+  earlier migration steps
 - remove stale packaging/workspace references to the old roots

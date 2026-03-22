@@ -13,8 +13,8 @@ import pytest
 from magebench.common import http_utils
 from magebench.common.json5_utils import dumps_json5
 from magebench.common.local_claims import ClaimConflictError, ClaimRecord
+from magebench.game import scryfall
 from magebench.game.game_export_types import ToolCallEvent
-from scripts import scryfall
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
 

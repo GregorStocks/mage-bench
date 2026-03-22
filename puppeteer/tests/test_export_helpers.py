@@ -6,22 +6,22 @@ from pathlib import Path
 from unittest.mock import patch
 
 from magebench.common.json5_utils import loads_json5
+from magebench.game.export_card_data import _collect_card_names, _trim_card
+from magebench.game.export_decisions import build_decisions
+from magebench.game.export_game import _compute_season
 from magebench.game.game_export_types import (
     Action,
     Choice,
     MultiAmountItem,
     PilotContext,
 )
-from puppeteer.harness_epoch import SEASON_1_START_EPOCH
-from scripts.backfill_decisions import backfill_game
-from scripts.export_card_data import _collect_card_names, _trim_card
-from scripts.export_decisions import build_decisions
-from scripts.export_game import _compute_season
-from scripts.game_exports import (
+from magebench.game.game_exports import (
     glob_game_export_paths,
     load_raw_game_export,
     write_raw_game_export,
 )
+from puppeteer.harness_epoch import SEASON_1_START_EPOCH
+from scripts.backfill_decisions import backfill_game
 
 
 def _make_stub_export(game_id: str = "game_20260301_120000") -> dict:
@@ -372,7 +372,7 @@ def test_write_raw_game_export_switches_to_json_and_removes_gz(tmp_path: Path) -
     json_path = tmp_path / "game_small.json5"
     gz_path.write_bytes(b"stale")
 
-    with patch("scripts.game_exports.GAME_EXPORT_GZ_THRESHOLD", 10_000):
+    with patch("magebench.game.game_exports.GAME_EXPORT_GZ_THRESHOLD", 10_000):
         out_path = write_raw_game_export(gz_path, payload)
 
     assert out_path == json_path
@@ -387,7 +387,7 @@ def test_write_raw_game_export_switches_to_gz_and_removes_json(tmp_path: Path) -
     gz_path = tmp_path / "game_large.json5.gz"
     json_path.write_text("stale")
 
-    with patch("scripts.game_exports.GAME_EXPORT_GZ_THRESHOLD", 1):
+    with patch("magebench.game.game_exports.GAME_EXPORT_GZ_THRESHOLD", 1):
         out_path = write_raw_game_export(json_path, payload)
 
     assert out_path == gz_path

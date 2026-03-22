@@ -8,8 +8,8 @@ from unittest.mock import patch
 import pytest
 
 from magebench.common.json5_utils import loads_json5
+from magebench.game.export_game import GameExportError, export_game
 from puppeteer.post_game_analysis import save_youtube_url, update_website_youtube_url, upload_and_export
-from scripts.export_game import GameExportError, export_game
 from scripts.upload_youtube import (
     YouTubeUploadError,
     _build_description,
@@ -189,7 +189,7 @@ def test_export_game_wraps_operational_errors():
 
         with (
             patch(
-                "scripts.export_game.build_export",
+                "magebench.game.export_game.build_export",
                 side_effect=AssertionError("missing game_type"),
             ),
             pytest.raises(GameExportError, match="missing game_type"),
