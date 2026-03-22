@@ -117,6 +117,12 @@ public final class BridgeGameLogState {
         }
     }
 
+    public int bridgeEventCursor() {
+        synchronized (stateLock) {
+            return bridgeEventCursor;
+        }
+    }
+
     public List<BridgeLogEntry> pullBridgeEvents(
             Session session,
             UUID gameId,
@@ -142,7 +148,7 @@ public final class BridgeGameLogState {
             return;
         }
         synchronized (stateLock) {
-            bridgeEventCursor = events.get(events.size() - 1).index() + 1;
+            bridgeEventCursor = Math.max(bridgeEventCursor, events.get(events.size() - 1).index() + 1);
             mergeBridgeEventsIntoCache(events);
         }
     }

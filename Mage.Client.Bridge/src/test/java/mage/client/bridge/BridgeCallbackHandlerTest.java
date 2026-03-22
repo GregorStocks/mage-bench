@@ -733,6 +733,48 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void getGameHistoryFetchDoesNotBlockProcessorThread() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        CountDownLatch fetchStarted = new CountDownLatch(1);
+        CountDownLatch releaseFetch = new CountDownLatch(1);
+
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("getBridgeEvents".equals(method.getName())) {
+                    fetchStarted.countDown();
+                    assertThat(releaseFetch.await(1, TimeUnit.SECONDS)).isTrue();
+                    return List.of();
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+
+        addActiveGame(handler, gameId, playerId);
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        try {
+            Future<?> historyFuture = executor.submit(() -> handler.getGameHistory(null, null));
+            assertThat(fetchStarted.await(1, TimeUnit.SECONDS)).isTrue();
+
+            Future<Void> processorFuture = executor.submit(() -> processor.submit(BridgeCommand.of(() -> null)));
+            processorFuture.get(1, TimeUnit.SECONDS);
+
+            releaseFetch.countDown();
+            historyFuture.get(1, TimeUnit.SECONDS);
+        } finally {
+            releaseFetch.countDown();
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
     void endGameInfoCleansUpWhenGameOverMissed() throws Exception {
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
@@ -2220,6 +2262,39 @@ class BridgeCallbackHandlerTest {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.SECONDS);
         }
+    }
+
+    @Test
+    void failedProcessorCommandStillPublishesUpdatedActionPendingSnapshot() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getDirectField(handler, "decisionState");
+        UUID gameId = UUID.randomUUID();
+        PendingAction pendingAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        );
+
+        processor.submit(BridgeCommand.of(() -> {
+            decisionState.replacePendingAction(pendingAction);
+            return null;
+        }));
+        assertThat(handler.isActionPending()).isTrue();
+
+        assertThatThrownBy(() -> processor.submit(new BridgeCommand<Void>() {
+            @Override
+            public Void execute() {
+                decisionState.clearPendingActionIfCurrent(pendingAction);
+                throw new IllegalStateException("boom");
+            }
+        })).isInstanceOf(IllegalStateException.class)
+            .hasMessage("boom");
+
+        assertThat(handler.isActionPending()).isFalse();
     }
 
     @Test

@@ -101,12 +101,28 @@ public final class BridgeProcessor {
     }
 
     private <T> void executeCommand(BridgeCommand<T> command) {
+        T value = null;
+        Throwable failure = null;
         try {
-            T value = command.execute();
-            afterMessageHook.run();
-            command.complete(value);
+            value = command.execute();
         } catch (Throwable t) {
-            command.completeExceptionally(t);
+            failure = t;
+        }
+
+        try {
+            afterMessageHook.run();
+        } catch (Throwable hookFailure) {
+            if (failure == null) {
+                failure = hookFailure;
+            } else {
+                failure.addSuppressed(hookFailure);
+            }
+        }
+
+        if (failure == null) {
+            command.complete(value);
+        } else {
+            command.completeExceptionally(failure);
         }
     }
 }

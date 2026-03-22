@@ -30,6 +30,9 @@ import java.util.function.Supplier;
 import java.util.function.ToLongFunction;
 
 public final class BridgeMcpQueryApi {
+    private record BridgeEventFetchRequest(long generation, java.util.UUID gameId, java.util.UUID playerId, int cursor) {
+    }
+
     private final String username;
     private final Logger logger;
     private final BridgeProcessor processor;
@@ -241,10 +244,7 @@ public final class BridgeMcpQueryApi {
     }
 
     private void refreshLiveBridgeEvents() {
-        processor.submit(BridgeCommand.of(() -> {
-            pullBridgeEventsOnProcessor();
-            return null;
-        }));
+        fetchAndMergeBridgeEvents(processor.submit(BridgeCommand.of(this::liveBridgeEventFetchRequest)), true);
     }
 
     private String renderGameLogFlat(
@@ -336,55 +336,83 @@ public final class BridgeMcpQueryApi {
     }
 
     private void refreshHistoryCache(int effectiveCursor) {
-        processor.submit(BridgeCommand.of(() -> {
-            cacheHistoryEventsOnProcessor(effectiveCursor);
-            return null;
-        }));
-    }
-
-    private void cacheHistoryEventsOnProcessor(int effectiveCursor) {
-        var gameId = gameState.currentGameId();
-        if (gameId == null) {
-            return;
-        }
-        Session session = sessionSupplier.get();
-        if (session == null) {
-            return;
-        }
-        var playerId = gameState.playerIdForGame(gameId);
-        if (playerId == null) {
-            return;
-        }
-        try {
-            List<BridgeLogEntry> fetched = session.getBridgeEvents(gameId, playerId, effectiveCursor);
-            if (fetched != null && !fetched.isEmpty()) {
-                gameLogState.cacheHistoryEvents(fetched);
-            }
-        } catch (Exception e) {
-            logger.error("[" + username + "] Failed to fetch bridge events for history", e);
-        }
-    }
-
-    private void pullBridgeEventsOnProcessor() {
-        var gameId = gameState.currentGameId();
-        if (gameId == null) {
-            return;
-        }
-        Session session = sessionSupplier.get();
-        if (session == null) {
-            return;
-        }
-        var playerId = gameState.playerIdForGame(gameId);
-        if (playerId == null) {
-            return;
-        }
-        gameLogState.pullBridgeEvents(
-            session,
-            gameId,
-            playerId,
-            logger,
-            username
+        fetchAndMergeBridgeEvents(
+            processor.submit(BridgeCommand.of(() -> historyBridgeEventFetchRequest(effectiveCursor))),
+            false
         );
+    }
+
+    private BridgeEventFetchRequest historyBridgeEventFetchRequest(int effectiveCursor) {
+        var gameId = gameState.currentGameId();
+        if (gameId == null) {
+            return null;
+        }
+        var playerId = gameState.playerIdForGame(gameId);
+        if (playerId == null) {
+            return null;
+        }
+        return new BridgeEventFetchRequest(gameState.generation(), gameId, playerId, effectiveCursor);
+    }
+
+    private BridgeEventFetchRequest liveBridgeEventFetchRequest() {
+        var gameId = gameState.currentGameId();
+        if (gameId == null) {
+            return null;
+        }
+        var playerId = gameState.playerIdForGame(gameId);
+        if (playerId == null) {
+            return null;
+        }
+        return new BridgeEventFetchRequest(gameState.generation(), gameId, playerId, gameLogState.bridgeEventCursor());
+    }
+
+    private void fetchAndMergeBridgeEvents(BridgeEventFetchRequest request, boolean updateLiveCursor) {
+        if (request == null) {
+            return;
+        }
+        Session session = sessionSupplier.get();
+        if (session == null) {
+            return;
+        }
+
+        List<BridgeLogEntry> fetched;
+        try {
+            fetched = session.getBridgeEvents(request.gameId(), request.playerId(), request.cursor());
+        } catch (Exception e) {
+            logger.error("[" + username + "] Failed to fetch bridge events", e);
+            return;
+        }
+        if (fetched == null || fetched.isEmpty()) {
+            return;
+        }
+
+        try {
+            processor.submit(BridgeCommand.of(() -> {
+                mergeFetchedBridgeEventsOnProcessor(request, fetched, updateLiveCursor);
+                return null;
+            }));
+        } catch (IllegalStateException e) {
+            if (!"Bridge processor is shut down".equals(e.getMessage())) {
+                throw e;
+            }
+        }
+    }
+
+    private void mergeFetchedBridgeEventsOnProcessor(
+            BridgeEventFetchRequest request,
+            List<BridgeLogEntry> fetched,
+            boolean updateLiveCursor) {
+        if (request.generation() != gameState.generation()) {
+            return;
+        }
+        if (!request.gameId().equals(gameState.currentGameId())) {
+            return;
+        }
+        if (updateLiveCursor) {
+            gameLogState.mergeFetchedBridgeEvents(fetched);
+            return;
+        }
+        gameLogState.cacheHistoryEvents(fetched);
     }
 
     private static List<Map<String, Object>> freezeMapList(List<Map<String, Object>> values) {

@@ -15,6 +15,7 @@ public final class BridgeGameState {
     private volatile UUID currentChatId = null;
     private volatile boolean superseded = false;
     private volatile boolean playerDead = false;
+    private volatile long generation = 0;
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
     private volatile long lastCallbackReceivedAt = 0;
@@ -58,6 +59,10 @@ public final class BridgeGameState {
 
     public boolean playerDead() {
         return playerDead;
+    }
+
+    public long generation() {
+        return generation;
     }
 
     public void markPlayerDead() {
@@ -131,6 +136,7 @@ public final class BridgeGameState {
                 "Bridge processor already owns active game " + currentGameId + ", cannot activate " + gameId
             );
         }
+        generation++;
         activeGame = true;
         currentGameId = gameId;
         currentPlayerId = playerId;
@@ -181,6 +187,7 @@ public final class BridgeGameState {
     }
 
     public void resetProcessorState() {
+        generation++;
         activeGame = false;
         currentGameId = null;
         currentPlayerId = null;
