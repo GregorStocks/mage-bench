@@ -4,8 +4,7 @@ import ast
 from functools import cache
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-PUPPETEER_DIR = REPO_ROOT / "puppeteer"
+from tests.weird.repo_convention_helpers import PUPPETEER_DIR, REPO_ROOT
 
 _PRIVATE_IMPORT_SCAN_ROOTS = (
     REPO_ROOT / "puppeteer" / "src",

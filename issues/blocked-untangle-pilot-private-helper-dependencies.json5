@@ -10,7 +10,7 @@ Scope:\n\
 - `puppeteer/src/puppeteer/pilot_recovery.py`\n\
 - `puppeteer/src/puppeteer/pilot_rendering.py`\n\
 - `puppeteer/src/puppeteer/pilot_state.py`\n\
-- `puppeteer/tests/test_weird_conventions.py` (remove the allowlist entries as debt is retired)",
+- `puppeteer/tests/weird/test_private_python_apis.py` (remove the allowlist entries as debt is retired)",
   "status": "open",
   "priority": 3,
   "type": "task",
@@ -21,5 +21,5 @@ Scope:\n\
   ],
   "blocked": "Blocked by p4-burn-down-private-helper-boundary-in-pilot-surface.json5. Remove the public pilot.py facade first so the remaining private-import graph reflects the real internal boundary instead of today’s accidental export surface.",
   "created_at": "2026-03-21T10:35:12.655832-07:00",
-  "updated_at": "2026-03-21T10:39:22.992891-07:00",
+  "updated_at": "2026-03-21T15:57:12-07:00",
 }
