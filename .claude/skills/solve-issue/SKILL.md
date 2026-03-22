@@ -38,14 +38,14 @@ Pick and solve exactly **one** issue, then create a PR.
    uv run python scripts/query_issues.py
    ```
 
-   Look at the output. If any `blocked-` issue has **higher priority** (lower number) than the highest-priority unblocked issue:
+   Look at the output. Determine the highest-priority unblocked issue, if one exists. Then inspect **every** `blocked-` issue that outranks it (lower priority number). If there are no unblocked issues at all, inspect **all** blocked issues. Work through those blocked issues in priority order:
 
    1. Read the blocked issue's JSON5 file — the `blocked` field is a string describing why it's blocked
    2. Investigate whether the blocker has been resolved: check the codebase, git history, external conditions described in the blocker string
-   3. If the blocker **IS resolved**: remove the `blocked` field from the JSON, rename the file from `blocked-<name>.json` to `p{priority}-<name>.json`, and commit the change (include it in your working branch). Then claim that issue in step 3.
-   4. If the blocker **is NOT resolved**: skip it and continue to step 3 with auto-claim
+   3. If the blocker **IS resolved**: remove the `blocked` field from the JSON, rename the file from `blocked-<name>.json` to `p{priority}-<name>.json`, and commit the change (include it in your working branch). Then continue checking the remaining blocked issues in scope before claiming.
+   4. If the blocker **is NOT resolved**: leave it blocked and continue to the next blocked issue in scope
 
-   This ensures high-priority issues don't stay blocked longer than necessary.
+   After that sweep, continue to step 3 and let auto-claim pick the highest-priority unblocked issue. This ensures high-priority issues don't stay blocked longer than necessary just because the first blocked issue you checked remained blocked.
 
 3. **Claim an issue** by running:
 
