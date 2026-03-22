@@ -314,7 +314,10 @@ public final class BridgePassPriorityFlow {
 
     private GameView extractGameView(PendingAction action) {
         if (action.data() instanceof GameClientMessage gameClientMessage) {
-            return gameClientMessage.getGameView();
+            GameView gameView = gameClientMessage.getGameView();
+            if (gameView != null) {
+                return gameView;
+            }
         }
         return context.lastGameView();
     }

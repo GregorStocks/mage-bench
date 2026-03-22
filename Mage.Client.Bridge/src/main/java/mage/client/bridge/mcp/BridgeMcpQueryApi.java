@@ -187,11 +187,11 @@ public final class BridgeMcpQueryApi {
     }
 
     public GetGameStateTool.Result getGameState(Long cursor) {
-        return buildGameStateWithCursor(cursor);
+        return processor.submit(BridgeCommand.of(() -> buildGameStateWithCursor(cursor)));
     }
 
     public GetGameStateTool.Result getGameState() {
-        return buildGameState();
+        return processor.submit(BridgeCommand.of(this::buildGameState));
     }
 
     public Map<String, Object> getMyDecklist() {
@@ -219,9 +219,9 @@ public final class BridgeMcpQueryApi {
 
     private BridgeGameLogSnapshot snapshotGameLog() {
         BridgePublishedMcpSnapshot snapshot = publishedSnapshot.get();
-        // TODO(shim): expires=issue:bridge-processor-local-read-cursors Publish
-        // processor-local monotonic read cursors instead of deriving MCP
-        // cursors from server bridge-event indexes.
+        // TODO(shim): expires=2026-06-30 Delete this cursor shim once MCP reads
+        // consume processor-published local monotonic cursors instead of
+        // deriving them from server bridge-event indexes.
         return new BridgeGameLogSnapshot(
             snapshot.bridgeEvents(),
             snapshot.chatLog(),

@@ -441,10 +441,8 @@ public class BridgeCallbackHandler {
             if (gv != null) {
                 updateLastGameView(gv, "passPriority:" + action.method().name());
                 interactionState.advanceTurn(gv);
+                return gv;
             }
-        }
-        if (action.data() instanceof GameClientMessage gcm) {
-            return gcm.getGameView();
         }
         return gameState.lastGameView();
     }
@@ -3029,6 +3027,9 @@ public class BridgeCallbackHandler {
     }
 
     private static GameView extractGameView(Object data) {
+        if (data instanceof GameView gameView) {
+            return gameView;
+        }
         if (data instanceof GameClientMessage gcm) {
             return gcm.getGameView();
         }
@@ -3198,14 +3199,20 @@ public class BridgeCallbackHandler {
     }
 
     // Passive callback: GAME_UPDATE / GAME_UPDATE_AND_INFORM
-    // No state mutation — actionable callbacks provide fresh GameViews at decision time via
-    // storePendingAction(). Short ID registration for non-CardView objects (players, lookedAt
-    // cards) happens in getStableShortId() which checks the GameView's lookedAt zone directly.
+    // Keep processor-owned game state current here as well. Some later
+    // decision callbacks arrive without their own GameView, so pass_priority
+    // and MCP snapshots still need the newest passive GameView to avoid
+    // stalling on stale board state.
     private void logGameState(Object data) {
-        if (data instanceof GameView gameView) {
+        GameView gameView = extractGameView(data);
+        if (gameView != null) {
+            updateLastGameView(gameView, "GAME_UPDATE");
+            interactionState.advanceTurn(gameView);
             logger.debug("[" + client.getUsername() + "] Game update: turn " + gameView.getTurn() +
                     ", phase " + gameView.getPhase() + ", active player " + gameView.getActivePlayerName());
-        } else if (data instanceof GameClientMessage message) {
+            return;
+        }
+        if (data instanceof GameClientMessage message) {
             logger.debug("[" + client.getUsername() + "] Game inform: " + message.getMessage());
         }
     }
