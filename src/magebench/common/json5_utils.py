@@ -1,26 +1,17 @@
 """JSON5 parse and serialization helpers."""
 
-import builtins
 import json
 import re
 from typing import Any
 
-
-def _load_pyjson5() -> Any:
-    """Resolve pyjson5 only for parse operations.
-
-    The Java CI job runs `scripts.mcp_tools_json5` under bare `python3`, so
-    callers that only need `dumps_json5` must be able to import this module
-    without site-packages.
-    """
-    return builtins.__import__("pyjson5")
+import pyjson5
 
 
 def loads_json5(text: str | bytes) -> Any:
     """Parse a JSON5 string. Also accepts standard JSON."""
     if isinstance(text, bytes):
         text = text.decode()
-    return _load_pyjson5().loads(text)
+    return pyjson5.loads(text)
 
 
 def dumps_json5(
