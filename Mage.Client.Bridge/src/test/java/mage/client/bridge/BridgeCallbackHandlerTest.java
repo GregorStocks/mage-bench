@@ -5,6 +5,7 @@ import mage.client.bridge.processor.BridgeChooseActionFlowContext;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
+import mage.client.bridge.processor.BridgeCallbackEvent;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeConcedeFlow;
 import mage.client.bridge.processor.BridgeConcedeFlowManager;
@@ -2295,6 +2296,37 @@ class BridgeCallbackHandlerTest {
             .hasMessage("boom");
 
         assertThat(handler.isActionPending()).isFalse();
+    }
+
+    @Test
+    void callbackHookFailureDoesNotKillProcessorThread() throws Exception {
+        AtomicInteger hookCalls = new AtomicInteger();
+        CountDownLatch callbackHandled = new CountDownLatch(1);
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgeCallbackHandlerTest.class),
+            event -> callbackHandled.countDown()
+        );
+        processor.setAfterMessageHook(() -> {
+            if (hookCalls.getAndIncrement() == 0) {
+                throw new IllegalStateException("hook failed");
+            }
+        });
+        processor.start();
+
+        try {
+            processor.enqueueCallback(new BridgeCallbackEvent(
+                UUID.randomUUID(),
+                ClientCallbackMethod.GAME_SELECT,
+                null
+            ));
+
+            assertThat(callbackHandled.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThat(processor.submit(BridgeCommand.of(() -> "ok"))).isEqualTo("ok");
+            assertThat(hookCalls.get()).isGreaterThanOrEqualTo(2);
+        } finally {
+            processor.shutdown("test");
+        }
     }
 
     @Test

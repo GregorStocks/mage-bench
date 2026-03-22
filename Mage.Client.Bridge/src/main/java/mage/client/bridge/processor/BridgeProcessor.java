@@ -91,12 +91,20 @@ public final class BridgeProcessor {
             }
             if (message instanceof BridgeCallbackEvent event) {
                 callbackHandler.accept(event);
-                afterMessageHook.run();
+                runAfterMessageHookOnCallback();
                 continue;
             }
             if (message instanceof BridgeCommand<?> command) {
                 executeCommand(command);
             }
+        }
+    }
+
+    private void runAfterMessageHookOnCallback() {
+        try {
+            afterMessageHook.run();
+        } catch (Throwable hookFailure) {
+            logger.error("[" + username + "] Bridge processor after-message hook failed on callback", hookFailure);
         }
     }
 
