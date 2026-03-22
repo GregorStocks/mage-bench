@@ -22,9 +22,6 @@ _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
     ("magebench.pilot.pilot", "magebench.pilot.pilot_recovery", "_recover_from_stall"),
     ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_fetch_state_summary"),
     ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_find_cache_breakpoint_idx"),
-    ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_find_tool_name"),
-    ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_message_text"),
-    ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_summarize_tool_result"),
     ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_with_cache_control"),
 }
 
