@@ -12,7 +12,12 @@ import json
 import re
 from pathlib import Path
 
-GROUND_TRUTH_DIR = Path(__file__).resolve().parent.parent.parent.parent.parent / "scripts" / "analysis" / "ground_truth"
+GROUND_TRUTH_DIR = (
+    Path(__file__).resolve().parent.parent.parent.parent.parent
+    / "scripts"
+    / "analysis"
+    / "ground_truth"
+)
 
 
 def extract_version(source: str | None) -> int:
