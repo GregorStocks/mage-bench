@@ -330,6 +330,30 @@ At that point there should be:
 - **1 required PR** left for the core processor refactor (`D2b`)
 - **1 optional PR** left for the published read model
 
+#### Current checkpoint after the helper-state extraction PR
+
+The original `D2b` scope turned out to be too large for one reviewable PR, so it
+is now split into two smaller cuts.
+
+After the helper-state extraction work lands:
+
+- `BridgeInteractionState` owns mana-plan state, failed-mana tracking, pool-mana
+  retry tracking, and turn/interaction loop counters
+- `BridgeGameLogState` owns unseen chat, chat-log capture, bridge-event cursor
+  state, and cached bridge events
+- `BridgeCursorState` owns game-state / board signature cursor tracking
+- `BridgeCallbackHandler` no longer owns those processor fields directly
+
+That is a meaningful ownership cleanup, but it still leaves too much
+processor-side helper logic on `BridgeCallbackHandler`.
+
+At that point there should be:
+
+- **1 required PR** left for the core processor refactor:
+  move the remaining processor helper/service logic out of the handler and
+  shrink the flow/context reach-back surface
+- **1 optional PR** left for the published read model
+
 ### Step 5: Published Read Model / Append-Only Log
 
 Separate followup.

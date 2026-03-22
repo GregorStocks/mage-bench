@@ -2885,9 +2885,16 @@ class BridgeCallbackHandlerTest {
                 findField(decisionState.getClass(), name);
                 return decisionState;
             } catch (NoSuchFieldException ignoredDecisionState) {
-                Object gameState = getDirectField(handler, "gameState");
-                findField(gameState.getClass(), name);
-                return gameState;
+                for (String ownerField : List.of("gameState", "interactionState", "gameLogState", "cursorState")) {
+                    Object owner = getDirectField(handler, ownerField);
+                    try {
+                        findField(owner.getClass(), name);
+                        return owner;
+                    } catch (NoSuchFieldException ignoredOwner) {
+                        // Keep searching the remaining extracted state holders.
+                    }
+                }
+                throw ignoredDecisionState;
             }
         }
     }
