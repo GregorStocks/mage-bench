@@ -9,7 +9,7 @@ from mcp import ClientSession
 from mcp.types import Tool
 
 from puppeteer.game_log import GameLogWriter
-from puppeteer.pilot_game_state import _parse_context_metadata
+from puppeteer.pilot_game_state import parse_context_metadata
 from puppeteer.tool_error import ToolExecutionError, extract_text_content
 from schemas.game_export_types import (
     Choice,
@@ -21,7 +21,7 @@ from schemas.game_export_types import (
 )
 
 
-def _build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decision) -> Snapshot:
+def build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decision) -> Snapshot:
     """Build a typed snapshot from a pass_priority/get_action_choices result."""
     players: list[dict] = []
     active_player: str | None = None
@@ -56,7 +56,7 @@ def _build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decisi
                 player["counters"] = p["counters"]
             players.append(player)
 
-    _, _, step, context_active_player = _parse_context_metadata(data.get("context"))
+    _, _, step, context_active_player = parse_context_metadata(data.get("context"))
     raw_seq = data.get("game_seq", data.get("board_cursor", 0))
     assert isinstance(raw_seq, int), f"pilot snapshot missing integer game_seq/board_cursor: {data!r}"
     stack = data.get("stack")
@@ -75,7 +75,7 @@ def _build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decisi
     return require_snapshot(snapshot_payload, source="pilot snapshot")
 
 
-def _build_pilot_decision(data: dict) -> Decision:
+def build_pilot_decision(data: dict) -> Decision:
     """Build a decision-like dict from a pass_priority/get_action_choices result."""
     raw_choices = data.get("choices")
     if raw_choices is None:
@@ -107,7 +107,7 @@ def _build_pilot_decision(data: dict) -> Decision:
         subsequent_actions=[],
     )
 
-    context_turn, context_phase, _, _ = _parse_context_metadata(data.get("context"))
+    context_turn, context_phase, _, _ = parse_context_metadata(data.get("context"))
     if context_turn is not None:
         decision.turn = context_turn
     if context_phase is not None:

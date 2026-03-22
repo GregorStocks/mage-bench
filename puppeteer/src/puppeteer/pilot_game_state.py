@@ -3,7 +3,7 @@
 from puppeteer.decision_renderer import BASIC_LAND_NAMES
 
 
-def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
+def extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
     """Extract oracle text from board payload's rules fields.
 
     The bridge includes `rules` on every card (hand, battlefield, etc.).
@@ -46,7 +46,7 @@ def _normalize_context_token(raw: str | None) -> str | None:
     return token.upper().replace(" ", "_")
 
 
-def _parse_context_metadata(
+def parse_context_metadata(
     context: object,
 ) -> tuple[int | None, str | None, str | None, str | None]:
     """Parse bridge context strings like 'T3 Precombat Main/Precombat Main (Alice)'."""

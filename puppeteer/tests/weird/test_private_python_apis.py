@@ -13,33 +13,18 @@ _PRIVATE_IMPORT_SCAN_ROOTS = (
 )
 
 _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
-    ("puppeteer.pilot", "puppeteer.pilot_bridge", "_build_pilot_decision"),
-    ("puppeteer.pilot", "puppeteer.pilot_bridge", "_build_pilot_snapshot"),
     ("puppeteer.pilot", "puppeteer.pilot_bridge", "_record_tool_execution_failure"),
     ("puppeteer.pilot", "puppeteer.pilot_bridge", "_tool_execution_error_result"),
-    ("puppeteer.pilot", "puppeteer.pilot_game_state", "_extract_oracle_texts_from_board"),
-    ("puppeteer.pilot", "puppeteer.pilot_game_state", "_normalize_context_token"),
-    ("puppeteer.pilot", "puppeteer.pilot_game_state", "_parse_context_metadata"),
     ("puppeteer.pilot", "puppeteer.pilot_recovery", "_classify_permanent_llm_failure"),
     ("puppeteer.pilot", "puppeteer.pilot_recovery", "_handle_timeout"),
     ("puppeteer.pilot", "puppeteer.pilot_recovery", "_handle_truncated_response"),
     ("puppeteer.pilot", "puppeteer.pilot_recovery", "_recover_from_stall"),
-    ("puppeteer.pilot", "puppeteer.pilot_rendering", "_build_reset_message"),
-    ("puppeteer.pilot", "puppeteer.pilot_rendering", "_extract_last_reasoning"),
     ("puppeteer.pilot", "puppeteer.pilot_rendering", "_fetch_state_summary"),
     ("puppeteer.pilot", "puppeteer.pilot_rendering", "_find_cache_breakpoint_idx"),
     ("puppeteer.pilot", "puppeteer.pilot_rendering", "_find_tool_name"),
     ("puppeteer.pilot", "puppeteer.pilot_rendering", "_message_text"),
     ("puppeteer.pilot", "puppeteer.pilot_rendering", "_summarize_tool_result"),
     ("puppeteer.pilot", "puppeteer.pilot_rendering", "_with_cache_control"),
-    ("puppeteer.pilot", "puppeteer.pilot_state", "_reset_context"),
-    ("puppeteer.pilot_bridge", "puppeteer.pilot_game_state", "_parse_context_metadata"),
-    ("puppeteer.pilot_recovery", "puppeteer.pilot_state", "_reset_context"),
-    ("puppeteer.pilot_rendering", "puppeteer.pilot_bridge", "_build_pilot_decision"),
-    ("puppeteer.pilot_rendering", "puppeteer.pilot_bridge", "_build_pilot_snapshot"),
-    ("puppeteer.pilot_rendering", "puppeteer.pilot_game_state", "_extract_oracle_texts_from_board"),
-    ("puppeteer.pilot_state", "puppeteer.pilot_rendering", "_build_reset_message"),
-    ("puppeteer.pilot_state", "puppeteer.pilot_rendering", "_extract_last_reasoning"),
 }
 
 _ALLOWED_PRIVATE_REEXPORTS = {

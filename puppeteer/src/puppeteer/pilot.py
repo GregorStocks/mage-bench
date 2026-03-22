@@ -52,7 +52,7 @@ from puppeteer.pilot_rendering import (
     render_context,
     render_for_pilot,
 )
-from puppeteer.pilot_state import PilotLoopState, PilotTurnState, _reset_context
+from puppeteer.pilot_state import PilotLoopState, PilotTurnState, reset_context
 from puppeteer.tool_error import ToolExecutionError
 
 logger = get_logger(__name__)
@@ -734,7 +734,7 @@ async def run_pilot_loop(
             except ToolExecutionError:
                 await asyncio.sleep(5)
 
-            _reset_context(
+            reset_context(
                 state,
                 "Continue playing. Call pass_priority.",
                 reset_board_context=False,

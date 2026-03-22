@@ -20,8 +20,8 @@ from puppeteer.pilot import (
     main,
     run_pilot_loop,
 )
-from puppeteer.pilot_bridge import _build_pilot_decision, _build_pilot_snapshot, execute_tool, mcp_tools_to_openai
-from puppeteer.pilot_game_state import _extract_oracle_texts_from_board
+from puppeteer.pilot_bridge import build_pilot_decision, build_pilot_snapshot, execute_tool, mcp_tools_to_openai
+from puppeteer.pilot_game_state import extract_oracle_texts_from_board
 from puppeteer.pilot_rendering import _fetch_state_summary, render_for_pilot
 from puppeteer.tool_error import ToolExecutionError
 from schemas.game_export_types import Decision, PilotContext
@@ -1133,13 +1133,13 @@ class TestRenderForPilot:
 class TestExtractOracleTexts:
     def test_extracts_rules(self) -> None:
         board = _sample_pass_priority_result()["board"]
-        texts = _extract_oracle_texts_from_board(board)
+        texts = extract_oracle_texts_from_board(board)
         assert "Lightning Bolt" in texts
         assert "3 damage" in texts["Lightning Bolt"]["oracle_text"]
 
     def test_skips_basic_lands(self) -> None:
         board = _sample_pass_priority_result()["board"]
-        texts = _extract_oracle_texts_from_board(board)
+        texts = extract_oracle_texts_from_board(board)
         assert "Mountain" not in texts
         assert "Island" not in texts
 
@@ -1147,7 +1147,7 @@ class TestExtractOracleTexts:
 class TestBuildPilotDecision:
     def test_parses_context(self) -> None:
         data = _sample_pass_priority_result()
-        decision = _build_pilot_decision(data)
+        decision = build_pilot_decision(data)
         assert isinstance(decision, Decision)
         assert decision.turn == 3
         assert "PRECOMBAT" in decision.phase
@@ -1155,13 +1155,13 @@ class TestBuildPilotDecision:
 
     def test_choices_preserved(self) -> None:
         data = _sample_pass_priority_result()
-        decision = _build_pilot_decision(data)
+        decision = build_pilot_decision(data)
         assert isinstance(decision, Decision)
         assert len(decision.choices) == 2
 
     def test_pilot_context(self) -> None:
         data = _sample_pass_priority_result()
-        decision = _build_pilot_decision(data)
+        decision = build_pilot_decision(data)
         assert isinstance(decision, Decision)
         assert isinstance(decision.pilot_context, PilotContext)
         assert decision.pilot_context.land_drops_used == 0
@@ -1169,7 +1169,7 @@ class TestBuildPilotDecision:
     def test_preserves_empty_pregame_phase_marker(self) -> None:
         data = _sample_pass_priority_result()
         data["context"] = "T1 ()"
-        decision = _build_pilot_decision(data)
+        decision = build_pilot_decision(data)
         assert isinstance(decision, Decision)
         assert decision.turn == 1
         assert decision.phase == "()"
@@ -1178,8 +1178,8 @@ class TestBuildPilotDecision:
 class TestBuildPilotSnapshot:
     def test_player_data(self) -> None:
         data = _sample_pass_priority_result()
-        decision = _build_pilot_decision(data)
-        snapshot = _build_pilot_snapshot(data, data["board"], decision)
+        decision = build_pilot_decision(data)
+        snapshot = build_pilot_snapshot(data, data["board"], decision)
         assert len(snapshot.players) == 2
         assert snapshot.players[0].name == "Alice"
         assert snapshot.players[0].life == 20
@@ -1188,8 +1188,8 @@ class TestBuildPilotSnapshot:
 
     def test_no_board(self) -> None:
         data = _sample_pass_priority_result()
-        decision = _build_pilot_decision(data)
-        snapshot = _build_pilot_snapshot(data, None, decision)
+        decision = build_pilot_decision(data)
+        snapshot = build_pilot_snapshot(data, None, decision)
         assert snapshot.players == []
 
 

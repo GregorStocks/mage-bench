@@ -8,7 +8,7 @@ from mcp import ClientSession
 
 from puppeteer.game_log import GameLogWriter
 from puppeteer.pilot_bridge import execute_tool
-from puppeteer.pilot_state import PilotLoopState, _reset_context
+from puppeteer.pilot_state import PilotLoopState, reset_context
 from puppeteer.tool_error import ToolExecutionError
 
 
@@ -54,7 +54,7 @@ def _handle_truncated_response(
     logger.warning("[pilot] Repeated truncations, resetting conversation context")
     if game_log:
         game_log.emit("context_reset", reason="repeated_truncations")
-    _reset_context(
+    reset_context(
         state,
         "Continue playing. Be concise. Call pass_priority.",
         reset_board_context=True,
@@ -99,7 +99,7 @@ async def _recover_from_stall(
         logger.warning("[pilot] Auto-pass failed: %s", exc)
 
     state.turns_without_progress = 0
-    _reset_context(
+    reset_context(
         state,
         "A new turn has started. Call pass_priority to continue.",
         reset_board_context=False,
@@ -139,7 +139,7 @@ async def _handle_timeout(
     logger.warning("[pilot] Repeated LLM timeouts, resetting conversation context")
     if game_log:
         game_log.emit("context_reset", reason="repeated_timeouts")
-    _reset_context(
+    reset_context(
         state,
         "Continue playing. Call pass_priority.",
         reset_board_context=True,
