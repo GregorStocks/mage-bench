@@ -190,7 +190,7 @@ def start_sleepwalker_client(
     args = [
         sys.executable,
         "-m",
-        "puppeteer.sleepwalker",
+        "magebench.pilot.sleepwalker",
         "--server",
         config.server,
         "--port",
@@ -226,7 +226,7 @@ def start_replay_client(
     args = [
         sys.executable,
         "-m",
-        "puppeteer.replay",
+        "magebench.pilot.replay",
         "--server",
         config.server,
         "--port",
@@ -270,7 +270,7 @@ def start_pilot_client(
     args = [
         sys.executable,
         "-m",
-        "puppeteer.pilot",
+        "magebench.pilot.pilot",
         "--server",
         config.server,
         "--port",

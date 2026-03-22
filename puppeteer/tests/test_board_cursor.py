@@ -6,8 +6,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from mcp.types import CallToolResult, TextContent
 
-from puppeteer.pilot import run_pilot_loop
-from puppeteer.pilot_state import BoardCursorTracker
+from magebench.pilot.pilot import run_pilot_loop
+from magebench.pilot.pilot_state import BoardCursorTracker
 
 # --- BoardCursorTracker unit tests ---
 
@@ -93,7 +93,7 @@ _TOOLS = [
 @pytest.fixture
 def _no_prefetch():
     with patch(
-        "puppeteer.pilot._prefetch_first_action",
+        "magebench.pilot.pilot._prefetch_first_action",
         new_callable=AsyncMock,
         return_value="Game starting.",
     ):
@@ -143,7 +143,7 @@ async def test_board_cursor_injected_into_pass_priority():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(side_effect=llm_responses)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -196,7 +196,7 @@ async def test_board_cursor_injected_into_get_action_choices():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(side_effect=llm_responses)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -249,7 +249,7 @@ async def test_board_cursor_updates_on_new_value():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(side_effect=llm_responses)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -303,7 +303,7 @@ async def test_no_cursor_injected_for_other_tools():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(side_effect=llm_responses)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
             session=session,
             client=client,

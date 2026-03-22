@@ -6,10 +6,10 @@ from typing import Protocol
 
 from mcp import ClientSession
 
+from magebench.pilot.pilot_bridge import execute_tool
+from magebench.pilot.pilot_state import PilotLoopState, reset_context
+from magebench.pilot.tool_error import ToolExecutionError
 from puppeteer.game_log import GameLogWriter
-from puppeteer.pilot_bridge import execute_tool
-from puppeteer.pilot_state import PilotLoopState, reset_context
-from puppeteer.tool_error import ToolExecutionError
 
 
 class _ChoiceLike(Protocol):

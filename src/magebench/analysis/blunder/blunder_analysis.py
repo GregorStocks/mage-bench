@@ -59,6 +59,7 @@ from magebench.analysis.blunder.blunder_prompts import (
     TOOL_REFERENCE,
 )
 from magebench.analysis.blunder.extract_decisions import extract_decisions
+from magebench.game.decision_renderer import chosen_display, render_decision
 from magebench.game.game_export_types import (
     Action,
     Annotation,
@@ -66,7 +67,6 @@ from magebench.game.game_export_types import (
     Snapshot,
     json_default,
 )
-from puppeteer.decision_renderer import chosen_display, render_decision
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 
 # Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")

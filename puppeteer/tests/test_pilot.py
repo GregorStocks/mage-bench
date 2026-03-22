@@ -12,7 +12,7 @@ from mcp.types import CallToolResult, TextContent
 from openai import OpenAIError
 
 from magebench.game.game_export_types import Decision, PilotContext
-from puppeteer.pilot import (
+from magebench.pilot.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
     MAX_CONSECUTIVE_EMPTY_CHOICES,
     MAX_TOKENS,
@@ -21,10 +21,10 @@ from puppeteer.pilot import (
     main,
     run_pilot_loop,
 )
-from puppeteer.pilot_bridge import build_pilot_decision, build_pilot_snapshot, execute_tool, mcp_tools_to_openai
-from puppeteer.pilot_game_state import extract_oracle_texts_from_board
-from puppeteer.pilot_rendering import _fetch_state_summary, render_for_pilot
-from puppeteer.tool_error import ToolExecutionError
+from magebench.pilot.pilot_bridge import build_pilot_decision, build_pilot_snapshot, execute_tool, mcp_tools_to_openai
+from magebench.pilot.pilot_game_state import extract_oracle_texts_from_board
+from magebench.pilot.pilot_rendering import _fetch_state_summary, render_for_pilot
+from magebench.pilot.tool_error import ToolExecutionError
 
 
 def _make_session() -> MagicMock:
@@ -77,11 +77,11 @@ def test_main_accepts_explicit_api_key_for_non_default_provider():
                 "openai",
             ],
         ),
-        patch("puppeteer.pilot.setup_logging"),
-        patch("puppeteer.pilot.load_prices", return_value={}),
-        patch("puppeteer.pilot._load_default_system_prompt", return_value="system"),
-        patch("puppeteer.pilot.run_pilot", new=fake_run_pilot),
-        patch("puppeteer.pilot.asyncio.run") as run_mock,
+        patch("magebench.pilot.pilot.setup_logging"),
+        patch("magebench.pilot.pilot.load_prices", return_value={}),
+        patch("magebench.pilot.pilot._load_default_system_prompt", return_value="system"),
+        patch("magebench.pilot.pilot.run_pilot", new=fake_run_pilot),
+        patch("magebench.pilot.pilot.asyncio.run") as run_mock,
     ):
         assert main() == 0
 
@@ -101,7 +101,7 @@ def test_main_reports_provider_in_missing_key_log(caplog: pytest.LogCaptureFixtu
                 "openai",
             ],
         ),
-        patch("puppeteer.pilot.setup_logging"),
+        patch("magebench.pilot.pilot.setup_logging"),
         patch.dict("os.environ", {}, clear=True),
     ):
         assert main() == 2
@@ -113,7 +113,7 @@ def test_main_reports_provider_in_missing_key_log(caplog: pytest.LogCaptureFixtu
 @pytest.fixture
 def _no_prefetch():
     """Patch _prefetch_first_action so run_pilot_loop tests don't block."""
-    with patch("puppeteer.pilot._prefetch_first_action", new_callable=AsyncMock, return_value="Game starting."):
+    with patch("magebench.pilot.pilot._prefetch_first_action", new_callable=AsyncMock, return_value="Game starting."):
         yield
 
 
@@ -221,7 +221,7 @@ async def test_game_over_from_pass_priority_triggers_auto_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(return_value=response)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
         await run_pilot_loop(
             session=session,
             client=client,
@@ -263,7 +263,7 @@ async def test_game_over_from_get_action_choices_triggers_auto_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(return_value=response)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
         await run_pilot_loop(
             session=session,
             client=client,
@@ -308,7 +308,7 @@ async def test_game_over_from_choose_action_triggers_auto_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(return_value=response)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
         await run_pilot_loop(
             session=session,
             client=client,
@@ -485,7 +485,7 @@ async def test_run_pilot_loop_logs_failed_tool_call_before_reraising():
 
     game_log = MagicMock()
     with (
-        patch("puppeteer.pilot.log_error") as log_error_mock,
+        patch("magebench.pilot.pilot.log_error") as log_error_mock,
         pytest.raises(ToolExecutionError, match="MCP tool choose_action failed: bridge died"),
     ):
         await run_pilot_loop(
@@ -552,7 +552,7 @@ async def test_repeated_pass_error_forces_plain_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(side_effect=[bad_pass, bad_pass, bad_pass, clean_pass])
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -607,7 +607,7 @@ async def test_different_pass_errors_dont_trigger_forced_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(side_effect=[bad_pass, bad_pass, bad_pass, bad_pass, exit_pass])
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -658,7 +658,7 @@ async def test_successful_pass_resets_error_counter():
     # 2 errors, 1 success, 2 errors, then game_over
     client.chat.completions.create = AsyncMock(side_effect=[bad_pass, bad_pass, ok_pass, bad_pass, bad_pass, ok_pass])
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -715,8 +715,8 @@ async def test_repeated_truncation_resets_board_context():
     game_log = MagicMock()
 
     with (
-        patch("puppeteer.pilot.MAX_CONSECUTIVE_TRUNCATIONS", 1),
-        patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock),
+        patch("magebench.pilot.pilot.MAX_CONSECUTIVE_TRUNCATIONS", 1),
+        patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock),
     ):
         await asyncio.wait_for(
             run_pilot_loop(
@@ -784,8 +784,8 @@ async def test_repeated_timeout_resets_board_context():
     game_log = MagicMock()
 
     with (
-        patch("puppeteer.pilot.MAX_CONSECUTIVE_TIMEOUTS", 1),
-        patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock),
+        patch("magebench.pilot.pilot.MAX_CONSECUTIVE_TIMEOUTS", 1),
+        patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock),
     ):
         await asyncio.wait_for(
             run_pilot_loop(
@@ -851,7 +851,7 @@ async def test_transient_error_reset_preserves_board_context():
     fake_create.calls = 0
     client.chat.completions.create = AsyncMock(side_effect=fake_create)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await asyncio.wait_for(
             run_pilot_loop(
                 session=session,
@@ -915,8 +915,8 @@ async def test_stall_recovery_preserves_board_context():
     game_log = MagicMock()
 
     with (
-        patch("puppeteer.pilot.MAX_TURNS_WITHOUT_PROGRESS", 1),
-        patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock),
+        patch("magebench.pilot.pilot.MAX_TURNS_WITHOUT_PROGRESS", 1),
+        patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock),
     ):
         await asyncio.wait_for(
             run_pilot_loop(
@@ -998,7 +998,7 @@ async def test_chat_messages_rate_limited_per_turn():
         {"type": "function", "function": {"name": "pass_priority", "parameters": {}}},
     ]
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -1207,7 +1207,7 @@ async def test_consecutive_empty_choices_triggers_auto_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(return_value=response)
 
-    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
         await run_pilot_loop(
             session=session,
             client=client,

@@ -45,14 +45,14 @@ from magebench.analysis.blunder.extract_decisions import extract_decisions
 from magebench.common.json5_utils import dumps_json5, loads_json5
 from magebench.game.export_game import build_export
 from magebench.game.game_export_types import Decision, json_default
+from magebench.pilot.pilot import DEFAULT_MODEL, run_pilot_loop
+from magebench.pilot.pilot_bridge import mcp_tools_to_openai
+from magebench.pilot.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
-from puppeteer.pilot import DEFAULT_MODEL, run_pilot_loop
-from puppeteer.pilot_bridge import mcp_tools_to_openai
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
-from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
 
 # ---------------------------------------------------------------------------
 # Timing instrumentation
@@ -837,7 +837,7 @@ def _run_replay_on_bridge(
 ) -> list[dict]:
     """Execute a replay script on an existing BridgeSession and return the captured prompt.
 
-    Delegates to ``execute_replay_script`` from ``puppeteer.replay`` — the same
+    Delegates to ``execute_replay_script`` from ``magebench.pilot.replay`` — the same
     core that the subprocess path uses — so script execution logic lives in one place.
 
     When ``write_log`` is True, writes ``{player}_llm.jsonl`` so ``build_export``

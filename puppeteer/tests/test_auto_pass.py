@@ -7,13 +7,13 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from mcp.types import CallToolResult, TextContent
 
-from puppeteer.auto_pass import auto_pass_loop
+from magebench.pilot.auto_pass import auto_pass_loop
 
 
 @pytest.fixture(autouse=True)
 def _no_sleep():
     """Patch asyncio.sleep to avoid real delays in auto_pass_loop tests."""
-    with patch("puppeteer.auto_pass.asyncio.sleep", new_callable=AsyncMock):
+    with patch("magebench.pilot.auto_pass.asyncio.sleep", new_callable=AsyncMock):
         yield
 
 

@@ -3,7 +3,7 @@
 import json
 from dataclasses import dataclass, field
 
-from puppeteer.pilot_rendering import build_reset_message, extract_last_reasoning
+from magebench.pilot.pilot_rendering import build_reset_message, extract_last_reasoning
 
 _BOARD_CURSOR_TOOLS = frozenset({"pass_priority", "get_action_choices"})
 

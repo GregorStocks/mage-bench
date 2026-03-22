@@ -10,9 +10,9 @@ from pathlib import Path
 
 from mcp import McpError
 
-from puppeteer.bridge_transport import build_bridge_launch_args, spawn_bridge_http
+from magebench.pilot.bridge_transport import build_bridge_launch_args, spawn_bridge_http
+from magebench.pilot.tool_error import ToolExecutionError, extract_text_content
 from puppeteer.log import get_logger, setup_logging
-from puppeteer.tool_error import ToolExecutionError, extract_text_content
 
 logger = get_logger(__name__)
 
@@ -96,8 +96,12 @@ async def run_sleepwalker(
                     logger.info("[sleepwalker]   Result: passed")
 
                     # Print game log (only new entries since last check)
-                    log_result = await session.call_tool("get_game_log", {"max_chars": 10000})
-                    log_data = json.loads(extract_text_content("get_game_log", log_result))
+                    log_result = await session.call_tool(
+                        "get_game_log", {"max_chars": 10000}
+                    )
+                    log_data = json.loads(
+                        extract_text_content("get_game_log", log_result)
+                    )
                     current_log = log_data.get("log")
                     total_length = log_data.get("total_length", 0)
 
@@ -105,7 +109,11 @@ async def run_sleepwalker(
                     if total_length > last_log_length:
                         # Get the new portion of the log
                         new_chars = total_length - last_log_length
-                        if new_chars > 0 and current_log and len(current_log) >= new_chars:
+                        if (
+                            new_chars > 0
+                            and current_log
+                            and len(current_log) >= new_chars
+                        ):
                             new_log = current_log[-new_chars:]
                             if new_log.strip():
                                 logger.debug("[sleepwalker] === New Log Entries ===")
@@ -117,12 +125,18 @@ async def run_sleepwalker(
                 current_time = time.time()
                 if current_time - last_chat_time > CHAT_INTERVAL_SECS:
                     chat_message = get_sleepy_noise()
-                    result = await session.call_tool("send_chat_message", {"message": chat_message})
-                    chat_result = json.loads(extract_text_content("send_chat_message", result))
+                    result = await session.call_tool(
+                        "send_chat_message", {"message": chat_message}
+                    )
+                    chat_result = json.loads(
+                        extract_text_content("send_chat_message", result)
+                    )
                     if chat_result.get("success"):
                         logger.info("[sleepwalker] Chat sent: %s", chat_message)
                     else:
-                        logger.warning("[sleepwalker] Chat failed (no game active yet?)")
+                        logger.warning(
+                            "[sleepwalker] Chat failed (no game active yet?)"
+                        )
                     last_chat_time = current_time
 
                 await asyncio.sleep(0.1)  # 100ms poll interval
@@ -130,7 +144,14 @@ async def run_sleepwalker(
             except KeyboardInterrupt:
                 logger.info("[sleepwalker] Interrupted, shutting down...")
                 break
-            except (McpError, OSError, RuntimeError, ToolExecutionError, TypeError, json.JSONDecodeError) as e:
+            except (
+                McpError,
+                OSError,
+                RuntimeError,
+                ToolExecutionError,
+                TypeError,
+                json.JSONDecodeError,
+            ) as e:
                 logger.error("[sleepwalker] Error: %s", e)
                 await asyncio.sleep(1)
 

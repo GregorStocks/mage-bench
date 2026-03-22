@@ -29,6 +29,7 @@ from zoneinfo import ZoneInfo
 from openai import AsyncOpenAI
 
 from magebench.game import scryfall
+from magebench.game.decision_renderer import BASIC_LAND_NAMES
 from puppeteer.config import (
     PilotPlayer,
     load_personalities,
@@ -36,7 +37,6 @@ from puppeteer.config import (
     load_toolsets,
     resolve_preset,
 )
-from puppeteer.decision_renderer import BASIC_LAND_NAMES
 from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes
 from puppeteer.llm_cost import (
     get_model_price,

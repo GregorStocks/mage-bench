@@ -4,27 +4,25 @@ import ast
 from functools import cache
 from pathlib import Path
 
-from tests.weird.repo_convention_helpers import PUPPETEER_DIR, REPO_ROOT
+from tests.weird.repo_convention_helpers import PUPPETEER_DIR, REPO_ROOT, SRC_DIR
 
 _PRIVATE_IMPORT_SCAN_ROOTS = (
     REPO_ROOT / "puppeteer" / "src",
     REPO_ROOT / "scripts",
     REPO_ROOT / "schemas",
+    SRC_DIR,
 )
 
 _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
-    ("puppeteer.pilot", "puppeteer.pilot_bridge", "_record_tool_execution_failure"),
-    ("puppeteer.pilot", "puppeteer.pilot_bridge", "_tool_execution_error_result"),
-    ("puppeteer.pilot", "puppeteer.pilot_recovery", "_classify_permanent_llm_failure"),
-    ("puppeteer.pilot", "puppeteer.pilot_recovery", "_handle_timeout"),
-    ("puppeteer.pilot", "puppeteer.pilot_recovery", "_handle_truncated_response"),
-    ("puppeteer.pilot", "puppeteer.pilot_recovery", "_recover_from_stall"),
-    ("puppeteer.pilot", "puppeteer.pilot_rendering", "_fetch_state_summary"),
-    ("puppeteer.pilot", "puppeteer.pilot_rendering", "_find_cache_breakpoint_idx"),
-    ("puppeteer.pilot", "puppeteer.pilot_rendering", "_find_tool_name"),
-    ("puppeteer.pilot", "puppeteer.pilot_rendering", "_message_text"),
-    ("puppeteer.pilot", "puppeteer.pilot_rendering", "_summarize_tool_result"),
-    ("puppeteer.pilot", "puppeteer.pilot_rendering", "_with_cache_control"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_bridge", "_record_tool_execution_failure"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_bridge", "_tool_execution_error_result"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_recovery", "_classify_permanent_llm_failure"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_recovery", "_handle_timeout"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_recovery", "_handle_truncated_response"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_recovery", "_recover_from_stall"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_fetch_state_summary"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_find_cache_breakpoint_idx"),
+    ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_with_cache_control"),
 }
 
 _ALLOWED_PRIVATE_REEXPORTS = {
@@ -49,6 +47,8 @@ _ALLOWED_PRIVATE_REEXPORTS = {
 def _module_name_for_path(path: Path) -> str:
     if path.is_relative_to(PUPPETEER_DIR / "src"):
         rel = path.relative_to(PUPPETEER_DIR / "src")
+    elif path.is_relative_to(SRC_DIR):
+        rel = path.relative_to(SRC_DIR)
     else:
         rel = path.relative_to(REPO_ROOT)
     return ".".join(rel.with_suffix("").parts)

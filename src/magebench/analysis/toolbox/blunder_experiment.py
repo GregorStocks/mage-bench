@@ -44,11 +44,11 @@ from magebench.analysis.blunder.blunder_eval_common import (
     load_game_for_annotation,
 )
 from magebench.analysis.blunder.extract_decisions import extract_decisions
-from magebench.game.game_export_types import BuiltGameExport, Decision, GameExport
-from puppeteer.decision_renderer import (
+from magebench.game.decision_renderer import (
     chosen_display,
     format_choice,
 )
+from magebench.game.game_export_types import BuiltGameExport, Decision, GameExport
 
 GameData: TypeAlias = BuiltGameExport | GameExport
 
