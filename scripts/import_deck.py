@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 from magebench.common import http_utils
-from scripts import scryfall
+from magebench.game import scryfall
 
 _MTGGOLDFISH_HOSTS = frozenset({"www.mtggoldfish.com"})
 
