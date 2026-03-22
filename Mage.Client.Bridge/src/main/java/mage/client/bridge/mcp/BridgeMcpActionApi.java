@@ -252,6 +252,7 @@ public final class BridgeMcpActionApi {
         if (!sessionSupplier.get().sendChatMessage(chatId, message)) {
             return "server rejected the message";
         }
+        gameLogState.recordOutgoingChatMessage(username, message, now, chatDedupWindowMs);
         return null;
     }
 }

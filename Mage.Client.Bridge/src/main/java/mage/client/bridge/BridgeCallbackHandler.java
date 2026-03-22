@@ -3165,7 +3165,13 @@ public class BridgeCallbackHandler {
                 String user = chatMsg.getUsername();
                 String msg = chatMsg.getMessage();
                 if (user != null && msg != null && !msg.isEmpty()) {
-                    gameLogState.recordTalkMessage(client.getUsername(), user, msg);
+                    gameLogState.recordTalkMessage(
+                        client.getUsername(),
+                        user,
+                        msg,
+                        System.currentTimeMillis(),
+                        CHAT_DEDUP_WINDOW_MS
+                    );
                 }
             }
             logger.debug("[" + client.getUsername() + "] Chat: " + chatMsg.getMessage());

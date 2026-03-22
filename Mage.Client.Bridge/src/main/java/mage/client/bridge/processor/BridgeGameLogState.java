@@ -3,6 +3,7 @@ package mage.client.bridge.processor;
 import mage.client.bridge.tools.ActionResult;
 import mage.game.BridgeLogEntry;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,9 +11,13 @@ import java.util.Map;
 import java.util.Set;
 
 public final class BridgeGameLogState {
+    private record PendingOutgoingChat(String message, long sentAtMs) {
+    }
+
     private final List<String> unseenChat = new ArrayList<>();
     private final List<BridgePublishedLogEntry> publishedLog = new ArrayList<>();
     private final Set<Integer> publishedBridgeEventIndexes = new HashSet<>();
+    private final ArrayDeque<PendingOutgoingChat> pendingOutgoingChatEchoes = new ArrayDeque<>();
     private String lastChatMessage = null;
     private long lastChatTimeMs = 0;
     private int nextPublishedCursor = 0;
@@ -23,14 +28,28 @@ public final class BridgeGameLogState {
         unseenChat.clear();
         publishedLog.clear();
         publishedBridgeEventIndexes.clear();
+        pendingOutgoingChatEchoes.clear();
         lastChatMessage = null;
         lastChatTimeMs = 0;
         nextServerCursor = 0;
         lastPublishedBridgeEventIndex = -1;
     }
 
-    public void recordTalkMessage(String username, String user, String msg) {
+    public void recordOutgoingChatMessage(String username, String message, long nowMs, long echoDedupWindowMs) {
+        if (message == null || message.isEmpty()) {
+            return;
+        }
+        prunePendingOutgoingChatEchoes(nowMs, echoDedupWindowMs);
+        pendingOutgoingChatEchoes.addLast(new PendingOutgoingChat(message, nowMs));
+        appendRenderedEntry("[Chat] " + username + ": " + message);
+    }
+
+    public void recordTalkMessage(String username, String user, String msg, long nowMs, long echoDedupWindowMs) {
         if (user == null || msg == null || msg.isEmpty()) {
+            return;
+        }
+        prunePendingOutgoingChatEchoes(nowMs, echoDedupWindowMs);
+        if (user.equals(username) && consumePendingOutgoingEcho(msg)) {
             return;
         }
         appendRenderedEntry("[Chat] " + user + ": " + msg);
@@ -114,5 +133,26 @@ public final class BridgeGameLogState {
 
     private void appendRenderedEntry(String rendered) {
         publishedLog.add(new BridgePublishedLogEntry(nextPublishedCursor++, null, rendered));
+    }
+
+    private void prunePendingOutgoingChatEchoes(long nowMs, long echoDedupWindowMs) {
+        while (!pendingOutgoingChatEchoes.isEmpty()) {
+            PendingOutgoingChat oldest = pendingOutgoingChatEchoes.peekFirst();
+            if ((nowMs - oldest.sentAtMs()) < echoDedupWindowMs) {
+                return;
+            }
+            pendingOutgoingChatEchoes.removeFirst();
+        }
+    }
+
+    private boolean consumePendingOutgoingEcho(String message) {
+        for (var iterator = pendingOutgoingChatEchoes.iterator(); iterator.hasNext(); ) {
+            PendingOutgoingChat pending = iterator.next();
+            if (pending.message().equals(message)) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 }
