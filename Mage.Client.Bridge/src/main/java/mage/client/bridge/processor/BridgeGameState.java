@@ -4,17 +4,15 @@ import mage.client.bridge.RoundTracker;
 import mage.view.GameView;
 import org.apache.log4j.Logger;
 
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 public final class BridgeGameState {
-    private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>();
-    private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>();
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
+    private volatile boolean activeGame = false;
     private volatile UUID currentGameId = null;
     private volatile UUID currentPlayerId = null;
+    private volatile UUID currentChatId = null;
     private volatile boolean superseded = false;
     private volatile boolean playerDead = false;
     private volatile GameView lastGameView = null;
@@ -35,7 +33,11 @@ public final class BridgeGameState {
     }
 
     public boolean gameOverObserved() {
-        return activeGames.isEmpty() && gameEverStarted;
+        return !activeGame && gameEverStarted;
+    }
+
+    public boolean hasActiveGame() {
+        return activeGame;
     }
 
     public UUID currentGameId() {
@@ -124,52 +126,65 @@ public final class BridgeGameState {
     }
 
     public void activateGame(UUID gameId, UUID playerId) {
-        activeGames.put(gameId, playerId);
+        if (activeGame && currentGameId != null && !currentGameId.equals(gameId)) {
+            throw new IllegalStateException(
+                "Bridge processor already owns active game " + currentGameId + ", cannot activate " + gameId
+            );
+        }
+        activeGame = true;
         currentGameId = gameId;
         currentPlayerId = playerId;
+        currentChatId = null;
         gameEverStarted = true;
     }
 
-    public boolean containsActiveGame(UUID gameId) {
-        return activeGames.containsKey(gameId);
+    public boolean isCurrentActiveGame(UUID gameId) {
+        return activeGame && gameId != null && gameId.equals(currentGameId);
     }
 
-    public int activeGamesSize() {
-        return activeGames.size();
-    }
-
-    public boolean removeActiveGame(UUID gameId) {
-        return activeGames.remove(gameId) != null;
+    public boolean clearActiveGame(UUID gameId) {
+        if (!isCurrentActiveGame(gameId)) {
+            return false;
+        }
+        activeGame = false;
+        return true;
     }
 
     public UUID playerIdForGame(UUID gameId) {
         if (gameId == null) {
             return null;
         }
-        UUID playerId = activeGames.get(gameId);
-        if (playerId != null) {
-            return playerId;
-        }
         return gameId.equals(currentGameId) ? currentPlayerId : null;
     }
 
-    public void rememberGameChatId(UUID gameId, UUID chatId) {
-        gameChatIds.put(gameId, chatId);
+    public void setCurrentChatId(UUID gameId, UUID chatId) {
+        if (!activeGame) {
+            throw new IllegalStateException("Cannot attach chat ID without an active game");
+        }
+        if (currentGameId == null || !currentGameId.equals(gameId)) {
+            throw new IllegalStateException("Cannot attach chat ID to non-current game " + gameId);
+        }
+        currentChatId = chatId;
     }
 
-    public UUID chatIdForGame(UUID gameId) {
-        return gameChatIds.get(gameId);
+    public UUID currentChatId() {
+        return currentChatId;
     }
 
-    public UUID forgetGameChatId(UUID gameId) {
-        return gameChatIds.remove(gameId);
+    public UUID clearCurrentChatId(UUID gameId) {
+        if (currentGameId == null || !currentGameId.equals(gameId)) {
+            return null;
+        }
+        UUID chatId = currentChatId;
+        currentChatId = null;
+        return chatId;
     }
 
     public void resetProcessorState() {
-        activeGames.clear();
-        gameChatIds.clear();
+        activeGame = false;
         currentGameId = null;
         currentPlayerId = null;
+        currentChatId = null;
         gameEverStarted = false;
         lastGameView = null;
         lastActionableCallbackAt = 0;

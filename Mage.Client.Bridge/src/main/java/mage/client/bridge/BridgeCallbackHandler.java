@@ -393,7 +393,7 @@ public class BridgeCallbackHandler {
         String summary = "after=" + summarizePendingAction(previousAction)
             + ",woke_to=game_over"
             + ",playerDead=" + gameState.playerDead()
-            + ",activeGames=" + gameState.activeGamesSize()
+            + ",activeGame=" + gameState.hasActiveGame()
             + ",clientRunning=" + client.isRunning();
         logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
         logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
@@ -697,7 +697,7 @@ public class BridgeCallbackHandler {
 
     private String summarizeCallbackContext(UUID callbackGameId, String ignoreReason) {
         PendingAction action = decisionState.pendingAction();
-        boolean callbackActive = callbackGameId != null && gameState.containsActiveGame(callbackGameId);
+        boolean callbackActive = callbackGameId != null && gameState.isCurrentActiveGame(callbackGameId);
         var sb = new StringBuilder();
         sb.append("callbackGameId=").append(callbackGameId);
         sb.append(",currentGameId=").append(gameState.currentGameId());
@@ -3081,7 +3081,7 @@ public class BridgeCallbackHandler {
         if (!gameId.equals(callbackGameId)) {
             return "non_current_game";
         }
-        if (!gameState.containsActiveGame(callbackGameId)) {
+        if (!gameState.isCurrentActiveGame(callbackGameId)) {
             return "inactive_game";
         }
         return null;
@@ -3103,7 +3103,7 @@ public class BridgeCallbackHandler {
                 + " (currentGameId=" + gameState.currentGameId() + ")";
         } else if ("inactive_game".equals(ignoreReason)) {
             warnMessage = "Ignoring " + method + " for inactive game " + callbackGameId
-                + " (not in activeGames)";
+                + " (not the current active game)";
         } else {
             warnMessage = "Ignoring " + method + " for game " + callbackGameId
                 + " (reason=" + ignoreReason + ")";
@@ -3181,7 +3181,7 @@ public class BridgeCallbackHandler {
 
         // Get chat ID for this game and join to receive incoming messages
         session.getGameChatId(gameId).ifPresent(chatId -> {
-            gameState.rememberGameChatId(gameId, chatId);
+            gameState.setCurrentChatId(gameId, chatId);
             session.joinChat(chatId);
             logger.info("[" + client.getUsername() + "] Joined game chat: " + chatId);
         });
@@ -3654,11 +3654,11 @@ public class BridgeCallbackHandler {
      * Shared cleanup for game-end handlers: remove from active tracking,
      * wake action waiters, and leave the game chat.
      *
-     * @return true if the game was still in activeGames (i.e. not yet cleaned up)
+     * @return true if this handler still considered the game active
      */
     private boolean cleanupGame(UUID gameId) {
-        boolean wasActive = gameState.removeActiveGame(gameId);
-        UUID chatId = gameState.forgetGameChatId(gameId);
+        boolean wasActive = gameState.clearActiveGame(gameId);
+        UUID chatId = gameState.clearCurrentChatId(gameId);
         if (chatId != null) {
             session.leaveChat(chatId);
         }
@@ -3669,7 +3669,7 @@ public class BridgeCallbackHandler {
         GameClientMessage message = (GameClientMessage) data;
 
         // Update lastGameView with the final game-over GameView BEFORE
-        // removing from activeGames.  The game-over callback carries the
+        // clearing the active-game slot. The game-over callback carries the
         // authoritative final GameView with the deterministic game_seq.
         // Without this, passPriority's game-over bail-out reads
         // lastGameView from the last asynchronous gameUpdate push, whose
@@ -3682,7 +3682,7 @@ public class BridgeCallbackHandler {
         }
         // Do not pull bridge events synchronously from the callback thread.
         // The server caches them during removeGame(), and currentPlayerId lets
-        // postgame get_game_history calls fetch them after activeGames clears.
+        // postgame get_game_history calls fetch them after the active-game slot clears.
         cleanupGame(gameId);
         logger.info("[" + client.getUsername() + "] Game over: " + message.getMessage());
 

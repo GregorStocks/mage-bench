@@ -129,8 +129,8 @@ final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowC
     }
 
     @Override
-    public int activeGamesSize() {
-        return gameState.activeGamesSize();
+    public boolean hasActiveGame() {
+        return gameState.hasActiveGame();
     }
 
     @Override

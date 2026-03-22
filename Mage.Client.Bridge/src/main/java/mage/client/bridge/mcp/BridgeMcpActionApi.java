@@ -239,7 +239,7 @@ public final class BridgeMcpActionApi {
             logger.warn("[" + username + "] Cannot send chat: no active game");
             return "no active game";
         }
-        var chatId = gameState.chatIdForGame(gameId);
+        var chatId = gameState.currentChatId();
         if (chatId == null) {
             logger.warn("[" + username + "] Cannot send chat: no chat ID for game " + gameId);
             return "no chat session for this game";

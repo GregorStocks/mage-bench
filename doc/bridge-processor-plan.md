@@ -48,6 +48,21 @@ ownership explicit enough that race conditions stop being a normal failure mode.
    surfaces, it reads immutable processor-published data rather than peeking at
    live state.
 
+### Processor scope
+
+Each `BridgeCallbackHandler` / processor pair should be responsible for one
+game lifecycle at a time.
+
+If keepAlive wants to join a new game, the correct model is:
+
+- create a fresh handler + processor
+- let that new processor own the new game
+- shut down or abandon the old processor
+
+The intended architecture is **not** "one processor interleaving multiple
+active games." Any leftover multi-game containers or APIs are transitional
+vestiges and should be removed.
+
 ### Data model
 
 The intended end state should bias strongly toward:
