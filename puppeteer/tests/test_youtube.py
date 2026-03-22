@@ -9,7 +9,11 @@ import pytest
 
 from magebench.common.json5_utils import loads_json5
 from magebench.game.export_game import GameExportError, export_game
-from puppeteer.post_game_analysis import save_youtube_url, update_website_youtube_url, upload_and_export
+from magebench.orchestration.post_game_analysis import (
+    save_youtube_url,
+    update_website_youtube_url,
+    upload_and_export,
+)
 from scripts.upload_youtube import (
     YouTubeUploadError,
     _build_description,
@@ -224,8 +228,8 @@ def test_upload_and_export_returns_zero_without_api_key():
         (game_dir / "game_events.jsonl").write_text("")
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
-            patch("puppeteer.post_game_analysis._export_game") as mock_export,
-            patch("puppeteer.post_game_analysis._upload_to_youtube"),
+            patch("magebench.orchestration.post_game_analysis._export_game") as mock_export,
+            patch("magebench.orchestration.post_game_analysis._upload_to_youtube"),
         ):
             # _export_game returns a path to the temp export file
             export_path = Path(tmpdir) / "export" / "game_20260210_120000.json"
@@ -247,8 +251,8 @@ def test_upload_and_export_skips_youtube_without_recording():
         (game_dir / "game_events.jsonl").write_text("")
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
-            patch("puppeteer.post_game_analysis._upload_to_youtube") as mock_yt,
-            patch("puppeteer.post_game_analysis._export_game") as mock_export,
+            patch("magebench.orchestration.post_game_analysis._upload_to_youtube") as mock_yt,
+            patch("magebench.orchestration.post_game_analysis._export_game") as mock_export,
         ):
             export_path = Path(tmpdir) / "export" / "game_20260210_120000.json"
             export_path.parent.mkdir(parents=True)
@@ -273,10 +277,10 @@ def test_upload_and_export_continues_after_youtube_upload_error():
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
             patch(
-                "puppeteer.post_game_analysis._upload_to_youtube",
+                "magebench.orchestration.post_game_analysis._upload_to_youtube",
                 side_effect=YouTubeUploadError("auth failed"),
             ),
-            patch("puppeteer.post_game_analysis._export_game") as mock_export,
+            patch("magebench.orchestration.post_game_analysis._export_game") as mock_export,
         ):
             export_path = Path(tmpdir) / "export" / f"{game_id}.json"
             export_path.parent.mkdir(parents=True)
@@ -301,7 +305,7 @@ def test_upload_and_export_returns_zero_on_export_error():
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
             patch(
-                "puppeteer.post_game_analysis._export_game",
+                "magebench.orchestration.post_game_analysis._export_game",
                 side_effect=GameExportError("bad export"),
             ),
         ):

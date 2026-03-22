@@ -184,7 +184,7 @@ Then it:
 
 ## Enforcement
 
-- `puppeteer.orchestrator._check_regular_season_block()` blocks normal games unless `phase == "regular-season"`
+- `magebench.orchestration.orchestrator._check_regular_season_block()` blocks normal games unless `phase == "regular-season"`
 - During `tournament`, the error explains that regular-season games are not allowed during tournaments
 - During `between-seasons`, the error explains that a champion has been crowned and the next season has not started yet
 - Tournament configs bypass the block by setting `tournamentGame: true`

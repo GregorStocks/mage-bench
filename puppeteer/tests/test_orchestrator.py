@@ -9,17 +9,31 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from puppeteer.batch_coordination import GameSession, finalize_game, setup_game, wait_for_all_games
-from puppeteer.config import Config, PilotPlayer
-from puppeteer.game_finalization import (
+from magebench.orchestration.batch_coordination import (
+    GameSession,
+    finalize_game,
+    setup_game,
+    wait_for_all_games,
+)
+from magebench.orchestration.game_finalization import (
     ensure_game_over_event,
     print_game_summary,
     run_git,
     write_error_log,
     write_game_meta,
 )
-from puppeteer.game_processes import start_observer_client, wait_for_game_start, wait_with_pilot_monitoring
-from puppeteer.orchestrator import _check_regular_season_block, _missing_llm_api_keys, compile_project, parse_args
+from magebench.orchestration.game_processes import (
+    start_observer_client,
+    wait_for_game_start,
+    wait_with_pilot_monitoring,
+)
+from magebench.orchestration.orchestrator import (
+    _check_regular_season_block,
+    _missing_llm_api_keys,
+    compile_project,
+    parse_args,
+)
+from puppeteer.config import Config, PilotPlayer
 
 
 def test_missing_llm_api_keys_none():
@@ -128,7 +142,7 @@ def test_parse_args_rejects_mismatched_batch_games(tmp_path: Path, monkeypatch):
 def test_compile_project_default_args(tmp_path: Path):
     completed = MagicMock(returncode=0)
 
-    with patch("puppeteer.orchestrator.subprocess.run", return_value=completed) as run_mock:
+    with patch("magebench.orchestration.orchestrator.subprocess.run", return_value=completed) as run_mock:
         assert compile_project(tmp_path) is True
 
     run_mock.assert_called_once()
@@ -148,7 +162,7 @@ def test_compile_project_default_args(tmp_path: Path):
 def test_compile_project_can_disable_build_cache(tmp_path: Path):
     completed = MagicMock(returncode=0)
 
-    with patch("puppeteer.orchestrator.subprocess.run", return_value=completed) as run_mock:
+    with patch("magebench.orchestration.orchestrator.subprocess.run", return_value=completed) as run_mock:
         assert compile_project(tmp_path, observer=True, populate_local_repo=True) is True
 
     run_mock.assert_called_once()
@@ -277,7 +291,7 @@ def test_print_game_summary_from_events_jsonl(caplog):
             json.dumps({"ts": "2024-01-01T00:05:00", "type": "game_over", "message": "Player1 wins"}) + "\n"
         )
 
-        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+        with caplog.at_level("INFO"):
             print_game_summary(game_dir)
 
         output = caplog.text
@@ -291,7 +305,7 @@ def test_print_game_summary_from_pilot_log(caplog):
         game_dir = Path(tmpdir)
         (game_dir / "ace_pilot.log").write_text("INFO Game over: Player1 won the game\n")
 
-        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+        with caplog.at_level("INFO"):
             print_game_summary(game_dir)
 
         output = caplog.text
@@ -304,7 +318,7 @@ def test_print_game_summary_no_logs(caplog):
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
 
-        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+        with caplog.at_level("INFO"):
             print_game_summary(game_dir)
 
         output = caplog.text
@@ -328,7 +342,7 @@ def test_print_game_summary_synthetic_game_over(caplog):
             + "\n"
         )
 
-        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+        with caplog.at_level("INFO"):
             print_game_summary(game_dir)
 
         output = caplog.text
@@ -352,7 +366,7 @@ def test_print_game_summary_spectator_closed(caplog):
             + "\n"
         )
 
-        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+        with caplog.at_level("INFO"):
             print_game_summary(game_dir)
 
         output = caplog.text
@@ -377,7 +391,7 @@ def test_print_game_summary_spectator_crashed(caplog):
             + "\n"
         )
 
-        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+        with caplog.at_level("INFO"):
             print_game_summary(game_dir)
 
         output = caplog.text
@@ -418,7 +432,7 @@ def test_print_game_summary_turns_and_actions(caplog):
         (game_dir / "Alice_cost.json").write_text(json.dumps({"cost_usd": 0.05}))
         (game_dir / "Bob_cost.json").write_text(json.dumps({"cost_usd": 0.03}))
 
-        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+        with caplog.at_level("INFO"):
             print_game_summary(game_dir)
 
         output = caplog.text
@@ -464,7 +478,7 @@ def test_git_returns_output():
         stdout="  main\n",
         stderr="",
     )
-    with patch("puppeteer.game_finalization.subprocess.run", return_value=completed) as mock:
+    with patch("magebench.orchestration.game_finalization.subprocess.run", return_value=completed) as mock:
         result = run_git("rev-parse --abbrev-ref HEAD", Path("/fake"))
     assert result == "main"
     mock.assert_called_once_with(
@@ -480,7 +494,7 @@ def test_git_raises_on_failure():
     """Git failures should surface immediately."""
     with (
         patch(
-            "puppeteer.game_finalization.subprocess.run",
+            "magebench.orchestration.game_finalization.subprocess.run",
             side_effect=subprocess.CalledProcessError(
                 1,
                 ["git", "rev-parse", "HEAD"],
@@ -555,7 +569,7 @@ def _mock_proc(poll_returns: list[int | None]) -> MagicMock:
     return proc
 
 
-@patch("puppeteer.game_processes.time.sleep")
+@patch("magebench.orchestration.game_processes.time.sleep")
 def test_pilot_monitoring_spectator_exits_normally(_mock_sleep):
     """When spectator exits first, should return its exit code."""
     spectator = _mock_proc([None, None, 0])
@@ -568,7 +582,7 @@ def test_pilot_monitoring_spectator_exits_normally(_mock_sleep):
     pm.cleanup.assert_not_called()
 
 
-@patch("puppeteer.game_processes.time.sleep")
+@patch("magebench.orchestration.game_processes.time.sleep")
 def test_pilot_monitoring_pilot_fails(_mock_sleep):
     """When a pilot exits with non-zero, should abort and return -1."""
     spectator = _mock_proc([None, None])
@@ -581,7 +595,7 @@ def test_pilot_monitoring_pilot_fails(_mock_sleep):
     pm.cleanup.assert_called_once()
 
 
-@patch("puppeteer.game_processes.time.sleep")
+@patch("magebench.orchestration.game_processes.time.sleep")
 def test_pilot_monitoring_pilot_exits_zero_ignored(_mock_sleep):
     """A pilot exiting with code 0 should not trigger abort."""
     # Spectator: None, None, None, 0
@@ -599,7 +613,7 @@ def test_pilot_monitoring_pilot_exits_zero_ignored(_mock_sleep):
 # --- wait_for_game_start tests ---
 
 
-@patch("puppeteer.game_processes.time.sleep")
+@patch("magebench.orchestration.game_processes.time.sleep")
 def test_wait_for_game_start_finds_marker(_mock_sleep):
     """Should return once the spectator log contains the game-started marker."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -611,7 +625,7 @@ def test_wait_for_game_start_finds_marker(_mock_sleep):
         # Should not raise
 
 
-@patch("puppeteer.game_processes.time.sleep")
+@patch("magebench.orchestration.game_processes.time.sleep")
 def test_wait_for_game_start_process_exited(_mock_sleep):
     """Should return immediately if the spectator process has already exited."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -622,7 +636,7 @@ def test_wait_for_game_start_process_exited(_mock_sleep):
         # Should not raise — game may have started and ended quickly
 
 
-@patch("puppeteer.game_processes.time.sleep")
+@patch("magebench.orchestration.game_processes.time.sleep")
 def test_wait_for_game_start_timeout(_mock_sleep):
     """Should raise TimeoutError if the marker never appears."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -630,14 +644,20 @@ def test_wait_for_game_start_timeout(_mock_sleep):
         log_path.write_text("Some other log line\n")
         proc = _mock_proc([None] * 100)  # Never exits
 
-        with patch("puppeteer.game_processes.time.monotonic", side_effect=[0, 0, 100]), pytest.raises(TimeoutError):
+        with (
+            patch(
+                "magebench.orchestration.game_processes.time.monotonic",
+                side_effect=[0, 0, 100],
+            ),
+            pytest.raises(TimeoutError),
+        ):
             wait_for_game_start(log_path, proc, timeout=5)
 
 
 # --- wait_for_all_games tests ---
 
 
-@patch("puppeteer.batch_coordination.time.sleep")
+@patch("magebench.orchestration.batch_coordination.time.sleep")
 def test_wait_for_all_games_all_complete(_mock_sleep):
     """All games complete normally — returns their exit codes."""
     s1 = GameSession(index=0, game_dir=Path("/fake/g1"), config=Config())
@@ -650,7 +670,7 @@ def test_wait_for_all_games_all_complete(_mock_sleep):
     assert results == {0: 0, 1: 0}
 
 
-@patch("puppeteer.batch_coordination.time.sleep")
+@patch("magebench.orchestration.batch_coordination.time.sleep")
 def test_wait_for_all_games_pilot_fails(_mock_sleep):
     """A pilot failure should terminate that game's spectator but not others."""
     s1 = GameSession(index=0, game_dir=Path("/fake/g1"), config=Config())
@@ -664,7 +684,7 @@ def test_wait_for_all_games_pilot_fails(_mock_sleep):
     bob_proc = _mock_proc([None, 3, 3])
     s2.pilot_procs = [("bob", bob_proc)]
 
-    with patch("puppeteer.batch_coordination.kill_tree"):
+    with patch("magebench.orchestration.batch_coordination.kill_tree"):
         results = wait_for_all_games([s1, s2])
 
     assert results[0] == 0
@@ -707,8 +727,8 @@ def test_finalize_game_tolerates_merge_io_error():
         session = GameSession(index=0, game_dir=game_dir, config=config)
 
         with (
-            patch("puppeteer.batch_coordination.merge_game_log", side_effect=OSError("disk full")),
-            patch("puppeteer.batch_coordination.print_game_summary", return_value=1.25),
+            patch("magebench.orchestration.batch_coordination.merge_game_log", side_effect=OSError("disk full")),
+            patch("magebench.orchestration.batch_coordination.print_game_summary", return_value=1.25),
         ):
             pilot_cost, blunder_cost = finalize_game(session, Path("/fake/root"), spectator_rc=0)
 
@@ -730,7 +750,7 @@ def test_finalize_game_propagates_unexpected_merge_error():
 
         with (
             patch(
-                "puppeteer.batch_coordination.merge_game_log",
+                "magebench.orchestration.batch_coordination.merge_game_log",
                 side_effect=RuntimeError("unexpected merge bug"),
             ),
             pytest.raises(RuntimeError, match="unexpected merge bug"),
@@ -753,10 +773,13 @@ def test_config_num_games_set():
     assert config.num_games == 3
 
 
-@patch("puppeteer.batch_coordination.start_observer_client")
-@patch("puppeteer.batch_coordination.write_game_meta")
-@patch("puppeteer.batch_coordination.resolve_choice_decks")
-@patch("puppeteer.batch_coordination.run_git", side_effect=["main", "abc123", "abc123 test"])
+@patch("magebench.orchestration.batch_coordination.start_observer_client")
+@patch("magebench.orchestration.batch_coordination.write_game_meta")
+@patch("magebench.orchestration.batch_coordination.resolve_choice_decks")
+@patch(
+    "magebench.orchestration.batch_coordination.run_git",
+    side_effect=["main", "abc123", "abc123 test"],
+)
 def test_setup_game_uses_batch_specific_config(
     _mock_git,
     _mock_resolve,
@@ -802,12 +825,15 @@ def test_setup_game_uses_batch_specific_config(
 # --- setup_game cleanup on failure tests ---
 
 
-@patch("puppeteer.batch_coordination.wait_for_spectator_table")
-@patch("puppeteer.batch_coordination.start_pilot_client")
-@patch("puppeteer.batch_coordination.start_observer_client")
-@patch("puppeteer.batch_coordination.write_game_meta")
-@patch("puppeteer.batch_coordination.resolve_choice_decks")
-@patch("puppeteer.batch_coordination.run_git", side_effect=["main", "abc123", "abc123 test"])
+@patch("magebench.orchestration.batch_coordination.wait_for_spectator_table")
+@patch("magebench.orchestration.batch_coordination.start_pilot_client")
+@patch("magebench.orchestration.batch_coordination.start_observer_client")
+@patch("magebench.orchestration.batch_coordination.write_game_meta")
+@patch("magebench.orchestration.batch_coordination.resolve_choice_decks")
+@patch(
+    "magebench.orchestration.batch_coordination.run_git",
+    side_effect=["main", "abc123", "abc123 test"],
+)
 def test_setup_game_cleans_up_on_spectator_crash(
     _mock_git,
     _mock_resolve,
@@ -843,12 +869,15 @@ def test_setup_game_cleans_up_on_spectator_crash(
         mock_start_pilot.assert_not_called()
 
 
-@patch("puppeteer.batch_coordination.wait_for_spectator_table")
-@patch("puppeteer.batch_coordination.start_pilot_client")
-@patch("puppeteer.batch_coordination.start_observer_client")
-@patch("puppeteer.batch_coordination.write_game_meta")
-@patch("puppeteer.batch_coordination.resolve_choice_decks")
-@patch("puppeteer.batch_coordination.run_git", side_effect=["main", "abc123", "abc123 test"])
+@patch("magebench.orchestration.batch_coordination.wait_for_spectator_table")
+@patch("magebench.orchestration.batch_coordination.start_pilot_client")
+@patch("magebench.orchestration.batch_coordination.start_observer_client")
+@patch("magebench.orchestration.batch_coordination.write_game_meta")
+@patch("magebench.orchestration.batch_coordination.resolve_choice_decks")
+@patch(
+    "magebench.orchestration.batch_coordination.run_git",
+    side_effect=["main", "abc123", "abc123 test"],
+)
 def test_setup_game_cleans_up_pilots_on_timeout(
     _mock_git,
     _mock_resolve,
@@ -889,8 +918,8 @@ def test_setup_game_cleans_up_pilots_on_timeout(
 # --- start_observer_client headless detection tests ---
 
 
-@patch("puppeteer.game_processes.shutil.which", return_value="/usr/bin/xvfb-run")
-@patch("puppeteer.game_processes.sys.platform", "linux")
+@patch("magebench.orchestration.game_processes.shutil.which", return_value="/usr/bin/xvfb-run")
+@patch("magebench.orchestration.game_processes.sys.platform", "linux")
 def test_start_observer_xvfb_on_headless_linux(_mock_which):
     """On headless Linux (no DISPLAY), observer args should be prefixed with xvfb-run."""
     with patch.dict("os.environ", {}, clear=True):
@@ -904,7 +933,7 @@ def test_start_observer_xvfb_on_headless_linux(_mock_which):
         assert "mvn" in args
 
 
-@patch("puppeteer.game_processes.sys.platform", "linux")
+@patch("magebench.orchestration.game_processes.sys.platform", "linux")
 def test_start_observer_no_xvfb_when_display_set():
     """With DISPLAY set, observer args should NOT be prefixed with xvfb-run."""
     with patch.dict("os.environ", {"DISPLAY": ":1"}, clear=True):
@@ -916,8 +945,8 @@ def test_start_observer_no_xvfb_when_display_set():
         assert args[0] == "mvn"
 
 
-@patch("puppeteer.game_processes.shutil.which", return_value=None)
-@patch("puppeteer.game_processes.sys.platform", "linux")
+@patch("magebench.orchestration.game_processes.shutil.which", return_value=None)
+@patch("magebench.orchestration.game_processes.sys.platform", "linux")
 def test_start_observer_fails_without_xvfb(_mock_which):
     """On headless Linux without xvfb-run, should raise AssertionError."""
     with patch.dict("os.environ", {}, clear=True):

@@ -10,17 +10,14 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from puppeteer.config import Config
-from puppeteer.deck_choice import resolve_choice_decks
-from puppeteer.game_finalization import (
+from magebench.orchestration.game_finalization import (
     ensure_game_over_event,
     print_game_summary,
     run_git,
     write_error_log,
     write_game_meta,
 )
-from puppeteer.game_log import merge_game_log
-from puppeteer.game_processes import (
+from magebench.orchestration.game_processes import (
     start_gui_client,
     start_observer_client,
     start_pilot_client,
@@ -29,11 +26,17 @@ from puppeteer.game_processes import (
     wait_for_game_start,
     wait_for_spectator_table,
 )
+from magebench.orchestration.post_game_analysis import (
+    AnnotationFailure,
+    upload_and_export,
+)
+from puppeteer.config import Config
+from puppeteer.deck_choice import resolve_choice_decks
+from puppeteer.game_log import merge_game_log
 from puppeteer.log import get_logger
-from puppeteer.post_game_analysis import AnnotationFailure, upload_and_export
 from puppeteer.process_manager import ProcessManager, kill_tree
 
-logger = get_logger("puppeteer.orchestrator")
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -66,7 +69,9 @@ def setup_game(
     if batch:
         config_file = base_config.config_file
         if base_config.batch_config_files:
-            assert index < len(base_config.batch_config_files), f"Missing batch config for game {index + 1}/{num_games}"
+            assert index < len(base_config.batch_config_files), (
+                f"Missing batch config for game {index + 1}/{num_games}"
+            )
             config_file = base_config.batch_config_files[index]
         game_config = base_config.new_game_config(
             config_file=config_file,
@@ -103,7 +108,9 @@ def setup_game(
         "commit": run_git("rev-parse HEAD", project_root),
         "commit_log": run_git("log --oneline -10", project_root).splitlines(),
         "command": sys.argv,
-        "config_file": str(game_config.config_file) if game_config.config_file else None,
+        "config_file": str(game_config.config_file)
+        if game_config.config_file
+        else None,
     }
     if batch:
         manifest["game_index"] = index + 1
@@ -130,7 +137,9 @@ def setup_game(
     else:
         start_spectator_client = start_gui_client
 
-    spectator_proc = start_spectator_client(pm, project_root, game_config, spectator_log, game_dir=game_dir)
+    spectator_proc = start_spectator_client(
+        pm, project_root, game_config, spectator_log, game_dir=game_dir
+    )
     session = GameSession(
         index=index,
         game_dir=game_dir,
@@ -139,7 +148,9 @@ def setup_game(
     )
 
     bridge_count = (
-        len(game_config.sleepwalker_players) + len(game_config.pilot_players) + len(game_config.replay_players)
+        len(game_config.sleepwalker_players)
+        + len(game_config.pilot_players)
+        + len(game_config.replay_players)
     )
 
     try:
@@ -148,7 +159,12 @@ def setup_game(
 
             for sleepwalker_player in game_config.sleepwalker_players:
                 log_path = game_dir / f"{sleepwalker_player.name}_mcp.log"
-                logger.info("%sSleepwalker (%s) log: %s", game_label, sleepwalker_player.name, log_path)
+                logger.info(
+                    "%sSleepwalker (%s) log: %s",
+                    game_label,
+                    sleepwalker_player.name,
+                    log_path,
+                )
                 start_sleepwalker_client(
                     pm,
                     project_root,
@@ -160,13 +176,24 @@ def setup_game(
 
             for pilot_player in game_config.pilot_players:
                 log_path = game_dir / f"{pilot_player.name}_pilot.log"
-                logger.info("%sPilot (%s) log: %s", game_label, pilot_player.name, log_path)
-                proc = start_pilot_client(pm, project_root, game_config, pilot_player, log_path, game_dir=game_dir)
+                logger.info(
+                    "%sPilot (%s) log: %s", game_label, pilot_player.name, log_path
+                )
+                proc = start_pilot_client(
+                    pm,
+                    project_root,
+                    game_config,
+                    pilot_player,
+                    log_path,
+                    game_dir=game_dir,
+                )
                 session.pilot_procs.append((pilot_player.name, proc))
 
             for replay_player in game_config.replay_players:
                 log_path = game_dir / f"{replay_player.name}_replay.log"
-                logger.info("%sReplay (%s) log: %s", game_label, replay_player.name, log_path)
+                logger.info(
+                    "%sReplay (%s) log: %s", game_label, replay_player.name, log_path
+                )
                 proc = start_replay_client(
                     pm,
                     project_root,
@@ -209,7 +236,11 @@ def wait_for_all_games(
             if spectator_rc is not None:
                 if spectator_rc != 0:
                     game_label = f"Game {session.index + 1}"
-                    logger.error("%s: spectator exited with code %s — aborting game.", game_label, spectator_rc)
+                    logger.error(
+                        "%s: spectator exited with code %s — aborting game.",
+                        game_label,
+                        spectator_rc,
+                    )
                     for _name, pilot_proc in session.pilot_procs:
                         if pilot_proc.poll() is None:
                             kill_tree(pilot_proc.pid)
@@ -251,7 +282,9 @@ def finalize_game(
     write_error_log(session.game_dir)
     try:
         merge_game_log(session.game_dir)
-        logger.info("  %sMerged game log: %s", game_label, session.game_dir / "game.jsonl")
+        logger.info(
+            "  %sMerged game log: %s", game_label, session.game_dir / "game.jsonl"
+        )
     except (OSError, UnicodeError) as exc:
         logger.warning("  %sFailed to merge game log: %s", game_label, exc)
 
