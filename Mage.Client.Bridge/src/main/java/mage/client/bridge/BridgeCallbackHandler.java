@@ -10,6 +10,7 @@ import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeDecisionState;
+import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
@@ -73,7 +74,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -113,49 +113,8 @@ public class BridgeCallbackHandler {
     // while MCP methods still read transitional shared fields until step 3 lands.
     private final BridgeProcessor processor;
     private final BridgeDecisionState decisionState = new BridgeDecisionState();
+    private final BridgeGameState gameState = new BridgeGameState();
     private volatile Session session;
-    private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>(); // gameId -> playerId
-    private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>(); // gameId -> chatId
-
-    private volatile boolean keepAliveAfterGame = false;
-    private volatile boolean gameEverStarted = false;
-    private volatile UUID currentGameId = null;
-    private volatile UUID currentPlayerId = null; // retained after GAME_OVER for postgame fetches
-    private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
-    private volatile boolean startGameArmed = false; // keepAlive join_table must arm the next START_GAME
-    private volatile boolean superseded = false; // set when createFreshForNextGame() replaces this handler
-    private volatile GameView lastGameView = null;
-    private final RoundTracker roundTracker = new RoundTracker();
-
-    /** Update lastGameView with source tracking for determinism debugging.
-     *  Synchronized to prevent TOCTOU race: two threads reading the same old value,
-     *  both passing the monotonic guard, and the lower-seq thread writing last. */
-    private synchronized void updateLastGameView(GameView gv, String source) {
-        if (gv != null) {
-            GameView old = lastGameView;
-            if (old != null && gv.getGameSeq() < old.getGameSeq()) {
-                String src = source != null ? source : "unknown";
-                logger.warn("[" + client.getUsername() + "] lastGameView REJECTED backward update game_seq "
-                    + old.getGameSeq() + " -> " + gv.getGameSeq() + " (source=" + src
-                    + ", thread=" + Thread.currentThread().getName() + ")");
-                return;
-            }
-            lastGameView = gv;
-            roundTracker.update(gv);
-            // Determinism debugging: log when game_seq changes and who changed it
-            int oldSeq = old != null ? old.getGameSeq() : -1;
-            int newSeq = gv.getGameSeq();
-            if (oldSeq != newSeq) {
-                String src = source != null ? source : "unknown";
-                String step = gv.getStep() != null ? gv.getStep().toString() : "null";
-                logger.debug("[" + client.getUsername() + "] lastGameView game_seq " + oldSeq
-                    + " -> " + newSeq + " (source=" + src + ", step=" + step
-                    + ", thread=" + Thread.currentThread().getName() + ")");
-            }
-        }
-    }
-
-
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private final Object stateCursorLock = new Object();
     private volatile long gameStateCursor = 0; // Monotonic cursor for get_game_state
@@ -178,7 +137,6 @@ public class BridgeCallbackHandler {
     private volatile String errorLogPath = null; // Path to write errors to (set via system property)
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
     private final List<String> unseenChat = new ArrayList<>(); // Chat messages from other players not yet shown to LLM
-    private volatile boolean playerDead = false; // Set when we see "{name} has lost the game" in chat
     private final List<BridgeChatLogEntry> chatLog = new ArrayList<>(); // Chat messages interleaved with bridge events at render time
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
@@ -186,10 +144,6 @@ public class BridgeCallbackHandler {
     private volatile int bridgeEventCursor = 0; // Pull cursor for bridge event log
     private final List<BridgeLogEntry> cachedBridgeEvents = new ArrayList<>(); // Client-side cache survives game cleanup
     private static final long KEEPALIVE_CONCEDE_WAIT_SECONDS = 15;
-
-    // Keep-alive multi-game support: latches for cross-thread signaling
-    private volatile CountDownLatch gameStartLatch = new CountDownLatch(1);
-    private volatile CountDownLatch gameFinishedLatch = new CountDownLatch(1);
 
     // Join handler: provided by BridgeClient so JoinTableTool can trigger table joining
     @FunctionalInterface
@@ -215,7 +169,6 @@ public class BridgeCallbackHandler {
     }
     private record DecisionBoundaryTransition(DecisionBoundaryStatus status, PendingAction action) {
     }
-    private volatile long lastCallbackReceivedAt = 0;
     // Track actionable callbacks (GAME_SELECT, GAME_ASK, etc.) separately from passive
     // ones (CHATMESSAGE, GAME_UPDATE). Used by zombie detection and progress logging.
     private static final EnumSet<ClientCallbackMethod> ACTIONABLE_CALLBACKS = EnumSet.of(
@@ -224,16 +177,15 @@ public class BridgeCallbackHandler {
         ClientCallbackMethod.GAME_CHOOSE_CHOICE, ClientCallbackMethod.GAME_CHOOSE_PILE,
         ClientCallbackMethod.GAME_PLAY_MANA, ClientCallbackMethod.GAME_PLAY_XMANA,
         ClientCallbackMethod.GAME_GET_AMOUNT, ClientCallbackMethod.GAME_GET_MULTI_AMOUNT);
-    private volatile long lastActionableCallbackAt = 0;
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter TIME_FMT =
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX");
 
     public BridgeCallbackHandler(BridgeMageClient client) {
         this.client = client;
-        this.viewLocator = new BridgeViewLocator(shortIds, () -> lastGameView, this::logError);
-        this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
-        this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
+        this.viewLocator = new BridgeViewLocator(shortIds, gameState::lastGameView, this::logError);
+        this.cardFormatter = new BridgeCardFormatter(viewLocator, gameState::currentGameId, this::playerIdForGame);
+        this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, gameState::currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
         BridgeCallbackDispatcher dispatcher = new BridgeCallbackDispatcher(new BridgeCallbackDispatcherContext() {
             @Override
@@ -343,26 +295,27 @@ public class BridgeCallbackHandler {
             processor,
             client.getUsername(),
             decisionState,
-            new BridgeChooseActionFlowContextImpl(this, decisionState),
+            new BridgeChooseActionFlowContextImpl(this, decisionState, gameState),
             this::chooseActionDeliveryErrorResult
         );
         this.passPriorityFlowManager = new BridgePassPriorityFlowManager(
             processor,
             client.getUsername(),
             decisionState,
-            new BridgePassPriorityFlowContextImpl(this, decisionState)
+            new BridgePassPriorityFlowContextImpl(this, decisionState, gameState)
         );
+    }
+
+    private void updateLastGameView(GameView gameView, String source) {
+        gameState.updateLastGameView(gameView, source, logger, client.getUsername());
     }
 
     String username() {
         return client.getUsername();
     }
 
-    boolean chooseActionRequestCannotContinue() {
-        return superseded
-            || playerDead
-            || (activeGames.isEmpty() && gameEverStarted)
-            || !client.isRunning();
+    boolean clientRunning() {
+        return client.isRunning();
     }
 
     ChooseActionTool.Result noPendingChooseActionResult() {
@@ -389,7 +342,7 @@ public class BridgeCallbackHandler {
         mergeActionChoices(result, null, nextAction);
         String summary = "after=" + summarizePendingAction(previousAction)
             + ",woke_to=" + summarizePendingAction(nextAction)
-            + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
+            + ",gameOver=" + gameState.gameOverObserved();
         logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
         logBridgeEvent("CHOOSE_ACTION_WAKEUP", nextAction.gameId(), summary);
     }
@@ -399,8 +352,8 @@ public class BridgeCallbackHandler {
             PendingAction previousAction) {
         String summary = "after=" + summarizePendingAction(previousAction)
             + ",woke_to=game_over"
-            + ",playerDead=" + playerDead
-            + ",activeGames=" + activeGames.size()
+            + ",playerDead=" + gameState.playerDead()
+            + ",activeGames=" + gameState.activeGamesSize()
             + ",clientRunning=" + client.isRunning();
         logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
         logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
@@ -461,7 +414,7 @@ public class BridgeCallbackHandler {
         if (action.data() instanceof GameClientMessage gcm) {
             return gcm.getGameView();
         }
-        return lastGameView;
+        return gameState.lastGameView();
     }
 
     int interactionsThisTurn() {
@@ -472,51 +425,15 @@ public class BridgeCallbackHandler {
         return maxInteractionsPerTurn;
     }
 
-    UUID currentGameId() {
-        return currentGameId;
-    }
-
-    GameView lastGameView() {
-        return lastGameView;
-    }
-
     int lastTurnNumber() {
         return lastTurnNumber;
-    }
-
-    int activeGamesSize() {
-        return activeGames.size();
-    }
-
-    boolean superseded() {
-        return superseded;
-    }
-
-    boolean playerDead() {
-        return playerDead;
-    }
-
-    boolean gameEverStarted() {
-        return gameEverStarted;
-    }
-
-    boolean clientRunning() {
-        return client.isRunning();
-    }
-
-    long lastActionableCallbackAt() {
-        return lastActionableCallbackAt;
-    }
-
-    long lastCallbackReceivedAt() {
-        return lastCallbackReceivedAt;
     }
 
     void declareZombieGame(long absoluteIdleMs) {
         logger.error("[" + client.getUsername() + "] Zombie game detected: "
             + "no actionable callback for " + absoluteIdleMs + "ms, declaring game dead");
         logError("Zombie game detected: no actionable callback for " + absoluteIdleMs + "ms");
-        playerDead = true;
+        gameState.markPlayerDead();
     }
 
     boolean failedManaCast(UUID objectId) {
@@ -598,7 +515,7 @@ public class BridgeCallbackHandler {
             + " (context=" + context + ", gameId=" + gameId + ")";
         logger.error("[" + client.getUsername() + "] CRITICAL: " + msg);
         logError(msg);
-        playerDead = true;
+        gameState.markPlayerDead();
         throw new ResponseDeliveryException(msg);
     }
 
@@ -670,7 +587,7 @@ public class BridgeCallbackHandler {
      * Each line is a compact JSON object with timestamp, callback method, and relevant data.
      */
     private void logBridgeEvent(String method, String summary) {
-        logBridgeEvent(method, currentGameId, summary);
+        logBridgeEvent(method, gameState.currentGameId(), summary);
     }
 
     private void logBridgeEvent(ClientCallbackMethod method, UUID gameId, String summary) {
@@ -749,10 +666,10 @@ public class BridgeCallbackHandler {
 
     private String summarizeCallbackContext(UUID callbackGameId, String ignoreReason) {
         PendingAction action = decisionState.pendingAction();
-        boolean callbackActive = callbackGameId != null && activeGames.containsKey(callbackGameId);
+        boolean callbackActive = callbackGameId != null && gameState.containsActiveGame(callbackGameId);
         var sb = new StringBuilder();
         sb.append("callbackGameId=").append(callbackGameId);
-        sb.append(",currentGameId=").append(currentGameId);
+        sb.append(",currentGameId=").append(gameState.currentGameId());
         sb.append(",callbackActive=").append(callbackActive);
         sb.append(",pendingAction=").append(summarizePendingAction(action));
         if (ignoreReason != null) {
@@ -796,22 +713,22 @@ public class BridgeCallbackHandler {
             + ",returnedChoices=" + returnedChoices
             + ",pendingAction=" + summarizePendingAction(decisionState.pendingAction());
         logger.info("[" + client.getUsername() + "] passPriority RETURN: " + summary);
-        logBridgeEvent("PASS_PRIORITY_RETURN", action != null ? action.gameId() : currentGameId, summary);
+        logBridgeEvent("PASS_PRIORITY_RETURN", action != null ? action.gameId() : gameState.currentGameId(), summary);
     }
 
     /**
      * Build a compact one-line summary of game state for bridge JSONL dump.
      */
     private String buildBridgeStateSummary() {
-        GameView gv = lastGameView;
+        GameView gv = gameState.lastGameView();
         if (gv == null) {
             return null;
         }
         var sb = new StringBuilder();
-        sb.append("T").append(roundTracker.getGameRound());
+        sb.append("T").append(gameState.currentRound());
         if (gv.getPhase() != null) sb.append(" ").append(gv.getPhase());
         sb.append(" | ");
-        UUID gameId = currentGameId; // snapshot volatile to prevent TOCTOU race
+        UUID gameId = gameState.currentGameId();
         UUID myPlayerId = playerIdForGame(gameId);
         for (PlayerView p : gv.getPlayers()) {
             boolean isMe = p.getPlayerId().equals(myPlayerId);
@@ -837,14 +754,7 @@ public class BridgeCallbackHandler {
     }
 
     private UUID playerIdForGame(UUID gameId) {
-        if (gameId == null) {
-            return null;
-        }
-        UUID playerId = activeGames.get(gameId);
-        if (playerId != null) {
-            return playerId;
-        }
-        return gameId.equals(currentGameId) ? currentPlayerId : null;
+        return gameState.playerIdForGame(gameId);
     }
 
     public void setSession(Session session) {
@@ -852,7 +762,7 @@ public class BridgeCallbackHandler {
     }
 
     public void setKeepAliveAfterGame(boolean keepAliveAfterGame) {
-        this.keepAliveAfterGame = keepAliveAfterGame;
+        gameState.setKeepAliveAfterGame(keepAliveAfterGame);
         logger.info("[" + client.getUsername() + "] keepAliveAfterGame=" + keepAliveAfterGame);
     }
 
@@ -877,12 +787,12 @@ public class BridgeCallbackHandler {
         // Mark this handler as superseded so threads stuck in
         // awaitPendingAction / passPriority / chooseAction bail out immediately
         // instead of blocking for 120+ seconds on an abandoned handler.
-        this.superseded = true;
+        gameState.markSuperseded();
         shutdownProcessor("superseded by createFreshForNextGame");
 
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
         fresh.session = this.session;
-        fresh.keepAliveAfterGame = this.keepAliveAfterGame;
+        fresh.gameState.setKeepAliveAfterGame(this.gameState.keepAliveAfterGame());
         fresh.maxInteractionsPerTurn = this.maxInteractionsPerTurn;
         fresh.errorLogPath = this.errorLogPath;
         fresh.bridgeLogPath = this.bridgeLogPath;
@@ -897,7 +807,7 @@ public class BridgeCallbackHandler {
      * @return true if game started, false if timed out
      */
     public boolean awaitGameStart(long timeoutMs) throws InterruptedException {
-        return gameStartLatch.await(timeoutMs, java.util.concurrent.TimeUnit.MILLISECONDS);
+        return gameState.awaitGameStart(timeoutMs);
     }
 
     /**
@@ -905,7 +815,7 @@ public class BridgeCallbackHandler {
      * @return true if game finished, false if timed out
      */
     public boolean awaitGameFinished(long timeoutMs) throws InterruptedException {
-        return gameFinishedLatch.await(timeoutMs, java.util.concurrent.TimeUnit.MILLISECONDS);
+        return gameState.awaitGameFinished(timeoutMs);
     }
 
     /**
@@ -919,16 +829,16 @@ public class BridgeCallbackHandler {
         BridgeCallbackHandler fresh = createFreshForNextGame();
         DeckCardLists deck = BridgeClient.loadDeck(deckPath);
         fresh.setDeckList(deck);
-        fresh.startGameArmed = true;
+        fresh.gameState.setStartGameArmed(true);
         // Set expectedStartTableId BEFORE joining so stale START_GAME callbacks
         // (from server reconnection replaying old games) are rejected during the
         // window between createFreshForNextGame() and jh.joinTable().
         if (targetTableId != null) {
-            fresh.expectedStartTableId = targetTableId;
+            fresh.gameState.setExpectedStartTableId(targetTableId);
         }
         UUID tableId = jh.joinTable(deckPath, targetTableId);
         assert tableId != null : "Failed to join any table within timeout";
-        fresh.expectedStartTableId = tableId;
+        fresh.gameState.setExpectedStartTableId(tableId);
         logger.info("[" + client.getUsername() + "] Joined table " + tableId + ", waiting for game start...");
         boolean started = fresh.awaitGameStart(60_000);
         assert started : "Game did not start within 60s after joining table";
@@ -946,14 +856,8 @@ public class BridgeCallbackHandler {
     }
 
     private void resetProcessorState() {
-        activeGames.clear();
-        gameChatIds.clear();
+        gameState.resetProcessorState();
         decisionState.reset();
-        currentGameId = null;
-        currentPlayerId = null;
-        gameEverStarted = false;
-        lastGameView = null;
-        lastActionableCallbackAt = 0;
         cachedBridgeEvents.clear();
         bridgeEventCursor = 0;
         synchronized (chatLog) {
@@ -1154,7 +1058,7 @@ public class BridgeCallbackHandler {
             gameView = gcm.getGameView();
         }
         if (gameView == null) {
-            gameView = lastGameView;
+            gameView = gameState.lastGameView();
         }
         // Capture for use in lambdas (must be effectively final).
         final GameView gv = gameView;
@@ -1174,7 +1078,7 @@ public class BridgeCallbackHandler {
 
         // Add compact phase context and player summary
         if (gameView != null) {
-            int turn = roundTracker.update(gameView);
+            int turn = gameState.updateRound(gameView);
             boolean isMyTurn = client.getUsername().equals(gameView.getActivePlayerName());
             boolean isMainPhase = gameView.getPhase() != null && gameView.getPhase().isMain();
 
@@ -1597,8 +1501,8 @@ public class BridgeCallbackHandler {
 
                 if (targets != null) {
                     CardsView cardsView = msg.getCardsView1();
-                    GameView targetGameView = msg.getGameView() != null ? msg.getGameView() : lastGameView;
-                    UUID gameId = currentGameId;
+                    GameView targetGameView = msg.getGameView() != null ? msg.getGameView() : gameState.lastGameView();
+                    UUID gameId = gameState.currentGameId();
                     UUID myPlayerId = playerIdForGame(gameId);
                     var targetChoices = new ArrayList<TargetChoice>();
                     for (UUID targetId : targets) {
@@ -2451,7 +2355,7 @@ public class BridgeCallbackHandler {
                                 result.action_taken = "tapped_mana_" + resolvedIndex;
                                 usedManaIndex = true;
                             } else if (manaChoice instanceof ManaType manaType) {
-                                UUID manaPlayerId = getManaPoolPlayerId(gameId, lastGameView);
+                                UUID manaPlayerId = getManaPoolPlayerId(gameId, gameState.lastGameView());
                                 if (manaPlayerId == null) {
                                     return chooseActionDone(buildError(result, "internal_error",
                                         "Could not resolve player ID for mana pool selection", false, action));
@@ -2930,7 +2834,7 @@ public class BridgeCallbackHandler {
      * Returns the list of new events and advances the cursor.
      */
     private List<BridgeLogEntry> pullBridgeEvents() {
-        UUID gameId = currentGameId;
+        UUID gameId = gameState.currentGameId();
         if (gameId == null) return List.of();
         UUID playerId = playerIdForGame(gameId);
         if (playerId == null) return List.of();
@@ -2973,7 +2877,7 @@ public class BridgeCallbackHandler {
         int effectiveCursor = (sinceCursor != null) ? sinceCursor : 0;
         List<BridgeLogEntry> events = List.of();
         int newCursor = effectiveCursor;
-        UUID gameId = currentGameId;
+        UUID gameId = gameState.currentGameId();
         UUID playerId = gameId != null ? playerIdForGame(gameId) : null;
         if (gameId != null && playerId != null) {
             try {
@@ -3053,12 +2957,12 @@ public class BridgeCallbackHandler {
     }
 
     private String sendChatMessageImpl(String message) {
-        UUID gameId = currentGameId;
+        UUID gameId = gameState.currentGameId();
         if (gameId == null) {
             logger.warn("[" + client.getUsername() + "] Cannot send chat: no active game");
             return "no active game";
         }
-        UUID chatId = gameChatIds.get(gameId);
+        UUID chatId = gameState.chatIdForGame(gameId);
         if (chatId == null) {
             logger.warn("[" + client.getUsername() + "] Cannot send chat: no chat ID for game " + gameId);
             return "no chat session for this game";
@@ -3087,12 +2991,12 @@ public class BridgeCallbackHandler {
      * and unable to join the next table — causing a bridge_join timeout flake.
      */
     public boolean concede() {
-        UUID gameId = currentGameId;
+        UUID gameId = gameState.currentGameId();
         if (gameId == null) {
             logger.warn("[" + client.getUsername() + "] Cannot concede: no active game");
             return false;
         }
-        if (!activeGames.containsKey(gameId)) {
+        if (!gameState.containsActiveGame(gameId)) {
             // Game already ended (e.g. opponent conceded first) — the XMage
             // session is disconnected, so sending CONCEDE would fail.
             logger.info("[" + client.getUsername() + "] Game already over, concede is a no-op");
@@ -3102,12 +3006,9 @@ public class BridgeCallbackHandler {
         session.sendPlayerAction(PlayerAction.CONCEDE, gameId, null);
         // In keepAlive mode, wait for the server to end the game before returning.
         // handleGameOver fires gameFinishedLatch when the server confirms the game ended.
-        if (keepAliveAfterGame) {
+        if (gameState.keepAliveAfterGame()) {
             try {
-                boolean finished = gameFinishedLatch.await(
-                    KEEPALIVE_CONCEDE_WAIT_SECONDS,
-                    java.util.concurrent.TimeUnit.SECONDS
-                );
+                boolean finished = gameState.awaitGameFinished(KEEPALIVE_CONCEDE_WAIT_SECONDS * 1000);
                 if (!finished) {
                     logger.warn(
                         "[" + client.getUsername() + "] Concede sent but GAME_OVER not received within "
@@ -3125,10 +3026,10 @@ public class BridgeCallbackHandler {
      * Drain unseen chat messages and attach to result map (if any).
      */
     private void attachUnseenChat(Map<String, Object> result) {
-        if (playerDead) {
+        if (gameState.playerDead()) {
             result.put("player_dead", true);
         }
-        if (activeGames.isEmpty() && gameEverStarted) {
+        if (gameState.gameOverObserved()) {
             result.put("game_over", true);
         }
         synchronized (unseenChat) {
@@ -3140,8 +3041,8 @@ public class BridgeCallbackHandler {
     }
 
     private void attachUnseenChat(ActionResult result) {
-        if (playerDead) result.player_dead = true;
-        if (activeGames.isEmpty() && gameEverStarted) result.game_over = true;
+        if (gameState.playerDead()) result.player_dead = true;
+        if (gameState.gameOverObserved()) result.game_over = true;
         synchronized (unseenChat) {
             if (!unseenChat.isEmpty()) {
                 result.recent_chat = new ArrayList<>(unseenChat);
@@ -3332,7 +3233,7 @@ public class BridgeCallbackHandler {
 
     private GetGameStateTool.Result getGameStateImpl() {
         var state = new GetGameStateTool.Result();
-        GameView gameView = lastGameView;
+        GameView gameView = gameState.lastGameView();
         if (gameView == null) {
             state.available = false;
             state.error = "No game state available yet";
@@ -3348,7 +3249,7 @@ public class BridgeCallbackHandler {
                 + gameView.getGameSeq() + " step=" + step
                 + " thread=" + Thread.currentThread().getName());
         }
-        state.turn = roundTracker.update(gameView);
+        state.turn = gameState.updateRound(gameView);
 
         // Phase info
         if (gameView.getPhase() != null) {
@@ -3530,11 +3431,7 @@ public class BridgeCallbackHandler {
     }
 
     private void recordCallbackArrival(ClientCallbackMethod method) {
-        long now = System.currentTimeMillis();
-        lastCallbackReceivedAt = now;
-        if (ACTIONABLE_CALLBACKS.contains(method)) {
-            lastActionableCallbackAt = now;
-        }
+        gameState.recordCallbackArrival(ACTIONABLE_CALLBACKS.contains(method));
     }
 
     private void handleCallbackException(ClientCallbackMethod method, Exception e, boolean actionable) {
@@ -3546,7 +3443,7 @@ public class BridgeCallbackHandler {
         if (actionable) {
             logger.error("[" + client.getUsername() + "] CRITICAL: Actionable callback " + method
                     + " dropped due to exception — declaring player dead to prevent hang");
-            playerDead = true;
+            gameState.markPlayerDead();
             try {
                 processor.submit(BridgeCommand.of(() -> {
                     advancePendingFlows();
@@ -3628,14 +3525,14 @@ public class BridgeCallbackHandler {
             return null;
         }
 
-        UUID gameId = currentGameId;
+        UUID gameId = gameState.currentGameId();
         if (gameId == null) {
             return "no_current_game_id";
         }
         if (!gameId.equals(callbackGameId)) {
             return "non_current_game";
         }
-        if (!activeGames.containsKey(callbackGameId)) {
+        if (!gameState.containsActiveGame(callbackGameId)) {
             return "inactive_game";
         }
         return null;
@@ -3654,7 +3551,7 @@ public class BridgeCallbackHandler {
             warnMessage = "Ignoring " + method + " for game " + callbackGameId + " (no currentGameId)";
         } else if ("non_current_game".equals(ignoreReason)) {
             warnMessage = "Ignoring " + method + " for non-current game " + callbackGameId
-                + " (currentGameId=" + currentGameId + ")";
+                + " (currentGameId=" + gameState.currentGameId() + ")";
         } else if ("inactive_game".equals(ignoreReason)) {
             warnMessage = "Ignoring " + method + " for inactive game " + callbackGameId
                 + " (not in activeGames)";
@@ -3693,9 +3590,9 @@ public class BridgeCallbackHandler {
             if (chatMsg.getMessageType() == ChatMessage.MessageType.GAME) {
                 String msg = chatMsg.getMessage();
                 // Detect when our player has lost the game
-                if (!playerDead && msg != null && msg.contains("has lost the game")
+                if (!gameState.playerDead() && msg != null && msg.contains("has lost the game")
                         && msg.contains(client.getUsername())) {
-                    playerDead = true;
+                    gameState.markPlayerDead();
                     logger.info("[" + client.getUsername() + "] Player death detected from game log");
                 }
             } else if (chatMsg.getMessageType() == ChatMessage.MessageType.TALK) {
@@ -3727,26 +3624,23 @@ public class BridgeCallbackHandler {
     private void handleStartGame(UUID gameId, Object data) {
         TableClientMessage message = (TableClientMessage) data;
         UUID startTableId = message.getCurrentTableId();
-        if (keepAliveAfterGame && !startGameArmed) {
+        if (gameState.keepAliveAfterGame() && !gameState.startGameArmed()) {
             logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
                     + startTableId + " because join_table has not armed a next game"
                     + " (gameId=" + gameId + ")");
             return;
         }
-        UUID expectedTableId = expectedStartTableId;
+        UUID expectedTableId = gameState.expectedStartTableId();
         if (expectedTableId != null && !expectedTableId.equals(startTableId)) {
             logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
                     + startTableId + " while waiting for table " + expectedTableId
                     + " (gameId=" + gameId + ")");
             return;
         }
-        expectedStartTableId = null;
-        startGameArmed = false;
+        gameState.setExpectedStartTableId(null);
+        gameState.setStartGameArmed(false);
         UUID playerId = message.getPlayerId();
-        activeGames.put(gameId, playerId);
-        currentGameId = gameId;
-        currentPlayerId = playerId;
-        gameEverStarted = true;
+        gameState.activateGame(gameId, playerId);
         shortIds.clear();
 
         // Join the game session (creates GameSessionPlayer on server)
@@ -3756,13 +3650,13 @@ public class BridgeCallbackHandler {
 
         // Get chat ID for this game and join to receive incoming messages
         session.getGameChatId(gameId).ifPresent(chatId -> {
-            gameChatIds.put(gameId, chatId);
+            gameState.rememberGameChatId(gameId, chatId);
             session.joinChat(chatId);
             logger.info("[" + client.getUsername() + "] Joined game chat: " + chatId);
         });
 
         logger.info("[" + client.getUsername() + "] Game started: gameId=" + gameId + ", playerId=" + playerId);
-        gameStartLatch.countDown();
+        gameState.signalGameStarted();
     }
 
     private void handleGameInit(Object data) {
@@ -4254,8 +4148,8 @@ public class BridgeCallbackHandler {
      * @return true if the game was still in activeGames (i.e. not yet cleaned up)
      */
     private boolean cleanupGame(UUID gameId) {
-        boolean wasActive = activeGames.remove(gameId) != null;
-        UUID chatId = gameChatIds.remove(gameId);
+        boolean wasActive = gameState.removeActiveGame(gameId);
+        UUID chatId = gameState.forgetGameChatId(gameId);
         if (chatId != null) {
             session.leaveChat(chatId);
         }
@@ -4283,11 +4177,11 @@ public class BridgeCallbackHandler {
         cleanupGame(gameId);
         logger.info("[" + client.getUsername() + "] Game over: " + message.getMessage());
 
-        if (keepAliveAfterGame) {
+        if (gameState.keepAliveAfterGame()) {
             // Multi-game session: signal game finished but keep the client alive.
             // The Python side (join_table tool) drives the next game.
             logger.info("[" + client.getUsername() + "] Game ended (keepAlive mode, staying connected)");
-            gameFinishedLatch.countDown();
+            gameState.signalGameFinished();
         } else {
             // Each game gets its own pilot process + bridge client.
             // Disconnect immediately so the XMage server doesn't auto-join us
@@ -4319,8 +4213,8 @@ public class BridgeCallbackHandler {
         // GAME_OVER was missed — perform the shutdown that handleGameOver would have done.
         logger.warn("[" + client.getUsername() + "] END_GAME_INFO cleaning up game " + gameId
             + " (GAME_OVER was likely dropped)");
-        if (keepAliveAfterGame) {
-            gameFinishedLatch.countDown();
+        if (gameState.keepAliveAfterGame()) {
+            gameState.signalGameFinished();
         } else {
             logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (missed GAME_OVER)");
             client.stop();

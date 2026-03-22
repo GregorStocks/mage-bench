@@ -275,11 +275,11 @@ The main remaining gaps are:
 
 Recommended minimum:
 
-- **1 required PR** to finish the core processor refactor
+- **2 required PRs** to finish the core processor refactor
 - **1 optional PR** for step 5:
   published immutable snapshots / append-only log read model
 
-In other words: after the caller-wait removal PR, expect **1 required PR left**
+In other words: after the caller-wait removal PR, expect **2 required PRs left**
 for the core refactor, plus **1 optional followup PR** if the published read
 model still looks worthwhile.
 
@@ -292,25 +292,43 @@ Keep the remaining required work focused on one theme:
 
 Recommended cut:
 
-- **PR D2: Move remaining processor-owned state/services out of the handler**
+- **PR D2a: Move remaining processor state into processor-local classes**
+  Move the remaining game/lifecycle state into processor-local classes so the
+  handler stops owning fields like `currentGameId`, `lastGameView`,
+  active-game tracking, callback timestamps, and keepAlive latches directly.
+
+  This PR should also rewire the flow contexts to read that processor-owned
+  state directly instead of going back through handler pass-through methods.
+
+- **PR D2b: Move remaining processor helper/service logic out of the handler**
   Move the rest of the processor-owned mutable state and helper logic into
   processor-local state/services so `BridgeCallbackHandler` becomes mostly the
   listener adapter plus MCP command wiring.
 
-  This PR should cover, at minimum:
-  - game/lifecycle state like `currentGameId`, `currentPlayerId`,
-    `lastGameView`, keepAlive state, and callback timestamps
-  - decision-adjacent mutable state like mana-plan state, turn counters, loop
-    detection, and failed-mana tracking
+  This follow-up should cover, at minimum:
+  - remaining decision-adjacent mutable state like mana-plan state, turn
+    counters, loop detection, and failed-mana tracking
   - unread chat / bridge-event cursor state if it is still part of live bridge
     behavior
   - remaining package-private helper surfaces that only exist to let
     processor-side classes reach back into `BridgeCallbackHandler`
 
-If D2 turns out too large in review, split again:
+#### Current checkpoint after the game-state ownership PR
 
-- **PR D2a:** move remaining processor state into processor-local classes
-- **PR D2b:** move remaining helper/service logic out of the handler
+After the game-state ownership work lands:
+
+- `BridgeGameState` owns game/lifecycle state like `currentGameId`,
+  `currentPlayerId`, `lastGameView`, active-game tracking, callback timestamps,
+  keepAlive latches, and related lifecycle flags
+- the choose/pass flow contexts read that processor-owned state directly
+  instead of going back through handler getter methods
+- `BridgeCallbackHandler` is smaller, but it still owns interaction/mana state,
+  chat/event-log state, cursor state, and too much helper logic
+
+At that point there should be:
+
+- **1 required PR** left for the core processor refactor (`D2b`)
+- **1 optional PR** left for the published read model
 
 ### Step 5: Published Read Model / Append-Only Log
 

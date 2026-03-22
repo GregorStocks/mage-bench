@@ -4,6 +4,7 @@ import mage.client.bridge.processor.BridgeChooseActionFlowContext;
 import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
 import mage.client.bridge.processor.BridgeDecisionState;
+import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.tools.ChooseActionTool;
 
 import java.util.Set;
@@ -12,10 +13,15 @@ import java.util.UUID;
 final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowContext {
     private final BridgeCallbackHandler handler;
     private final BridgeDecisionState decisionState;
+    private final BridgeGameState gameState;
 
-    BridgeChooseActionFlowContextImpl(BridgeCallbackHandler handler, BridgeDecisionState decisionState) {
+    BridgeChooseActionFlowContextImpl(
+            BridgeCallbackHandler handler,
+            BridgeDecisionState decisionState,
+            BridgeGameState gameState) {
         this.handler = handler;
         this.decisionState = decisionState;
+        this.gameState = gameState;
     }
 
     @Override
@@ -30,7 +36,10 @@ final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowC
 
     @Override
     public boolean requestCannotContinue() {
-        return handler.chooseActionRequestCannotContinue();
+        return gameState.superseded()
+            || gameState.playerDead()
+            || gameState.gameOverObserved()
+            || !handler.clientRunning();
     }
 
     @Override

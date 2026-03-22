@@ -1,6 +1,7 @@
 package mage.client.bridge;
 
 import mage.client.bridge.processor.BridgeDecisionState;
+import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.tools.ActionResult;
@@ -12,10 +13,15 @@ import java.util.function.Consumer;
 final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowContext {
     private final BridgeCallbackHandler handler;
     private final BridgeDecisionState decisionState;
+    private final BridgeGameState gameState;
 
-    BridgePassPriorityFlowContextImpl(BridgeCallbackHandler handler, BridgeDecisionState decisionState) {
+    BridgePassPriorityFlowContextImpl(
+            BridgeCallbackHandler handler,
+            BridgeDecisionState decisionState,
+            BridgeGameState gameState) {
         this.handler = handler;
         this.decisionState = decisionState;
+        this.gameState = gameState;
     }
 
     @Override
@@ -109,12 +115,12 @@ final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowC
 
     @Override
     public UUID currentGameId() {
-        return handler.currentGameId();
+        return gameState.currentGameId();
     }
 
     @Override
     public GameView lastGameView() {
-        return handler.lastGameView();
+        return gameState.lastGameView();
     }
 
     @Override
@@ -124,22 +130,22 @@ final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowC
 
     @Override
     public int activeGamesSize() {
-        return handler.activeGamesSize();
+        return gameState.activeGamesSize();
     }
 
     @Override
     public boolean superseded() {
-        return handler.superseded();
+        return gameState.superseded();
     }
 
     @Override
     public boolean playerDead() {
-        return handler.playerDead();
+        return gameState.playerDead();
     }
 
     @Override
     public boolean gameEverStarted() {
-        return handler.gameEverStarted();
+        return gameState.gameEverStarted();
     }
 
     @Override
@@ -149,12 +155,12 @@ final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowC
 
     @Override
     public long lastActionableCallbackAt() {
-        return handler.lastActionableCallbackAt();
+        return gameState.lastActionableCallbackAt();
     }
 
     @Override
     public long lastCallbackReceivedAt() {
-        return handler.lastCallbackReceivedAt();
+        return gameState.lastCallbackReceivedAt();
     }
 
     @Override
