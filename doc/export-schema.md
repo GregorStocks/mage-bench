@@ -1,8 +1,13 @@
 # Export Schema
 
-Game exports live in `website/public/games/` as either `.json` or `.json.gz` files — the format is identical, we just gzip when the file is large enough to annoy GitHub. Both extensions should be treated the same by all consumers.
+Game exports live in `website/public/games/` as either `.json5` or `.json5.gz`
+files. The on-disk payload is the same either way; large files are gzipped to
+keep the repo manageable.
 
-Each export version has its own JSON Schema (Draft 7) in `schemas/game-export-v*.schema.json`. The latest version (`game-export-v8.schema.json`) is the source of truth for new exports. See `schemas/migrations/README.md` for the migration framework.
+`schemas/game-export-v8.schema.json` is the current canonical export contract.
+TypeScript types are generated from that schema today. If a future change needs
+another persisted format version, add the new schema and any migration/backfill
+plan in that PR instead of keeping retired v2-v7 history around indefinitely.
 
 TypeScript types are generated from the latest schema: `website/src/types/game-export.d.ts`. Regenerate with `make regen-schema-types`.
 
@@ -79,21 +84,22 @@ Code that reads the export format and would need updating if the schema changes:
 
 ## Evolving the Schema
 
-**Never re-export games from raw logs** to pick up schema changes. Raw logs are the pre-export format and may not be available for older games. Instead:
+**Never re-export games from raw logs** just to pick up export changes. Raw logs
+are the pre-export format and may not be available for older games.
 
-1. **Schema or persisted-data changes**: Prefer a version bump plus a migration in `schemas/migrations/`, even if the new field is derivable from existing export data. This keeps repairs reproducible and avoids one-off patch scripts for schema history.
+When the export contract changes:
 
-2. **Non-schema repairs**: Use a backfill script only when the exported contract itself is unchanged and you are repairing derived data in place.
+1. **Current-schema updates**: If the on-disk format stays v8, update
+   `game-export-v8.schema.json`, regenerate the derived TypeScript types, and
+   backfill committed exports in place as needed.
 
-3. **Manual backfill**: As a last resort when data can't be derived from the export and raw logs must be consulted. Avoid this — it's fragile and doesn't scale.
+2. **New persisted format versions**: If the change genuinely needs a new
+   version, add the new schema and migration/backfill machinery in that same
+   PR. Do not keep obsolete version stacks around after all committed exports
+   have moved forward.
 
-## Migration Framework
+3. **Non-schema repairs**: Use a backfill script only when the exported
+   contract is unchanged and you are repairing derived data in place.
 
-Migration modules live in `schemas/migrations/`. See `schemas/migrations/README.md` for the pattern.
-
-Goals:
-
-- Bidirectional transforms (v2<->v3) so roundtrip tests can prove no data loss.
-- Incremental migration: land schema definition first, migrate games across multiple PRs.
-- At most two versions coexist at any time (briefly, during migration).
-- Old versions don't accumulate -- once migration is complete, delete the old version's migration code.
+4. **Manual backfill**: As a last resort when data cannot be derived from the
+   export and raw logs must be consulted.

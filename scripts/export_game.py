@@ -6,8 +6,8 @@ import re
 import sys
 from pathlib import Path
 
+from puppeteer.harness_epoch import SEASON_1_START_EPOCH
 from schemas.game_export_types import BuiltGameExport, require_built_game_export
-from schemas.migrations.v3_to_v4 import compute_season
 from scripts.export_card_data import DECKLIST_RE, build_card_data
 from scripts.export_decisions import build_decisions
 from scripts.export_errors import link_errors_to_decisions, read_errors
@@ -29,6 +29,13 @@ TIMED_OUT_RE = re.compile(r"^(.+?) has run out of time, losing the match\.$")
 
 class GameExportError(RuntimeError):
     """Operational export failure that callers may treat as non-fatal."""
+
+
+def _compute_season(harness_epoch: int) -> int:
+    """Map historical harness epochs onto the current season numbering."""
+    if harness_epoch < SEASON_1_START_EPOCH:
+        return 0
+    return 1
 
 
 def _strip_html(message: str) -> str:
@@ -340,7 +347,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     if "season" in meta:
         output["season"] = meta["season"]
     else:
-        output["season"] = compute_season(harness_epoch)
+        output["season"] = _compute_season(harness_epoch)
     tournament_id: str | None = None
     if meta.get("tournament_game", False):
         tournament_id = _find_tournament_for_game(game_dir.name)
