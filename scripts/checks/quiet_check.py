@@ -55,7 +55,12 @@ RECURSIVE_MAKE_ENV_VARS = (
 # Prefix matches use startswith; suffix matches (starting with *) use endswith.
 TARGET_TRIGGERS: dict[str, list[str]] = {
     "lint": ["puppeteer/", "scripts/", "schemas/", "src/", "issues/"],
-    "lint-java": ["Mage.", "pom.xml"],
+    "lint-java": [
+        "Mage.",
+        "pom.xml",
+        "scripts/mcp_tools_json5.py",
+        "website/src/data/mcp-tools.json5",
+    ],
     "lint-website": ["website/"],
     "lint-md": ["*.md"],
     "astro-check": ["website/"],
@@ -68,7 +73,12 @@ TARGET_TRIGGERS: dict[str, list[str]] = {
 }
 
 # Files that, if changed, force all targets to run.
-ALWAYS_RUN_TRIGGERS = ["Makefile", "scripts/checks/", "pyproject.toml"]
+ALWAYS_RUN_TRIGGERS = [
+    "Makefile",
+    "scripts/checks/",
+    "pyproject.toml",
+    "ruff-lint.toml",
+]
 
 
 def _file_matches(path: str, triggers: list[str]) -> bool:
