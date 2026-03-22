@@ -70,6 +70,7 @@ Pick and solve exactly **one** issue, then create a PR.
    - Finding when the authoritative claimed issue file was created (`git log --diff-filter=A -- issues/<filename>.json5`)
    - Reviewing git history since that date for commits that look like they address the issue
    - Reading the relevant code to see if the described bug/problem still exists
+   - For debt-ratchet cleanup issues, verify the current enforcement file/path in the tree instead of trusting the issue text verbatim; related PRs can move a check from one test file to another while leaving the issue description stale
    - For lint-ignore cleanup issues, verify the underlying violation without the ignore in effect (for example `ruff check --isolated ...`); a normal lint run can still pass because the suppression you are trying to remove is active
 
    If the issue **is already fixed**: skip the planning/implementation steps entirely. Just delete the issue file, commit it, push, and finalize the PR as a cleanup. The PR title should be something like "Clean up outdated issue: \<title\>" and the body should briefly explain that the issue was already resolved (mention the commit or change that fixed it). Conceptually this is a zero-line fix — the only change is removing the stale issue file.

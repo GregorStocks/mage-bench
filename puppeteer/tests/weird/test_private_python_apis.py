@@ -13,7 +13,6 @@ _PRIVATE_IMPORT_SCAN_ROOTS = (
 )
 
 _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
-    ("puppeteer.deck_choice", "puppeteer.config", "_DECK_TYPE_TO_FORMAT_DIR"),
     ("puppeteer.pilot", "puppeteer.pilot_bridge", "_build_pilot_decision"),
     ("puppeteer.pilot", "puppeteer.pilot_bridge", "_build_pilot_snapshot"),
     ("puppeteer.pilot", "puppeteer.pilot_bridge", "_record_tool_execution_failure"),
@@ -41,8 +40,6 @@ _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
     ("puppeteer.pilot_rendering", "puppeteer.pilot_game_state", "_extract_oracle_texts_from_board"),
     ("puppeteer.pilot_state", "puppeteer.pilot_rendering", "_build_reset_message"),
     ("puppeteer.pilot_state", "puppeteer.pilot_rendering", "_extract_last_reasoning"),
-    ("schemas.migrations.v7_to_v8", "schemas.game_export_types", "_coerce_snapshot"),
-    ("scripts.tournament_game", "puppeteer.config", "_generate_player_name"),
 }
 
 _ALLOWED_PRIVATE_REEXPORTS = {
