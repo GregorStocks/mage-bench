@@ -35,7 +35,7 @@ Use real timestamps (the actual time you're creating the issue), not `00:00:00` 
 | `labels` | string[] | Tags like "spectator", "bridge", "puppeteer" |
 | `created_at` | string | ISO 8601 timestamp |
 | `updated_at` | string | ISO 8601 timestamp |
-| `blocked` | bool \| string? | If truthy, the filename must start with `blocked-` and `autoclaim_issue.py` skips this issue. When a string, it describes *why* the issue is blocked (e.g. `"Waiting for upstream stubs package to be fixed"`). The solve-issue skill first tries `autoclaim_issue.py`; if that reports no claimable issues, it may inspect blocked issues, use LLM reasoning to determine whether a blocker is stale/resolved, and unblock + claim one manually. **Do NOT set this unless Gregor explicitly says to.** Most issues should be claimable. |
+| `blocked` | bool \| string? | If truthy, the filename must start with `blocked-` and `autoclaim_issue.py` skips this issue. When a string, it describes *why* the issue is blocked (e.g. `"Waiting for upstream stubs package to be fixed"`). The solve-issue skill first tries `autoclaim_issue.py`; that script consults the shared local claim store under the repo's git common dir, then may inspect blocked issues only if no unblocked issue is claimable. **Do NOT set this unless Gregor explicitly says to.** Most issues should be claimable. |
 
 ## Querying
 

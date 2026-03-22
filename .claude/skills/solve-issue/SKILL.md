@@ -5,7 +5,7 @@ description: Claim exactly one issue, fix it, and create a pull request starting
 
 # Solve an Issue
 
-Pick and solve exactly **one** issue, then create a PR.
+Pick and solve exactly **one** issue, then create a PR. Issue claims live in the shared local claim store under the repo's git common dir; claiming does **not** create a PR up front.
 
 ## Workflow
 
@@ -48,15 +48,15 @@ Pick and solve exactly **one** issue, then create a PR.
 
    Never pick a specific issue on your own — always use the auto-pick unless the user told you which issue to work on.
 
-   - If the script **succeeds** (exit 0): immediately inspect the current branch PR (`gh pr view --json body,url`) and extract the `<!-- claim: ... -->` tag from that PR body. Treat that PR claim tag as the authoritative claimed issue for all later steps. If there is no open PR or the claim tag is missing/mismatched, **stop immediately** and tell the user the claim workflow is inconsistent.
-   - If you later merge `origin/master` and the claimed issue file was renamed (for example because issue filename prefixes changed), immediately update the PR body to use the new canonical `<!-- claim: ... -->` tag before continuing. `finalize_issue_pr.py` preserves the current PR tag verbatim.
+   - If the script **succeeds** (exit 0): immediately run `uv run python scripts/claim_issue.py --current` and treat the returned filename stem as the authoritative claimed issue for all later steps.
+   - If you later merge `origin/master` and the claimed issue file was renamed (for example because issue filename prefixes changed), re-run `uv run python scripts/claim_issue.py --current` before continuing. The local claim key is stable across `blocked-...` / `pN-...` renames.
    - If the script **fails with exit 2**: **stop immediately**. Tell the user no issue was claimed and do NOT proceed.
    - If the script **fails with exit 1** and the user explicitly passed an issue name: **stop immediately**. Tell the user no issue was claimed and do NOT proceed.
    - If the script **fails with exit 1** during auto-pick: do **not** stop yet. This means there is no unblocked, unclaimed issue currently available. Continue to step 3 and look for a blocked issue that can be unblocked and claimed.
 
 3. **Fallback to blocked issues only if auto-claim found nothing.** Skip this step if the user explicitly passed an issue name or step 2 already claimed something.
 
-   `uv run python scripts/query_issues.py` is still useful for listing blocked issues, but do **not** use it to decide whether blocked fallback is needed. It does not know which unblocked issues are already claimed by open PRs; `autoclaim_issue.py` is the authoritative check for "nothing unblocked is actually claimable."
+   `uv run python scripts/query_issues.py` is still useful for listing blocked issues, but do **not** use it to decide whether blocked fallback is needed. It does not know which unblocked issues are already claimed in the shared local claim store; `autoclaim_issue.py` is the authoritative check for "nothing unblocked is actually claimable."
 
    Work through blocked issues in any reasonable order. Priority does **not** matter in this fallback because step 2 already proved there is no unblocked, unclaimed issue to take first. Prefer blockers you can verify mechanically before issues that obviously require Gregor or an external dependency.
 
@@ -68,8 +68,8 @@ Pick and solve exactly **one** issue, then create a PR.
       uv run python scripts/autoclaim_issue.py <blocked-issue-name>
       ```
 
-      - If that claim succeeds (exit 0): inspect the current branch PR (`gh pr view --json body,url`), extract the `<!-- claim: ... -->` tag, and treat it as authoritative for all later steps. Then immediately remove the `blocked` field, rename the file from `blocked-<name>.json5` to `p{priority}-<name>.json5`, commit that change on your branch, and update the PR body to the new canonical `<!-- claim: ... -->` tag before doing any further work. Stop scanning blocked issues.
-      - If that claim fails with exit 1: another PR got there first or the claim was otherwise lost. Continue to the next blocked issue and try again with a different one.
+      - If that claim succeeds (exit 0): run `uv run python scripts/claim_issue.py --current` and treat that returned filename stem as authoritative for all later steps. Then immediately remove the `blocked` field, rename the file from `blocked-<name>.json5` to `p{priority}-<name>.json5`, commit that change on your branch, and continue. Stop scanning blocked issues.
+      - If that claim fails with exit 1: another worktree got there first or the claim was otherwise lost. Continue to the next blocked issue and try again with a different one.
       - If that claim fails with exit 2: **stop immediately** and tell the user.
    4. If the blocker **is NOT resolved**: leave it blocked and continue to the next blocked issue
    5. If no blocked issue can be unblocked and claimed, **stop immediately** and tell the user no issue was claimed.
@@ -126,7 +126,7 @@ Pick and solve exactly **one** issue, then create a PR.
 11. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
 12. Run `/simplify` to review the changed code for reuse, quality, and efficiency, and fix any issues found. If `/simplify` is unavailable in the current session, do the equivalent manually by reviewing your diff for unnecessary duplication, dead code, and avoidable complexity, then continue.
     - While doing that manual review, inspect `website/package-lock.json` before you commit. `make check` / website tooling can add incidental `"peer": true` lockfile churn even when you did not intentionally change website dependencies; drop unrelated lockfile noise so the issue PR stays scoped.
-13. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
+13. Push final changes and finalize the PR. The script reads the current worktree's local issue claim, pushes, creates or updates the branch PR, and marks it ready:
 
     ```bash
     uv run python scripts/finalize_issue_pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"
@@ -152,7 +152,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
 ## Abandoning an Issue
 
-If you determine an issue isn't worth fixing after claiming it, do **not** improvise claim cleanup. If the current tree has a documented abandon helper, use it. Otherwise stop, tell Gregor the issue should be abandoned, and wait for direction before touching the PR claim metadata manually.
+If you determine an issue isn't worth fixing after claiming it, do **not** improvise claim cleanup. If the current tree has a documented abandon helper, use it. Otherwise stop, tell Gregor the issue should be abandoned, and wait for direction before touching the local claim files manually.
 
 Then restart from step 1 to pick a different issue.
 

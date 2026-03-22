@@ -13,12 +13,20 @@ Quickly analyze a game using only the exported game file (`.json` or `.json.gz`)
 
 Determine which game(s) to analyze:
 
-- If the user specified game ID(s), use those.
+- If the user specified game ID(s), claim those exact game IDs before doing any analysis:
+
+  ```bash
+  uv run python scripts/analysis/claim_games.py --type fast {game_id}...
+  ```
+
+  If the claim fails, stop instead of analyzing an already-claimed game.
 - If the user said "most recent" or similar, find the latest:
 
   ```bash
   uv run python scripts/list_recent_games.py
   ```
+
+  Then claim the resolved game ID with `uv run python scripts/analysis/claim_games.py --type fast {game_id}`.
 
 - If the user mentioned a config name (e.g. "round-robin-commander", "jumpstart-dumb", "modern-staller"), use the corresponding symlink:
 
@@ -26,14 +34,14 @@ Determine which game(s) to analyze:
   uv run python scripts/list_recent_games.py --config {config}
   ```
 
-  where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
-- **If no game specified at all**, find the most recent unanalyzed games:
+  where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`. Then claim the resolved game ID(s) with `claim_games.py --type fast`.
+- **If no game specified at all**, claim the most recent unanalyzed games:
 
   ```bash
-  make list-games-to-analyze
+  uv run python scripts/analysis/claim_games.py --type fast --count 10
   ```
 
-  This cross-references all game exports in `website/public/games/` (both `.json` and `.json.gz`) against existing analysis files in `doc/claudes/analyses/fast/` and prints the unanalyzed ones newest-first. Use `ARGS="--count N"` to change the number. Games are automatically skipped if 30+ fast-analysis runs have been done on newer games — at that point, any bugs from the old game have almost certainly already been identified. Use `ARGS="--max-staleness 0"` to disable this filter.
+  This atomically claims up to 10 exported games from the shared local claim store, so concurrent runs do not double-grab the same work. The picks are still newest-first within the currently unclaimed pool, but two concurrent runs may split adjacent games between them. Use `--count N` to change the batch size and `--max-staleness 0` to disable staleness filtering.
 
 When analyzing multiple games, **parallelize aggressively**: run `game_overview.py`, `llm_events.py`, `game_narrative.py`, and `llm_reasoning.py` across 4+ games simultaneously rather than finishing one game before starting the next. Check errors/annotations arrays in bulk too. Write all analysis files at the end. Only drill into individual games (with `mcp_errors.py`, `extract_decisions.py`, etc.) when the initial parallel pass reveals something interesting.
 
@@ -44,7 +52,7 @@ GAME_ID=game_YYYYMMDD_HHMMSS  # from step 1
 GAME_PATH=website/public/games/${GAME_ID}.json  # or .json.gz
 ```
 
-a. Check if `website/public/games/${GAME_ID}.json` or `.json.gz` exists on the current branch. (If using `find_unanalyzed.py`, it already outputs the full path — use that directly.)
+a. Check if `website/public/games/${GAME_ID}.json` or `.json.gz` exists on the current branch. (If `claim_games.py` already output the full path for an auto-claimed export, use that directly.)
 b. If not, check if `~/.mage-bench/logs/${GAME_ID}/game_events.jsonl` exists. If so, generate the export:
 
    ```bash

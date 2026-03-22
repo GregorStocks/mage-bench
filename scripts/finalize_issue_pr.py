@@ -1,68 +1,114 @@
 #!/usr/bin/env python3
-"""Push, update PR with claim tag preserved, and mark ready.
+"""Push, create/update a PR for the current branch, and mark it ready.
 
 Usage:
     finalize_issue_pr.py --title "PR title" --body "PR body"
 
-Extracts the <!-- claim: ... --> tag from the current PR body,
-appends it to the new body, pushes, edits the PR, and marks it ready.
-
 Exit codes:
     0  Success
-    1  No open PR found for current branch
-    2  No claim tag found in PR body
+    1  No local issue claim found for the current worktree
 """
 
 import argparse
-import re
+import json
 import subprocess
 
-CLAIM_TS_RE = re.compile(r"<!-- claim-ts: \d+ -->")
+from magebench.common.local_claims import current_owner_claims
+
+ISSUE_NAMESPACE = "issues"
 
 
 def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(cmd, capture_output=True, text=True)
 
 
-def extract_claim_metadata(body: str) -> str:
-    claim_match = re.search(r"<!-- claim: .+? -->", body)
-    assert claim_match, f"No claim tag found in PR body:\n{body}"
-    claim_parts = [claim_match.group(0)]
-    claim_ts_match = CLAIM_TS_RE.search(body)
-    if claim_ts_match:
-        claim_parts.append(claim_ts_match.group(0))
-    return "\n".join(claim_parts)
+def _current_branch() -> str:
+    result = run(["git", "branch", "--show-current"])
+    assert result.returncode == 0, f"git branch --show-current failed: {result.stderr}"
+    branch = result.stdout.strip()
+    assert branch, "Expected current branch"
+    return branch
+
+
+def _open_branch_pr(branch: str) -> dict[str, object] | None:
+    result = run(
+        [
+            "gh",
+            "pr",
+            "list",
+            "--head",
+            branch,
+            "--state",
+            "open",
+            "--json",
+            "number,isDraft",
+        ]
+    )
+    assert result.returncode == 0, f"gh pr list --head {branch} failed: {result.stderr}"
+    prs = json.loads(result.stdout)
+    assert isinstance(prs, list), (
+        f"gh pr list returned non-list payload: {type(prs).__name__}"
+    )
+    if not prs:
+        return None
+    assert len(prs) == 1, (
+        f"Expected at most one open PR for branch {branch}, got {len(prs)}"
+    )
+    pr = prs[0]
+    assert isinstance(pr, dict), f"gh pr list returned non-object PR entry: {pr!r}"
+    return pr
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Finalize an issue PR")
     parser.add_argument("--title", required=True, help="PR title")
-    parser.add_argument(
-        "--body", required=True, help="PR body (claim tag is appended automatically)"
-    )
+    parser.add_argument("--body", required=True, help="PR body")
     args = parser.parse_args()
 
-    # Push
+    claims = current_owner_claims(ISSUE_NAMESPACE)
+    if not claims:
+        raise SystemExit(1)
+
     subprocess.run(["git", "push", "origin", "HEAD"], check=True)
 
-    # Get current PR body
-    result = run(["gh", "pr", "view", "--json", "body", "--jq", ".body"])
-    assert result.returncode == 0, (
-        f"No open PR found for current branch: {result.stderr}"
-    )
+    branch = _current_branch()
+    pr = _open_branch_pr(branch)
 
-    # Extract claim metadata
-    claim_metadata = extract_claim_metadata(result.stdout)
+    if pr is None:
+        subprocess.run(
+            [
+                "gh",
+                "pr",
+                "create",
+                "--draft",
+                "--base",
+                "master",
+                "--title",
+                args.title,
+                "--body",
+                args.body,
+            ],
+            check=True,
+        )
+        pr = _open_branch_pr(branch)
+        assert pr is not None, f"Open PR for {branch} not found after creation"
+    else:
+        subprocess.run(
+            [
+                "gh",
+                "pr",
+                "edit",
+                str(pr["number"]),
+                "--title",
+                args.title,
+                "--body",
+                args.body,
+            ],
+            check=True,
+        )
 
-    # Update PR
-    body_with_claim = f"{args.body}\n\n{claim_metadata}"
-    subprocess.run(
-        ["gh", "pr", "edit", "--title", args.title, "--body", body_with_claim],
-        check=True,
-    )
-
-    # Mark ready
-    subprocess.run(["gh", "pr", "ready"], check=True)
+    if bool(pr["isDraft"]):
+        subprocess.run(["gh", "pr", "ready"], check=True)
 
     print(f"PR finalized: {args.title}")
 

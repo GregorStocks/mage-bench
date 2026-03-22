@@ -13,12 +13,20 @@ Deep analysis of game logs — reads all raw log files, traces bugs to source co
 
 Determine which game to analyze:
 
-- If the user specified a game ID (e.g. `game_20260211_080409`), use that.
+- If the user specified a game ID (e.g. `game_20260211_080409`), claim it before doing any analysis:
+
+  ```bash
+  uv run python scripts/analysis/claim_games.py --type deep {game_id}
+  ```
+
+  If the claim fails, stop instead of analyzing an already-claimed game.
 - If the user said "most recent" or similar, find the latest:
 
   ```bash
   uv run python scripts/list_recent_games.py
   ```
+
+  Then claim the resolved game ID with `uv run python scripts/analysis/claim_games.py --type deep {game_id}`.
 
 - If the user mentioned a config name (e.g. "round-robin-commander", "jumpstart-dumb", "modern-staller"), use the corresponding symlink:
 
@@ -26,11 +34,11 @@ Determine which game to analyze:
   uv run python scripts/list_recent_games.py --config {config}
   ```
 
-  where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
-- **If no game specified at all**, find the most recent unanalyzed game:
+  where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`. Then claim the resolved game ID with `claim_games.py --type deep`.
+- **If no game specified at all**, claim the most recent unanalyzed game:
 
   ```bash
-  uv run python scripts/analysis/find_unanalyzed.py --type deep --count 1
+  uv run python scripts/analysis/claim_games.py --type deep --count 1
   ```
 
 Set `GAME_DIR=~/.mage-bench/logs/{game_id}`.

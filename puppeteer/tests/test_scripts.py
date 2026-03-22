@@ -12,11 +12,11 @@ import pytest
 
 from magebench.common import http_utils
 from magebench.common.json5_utils import dumps_json5
+from magebench.common.local_claims import ClaimConflictError, ClaimRecord
 from magebench.game.game_export_types import ToolCallEvent
 from scripts import scryfall
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
-CLAIM_NS = 946688400000000000
 
 
 def _import_script(name: str):
@@ -27,31 +27,21 @@ def _import_script(name: str):
     return mod
 
 
-def _claim_body(issue: str, claim_ts: int | None = None) -> str:
-    body = f"<!-- claim: {issue} -->"
-    if claim_ts is not None:
-        body += f"\n<!-- claim-ts: {claim_ts} -->"
-    return body
-
-
-def _open_claim_pr(number: int, issue: str, created_at: str, claim_ts: int | None = None) -> dict[str, object]:
-    return {
-        "number": number,
-        "body": _claim_body(issue, claim_ts),
-        "createdAt": created_at,
-    }
-
-
-def _run_result(stdout: str, returncode: int = 0) -> MagicMock:
-    result = MagicMock()
-    result.stdout = stdout
-    result.returncode = returncode
-    return result
-
-
 def _write_issue(issues_dir: Path, name: str, data: dict, *, as_json5_text: str | None = None) -> None:
     text = as_json5_text if as_json5_text is not None else dumps_json5(data)
     (issues_dir / f"{name}.json5").write_text(text)
+
+
+def _claim_record(key: str, *, worktree_name: str = "wt", branch: str = "feature") -> ClaimRecord:
+    return ClaimRecord(
+        namespace="issues",
+        key=key,
+        claim_path=Path(f"/tmp/{key}.json"),
+        worktree_path=Path(f"/tmp/{worktree_name}"),
+        worktree_name=worktree_name,
+        branch=branch,
+        payload={"key": key},
+    )
 
 
 query_issues = _import_script("query_issues")
@@ -188,31 +178,17 @@ class TestHttpUtils:
 
 class TestClaimIssue:
     def test_list_claimed(self) -> None:
-        mock_result = MagicMock()
-        mock_result.returncode = 0
-        mock_result.stdout = "<!-- claim: bug-a -->\n<!-- claim: bug-b -->\nsome other body\n"
-
-        with patch.object(claim_issue, "run", return_value=mock_result):
+        with patch.object(
+            claim_issue,
+            "list_claims",
+            return_value=[_claim_record("bug-b"), _claim_record("bug-a")],
+        ):
             result = claim_issue.list_claimed()
 
         assert result == ["bug-a", "bug-b"]
 
     def test_list_claimed_empty(self) -> None:
-        mock_result = MagicMock()
-        mock_result.returncode = 0
-        mock_result.stdout = "no claims here\n"
-
-        with patch.object(claim_issue, "run", return_value=mock_result):
-            result = claim_issue.list_claimed()
-
-        assert result == []
-
-    def test_list_claimed_gh_failure(self) -> None:
-        mock_result = MagicMock()
-        mock_result.returncode = 1
-        mock_result.stdout = ""
-
-        with patch.object(claim_issue, "run", return_value=mock_result):
+        with patch.object(claim_issue, "list_claims", return_value=[]):
             result = claim_issue.list_claimed()
 
         assert result == []
@@ -229,439 +205,89 @@ class TestClaimIssue:
         with patch.object(sys, "argv", ["claim_issue.py"]), pytest.raises(SystemExit, match="2"):
             claim_issue.main()
 
+    def test_current_no_claim_exits_1(self) -> None:
+        with (
+            patch.object(sys, "argv", ["claim_issue.py", "--current"]),
+            patch.object(claim_issue, "current_claimed_issue_stem", return_value=None),
+            pytest.raises(SystemExit, match="1"),
+        ):
+            claim_issue.main()
+
     def test_master_branch_exits_2(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
-        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
-
-        branch_result = MagicMock()
-        branch_result.stdout = "master\n"
+        _write_issue(issues_dir, "p1-bug-a", {"title": "Bug A", "priority": 1})
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim_issue.py", "bug-a.json5"]),
-            patch.object(claim_issue, "run", return_value=branch_result),
+            patch.object(sys, "argv", ["claim_issue.py", "p1-bug-a.json5"]),
+            patch.object(
+                claim_issue,
+                "current_worktree_context",
+                return_value=MagicMock(branch="master"),
+            ),
+            patch.object(claim_issue, "current_owner_claims", return_value=[]),
             pytest.raises(SystemExit, match="2"),
         ):
             claim_issue.main()
 
-    def test_conflicting_open_branch_pr_exits_2(self, tmp_path: Path) -> None:
+    def test_existing_other_issue_claim_exits_2(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
-        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
-
-        branch_result = MagicMock()
-        branch_result.stdout = "my-branch\n"
-
-        branch_pr_result = MagicMock()
-        branch_pr_result.returncode = 0
-        branch_pr_result.stdout = json.dumps(
-            [
-                {
-                    "number": 1059,
-                    "body": _claim_body("bug-b"),
-                    "url": "https://example.test/pr/1059",
-                }
-            ]
-        )
-        winner_result = _run_result(json.dumps([_open_claim_pr(1059, "bug-b", "2000-01-01T00:00:00Z")]))
-
-        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
-            if cmd[:2] == ["git", "branch"]:
-                return branch_result
-            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
-                return branch_pr_result
-            if cmd[:3] == ["gh", "pr", "list"]:
-                return winner_result
-            raise AssertionError(f"unexpected run: {cmd}")
+        _write_issue(issues_dir, "p1-bug-a", {"title": "Bug A", "priority": 1})
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
-            patch.object(claim_issue, "run", side_effect=fake_run),
-            patch("subprocess.run") as mock_subprocess,
+            patch.object(sys, "argv", ["claim_issue.py", "p1-bug-a"]),
+            patch.object(
+                claim_issue,
+                "current_worktree_context",
+                return_value=MagicMock(worktree_name="wt", branch="feature"),
+            ),
+            patch.object(claim_issue, "current_owner_claims", return_value=[_claim_record("bug-b")]),
             pytest.raises(SystemExit, match="2"),
         ):
             claim_issue.main()
 
-        mock_subprocess.assert_not_called()
-
-    def test_stale_branch_pr_for_other_issue_is_retargeted(self, tmp_path: Path) -> None:
+    def test_conflict_from_other_worktree_exits_1(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
-        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
-        _write_issue(issues_dir, "bug-b", {"title": "Bug B", "priority": 2})
-
-        branch_result = MagicMock()
-        branch_result.stdout = "my-branch\n"
-
-        stale_branch_pr = MagicMock()
-        stale_branch_pr.returncode = 0
-        stale_branch_pr.stdout = json.dumps(
-            [
-                {
-                    "number": 1059,
-                    "body": _claim_body("bug-a"),
-                    "url": "https://example.test/pr/1059",
-                }
-            ]
-        )
-
-        retargeted_branch_pr = MagicMock()
-        retargeted_branch_pr.returncode = 0
-        retargeted_branch_pr.stdout = json.dumps(
-            [
-                {
-                    "number": 1059,
-                    "body": _claim_body("bug-b", CLAIM_NS),
-                    "url": "https://example.test/pr/1059",
-                }
-            ]
-        )
-
-        branch_pr_results = iter([stale_branch_pr, retargeted_branch_pr])
-
-        open_claim_results = iter(
-            [
-                _run_result(
-                    json.dumps(
-                        [
-                            _open_claim_pr(42, "bug-a", "2000-01-01T00:00:00Z"),
-                            _open_claim_pr(1059, "bug-a", "2000-01-01T01:00:00Z"),
-                        ]
-                    )
-                ),
-                _run_result(json.dumps([_open_claim_pr(1059, "bug-b", "2000-01-01T01:00:00Z", CLAIM_NS)])),
-                _run_result(json.dumps([_open_claim_pr(1059, "bug-b", "2000-01-01T01:00:00Z", CLAIM_NS)])),
-            ]
-        )
-
-        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
-            if cmd[:2] == ["git", "branch"]:
-                return branch_result
-            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
-                return next(branch_pr_results)
-            if cmd[:3] == ["gh", "pr", "list"]:
-                return next(open_claim_results)
-            raise AssertionError(f"unexpected run: {cmd}")
+        _write_issue(issues_dir, "p1-bug-a", {"title": "Bug A", "priority": 1})
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim_issue.py", "bug-b"]),
-            patch.object(claim_issue, "run", side_effect=fake_run),
-            patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
-            patch("subprocess.run") as mock_subprocess,
-        ):
-            claim_issue.main()
-
-        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
-        assert mock_subprocess.call_args_list == [
-            call(
-                [
-                    "gh",
-                    "pr",
-                    "edit",
-                    "1059",
-                    "--title",
-                    "Solve: Bug B",
-                    "--body",
-                    f"<!-- claim: bug-b -->\n<!-- claim-ts: {CLAIM_NS} -->",
-                ],
-                check=True,
+            patch.object(sys, "argv", ["claim_issue.py", "p1-bug-a"]),
+            patch.object(
+                claim_issue,
+                "current_worktree_context",
+                return_value=MagicMock(worktree_name="wt", branch="feature"),
             ),
-            call(["git", "push", "-u", "origin", "my-branch"], check=True),
-        ]
-
-    def test_stale_branch_pr_does_not_hijack_existing_target_claim(self, tmp_path: Path) -> None:
-        issues_dir = tmp_path
-        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
-        _write_issue(issues_dir, "bug-b", {"title": "Bug B", "priority": 2})
-
-        branch_result = MagicMock()
-        branch_result.stdout = "my-branch\n"
-
-        stale_branch_pr = MagicMock()
-        stale_branch_pr.returncode = 0
-        stale_branch_pr.stdout = json.dumps(
-            [
-                {
-                    "number": 1059,
-                    "body": _claim_body("bug-a"),
-                    "url": "https://example.test/pr/1059",
-                }
-            ]
-        )
-
-        retargeted_branch_pr = MagicMock()
-        retargeted_branch_pr.returncode = 0
-        retargeted_branch_pr.stdout = json.dumps(
-            [
-                {
-                    "number": 1059,
-                    "body": _claim_body("bug-b", CLAIM_NS),
-                    "url": "https://example.test/pr/1059",
-                }
-            ]
-        )
-
-        branch_pr_results = iter([stale_branch_pr, retargeted_branch_pr])
-
-        open_claim_results = iter(
-            [
-                _run_result(
-                    json.dumps(
-                        [
-                            _open_claim_pr(42, "bug-a", "2000-01-01T00:00:00Z"),
-                            _open_claim_pr(1059, "bug-a", "2000-01-01T01:00:00Z"),
-                        ]
-                    )
-                ),
-                _run_result(
-                    json.dumps(
-                        [
-                            _open_claim_pr(2000, "bug-b", "2000-01-01T00:00:00Z"),
-                            _open_claim_pr(1059, "bug-b", "2000-01-01T01:00:00Z", CLAIM_NS),
-                        ]
-                    )
-                ),
-            ]
-        )
-
-        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
-            if cmd[:2] == ["git", "branch"]:
-                return branch_result
-            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
-                return next(branch_pr_results)
-            if cmd[:3] == ["gh", "pr", "list"]:
-                return next(open_claim_results)
-            raise AssertionError(f"unexpected run: {cmd}")
-
-        with (
-            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim_issue.py", "bug-b"]),
-            patch.object(claim_issue, "run", side_effect=fake_run),
-            patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
-            patch("subprocess.run") as mock_subprocess,
-            pytest.raises(SystemExit, match="1"),
-        ):
-            claim_issue.main()
-
-        mock_sleep.assert_not_called()
-        assert mock_subprocess.call_args_list == [
-            call(
-                [
-                    "gh",
-                    "pr",
-                    "edit",
-                    "1059",
-                    "--title",
-                    "Solve: Bug B",
-                    "--body",
-                    f"<!-- claim: bug-b -->\n<!-- claim-ts: {CLAIM_NS} -->",
-                ],
-                check=True,
+            patch.object(claim_issue, "current_owner_claims", return_value=[]),
+            patch.object(
+                claim_issue,
+                "claim_exact_keys",
+                side_effect=ClaimConflictError("issues claim bug-a is already owned elsewhere"),
             ),
-            call(["git", "push", "-u", "origin", "my-branch"], check=True),
-        ]
-
-    def test_existing_branch_pr_for_same_issue_is_idempotent(self, tmp_path: Path) -> None:
-        issues_dir = tmp_path
-        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
-
-        branch_result = MagicMock()
-        branch_result.stdout = "my-branch\n"
-
-        branch_pr_result = MagicMock()
-        branch_pr_result.returncode = 0
-        branch_pr_result.stdout = json.dumps(
-            [
-                {
-                    "number": 42,
-                    "body": _claim_body("bug-a"),
-                    "url": "https://example.test/pr/42",
-                }
-            ]
-        )
-
-        race_result = _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T00:00:00Z")]))
-
-        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
-            if cmd[:2] == ["git", "branch"]:
-                return branch_result
-            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
-                return branch_pr_result
-            return race_result
-
-        with (
-            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
-            patch.object(claim_issue, "run", side_effect=fake_run),
-            patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch("subprocess.run") as mock_subprocess,
-        ):
-            claim_issue.main()
-
-        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
-        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
-
-    def test_race_recheck_passes(self, tmp_path: Path) -> None:
-        """Both checks return our PR as winner — claim succeeds, sleep is called."""
-        issues_dir = tmp_path
-        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
-
-        branch_result = MagicMock()
-        branch_result.stdout = "my-branch\n"
-
-        log_result = MagicMock()
-        log_result.stdout = "abc123 some commit\n"
-
-        branch_pr_result = MagicMock()
-        branch_pr_result.returncode = 0
-        branch_pr_result.stdout = "[]"
-
-        create_pr_result = MagicMock()
-        create_pr_result.returncode = 0
-        create_pr_result.stdout = "https://example.test/pr/42\n"
-
-        race_results = iter(
-            [
-                _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS)])),
-                _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS)])),
-            ]
-        )
-
-        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
-            if cmd[:2] == ["git", "branch"]:
-                return branch_result
-            if cmd[:2] == ["git", "log"]:
-                return log_result
-            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
-                return branch_pr_result
-            if cmd[:3] == ["gh", "pr", "create"]:
-                return create_pr_result
-            return next(race_results)
-
-        with (
-            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
-            patch.object(claim_issue, "run", side_effect=fake_run),
-            patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
-            patch("subprocess.run"),
-        ):
-            claim_issue.main()
-
-        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
-
-    def test_race_recheck_fails(self, tmp_path: Path) -> None:
-        """First check passes, re-check finds lower PR — exits 1."""
-        issues_dir = tmp_path
-        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
-
-        branch_result = MagicMock()
-        branch_result.stdout = "my-branch\n"
-
-        log_result = MagicMock()
-        log_result.stdout = "abc123 some commit\n"
-
-        branch_pr_result = MagicMock()
-        branch_pr_result.returncode = 0
-        branch_pr_result.stdout = "[]"
-
-        create_pr_result = MagicMock()
-        create_pr_result.returncode = 0
-        create_pr_result.stdout = "https://example.test/pr/42\n"
-
-        race_results = iter(
-            [
-                _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS)])),
-                _run_result(
-                    json.dumps(
-                        [
-                            _open_claim_pr(41, "bug-a", "2000-01-01T00:00:00Z"),
-                            _open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS),
-                        ]
-                    )
-                ),
-            ]
-        )
-
-        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
-            if cmd[:2] == ["git", "branch"]:
-                return branch_result
-            if cmd[:2] == ["git", "log"]:
-                return log_result
-            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
-                return branch_pr_result
-            if cmd[:3] == ["gh", "pr", "create"]:
-                return create_pr_result
-            return next(race_results)
-
-        with (
-            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
-            patch.object(claim_issue, "run", side_effect=fake_run),
-            patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
-            patch("subprocess.run") as mock_subprocess,
             pytest.raises(SystemExit, match="1"),
         ):
             claim_issue.main()
 
-        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
-        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
-
-    def test_race_first_check_fails_no_sleep(self, tmp_path: Path) -> None:
-        """First check already finds lower PR — exits 1 without sleeping."""
+    def test_success_claims_issue(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         issues_dir = tmp_path
-        _write_issue(issues_dir, "bug-a", {"title": "Bug A", "priority": 1})
-
-        branch_result = MagicMock()
-        branch_result.stdout = "my-branch\n"
-
-        log_result = MagicMock()
-        log_result.stdout = "abc123 some commit\n"
-
-        branch_pr_result = MagicMock()
-        branch_pr_result.returncode = 0
-        branch_pr_result.stdout = "[]"
-
-        create_pr_result = MagicMock()
-        create_pr_result.returncode = 0
-        create_pr_result.stdout = "https://example.test/pr/42\n"
-
-        race_result = _run_result(
-            json.dumps(
-                [
-                    _open_claim_pr(41, "bug-a", "2000-01-01T00:00:00Z"),
-                    _open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS),
-                ]
-            )
-        )
-
-        def fake_run(cmd: list[str], **_kwargs: object) -> MagicMock:
-            if cmd[:2] == ["git", "branch"]:
-                return branch_result
-            if cmd[:2] == ["git", "log"]:
-                return log_result
-            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
-                return branch_pr_result
-            if cmd[:3] == ["gh", "pr", "create"]:
-                return create_pr_result
-            return race_result
+        _write_issue(issues_dir, "p1-bug-a", {"title": "Bug A", "priority": 1})
+        claimed = _claim_record("bug-a")
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
-            patch.object(sys, "argv", ["claim_issue.py", "bug-a"]),
-            patch.object(claim_issue, "run", side_effect=fake_run),
-            patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
-            patch("subprocess.run") as mock_subprocess,
-            pytest.raises(SystemExit, match="1"),
+            patch.object(sys, "argv", ["claim_issue.py", "p1-bug-a"]),
+            patch.object(
+                claim_issue,
+                "current_worktree_context",
+                return_value=MagicMock(worktree_name="wt", branch="feature"),
+            ),
+            patch.object(claim_issue, "current_owner_claims", side_effect=[[], [claimed]]),
+            patch.object(claim_issue, "claim_exact_keys", return_value=[claimed]),
         ):
             claim_issue.main()
 
-        mock_sleep.assert_not_called()
-        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
+        assert capsys.readouterr().out == "Claimed p1-bug-a\nBranch: feature\n"
 
 
 # ===========================================================================
@@ -670,13 +296,96 @@ class TestClaimIssue:
 
 
 class TestFinalizeIssuePr:
-    def test_extract_claim_metadata_with_timestamp(self) -> None:
-        body = "Summary\n\n<!-- claim: bug-a -->\n<!-- claim-ts: 123 -->"
-        assert finalize_issue_pr.extract_claim_metadata(body) == ("<!-- claim: bug-a -->\n<!-- claim-ts: 123 -->")
+    def test_requires_local_claim(self) -> None:
+        with (
+            patch.object(sys, "argv", ["finalize_issue_pr.py", "--title", "T", "--body", "B"]),
+            patch.object(finalize_issue_pr, "current_owner_claims", return_value=[]),
+            pytest.raises(SystemExit, match="1"),
+        ):
+            finalize_issue_pr.main()
 
-    def test_extract_claim_metadata_without_timestamp(self) -> None:
-        body = "Summary\n\n<!-- claim: bug-a -->"
-        assert finalize_issue_pr.extract_claim_metadata(body) == "<!-- claim: bug-a -->"
+    def test_creates_new_pr_and_marks_ready(self) -> None:
+        branch_result = MagicMock(returncode=0, stdout="feature\n", stderr="")
+        list_empty = MagicMock(returncode=0, stdout="[]", stderr="")
+        list_draft = MagicMock(
+            returncode=0,
+            stdout='[{"number": 42, "isDraft": true}]',
+            stderr="",
+        )
+
+        def fake_run(cmd: list[str]) -> MagicMock:
+            if cmd[:3] == ["git", "branch", "--show-current"]:
+                return branch_result
+            if cmd[:3] == ["gh", "pr", "list"]:
+                return list_empty if fake_run.calls == 0 else list_draft
+            raise AssertionError(f"unexpected run: {cmd}")
+
+        fake_run.calls = 0
+
+        def counting_run(cmd: list[str]) -> MagicMock:
+            result = fake_run(cmd)
+            if cmd[:3] == ["gh", "pr", "list"]:
+                fake_run.calls += 1
+            return result
+
+        with (
+            patch.object(sys, "argv", ["finalize_issue_pr.py", "--title", "Title", "--body", "Body"]),
+            patch.object(finalize_issue_pr, "current_owner_claims", return_value=[_claim_record("bug-a")]),
+            patch.object(finalize_issue_pr, "run", side_effect=counting_run),
+            patch("subprocess.run") as mock_subprocess,
+        ):
+            finalize_issue_pr.main()
+
+        assert mock_subprocess.call_args_list == [
+            call(["git", "push", "origin", "HEAD"], check=True),
+            call(
+                [
+                    "gh",
+                    "pr",
+                    "create",
+                    "--draft",
+                    "--base",
+                    "master",
+                    "--title",
+                    "Title",
+                    "--body",
+                    "Body",
+                ],
+                check=True,
+            ),
+            call(["gh", "pr", "ready"], check=True),
+        ]
+
+    def test_edits_existing_open_pr(self) -> None:
+        branch_result = MagicMock(returncode=0, stdout="feature\n", stderr="")
+        existing = MagicMock(
+            returncode=0,
+            stdout='[{"number": 42, "isDraft": false}]',
+            stderr="",
+        )
+
+        def fake_run(cmd: list[str]) -> MagicMock:
+            if cmd[:3] == ["git", "branch", "--show-current"]:
+                return branch_result
+            if cmd[:3] == ["gh", "pr", "list"]:
+                return existing
+            raise AssertionError(f"unexpected run: {cmd}")
+
+        with (
+            patch.object(sys, "argv", ["finalize_issue_pr.py", "--title", "Title", "--body", "Body"]),
+            patch.object(finalize_issue_pr, "current_owner_claims", return_value=[_claim_record("bug-a")]),
+            patch.object(finalize_issue_pr, "run", side_effect=fake_run),
+            patch("subprocess.run") as mock_subprocess,
+        ):
+            finalize_issue_pr.main()
+
+        assert mock_subprocess.call_args_list == [
+            call(["git", "push", "origin", "HEAD"], check=True),
+            call(
+                ["gh", "pr", "edit", "42", "--title", "Title", "--body", "Body"],
+                check=True,
+            ),
+        ]
 
 
 # ===========================================================================
