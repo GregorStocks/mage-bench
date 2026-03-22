@@ -326,7 +326,7 @@ public final class BridgePassPriorityFlow {
                 context.declareZombieGame(absoluteIdle);
             }
         }
-        if (context.superseded() || context.playerDead() || (context.activeGamesSize() == 0 && context.gameEverStarted()) || !context.clientRunning()) {
+        if (context.superseded() || context.playerDead() || (!context.hasActiveGame() && context.gameEverStarted()) || !context.clientRunning()) {
             long elapsed = System.currentTimeMillis() - startTimeMs;
             loggerGameOver(elapsed);
             var gameOver = new ActionResult();
@@ -347,7 +347,7 @@ public final class BridgePassPriorityFlow {
             "[" + context.username() + "] passPriority ENTER: until=" + until
                 + " yieldActive=" + yieldActive
                 + " pendingAction=" + (context.currentPendingAction() != null)
-                + " activeGames=" + context.activeGamesSize()
+                + " activeGame=" + context.hasActiveGame()
                 + " lastActionableCallbackAt=" + context.lastActionableCallbackAt()
         );
     }
@@ -390,7 +390,7 @@ public final class BridgePassPriorityFlow {
                 + " actionsPassed=" + actionsPassed
                 + " pendingAction=" + (context.currentPendingAction() != null)
                 + " playerDead=" + context.playerDead()
-                + " activeGames=" + context.activeGamesSize()
+                + " activeGame=" + context.hasActiveGame()
                 + " gameEverStarted=" + context.gameEverStarted()
                 + " lastActionableCallbackAt="
                 + (context.lastActionableCallbackAt() > 0 ? (now - context.lastActionableCallbackAt()) + "ms ago" : "never")
@@ -405,7 +405,7 @@ public final class BridgePassPriorityFlow {
             "[" + context.username() + "] passPriority EXIT game_over:"
                 + " elapsed=" + elapsed + "ms"
                 + " playerDead=" + context.playerDead()
-                + " activeGames=" + context.activeGamesSize()
+                + " activeGame=" + context.hasActiveGame()
                 + " actionsPassed=" + actionsPassed
         );
     }

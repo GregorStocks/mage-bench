@@ -553,14 +553,8 @@ class BridgeCallbackHandlerTest {
         BridgeCallbackHandler handler = client.getCallbackHandler();
         handler.setKeepAliveAfterGame(true);
 
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
-        activeGames.put(gameId, playerId);
-        gameChatIds.put(gameId, chatId);
-        setField(handler, "currentGameId", gameId);
-        setField(handler, "currentPlayerId", playerId);
+        addActiveGame(handler, gameId, playerId);
+        setCurrentChatId(handler, gameId, chatId);
 
         ClientCallback callback = new ClientCallback(
             ClientCallbackMethod.GAME_OVER,
@@ -572,7 +566,7 @@ class BridgeCallbackHandlerTest {
 
         handler.awaitProcessorIdle();
         assertThat(getBridgeEventsCalls.get()).isZero();
-        assertThat(activeGames).doesNotContainKey(gameId);
+        assertThat(hasActiveGame(handler, gameId)).isFalse();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
 
         var history = handler.getGameHistory(null, null);
@@ -624,11 +618,7 @@ class BridgeCallbackHandlerTest {
         ));
         BridgeCallbackHandler handler = client.getCallbackHandler();
 
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        activeGames.put(gameId, playerId);
-        setField(handler, "currentGameId", gameId);
-        setField(handler, "currentPlayerId", playerId);
+        addActiveGame(handler, gameId, playerId);
         setIntField(handler, "bridgeEventCursor", 50);
 
         var history = handler.getGameHistory(null, 70);
@@ -666,13 +656,8 @@ class BridgeCallbackHandlerTest {
         BridgeCallbackHandler handler = client.getCallbackHandler();
         handler.setKeepAliveAfterGame(true);
 
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
-        activeGames.put(gameId, playerId);
-        gameChatIds.put(gameId, chatId);
-        setField(handler, "currentGameId", gameId);
+        addActiveGame(handler, gameId, playerId);
+        setCurrentChatId(handler, gameId, chatId);
         setField(handler, "gameEverStarted", true);
 
         // Send END_GAME_INFO without prior GAME_OVER — simulates dropped callback
@@ -685,7 +670,7 @@ class BridgeCallbackHandlerTest {
         handler.handleCallback(callback);
 
         handler.awaitProcessorIdle();
-        assertThat(activeGames).doesNotContainKey(gameId);
+        assertThat(hasActiveGame(handler, gameId)).isFalse();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
     }
 
@@ -711,14 +696,8 @@ class BridgeCallbackHandlerTest {
         BridgeCallbackHandler handler = client.getCallbackHandler();
         handler.setKeepAliveAfterGame(true);
 
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
-        activeGames.put(gameId, playerId);
-        gameChatIds.put(gameId, chatId);
-        setField(handler, "currentGameId", gameId);
-        setField(handler, "currentPlayerId", playerId);
+        addActiveGame(handler, gameId, playerId);
+        setCurrentChatId(handler, gameId, chatId);
 
         // Send GAME_OVER first
         ClientCallback gameOverCallback = new ClientCallback(
@@ -781,14 +760,8 @@ class BridgeCallbackHandlerTest {
         BridgeCallbackHandler handler = client.getCallbackHandler();
         handler.setKeepAliveAfterGame(true);
 
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
-        activeGames.put(gameId, playerId);
-        gameChatIds.put(gameId, chatId);
-        setField(handler, "currentGameId", gameId);
-        setField(handler, "currentPlayerId", playerId);
+        addActiveGame(handler, gameId, playerId);
+        setCurrentChatId(handler, gameId, chatId);
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         try {
@@ -812,7 +785,7 @@ class BridgeCallbackHandlerTest {
             assertThat(future.get(1, TimeUnit.SECONDS)).isTrue();
             handler.awaitProcessorIdle();
             assertThat(concedeThreadName.get()).startsWith("bridge-processor-TestPlayer");
-            assertThat(activeGames).doesNotContainKey(gameId);
+            assertThat(hasActiveGame(handler, gameId)).isFalse();
             assertThat(leaveChatCalls.get()).isEqualTo(1);
         } finally {
             executor.shutdownNow();
@@ -840,11 +813,7 @@ class BridgeCallbackHandlerTest {
         BridgeCallbackHandler handler = client.getCallbackHandler();
         handler.setKeepAliveAfterGame(true);
 
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        activeGames.put(gameId, playerId);
-        setField(handler, "currentGameId", gameId);
-        setField(handler, "currentPlayerId", playerId);
+        addActiveGame(handler, gameId, playerId);
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         try {
@@ -1990,10 +1959,7 @@ class BridgeCallbackHandlerTest {
             }
         ));
 
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        activeGames.put(gameId, playerId);
-        setField(handler, "currentGameId", gameId);
+        addActiveGame(handler, gameId, playerId);
 
         ClientCallback callback = new ClientCallback(
             ClientCallbackMethod.GAME_TARGET,
@@ -2657,8 +2623,8 @@ class BridgeCallbackHandlerTest {
             }
 
             @Override
-            public int activeGamesSize() {
-                return 1;
+            public boolean hasActiveGame() {
+                return true;
             }
 
             @Override
@@ -2865,10 +2831,7 @@ class BridgeCallbackHandlerTest {
             }
         ));
 
-        @SuppressWarnings("unchecked")
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        activeGames.put(gameId, playerId);
-        setField(handler, "currentGameId", gameId);
+        addActiveGame(handler, gameId, playerId);
 
         GameView manaView = gameView(77);
         ClientCallback callback = new ClientCallback(
@@ -3071,10 +3034,23 @@ class BridgeCallbackHandlerTest {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private static void addActiveGame(BridgeCallbackHandler handler, UUID gameId) throws Exception {
-        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
-        activeGames.put(gameId, UUID.randomUUID());
+        addActiveGame(handler, gameId, UUID.randomUUID());
+    }
+
+    private static void addActiveGame(BridgeCallbackHandler handler, UUID gameId, UUID playerId) throws Exception {
+        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        gameState.activateGame(gameId, playerId);
+    }
+
+    private static void setCurrentChatId(BridgeCallbackHandler handler, UUID gameId, UUID chatId) throws Exception {
+        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        gameState.setCurrentChatId(gameId, chatId);
+    }
+
+    private static boolean hasActiveGame(BridgeCallbackHandler handler, UUID gameId) throws Exception {
+        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        return gameState.isCurrentActiveGame(gameId);
     }
 
     private static void registerShortId(BridgeCallbackHandler handler, UUID uuid, String shortId) throws Exception {

@@ -42,6 +42,11 @@ jobs:
 
       - uses: astral-sh/setup-uv@v7
 
+      - name: Install agent-issues
+        run: |
+          git clone --depth 1 https://github.com/GregorStocks/agent-issues.git ~/code/agent-issues
+          echo "$HOME/code/agent-issues/bin" >> $GITHUB_PATH
+
       - run: make lint
 
       - run: make format-check

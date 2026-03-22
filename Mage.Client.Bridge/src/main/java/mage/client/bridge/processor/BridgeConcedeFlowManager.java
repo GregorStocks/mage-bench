@@ -55,7 +55,7 @@ public final class BridgeConcedeFlowManager {
             logger.warn("[" + username + "] Cannot concede: no active game");
             return BridgeConcedeFlow.completed(null, false);
         }
-        if (!gameState.containsActiveGame(gameId)) {
+        if (!gameState.isCurrentActiveGame(gameId)) {
             logger.info("[" + username + "] Game already over, concede is a no-op");
             return BridgeConcedeFlow.completed(gameId, true);
         }
@@ -69,7 +69,7 @@ public final class BridgeConcedeFlowManager {
 
         BridgeConcedeFlow flow = new BridgeConcedeFlow(gameId);
         pendingFlow = flow;
-        if (!gameState.containsActiveGame(gameId)) {
+        if (!gameState.isCurrentActiveGame(gameId)) {
             clearPendingFlowIfCurrent(flow);
             flow.complete(true);
             return flow;
@@ -84,7 +84,7 @@ public final class BridgeConcedeFlowManager {
         if (flow == null) {
             return;
         }
-        if (!gameState.containsActiveGame(flow.gameId())) {
+        if (!gameState.isCurrentActiveGame(flow.gameId())) {
             finishFlow(flow, true);
         }
     }

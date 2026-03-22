@@ -54,7 +54,7 @@ public interface BridgePassPriorityFlowContext {
 
     int lastTurnNumber();
 
-    int activeGamesSize();
+    boolean hasActiveGame();
 
     boolean superseded();
 
