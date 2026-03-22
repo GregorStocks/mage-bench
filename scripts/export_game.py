@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""CLI wrapper for `magebench.game.export_game`."""
+"""CLI wrapper for `magebench.game.export_game`.
+
+TODO(shim): expires=issue:python-migration-step12 Delete this entrypoint once
+callers use `magebench.cli` wrappers directly.
+"""
 
 import sys
 from pathlib import Path

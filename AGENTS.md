@@ -77,8 +77,15 @@ make run                           # 2 CPU Jumpstart duel
 If you think a fallback or graceful degradation is genuinely the right call, **stop and explicitly ask Gregor to confirm** — don't just include it in a plan or PR. Models are far too eager to add these and they hide bugs.
 
 If a staged migration genuinely requires a temporary compatibility wrapper or
-shim, it must be obviously temporary. Add a `TODO(shim): ...` comment at the
-shim site describing what should replace it and when it should be deleted.
+shim, it must be obviously temporary. Add a `TODO(shim): ...` marker at the
+shim site with machine-readable expiration metadata and a cleanup instruction.
+Use exactly one of these forms:
+
+- `TODO(shim): expires=YYYY-MM-DD Delete this shim once ...`
+- `TODO(shim): expires=issue:<slug> Delete this shim once ...`
+
+Use `issue:<slug>` with the issue basename minus any `pN-`/`blocked-` prefix,
+so the marker survives issue reprioritization or unblock renames.
 Examples include module-level wrapper files, temporary import re-exports, and
 legacy compatibility entrypoints. Do not add an unlabeled shim.
 
@@ -91,7 +98,7 @@ if self.config_file is None:
 assert self.config_file is not None, "run_tag requires config_file to be set"
 
 # Required for a temporary staged-migration shim
-# TODO(shim): Delete this wrapper by Step 12 once callers import magebench.cli directly.
+# TODO(shim): expires=issue:python-migration-step12 Delete this wrapper once callers import magebench.cli directly.
 ```
 
 ## Harness Epochs

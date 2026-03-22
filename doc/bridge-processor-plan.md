@@ -1,563 +1,177 @@
-# Bridge Processor Refactor Plan
-
-## Context
-
-`BridgeCallbackHandler.java` still acts as both:
-
-- the XMage callback listener
-- the processor-owned state machine for pending decisions
-- the MCP-facing query/command surface
-- the place where `sendPlayer*` side effects happen
-
-That means multiple threads currently touch the same mutable state:
-
-- callback delivery thread(s) update pending decision state
-- MCP handler threads read and mutate that same state via `pass_priority`, `choose_action`, `get_action_choices`, and related helpers
-- keepAlive / lifecycle signaling also shares the same object
-
-The bridge has accumulated `volatile` fields, `wait()/notifyAll()`, ad hoc compare-and-swap clears, latches, and thread-sensitive helper semantics to keep this working. Recent fixes like the `pendingActionReady` handshake are valid, but they are also a signal that the current ownership model is wrong: the architecture makes races easy to create and hard to reason about.
-
-This document is the persistent plan for moving the bridge to a single-owner-thread processor model.
-
-Related issues:
-
-- [issues/p3-extract-bridge-runtime-loop.json5](/home/gregor/code/worktrees/bridge-cairn-salt/issues/p3-extract-bridge-runtime-loop.json5)
-- [issues/p3-extract-bridge-decision-surface.json5](/home/gregor/code/worktrees/bridge-cairn-salt/issues/p3-extract-bridge-decision-surface.json5)
-- [issues/p3-extract-bridge-mana-handler.json5](/home/gregor/code/worktrees/bridge-cairn-salt/issues/p3-extract-bridge-mana-handler.json5)
+# Bridge Processor Plan
 
 ## Goal
 
-Move the bridge toward an actor-style processor architecture:
+The goal is a real actor-style bridge runtime.
 
-- one listener thread receives XMage callbacks and enqueues immutable bridge events
-- one processor thread owns all mutable bridge processor state
-- MCP/tool threads do not read or mutate processor-owned fields directly
-- MCP/tool threads communicate with the processor through commands and await results
-- `sendPlayer*` responses are serialized through the processor thread
+We are **not done** until all of the following are true:
 
-In short: no shared mutable processor state across threads, only message passing.
+- the XMage listener thread only enqueues immutable events onto the processor queue
+- the processor thread is the only thread allowed to mutate live bridge runtime state
+- MCP/tool threads only:
+  - enqueue commands for the processor, or
+  - read immutable data published by the processor
+- `sendPlayer*` side effects are issued only by the processor thread
+- correctness no longer depends on shared `volatile` fields, `synchronized`
+  state, latches, or ad hoc compare-and-swap style shared-memory protocols
 
-Longer-term, the processor should bias heavily toward an append-only model:
+Package separation by itself does **not** satisfy this goal. Moving code into
+`listener/`, `processor/`, and `mcp/` is useful only if it corresponds to the
+actual ownership model above.
 
-- the processor-owned event/log stream should be the primary source of truth
-- processor-local sequence numbers should be assigned when records are appended
-- most read surfaces should be derived snapshots or stateless readers over that log
-- mutable in-memory state should be minimized to transient control state such as
-  in-flight requests, scheduler state, and rebuildable indexes/cursors
+## Why This Matters
 
-This does not mean "literally no mutable state anywhere." It means the bridge
-should prefer "append-only log + derived views" over large bags of ad hoc
-mutable fields whenever that is practical.
+The current bridge still has recurring golden-test flakes and cleanup races.
+The expectation is that a true single-writer processor model will either:
 
-## Non-Goals
+- eliminate those flakes outright, or
+- reduce them to deterministic processor-state-machine bugs that are much
+  easier to reproduce and fix
 
-This plan does not require:
-
-- rewriting the MCP API surface
-- changing game semantics
-- introducing a separate process
-- landing an append-only published read model in the first refactor
-
-The first milestone is about state ownership and side-effect ordering, not about polishing every API around it.
+The key benefit is not aesthetic code organization. It is making ordering and
+ownership explicit enough that race conditions stop being a normal failure mode.
 
 ## Desired Architecture
 
 ### Threads
 
-1. **Listener thread**
-   Receives XMage callbacks and turns them into immutable `BridgeEvent` values.
-   It does not mutate processor-owned state directly.
+1. `listener`
+   Receives XMage callbacks, decompresses/normalizes them, and enqueues
+   immutable processor events. It does nothing else.
 
-2. **Processor thread**
-   Owns `BridgeProcessorState`, processes callback events and MCP commands in a single serialized stream, and is the only place allowed to call `sendPlayer*`.
+2. `processor`
+   Owns all live bridge runtime state, processes both callbacks and MCP
+   commands, and is the only place that mutates state or sends XMage responses.
 
-3. **MCP/tool threads**
-   Submit `BridgeCommand`s and await typed results. They do not read bridge processor fields directly.
+3. `mcp`
+   Submits commands to the processor and awaits results. For read-only
+   surfaces, it reads immutable processor-published data rather than peeking at
+   live state.
 
-### Core types
+### Data model
 
-The design should use explicit processor-oriented names, something close to:
+The intended end state should bias strongly toward:
 
-- `BridgeProcessorState`
-- `BridgeEvent`
-- `BridgeCommand`
-- `BridgeCommandResult`
-- `BridgeProcessor`
+- append-only processor-owned logs
+- processor-assigned local monotonic sequence numbers
+- immutable published snapshots / derived read views
+- minimal mutable in-memory control state
 
-`BridgeCommand` handlers should return via `CompletableFuture` (or equivalent), so callers can block synchronously without sharing memory.
+In other words: prefer "append-only log + derived readers" over large shared
+bags of mutable fields.
 
-### Code organization
+## Current Status
 
-This refactor should improve code layout, not just thread ownership.
+Helpful refactors have already landed:
 
-Constraints:
+- callback ingress is visibly separated into `mage.client.bridge.listener`
+- MCP query/command entrypoints are visibly separated into `mage.client.bridge.mcp`
+- callback processing and flow progression already use the processor thread in
+  more places than before
 
-- do not grow `BridgeCallbackHandler.java` with new processor abstractions
-- keep the processor code in its own directory/package, not as nested helper classes inside the handler
-- default to one class per file unless there is a strong reason not to
-- aim for separate top-level areas for the three major pieces:
-  listener/callback ingress, processor state/event/command loop, and MCP/tool-facing command/query surface
-- keep `BridgeProcessor` generic infrastructure only; callback-specific dispatch/apply logic should live in separate classes under the processor package
+But the actual target state has **not** been reached yet.
 
-Likely shape:
+Today, MCP-side code still directly reads shared runtime state such as:
 
-- `mage.client.bridge.listener`
-- `mage.client.bridge.processor`
-- `mage.client.bridge.mcp` (or equivalent)
+- pending-action state
+- last game view / current game identifiers
+- cached chat / bridge-event state
+- concede/chat lifecycle state
 
-The "final-ish" architectural checkpoint is not just "state moved under the
-processor." It is also:
+And the bridge still relies on shared mutable state containers such as:
 
-- listener logic visibly lives under `mage.client.bridge.listener`
-- MCP query/command logic visibly lives under `mage.client.bridge.mcp`
-- `BridgeCallbackHandler` no longer mixes listener ingress and MCP surface area
-- the processor boundary is easy to audit because listener code only enqueues
-  events, while MCP code is small and primarily read-only except when it sends a
-  player action
+- `BridgeDecisionState`
+- `BridgeGameState`
+- `BridgeInteractionState`
+- `BridgeGameLogState`
+- `BridgeCursorState`
 
-If `BridgeCallbackHandler` still contains both the XMage callback ingress path
-and the MCP-facing tool surface, the ownership model is still harder to verify
-than it should be, even if more mutable state has moved under `processor/`.
+Those are still being read outside the processor thread, which means the model
+is still transitional rather than actor-pure.
 
-### Ownership rules
+## Remaining Work
 
-Processor-owned state should include, at minimum:
+### 1. Make live runtime state processor-private
 
-- pending decision state
-- `lastGameView` / game-seq-related state
-- last-choices snapshots
-- mana-plan state
-- turn counters / loop detection state
-- keepAlive game lifecycle state
-- unseen chat / bridge-event cursors
+The `Bridge*State` classes should stop being cross-thread APIs.
 
-The listener thread should only enqueue events.
+They should become processor-private internals, with non-processor code no
+longer reading or mutating them directly.
 
-The MCP/tool layer should only:
+That includes:
 
-- construct commands
-- await results
-- translate results into tool responses
+- decision state
+- game/lifecycle state
+- interaction/mana-plan state
+- chat/log state
+- cursor/signature state
 
-For game-log/history style surfaces, the intended end state is stronger:
+### 2. Make MCP writes true commands
 
-- the processor owns a local append-only published log
-- the processor assigns local monotonic IDs/cursors for that published log
-- server bridge-event `index()` values are treated as source metadata, not as
-  the bridge's cross-thread publication cursor
-- MCP readers consume immutable slices/snapshots from the processor-owned log
-  rather than reconstructing cursors from shared mutable lists
+For write/action surfaces like:
 
-## Why This Is Better
-
-This refactor should eliminate an entire class of bugs where:
-
-- a callback is only partially processed when a tool thread observes it
-- one thread clears or replaces pending state while another thread is still using it
-- `lastGameView`, `pendingAction`, or choice snapshots are read at slightly different times by different threads
-- `sendPlayer*` calls race with callback processing or with each other
-
-It also gives a simpler correctness rule:
-
-> If it affects live bridge processor behavior, the processor thread owns it.
-
-That is much easier to review and test than a web of `volatile` fields and condition-variable style waits.
-
-## Rollout Plan
-
-### Step 0: Write This Plan
-
-Done by this document.
-
-Purpose:
-
-- survive context compaction
-- keep the design reviewable across multiple PRs
-- make it easy to refine the plan before code moves
-
-### Step 1: Introduce Processor Scaffolding
-
-Add the processor-layer types and plumbing:
-
-- processor thread
-- event queue
-- command/result plumbing
-- `BridgeProcessorState` container
-- dedicated processor package/directory with one class per file by default
-
-At this step the goal is scaffolding, not semantic change.
-
-### Step 2: Make Callback Handling Enqueue-Only
-
-Change the callback listener path so `handleCallback()` stops being the place where processor-owned state is mutated directly.
-
-Instead, it should:
-
-- validate/decompress callback data
-- build a `BridgeEvent`
-- enqueue it for the processor
-- keep callback dispatch/apply logic in processor-side classes, not in `BridgeCallbackHandler`
-
-The important review constraint for steps 1-2:
-
-- do not claim the shared-state model is gone yet
-- do not try to partially reroute half the MCP methods in the same PR
-
-This first PR should be understandable as "introduce the processor package and move callback ingestion onto it."
-
-### Step 3: Move MCP Methods to Commands
-
-Convert the core MCP methods to command/response calls into the processor:
-
-- `pass_priority`
 - `choose_action`
-- `get_action_choices`
-- `get_game_state`
-
-Likely also:
-
-- `executeDefaultAction`
-- `concede`
+- `pass_priority`
 - `send_chat_message`
-
-These methods are the real cross-thread API boundary. Once they stop reading shared fields directly, the processor state can actually become single-owned.
-
-This should likely be a second PR, shortly after steps 1-2, to keep review size manageable.
-
-Important: this step may still use transitional long-running processor commands for
-flows like `pass_priority` and `choose_action`. That is acceptable as an
-intermediate state for correctness, but it is not the desired end state.
-
-### Step 4: Remove Transitional Shared-State Machinery
-
-After the command migration lands, delete the old synchronization model:
-
-- `actionLock`
-- `wait()/notifyAll()`-style pending-action loops
-- extra `volatile` fields that only existed for cross-thread visibility
-- temporary bridge code that mirrors old and new control flow
-- long-running command handlers that block while "owning" the processor thread
-- callback-pumping escape hatches such as `processNextCallback(...)` and deferred nested-command draining
-
-Replace them with split-phase processor-owned requests:
-
-- an MCP/tool thread submits a request and waits on a future
-- the processor records that request in processor-owned state and returns to the normal event loop
-- incoming callbacks advance the request state machine
-- the processor completes the waiting future once the request reaches a real decision/result boundary
-
-In the end state, MCP commands should not monopolize the processor thread while
-waiting for future callbacks. The processor should remain in its normal event loop
-and satisfy requests incrementally as events arrive.
-
-This step should also delete transitional adapter seams created during step 3.
-In particular, processor-side flows should not depend on large handler-owned
-context adapters like `createPassPriorityFlowContext()`. If a processor flow
-still needs a broad facade back into `BridgeCallbackHandler`, that is a sign the
-underlying state, helper logic, or side-effect plumbing still lives in the
-wrong place. Move that ownership into `mage.client.bridge.processor` and remove
-the adapter instead of polishing it.
-
-This step cashes in the simplification. It should shrink the handler and the processor core meaningfully.
-
-#### Current checkpoint after the flow-lifecycle extraction PR
-
-After the flow-lifecycle extraction work lands:
-
-- callback ingress is enqueue-only
-- `pass_priority`, `choose_action`, `get_action_choices`, and `get_game_state`
-  already route through the processor
-- pending decision state lives in `BridgeDecisionState`
-- the old broad handler adapters (`createPassPriorityFlowContext()` /
-  `createChooseActionFlowContext()`) are gone, replaced by dedicated manager
-  and context classes
-- callback-pumping escape hatches such as `processNextCallback(...)` and
-  deferred nested-command draining are already deleted
-
-That is a real architectural checkpoint. The next major boundary after it is
-removing the remaining handler-owned processor state and helpers.
-
-#### Current checkpoint after the caller-wait removal PR
-
-After the caller-wait removal work lands:
-
-- `choose_action` and `pass_priority` no longer use caller-driven
-  `awaitResult(timeout)` polling loops in `BridgeCallbackHandler`
-- the caller thread no longer drives progress by manually ticking flows or
-  pumping callbacks
-- caller-thread interruption no longer duplicates processor commands while
-  trying to start or cancel a flow; the processor command handoff now preserves
-  interrupt status across the mailbox round-trip
-- `pass_priority` ticking is processor-owned via scheduled mailbox work rather
-  than caller-owned timeout loops
-
-That is another real architectural checkpoint, but it is still not the desired
-end state.
-
-The main remaining gaps are:
-
-- too much processor-owned state and helper logic still lives in
-  `BridgeCallbackHandler` (`currentGameId`, `lastGameView`, mana-plan state,
-  turn counters, keepAlive lifecycle state, unseen chat, bridge-event cursors,
-  and related helper methods)
-- some MCP-facing reads, notably `isActionPending()`, still read transitional
-  shared state directly instead of going through a processor-owned request or
-  published view
-- processor-side flows and services still reach back into handler-owned helpers
-  more often than they should
-
-#### Expected remaining PRs after the caller-wait removal PR
-
-Recommended minimum:
-
-- **2 required PRs** to finish the core processor refactor
-- **1 optional PR** for step 5:
-  published immutable snapshots / append-only log read model
-
-In other words: after the caller-wait removal PR, expect **2 required PRs left**
-for the core refactor, plus **1 optional followup PR** if the published read
-model still looks worthwhile.
-
-#### Recommended split of the remaining required work
-
-Keep the remaining required work focused on one theme:
-
-- move the rest of processor-owned state and helper logic out of
-  `BridgeCallbackHandler`
-
-Recommended cut:
-
-- **PR D2a: Move remaining processor state into processor-local classes**
-  Move the remaining game/lifecycle state into processor-local classes so the
-  handler stops owning fields like `currentGameId`, `lastGameView`,
-  active-game tracking, callback timestamps, and keepAlive latches directly.
-
-  This PR should also rewire the flow contexts to read that processor-owned
-  state directly instead of going back through handler pass-through methods.
-
-- **PR D2b: Move remaining processor helper/service logic out of the handler**
-  Move the rest of the processor-owned mutable state and helper logic into
-  processor-local state/services so `BridgeCallbackHandler` becomes mostly the
-  listener adapter plus MCP command wiring.
-
-  This follow-up should cover, at minimum:
-  - remaining decision-adjacent mutable state like mana-plan state, turn
-    counters, loop detection, and failed-mana tracking
-  - unread chat / bridge-event cursor state if it is still part of live bridge
-    behavior
-  - remaining package-private helper surfaces that only exist to let
-    processor-side classes reach back into `BridgeCallbackHandler`
-
-#### Current checkpoint after the game-state ownership PR
-
-After the game-state ownership work lands:
-
-- `BridgeGameState` owns game/lifecycle state like `currentGameId`,
-  `currentPlayerId`, `lastGameView`, active-game tracking, callback timestamps,
-  keepAlive latches, and related lifecycle flags
-- the choose/pass flow contexts read that processor-owned state directly
-  instead of going back through handler getter methods
-- `BridgeCallbackHandler` is smaller, but it still owns interaction/mana state,
-  chat/event-log state, cursor state, and too much helper logic
-
-At that point there should be:
-
-- **1 required PR** left for the core processor refactor (`D2b`)
-- **1 optional PR** left for the published read model
-
-#### Current checkpoint after the helper-state extraction PR
-
-The original `D2b` scope turned out to be too large for one reviewable PR, so it
-is now split into two smaller cuts.
-
-After the helper-state extraction work lands:
-
-- `BridgeInteractionState` owns mana-plan state, failed-mana tracking, pool-mana
-  retry tracking, and turn/interaction loop counters
-- `BridgeGameLogState` owns unseen chat, chat-log capture, bridge-event cursor
-  state, and cached bridge events
-- `BridgeCursorState` owns game-state / board signature cursor tracking
-- `BridgeCallbackHandler` no longer owns those processor fields directly
-
-That is a meaningful ownership cleanup, but it still leaves too much
-processor-side helper logic on `BridgeCallbackHandler`. More importantly,
-`BridgeCallbackHandler` still visibly contains both:
-
-- listener/callback ingress logic
-- MCP-facing query and command methods
-
-That means we are not yet at the "final-ish" state where the listener can be
-audited as "just enqueue callbacks" and the MCP layer can be audited as "small,
-mostly read-only, and only issuing processor commands when the user acts."
-
-The extracted game-log state is also still transitional. In the short term,
-some synchronized access may still be necessary because log/history reads are
-not yet fully serialized through a processor-owned published log. The intended
-end state is to remove that shared synchronized state by moving to
-processor-assigned local log IDs and immutable published snapshots.
-
-At that point there should be:
-
-- **2 required PRs** left for the core processor refactor
-- **1 optional PR** left for the published read model
-
-Recommended remaining split:
-
-- **PR E1: Extract listener logic into `mage.client.bridge.listener`**
-  Move XMage callback ingress and callback-to-event translation into listener
-  classes so the listener path is conceptually and visibly enqueue-only. If
-  XMage still requires `BridgeCallbackHandler` as the entrypoint, keep it as a
-  thin compatibility shell that delegates immediately into the listener package.
-
-- **PR E2: Extract MCP logic into `mage.client.bridge.mcp` and finish shrinking the handler**
-  Move the MCP-facing query/command surface into dedicated classes so the
-  processor boundary is easy to review. Query methods should be clearly
-  separated from action methods, and both should talk to the processor through
-  a narrow interface instead of a broad handler helper surface.
-
-  This PR should also start moving log/history reads toward the intended
-  processor-owned append-only model: processor-assigned local sequence numbers,
-  immutable published snapshots, and stateless/derived readers instead of
-  shared synchronized lists and cursor bookkeeping on the handler surface.
-
-If review size gets too large, split `E2` again:
-
-- **PR E2a:** move read-mostly MCP queries into `mcp/`
-- **PR E2b:** move action commands plus the last handler-owned helper/adaptor
-  logic, then shrink `BridgeCallbackHandler` to a compatibility shell or remove
-  it entirely
-
-#### Current checkpoint after the MCP read-query extraction PR
-
-After the MCP read-query extraction work lands:
-
-- XMage callback ingress lives under `mage.client.bridge.listener`
-- read-mostly MCP queries live under `mage.client.bridge.mcp`
-- `BridgeCallbackHandler.handleCallback(...)` is reduced to an immediate
-  delegation into the listener package
-- read-only handler methods such as `getGameState`, `getGameLog*`,
-  `getGameHistory`, `getMyDecklist`, `getOracleText`, and
-  `isActionPending` delegate into `mcp/`
-- MCP game-log/history formatting also lives under `mcp/`
-
-That is a meaningful verification step: the bridge now has visibly separate
-listener logic and visibly separate read-mostly MCP logic.
-
-But the handler is still not at the desired final-ish shape, because it still
-owns the MCP action/command surface:
-
-- `getActionChoices*`
-- `chooseAction`
-- `passPriority`
-- `executeDefaultAction`
-- `waitAndGetChoices`
-- `sendChatMessage`
 - `concede`
+- default-response helpers
 
-Those action methods also still depend on too much handler-owned helper logic.
+the MCP thread should only submit a command/future pair to the processor.
 
-At that point there should be:
+It should not:
 
-- **1 required PR** left for the core processor refactor:
-  move the MCP action/command surface into `mage.client.bridge.mcp`, then
-  shrink `BridgeCallbackHandler` to a thin compatibility shell or remove it
-- **1 optional split** of that final required PR if review size gets too large:
-  first move the action methods, then do the last handler shrink-wrap cleanup
-- **1 optional PR** left for the published read model / append-only log
+- inspect live bridge state directly
+- perform lifecycle coordination by touching shared state
+- wait on shared latches that are part of live runtime ownership
 
-### Step 5: Published Read Model / Append-Only Log
+### 3. Make MCP reads use processor-published data
 
-Separate followup.
+For read surfaces like:
 
-Possible followup work:
+- game state
+- action choices
+- game log
+- game history
+- pending-action visibility
 
-- publish immutable processor snapshots from the processor
-- maintain an append-only event log for MCP readers and debugging
-- make read-only surfaces consume that published state instead of querying the processor directly
+the MCP side should stop reading shared live state directly.
 
-This is useful, but not required for the main correctness win. The critical improvement happens once state ownership and command routing are single-threaded.
+Preferred end state:
 
-## Why Split Steps 1-2 From Step 3
+- processor appends normalized records to a local published log
+- processor publishes immutable snapshots / derived read models
+- MCP reads consume those immutable views
 
-Doing steps 1-3 in one PR would likely be correct in spirit, but too large to review cleanly.
+This is where the append-only model becomes important.
 
-The biggest semantic risk is not the processor scaffolding itself. It is rewriting:
+### 4. Delete transitional shared-memory machinery
 
-- `passPriority()`
-- `chooseAction()`
-- `getActionChoices()`
-- `getGameState()`
+Once reads and writes no longer cross the thread boundary through shared state,
+delete the transitional mechanisms that only exist to prop that model up:
 
-to stop depending on shared mutable fields.
+- extra `volatile` visibility state
+- `synchronized` runtime access used for correctness
+- cross-thread latches used as part of live runtime coordination
+- shared cursor reconstruction on the MCP side
+- any remaining helper APIs whose purpose is "let another thread peek at
+  processor-owned state"
 
-That argues for:
+## Definition Of Done
 
-- **PR 1**: steps 1-2
-- **PR 2**: step 3
+This refactor is done only when all of the following are true:
 
-The split is only worthwhile if PR 1 stays disciplined and clearly remains scaffolding plus callback-ingestion migration. It should not become a half-finished semantic rewrite.
+- listener code can be honestly described as "enqueue-only"
+- MCP code can be honestly described as "enqueue commands or read published immutable data"
+- all live runtime mutation happens on the processor thread
+- no non-processor thread reads live mutable runtime state directly
+- `BridgeCallbackHandler` is no longer the place where cross-thread ownership
+  is hidden behind helper methods
+- recurring golden flakes caused by shared-memory races are gone, or any
+  remaining flakes reduce to deterministic processor-logic bugs
 
-## Review Strategy
+## Non-Goal
 
-### PR 1: Processor Scaffolding + Enqueue-Only Listener
+This plan is not about preserving the current shape with better packaging.
 
-Expected review focus:
-
-- processor lifecycle
-- event/command type shape
-- callback ordering
-- minimal behavior drift
-
-### PR 2: MCP Command Migration
-
-Expected review focus:
-
-- semantic parity for `pass_priority`, `choose_action`, `get_action_choices`, `get_game_state`
-- side-effect serialization
-- removal of direct shared-state access from MCP threads
-
-### Remaining PR 1: Finish Ownership Cleanup
-
-Expected review focus:
-
-- movement of processor-owned state/helpers out of `BridgeCallbackHandler`
-- elimination of remaining handler-only helper facades needed by processor code
-- whether direct reads like `isActionPending()` now have a cleaner ownership model
-
-### Optional Followup: Published Read Model
-
-Expected review focus:
-
-- readability improvements
-- optional snapshot/log publication model
-
-## Open Questions
-
-These do not block the overall direction, but should be resolved during implementation:
-
-1. **One mailbox or two?**
-   We can use one unified queue for both events and commands, or separate queues with a single processor loop multiplexing them.
-
-2. **How should command replies work?**
-   `CompletableFuture<BridgeCommandResult>` is the straightforward default.
-
-3. **Should `sendPlayer*` be processor-only from the first migration?**
-   The design intent says yes. If any helper still sends directly from another thread, the model is only partially fixed.
-
-4. **How much keepAlive state moves in PR 1 versus PR 2?**
-   Ideally the processor owns it, but we may need a short transitional layer.
-
-5. **Do read-only tools become commands or published snapshots first?**
-   Current preference: commands first for correctness, published read model later for architecture cleanliness.
-
-## Acceptance Criteria For The First Real Milestone
-
-After steps 1-3 land, we should be able to say:
-
-- callback listener threads no longer mutate processor-owned state directly
-- core MCP methods no longer read processor state directly from shared fields
-- processor state has one logical owner thread
-- `sendPlayer*` side effects are serialized through that owner
-- the bridge no longer depends on `pendingActionReady`-style publication barriers for correctness
-
-That is the point where this refactor has delivered real value, even before the append-only read model followup.
+If we merely move code into different files while MCP code still reads shared
+state directly, then we have not achieved the goal of this refactor.

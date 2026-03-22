@@ -1,4 +1,8 @@
-"""Compatibility wrapper for `magebench.game.export_llm_events`."""
+"""Compatibility wrapper for `magebench.game.export_llm_events`.
+
+TODO(shim): expires=issue:python-migration-step12 Delete this wrapper once
+callers import `magebench.game.export_llm_events` directly.
+"""
 
 from magebench.game.export_llm_events import (
     compute_thinking_time,
