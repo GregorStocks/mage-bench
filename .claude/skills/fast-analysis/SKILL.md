@@ -125,7 +125,7 @@ These are **recurring model behavior issues** seen across many games and models.
 **You are likely analyzing a game that was played days or weeks ago.** Bugs you find may have already been fixed in the interim. You MUST check before filing.
 
 ```bash
-uv run python scripts/query_issues.py
+issue-query
 ```
 
 For every potential bug you identify:
