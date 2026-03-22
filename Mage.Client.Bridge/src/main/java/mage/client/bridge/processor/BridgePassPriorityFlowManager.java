@@ -114,8 +114,12 @@ public final class BridgePassPriorityFlowManager {
                 tickPendingFlow(flow);
                 return null;
             }));
-        } catch (IllegalStateException ignored) {
-            cancelScheduledTickIfCurrent(flow);
+        } catch (IllegalStateException e) {
+            if (isProcessorUnavailable(e)) {
+                cancelScheduledTickIfCurrent(flow);
+                return;
+            }
+            failFlow(flow, e);
         } catch (RuntimeException e) {
             failFlow(flow, e);
         }
@@ -156,5 +160,10 @@ public final class BridgePassPriorityFlowManager {
             scheduledTick = null;
         }
         scheduledTickFlow = null;
+    }
+
+    private static boolean isProcessorUnavailable(IllegalStateException e) {
+        return "Bridge processor is shut down".equals(e.getMessage())
+            || "Interrupted while waiting for bridge processor".equals(e.getMessage());
     }
 }

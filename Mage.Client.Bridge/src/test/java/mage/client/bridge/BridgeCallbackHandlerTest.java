@@ -1,5 +1,16 @@
 package mage.client.bridge;
 
+import mage.client.bridge.processor.BridgeChooseActionFlow;
+import mage.client.bridge.processor.BridgeChooseActionFlowContext;
+import mage.client.bridge.processor.BridgeChooseActionFlowManager;
+import mage.client.bridge.processor.BridgeChooseActionInput;
+import mage.client.bridge.processor.BridgeChooseActionStartResult;
+import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeDecisionState;
+import mage.client.bridge.processor.BridgePassPriorityFlow;
+import mage.client.bridge.processor.BridgePassPriorityFlowContext;
+import mage.client.bridge.processor.BridgePassPriorityFlowManager;
+import mage.client.bridge.processor.BridgeProcessor;
 import mage.cards.repository.CardInfo;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
@@ -29,6 +40,7 @@ import mage.view.PlayerView;
 import mage.view.StackAbilityView;
 import mage.view.TableClientMessage;
 import org.junit.jupiter.api.Test;
+import org.apache.log4j.Logger;
 import sun.misc.Unsafe;
 
 import java.io.Serializable;
@@ -47,6 +59,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
@@ -1379,6 +1392,167 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void chooseActionTickerFailsFlowWhenTickCommandThrowsIllegalStateException() throws Exception {
+        AtomicBoolean failOnDecisionRead = new AtomicBoolean(false);
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgeChooseActionFlowManager.class),
+            event -> { }
+        );
+        BridgeDecisionState decisionState = new BridgeDecisionState();
+        BridgeChooseActionFlowContext context = new BridgeChooseActionFlowContext() {
+            @Override
+            public PendingAction currentPendingAction() {
+                return null;
+            }
+
+            @Override
+            public PendingAction currentDecisionAction() {
+                if (failOnDecisionRead.get()) {
+                    throw new IllegalStateException("choose_action tick failed");
+                }
+                return null;
+            }
+
+            @Override
+            public boolean requestCannotContinue() {
+                return false;
+            }
+
+            @Override
+            public ChooseActionTool.Result noPendingActionResult() {
+                return new ChooseActionTool.Result();
+            }
+
+            @Override
+            public BridgeChooseActionStartResult applyChooseAction(BridgeChooseActionInput input, PendingAction action) {
+                throw new AssertionError("applyChooseAction should not run");
+            }
+
+            @Override
+            public String detectCombatSelect(PendingAction action) {
+                throw new AssertionError("detectCombatSelect should not run");
+            }
+
+            @Override
+            public UUID resolveShortId(String shortId) {
+                throw new AssertionError("resolveShortId should not run");
+            }
+
+            @Override
+            public Set<UUID> validTargets(PendingAction action) {
+                throw new AssertionError("validTargets should not run");
+            }
+
+            @Override
+            public boolean clearPendingActionIfCurrent(PendingAction action) {
+                throw new AssertionError("clearPendingActionIfCurrent should not run");
+            }
+
+            @Override
+            public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
+                throw new AssertionError("sendBooleanOrDie should not run");
+            }
+
+            @Override
+            public void sendUuidOrDie(UUID gameId, UUID data, String sendContext) {
+                throw new AssertionError("sendUuidOrDie should not run");
+            }
+
+            @Override
+            public void sendStringOrDie(UUID gameId, String data, String sendContext) {
+                throw new AssertionError("sendStringOrDie should not run");
+            }
+
+            @Override
+            public void clearLastChoices() {
+            }
+
+            @Override
+            public ChooseActionTool.Result buildChooseActionError(
+                    ChooseActionTool.Result result,
+                    String errorCode,
+                    String message,
+                    boolean retryable,
+                    PendingAction action) {
+                throw new AssertionError("buildChooseActionError should not run");
+            }
+
+            @Override
+            public void finishChooseActionWithNextDecision(
+                    ChooseActionTool.Result result,
+                    PendingAction previousAction,
+                    PendingAction nextAction) {
+                throw new AssertionError("finishChooseActionWithNextDecision should not run");
+            }
+
+            @Override
+            public void finishChooseActionWithoutNextDecision(
+                    ChooseActionTool.Result result,
+                    PendingAction previousAction) {
+                throw new AssertionError("finishChooseActionWithoutNextDecision should not run");
+            }
+
+            @Override
+            public void finishBatchChooseActionWithNextDecision(
+                    ChooseActionTool.Result result,
+                    PendingAction nextAction) {
+                throw new AssertionError("finishBatchChooseActionWithNextDecision should not run");
+            }
+
+            @Override
+            public void finishBatchChooseActionWithoutNextDecision(ChooseActionTool.Result result) {
+                throw new AssertionError("finishBatchChooseActionWithoutNextDecision should not run");
+            }
+
+            @Override
+            public ChooseActionTool.Result cancelledChooseActionResult(
+                    PendingAction previousAction,
+                    ChooseActionTool.Result partialResult) {
+                throw new AssertionError("cancelledChooseActionResult should not run");
+            }
+        };
+        BridgeChooseActionFlowManager manager = new BridgeChooseActionFlowManager(
+            processor,
+            "TestPlayer",
+            decisionState,
+            context,
+            message -> {
+                var result = new ChooseActionTool.Result();
+                result.error = message;
+                return result;
+            }
+        );
+        processor.start();
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            BridgeChooseActionFlow flow = processor.submit(BridgeCommand.of(() -> manager.startPendingFlow(
+                new BridgeChooseActionInput(null, null, null, null, null, null, null, null, null, null, null)
+            )));
+
+            Future<ChooseActionTool.Result> future = executor.submit(flow::awaitResult);
+            failOnDecisionRead.set(true);
+
+            assertThatThrownBy(() -> future.get(1, TimeUnit.SECONDS))
+                .isInstanceOf(ExecutionException.class)
+                .satisfies(error -> {
+                    Throwable outerCause = ((ExecutionException) error).getCause();
+                    assertThat(outerCause).isInstanceOf(ExecutionException.class);
+                    assertThat(outerCause.getCause())
+                        .isInstanceOf(IllegalStateException.class)
+                        .hasMessage("choose_action tick failed");
+                });
+            assertThat(decisionState.pendingChooseActionFlow()).isNull();
+        } finally {
+            manager.shutdown();
+            processor.shutdown("test done");
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
     void passPriorityAutoHandlesSingleTargetFollowupBeforeReturningDecision() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -1832,6 +2006,213 @@ class BridgeCallbackHandlerTest {
             assertThat(interruptFlagAfterReturn.get()).isTrue();
         } finally {
             worker.join(1000);
+        }
+    }
+
+    @Test
+    void passPriorityTickerFailsFlowWhenTickCommandThrowsIllegalStateException() throws Exception {
+        AtomicBoolean failOnPendingRead = new AtomicBoolean(false);
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgePassPriorityFlowManager.class),
+            event -> { }
+        );
+        BridgeDecisionState decisionState = new BridgeDecisionState();
+        BridgePassPriorityFlowContext context = new BridgePassPriorityFlowContext() {
+            @Override
+            public String username() {
+                return "TestPlayer";
+            }
+
+            @Override
+            public PendingAction currentPendingAction() {
+                if (failOnPendingRead.get()) {
+                    throw new IllegalStateException("pass_priority tick failed");
+                }
+                return null;
+            }
+
+            @Override
+            public PendingAction currentDecisionAction() {
+                return null;
+            }
+
+            @Override
+            public PendingAction resolvePassPriorityAction(PendingAction action) {
+                return action;
+            }
+
+            @Override
+            public GameView preparePassPriorityActionView(PendingAction action) {
+                return null;
+            }
+
+            @Override
+            public int interactionsThisTurn() {
+                return 0;
+            }
+
+            @Override
+            public int maxInteractionsPerTurn() {
+                return 10;
+            }
+
+            @Override
+            public void executeDefaultAction() {
+                throw new AssertionError("executeDefaultAction should not run");
+            }
+
+            @Override
+            public String detectCombatSelect(PendingAction action) {
+                throw new AssertionError("detectCombatSelect should not run");
+            }
+
+            @Override
+            public ActionResult pendingActionResult(PendingAction action, String stopReason, Long boardCursorParam) {
+                throw new AssertionError("pendingActionResult should not run");
+            }
+
+            @Override
+            public ActionResult pendingActionResult(
+                    PendingAction action,
+                    String stopReason,
+                    Long boardCursorParam,
+                    java.util.function.Consumer<ActionResult> customizer) {
+                throw new AssertionError("pendingActionResult should not run");
+            }
+
+            @Override
+            public ActionResult stepYieldResult(PendingAction action, GameView gameView, String stopReason, Long boardCursorParam) {
+                throw new AssertionError("stepYieldResult should not run");
+            }
+
+            @Override
+            public ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
+                throw new AssertionError("stackResolvedResult should not run");
+            }
+
+            @Override
+            public UUID lowestStackObjectId(GameView gameView) {
+                return null;
+            }
+
+            @Override
+            public boolean stackContains(GameView gameView, UUID stackObjectId) {
+                return false;
+            }
+
+            @Override
+            public boolean clearPendingActionIfCurrent(PendingAction action) {
+                throw new AssertionError("clearPendingActionIfCurrent should not run");
+            }
+
+            @Override
+            public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
+                throw new AssertionError("sendBooleanOrDie should not run");
+            }
+
+            @Override
+            public UUID currentGameId() {
+                return UUID.randomUUID();
+            }
+
+            @Override
+            public GameView lastGameView() {
+                return null;
+            }
+
+            @Override
+            public int lastTurnNumber() {
+                return 0;
+            }
+
+            @Override
+            public int activeGamesSize() {
+                return 1;
+            }
+
+            @Override
+            public boolean superseded() {
+                return false;
+            }
+
+            @Override
+            public boolean playerDead() {
+                return false;
+            }
+
+            @Override
+            public boolean gameEverStarted() {
+                return false;
+            }
+
+            @Override
+            public boolean clientRunning() {
+                return true;
+            }
+
+            @Override
+            public long lastActionableCallbackAt() {
+                return 0;
+            }
+
+            @Override
+            public long lastCallbackReceivedAt() {
+                return 0;
+            }
+
+            @Override
+            public void declareZombieGame(long absoluteIdleMs) {
+                throw new AssertionError("declareZombieGame should not run");
+            }
+
+            @Override
+            public boolean failedManaCast(UUID objectId) {
+                return false;
+            }
+
+            @Override
+            public void finalizePassPriorityResult(
+                    BridgePassPriorityFlow flow,
+                    String until,
+                    int actionsPassed,
+                    PendingAction action,
+                    GameView view,
+                    ActionResult result,
+                    boolean actionPending) {
+                decisionState.clearPendingPassPriorityFlowIfCurrent(flow);
+            }
+        };
+        BridgePassPriorityFlowManager manager = new BridgePassPriorityFlowManager(
+            processor,
+            "TestPlayer",
+            decisionState,
+            context
+        );
+        processor.start();
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            BridgePassPriorityFlow flow = processor.submit(BridgeCommand.of(() -> manager.startPendingFlow(null, null)));
+
+            Future<ActionResult> future = executor.submit(flow::awaitResult);
+            failOnPendingRead.set(true);
+
+            assertThatThrownBy(() -> future.get(1, TimeUnit.SECONDS))
+                .isInstanceOf(ExecutionException.class)
+                .satisfies(error -> {
+                    Throwable outerCause = ((ExecutionException) error).getCause();
+                    assertThat(outerCause).isInstanceOf(ExecutionException.class);
+                    assertThat(outerCause.getCause())
+                        .isInstanceOf(IllegalStateException.class)
+                        .hasMessage("pass_priority tick failed");
+                });
+            assertThat(decisionState.pendingPassPriorityFlow()).isNull();
+        } finally {
+            manager.shutdown();
+            processor.shutdown("test done");
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
         }
     }
 
