@@ -14,13 +14,7 @@ _SEARCH_ROOTS = (
     REPO_ROOT / "src",
 )
 
-_ALLOWED_DUNDER_ALL_FILES = frozenset(
-    {
-        "schemas/game_export_migrations.py",
-        "src/magebench/common/json5_utils.py",
-        "src/magebench/game/game_export_types.py",
-    }
-)
+_ALLOWED_DUNDER_ALL_FILES = frozenset()
 
 
 def _has_top_level_dunder_all(path: Path) -> bool:

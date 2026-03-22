@@ -20,7 +20,8 @@ from magebench.analysis.blunder.blunder_analysis import (
     load_game_context,
 )
 from magebench.analysis.blunder.blunder_eval_common import decision_index as get_decision_index
-from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.common.json5_utils import loads_json5
+from magebench.common.json5_writer import dumps_json5
 
 GOLDEN_DIR = Path(__file__).parent / "golden" / "blunder_prompts" / "game_20260216_074122_g2"
 _GAMES_DIR = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"

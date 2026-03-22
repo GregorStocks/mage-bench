@@ -66,6 +66,7 @@ The actual target state has **not** been reached yet.
 
 Write-side MCP actions are much closer to the desired model now:
 
+- `join_table` waits for `START_GAME` through a processor-owned lifecycle flow
 - `choose_action`, `pass_priority`, `send_chat_message`, default-response
   helpers, and `concede` all go through processor-owned commands or flows
 - the old `gameFinishedLatch` keepAlive concede wait is gone; post-concede
@@ -89,24 +90,11 @@ And the bridge still relies on shared mutable state containers such as:
 - `BridgeCursorState`
 
 Those are still being read outside the processor thread.
-
-There is also still at least one MCP-side lifecycle wait on shared state:
-
-- `join_table` still waits for `START_GAME` via `gameStartLatch`
-
 So the model is still transitional rather than actor-pure.
 
 ## Remaining Work
 
-### 1. Move remaining lifecycle waits onto processor-owned requests
-
-`concede` is no longer latch-based, but `join_table` still is.
-
-`START_GAME` completion should move off `gameStartLatch` and onto a
-processor-owned lifecycle request/future, the same way keepAlive concede
-completion now does.
-
-### 2. Make live runtime state processor-private
+### 1. Make live runtime state processor-private
 
 The `Bridge*State` classes should stop being cross-thread APIs.
 
@@ -121,7 +109,7 @@ That includes:
 - chat/log state
 - cursor/signature state
 
-### 3. Make MCP reads use processor-published data
+### 2. Make MCP reads use processor-published data
 
 For read surfaces like:
 
@@ -141,7 +129,7 @@ Preferred end state:
 
 This is where the append-only model becomes important.
 
-### 4. Delete transitional shared-memory machinery
+### 3. Delete transitional shared-memory machinery
 
 Once reads and writes no longer cross the thread boundary through shared state,
 delete the transitional mechanisms that only exist to prop that model up:

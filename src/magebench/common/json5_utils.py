@@ -1,15 +1,11 @@
-"""JSON5 parsing utilities plus the shared JSON5 serializer."""
+"""JSON5 parsing utilities."""
 
 import builtins
 from typing import Any
 
-from magebench.common.json5_writer import dumps_json5
-
-__all__ = ["dumps_json5", "loads_json5"]
-
 
 def _load_pyjson5() -> Any:
-    """Resolve pyjson5 lazily so dumps_json5 remains usable without it."""
+    """Resolve pyjson5 lazily so JSON5 parsing remains optional until needed."""
     return builtins.__import__("pyjson5")
 
 

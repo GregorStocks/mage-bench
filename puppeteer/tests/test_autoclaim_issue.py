@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from magebench.common.json5_utils import dumps_json5
+from magebench.common.json5_writer import dumps_json5
 from magebench.common.local_claims import ClaimRecord
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
