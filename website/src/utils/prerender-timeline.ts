@@ -7,7 +7,7 @@
 //
 // At runtime, the viewer just toggles visibility instead of rebuilding DOM.
 
-import type { GameExportV8, LlmEvent, Decision, Annotation } from '../types/game-export';
+import type { GameExportV9, LlmEvent, Decision, Annotation } from '../types/game-export';
 import {
   chosenDisplayText,
   decodeHtmlEntitiesOnce,
@@ -55,7 +55,7 @@ function formatTurnLabel(playerTurn: number | null, activePlayer: string | null 
   return turnNum;
 }
 
-function computePlayerTurnNumbers(snapshots: GameExportV8['snapshots']): (number | null)[] {
+function computePlayerTurnNumbers(snapshots: GameExportV9['snapshots']): (number | null)[] {
   const counts: Record<string, number> = {};
   const result: (number | null)[] = [];
   let lastTurn = -1;
@@ -79,20 +79,20 @@ function computePlayerTurnNumbers(snapshots: GameExportV8['snapshots']): (number
 interface MergedLlmEvent {
   type: string;
   ts: string;
-  gameSeq: number;
-  /** Max gameSeq across all events in the merged block.  Used for
+  game_seq: number;
+  /** Max game_seq across all events in the merged block.  Used for
    *  firstSnap computation so tool results don't appear too early. */
   maxGameSeq: number;
   player: string;
   reasoning?: string | null;
   thinking?: string | null;
-  toolCalls?: unknown;
-  costUsd?: number;
+  tool_calls?: unknown;
+  cost_usd?: number;
   toolResults?: LlmEvent[];
   // Metadata events
-  turnsWithoutProgress?: number;
-  errorType?: string;
-  errorMessage?: string;
+  turns_without_progress?: number;
+  error_type?: string;
+  error_message?: string;
   reason?: string;
   message?: string;
 }
@@ -109,48 +109,48 @@ function mergeLlmEvents(events: LlmEvent[]): MergedLlmEvent[] {
         toolResults.push(events[j]);
         j++;
       }
-      const mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
-      // Max gameSeq across all events so the block doesn't appear before
+      const mergedSeq = e.game_seq || (toolResults.length > 0 ? toolResults[0].game_seq : 0) || 0;
+      // Max game_seq across all events so the block doesn't appear before
       // its tool results would be individually visible.
       let maxSeq = mergedSeq;
       for (const tr of toolResults) {
-        if ((tr.gameSeq || 0) > maxSeq) maxSeq = tr.gameSeq || 0;
+        if ((tr.game_seq || 0) > maxSeq) maxSeq = tr.game_seq || 0;
       }
       merged.push({
         type: 'llm_merged',
         ts: e.ts || '',
-        gameSeq: mergedSeq,
+        game_seq: mergedSeq,
         maxGameSeq: maxSeq,
         player: e.player,
         reasoning: e.reasoning,
         thinking: e.thinking,
-        toolCalls: e.toolCalls,
-        costUsd: e.costUsd,
+        tool_calls: e.tool_calls,
+        cost_usd: e.cost_usd,
         toolResults,
       });
       i = j;
     } else if (e.type === 'tool_call') {
-      const seq = e.gameSeq || 0;
+      const seq = e.game_seq || 0;
       merged.push({
         type: 'llm_merged',
         ts: e.ts || '',
-        gameSeq: seq,
+        game_seq: seq,
         maxGameSeq: seq,
         player: e.player,
         toolResults: [e],
       });
       i++;
     } else {
-      const seq = e.gameSeq || 0;
+      const seq = e.game_seq || 0;
       merged.push({
         type: e.type,
         ts: e.ts || '',
-        gameSeq: seq,
+        game_seq: seq,
         maxGameSeq: seq,
         player: e.player,
-        turnsWithoutProgress: e.turnsWithoutProgress,
-        errorType: e.errorType,
-        errorMessage: e.errorMessage,
+        turns_without_progress: e.turns_without_progress,
+        error_type: e.error_type,
+        error_message: e.error_message,
         reason: e.reason,
         message: (e as unknown as Record<string, unknown>).message as string | undefined,
       });
@@ -310,9 +310,9 @@ function renderLlmEventHtml(
   // Metadata events
   let metaText: string;
   if (type === 'stall') {
-    metaText = event.player + ' stalled (' + (event.turnsWithoutProgress || 0) + ' turns without progress)';
+    metaText = event.player + ' stalled (' + (event.turns_without_progress || 0) + ' turns without progress)';
   } else if (type === 'llm_error') {
-    metaText = event.player + ' error: ' + (event.errorType || '') + ' ' + (event.errorMessage || '');
+    metaText = event.player + ' error: ' + (event.error_type || '') + ' ' + (event.error_message || '');
   } else if (type === 'context_reset') {
     metaText = event.player + ' context reset: ' + (event.reason || '');
   } else if (type === 'auto_pilot_mode') {
@@ -349,10 +349,10 @@ function renderAnnotationHtml(ann: Annotation): string {
   }
 
   html += '<details class="annotation-details"><summary>Analysis</summary><div>';
-  html += '<div class="annotation-field"><strong>Action taken:</strong> ' + escapeHtml(ann.actionTaken) + '</div>';
-  html += '<div class="annotation-field"><strong>Better line:</strong> ' + escapeHtml(ann.betterLine) + '</div>';
-  if (ann.llmReasoning) {
-    html += '<div class="annotation-field"><strong>Why the LLM erred:</strong> ' + escapeHtml(ann.llmReasoning) + '</div>';
+  html += '<div class="annotation-field"><strong>Action taken:</strong> ' + escapeHtml(ann.action_taken) + '</div>';
+  html += '<div class="annotation-field"><strong>Better line:</strong> ' + escapeHtml(ann.better_line) + '</div>';
+  if (ann.llm_reasoning) {
+    html += '<div class="annotation-field"><strong>Why the LLM erred:</strong> ' + escapeHtml(ann.llm_reasoning) + '</div>';
   }
   html += '</div></details>';
 
@@ -377,18 +377,18 @@ function findFirstSnapForAction(targetSeq: number, snapshotSeqs: number[]): numb
 }
 
 /** Find first snapshot index where the LLM event is visible.
- *  Event is visible at i if snapshots[i+1].seq > gameSeq or i is last. */
-function findFirstSnapForLlm(gameSeq: number, snapshotSeqs: number[]): number {
-  // Find first index where seq > gameSeq
+ *  Event is visible at i if snapshots[i+1].seq > game_seq or i is last. */
+function findFirstSnapForLlm(game_seq: number, snapshotSeqs: number[]): number {
+  // Find first index where seq > game_seq
   let lo = 0;
   let hi = snapshotSeqs.length;
   while (lo < hi) {
     const mid = (lo + hi) >>> 1;
-    if (snapshotSeqs[mid] <= gameSeq) lo = mid + 1;
+    if (snapshotSeqs[mid] <= game_seq) lo = mid + 1;
     else hi = mid;
   }
-  // lo is first index where seq > gameSeq
-  // Event appears at snapshot lo-1 (since at lo-1, next snap seq > gameSeq)
+  // lo is first index where seq > game_seq
+  // Event appears at snapshot lo-1 (since at lo-1, next snap seq > game_seq)
   return lo > 0 ? lo - 1 : 0;
 }
 
@@ -416,11 +416,11 @@ export interface PrerenderResult {
   /** Whether the game has blunder annotations */
   hasAnnotations: boolean;
   /** Precomputed running LLM costs per snapshot index, keyed by player name.
-   *  Allows stripping llmEvents from the inline JSON. */
+   *  Allows stripping llm_events from the inline JSON. */
   runningCostBySnapshot: Record<string, number>[];
 }
 
-export function prerenderTimeline(game: GameExportV8): PrerenderResult {
+export function prerenderTimeline(game: GameExportV9): PrerenderResult {
   const snapshots = game.snapshots;
   const snapshotSeqs = snapshots.map((s) => s.seq);
   const snapshotCount = snapshots.length;
@@ -432,27 +432,27 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
     playerColorMap[game.players[i].name] = i % 4;
   }
 
-  // Fill in missing gameSeq on llmEvents
-  const llmEvents = game.llmEvents || [];
+  // Fill in missing game_seq on llm_events
+  const llm_events = game.llm_events || [];
   let lastSeq = 0;
-  for (const e of llmEvents) {
-    if (e.gameSeq != null) {
-      lastSeq = e.gameSeq;
+  for (const e of llm_events) {
+    if (e.game_seq != null) {
+      lastSeq = e.game_seq;
     } else {
-      (e as Record<string, unknown>).gameSeq = lastSeq;
+      (e as Record<string, unknown>).game_seq = lastSeq;
     }
   }
 
   // Stamp _origIdx for decision lookup
-  for (let i = 0; i < llmEvents.length; i++) {
-    (llmEvents[i] as unknown as Record<string, unknown>)._origIdx = i;
+  for (let i = 0; i < llm_events.length; i++) {
+    (llm_events[i] as unknown as Record<string, unknown>)._origIdx = i;
   }
 
   // Build llmEvent index → decision reverse lookup
   const decisions = game.decisions || [];
   const llmEventIndexToDecision: Record<number, Decision> = {};
   for (const d of decisions) {
-    for (const ei of (d.llmEventIndices || [])) {
+    for (const ei of (d.llm_event_indices || [])) {
       llmEventIndexToDecision[ei] = d;
     }
   }
@@ -497,38 +497,38 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
   const annotationDecisionSnap: number[] = [];
   if (game.annotations) {
     for (const ann of game.annotations) {
-      const decision = decisions[ann.decisionIndex];
-      annotationDecisionSnap.push(decision.snapshotIndex);
+      const decision = decisions[ann.decision_index];
+      annotationDecisionSnap.push(decision.snapshot_index);
     }
   }
 
-  // Extract system messages from all llmEvents and backdate them
+  // Extract system messages from all llm_events and backdate them
   const systemMessages: LlmEvent[] = [];
   const lastPlayerTs: Record<string, string> = {};
   const lastPlayerSeq: Record<string, number> = {};
-  for (const e of llmEvents) {
+  for (const e of llm_events) {
     if (e.type === 'tool_call') {
       const sysmsgs = extractSystemMessages(e);
       if (sysmsgs.length > 0) {
         const backdatedTs = lastPlayerTs[e.player] || e.ts || '';
-        const backdatedSeq = lastPlayerSeq[e.player] || e.gameSeq || 0;
+        const backdatedSeq = lastPlayerSeq[e.player] || e.game_seq || 0;
         for (const msg of sysmsgs) {
           systemMessages.push({
             type: 'system_message',
             ts: backdatedTs,
-            gameSeq: backdatedSeq,
+            game_seq: backdatedSeq,
             player: e.player,
             message: msg,
           } as unknown as LlmEvent);
         }
       }
       lastPlayerTs[e.player] = e.ts || '';
-      lastPlayerSeq[e.player] = e.gameSeq || 0;
+      lastPlayerSeq[e.player] = e.game_seq || 0;
     }
   }
 
   // Merge all LLM events (including system messages)
-  const allLlmEvents = [...llmEvents, ...systemMessages];
+  const allLlmEvents = [...llm_events, ...systemMessages];
   const mergedLlm = mergeLlmEvents(allLlmEvents);
 
   // Extract chat from LLM events
@@ -536,16 +536,16 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
     ts: string;
     from: string;
     message: string;
-    gameSeq: number;
+    game_seq: number;
   }
   const chatFromLlm: ChatEntry[] = [];
-  for (const e of llmEvents) {
+  for (const e of llm_events) {
     if (e.type !== 'tool_call' || e.tool !== 'send_chat_message') continue;
     chatFromLlm.push({
       ts: e.ts || '',
       from: e.player,
       message: (e.args && (e.args as Record<string, unknown>).message as string) || '',
-      gameSeq: e.gameSeq || 0,
+      game_seq: e.game_seq || 0,
     });
   }
 
@@ -559,9 +559,9 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
   }
 
   // Content flags
-  const hasLlm = llmEvents.length > 0;
+  const hasLlm = llm_events.length > 0;
   const hasChat = (game.actions || []).some((a) => a.type === 'chat')
-    || llmEvents.some((e) => e.tool === 'send_chat_message');
+    || llm_events.some((e) => e.tool === 'send_chat_message');
   const hasAnnotations = (game.annotations || []).length > 0;
 
   // ── Build timeline entries ──
@@ -597,7 +597,7 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
   // Chat from LLM (deduplicated)
   for (const c of chatFromLlm) {
     if (chatDedup.has(c.from + '|' + c.message)) continue;
-    const firstSnap = findFirstSnapForLlm(c.gameSeq, snapshotSeqs);
+    const firstSnap = findFirstSnapForLlm(c.game_seq, snapshotSeqs);
     const fromIdx = playerColorMap[c.from];
     const fromCls = fromIdx != null ? 'action-' + PLAYER_COLORS[fromIdx] : '';
     const html = '<div class="chat-line">'
@@ -605,7 +605,7 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
       + '<span class="chat-from ' + fromCls + '">' + escapeHtml(c.from || '') + ':</span> '
       + escapeHtml(c.message || '')
       + '</div>';
-    timeline.push({ html, firstSnap, kind: 'chat', sortSeq: c.gameSeq, sortPriority: 0 });
+    timeline.push({ html, firstSnap, kind: 'chat', sortSeq: c.game_seq, sortPriority: 0 });
   }
 
   // Merged LLM events — use maxGameSeq for firstSnap so tool results
@@ -614,7 +614,7 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
     const eventHtml = renderLlmEventHtml(m, llmEventIndexToDecision, playerColorMap);
     if (!eventHtml) continue;
     const firstSnap = findFirstSnapForLlm(m.maxGameSeq, snapshotSeqs);
-    timeline.push({ html: eventHtml, firstSnap, kind: 'llm', sortSeq: m.gameSeq, sortPriority: 0 });
+    timeline.push({ html: eventHtml, firstSnap, kind: 'llm', sortSeq: m.game_seq, sortPriority: 0 });
   }
 
   // Annotations
@@ -651,7 +651,7 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
     timeline.push({ html, firstSnap: lastSnapIdx, kind: 'game', sortSeq: Infinity, sortPriority: 0 });
   }
   for (const p of (game.players || [])) {
-    if (!p.timedOut) continue;
+    if (!p.timed_out) continue;
     const pIdx = playerColorMap[p.name];
     const pCls = pIdx != null ? 'action-' + PLAYER_COLORS[pIdx] : '';
     const html = '<div class="game-result-line game-result-timeout">'
@@ -681,10 +681,10 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
     );
   }
 
-  // Precompute running LLM costs per snapshot so llmEvents can be stripped
+  // Precompute running LLM costs per snapshot so llm_events can be stripped
   // from the inline JSON. Uses a single-pass pointer approach: O(S + E).
-  const costEvents = llmEvents
-    .filter((e) => e.costUsd && e.player && e.ts)
+  const costEvents = llm_events
+    .filter((e) => e.cost_usd && e.player && e.ts)
     .sort((a, b) => (a.ts || '').localeCompare(b.ts || ''));
 
   const runningCostBySnapshot: Record<string, number>[] = [];
@@ -696,7 +696,7 @@ export function prerenderTimeline(game: GameExportV8): PrerenderResult {
     while (costPtr < costEvents.length) {
       const e = costEvents[costPtr];
       if (cutoffTs && (e.ts || '') >= cutoffTs) break;
-      currentCosts[e.player] = (currentCosts[e.player] || 0) + (e.costUsd || 0);
+      currentCosts[e.player] = (currentCosts[e.player] || 0) + (e.cost_usd || 0);
       costPtr++;
     }
     runningCostBySnapshot.push({ ...currentCosts });

@@ -463,7 +463,7 @@
       "type": "phase_change",
     }
   ],
-  "cardData": {
+  "card_data": {
     "Boggart Trawler // Boggart Bog": {
       "type_line": "Creature — Goblin // Land",
     },
@@ -489,35 +489,35 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type_line": "Basic Land — Plains",
     }
   },
-  "cardImages": {
+  "card_images": {
     "Rhino Token": "https://cards.scryfall.io/small/front/2/1/214a48bc-4a1c-44e3-9415-a73af3d4fd95.jpg?1568003482",
   },
   "decisions": [
     {
-      "actionResult": {},
-      "actionSeq": 5,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 5,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 0,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         2,
         3,
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 1,
+      "response_type": "boolean",
+      "snapshot_index": 1,
       "step": null,
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 1,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "no",
         "action_type": "GAME_SELECT",
@@ -664,17 +664,17 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "response_type": "select",
         "success": true,
       },
-      "actionSeq": 9,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_seq": 9,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": false,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "no",
       },
       "index": 1,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         4,
         5,
         6,
@@ -682,17 +682,17 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "message": "Mulligan down to 6 cards?",
       "phase": null,
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 1,
+      "response_type": "boolean",
+      "snapshot_index": 1,
       "step": null,
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 1,
     },
     {
-      "actionResult": {},
-      "actionSeq": 9,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 7,
+      "action_result": {},
+      "action_seq": 9,
+      "action_type": "GAME_SELECT",
+      "choice_count": 7,
       "choices": [
         {
           "action": "activate",
@@ -744,18 +744,18 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 2,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         6,
         7,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p10",
           "p12",
           "p13",
@@ -765,16 +765,16 @@ Create two 4/4 green Rhino creature tokens with trample.",
         ]
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 2,
+      "response_type": "select",
+      "snapshot_index": 2,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer skip attack",
       ],
       "turn": 1,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_2",
         "action_type": "GAME_SELECT",
@@ -877,9 +877,9 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "success": true,
         "untapped_lands": 1,
       },
-      "actionSeq": 18,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 7,
+      "action_seq": 18,
+      "action_type": "GAME_SELECT",
+      "choice_count": 7,
       "choices": [
         {
           "action": "activate",
@@ -931,33 +931,33 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": 2,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "p12",
       },
       "index": 3,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         8,
         9,
         10,
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
+      "pilot_context": {
+        "land_drops_used": 0,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 6,
+      "response_type": "select",
+      "snapshot_index": 6,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 1,
     },
     {
-      "actionResult": {},
-      "actionSeq": 18,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 1,
+      "action_result": {},
+      "action_seq": 18,
+      "action_type": "GAME_SELECT",
+      "choice_count": 1,
       "choices": [
         {
           "action": "cast",
@@ -967,27 +967,27 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 4,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         10,
         11,
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 1,
+        "playable_cards": [
           "p11",
         ],
-        "untappedLands": 1,
+        "untapped_lands": 1,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 7,
+      "response_type": "select",
+      "snapshot_index": 7,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
         "Opponent discards Mountain",
@@ -995,7 +995,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "turn": 1,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_2",
         "action_type": "GAME_SELECT",
@@ -1163,9 +1163,9 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "response_type": "select",
         "success": true,
       },
-      "actionSeq": 40,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 8,
+      "action_seq": 40,
+      "action_type": "GAME_SELECT",
+      "choice_count": 8,
       "choices": [
         {
           "action": "activate",
@@ -1223,21 +1223,21 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": 2,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "p11",
       },
       "index": 5,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         12,
         13,
         14,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p10",
           "p11",
           "p13",
@@ -1246,20 +1246,20 @@ Create two 4/4 green Rhino creature tokens with trample.",
           "p16",
           "p24",
         ],
-        "untappedLands": 1,
+        "untapped_lands": 1,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 16,
+      "response_type": "select",
+      "snapshot_index": 16,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 3,
     },
     {
-      "actionResult": {},
-      "actionSeq": 40,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 7,
+      "action_result": {},
+      "action_seq": 40,
+      "action_type": "GAME_SELECT",
+      "choice_count": 7,
       "choices": [
         {
           "action": "activate",
@@ -1311,18 +1311,18 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 6,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         14,
         15,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p10",
           "p13",
           "p14",
@@ -1332,16 +1332,16 @@ Create two 4/4 green Rhino creature tokens with trample.",
         ]
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 17,
+      "response_type": "select",
+      "snapshot_index": 17,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer skip attack",
       ],
       "turn": 3,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_1",
         "action_type": "GAME_CHOOSE_ABILITY",
@@ -1465,9 +1465,9 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "response_type": "index",
         "success": true,
       },
-      "actionSeq": 47,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 7,
+      "action_seq": 47,
+      "action_type": "GAME_SELECT",
+      "choice_count": 7,
       "choices": [
         {
           "action": "activate",
@@ -1519,30 +1519,30 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": 1,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "p10",
       },
       "index": 7,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         16,
         17,
         18,
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
+      "pilot_context": {
+        "land_drops_used": 0,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 21,
+      "response_type": "select",
+      "snapshot_index": 21,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 3,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_ability_0",
         "action_type": "GAME_ASK",
@@ -1660,9 +1660,9 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "response_type": "boolean",
         "success": true,
       },
-      "actionSeq": 48,
-      "actionType": "GAME_CHOOSE_ABILITY",
-      "choiceCount": 1,
+      "action_seq": 48,
+      "action_type": "GAME_CHOOSE_ABILITY",
+      "choice_count": 1,
       "choices": [
         {
           "description": "Play Boggart Bog",
@@ -1670,21 +1670,21 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": 0,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "0",
       },
       "index": 8,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         18,
         19,
         20,
       ],
       "message": "Choose spell or ability to play: Boggart Trawler",
       "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p10",
           "p13",
           "p14",
@@ -1694,14 +1694,14 @@ Create two 4/4 green Rhino creature tokens with trample.",
         ]
       },
       "player": "TestPlayer",
-      "responseType": "index",
-      "snapshotIndex": 21,
+      "response_type": "index",
+      "snapshot_index": 21,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 3,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "no",
         "action_type": "GAME_SELECT",
@@ -1813,26 +1813,26 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "response_type": "boolean",
         "success": true,
       },
-      "actionSeq": 51,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_seq": 51,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": false,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "no",
       },
       "index": 9,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         20,
         21,
         22,
       ],
       "message": "pay 3 life? (otherwise Boggart Bog becomes tapped)",
       "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p10",
           "p13",
           "p14",
@@ -1842,36 +1842,36 @@ Create two 4/4 green Rhino creature tokens with trample.",
         ]
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 21,
+      "response_type": "boolean",
+      "snapshot_index": 21,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 3,
     },
     {
-      "actionResult": {},
-      "actionSeq": 51,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 51,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 10,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         22,
         23,
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
+      "pilot_context": {
+        "land_drops_used": 1,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 22,
+      "response_type": "boolean",
+      "snapshot_index": 22,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
         "Opponent discards Mountain",
@@ -1881,7 +1881,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "turn": 3,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_0",
         "action_type": "GAME_SELECT",
@@ -2009,9 +2009,9 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "success": true,
         "untapped_lands": 3,
       },
-      "actionSeq": 75,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_seq": 75,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -2051,21 +2051,21 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": 0,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "0",
       },
       "index": 11,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         24,
         25,
         26,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p13",
           "p14",
           "p15",
@@ -2073,40 +2073,40 @@ Create two 4/4 green Rhino creature tokens with trample.",
           "p24",
           "p29",
         ],
-        "untappedLands": 2,
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 33,
+      "response_type": "select",
+      "snapshot_index": 33,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 5,
     },
     {
-      "actionResult": {},
-      "actionSeq": 75,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 75,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 12,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         26,
         27,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
-        "untappedLands": 3,
+      "pilot_context": {
+        "land_drops_used": 1,
+        "untapped_lands": 3,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 34,
+      "response_type": "boolean",
+      "snapshot_index": 34,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer skip attack",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
@@ -2116,7 +2116,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "turn": 5,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_0",
         "action_type": "GAME_SELECT",
@@ -2259,9 +2259,9 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "success": true,
         "untapped_lands": 4,
       },
-      "actionSeq": 105,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_seq": 105,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -2301,21 +2301,21 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": 0,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "0",
       },
       "index": 13,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         28,
         29,
         30,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p14",
           "p15",
           "p16",
@@ -2323,40 +2323,40 @@ Create two 4/4 green Rhino creature tokens with trample.",
           "p29",
           "p32",
         ],
-        "untappedLands": 3,
+        "untapped_lands": 3,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 49,
+      "response_type": "select",
+      "snapshot_index": 49,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 7,
     },
     {
-      "actionResult": {},
-      "actionSeq": 105,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 105,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 14,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         30,
         31,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
-        "untappedLands": 4,
+      "pilot_context": {
+        "land_drops_used": 1,
+        "untapped_lands": 4,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 50,
+      "response_type": "boolean",
+      "snapshot_index": 50,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer skip attack",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
@@ -2366,7 +2366,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "turn": 7,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_0",
         "action_type": "GAME_SELECT",
@@ -2524,9 +2524,9 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "success": true,
         "untapped_lands": 5,
       },
-      "actionSeq": 135,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_seq": 135,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -2566,21 +2566,21 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": 0,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "0",
       },
       "index": 15,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         32,
         33,
         34,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p15",
           "p16",
           "p24",
@@ -2588,40 +2588,40 @@ Create two 4/4 green Rhino creature tokens with trample.",
           "p32",
           "p35",
         ],
-        "untappedLands": 4,
+        "untapped_lands": 4,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 65,
+      "response_type": "select",
+      "snapshot_index": 65,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 9,
     },
     {
-      "actionResult": {},
-      "actionSeq": 135,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 135,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 16,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         34,
         35,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
-        "untappedLands": 5,
+      "pilot_context": {
+        "land_drops_used": 1,
+        "untapped_lands": 5,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 66,
+      "response_type": "boolean",
+      "snapshot_index": 66,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer skip attack",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
@@ -2631,7 +2631,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "turn": 9,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "yes",
         "action_type": "GAME_SELECT",
@@ -2791,57 +2791,57 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "success": true,
         "untapped_lands": 5,
       },
-      "actionSeq": 167,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_seq": 167,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": true,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "yes",
       },
       "index": 17,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         36,
         37,
         38,
       ],
       "message": "Cast spell without paying its mana cost (Crashing Footfalls)?",
       "phase": "BEGINNING",
-      "pilotContext": {
-        "untappedLands": 5,
+      "pilot_context": {
+        "untapped_lands": 5,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 83,
+      "response_type": "boolean",
+      "snapshot_index": 83,
       "step": "UPKEEP",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 11,
     },
     {
-      "actionResult": {},
-      "actionSeq": 167,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 167,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 18,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         38,
         39,
       ],
       "message": "Play instants and activated abilities",
       "phase": "BEGINNING",
-      "pilotContext": {
-        "untappedLands": 5,
+      "pilot_context": {
+        "untapped_lands": 5,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 84,
+      "response_type": "boolean",
+      "snapshot_index": 84,
       "step": "UPKEEP",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer creates a Rhino Token token",
         "TestPlayer creates a Rhino Token token",
         "TestPlayer puts Crashing Footfalls from stack into their graveyard",
@@ -2849,10 +2849,10 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "turn": 11,
     },
     {
-      "actionResult": {},
-      "actionSeq": 172,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_result": {},
+      "action_seq": 172,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -2892,18 +2892,18 @@ Create two 4/4 green Rhino creature tokens with trample.",
         }
       ],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 19,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         40,
         41,
       ],
       "message": "Play spells and abilities",
       "phase": "BEGINNING",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p16",
           "p24",
           "p29",
@@ -2911,29 +2911,29 @@ Create two 4/4 green Rhino creature tokens with trample.",
           "p35",
           "p42",
         ],
-        "untappedLands": 5,
+        "untapped_lands": 5,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 85,
+      "response_type": "select",
+      "snapshot_index": 85,
       "step": "UPKEEP",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer wants to concede",
       ],
       "turn": 11,
     }
   ],
-  "deckType": "Constructed - Legacy",
-  "gameOver": {
+  "deck_type": "Constructed - Legacy",
+  "game_over": {
     "message": "Opponent",
     "seq": 175,
   },
-  "gameType": "Two Player Duel",
-  "harnessEpoch": 56,
+  "game_type": "Two Player Duel",
+  "harness_epoch": 56,
   "id": "mdfc_land_and_suspend",
-  "llmEvents": [
+  "llm_events": [
     {
-      "availableTools": [
+      "available_tools": [
         "get_game_log",
         "get_game_history",
         "send_chat_message",
@@ -2950,11 +2950,11 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "game_start",
     },
     {
-      "costUsd": 0.0,
+      "cost_usd": 0.0,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 2,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -2968,7 +2968,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "0",
       },
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3118,12 +3118,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 5,
+      "cost_usd": 0.0,
+      "game_seq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -3135,7 +3135,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 2,
       },
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3207,12 +3207,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 5,
+      "cost_usd": 0.0,
+      "game_seq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 6,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "no",
@@ -3226,7 +3226,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "no",
       },
-      "gameSeq": 9,
+      "game_seq": 9,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3380,12 +3380,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 9,
+      "cost_usd": 0.0,
+      "game_seq": 9,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 8,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -3397,7 +3397,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 3,
       },
-      "gameSeq": 15,
+      "game_seq": 15,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3468,12 +3468,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 15,
+      "cost_usd": 0.0,
+      "game_seq": 15,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 10,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "p12",
@@ -3487,7 +3487,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "p12",
       },
-      "gameSeq": 18,
+      "game_seq": 18,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3597,12 +3597,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 18,
+      "cost_usd": 0.0,
+      "game_seq": 18,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 12,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -3614,7 +3614,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 4,
       },
-      "gameSeq": 33,
+      "game_seq": 33,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3795,12 +3795,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 33,
+      "cost_usd": 0.0,
+      "game_seq": 33,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 14,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "p11",
@@ -3814,7 +3814,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "p11",
       },
-      "gameSeq": 40,
+      "game_seq": 40,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3989,12 +3989,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 40,
+      "cost_usd": 0.0,
+      "game_seq": 40,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 16,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -4006,7 +4006,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 6,
       },
-      "gameSeq": 46,
+      "game_seq": 46,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4077,12 +4077,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 46,
+      "cost_usd": 0.0,
+      "game_seq": 46,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 18,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "p10",
@@ -4096,7 +4096,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "p10",
       },
-      "gameSeq": 47,
+      "game_seq": 47,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4227,12 +4227,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 47,
+      "cost_usd": 0.0,
+      "game_seq": 47,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 20,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -4246,7 +4246,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "0",
       },
-      "gameSeq": 48,
+      "game_seq": 48,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4371,12 +4371,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 48,
+      "cost_usd": 0.0,
+      "game_seq": 48,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 22,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "no",
@@ -4390,7 +4390,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "no",
       },
-      "gameSeq": 51,
+      "game_seq": 51,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4509,12 +4509,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 51,
+      "cost_usd": 0.0,
+      "game_seq": 51,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 24,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -4526,7 +4526,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 7,
       },
-      "gameSeq": 72,
+      "game_seq": 72,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4705,12 +4705,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 72,
+      "cost_usd": 0.0,
+      "game_seq": 72,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 26,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -4724,7 +4724,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "0",
       },
-      "gameSeq": 75,
+      "game_seq": 75,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4859,12 +4859,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 75,
+      "cost_usd": 0.0,
+      "game_seq": 75,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 28,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -4876,7 +4876,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 9,
       },
-      "gameSeq": 102,
+      "game_seq": 102,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5070,12 +5070,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 102,
+      "cost_usd": 0.0,
+      "game_seq": 102,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 30,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -5089,7 +5089,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "0",
       },
-      "gameSeq": 105,
+      "game_seq": 105,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5239,12 +5239,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 105,
+      "cost_usd": 0.0,
+      "game_seq": 105,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 32,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -5256,7 +5256,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 11,
       },
-      "gameSeq": 132,
+      "game_seq": 132,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5465,12 +5465,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 132,
+      "cost_usd": 0.0,
+      "game_seq": 132,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 34,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -5484,7 +5484,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "0",
       },
-      "gameSeq": 135,
+      "game_seq": 135,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5649,12 +5649,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 135,
+      "cost_usd": 0.0,
+      "game_seq": 135,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 36,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -5666,7 +5666,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 13,
       },
-      "gameSeq": 165,
+      "game_seq": 165,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5844,12 +5844,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 165,
+      "cost_usd": 0.0,
+      "game_seq": 165,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 38,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "yes",
@@ -5863,7 +5863,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "choice": "yes",
       },
-      "gameSeq": 167,
+      "game_seq": 167,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -6030,12 +6030,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 167,
+      "cost_usd": 0.0,
+      "game_seq": 167,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 40,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -6047,7 +6047,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "args": {
         "board_cursor": 15,
       },
-      "gameSeq": 172,
+      "game_seq": 172,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -6295,12 +6295,12 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 172,
+      "cost_usd": 0.0,
+      "game_seq": 172,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 42,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "get_game_state",
@@ -6310,7 +6310,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
     },
     {
       "args": {},
-      "gameSeq": 172,
+      "game_seq": 172,
       "player": "TestPlayer",
       "result": {
         "active_player": "TestPlayer",
@@ -6519,11 +6519,11 @@ Create two 4/4 green Rhino creature tokens with trample.",
   ],
   "players": [
     {
-      "deckName": "mdfc_land_and_suspend",
+      "deck_name": "mdfc_land_and_suspend",
       "model": "test/golden",
       "name": "TestPlayer",
-      "toolCallsFailed": 0,
-      "toolCallsOk": 21,
+      "tool_calls_failed": 0,
+      "tool_calls_ok": 21,
       "tools": [
         "get_game_log",
         "get_game_history",
@@ -6535,15 +6535,15 @@ Create two 4/4 green Rhino creature tokens with trample.",
         "choose_action",
         "concede",
       ],
-      "totalCostUsd": 0.0,
+      "total_cost_usd": 0.0,
       "type": "pilot",
     },
     {
-      "deckName": "filler_opponent",
+      "deck_name": "filler_opponent",
       "name": "Opponent",
       "placement": 1,
-      "toolCallsFailed": 0,
-      "toolCallsOk": 0,
+      "tool_calls_failed": 0,
+      "tool_calls_ok": 0,
       "type": "replay",
     }
   ],
@@ -20422,9 +20422,9 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "turn": 11,
     }
   ],
-  "totalTurns": 11,
+  "total_turns": 11,
   "tournament": null,
   "version": 8,
   "winner": "Opponent",
-  "youtubeUrl": "",
+  "youtube_url": "",
 }

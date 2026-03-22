@@ -243,7 +243,7 @@
       "type": "phase_change",
     }
   ],
-  "cardData": {
+  "card_data": {
     "Forest": {
       "mana_cost": "",
       "oracle_text": "({T}: Add {G}.)",
@@ -269,33 +269,33 @@
       "type_line": "Creature — Cat",
     }
   },
-  "cardImages": {},
+  "card_images": {},
   "decisions": [
     {
-      "actionResult": {},
-      "actionSeq": 5,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 5,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 0,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         2,
         3,
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 1,
+      "response_type": "boolean",
+      "snapshot_index": 1,
       "step": null,
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 1,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "no",
         "action_type": "GAME_SELECT",
@@ -427,17 +427,17 @@
         "response_type": "select",
         "success": true,
       },
-      "actionSeq": 9,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_seq": 9,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": false,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "no",
       },
       "index": 1,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         4,
         5,
         6,
@@ -445,17 +445,17 @@
       "message": "Mulligan down to 6 cards?",
       "phase": null,
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 1,
+      "response_type": "boolean",
+      "snapshot_index": 1,
       "step": null,
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 1,
     },
     {
-      "actionResult": {},
-      "actionSeq": 9,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_result": {},
+      "action_seq": 9,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -495,18 +495,18 @@
         }
       ],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 2,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         6,
         7,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p10",
           "p11",
           "p12",
@@ -516,16 +516,16 @@
         ]
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 2,
+      "response_type": "select",
+      "snapshot_index": 2,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer skip attack",
       ],
       "turn": 1,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_0",
         "action_type": "GAME_SELECT",
@@ -616,9 +616,9 @@
         "success": true,
         "untapped_lands": 1,
       },
-      "actionSeq": 18,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_seq": 18,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -658,53 +658,53 @@
         }
       ],
       "chosen": 0,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "0",
       },
       "index": 3,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         8,
         9,
         10,
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
+      "pilot_context": {
+        "land_drops_used": 0,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 6,
+      "response_type": "select",
+      "snapshot_index": 6,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 1,
     },
     {
-      "actionResult": {},
-      "actionSeq": 18,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 18,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 4,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         10,
         11,
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
-        "untappedLands": 1,
+      "pilot_context": {
+        "land_drops_used": 1,
+        "untapped_lands": 1,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 7,
+      "response_type": "boolean",
+      "snapshot_index": 7,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "Opponent puts Plains from hand onto the Battlefield",
         "Opponent casts Savannah Lions from hand",
         "Opponent puts Savannah Lions from stack onto the Battlefield",
@@ -713,7 +713,7 @@
       "turn": 1,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_0",
         "action_type": "GAME_SELECT",
@@ -842,9 +842,9 @@
         "success": true,
         "untapped_lands": 2,
       },
-      "actionSeq": 42,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_seq": 42,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -884,21 +884,21 @@
         }
       ],
       "chosen": 0,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "0",
       },
       "index": 5,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         12,
         13,
         14,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p11",
           "p12",
           "p13",
@@ -906,17 +906,17 @@
           "p15",
           "p25",
         ],
-        "untappedLands": 1,
+        "untapped_lands": 1,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 20,
+      "response_type": "select",
+      "snapshot_index": 20,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 3,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "selected_0",
         "action_type": "GAME_SELECT",
@@ -1031,9 +1031,9 @@
         ],
         "success": true,
       },
-      "actionSeq": 46,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 1,
+      "action_seq": 46,
+      "action_type": "GAME_SELECT",
+      "choice_count": 1,
       "choices": [
         {
           "action": "cast",
@@ -1046,56 +1046,56 @@
         }
       ],
       "chosen": 0,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "0",
       },
       "index": 6,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         14,
         15,
         16,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 1,
+        "playable_cards": [
           "p16",
         ],
-        "untappedLands": 2,
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 21,
+      "response_type": "select",
+      "snapshot_index": 21,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 3,
     },
     {
-      "actionResult": {},
-      "actionSeq": 46,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 46,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 7,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         16,
         17,
       ],
       "message": "Play instants and activated abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
+      "pilot_context": {
+        "land_drops_used": 1,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 24,
+      "response_type": "boolean",
+      "snapshot_index": 24,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer puts Grizzly Bears from stack onto the Battlefield",
         "TestPlayer skip attack",
         "Opponent puts Plains from hand onto the Battlefield",
@@ -1105,7 +1105,7 @@
       "turn": 3,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "passed_priority",
         "action_type": "GAME_SELECT",
@@ -1263,9 +1263,9 @@
         "success": true,
         "untapped_lands": 2,
       },
-      "actionSeq": 78,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_seq": 78,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -1305,21 +1305,21 @@
         }
       ],
       "chosen": false,
-      "chosenArgs": {
+      "chosen_args": {
         "choice": "no",
       },
       "index": 8,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         18,
         19,
         20,
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p12",
           "p13",
           "p14",
@@ -1327,20 +1327,20 @@
           "p25",
           "p29",
         ],
-        "untappedLands": 2,
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 43,
+      "response_type": "select",
+      "snapshot_index": 43,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 5,
     },
     {
-      "actionResult": {},
-      "actionSeq": 78,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 2,
+      "action_result": {},
+      "action_seq": 78,
+      "action_type": "GAME_SELECT",
+      "choice_count": 2,
       "choices": [
         {
           "choice_type": "attacker",
@@ -1358,28 +1358,28 @@
         }
       ],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 9,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         20,
         21,
       ],
       "message": "Select attackers",
       "phase": "COMBAT",
-      "pilotContext": {
-        "combatPhase": "declare_attackers",
-        "untappedLands": 2,
+      "pilot_context": {
+        "combat_phase": "declare_attackers",
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 45,
+      "response_type": "select",
+      "snapshot_index": 45,
       "step": "DECLARE_ATTACKERS",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 5,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "batch_attack",
         "action_type": "GAME_SELECT",
@@ -1539,9 +1539,9 @@
         "success": true,
         "untapped_lands": 2,
       },
-      "actionSeq": 83,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 2,
+      "action_seq": 83,
+      "action_type": "GAME_SELECT",
+      "choice_count": 2,
       "choices": [
         {
           "choice_type": "attacker",
@@ -1559,59 +1559,59 @@
         }
       ],
       "chosen": null,
-      "chosenArgs": {
+      "chosen_args": {
         "attackers": "all",
       },
       "index": 10,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         22,
         23,
         24,
       ],
       "message": "Select attackers",
       "phase": "COMBAT",
-      "pilotContext": {
-        "combatPhase": "attackers",
-        "untappedLands": 2,
+      "pilot_context": {
+        "combat_phase": "attackers",
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 45,
+      "response_type": "select",
+      "snapshot_index": 45,
       "step": "DECLARE_ATTACKERS",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 5,
     },
     {
-      "actionResult": {},
-      "actionSeq": 83,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 83,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 11,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         24,
         25,
       ],
       "message": "Play instants and activated abilities",
       "phase": "COMBAT",
-      "pilotContext": {
-        "untappedLands": 2,
+      "pilot_context": {
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 46,
+      "response_type": "boolean",
+      "snapshot_index": 46,
       "step": "DECLARE_ATTACKERS",
-      "subsequentActions": [
+      "subsequent_actions": [
         "Attacker: Grizzly Bears (2/2) blocked by Savannah Lions (2/1) Savannah Lions (2/1)",
       ],
       "turn": 5,
     },
     {
-      "actionResult": {
+      "action_result": {
         "action_pending": true,
         "action_taken": "multi_amount",
         "action_type": "GAME_SELECT",
@@ -1751,19 +1751,19 @@
         "success": true,
         "untapped_lands": 2,
       },
-      "actionSeq": 101,
-      "actionType": "GAME_GET_MULTI_AMOUNT",
-      "choiceCount": 0,
+      "action_seq": 101,
+      "action_type": "GAME_GET_MULTI_AMOUNT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {
+      "chosen_args": {
         "amounts": [
           1,
           1,
         ]
       },
       "index": 12,
-      "isForced": true,
+      "is_forced": true,
       "items": [
         {
           "default": 1,
@@ -1778,56 +1778,56 @@
           "min": 0,
         }
       ],
-      "llmEventIndices": [
+      "llm_event_indices": [
         26,
         27,
         28,
       ],
       "message": "Assign combat damage among creatures blocking Grizzly Bears, P/T: 2/2",
       "phase": "COMBAT",
-      "pilotContext": {
-        "untappedLands": 2,
+      "pilot_context": {
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "multi_amount",
-      "snapshotIndex": 53,
+      "response_type": "multi_amount",
+      "snapshot_index": 53,
       "step": "COMBAT_DAMAGE",
-      "subsequentActions": [],
-      "totalMax": 2,
-      "totalMin": 2,
+      "subsequent_actions": [],
+      "total_max": 2,
+      "total_min": 2,
       "turn": 5,
     },
     {
-      "actionResult": {},
-      "actionSeq": 101,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 101,
+      "action_type": "GAME_SELECT",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 13,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         28,
         29,
       ],
       "message": "Play instants and activated abilities",
       "phase": "COMBAT",
-      "pilotContext": {
-        "untappedLands": 2,
+      "pilot_context": {
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 54,
+      "response_type": "boolean",
+      "snapshot_index": 54,
       "step": "COMBAT_DAMAGE",
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 5,
     },
     {
-      "actionResult": {},
-      "actionSeq": 103,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
+      "action_result": {},
+      "action_seq": 103,
+      "action_type": "GAME_SELECT",
+      "choice_count": 6,
       "choices": [
         {
           "action": "land",
@@ -1867,18 +1867,18 @@
         }
       ],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 14,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         30,
         31,
       ],
       "message": "Play spells and abilities",
       "phase": "COMBAT",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p12",
           "p13",
           "p14",
@@ -1886,29 +1886,29 @@
           "p25",
           "p29",
         ],
-        "untappedLands": 2,
+        "untapped_lands": 2,
       },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 55,
+      "response_type": "select",
+      "snapshot_index": 55,
       "step": "COMBAT_DAMAGE",
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer wants to concede",
       ],
       "turn": 5,
     }
   ],
-  "deckType": "Constructed - Legacy",
-  "gameOver": {
+  "deck_type": "Constructed - Legacy",
+  "game_over": {
     "message": "Opponent",
     "seq": 106,
   },
-  "gameType": "Two Player Duel",
-  "harnessEpoch": 56,
+  "game_type": "Two Player Duel",
+  "harness_epoch": 56,
   "id": "multi_amount_combat",
-  "llmEvents": [
+  "llm_events": [
     {
-      "availableTools": [
+      "available_tools": [
         "get_game_log",
         "get_game_history",
         "send_chat_message",
@@ -1925,11 +1925,11 @@
       "type": "game_start",
     },
     {
-      "costUsd": 0.0,
+      "cost_usd": 0.0,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 2,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -1943,7 +1943,7 @@
       "args": {
         "choice": "0",
       },
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2087,12 +2087,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 5,
+      "cost_usd": 0.0,
+      "game_seq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -2104,7 +2104,7 @@
       "args": {
         "board_cursor": 2,
       },
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2173,12 +2173,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 5,
+      "cost_usd": 0.0,
+      "game_seq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 6,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "no",
@@ -2192,7 +2192,7 @@
       "args": {
         "choice": "no",
       },
-      "gameSeq": 9,
+      "game_seq": 9,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2331,12 +2331,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 9,
+      "cost_usd": 0.0,
+      "game_seq": 9,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 8,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -2348,7 +2348,7 @@
       "args": {
         "board_cursor": 3,
       },
-      "gameSeq": 15,
+      "game_seq": 15,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2407,12 +2407,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 15,
+      "cost_usd": 0.0,
+      "game_seq": 15,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 10,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -2426,7 +2426,7 @@
       "args": {
         "choice": "0",
       },
-      "gameSeq": 18,
+      "game_seq": 18,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2524,12 +2524,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 18,
+      "cost_usd": 0.0,
+      "game_seq": 18,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 12,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -2541,7 +2541,7 @@
       "args": {
         "board_cursor": 4,
       },
-      "gameSeq": 38,
+      "game_seq": 38,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2709,12 +2709,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 38,
+      "cost_usd": 0.0,
+      "game_seq": 38,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 14,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -2728,7 +2728,7 @@
       "args": {
         "choice": "0",
       },
-      "gameSeq": 42,
+      "game_seq": 42,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2864,12 +2864,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 42,
+      "cost_usd": 0.0,
+      "game_seq": 42,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 16,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "0",
@@ -2883,7 +2883,7 @@
       "args": {
         "choice": "0",
       },
-      "gameSeq": 46,
+      "game_seq": 46,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3005,12 +3005,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 46,
+      "cost_usd": 0.0,
+      "game_seq": 46,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 18,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -3022,7 +3022,7 @@
       "args": {
         "board_cursor": 7,
       },
-      "gameSeq": 76,
+      "game_seq": 76,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3215,12 +3215,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 76,
+      "cost_usd": 0.0,
+      "game_seq": 76,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 20,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "choice": "no",
@@ -3234,7 +3234,7 @@
       "args": {
         "choice": "no",
       },
-      "gameSeq": 78,
+      "game_seq": 78,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3399,12 +3399,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 78,
+      "cost_usd": 0.0,
+      "game_seq": 78,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 22,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -3416,7 +3416,7 @@
       "args": {
         "board_cursor": 9,
       },
-      "gameSeq": 78,
+      "game_seq": 78,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3453,12 +3453,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 78,
+      "cost_usd": 0.0,
+      "game_seq": 78,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 24,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "attackers": "all",
@@ -3472,7 +3472,7 @@
       "args": {
         "attackers": "all",
       },
-      "gameSeq": 83,
+      "game_seq": 83,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3639,12 +3639,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 83,
+      "cost_usd": 0.0,
+      "game_seq": 83,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 26,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -3656,7 +3656,7 @@
       "args": {
         "board_cursor": 10,
       },
-      "gameSeq": 92,
+      "game_seq": 92,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3720,12 +3720,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 92,
+      "cost_usd": 0.0,
+      "game_seq": 92,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 28,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "amounts": [
@@ -3745,7 +3745,7 @@
           1,
         ]
       },
-      "gameSeq": 101,
+      "game_seq": 101,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3892,12 +3892,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 101,
+      "cost_usd": 0.0,
+      "game_seq": 101,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 30,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "until": "postcombat_main",
@@ -3912,7 +3912,7 @@
         "board_cursor": 11,
         "until": "postcombat_main",
       },
-      "gameSeq": 103,
+      "game_seq": 103,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4097,12 +4097,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 103,
+      "cost_usd": 0.0,
+      "game_seq": 103,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 32,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "get_game_state",
@@ -4112,7 +4112,7 @@
     },
     {
       "args": {},
-      "gameSeq": 103,
+      "game_seq": 103,
       "player": "TestPlayer",
       "result": {
         "active_player": "TestPlayer",
@@ -4258,11 +4258,11 @@
   ],
   "players": [
     {
-      "deckName": "grizzly_bears",
+      "deck_name": "grizzly_bears",
       "model": "test/golden",
       "name": "TestPlayer",
-      "toolCallsFailed": 0,
-      "toolCallsOk": 16,
+      "tool_calls_failed": 0,
+      "tool_calls_ok": 16,
       "tools": [
         "get_game_log",
         "get_game_history",
@@ -4274,15 +4274,15 @@
         "choose_action",
         "concede",
       ],
-      "totalCostUsd": 0.0,
+      "total_cost_usd": 0.0,
       "type": "pilot",
     },
     {
-      "deckName": "two_savannah_lions",
+      "deck_name": "two_savannah_lions",
       "name": "Opponent",
       "placement": 1,
-      "toolCallsFailed": 0,
-      "toolCallsOk": 0,
+      "tool_calls_failed": 0,
+      "tool_calls_ok": 0,
       "type": "replay",
     }
   ],
@@ -13035,9 +13035,9 @@
       "turn": 5,
     }
   ],
-  "totalTurns": 5,
+  "total_turns": 5,
   "tournament": null,
   "version": 8,
   "winner": "Opponent",
-  "youtubeUrl": "",
+  "youtube_url": "",
 }

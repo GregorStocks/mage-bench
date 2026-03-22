@@ -19,7 +19,7 @@
       "seq": 6,
     }
   ],
-  "cardData": {
+  "card_data": {
     "Aether Vial": {
       "mana_cost": "{1}",
       "oracle_text": "At the beginning of your upkeep, you may put a charge counter on this artifact.\n\
@@ -37,50 +37,50 @@
       "type_line": "Land — Swamp Mountain",
     }
   },
-  "cardImages": {},
+  "card_images": {},
   "decisions": [
     {
-      "actionResult": {},
-      "actionSeq": 5,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 5,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 0,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         2,
         3,
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 0,
+      "response_type": "boolean",
+      "snapshot_index": 0,
       "step": null,
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 1,
     },
     {
-      "actionResult": {
+      "action_result": {
         "error": "GAME_ASK requires choice=\"yes\" or choice=\"no\". This is a yes/no question.",
         "error_code": "missing_param",
         "game_seq": 5,
         "retryable": true,
         "success": false,
       },
-      "actionSeq": 5,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_seq": 5,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": false,
-      "chosenArgs": {
+      "chosen_args": {
         "answer": false,
       },
       "index": 1,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         4,
         5,
         6,
@@ -89,49 +89,49 @@
       "message": "Mulligan down to 6 cards?",
       "phase": null,
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 0,
+      "response_type": "boolean",
+      "snapshot_index": 0,
       "step": null,
-      "subsequentActions": [],
+      "subsequent_actions": [],
       "turn": 1,
     },
     {
-      "actionResult": {},
-      "actionSeq": 5,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
+      "action_result": {},
+      "action_seq": 5,
+      "action_type": "GAME_ASK",
+      "choice_count": 0,
       "choices": [],
       "chosen": null,
-      "chosenArgs": {},
+      "chosen_args": {},
       "index": 2,
-      "isForced": false,
-      "llmEventIndices": [
+      "is_forced": false,
+      "llm_event_indices": [
         8,
         9,
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 0,
+      "response_type": "boolean",
+      "snapshot_index": 0,
       "step": null,
-      "subsequentActions": [
+      "subsequent_actions": [
         "TestPlayer wants to concede",
       ],
       "turn": 1,
     }
   ],
-  "deckType": "Constructed - Legacy",
-  "gameOver": {
+  "deck_type": "Constructed - Legacy",
+  "game_over": {
     "message": "Opponent",
     "seq": 7,
   },
-  "gameType": "Two Player Duel",
-  "harnessEpoch": 56,
+  "game_type": "Two Player Duel",
+  "harness_epoch": 56,
   "id": "initial_decision",
-  "llmEvents": [
+  "llm_events": [
     {
-      "availableTools": [
+      "available_tools": [
         "get_game_log",
         "get_game_history",
         "send_chat_message",
@@ -148,11 +148,11 @@
       "type": "game_start",
     },
     {
-      "costUsd": 0.0,
+      "cost_usd": 0.0,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 2,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "index": 0,
@@ -166,7 +166,7 @@
       "args": {
         "index": 0,
       },
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -313,12 +313,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 5,
+      "cost_usd": 0.0,
+      "game_seq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -330,7 +330,7 @@
       "args": {
         "board_cursor": 2,
       },
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -400,12 +400,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 5,
+      "cost_usd": 0.0,
+      "game_seq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 6,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {
             "answer": false,
@@ -419,7 +419,7 @@
       "args": {
         "answer": false,
       },
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "error": "GAME_ASK requires choice=\"yes\" or choice=\"no\". This is a yes/no question.",
@@ -433,12 +433,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 5,
+      "cost_usd": 0.0,
+      "game_seq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 8,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "pass_priority",
@@ -450,7 +450,7 @@
       "args": {
         "board_cursor": 2,
       },
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -520,12 +520,12 @@
       "type": "tool_call",
     },
     {
-      "costUsd": 0.0,
-      "gameSeq": 5,
+      "cost_usd": 0.0,
+      "game_seq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 10,
-      "toolCalls": [
+      "tool_calls": [
         {
           "arguments": {},
           "name": "get_game_state",
@@ -535,7 +535,7 @@
     },
     {
       "args": {},
-      "gameSeq": 5,
+      "game_seq": 5,
       "player": "TestPlayer",
       "result": {
         "active_player": "",
@@ -629,11 +629,11 @@
   ],
   "players": [
     {
-      "deckName": "Red Stompy",
+      "deck_name": "Red Stompy",
       "model": "test/golden",
       "name": "TestPlayer",
-      "toolCallsFailed": 1,
-      "toolCallsOk": 4,
+      "tool_calls_failed": 1,
+      "tool_calls_ok": 4,
       "tools": [
         "get_game_log",
         "get_game_history",
@@ -645,15 +645,15 @@
         "choose_action",
         "concede",
       ],
-      "totalCostUsd": 0.0,
+      "total_cost_usd": 0.0,
       "type": "pilot",
     },
     {
-      "deckName": "Goblins",
+      "deck_name": "Goblins",
       "name": "Opponent",
       "placement": 1,
-      "toolCallsFailed": 0,
-      "toolCallsOk": 0,
+      "tool_calls_failed": 0,
+      "tool_calls_ok": 0,
       "type": "replay",
     }
   ],
@@ -768,9 +768,9 @@
       "turn": 1,
     }
   ],
-  "totalTurns": 1,
+  "total_turns": 1,
   "tournament": null,
   "version": 8,
   "winner": "Opponent",
-  "youtubeUrl": "",
+  "youtube_url": "",
 }

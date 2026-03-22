@@ -15,6 +15,7 @@ from pathlib import Path
 from magebench.common.json5_utils import loads_json5
 from puppeteer.leaderboard import derive_format
 from puppeteer.log import get_logger
+from schemas.game_export_migrations import migrate_game_export_to_current
 
 logger = get_logger(__name__)
 
@@ -32,7 +33,7 @@ def get_active_presets(presets_data: dict) -> list[str]:
 
 def _load_games_index(games_dir: Path) -> list[dict]:
     """Load minimal game index for rating computation."""
-    fields = ("id", "timestamp", "gameType", "deckType", "winner", "players", "harnessEpoch", "season")
+    fields = ("id", "timestamp", "game_type", "deck_type", "winner", "players", "harness_epoch", "season")
     defaults = {"players": [], "season": 0}
     games = []
     # Collect both .json5 and .json5.gz game files, deduplicating by stem
@@ -52,6 +53,7 @@ def _load_games_index(games_dir: Path) -> list[dict]:
             game = loads_json5(gzip.decompress(path.read_bytes()))
         else:
             game = loads_json5(path.read_text())
+        game = migrate_game_export_to_current(game)
         games.append({f: game.get(f, defaults.get(f)) for f in fields})
     return games
 
@@ -128,9 +130,9 @@ def _player_key_from_dict(player: dict) -> str:
     """Build aggregation key from game player dict: 'model_id::effort' or 'model_id'."""
     model_id = player.get("model")
     assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
-    effort = player.get("reasoningEffort", player.get("reasoning_effort"))
+    effort = player.get("reasoning_effort")
     assert effort is None or isinstance(effort, str), (
-        f"player reasoningEffort must be a string when present, got {effort!r}"
+        f"player reasoning_effort must be a string when present, got {effort!r}"
     )
     if effort:
         return f"{model_id}::{effort}"
@@ -269,11 +271,11 @@ def pick_round_robin_format(
 ) -> str:
     """Pick the format that best balances per-bot format distribution.
 
-    candidates: list of deckType strings (e.g. ["Constructed - Standard", ...])
+    candidates: list of deck_type strings (e.g. ["Constructed - Standard", ...])
     selected_presets: the preset names for this game's players
     extra_format_picks: formats already picked by earlier games in a parallel batch
 
-    Returns a single deckType string.
+    Returns a single deck_type string.
     """
     assert len(candidates) > 1, "pick_round_robin_format requires multiple candidates"
 
@@ -287,7 +289,7 @@ def pick_round_robin_format(
     format_counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
 
     for game in season_games:
-        dt = game.get("deckType")
+        dt = game.get("deck_type")
         if dt not in candidate_set:
             continue
         pilots = [p for p in game["players"] if p.get("type") == "pilot" and p.get("model")]

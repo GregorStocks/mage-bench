@@ -1,0 +1,1013 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "game-export-v9.schema.json",
+  "title": "Game Export v9",
+  "description": "Schema for the .json.gz game export format (version 9). Annotations are keyed by canonical decision_index.",
+  "type": "object",
+  "required": [
+    "actions",
+    "annotations",
+    "blunder_script_version",
+    "card_images",
+    "deck_type",
+    "game_over",
+    "game_type",
+    "harness_epoch",
+    "id",
+    "llm_events",
+    "players",
+    "season",
+    "snapshots",
+    "timestamp",
+    "total_turns",
+    "tournament",
+    "version",
+    "winner",
+    "youtube_url"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 9,
+      "description": "Export format version 9: annotations are keyed by canonical decision_index."
+    },
+    "id": {
+      "type": "string",
+      "description": "Game directory name, e.g. 'game_20260210_074307'."
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "ISO 8601 timestamp of when the game was played."
+    },
+    "game_type": {
+      "type": "string",
+      "minLength": 1,
+      "description": "XMage game type, e.g. 'Commander Free For All', 'Two Player Duel'."
+    },
+    "deck_type": {
+      "type": "string",
+      "minLength": 1,
+      "description": "XMage deck type, e.g. 'Variant Magic - Freeform Commander', 'Constructed - Standard'."
+    },
+    "total_turns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total number of turns in the game."
+    },
+    "winner": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Name of the winning player, or null if no winner (draw/disconnect)."
+    },
+    "harness_epoch": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Harness epoch at the time the game was played. Used to partition games into comparable eras."
+    },
+    "youtube_url": {
+      "type": "string",
+      "description": "YouTube URL for the game recording. Empty string if no recording."
+    },
+    "players": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Player"
+      },
+      "description": "Player summaries with model info, costs, and placement."
+    },
+    "card_images": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Map of card name to Scryfall small image URL."
+    },
+    "card_data": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/CardMetadata"
+      },
+      "description": "Map of card name to Scryfall metadata (oracle text, type line, mana cost, etc.)."
+    },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Snapshot"
+      },
+      "description": "Game state captured at each decision point (when onPlayerQuery fires)."
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Action"
+      },
+      "description": "Game log messages, turn changes, and phase changes."
+    },
+    "llm_events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LlmEvent"
+      },
+      "description": "LLM tool calls, responses, errors, and lifecycle events."
+    },
+    "game_over": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/GameOver"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Final game result, or null if the game didn't end normally."
+    },
+    "annotations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Annotation"
+      },
+      "description": "Blunder annotations from analysis pipeline."
+    },
+    "blunder_script_version": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Version of the blunder analysis script that produced the annotations."
+    },
+    "season": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Season number. 0 = pre-season (harness_epoch < SEASON_1_START_EPOCH), 1 = season 1."
+    },
+    "tournament": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Tournament identifier, or null for non-tournament games."
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Decision"
+      },
+      "description": "Canonical decision records built at export time. Each references a snapshot and overlays pilot-specific context (choices, playable cards, etc.). See doc/unified-decisions-plan.md."
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/GameError"
+      },
+      "description": "Errors from per-player error logs, surfacing critical issues (loop detection, uncaught exceptions, short ID collisions) for automated analysis. Absent when no errors occurred."
+    }
+  },
+  "$defs": {
+    "Player": {
+      "type": "object",
+      "required": [
+        "name",
+        "thinking_time_secs",
+        "tool_calls_failed",
+        "tool_calls_ok",
+        "type"
+      ],
+      "additionalProperties": false,
+      "if": {
+        "properties": { "type": { "const": "pilot" } },
+        "required": ["type"]
+      },
+      "then": {
+        "required": ["model"]
+      },
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "Player type: 'pilot' (LLM), 'cpu' (XMage AI), etc."
+        },
+        "model": {
+          "type": "string",
+          "description": "Model ID, e.g. 'anthropic/claude-opus-4-6'."
+        },
+        "deck_name": {
+          "type": "string",
+          "description": "Display name for the deck from the deck registry."
+        },
+        "deck_strategy": {
+          "type": "string",
+          "description": "1-2 sentence strategy summary for blunder annotation context."
+        },
+        "commander": {
+          "type": "string",
+          "description": "Legacy field: commander card name. Replaced by deck_name in newer exports."
+        },
+        "reasoning_effort": {
+          "type": "string",
+          "description": "Reasoning effort level, e.g. 'low', 'medium', 'high'."
+        },
+        "total_cost_usd": {
+          "type": "number",
+          "description": "Total API cost for this player in USD."
+        },
+        "placement": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Final placement: 1 = winner, 2 = second, etc."
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "MCP tools available to this player."
+        },
+        "tool_calls_ok": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of successful tool calls."
+        },
+        "tool_calls_failed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of failed tool calls."
+        },
+        "thinking_time_secs": {
+          "type": "number",
+          "description": "Total time in seconds this player held priority (chess-clock style)."
+        },
+        "timed_out": {
+          "type": "boolean",
+          "description": "True if this player lost by running out of time on the game timer."
+        }
+      }
+    },
+    "Snapshot": {
+      "type": "object",
+      "required": [
+        "seq",
+        "turn",
+        "phase",
+        "step",
+        "active_player",
+        "priority_player",
+        "players",
+        "stack"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "seq": {
+          "type": "integer",
+          "description": "Server seq number of the decision point that triggered this snapshot."
+        },
+        "ts": {
+          "type": "string",
+          "description": "ISO timestamp for the snapshot, when recorded."
+        },
+        "turn": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "phase": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "step": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "active_player": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "priority_player": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SnapshotPlayer"
+          }
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/StackItem" }
+            ]
+          },
+          "description": "Spells and abilities on the stack."
+        },
+        "combat": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CombatGroup"
+          },
+          "description": "Combat groups (attackers, blockers, defending player)."
+        }
+      }
+    },
+    "SnapshotPlayer": {
+      "type": "object",
+      "required": [
+        "name",
+        "life",
+        "library_size",
+        "battlefield",
+        "graveyard",
+        "hand"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "life": {
+          "type": "integer"
+        },
+        "library_size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "battlefield": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          },
+          "description": "Permanents on the battlefield. Items may be strings (card names) or objects with detailed info."
+        },
+        "graveyard": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          }
+        },
+        "hand": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          },
+          "description": "Cards in hand (full contents visible to spectator)."
+        },
+        "hand_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "exile": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          }
+        },
+        "counters": {
+          "description": "Player-level counters (poison, energy, etc.). May be array of {name, count} or object."
+        },
+        "commanders": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          }
+        },
+        "command_zone": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/Permanent" }
+            ]
+          }
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "has_left": {
+          "type": "boolean"
+        },
+        "mana_pool": {
+          "type": "object",
+          "description": "Current mana pool by color."
+        }
+      }
+    },
+    "CombatGroup": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "attackers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/CombatCreature" }
+        },
+        "blockers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/CombatCreature" }
+        },
+        "blocked": {
+          "type": "boolean"
+        },
+        "defending": {
+          "type": "string"
+        }
+      }
+    },
+    "Action": {
+      "type": "object",
+      "required": [
+        "seq"
+      ],
+      "additionalProperties": true,
+      "description": "Game log message, turn change, phase change, or chat message. Discriminated by the 'type' field (absent for plain game actions).",
+      "properties": {
+        "seq": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "turn_change",
+            "phase_change",
+            "chat"
+          ]
+        },
+        "turn": {
+          "type": "integer"
+        },
+        "phase": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "step": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "active_player": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ts": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string",
+          "description": "Sender name for chat messages."
+        }
+      }
+    },
+    "LlmEvent": {
+      "type": "object",
+      "required": [
+        "type",
+        "player"
+      ],
+      "additionalProperties": true,
+      "description": "LLM lifecycle event. Discriminated by 'type' field. Has two independent seq namespaces: 'seq' (per-player LLM counter) and 'game_seq' (server seq cross-reference).",
+      "properties": {
+        "ts": {
+          "type": "string"
+        },
+        "seq": {
+          "type": "integer"
+        },
+        "player": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "game_start",
+            "llm_response",
+            "tool_call",
+            "stall",
+            "context_reset",
+            "context_trim",
+            "llm_error",
+            "auto_pilot_mode"
+          ]
+        },
+        "game_seq": {
+          "type": "integer",
+          "description": "Server seq number for cross-referencing with snapshots/actions."
+        },
+        "model": {
+          "type": "string"
+        },
+        "available_tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reasoning": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "thinking": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tool_calls": {},
+        "usage": {
+          "$ref": "#/$defs/LlmUsage"
+        },
+        "cost_usd": {
+          "type": "number"
+        },
+        "tool": {
+          "type": "string"
+        },
+        "args": {
+          "type": "object"
+        },
+        "result": {
+          "type": "string"
+        },
+        "latency_ms": {
+          "type": "integer"
+        },
+        "turns_without_progress": {
+          "type": "integer"
+        },
+        "last_tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reason": {
+          "type": "string"
+        },
+        "error_type": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "messages_before": {
+          "type": "integer"
+        },
+        "messages_after": {
+          "type": "integer"
+        }
+      }
+    },
+    "LlmUsage": {
+      "type": "object",
+      "properties": {
+        "prompt_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completion_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cached_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reasoning_tokens": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "GameOver": {
+      "type": "object",
+      "required": [
+        "seq",
+        "message"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "seq": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Annotation": {
+      "type": "object",
+      "required": [
+        "decision_index",
+        "player",
+        "type",
+        "severity",
+        "description",
+        "action_taken",
+        "better_line"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "decision_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into the decisions array — the canonical identity of the annotated decision."
+        },
+        "snapshot_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Optional display metadata: index into the snapshots array for the aftermath snapshot (first snapshot after the action resolved)."
+        },
+        "player": {
+          "type": "string"
+        },
+        "type": {
+          "const": "blunder"
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "questionable",
+            "minor",
+            "moderate",
+            "major"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "action_taken": {
+          "type": "string"
+        },
+        "better_line": {
+          "type": "string"
+        },
+        "llm_reasoning": {
+          "type": "string",
+          "description": "Optional LLM reasoning for the annotation."
+        }
+      }
+    },
+    "Decision": {
+      "type": "object",
+      "required": [
+        "index",
+        "snapshot_index",
+        "player",
+        "turn",
+        "phase",
+        "action_type",
+        "response_type",
+        "message",
+        "choices",
+        "choice_count",
+        "is_forced",
+        "llm_event_indices",
+        "subsequent_actions"
+      ],
+      "additionalProperties": true,
+      "description": "Canonical decision record. References a snapshot (by index) and overlays pilot-specific context. See doc/unified-decisions-plan.md.",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Position in the decisions array (0-indexed)."
+        },
+        "snapshot_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into the snapshots array — the game state when this decision was presented."
+        },
+        "player": {
+          "type": "string",
+          "description": "Name of the player making this decision."
+        },
+        "turn": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "phase": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "step": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "action_type": {
+          "type": "string",
+          "description": "XMage action type, e.g. 'GAME_SELECT', 'GAME_PICK_REQUIRED_TARGETS'."
+        },
+        "response_type": {
+          "type": "string",
+          "description": "MCP response type, e.g. 'select', 'boolean', 'amount', 'multi_select'."
+        },
+        "message": {
+          "type": "string",
+          "description": "Prompt message shown to the player."
+        },
+        "choices": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Choice" },
+          "description": "Available choices. Shape depends on the tool (name, id, action, mana_cost, etc.)."
+        },
+        "choice_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "is_forced": {
+          "type": "boolean",
+          "description": "True if there is at most one choice (forced action)."
+        },
+        "pilot_context": {
+          "$ref": "#/$defs/PilotContext",
+          "description": "Pilot-specific overlay data not captured in the server snapshot."
+        },
+        "chosen": {
+          "description": "Index, answer, or amount the player chose. Null if no response recorded."
+        },
+        "chosen_args": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Raw args from the choose_action tool call."
+        },
+        "action_result": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Result of the choose_action tool call."
+        },
+        "llm_event_indices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "description": "Indices into llm_events[] covering this decision (source tool call, LLM response, choose_action)."
+        },
+        "subsequent_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Game log messages after the action resolved, for annotator context."
+        },
+        "cast_rolled_back": {
+          "type": "boolean",
+          "description": "True if the cast was rolled back (failed mana payment, etc.)."
+        },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/MultiAmountItem" },
+          "description": "Per-item metadata for multi-amount decisions (e.g. combat damage distribution targets)."
+        },
+        "total_min": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum total across all items (multi-amount decisions)."
+        },
+        "total_max": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum total across all items (multi-amount decisions)."
+        }
+      }
+    },
+    "PilotContext": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Pilot-specific data extracted from MCP tool results. Not present in server snapshots.",
+      "properties": {
+        "untapped_lands": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "land_drops_used": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "playable_cards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "IDs of cards flagged as playable by the bridge."
+        },
+        "combat_phase": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Combat sub-phase if in combat, null otherwise."
+        },
+        "already_attacking": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/CombatCreature" }
+            ]
+          },
+          "description": "Creatures already declared as attackers. Items may be strings or objects."
+        },
+        "incoming_attackers": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/CombatCreature" }
+            ]
+          },
+          "description": "Opponent creatures attacking this player. Items may be strings or objects."
+        }
+      }
+    },
+    "GameError": {
+      "type": "object",
+      "required": [
+        "ts",
+        "player",
+        "source",
+        "message"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ts": {
+          "type": "string",
+          "description": "HH:MM:SS timestamp from the error log, or empty string for malformed lines."
+        },
+        "player": {
+          "type": "string",
+          "description": "Player name derived from the error log filename."
+        },
+        "source": {
+          "type": "string",
+          "description": "Error source tag: 'pilot' (Python-side), 'mcp' (Java bridge-side), or 'unknown'."
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message text."
+        },
+        "decision_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into the decisions array for the decision active when this error occurred. Absent when no matching decision was found."
+        }
+      }
+    },
+    "Permanent": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": true,
+      "description": "A card on the battlefield, in hand, graveyard, exile, or command zone. Always has a name; other fields depend on zone and game state.",
+      "properties": {
+        "name": { "type": "string" },
+        "id": { "type": "string" },
+        "tapped": { "type": "boolean" },
+        "summoning_sick": { "type": "boolean" },
+        "face_down": { "type": "boolean" },
+        "token": { "type": "boolean" },
+        "power": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature power (may be int or string)." },
+        "toughness": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature toughness (may be int or string)." },
+        "power_toughness": { "type": "string", "description": "Pre-formatted P/T string like '2/2'." },
+        "pt": { "type": "string", "description": "Shorthand P/T string." },
+        "loyalty": { "type": "integer" },
+        "counters": { "description": "Counters on this permanent. May be dict {name: count} or array of {name, count}." },
+        "original_card": { "type": "string", "description": "Name of the card this is a copy of." },
+        "copy": { "type": "boolean" }
+      }
+    },
+    "StackItem": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": true,
+      "description": "A spell or ability on the stack.",
+      "properties": {
+        "name": { "type": "string" },
+        "id": { "type": "string" },
+        "source_card": { "type": "string", "description": "Card that produced this triggered/activated ability." },
+        "ability_text": { "type": "string", "description": "Oracle text of the triggered/activated ability." },
+        "targets": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "$ref": "#/$defs/StackTarget" }
+            ]
+          }
+        }
+      }
+    },
+    "StackTarget": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "A target of a spell or ability on the stack.",
+      "properties": {
+        "name": { "type": "string" },
+        "id": { "type": "string" }
+      }
+    },
+    "CombatCreature": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": true,
+      "description": "A creature in a combat group (attacker or blocker) or incoming attacker.",
+      "properties": {
+        "name": { "type": "string" },
+        "id": { "type": "string" },
+        "power": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature power (may be int or string)." },
+        "toughness": { "oneOf": [{ "type": "integer" }, { "type": "string" }], "description": "Creature toughness (may be int or string)." },
+        "power_toughness": { "type": "string" },
+        "pt": { "type": "string" }
+      }
+    },
+    "Choice": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "A choice available to the player. Shape varies by decision type.",
+      "properties": {
+        "index": { "type": "integer" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "id": { "type": "string" },
+        "action": { "type": "string" },
+        "mana_cost": { "type": "string" },
+        "choice_type": { "type": "string" }
+      }
+    },
+    "MultiAmountItem": {
+      "type": "object",
+      "required": ["description"],
+      "additionalProperties": true,
+      "description": "An item in a multi-amount decision (e.g. combat damage distribution).",
+      "properties": {
+        "description": { "type": "string" },
+        "min": { "type": "integer" },
+        "max": { "type": "integer" }
+      }
+    },
+    "CardMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Scryfall card metadata baked at export time for offline rendering.",
+      "properties": {
+        "mana_cost": {
+          "type": "string"
+        },
+        "type_line": {
+          "type": "string"
+        },
+        "oracle_text": {
+          "type": "string"
+        },
+        "power": {
+          "type": "string"
+        },
+        "toughness": {
+          "type": "string"
+        },
+        "loyalty": {
+          "type": "string"
+        },
+        "defense": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

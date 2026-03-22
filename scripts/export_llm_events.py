@@ -45,7 +45,7 @@ def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
 
 
 def compute_tool_call_counts(llm_events: list[dict]) -> dict[str, tuple[int, int]]:
-    """Compute successful/failed tool call counts from exported llmEvents."""
+    """Compute successful/failed tool call counts from exported llm_events."""
     player_tool_calls: dict[str, tuple[int, int]] = {}
     for event in llm_events:
         if event.get("type") != "tool_call":
@@ -131,25 +131,27 @@ def read_llm_events(
                     exported["model"] = model
                 available_tools = raw.get("available_tools")
                 if available_tools is not None:
-                    exported["availableTools"] = available_tools
+                    exported["available_tools"] = available_tools
             elif event_type == "llm_response":
                 exported["reasoning"] = raw.get("reasoning")
                 if raw.get("thinking"):
                     exported["thinking"] = raw["thinking"]
                 if raw.get("tool_calls"):
-                    exported["toolCalls"] = raw["tool_calls"]
+                    exported["tool_calls"] = raw["tool_calls"]
                 usage = raw.get("usage")
                 if usage:
                     exported["usage"] = {
-                        "promptTokens": usage.get("prompt_tokens", 0),
-                        "completionTokens": usage.get("completion_tokens", 0),
+                        "prompt_tokens": usage.get("prompt_tokens", 0),
+                        "completion_tokens": usage.get("completion_tokens", 0),
                     }
                     if usage.get("cached_tokens"):
-                        exported["usage"]["cachedTokens"] = usage["cached_tokens"]
+                        exported["usage"]["cached_tokens"] = usage["cached_tokens"]
                     if usage.get("reasoning_tokens"):
-                        exported["usage"]["reasoningTokens"] = usage["reasoning_tokens"]
+                        exported["usage"]["reasoning_tokens"] = usage[
+                            "reasoning_tokens"
+                        ]
                 if "cost_usd" in raw:
-                    exported["costUsd"] = raw["cost_usd"]
+                    exported["cost_usd"] = raw["cost_usd"]
             elif event_type == "tool_call":
                 exported["tool"] = raw["tool"]
                 assert "arguments" in raw, f"tool_call event missing arguments: {raw!r}"
@@ -160,7 +162,7 @@ def read_llm_events(
                 exported["args"] = arguments
                 exported["result"] = raw["result"]
                 if "latency_ms" in raw:
-                    exported["latencyMs"] = raw["latency_ms"]
+                    exported["latency_ms"] = raw["latency_ms"]
                 if game_seq is None:
                     result_str = raw["result"]
                     if result_str:
@@ -171,20 +173,22 @@ def read_llm_events(
                         except (json.JSONDecodeError, TypeError):
                             pass
             elif event_type == "stall":
-                exported["turnsWithoutProgress"] = raw.get("turns_without_progress", 0)
+                exported["turns_without_progress"] = raw.get(
+                    "turns_without_progress", 0
+                )
                 last_tools = raw.get("last_tools")
                 if last_tools is not None:
-                    exported["lastTools"] = last_tools
+                    exported["last_tools"] = last_tools
             elif event_type == "context_reset":
                 exported["reason"] = raw["reason"]
             elif event_type == "llm_error":
-                exported["errorType"] = raw["error_type"]
-                exported["errorMessage"] = raw["error_message"]
+                exported["error_type"] = raw["error_type"]
+                exported["error_message"] = raw["error_message"]
             elif event_type == "auto_pilot_mode":
                 exported["reason"] = raw["reason"]
 
             if game_seq is not None:
-                exported["gameSeq"] = game_seq
+                exported["game_seq"] = game_seq
 
             events.append(exported)
 

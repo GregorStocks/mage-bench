@@ -1,0 +1,22 @@
+{
+  "title": "Migrate remaining historical game exports to v9 snake_case",
+  "description": "The export pipeline now supports game export v9 with snake_case wire keys, and the season 2 committed exports were migrated as part of the initial schema rollout. The remaining historical exports in `website/public/games/` are still stored on disk as v8 camelCase JSON.\n\
+\n\
+Finish the data migration in a follow-up, data-focused PR:\n\
+- rewrite the remaining committed season 0 and season 1 exports to version 9\n\
+- keep the file contents semantically identical apart from the version bump and key renames\n\
+- regenerate any derived website data that depends on the committed exports if the migration changes it\n\
+- run `make check` after the migration so schema validation, website loaders, and leaderboard generation all exercise the migrated files\n\
+\n\
+This should stay separate from the schema/code PR so review stays manageable and GitHub does not have to render the full code change plus hundreds of migrated export files at once.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "schema",
+    "exports",
+    "data",
+  ],
+  "created_at": "2026-03-21T22:47:34-07:00",
+  "updated_at": "2026-03-21T22:47:34-07:00",
+}

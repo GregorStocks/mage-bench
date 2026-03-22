@@ -67,20 +67,20 @@ export function initGoldenViewerPage(options) {
   var filterEventType = "";
   var useSeq = game.version != null;
 
-  if (useSeq && game.llmEvents) {
+  if (useSeq && game.llm_events) {
     var lastSeq = 0;
-    game.llmEvents.forEach(function (event) {
-      if (event.gameSeq != null) {
-        lastSeq = event.gameSeq;
+    game.llm_events.forEach(function (event) {
+      if (event.game_seq != null) {
+        lastSeq = event.game_seq;
       } else {
-        event.gameSeq = lastSeq;
+        event.game_seq = lastSeq;
       }
     });
   }
 
   (game.players || []).forEach(function (player) {
-    if (player.model || player.totalCostUsd != null) {
-      playerMeta[player.name] = { model: player.model, totalCostUsd: 0 };
+    if (player.model || player.total_cost_usd != null) {
+      playerMeta[player.name] = { model: player.model, total_cost_usd: 0 };
     }
   });
 
@@ -88,7 +88,7 @@ export function initGoldenViewerPage(options) {
     return !!player.commander;
   });
 
-  var hasLlm = game.llmEvents && game.llmEvents.length > 0;
+  var hasLlm = game.llm_events && game.llm_events.length > 0;
   var hasChat = game.actions && game.actions.some(function (action) {
     return action.type === "chat";
   });
@@ -206,7 +206,7 @@ export function initGoldenViewerPage(options) {
     details.className = "llm-tool-detail";
     var summary = document.createElement("summary");
     var argsSummary = formatToolArgs(toolCall.args);
-    var latency = toolCall.latencyMs != null ? " " + (toolCall.latencyMs / 1000).toFixed(1) + "s" : "";
+    var latency = toolCall.latency_ms != null ? " " + (toolCall.latency_ms / 1000).toFixed(1) + "s" : "";
     summary.innerHTML =
       escapeHtml(toolCall.tool) +
       "(" +
@@ -235,8 +235,8 @@ export function initGoldenViewerPage(options) {
         thoughtDiv.className = "llm-event llm-thought " + playerColorClass(event.player);
 
         var headerHtml = '<span class="thinking-badge">thinking</span>' + playerSpan(event.player);
-        if (event.costUsd != null) {
-          headerHtml += '<span class="llm-cost">$' + event.costUsd.toFixed(4) + "</span>";
+        if (event.cost_usd != null) {
+          headerHtml += '<span class="llm-cost">$' + event.cost_usd.toFixed(4) + "</span>";
         }
         var headerEl = document.createElement("div");
         headerEl.innerHTML = headerHtml;
@@ -275,8 +275,8 @@ export function initGoldenViewerPage(options) {
         var compactDiv = document.createElement("div");
         compactDiv.className = "llm-event llm-compact";
         var compactHeader = playerSpan(event.player);
-        if (event.costUsd != null) {
-          compactHeader += '<span class="llm-cost">$' + event.costUsd.toFixed(4) + "</span>";
+        if (event.cost_usd != null) {
+          compactHeader += '<span class="llm-cost">$' + event.cost_usd.toFixed(4) + "</span>";
         }
         var compactHeaderEl = document.createElement("span");
         compactHeaderEl.innerHTML = compactHeader;
@@ -308,9 +308,9 @@ export function initGoldenViewerPage(options) {
     metaDiv.className = "llm-event llm-meta";
 
     if (type === "stall") {
-      metaDiv.textContent = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
+      metaDiv.textContent = event.player + " stalled (" + (event.turns_without_progress || 0) + " turns without progress)";
     } else if (type === "llm_error") {
-      metaDiv.textContent = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
+      metaDiv.textContent = event.player + " error: " + (event.error_type || "") + " " + (event.error_message || "");
     } else if (type === "context_reset") {
       metaDiv.textContent = event.player + " context reset: " + (event.reason || "");
     } else if (type === "auto_pilot_mode") {
@@ -332,7 +332,7 @@ export function initGoldenViewerPage(options) {
     var diffs = renderer.computeDiff(previousSnapshot, snapshot);
 
     renderer.renderPlayers(playersGrid, snapshot.players, {
-      cardImages: game.cardImages,
+      card_images: game.card_images,
       playerColorMap: playerColorMap,
       playerMeta: playerMeta,
       diffs: diffs,
@@ -355,7 +355,7 @@ export function initGoldenViewerPage(options) {
       playersGrid.insertBefore(phaseBar, playersGrid.children[insertIdx]);
     }
 
-    renderer.renderStack(stackSection, stackCards, snapshot.stack, game.cardImages, previewEls);
+    renderer.renderStack(stackSection, stackCards, snapshot.stack, game.card_images, previewEls);
 
     actionList.innerHTML = "";
     var prevSeq = index > 0 ? game.snapshots[index - 1].seq : 0;
@@ -384,7 +384,7 @@ export function initGoldenViewerPage(options) {
       return true;
     });
 
-    var hasLlmEvents = game.llmEvents && game.llmEvents.length > 0;
+    var hasLlmEvents = game.llm_events && game.llm_events.length > 0;
     var relevantLlm = [];
     if (hasLlmEvents && showLlm) {
       var nextSnapshot = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
@@ -393,30 +393,30 @@ export function initGoldenViewerPage(options) {
       var systemMessages = [];
       var lastPlayerTs = {};
       var lastPlayerSeq = {};
-      game.llmEvents.forEach(function (event) {
+      game.llm_events.forEach(function (event) {
         if (event.type === "tool_call") {
           var systemEvents = extractSystemMessages(event);
           if (systemEvents.length > 0) {
             var backdatedTs = lastPlayerTs[event.player] || event.ts;
-            var backdatedSeq = lastPlayerSeq[event.player] || event.gameSeq || 0;
+            var backdatedSeq = lastPlayerSeq[event.player] || event.game_seq || 0;
             systemEvents.forEach(function (message) {
               systemMessages.push({
                 type: "system_message",
                 ts: backdatedTs,
-                gameSeq: backdatedSeq,
+                game_seq: backdatedSeq,
                 player: event.player,
                 message: message,
               });
             });
           }
           lastPlayerTs[event.player] = event.ts;
-          lastPlayerSeq[event.player] = event.gameSeq || 0;
+          lastPlayerSeq[event.player] = event.game_seq || 0;
         }
       });
 
-      relevantLlm = game.llmEvents.filter(function (event) {
+      relevantLlm = game.llm_events.filter(function (event) {
         if (useSeq) {
-          if ((event.gameSeq || 0) >= nextSeq) {
+          if ((event.game_seq || 0) >= nextSeq) {
             return false;
           }
         } else if (nextTs && event.ts >= nextTs) {
@@ -430,7 +430,7 @@ export function initGoldenViewerPage(options) {
 
       systemMessages.forEach(function (event) {
         if (useSeq) {
-          if ((event.gameSeq || 0) >= nextSeq) {
+          if ((event.game_seq || 0) >= nextSeq) {
             return;
           }
         } else if (nextTs && event.ts >= nextTs) {
@@ -454,7 +454,7 @@ export function initGoldenViewerPage(options) {
         return item.data.seq || 0;
       }
       if (item.kind === "llm") {
-        return item.data.gameSeq || item.data.seq || 0;
+        return item.data.game_seq || item.data.seq || 0;
       }
       if (item.kind === "turn-sep" || item.kind === "phase-sep") {
         return item.data.seq || 0;

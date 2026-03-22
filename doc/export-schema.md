@@ -20,7 +20,7 @@ TypeScript types are generated from the latest schema: `website/src/types/game-e
 
 The export contains two independent sequence number namespaces that are easily confused:
 
-### Server seq (`seq` in snapshots, actions, gameOver)
+### Server seq (`seq` in snapshots, actions, game_over)
 
 - Source: `game.nextGameSeq()` — a monotonic `AtomicInteger` on `GameImpl`.
 - Bumped by three call sites:
@@ -30,12 +30,12 @@ The export contains two independent sequence number namespaces that are easily c
 - **Every event has a unique seq value.** No two events share a seq.
 - `game_end` gets its own seq via `nextGameSeq()`.
 
-### LLM seq (`seq` in llmEvents, llmTrace)
+### LLM seq (`seq` in llm_events, llmTrace)
 
 - Source: `GameLogWriter._seq` — a per-player, per-writer monotonic counter.
 - Completely independent of server seq. Starts at 1 for each player.
-- Cross-referenced to server seq via the `gameSeq` field on LLM events (when available).
-- `gameSeq` is populated from the bridge's `game_seq` field in JSONL, or extracted from tool call result JSON.
+- Cross-referenced to server seq via the `game_seq` field on LLM events (when available).
+- `game_seq` is populated from the bridge's `game_seq` field in JSONL, or extracted from tool call result JSON.
 
 ### What a snapshot "means"
 
@@ -55,12 +55,12 @@ Decisions are the shared data format consumed by both the pilot (at game time, v
 
 Key fields:
 
-- `snapshotIndex` — points into `snapshots[]` for the board state
+- `snapshot_index` — points into `snapshots[]` for the board state
 - `choices` — available choices from the MCP tool result
-- `pilotContext` — overlay data (untapped lands, land drops, playable cards, combat info)
-- `llmEventIndices` — indices into `llmEvents[]` covering this decision's LLM interactions
-- `chosen`, `chosenArgs`, `actionResult` — what the player did
-- `subsequentActions` — game log messages after the action resolved
+- `pilot_context` — overlay data (untapped lands, land drops, playable cards, combat info)
+- `llm_event_indices` — indices into `llm_events[]` covering this decision's LLM interactions
+- `chosen`, `chosen_args`, `action_result` — what the player did
+- `subsequent_actions` — game log messages after the action resolved
 
 Oracle text is NOT stored in the export. The shared renderer (`decision_renderer.py`) accepts oracle texts as a parameter — the pilot extracts them from the bridge board payload's `rules` fields, and the annotator fetches them from the Scryfall cache.
 
@@ -72,13 +72,13 @@ Code that reads the export format and would need updating if the schema changes:
 | ---------- | ---------- | --------------- |
 | `scripts/export_game.py` | Python | Raw logs -> export (producer) |
 | `website/src/pages/games/[...slug].astro` | Astro/JS | Full export for game replay |
-| `website/public/game-renderer.js` | JS | Snapshots, actions, llmEvents for rendering |
+| `website/public/game-renderer.js` | JS | Snapshots, actions, llm_events for rendering |
 | `website/src/pages/leaderboard.astro` | Astro | Player summaries, placements, costs |
 | `website/src/pages/games/index.astro` | Astro | Game list metadata |
 | `website/src/pages/model-stats.astro` | Astro | Player stats aggregation |
 | `website/src/pages/golden.astro` | Astro | Golden test exports |
 | `puppeteer/src/puppeteer/leaderboard.py` | Python | Player data, placements for Elo |
-| `scripts/analysis/extract_decisions.py` | Python | Snapshots + llmEvents for blunder analysis |
+| `scripts/analysis/extract_decisions.py` | Python | Snapshots + llm_events for blunder analysis |
 | `scripts/analysis/blunder_analysis.py` | Python | Full export for annotation |
 | `puppeteer/src/puppeteer/decision_renderer.py` | Python | Decisions + snapshots for shared rendering |
 

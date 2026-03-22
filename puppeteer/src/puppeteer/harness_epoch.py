@@ -69,6 +69,7 @@ epoch directly.
 #  54 - Stop passive GAME_UPDATE state mutation; stack owner from CardView.controllerId (Mar 15)
 #  55 - Migrate GetGameLogTool from client-side chat accumulation to server-side bridge events (Mar 15)
 #  56 - Move GAME_PLAY_MANA auto-handling from callback thread to decision boundary (Mar 20)
+#  --- Golden exports updated: game export wire format v9 uses snake_case keys (Mar 21)
 #  --- Golden exports updated: add model to test pilot players for stricter export validation (Mar 16)
 #  --- Golden exports updated: dataclass serialization includes null optional fields (Mar 17)
 HARNESS_EPOCH = 56

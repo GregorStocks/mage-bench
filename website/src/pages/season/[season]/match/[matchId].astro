@@ -49,7 +49,7 @@ const games: MatchGameView[] = match.games.map((game, i) => {
   return {
     ...game,
     index: i + 1,
-    totalTurns: meta?.totalTurns ?? null,
+    totalTurns: meta?.total_turns ?? null,
   };
 });
 

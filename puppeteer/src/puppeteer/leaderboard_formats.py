@@ -35,9 +35,9 @@ def derive_format(game: Mapping[str, object] | GameExport | BuiltGameExport) -> 
         deck_type: object = game.deck_type
         game_id: object = game.id
     else:
-        deck_type = game.get("deckType")
+        deck_type = game.get("deck_type")
         game_id = game.get("id", "<unknown>")
-    assert isinstance(deck_type, str) and deck_type, f"Game {game_id} missing deckType"
+    assert isinstance(deck_type, str) and deck_type, f"Game {game_id} missing deck_type"
     if deck_type in _DECK_TYPE_TO_FORMAT:
         return _DECK_TYPE_TO_FORMAT[deck_type]
     return deck_type.lower().replace(" ", "-")

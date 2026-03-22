@@ -57,13 +57,14 @@ def _make_1v1_game(
     if p2_effort:
         p2["reasoning_effort"] = p2_effort
     return {
+        "version": 9,
         "id": game_id,
         "timestamp": timestamp,
-        "gameType": "Two Player Duel",
-        "deckType": deck_type,
+        "game_type": "Two Player Duel",
+        "deck_type": deck_type,
         "winner": winner,
         "players": [p1, p2],
-        "harnessEpoch": harness_epoch,
+        "harness_epoch": harness_epoch,
         "season": season,
     }
 
@@ -84,13 +85,14 @@ def _make_commander_game(
         p["placement"] = 1 if f"P{i + 1}" == winner else i + 2
         players.append(p)
     return {
+        "version": 9,
         "id": game_id,
         "timestamp": timestamp,
-        "gameType": "",
-        "deckType": "Variant Magic - Freeform Commander",
+        "game_type": "",
+        "deck_type": "Variant Magic - Freeform Commander",
         "winner": winner,
         "players": players,
-        "harnessEpoch": harness_epoch,
+        "harness_epoch": harness_epoch,
         "season": season,
     }
 

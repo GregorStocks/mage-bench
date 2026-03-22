@@ -55,19 +55,19 @@
    */
   function chosenDisplayText(decision) {
     var chosen = decision.chosen;
-    var chosenArgs = decision.chosenArgs || {};
+    var chosen_args = decision.chosen_args || {};
     var choices = decision.choices || [];
     var message = decision.message || "";
-    var pilotCtx = decision.pilotContext || {};
+    var pilotCtx = decision.pilot_context || {};
 
-    // Build ID → choice lookup from choices + incomingAttackers
+    // Build ID → choice lookup from choices + incoming_attackers
     var choiceById = {};
     choices.forEach(function (c) {
       if (c && typeof c === "object" && c.id) {
         choiceById[c.id] = c;
       }
     });
-    (pilotCtx.incomingAttackers || []).forEach(function (a) {
+    (pilotCtx.incoming_attackers || []).forEach(function (a) {
       if (a && a.id && !choiceById[a.id]) {
         choiceById[a.id] = a;
       }
@@ -88,9 +88,9 @@
       return n;
     }
 
-    // Batch attacks: chosen is null, chosenArgs.attackers exists
-    if (chosenArgs.attackers) {
-      var attackers = chosenArgs.attackers;
+    // Batch attacks: chosen is null, chosen_args.attackers exists
+    if (chosen_args.attackers) {
+      var attackers = chosen_args.attackers;
       if (typeof attackers === "string") {
         attackers = attackers.split(",").map(function (s) { return s.trim(); });
       }
@@ -111,9 +111,9 @@
       return "Attack with " + atkNames.join(", ");
     }
 
-    // Batch blocks: chosen is null, chosenArgs.blockers exists
-    if (chosenArgs.blockers) {
-      var blockers = chosenArgs.blockers;
+    // Batch blocks: chosen is null, chosen_args.blockers exists
+    if (chosen_args.blockers) {
+      var blockers = chosen_args.blockers;
       if (typeof blockers === "string") {
         try { blockers = JSON.parse(blockers); } catch {
           blockers = blockers.split(",").map(function (s) { return s.trim(); });
@@ -148,10 +148,10 @@
     }
 
     // Null chosen with a choice ID → resolve it
-    if (chosen == null && chosenArgs.choice && chosenArgs.choice !== "no") {
-      var resolved = choiceById[chosenArgs.choice];
+    if (chosen == null && chosen_args.choice && chosen_args.choice !== "no") {
+      var resolved = choiceById[chosen_args.choice];
       if (resolved) {
-        var rName = resolved.name || resolved.description || chosenArgs.choice;
+        var rName = resolved.name || resolved.description || chosen_args.choice;
         var rAction = resolved.action;
         if (rAction === "cast") {
           var lbl = "Cast " + rName;
@@ -162,7 +162,7 @@
         if (rAction === "activate") return "Activate " + rName;
         return rName;
       }
-      return chosenArgs.choice;
+      return chosen_args.choice;
     }
 
     // Null chosen, empty args = pass
@@ -222,16 +222,16 @@
           toolResults.push(events[j]);
           j++;
         }
-        var mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
+        var mergedSeq = e.game_seq || (toolResults.length > 0 ? toolResults[0].game_seq : 0) || 0;
         merged.push({
           type: "llm_merged",
           ts: e.ts,
-          gameSeq: mergedSeq,
+          game_seq: mergedSeq,
           player: e.player,
           reasoning: e.reasoning,
           thinking: e.thinking,
-          toolCalls: e.toolCalls,
-          costUsd: e.costUsd,
+          tool_calls: e.tool_calls,
+          cost_usd: e.cost_usd,
           toolResults: toolResults,
         });
         i = j;
@@ -239,7 +239,7 @@
         merged.push({
           type: "llm_merged",
           ts: e.ts,
-          gameSeq: e.gameSeq || 0,
+          game_seq: e.game_seq || 0,
           player: e.player,
           toolResults: [e],
         });
@@ -609,9 +609,9 @@
       var metaText;
 
       if (type === "stall") {
-        metaText = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
+        metaText = event.player + " stalled (" + (event.turns_without_progress || 0) + " turns without progress)";
       } else if (type === "llm_error") {
-        metaText = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
+        metaText = event.player + " error: " + (event.error_type || "") + " " + (event.error_message || "");
       } else if (type === "context_reset") {
         metaText = event.player + " context reset: " + (event.reason || "");
       } else if (type === "auto_pilot_mode") {
@@ -669,10 +669,10 @@
       details.appendChild(summary);
       var content = document.createElement("div");
       var fieldsHtml =
-        '<div class="annotation-field"><strong>Action taken:</strong> ' + escapeHtml(ann.actionTaken) + '</div>' +
-        '<div class="annotation-field"><strong>Better line:</strong> ' + escapeHtml(ann.betterLine) + '</div>';
-      if (ann.llmReasoning) {
-        fieldsHtml += '<div class="annotation-field"><strong>Why the LLM erred:</strong> ' + escapeHtml(ann.llmReasoning) + '</div>';
+        '<div class="annotation-field"><strong>Action taken:</strong> ' + escapeHtml(ann.action_taken) + '</div>' +
+        '<div class="annotation-field"><strong>Better line:</strong> ' + escapeHtml(ann.better_line) + '</div>';
+      if (ann.llm_reasoning) {
+        fieldsHtml += '<div class="annotation-field"><strong>Why the LLM erred:</strong> ' + escapeHtml(ann.llm_reasoning) + '</div>';
       }
       content.innerHTML = fieldsHtml;
       details.appendChild(content);
@@ -771,33 +771,33 @@
 
       // Compute running cost up to current snapshot
       if (precomputedCosts && precomputedCosts[index]) {
-        // Use precomputed costs (actions/llmEvents stripped from inline JSON)
+        // Use precomputed costs (actions/llm_events stripped from inline JSON)
         var runningCost = precomputedCosts[index];
         (game.players || []).forEach(function (p) {
           if (playerMeta[p.name]) {
-            playerMeta[p.name].totalCostUsd = runningCost[p.name] || 0;
+            playerMeta[p.name].total_cost_usd = runningCost[p.name] || 0;
           }
         });
-      } else if (game.llmEvents && game.llmEvents.length > 0) {
+      } else if (game.llm_events && game.llm_events.length > 0) {
         var costNextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
         var costCutoffTs = costNextSnap ? (costNextSnap.ts || "") : "";
         var runningCostLegacy = {};
-        game.llmEvents.forEach(function (e) {
+        game.llm_events.forEach(function (e) {
           if (costCutoffTs && e.ts >= costCutoffTs) return;
-          if (e.costUsd && e.player) {
-            runningCostLegacy[e.player] = (runningCostLegacy[e.player] || 0) + e.costUsd;
+          if (e.cost_usd && e.player) {
+            runningCostLegacy[e.player] = (runningCostLegacy[e.player] || 0) + e.cost_usd;
           }
         });
         (game.players || []).forEach(function (p) {
           if (playerMeta[p.name]) {
-            playerMeta[p.name].totalCostUsd = runningCostLegacy[p.name] || 0;
+            playerMeta[p.name].total_cost_usd = runningCostLegacy[p.name] || 0;
           }
         });
       }
 
       // Players
       R.renderPlayers(dom.playersGrid, snap.players, {
-        cardImages: game.cardImages,
+        card_images: game.card_images,
         playerColorMap: playerColorMap,
         playerMeta: playerMeta,
         diffs: diffs,
@@ -819,7 +819,7 @@
       }
 
       // Stack
-      R.renderStack(dom.stackSection, dom.stackCards, snap.stack, game.cardImages, dom.previewEls);
+      R.renderStack(dom.stackSection, dom.stackCards, snap.stack, game.card_images, dom.previewEls);
 
       // Pending decisions for this snapshot
       R.renderDecisions(dom.stackSection, snapshotDecisionMap[index] || [], playerColorMap);
@@ -846,16 +846,16 @@
         return true;
       });
 
-      // Extract chat messages from llmEvents
+      // Extract chat messages from llm_events
       var chatFromLlm = [];
-      if (game.llmEvents) {
+      if (game.llm_events) {
         var chatNextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
         var chatNextSeq = chatNextSnap ? (chatNextSnap.seq || Infinity) : Infinity;
         var chatNextTs = chatNextSnap ? (chatNextSnap.ts || "") : "";
-        game.llmEvents.forEach(function (e) {
+        game.llm_events.forEach(function (e) {
           if (e.type !== "tool_call" || e.tool !== "send_chat_message") return;
           if (useSeq) {
-            if ((e.gameSeq || 0) >= chatNextSeq) return;
+            if ((e.game_seq || 0) >= chatNextSeq) return;
           } else {
             if (chatNextTs && e.ts >= chatNextTs) return;
           }
@@ -863,13 +863,13 @@
             ts: e.ts || "",
             from: e.player,
             message: (e.args && e.args.message) || "",
-            gameSeq: e.gameSeq || 0,
+            game_seq: e.game_seq || 0,
           });
         });
       }
 
       // All LLM events up to current snapshot
-      var hasLlmEvents = game.llmEvents && game.llmEvents.length > 0;
+      var hasLlmEvents = game.llm_events && game.llm_events.length > 0;
       var relevantLlm = [];
       if (hasLlmEvents) {
         var nextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
@@ -880,24 +880,24 @@
         var systemMessages = [];
         var lastPlayerTs = {};
         var lastPlayerSeq = {};
-        game.llmEvents.forEach(function (e) {
+        game.llm_events.forEach(function (e) {
           if (e.type === "tool_call") {
             var sysmsgs = extractSystemMessages(e);
             if (sysmsgs.length > 0) {
               var backdatedTs = lastPlayerTs[e.player] || e.ts;
-              var backdatedSeq = lastPlayerSeq[e.player] || e.gameSeq || 0;
+              var backdatedSeq = lastPlayerSeq[e.player] || e.game_seq || 0;
               sysmsgs.forEach(function (msg) {
-                systemMessages.push({ type: "system_message", ts: backdatedTs, gameSeq: backdatedSeq, player: e.player, message: msg });
+                systemMessages.push({ type: "system_message", ts: backdatedTs, game_seq: backdatedSeq, player: e.player, message: msg });
               });
             }
             lastPlayerTs[e.player] = e.ts;
-            lastPlayerSeq[e.player] = e.gameSeq || 0;
+            lastPlayerSeq[e.player] = e.game_seq || 0;
           }
         });
 
-        relevantLlm = game.llmEvents.filter(function (e) {
+        relevantLlm = game.llm_events.filter(function (e) {
           if (useSeq) {
-            if ((e.gameSeq || 0) >= nextSeq) return false;
+            if ((e.game_seq || 0) >= nextSeq) return false;
           } else {
             if (nextTs && e.ts >= nextTs) return false;
           }
@@ -906,7 +906,7 @@
 
         systemMessages.forEach(function (sm) {
           if (useSeq) {
-            if ((sm.gameSeq || 0) >= nextSeq) return;
+            if ((sm.game_seq || 0) >= nextSeq) return;
           } else {
             if (nextTs && sm.ts >= nextTs) return;
           }
@@ -923,8 +923,8 @@
       var showLlmEvents = filterLlm;
 
       function itemSeq(item) {
-        if (item.kind === "action" || item.kind === "chat") return item.data.seq || item.data.gameSeq || 0;
-        if (item.kind === "llm") return item.data.gameSeq || item.data.seq || 0;
+        if (item.kind === "action" || item.kind === "chat") return item.data.seq || item.data.game_seq || 0;
+        if (item.kind === "llm") return item.data.game_seq || item.data.seq || 0;
         if (item.kind === "turn-sep" || item.kind === "phase-sep") return item.data.seq || 0;
         if (item.kind === "annotation") {
           return item.seq || 0;
@@ -1061,7 +1061,7 @@
       // Show timeout losses at end of game
       if (index === game.snapshots.length - 1) {
         (game.players || []).forEach(function (p) {
-          if (!p.timedOut) return;
+          if (!p.timed_out) return;
           var toLine = document.createElement("div");
           toLine.className = "game-result-line game-result-timeout";
           var pIdx = playerColorMap[p.name];
@@ -1122,16 +1122,16 @@
     useSeq = game.version != null;
 
     // Preload baked Scryfall card data (v3 exports) into renderer cache
-    if (R.preloadCardData) R.preloadCardData(game.cardData);
+    if (R.preloadCardData) R.preloadCardData(game.card_data);
 
-    // Fill in missing gameSeq on llmEvents
-    if (useSeq && game.llmEvents) {
+    // Fill in missing game_seq on llm_events
+    if (useSeq && game.llm_events) {
       var lastSeq = 0;
-      game.llmEvents.forEach(function (e) {
-        if (e.gameSeq != null) {
-          lastSeq = e.gameSeq;
+      game.llm_events.forEach(function (e) {
+        if (e.game_seq != null) {
+          lastSeq = e.game_seq;
         } else {
-          e.gameSeq = lastSeq;
+          e.game_seq = lastSeq;
         }
       });
     }
@@ -1139,8 +1139,8 @@
     // Build player color map and meta
     (game.players || []).forEach(function (p, i) {
       playerColorMap[p.name] = i % 4;
-      if (p.model || p.totalCostUsd != null) {
-        playerMeta[p.name] = { model: p.model, totalCostUsd: 0 };
+      if (p.model || p.total_cost_usd != null) {
+        playerMeta[p.name] = { model: p.model, total_cost_usd: 0 };
       }
     });
 
@@ -1148,9 +1148,9 @@
     isCommander = (game.players || []).some(function (p) { return !!p.commander; });
 
     // Show filter checkboxes based on content
-    var hasLlm = game.llmEvents && game.llmEvents.length > 0;
+    var hasLlm = game.llm_events && game.llm_events.length > 0;
     var hasChat = (game.actions && game.actions.some(function (a) { return a.type === "chat"; }))
-      || (game.llmEvents && game.llmEvents.some(function (e) { return e.tool === "send_chat_message"; }));
+      || (game.llm_events && game.llm_events.some(function (e) { return e.tool === "send_chat_message"; }));
     var hasAnnotations = game.annotations && game.annotations.length > 0;
     if (hasLlm) {
       dom.filterLlmEl.parentElement.classList.remove("hidden");
@@ -1199,7 +1199,7 @@
     // Build snapshot -> decisions map
     var snapshotDecisionMap = {};
     (game.decisions || []).forEach(function (d) {
-      var si = d.snapshotIndex;
+      var si = d.snapshot_index;
       if (!snapshotDecisionMap[si]) snapshotDecisionMap[si] = [];
       snapshotDecisionMap[si].push(d);
     });
@@ -1212,17 +1212,17 @@
     // Build llmEvent index -> decision reverse lookup.
     // Stamp each llmEvent with its original index so renderToolResult can
     // look up the decision for any tool_call it receives.
-    (game.llmEvents || []).forEach(function (e, i) { e._origIdx = i; });
+    (game.llm_events || []).forEach(function (e, i) { e._origIdx = i; });
     var llmEventIndexToDecision = {};
     (game.decisions || []).forEach(function (d) {
-      (d.llmEventIndices || []).forEach(function (ei) {
+      (d.llm_event_indices || []).forEach(function (ei) {
         llmEventIndexToDecision[ei] = d;
       });
     });
 
     function annotationDecisionSnapshotIndex(ann) {
-      var decision = (game.decisions || [])[ann.decisionIndex];
-      return decision.snapshotIndex;
+      var decision = (game.decisions || [])[ann.decision_index];
+      return decision.snapshot_index;
     }
 
     // Map each annotation to its decision's snapshot index so we can show
@@ -1322,8 +1322,8 @@
     // Preload card images into browser cache at low priority.
     // Load in small batches during idle time so we don't saturate the
     // browser's connection pool and starve the actually-visible images.
-    if (game.cardImages) {
-      var _precacheUrls = Object.values(game.cardImages);
+    if (game.card_images) {
+      var _precacheUrls = Object.values(game.card_images);
       var _precacheIdx = 0;
       var _precacheBatch = 4;
       function _precacheNext() {

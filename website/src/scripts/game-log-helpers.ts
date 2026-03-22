@@ -77,18 +77,18 @@ export function extractSystemMessages(toolCallEvent: { result?: string }): strin
 export interface MergedLlmEvent {
   type: string;
   ts: string;
-  gameSeq: number;
+  game_seq: number;
   player: string;
   reasoning?: string | null;
   thinking?: string | null;
-  toolCalls?: unknown;
-  costUsd?: number;
+  tool_calls?: unknown;
+  cost_usd?: number;
   toolResults?: LlmEvent[];
   // Metadata fields preserved from non-merged events (system_message,
   // context_reset, llm_error, stall, auto_pilot_mode, etc.)
-  turnsWithoutProgress?: number;
-  errorType?: string;
-  errorMessage?: string;
+  turns_without_progress?: number;
+  error_type?: string;
+  error_message?: string;
   reason?: string;
   message?: string;
   [k: string]: unknown;
@@ -107,16 +107,16 @@ export function mergeLlmEvents(events: LlmEvent[]): MergedLlmEvent[] {
         toolResults.push(events[j]);
         j++;
       }
-      const mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
+      const mergedSeq = e.game_seq || (toolResults.length > 0 ? toolResults[0].game_seq : 0) || 0;
       merged.push({
         type: 'llm_merged',
         ts: e.ts || '',
-        gameSeq: mergedSeq,
+        game_seq: mergedSeq,
         player: e.player,
         reasoning: e.reasoning,
         thinking: e.thinking,
-        toolCalls: e.toolCalls,
-        costUsd: e.costUsd,
+        tool_calls: e.tool_calls,
+        cost_usd: e.cost_usd,
         toolResults,
       });
       i = j;
@@ -124,7 +124,7 @@ export function mergeLlmEvents(events: LlmEvent[]): MergedLlmEvent[] {
       merged.push({
         type: 'llm_merged',
         ts: e.ts || '',
-        gameSeq: e.gameSeq || 0,
+        game_seq: e.game_seq || 0,
         player: e.player,
         toolResults: [e],
       });
@@ -145,10 +145,10 @@ export function mergeLlmEvents(events: LlmEvent[]): MergedLlmEvent[] {
  */
 export function chosenDisplayText(decision: Decision): string {
   const chosen = decision.chosen as unknown;
-  const chosenArgs = (decision.chosenArgs || {}) as Record<string, unknown>;
+  const chosen_args = (decision.chosen_args || {}) as Record<string, unknown>;
   const choices = (decision.choices || []) as Array<Record<string, unknown>>;
   const message = (decision.message || '') as string;
-  const pilotCtx = (decision.pilotContext || {}) as Record<string, unknown>;
+  const pilotCtx = (decision.pilot_context || {}) as Record<string, unknown>;
 
   const choiceById: Record<string, Record<string, unknown>> = {};
   for (const c of choices) {
@@ -156,7 +156,7 @@ export function chosenDisplayText(decision: Decision): string {
       choiceById[c.id as string] = c;
     }
   }
-  const incoming = (pilotCtx.incomingAttackers || []) as Array<Record<string, unknown>>;
+  const incoming = (pilotCtx.incoming_attackers || []) as Array<Record<string, unknown>>;
   for (const a of incoming) {
     if (a && a.id && !choiceById[a.id as string]) {
       choiceById[a.id as string] = a;
@@ -179,8 +179,8 @@ export function chosenDisplayText(decision: Decision): string {
   }
 
   // Batch attacks
-  if (chosenArgs.attackers) {
-    let attackers = chosenArgs.attackers;
+  if (chosen_args.attackers) {
+    let attackers = chosen_args.attackers;
     if (typeof attackers === 'string') {
       attackers = attackers.split(',').map((s: string) => s.trim());
     }
@@ -203,8 +203,8 @@ export function chosenDisplayText(decision: Decision): string {
   }
 
   // Batch blocks
-  if (chosenArgs.blockers) {
-    let blockers: unknown = chosenArgs.blockers;
+  if (chosen_args.blockers) {
+    let blockers: unknown = chosen_args.blockers;
     if (typeof blockers === 'string') {
       try { blockers = JSON.parse(blockers) as unknown; } catch {
         blockers = (blockers as string).split(',').map((s: string) => s.trim());
@@ -241,10 +241,10 @@ export function chosenDisplayText(decision: Decision): string {
   }
 
   // Null chosen with a choice ID
-  if (chosen == null && chosenArgs.choice && chosenArgs.choice !== 'no') {
-    const resolved = choiceById[chosenArgs.choice as string];
+  if (chosen == null && chosen_args.choice && chosen_args.choice !== 'no') {
+    const resolved = choiceById[chosen_args.choice as string];
     if (resolved) {
-      const rName = (resolved.name || resolved.description || chosenArgs.choice) as string;
+      const rName = (resolved.name || resolved.description || chosen_args.choice) as string;
       const rAction = resolved.action;
       if (rAction === 'cast') {
         let lbl = 'Cast ' + rName;
@@ -255,7 +255,7 @@ export function chosenDisplayText(decision: Decision): string {
       if (rAction === 'activate') return 'Activate ' + rName;
       return rName;
     }
-    return chosenArgs.choice as string;
+    return chosen_args.choice as string;
   }
 
   // Null chosen, empty args = pass

@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from magebench.common.json5_utils import dumps_json5, loads_json5
+from schemas.game_export_migrations import migrate_game_export_to_current
 from schemas.game_export_types import BuiltGameExport, GameExport, json_default
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -35,7 +36,7 @@ def _base_game_export_path(path: Path) -> Path:
 
 
 def load_raw_game_export(path: str | Path) -> dict[str, Any]:
-    """Load a game export without validating it against the current schema."""
+    """Load a game export in the current wire format without schema validation."""
     export_path = Path(path)
     _assert_game_export_path(export_path)
     raw = (
@@ -45,7 +46,7 @@ def load_raw_game_export(path: str | Path) -> dict[str, Any]:
     )
     data = loads_json5(raw)
     assert isinstance(data, dict), f"{export_path}: expected JSON object"
-    return data
+    return migrate_game_export_to_current(data)
 
 
 def write_raw_game_export(

@@ -2,7 +2,7 @@
 """Backfill canonical decisions on existing game exports.
 
 Reads each .json/.json.gz in website/public/games/, builds canonical decisions
-from the existing snapshots/actions/llmEvents, and writes the file back.
+from the existing snapshots/actions/llm_events, and writes the file back.
 
 Usage:
     uv run python scripts/backfill_decisions.py [--dry-run] [--force]
@@ -36,8 +36,8 @@ def backfill_game(
     decisions = build_decisions(
         data["snapshots"],
         data["actions"],
-        data["llmEvents"],
-        data.get("harnessEpoch", 0),
+        data["llm_events"],
+        data.get("harness_epoch", 0),
     )
 
     if existing == decisions:

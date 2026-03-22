@@ -26,15 +26,15 @@ interface GoldenExport {
 }
 
 export function loadInternalsTrendData(): InternalsTrendData {
-  return internalsTrendData as InternalsTrendData;
+  return internalsTrendData as unknown as InternalsTrendData;
 }
 
 export function loadModelStatsData(): ModelStatsData {
-  return modelStatsData as ModelStatsData;
+  return modelStatsData as unknown as ModelStatsData;
 }
 
 export function loadBlunderInternalsData(): BlunderInternalsData {
-  return blunderInternalsData as BlunderInternalsData;
+  return blunderInternalsData as unknown as BlunderInternalsData;
 }
 
 export function loadGoldenTestScenarios(exportsDir: string = GOLDEN_EXPORTS_DIR): GoldenTestScenario[] {

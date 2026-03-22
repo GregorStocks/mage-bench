@@ -9,7 +9,7 @@ from openai import OpenAI, OpenAIError
 
 from puppeteer.llm_cost import get_model_price
 
-LLM_REQUIRED_FIELDS = {"severity", "description", "actionTaken", "betterLine"}
+LLM_REQUIRED_FIELDS = {"severity", "description", "action_taken", "better_line"}
 
 
 def compute_cost(

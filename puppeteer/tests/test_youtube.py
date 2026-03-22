@@ -9,6 +9,7 @@ import pytest
 
 from puppeteer.post_game_analysis import save_youtube_url, update_website_youtube_url, upload_and_export
 from scripts.export_game import GameExportError, export_game
+from scripts.json5_utils import loads_json5
 from scripts.upload_youtube import (
     YouTubeUploadError,
     _build_description,
@@ -143,7 +144,7 @@ def test_save_youtube_url_no_meta():
 
 
 def test_update_website_youtube_url_patches_game_json():
-    """Should patch youtubeUrl into the per-game website JSON."""
+    """Should patch youtube_url into the per-game website export."""
     with tempfile.TemporaryDirectory() as tmpdir:
         project_root = Path(tmpdir)
         games_dir = project_root / "website" / "public" / "games"
@@ -152,19 +153,24 @@ def test_update_website_youtube_url_patches_game_json():
         game_id = "game_20260210_120000"
         game_dir = Path(tmpdir) / game_id
 
-        game_data = {"id": game_id, "totalTurns": 10}
-        (games_dir / f"{game_id}.json").write_text(json.dumps(game_data))
+        game_data = {
+            "version": 9,
+            "id": game_id,
+            "youtube_url": "",
+            "total_turns": 10,
+        }
+        (games_dir / f"{game_id}.json5").write_text(json.dumps(game_data))
 
-        index_data = [{"id": game_id, "totalTurns": 10}]
+        index_data = [{"id": game_id, "youtube_url": "", "total_turns": 10}]
         (games_dir / "index.json").write_text(json.dumps(index_data))
 
         update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
 
-        updated_game = json.loads((games_dir / f"{game_id}.json").read_text())
-        assert updated_game["youtubeUrl"] == "https://youtu.be/xyz"
+        updated_game = loads_json5((games_dir / f"{game_id}.json5").read_text())
+        assert updated_game["youtube_url"] == "https://youtu.be/xyz"
 
         updated_index = json.loads((games_dir / "index.json").read_text())
-        assert updated_index[0]["youtubeUrl"] == "https://youtu.be/xyz"
+        assert updated_index[0]["youtube_url"] == "https://youtu.be/xyz"
 
 
 def test_update_website_youtube_url_no_files():

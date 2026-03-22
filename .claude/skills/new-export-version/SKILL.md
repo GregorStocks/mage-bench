@@ -9,15 +9,15 @@ Cut a new game export format version. This creates a standalone schema, migratio
 
 ## Background
 
-Each export version has its own schema file (`schemas/game-export-vN.schema.json`). Migrations live in `schemas/migrations/` as modules with `up(data)` and `down(data)` functions. The shared runner at `scripts/migrate_exports.py` handles file I/O, chaining, and CLI.
+Each export version has its own schema file (`schemas/game-export-vN.schema.json`). In this repo, export migrations live in the single module `schemas/game_export_migrations.py`, and raw export file I/O lives in `scripts/game_exports.py`.
 
 Key files:
 
 - `schemas/game-export-v*.schema.json` — per-version JSON Schemas
-- `schemas/migrations/` — migration modules and registry (`__init__.py`)
-- `scripts/migrate_exports.py` — unified migration runner
+- `schemas/game_export_migrations.py` — current/legacy version constants and normalization helpers
+- `scripts/game_exports.py` — raw export load/write helpers used by scripts and tests
 - `scripts/export_game.py` — export producer (sets version, computes new fields)
-- `puppeteer/tests/test_migrate_exports.py` — roundtrip and runner tests
+- `puppeteer/tests/test_game_export_migrations.py` — roundtrip migration tests
 - `puppeteer/tests/test_export_schema.py` — schema validation tests
 
 ## Step 1: Determine what's changing
@@ -45,9 +45,9 @@ Copy `schemas/game-export-vN.schema.json` to `schemas/game-export-v{N+1}.schema.
 - Add new fields to `properties`
 - Add new `$defs` if needed
 
-## Step 3: Create the migration module
+## Step 3: Extend the migration module
 
-Create `schemas/migrations/vN_to_v{N+1}.py`:
+Add `vN <-> v{N+1}` support to `schemas/game_export_migrations.py`:
 
 ```python
 """Migration: vN -> v{N+1} (description of what changes)."""
@@ -72,27 +72,14 @@ def down(data: dict) -> dict:
 
 The migration must satisfy: `down(up(game)) == game` for all exported games.
 
-## Step 4: Register the migration
-
-Add the new module to `schemas/migrations/__init__.py`:
-
-```python
-from schemas.migrations import ..., vN_to_v{N+1}
-
-MIGRATIONS = [
-    ...,
-    vN_to_v{N+1},
-]
-```
-
-## Step 5: Update `scripts/export_game.py`
+## Step 4: Update `scripts/export_game.py`
 
 1. Change `"version": N` to `"version": N+1` in `build_export()`
 2. Add computation for new fields in `build_export()`
 3. Update `_validate_export()`: change `version == N` to `version == N+1`
 4. Update the comment referencing the schema filename
 
-## Step 6: Update schema references
+## Step 5: Update schema references
 
 These files reference the schema filename and need updating:
 
@@ -100,7 +87,7 @@ These files reference the schema filename and need updating:
 - `.claude/hooks/enforce-agents-rules.py` — no change needed (uses glob pattern)
 - `doc/export-schema.md` — update prose reference if it mentions a specific version
 
-## Step 7: Regenerate TypeScript types
+## Step 6: Regenerate TypeScript types
 
 ```bash
 make regen-schema-types
@@ -108,7 +95,7 @@ make regen-schema-types
 
 Verify the generated types look correct in `website/src/types/game-export.d.ts`.
 
-## Step 8: Add tests
+## Step 7: Add tests
 
 In `puppeteer/tests/test_export_schema.py`, add:
 
@@ -116,13 +103,15 @@ In `puppeteer/tests/test_export_schema.py`, add:
 - `test_v{N+1}_schema_accepts_v{N+1}` — minimal valid export passes
 - `test_v{N+1}_schema_rejects_vN` — old version is rejected
 
-In `puppeteer/tests/test_migrate_exports.py`, add a new test class:
+In `puppeteer/tests/test_game_export_migrations.py`, add migration tests:
 
 - `test_vN_to_v{N+1}_up_adds_fields` — verify up() adds the right fields
 - `test_v{N+1}_to_vN_down_removes_fields` — verify down() strips them
 - `test_round_trip_preserves_vN_structure` — `down(up(game)) == game`
 
-## Step 9: Run checks
+When raw-export helpers are intentionally schema-light (for example `load_raw_game_export()` tests), make the migration functions tolerant of partial payloads. Only assert on `version` and transform optional sections when they are present.
+
+## Step 8: Run checks
 
 ```bash
 make check
@@ -130,30 +119,13 @@ make check
 
 All lint, typecheck, and tests must pass before proceeding.
 
-## Step 10: Create the PR (code only — no data migration)
+## Step 9: Create the PR (usually code only — data migration optional)
 
-Do NOT migrate existing games in this PR. Game migrations touch hundreds of JSON files and GitHub cannot render large diffs. Instead:
+Default to a code-only PR. Game migrations touch hundreds of JSON files and GitHub cannot render large diffs. If the issue explicitly asks for a bounded in-repo migration (for example one season only), migrate only that slice and file a follow-up issue for the remaining historical exports.
 
-1. Create the PR with only the code changes (schema, migration module, export_game.py, tests, docs, TypeScript types).
-2. In the PR description, note that a follow-up data-only PR will migrate existing games.
+1. Create the PR with the code changes (schema, migration module, export_game.py, tests, docs, TypeScript types).
+2. If you did not migrate all committed exports, note the remaining migration scope in the PR description and file a follow-up issue.
 
-## Step 11: Update documentation
+## Step 10: Follow-up migration
 
-- `schemas/migrations/README.md` — update the "Current state" section
-
-## Step 12: Follow-up PR — migrate existing games
-
-After the code PR merges, create a second data-only PR:
-
-```bash
-# Preview first
-uv run python scripts/migrate_exports.py --to {N+1} --dry-run
-
-# Then migrate for real
-uv run python scripts/migrate_exports.py --to {N+1}
-
-# Verify checks still pass with migrated data
-make check
-```
-
-Commit and PR the migrated game files separately. This keeps the code review clean and avoids GitHub choking on large diffs.
+This repo does not currently have a generic `scripts/migrate_exports.py` runner. For bounded migrations, use `scripts/game_exports.py` helpers (`load_raw_game_export()` / `write_raw_game_export()`) or add a one-off script in the PR. Verify the migrated files with `make check`.

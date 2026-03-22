@@ -51,7 +51,7 @@ DecisionLike = Decision | Mapping[str, Any]
 
 def decision_index(d: DecisionLike) -> int:
     """Get the decision index."""
-    value = d.get("index", d.get("decisionIndex", 0))
+    value = d.get("index", d.get("decision_index", 0))
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"decision index must be an int, got {value!r}"
     )
@@ -60,7 +60,7 @@ def decision_index(d: DecisionLike) -> int:
 
 def snapshot_index(d: DecisionLike) -> int:
     """Get the snapshot index."""
-    value = d.get("snapshotIndex", 0)
+    value = d.get("snapshot_index", 0)
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"snapshot index must be an int, got {value!r}"
     )
@@ -74,25 +74,25 @@ def annotation_decision_index(annotation: Annotation) -> int:
 
 def is_forced(d: DecisionLike) -> bool:
     """Check if a decision is forced (<=1 choice)."""
-    value = d.get("isForced", False)
-    assert isinstance(value, bool), f"isForced must be a bool, got {value!r}"
+    value = d.get("is_forced", False)
+    assert isinstance(value, bool), f"is_forced must be a bool, got {value!r}"
     return value
 
 
 def action_result(d: DecisionLike) -> JsonObject:
     """Get the action result."""
-    if "actionResult" in d:
-        value = d["actionResult"]
+    if "action_result" in d:
+        value = d["action_result"]
     else:
         return {}
-    assert isinstance(value, dict), f"actionResult must be an object, got {value!r}"
+    assert isinstance(value, dict), f"action_result must be an object, got {value!r}"
     return value
 
 
 def is_cast_rolled_back(d: DecisionLike) -> bool:
     """Check if a cast was rolled back."""
-    value = d.get("castRolledBack", False)
-    assert isinstance(value, bool), f"castRolledBack must be a bool, got {value!r}"
+    value = d.get("cast_rolled_back", False)
+    assert isinstance(value, bool), f"cast_rolled_back must be a bool, got {value!r}"
     return value
 
 
@@ -133,16 +133,16 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
 
 def subsequent_actions(d: DecisionLike) -> list[str]:
     """Get subsequent actions."""
-    actions = d.get("subsequentActions")
+    actions = d.get("subsequent_actions")
     if actions is None:
         return []
     assert isinstance(actions, list), (
-        f"subsequentActions must be a list, got {actions!r}"
+        f"subsequent_actions must be a list, got {actions!r}"
     )
     result: list[str] = []
     for index, action in enumerate(actions):
         assert isinstance(action, str), (
-            f"subsequentActions[{index}] must be a string, got {action!r}"
+            f"subsequent_actions[{index}] must be a string, got {action!r}"
         )
         result.append(action)
     return result
@@ -379,12 +379,12 @@ def compute_aftermath_index(
 ) -> int:
     """Compute the aftermath snapshot index for a decision.
 
-    Finds the first snapshot strictly after actionSeq, starting from the
-    decision's snapshotIndex.  actionSeq represents the game state BEFORE
+    Finds the first snapshot strictly after action_seq, starting from the
+    decision's snapshot_index.  action_seq represents the game state BEFORE
     the action processes, so we need > (not >=).
     """
     s_idx = snapshot_index(decision)
-    action_seq_raw = decision.get("actionSeq", 0)
+    action_seq_raw = decision.get("action_seq", 0)
     action_seq = (
         action_seq_raw
         if isinstance(action_seq_raw, int) and not isinstance(action_seq_raw, bool)
@@ -405,14 +405,14 @@ def reverse_map_annotations(
 
     Returns {annotation_list_index: decision_index}.
 
-    All annotations must carry a canonical decisionIndex.
+    All annotations must carry a canonical decision_index.
     """
     result: dict[int, int] = {}
 
     for ann_idx, ann in enumerate(annotations):
         direct_decision_idx = annotation_decision_index(ann)
         assert 0 <= direct_decision_idx < len(decisions), (
-            f"annotation decisionIndex {direct_decision_idx} out of range for {len(decisions)} decisions"
+            f"annotation decision_index {direct_decision_idx} out of range for {len(decisions)} decisions"
         )
         decision_player_raw = decisions[direct_decision_idx]["player"]
         assert isinstance(decision_player_raw, str), (
@@ -471,12 +471,12 @@ def chosen_display(decision: DecisionLike) -> str:
         return f"option_{chosen}"
     if chosen is not None:
         return str(chosen)
-    # Batch/text decisions store the response in chosenArgs, not chosen
-    chosen_args = decision.get("chosenArgs")
+    # Batch/text decisions store the response in chosen_args, not chosen
+    chosen_args = decision.get("chosen_args")
     if not chosen_args:
         return "?"
     assert isinstance(chosen_args, dict), (
-        f"chosenArgs must be an object when present, got {chosen_args!r}"
+        f"chosen_args must be an object when present, got {chosen_args!r}"
     )
     if chosen_args.get("attackers"):
         return f"Attack with: {chosen_args['attackers']}"

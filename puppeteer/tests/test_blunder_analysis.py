@@ -49,25 +49,25 @@ def _make_decision(**overrides: object) -> Decision:
     }
     d: dict[str, object] = {
         "index": 0,
-        "snapshotIndex": 0,
+        "snapshot_index": 0,
         "player": "Alice",
         "turn": 1,
         "phase": "PRECOMBAT_MAIN",
         "message": "Play spells",
-        "actionType": "GAME_SELECT",
-        "responseType": "select",
+        "action_type": "GAME_SELECT",
+        "response_type": "select",
         "choices": [
             {"index": 0, "name": "Mountain"},
             {"index": 1, "name": "Lightning Bolt"},
         ],
-        "choiceCount": 2,
+        "choice_count": 2,
         "chosen": 0,
-        "chosenArgs": {"index": 0},
-        "actionResult": {"success": True},
-        "isForced": False,
-        "llmEventIndices": [],
-        "subsequentActions": ["Alice plays Mountain"],
-        "actionSeq": 1,
+        "chosen_args": {"index": 0},
+        "action_result": {"success": True},
+        "is_forced": False,
+        "llm_event_indices": [],
+        "subsequent_actions": ["Alice plays Mountain"],
+        "action_seq": 1,
     }
     d.update({str(json_key_by_field.get(field_name, field_name)): value for field_name, value in overrides.items()})
     return Decision.from_dict(d)
@@ -78,29 +78,29 @@ def _make_game() -> dict:
         "version": 8,
         "id": "game_test_001",
         "timestamp": "2026-01-01T00:00:00-08:00",
-        "gameType": "Two Player Duel",
-        "deckType": "Constructed - Standard",
-        "totalTurns": 5,
+        "game_type": "Two Player Duel",
+        "deck_type": "Constructed - Standard",
+        "total_turns": 5,
         "winner": "Alice",
         "players": [
             {
                 "name": "Alice",
                 "type": "pilot",
                 "model": "test-model",
-                "toolCallsOk": 0,
-                "toolCallsFailed": 0,
-                "thinkingTimeSecs": 0.0,
+                "tool_calls_ok": 0,
+                "tool_calls_failed": 0,
+                "thinking_time_secs": 0.0,
             },
             {
                 "name": "Bob",
                 "type": "pilot",
                 "model": "test-model",
-                "toolCallsOk": 0,
-                "toolCallsFailed": 0,
-                "thinkingTimeSecs": 0.0,
+                "tool_calls_ok": 0,
+                "tool_calls_failed": 0,
+                "thinking_time_secs": 0.0,
             },
         ],
-        "cardImages": {},
+        "card_images": {},
         "snapshots": [
             Snapshot(
                 seq=1,
@@ -164,12 +164,12 @@ def _make_game() -> dict:
             ),
         ],
         "actions": [],
-        "llmEvents": [],
-        "gameOver": None,
+        "llm_events": [],
+        "game_over": None,
         "annotations": [],
-        "blunderScriptVersion": 0,
-        "harnessEpoch": 46,
-        "youtubeUrl": "",
+        "blunder_script_version": 0,
+        "harness_epoch": 46,
+        "youtube_url": "",
         "season": 1,
         "tournament": None,
     }
@@ -277,7 +277,7 @@ class TestParseAnnotation:
         assert parse_annotation("This is a reasonable play.") is None
 
     def test_unquoted_keys(self) -> None:
-        text = '{severity: "minor", description: "d", actionTaken: "a", betterLine: "b"}'
+        text = '{severity: "minor", description: "d", action_taken: "a", better_line: "b"}'
         result = parse_annotation(text)
         assert result is not None
         assert result["severity"] == "minor"
@@ -425,8 +425,8 @@ class TestEvalOneDecision:
                 {
                     "severity": "minor",
                     "description": "test",
-                    "actionTaken": "test",
-                    "betterLine": "test",
+                    "action_taken": "test",
+                    "better_line": "test",
                 }
             ),
             2000,
@@ -478,7 +478,7 @@ class TestMainIntegration:
     def _make_game_with_decisions(self) -> dict:
         """Game with LLM events that produce extractable decisions."""
         game = _make_game()
-        game["llmEvents"] = [
+        game["llm_events"] = [
             {
                 "ts": "2026-01-01T00:00:01.500-08:00",
                 "player": "Alice",
@@ -516,24 +516,24 @@ class TestMainIntegration:
         game["decisions"] = [
             {
                 "index": 0,
-                "snapshotIndex": 0,
+                "snapshot_index": 0,
                 "player": "Alice",
                 "turn": 1,
                 "phase": "PRECOMBAT_MAIN",
-                "actionType": "GAME_SELECT",
-                "responseType": "select",
+                "action_type": "GAME_SELECT",
+                "response_type": "select",
                 "message": "Play spells",
                 "choices": [
                     {"index": 0, "name": "Mountain"},
                     {"index": 1, "name": "Lightning Bolt"},
                 ],
-                "choiceCount": 2,
+                "choice_count": 2,
                 "chosen": 0,
-                "chosenArgs": {"index": 0},
-                "actionResult": {"success": True},
-                "isForced": False,
-                "llmEventIndices": [0, 1, 2],
-                "subsequentActions": [],
+                "chosen_args": {"index": 0},
+                "action_result": {"success": True},
+                "is_forced": False,
+                "llm_event_indices": [0, 1, 2],
+                "subsequent_actions": [],
             }
         ]
         return game
@@ -560,18 +560,18 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        # Per-decision response (v6 schema: no llmReasoning)
+        # Per-decision response (v6 schema: no llm_reasoning)
         response = _mock_response(
             json.dumps(
                 [
                     {
-                        "snapshotIndex": 0,
+                        "snapshot_index": 0,
                         "player": "Alice",
                         "type": "blunder",
                         "severity": "moderate",
                         "description": "Passed with Mountain in hand and no land played",
-                        "actionTaken": "Passed priority",
-                        "betterLine": "Play Mountain for mana development",
+                        "action_taken": "Passed priority",
+                        "better_line": "Play Mountain for mana development",
                     }
                 ]
             )
@@ -584,7 +584,7 @@ class TestMainIntegration:
         result = self._read_export(gz_path)
         assert "annotations" in result
         assert len(result["annotations"]) == 1
-        assert result["blunderScriptVersion"] == BLUNDER_SCRIPT_VERSION
+        assert result["blunder_script_version"] == BLUNDER_SCRIPT_VERSION
 
         # One API call per non-forced decision (this game has 1)
         assert mock_client.chat.completions.create.call_count == 1
@@ -632,17 +632,17 @@ class TestMainIntegration:
         game = self._make_game_with_decisions()
         game["annotations"] = [
             {
-                "decisionIndex": 0,
-                "snapshotIndex": 0,
+                "decision_index": 0,
+                "snapshot_index": 0,
                 "player": "Alice",
                 "type": "blunder",
                 "severity": "minor",
                 "description": "existing",
-                "actionTaken": "existing",
-                "betterLine": "existing",
+                "action_taken": "existing",
+                "better_line": "existing",
             }
         ]
-        game["blunderScriptVersion"] = BLUNDER_SCRIPT_VERSION
+        game["blunder_script_version"] = BLUNDER_SCRIPT_VERSION
         gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
@@ -673,12 +673,12 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        # LLM returns only severity/description (no snapshotIndex/player/type)
+        # LLM returns only severity/description (no snapshot_index/player/type)
         llm_ann = {
             "severity": "minor",
             "description": "test",
-            "actionTaken": "test",
-            "betterLine": "test",
+            "action_taken": "test",
+            "better_line": "test",
         }
         mock_client.chat.completions.create.return_value = _mock_response(json.dumps(llm_ann))
 
@@ -690,8 +690,8 @@ class TestMainIntegration:
         # These fields are injected server-side
         assert ann["type"] == "blunder"
         assert ann["player"] == "Alice"
-        assert ann["decisionIndex"] == 0
-        assert "snapshotIndex" in ann
+        assert ann["decision_index"] == 0
+        assert "snapshot_index" in ann
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
@@ -739,7 +739,7 @@ class TestMainIntegration:
     ) -> None:
         game = self._make_game_with_decisions()
         game["annotations"] = []
-        # Missing blunderScriptVersion → treated as v1, which is < current
+        # Missing blunder_script_version → treated as v1, which is < current
         gz_path = tmp_path / "game_test.json5.gz"
         self._write_gz(gz_path, game)
 
@@ -767,49 +767,49 @@ class TestMainIntegration:
         _mock_stats: MagicMock,
         tmp_path: Path,
     ) -> None:
-        """No-op decisions (chosen=None, empty actionResult/chosenArgs) are skipped."""
+        """No-op decisions (chosen=None, empty action_result/chosen_args) are skipped."""
         game = _make_game()
         # Use canonical decisions field (modern export format)
         game["decisions"] = [
             # No-op: pass_priority that was ignored by the game
             {
                 "index": 0,
-                "snapshotIndex": 0,
+                "snapshot_index": 0,
                 "player": "Alice",
                 "turn": 1,
                 "phase": "COMBAT",
                 "step": "DECLARE_BLOCKERS",
                 "message": "Select blockers",
-                "actionType": "GAME_SELECT",
-                "responseType": "select",
+                "action_type": "GAME_SELECT",
+                "response_type": "select",
                 "choices": [{"name": "Bear", "index": 0, "id": "p1"}],
-                "choiceCount": 1,
+                "choice_count": 1,
                 "chosen": None,
-                "chosenArgs": {},
-                "actionResult": {},
-                "isForced": False,
-                "llmEventIndices": [],
-                "subsequentActions": [],
+                "chosen_args": {},
+                "action_result": {},
+                "is_forced": False,
+                "llm_event_indices": [],
+                "subsequent_actions": [],
             },
             # Real decision: actual blocker assignment
             {
                 "index": 1,
-                "snapshotIndex": 0,
+                "snapshot_index": 0,
                 "player": "Alice",
                 "turn": 1,
                 "phase": "COMBAT",
                 "step": "DECLARE_BLOCKERS",
                 "message": "Select blockers",
-                "actionType": "GAME_SELECT",
-                "responseType": "select",
+                "action_type": "GAME_SELECT",
+                "response_type": "select",
                 "choices": [{"name": "Bear", "index": 0, "id": "p1"}],
-                "choiceCount": 1,
+                "choice_count": 1,
                 "chosen": None,
-                "chosenArgs": {"blockers": "p1:p5"},
-                "actionResult": {"success": True},
-                "isForced": False,
-                "llmEventIndices": [],
-                "subsequentActions": [],
+                "chosen_args": {"blockers": "p1:p5"},
+                "action_result": {"success": True},
+                "is_forced": False,
+                "llm_event_indices": [],
+                "subsequent_actions": [],
             },
         ]
         gz_path = tmp_path / "game_test.json5.gz"

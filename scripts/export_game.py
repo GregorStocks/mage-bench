@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from puppeteer.harness_epoch import SEASON_1_START_EPOCH
+from schemas.game_export_migrations import CURRENT_GAME_EXPORT_VERSION
 from schemas.game_export_types import BuiltGameExport, require_built_game_export
 from scripts.export_card_data import DECKLIST_RE, build_card_data
 from scripts.export_decisions import build_decisions
@@ -302,45 +303,45 @@ def build_export(game_dir: Path) -> BuiltGameExport:
         entry: dict = {
             "name": name,
             "type": p.get("type", "?"),
-            "deckName": _deck_display_name(p, deck_type),
-            "toolCallsOk": ok,
-            "toolCallsFailed": failed,
-            "thinkingTimeSecs": round(player_thinking.get(name, 0.0), 1),
+            "deck_name": _deck_display_name(p, deck_type),
+            "tool_calls_ok": ok,
+            "tool_calls_failed": failed,
+            "thinking_time_secs": round(player_thinking.get(name, 0.0), 1),
         }
         if p.get("deck_strategy"):
-            entry["deckStrategy"] = p["deck_strategy"]
+            entry["deck_strategy"] = p["deck_strategy"]
         if p.get("model"):
             entry["model"] = p["model"]
         if p.get("reasoning_effort"):
-            entry["reasoningEffort"] = p["reasoning_effort"]
+            entry["reasoning_effort"] = p["reasoning_effort"]
         if name in player_costs:
-            entry["totalCostUsd"] = round(player_costs[name], 4)
+            entry["total_cost_usd"] = round(player_costs[name], 4)
         if name in placements:
             entry["placement"] = placements[name]
         if name in player_tools:
             entry["tools"] = player_tools[name]
         if name in timed_out_players:
-            entry["timedOut"] = True
+            entry["timed_out"] = True
         players_summary.append(entry)
 
     # Build output
     output: dict = {
-        "version": 8,
+        "version": CURRENT_GAME_EXPORT_VERSION,
         "id": game_id,
         "timestamp": meta["timestamp"] if "timestamp" in meta else "",
-        "gameType": game_type,
-        "deckType": deck_type,
-        "totalTurns": total_turns,
+        "game_type": game_type,
+        "deck_type": deck_type,
+        "total_turns": total_turns,
         "winner": winner,
         "players": players_summary,
-        "cardImages": card_images,
-        "cardData": card_data,
+        "card_images": card_images,
+        "card_data": card_data,
         "snapshots": snapshots,
         "actions": actions,
-        "llmEvents": llm_events,
-        "gameOver": game_over,
-        "harnessEpoch": harness_epoch,
-        "youtubeUrl": meta["youtube_url"] if "youtube_url" in meta else "",
+        "llm_events": llm_events,
+        "game_over": game_over,
+        "harness_epoch": harness_epoch,
+        "youtube_url": meta["youtube_url"] if "youtube_url" in meta else "",
     }
 
     # Season and tournament fields, added in v4
@@ -361,7 +362,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     if tournament_id is not None:
         # Tournament games may not have been annotated yet
         output["annotations"] = []
-        output["blunderScriptVersion"] = 0
+        output["blunder_script_version"] = 0
 
     # Build canonical decisions
     decisions = build_decisions(snapshots, actions, llm_events, harness_epoch)

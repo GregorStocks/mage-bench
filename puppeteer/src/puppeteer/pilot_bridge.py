@@ -122,17 +122,15 @@ def build_pilot_decision(data: dict) -> Decision:
 
     pilot_ctx: dict = {}
     if "untapped_lands" in data:
-        pilot_ctx["untappedLands"] = data["untapped_lands"]
+        pilot_ctx["untapped_lands"] = data["untapped_lands"]
     if "land_drops_used" in data:
-        pilot_ctx["landDropsUsed"] = data["land_drops_used"]
+        pilot_ctx["land_drops_used"] = data["land_drops_used"]
     if "combat_phase" in data:
-        pilot_ctx["combatPhase"] = data["combat_phase"]
+        pilot_ctx["combat_phase"] = data["combat_phase"]
     if "already_attacking" in data:
-        pilot_ctx["alreadyAttacking"] = data["already_attacking"]
+        pilot_ctx["already_attacking"] = data["already_attacking"]
     if "incoming_attackers" in data:
-        pilot_ctx["incomingAttackers"] = data["incoming_attackers"]
-    if "mana_pool" in data:
-        pilot_ctx["manaPool"] = data["mana_pool"]
+        pilot_ctx["incoming_attackers"] = data["incoming_attackers"]
     if pilot_ctx:
         decision.pilot_context = PilotContext.from_mapping(pilot_ctx)
 

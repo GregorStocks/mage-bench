@@ -34,8 +34,8 @@ const FORMAT_DISPLAY: Record<string, string> = {
   jumpstart: "Jumpstart",
 };
 
-function getGameFormat(deckType: string): string {
-  return DECK_TYPE_FORMATS[deckType] || "commander";
+function getGameFormat(deck_type: string): string {
+  return DECK_TYPE_FORMATS[deck_type] || "commander";
 }
 
 function formatGameTimestamp(timestamp: string): string {
@@ -68,7 +68,7 @@ function displayModelName(model: string): string {
   return slash === -1 ? model : model.substring(slash + 1);
 }
 
-const formatKey = getGameFormat(game.deckType);
+const formatKey = getGameFormat(game.deck_type);
 const formatLabel = FORMAT_DISPLAY[formatKey] || "Commander";
 const dateStr = formatGameTimestamp(game.timestamp) || game.id;
 const isCommander = formatKey === "commander";
@@ -78,19 +78,19 @@ const modelEntries = Array.from(
     (game.players || [])
       .filter((player) => !!player.model)
       .map((player) => {
-        const effort = player.reasoningEffort || "";
+        const effort = player.reasoning_effort || "";
         return [`${player.model}::${effort}`, { model: player.model!, effort }];
       }),
   ).values(),
 );
 
 const modelEntriesJson = JSON.stringify(modelEntries);
-const hasCost = (game.players || []).some((player) => player.totalCostUsd != null);
+const hasCost = (game.players || []).some((player) => player.total_cost_usd != null);
 const totalCost = (game.players || []).reduce(
-  (sum, player) => sum + (player.totalCostUsd ?? 0),
+  (sum, player) => sum + (player.total_cost_usd ?? 0),
   0,
 );
-const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
+const youtube_url = game.youtube_url ? safeHttpUrl(game.youtube_url) : null;
 ---
 
 <article
@@ -104,7 +104,7 @@ const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
     <div class="game-header">
       <span class="game-date">{dateStr}</span>
       <span class={`format-badge format-${formatKey}`}>{formatLabel}</span>
-      <span class="game-turns">{game.totalTurns} turns</span>
+      <span class="game-turns">{game.total_turns} turns</span>
       {game.tournament && <span class="tournament-badge">Tournament</span>}
       {showSeasonBadge && game.season === 0 && (
         <span
@@ -119,11 +119,11 @@ const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
     <div class="game-players">
       {(game.players || []).map((player) => {
         const ratingKey = player.model
-          ? `${player.model}${player.reasoningEffort ? `::${player.reasoningEffort}` : ""}`
+          ? `${player.model}${player.reasoning_effort ? `::${player.reasoning_effort}` : ""}`
           : null;
         const playerScore = (game.blunderScoreByPlayer || {})[player.name];
         const isOldAnalysis =
-          !game.blunderScriptVersion || game.blunderScriptVersion < minBlunderVersion;
+          !game.blunder_script_version || game.blunder_script_version < minBlunderVersion;
         return (
           <div
             class:list={[
@@ -150,16 +150,16 @@ const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
               {!isCommander && game.winner && player.name === game.winner && (
                 <span class="winner-badge">WINNER</span>
               )}
-              {player.timedOut && <span class="timeout-badge">TIMEOUT</span>}
+              {player.timed_out && <span class="timeout-badge">TIMEOUT</span>}
               {player.model && (
                 <span class="player-model-inline">({displayModelName(player.model)})</span>
               )}
             </div>
 
-            <div class="player-commander">{player.deckName || player.commander || ""}</div>
+            <div class="player-commander">{player.deck_name || player.commander || ""}</div>
 
-            {player.totalCostUsd != null && (
-              <div class="player-cost">${player.totalCostUsd.toFixed(2)}</div>
+            {player.total_cost_usd != null && (
+              <div class="player-cost">${player.total_cost_usd.toFixed(2)}</div>
             )}
 
             {showBlunderScores && playerScore != null && (
@@ -179,7 +179,7 @@ const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
                     {" "}
                     <span
                       class="old-analysis-tag"
-                      title={`Analyzed with blunder script v${game.blunderScriptVersion || 1} (min: v${minBlunderVersion})`}
+                      title={`Analyzed with blunder script v${game.blunder_script_version || 1} (min: v${minBlunderVersion})`}
                     >
                       (older analysis)
                     </span>
@@ -195,9 +195,9 @@ const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
     {hasCost && <div class="game-footer">Total cost: ${totalCost.toFixed(2)}</div>}
   </a>
 
-  {youtubeUrl && (
+  {youtube_url && (
     <div class="game-footer game-footer-secondary">
-      <a href={youtubeUrl} target="_blank" rel="noopener" class="yt-link">
+      <a href={youtube_url} target="_blank" rel="noopener" class="yt-link">
         YouTube
       </a>
     </div>

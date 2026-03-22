@@ -1776,10 +1776,10 @@ def _strip_volatile(data: dict) -> None:
         if dataclasses.is_dataclass(player) and not isinstance(player, type):
             d = json_default(player)
             assert isinstance(d, dict), f"expected json_default(player) to return dict, got {d!r}"
-            d.pop("thinkingTimeSecs", None)
+            d.pop("thinking_time_secs", None)
             players[i] = d
         elif isinstance(player, dict):
-            player.pop("thinkingTimeSecs", None)
+            player.pop("thinking_time_secs", None)
 
     # Strip ts from actions
     for action in data.get("actions", []):
@@ -1788,11 +1788,11 @@ def _strip_volatile(data: dict) -> None:
         else:
             action.ts = None
 
-    # Convert llmEvents to dicts (they are dataclass instances after validation)
+    # Convert llm_events to dicts (they are dataclass instances after validation)
     # then sort by (seq, player) and strip wall-clock timing fields.
     # Mulligans and concedes have both players acting at the same seq;
     # thread interleaving is nondeterministic so we need a stable sort.
-    llm_events = data.get("llmEvents", [])
+    llm_events = data.get("llm_events", [])
     for i, event in enumerate(llm_events):
         if dataclasses.is_dataclass(event) and not isinstance(event, type):
             source_keys: frozenset[str] | None = getattr(event, "_source_keys", None)
@@ -1810,7 +1810,7 @@ def _strip_volatile(data: dict) -> None:
                 }
     for event in llm_events:
         event.pop("ts", None)
-        event.pop("latencyMs", None)
+        event.pop("latency_ms", None)
     llm_events.sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
     # Same for llmTrace.

@@ -61,23 +61,23 @@ def _make_game(
     tournament: str | None = None,
 ) -> dict:
     return {
-        "version": 8,
+        "version": 9,
         "id": game_id,
         "timestamp": timestamp,
-        "gameType": deck_type,
-        "deckType": deck_type,
-        "totalTurns": 10,
+        "game_type": deck_type,
+        "deck_type": deck_type,
+        "total_turns": 10,
         "winner": winner,
         "players": players,
-        "cardImages": {},
+        "card_images": {},
         "snapshots": [],
         "actions": [],
         "annotations": [],
-        "blunderScriptVersion": 0,
-        "llmEvents": [],
-        "gameOver": None,
-        "harnessEpoch": harness_epoch,
-        "youtubeUrl": "",
+        "blunder_script_version": 0,
+        "llm_events": [],
+        "game_over": None,
+        "harness_epoch": harness_epoch,
+        "youtube_url": "",
         "season": season,
         "tournament": tournament,
     }
@@ -720,8 +720,8 @@ def test_generate_leaderboard_file_integration():
                 _pilot("Bob", "google/gemini-2.5-flash", cost=1.0, placement=2),
             ],
         )
-        game["deckType"] = "Constructed - Standard"
-        game["harnessEpoch"] = HARNESS_EPOCH
+        game["deck_type"] = "Constructed - Standard"
+        game["harness_epoch"] = HARNESS_EPOCH
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -798,8 +798,8 @@ def test_generate_leaderboard_file_with_game_fallback():
             "Alice",
             [_pilot("Alice", "a/x"), _pilot("Bob", "b/y")],
         )
-        game["deckType"] = "Constructed - Standard"
-        game["harnessEpoch"] = HARNESS_EPOCH
+        game["deck_type"] = "Constructed - Standard"
+        game["harness_epoch"] = HARNESS_EPOCH
         game["actions"] = [
             {"seq": 200, "message": "Bob has lost the game."},
         ]
@@ -834,10 +834,10 @@ def test_generate_leaderboard_file_requires_deck_type():
             "Alice",
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         )
-        game.pop("deckType")
+        game.pop("deck_type")
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
-        with pytest.raises(AssertionError, match="missing deckType"):
+        with pytest.raises(AssertionError, match="missing deck_type"):
             generate_leaderboard_file(games_dir, data_dir, root / "models.json")
 
 
@@ -845,30 +845,32 @@ def test_generate_leaderboard_file_requires_deck_type():
 
 
 def test_derive_format_legacy():
-    assert derive_format({"deckType": "Constructed - Legacy"}) == "legacy"
+    assert derive_format({"deck_type": "Constructed - Legacy"}) == "legacy"
 
 
 def test_derive_format_modern():
-    assert derive_format({"deckType": "Constructed - Modern"}) == "modern"
+    assert derive_format({"deck_type": "Constructed - Modern"}) == "modern"
 
 
 def test_derive_format_standard():
-    assert derive_format({"deckType": "Constructed - Standard"}) == "standard"
+    assert derive_format({"deck_type": "Constructed - Standard"}) == "standard"
 
 
 def test_derive_format_commander():
-    assert derive_format({"deckType": "Variant Magic - Freeform Commander"}) == "commander"
+    assert derive_format({"deck_type": "Variant Magic - Freeform Commander"}) == "commander"
 
 
 def test_derive_format_requires_deck_type():
-    with pytest.raises(AssertionError, match="missing deckType"):
+    with pytest.raises(AssertionError, match="missing deck_type"):
         derive_format({})
-    with pytest.raises(AssertionError, match="missing deckType"):
-        derive_format({"deckType": ""})
+    with pytest.raises(AssertionError, match="missing deck_type"):
+        derive_format({"deck_type": ""})
 
 
 def test_derive_format_unknown_deck_type_slugifies():
-    assert derive_format({"gameType": "Commander Free For All", "deckType": "Some Weird Format"}) == "some-weird-format"
+    assert (
+        derive_format({"game_type": "Commander Free For All", "deck_type": "Some Weird Format"}) == "some-weird-format"
+    )
 
 
 # --- generate_all_leaderboards ---
@@ -881,7 +883,7 @@ def test_generate_all_leaderboards_legacy_and_commander():
         "Alice",
         [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
     )
-    legacy_game["deckType"] = "Constructed - Legacy"
+    legacy_game["deck_type"] = "Constructed - Legacy"
 
     commander_game = _make_game(
         "g2",
@@ -894,7 +896,7 @@ def test_generate_all_leaderboards_legacy_and_commander():
             _pilot("Frank", "f/u", placement=4),
         ],
     )
-    commander_game["deckType"] = "Variant Magic - Freeform Commander"
+    commander_game["deck_type"] = "Variant Magic - Freeform Commander"
 
     format_results, _ = generate_all_leaderboards(
         [legacy_game, commander_game],
@@ -923,7 +925,7 @@ def test_generate_all_leaderboards_separate_format_pools():
             "Alice",
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         )
-        g["deckType"] = fmt
+        g["deck_type"] = fmt
         games.append(g)
 
     format_results, _ = generate_all_leaderboards(
@@ -951,7 +953,7 @@ def test_generate_all_leaderboards_commander_is_exhibition():
             ],
         )
     ]
-    games[0]["deckType"] = "Variant Magic - Freeform Commander"
+    games[0]["deck_type"] = "Variant Magic - Freeform Commander"
 
     format_results, ratings_by_game = generate_all_leaderboards(games, {})
     commander = format_results["commander"]
@@ -986,8 +988,8 @@ def test_generate_leaderboard_file_has_formats_key():
             "Alice",
             [_pilot("Alice", "a/x", cost=5.0, placement=1), _pilot("Bob", "b/y", cost=2.0, placement=2)],
         )
-        game["deckType"] = "Constructed - Legacy"
-        game["harnessEpoch"] = HARNESS_EPOCH
+        game["deck_type"] = "Constructed - Legacy"
+        game["harness_epoch"] = HARNESS_EPOCH
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1198,7 +1200,7 @@ def test_generate_leaderboard_blunder_score_zero_turns():
         "Alice",
         [_pilot("Alice", "a/model-a", placement=1), _pilot("Bob", "b/model-b", placement=2)],
     )
-    game["totalTurns"] = 0
+    game["total_turns"] = 0
     game["annotations"] = [
         _blunder("Alice", "major"),
     ]
@@ -1244,8 +1246,8 @@ def test_generate_leaderboard_file_excludes_preseason():
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
             season=0,
         )
-        old_game["harnessEpoch"] = 2
-        old_game["deckType"] = "Constructed - Standard"
+        old_game["harness_epoch"] = 2
+        old_game["deck_type"] = "Constructed - Standard"
         (games_dir / "game_20260210_090000.json5.gz").write_bytes(_dump(old_game))
 
         # Season 1 game (should be included)
@@ -1256,8 +1258,8 @@ def test_generate_leaderboard_file_excludes_preseason():
             [_pilot("Carol", "c/z", placement=1), _pilot("Dave", "d/w", placement=2)],
             season=1,
         )
-        new_game["harnessEpoch"] = HARNESS_EPOCH
-        new_game["deckType"] = "Constructed - Standard"
+        new_game["harness_epoch"] = HARNESS_EPOCH
+        new_game["deck_type"] = "Constructed - Standard"
         (games_dir / "game_20260215_090000.json5.gz").write_bytes(_dump(new_game))
 
         models_json = root / "models.json"
@@ -1295,8 +1297,8 @@ def test_generate_leaderboard_file_season_1_included():
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
             season=1,
         )
-        game["deckType"] = "Constructed - Standard"
-        game["harnessEpoch"] = HARNESS_EPOCH
+        game["deck_type"] = "Constructed - Standard"
+        game["harness_epoch"] = HARNESS_EPOCH
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1443,23 +1445,23 @@ def _make_game_with_events(
     tournament: str | None = None,
 ) -> dict:
     return {
-        "version": 8,
+        "version": 9,
         "id": game_id,
         "timestamp": timestamp,
-        "gameType": deck_type,
-        "deckType": deck_type,
-        "totalTurns": 10,
+        "game_type": deck_type,
+        "deck_type": deck_type,
+        "total_turns": 10,
         "winner": winner,
         "players": players,
-        "cardImages": {},
+        "card_images": {},
         "snapshots": [],
         "actions": [],
         "annotations": [],
-        "blunderScriptVersion": 0,
-        "llmEvents": llm_events,
-        "gameOver": None,
-        "harnessEpoch": epoch,
-        "youtubeUrl": "",
+        "blunder_script_version": 0,
+        "llm_events": llm_events,
+        "game_over": None,
+        "harness_epoch": epoch,
+        "youtube_url": "",
         "season": season,
         "tournament": tournament,
     }
@@ -1486,31 +1488,31 @@ def test_generate_model_stats_basic():
                     "ts": "T1",
                     "player": "Alice",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 1000, "completionTokens": 200, "cachedTokens": 400},
+                    "usage": {"prompt_tokens": 1000, "completion_tokens": 200, "cached_tokens": 400},
                 },
                 {
                     "ts": "T2",
                     "player": "Alice",
                     "type": "llm_response",
                     "usage": {
-                        "promptTokens": 2000,
-                        "completionTokens": 300,
-                        "cachedTokens": 800,
-                        "reasoningTokens": 100,
+                        "prompt_tokens": 2000,
+                        "completion_tokens": 300,
+                        "cached_tokens": 800,
+                        "reasoning_tokens": 100,
                     },
                 },
                 {
                     "ts": "T3",
                     "player": "Alice",
                     "type": "llm_error",
-                    "errorType": "timeout",
-                    "errorMessage": "Timed out",
+                    "error_type": "timeout",
+                    "error_message": "Timed out",
                 },
                 {
                     "ts": "T4",
                     "player": "Bob",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 500, "completionTokens": 100},
+                    "usage": {"prompt_tokens": 500, "completion_tokens": 100},
                 },
                 {"ts": "T5", "player": "Alice", "type": "context_reset", "reason": "repeated_timeouts"},
             ],
@@ -1574,20 +1576,20 @@ def test_generate_model_stats_requires_normalized_player_stats():
             [],
             epoch=10,
         )
-        # Replace with raw dict missing thinkingTimeSecs to test validation
+        # Replace with raw dict missing thinking_time_secs to test validation
         game["players"][0] = {
             "name": "Alice",
             "type": "pilot",
             "model": "a/model-a",
-            "toolCallsOk": 0,
-            "toolCallsFailed": 0,
+            "tool_calls_ok": 0,
+            "tool_calls_failed": 0,
         }
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
 
-        with pytest.raises(AssertionError, match="missing thinkingTimeSecs"):
+        with pytest.raises(AssertionError, match="missing thinking_time_secs"):
             generate_model_stats(games_dir, data_dir, models_json)
 
 
@@ -1610,9 +1612,9 @@ def test_generate_model_stats_requires_pilot_model():
         game["players"][0] = {
             "name": "Alice",
             "type": "pilot",
-            "toolCallsOk": 0,
-            "toolCallsFailed": 0,
-            "thinkingTimeSecs": 0.0,
+            "tool_calls_ok": 0,
+            "tool_calls_failed": 0,
+            "thinking_time_secs": 0.0,
         }
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
@@ -1644,7 +1646,7 @@ def test_generate_model_stats_epoch_bucketing():
                         "ts": "T1",
                         "player": "Alice",
                         "type": "llm_response",
-                        "usage": {"promptTokens": 100, "completionTokens": 50},
+                        "usage": {"prompt_tokens": 100, "completion_tokens": 50},
                     },
                 ],
                 epoch=epoch,
@@ -1679,20 +1681,20 @@ def test_generate_model_stats_error_types():
             "Alice",
             [_pilot("Alice", "a/model-a", cost=1.0, placement=1, tool_calls_ok=5, tool_calls_failed=0)],
             [
-                {"ts": "T1", "player": "Alice", "type": "llm_error", "errorType": "timeout", "errorMessage": "t1"},
-                {"ts": "T2", "player": "Alice", "type": "llm_error", "errorType": "timeout", "errorMessage": "t2"},
+                {"ts": "T1", "player": "Alice", "type": "llm_error", "error_type": "timeout", "error_message": "t1"},
+                {"ts": "T2", "player": "Alice", "type": "llm_error", "error_type": "timeout", "error_message": "t2"},
                 {
                     "ts": "T3",
                     "player": "Alice",
                     "type": "llm_error",
-                    "errorType": "BadRequestError",
-                    "errorMessage": "bad",
+                    "error_type": "BadRequestError",
+                    "error_message": "bad",
                 },
                 {
                     "ts": "T4",
                     "player": "Alice",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 100, "completionTokens": 50},
+                    "usage": {"prompt_tokens": 100, "completion_tokens": 50},
                 },
             ],
             epoch=10,
@@ -1731,7 +1733,7 @@ def test_generate_model_stats_includes_no_winner_games():
                     "ts": "T1",
                     "player": "Alice",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 100, "completionTokens": 50},
+                    "usage": {"prompt_tokens": 100, "completion_tokens": 50},
                 },
             ],
             epoch=10,
@@ -1804,13 +1806,13 @@ def test_generate_model_stats_reasoning_effort():
                     "ts": "T1",
                     "player": "Alice",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 100, "completionTokens": 50},
+                    "usage": {"prompt_tokens": 100, "completion_tokens": 50},
                 },
                 {
                     "ts": "T2",
                     "player": "Bob",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 200, "completionTokens": 100},
+                    "usage": {"prompt_tokens": 200, "completion_tokens": 100},
                 },
             ],
             epoch=10,
@@ -1855,21 +1857,21 @@ def test_generate_internals_data_basic():
                     "ts": "T1",
                     "player": "Alice",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 1000, "completionTokens": 200, "cachedTokens": 400},
+                    "usage": {"prompt_tokens": 1000, "completion_tokens": 200, "cached_tokens": 400},
                 },
                 {
                     "ts": "T2",
                     "player": "Alice",
                     "type": "llm_error",
-                    "errorType": "timeout",
-                    "errorMessage": "Timed out",
+                    "error_type": "timeout",
+                    "error_message": "Timed out",
                 },
                 {
                     "ts": "T3",
                     "player": "Alice",
                     "type": "llm_error",
-                    "errorType": "rate_limit",
-                    "errorMessage": "Rate limited",
+                    "error_type": "rate_limit",
+                    "error_message": "Rate limited",
                 },
                 {
                     "ts": "T4",
@@ -1881,7 +1883,7 @@ def test_generate_internals_data_basic():
                     "ts": "T5",
                     "player": "Bob",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 500, "completionTokens": 100},
+                    "usage": {"prompt_tokens": 500, "completion_tokens": 100},
                 },
             ],
             epoch=10,
@@ -1930,7 +1932,7 @@ def test_generate_internals_data_basic():
 
 
 def test_generate_internals_data_format_detection():
-    """Games with deckType produce correct format."""
+    """Games with deck_type produce correct format."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         games_dir = root / "games"
@@ -1948,7 +1950,7 @@ def test_generate_internals_data_format_detection():
             [],
             epoch=10,
         )
-        game["deckType"] = "Constructed - Standard"
+        game["deck_type"] = "Constructed - Standard"
         game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
         game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=10.0)
         (games_dir / "game_20260116_000000.json5.gz").write_bytes(_dump(game))
@@ -1998,9 +2000,9 @@ def test_generate_internals_data_requires_pilot_model():
         game["players"][0] = {
             "name": "Alice",
             "type": "pilot",
-            "toolCallsOk": 0,
-            "toolCallsFailed": 0,
-            "thinkingTimeSecs": 0.0,
+            "tool_calls_ok": 0,
+            "tool_calls_failed": 0,
+            "thinking_time_secs": 0.0,
         }
         (games_dir / "game_20260116_000000.json5.gz").write_bytes(_dump(game))
 
@@ -2047,7 +2049,7 @@ def test_generate_leaderboard_timeout_losses():
 
 
 def test_generate_internals_data_timed_out():
-    """Per-player timedOut flag is included in internals data."""
+    """Per-player timed_out flag is included in internals data."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         games_dir = root / "games"

@@ -167,11 +167,11 @@ describe("resolveCardImage", () => {
     expect(url).toContain("scryfall.com/cards/m21/123");
   });
 
-  it("falls back to cardImages map (replay mode)", () => {
-    const cardImages = {
+  it("falls back to card_images map (replay mode)", () => {
+    const card_images = {
       "Sol Ring": "https://api.scryfall.com/cards/m21/123?format=image&version=small",
     };
-    const url = R.resolveCardImage("Sol Ring", null, cardImages, "normal");
+    const url = R.resolveCardImage("Sol Ring", null, card_images, "normal");
     expect(url).toContain("version=normal");
   });
 
@@ -187,12 +187,12 @@ describe("resolveCardImage", () => {
     expect(url).toContain("version=small");
   });
 
-  it("uses original_card with face=back for MDFC back face (cardImages)", () => {
-    const cardImages = {
+  it("uses original_card with face=back for MDFC back face (card_images)", () => {
+    const card_images = {
       "Boggart Trawler": "https://api.scryfall.com/cards/dsk/75?format=image&version=small",
     };
     const cardObj = { back_face: true, original_card: "Boggart Trawler" };
-    const url = R.resolveCardImage("Boggart Bog", cardObj, cardImages, "small");
+    const url = R.resolveCardImage("Boggart Bog", cardObj, card_images, "small");
     expect(url).toContain("dsk/75");
     expect(url).toContain("face=back");
   });
@@ -633,14 +633,14 @@ describe("computeCardFontSize", () => {
 
 describe("preloadCardData", () => {
   it("pre-populates the Scryfall card cache", () => {
-    const cardData = {
+    const card_data = {
       "Lightning Bolt": {
         mana_cost: "{R}",
         type_line: "Instant",
         oracle_text: "Lightning Bolt deals 3 damage to any target.",
       },
     };
-    R.preloadCardData(cardData);
+    R.preloadCardData(card_data);
     // Verify by calling showPreview — if the cache is populated,
     // it will use the cached data instead of fetching
     const previewEls = {
@@ -657,7 +657,7 @@ describe("preloadCardData", () => {
     expect(previewEls.type.textContent).toBe("Instant");
   });
 
-  it("handles null/undefined cardData gracefully", () => {
+  it("handles null/undefined card_data gracefully", () => {
     // Should not throw
     R.preloadCardData(null);
     R.preloadCardData(undefined);
@@ -687,15 +687,15 @@ describe("preloadCardData", () => {
   });
 });
 
-// ── resolveCardImage with token in cardImages ────────────────────
+// ── resolveCardImage with token in card_images ────────────────────
 
-describe("resolveCardImage with token in cardImages", () => {
-  it("returns preloaded URL for a token in cardImages", () => {
-    const cardImages = {
+describe("resolveCardImage with token in card_images", () => {
+  it("returns preloaded URL for a token in card_images", () => {
+    const card_images = {
       "Goblin Token": "https://cards.scryfall.io/small/front/token/goblin.jpg",
     };
-    const url = R.resolveCardImage("Goblin Token", null, cardImages, "small");
-    // Token is in cardImages, so resolveCardImage should find it at Priority 2
+    const url = R.resolveCardImage("Goblin Token", null, card_images, "small");
+    // Token is in card_images, so resolveCardImage should find it at Priority 2
     expect(url).toContain("goblin");
   });
 });

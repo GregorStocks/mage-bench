@@ -32,13 +32,13 @@ real runtime evidence:
 
 ```bash
 # Compare bootstrap "failed tool calls" against the export summary
-jq '.players[] | {name, toolCallsFailed}' website/public/games/GAME_ID.json
+jq '.players[] | {name, tool_calls_failed}' website/public/games/GAME_ID.json
 
 # If the export is missing, generate it manually from the real log root
 uv run python scripts/export_game.py GAME_ID
 ```
 
-If a player summary still says `toolCallsFailed: 0` after an obvious mid-game
+If a player summary still says `tool_calls_failed: 0` after an obvious mid-game
 crash, compare the tail of `*_llm.jsonl` and `*_pilot.log`. A final
 `llm_response` with no matching `tool_call` often means the MCP request died
 before the pilot could log a structured result. `scripts/export_game.py`
@@ -263,7 +263,7 @@ Cross-reference with blunder annotations to see if blind targeting caused mispla
 
 ## GAME_CHOOSE_CHOICE false positives in blunder annotations
 
-Like batch attack/block decisions, `GAME_CHOOSE_CHOICE` decisions use `chosenArgs.text`
+Like batch attack/block decisions, `GAME_CHOOSE_CHOICE` decisions use `chosen_args.text`
 instead of the `chosen` field. The blunder LLM may interpret `chosen=None` as a timeout
 when the model actually selected via text:
 
@@ -274,10 +274,10 @@ with open('website/public/games/GAME_ID.json') as f:
     data = json.load(f)
 
 for d in data['decisions']:
-    if d.get('actionType') == 'GAME_CHOOSE_CHOICE' and d.get('chosen') is None:
-        text = d.get('chosenArgs', {}).get('text', '')
+    if d.get('action_type') == 'GAME_CHOOSE_CHOICE' and d.get('chosen') is None:
+        text = d.get('chosen_args', {}).get('text', '')
         if text:
-            has_ann = any(a['decisionIndex'] == d.get('index') for a in data.get('annotations', []))
+            has_ann = any(a['decision_index'] == d.get('index') for a in data.get('annotations', []))
             print(f"Decision {d['index']}: GAME_CHOOSE_CHOICE text='{text}' chosen=None {'<-- FALSE POSITIVE annotation' if has_ann else ''}")
 ```
 
@@ -287,14 +287,14 @@ If a model retries the same pending action after an error, `scripts/export_game.
 can record the first failed `choose_action` as the decision and split the later
 successful retry into a blank follow-up decision. Symptoms:
 
-- decision N has `actionResult.error`
-- decision N+1 for the same player/snapshot has empty `chosenArgs` / `actionResult`
+- decision N has `action_result.error`
+- decision N+1 for the same player/snapshot has empty `chosen_args` / `action_result`
 - the board in decision N+1 already reflects the successful retry
 - an annotation claims timeout/default behavior that contradicts the raw logs
 
 ```bash
 # Find suspicious adjacent decisions after a failed retry
-jq '.decisions[] | {index, player, snapshotIndex, actionType, message, chosenArgs, actionResult}' \
+jq '.decisions[] | {index, player, snapshot_index, action_type, message, chosen_args, action_result}' \
   website/public/games/GAME_ID.json | less
 ```
 
@@ -358,11 +358,11 @@ PY
 ```
 
 If that prints `False`, avoid `--turns` for now and use the full timeline plus
-`--player`, or inspect `llmEvents` / bridge logs directly.
+`--player`, or inspect `llm_events` / bridge logs directly.
 
 ## Verifying blunder annotations against decisions
 
-Batch attack/block decisions have `chosen=None` (the actual data is in `chosenArgs`).
+Batch attack/block decisions have `chosen=None` (the actual data is in `chosen_args`).
 The blunder LLM may misinterpret these as timeouts. Verify annotations against decisions:
 
 ```python
@@ -373,10 +373,10 @@ with open('website/public/games/GAME_ID.json') as f:
     data = json.load(f)
 
 for d in data['decisions']:
-    if d.get('chosen') is None and d.get('chosenArgs', {}).get('attackers'):
-        has_ann = any(a['decisionIndex'] == d.get('index') for a in data.get('annotations', []))
+    if d.get('chosen') is None and d.get('chosen_args', {}).get('attackers'):
+        has_ann = any(a['decision_index'] == d.get('index') for a in data.get('annotations', []))
         if has_ann:
-            print(f"Decision {d['index']}: batch_attack {d['chosenArgs']} -> FALSE POSITIVE annotation")
+            print(f"Decision {d['index']}: batch_attack {d['chosen_args']} -> FALSE POSITIVE annotation")
 ```
 
 ## Verifying `chosen` field accuracy (id vs index conflicts)
@@ -393,7 +393,7 @@ with open('website/public/games/GAME_ID.json') as f:
 
 for d in data['decisions']:
     chosen = d.get('chosen')
-    taken = d.get('actionResult', {}).get('action_taken', '')
+    taken = d.get('action_result', {}).get('action_taken', '')
     if isinstance(chosen, int) and taken.startswith('selected_target_'):
         actual = int(taken.split('_')[-1])
         if chosen != actual:
@@ -402,7 +402,7 @@ for d in data['decisions']:
             print(f"  choices[{actual}]={d['choices'][actual].get('name')}")
 ```
 
-Also check `actionResult.warning` for "Both id and index provided" messages.
+Also check `action_result.warning` for "Both id and index provided" messages.
 
 ## Tracing auto-mana payment sequences
 

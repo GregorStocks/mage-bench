@@ -372,7 +372,7 @@ def evaluate_one_decision(
     if ann is None:
         return [], cost, True, raw_record
 
-    # snapshotIndex points to the first snapshot AFTER the action resolved so
+    # snapshot_index points to the first snapshot AFTER the action resolved so
     # the viewer shows the annotation alongside its consequences.
     aftermath_idx = compute_aftermath_index(decision, snapshots)
     ann_obj = Annotation(
@@ -382,9 +382,9 @@ def evaluate_one_decision(
         player=decision.player,
         severity=ann["severity"],
         description=ann["description"],
-        action_taken=ann["actionTaken"],
-        better_line=ann["betterLine"],
-        llm_reasoning=ann.get("llmReasoning"),
+        action_taken=ann["action_taken"],
+        better_line=ann["better_line"],
+        llm_reasoning=ann.get("llm_reasoning"),
     )
 
     return [ann_obj], cost, True, raw_record
@@ -517,7 +517,7 @@ def _auto_ingest_ground_truth(
 
 def main(gz_path: str) -> float:
     # Skip if already analyzed with the current script version.
-    # Missing blunderScriptVersion with existing annotations → v1.
+    # Missing blunder_script_version with existing annotations → v1.
     data = load_game_for_annotation(gz_path)
     if data.annotations is not None:
         existing_version = (
@@ -550,8 +550,8 @@ def main(gz_path: str) -> float:
     # 4. The cast decision that preceded a cancel (tried to cast, then undid it)
     # 5. Rolled-back decisions (intermediate mana/cost choices for a cast that
     #    failed mana payment — the initiating decision is kept with context)
-    # 6. No-op decisions (pass_priority that the game ignored — no actionResult,
-    #    no chosenArgs, chosen=None)
+    # 6. No-op decisions (pass_priority that the game ignored — no action_result,
+    #    no chosen_args, chosen=None)
     skip_indices: set[int] = set()
     for i, d in enumerate(decisions):
         if is_forced(d):
@@ -561,7 +561,7 @@ def main(gz_path: str) -> float:
         if ar.get("success") is False:
             skip_indices.add(i)
             continue
-        chosen_args = d.get("chosenArgs")
+        chosen_args = d.get("chosen_args")
         if d.get("chosen") is None and not ar and not chosen_args:
             skip_indices.add(i)
             continue

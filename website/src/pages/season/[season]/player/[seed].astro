@@ -176,7 +176,7 @@ const scryfallIds = cards
                     return (
                       <a href={`/games/${gid}`} class="game-link">
                         Game {i + 1}
-                        {meta?.totalTurns && <span class="game-turns">{meta.totalTurns}t</span>}
+                        {meta?.total_turns && <span class="game-turns">{meta.total_turns}t</span>}
                       </a>
                     );
                   })}

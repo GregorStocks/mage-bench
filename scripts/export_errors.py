@@ -78,7 +78,7 @@ def read_errors(game_dir: Path) -> list[dict]:
 def link_errors_to_decisions(
     errors: list[dict], decisions: list[Decision], llm_events: list[dict]
 ) -> None:
-    """Add decisionIndex to each error by matching player + timestamp.
+    """Add decision_index to each error by matching player + timestamp.
 
     For each error, finds the most recent decision for the same player whose
     source event timestamp is <= the error timestamp. Modifies errors in place.
@@ -119,4 +119,4 @@ def link_errors_to_decisions(
             else:
                 hi = mid
         if lo > 0:
-            err["decisionIndex"] = player_decisions_for_error[lo - 1][1]
+            err["decision_index"] = player_decisions_for_error[lo - 1][1]

@@ -6,13 +6,13 @@
  */
 
 /**
- * Schema for the .json.gz game export format (version 8). Annotations are keyed by canonical decisionIndex.
+ * Schema for the .json.gz game export format (version 9). Annotations are keyed by canonical decision_index.
  */
-export interface GameExportV8 {
+export interface GameExportV9 {
   /**
-   * Export format version 8: annotations are keyed by canonical decisionIndex.
+   * Export format version 9: annotations are keyed by canonical decision_index.
    */
-  version: 8;
+  version: 9;
   /**
    * Game directory name, e.g. 'game_20260210_074307'.
    */
@@ -24,15 +24,15 @@ export interface GameExportV8 {
   /**
    * XMage game type, e.g. 'Commander Free For All', 'Two Player Duel'.
    */
-  gameType: string;
+  game_type: string;
   /**
    * XMage deck type, e.g. 'Variant Magic - Freeform Commander', 'Constructed - Standard'.
    */
-  deckType: string;
+  deck_type: string;
   /**
    * Total number of turns in the game.
    */
-  totalTurns: number;
+  total_turns: number;
   /**
    * Name of the winning player, or null if no winner (draw/disconnect).
    */
@@ -40,11 +40,11 @@ export interface GameExportV8 {
   /**
    * Harness epoch at the time the game was played. Used to partition games into comparable eras.
    */
-  harnessEpoch: number;
+  harness_epoch: number;
   /**
    * YouTube URL for the game recording. Empty string if no recording.
    */
-  youtubeUrl: string;
+  youtube_url: string;
   /**
    * Player summaries with model info, costs, and placement.
    */
@@ -52,13 +52,13 @@ export interface GameExportV8 {
   /**
    * Map of card name to Scryfall small image URL.
    */
-  cardImages: {
+  card_images: {
     [k: string]: string;
   };
   /**
    * Map of card name to Scryfall metadata (oracle text, type line, mana cost, etc.).
    */
-  cardData?: {
+  card_data?: {
     [k: string]: CardMetadata;
   };
   /**
@@ -72,11 +72,11 @@ export interface GameExportV8 {
   /**
    * LLM tool calls, responses, errors, and lifecycle events.
    */
-  llmEvents: LlmEvent[];
+  llm_events: LlmEvent[];
   /**
    * Final game result, or null if the game didn't end normally.
    */
-  gameOver: GameOver | null;
+  game_over: GameOver | null;
   /**
    * Blunder annotations from analysis pipeline.
    */
@@ -84,9 +84,9 @@ export interface GameExportV8 {
   /**
    * Version of the blunder analysis script that produced the annotations.
    */
-  blunderScriptVersion: number;
+  blunder_script_version: number;
   /**
-   * Season number. 0 = pre-season (harnessEpoch < SEASON_1_START_EPOCH), 1 = season 1.
+   * Season number. 0 = pre-season (harness_epoch < SEASON_1_START_EPOCH), 1 = season 1.
    */
   season: number;
   /**
@@ -115,23 +115,23 @@ export interface Player {
   /**
    * Display name for the deck from the deck registry.
    */
-  deckName?: string;
+  deck_name?: string;
   /**
    * 1-2 sentence strategy summary for blunder annotation context.
    */
-  deckStrategy?: string;
+  deck_strategy?: string;
   /**
-   * Legacy field: commander card name. Replaced by deckName in newer exports.
+   * Legacy field: commander card name. Replaced by deck_name in newer exports.
    */
   commander?: string;
   /**
    * Reasoning effort level, e.g. 'low', 'medium', 'high'.
    */
-  reasoningEffort?: string;
+  reasoning_effort?: string;
   /**
    * Total API cost for this player in USD.
    */
-  totalCostUsd?: number;
+  total_cost_usd?: number;
   /**
    * Final placement: 1 = winner, 2 = second, etc.
    */
@@ -143,19 +143,19 @@ export interface Player {
   /**
    * Number of successful tool calls.
    */
-  toolCallsOk: number;
+  tool_calls_ok: number;
   /**
    * Number of failed tool calls.
    */
-  toolCallsFailed: number;
+  tool_calls_failed: number;
   /**
    * Total time in seconds this player held priority (chess-clock style).
    */
-  thinkingTimeSecs: number;
+  thinking_time_secs: number;
   /**
    * True if this player lost by running out of time on the game timer.
    */
-  timedOut?: boolean;
+  timed_out?: boolean;
 }
 /**
  * Scryfall card metadata baked at export time for offline rendering.
@@ -336,7 +336,7 @@ export interface Action {
   [k: string]: unknown;
 }
 /**
- * LLM lifecycle event. Discriminated by 'type' field. Has two independent seq namespaces: 'seq' (per-player LLM counter) and 'gameSeq' (server seq cross-reference).
+ * LLM lifecycle event. Discriminated by 'type' field. Has two independent seq namespaces: 'seq' (per-player LLM counter) and 'game_seq' (server seq cross-reference).
  */
 export interface LlmEvent {
   ts?: string;
@@ -354,34 +354,34 @@ export interface LlmEvent {
   /**
    * Server seq number for cross-referencing with snapshots/actions.
    */
-  gameSeq?: number;
+  game_seq?: number;
   model?: string;
-  availableTools?: string[];
+  available_tools?: string[];
   reasoning?: string | null;
   thinking?: string | null;
-  toolCalls?: unknown;
+  tool_calls?: unknown;
   usage?: LlmUsage;
-  costUsd?: number;
+  cost_usd?: number;
   tool?: string;
   args?: {
     [k: string]: unknown;
   };
   result?: string;
-  latencyMs?: number;
-  turnsWithoutProgress?: number;
-  lastTools?: string[];
+  latency_ms?: number;
+  turns_without_progress?: number;
+  last_tools?: string[];
   reason?: string;
-  errorType?: string;
-  errorMessage?: string;
-  messagesBefore?: number;
-  messagesAfter?: number;
+  error_type?: string;
+  error_message?: string;
+  messages_before?: number;
+  messages_after?: number;
   [k: string]: unknown;
 }
 export interface LlmUsage {
-  promptTokens?: number;
-  completionTokens?: number;
-  cachedTokens?: number;
-  reasoningTokens?: number;
+  prompt_tokens?: number;
+  completion_tokens?: number;
+  cached_tokens?: number;
+  reasoning_tokens?: number;
 }
 export interface GameOver {
   seq: number;
@@ -391,21 +391,21 @@ export interface Annotation {
   /**
    * Index into the decisions array — the canonical identity of the annotated decision.
    */
-  decisionIndex: number;
+  decision_index: number;
   /**
    * Optional display metadata: index into the snapshots array for the aftermath snapshot (first snapshot after the action resolved).
    */
-  snapshotIndex?: number;
+  snapshot_index?: number;
   player: string;
   type: "blunder";
   severity: "questionable" | "minor" | "moderate" | "major";
   description: string;
-  actionTaken: string;
-  betterLine: string;
+  action_taken: string;
+  better_line: string;
   /**
    * Optional LLM reasoning for the annotation.
    */
-  llmReasoning?: string;
+  llm_reasoning?: string;
   [k: string]: unknown;
 }
 /**
@@ -419,7 +419,7 @@ export interface Decision {
   /**
    * Index into the snapshots array — the game state when this decision was presented.
    */
-  snapshotIndex: number;
+  snapshot_index: number;
   /**
    * Name of the player making this decision.
    */
@@ -430,11 +430,11 @@ export interface Decision {
   /**
    * XMage action type, e.g. 'GAME_SELECT', 'GAME_PICK_REQUIRED_TARGETS'.
    */
-  actionType: string;
+  action_type: string;
   /**
    * MCP response type, e.g. 'select', 'boolean', 'amount', 'multi_select'.
    */
-  responseType: string;
+  response_type: string;
   /**
    * Prompt message shown to the player.
    */
@@ -443,12 +443,12 @@ export interface Decision {
    * Available choices. Shape depends on the tool (name, id, action, mana_cost, etc.).
    */
   choices: Choice[];
-  choiceCount: number;
+  choice_count: number;
   /**
    * True if there is at most one choice (forced action).
    */
-  isForced: boolean;
-  pilotContext?: PilotContext;
+  is_forced: boolean;
+  pilot_context?: PilotContext;
   /**
    * Index, answer, or amount the player chose. Null if no response recorded.
    */
@@ -458,27 +458,27 @@ export interface Decision {
   /**
    * Raw args from the choose_action tool call.
    */
-  chosenArgs?: {
+  chosen_args?: {
     [k: string]: unknown;
   };
   /**
    * Result of the choose_action tool call.
    */
-  actionResult?: {
+  action_result?: {
     [k: string]: unknown;
   };
   /**
-   * Indices into llmEvents[] covering this decision (source tool call, LLM response, choose_action).
+   * Indices into llm_events[] covering this decision (source tool call, LLM response, choose_action).
    */
-  llmEventIndices: number[];
+  llm_event_indices: number[];
   /**
    * Game log messages after the action resolved, for annotator context.
    */
-  subsequentActions: string[];
+  subsequent_actions: string[];
   /**
    * True if the cast was rolled back (failed mana payment, etc.).
    */
-  castRolledBack?: boolean;
+  cast_rolled_back?: boolean;
   /**
    * Per-item metadata for multi-amount decisions (e.g. combat damage distribution targets).
    */
@@ -486,11 +486,11 @@ export interface Decision {
   /**
    * Minimum total across all items (multi-amount decisions).
    */
-  totalMin?: number;
+  total_min?: number;
   /**
    * Maximum total across all items (multi-amount decisions).
    */
-  totalMax?: number;
+  total_max?: number;
   [k: string]: unknown;
 }
 /**
@@ -510,24 +510,24 @@ export interface Choice {
  * Pilot-specific overlay data not captured in the server snapshot.
  */
 export interface PilotContext {
-  untappedLands?: number;
-  landDropsUsed?: number;
+  untapped_lands?: number;
+  land_drops_used?: number;
   /**
    * IDs of cards flagged as playable by the bridge.
    */
-  playableCards?: string[];
+  playable_cards?: string[];
   /**
    * Combat sub-phase if in combat, null otherwise.
    */
-  combatPhase?: string | null;
+  combat_phase?: string | null;
   /**
    * Creatures already declared as attackers. Items may be strings or objects.
    */
-  alreadyAttacking?: (string | CombatCreature)[];
+  already_attacking?: (string | CombatCreature)[];
   /**
    * Opponent creatures attacking this player. Items may be strings or objects.
    */
-  incomingAttackers?: (string | CombatCreature)[];
+  incoming_attackers?: (string | CombatCreature)[];
   [k: string]: unknown;
 }
 /**
@@ -559,5 +559,5 @@ export interface GameError {
   /**
    * Index into the decisions array for the decision active when this error occurred. Absent when no matching decision was found.
    */
-  decisionIndex?: number;
+  decision_index?: number;
 }

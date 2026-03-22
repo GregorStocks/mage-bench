@@ -43,8 +43,8 @@ ANNOTATION_SCHEMA = """\
 {
   "severity": "questionable" | "minor" | "moderate" | "major",
   "description": "<what went wrong in concrete game terms>",
-  "actionTaken": "<what they actually did>",
-  "betterLine": "<what they should have done>"
+  "action_taken": "<what they actually did>",
+  "better_line": "<what they should have done>"
 }"""
 
 CHOSEN_FALSE_GUIDANCE = """\

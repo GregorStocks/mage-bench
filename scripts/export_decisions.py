@@ -39,7 +39,7 @@ def _is_decision_source(event: dict) -> bool:
 def _is_v1_decision_source(event: dict) -> bool:
     """Check if a tool_call event is a v1 decision source.
 
-    In v1 (harnessEpoch < 20), decisions anchor on get_action_choices events
+    In v1 (harness_epoch < 20), decisions anchor on get_action_choices events
     with action_pending=true.
     """
     if event.get("type") != "tool_call":
@@ -239,15 +239,15 @@ def _extract_pilot_context(choices_result: dict) -> PilotContext | None:
     """Extract pilot-specific overlay data from a tool result."""
     ctx: dict[str, object] = {}
     if "untapped_lands" in choices_result:
-        ctx["untappedLands"] = choices_result["untapped_lands"]
+        ctx["untapped_lands"] = choices_result["untapped_lands"]
     if "land_drops_used" in choices_result:
-        ctx["landDropsUsed"] = choices_result["land_drops_used"]
+        ctx["land_drops_used"] = choices_result["land_drops_used"]
     if "combat_phase" in choices_result:
-        ctx["combatPhase"] = choices_result["combat_phase"] or None
+        ctx["combat_phase"] = choices_result["combat_phase"] or None
     if "already_attacking" in choices_result:
-        ctx["alreadyAttacking"] = choices_result["already_attacking"]
+        ctx["already_attacking"] = choices_result["already_attacking"]
     if "incoming_attackers" in choices_result:
-        ctx["incomingAttackers"] = choices_result["incoming_attackers"]
+        ctx["incoming_attackers"] = choices_result["incoming_attackers"]
     board = choices_result.get("board")
     if isinstance(board, dict):
         board = board.get("players")
@@ -263,7 +263,7 @@ def _extract_pilot_context(choices_result: dict) -> PilotContext | None:
                             if card_id:
                                 playable_ids.append(card_id)
     if playable_ids:
-        ctx["playableCards"] = playable_ids
+        ctx["playable_cards"] = playable_ids
     if not ctx:
         return None
     return PilotContext.from_mapping(ctx)
@@ -377,7 +377,7 @@ def build_decisions(
         chosen_index = None
         chosen_args: dict = {}
         action_result: dict = {}
-        action_seq = source_event.get("gameSeq") or 0
+        action_seq = source_event.get("game_seq") or 0
 
         for j in range(event_idx + 1, len(llm_events)):
             ev = llm_events[j]
@@ -399,7 +399,7 @@ def build_decisions(
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
-                game_seq_raw = ev.get("gameSeq", action_seq)
+                game_seq_raw = ev.get("game_seq", action_seq)
                 if isinstance(game_seq_raw, int) and not isinstance(game_seq_raw, bool):
                     action_seq = game_seq_raw
                 if _is_failed_choose_action_result(action_result):
@@ -411,7 +411,7 @@ def build_decisions(
             if not is_v2 and _is_v1_decision_source(ev):
                 break
 
-        choices_seq = source_event.get("gameSeq") or 0
+        choices_seq = source_event.get("game_seq") or 0
         if choices_seq:
             snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
         else:
@@ -427,7 +427,7 @@ def build_decisions(
 
         next_choices_seq = 0
         if ds_idx + 1 < len(decision_sources):
-            next_choices_seq = decision_sources[ds_idx + 1][1].get("gameSeq", 0)
+            next_choices_seq = decision_sources[ds_idx + 1][1].get("game_seq", 0)
 
         subsequent: list[str] = []
         for action in actions:

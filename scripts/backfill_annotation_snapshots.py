@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Fix annotation snapshotIndex off-by-one in existing game exports.
+"""Fix annotation snapshot_index off-by-one in existing game exports.
 
-Due to a bug, annotation snapshotIndex was set to the decision snapshot (when
+Due to a bug, annotation snapshot_index was set to the decision snapshot (when
 choices were presented) instead of the aftermath snapshot (when the action's
 results are visible).  The fix is always +1 because action_seq (the
-choose_action gameSeq) equals the decision snapshot's seq, and the resulting
+choose_action game_seq) equals the decision snapshot's seq, and the resulting
 game actions get strictly higher seq values that first appear in the next
 snapshot.
 
-Also re-builds decisions to add the actionSeq field for future correctness.
+Also re-builds decisions to add the action_seq field for future correctness.
 
 Usage:
     uv run python scripts/backfill_annotation_snapshots.py [--dry-run]
@@ -27,7 +27,7 @@ from scripts.game_exports import (
 
 
 def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
-    """Fix annotation snapshotIndex and re-build decisions.
+    """Fix annotation snapshot_index and re-build decisions.
 
     Returns (annotations_fixed, decisions_rebuilt).
     """
@@ -39,23 +39,23 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> tuple[int, int]:
         annotations = []
     max_idx = len(snapshots) - 1
 
-    # Fix annotation snapshotIndex: advance by 1, clamped to max
+    # Fix annotation snapshot_index: advance by 1, clamped to max
     ann_fixed = 0
     for ann in annotations:
-        old_idx = ann["snapshotIndex"]
+        old_idx = ann["snapshot_index"]
         new_idx = min(old_idx + 1, max_idx)
         if new_idx != old_idx:
-            ann["snapshotIndex"] = new_idx
+            ann["snapshot_index"] = new_idx
             ann_fixed += 1
 
-    # Re-build decisions to add actionSeq field
+    # Re-build decisions to add action_seq field
     decisions_rebuilt = 0
-    if snapshots and data.get("llmEvents"):
+    if snapshots and data.get("llm_events"):
         new_decisions = build_decisions(
             snapshots,
             data["actions"],
-            data["llmEvents"],
-            data.get("harnessEpoch", 0),
+            data["llm_events"],
+            data.get("harness_epoch", 0),
         )
         if new_decisions:
             data["decisions"] = new_decisions

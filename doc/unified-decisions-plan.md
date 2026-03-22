@@ -20,48 +20,48 @@ Add a top-level `decisions` array to the game export. Each entry references a sn
 ```json
 {
   "index": 0,
-  "snapshotIndex": 5,
+  "snapshot_index": 5,
   "player": "Alice",
   "turn": 3,
   "phase": "PRECOMBAT_MAIN",
   "step": "PRECOMBAT_MAIN",
-  "actionType": "GAME_SELECT",
-  "responseType": "select",
+  "action_type": "GAME_SELECT",
+  "response_type": "select",
   "message": "Play spells and abilities",
 
   "choices": [
     {"index": 0, "name": "Lightning Bolt", "id": "p3", "action": "cast", "mana_cost": "{R}"},
     {"index": 1, "name": "Mountain", "id": "p5", "action": "land"}
   ],
-  "choiceCount": 2,
-  "isForced": false,
+  "choice_count": 2,
+  "is_forced": false,
 
-  "pilotContext": {
-    "untappedLands": 3,
-    "landDropsUsed": 0,
-    "playableCards": ["p3"],
-    "combatPhase": null,
-    "alreadyAttacking": [],
-    "incomingAttackers": []
+  "pilot_context": {
+    "untapped_lands": 3,
+    "land_drops_used": 0,
+    "playable_cards": ["p3"],
+    "combat_phase": null,
+    "already_attacking": [],
+    "incoming_attackers": []
   },
 
   "chosen": 0,
-  "chosenArgs": {"id": "p3"},
-  "actionResult": {"success": true, "action_taken": "selected_0"},
+  "chosen_args": {"id": "p3"},
+  "action_result": {"success": true, "action_taken": "selected_0"},
 
-  "llmEventIndices": [45, 46, 47],
+  "llm_event_indices": [45, 46, 47],
 
-  "subsequentActions": ["Alice casts Lightning Bolt"],
-  "castRolledBack": false
+  "subsequent_actions": ["Alice casts Lightning Bolt"],
+  "cast_rolled_back": false
 }
 ```
 
 **Key design decisions:**
 
-- **Board from snapshot reference**: `snapshotIndex` points into `snapshots[]`. No board duplication. The renderer applies hand redaction (opponent hands → `hand_size` only) at render time.
-- **Pilot overlay**: `pilotContext` has data the server snapshot doesn't capture: untapped lands, land drops used, which cards are playable, combat phase info. Extracted from the persisted MCP tool result JSON in `llmEvents`.
-- **LLM event references, not copies**: `llmEventIndices` is a list of indices into the export's `llmEvents` array, covering all LLM events for this decision (the decision source tool call, any LLM response with reasoning, and the choose_action call). Reasoning, thinking, and full tool results live in `llmEvents` — not duplicated on the decision.
-- **Action outcome**: `chosen`, `chosenArgs`, `actionResult` are small and convenient to have directly on the decision. Derived from the `choose_action` event.
+- **Board from snapshot reference**: `snapshot_index` points into `snapshots[]`. No board duplication. The renderer applies hand redaction (opponent hands → `hand_size` only) at render time.
+- **Pilot overlay**: `pilot_context` has data the server snapshot doesn't capture: untapped lands, land drops used, which cards are playable, combat phase info. Extracted from the persisted MCP tool result JSON in `llm_events`.
+- **LLM event references, not copies**: `llm_event_indices` is a list of indices into the export's `llm_events` array, covering all LLM events for this decision (the decision source tool call, any LLM response with reasoning, and the choose_action call). Reasoning, thinking, and full tool results live in `llm_events` — not duplicated on the decision.
+- **Action outcome**: `chosen`, `chosen_args`, `action_result` are small and convenient to have directly on the decision. Derived from the `choose_action` event.
 - **Subsequent actions**: Short list of game log messages after the action, for annotator context. Filtered to the deciding player only.
 
 ### 2. Oracle text strategy
@@ -104,7 +104,7 @@ def render_decision(
 - `oracle_texts`: Card name → oracle fields dict. Optional. Source varies by caller.
 - `deciding_player`: Who's deciding (for hand redaction). When set, opponent hands show only `hand_size`.
 - `include_card_reference`: Prepend a Card Reference section listing unique non-basic cards with oracle/rules text
-- `include_chosen`: Append chosen action, reasoning (from llmEvents), and subsequent actions — for annotator
+- `include_chosen`: Append chosen action, reasoning (from llm_events), and subsequent actions — for annotator
 
 **Output format** (structured text):
 
@@ -160,7 +160,7 @@ history.append({"role": "tool", "tool_call_id": tool_call.id, "content": display
 **`_render_for_pilot(result_text, board_tracker)`**:
 
 1. Parses JSON
-2. Splits into snapshot-like dict (`board`/`players`/`stack`/`combat`) and decision-like dict (`choices`, `message`, `pilotContext` fields)
+2. Splits into snapshot-like dict (`board`/`players`/`stack`/`combat`) and decision-like dict (`choices`, `message`, `pilot_context` fields)
 3. Extracts oracle texts from the board payload's `rules` fields on each card
 4. Calls `render_decision(decision, snapshot, oracle_texts, include_card_reference=True, deciding_player=...)`
 5. Returns rendered text
@@ -183,12 +183,12 @@ This changes pilot behavior → **harness epoch bump** required.
 - Fetch oracle texts from Scryfall cache (same as today, no change)
 - Replace `_format_decisions()` / `build_decision_prompt()` with call to `render_decision()` from the shared renderer
 - Keep `_format_prior_context()` and `_format_current_turn_actions()` as annotator-specific context builders — pass their output as string params to `render_decision()`
-- For `include_chosen=True`, look up reasoning from `llmEvents[decision["llmEventIndices"]]`
+- For `include_chosen=True`, look up reasoning from `llm_events[decision["llm_event_indices"]]`
 
 **`extract_decisions.py`:**
 
 - `extract_decisions()` reads pre-built `decisions` from export when present
-- Legacy path (reconstruct from llmEvents + snapshots) preserved for old exports without `decisions`
+- Legacy path (reconstruct from llm_events + snapshots) preserved for old exports without `decisions`
 
 ### 6. Scryfall considerations
 
@@ -224,7 +224,7 @@ No changes needed to Scryfall handling.
 | File | Change |
 | ------ | -------- |
 | `scripts/analysis/extract_decisions.py` | Read pre-built `decisions` when present; keep legacy path |
-| `scripts/analysis/blunder_analysis.py` | Use `render_decision()`, read reasoning from llmEvents via indices |
+| `scripts/analysis/blunder_analysis.py` | Use `render_decision()`, read reasoning from llm_events via indices |
 
 ### Pilot
 

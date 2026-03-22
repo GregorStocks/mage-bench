@@ -16,6 +16,7 @@ from scripts.analysis.blunder_analysis import BlunderAnalysisError
 from scripts.analysis.blunder_analysis import main as _analyze_blunders
 from scripts.export_game import GameExportError
 from scripts.export_game import export_game as _export_game
+from scripts.game_exports import load_raw_game_export, write_raw_game_export
 from scripts.upload_youtube import YouTubeUploadError
 from scripts.upload_youtube import upload_to_youtube as _upload_to_youtube
 
@@ -36,18 +37,23 @@ def update_website_youtube_url(game_dir: Path, url: str, project_root: Path) -> 
     game_id = game_dir.name
     website_games_dir = project_root / "website" / "public" / "games"
 
-    game_json = website_games_dir / f"{game_id}.json"
-    if game_json.exists():
-        data = json.loads(game_json.read_text())
-        data["youtubeUrl"] = url
-        game_json.write_text(json.dumps(data, indent=2))
+    for game_path in (
+        website_games_dir / f"{game_id}.json5",
+        website_games_dir / f"{game_id}.json5.gz",
+    ):
+        if not game_path.exists():
+            continue
+        data = load_raw_game_export(game_path)
+        data["youtube_url"] = url
+        write_raw_game_export(game_path, data, compress=game_path.suffix == ".gz")
+        break
 
     index_json = website_games_dir / "index.json"
     if index_json.exists():
         index = json.loads(index_json.read_text())
         for entry in index:
             if entry.get("id") == game_id:
-                entry["youtubeUrl"] = url
+                entry["youtube_url"] = url
                 break
         index_json.write_text(json.dumps(index, indent=2))
 

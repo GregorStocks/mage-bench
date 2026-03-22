@@ -148,7 +148,7 @@ def _render_decision_block(
     raw_pilot_ctx = decision.pilot_context
     if raw_pilot_ctx is not None:
         assert isinstance(raw_pilot_ctx, PilotContext), (
-            f"pilotContext must be an object when present, got {raw_pilot_ctx!r}"
+            f"pilot_context must be an object when present, got {raw_pilot_ctx!r}"
         )
         pilot_ctx = raw_pilot_ctx
 
@@ -170,7 +170,7 @@ def _render_decision_block(
 
     combat_phase = pilot_ctx.combat_phase if pilot_ctx is not None else None
     assert combat_phase is None or isinstance(combat_phase, str), (
-        f"combatPhase must be a string when present, got {combat_phase!r}"
+        f"combat_phase must be a string when present, got {combat_phase!r}"
     )
     if combat_phase:
         lines.append(f"  Combat Phase: {combat_phase}")
@@ -178,22 +178,24 @@ def _render_decision_block(
     # Pilot context overlay
     incoming_attackers = pilot_ctx.incoming_attackers if pilot_ctx is not None else None
     assert incoming_attackers is None or isinstance(incoming_attackers, list), (
-        f"incomingAttackers must be a list when present, got {incoming_attackers!r}"
+        f"incoming_attackers must be a list when present, got {incoming_attackers!r}"
     )
     if _is_declare_blockers_phase(combat_phase) and incoming_attackers:
         lines.append(f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}")
 
     # has_field() distinguishes "field absent" from "field is 0", which matters here
-    if pilot_ctx is not None and (pilot_ctx.has_field("untappedLands") or pilot_ctx.has_field("landDropsUsed")):
+    if pilot_ctx is not None and (pilot_ctx.has_field("untapped_lands") or pilot_ctx.has_field("land_drops_used")):
         ctx_parts: list[str] = []
-        if pilot_ctx.has_field("untappedLands"):
+        if pilot_ctx.has_field("untapped_lands"):
             untapped_lands = pilot_ctx.untapped_lands
-            assert isinstance(untapped_lands, int), f"untappedLands must be an int when present, got {untapped_lands!r}"
+            assert isinstance(untapped_lands, int), (
+                f"untapped_lands must be an int when present, got {untapped_lands!r}"
+            )
             ctx_parts.append(f"Untapped lands: {untapped_lands}")
-        if pilot_ctx.has_field("landDropsUsed"):
+        if pilot_ctx.has_field("land_drops_used"):
             land_drops_used = pilot_ctx.land_drops_used
             assert isinstance(land_drops_used, int), (
-                f"landDropsUsed must be an int when present, got {land_drops_used!r}"
+                f"land_drops_used must be an int when present, got {land_drops_used!r}"
             )
             remaining = 1 - land_drops_used
             ctx_parts.append(f"Land drops remaining: {remaining}")
@@ -474,7 +476,7 @@ def _render_chosen_block(decision: Decision, snapshot: Snapshot | None = None) -
     chosen = decision.chosen
     raw_chosen_args = decision.chosen_args
     if raw_chosen_args is not None:
-        assert isinstance(raw_chosen_args, dict), f"chosenArgs must be an object when present, got {raw_chosen_args!r}"
+        assert isinstance(raw_chosen_args, dict), f"chosen_args must be an object when present, got {raw_chosen_args!r}"
         chosen_args = raw_chosen_args
     else:
         chosen_args = {}
@@ -501,7 +503,7 @@ def _render_chosen_block(decision: Decision, snapshot: Snapshot | None = None) -
     assert isinstance(player, str), f"decision player must be a string, got {player!r}"
     subsequent_actions = decision.subsequent_actions
     assert isinstance(subsequent_actions, list), (
-        f"decision subsequentActions must be a list, got {subsequent_actions!r}"
+        f"decision subsequent_actions must be a list, got {subsequent_actions!r}"
     )
     for action in subsequent_actions:
         if not action.startswith(player):

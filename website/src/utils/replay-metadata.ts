@@ -1,4 +1,4 @@
-import type { GameExportV8 } from '../types/game-export';
+import type { GameExportV9 } from '../types/game-export';
 
 export interface ReplayBlunderCounts {
   questionable: number;
@@ -12,17 +12,17 @@ export interface ReplayBlunderSummary {
   counts: ReplayBlunderCounts;
 }
 
-export function buildReplayTitle(players: GameExportV8['players']): string {
+export function buildReplayTitle(players: GameExportV9['players']): string {
   return players
     .map((player) => {
-      const deckName = player.deckName || player.commander || '';
-      return deckName ? `${player.name} (${deckName})` : player.name;
+      const deck_name = player.deck_name || player.commander || '';
+      return deck_name ? `${player.name} (${deck_name})` : player.name;
     })
     .join(' vs ');
 }
 
 export function summarizeReplayBlunders(
-  annotations: GameExportV8['annotations'],
+  annotations: GameExportV9['annotations'],
 ): ReplayBlunderSummary | null {
   const counts: ReplayBlunderCounts = {
     questionable: 0,
@@ -67,6 +67,6 @@ export function formatReplayBlunderSummary(summary: ReplayBlunderSummary): strin
   return `${parts.join(', ')}${suffix}`;
 }
 
-export function normalizedBlunderScriptVersion(blunderScriptVersion: number | null | undefined): number {
-  return blunderScriptVersion || 1;
+export function normalizedBlunderScriptVersion(blunder_script_version: number | null | undefined): number {
+  return blunder_script_version || 1;
 }

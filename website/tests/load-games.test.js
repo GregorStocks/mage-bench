@@ -21,7 +21,40 @@ function mockGameFiles(files) {
   });
 }
 
-function makeV8Export(overrides = {}) {
+function makeV9Export(overrides = {}) {
+  return {
+    version: 9,
+    id: "game_20260301_120000",
+    timestamp: "2026-03-01T12:00:00-08:00",
+    game_type: "Two Player Duel",
+    deck_type: "Constructed - Standard",
+    total_turns: 5,
+    winner: "Alice",
+    harness_epoch: 40,
+    youtube_url: "",
+    players: [
+      {
+        name: "Alice",
+        type: "pilot",
+        tool_calls_ok: 3,
+        tool_calls_failed: 1,
+        thinking_time_secs: 12.5,
+      },
+    ],
+    card_images: {},
+    snapshots: [],
+    actions: [],
+    llm_events: [],
+    game_over: null,
+    annotations: [],
+    blunder_script_version: 0,
+    season: 1,
+    tournament: null,
+    ...overrides,
+  };
+}
+
+function makeLegacyV8Export(overrides = {}) {
   return {
     version: 8,
     id: "game_20260301_120000",
@@ -65,7 +98,7 @@ describe("loadAllGames", () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json5": JSON.stringify(
-        makeV8Export({
+        makeLegacyV8Export({
           players: [
             {
               name: "Alice",
@@ -112,6 +145,7 @@ describe("loadAllGames", () => {
               player: "Alice",
               source: "pilot",
               message: "Tool call failed",
+              decisionIndex: 0,
             },
           ],
         }),
@@ -123,8 +157,95 @@ describe("loadAllGames", () => {
 
     expect(games).toHaveLength(1);
     expect(games[0].season).toBe(1);
-    expect(games[0].players[0].toolCallsOk).toBe(3);
-    expect(games[0].players[0].thinkingTimeSecs).toBe(12.5);
+    expect(games[0].players[0].tool_calls_ok).toBe(3);
+    expect(games[0].players[0].thinking_time_secs).toBe(12.5);
+    expect(games[0].replayTitle).toBe(
+      "Alice (Azorius Control) vs Bob (Omnath, Locus of Creation)",
+    );
+    expect(games[0].replayBlunderSummary).toEqual({
+      total: 2,
+      counts: {
+        questionable: 0,
+        minor: 1,
+        moderate: 0,
+        major: 1,
+      },
+    });
+    expect(games[0].errors).toEqual([
+      {
+        ts: "00:00:03",
+        player: "Alice",
+        source: "pilot",
+        message: "Tool call failed",
+        decision_index: 0,
+      },
+    ]);
+  });
+
+  it("loads current v9 exports", async () => {
+    clearGamesCache();
+    mockGameFiles({
+      "game_20260301_120000.json5": JSON.stringify(
+        makeV9Export({
+          players: [
+            {
+              name: "Alice",
+              type: "pilot",
+              deck_name: "Azorius Control",
+              tool_calls_ok: 3,
+              tool_calls_failed: 1,
+              thinking_time_secs: 12.5,
+            },
+            {
+              name: "Bob",
+              type: "pilot",
+              commander: "Omnath, Locus of Creation",
+              tool_calls_ok: 4,
+              tool_calls_failed: 0,
+              thinking_time_secs: 9.5,
+            },
+          ],
+          annotations: [
+            {
+              decision_index: 0,
+              snapshot_index: 1,
+              player: "Alice",
+              type: "blunder",
+              severity: "major",
+              description: "Missed lethal",
+              action_taken: "Passed",
+              better_line: "Attack",
+            },
+            {
+              decision_index: 1,
+              snapshot_index: 2,
+              player: "Bob",
+              type: "blunder",
+              severity: "minor",
+              description: "Tapped land suboptimally",
+              action_taken: "Cast spell",
+              better_line: "Use different land",
+            },
+          ],
+          errors: [
+            {
+              ts: "00:00:03",
+              player: "Alice",
+              source: "pilot",
+              message: "Tool call failed",
+            },
+          ],
+        }),
+      ),
+    });
+
+    const { loadAllGames } = await import("../src/utils/load-games.ts");
+    const games = loadAllGames();
+
+    expect(games).toHaveLength(1);
+    expect(games[0].season).toBe(1);
+    expect(games[0].players[0].tool_calls_ok).toBe(3);
+    expect(games[0].players[0].thinking_time_secs).toBe(12.5);
     expect(games[0].replayTitle).toBe(
       "Alice (Azorius Control) vs Bob (Omnath, Locus of Creation)",
     );
@@ -151,44 +272,44 @@ describe("loadAllGames", () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json5": JSON.stringify(
-        makeV8Export({
-          totalTurns: 4,
+        makeV9Export({
+          total_turns: 4,
           players: [
             {
               name: "Alice",
               type: "pilot",
-              toolCallsOk: 3,
-              toolCallsFailed: 1,
-              thinkingTimeSecs: 12.5,
+              tool_calls_ok: 3,
+              tool_calls_failed: 1,
+              thinking_time_secs: 12.5,
             },
             {
               name: "Bob",
               type: "pilot",
-              toolCallsOk: 4,
-              toolCallsFailed: 0,
-              thinkingTimeSecs: 9.5,
+              tool_calls_ok: 4,
+              tool_calls_failed: 0,
+              thinking_time_secs: 9.5,
             },
           ],
           annotations: [
             {
-              decisionIndex: 0,
-              snapshotIndex: 1,
+              decision_index: 0,
+              snapshot_index: 1,
               player: "Alice",
               type: "blunder",
               severity: "questionable",
               description: "Low-confidence nit",
-              actionTaken: "Passed",
-              betterLine: "Hold priority",
+              action_taken: "Passed",
+              better_line: "Hold priority",
             },
             {
-              decisionIndex: 1,
-              snapshotIndex: 2,
+              decision_index: 1,
+              snapshot_index: 2,
               player: "Bob",
               type: "blunder",
               severity: "moderate",
               description: "Missed interaction",
-              actionTaken: "Cast spell",
-              betterLine: "Use removal first",
+              action_taken: "Cast spell",
+              better_line: "Use removal first",
             },
           ],
         }),
@@ -208,31 +329,31 @@ describe("loadAllGames", () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json5": JSON.stringify(
-        makeV8Export({
+        makeV9Export({
           players: [{ name: "Alice", type: "pilot" }],
         }),
       ),
     });
 
     const { loadAllGames } = await import("../src/utils/load-games.ts");
-    expect(() => loadAllGames()).toThrow(/missing toolCallsOk/);
+    expect(() => loadAllGames()).toThrow(/missing tool_calls_ok/);
   });
 
   it("rejects exports with invalid blunder severities", async () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json5": JSON.stringify(
-        makeV8Export({
+        makeV9Export({
           annotations: [
             {
-              decisionIndex: 0,
-              snapshotIndex: 1,
+              decision_index: 0,
+              snapshot_index: 1,
               player: "Alice",
               type: "blunder",
               severity: "catastrophic",
               description: "Unexpected severity",
-              actionTaken: "Passed",
-              betterLine: "Attack",
+              action_taken: "Passed",
+              better_line: "Attack",
             },
           ],
         }),

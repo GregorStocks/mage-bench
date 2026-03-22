@@ -136,7 +136,7 @@ def test_build_decisions_keeps_successful_retry_and_skips_blank_follow_up() -> N
             "tool": "pass_priority",
             "player": "Alice",
             "ts": "T01",
-            "gameSeq": 10,
+            "game_seq": 10,
             "args": {},
             "result": json.dumps(
                 {
@@ -159,7 +159,7 @@ def test_build_decisions_keeps_successful_retry_and_skips_blank_follow_up() -> N
             "tool": "choose_action",
             "player": "Alice",
             "ts": "T03",
-            "gameSeq": 11,
+            "game_seq": 11,
             "args": {"choice": "0"},
             "result": json.dumps(
                 {
@@ -187,7 +187,7 @@ def test_build_decisions_keeps_successful_retry_and_skips_blank_follow_up() -> N
             "tool": "choose_action",
             "player": "Alice",
             "ts": "T05",
-            "gameSeq": 11,
+            "game_seq": 11,
             "args": {"choice": "Black"},
             "result": json.dumps({"error": "Unknown short ID: Black"}),
         },
@@ -202,7 +202,7 @@ def test_build_decisions_keeps_successful_retry_and_skips_blank_follow_up() -> N
             "tool": "choose_action",
             "player": "Alice",
             "ts": "T07",
-            "gameSeq": 12,
+            "game_seq": 12,
             "args": {"text": "Black"},
             "result": json.dumps(
                 {
@@ -222,10 +222,10 @@ def test_build_decisions_keeps_successful_retry_and_skips_blank_follow_up() -> N
 
     assert len(decisions) == 2
     assert decisions[1]["message"] == "Choose color"
-    assert decisions[1]["chosenArgs"] == {"text": "Black"}
-    assert decisions[1]["actionResult"]["action_taken"] == "selected_choice_text_Black"
-    assert decisions[1]["actionSeq"] == 12
-    assert decisions[1]["llmEventIndices"] == [2, 3, 4, 5, 6]
+    assert decisions[1]["chosen_args"] == {"text": "Black"}
+    assert decisions[1]["action_result"]["action_taken"] == "selected_choice_text_Black"
+    assert decisions[1]["action_seq"] == 12
+    assert decisions[1]["llm_event_indices"] == [2, 3, 4, 5, 6]
 
 
 def test_backfill_game_force_rebuilds_existing_decisions(tmp_path: Path) -> None:
@@ -233,7 +233,7 @@ def test_backfill_game_force_rebuilds_existing_decisions(tmp_path: Path) -> None
     payload = {
         "version": 8,
         "id": "game_retry",
-        "harnessEpoch": 40,
+        "harness_epoch": 40,
         "snapshots": [
             {
                 "seq": 10,
@@ -257,13 +257,13 @@ def test_backfill_game_force_rebuilds_existing_decisions(tmp_path: Path) -> None
             },
         ],
         "actions": [],
-        "llmEvents": [
+        "llm_events": [
             {
                 "type": "tool_call",
                 "tool": "pass_priority",
                 "player": "Alice",
                 "ts": "T01",
-                "gameSeq": 10,
+                "game_seq": 10,
                 "args": {},
                 "result": json.dumps(
                     {
@@ -289,7 +289,7 @@ def test_backfill_game_force_rebuilds_existing_decisions(tmp_path: Path) -> None
                 "tool": "choose_action",
                 "player": "Alice",
                 "ts": "T03",
-                "gameSeq": 10,
+                "game_seq": 10,
                 "args": {"choice": "Black"},
                 "result": json.dumps({"error": "Unknown short ID: Black"}),
             },
@@ -304,7 +304,7 @@ def test_backfill_game_force_rebuilds_existing_decisions(tmp_path: Path) -> None
                 "tool": "choose_action",
                 "player": "Alice",
                 "ts": "T05",
-                "gameSeq": 11,
+                "game_seq": 11,
                 "args": {"text": "Black"},
                 "result": json.dumps(
                     {
@@ -317,20 +317,20 @@ def test_backfill_game_force_rebuilds_existing_decisions(tmp_path: Path) -> None
         "decisions": [
             {
                 "index": 0,
-                "snapshotIndex": 0,
+                "snapshot_index": 0,
                 "player": "Alice",
                 "turn": 1,
                 "phase": "PRECOMBAT_MAIN",
-                "actionType": "GAME_CHOOSE_CHOICE",
-                "responseType": "index",
+                "action_type": "GAME_CHOOSE_CHOICE",
+                "response_type": "index",
                 "message": "Choose color",
                 "choices": [],
-                "choiceCount": 0,
-                "isForced": True,
-                "chosenArgs": {"choice": "Black"},
-                "actionResult": {"error": "Unknown short ID: Black"},
-                "llmEventIndices": [0, 1, 2],
-                "subsequentActions": [],
+                "choice_count": 0,
+                "is_forced": True,
+                "chosen_args": {"choice": "Black"},
+                "action_result": {"error": "Unknown short ID: Black"},
+                "llm_event_indices": [0, 1, 2],
+                "subsequent_actions": [],
             }
         ],
     }
@@ -341,8 +341,8 @@ def test_backfill_game_force_rebuilds_existing_decisions(tmp_path: Path) -> None
     assert status == "updated"
     assert count == 1
     updated = loads_json5(path.read_text())
-    assert updated["decisions"][0]["chosenArgs"] == {"text": "Black"}
-    assert updated["decisions"][0]["actionResult"] == {
+    assert updated["decisions"][0]["chosen_args"] == {"text": "Black"}
+    assert updated["decisions"][0]["action_result"] == {
         "success": True,
         "action_taken": "selected_choice_text_Black",
     }
@@ -401,20 +401,20 @@ def test_write_raw_game_export_serializes_decision_support_dataclasses(
         "decisions": [
             {
                 "index": 0,
-                "snapshotIndex": 0,
+                "snapshot_index": 0,
                 "player": "Alice",
                 "turn": 1,
                 "phase": "PRECOMBAT_MAIN",
-                "actionType": "play",
-                "responseType": "choice",
+                "action_type": "play",
+                "response_type": "choice",
                 "message": "Play spells and abilities",
                 "choices": [Choice.from_mapping({"index": 0, "name": "Memnite", "power": "1"})],
-                "choiceCount": 1,
-                "isForced": True,
-                "llmEventIndices": [],
-                "subsequentActions": [],
-                "pilotContext": PilotContext.from_mapping(
-                    {"untappedLands": 1, "combatPhase": None, "manaPool": {"WHITE": 1}}
+                "choice_count": 1,
+                "is_forced": True,
+                "llm_event_indices": [],
+                "subsequent_actions": [],
+                "pilot_context": PilotContext.from_mapping(
+                    {"untapped_lands": 1, "combat_phase": None, "manaPool": {"WHITE": 1}}
                 ),
                 "items": [MultiAmountItem.from_mapping({"description": "Assign damage", "target": "p1"})],
             }
@@ -429,9 +429,9 @@ def test_write_raw_game_export_serializes_decision_support_dataclasses(
         "name": "Memnite",
         "power": "1",
     }
-    assert written["decisions"][0]["pilotContext"] == {
-        "untappedLands": 1,
-        "combatPhase": None,
+    assert written["decisions"][0]["pilot_context"] == {
+        "untapped_lands": 1,
+        "combat_phase": None,
         "manaPool": {"WHITE": 1},
     }
     assert written["decisions"][0]["items"][0] == {

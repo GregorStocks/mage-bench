@@ -5,7 +5,7 @@ import '../styles/game-header.css';
 import '../styles/audit-panel.css';
 import '../styles/shared.css';
 import type { GameEntry } from '../utils/load-games';
-import type { GameExportV8 } from '../types/game-export';
+import type { GameExportV9 } from '../types/game-export';
 import type { PrerenderResult } from '../utils/prerender-timeline';
 import { safeHttpUrl } from '../utils/safe-http-url';
 import {
@@ -15,7 +15,7 @@ import {
 
 interface Props {
   game: GameEntry;
-  fullGame: GameExportV8;
+  fullGame: GameExportV9;
   prerendered: PrerenderResult;
   minBlunderVersion: number;
   auditMode: boolean;
@@ -24,19 +24,19 @@ interface Props {
 const { game, fullGame, prerendered, minBlunderVersion, auditMode } = Astro.props as Props;
 const configJson = JSON.stringify({ auditMode }).replace(/</g, '\\u003c');
 
-const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
+const youtube_url = game.youtube_url ? safeHttpUrl(game.youtube_url) : null;
 const blunderSummary = game.replayBlunderSummary
   ? formatReplayBlunderSummary(game.replayBlunderSummary)
   : null;
-const blunderScriptVersion = normalizedBlunderScriptVersion(game.blunderScriptVersion);
+const blunder_script_version = normalizedBlunderScriptVersion(game.blunder_script_version);
 const isOldBlunderAnalysis =
-  game.replayBlunderSummary != null && blunderScriptVersion < minBlunderVersion;
+  game.replayBlunderSummary != null && blunder_script_version < minBlunderVersion;
 
-// Serialize game JSON for inline embedding, stripping actions and llmEvents
+// Serialize game JSON for inline embedding, stripping actions and llm_events
 // which are already prerendered into the action log HTML.
 // For very large games (snapshots > 15 MB), skip inlining entirely to stay
 // under Cloudflare Pages' 25 MB per-file limit — the viewer falls back to fetch.
-const strippedGame = { ...fullGame, actions: [], llmEvents: [] };
+const strippedGame = { ...fullGame, actions: [], llm_events: [] };
 const strippedJson = JSON.stringify(strippedGame);
 const INLINE_SIZE_LIMIT = 15_000_000; // 15 MB — leaves room for prerendered HTML + page chrome
 const inlineGameData = strippedJson.length <= INLINE_SIZE_LIMIT;
@@ -52,9 +52,9 @@ const runningCostsJson = JSON.stringify(runningCostBySnapshot).replace(/</g, '\\
   <div id="game-ui">
     <div id="game-header" class="surface-card">
       <div id="game-title">{game.replayTitle}</div>
-      {youtubeUrl && (
+      {youtube_url && (
         <div id="youtube-link">
-          <a id="youtube-url" href={youtubeUrl} target="_blank" rel="noopener">Watch on YouTube</a>
+          <a id="youtube-url" href={youtube_url} target="_blank" rel="noopener">Watch on YouTube</a>
         </div>
       )}
       {blunderSummary && (
@@ -65,7 +65,7 @@ const runningCostsJson = JSON.stringify(runningCostBySnapshot).replace(/</g, '\\
               {' '}
               <span
                 class="old-analysis-tag"
-                title={`Analyzed with blunder script v${blunderScriptVersion} (min: v${minBlunderVersion})`}
+                title={`Analyzed with blunder script v${blunder_script_version} (min: v${minBlunderVersion})`}
               >
                 (older analysis)
               </span>

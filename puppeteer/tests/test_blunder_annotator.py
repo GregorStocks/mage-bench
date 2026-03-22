@@ -112,7 +112,7 @@ def _make_test_game(
             "player": "Alice",
             "type": "llm_response",
             "reasoning": "I should play a land first to have mana available.",
-            "toolCalls": [{"name": "choose_action"}],
+            "tool_calls": [{"name": "choose_action"}],
         },
         {
             "ts": "2026-01-01T12:00:01.800-08:00",
@@ -130,29 +130,29 @@ def _make_test_game(
         "version": 8,
         "id": "game_test_001",
         "timestamp": "20260101_120000",
-        "gameType": "Two Player Duel",
-        "deckType": "Constructed - Standard",
-        "totalTurns": 2,
+        "game_type": "Two Player Duel",
+        "deck_type": "Constructed - Standard",
+        "total_turns": 2,
         "winner": "Alice",
         "players": [
             {
                 "name": "Alice",
                 "type": "pilot",
                 "model": "test-model",
-                "toolCallsOk": 0,
-                "toolCallsFailed": 0,
-                "thinkingTimeSecs": 0.0,
+                "tool_calls_ok": 0,
+                "tool_calls_failed": 0,
+                "thinking_time_secs": 0.0,
             },
             {
                 "name": "Bob",
                 "type": "pilot",
                 "model": "test-model",
-                "toolCallsOk": 0,
-                "toolCallsFailed": 0,
-                "thinkingTimeSecs": 0.0,
+                "tool_calls_ok": 0,
+                "tool_calls_failed": 0,
+                "thinking_time_secs": 0.0,
             },
         ],
-        "cardImages": {},
+        "card_images": {},
         "snapshots": snapshots,
         "actions": [
             {
@@ -161,13 +161,13 @@ def _make_test_game(
                 "message": "Alice plays Mountain",
             },
         ],
-        "llmEvents": llm_events,
+        "llm_events": llm_events,
         "llmTrace": [],
-        "gameOver": {"seq": 100, "message": "Player Alice is the winner"},
+        "game_over": {"seq": 100, "message": "Player Alice is the winner"},
         "annotations": [],
-        "blunderScriptVersion": 0,
-        "harnessEpoch": 46,
-        "youtubeUrl": "",
+        "blunder_script_version": 0,
+        "harness_epoch": 46,
+        "youtube_url": "",
         "season": 1,
         "tournament": None,
     }
@@ -175,24 +175,24 @@ def _make_test_game(
         game["decisions"] = [
             {
                 "index": 0,
-                "snapshotIndex": 0,
+                "snapshot_index": 0,
                 "player": "Alice",
                 "turn": 1,
                 "phase": "PRECOMBAT_MAIN",
-                "actionType": "GAME_SELECT",
-                "responseType": "select",
+                "action_type": "GAME_SELECT",
+                "response_type": "select",
                 "message": "Play spells and abilities",
                 "choices": [
                     {"index": 0, "name": "Mountain"},
                     {"index": 1, "name": "Lightning Bolt"},
                 ],
-                "choiceCount": 2,
-                "isForced": False,
+                "choice_count": 2,
+                "is_forced": False,
                 "chosen": 0,
-                "chosenArgs": {"index": 0},
-                "actionResult": {"success": True, "action_taken": "selected_0"},
-                "llmEventIndices": [0, 1, 2],
-                "subsequentActions": ["Alice plays Mountain"],
+                "chosen_args": {"index": 0},
+                "action_result": {"success": True, "action_taken": "selected_0"},
+                "llm_event_indices": [0, 1, 2],
+                "subsequent_actions": ["Alice plays Mountain"],
             }
         ]
     return game
@@ -239,10 +239,10 @@ class TestExtractDecisions:
         assert len(decisions) == 1
         d = decisions[0]
         assert d["player"] == "Alice"
-        assert d["choiceCount"] == 2
+        assert d["choice_count"] == 2
         assert d["chosen"] == 0
-        assert d["isForced"] is False
-        assert d["snapshotIndex"] == 0
+        assert d["is_forced"] is False
+        assert d["snapshot_index"] == 0
         assert d["turn"] == 1
         assert d["phase"] == "PRECOMBAT_MAIN"
         assert d["message"] == "Play spells and abilities"
@@ -271,9 +271,9 @@ class TestExtractDecisions:
 
     def test_forced_choice(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        game["decisions"][0]["isForced"] = True
+        game["decisions"][0]["is_forced"] = True
         game["decisions"][0]["choices"] = [{"index": 0, "name": "Mountain"}]
-        game["decisions"][0]["choiceCount"] = 1
+        game["decisions"][0]["choice_count"] = 1
         game["decisions"][0]["message"] = "Choose target creature"
 
         gz_path = tmp_path / "game_test.json5.gz"
@@ -282,14 +282,14 @@ class TestExtractDecisions:
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert decisions[0]["isForced"] is True
-        assert decisions[0]["choiceCount"] == 1
+        assert decisions[0]["is_forced"] is True
+        assert decisions[0]["choice_count"] == 1
 
     def test_single_choice_with_pass_not_forced(self, tmp_path: Path) -> None:
         game = _make_test_game()
         game["decisions"][0]["choices"] = [{"index": 0, "name": "Mountain"}]
-        game["decisions"][0]["choiceCount"] = 1
-        # isForced stays False — player can pass
+        game["decisions"][0]["choice_count"] = 1
+        # is_forced stays False — player can pass
 
         gz_path = tmp_path / "game_test.json5.gz"
         _write_gz(game, gz_path)
@@ -297,30 +297,30 @@ class TestExtractDecisions:
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert decisions[0]["isForced"] is False
-        assert decisions[0]["choiceCount"] == 1
+        assert decisions[0]["is_forced"] is False
+        assert decisions[0]["choice_count"] == 1
 
     def test_multiple_players(self, tmp_path: Path) -> None:
         game = _make_test_game()
         game["decisions"].append(
             {
                 "index": 1,
-                "snapshotIndex": 1,
+                "snapshot_index": 1,
                 "player": "Bob",
                 "turn": 2,
                 "phase": "COMBAT_DECLARE_ATTACKERS",
-                "actionType": "GAME_SELECT",
-                "responseType": "select",
+                "action_type": "GAME_SELECT",
+                "response_type": "select",
                 "message": "Attack with creatures",
                 "choices": [
                     {"index": 0, "name": "Grizzly Bears"},
                     {"index": 1, "name": "Don't attack"},
                 ],
-                "choiceCount": 2,
-                "isForced": False,
+                "choice_count": 2,
+                "is_forced": False,
                 "chosen": 0,
-                "llmEventIndices": [3, 4, 5],
-                "subsequentActions": [],
+                "llm_event_indices": [3, 4, 5],
+                "subsequent_actions": [],
             }
         )
         gz_path = tmp_path / "game_test.json5.gz"
@@ -334,10 +334,10 @@ class TestExtractDecisions:
 
     def test_boolean_decision(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        game["decisions"][0]["responseType"] = "boolean"
+        game["decisions"][0]["response_type"] = "boolean"
         game["decisions"][0]["message"] = "Mulligan hand?"
         game["decisions"][0]["choices"] = []
-        game["decisions"][0]["choiceCount"] = 0
+        game["decisions"][0]["choice_count"] = 0
         game["decisions"][0]["chosen"] = False
 
         gz_path = tmp_path / "game_test.json5.gz"
@@ -346,7 +346,7 @@ class TestExtractDecisions:
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert decisions[0]["responseType"] == "boolean"
+        assert decisions[0]["response_type"] == "boolean"
         assert decisions[0]["chosen"] is False
 
     def test_subsequent_actions(self, tmp_path: Path) -> None:
@@ -357,7 +357,7 @@ class TestExtractDecisions:
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert "Alice plays Mountain" in decisions[0]["subsequentActions"]
+        assert "Alice plays Mountain" in decisions[0]["subsequent_actions"]
 
 
 # --- annotate_game tests ---
@@ -365,14 +365,14 @@ class TestExtractDecisions:
 
 def _make_valid_annotation(snapshot_index: int = 0, decision_index: int = 0) -> dict:
     return {
-        "decisionIndex": decision_index,
-        "snapshotIndex": snapshot_index,
+        "decision_index": decision_index,
+        "snapshot_index": snapshot_index,
         "player": "Alice",
         "type": "blunder",
         "severity": "moderate",
         "description": "Played land before combat when holding combat trick",
-        "actionTaken": "Play Mountain",
-        "betterLine": "Attack first, then play land in second main phase",
+        "action_taken": "Play Mountain",
+        "better_line": "Attack first, then play land in second main phase",
     }
 
 
@@ -408,12 +408,12 @@ class TestAnnotateGame:
         assert data["annotations"][0]["severity"] == "moderate"
 
     def test_annotation_with_llm_reasoning(self, tmp_path: Path) -> None:
-        """v5 annotations with llmReasoning still pass validation."""
+        """v5 annotations with llm_reasoning still pass validation."""
         gz_path = tmp_path / "game_test.json5.gz"
         _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         annotation = _make_valid_annotation()
-        annotation["llmReasoning"] = "The LLM prioritized mana development over combat advantage"
+        annotation["llm_reasoning"] = "The LLM prioritized mana development over combat advantage"
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text(json.dumps([annotation]))
 
@@ -421,7 +421,7 @@ class TestAnnotateGame:
 
         data = _read_export(gz_path)
         assert len(data["annotations"]) == 1
-        assert data["annotations"][0]["llmReasoning"] == "The LLM prioritized mana development over combat advantage"
+        assert data["annotations"][0]["llm_reasoning"] == "The LLM prioritized mana development over combat advantage"
 
     def test_replaces_existing(self, tmp_path: Path) -> None:
         game = _make_test_game(include_decisions=True)
@@ -502,7 +502,7 @@ class TestAnnotateGame:
         assert data["winner"] == "Alice"
         assert len(data["snapshots"]) == 2
         assert len(data["actions"]) == 1
-        assert len(data["llmEvents"]) == 3
+        assert len(data["llm_events"]) == 3
 
     def test_empty_annotations(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json5.gz"

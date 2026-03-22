@@ -356,11 +356,11 @@ async def test_scripted_chat_completion_skips_assert_action_steps():
 
 def test_strip_volatile_sorts_llm_events_by_seq_player():
     data = {
-        "llmEvents": [
-            {"ts": "2025-01-01T00:00:00.000002", "latencyMs": 17, "player": "B", "seq": 2, "type": "llm_response"},
-            {"ts": "2025-01-01T00:00:00.000003", "latencyMs": 9, "player": "A", "seq": 2, "type": "llm_response"},
-            {"ts": "2025-01-01T00:00:00.000001", "latencyMs": 44, "player": "A", "seq": 1, "type": "game_start"},
-            {"ts": "2025-01-01T00:00:00.000000", "latencyMs": 3, "player": "B", "seq": 1, "type": "game_start"},
+        "llm_events": [
+            {"ts": "2025-01-01T00:00:00.000002", "latency_ms": 17, "player": "B", "seq": 2, "type": "llm_response"},
+            {"ts": "2025-01-01T00:00:00.000003", "latency_ms": 9, "player": "A", "seq": 2, "type": "llm_response"},
+            {"ts": "2025-01-01T00:00:00.000001", "latency_ms": 44, "player": "A", "seq": 1, "type": "game_start"},
+            {"ts": "2025-01-01T00:00:00.000000", "latency_ms": 3, "player": "B", "seq": 1, "type": "game_start"},
         ],
         "llmTrace": [
             {"ts": "2025-01-01T00:00:00.000001", "player": "B", "seq": 1},
@@ -371,9 +371,9 @@ def test_strip_volatile_sorts_llm_events_by_seq_player():
     _strip_volatile(data)
 
     # Sorted by (seq, player); wall-clock timing stripped before sorting.
-    events = data["llmEvents"]
+    events = data["llm_events"]
     assert all("ts" not in e for e in events)
-    assert all("latencyMs" not in e for e in events)
+    assert all("latency_ms" not in e for e in events)
     assert [(e["player"], e["seq"]) for e in events] == [
         ("A", 1),
         ("B", 1),
@@ -429,37 +429,37 @@ def test_extract_blunder_decisions_serializes_dataclass_leaves(tmp_path: Path, m
         "version": 8,
         "id": "game_20260317_000000",
         "timestamp": "",
-        "gameType": "Two Player Duel",
-        "deckType": "Constructed - Standard",
-        "totalTurns": 1,
+        "game_type": "Two Player Duel",
+        "deck_type": "Constructed - Standard",
+        "total_turns": 1,
         "winner": None,
-        "harnessEpoch": 0,
-        "youtubeUrl": "",
+        "harness_epoch": 0,
+        "youtube_url": "",
         "players": [],
-        "cardImages": {},
+        "card_images": {},
         "snapshots": [],
         "actions": [],
-        "llmEvents": [],
-        "gameOver": None,
+        "llm_events": [],
+        "game_over": None,
         "season": 1,
         "tournament": None,
         "annotations": [],
-        "blunderScriptVersion": 0,
+        "blunder_script_version": 0,
         "decisions": [
             {
                 "index": 0,
-                "snapshotIndex": 0,
+                "snapshot_index": 0,
                 "player": "Alice",
                 "turn": 1,
                 "phase": "PRECOMBAT_MAIN",
-                "actionType": "play",
-                "responseType": "choice",
+                "action_type": "play",
+                "response_type": "choice",
                 "message": "Play spells and abilities",
                 "choices": [Choice.from_mapping({"index": 0, "name": "Memnite"})],
-                "choiceCount": 1,
-                "isForced": True,
-                "llmEventIndices": [],
-                "subsequentActions": [],
+                "choice_count": 1,
+                "is_forced": True,
+                "llm_event_indices": [],
+                "subsequent_actions": [],
             }
         ],
     }

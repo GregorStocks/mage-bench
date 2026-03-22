@@ -185,7 +185,7 @@ def generate_leaderboard(
                     BLUNDER_WEIGHTS.get(annotation.severity, 0)
                 )
 
-        total_turns = game.get("totalTurns", 0)
+        total_turns = game.get("total_turns", 0)
         for player in game["players"]:
             if player.type != "pilot" or not player.model:
                 continue
@@ -277,7 +277,7 @@ def generate_exhibition_leaderboard(
                     BLUNDER_WEIGHTS.get(annotation.severity, 0)
                 )
 
-        total_turns = game.get("totalTurns", 0)
+        total_turns = game.get("total_turns", 0)
         for player in game["players"]:
             if player.type != "pilot" or not player.model:
                 continue
@@ -393,12 +393,12 @@ def generate_leaderboard_file(
         game_entry: dict[str, Any] = {
             "id": game_export.id,
             "timestamp": game_export.timestamp,
-            "gameType": game_export.game_type,
-            "deckType": game_export.deck_type,
-            "totalTurns": game_export.total_turns,
+            "game_type": game_export.game_type,
+            "deck_type": game_export.deck_type,
+            "total_turns": game_export.total_turns,
             "winner": game_export.winner,
             "players": game_export.players,
-            "harnessEpoch": game_export.harness_epoch,
+            "harness_epoch": game_export.harness_epoch,
             "season": game_export.season,
         }
         if game_export.annotations is not None:

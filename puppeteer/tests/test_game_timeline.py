@@ -28,33 +28,33 @@ def _write_export(tmp_path: Path, *, annotated: bool = True) -> Path:
         "version": 8,
         "id": "game_test",
         "timestamp": "2026-03-01T00:00:00.000000Z",
-        "deckType": "Limited",
-        "gameType": "Two Player Duel",
-        "totalTurns": 2,
+        "deck_type": "Limited",
+        "game_type": "Two Player Duel",
+        "total_turns": 2,
         "winner": "Alice",
         "players": [
             {
                 "name": "Alice",
                 "type": "pilot",
                 "model": "model-a",
-                "deckName": "Deck A",
-                "totalCostUsd": 0.0,
-                "toolCallsOk": 0,
-                "toolCallsFailed": 0,
-                "thinkingTimeSecs": 0.0,
+                "deck_name": "Deck A",
+                "total_cost_usd": 0.0,
+                "tool_calls_ok": 0,
+                "tool_calls_failed": 0,
+                "thinking_time_secs": 0.0,
             },
             {
                 "name": "Bob",
                 "type": "pilot",
                 "model": "model-b",
-                "deckName": "Deck B",
-                "totalCostUsd": 0.0,
-                "toolCallsOk": 0,
-                "toolCallsFailed": 0,
-                "thinkingTimeSecs": 0.0,
+                "deck_name": "Deck B",
+                "total_cost_usd": 0.0,
+                "tool_calls_ok": 0,
+                "tool_calls_failed": 0,
+                "thinking_time_secs": 0.0,
             },
         ],
-        "cardImages": {},
+        "card_images": {},
         "snapshots": [
             {
                 "turn": 1,
@@ -112,7 +112,7 @@ def _write_export(tmp_path: Path, *, annotated: bool = True) -> Path:
             },
         ],
         "actions": [],
-        "llmEvents": [
+        "llm_events": [
             {
                 "type": "game_start",
                 "player": "Alice",
@@ -125,7 +125,7 @@ def _write_export(tmp_path: Path, *, annotated: bool = True) -> Path:
                 "tool": "get_action_choices",
                 "args": {},
                 "result": "{}",
-                "gameSeq": 5,
+                "game_seq": 5,
             },
             {
                 "type": "tool_call",
@@ -134,18 +134,18 @@ def _write_export(tmp_path: Path, *, annotated: bool = True) -> Path:
                 "tool": "get_action_choices",
                 "args": {},
                 "result": "{}",
-                "gameSeq": 10,
+                "game_seq": 10,
             },
         ],
-        "gameOver": None,
-        "harnessEpoch": 46,
-        "youtubeUrl": "",
+        "game_over": None,
+        "harness_epoch": 46,
+        "youtube_url": "",
         "season": 1,
         "tournament": None,
     }
     if annotated:
         export["annotations"] = []
-        export["blunderScriptVersion"] = 0
+        export["blunder_script_version"] = 0
     path = tmp_path / "game_test.json5"
     path.write_text(json.dumps(export))
     return path
@@ -176,7 +176,7 @@ def test_find_context_uses_timestamp_for_older_exports() -> None:
             ts="2026-03-01T00:00:10.000000Z",
         ),
     ]
-    # Use a dataclass instance — GameStartEvent is arbitrary, we just need ts/gameSeq
+    # Use a dataclass instance — GameStartEvent is arbitrary, we just need ts/game_seq
     event = GameStartEvent(type="game_start", player="Alice", ts="2026-03-01T00:00:06.000000Z")
 
     assert game_timeline.find_turn_for_event(snapshots, event) == 1

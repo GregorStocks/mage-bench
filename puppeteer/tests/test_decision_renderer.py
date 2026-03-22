@@ -128,32 +128,32 @@ def _make_decision(
     choices = Choice.coerce_list(choices)
     d: dict[str, object] = {
         "index": index,
-        "snapshotIndex": snapshot_index,
+        "snapshot_index": snapshot_index,
         "player": player,
         "turn": turn,
         "phase": phase,
         "step": step,
-        "actionType": action_type,
-        "responseType": response_type,
+        "action_type": action_type,
+        "response_type": response_type,
         "message": message,
         "choices": choices,
-        "choiceCount": len(choices),
-        "isForced": len(choices) <= 1,
+        "choice_count": len(choices),
+        "is_forced": len(choices) <= 1,
         "chosen": chosen,
-        "chosenArgs": chosen_args or {},
-        "actionResult": {"success": True, "action_taken": "selected_0"},
-        "llmEventIndices": llm_event_indices or [10, 11, 12],
-        "subsequentActions": subsequent_actions or [],
+        "chosen_args": chosen_args or {},
+        "action_result": {"success": True, "action_taken": "selected_0"},
+        "llm_event_indices": llm_event_indices or [10, 11, 12],
+        "subsequent_actions": subsequent_actions or [],
     }
     if items is not None:
         # Convert any remaining raw dicts to MultiAmountItem dataclasses
         d["items"] = MultiAmountItem.coerce_list(items)
     if total_min is not None:
-        d["totalMin"] = total_min
+        d["total_min"] = total_min
     if total_max is not None:
-        d["totalMax"] = total_max
+        d["total_max"] = total_max
     if pilot_context is not None:
-        d["pilotContext"] = pilot_context
+        d["pilot_context"] = pilot_context
     return Decision.from_dict(d)
 
 
@@ -189,7 +189,7 @@ class TestRenderDecision:
 
     def test_pilot_context(self) -> None:
         snap = _make_snapshot()
-        decision = _make_decision(pilot_context=PilotContext.from_mapping({"untappedLands": 2, "landDropsUsed": 0}))
+        decision = _make_decision(pilot_context=PilotContext.from_mapping({"untapped_lands": 2, "land_drops_used": 0}))
         text = render_decision(decision, snap)
         assert "Untapped lands: 2" in text
         assert "Land drops remaining: 1" in text
@@ -197,7 +197,7 @@ class TestRenderDecision:
     def test_pilot_context_dataclass(self) -> None:
         snap = _make_snapshot()
         decision = _make_decision(
-            pilot_context=PilotContext.from_mapping({"untappedLands": 2, "landDropsUsed": 0, "combatPhase": None})
+            pilot_context=PilotContext.from_mapping({"untapped_lands": 2, "land_drops_used": 0, "combat_phase": None})
         )
         text = render_decision(decision, snap)
         assert "Untapped lands: 2" in text
@@ -208,7 +208,7 @@ class TestRenderDecision:
         decision = _make_decision()
         decision.pilot_context = "bad"  # type: ignore[assignment]
 
-        with pytest.raises(AssertionError, match="pilotContext must be an object"):
+        with pytest.raises(AssertionError, match="pilot_context must be an object"):
             render_decision(decision, snap)
 
     def test_stack_rendering(self) -> None:
@@ -276,8 +276,8 @@ class TestRenderDecision:
             choices=[Choice.from_mapping({"index": 0, "name": "Wall of Omens", "id": "p30", "choice_type": "blocker"})],
             pilot_context=PilotContext.from_mapping(
                 {
-                    "combatPhase": combat_phase,
-                    "incomingAttackers": [
+                    "combat_phase": combat_phase,
+                    "incoming_attackers": [
                         {"name": "Goblin Token", "id": "p10", "power": "1", "toughness": "1"},
                         {"name": "Goblin Token", "id": "p11", "power": "1", "toughness": "1"},
                     ],
@@ -707,7 +707,7 @@ class TestChosenBlockManaPlan:
         )
         decision.chosen_args = "bad"  # type: ignore[assignment]
 
-        with pytest.raises(AssertionError, match="chosenArgs must be an object"):
+        with pytest.raises(AssertionError, match="chosen_args must be an object"):
             _render_chosen_block(decision)
 
     def test_mana_plan_in_full_render(self) -> None:

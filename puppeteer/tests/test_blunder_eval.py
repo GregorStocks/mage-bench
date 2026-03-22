@@ -31,20 +31,20 @@ def _write_export(path: Path) -> None:
         "version": 8,
         "id": "game_test_001",
         "timestamp": "2026-01-01T00:00:00Z",
-        "gameType": "Two Player Duel",
-        "deckType": "Constructed",
-        "totalTurns": 0,
+        "game_type": "Two Player Duel",
+        "deck_type": "Constructed",
+        "total_turns": 0,
         "winner": None,
-        "harnessEpoch": 46,
-        "youtubeUrl": "",
+        "harness_epoch": 46,
+        "youtube_url": "",
         "players": [],
-        "cardImages": {},
+        "card_images": {},
         "snapshots": [],
         "actions": [],
-        "llmEvents": [],
-        "gameOver": None,
+        "llm_events": [],
+        "game_over": None,
         "annotations": [],
-        "blunderScriptVersion": 1,
+        "blunder_script_version": 1,
         "season": 1,
         "tournament": None,
     }
@@ -219,7 +219,7 @@ class TestComputeAftermathIndex:
             _snap(seq=5),
             _snap(seq=10),
         ]
-        decision = {"snapshotIndex": 0, "actionSeq": 4}
+        decision = {"snapshot_index": 0, "action_seq": 4}
         assert compute_aftermath_index(decision, snapshots) == 1
 
     def test_exact_seq_match(self) -> None:
@@ -228,13 +228,13 @@ class TestComputeAftermathIndex:
             _snap(seq=5),
         ]
         # action_seq=5, we need strictly greater, so snapshot seq=5 is not > 5
-        decision = {"snapshotIndex": 0, "actionSeq": 4}
+        decision = {"snapshot_index": 0, "action_seq": 4}
         assert compute_aftermath_index(decision, snapshots) == 1
 
     def test_no_action_seq(self) -> None:
         snapshots = [_snap(seq=1)]
-        decision = {"snapshotIndex": 0}
-        # No actionSeq -> falls back to snapshotIndex + 1
+        decision = {"snapshot_index": 0}
+        # No action_seq -> falls back to snapshot_index + 1
         assert compute_aftermath_index(decision, snapshots) == 0
 
     def test_action_seq_beyond_all_snapshots(self) -> None:
@@ -242,19 +242,19 @@ class TestComputeAftermathIndex:
             _snap(seq=1),
             _snap(seq=2),
         ]
-        decision = {"snapshotIndex": 0, "actionSeq": 99}
-        # No snapshot > actionSeq, falls back to snapshotIndex + 1
+        decision = {"snapshot_index": 0, "action_seq": 99}
+        # No snapshot > action_seq, falls back to snapshot_index + 1
         assert compute_aftermath_index(decision, snapshots) == 1
 
     def test_starts_from_snapshot_index(self) -> None:
-        """Search starts from decision's snapshotIndex, not from 0."""
+        """Search starts from decision's snapshot_index, not from 0."""
         snapshots = [
             _snap(seq=1),
             _snap(seq=3),
             _snap(seq=5),
             _snap(seq=7),
         ]
-        decision = {"snapshotIndex": 2, "actionSeq": 6}
+        decision = {"snapshot_index": 2, "action_seq": 6}
         # Should find snapshot 3 (seq=7 > 6), starting search from index 2
         assert compute_aftermath_index(decision, snapshots) == 3
 
@@ -266,7 +266,7 @@ class TestReverseMapAnnotations:
     def _make_decision(self, idx: int, snap_idx: int, player: str) -> dict:
         return {
             "index": idx,
-            "snapshotIndex": snap_idx,
+            "snapshot_index": snap_idx,
             "player": player,
         }
 
@@ -299,7 +299,7 @@ class TestReverseMapAnnotations:
             reverse_map_annotations(annotations, decisions)
 
     def test_missing_decision_index_prevented_by_construction(self) -> None:
-        """Annotation dataclass requires decisionIndex — can't construct without it."""
+        """Annotation dataclass requires decision_index — can't construct without it."""
         with pytest.raises(TypeError):
             Annotation(  # type: ignore[call-arg]
                 player="Alice",
@@ -319,7 +319,7 @@ class TestDecisionIndex:
         assert decision_index({"index": 7}) == 7
 
     def test_reads_decision_index_alias(self) -> None:
-        assert decision_index({"decisionIndex": 7}) == 7
+        assert decision_index({"decision_index": 7}) == 7
 
 
 class TestChosenDisplay:
@@ -336,15 +336,15 @@ class TestChosenDisplay:
         assert chosen_display(d) == "?"
 
     def test_none_choice_with_attackers_camel(self) -> None:
-        d = {"chosen": None, "choices": [], "chosenArgs": {"attackers": "p5,p12"}}
+        d = {"chosen": None, "choices": [], "chosen_args": {"attackers": "p5,p12"}}
         assert chosen_display(d) == "Attack with: p5,p12"
 
     def test_none_choice_with_blockers(self) -> None:
-        d = {"chosen": None, "choices": [], "chosenArgs": {"blockers": "p3:p64"}}
+        d = {"chosen": None, "choices": [], "chosen_args": {"blockers": "p3:p64"}}
         assert chosen_display(d) == "Block with: p3:p64"
 
     def test_none_choice_with_text(self) -> None:
-        d = {"chosen": None, "choices": [], "chosenArgs": {"text": "Green"}}
+        d = {"chosen": None, "choices": [], "chosen_args": {"text": "Green"}}
         assert chosen_display(d) == "Text: Green"
 
     def test_out_of_range(self) -> None:
@@ -425,7 +425,7 @@ class TestLookupAnnotationForDecision:
 
         decision = {
             "index": 0,
-            "snapshotIndex": 2,
+            "snapshot_index": 2,
             "player": "Alice",
         }
         annotations = [_ann(0, "Alice", severity="minor", description="bad play")]
@@ -437,7 +437,7 @@ class TestLookupAnnotationForDecision:
 
         decision = {
             "index": 0,
-            "snapshotIndex": 2,
+            "snapshot_index": 2,
             "player": "Alice",
         }
         annotations = [_ann(1, "Bob")]
@@ -448,7 +448,7 @@ class TestLookupAnnotationForDecision:
 
         decision = {
             "index": 0,
-            "snapshotIndex": 2,
+            "snapshot_index": 2,
             "player": "Alice",
         }
         annotations = [_ann(3, "Alice")]
@@ -459,7 +459,7 @@ class TestLookupAnnotationForDecision:
 
         decision = {
             "index": 0,
-            "snapshotIndex": 0,
+            "snapshot_index": 0,
             "player": "Alice",
         }
         result = lookup_annotation_for_decision(decision, [])
@@ -469,7 +469,7 @@ class TestLookupAnnotationForDecision:
 
         decision = {
             "index": 1,
-            "snapshotIndex": 2,
+            "snapshot_index": 2,
             "player": "Alice",
         }
         annotations = [_ann(1, "Alice", snapshot_index=0)]
@@ -559,7 +559,7 @@ class TestBaselineDerivation:
         """An annotation matching the decision index = detected."""
         decision = {
             "index": 0,
-            "snapshotIndex": 2,
+            "snapshot_index": 2,
             "player": "Alice",
         }
 
@@ -571,7 +571,7 @@ class TestBaselineDerivation:
         """No annotation with matching decision index = not detected."""
         decision = {
             "index": 1,
-            "snapshotIndex": 3,
+            "snapshot_index": 3,
             "player": "Bob",
         }
 

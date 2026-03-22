@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Backfill timedOut field on player entries in existing game exports.
+"""Backfill timed_out field on player entries in existing game exports.
 
 Reads each .json/.json.gz in website/public/games/, scans actions for the
 "has run out of time, losing the match." message, and sets timed_out=true on
 matching players.
 
-Skips games where any player already has timedOut set.
+Skips games where any player already has timed_out set.
 
 Usage:
     uv run python scripts/backfill_timed_out.py [--dry-run]
@@ -26,11 +26,11 @@ TIMED_OUT_RE = re.compile(r"^(.+?) has run out of time, losing the match\.$")
 
 
 def backfill_game(path: Path, *, dry_run: bool = False) -> int:
-    """Add timedOut to players in a single game export. Returns count of players patched."""
+    """Add timed_out to players in a single game export. Returns count of players patched."""
     data = load_raw_game_export(path)
 
     players = data["players"]
-    if any(p.get("timedOut") is not None for p in players):
+    if any(p.get("timed_out") is not None for p in players):
         return -1  # Already backfilled
 
     # Scan actions for timeout messages
@@ -48,7 +48,7 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> int:
     patched = 0
     for p in players:
         if p["name"] in timed_out_names:
-            p["timedOut"] = True
+            p["timed_out"] = True
             patched += 1
 
     if not dry_run and patched > 0:

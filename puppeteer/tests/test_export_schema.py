@@ -12,6 +12,11 @@ from pathlib import Path
 import jsonschema
 import pytest
 
+from schemas.game_export_migrations import (
+    CURRENT_GAME_EXPORT_VERSION,
+    LEGACY_GAME_EXPORT_VERSION,
+    demigrate_game_export_v9_to_v8,
+)
 from schemas.game_export_types import (
     Action,
     Annotation,
@@ -54,6 +59,8 @@ from schemas.game_export_types import (
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCHEMA_DIR = REPO_ROOT / "schemas"
+CURRENT_VERSION = CURRENT_GAME_EXPORT_VERSION
+LEGACY_VERSION = LEGACY_GAME_EXPORT_VERSION
 
 
 def _load_schema(version: int) -> dict:
@@ -77,26 +84,31 @@ def _minimal_export(version: int, **overrides) -> dict:
         "version": version,
         "id": f"test_v{version}",
         "timestamp": "",
-        "gameType": "Two Player Duel",
-        "deckType": "Constructed - Standard",
-        "totalTurns": 0,
+        "game_type": "Two Player Duel",
+        "deck_type": "Constructed - Standard",
+        "total_turns": 0,
         "winner": None,
-        "harnessEpoch": 0,
-        "youtubeUrl": "",
+        "harness_epoch": 0,
+        "youtube_url": "",
         "players": [],
-        "cardImages": {},
+        "card_images": {},
         "snapshots": [],
         "actions": [],
-        "llmEvents": [],
-        "gameOver": None,
+        "llm_events": [],
+        "game_over": None,
         "annotations": [],
-        "blunderScriptVersion": 0,
+        "blunder_script_version": 0,
     }
     # v5 and earlier require llmTrace
     if version <= 5:
         base["llmTrace"] = []
     base.update(overrides)
     return base
+
+
+def _minimal_legacy_export(**overrides) -> dict:
+    """Build a minimal legacy v8 export payload with camelCase wire keys."""
+    return demigrate_game_export_v9_to_v8(_minimal_export(CURRENT_VERSION, **overrides))
 
 
 def _typed_dict_keys(typed_dict_cls: object) -> set[str]:
@@ -187,14 +199,14 @@ def _assert_dataclass_matches_schema(
 
 
 class TestExportSchema:
-    def test_v8_schema_is_valid(self) -> None:
-        schema = _load_schema(8)
+    def test_v9_schema_is_valid(self) -> None:
+        schema = _load_schema(CURRENT_VERSION)
         jsonschema.Draft7Validator.check_schema(schema)
 
-    def test_v8_schema_accepts_v8(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(8))
-        v8 = _minimal_export(
-            8,
+    def test_v9_schema_accepts_v9(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        payload = _minimal_export(
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -202,53 +214,53 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 3,
-                    "toolCallsFailed": 1,
-                    "thinkingTimeSecs": 12.5,
+                    "tool_calls_ok": 3,
+                    "tool_calls_failed": 1,
+                    "thinking_time_secs": 12.5,
                 }
             ],
             decisions=[
                 {
                     "index": 0,
-                    "snapshotIndex": 0,
+                    "snapshot_index": 0,
                     "player": "Alice",
                     "turn": 1,
                     "phase": None,
-                    "actionType": "",
-                    "responseType": "",
+                    "action_type": "",
+                    "response_type": "",
                     "message": "",
                     "choices": [],
-                    "choiceCount": 0,
-                    "isForced": True,
-                    "llmEventIndices": [],
-                    "subsequentActions": [],
+                    "choice_count": 0,
+                    "is_forced": True,
+                    "llm_event_indices": [],
+                    "subsequent_actions": [],
                 }
             ],
             annotations=[
                 {
-                    "decisionIndex": 0,
-                    "snapshotIndex": 0,
+                    "decision_index": 0,
+                    "snapshot_index": 0,
                     "player": "Alice",
                     "type": "blunder",
                     "severity": "minor",
                     "description": "Bad play",
-                    "actionTaken": "Pass",
-                    "betterLine": "Cast a threat",
+                    "action_taken": "Pass",
+                    "better_line": "Cast a threat",
                 }
             ],
         )
-        errors = list(validator.iter_errors(v8))
-        assert errors == [], f"v8 should be valid: {errors}"
+        errors = list(validator.iter_errors(payload))
+        assert errors == [], f"v{CURRENT_VERSION} should be valid: {errors}"
 
-    def test_v8_schema_rejects_other_version_numbers(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(8))
-        errors = list(validator.iter_errors(_minimal_export(7, season=1, tournament=None)))
-        assert errors, "v8 schema should reject version 7"
+    def test_v9_schema_rejects_other_version_numbers(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        errors = list(validator.iter_errors(_minimal_export(LEGACY_VERSION, season=1, tournament=None)))
+        assert errors, f"v{CURRENT_VERSION} schema should reject version {LEGACY_VERSION}"
 
-    def test_v8_schema_requires_annotation_decision_index(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(8))
-        v8 = _minimal_export(
-            8,
+    def test_v9_schema_requires_annotation_decision_index(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        payload = _minimal_export(
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -256,41 +268,41 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 3,
-                    "toolCallsFailed": 1,
-                    "thinkingTimeSecs": 12.5,
+                    "tool_calls_ok": 3,
+                    "tool_calls_failed": 1,
+                    "thinking_time_secs": 12.5,
                 }
             ],
             annotations=[
                 {
-                    "snapshotIndex": 0,
+                    "snapshot_index": 0,
                     "player": "Alice",
                     "type": "blunder",
                     "severity": "minor",
                     "description": "Bad play",
-                    "actionTaken": "Pass",
-                    "betterLine": "Cast a threat",
+                    "action_taken": "Pass",
+                    "better_line": "Cast a threat",
                 }
             ],
         )
-        errors = list(validator.iter_errors(v8))
-        assert errors, "v8 schema should reject annotations without decisionIndex"
+        errors = list(validator.iter_errors(payload))
+        assert errors, "v9 schema should reject annotations without decision_index"
 
     def test_schema_rejects_missing_required_field(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(8))
-        bad = {"version": 8}
+        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        bad = {"version": CURRENT_VERSION}
         errors = list(validator.iter_errors(bad))
         assert len(errors) > 0
 
-    def test_schema_backed_typed_dicts_match_v8_schema(self) -> None:
-        schema = _load_schema(8)
+    def test_schema_backed_typed_dicts_match_v9_schema(self) -> None:
+        schema = _load_schema(CURRENT_VERSION)
         defs = schema["$defs"]
 
         _assert_dataclass_matches_schema(GameExport, schema=schema)
         _assert_dataclass_matches_schema(
             BuiltGameExport,
             schema=schema,
-            required_override=set(schema["required"]) - {"annotations", "blunderScriptVersion"},
+            required_override=set(schema["required"]) - {"annotations", "blunder_script_version"},
         )
         _assert_dataclass_matches_schema(Player, schema=defs["Player"])
         _assert_dataclass_matches_schema(
@@ -346,10 +358,10 @@ class TestExportSchema:
         _assert_dataclass_matches_schema(Choice, schema=defs["Choice"])
         _assert_dataclass_matches_schema(MultiAmountItem, schema=defs["MultiAmountItem"])
 
-    def test_typed_loader_accepts_minimal_v8_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json5"
+    def test_typed_loader_accepts_minimal_v9_export(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v9.json5"
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -357,9 +369,9 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 3,
-                    "toolCallsFailed": 1,
-                    "thinkingTimeSecs": 12.5,
+                    "tool_calls_ok": 3,
+                    "tool_calls_failed": 1,
+                    "thinking_time_secs": 12.5,
                 }
             ],
         )
@@ -367,14 +379,13 @@ class TestExportSchema:
 
         game = _parse_export_path(path)
 
-        assert game.version == 8
+        assert game.version == CURRENT_VERSION
         assert game.players[0].tool_calls_ok == 3
         assert game.annotations == []
 
-    def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json5.gz"
-        payload = _minimal_export(
-            8,
+    def test_typed_loader_migrates_minimal_v8_export(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v8.json5"
+        payload = _minimal_legacy_export(
             season=1,
             tournament=None,
             players=[
@@ -382,9 +393,34 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 0,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 0.0,
+                    "tool_calls_ok": 3,
+                    "tool_calls_failed": 1,
+                    "thinking_time_secs": 12.5,
+                }
+            ],
+        )
+        path.write_text(json.dumps(payload))
+
+        game = _parse_export_path(path)
+
+        assert game.version == CURRENT_VERSION
+        assert game.players[0].tool_calls_ok == 3
+        assert game.annotations == []
+
+    def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v9.json5.gz"
+        payload = _minimal_export(
+            CURRENT_VERSION,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "test/model",
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
                 }
             ],
         )
@@ -392,12 +428,12 @@ class TestExportSchema:
 
         game = _parse_export_path(path)
 
-        assert game.id == "test_v8"
+        assert game.id == f"test_v{CURRENT_VERSION}"
 
     def test_loader_coerces_board_and_stack_leaf_records_to_dataclasses(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json5"
+        path = tmp_path / "game_v9.json5"
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -405,9 +441,9 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 0,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 0.0,
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
                 }
             ],
             snapshots=[
@@ -463,19 +499,19 @@ class TestExportSchema:
             decisions=[
                 {
                     "index": 0,
-                    "snapshotIndex": 0,
+                    "snapshot_index": 0,
                     "player": "Alice",
                     "turn": 1,
                     "phase": "PRECOMBAT_MAIN",
-                    "actionType": "cast",
-                    "responseType": "select",
+                    "action_type": "cast",
+                    "response_type": "select",
                     "message": "Play spells and abilities",
                     "choices": [],
-                    "choiceCount": 0,
-                    "isForced": True,
-                    "llmEventIndices": [],
-                    "subsequentActions": [],
-                    "pilotContext": {"incomingAttackers": [{"name": "Goblin Guide", "id": "a1"}]},
+                    "choice_count": 0,
+                    "is_forced": True,
+                    "llm_event_indices": [],
+                    "subsequent_actions": [],
+                    "pilot_context": {"incoming_attackers": [{"name": "Goblin Guide", "id": "a1"}]},
                 }
             ],
         )
@@ -490,9 +526,9 @@ class TestExportSchema:
         assert snap.combat is not None
         attacker = snap.combat[0].attackers[0]
         assert game.decisions is not None
-        pilot_ctx = game.decisions[0]["pilotContext"]
+        pilot_ctx = game.decisions[0]["pilot_context"]
         assert isinstance(pilot_ctx, PilotContext)
-        incoming_list = pilot_ctx.get_value("incomingAttackers")
+        incoming_list = pilot_ctx.get_value("incoming_attackers")
         assert isinstance(incoming_list, list)
         incoming = incoming_list[0]
 
@@ -508,9 +544,9 @@ class TestExportSchema:
         assert export_record_field(stack_item, "controller") == "Alice"
 
     def test_is_game_export_accepts_already_coerced_leaf_dataclasses(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json5"
+        path = tmp_path / "game_v9.json5"
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -518,9 +554,9 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 0,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 0.0,
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
                 }
             ],
             snapshots=[
@@ -556,9 +592,9 @@ class TestExportSchema:
         assert is_game_export(game)
 
     def test_loader_accepts_schema_valid_leaf_extras_key(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json5"
+        path = tmp_path / "game_v9.json5"
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -566,9 +602,9 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 0,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 0.0,
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
                 }
             ],
             snapshots=[
@@ -611,8 +647,8 @@ class TestExportSchema:
         assert export_record_field(battlefield_card, "rules") == "Tap: Add {G}."
 
     def test_typed_loader_rejects_unannotated_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v8.json5"
-        payload = _minimal_export(8, season=1, tournament=None)
+        path = tmp_path / "game_v9.json5"
+        payload = _minimal_export(CURRENT_VERSION, season=1, tournament=None)
         del payload["annotations"]
         path.write_text(json.dumps(payload))
 
@@ -621,7 +657,7 @@ class TestExportSchema:
 
     def test_built_export_validator_allows_missing_annotation_fields(self) -> None:
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -629,14 +665,14 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 1,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 2.0,
+                    "tool_calls_ok": 1,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 2.0,
                 }
             ],
         )
         del payload["annotations"]
-        del payload["blunderScriptVersion"]
+        del payload["blunder_script_version"]
 
         built = require_built_game_export(payload, source="built export")
 
@@ -644,9 +680,9 @@ class TestExportSchema:
         assert built.annotations is None
 
     def test_built_loader_accepts_unannotated_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "built_v8.json5"
+        path = tmp_path / "built_v9.json5"
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -654,25 +690,25 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 1,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 2.0,
+                    "tool_calls_ok": 1,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 2.0,
                 }
             ],
         )
         del payload["annotations"]
-        del payload["blunderScriptVersion"]
+        del payload["blunder_script_version"]
         path.write_text(json.dumps(payload))
 
         built = _parse_built_export_path(path)
 
-        assert built.version == 8
+        assert built.version == CURRENT_VERSION
         assert built.annotations is None
 
     def test_loader_accepts_empty_decision_strings_allowed_by_schema(self, tmp_path: Path) -> None:
         path = tmp_path / "empty_decision_strings.json5"
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
@@ -680,26 +716,26 @@ class TestExportSchema:
                     "name": "Alice",
                     "type": "pilot",
                     "model": "test/model",
-                    "toolCallsOk": 0,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 0.0,
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
                 }
             ],
             decisions=[
                 {
                     "index": 0,
-                    "snapshotIndex": 0,
+                    "snapshot_index": 0,
                     "player": "Alice",
                     "turn": 1,
                     "phase": None,
-                    "actionType": "",
-                    "responseType": "",
+                    "action_type": "",
+                    "response_type": "",
                     "message": "",
                     "choices": [],
-                    "choiceCount": 0,
-                    "isForced": True,
-                    "llmEventIndices": [],
-                    "subsequentActions": [],
+                    "choice_count": 0,
+                    "is_forced": True,
+                    "llm_event_indices": [],
+                    "subsequent_actions": [],
                 }
             ],
         )
@@ -716,18 +752,18 @@ class TestExportSchema:
     def test_loader_coerces_decision_support_records_to_dataclasses(self, tmp_path: Path) -> None:
         path = tmp_path / "decision_support.json5"
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             decisions=[
                 {
                     "index": 0,
-                    "snapshotIndex": 0,
+                    "snapshot_index": 0,
                     "player": "Alice",
                     "turn": 1,
                     "phase": "PRECOMBAT_MAIN",
-                    "actionType": "play",
-                    "responseType": "choice",
+                    "action_type": "play",
+                    "response_type": "choice",
                     "message": "Play spells and abilities",
                     "choices": [
                         {
@@ -740,14 +776,14 @@ class TestExportSchema:
                             "toughness": "1",
                         }
                     ],
-                    "choiceCount": 1,
-                    "isForced": True,
-                    "llmEventIndices": [],
-                    "subsequentActions": [],
-                    "pilotContext": {
-                        "untappedLands": 1,
-                        "landDropsUsed": 0,
-                        "combatPhase": None,
+                    "choice_count": 1,
+                    "is_forced": True,
+                    "llm_event_indices": [],
+                    "subsequent_actions": [],
+                    "pilot_context": {
+                        "untapped_lands": 1,
+                        "land_drops_used": 0,
+                        "combat_phase": None,
                         "manaPool": {"WHITE": 1},
                     },
                     "items": [
@@ -758,8 +794,8 @@ class TestExportSchema:
                             "target": "p1",
                         }
                     ],
-                    "totalMin": 0,
-                    "totalMax": 1,
+                    "total_min": 0,
+                    "total_max": 1,
                 }
             ],
         )
@@ -769,7 +805,7 @@ class TestExportSchema:
         assert game.decisions is not None
         decision = game.decisions[0]
         choice = decision["choices"][0]
-        pilot_context = decision["pilotContext"]
+        pilot_context = decision["pilot_context"]
         item = decision["items"][0]
 
         assert isinstance(choice, Choice)
@@ -778,7 +814,7 @@ class TestExportSchema:
         assert choice.extras["power"] == "1"
         assert isinstance(pilot_context, PilotContext)
         assert pilot_context.land_drops_used == 0
-        assert pilot_context.has_field("combatPhase")
+        assert pilot_context.has_field("combat_phase")
         assert pilot_context.combat_phase is None
         assert pilot_context.extras["manaPool"] == {"WHITE": 1}
         assert isinstance(item, MultiAmountItem)
@@ -787,33 +823,33 @@ class TestExportSchema:
 
     def test_game_export_to_jsonable_serializes_export_dataclasses(self) -> None:
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
-            llmEvents=[
+            llm_events=[
                 {
                     "type": "game_start",
                     "player": "Alice",
                     "model": "test-model",
-                    "availableTools": ["pass_priority"],
+                    "available_tools": ["pass_priority"],
                 }
             ],
             decisions=[
                 {
                     "index": 0,
-                    "snapshotIndex": 0,
+                    "snapshot_index": 0,
                     "player": "Alice",
                     "turn": 1,
                     "phase": "PRECOMBAT_MAIN",
-                    "actionType": "play",
-                    "responseType": "choice",
+                    "action_type": "play",
+                    "response_type": "choice",
                     "message": "Play spells and abilities",
                     "choices": [{"index": 0, "name": "Memnite"}],
-                    "choiceCount": 1,
-                    "isForced": True,
-                    "llmEventIndices": [],
-                    "subsequentActions": [],
-                    "pilotContext": {"untappedLands": 1, "manaPool": {"WHITE": 1}},
+                    "choice_count": 1,
+                    "is_forced": True,
+                    "llm_event_indices": [],
+                    "subsequent_actions": [],
+                    "pilot_context": {"untapped_lands": 1, "manaPool": {"WHITE": 1}},
                     "items": [{"description": "Assign damage"}],
                 }
             ],
@@ -829,42 +865,42 @@ class TestExportSchema:
         assert cloned.decisions is not None
         assert isinstance(cloned.decisions[0]["choices"][0], Choice)
         json_round_trip = json.loads(json.dumps(json_ready))
-        assert json_round_trip["llmEvents"][0] == {
+        assert json_round_trip["llm_events"][0] == {
             "type": "game_start",
             "player": "Alice",
             "model": "test-model",
-            "availableTools": ["pass_priority"],
+            "available_tools": ["pass_priority"],
         }
-        assert json_round_trip["decisions"][0]["pilotContext"] == {
-            "untappedLands": 1,
+        assert json_round_trip["decisions"][0]["pilot_context"] == {
+            "untapped_lands": 1,
             "manaPool": {"WHITE": 1},
         }
 
     def test_validator_rejects_invalid_prebuilt_choice_instance(self) -> None:
         payload = _minimal_export(
-            8,
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             decisions=[
                 {
                     "index": 0,
-                    "snapshotIndex": 0,
+                    "snapshot_index": 0,
                     "player": "Alice",
                     "turn": 1,
                     "phase": "PRECOMBAT_MAIN",
-                    "actionType": "play",
-                    "responseType": "choice",
+                    "action_type": "play",
+                    "response_type": "choice",
                     "message": "Play spells and abilities",
                     "choices": [Choice(index="oops")],  # type: ignore[arg-type]
-                    "choiceCount": 1,
-                    "isForced": True,
-                    "llmEventIndices": [],
-                    "subsequentActions": [],
+                    "choice_count": 1,
+                    "is_forced": True,
+                    "llm_event_indices": [],
+                    "subsequent_actions": [],
                 }
             ],
         )
 
-        with pytest.raises(AssertionError, match=r"choices\[0\]\.index"):
+        with pytest.raises(AssertionError, match=r"(choices\[0\]\.index|Choice\.index)"):
             require_built_game_export(payload, source="built export")
 
     def test_decision_support_dataclass_extras_are_read_only(self) -> None:
@@ -877,48 +913,48 @@ class TestExportSchema:
         assert Choice.from_mapping({"name": "Memnite", "power": "1"}) != Choice.from_mapping(
             {"name": "Memnite", "power": "2"}
         )
-        assert PilotContext.from_mapping({"untappedLands": 1, "manaPool": {"WHITE": 1}}) != PilotContext.from_mapping(
-            {"untappedLands": 1, "manaPool": {"BLUE": 1}}
+        assert PilotContext.from_mapping({"untapped_lands": 1, "manaPool": {"WHITE": 1}}) != PilotContext.from_mapping(
+            {"untapped_lands": 1, "manaPool": {"BLUE": 1}}
         )
-        assert PilotContext.from_mapping({"combatPhase": None}) != PilotContext()
+        assert PilotContext.from_mapping({"combat_phase": None}) != PilotContext()
 
-    def test_v8_schema_rejects_pilot_without_model(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(8))
-        v8 = _minimal_export(
-            8,
+    def test_v9_schema_rejects_pilot_without_model(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        payload = _minimal_export(
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
                 {
                     "name": "Alice",
                     "type": "pilot",
-                    "toolCallsOk": 0,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 0.0,
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
                 }
             ],
         )
-        errors = list(validator.iter_errors(v8))
-        assert errors, "v8 schema should reject pilot player without model"
+        errors = list(validator.iter_errors(payload))
+        assert errors, "v9 schema should reject pilot player without model"
 
-    def test_v8_schema_accepts_cpu_without_model(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(8))
-        v8 = _minimal_export(
-            8,
+    def test_v9_schema_accepts_cpu_without_model(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        payload = _minimal_export(
+            CURRENT_VERSION,
             season=1,
             tournament=None,
             players=[
                 {
                     "name": "Bot",
                     "type": "cpu",
-                    "toolCallsOk": 0,
-                    "toolCallsFailed": 0,
-                    "thinkingTimeSecs": 0.0,
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
                 }
             ],
         )
-        errors = list(validator.iter_errors(v8))
-        assert errors == [], f"v8 schema should accept cpu player without model: {errors}"
+        errors = list(validator.iter_errors(payload))
+        assert errors == [], f"v9 schema should accept cpu player without model: {errors}"
 
     def test_is_pilot_player_narrows_pilot(self) -> None:
         player = Player(
@@ -956,9 +992,9 @@ class TestExportSchema:
         player = {
             "name": "Alice",
             "type": "pilot",
-            "toolCallsOk": 0,
-            "toolCallsFailed": 0,
-            "thinkingTimeSecs": 0.0,
+            "tool_calls_ok": 0,
+            "tool_calls_failed": 0,
+            "thinking_time_secs": 0.0,
         }
         with pytest.raises(AssertionError, match="model"):
             _validate_player(player, "test")

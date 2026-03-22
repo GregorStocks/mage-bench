@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
 import { parseJSON5 } from "../../src/utils/parse-json5.ts";
+import { normalizeGameExport } from "../../src/utils/normalize-game-export.ts";
 import { loadLatestCompletedTournament } from "../../src/utils/season-data.ts";
 import {
   buildReplayTitle,
@@ -41,12 +42,12 @@ function readGameExport(slug) {
   const publicGamesDir = path.join(process.cwd(), "public", "games");
   const json5Path = path.join(publicGamesDir, `${slug}.json5`);
   if (fs.existsSync(json5Path)) {
-    return parseJSON5(fs.readFileSync(json5Path, "utf-8"));
+    return normalizeGameExport(parseJSON5(fs.readFileSync(json5Path, "utf-8")));
   }
 
   const gzPath = path.join(publicGamesDir, `${slug}.json5.gz`);
   if (fs.existsSync(gzPath)) {
-    return parseJSON5(zlib.gunzipSync(fs.readFileSync(gzPath)).toString("utf-8"));
+    return normalizeGameExport(parseJSON5(zlib.gunzipSync(fs.readFileSync(gzPath)).toString("utf-8")));
   }
 
   throw new Error(`Missing game export for ${slug}`);
@@ -190,7 +191,7 @@ describe("game pages", () => {
     expect(html).toContain(escapedReplayTitle);
     expect(html).toContain(`Season ${game.season}`);
 
-    if (game.youtubeUrl) {
+    if (game.youtube_url) {
       expect(html).toContain("Watch on YouTube");
     }
 
@@ -217,10 +218,10 @@ describe("game pages", () => {
       .filter((f) => f.startsWith("game_") && f.endsWith(".json5"))
       .sort();
     expect(gameFiles.length).toBeGreaterThan(0);
-    const data = parseJSON5(
+    const data = normalizeGameExport(parseJSON5(
       fs.readFileSync(path.join(publicGamesDir, gameFiles[0]), "utf-8")
-    );
-    expect(data.totalTurns).toBeGreaterThan(0);
+    ));
+    expect(data.total_turns).toBeGreaterThan(0);
     expect(data.snapshots.length).toBeGreaterThan(0);
   });
 

@@ -27,12 +27,18 @@ export interface InternalsGameRecord {
 }
 
 export interface InternalsTrendData {
+  generatedAt?: string;
   games: InternalsGameRecord[];
 }
 
 export interface ModelStatsEpochBucket {
   gamesPlayed: number;
+  wins: number;
+  timerTimeoutLosses: number;
   totalCostUsd: number;
+  totalToolCallsOk: number;
+  totalToolCallsFailed: number;
+  totalThinkingTimeSecs: number;
   totalPromptTokens: number;
   totalCompletionTokens: number;
   totalCachedTokens?: number;
@@ -46,12 +52,15 @@ export interface ModelStatsEpochBucket {
 }
 
 export interface ModelStatsModel {
+  modelId?: string;
   modelName: string;
   provider: string;
+  reasoningEffort?: string;
   epochs: Record<string, ModelStatsEpochBucket>;
 }
 
 export interface ModelStatsData {
+  generatedAt?: string;
   models: Record<string, ModelStatsModel>;
 }
 
@@ -68,6 +77,7 @@ export interface BlunderRun {
 }
 
 export interface BlunderInternalsData {
+  generatedAt?: string;
   runs: BlunderRun[];
 }
 

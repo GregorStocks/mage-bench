@@ -1,6 +1,6 @@
 """Typed helpers for game export JSON.
 
-These types are backed by ``schemas/game-export-v8.schema.json``. Tests keep
+These types are backed by ``schemas/game-export-v9.schema.json``. Tests keep
 the in-memory Python types aligned with the JSON Schema so callers can load
 validated exports with typed nested payloads instead of raw ``dict[str, object]``
 blobs.
@@ -16,6 +16,10 @@ from typing import ClassVar, Literal, TypeAlias, TypeGuard, TypeVar
 from typing_extensions import TypeIs
 
 from magebench.common.json5_utils import loads_json5
+from schemas.game_export_migrations import (
+    CURRENT_GAME_EXPORT_VERSION,
+    migrate_game_export_to_current,
+)
 
 JsonObject: TypeAlias = dict[str, object]
 T = TypeVar("T")
@@ -85,11 +89,10 @@ class _DecisionSupportRecord:
     )
 
     _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = ()
-    _FIELD_RENAMES: ClassVar[Mapping[str, str]] = {}
 
     @classmethod
     def _attr_name_for_known_field(cls, key: str) -> str:
-        return cls._FIELD_RENAMES.get(key, key)
+        return key
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "_extras", MappingProxyType(dict(self._extras)))
@@ -343,27 +346,29 @@ _LLM_EVENT_TYPES = {
 class Player:
     name: str
     type: str
-    tool_calls_ok: int = field(metadata={_JSON_KEY_METADATA: "toolCallsOk"})
-    tool_calls_failed: int = field(metadata={_JSON_KEY_METADATA: "toolCallsFailed"})
-    thinking_time_secs: float = field(metadata={_JSON_KEY_METADATA: "thinkingTimeSecs"})
+    tool_calls_ok: int = field(metadata={_JSON_KEY_METADATA: "tool_calls_ok"})
+    tool_calls_failed: int = field(metadata={_JSON_KEY_METADATA: "tool_calls_failed"})
+    thinking_time_secs: float = field(
+        metadata={_JSON_KEY_METADATA: "thinking_time_secs"}
+    )
     model: str | None = None
     deck_name: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "deckName"}
+        default=None, metadata={_JSON_KEY_METADATA: "deck_name"}
     )
     deck_strategy: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "deckStrategy"}
+        default=None, metadata={_JSON_KEY_METADATA: "deck_strategy"}
     )
     commander: str | None = None
     reasoning_effort: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "reasoningEffort"}
+        default=None, metadata={_JSON_KEY_METADATA: "reasoning_effort"}
     )
     total_cost_usd: float | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "totalCostUsd"}
+        default=None, metadata={_JSON_KEY_METADATA: "total_cost_usd"}
     )
     placement: int | None = None
     tools: list[str] | None = None
     timed_out: bool | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "timedOut"}
+        default=None, metadata={_JSON_KEY_METADATA: "timed_out"}
     )
 
 
@@ -373,27 +378,29 @@ class PilotPlayer:
 
     name: str
     model: str
-    tool_calls_ok: int = field(metadata={_JSON_KEY_METADATA: "toolCallsOk"})
-    tool_calls_failed: int = field(metadata={_JSON_KEY_METADATA: "toolCallsFailed"})
-    thinking_time_secs: float = field(metadata={_JSON_KEY_METADATA: "thinkingTimeSecs"})
+    tool_calls_ok: int = field(metadata={_JSON_KEY_METADATA: "tool_calls_ok"})
+    tool_calls_failed: int = field(metadata={_JSON_KEY_METADATA: "tool_calls_failed"})
+    thinking_time_secs: float = field(
+        metadata={_JSON_KEY_METADATA: "thinking_time_secs"}
+    )
     type: Literal["pilot"] = "pilot"
     deck_name: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "deckName"}
+        default=None, metadata={_JSON_KEY_METADATA: "deck_name"}
     )
     deck_strategy: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "deckStrategy"}
+        default=None, metadata={_JSON_KEY_METADATA: "deck_strategy"}
     )
     commander: str | None = None
     reasoning_effort: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "reasoningEffort"}
+        default=None, metadata={_JSON_KEY_METADATA: "reasoning_effort"}
     )
     total_cost_usd: float | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "totalCostUsd"}
+        default=None, metadata={_JSON_KEY_METADATA: "total_cost_usd"}
     )
     placement: int | None = None
     tools: list[str] | None = None
     timed_out: bool | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "timedOut"}
+        default=None, metadata={_JSON_KEY_METADATA: "timed_out"}
     )
 
 
@@ -473,16 +480,16 @@ class Action:
 @dataclass(kw_only=True)
 class LlmUsage:
     prompt_tokens: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "promptTokens"}
+        default=None, metadata={_JSON_KEY_METADATA: "prompt_tokens"}
     )
     completion_tokens: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "completionTokens"}
+        default=None, metadata={_JSON_KEY_METADATA: "completion_tokens"}
     )
     cached_tokens: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "cachedTokens"}
+        default=None, metadata={_JSON_KEY_METADATA: "cached_tokens"}
     )
     reasoning_tokens: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "reasoningTokens"}
+        default=None, metadata={_JSON_KEY_METADATA: "reasoning_tokens"}
     )
 
 
@@ -492,7 +499,9 @@ class _LlmEventBase:
     player: str
     ts: str | None = None
     seq: int | None = None
-    game_seq: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "gameSeq"})
+    game_seq: int | None = field(
+        default=None, metadata={_JSON_KEY_METADATA: "game_seq"}
+    )
 
 
 @dataclass(kw_only=True)
@@ -500,7 +509,7 @@ class GameStartEvent(_LlmEventBase):
     type: Literal["game_start"]
     model: str | None = None
     available_tools: list[str] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "availableTools"}
+        default=None, metadata={_JSON_KEY_METADATA: "available_tools"}
     )
 
 
@@ -510,11 +519,11 @@ class LlmResponseEvent(_LlmEventBase):
     reasoning: str | None = None
     thinking: str | None = None
     tool_calls: object | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "toolCalls"}
+        default=None, metadata={_JSON_KEY_METADATA: "tool_calls"}
     )
     usage: LlmUsage | None = None
     cost_usd: float | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "costUsd"}
+        default=None, metadata={_JSON_KEY_METADATA: "cost_usd"}
     )
 
 
@@ -525,7 +534,7 @@ class ToolCallEvent(_LlmEventBase):
     args: JsonObject
     result: str
     latency_ms: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "latencyMs"}
+        default=None, metadata={_JSON_KEY_METADATA: "latency_ms"}
     )
 
 
@@ -533,10 +542,10 @@ class ToolCallEvent(_LlmEventBase):
 class StallEvent(_LlmEventBase):
     type: Literal["stall"]
     turns_without_progress: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "turnsWithoutProgress"}
+        default=None, metadata={_JSON_KEY_METADATA: "turns_without_progress"}
     )
     last_tools: list[str] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "lastTools"}
+        default=None, metadata={_JSON_KEY_METADATA: "last_tools"}
     )
 
 
@@ -550,10 +559,10 @@ class ContextResetEvent(_LlmEventBase):
 class ContextTrimEvent(_LlmEventBase):
     type: Literal["context_trim"]
     messages_before: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "messagesBefore"}
+        default=None, metadata={_JSON_KEY_METADATA: "messages_before"}
     )
     messages_after: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "messagesAfter"}
+        default=None, metadata={_JSON_KEY_METADATA: "messages_after"}
     )
 
 
@@ -561,10 +570,10 @@ class ContextTrimEvent(_LlmEventBase):
 class LlmErrorEvent(_LlmEventBase):
     type: Literal["llm_error"]
     error_type: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "errorType"}
+        default=None, metadata={_JSON_KEY_METADATA: "error_type"}
     )
     error_message: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "errorMessage"}
+        default=None, metadata={_JSON_KEY_METADATA: "error_message"}
     )
 
 
@@ -619,24 +628,24 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
                 for usage_key, usage_value in v.items()
                 if usage_key
                 not in {
-                    "promptTokens",
-                    "completionTokens",
-                    "cachedTokens",
-                    "reasoningTokens",
+                    "prompt_tokens",
+                    "completion_tokens",
+                    "cached_tokens",
+                    "reasoning_tokens",
                 }
             }
             usage_instance = LlmUsage(
                 prompt_tokens=_load_optional(
-                    v, "promptTokens", _require_non_negative_int, "LlmUsage"
+                    v, "prompt_tokens", _require_non_negative_int, "LlmUsage"
                 ),
                 completion_tokens=_load_optional(
-                    v, "completionTokens", _require_non_negative_int, "LlmUsage"
+                    v, "completion_tokens", _require_non_negative_int, "LlmUsage"
                 ),
                 cached_tokens=_load_optional(
-                    v, "cachedTokens", _require_non_negative_int, "LlmUsage"
+                    v, "cached_tokens", _require_non_negative_int, "LlmUsage"
                 ),
                 reasoning_tokens=_load_optional(
-                    v, "reasoningTokens", _require_non_negative_int, "LlmUsage"
+                    v, "reasoning_tokens", _require_non_negative_int, "LlmUsage"
                 ),
             )
             object.__setattr__(usage_instance, "_source_keys", frozenset(v.keys()))
@@ -661,90 +670,82 @@ class GameOver:
 
 @dataclass
 class Annotation:
-    decision_index: int = field(metadata={_JSON_KEY_METADATA: "decisionIndex"})
+    decision_index: int = field(metadata={_JSON_KEY_METADATA: "decision_index"})
     player: str
     type: Literal["blunder"]
     severity: str
     description: str
-    action_taken: str = field(metadata={_JSON_KEY_METADATA: "actionTaken"})
-    better_line: str = field(metadata={_JSON_KEY_METADATA: "betterLine"})
+    action_taken: str = field(metadata={_JSON_KEY_METADATA: "action_taken"})
+    better_line: str = field(metadata={_JSON_KEY_METADATA: "better_line"})
     snapshot_index: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "snapshotIndex"}
+        default=None, metadata={_JSON_KEY_METADATA: "snapshot_index"}
     )
     llm_reasoning: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "llmReasoning"}
+        default=None, metadata={_JSON_KEY_METADATA: "llm_reasoning"}
     )
 
 
 @dataclass(frozen=True, slots=True)
 class PilotContext(_DecisionSupportRecord):
     untapped_lands: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "untappedLands"}
+        default=None, metadata={_JSON_KEY_METADATA: "untapped_lands"}
     )
     land_drops_used: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "landDropsUsed"}
+        default=None, metadata={_JSON_KEY_METADATA: "land_drops_used"}
     )
     playable_cards: list[str] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "playableCards"}
+        default=None, metadata={_JSON_KEY_METADATA: "playable_cards"}
     )
     combat_phase: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "combatPhase"}
+        default=None, metadata={_JSON_KEY_METADATA: "combat_phase"}
     )
     already_attacking: list[str | CombatCreature] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "alreadyAttacking"}
+        default=None, metadata={_JSON_KEY_METADATA: "already_attacking"}
     )
     incoming_attackers: list[str | CombatCreature] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "incomingAttackers"}
+        default=None, metadata={_JSON_KEY_METADATA: "incoming_attackers"}
     )
 
     _KNOWN_FIELDS: ClassVar[tuple[str, ...]] = (
-        "untappedLands",
-        "landDropsUsed",
-        "playableCards",
-        "combatPhase",
-        "alreadyAttacking",
-        "incomingAttackers",
+        "untapped_lands",
+        "land_drops_used",
+        "playable_cards",
+        "combat_phase",
+        "already_attacking",
+        "incoming_attackers",
     )
-    _FIELD_RENAMES: ClassVar[Mapping[str, str]] = {
-        "untappedLands": "untapped_lands",
-        "landDropsUsed": "land_drops_used",
-        "playableCards": "playable_cards",
-        "combatPhase": "combat_phase",
-        "alreadyAttacking": "already_attacking",
-        "incomingAttackers": "incoming_attackers",
-    }
 
     @classmethod
     def from_mapping(cls, obj: Mapping[str, object]) -> "PilotContext":
         return cls(
             untapped_lands=_load_optional(
-                obj, "untappedLands", _require_int, "PilotContext"
+                obj, "untapped_lands", _require_int, "PilotContext"
             ),
             land_drops_used=_load_optional(
-                obj, "landDropsUsed", _require_int, "PilotContext"
+                obj, "land_drops_used", _require_int, "PilotContext"
             ),
             playable_cards=_load_optional(
-                obj, "playableCards", _require_str_list, "PilotContext"
+                obj, "playable_cards", _require_str_list, "PilotContext"
             ),
             combat_phase=_load_optional(
-                obj, "combatPhase", _require_optional_str, "PilotContext"
+                obj, "combat_phase", _require_optional_str, "PilotContext"
             ),
             already_attacking=(
                 _coerce_str_or_typed_list(
-                    obj["alreadyAttacking"],
-                    "PilotContext.alreadyAttacking",
+                    obj["already_attacking"],
+                    "PilotContext.already_attacking",
                     _coerce_combat_creature,
                 )
-                if "alreadyAttacking" in obj
+                if "already_attacking" in obj
                 else None
             ),
             incoming_attackers=(
                 _coerce_str_or_typed_list(
-                    obj["incomingAttackers"],
-                    "PilotContext.incomingAttackers",
+                    obj["incoming_attackers"],
+                    "PilotContext.incoming_attackers",
                     _coerce_combat_creature,
                 )
-                if "incomingAttackers" in obj
+                if "incoming_attackers" in obj
                 else None
             ),
             _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
@@ -784,45 +785,45 @@ def game_export_to_jsonable(value: object) -> object:
 @dataclass(slots=True)
 class Decision:
     index: int
-    snapshot_index: int = field(metadata={_JSON_KEY_METADATA: "snapshotIndex"})
+    snapshot_index: int = field(metadata={_JSON_KEY_METADATA: "snapshot_index"})
     player: str
     turn: int
     phase: str | None
-    action_type: str = field(metadata={_JSON_KEY_METADATA: "actionType"})
-    response_type: str = field(metadata={_JSON_KEY_METADATA: "responseType"})
+    action_type: str = field(metadata={_JSON_KEY_METADATA: "action_type"})
+    response_type: str = field(metadata={_JSON_KEY_METADATA: "response_type"})
     message: str
     choices: list[Choice]
-    choice_count: int = field(metadata={_JSON_KEY_METADATA: "choiceCount"})
-    is_forced: bool = field(metadata={_JSON_KEY_METADATA: "isForced"})
+    choice_count: int = field(metadata={_JSON_KEY_METADATA: "choice_count"})
+    is_forced: bool = field(metadata={_JSON_KEY_METADATA: "is_forced"})
     llm_event_indices: list[int] = field(
-        metadata={_JSON_KEY_METADATA: "llmEventIndices"}
+        metadata={_JSON_KEY_METADATA: "llm_event_indices"}
     )
     subsequent_actions: list[str] = field(
-        metadata={_JSON_KEY_METADATA: "subsequentActions"}
+        metadata={_JSON_KEY_METADATA: "subsequent_actions"}
     )
     step: str | None = None
     pilot_context: PilotContext | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "pilotContext"}
+        default=None, metadata={_JSON_KEY_METADATA: "pilot_context"}
     )
     chosen: object = None
     chosen_args: JsonObject | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "chosenArgs"}
+        default=None, metadata={_JSON_KEY_METADATA: "chosen_args"}
     )
     action_result: JsonObject | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "actionResult"}
+        default=None, metadata={_JSON_KEY_METADATA: "action_result"}
     )
     cast_rolled_back: bool = field(
-        default=False, metadata={_JSON_KEY_METADATA: "castRolledBack"}
+        default=False, metadata={_JSON_KEY_METADATA: "cast_rolled_back"}
     )
     items: list[MultiAmountItem] | None = None
     total_min: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "totalMin"}
+        default=None, metadata={_JSON_KEY_METADATA: "total_min"}
     )
     total_max: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "totalMax"}
+        default=None, metadata={_JSON_KEY_METADATA: "total_max"}
     )
     action_seq: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "actionSeq"}
+        default=None, metadata={_JSON_KEY_METADATA: "action_seq"}
     )
 
     @classmethod
@@ -839,15 +840,15 @@ class Decision:
             choices.append(
                 choice if isinstance(choice, Choice) else Choice.from_mapping(choice)
             )
-        chosen_args = value.get("chosenArgs")
+        chosen_args = value.get("chosen_args")
         assert chosen_args is None or isinstance(chosen_args, dict), (
             f"Decision.chosen_args must be an object when present, got {chosen_args!r}"
         )
-        action_result = value.get("actionResult")
+        action_result = value.get("action_result")
         assert action_result is None or isinstance(action_result, dict), (
             f"Decision.action_result must be an object when present, got {action_result!r}"
         )
-        raw_pilot_context = value.get("pilotContext")
+        raw_pilot_context = value.get("pilot_context")
         assert raw_pilot_context is None or isinstance(
             raw_pilot_context, (dict, PilotContext)
         ), (
@@ -874,43 +875,45 @@ class Decision:
                     if isinstance(item, MultiAmountItem)
                     else MultiAmountItem.from_mapping(item)
                 )
-        total_min = value.get("totalMin")
+        total_min = value.get("total_min")
         assert total_min is None or _is_int(total_min), (
             f"Decision.total_min must be an int when present, got {total_min!r}"
         )
-        total_max = value.get("totalMax")
+        total_max = value.get("total_max")
         assert total_max is None or _is_int(total_max), (
             f"Decision.total_max must be an int when present, got {total_max!r}"
         )
-        action_seq = value.get("actionSeq")
+        action_seq = value.get("action_seq")
         assert action_seq is None or _is_int(action_seq), (
             f"Decision.action_seq must be an int when present, got {action_seq!r}"
         )
-        cast_rolled_back = value.get("castRolledBack", False)
+        cast_rolled_back = value.get("cast_rolled_back", False)
         assert isinstance(cast_rolled_back, bool), (
             f"Decision.cast_rolled_back must be a bool when present, got {cast_rolled_back!r}"
         )
         return cls(
             index=_load_required(value, "index", _require_int, "Decision"),
             snapshot_index=_load_required(
-                value, "snapshotIndex", _require_int, "Decision"
+                value, "snapshot_index", _require_int, "Decision"
             ),
             player=_load_required(value, "player", _require_str, "Decision"),
             turn=_load_required(value, "turn", _require_int, "Decision"),
             phase=_load_required(value, "phase", _require_optional_str, "Decision"),
-            action_type=_load_required(value, "actionType", _require_str, "Decision"),
+            action_type=_load_required(value, "action_type", _require_str, "Decision"),
             response_type=_load_required(
-                value, "responseType", _require_str, "Decision"
+                value, "response_type", _require_str, "Decision"
             ),
             message=_load_required(value, "message", _require_str, "Decision"),
             choices=choices,
-            choice_count=_load_required(value, "choiceCount", _require_int, "Decision"),
-            is_forced=_load_required(value, "isForced", _require_bool, "Decision"),
+            choice_count=_load_required(
+                value, "choice_count", _require_int, "Decision"
+            ),
+            is_forced=_load_required(value, "is_forced", _require_bool, "Decision"),
             llm_event_indices=_load_required(
-                value, "llmEventIndices", _require_int_list, "Decision"
+                value, "llm_event_indices", _require_int_list, "Decision"
             ),
             subsequent_actions=_load_required(
-                value, "subsequentActions", _require_str_list, "Decision"
+                value, "subsequent_actions", _require_str_list, "Decision"
             ),
             step=_load_optional(value, "step", _require_optional_str, "Decision"),
             pilot_context=pilot_context,
@@ -919,45 +922,45 @@ class Decision:
             action_result=action_result,
             cast_rolled_back=cast_rolled_back,
             items=items,
-            total_min=_load_optional(value, "totalMin", _require_int, "Decision"),
-            total_max=_load_optional(value, "totalMax", _require_int, "Decision"),
-            action_seq=_load_optional(value, "actionSeq", _require_int, "Decision"),
+            total_min=_load_optional(value, "total_min", _require_int, "Decision"),
+            total_max=_load_optional(value, "total_max", _require_int, "Decision"),
+            action_seq=_load_optional(value, "action_seq", _require_int, "Decision"),
         )
 
     def to_dict(self) -> JsonObject:
         result: JsonObject = {
             "index": self.index,
-            "snapshotIndex": self.snapshot_index,
+            "snapshot_index": self.snapshot_index,
             "player": self.player,
             "turn": self.turn,
             "phase": self.phase,
             "step": self.step,
-            "actionType": self.action_type,
-            "responseType": self.response_type,
+            "action_type": self.action_type,
+            "response_type": self.response_type,
             "message": self.message,
             "choices": self.choices,
-            "choiceCount": self.choice_count,
-            "isForced": self.is_forced,
+            "choice_count": self.choice_count,
+            "is_forced": self.is_forced,
             "chosen": self.chosen,
-            "llmEventIndices": self.llm_event_indices,
-            "subsequentActions": self.subsequent_actions,
+            "llm_event_indices": self.llm_event_indices,
+            "subsequent_actions": self.subsequent_actions,
         }
         if self.pilot_context is not None:
-            result["pilotContext"] = self.pilot_context
+            result["pilot_context"] = self.pilot_context
         if self.chosen_args is not None:
-            result["chosenArgs"] = self.chosen_args
+            result["chosen_args"] = self.chosen_args
         if self.action_result is not None:
-            result["actionResult"] = self.action_result
+            result["action_result"] = self.action_result
         if self.cast_rolled_back:
-            result["castRolledBack"] = True
+            result["cast_rolled_back"] = True
         if self.items is not None:
             result["items"] = self.items
         if self.total_min is not None:
-            result["totalMin"] = self.total_min
+            result["total_min"] = self.total_min
         if self.total_max is not None:
-            result["totalMax"] = self.total_max
+            result["total_max"] = self.total_max
         if self.action_seq is not None:
-            result["actionSeq"] = self.action_seq
+            result["action_seq"] = self.action_seq
         return result
 
     def __getitem__(self, key: str) -> object:
@@ -980,7 +983,7 @@ class GameError:
     source: str
     message: str
     decision_index: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "decisionIndex"}
+        default=None, metadata={_JSON_KEY_METADATA: "decision_index"}
     )
 
 
@@ -1030,31 +1033,31 @@ def _game_export_from_dict(cls: type[GameExportT], obj: JsonObject) -> GameExpor
 class BuiltGameExport:
     """Game export with optional annotations (pre-annotation stage)."""
 
-    version: Literal[8]
+    version: Literal[9]
     id: str
     timestamp: str
-    game_type: str = field(metadata={_JSON_KEY_METADATA: "gameType"})
-    deck_type: str = field(metadata={_JSON_KEY_METADATA: "deckType"})
-    total_turns: int = field(metadata={_JSON_KEY_METADATA: "totalTurns"})
+    game_type: str = field(metadata={_JSON_KEY_METADATA: "game_type"})
+    deck_type: str = field(metadata={_JSON_KEY_METADATA: "deck_type"})
+    total_turns: int = field(metadata={_JSON_KEY_METADATA: "total_turns"})
     winner: str | None
-    harness_epoch: int = field(metadata={_JSON_KEY_METADATA: "harnessEpoch"})
-    youtube_url: str = field(metadata={_JSON_KEY_METADATA: "youtubeUrl"})
+    harness_epoch: int = field(metadata={_JSON_KEY_METADATA: "harness_epoch"})
+    youtube_url: str = field(metadata={_JSON_KEY_METADATA: "youtube_url"})
     players: list[Player]
-    card_images: dict[str, str] = field(metadata={_JSON_KEY_METADATA: "cardImages"})
+    card_images: dict[str, str] = field(metadata={_JSON_KEY_METADATA: "card_images"})
     snapshots: list[Snapshot]
     actions: list[Action]
-    llm_events: list[LlmEvent] = field(metadata={_JSON_KEY_METADATA: "llmEvents"})
-    game_over: GameOver | None = field(metadata={_JSON_KEY_METADATA: "gameOver"})
+    llm_events: list[LlmEvent] = field(metadata={_JSON_KEY_METADATA: "llm_events"})
+    game_over: GameOver | None = field(metadata={_JSON_KEY_METADATA: "game_over"})
     season: int
     tournament: str | None
     card_data: dict[str, CardMetadata] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "cardData"}
+        default=None, metadata={_JSON_KEY_METADATA: "card_data"}
     )
     decisions: list[Decision] | None = None
     errors: list[GameError] | None = None
     annotations: list[Annotation] | None = None
     blunder_script_version: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "blunderScriptVersion"}
+        default=None, metadata={_JSON_KEY_METADATA: "blunder_script_version"}
     )
 
     def to_dict(self) -> JsonObject:
@@ -1069,29 +1072,29 @@ class BuiltGameExport:
 class GameExport:
     """Game export with required annotations (post-annotation stage)."""
 
-    version: Literal[8]
+    version: Literal[9]
     id: str
     timestamp: str
-    game_type: str = field(metadata={_JSON_KEY_METADATA: "gameType"})
-    deck_type: str = field(metadata={_JSON_KEY_METADATA: "deckType"})
-    total_turns: int = field(metadata={_JSON_KEY_METADATA: "totalTurns"})
+    game_type: str = field(metadata={_JSON_KEY_METADATA: "game_type"})
+    deck_type: str = field(metadata={_JSON_KEY_METADATA: "deck_type"})
+    total_turns: int = field(metadata={_JSON_KEY_METADATA: "total_turns"})
     winner: str | None
-    harness_epoch: int = field(metadata={_JSON_KEY_METADATA: "harnessEpoch"})
-    youtube_url: str = field(metadata={_JSON_KEY_METADATA: "youtubeUrl"})
+    harness_epoch: int = field(metadata={_JSON_KEY_METADATA: "harness_epoch"})
+    youtube_url: str = field(metadata={_JSON_KEY_METADATA: "youtube_url"})
     players: list[Player]
-    card_images: dict[str, str] = field(metadata={_JSON_KEY_METADATA: "cardImages"})
+    card_images: dict[str, str] = field(metadata={_JSON_KEY_METADATA: "card_images"})
     snapshots: list[Snapshot]
     actions: list[Action]
-    llm_events: list[LlmEvent] = field(metadata={_JSON_KEY_METADATA: "llmEvents"})
-    game_over: GameOver | None = field(metadata={_JSON_KEY_METADATA: "gameOver"})
+    llm_events: list[LlmEvent] = field(metadata={_JSON_KEY_METADATA: "llm_events"})
+    game_over: GameOver | None = field(metadata={_JSON_KEY_METADATA: "game_over"})
     season: int
     tournament: str | None
     annotations: list[Annotation]
     blunder_script_version: int = field(
-        metadata={_JSON_KEY_METADATA: "blunderScriptVersion"}
+        metadata={_JSON_KEY_METADATA: "blunder_script_version"}
     )
     card_data: dict[str, CardMetadata] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "cardData"}
+        default=None, metadata={_JSON_KEY_METADATA: "card_data"}
     )
     decisions: list[Decision] | None = None
     errors: list[GameError] | None = None
@@ -1529,23 +1532,23 @@ def _validate_player(value: object, source: str) -> Player:
     name = _load_required(obj, "name", _require_str, source)
     player_type = _load_required(obj, "type", _require_str, source)
     tool_calls_ok = _load_required(
-        obj, "toolCallsOk", _require_non_negative_int, source
+        obj, "tool_calls_ok", _require_non_negative_int, source
     )
     tool_calls_failed = _load_required(
-        obj, "toolCallsFailed", _require_non_negative_int, source
+        obj, "tool_calls_failed", _require_non_negative_int, source
     )
     thinking_time_secs = float(
-        _load_required(obj, "thinkingTimeSecs", _require_number, source)
+        _load_required(obj, "thinking_time_secs", _require_number, source)
     )
     model = _load_optional(obj, "model", _require_str, source)
-    deck_name = _load_optional(obj, "deckName", _require_str, source)
-    deck_strategy = _load_optional(obj, "deckStrategy", _require_str, source)
+    deck_name = _load_optional(obj, "deck_name", _require_str, source)
+    deck_strategy = _load_optional(obj, "deck_strategy", _require_str, source)
     commander = _load_optional(obj, "commander", _require_str, source)
-    reasoning_effort = _load_optional(obj, "reasoningEffort", _require_str, source)
-    total_cost = _load_optional(obj, "totalCostUsd", _require_number, source)
+    reasoning_effort = _load_optional(obj, "reasoning_effort", _require_str, source)
+    total_cost = _load_optional(obj, "total_cost_usd", _require_number, source)
     placement = _load_optional(obj, "placement", _require_positive_int, source)
     tools = _load_optional(obj, "tools", _require_str_list, source)
-    timed_out = _load_optional(obj, "timedOut", _require_bool, source)
+    timed_out = _load_optional(obj, "timed_out", _require_bool, source)
     if player_type == "pilot":
         model = _load_required(obj, "model", _require_non_empty_str, source)
     return Player(
@@ -1740,7 +1743,12 @@ def _parse_action(value: object, source: str) -> Action:
 
 def _is_llm_usage(value: object, source: str) -> bool:
     obj = _require_object(value, source)
-    for key in ("promptTokens", "completionTokens", "cachedTokens", "reasoningTokens"):
+    for key in (
+        "prompt_tokens",
+        "completion_tokens",
+        "cached_tokens",
+        "reasoning_tokens",
+    ):
         if key in obj:
             _require_non_negative_int(obj[key], f"{source}.{key}")
     return True
@@ -1759,8 +1767,8 @@ def _is_llm_event(value: object, source: str) -> bool:
         _require_str(obj["ts"], f"{source}.ts")
     if "seq" in obj:
         _require_int(obj["seq"], f"{source}.seq")
-    if "gameSeq" in obj:
-        _require_int(obj["gameSeq"], f"{source}.game_seq")
+    if "game_seq" in obj:
+        _require_int(obj["game_seq"], f"{source}.game_seq")
 
     # Per-variant required fields
     if obj["type"] == "tool_call":
@@ -1772,38 +1780,38 @@ def _is_llm_event(value: object, source: str) -> bool:
     # so cross-variant typos like "tool": 123 on an llm_response are caught).
     if "model" in obj:
         _require_str(obj["model"], f"{source}.model")
-    if "availableTools" in obj:
-        _require_str_list(obj["availableTools"], f"{source}.available_tools")
+    if "available_tools" in obj:
+        _require_str_list(obj["available_tools"], f"{source}.available_tools")
     if "reasoning" in obj:
         _require_optional_str(obj["reasoning"], f"{source}.reasoning")
     if "thinking" in obj:
         _require_optional_str(obj["thinking"], f"{source}.thinking")
     if "usage" in obj:
         assert _is_llm_usage(obj["usage"], f"{source}.usage")
-    if "costUsd" in obj:
-        _require_number(obj["costUsd"], f"{source}.cost_usd")
+    if "cost_usd" in obj:
+        _require_number(obj["cost_usd"], f"{source}.cost_usd")
     if "tool" in obj:
         _require_str(obj["tool"], f"{source}.tool")
     if "args" in obj:
         _require_object(obj["args"], f"{source}.args")
     if "result" in obj:
         _require_str(obj["result"], f"{source}.result")
-    if "latencyMs" in obj:
-        _require_int(obj["latencyMs"], f"{source}.latency_ms")
-    if "turnsWithoutProgress" in obj:
-        _require_int(obj["turnsWithoutProgress"], f"{source}.turns_without_progress")
-    if "lastTools" in obj:
-        _require_str_list(obj["lastTools"], f"{source}.last_tools")
+    if "latency_ms" in obj:
+        _require_int(obj["latency_ms"], f"{source}.latency_ms")
+    if "turns_without_progress" in obj:
+        _require_int(obj["turns_without_progress"], f"{source}.turns_without_progress")
+    if "last_tools" in obj:
+        _require_str_list(obj["last_tools"], f"{source}.last_tools")
     if "reason" in obj:
         _require_str(obj["reason"], f"{source}.reason")
-    if "errorType" in obj:
-        _require_str(obj["errorType"], f"{source}.error_type")
-    if "errorMessage" in obj:
-        _require_str(obj["errorMessage"], f"{source}.error_message")
-    if "messagesBefore" in obj:
-        _require_int(obj["messagesBefore"], f"{source}.messages_before")
-    if "messagesAfter" in obj:
-        _require_int(obj["messagesAfter"], f"{source}.messages_after")
+    if "error_type" in obj:
+        _require_str(obj["error_type"], f"{source}.error_type")
+    if "error_message" in obj:
+        _require_str(obj["error_message"], f"{source}.error_message")
+    if "messages_before" in obj:
+        _require_int(obj["messages_before"], f"{source}.messages_before")
+    if "messages_after" in obj:
+        _require_int(obj["messages_after"], f"{source}.messages_after")
 
     return True
 
@@ -1822,12 +1830,12 @@ def _parse_annotation(value: object, source: str) -> Annotation:
         return value
     obj = _require_object(value, source)
     decision_index = _require_non_negative_int(
-        _require_key(obj, "decisionIndex", source), f"{source}.decision_index"
+        _require_key(obj, "decision_index", source), f"{source}.decision_index"
     )
     snapshot_index: int | None = None
-    if "snapshotIndex" in obj:
+    if "snapshot_index" in obj:
         snapshot_index = _require_non_negative_int(
-            obj["snapshotIndex"], f"{source}.snapshot_index"
+            obj["snapshot_index"], f"{source}.snapshot_index"
         )
     player = _require_str(_require_key(obj, "player", source), f"{source}.player")
     type_ = _require_str(_require_key(obj, "type", source), f"{source}.type")
@@ -1840,14 +1848,14 @@ def _parse_annotation(value: object, source: str) -> Annotation:
         _require_key(obj, "description", source), f"{source}.description"
     )
     action_taken = _require_str(
-        _require_key(obj, "actionTaken", source), f"{source}.action_taken"
+        _require_key(obj, "action_taken", source), f"{source}.action_taken"
     )
     better_line = _require_str(
-        _require_key(obj, "betterLine", source), f"{source}.better_line"
+        _require_key(obj, "better_line", source), f"{source}.better_line"
     )
     llm_reasoning: str | None = None
-    if "llmReasoning" in obj:
-        llm_reasoning = _require_str(obj["llmReasoning"], f"{source}.llm_reasoning")
+    if "llm_reasoning" in obj:
+        llm_reasoning = _require_str(obj["llm_reasoning"], f"{source}.llm_reasoning")
     return Annotation(
         decision_index=decision_index,
         player=player,
@@ -1867,23 +1875,23 @@ def _coerce_pilot_context(value: object, source: str) -> PilotContext:
         if isinstance(value, PilotContext)
         else _require_object(value, source)
     )
-    if "untappedLands" in obj:
-        _require_non_negative_int(obj["untappedLands"], f"{source}.untapped_lands")
-    if "landDropsUsed" in obj:
-        _require_non_negative_int(obj["landDropsUsed"], f"{source}.land_drops_used")
-    if "playableCards" in obj:
-        _require_str_list(obj["playableCards"], f"{source}.playable_cards")
-    if "combatPhase" in obj:
-        _require_optional_str(obj["combatPhase"], f"{source}.combat_phase")
-    if "alreadyAttacking" in obj:
-        obj["alreadyAttacking"] = _coerce_str_or_typed_list(
-            obj["alreadyAttacking"],
+    if "untapped_lands" in obj:
+        _require_non_negative_int(obj["untapped_lands"], f"{source}.untapped_lands")
+    if "land_drops_used" in obj:
+        _require_non_negative_int(obj["land_drops_used"], f"{source}.land_drops_used")
+    if "playable_cards" in obj:
+        _require_str_list(obj["playable_cards"], f"{source}.playable_cards")
+    if "combat_phase" in obj:
+        _require_optional_str(obj["combat_phase"], f"{source}.combat_phase")
+    if "already_attacking" in obj:
+        obj["already_attacking"] = _coerce_str_or_typed_list(
+            obj["already_attacking"],
             f"{source}.already_attacking",
             _coerce_combat_creature,
         )
-    if "incomingAttackers" in obj:
-        obj["incomingAttackers"] = _coerce_str_or_typed_list(
-            obj["incomingAttackers"],
+    if "incoming_attackers" in obj:
+        obj["incoming_attackers"] = _coerce_str_or_typed_list(
+            obj["incoming_attackers"],
             f"{source}.incoming_attackers",
             _coerce_combat_creature,
         )
@@ -1898,49 +1906,49 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     )
     _require_non_negative_int(_require_key(obj, "index", source), f"{source}.index")
     _require_non_negative_int(
-        _require_key(obj, "snapshotIndex", source), f"{source}.snapshot_index"
+        _require_key(obj, "snapshot_index", source), f"{source}.snapshot_index"
     )
     _require_str(_require_key(obj, "player", source), f"{source}.player")
     _require_non_negative_int(_require_key(obj, "turn", source), f"{source}.turn")
     _require_optional_str(_require_key(obj, "phase", source), f"{source}.phase")
-    _require_str(_require_key(obj, "actionType", source), f"{source}.action_type")
-    _require_str(_require_key(obj, "responseType", source), f"{source}.response_type")
+    _require_str(_require_key(obj, "action_type", source), f"{source}.action_type")
+    _require_str(_require_key(obj, "response_type", source), f"{source}.response_type")
     _require_str(_require_key(obj, "message", source), f"{source}.message")
     choices = _require_list(_require_key(obj, "choices", source), f"{source}.choices")
     for index, choice in enumerate(choices):
         choices[index] = _coerce_choice(choice, f"{source}.choices[{index}]")
     _require_non_negative_int(
-        _require_key(obj, "choiceCount", source), f"{source}.choice_count"
+        _require_key(obj, "choice_count", source), f"{source}.choice_count"
     )
-    _require_bool(_require_key(obj, "isForced", source), f"{source}.is_forced")
+    _require_bool(_require_key(obj, "is_forced", source), f"{source}.is_forced")
     _require_int_list(
-        _require_key(obj, "llmEventIndices", source), f"{source}.llm_event_indices"
+        _require_key(obj, "llm_event_indices", source), f"{source}.llm_event_indices"
     )
     _require_str_list(
-        _require_key(obj, "subsequentActions", source), f"{source}.subsequent_actions"
+        _require_key(obj, "subsequent_actions", source), f"{source}.subsequent_actions"
     )
     if "step" in obj:
         _require_optional_str(obj["step"], f"{source}.step")
-    if "pilotContext" in obj:
-        obj["pilotContext"] = _coerce_pilot_context(
-            obj["pilotContext"], f"{source}.pilot_context"
+    if "pilot_context" in obj:
+        obj["pilot_context"] = _coerce_pilot_context(
+            obj["pilot_context"], f"{source}.pilot_context"
         )
-    if "chosenArgs" in obj:
-        _require_object(obj["chosenArgs"], f"{source}.chosen_args")
-    if "actionResult" in obj:
-        _require_object(obj["actionResult"], f"{source}.action_result")
-    if "castRolledBack" in obj:
-        _require_bool(obj["castRolledBack"], f"{source}.cast_rolled_back")
+    if "chosen_args" in obj:
+        _require_object(obj["chosen_args"], f"{source}.chosen_args")
+    if "action_result" in obj:
+        _require_object(obj["action_result"], f"{source}.action_result")
+    if "cast_rolled_back" in obj:
+        _require_bool(obj["cast_rolled_back"], f"{source}.cast_rolled_back")
     if "items" in obj:
         items = _require_list(obj["items"], f"{source}.items")
         for index, item in enumerate(items):
             items[index] = _coerce_multi_amount_item(item, f"{source}.items[{index}]")
-    if "totalMin" in obj:
-        _require_non_negative_int(obj["totalMin"], f"{source}.total_min")
-    if "totalMax" in obj:
-        _require_non_negative_int(obj["totalMax"], f"{source}.total_max")
-    if "actionSeq" in obj:
-        _require_non_negative_int(obj["actionSeq"], f"{source}.action_seq")
+    if "total_min" in obj:
+        _require_non_negative_int(obj["total_min"], f"{source}.total_min")
+    if "total_max" in obj:
+        _require_non_negative_int(obj["total_max"], f"{source}.total_max")
+    if "action_seq" in obj:
+        _require_non_negative_int(obj["action_seq"], f"{source}.action_seq")
     return True
 
 
@@ -1953,9 +1961,9 @@ def _parse_game_error(value: object, source: str) -> GameError:
     source_ = _require_str(_require_key(obj, "source", source), f"{source}.source")
     message = _require_str(_require_key(obj, "message", source), f"{source}.message")
     decision_index: int | None = None
-    if "decisionIndex" in obj:
+    if "decision_index" in obj:
         decision_index = _require_non_negative_int(
-            obj["decisionIndex"], f"{source}.decision_index"
+            obj["decision_index"], f"{source}.decision_index"
         )
     return GameError(
         ts=ts,
@@ -2092,9 +2100,9 @@ def _coerce_decision(value: object, source: str) -> Decision:
         )
     obj = _require_object(value, source)
     decision = dict(obj)
-    if "pilotContext" in obj:
-        decision["pilotContext"] = _coerce_pilot_context(
-            obj["pilotContext"], f"{source}.pilot_context"
+    if "pilot_context" in obj:
+        decision["pilot_context"] = _coerce_pilot_context(
+            obj["pilot_context"], f"{source}.pilot_context"
         )
     return Decision.from_dict(decision)
 
@@ -2118,28 +2126,34 @@ def _coerce_common_game_export(obj: JsonObject, source: str) -> JsonObject:
 
 
 def _validate_common_game_export(value: object, source: str) -> JsonObject:
-    obj = _require_object(value, source)
+    obj = migrate_game_export_to_current(_require_object(value, source))
     version = _require_key(obj, "version", source)
     _require_int(version, f"{source}.version")
-    assert version == 8, f"{source}.version: expected 8, got {version!r}"
+    assert version == CURRENT_GAME_EXPORT_VERSION, (
+        f"{source}.version: expected {CURRENT_GAME_EXPORT_VERSION}, got {version!r}"
+    )
     _require_non_empty_str(_require_key(obj, "id", source), f"{source}.id")
     _require_str(_require_key(obj, "timestamp", source), f"{source}.timestamp")
-    _require_non_empty_str(_require_key(obj, "gameType", source), f"{source}.game_type")
-    _require_non_empty_str(_require_key(obj, "deckType", source), f"{source}.deck_type")
+    _require_non_empty_str(
+        _require_key(obj, "game_type", source), f"{source}.game_type"
+    )
+    _require_non_empty_str(
+        _require_key(obj, "deck_type", source), f"{source}.deck_type"
+    )
     _require_non_negative_int(
-        _require_key(obj, "totalTurns", source), f"{source}.total_turns"
+        _require_key(obj, "total_turns", source), f"{source}.total_turns"
     )
     winner = _require_key(obj, "winner", source)
     _require_optional_str(winner, f"{source}.winner")
     _require_non_negative_int(
-        _require_key(obj, "harnessEpoch", source), f"{source}.harness_epoch"
+        _require_key(obj, "harness_epoch", source), f"{source}.harness_epoch"
     )
-    _require_str(_require_key(obj, "youtubeUrl", source), f"{source}.youtube_url")
+    _require_str(_require_key(obj, "youtube_url", source), f"{source}.youtube_url")
     players = _require_list(_require_key(obj, "players", source), f"{source}.players")
     for index in range(len(players)):
         players[index] = _validate_player(players[index], f"{source}.players[{index}]")
     card_images = _require_object(
-        _require_key(obj, "cardImages", source), f"{source}.card_images"
+        _require_key(obj, "card_images", source), f"{source}.card_images"
     )
     for name, url in card_images.items():
         _require_str(name, f"{source}.card_images key")
@@ -2153,7 +2167,7 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
     for index, action in enumerate(actions):
         actions[index] = _parse_action(action, f"{source}.actions[{index}]")
     llm_events = _require_list(
-        _require_key(obj, "llmEvents", source), f"{source}.llm_events"
+        _require_key(obj, "llm_events", source), f"{source}.llm_events"
     )
     for index in range(len(llm_events)):
         if dataclasses.is_dataclass(llm_events[index]):
@@ -2161,14 +2175,14 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
         event_obj = _require_object(llm_events[index], f"{source}.llm_events[{index}]")
         assert _is_llm_event(event_obj, f"{source}.llm_events[{index}]")
         llm_events[index] = _llm_event_from_dict(event_obj)
-    game_over = _require_key(obj, "gameOver", source)
+    game_over = _require_key(obj, "game_over", source)
     if game_over is not None:
-        obj["gameOver"] = _parse_game_over(game_over, f"{source}.game_over")
+        obj["game_over"] = _parse_game_over(game_over, f"{source}.game_over")
     _require_non_negative_int(_require_key(obj, "season", source), f"{source}.season")
     tournament = _require_key(obj, "tournament", source)
     _require_optional_str(tournament, f"{source}.tournament")
-    if "cardData" in obj:
-        card_data = _require_object(obj["cardData"], f"{source}.card_data")
+    if "card_data" in obj:
+        card_data = _require_object(obj["card_data"], f"{source}.card_data")
         for card_name in card_data:
             _require_str(card_name, f"{source}.card_data key")
             card_data[card_name] = _parse_card_metadata(
@@ -2192,9 +2206,9 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
             annotations[index] = _parse_annotation(
                 annotation, f"{source}.annotations[{index}]"
             )
-    if "blunderScriptVersion" in obj:
+    if "blunder_script_version" in obj:
         _require_non_negative_int(
-            obj["blunderScriptVersion"], f"{source}.blunder_script_version"
+            obj["blunder_script_version"], f"{source}.blunder_script_version"
         )
     return obj
 
@@ -2212,7 +2226,7 @@ def is_game_export(value: object, source: str = "game export") -> bool:
     obj = _validate_common_game_export(value, source)
     annotations = _require_key(obj, "annotations", source)
     _require_list(annotations, f"{source}.annotations")
-    blunder_version = _require_key(obj, "blunderScriptVersion", source)
+    blunder_version = _require_key(obj, "blunder_script_version", source)
     _require_non_negative_int(blunder_version, f"{source}.blunder_script_version")
     return True
 
@@ -2226,16 +2240,20 @@ def require_built_game_export(
             if isinstance(value, BuiltGameExport)
             else BuiltGameExport.from_dict(value.to_dict())
         )
-    assert is_built_game_export(value, source)
-    coerced = _coerce_common_game_export(_require_object(value, source), source)
+    validated = _validate_common_game_export(value, source)
+    coerced = _coerce_common_game_export(validated, source)
     return BuiltGameExport.from_dict(coerced)
 
 
 def require_game_export(value: object, source: str = "game export") -> GameExport:
     if isinstance(value, GameExport):
         return value
-    assert is_game_export(value, source)
-    coerced = _coerce_common_game_export(_require_object(value, source), source)
+    validated = _validate_common_game_export(value, source)
+    annotations = _require_key(validated, "annotations", source)
+    _require_list(annotations, f"{source}.annotations")
+    blunder_version = _require_key(validated, "blunder_script_version", source)
+    _require_non_negative_int(blunder_version, f"{source}.blunder_script_version")
+    coerced = _coerce_common_game_export(validated, source)
     return GameExport.from_dict(coerced)
 
 
