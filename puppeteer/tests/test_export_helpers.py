@@ -25,7 +25,7 @@ from scripts.game_exports import (
 
 
 def _make_stub_export(game_id: str = "game_20260301_120000") -> dict:
-    return {"version": 8, "id": game_id}
+    return {"version": 9, "id": game_id}
 
 
 def test_compute_season_uses_harness_epoch_boundary() -> None:
@@ -236,7 +236,7 @@ def test_build_decisions_keeps_successful_retry_and_skips_blank_follow_up() -> N
 def test_backfill_game_force_rebuilds_existing_decisions(tmp_path: Path) -> None:
     path = tmp_path / "game_retry.json5"
     payload = {
-        "version": 8,
+        "version": 9,
         "id": "game_retry",
         "harness_epoch": 40,
         "snapshots": [
@@ -401,7 +401,7 @@ def test_write_raw_game_export_serializes_decision_support_dataclasses(
     tmp_path: Path,
 ) -> None:
     payload = {
-        "version": 8,
+        "version": 9,
         "id": "game_dataclass",
         "decisions": [
             {

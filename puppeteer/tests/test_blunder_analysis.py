@@ -75,7 +75,7 @@ def _make_decision(**overrides: object) -> Decision:
 
 def _make_game() -> dict:
     return {
-        "version": 8,
+        "version": 9,
         "id": "game_test_001",
         "timestamp": "2026-01-01T00:00:00-08:00",
         "game_type": "Two Player Duel",

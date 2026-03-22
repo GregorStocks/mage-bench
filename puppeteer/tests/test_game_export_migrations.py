@@ -1,13 +1,10 @@
-"""Tests for game export wire-format migrations."""
+"""Tests for strict game export wire-format handling."""
 
 from __future__ import annotations
 
-from schemas.game_export_migrations import (
-    CURRENT_GAME_EXPORT_VERSION,
-    LEGACY_GAME_EXPORT_VERSION,
-    demigrate_game_export_v9_to_v8,
-    migrate_game_export_v8_to_v9,
-)
+import pytest
+
+from schemas.game_export_migrations import CURRENT_GAME_EXPORT_VERSION, migrate_game_export_to_current
 
 
 def _minimal_v9_export(**overrides) -> dict[str, object]:
@@ -152,44 +149,19 @@ def _minimal_v9_export(**overrides) -> dict[str, object]:
     return payload
 
 
-def _minimal_v8_export(**overrides) -> dict[str, object]:
-    return demigrate_game_export_v9_to_v8(_minimal_v9_export(**overrides))
-
-
-def test_migrate_game_export_v8_to_v9_renames_wire_keys() -> None:
-    migrated = migrate_game_export_v8_to_v9(_minimal_v8_export())
+def test_migrate_game_export_to_current_accepts_v9_payload() -> None:
+    migrated = migrate_game_export_to_current(_minimal_v9_export())
 
     assert migrated["version"] == CURRENT_GAME_EXPORT_VERSION
-    assert migrated["game_type"] == "Two Player Duel"
-    assert "gameType" not in migrated
     assert migrated["players"][0]["tool_calls_ok"] == 3
-    assert "toolCallsOk" not in migrated["players"][0]
     assert migrated["llm_events"][0]["available_tools"] == ["pass_priority"]
-    assert migrated["llm_events"][1]["tool_calls"] == []
-    assert migrated["llm_events"][1]["usage"]["prompt_tokens"] == 10
-    assert migrated["llm_events"][2]["latency_ms"] == 123
     assert migrated["annotations"][0]["decision_index"] == 0
     assert migrated["decisions"][0]["pilot_context"]["untapped_lands"] == 1
     assert migrated["errors"][0]["decision_index"] == 0
 
 
-def test_demigrate_game_export_v9_to_v8_restores_legacy_keys() -> None:
-    demigrated = demigrate_game_export_v9_to_v8(_minimal_v9_export())
+def test_migrate_game_export_to_current_rejects_legacy_versions() -> None:
+    legacy = _minimal_v9_export(version=8)
 
-    assert demigrated["version"] == LEGACY_GAME_EXPORT_VERSION
-    assert demigrated["gameType"] == "Two Player Duel"
-    assert "game_type" not in demigrated
-    assert demigrated["players"][0]["toolCallsOk"] == 3
-    assert demigrated["llmEvents"][0]["availableTools"] == ["pass_priority"]
-    assert demigrated["llmEvents"][1]["toolCalls"] == []
-    assert demigrated["llmEvents"][1]["usage"]["promptTokens"] == 10
-    assert demigrated["llmEvents"][2]["latencyMs"] == 123
-    assert demigrated["annotations"][0]["decisionIndex"] == 0
-    assert demigrated["decisions"][0]["pilotContext"]["untappedLands"] == 1
-    assert demigrated["errors"][0]["decisionIndex"] == 0
-
-
-def test_v8_v9_round_trip_preserves_legacy_export_shape() -> None:
-    legacy = _minimal_v8_export()
-
-    assert demigrate_game_export_v9_to_v8(migrate_game_export_v8_to_v9(legacy)) == legacy
+    with pytest.raises(AssertionError, match="Unsupported game export version 8; expected 9"):
+        migrate_game_export_to_current(legacy)

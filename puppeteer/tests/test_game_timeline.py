@@ -25,7 +25,7 @@ game_timeline = _import_game_timeline()
 
 def _write_export(tmp_path: Path, *, annotated: bool = True) -> Path:
     export = {
-        "version": 8,
+        "version": 9,
         "id": "game_test",
         "timestamp": "2026-03-01T00:00:00.000000Z",
         "deck_type": "Limited",

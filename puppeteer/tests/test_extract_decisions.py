@@ -434,7 +434,7 @@ def _v2_game_data(llm_events: list[dict]) -> BuiltGameExport:
 def _minimal_built_export(**overrides: object) -> BuiltGameExport:
     """Build a minimal BuiltGameExport with sensible defaults."""
     defaults: dict[str, object] = {
-        "version": 8,
+        "version": 9,
         "id": "test_game",
         "timestamp": "",
         "game_type": "Two Player Duel",

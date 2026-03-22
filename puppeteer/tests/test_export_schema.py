@@ -53,13 +53,10 @@ from magebench.game.game_export_types import (
 )
 from schemas.game_export_migrations import (
     CURRENT_GAME_EXPORT_VERSION,
-    LEGACY_GAME_EXPORT_VERSION,
-    demigrate_game_export_v9_to_v8,
 )
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 CURRENT_VERSION = CURRENT_GAME_EXPORT_VERSION
-LEGACY_VERSION = LEGACY_GAME_EXPORT_VERSION
 SCHEMA_DIR = REPO_ROOT / "src" / "magebench" / "game"
 SCHEMA_DIR = REPO_ROOT / "src" / "magebench" / "game"
 
@@ -105,11 +102,6 @@ def _minimal_export(version: int, **overrides) -> dict:
         base["llmTrace"] = []
     base.update(overrides)
     return base
-
-
-def _minimal_legacy_export(**overrides) -> dict:
-    """Build a minimal legacy v8 export payload with camelCase wire keys."""
-    return demigrate_game_export_v9_to_v8(_minimal_export(CURRENT_VERSION, **overrides))
 
 
 def _typed_dict_keys(typed_dict_cls: object) -> set[str]:
@@ -255,8 +247,8 @@ class TestExportSchema:
 
     def test_v9_schema_rejects_other_version_numbers(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
-        errors = list(validator.iter_errors(_minimal_export(LEGACY_VERSION, season=1, tournament=None)))
-        assert errors, f"v{CURRENT_VERSION} schema should reject version {LEGACY_VERSION}"
+        errors = list(validator.iter_errors(_minimal_export(8, season=1, tournament=None)))
+        assert errors, f"v{CURRENT_VERSION} schema should reject version 8"
 
     def test_v9_schema_requires_annotation_decision_index(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
@@ -384,9 +376,10 @@ class TestExportSchema:
         assert game.players[0].tool_calls_ok == 3
         assert game.annotations == []
 
-    def test_typed_loader_migrates_minimal_v8_export(self, tmp_path: Path) -> None:
+    def test_typed_loader_rejects_legacy_v8_export(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v8.json5"
-        payload = _minimal_legacy_export(
+        payload = _minimal_export(
+            8,
             season=1,
             tournament=None,
             players=[
@@ -402,11 +395,8 @@ class TestExportSchema:
         )
         path.write_text(json.dumps(payload))
 
-        game = _parse_export_path(path)
-
-        assert game.version == CURRENT_VERSION
-        assert game.players[0].tool_calls_ok == 3
-        assert game.annotations == []
+        with pytest.raises(AssertionError, match="Unsupported game export version 8; expected 9"):
+            _parse_export_path(path)
 
     def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v9.json5.gz"

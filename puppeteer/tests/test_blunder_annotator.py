@@ -127,7 +127,7 @@ def _make_test_game(
         llm_events.extend(extra_llm_events)
 
     game = {
-        "version": 8,
+        "version": 9,
         "id": "game_test_001",
         "timestamp": "20260101_120000",
         "game_type": "Two Player Duel",

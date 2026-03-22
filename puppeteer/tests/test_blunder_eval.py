@@ -28,7 +28,7 @@ VALID_GAME_ID = "game_20260214_005111_g1"
 
 def _write_export(path: Path) -> None:
     data = {
-        "version": 8,
+        "version": 9,
         "id": "game_test_001",
         "timestamp": "2026-01-01T00:00:00Z",
         "game_type": "Two Player Duel",

@@ -432,7 +432,7 @@ def test_strip_volatile_keeps_errors_but_strips_error_timestamps():
 
 def test_extract_blunder_decisions_serializes_dataclass_leaves(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     export_data = {
-        "version": 8,
+        "version": 9,
         "id": "game_20260317_000000",
         "timestamp": "",
         "game_type": "Two Player Duel",

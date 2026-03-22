@@ -54,39 +54,6 @@ function makeV9Export(overrides = {}) {
   };
 }
 
-function makeLegacyV8Export(overrides = {}) {
-  return {
-    version: 8,
-    id: "game_20260301_120000",
-    timestamp: "2026-03-01T12:00:00-08:00",
-    gameType: "Two Player Duel",
-    deckType: "Constructed - Standard",
-    totalTurns: 5,
-    winner: "Alice",
-    harnessEpoch: 40,
-    youtubeUrl: "",
-    players: [
-      {
-        name: "Alice",
-        type: "pilot",
-        toolCallsOk: 3,
-        toolCallsFailed: 1,
-        thinkingTimeSecs: 12.5,
-      },
-    ],
-    cardImages: {},
-    snapshots: [],
-    actions: [],
-    llmEvents: [],
-    gameOver: null,
-    annotations: [],
-    blunderScriptVersion: 0,
-    season: 1,
-    tournament: null,
-    ...overrides,
-  };
-}
-
 afterEach(() => {
   clearGamesCache();
   vi.resetModules();
@@ -94,92 +61,44 @@ afterEach(() => {
 });
 
 describe("loadAllGames", () => {
-  it("loads normalized v8 exports", async () => {
+  it("rejects legacy v8 exports", async () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json5": JSON.stringify(
-        makeLegacyV8Export({
+        {
+          version: 8,
+          id: "game_20260301_120000",
+          timestamp: "2026-03-01T12:00:00-08:00",
+          gameType: "Two Player Duel",
+          deckType: "Constructed - Standard",
+          totalTurns: 5,
+          winner: "Alice",
+          harnessEpoch: 40,
           players: [
             {
               name: "Alice",
               type: "pilot",
-              deckName: "Azorius Control",
               toolCallsOk: 3,
               toolCallsFailed: 1,
               thinkingTimeSecs: 12.5,
             },
-            {
-              name: "Bob",
-              type: "pilot",
-              commander: "Omnath, Locus of Creation",
-              toolCallsOk: 4,
-              toolCallsFailed: 0,
-              thinkingTimeSecs: 9.5,
-            },
           ],
-          annotations: [
-            {
-              decisionIndex: 0,
-              snapshotIndex: 1,
-              player: "Alice",
-              type: "blunder",
-              severity: "major",
-              description: "Missed lethal",
-              actionTaken: "Passed",
-              betterLine: "Attack",
-            },
-            {
-              decisionIndex: 1,
-              snapshotIndex: 2,
-              player: "Bob",
-              type: "blunder",
-              severity: "minor",
-              description: "Tapped land suboptimally",
-              actionTaken: "Cast spell",
-              betterLine: "Use different land",
-            },
-          ],
-          errors: [
-            {
-              ts: "00:00:03",
-              player: "Alice",
-              source: "pilot",
-              message: "Tool call failed",
-              decisionIndex: 0,
-            },
-          ],
-        }),
+          youtubeUrl: "",
+          cardImages: {},
+          snapshots: [],
+          actions: [],
+          llmEvents: [],
+          gameOver: null,
+          annotations: [],
+          blunderScriptVersion: 0,
+          season: 1,
+          tournament: null,
+        },
       ),
     });
 
     const { loadAllGames } = await import("../src/utils/load-games.ts");
-    const games = loadAllGames();
-
-    expect(games).toHaveLength(1);
-    expect(games[0].season).toBe(1);
-    expect(games[0].players[0].tool_calls_ok).toBe(3);
-    expect(games[0].players[0].thinking_time_secs).toBe(12.5);
-    expect(games[0].replayTitle).toBe(
-      "Alice (Azorius Control) vs Bob (Omnath, Locus of Creation)",
-    );
-    expect(games[0].replayBlunderSummary).toEqual({
-      total: 2,
-      counts: {
-        questionable: 0,
-        minor: 1,
-        moderate: 0,
-        major: 1,
-      },
-    });
-    expect(games[0].errors).toEqual([
-      {
-        ts: "00:00:03",
-        player: "Alice",
-        source: "pilot",
-        message: "Tool call failed",
-        decision_index: 0,
-      },
-    ]);
+    expect(() => loadAllGames()).toThrow(/unsupported game export version 8/);
   });
 
   it("loads current v9 exports", async () => {
