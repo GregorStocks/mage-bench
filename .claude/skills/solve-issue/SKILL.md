@@ -32,22 +32,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
    Do **not** silently switch to a different issue or auto-pick a replacement. If there is no single obvious match, **stop immediately** and ask the user to clarify instead of guessing.
 
-2. **Check blocked issues** — before auto-claiming, check if any blocked issues deserve to be unblocked. Skip this step if the user explicitly passed an issue name.
-
-   ```bash
-   uv run python scripts/query_issues.py
-   ```
-
-   Look at the output. Determine the highest-priority unblocked issue, if one exists. Then inspect **every** `blocked-` issue that outranks it (lower priority number). If there are no unblocked issues at all, inspect **all** blocked issues. Work through those blocked issues in priority order:
-
-   1. Read the blocked issue's JSON5 file — the `blocked` field is a string describing why it's blocked
-   2. Investigate whether the blocker has been resolved: check the codebase, git history, external conditions described in the blocker string
-   3. If the blocker **IS resolved**: remove the `blocked` field from the JSON, rename the file from `blocked-<name>.json` to `p{priority}-<name>.json`, and commit the change (include it in your working branch). Then continue checking the remaining blocked issues in scope before claiming.
-   4. If the blocker **is NOT resolved**: leave it blocked and continue to the next blocked issue in scope
-
-   After that sweep, continue to step 3 and let auto-claim pick the highest-priority unblocked issue. This ensures high-priority issues don't stay blocked longer than necessary just because the first blocked issue you checked remained blocked.
-
-3. **Claim an issue** by running:
+2. **Try to claim an unblocked issue first** by running:
 
    ```bash
    uv run python scripts/autoclaim_issue.py
@@ -65,7 +50,30 @@ Pick and solve exactly **one** issue, then create a PR.
 
    - If the script **succeeds** (exit 0): immediately inspect the current branch PR (`gh pr view --json body,url`) and extract the `<!-- claim: ... -->` tag from that PR body. Treat that PR claim tag as the authoritative claimed issue for all later steps. If there is no open PR or the claim tag is missing/mismatched, **stop immediately** and tell the user the claim workflow is inconsistent.
    - If you later merge `origin/master` and the claimed issue file was renamed (for example because issue filename prefixes changed), immediately update the PR body to use the new canonical `<!-- claim: ... -->` tag before continuing. `finalize_issue_pr.py` preserves the current PR tag verbatim.
-   - If the script **fails** (exit 1 or 2): **stop immediately**. Tell the user no issue was claimed and do NOT proceed. You must not work on any issue you haven't successfully claimed — no exceptions. The claiming system prevents multiple Claudes from working on the same issue; bypassing it causes wasted work and merge conflicts.
+   - If the script **fails with exit 2**: **stop immediately**. Tell the user no issue was claimed and do NOT proceed.
+   - If the script **fails with exit 1** and the user explicitly passed an issue name: **stop immediately**. Tell the user no issue was claimed and do NOT proceed.
+   - If the script **fails with exit 1** during auto-pick: do **not** stop yet. This means there is no unblocked, unclaimed issue currently available. Continue to step 3 and look for a blocked issue that can be unblocked and claimed.
+
+3. **Fallback to blocked issues only if auto-claim found nothing.** Skip this step if the user explicitly passed an issue name or step 2 already claimed something.
+
+   `uv run python scripts/query_issues.py` is still useful for listing blocked issues, but do **not** use it to decide whether blocked fallback is needed. It does not know which unblocked issues are already claimed by open PRs; `autoclaim_issue.py` is the authoritative check for "nothing unblocked is actually claimable."
+
+   Work through blocked issues in any reasonable order. Priority does **not** matter in this fallback because step 2 already proved there is no unblocked, unclaimed issue to take first. Prefer blockers you can verify mechanically before issues that obviously require Gregor or an external dependency.
+
+   1. Read the blocked issue's JSON5 file — the `blocked` field is a string describing why it's blocked
+   2. Investigate whether the blocker has been resolved: check the codebase, git history, external conditions described in the blocker string
+   3. If the blocker **IS resolved**: first try to claim that specific blocked issue as it exists on disk:
+
+      ```bash
+      uv run python scripts/autoclaim_issue.py <blocked-issue-name>
+      ```
+
+      - If that claim succeeds (exit 0): inspect the current branch PR (`gh pr view --json body,url`), extract the `<!-- claim: ... -->` tag, and treat it as authoritative for all later steps. Then immediately remove the `blocked` field, rename the file from `blocked-<name>.json5` to `p{priority}-<name>.json5`, commit that change on your branch, and update the PR body to the new canonical `<!-- claim: ... -->` tag before doing any further work. Stop scanning blocked issues.
+      - If that claim fails with exit 1: another PR got there first or the claim was otherwise lost. Continue to the next blocked issue and try again with a different one.
+      - If that claim fails with exit 2: **stop immediately** and tell the user.
+   4. If the blocker **is NOT resolved**: leave it blocked and continue to the next blocked issue
+   5. If no blocked issue can be unblocked and claimed, **stop immediately** and tell the user no issue was claimed.
+
 4. **Check if already fixed** — before planning anything, check whether the issue was already resolved and the issue file just wasn't cleaned up. Do this by:
    - Finding when the authoritative claimed issue file was created (`git log --diff-filter=A -- issues/<filename>.json5`)
    - Reviewing git history since that date for commits that look like they address the issue
