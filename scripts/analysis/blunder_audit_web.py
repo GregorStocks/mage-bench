@@ -17,9 +17,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from magebench.game.game_export_types import Action, Decision, GameExport, Snapshot
-from scripts.analysis.blunder_audit import get_current_annotation
-from scripts.analysis.blunder_eval_common import (
+from magebench.analysis.blunder.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
@@ -37,13 +35,15 @@ from scripts.analysis.blunder_eval_common import (
     validate_export_filename,
     validate_game_id,
 )
-from scripts.analysis.blunder_eval_common import (
+from magebench.analysis.blunder.blunder_eval_common import (
     decision_index as get_decision_index,
 )
-from scripts.analysis.blunder_eval_common import (
+from magebench.analysis.blunder.blunder_eval_common import (
     snapshot_index as get_snapshot_index,
 )
-from scripts.analysis.extract_decisions import extract_decisions
+from magebench.analysis.blunder.extract_decisions import extract_decisions
+from magebench.game.game_export_types import Action, Decision, GameExport, Snapshot
+from scripts.analysis.blunder_audit import get_current_annotation
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
 WEBSITE_PUBLIC = REPO_ROOT / "website" / "public"

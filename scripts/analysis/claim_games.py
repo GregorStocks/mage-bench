@@ -15,12 +15,15 @@ Exit codes:
 import argparse
 import sys
 
+from magebench.analysis.blunder.blunder_eval_common import (
+    game_path_for_id,
+    validate_game_id,
+)
 from magebench.common.local_claims import (
     ClaimConflictError,
     claim_exact_keys,
     claim_first_available_keys,
 )
-from scripts.analysis.blunder_eval_common import game_path_for_id, validate_game_id
 from scripts.analysis.find_unanalyzed import find_unanalyzed, game_id_from_path
 
 

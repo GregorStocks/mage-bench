@@ -6,7 +6,7 @@ Prints turn-boundary board states and key actions (plays, casts, attacks, etc.).
 
 import sys
 
-from scripts.analysis.blunder_eval_common import export_record_name, load_game
+from magebench.analysis.blunder.blunder_eval_common import export_record_name, load_game
 
 ACTION_KEYWORDS = [
     "plays",

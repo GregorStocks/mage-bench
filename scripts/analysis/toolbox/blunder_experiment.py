@@ -42,13 +42,13 @@ from puppeteer.decision_renderer import (
     format_choice,
 )
 from magebench.game.game_export_types import BuiltGameExport, Decision, GameExport
-from scripts.analysis.blunder_context import game_overview
-from scripts.analysis.blunder_eval_common import (
+from magebench.analysis.blunder.blunder_context import game_overview
+from magebench.analysis.blunder.blunder_eval_common import (
     decision_index,
     is_forced,
     load_game_for_annotation,
 )
-from scripts.analysis.extract_decisions import extract_decisions
+from magebench.analysis.blunder.extract_decisions import extract_decisions
 
 GameData: TypeAlias = BuiltGameExport | GameExport
 

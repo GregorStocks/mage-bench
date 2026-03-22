@@ -33,6 +33,15 @@ from types import SimpleNamespace
 
 import psutil
 
+from magebench.analysis.blunder.blunder_analysis import build_decision_prompt
+from magebench.analysis.blunder.blunder_context import (
+    actions_by_turn,
+    collect_card_names,
+    game_overview,
+    get_oracle_texts,
+)
+from magebench.analysis.blunder.blunder_eval_common import decision_index
+from magebench.analysis.blunder.extract_decisions import extract_decisions
 from magebench.common.json5_utils import loads_json5
 from magebench.common.json5_writer import dumps_json5
 from magebench.game.export_game import build_export
@@ -45,15 +54,6 @@ from puppeteer.pilot_bridge import mcp_tools_to_openai
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
-from scripts.analysis.blunder_analysis import build_decision_prompt
-from scripts.analysis.blunder_context import (
-    actions_by_turn,
-    collect_card_names,
-    game_overview,
-    get_oracle_texts,
-)
-from scripts.analysis.blunder_eval_common import decision_index
-from scripts.analysis.extract_decisions import extract_decisions
 
 # ---------------------------------------------------------------------------
 # Timing instrumentation

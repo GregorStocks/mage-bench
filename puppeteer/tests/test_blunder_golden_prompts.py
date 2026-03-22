@@ -15,13 +15,13 @@ from unittest.mock import patch
 
 import pytest
 
-from magebench.common.json5_utils import loads_json5
-from magebench.common.json5_writer import dumps_json5
-from scripts.analysis.blunder_analysis import (
+from magebench.analysis.blunder.blunder_analysis import (
     build_decision_prompt,
     load_game_context,
 )
-from scripts.analysis.blunder_eval_common import decision_index as get_decision_index
+from magebench.analysis.blunder.blunder_eval_common import decision_index as get_decision_index
+from magebench.common.json5_utils import loads_json5
+from magebench.common.json5_writer import dumps_json5
 
 GOLDEN_DIR = Path(__file__).parent / "golden" / "blunder_prompts" / "game_20260216_074122_g2"
 _GAMES_DIR = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"
@@ -46,7 +46,7 @@ def game_context():
     """Load game context via the production code path, with cached oracle texts."""
     oracle_texts = loads_json5(ORACLE_CACHE.read_text())
     with patch(
-        "scripts.analysis.blunder_analysis.get_oracle_texts",
+        "magebench.analysis.blunder.blunder_analysis.get_oracle_texts",
         return_value=oracle_texts,
     ):
         return load_game_context(str(GAME_PATH))

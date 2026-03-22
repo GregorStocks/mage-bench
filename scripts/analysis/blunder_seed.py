@@ -12,7 +12,7 @@ Usage:
 
 import sys
 
-from scripts.analysis.blunder_eval_common import (
+from magebench.analysis.blunder.blunder_eval_common import (
     GAMES_DIR,
     decision_index,
     glob_game_files,
@@ -21,7 +21,7 @@ from scripts.analysis.blunder_eval_common import (
     merge_into_ground_truth,
     reverse_map_annotations,
 )
-from scripts.analysis.extract_decisions import extract_decisions
+from magebench.analysis.blunder.extract_decisions import extract_decisions
 
 
 def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:

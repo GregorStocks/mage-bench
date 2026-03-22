@@ -23,7 +23,7 @@ from zoneinfo import ZoneInfo
 from openai import OpenAIError
 
 from magebench.game.game_export_types import Decision
-from scripts.analysis.blunder_analysis import (
+from magebench.analysis.blunder.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     MAX_WORKERS,
     OPUS_MODEL,
@@ -31,7 +31,7 @@ from scripts.analysis.blunder_analysis import (
     init_api,
     load_game_context,
 )
-from scripts.analysis.blunder_eval_common import (
+from magebench.analysis.blunder.blunder_eval_common import (
     BASELINE_PATH,
     TMP_DIR,
     decision_index,

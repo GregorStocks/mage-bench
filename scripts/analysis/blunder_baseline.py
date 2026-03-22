@@ -13,8 +13,8 @@ Usage:
 import sys
 from datetime import UTC, datetime
 
-from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
-from scripts.analysis.blunder_eval_common import (
+from magebench.analysis.blunder.blunder_analysis import BLUNDER_SCRIPT_VERSION
+from magebench.analysis.blunder.blunder_eval_common import (
     decision_index,
     game_path_for_id,
     load_game,
@@ -23,7 +23,7 @@ from scripts.analysis.blunder_eval_common import (
     play_key,
     save_baseline,
 )
-from scripts.analysis.extract_decisions import extract_decisions
+from magebench.analysis.blunder.extract_decisions import extract_decisions
 
 
 def derive_baseline() -> dict:
