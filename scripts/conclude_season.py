@@ -16,7 +16,7 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
-from scripts.generate_leaderboard import copy_season_data
+from magebench.leaderboard.website_data import copy_season_data
 
 _ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"

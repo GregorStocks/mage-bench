@@ -9,17 +9,7 @@ from pathlib import Path
 import pytest
 
 from magebench.game.game_export_types import Annotation, Player, json_default
-from puppeteer import (
-    leaderboard as leaderboard_module,
-)
-from puppeteer import (
-    leaderboard_elo,
-    leaderboard_formats,
-    leaderboard_registry,
-    leaderboard_stats,
-)
-from puppeteer.harness_epoch import HARNESS_EPOCH
-from puppeteer.leaderboard import (
+from magebench.leaderboard import (
     capitalize_provider,
     compute_elo_ratings,
     compute_thinking_time,
@@ -33,7 +23,23 @@ from puppeteer.leaderboard import (
     generate_model_stats,
     load_model_registry,
 )
-from puppeteer.leaderboard_elo import player_key, split_key
+from magebench.leaderboard import (
+    elo as leaderboard_elo,
+)
+from magebench.leaderboard import (
+    formats as leaderboard_formats,
+)
+from magebench.leaderboard import (
+    leaderboard as leaderboard_module,
+)
+from magebench.leaderboard import (
+    registry as leaderboard_registry,
+)
+from magebench.leaderboard import (
+    stats as leaderboard_stats,
+)
+from magebench.leaderboard.elo import player_key, split_key
+from puppeteer.harness_epoch import HARNESS_EPOCH
 
 
 class _PlayerEncoder(json.JSONEncoder):

@@ -12,7 +12,7 @@ from magebench.game.export_game import (
     read_game_winner,
 )
 from magebench.game.game_exports import GAMES_DIR as WEBSITE_GAMES_DIR
-from scripts.generate_leaderboard import generate_all_website_data
+from magebench.leaderboard.website_data import generate_all_website_data
 
 __all__ = [
     "LOGS_DIR",

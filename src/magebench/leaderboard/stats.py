@@ -14,10 +14,18 @@ from magebench.game.game_export_types import (
     LlmResponseEvent,
     is_pilot_player,
 )
-from puppeteer.leaderboard_common import glob_game_files, load_game_file, write_if_changed
-from puppeteer.leaderboard_elo import player_key, split_key
-from puppeteer.leaderboard_formats import derive_format
-from puppeteer.leaderboard_registry import capitalize_provider, derive_display_name, load_model_registry
+from magebench.leaderboard.common import (
+    glob_game_files,
+    load_game_file,
+    write_if_changed,
+)
+from magebench.leaderboard.elo import player_key, split_key
+from magebench.leaderboard.formats import derive_format
+from magebench.leaderboard.registry import (
+    capitalize_provider,
+    derive_display_name,
+    load_model_registry,
+)
 
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 
@@ -42,7 +50,9 @@ def _parse_game_timestamp(raw_ts: str | None) -> str:
     if not raw_ts:
         return ""
     try:
-        dt = datetime.strptime(raw_ts, "%Y%m%d_%H%M%S").replace(tzinfo=_GAME_TIMESTAMP_TZ)
+        dt = datetime.strptime(raw_ts, "%Y%m%d_%H%M%S").replace(
+            tzinfo=_GAME_TIMESTAMP_TZ
+        )
     except ValueError:
         return raw_ts
     return dt.strftime("%Y-%m-%dT%H:%M:%S")
@@ -214,26 +224,33 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 player_responses[player_name] = player_responses.get(player_name, 0) + 1
                 usage = event.usage
                 if usage is not None:
-                    player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + (
-                        usage.prompt_tokens or 0
+                    player_prompt_tokens[player_name] = player_prompt_tokens.get(
+                        player_name, 0
+                    ) + (usage.prompt_tokens or 0)
+                    player_completion_tokens[player_name] = (
+                        player_completion_tokens.get(player_name, 0)
+                        + (usage.completion_tokens or 0)
                     )
-                    player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + (
-                        usage.completion_tokens or 0
-                    )
-                    player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + (
-                        usage.cached_tokens or 0
-                    )
-                    player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + (
-                        usage.reasoning_tokens or 0
-                    )
+                    player_cached_tokens[player_name] = player_cached_tokens.get(
+                        player_name, 0
+                    ) + (usage.cached_tokens or 0)
+                    player_reasoning_tokens[player_name] = player_reasoning_tokens.get(
+                        player_name, 0
+                    ) + (usage.reasoning_tokens or 0)
             elif isinstance(event, LlmErrorEvent):
                 error_type = event.error_type or "unknown"
                 if error_type == "timeout":
-                    player_timeouts[player_name] = player_timeouts.get(player_name, 0) + 1
+                    player_timeouts[player_name] = (
+                        player_timeouts.get(player_name, 0) + 1
+                    )
                 else:
-                    player_other_errors[player_name] = player_other_errors.get(player_name, 0) + 1
+                    player_other_errors[player_name] = (
+                        player_other_errors.get(player_name, 0) + 1
+                    )
             elif event.type == "context_reset":
-                player_context_resets[player_name] = player_context_resets.get(player_name, 0) + 1
+                player_context_resets[player_name] = (
+                    player_context_resets.get(player_name, 0) + 1
+                )
 
             event_ts = event.ts
             if event_ts:
@@ -261,7 +278,9 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
             player_records.append(
                 {
                     "key": key,
-                    "modelName": _build_model_metadata(key, model_registry)["modelName"],
+                    "modelName": _build_model_metadata(key, model_registry)[
+                        "modelName"
+                    ],
                     "won": winner == player.name,
                     "timedOut": bool(player.timed_out),
                     "costUsd": round(player.total_cost_usd or 0.0, 4),

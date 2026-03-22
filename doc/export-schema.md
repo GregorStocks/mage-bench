@@ -77,7 +77,7 @@ Code that reads the export format and would need updating if the schema changes:
 | `website/src/pages/games/index.astro` | Astro | Game list metadata |
 | `website/src/pages/model-stats.astro` | Astro | Player stats aggregation |
 | `website/src/pages/golden.astro` | Astro | Golden test exports |
-| `puppeteer/src/puppeteer/leaderboard.py` | Python | Player data, placements for Elo |
+| `src/magebench/leaderboard/leaderboard.py` | Python | Player data, placements for Elo |
 | `scripts/analysis/extract_decisions.py` | Python | Snapshots + llm_events for blunder analysis |
 | `scripts/analysis/blunder_analysis.py` | Python | Full export for annotation |
 | `puppeteer/src/puppeteer/decision_renderer.py` | Python | Decisions + snapshots for shared rendering |

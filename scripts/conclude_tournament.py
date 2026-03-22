@@ -8,7 +8,7 @@ Usage:
 import json
 from pathlib import Path
 
-from scripts.generate_leaderboard import copy_season_data
+from magebench.leaderboard.website_data import copy_season_data
 from scripts.tournament_game import (
     BETWEEN_SEASONS_PHASE,
     REGULAR_SEASON_PHASE,

@@ -32,6 +32,7 @@ from magebench.game.game_export_types import (
     Snapshot,
     json_default,
 )
+from magebench.leaderboard.website_data import generate_all_website_data
 from puppeteer.decision_renderer import chosen_display, render_decision
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 from scripts.analysis.annotate_game import annotate_game
@@ -65,7 +66,6 @@ from scripts.analysis.blunder_llm import (
 )
 from scripts.analysis.blunder_prompts import PER_DECISION_SYSTEM, TOOL_REFERENCE
 from scripts.analysis.extract_decisions import extract_decisions
-from scripts.generate_leaderboard import generate_all_website_data
 
 # Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
 logging.getLogger("httpx").setLevel(logging.WARNING)

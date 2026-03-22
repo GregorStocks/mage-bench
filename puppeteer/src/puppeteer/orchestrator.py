@@ -11,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from magebench.leaderboard.website_data import generate_all_website_data
 from puppeteer.batch_coordination import GameSession, finalize_game, setup_game, wait_for_all_games
 from puppeteer.config import Config
 from puppeteer.game_finalization import (
@@ -31,7 +32,6 @@ from puppeteer.post_game_analysis import (
 )
 from puppeteer.process_manager import ProcessManager, jvm_oom_preexec_fn
 from puppeteer.xml_config import modify_server_config
-from scripts.generate_leaderboard import generate_all_website_data
 
 logger = get_logger(__name__)
 

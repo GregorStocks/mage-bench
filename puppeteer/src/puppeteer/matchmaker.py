@@ -13,7 +13,7 @@ from itertools import combinations
 from pathlib import Path
 
 from magebench.common.json5_utils import loads_json5
-from puppeteer.leaderboard import derive_format
+from magebench.leaderboard.formats import derive_format
 from puppeteer.log import get_logger
 from schemas.game_export_migrations import migrate_game_export_to_current
 

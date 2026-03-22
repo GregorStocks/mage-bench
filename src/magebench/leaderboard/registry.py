@@ -37,11 +37,17 @@ def load_model_registry(models_json: Path) -> dict[str, str]:
     assert isinstance(models, list), f"{models_json}: models must be a list"
     registry: dict[str, str] = {}
     for index, model in enumerate(models):
-        assert isinstance(model, dict), f"{models_json}: models[{index}] must be an object"
+        assert isinstance(model, dict), (
+            f"{models_json}: models[{index}] must be an object"
+        )
         model_id = model.get("id")
         model_name = model.get("name")
-        assert isinstance(model_id, str) and model_id, f"{models_json}: models[{index}] missing id"
-        assert isinstance(model_name, str) and model_name, f"{models_json}: models[{index}] missing name"
+        assert isinstance(model_id, str) and model_id, (
+            f"{models_json}: models[{index}] missing id"
+        )
+        assert isinstance(model_name, str) and model_name, (
+            f"{models_json}: models[{index}] missing name"
+        )
         registry[model_id] = model_name
     return registry
 

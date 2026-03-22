@@ -79,8 +79,3 @@ HARNESS_EPOCH = 56
 # Re-exported here so existing callers keep a stable import path while the
 # canonical season boundary now lives with the export pipeline.
 SEASON_1_START_EPOCH = GAME_EXPORT_SEASON_1_START_EPOCH
-
-# Minimum blunder analysis version for "acceptable" annotations. Games
-# analyzed below this show an "(older analysis)" tag on the website.
-# (See BLUNDER_SCRIPT_VERSION in scripts/analysis/blunder_analysis.py.)
-MIN_BLUNDER_VERSION = 11
