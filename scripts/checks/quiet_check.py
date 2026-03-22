@@ -85,6 +85,8 @@ ALWAYS_RUN_TRIGGERS = [
     "scripts/checks/",
     "pyproject.toml",
     "ruff-lint.toml",
+    "uv.lock",
+    ".mvn/",
 ]
 
 
