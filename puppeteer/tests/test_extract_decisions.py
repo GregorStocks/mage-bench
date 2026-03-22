@@ -2,12 +2,7 @@
 
 import json
 
-from magebench.game.game_export_types import (
-    BuiltGameExport,
-    Snapshot,
-    _llm_event_from_dict,
-)
-from scripts.analysis.extract_decisions import (
+from magebench.analysis.blunder.extract_decisions import (
     _extract_decisions_v1,
     _extract_decisions_v2,
     _find_spell_cancelled_events,
@@ -15,6 +10,11 @@ from scripts.analysis.extract_decisions import (
     _resolve_chosen_index,
     _summarize_snapshot,
     _summarize_stack_item,
+)
+from magebench.game.game_export_types import (
+    BuiltGameExport,
+    Snapshot,
+    _llm_event_from_dict,
 )
 
 

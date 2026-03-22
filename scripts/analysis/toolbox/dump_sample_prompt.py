@@ -3,15 +3,15 @@
 
 from pathlib import Path
 
-from scripts.analysis.blunder_analysis import build_decision_prompt
-from scripts.analysis.blunder_context import (
+from magebench.analysis.blunder.blunder_analysis import build_decision_prompt
+from magebench.analysis.blunder.blunder_context import (
     actions_by_turn,
     collect_card_names,
     game_overview,
     get_oracle_texts,
 )
-from scripts.analysis.blunder_eval_common import load_game
-from scripts.analysis.extract_decisions import extract_decisions
+from magebench.analysis.blunder.blunder_eval_common import load_game
+from magebench.analysis.blunder.extract_decisions import extract_decisions
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"

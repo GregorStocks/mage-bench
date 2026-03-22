@@ -12,7 +12,11 @@ import argparse
 import json
 from pathlib import Path
 
-from scripts.analysis.blunder_eval_common import BASELINE_PATH, TMP_DIR, save_baseline
+from magebench.analysis.blunder.blunder_eval_common import (
+    BASELINE_PATH,
+    TMP_DIR,
+    save_baseline,
+)
 
 
 def find_latest_eval() -> Path:

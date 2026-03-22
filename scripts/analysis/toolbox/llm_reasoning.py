@@ -6,8 +6,8 @@ Extracts 3-4 reasoning samples per player to assess decision quality.
 
 import sys
 
+from magebench.analysis.blunder.blunder_eval_common import load_game
 from magebench.game.game_export_types import LlmResponseEvent
-from scripts.analysis.blunder_eval_common import load_game
 
 MAX_SAMPLES = 4
 MIN_REASONING_LEN = 50
