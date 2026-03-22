@@ -332,7 +332,7 @@ export function initGoldenViewerPage(options) {
     var diffs = renderer.computeDiff(previousSnapshot, snapshot);
 
     renderer.renderPlayers(playersGrid, snapshot.players, {
-      card_images: game.card_images,
+      cardImages: game.card_images,
       playerColorMap: playerColorMap,
       playerMeta: playerMeta,
       diffs: diffs,

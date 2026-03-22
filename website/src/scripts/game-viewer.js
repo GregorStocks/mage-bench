@@ -797,7 +797,7 @@
 
       // Players
       R.renderPlayers(dom.playersGrid, snap.players, {
-        card_images: game.card_images,
+        cardImages: game.card_images,
         playerColorMap: playerColorMap,
         playerMeta: playerMeta,
         diffs: diffs,
