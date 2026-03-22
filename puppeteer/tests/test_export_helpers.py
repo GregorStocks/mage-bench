@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from unittest.mock import patch
 
+from magebench.common.json5_utils import loads_json5
 from puppeteer.harness_epoch import SEASON_1_START_EPOCH
 from schemas.game_export_types import Action, Choice, MultiAmountItem, PilotContext
 from scripts.backfill_decisions import backfill_game
@@ -16,7 +17,6 @@ from scripts.game_exports import (
     load_raw_game_export,
     write_raw_game_export,
 )
-from scripts.json5_utils import loads_json5
 
 
 def _make_stub_export(game_id: str = "game_20260301_120000") -> dict:
