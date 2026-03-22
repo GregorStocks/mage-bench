@@ -225,62 +225,95 @@ the adapter instead of polishing it.
 
 This step cashes in the simplification. It should shrink the handler and the processor core meaningfully.
 
-#### Current checkpoint after the batch-combat `choose_action` flow
+#### Current checkpoint after the flow-lifecycle extraction PR
 
-After the split-phase batch-combat `choose_action` work lands, the last
-processor-owning wait loop should be gone:
+After the flow-lifecycle extraction work lands:
 
-- batch attackers/blockers no longer block inside `BridgeCallbackHandler`
-- `choose_action` no longer has a separate blocking implementation
-- `BridgeProcessor.processNextCallback(...)` and deferred nested-command
-  draining should be deleted
+- callback ingress is enqueue-only
+- `pass_priority`, `choose_action`, `get_action_choices`, and `get_game_state`
+  already route through the processor
+- pending decision state lives in `BridgeDecisionState`
+- the old broad handler adapters (`createPassPriorityFlowContext()` /
+  `createChooseActionFlowContext()`) are gone, replaced by dedicated manager
+  and context classes
+- callback-pumping escape hatches such as `processNextCallback(...)` and
+  deferred nested-command draining are already deleted
 
-At that point, the processor refactor is past the behavioral transition. The
-main remaining work is structural cleanup: too much processor-owned state and
-helper logic still lives in `BridgeCallbackHandler`, and the processor-side
-flows still reach back through broad context adapters.
+That is a real architectural checkpoint, but it is still not the desired end
+state.
 
-#### Expected remaining PRs after the batch-combat `choose_action` PR
+The main remaining gaps are:
+
+- `choose_action` and `pass_priority` still use caller-driven
+  `awaitResult(timeout)` polling loops in `BridgeCallbackHandler`
+- those loops still have transitional cancellation/shutdown plumbing such as
+  `interruptFlow(...)` and `finishAfterProcessorShutdown(...)`
+- too much processor-owned state and helper logic still lives in
+  `BridgeCallbackHandler` (`currentGameId`, `lastGameView`, mana-plan state,
+  turn counters, keepAlive lifecycle state, unseen chat, bridge-event cursors,
+  and related helper methods)
+- some MCP-facing reads, notably `isActionPending()`, still read transitional
+  shared state directly instead of going through a processor-owned request or
+  published view
+
+#### Expected remaining PRs after the flow-lifecycle extraction PR
 
 Recommended minimum:
 
-- **One required cleanup sequence**, likely easiest as **2 reviewable PRs**:
-  first move processor-owned pending/choice/flow state out of
-  `BridgeCallbackHandler` and delete dead synchronization like `actionLock`,
-  then remove large adapters like `createPassPriorityFlowContext()` /
-  `createChooseActionFlowContext()` by moving the remaining processor-side
-  wakeup/result helper logic into processor-local classes.
-- **One optional PR** for step 5:
-  published immutable snapshots / append-only log read model.
+- **2 required PRs** to finish the core processor refactor
+- **1 optional PR** for step 5:
+  published immutable snapshots / append-only log read model
 
-In other words: after the batch-combat `choose_action` PR, expect
-**1 required cleanup sequence** to finish the core processor refactor, plus
-**1 optional followup PR** if the published read model still looks worthwhile.
+In other words: after the flow-lifecycle extraction PR, expect **2 required
+PRs left** for the core refactor, plus **1 optional followup PR** if the
+published read model still looks worthwhile.
 
 #### Recommended split of the remaining required work
 
-Keep the remaining required work focused on ownership cleanup, not behavior
-changes.
+Keep the remaining required work focused on two themes:
+
+- remove the transitional caller-driven wait/cancel model
+- move the rest of processor-owned state and helper logic out of
+  `BridgeCallbackHandler`
 
 Recommended cut:
 
-- **PR C1: Move processor-owned pending state out of the handler**
-  Introduce a real processor-owned state holder for the pending action slot,
-  last-choice snapshot/debugging state, and in-flight choose/pass flows. Delete
-  dead synchronization/notification plumbing like `actionLock` once the
-  processor thread is the only writer.
-- **PR C2: Delete the remaining broad handler adapters**
-  Move the wakeup/result-building logic that still powers
-  `createPassPriorityFlowContext()` and `createChooseActionFlowContext()` into
-  processor-local classes so the flows stop depending on a large facade back
-  into `BridgeCallbackHandler`.
+- **PR D1: Eliminate caller-driven wait/cancel plumbing**
+  Convert `choose_action` and `pass_priority` from caller-owned
+  `awaitResult(timeout)` loops into processor-owned pending requests whose
+  futures are completed as callbacks arrive.
 
-If C1 or C2 still turns out too large in review, split again:
+  This PR should delete transitional concepts that do not fit the desired end
+  state, including:
+  - `interruptFlow(...)`
+  - `finishAfterProcessorShutdown(...)`
+  - caller-thread polling loops around `awaitResult(...)`
 
-- **PR C1a:** pending-action/choice/flow state holder
-- **PR C1b:** dead synchronization cleanup
-- **PR C2a:** choose-action adapter removal
-- **PR C2b:** pass-priority adapter removal
+  If cancellation is still needed after this refactor, it should become an
+  explicit processor-domain request concept, not a Java-thread interruption
+  concept leaked into bridge flow naming.
+
+- **PR D2: Move remaining processor-owned state/services out of the handler**
+  Move the rest of the processor-owned mutable state and helper logic into
+  processor-local state/services so `BridgeCallbackHandler` becomes mostly the
+  listener adapter plus MCP command wiring.
+
+  This PR should cover, at minimum:
+  - game/lifecycle state like `currentGameId`, `currentPlayerId`,
+    `lastGameView`, keepAlive state, and callback timestamps
+  - decision-adjacent mutable state like mana-plan state, turn counters, loop
+    detection, and failed-mana tracking
+  - unread chat / bridge-event cursor state if it is still part of live bridge
+    behavior
+  - remaining package-private helper surfaces that only exist to let
+    processor-side classes reach back into `BridgeCallbackHandler`
+
+If D1 or D2 turns out too large in review, split again:
+
+- **PR D1a:** make `choose_action` processor-owned end-to-end
+- **PR D1b:** make `pass_priority` processor-owned end-to-end
+- **PR D2a:** move remaining processor state into processor-local classes
+- **PR D2b:** move remaining helper/service logic out of the handler
 
 ### Step 5: Published Read Model / Append-Only Log
 
@@ -333,28 +366,26 @@ Expected review focus:
 - side-effect serialization
 - removal of direct shared-state access from MCP threads
 
-### PR 3: Finish Step 4
+### Remaining PR 1: Remove Caller-Driven Waits
 
 Expected review focus:
 
-- semantic parity for batch-combat `choose_action`
-- removal of processor-thread wait ownership from the last remaining MCP flow
-- confirmation that callback-pumping escape hatches are now dead code or close
-  to it
+- semantic parity for `choose_action` and `pass_priority`
+- deletion of thread-interruption-oriented flow plumbing
+- confirmation that MCP callers no longer own bridge wait loops
 
-### PR 4: Structural Cleanup
+### Remaining PR 2: Finish Ownership Cleanup
 
 Expected review focus:
 
-- deletion of obsolete synchronization and callback-pumping helpers
 - movement of processor-owned state/helpers out of `BridgeCallbackHandler`
-- removal of large handler-to-processor context adapters
+- elimination of remaining handler-only helper facades needed by processor code
+- whether direct reads like `isActionPending()` now have a cleaner ownership model
 
-### PR 5+: Published Read Model
+### Optional Followup: Published Read Model
 
 Expected review focus:
 
-- deletion of obsolete synchronization
 - readability improvements
 - optional snapshot/log publication model
 
