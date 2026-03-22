@@ -17,8 +17,8 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
+from magebench.analysis.blunder.blunder_eval_common import load_game
 from magebench.game.game_export_types import JsonObject, LlmEvent, is_pilot_player
-from scripts.analysis.blunder_eval_common import load_game
 
 
 @dataclass

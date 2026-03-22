@@ -19,8 +19,12 @@ Usage:
 import argparse
 from pathlib import Path
 
+from magebench.analysis.blunder.blunder_eval_common import (
+    GAMES_DIR,
+    REPO_ROOT,
+    glob_game_files,
+)
 from magebench.common.local_claims import list_claims
-from scripts.analysis.blunder_eval_common import GAMES_DIR, REPO_ROOT, glob_game_files
 
 ANALYSES_DIR = REPO_ROOT / "doc" / "claudes" / "analyses"
 

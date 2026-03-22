@@ -25,6 +25,8 @@ After implementation, run `/simplify` to review the changed code for reuse, qual
 
 Also inspect `website/package-lock.json` before committing. `make check` / website tooling can add incidental `"peer": true` lockfile churn even when you did not intentionally change website dependencies; drop unrelated lockfile noise so the issue PR stays scoped.
 
+If you run targeted Ruff fixes or formatting on "changed files only", remember that `git diff --name-only` omits newly added untracked files. Include untracked paths from `git status` too, or lint can still fail on the brand-new files you just created.
+
 ## Test Considerations
 
 - If your code changes prompt rendering, bridge responses, MCP tool output, replay behavior, or exported game data, proactively search existing goldens for the affected prompt fragment or behavior and regenerate every impacted golden before moving on.

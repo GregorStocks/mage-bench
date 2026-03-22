@@ -16,15 +16,15 @@ import os
 import sys
 from collections.abc import Sequence
 
+from magebench.analysis.blunder.blunder_eval_common import GAMES_DIR
+from magebench.analysis.blunder.blunder_eval_common import (
+    load_game_for_annotation as _load_game_common,
+)
 from magebench.game.game_export_types import (
     BuiltGameExport,
     JsonObject,
     LlmEvent,
     Snapshot,
-)
-from scripts.analysis.blunder_eval_common import GAMES_DIR
-from scripts.analysis.blunder_eval_common import (
-    load_game_for_annotation as _load_game_common,
 )
 
 MANA_KEYWORDS = {

@@ -3,7 +3,7 @@
 
 import sys
 
-from scripts.analysis.blunder_eval_common import load_game
+from magebench.analysis.blunder.blunder_eval_common import load_game
 
 
 def main(gz_path: str) -> None:

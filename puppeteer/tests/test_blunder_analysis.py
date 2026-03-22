@@ -9,6 +9,21 @@ from unittest.mock import MagicMock, patch
 import pytest
 from openai import OpenAIError
 
+from magebench.analysis.blunder.blunder_analysis import (
+    BLUNDER_SCRIPT_VERSION,
+    OPUS_MODEL,
+    BlunderAnalysisError,
+    _format_preceding_action,
+    eval_decisions,
+    evaluate_one_decision,
+    init_api,
+    main,
+)
+from magebench.analysis.blunder.blunder_context import (
+    collect_card_names,
+    format_current_turn_actions,
+)
+from magebench.analysis.blunder.blunder_llm import compute_cost, parse_annotation
 from magebench.game.game_export_types import (
     Action,
     CombatCreature,
@@ -21,21 +36,6 @@ from magebench.game.game_export_types import (
     json_default,
 )
 from magebench.game.game_exports import load_raw_game_export
-from scripts.analysis.blunder_analysis import (
-    BLUNDER_SCRIPT_VERSION,
-    OPUS_MODEL,
-    BlunderAnalysisError,
-    _format_preceding_action,
-    eval_decisions,
-    evaluate_one_decision,
-    init_api,
-    main,
-)
-from scripts.analysis.blunder_context import (
-    collect_card_names,
-    format_current_turn_actions,
-)
-from scripts.analysis.blunder_llm import compute_cost, parse_annotation
 
 # Fake prices for testing
 _TEST_PRICES = {
@@ -418,7 +418,7 @@ class TestCollectCardNames:
 
 
 class TestEvalOneDecision:
-    @patch("scripts.analysis.blunder_analysis.call_llm")
+    @patch("magebench.analysis.blunder.blunder_analysis.call_llm")
     def test_uses_shared_aftermath_index(self, mock_call_llm: MagicMock) -> None:
         mock_call_llm.return_value = (
             json.dumps(
@@ -539,11 +539,11 @@ class TestMainIntegration:
         return game
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
-    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
-    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("scripts.analysis.blunder_analysis.OpenAI")
+    @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
+    @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
+    @patch("magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("magebench.analysis.blunder.blunder_analysis.OpenAI")
     def test_full_flow_with_blunders(
         self,
         mock_openai_cls: MagicMock,
@@ -595,11 +595,11 @@ class TestMainIntegration:
         assert "extra_body" not in call_kwargs.kwargs
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
-    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
-    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("scripts.analysis.blunder_analysis.OpenAI")
+    @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
+    @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
+    @patch("magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("magebench.analysis.blunder.blunder_analysis.OpenAI")
     def test_no_blunders_found(
         self,
         mock_openai_cls: MagicMock,
@@ -627,7 +627,7 @@ class TestMainIntegration:
         assert result["annotations"] == []
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("scripts.analysis.blunder_analysis.OpenAI")
+    @patch("magebench.analysis.blunder.blunder_analysis.OpenAI")
     def test_skips_current_version(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
         game = self._make_game_with_decisions()
         game["annotations"] = [
@@ -652,11 +652,11 @@ class TestMainIntegration:
         mock_openai_cls.assert_not_called()
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
-    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
-    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("scripts.analysis.blunder_analysis.OpenAI")
+    @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
+    @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
+    @patch("magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("magebench.analysis.blunder.blunder_analysis.OpenAI")
     def test_injects_metadata_fields(
         self,
         mock_openai_cls: MagicMock,
@@ -694,11 +694,11 @@ class TestMainIntegration:
         assert "snapshot_index" in ann
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
-    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
-    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("scripts.analysis.blunder_analysis.OpenAI")
+    @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
+    @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
+    @patch("magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("magebench.analysis.blunder.blunder_analysis.OpenAI")
     def test_majority_parse_failure_raises(
         self,
         mock_openai_cls: MagicMock,
@@ -723,11 +723,11 @@ class TestMainIntegration:
             main(str(gz_path))
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
-    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
-    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("scripts.analysis.blunder_analysis.OpenAI")
+    @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
+    @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
+    @patch("magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("magebench.analysis.blunder.blunder_analysis.OpenAI")
     def test_reanalyzes_old_version(
         self,
         mock_openai_cls: MagicMock,
@@ -753,11 +753,11 @@ class TestMainIntegration:
         assert mock_client.chat.completions.create.call_count == 1
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
-    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
-    @patch("scripts.analysis.blunder_analysis.get_oracle_texts", return_value={})
-    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("scripts.analysis.blunder_analysis.OpenAI")
+    @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
+    @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
+    @patch("magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("magebench.analysis.blunder.blunder_analysis.OpenAI")
     def test_skips_noop_decisions(
         self,
         mock_openai_cls: MagicMock,
@@ -862,7 +862,7 @@ class TestPrecedingAction:
             preceding_by_index={1: d0},
         )
 
-        with patch("scripts.analysis.blunder_analysis.evaluate_one_decision") as mock_eval:
+        with patch("magebench.analysis.blunder.blunder_analysis.evaluate_one_decision") as mock_eval:
             mock_eval.return_value = ([], 0.0, True, {})
             eval_decisions([d0, d1], ctx, MagicMock(), _TEST_PRICES)
 
@@ -880,7 +880,7 @@ class TestPrecedingAction:
 
 class TestOperationalFailures:
     @patch(
-        "scripts.analysis.blunder_analysis.evaluate_one_decision",
+        "magebench.analysis.blunder.blunder_analysis.evaluate_one_decision",
         side_effect=OpenAIError("temporary upstream failure"),
     )
     def test_eval_decisions_continues_on_openai_error(self, _mock_eval: MagicMock) -> None:
@@ -894,7 +894,7 @@ class TestOperationalFailures:
         assert results[0] == ([], 0.0, False, {})
 
     @patch(
-        "scripts.analysis.blunder_analysis.evaluate_one_decision",
+        "magebench.analysis.blunder.blunder_analysis.evaluate_one_decision",
         side_effect=AssertionError("unexpected bug"),
     )
     def test_eval_decisions_propagates_non_openai_error(self, _mock_eval: MagicMock) -> None:
@@ -916,7 +916,7 @@ class TestOperationalFailures:
         ):
             init_api()
 
-    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value={})
+    @patch("magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices", return_value={})
     def test_init_api_requires_pricing(self, _mock_prices: MagicMock) -> None:
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": "sk-test"}, clear=True),

@@ -22,7 +22,7 @@ def _temp_ground_truth(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """Set up temp ground truth directory with sample data."""
     gt_dir = tmp_path / "ground_truth"
     gt_dir.mkdir()
-    monkeypatch.setattr("scripts.analysis.blunder_eval_common.GROUND_TRUTH_DIR", gt_dir)
+    monkeypatch.setattr("magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", gt_dir)
 
     # Write a sample ground truth file
     data = [

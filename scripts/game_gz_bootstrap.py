@@ -14,9 +14,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+from magebench.analysis.blunder.blunder_eval_common import GAMES_DIR, load_game
 from magebench.game.export_game import LOGS_DIR
 from magebench.game.game_export_types import LlmEvent, ToolCallEvent
-from scripts.analysis.blunder_eval_common import GAMES_DIR, load_game
 
 _EXTENSIONS = (".json.gz", ".json")
 
