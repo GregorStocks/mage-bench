@@ -63,11 +63,14 @@ def test_claim_specific_uses_local_claim_backend(tmp_path: Path, capsys) -> None
     (issues_dir / "p1-first.json5").write_text(dumps_json5({"title": "First", "priority": 1}))
     autoclaim_issue.ISSUES_DIR = issues_dir
 
-    with patch.object(
-        autoclaim_issue,
-        "claim_exact_keys",
-        return_value=[_claim_record("first")],
-    ) as mock_claim:
+    with (
+        patch.object(
+            autoclaim_issue,
+            "claim_exact_keys",
+            return_value=[_claim_record("first")],
+        ) as mock_claim,
+        patch.object(autoclaim_issue, "current_owner_claims", return_value=[]),
+    ):
         autoclaim_issue.claim_specific("p1-first")
 
     mock_claim.assert_called_once()
@@ -83,6 +86,7 @@ def test_main_auto_claims_first_available(tmp_path: Path, capsys) -> None:
     with (
         patch.object(sys, "argv", ["autoclaim_issue.py"]),
         patch.object(autoclaim_issue, "merge_master"),
+        patch.object(autoclaim_issue, "current_owner_claims", return_value=[]),
         patch.object(
             autoclaim_issue,
             "claim_first_available_keys",
@@ -103,7 +107,47 @@ def test_main_exits_1_when_no_claimable_issue(tmp_path: Path) -> None:
     with (
         patch.object(sys, "argv", ["autoclaim_issue.py"]),
         patch.object(autoclaim_issue, "merge_master"),
+        patch.object(autoclaim_issue, "current_owner_claims", return_value=[]),
         patch.object(autoclaim_issue, "claim_first_available_keys", return_value=[]),
         pytest.raises(SystemExit, match="1"),
     ):
         autoclaim_issue.main()
+
+
+def test_main_exits_2_when_worktree_already_claims_issue(tmp_path: Path) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    (issues_dir / "p1-first.json5").write_text(dumps_json5({"title": "First", "priority": 1}))
+    autoclaim_issue.ISSUES_DIR = issues_dir
+
+    with (
+        patch.object(sys, "argv", ["autoclaim_issue.py"]),
+        patch.object(autoclaim_issue, "merge_master"),
+        patch.object(
+            autoclaim_issue,
+            "current_owner_claims",
+            return_value=[_claim_record("first")],
+        ),
+        pytest.raises(SystemExit, match="2"),
+    ):
+        autoclaim_issue.main()
+
+
+def test_claim_specific_exits_2_when_worktree_already_claims_other_issue(
+    tmp_path: Path,
+) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    (issues_dir / "p1-first.json5").write_text(dumps_json5({"title": "First", "priority": 1}))
+    (issues_dir / "p2-second.json5").write_text(dumps_json5({"title": "Second", "priority": 2}))
+    autoclaim_issue.ISSUES_DIR = issues_dir
+
+    with (
+        patch.object(
+            autoclaim_issue,
+            "current_owner_claims",
+            return_value=[_claim_record("first")],
+        ),
+        pytest.raises(SystemExit, match="2"),
+    ):
+        autoclaim_issue.claim_specific("p2-second")

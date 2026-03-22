@@ -29,6 +29,7 @@ from magebench.common.local_claims import (
     canonical_issue_key,
     claim_exact_keys,
     claim_first_available_keys,
+    current_owner_claims,
     resolve_issue_stem_for_key,
 )
 
@@ -57,13 +58,45 @@ def _claimed_issue_stem(key: str) -> str:
     return resolve_issue_stem_for_key(ISSUES_DIR, key) or key
 
 
+def _existing_owner_issue_claim() -> str | None:
+    existing_claims = current_owner_claims(ISSUE_NAMESPACE)
+    if not existing_claims:
+        return None
+    assert len(existing_claims) == 1, (
+        f"Expected at most one issue claim for this worktree, got {existing_claims}"
+    )
+    return existing_claims[0].key
+
+
+def _refuse_if_already_claiming(*, target_key: str | None) -> None:
+    existing_key = _existing_owner_issue_claim()
+    if existing_key is None or existing_key == target_key:
+        return
+
+    existing_stem = _claimed_issue_stem(existing_key)
+    if target_key is None:
+        print(
+            f"Error: worktree already claims {existing_stem}; refusing to auto-claim another issue",
+            file=sys.stderr,
+        )
+    else:
+        print(
+            f"Error: worktree already claims {existing_stem}; refusing to also claim "
+            f"{_claimed_issue_stem(target_key)}",
+            file=sys.stderr,
+        )
+    sys.exit(2)
+
+
 def claim_specific(issue_name: str) -> None:
     stem = issue_stem(issue_name)
     path = issue_path(ISSUES_DIR, issue_name)
     assert path.exists(), f"Issue file not found: {path}"
+    issue_key = canonical_issue_key(stem)
+    _refuse_if_already_claiming(target_key=issue_key)
 
     metadata = {
-        canonical_issue_key(stem): {
+        issue_key: {
             "issue_stem_at_claim": stem,
             "issue_title": load_issue(path)["title"],
         }
@@ -71,7 +104,7 @@ def claim_specific(issue_name: str) -> None:
     try:
         records = claim_exact_keys(
             ISSUE_NAMESPACE,
-            [canonical_issue_key(stem)],
+            [issue_key],
             metadata_by_key=metadata,
         )
     except ClaimConflictError as exc:
@@ -92,6 +125,7 @@ def main() -> None:
         claim_specific(sys.argv[1])
         return
 
+    _refuse_if_already_claiming(target_key=None)
     issues = load_issues()
     candidate_keys = [canonical_issue_key(stem) for stem, _priority, _title in issues]
     metadata = {
