@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public final class BridgeGameLogState {
+    private final Object stateLock = new Object();
     private final List<String> unseenChat = new ArrayList<>();
     private final List<BridgeChatLogEntry> chatLog = new ArrayList<>();
     private String lastChatMessage = null;
@@ -19,26 +20,32 @@ public final class BridgeGameLogState {
     private final List<BridgeLogEntry> cachedBridgeEvents = new ArrayList<>();
 
     public void reset() {
-        unseenChat.clear();
-        chatLog.clear();
-        lastChatMessage = null;
-        lastChatTimeMs = 0;
-        bridgeEventCursor = 0;
-        cachedBridgeEvents.clear();
+        synchronized (stateLock) {
+            unseenChat.clear();
+            chatLog.clear();
+            lastChatMessage = null;
+            lastChatTimeMs = 0;
+            bridgeEventCursor = 0;
+            cachedBridgeEvents.clear();
+        }
     }
 
     public void recordTalkMessage(String username, String user, String msg) {
         if (user == null || msg == null || msg.isEmpty()) {
             return;
         }
-        chatLog.add(new BridgeChatLogEntry(bridgeEventCursor, msg, "[Chat] " + user + ": " + msg));
-        if (!user.equals(username)) {
-            unseenChat.add(user + ": " + msg);
+        synchronized (stateLock) {
+            chatLog.add(new BridgeChatLogEntry(bridgeEventCursor, msg, "[Chat] " + user + ": " + msg));
+            if (!user.equals(username)) {
+                unseenChat.add(user + ": " + msg);
+            }
         }
     }
 
     public void addSystemMessage(String message) {
-        unseenChat.add(message);
+        synchronized (stateLock) {
+            unseenChat.add(message);
+        }
     }
 
     public void attachUnseenChat(Map<String, Object> result, boolean playerDead, boolean gameOver) {
@@ -48,9 +55,11 @@ public final class BridgeGameLogState {
         if (gameOver) {
             result.put("game_over", true);
         }
-        if (!unseenChat.isEmpty()) {
-            result.put("recent_chat", new ArrayList<>(unseenChat));
-            unseenChat.clear();
+        synchronized (stateLock) {
+            if (!unseenChat.isEmpty()) {
+                result.put("recent_chat", new ArrayList<>(unseenChat));
+                unseenChat.clear();
+            }
         }
     }
 
@@ -61,37 +70,49 @@ public final class BridgeGameLogState {
         if (gameOver) {
             result.game_over = true;
         }
-        if (!unseenChat.isEmpty()) {
-            result.recent_chat = new ArrayList<>(unseenChat);
-            unseenChat.clear();
+        synchronized (stateLock) {
+            if (!unseenChat.isEmpty()) {
+                result.recent_chat = new ArrayList<>(unseenChat);
+                unseenChat.clear();
+            }
         }
     }
 
     public boolean shouldSuppressOutgoingChat(String message, long nowMs, long dedupWindowMs) {
-        if (message.equals(lastChatMessage) && (nowMs - lastChatTimeMs) < dedupWindowMs) {
-            return true;
+        synchronized (stateLock) {
+            if (message.equals(lastChatMessage) && (nowMs - lastChatTimeMs) < dedupWindowMs) {
+                return true;
+            }
+            lastChatMessage = message;
+            lastChatTimeMs = nowMs;
+            return false;
         }
-        lastChatMessage = message;
-        lastChatTimeMs = nowMs;
-        return false;
     }
 
     public List<BridgeChatLogEntry> snapshotChatLog() {
-        return new ArrayList<>(chatLog);
+        synchronized (stateLock) {
+            return new ArrayList<>(chatLog);
+        }
     }
 
     public List<BridgeLogEntry> snapshotBridgeEvents() {
-        return new ArrayList<>(cachedBridgeEvents);
+        synchronized (stateLock) {
+            return new ArrayList<>(cachedBridgeEvents);
+        }
     }
 
     public int nextBridgeEventCursor() {
-        return cachedBridgeEvents.isEmpty() ? 0 : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index() + 1;
+        synchronized (stateLock) {
+            return cachedBridgeEvents.isEmpty() ? 0 : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index() + 1;
+        }
     }
 
     public List<BridgeLogEntry> cachedBridgeEventsSince(int sinceCursor) {
-        return cachedBridgeEvents.stream()
-            .filter(e -> e.index() >= sinceCursor)
-            .toList();
+        synchronized (stateLock) {
+            return cachedBridgeEvents.stream()
+                .filter(e -> e.index() >= sinceCursor)
+                .toList();
+        }
     }
 
     public List<BridgeLogEntry> pullBridgeEvents(
@@ -101,7 +122,11 @@ public final class BridgeGameLogState {
             Logger logger,
             String username) {
         try {
-            List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
+            int cursor;
+            synchronized (stateLock) {
+                cursor = bridgeEventCursor;
+            }
+            List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, cursor);
             mergeFetchedBridgeEvents(events);
             return events != null ? events : List.of();
         } catch (Exception e) {
@@ -114,12 +139,14 @@ public final class BridgeGameLogState {
         if (events == null || events.isEmpty()) {
             return;
         }
-        bridgeEventCursor = events.get(events.size() - 1).index() + 1;
-        int cacheHighWater = cachedBridgeEvents.isEmpty() ? -1
-            : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index();
-        for (BridgeLogEntry entry : events) {
-            if (entry.index() > cacheHighWater) {
-                cachedBridgeEvents.add(entry);
+        synchronized (stateLock) {
+            bridgeEventCursor = events.get(events.size() - 1).index() + 1;
+            int cacheHighWater = cachedBridgeEvents.isEmpty() ? -1
+                : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index();
+            for (BridgeLogEntry entry : events) {
+                if (entry.index() > cacheHighWater) {
+                    cachedBridgeEvents.add(entry);
+                }
             }
         }
     }
