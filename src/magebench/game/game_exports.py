@@ -10,8 +10,7 @@ from dataclasses import is_dataclass
 from pathlib import Path
 from typing import Any
 
-from magebench.common.json5_utils import loads_json5
-from magebench.common.json5_writer import dumps_json5
+from magebench.common.json5_utils import dumps_json5, loads_json5
 from magebench.game.game_export_types import BuiltGameExport, GameExport, json_default
 from schemas.game_export_migrations import migrate_game_export_to_current
 
