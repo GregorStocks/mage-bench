@@ -17,14 +17,14 @@ from collections.abc import Awaitable, Callable
 from contextlib import ExitStack
 from pathlib import Path
 
-from puppeteer.bridge_transport import build_bridge_launch_args, spawn_bridge_http
+from magebench.pilot.bridge_transport import build_bridge_launch_args, spawn_bridge_http
+from magebench.pilot.pilot import build_initial_message
+from magebench.pilot.pilot_bridge import execute_tool
+from magebench.pilot.pilot_rendering import render_context, render_for_pilot
+from magebench.pilot.pilot_state import BoardCursorTracker
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.log import get_logger, setup_logging
-from puppeteer.pilot import build_initial_message
-from puppeteer.pilot_bridge import execute_tool
-from puppeteer.pilot_rendering import render_context, render_for_pilot
-from puppeteer.pilot_state import BoardCursorTracker
 
 logger = get_logger(__name__)
 _ASSERT_ACTION_STEP = "assert_action"
@@ -48,7 +48,9 @@ def _is_meta_script_step(step: dict) -> bool:
 
 def _script_arguments(step: dict) -> dict:
     """Return a replay-script step's arguments, asserting on malformed steps."""
-    assert "arguments" in step, f"Replay step {step.get('name', '?')!r} missing arguments"
+    assert "arguments" in step, (
+        f"Replay step {step.get('name', '?')!r} missing arguments"
+    )
     arguments = step["arguments"]
     assert isinstance(arguments, dict), (
         f"Replay step {step.get('name', '?')!r} arguments must be an object, got {arguments!r}"
@@ -56,9 +58,13 @@ def _script_arguments(step: dict) -> dict:
     return dict(arguments)
 
 
-def _run_meta_script_step(step: dict, *, last_tool_name: str | None, last_result_text: str | None) -> None:
+def _run_meta_script_step(
+    step: dict, *, last_tool_name: str | None, last_result_text: str | None
+) -> None:
     """Validate the latest tool result against an assertion-only script step."""
-    assert step.get("name") == _ASSERT_ACTION_STEP, f"Unknown meta script step: {step.get('name')!r}"
+    assert step.get("name") == _ASSERT_ACTION_STEP, (
+        f"Unknown meta script step: {step.get('name')!r}"
+    )
     if last_result_text is None:
         raise AssertionError("assert_action requires a preceding tool result")
 
@@ -82,7 +88,9 @@ def _run_meta_script_step(step: dict, *, last_tool_name: str | None, last_result
     allowed = set(_ASSERT_ACTION_FIELDS) | {"message_contains"}
     unknown = sorted(set(arguments) - allowed)
     if unknown:
-        raise AssertionError(f"assert_action got unsupported arguments: {', '.join(unknown)}")
+        raise AssertionError(
+            f"assert_action got unsupported arguments: {', '.join(unknown)}"
+        )
 
     for field in _ASSERT_ACTION_FIELDS:
         if field in arguments and data.get(field) != arguments[field]:
@@ -126,7 +134,9 @@ async def execute_replay_script(
 
     for call in script:
         if _is_meta_script_step(call):
-            _run_meta_script_step(call, last_tool_name=last_tool_name, last_result_text=last_result_text)
+            _run_meta_script_step(
+                call, last_tool_name=last_tool_name, last_result_text=last_result_text
+            )
             continue
 
         name = call["name"]
@@ -139,7 +149,9 @@ async def execute_replay_script(
         last_result_text = result_text
 
         if game_log:
-            game_log.emit("tool_call", tool=name, arguments=arguments, result=result_text)
+            game_log.emit(
+                "tool_call", tool=name, arguments=arguments, result=result_text
+            )
 
         # Build initial user message from first pass_priority result
         if tool_call_count == 1 and name == "pass_priority":
@@ -154,7 +166,9 @@ async def execute_replay_script(
         # so golden prompts match what the LLM actually sees.
         display_text = result_text
         if name in rendered_tools:
-            display_text, last_board = render_for_pilot(result_text, last_board, seen_oracle_cards)
+            display_text, last_board = render_for_pilot(
+                result_text, last_board, seen_oracle_cards
+            )
 
         # Add assistant tool call + tool result to history
         tool_call_id = f"call_{tool_call_count}"
@@ -201,7 +215,9 @@ async def execute_replay_script(
     if not skip_postscript:
         state_result = await call_tool("get_game_state", {})
         if game_log:
-            game_log.emit("tool_call", tool="get_game_state", arguments={}, result=state_result)
+            game_log.emit(
+                "tool_call", tool="get_game_state", arguments={}, result=state_result
+            )
         state_call_id = f"call_{tool_call_count + 1}"
         history.append(
             {
@@ -229,7 +245,12 @@ async def execute_replay_script(
 
         history_result = await call_tool("get_game_history", {})
         if game_log:
-            game_log.emit("tool_call", tool="get_game_history", arguments={}, result=history_result)
+            game_log.emit(
+                "tool_call",
+                tool="get_game_history",
+                arguments={},
+                result=history_result,
+            )
         history_call_id = f"call_{tool_call_count + 2}"
         history.append(
             {
@@ -319,13 +340,20 @@ async def run_replay(
                 return await execute_tool(session, name, arguments)
 
             prompt = await execute_replay_script(
-                call_tool, script, system_prompt, game_log, skip_postscript=skip_postscript
+                call_tool,
+                script,
+                system_prompt,
+                game_log,
+                skip_postscript=skip_postscript,
             )
 
             # Write prompt to file
             if game_dir:
                 prompt_path = game_dir / f"{username}_golden_prompt.json"
-                prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+                prompt_path.write_text(
+                    json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False)
+                    + "\n"
+                )
                 logger.info("[replay] Prompt written to %s", prompt_path)
 
             # --- Concede to end the game ---

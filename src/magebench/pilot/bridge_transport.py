@@ -74,7 +74,9 @@ def build_bridge_launch_args(
     if bridge_log_path is not None:
         mvn_args.append(f"-Dxmage.bridge.bridgelog={bridge_log_path}")
     if max_interactions_per_turn is not None:
-        mvn_args.append(f"-Dxmage.bridge.maxInteractionsPerTurn={max_interactions_per_turn}")
+        mvn_args.append(
+            f"-Dxmage.bridge.maxInteractionsPerTurn={max_interactions_per_turn}"
+        )
     mvn_args.append("exec:java")
 
     return BridgeLaunchArgs(jvm_args=" ".join(jvm_args_list), mvn_args=mvn_args)

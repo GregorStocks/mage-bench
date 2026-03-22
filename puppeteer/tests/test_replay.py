@@ -1,6 +1,6 @@
 import pytest
 
-from puppeteer.replay import execute_replay_script
+from magebench.pilot.replay import execute_replay_script
 
 
 @pytest.mark.asyncio

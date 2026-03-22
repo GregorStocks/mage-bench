@@ -13,8 +13,39 @@ from typing import Protocol
 from mcp import ClientSession
 from openai import AsyncOpenAI, OpenAIError
 
-from puppeteer.auto_pass import auto_pass_loop
-from puppeteer.bridge_transport import build_bridge_launch_args, spawn_bridge_http
+from magebench.pilot.auto_pass import auto_pass_loop
+from magebench.pilot.bridge_transport import build_bridge_launch_args, spawn_bridge_http
+from magebench.pilot.pilot_bridge import (
+    _record_tool_execution_failure as _record_tool_execution_failure_impl,
+)
+from magebench.pilot.pilot_bridge import (
+    _tool_execution_error_result,
+    execute_tool,
+    mcp_tools_to_openai,
+)
+from magebench.pilot.pilot_recovery import (
+    _classify_permanent_llm_failure,
+)
+from magebench.pilot.pilot_recovery import (
+    _handle_timeout as _handle_timeout_impl,
+)
+from magebench.pilot.pilot_recovery import (
+    _handle_truncated_response as _handle_truncated_response_impl,
+)
+from magebench.pilot.pilot_recovery import (
+    _recover_from_stall as _recover_from_stall_impl,
+)
+from magebench.pilot.pilot_rendering import (
+    CONTEXT_RECENT_COUNT,
+    RENDER_INTERVAL,
+    _fetch_state_summary,
+    _find_cache_breakpoint_idx,
+    _with_cache_control,
+    render_context,
+    render_for_pilot,
+)
+from magebench.pilot.pilot_state import PilotLoopState, PilotTurnState, reset_context
+from magebench.pilot.tool_error import ToolExecutionError
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.llm_cost import (
@@ -27,33 +58,6 @@ from puppeteer.llm_cost import (
     write_cost_file,
 )
 from puppeteer.log import get_logger, log_error, setup_logging
-from puppeteer.pilot_bridge import (
-    _record_tool_execution_failure as _record_tool_execution_failure_impl,
-)
-from puppeteer.pilot_bridge import _tool_execution_error_result, execute_tool, mcp_tools_to_openai
-from puppeteer.pilot_recovery import (
-    _classify_permanent_llm_failure,
-)
-from puppeteer.pilot_recovery import (
-    _handle_timeout as _handle_timeout_impl,
-)
-from puppeteer.pilot_recovery import (
-    _handle_truncated_response as _handle_truncated_response_impl,
-)
-from puppeteer.pilot_recovery import (
-    _recover_from_stall as _recover_from_stall_impl,
-)
-from puppeteer.pilot_rendering import (
-    CONTEXT_RECENT_COUNT,
-    RENDER_INTERVAL,
-    _fetch_state_summary,
-    _find_cache_breakpoint_idx,
-    _with_cache_control,
-    render_context,
-    render_for_pilot,
-)
-from puppeteer.pilot_state import PilotLoopState, PilotTurnState, reset_context
-from puppeteer.tool_error import ToolExecutionError
 
 logger = get_logger(__name__)
 
@@ -200,11 +204,15 @@ async def _build_loop_messages(
         if not state.state_summary or state.render_counter % RENDER_INTERVAL == 0:
             state.state_summary = await _fetch_state_summary(session)
             state.render_counter = 0
-        messages = render_context(state.history, system_prompt, state.state_summary, cache_control)
+        messages = render_context(
+            state.history, system_prompt, state.state_summary, cache_control
+        )
         state.cache_breakpoint_idx = _find_cache_breakpoint_idx(messages)
         return messages
 
-    messages = render_context(state.history, system_prompt, state.state_summary, cache_control)
+    messages = render_context(
+        state.history, system_prompt, state.state_summary, cache_control
+    )
     state.cache_breakpoint_idx = len(messages) - 1 if messages else None
     state.render_counter = 0
     return messages
@@ -219,7 +227,11 @@ def _mark_tail_cache_breakpoint(
     if not cache_control or len(messages) <= 1:
         return
 
-    tail_idx = state.cache_breakpoint_idx if state.cache_breakpoint_idx is not None else len(messages) - 1
+    tail_idx = (
+        state.cache_breakpoint_idx
+        if state.cache_breakpoint_idx is not None
+        else len(messages) - 1
+    )
     marked = _with_cache_control(messages[tail_idx], cache_control)
     if marked is not messages[tail_idx]:
         messages[tail_idx] = marked
@@ -275,10 +287,17 @@ async def _process_tool_calls(
         args = json.loads(fn.arguments) if fn.arguments else {}
 
         state.board_tracker.inject(fn.name, args)
-        logger.info("[pilot] Tool: %s(%s)", fn.name, json.dumps(args, separators=(",", ":")))
+        logger.info(
+            "[pilot] Tool: %s(%s)", fn.name, json.dumps(args, separators=(",", ":"))
+        )
 
-        if fn.name == "send_chat_message" and turn_state.chat_messages_this_turn >= MAX_CHAT_MESSAGES_PER_TURN:
-            result_text = json.dumps({"success": False, "error": "Chat limit reached — focus on gameplay."})
+        if (
+            fn.name == "send_chat_message"
+            and turn_state.chat_messages_this_turn >= MAX_CHAT_MESSAGES_PER_TURN
+        ):
+            result_text = json.dumps(
+                {"success": False, "error": "Chat limit reached — focus on gameplay."}
+            )
             tool_latency_ms = 0
         else:
             if fn.name == "send_chat_message":
@@ -356,10 +375,16 @@ async def _process_tool_calls(
             if choice_result.get("error"):
                 turn_state.had_actionable_opportunity = True
             elif choices:
-                logger.info("[pilot] Choices for %s: %d options", action_type, len(choices))
+                logger.info(
+                    "[pilot] Choices for %s: %d options", action_type, len(choices)
+                )
                 turn_state.had_actionable_opportunity = True
             else:
-                logger.info("[pilot] Action: %s - %s", action_type, message[:100] if message else "")
+                logger.info(
+                    "[pilot] Action: %s - %s",
+                    action_type,
+                    message[:100] if message else "",
+                )
         elif fn.name == "pass_priority":
             try:
                 pass_result = json.loads(result_text)
@@ -408,13 +433,19 @@ async def _process_tool_calls(
         result_data = _maybe_extract_result_dict(result_text)
         if result_data:
             if result_data.get("game_over"):
-                logger.info("[pilot] Game over detected from %s, switching to auto-pass", fn.name)
+                logger.info(
+                    "[pilot] Game over detected from %s, switching to auto-pass",
+                    fn.name,
+                )
                 if game_log:
                     game_log.emit("auto_pilot_mode", reason="game_over")
                 await auto_pass_loop(session, "pilot")
                 return True, turn_state.tools_called
             if result_data.get("player_dead"):
-                logger.info("[pilot] Player dead detected from %s, switching to auto-pass", fn.name)
+                logger.info(
+                    "[pilot] Player dead detected from %s, switching to auto-pass",
+                    fn.name,
+                )
                 if game_log:
                     game_log.emit("auto_pilot_mode", reason="player_dead")
                 await auto_pass_loop(session, "pilot")
@@ -422,10 +453,18 @@ async def _process_tool_calls(
 
         display_text = result_text
         if fn.name in ("pass_priority", "get_action_choices", "choose_action"):
-            display_text, state.last_board = render_for_pilot(result_text, state.last_board, state.seen_oracle_cards)
+            display_text, state.last_board = render_for_pilot(
+                result_text, state.last_board, state.seen_oracle_cards
+            )
             turns_since_chat = state.current_game_turn - state.last_chat_turn
-            chat_budget_left = turn_state.chat_messages_this_turn < MAX_CHAT_MESSAGES_PER_TURN
-            if turns_since_chat >= 2 and display_text != result_text and chat_budget_left:
+            chat_budget_left = (
+                turn_state.chat_messages_this_turn < MAX_CHAT_MESSAGES_PER_TURN
+            )
+            if (
+                turns_since_chat >= 2
+                and display_text != result_text
+                and chat_budget_left
+            ):
                 display_text += (
                     f"\n\n[It's been {turns_since_chat} turns since you last "
                     f"chatted — send a message to your opponent!]"
@@ -509,13 +548,17 @@ async def run_pilot_loop(
 
     while True:
         if time.monotonic() - game_start > MAX_GAME_DURATION_SECS:
-            logger.warning("[pilot] Maximum game duration exceeded, switching to auto-pass")
+            logger.warning(
+                "[pilot] Maximum game duration exceeded, switching to auto-pass"
+            )
             if game_log:
                 game_log.emit("auto_pilot_mode", reason="max_duration_exceeded")
             await auto_pass_loop(session, "pilot")
             return
         try:
-            messages = await _build_loop_messages(state, session, system_prompt, cache_control)
+            messages = await _build_loop_messages(
+                state, session, system_prompt, cache_control
+            )
             _mark_tail_cache_breakpoint(messages, state, cache_control)
 
             create_kwargs: dict = {
@@ -549,7 +592,9 @@ async def run_pilot_loop(
                     state.consecutive_empty_choices,
                 )
                 if state.consecutive_empty_choices >= MAX_CONSECUTIVE_EMPTY_CHOICES:
-                    logger.warning("[pilot] LLM returning empty choices repeatedly, switching to auto-pass mode")
+                    logger.warning(
+                        "[pilot] LLM returning empty choices repeatedly, switching to auto-pass mode"
+                    )
                     if game_log:
                         game_log.emit(
                             "auto_pilot_mode",
@@ -559,7 +604,9 @@ async def run_pilot_loop(
                         await execute_tool(
                             session,
                             "send_chat_message",
-                            {"message": "My brain is fried... going on autopilot for the rest of this game. GG!"},
+                            {
+                                "message": "My brain is fried... going on autopilot for the rest of this game. GG!"
+                            },
                         )
                     except ToolExecutionError:
                         pass
@@ -580,8 +627,12 @@ async def run_pilot_loop(
 
             call_cost = 0.0
             if response.usage and model_price is not None:
-                input_cost = (response.usage.prompt_tokens or 0) * model_price[0] / 1_000_000
-                output_cost = (response.usage.completion_tokens or 0) * model_price[1] / 1_000_000
+                input_cost = (
+                    (response.usage.prompt_tokens or 0) * model_price[0] / 1_000_000
+                )
+                output_cost = (
+                    (response.usage.completion_tokens or 0) * model_price[1] / 1_000_000
+                )
                 call_cost = input_cost + output_cost
                 state.cumulative_cost += call_cost
                 if game_dir:
@@ -594,7 +645,10 @@ async def run_pilot_loop(
                     llm_event["thinking"] = thinking
                 if choice.message.tool_calls:
                     llm_event["tool_calls"] = [
-                        {"name": tool_call.function.name, "arguments": tool_call.function.arguments}
+                        {
+                            "name": tool_call.function.name,
+                            "arguments": tool_call.function.arguments,
+                        }
                         for tool_call in choice.message.tool_calls
                     ]
                 if response.usage:
@@ -603,7 +657,9 @@ async def run_pilot_loop(
                         "completion_tokens": response.usage.completion_tokens or 0,
                     }
                     prompt_details = response.usage.prompt_tokens_details
-                    if prompt_details and getattr(prompt_details, "cached_tokens", None):
+                    if prompt_details and getattr(
+                        prompt_details, "cached_tokens", None
+                    ):
                         usage_dict["cached_tokens"] = prompt_details.cached_tokens
                         total_prompt = response.usage.prompt_tokens or 0
                         if prompt_details.cached_tokens > total_prompt > 0:
@@ -615,11 +671,18 @@ async def run_pilot_loop(
                         elif total_prompt > 0:
                             hit_pct = prompt_details.cached_tokens / total_prompt * 100
                             logger.debug(
-                                "[pilot] Cache: %d/%d (%.0f%%)", prompt_details.cached_tokens, total_prompt, hit_pct
+                                "[pilot] Cache: %d/%d (%.0f%%)",
+                                prompt_details.cached_tokens,
+                                total_prompt,
+                                hit_pct,
                             )
                     completion_details = response.usage.completion_tokens_details
-                    if completion_details and getattr(completion_details, "reasoning_tokens", None):
-                        usage_dict["reasoning_tokens"] = completion_details.reasoning_tokens
+                    if completion_details and getattr(
+                        completion_details, "reasoning_tokens", None
+                    ):
+                        usage_dict["reasoning_tokens"] = (
+                            completion_details.reasoning_tokens
+                        )
                     llm_event["usage"] = usage_dict
                 llm_event["cost_usd"] = round(call_cost, 6)
                 llm_event["cumulative_cost_usd"] = round(state.cumulative_cost, 6)
@@ -656,16 +719,26 @@ async def run_pilot_loop(
                 else:
                     state.last_was_empty = False
                     state.empty_responses += 1
-                    logger.warning("[pilot] Empty response from LLM (no tools, no text) [%d]", state.empty_responses)
+                    logger.warning(
+                        "[pilot] Empty response from LLM (no tools, no text) [%d]",
+                        state.empty_responses,
+                    )
                     if state.empty_responses >= MAX_EMPTY_RESPONSES:
-                        logger.warning("[pilot] LLM appears degraded (no tools or text), switching to auto-pass mode")
+                        logger.warning(
+                            "[pilot] LLM appears degraded (no tools or text), switching to auto-pass mode"
+                        )
                         if game_log:
-                            game_log.emit("auto_pilot_mode", reason="LLM degraded (10+ empty responses)")
+                            game_log.emit(
+                                "auto_pilot_mode",
+                                reason="LLM degraded (10+ empty responses)",
+                            )
                         try:
                             await execute_tool(
                                 session,
                                 "send_chat_message",
-                                {"message": "My brain is fried... going on autopilot for the rest of this game. GG!"},
+                                {
+                                    "message": "My brain is fried... going on autopilot for the rest of this game. GG!"
+                                },
                             )
                         except ToolExecutionError:
                             pass
@@ -699,7 +772,11 @@ async def run_pilot_loop(
             error_str = str(exc)
             logger.warning("[pilot] LLM error: %s", exc)
             if game_log:
-                game_log.emit("llm_error", error_type=type(exc).__name__, error_message=error_str[:500])
+                game_log.emit(
+                    "llm_error",
+                    error_type=type(exc).__name__,
+                    error_message=error_str[:500],
+                )
 
             reason = _classify_permanent_llm_failure(error_str)
             if reason is not None:
@@ -766,7 +843,9 @@ async def run_pilot(
         assert ignore_providers is None, (
             f"ignore_providers requires provider={DEFAULT_LLM_PROVIDER!r}, got {provider!r}"
         )
-        assert provider_order is None, f"provider_order requires provider={DEFAULT_LLM_PROVIDER!r}, got {provider!r}"
+        assert provider_order is None, (
+            f"provider_order requires provider={DEFAULT_LLM_PROVIDER!r}, got {provider!r}"
+        )
 
     llm_client = AsyncOpenAI(
         api_key=api_key,
@@ -793,7 +872,9 @@ async def run_pilot(
     with ExitStack() as log_stack:
         if game_dir:
             game_log = log_stack.enter_context(GameLogWriter(game_dir, username))
-            trace_log = log_stack.enter_context(GameLogWriter(game_dir, username, suffix="llm_trace"))
+            trace_log = log_stack.enter_context(
+                GameLogWriter(game_dir, username, suffix="llm_trace")
+            )
 
         try:
             async with spawn_bridge_http(
@@ -846,7 +927,10 @@ async def run_pilot(
                 )
         finally:
             if game_log:
-                game_log.emit("game_end", total_cost_usd=round(game_log.last_cumulative_cost_usd(), 6))
+                game_log.emit(
+                    "game_end",
+                    total_cost_usd=round(game_log.last_cumulative_cost_usd(), 6),
+                )
 
 
 def main() -> int:
@@ -858,17 +942,47 @@ def main() -> int:
     parser.add_argument("--username", default="Pilot", help="Player username")
     parser.add_argument("--project-root", type=Path, help="Project root directory")
     parser.add_argument("--deck", type=Path, help="Path to deck file (.dck)")
-    parser.add_argument("--api-key", default="", help="API key (prefer provider-specific env vars)")
-    parser.add_argument("--model", default=DEFAULT_MODEL, help=f"LLM model (default: {DEFAULT_MODEL})")
-    parser.add_argument("--provider", choices=SUPPORTED_LLM_PROVIDERS, default=DEFAULT_LLM_PROVIDER)
+    parser.add_argument(
+        "--api-key", default="", help="API key (prefer provider-specific env vars)"
+    )
+    parser.add_argument(
+        "--model", default=DEFAULT_MODEL, help=f"LLM model (default: {DEFAULT_MODEL})"
+    )
+    parser.add_argument(
+        "--provider", choices=SUPPORTED_LLM_PROVIDERS, default=DEFAULT_LLM_PROVIDER
+    )
     parser.add_argument("--system-prompt", default="", help="Custom system prompt")
-    parser.add_argument("--game-dir", type=Path, help="Game directory for cost file output")
-    parser.add_argument("--max-interactions-per-turn", type=int, help="Loop detection threshold (default 25)")
-    parser.add_argument("--reasoning-effort", default="", help="OpenRouter reasoning effort: low, medium, high")
-    parser.add_argument("--tools", default="", help="Comma-separated MCP tool names (default: all)")
-    parser.add_argument("--ignore-providers", default="", help="Comma-separated OpenRouter providers to exclude")
-    parser.add_argument("--provider-order", default="", help="Comma-separated OpenRouter providers to prefer, in order")
-    parser.add_argument("--cache-control", default="", help="JSON cache_control config for prompt caching")
+    parser.add_argument(
+        "--game-dir", type=Path, help="Game directory for cost file output"
+    )
+    parser.add_argument(
+        "--max-interactions-per-turn",
+        type=int,
+        help="Loop detection threshold (default 25)",
+    )
+    parser.add_argument(
+        "--reasoning-effort",
+        default="",
+        help="OpenRouter reasoning effort: low, medium, high",
+    )
+    parser.add_argument(
+        "--tools", default="", help="Comma-separated MCP tool names (default: all)"
+    )
+    parser.add_argument(
+        "--ignore-providers",
+        default="",
+        help="Comma-separated OpenRouter providers to exclude",
+    )
+    parser.add_argument(
+        "--provider-order",
+        default="",
+        help="Comma-separated OpenRouter providers to prefer, in order",
+    )
+    parser.add_argument(
+        "--cache-control",
+        default="",
+        help="JSON cache_control config for prompt caching",
+    )
     args = parser.parse_args()
 
     if args.project_root:
@@ -888,7 +1002,9 @@ def main() -> int:
         api_key = os.environ.get(required_key_env)
     if not api_key or not api_key.strip():
         logger.error("[pilot] Missing API key for provider %s", provider)
-        logger.error("[pilot] Pass --api-key or export the provider's configured API key env var.")
+        logger.error(
+            "[pilot] Pass --api-key or export the provider's configured API key env var."
+        )
         return 2
 
     prices = load_prices()
@@ -897,15 +1013,22 @@ def main() -> int:
     system_prompt = args.system_prompt or _load_default_system_prompt()
 
     pilot_tools = set(args.tools.split(",")) if args.tools else None
-    ignore_providers = args.ignore_providers.split(",") if args.ignore_providers else None
+    ignore_providers = (
+        args.ignore_providers.split(",") if args.ignore_providers else None
+    )
     provider_order = args.provider_order.split(",") if args.provider_order else None
     cache_control = json.loads(args.cache_control) if args.cache_control else None
     if provider != DEFAULT_LLM_PROVIDER:
         if ignore_providers:
-            logger.error("[pilot] --ignore-providers requires --provider=%s", DEFAULT_LLM_PROVIDER)
+            logger.error(
+                "[pilot] --ignore-providers requires --provider=%s",
+                DEFAULT_LLM_PROVIDER,
+            )
             return 2
         if provider_order:
-            logger.error("[pilot] --provider-order requires --provider=%s", DEFAULT_LLM_PROVIDER)
+            logger.error(
+                "[pilot] --provider-order requires --provider=%s", DEFAULT_LLM_PROVIDER
+            )
             return 2
 
     try:

@@ -16,12 +16,14 @@ from magebench.game.game_export_types import (
     Snapshot,
     require_snapshot,
 )
+from magebench.pilot.pilot_game_state import parse_context_metadata
+from magebench.pilot.tool_error import ToolExecutionError, extract_text_content
 from puppeteer.game_log import GameLogWriter
-from puppeteer.pilot_game_state import parse_context_metadata
-from puppeteer.tool_error import ToolExecutionError, extract_text_content
 
 
-def build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decision) -> Snapshot:
+def build_pilot_snapshot(
+    data: dict, board: list[dict] | None, decision: Decision
+) -> Snapshot:
     """Build a typed snapshot from a pass_priority/get_action_choices result."""
     players: list[dict] = []
     active_player: str | None = None
@@ -30,8 +32,12 @@ def build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decisio
             name = p.get("name")
             life = p.get("life")
             library_size = p.get("library_size", 0)
-            assert isinstance(name, str) and name, f"pilot board player missing name: {p!r}"
-            assert isinstance(life, int), f"pilot board player life must be an int, got {life!r}"
+            assert isinstance(name, str) and name, (
+                f"pilot board player missing name: {p!r}"
+            )
+            assert isinstance(life, int), (
+                f"pilot board player life must be an int, got {life!r}"
+            )
             assert isinstance(library_size, int), (
                 f"pilot board player library_size must be an int, got {library_size!r}"
             )
@@ -48,7 +54,9 @@ def build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decisio
                 "graveyard": [] if graveyard is None else graveyard,
                 "hand": [] if hand is None else hand,
             }
-            player["hand_count"] = p.get("hand_size", len(hand) if hand is not None else 0)
+            player["hand_count"] = p.get(
+                "hand_size", len(hand) if hand is not None else 0
+            )
             for zone in ("battlefield", "graveyard", "exile", "commanders"):
                 if p.get(zone):
                     player[zone] = p[zone]
@@ -58,7 +66,9 @@ def build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decisio
 
     _, _, step, context_active_player = parse_context_metadata(data.get("context"))
     raw_seq = data.get("game_seq", data.get("board_cursor", 0))
-    assert isinstance(raw_seq, int), f"pilot snapshot missing integer game_seq/board_cursor: {data!r}"
+    assert isinstance(raw_seq, int), (
+        f"pilot snapshot missing integer game_seq/board_cursor: {data!r}"
+    )
     stack = data.get("stack")
     snapshot_payload: dict[str, object] = {
         "seq": raw_seq,
@@ -90,7 +100,9 @@ def build_pilot_decision(data: dict) -> Decision:
     assert response_type is None or isinstance(response_type, str), (
         f"response_type must be a string when present, got {response_type!r}"
     )
-    assert message is None or isinstance(message, str), f"message must be a string when present, got {message!r}"
+    assert message is None or isinstance(message, str), (
+        f"message must be a string when present, got {message!r}"
+    )
     decision = Decision(
         index=0,
         snapshot_index=0,
@@ -145,7 +157,9 @@ def build_pilot_decision(data: dict) -> Decision:
     return decision
 
 
-def mcp_tools_to_openai(mcp_tools: Sequence[Tool], allowed_tools: set[str] | None = None) -> list[dict]:
+def mcp_tools_to_openai(
+    mcp_tools: Sequence[Tool], allowed_tools: set[str] | None = None
+) -> list[dict]:
     """Convert MCP tool definitions to OpenAI function calling format."""
     return [
         {
@@ -170,7 +184,9 @@ async def execute_tool(session: ClientSession, name: str, arguments: dict) -> st
     return extract_text_content(name, result)
 
 
-def _tool_execution_error_result(error: ToolExecutionError, game_seq: int | None) -> str:
+def _tool_execution_error_result(
+    error: ToolExecutionError, game_seq: int | None
+) -> str:
     """Build a structured tool_call payload for fatal MCP execution failures."""
     result: dict[str, object] = {
         "success": False,
@@ -195,5 +211,7 @@ def _record_tool_execution_failure(
     """Persist fatal MCP tool failures so exports don't look falsely clean."""
     error_str = str(error)
     if game_log:
-        game_log.emit("llm_error", error_type=type(error).__name__, error_message=error_str[:500])
+        game_log.emit(
+            "llm_error", error_type=type(error).__name__, error_message=error_str[:500]
+        )
     log_error_fn(logger, game_dir, username, f"[pilot] Fatal tool error: {error_str}")

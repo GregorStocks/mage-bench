@@ -6,6 +6,7 @@ import re
 from collections.abc import Sequence
 
 from magebench.game import scryfall
+from magebench.game.decision_renderer import card_display, permanent_display
 from magebench.game.game_export_types import (
     Action,
     BuiltGameExport,
@@ -16,7 +17,6 @@ from magebench.game.game_export_types import (
     SnapshotPlayer,
     export_record_field,
 )
-from puppeteer.decision_renderer import card_display, permanent_display
 
 get_oracle_texts = scryfall.get_oracle_texts
 

@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from puppeteer import bridge_transport
+from magebench.pilot import bridge_transport
 
 
 def test_build_bridge_launch_args_for_sleepwalker() -> None:

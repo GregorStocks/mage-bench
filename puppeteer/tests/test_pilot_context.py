@@ -5,11 +5,11 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from puppeteer.pilot import (
+from magebench.pilot.pilot import (
     _build_loop_messages,
     _mark_tail_cache_breakpoint,
 )
-from puppeteer.pilot_rendering import (
+from magebench.pilot.pilot_rendering import (
     CONTEXT_RECENT_COUNT,
     CONTEXT_SUMMARY_COUNT,
     RENDER_INTERVAL,
@@ -21,7 +21,7 @@ from puppeteer.pilot_rendering import (
     extract_last_reasoning,
     render_context,
 )
-from puppeteer.pilot_state import PilotLoopState
+from magebench.pilot.pilot_state import PilotLoopState
 
 # ---------------------------------------------------------------------------
 # _summarize_tool_result
@@ -585,7 +585,9 @@ async def test_build_loop_messages_matches_fresh_render_after_history_growth():
     state = PilotLoopState(history=list(history))
     session = MagicMock()
 
-    with patch("puppeteer.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY) as fetch:
+    with patch(
+        "magebench.pilot.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY
+    ) as fetch:
         first = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
         assert first == render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
 
@@ -829,7 +831,7 @@ async def test_long_history_tail_breakpoint_marks_state_bridge():
     session = MagicMock()
     cc = {"type": "ephemeral"}
 
-    with patch("puppeteer.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY):
+    with patch("magebench.pilot.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY):
         messages = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=cc)
 
     bridge_idx = None

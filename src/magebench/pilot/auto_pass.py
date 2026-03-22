@@ -11,8 +11,8 @@ import json
 
 from mcp import ClientSession, McpError
 
+from magebench.pilot.tool_error import ToolExecutionError, extract_text_content
 from puppeteer.log import get_logger
-from puppeteer.tool_error import ToolExecutionError, extract_text_content
 
 logger = get_logger(__name__)
 
