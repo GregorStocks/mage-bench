@@ -30,6 +30,7 @@ from magebench.common.local_claims import (
     claim_exact_keys,
     claim_first_available_keys,
     current_owner_claims,
+    current_worktree_context,
     resolve_issue_stem_for_key,
 )
 
@@ -88,6 +89,17 @@ def _refuse_if_already_claiming(*, target_key: str | None) -> None:
     sys.exit(2)
 
 
+def _ensure_not_on_master() -> None:
+    context = current_worktree_context()
+    if context.branch != "master":
+        return
+    print(
+        "Error: can't claim an issue from master — switch to a feature branch first",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+
 def claim_specific(issue_name: str) -> None:
     stem = issue_stem(issue_name)
     path = issue_path(ISSUES_DIR, issue_name)
@@ -116,6 +128,7 @@ def claim_specific(issue_name: str) -> None:
 
 def main() -> None:
     merge_master()
+    _ensure_not_on_master()
 
     if len(sys.argv) > 2:
         print("Usage: autoclaim_issue.py [issue-name]", file=sys.stderr)
@@ -125,7 +138,15 @@ def main() -> None:
         claim_specific(sys.argv[1])
         return
 
-    _refuse_if_already_claiming(target_key=None)
+    existing_key = _existing_owner_issue_claim()
+    if existing_key is not None:
+        print(
+            f"Error: worktree already claims {_claimed_issue_stem(existing_key)}; "
+            "refusing to auto-claim another issue",
+            file=sys.stderr,
+        )
+        sys.exit(2)
+
     issues = load_issues()
     candidate_keys = [canonical_issue_key(stem) for stem, _priority, _title in issues]
     metadata = {

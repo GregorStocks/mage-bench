@@ -3,7 +3,7 @@
 import importlib.util
 import sys
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -86,6 +86,11 @@ def test_main_auto_claims_first_available(tmp_path: Path, capsys) -> None:
     with (
         patch.object(sys, "argv", ["autoclaim_issue.py"]),
         patch.object(autoclaim_issue, "merge_master"),
+        patch.object(
+            autoclaim_issue,
+            "current_worktree_context",
+            return_value=MagicMock(branch="feature"),
+        ),
         patch.object(autoclaim_issue, "current_owner_claims", return_value=[]),
         patch.object(
             autoclaim_issue,
@@ -107,6 +112,11 @@ def test_main_exits_1_when_no_claimable_issue(tmp_path: Path) -> None:
     with (
         patch.object(sys, "argv", ["autoclaim_issue.py"]),
         patch.object(autoclaim_issue, "merge_master"),
+        patch.object(
+            autoclaim_issue,
+            "current_worktree_context",
+            return_value=MagicMock(branch="feature"),
+        ),
         patch.object(autoclaim_issue, "current_owner_claims", return_value=[]),
         patch.object(autoclaim_issue, "claim_first_available_keys", return_value=[]),
         pytest.raises(SystemExit, match="1"),
@@ -125,8 +135,31 @@ def test_main_exits_2_when_worktree_already_claims_issue(tmp_path: Path) -> None
         patch.object(autoclaim_issue, "merge_master"),
         patch.object(
             autoclaim_issue,
+            "current_worktree_context",
+            return_value=MagicMock(branch="feature"),
+        ),
+        patch.object(
+            autoclaim_issue,
             "current_owner_claims",
             return_value=[_claim_record("first")],
+        ),
+        pytest.raises(SystemExit, match="2"),
+    ):
+        autoclaim_issue.main()
+
+
+def test_main_exits_2_on_master_branch(tmp_path: Path) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    autoclaim_issue.ISSUES_DIR = issues_dir
+
+    with (
+        patch.object(sys, "argv", ["autoclaim_issue.py"]),
+        patch.object(autoclaim_issue, "merge_master"),
+        patch.object(
+            autoclaim_issue,
+            "current_worktree_context",
+            return_value=MagicMock(branch="master"),
         ),
         pytest.raises(SystemExit, match="2"),
     ):
