@@ -919,7 +919,7 @@ public class BridgeCallbackHandler {
                 return null;
             }));
         } catch (IllegalStateException ignored) {
-            // Processor is already gone; the waiter will observe shutdown state.
+            startGameFlowManager.cancelFlow(flow);
         }
     }
 

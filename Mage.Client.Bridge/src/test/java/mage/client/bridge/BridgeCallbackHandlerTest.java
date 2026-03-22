@@ -2252,6 +2252,66 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void queuedStartGameFlowFailsAfterShutdownInsteadOfCreatingOrphanedWaiter() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeCallbackHandler fresh = handler.createFreshForNextGame();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(fresh, "processor");
+        UUID tableId = UUID.randomUUID();
+
+        CountDownLatch blockerEntered = new CountDownLatch(1);
+        CountDownLatch releaseBlocker = new CountDownLatch(1);
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        try {
+            Future<?> blockerFuture = executor.submit(() -> processor.submit(new BridgeCommand<Void>() {
+                @Override
+                public Void execute() {
+                    blockerEntered.countDown();
+                    try {
+                        assertThat(releaseBlocker.await(1, TimeUnit.SECONDS)).isTrue();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new IllegalStateException("Interrupted while blocking processor", e);
+                    }
+                    return null;
+                }
+            }));
+
+            assertThat(blockerEntered.await(1, TimeUnit.SECONDS)).isTrue();
+
+            Future<?> shutdownFuture = executor.submit(() -> {
+                fresh.shutdownProcessor("test shutdown");
+                return null;
+            });
+            Thread.sleep(50);
+            assertThat(shutdownFuture.isDone()).isFalse();
+
+            Future<?> startFuture = executor.submit(() -> invokeStartPendingStartGameFlow(fresh, tableId));
+
+            releaseBlocker.countDown();
+
+            ExecutionException failure = null;
+            try {
+                startFuture.get(1, TimeUnit.SECONDS);
+            } catch (ExecutionException e) {
+                failure = e;
+            }
+            assertThat(failure).isNotNull();
+            assertThat(failure).hasCauseInstanceOf(IllegalStateException.class);
+            assertThat(failure.getCause().getMessage()).isIn(
+                "START_GAME flow manager is shut down",
+                "Bridge processor is shut down"
+            );
+
+            blockerFuture.get(1, TimeUnit.SECONDS);
+            shutdownFuture.get(1, TimeUnit.SECONDS);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
     void executeDefaultActionRunsOnProcessorThread() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -3249,6 +3309,22 @@ class BridgeCallbackHandlerTest {
             .toAbsolutePath()
             .normalize()
             .toString();
+    }
+
+    private static Object invokeStartPendingStartGameFlow(BridgeCallbackHandler handler, UUID expectedTableId) {
+        try {
+            Method method = BridgeCallbackHandler.class.getDeclaredMethod("startPendingStartGameFlow", UUID.class);
+            method.setAccessible(true);
+            return method.invoke(handler, expectedTableId);
+        } catch (ReflectiveOperationException e) {
+            Throwable cause = e instanceof java.lang.reflect.InvocationTargetException invocationTargetException
+                ? invocationTargetException.getCause()
+                : e;
+            if (cause instanceof RuntimeException runtimeException) {
+                throw runtimeException;
+            }
+            throw new IllegalStateException("Failed to invoke startPendingStartGameFlow", cause);
+        }
     }
 
     private static Object getField(Object target, String name) throws Exception {

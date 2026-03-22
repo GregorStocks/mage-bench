@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.util.UUID;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +20,7 @@ public final class BridgeStartGameFlowManager {
     private BridgeStartGameFlow pendingFlow = null;
     private ScheduledFuture<?> scheduledTimeout = null;
     private BridgeStartGameFlow scheduledTimeoutFlow = null;
+    private volatile boolean closed = false;
 
     public BridgeStartGameFlowManager(
             BridgeProcessor processor,
@@ -37,6 +39,9 @@ public final class BridgeStartGameFlowManager {
     }
 
     public BridgeStartGameFlow startPendingFlow(UUID expectedTableId) {
+        if (closed) {
+            throw new IllegalStateException("START_GAME flow manager is shut down");
+        }
         if (pendingFlow != null) {
             throw new IllegalStateException("START_GAME flow already pending");
         }
@@ -47,6 +52,10 @@ public final class BridgeStartGameFlowManager {
 
     public void recordJoinedTable(BridgeStartGameFlow flow, UUID tableId) {
         if (pendingFlow != flow || flow.isDone()) {
+            return;
+        }
+        if (closed) {
+            finishFlow(flow, false);
             return;
         }
         flow.setExpectedTableId(tableId);
@@ -84,6 +93,7 @@ public final class BridgeStartGameFlowManager {
     }
 
     public void shutdown() {
+        closed = true;
         BridgeStartGameFlow flow = pendingFlow;
         pendingFlow = null;
         cancelScheduledTimeout();
@@ -97,11 +107,15 @@ public final class BridgeStartGameFlowManager {
         synchronized (timeoutLock) {
             cancelScheduledTimeoutLocked();
             scheduledTimeoutFlow = flow;
-            scheduledTimeout = scheduler.schedule(
-                () -> timeoutFromScheduler(flow),
-                startGameWaitMs,
-                TimeUnit.MILLISECONDS
-            );
+            try {
+                scheduledTimeout = scheduler.schedule(
+                    () -> timeoutFromScheduler(flow),
+                    startGameWaitMs,
+                    TimeUnit.MILLISECONDS
+                );
+            } catch (RejectedExecutionException e) {
+                finishFlow(flow, false);
+            }
         }
     }
 
