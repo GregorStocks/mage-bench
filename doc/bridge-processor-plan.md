@@ -89,12 +89,19 @@ Write-side MCP actions are much closer to the desired model now:
 
 But the bridge is still transitional.
 
-MCP-side code still directly reads shared runtime state such as:
+Some MCP reads now go through a processor-published snapshot instead of reading
+live state directly:
 
-- pending-action state
-- last game view / current game identifiers
-- cached chat / bridge-event state
-- deck / history / log caches
+- pending-action visibility
+- game state
+- game log
+- game history
+
+But that published snapshot is still transitional:
+
+- it is rebuilt from the old `Bridge*State` holders
+- it still derives log cursors from server event indexes
+- the underlying log/cache state still uses synchronized mutable storage
 
 And the bridge still relies on shared mutable state containers such as:
 
@@ -143,6 +150,14 @@ Preferred end state:
 - MCP reads consume those immutable views
 
 This is where the append-only model becomes important.
+
+The next cleanup after the current published-snapshot step should focus on:
+
+- replacing shared cached log/chat state with a processor-owned append-only log
+- assigning processor-local monotonic read cursors instead of reusing server
+  event indexes as the MCP publication boundary
+- shrinking or deleting read helpers that only exist to rebuild published
+  snapshots from the old mutable state holders
 
 ### 3. Delete transitional shared-memory machinery
 

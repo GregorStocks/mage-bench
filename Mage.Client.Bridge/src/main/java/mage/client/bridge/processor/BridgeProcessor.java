@@ -2,6 +2,7 @@ package mage.client.bridge.processor;
 
 import org.apache.log4j.Logger;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
@@ -12,6 +13,7 @@ public final class BridgeProcessor {
     private final Logger logger;
     private final String username;
     private final Consumer<BridgeCallbackEvent> callbackHandler;
+    private Runnable afterMessageHook = () -> {};
     private volatile boolean closed = false;
 
     public BridgeProcessor(String username, Logger logger, Consumer<BridgeCallbackEvent> callbackHandler) {
@@ -24,6 +26,10 @@ public final class BridgeProcessor {
 
     public void start() {
         thread.start();
+    }
+
+    public void setAfterMessageHook(Runnable afterMessageHook) {
+        this.afterMessageHook = Objects.requireNonNull(afterMessageHook);
     }
 
     public void enqueueCallback(BridgeCallbackEvent event) {
@@ -85,6 +91,7 @@ public final class BridgeProcessor {
             }
             if (message instanceof BridgeCallbackEvent event) {
                 callbackHandler.accept(event);
+                afterMessageHook.run();
                 continue;
             }
             if (message instanceof BridgeCommand<?> command) {
@@ -96,6 +103,7 @@ public final class BridgeProcessor {
     private <T> void executeCommand(BridgeCommand<T> command) {
         try {
             T value = command.execute();
+            afterMessageHook.run();
             command.complete(value);
         } catch (Throwable t) {
             command.completeExceptionally(t);

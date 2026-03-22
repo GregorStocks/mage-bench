@@ -278,7 +278,6 @@ public class BridgeCallbackHandler {
             }
         });
         this.processor = new BridgeProcessor(client.getUsername(), logger, dispatcher::process);
-        this.processor.start();
         this.callbackIngress = new BridgeCallbackIngress(
             ACTIONABLE_CALLBACKS::contains,
             processor::enqueueCallback,
@@ -344,6 +343,8 @@ public class BridgeCallbackHandler {
             this::attachUnseenChat,
             this::attachUnseenChat
         );
+        this.processor.setAfterMessageHook(mcpQueryApi::publishProcessorState);
+        this.processor.start();
     }
 
     private void updateLastGameView(GameView gameView, String source) {

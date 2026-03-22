@@ -3,6 +3,7 @@ package mage.client.bridge.mcp;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeChatLogEntry;
 import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgeGameState;
@@ -17,9 +18,13 @@ import mage.remote.Session;
 import mage.view.GameView;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToLongFunction;
@@ -38,6 +43,8 @@ public final class BridgeMcpQueryApi {
     private final Function<GameView, List<Map<String, Object>>> stackItemsBuilder;
     private final ToLongFunction<Map<String, Object>> gameStateCursorUpdater;
     private final BridgeOracleTextLookup oracleTextLookup;
+    private final AtomicReference<BridgePublishedMcpSnapshot> publishedSnapshot =
+        new AtomicReference<>(BridgePublishedMcpSnapshot.empty());
 
     public BridgeMcpQueryApi(
             String username,
@@ -68,11 +75,19 @@ public final class BridgeMcpQueryApi {
         this.oracleTextLookup = oracleTextLookup;
     }
 
+    public void publishProcessorState() {
+        if (!processor.isProcessorThread()) {
+            throw new IllegalStateException("publishProcessorState must run on the bridge processor thread");
+        }
+        publishedSnapshot.set(buildPublishedSnapshot());
+    }
+
     public boolean isActionPending() {
-        return decisionState.hasPendingAction();
+        return publishedSnapshot.get().actionPending();
     }
 
     public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
+        refreshLiveBridgeEvents();
         BridgeGameLogSnapshot snapshot = snapshotGameLog();
         List<BridgeLogEntry> allEvents = snapshot.events();
 
@@ -92,7 +107,7 @@ public final class BridgeMcpQueryApi {
                 }
             }
 
-            String rendered = renderGameLogFlat(responseEvents, priorTurns, requestedCursor, false);
+            String rendered = renderGameLogFlat(responseEvents, snapshot.chatEntries(), priorTurns, requestedCursor, false);
             GetGameLogTool.Result result = buildGameLogResult(snapshot, rendered, null, maxChars);
 
             if (!responseEvents.isEmpty() && responseEvents.get(0).index() > cursor) {
@@ -101,16 +116,17 @@ public final class BridgeMcpQueryApi {
             return result;
         }
 
-        String rendered = renderGameLogFlat(allEvents, Map.of(), 0, true);
+        String rendered = renderGameLogFlat(allEvents, snapshot.chatEntries(), Map.of(), 0, true);
         return buildGameLogResult(snapshot, rendered, rendered.length(), maxChars);
     }
 
     public GetGameLogTool.Result getGameLogSinceTurn(String player, int sinceTurn) {
+        refreshLiveBridgeEvents();
         String effectivePlayer = player != null ? player : username;
         BridgeGameLogSnapshot snapshot = snapshotGameLog();
         List<BridgeLogEntry> allEvents = snapshot.events();
 
-        String allRendered = renderGameLogFlat(allEvents, Map.of(), 0, true);
+        String allRendered = renderGameLogFlat(allEvents, snapshot.chatEntries(), Map.of(), 0, true);
 
         Map<String, Integer> priorTurns = new HashMap<>();
         int startIdx = -1;
@@ -131,7 +147,7 @@ public final class BridgeMcpQueryApi {
             int minChatCursor = allEvents.get(startIdx).index();
             GetGameLogTool.Result result = buildGameLogResult(
                     snapshot,
-                    renderGameLogFlat(subset, priorTurns, minChatCursor, true),
+                    renderGameLogFlat(subset, snapshot.chatEntries(), priorTurns, minChatCursor, true),
                     allRendered.length(),
                     null
             );
@@ -156,48 +172,26 @@ public final class BridgeMcpQueryApi {
 
     public GetGameHistoryTool.Result getGameHistory(Integer sinceTurn, Integer sinceCursor) {
         int effectiveCursor = sinceCursor != null ? sinceCursor : 0;
-        List<BridgeLogEntry> events = List.of();
-        int newCursor = effectiveCursor;
-        var gameId = gameState.currentGameId();
-        if (gameId != null) {
-            Session session = sessionSupplier.get();
-            try {
-                var playerId = gameState.playerIdForGame(gameId);
-                if (playerId != null) {
-                    List<BridgeLogEntry> fetched = session.getBridgeEvents(gameId, playerId, effectiveCursor);
-                    if (fetched != null && !fetched.isEmpty()) {
-                        events = fetched;
-                        newCursor = fetched.get(fetched.size() - 1).index() + 1;
-                        gameLogState.cacheHistoryEvents(fetched);
-                    }
-                }
-            } catch (Exception e) {
-                logger.error("[" + username + "] Failed to fetch bridge events for history", e);
-            }
-        }
-
-        List<BridgeLogEntry> cachedEvents = gameLogState.snapshotBridgeEvents();
-        if (events.isEmpty() && !cachedEvents.isEmpty()) {
-            events = sinceCursor != null
-                    ? gameLogState.cachedBridgeEventsSince(sinceCursor)
-                    : cachedEvents;
-            newCursor = nextBridgeEventCursor(cachedEvents);
-        }
+        refreshHistoryCache(effectiveCursor);
+        BridgeGameLogSnapshot snapshot = snapshotGameLog();
+        List<BridgeLogEntry> events = sinceCursor != null
+            ? snapshot.events().stream().filter(e -> e.index() >= sinceCursor).toList()
+            : snapshot.events();
 
         if (sinceTurn != null) {
             events = events.stream()
                     .filter(e -> e.turn() >= sinceTurn)
                     .toList();
         }
-        return BridgeGameLogFormatter.buildGameHistoryResult(events, newCursor);
+        return BridgeGameLogFormatter.buildGameHistoryResult(events, snapshot.cursor());
     }
 
     public GetGameStateTool.Result getGameState(Long cursor) {
-        return processor.submit(BridgeCommand.of(() -> buildGameStateWithCursor(cursor)));
+        return buildGameStateWithCursor(cursor);
     }
 
     public GetGameStateTool.Result getGameState() {
-        return processor.submit(BridgeCommand.of(this::buildGameState));
+        return buildGameState();
     }
 
     public Map<String, Object> getMyDecklist() {
@@ -224,16 +218,14 @@ public final class BridgeMcpQueryApi {
     }
 
     private BridgeGameLogSnapshot snapshotGameLog() {
-        pullBridgeEvents();
-        List<BridgeLogEntry> allEvents = gameLogState.snapshotBridgeEvents();
-        // TODO(bridge-processor): Replace this MCP-side snapshot/cursor
-        // reconstruction with reads from a processor-owned published log that
-        // already carries local monotonic sequence numbers.
-        return new BridgeGameLogSnapshot(allEvents, nextBridgeEventCursor(allEvents));
-    }
-
-    private static int nextBridgeEventCursor(List<BridgeLogEntry> events) {
-        return events.isEmpty() ? 0 : events.get(events.size() - 1).index() + 1;
+        BridgePublishedMcpSnapshot snapshot = publishedSnapshot.get();
+        // TODO(bridge-processor): Publish processor-local monotonic read cursors
+        // instead of deriving MCP cursors from server bridge-event indexes.
+        return new BridgeGameLogSnapshot(
+            snapshot.bridgeEvents(),
+            snapshot.chatLog(),
+            snapshot.nextBridgeEventCursor()
+        );
     }
 
     private GetGameLogTool.Result buildGameLogResult(
@@ -244,32 +236,22 @@ public final class BridgeMcpQueryApi {
         return BridgeGameLogFormatter.buildGameLogResult(snapshot.cursor(), rendered, totalLength, maxChars);
     }
 
-    private List<BridgeLogEntry> pullBridgeEvents() {
-        var gameId = gameState.currentGameId();
-        if (gameId == null) {
-            return List.of();
-        }
-        var playerId = gameState.playerIdForGame(gameId);
-        if (playerId == null) {
-            return List.of();
-        }
-        return gameLogState.pullBridgeEvents(
-            sessionSupplier.get(),
-            gameId,
-            playerId,
-            logger,
-            username
-        );
+    private void refreshLiveBridgeEvents() {
+        processor.submit(BridgeCommand.of(() -> {
+            pullBridgeEventsOnProcessor();
+            return null;
+        }));
     }
 
     private String renderGameLogFlat(
             List<BridgeLogEntry> events,
+            List<BridgeChatLogEntry> chatEntries,
             Map<String, Integer> initialTurnCounts,
             int minChatCursor,
             boolean includeChat) {
         return BridgeGameLogFormatter.renderGameLogFlat(
             events,
-            gameLogState.snapshotChatLog(),
+            chatEntries,
             initialTurnCounts,
             minChatCursor,
             includeChat
@@ -294,40 +276,148 @@ public final class BridgeMcpQueryApi {
     }
 
     private GetGameStateTool.Result buildGameState() {
+        BridgePublishedGameState snapshot = publishedSnapshot.get().gameState();
         var state = new GetGameStateTool.Result();
-        GameView gameView = gameState.lastGameView();
-        if (gameView == null) {
+        if (!snapshot.available()) {
             state.available = false;
-            state.error = "No game state available yet";
+            state.error = snapshot.error();
             return state;
         }
 
         state.available = true;
-        state.game_seq = gameView.getGameSeq();
-        String step = gameView.getStep() != null ? gameView.getStep().toString() : "null";
+        state.game_seq = snapshot.gameSeq();
+        String step = snapshot.step() != null ? snapshot.step() : "null";
         logger.debug("[" + username + "] getGameState returning game_seq="
-                + gameView.getGameSeq() + " step=" + step
+                + snapshot.gameSeq() + " step=" + step
                 + " thread=" + Thread.currentThread().getName());
-        state.turn = gameState.updateRound(gameView);
-
-        if (gameView.getPhase() != null) {
-            state.phase = gameView.getPhase().toString();
-        }
-        if (gameView.getStep() != null) {
-            state.step = gameView.getStep().toString();
-        }
-
-        state.active_player = gameView.getActivePlayerName();
-        state.priority_player = gameView.getPriorityPlayerName();
-        state.players = playersBuilder.apply(gameView);
-        state.stack = stackItemsBuilder.apply(gameView);
-
-        List<Map<String, Object>> combatGroups = combatGroupsBuilder.apply(gameView);
-        if (combatGroups != null) {
-            state.combat = combatGroups;
-        }
-
+        state.turn = snapshot.turn();
+        state.phase = snapshot.phase();
+        state.step = snapshot.step();
+        state.active_player = snapshot.activePlayer();
+        state.priority_player = snapshot.priorityPlayer();
+        state.players = snapshot.players();
+        state.stack = snapshot.stack();
+        state.combat = snapshot.combat();
         return state;
+    }
+
+    private BridgePublishedMcpSnapshot buildPublishedSnapshot() {
+        return new BridgePublishedMcpSnapshot(
+            decisionState.hasPendingAction(),
+            buildPublishedGameState(),
+            List.copyOf(gameLogState.snapshotBridgeEvents()),
+            List.copyOf(gameLogState.snapshotChatLog())
+        );
+    }
+
+    private BridgePublishedGameState buildPublishedGameState() {
+        GameView gameView = gameState.lastGameView();
+        if (gameView == null) {
+            return BridgePublishedGameState.unavailable("No game state available yet");
+        }
+
+        return new BridgePublishedGameState(
+            true,
+            null,
+            gameState.currentRound(),
+            gameView.getPhase() != null ? gameView.getPhase().toString() : null,
+            gameView.getStep() != null ? gameView.getStep().toString() : null,
+            gameView.getActivePlayerName(),
+            gameView.getPriorityPlayerName(),
+            freezeMapList(playersBuilder.apply(gameView)),
+            freezeMapList(stackItemsBuilder.apply(gameView)),
+            freezeMapList(combatGroupsBuilder.apply(gameView)),
+            gameView.getGameSeq()
+        );
+    }
+
+    private void refreshHistoryCache(int effectiveCursor) {
+        processor.submit(BridgeCommand.of(() -> {
+            cacheHistoryEventsOnProcessor(effectiveCursor);
+            return null;
+        }));
+    }
+
+    private void cacheHistoryEventsOnProcessor(int effectiveCursor) {
+        var gameId = gameState.currentGameId();
+        if (gameId == null) {
+            return;
+        }
+        Session session = sessionSupplier.get();
+        if (session == null) {
+            return;
+        }
+        var playerId = gameState.playerIdForGame(gameId);
+        if (playerId == null) {
+            return;
+        }
+        try {
+            List<BridgeLogEntry> fetched = session.getBridgeEvents(gameId, playerId, effectiveCursor);
+            if (fetched != null && !fetched.isEmpty()) {
+                gameLogState.cacheHistoryEvents(fetched);
+            }
+        } catch (Exception e) {
+            logger.error("[" + username + "] Failed to fetch bridge events for history", e);
+        }
+    }
+
+    private void pullBridgeEventsOnProcessor() {
+        var gameId = gameState.currentGameId();
+        if (gameId == null) {
+            return;
+        }
+        Session session = sessionSupplier.get();
+        if (session == null) {
+            return;
+        }
+        var playerId = gameState.playerIdForGame(gameId);
+        if (playerId == null) {
+            return;
+        }
+        gameLogState.pullBridgeEvents(
+            session,
+            gameId,
+            playerId,
+            logger,
+            username
+        );
+    }
+
+    private static List<Map<String, Object>> freezeMapList(List<Map<String, Object>> values) {
+        if (values == null) {
+            return null;
+        }
+        var frozen = new ArrayList<Map<String, Object>>(values.size());
+        for (Map<String, Object> value : values) {
+            frozen.add(freezeMap(value));
+        }
+        return Collections.unmodifiableList(frozen);
+    }
+
+    private static Map<String, Object> freezeMap(Map<String, Object> value) {
+        var frozen = new LinkedHashMap<String, Object>();
+        for (Map.Entry<String, Object> entry : value.entrySet()) {
+            frozen.put(entry.getKey(), freezeJsonLike(entry.getValue()));
+        }
+        return Collections.unmodifiableMap(frozen);
+    }
+
+    private static Object freezeJsonLike(Object value) {
+        if (value instanceof Map<?, ?> map) {
+            var frozen = new LinkedHashMap<String, Object>();
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                frozen.put((String) entry.getKey(), freezeJsonLike(entry.getValue()));
+            }
+            return Collections.unmodifiableMap(frozen);
+        }
+        if (value instanceof List<?> list) {
+            var frozen = new ArrayList<>(list.size());
+            for (Object entry : list) {
+                frozen.add(freezeJsonLike(entry));
+            }
+            return Collections.unmodifiableList(frozen);
+        }
+        return value;
     }
 
     private static String renderDeckSection(List<DeckCardInfo> cards) {

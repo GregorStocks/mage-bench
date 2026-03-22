@@ -1988,6 +1988,52 @@ class BridgeCallbackHandlerTest {
         assertThat(((GameClientMessage) pendingAction.data()).getGameView()).isSameAs(targetView);
         assertThat(getField(handler, "lastGameView")).isSameAs(targetView);
         assertThat(getField(handler, "playerDead")).isEqualTo(false);
+        assertThat(handler.isActionPending()).isTrue();
+    }
+
+    @Test
+    void getGameStateReadsPublishedProcessorSnapshot() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        GameView gameView = gameView(12, List.of(playerView(playerId, "TestPlayer", "p2")), new CardsView());
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                return switch (method.getName()) {
+                    case "joinGame" -> true;
+                    case "getGameChatId" -> Optional.empty();
+                    default -> defaultReturnValue(method.getReturnType());
+                };
+            }
+        ));
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.START_GAME,
+            gameId,
+            new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+            false
+        ));
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_INIT,
+            gameId,
+            gameView,
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        var result = handler.getGameState(null);
+
+        assertThat(result.available).isTrue();
+        assertThat(result.game_seq).isEqualTo(12);
+        assertThat(result.turn).isEqualTo(1);
+        assertThat(result.active_player).isEqualTo("TestPlayer");
+        assertThat(result.priority_player).isEqualTo("TestPlayer");
     }
 
     @Test
