@@ -116,6 +116,17 @@ public final class BridgePassPriorityFlowManager {
             }));
         } catch (IllegalStateException ignored) {
             cancelScheduledTickIfCurrent(flow);
+        } catch (RuntimeException e) {
+            failFlow(flow, e);
+        }
+    }
+
+    private void failFlow(BridgePassPriorityFlow flow, RuntimeException e) {
+        try {
+            flow.fail(e);
+        } finally {
+            cancelScheduledTickIfCurrent(flow);
+            decisionState.clearPendingPassPriorityFlowIfCurrent(flow);
         }
     }
 

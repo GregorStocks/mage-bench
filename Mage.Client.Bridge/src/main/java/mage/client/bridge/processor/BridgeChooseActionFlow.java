@@ -105,6 +105,10 @@ public final class BridgeChooseActionFlow {
         result.complete(finalResult);
     }
 
+    public void fail(Throwable t) {
+        result.completeExceptionally(t);
+    }
+
     private void advanceWaitingForAction() {
         PendingAction action = context.currentDecisionAction();
         if (action == null) {

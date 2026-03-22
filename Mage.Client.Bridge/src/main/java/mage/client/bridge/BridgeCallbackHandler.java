@@ -339,6 +339,8 @@ public class BridgeCallbackHandler {
         this.processor = new BridgeProcessor(client.getUsername(), logger, dispatcher::process);
         this.processor.start();
         this.chooseActionFlowManager = new BridgeChooseActionFlowManager(
+            processor,
+            client.getUsername(),
             decisionState,
             new BridgeChooseActionFlowContextImpl(this, decisionState),
             this::chooseActionDeliveryErrorResult
@@ -970,6 +972,7 @@ public class BridgeCallbackHandler {
 
     void shutdownProcessor(String reason) {
         advancePendingFlowsBeforeShutdown();
+        chooseActionFlowManager.shutdown();
         passPriorityFlowManager.shutdown();
         processor.shutdown(reason);
     }

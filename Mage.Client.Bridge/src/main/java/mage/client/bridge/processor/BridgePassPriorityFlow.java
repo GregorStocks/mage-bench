@@ -219,6 +219,10 @@ public final class BridgePassPriorityFlow {
         finish(deliveryError, null, context.lastGameView(), false);
     }
 
+    public void fail(Throwable t) {
+        result.completeExceptionally(t);
+    }
+
     public ActionResult awaitResult() throws InterruptedException, ExecutionException {
         return result.get();
     }
