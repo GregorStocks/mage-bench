@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from magebench.common.json5_utils import dumps_json5
+from magebench.common.json5_writer import dumps_json5
 from scripts.checks.lint_issues import lint_issues
 
 

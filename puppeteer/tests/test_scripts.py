@@ -11,7 +11,7 @@ from unittest.mock import MagicMock, call, patch
 import pytest
 
 from magebench.common import http_utils
-from magebench.common.json5_utils import dumps_json5
+from magebench.common.json5_writer import dumps_json5
 from magebench.common.local_claims import ClaimConflictError, ClaimRecord
 from magebench.game import scryfall
 from magebench.game.game_export_types import ToolCallEvent

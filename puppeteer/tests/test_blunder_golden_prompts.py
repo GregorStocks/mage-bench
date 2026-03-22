@@ -15,7 +15,8 @@ from unittest.mock import patch
 
 import pytest
 
-from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.common.json5_utils import loads_json5
+from magebench.common.json5_writer import dumps_json5
 from scripts.analysis.blunder_analysis import (
     build_decision_prompt,
     load_game_context,

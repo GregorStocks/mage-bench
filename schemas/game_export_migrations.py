@@ -27,9 +27,3 @@ def migrate_game_export_to_current(data: Mapping[str, JsonValue]) -> JsonObject:
         f"Unsupported game export version {version}; expected {CURRENT_GAME_EXPORT_VERSION}"
     )
     return migrated
-
-
-__all__ = [
-    "CURRENT_GAME_EXPORT_VERSION",
-    "migrate_game_export_to_current",
-]

@@ -18,7 +18,6 @@ _ALLOWED_DUNDER_ALL_FILES = frozenset(
     {
         "puppeteer/src/puppeteer/orchestrator.py",
         "puppeteer/src/puppeteer/pilot.py",
-        "schemas/game_export_migrations.py",
         "scripts/export_card_data.py",
         "scripts/export_decisions.py",
         "scripts/export_errors.py",
@@ -26,8 +25,6 @@ _ALLOWED_DUNDER_ALL_FILES = frozenset(
         "scripts/export_llm_events.py",
         "scripts/game_exports.py",
         "scripts/scryfall.py",
-        "src/magebench/common/json5_utils.py",
-        "src/magebench/game/game_export_types.py",
     }
 )
 
