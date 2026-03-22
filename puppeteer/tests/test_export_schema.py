@@ -9,7 +9,7 @@ import json
 from dataclasses import MISSING, fields, is_dataclass
 from pathlib import Path
 
-import jsonschema
+import fastjsonschema
 import pytest
 
 from magebench.game.game_export_types import (
@@ -194,10 +194,10 @@ def _assert_dataclass_matches_schema(
 class TestExportSchema:
     def test_v9_schema_is_valid(self) -> None:
         schema = _load_schema(CURRENT_VERSION)
-        jsonschema.Draft7Validator.check_schema(schema)
+        fastjsonschema.compile(schema)
 
     def test_v9_schema_accepts_v9(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        validate = fastjsonschema.compile(_load_schema(CURRENT_VERSION))
         payload = _minimal_export(
             CURRENT_VERSION,
             season=1,
@@ -242,16 +242,15 @@ class TestExportSchema:
                 }
             ],
         )
-        errors = list(validator.iter_errors(payload))
-        assert errors == [], f"v{CURRENT_VERSION} should be valid: {errors}"
+        validate(payload)
 
     def test_v9_schema_rejects_other_version_numbers(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
-        errors = list(validator.iter_errors(_minimal_export(8, season=1, tournament=None)))
-        assert errors, f"v{CURRENT_VERSION} schema should reject version 8"
+        validate = fastjsonschema.compile(_load_schema(CURRENT_VERSION))
+        with pytest.raises(fastjsonschema.JsonSchemaValueException):
+            validate(_minimal_export(8, season=1, tournament=None))
 
     def test_v9_schema_requires_annotation_decision_index(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        validate = fastjsonschema.compile(_load_schema(CURRENT_VERSION))
         payload = _minimal_export(
             CURRENT_VERSION,
             season=1,
@@ -278,14 +277,13 @@ class TestExportSchema:
                 }
             ],
         )
-        errors = list(validator.iter_errors(payload))
-        assert errors, "v9 schema should reject annotations without decision_index"
+        with pytest.raises(fastjsonschema.JsonSchemaValueException):
+            validate(payload)
 
     def test_schema_rejects_missing_required_field(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
-        bad = {"version": CURRENT_VERSION}
-        errors = list(validator.iter_errors(bad))
-        assert len(errors) > 0
+        validate = fastjsonschema.compile(_load_schema(CURRENT_VERSION))
+        with pytest.raises(fastjsonschema.JsonSchemaValueException):
+            validate({"version": CURRENT_VERSION})
 
     def test_schema_backed_typed_dicts_match_v9_schema(self) -> None:
         schema = _load_schema(CURRENT_VERSION)
@@ -910,7 +908,7 @@ class TestExportSchema:
         assert PilotContext.from_mapping({"combat_phase": None}) != PilotContext()
 
     def test_v9_schema_rejects_pilot_without_model(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        validate = fastjsonschema.compile(_load_schema(CURRENT_VERSION))
         payload = _minimal_export(
             CURRENT_VERSION,
             season=1,
@@ -925,11 +923,11 @@ class TestExportSchema:
                 }
             ],
         )
-        errors = list(validator.iter_errors(payload))
-        assert errors, "v9 schema should reject pilot player without model"
+        with pytest.raises(fastjsonschema.JsonSchemaValueException):
+            validate(payload)
 
     def test_v9_schema_accepts_cpu_without_model(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(CURRENT_VERSION))
+        validate = fastjsonschema.compile(_load_schema(CURRENT_VERSION))
         payload = _minimal_export(
             CURRENT_VERSION,
             season=1,
@@ -944,8 +942,7 @@ class TestExportSchema:
                 }
             ],
         )
-        errors = list(validator.iter_errors(payload))
-        assert errors == [], f"v9 schema should accept cpu player without model: {errors}"
+        validate(payload)
 
     def test_is_pilot_player_narrows_pilot(self) -> None:
         player = Player(

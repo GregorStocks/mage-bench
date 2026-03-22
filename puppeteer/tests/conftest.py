@@ -10,7 +10,7 @@ import time
 from collections.abc import Generator, Iterator, Mapping
 from pathlib import Path
 
-import jsonschema
+import fastjsonschema
 import pytest
 
 from magebench.common.json5_utils import loads_json5
@@ -461,13 +461,13 @@ def all_games_data() -> Mapping[Path, dict]:
 
 @pytest.fixture(scope="session")
 def game_export_validator():
-    """Per-version game-export JSON Schema validators keyed by version number."""
+    """Per-version compiled game-export JSON Schema validators keyed by version number."""
     schema_dir = Path(__file__).resolve().parent.parent.parent / "src" / "magebench" / "game"
     validators = {}
     for path in sorted(schema_dir.glob("game-export-v*.schema.json")):
         schema = json.loads(path.read_text())
         version = schema["properties"]["version"]["const"]
-        validators[version] = jsonschema.Draft7Validator(schema)
+        validators[version] = fastjsonschema.compile(schema)
     assert validators, "No game-export schemas found"
     return validators
 

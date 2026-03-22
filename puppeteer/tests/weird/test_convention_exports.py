@@ -3,6 +3,7 @@
 from collections.abc import Mapping
 from pathlib import Path
 
+import fastjsonschema
 import pytest
 
 from schemas.game_export_migrations import CURRENT_GAME_EXPORT_VERSION
@@ -28,9 +29,11 @@ class TestAllExportsValid:
         data = all_games_data[game_file]
         version = data["version"]
         assert version in game_export_validator, f"No schema for version {version}"
-        validator = game_export_validator[version]
-        errors = sorted(validator.iter_errors(data), key=lambda error: list(error.absolute_path))
-        assert not errors, f"{errors[0].message} (at {'/'.join(str(part) for part in errors[0].absolute_path)})"
+        validate = game_export_validator[version]
+        try:
+            validate(data)
+        except fastjsonschema.JsonSchemaValueException as e:
+            pytest.fail(e.message)
 
     @pytest.mark.parametrize(
         "game_file",
