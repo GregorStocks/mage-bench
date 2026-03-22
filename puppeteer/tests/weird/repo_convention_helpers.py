@@ -12,6 +12,10 @@ PUPPETEER_DIR = REPO_ROOT / "puppeteer"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 DECKS_DIR = REPO_ROOT / "data" / "decks"
 CONFIGS_DIR = REPO_ROOT / "configs"
+_SCHEMA_CHANGE_PREFIXES = (
+    "schemas/game-export-v",
+    "src/magebench/game/game-export-v",
+)
 
 # Special preset/personality keywords resolved at runtime, not looked up in JSON.
 SPECIAL_PRESET_KEYWORDS = {"random", "round-robin"}
@@ -87,7 +91,11 @@ def changed_game_filenames() -> set[str] | None:
     if changed is None:
         return None
 
-    schema_files = {f for f in changed if f.startswith("schemas/game-export-v") and f.endswith(".schema.json")}
+    schema_files = {
+        f
+        for f in changed
+        if f.endswith(".schema.json") and any(f.startswith(prefix) for prefix in _SCHEMA_CHANGE_PREFIXES)
+    }
     if schema_files or "scripts/export_game.py" in changed:
         return None
 

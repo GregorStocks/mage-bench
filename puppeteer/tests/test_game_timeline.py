@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from schemas.game_export_types import GameStartEvent, Snapshot
+from magebench.game.game_export_types import GameStartEvent, Snapshot
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GAME_TIMELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "toolbox" / "game_timeline.py"

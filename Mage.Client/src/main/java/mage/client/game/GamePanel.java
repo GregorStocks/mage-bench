@@ -1804,6 +1804,10 @@ public class GamePanel extends javax.swing.JPanel {
         return lastGameData.game == null || lastGameData.game.getPlayers().isEmpty();
     }
 
+    public int getLastGameMessageId() {
+        return lastGameData.messageId;
+    }
+
     private void keepLastGameData(int messageId, GameView game, boolean showPlayable, Map<String, Serializable> options, Set<UUID> targets) {
         lastGameData.messageId = messageId;
         lastGameData.setNewGame(game);

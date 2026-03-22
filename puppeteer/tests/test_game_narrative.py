@@ -3,7 +3,7 @@
 from types import SimpleNamespace
 
 import scripts.analysis.toolbox.game_narrative as game_narrative
-from schemas.game_export_types import Permanent, Snapshot, SnapshotPlayer
+from magebench.game.game_export_types import Permanent, Snapshot, SnapshotPlayer
 
 
 def test_main_formats_dataclass_battlefield_names(

@@ -159,7 +159,7 @@ def test_root_ruff_config_catches_boolean_traps(
             ["ARG001"],
         ),
         (
-            "schemas/game_export_types.py",
+            "src/magebench/game/game_export_types.py",
             "def f(arg):\n    return 1\n",
             ["ARG001"],
         ),

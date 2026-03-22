@@ -12,12 +12,7 @@ from pathlib import Path
 import jsonschema
 import pytest
 
-from schemas.game_export_migrations import (
-    CURRENT_GAME_EXPORT_VERSION,
-    LEGACY_GAME_EXPORT_VERSION,
-    demigrate_game_export_v9_to_v8,
-)
-from schemas.game_export_types import (
+from magebench.game.game_export_types import (
     Action,
     Annotation,
     AutoPilotModeEvent,
@@ -56,11 +51,17 @@ from schemas.game_export_types import (
     parse_game_export,
     require_built_game_export,
 )
+from schemas.game_export_migrations import (
+    CURRENT_GAME_EXPORT_VERSION,
+    LEGACY_GAME_EXPORT_VERSION,
+    demigrate_game_export_v9_to_v8,
+)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-SCHEMA_DIR = REPO_ROOT / "schemas"
 CURRENT_VERSION = CURRENT_GAME_EXPORT_VERSION
 LEGACY_VERSION = LEGACY_GAME_EXPORT_VERSION
+SCHEMA_DIR = REPO_ROOT / "src" / "magebench" / "game"
+SCHEMA_DIR = REPO_ROOT / "src" / "magebench" / "game"
 
 
 def _load_schema(version: int) -> dict:

@@ -2,7 +2,12 @@
 
 import json
 
-from schemas.game_export_types import Choice, Decision, MultiAmountItem, PilotContext
+from magebench.game.game_export_types import (
+    Choice,
+    Decision,
+    MultiAmountItem,
+    PilotContext,
+)
 
 
 def _parse_json(s: str | None) -> dict:

@@ -9,7 +9,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from openai import OpenAIError
 
-from schemas.game_export_types import (
+from magebench.game.game_export_types import (
     Action,
     CombatCreature,
     CombatGroup,

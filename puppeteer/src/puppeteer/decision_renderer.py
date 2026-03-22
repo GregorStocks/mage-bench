@@ -15,7 +15,7 @@ from __future__ import annotations
 import json
 from collections.abc import Sequence
 
-from schemas.game_export_types import (
+from magebench.game.game_export_types import (
     Choice,
     CombatGroup,
     Decision,

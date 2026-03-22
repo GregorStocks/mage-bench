@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 import scripts.analysis.blunder_eval_common as blunder_eval_common
-from schemas.game_export_types import Annotation, Snapshot
+from magebench.game.game_export_types import Annotation, Snapshot
 from scripts.analysis.blunder_eval_common import (
     chosen_display,
     compute_aftermath_index,

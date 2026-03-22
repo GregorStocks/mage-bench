@@ -8,7 +8,7 @@ import json
 import sys
 from collections import Counter
 
-from schemas.game_export_types import LlmResponseEvent, ToolCallEvent
+from magebench.game.game_export_types import LlmResponseEvent, ToolCallEvent
 from scripts.analysis.blunder_eval_common import load_game
 
 

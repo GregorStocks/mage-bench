@@ -97,7 +97,7 @@ const METRICS: Record<string, PerGameMetric> = {
       ? (player.cachedTokens / player.promptTokens) * 100
       : null,
   },
-  tool_callsPerGame: {
+  toolCallsPerGame: {
     label: 'Tool Calls per Game',
     unit: '',
     compute: (player) => player.toolCallsOk + player.toolCallsFailed,

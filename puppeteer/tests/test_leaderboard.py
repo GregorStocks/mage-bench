@@ -8,6 +8,7 @@ from pathlib import Path
 
 import pytest
 
+from magebench.game.game_export_types import Annotation, Player, json_default
 from puppeteer import (
     leaderboard as leaderboard_module,
 )
@@ -33,7 +34,6 @@ from puppeteer.leaderboard import (
     load_model_registry,
 )
 from puppeteer.leaderboard_elo import player_key, split_key
-from schemas.game_export_types import Annotation, Player, json_default
 
 
 class _PlayerEncoder(json.JSONEncoder):

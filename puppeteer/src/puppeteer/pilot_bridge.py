@@ -8,10 +8,7 @@ from pathlib import Path
 from mcp import ClientSession
 from mcp.types import Tool
 
-from puppeteer.game_log import GameLogWriter
-from puppeteer.pilot_game_state import parse_context_metadata
-from puppeteer.tool_error import ToolExecutionError, extract_text_content
-from schemas.game_export_types import (
+from magebench.game.game_export_types import (
     Choice,
     Decision,
     MultiAmountItem,
@@ -19,6 +16,9 @@ from schemas.game_export_types import (
     Snapshot,
     require_snapshot,
 )
+from puppeteer.game_log import GameLogWriter
+from puppeteer.pilot_game_state import parse_context_metadata
+from puppeteer.tool_error import ToolExecutionError, extract_text_content
 
 
 def build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decision) -> Snapshot:

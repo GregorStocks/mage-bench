@@ -2,7 +2,11 @@
 
 import json
 
-from schemas.game_export_types import BuiltGameExport, Snapshot, _llm_event_from_dict
+from magebench.game.game_export_types import (
+    BuiltGameExport,
+    Snapshot,
+    _llm_event_from_dict,
+)
 from scripts.analysis.extract_decisions import (
     _extract_decisions_v1,
     _extract_decisions_v2,

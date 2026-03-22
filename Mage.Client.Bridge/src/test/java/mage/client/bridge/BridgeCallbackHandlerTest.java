@@ -2881,8 +2881,14 @@ class BridgeCallbackHandlerTest {
                 throw ignored;
             }
             Object decisionState = getDirectField(handler, "decisionState");
-            findField(decisionState.getClass(), name);
-            return decisionState;
+            try {
+                findField(decisionState.getClass(), name);
+                return decisionState;
+            } catch (NoSuchFieldException ignoredDecisionState) {
+                Object gameState = getDirectField(handler, "gameState");
+                findField(gameState.getClass(), name);
+                return gameState;
+            }
         }
     }
 

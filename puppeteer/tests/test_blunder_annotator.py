@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from magebench.common.json5_utils import loads_json5
-from schemas.game_export_types import Choice, Decision
+from magebench.game.game_export_types import Choice, Decision
 from scripts.analysis.extract_decisions import extract_decisions
 from scripts.game_exports import load_raw_game_export
 
