@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """CLI wrapper for `magebench.leaderboard.website_data`."""
 
+# TODO(shim): expires=2026-06-30 Delete this wrapper by Step 12 once callers
+# invoke the leaderboard website-data CLI from its final package location.
 import sys
 from pathlib import Path
 
