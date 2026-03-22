@@ -2167,21 +2167,24 @@ class BridgeCallbackHandlerTest {
     }
 
     private static Object getField(Object target, String name) throws Exception {
-        Field field = findField(target.getClass(), name);
+        Object owner = resolveFieldOwner(target, name);
+        Field field = findField(owner.getClass(), name);
         field.setAccessible(true);
-        return field.get(target);
+        return field.get(owner);
     }
 
     private static void setField(Object target, String name, Object value) throws Exception {
-        Field field = findField(target.getClass(), name);
+        Object owner = resolveFieldOwner(target, name);
+        Field field = findField(owner.getClass(), name);
         field.setAccessible(true);
-        field.set(target, value);
+        field.set(owner, value);
     }
 
     private static void setIntField(Object target, String name, int value) throws Exception {
-        Field field = findField(target.getClass(), name);
+        Object owner = resolveFieldOwner(target, name);
+        Field field = findField(owner.getClass(), name);
         field.setAccessible(true);
-        field.setInt(target, value);
+        field.setInt(owner, value);
     }
 
     private static SubTypes subTypes(SubType... values) {
@@ -2202,5 +2205,25 @@ class BridgeCallbackHandlerTest {
             }
         }
         throw new NoSuchFieldException(name);
+    }
+
+    private static Object resolveFieldOwner(Object target, String name) throws Exception {
+        try {
+            findField(target.getClass(), name);
+            return target;
+        } catch (NoSuchFieldException ignored) {
+            if (!(target instanceof BridgeCallbackHandler handler)) {
+                throw ignored;
+            }
+            Object decisionState = getDirectField(handler, "decisionState");
+            findField(decisionState.getClass(), name);
+            return decisionState;
+        }
+    }
+
+    private static Object getDirectField(Object target, String name) throws Exception {
+        Field field = findField(target.getClass(), name);
+        field.setAccessible(true);
+        return field.get(target);
     }
 }

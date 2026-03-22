@@ -244,17 +244,17 @@ flows still reach back through broad context adapters.
 
 Recommended minimum:
 
-- **One required PR** to finish step 4's structural cleanup:
-  move remaining processor-owned state/helpers out of
-  `BridgeCallbackHandler`, remove large adapters like
-  `createPassPriorityFlowContext()` / `createChooseActionFlowContext()`, and
-  delete leftover synchronization/notification plumbing that only exists for
-  the old shared-state model.
+- **One required cleanup sequence**, likely easiest as **2 reviewable PRs**:
+  first move processor-owned pending/choice/flow state out of
+  `BridgeCallbackHandler` and delete dead synchronization like `actionLock`,
+  then remove large adapters like `createPassPriorityFlowContext()` /
+  `createChooseActionFlowContext()` by moving the remaining processor-side
+  wakeup/result helper logic into processor-local classes.
 - **One optional PR** for step 5:
   published immutable snapshots / append-only log read model.
 
 In other words: after the batch-combat `choose_action` PR, expect
-**1 required PR** to finish the core processor refactor, plus
+**1 required cleanup sequence** to finish the core processor refactor, plus
 **1 optional followup PR** if the published read model still looks worthwhile.
 
 #### Recommended split of the remaining required work
@@ -264,20 +264,23 @@ changes.
 
 Recommended cut:
 
-- **PR C: Move processor ownership out of the handler**
-  Introduce a real processor-owned state/service boundary so flows stop
-  depending on broad handler facades. Move the remaining processor-owned helper
-  logic and mutable state out of `BridgeCallbackHandler`, then delete adapters
-  like `createPassPriorityFlowContext()` and `createChooseActionFlowContext()`.
-- **PR C (same PR if reviewable, or followup cleanup commit):**
-  remove any leftover `actionLock` notifications, extra `volatile` fields, and
-  similar transitional synchronization that no longer has a real waiter or
-  cross-thread consumer.
+- **PR C1: Move processor-owned pending state out of the handler**
+  Introduce a real processor-owned state holder for the pending action slot,
+  last-choice snapshot/debugging state, and in-flight choose/pass flows. Delete
+  dead synchronization/notification plumbing like `actionLock` once the
+  processor thread is the only writer.
+- **PR C2: Delete the remaining broad handler adapters**
+  Move the wakeup/result-building logic that still powers
+  `createPassPriorityFlowContext()` and `createChooseActionFlowContext()` into
+  processor-local classes so the flows stop depending on a large facade back
+  into `BridgeCallbackHandler`.
 
-If PR C turns out too large in review, split it again:
+If C1 or C2 still turns out too large in review, split again:
 
-- **PR C1:** move processor-owned state/helpers out of `BridgeCallbackHandler`
-- **PR C2:** delete the now-obsolete synchronization/notification scaffolding
+- **PR C1a:** pending-action/choice/flow state holder
+- **PR C1b:** dead synchronization cleanup
+- **PR C2a:** choose-action adapter removal
+- **PR C2b:** pass-priority adapter removal
 
 ### Step 5: Published Read Model / Append-Only Log
 

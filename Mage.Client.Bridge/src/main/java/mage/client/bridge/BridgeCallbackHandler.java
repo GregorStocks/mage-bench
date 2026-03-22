@@ -9,6 +9,7 @@ import mage.client.bridge.processor.BridgeChooseActionFlowContext;
 import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
 import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.processor.BridgeProcessor;
@@ -110,16 +111,13 @@ public class BridgeCallbackHandler {
     // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
     // while MCP methods still read transitional shared fields until step 3 lands.
     private final BridgeProcessor processor;
+    private final BridgeDecisionState decisionState = new BridgeDecisionState();
     private volatile Session session;
     private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>(); // gameId -> playerId
     private final Map<UUID, UUID> gameChatIds = new ConcurrentHashMap<>(); // gameId -> chatId
 
     private volatile boolean keepAliveAfterGame = false;
     private volatile boolean gameEverStarted = false;
-    private volatile PendingAction pendingAction = null;
-    private BridgeChooseActionFlow pendingChooseActionFlow = null;
-    private BridgePassPriorityFlow pendingPassPriorityFlow = null;
-    private final Object actionLock = new Object(); // Transitional pendingAction synchronization/notifications
     private volatile UUID currentGameId = null;
     private volatile UUID currentPlayerId = null; // retained after GAME_OVER for postgame fetches
     private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
@@ -158,11 +156,6 @@ public class BridgeCallbackHandler {
 
 
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
-    private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
-    private volatile String lastChoicesActionType = null; // Debug context for stale-choice diagnostics
-    private volatile String lastChoicesResponseType = null; // Debug context for stale-choice diagnostics
-    private volatile int lastChoicesCount = -1; // Debug context for stale-choice diagnostics
-    private volatile long lastChoicesGeneratedAtMs = 0; // Debug context for stale-choice diagnostics
     private final Object stateCursorLock = new Object();
     private volatile long gameStateCursor = 0; // Monotonic cursor for get_game_state
     private volatile String lastGameStateSignature = null; // Canonicalized state signature for cursoring
@@ -349,11 +342,14 @@ public class BridgeCallbackHandler {
         this.processor.start();
     }
 
+    // TODO: Delete this adapter once processor-owned wakeup/result helpers move
+    // out of BridgeCallbackHandler. BridgeChooseActionFlow should depend on
+    // processor-local collaborators, not a broad handler facade.
     private BridgeChooseActionFlowContext createChooseActionFlowContext() {
         return new BridgeChooseActionFlowContext() {
             @Override
             public PendingAction currentPendingAction() {
-                return pendingAction;
+                return decisionState.pendingAction();
             }
 
             @Override
@@ -420,7 +416,7 @@ public class BridgeCallbackHandler {
 
             @Override
             public void clearLastChoices() {
-                lastChoices = null;
+                decisionState.clearLastChoices();
             }
 
             @Override
@@ -494,9 +490,9 @@ public class BridgeCallbackHandler {
         };
     }
 
-    // TODO: Delete this adapter once processor-owned state/helpers move out of
-    // BridgeCallbackHandler. Processor flows should depend on processor-local
-    // state/services, not a broad facade back into the handler.
+    // TODO: Delete this adapter once processor-owned state/result helpers move
+    // out of BridgeCallbackHandler. BridgePassPriorityFlow should depend on
+    // processor-local collaborators, not a broad handler facade.
     private BridgePassPriorityFlowContext createPassPriorityFlowContext() {
         return new BridgePassPriorityFlowContext() {
             @Override
@@ -506,7 +502,7 @@ public class BridgeCallbackHandler {
 
             @Override
             public PendingAction currentPendingAction() {
-                return pendingAction;
+                return decisionState.pendingAction();
             }
 
             @Override
@@ -681,9 +677,7 @@ public class BridgeCallbackHandler {
                     GameView view,
                     ActionResult result,
                     boolean actionPending) {
-                if (pendingPassPriorityFlow == flow) {
-                    pendingPassPriorityFlow = null;
-                }
+                decisionState.clearPendingPassPriorityFlowIfCurrent(flow);
                 attachUnseenChat(result);
                 logPassPriorityReturn(until, actionsPassed, action, view, result, actionPending);
             }
@@ -753,9 +747,6 @@ public class BridgeCallbackHandler {
         logger.error("[" + client.getUsername() + "] CRITICAL: " + msg);
         logError(msg);
         playerDead = true;
-        synchronized (actionLock) {
-            actionLock.notifyAll();
-        }
         throw new ResponseDeliveryException(msg);
     }
 
@@ -905,7 +896,7 @@ public class BridgeCallbackHandler {
     }
 
     private String summarizeCallbackContext(UUID callbackGameId, String ignoreReason) {
-        PendingAction action = pendingAction;
+        PendingAction action = decisionState.pendingAction();
         boolean callbackActive = callbackGameId != null && activeGames.containsKey(callbackGameId);
         var sb = new StringBuilder();
         sb.append("callbackGameId=").append(callbackGameId);
@@ -951,7 +942,7 @@ public class BridgeCallbackHandler {
             + ",step=" + step
             + ",autoPassedBeforeReturn=" + (actionsPassed > 0)
             + ",returnedChoices=" + returnedChoices
-            + ",pendingAction=" + summarizePendingAction(pendingAction);
+            + ",pendingAction=" + summarizePendingAction(decisionState.pendingAction());
         logger.info("[" + client.getUsername() + "] passPriority RETURN: " + summary);
         logBridgeEvent("PASS_PRIORITY_RETURN", action != null ? action.gameId() : currentGameId, summary);
     }
@@ -1035,9 +1026,6 @@ public class BridgeCallbackHandler {
         // awaitPendingAction / passPriority / chooseAction bail out immediately
         // instead of blocking for 120+ seconds on an abandoned handler.
         this.superseded = true;
-        synchronized (actionLock) {
-            actionLock.notifyAll();
-        }
         advancePendingFlowsBeforeShutdown();
         processor.shutdown("superseded by createFreshForNextGame");
 
@@ -1109,12 +1097,11 @@ public class BridgeCallbackHandler {
     private void resetProcessorState() {
         activeGames.clear();
         gameChatIds.clear();
-        pendingAction = null;
+        decisionState.reset();
         currentGameId = null;
         currentPlayerId = null;
         gameEverStarted = false;
         lastGameView = null;
-        lastChoices = null;
         lastActionableCallbackAt = 0;
         cachedBridgeEvents.clear();
         bridgeEventCursor = 0;
@@ -1136,13 +1123,10 @@ public class BridgeCallbackHandler {
     void shutdownProcessor(String reason) {
         advancePendingFlowsBeforeShutdown();
         processor.shutdown(reason);
-        synchronized (actionLock) {
-            actionLock.notifyAll();
-        }
     }
 
     public boolean isActionPending() {
-        return pendingAction != null;
+        return decisionState.hasPendingAction();
     }
 
     public Map<String, Object> executeDefaultAction() {
@@ -1151,7 +1135,7 @@ public class BridgeCallbackHandler {
 
     private Map<String, Object> executeDefaultActionImpl() {
         var result = new HashMap<String, Object>();
-        PendingAction action = pendingAction;
+        PendingAction action = decisionState.pendingAction();
         if (action == null) {
             result.put("success", false);
             result.put("error", "No pending action");
@@ -1160,11 +1144,7 @@ public class BridgeCallbackHandler {
         }
 
         // Clear pending action only if it hasn't been overwritten by a new callback.
-        synchronized (actionLock) {
-            if (pendingAction == action) {
-                pendingAction = null;
-            }
-        }
+        decisionState.clearPendingActionIfCurrent(action);
 
         // Execute the default response based on action type
         UUID gameId = action.gameId();
@@ -1288,7 +1268,7 @@ public class BridgeCallbackHandler {
 
     @SuppressWarnings("unchecked")
     private ActionResult getActionChoicesImpl(Long boardCursorParam) {
-        PendingAction action = pendingAction;
+        PendingAction action = decisionState.pendingAction();
         ActionResult result = buildActionChoices(action, boardCursorParam, true);
         if (action == null) {
             attachUnseenChat(result);
@@ -1331,7 +1311,7 @@ public class BridgeCallbackHandler {
 
         if (action == null) {
             result.action_pending = false;
-            clearChoiceSnapshot();
+            decisionState.clearChoiceSnapshot();
             return result;
         }
 
@@ -1411,7 +1391,7 @@ public class BridgeCallbackHandler {
             case GAME_ASK: {
                 result.response_type = "boolean";
                 result.respond_with = "choice=yes or choice=no";
-                lastChoices = null;
+                decisionState.clearLastChoices();
 
                 // For mulligan decisions, include hand contents so LLM can evaluate
                 String askMsg = action.message();
@@ -1650,7 +1630,7 @@ public class BridgeCallbackHandler {
                 if (!choiceList.isEmpty()) {
                     result.response_type = "select";
                     result.choices = choiceList;
-                    lastChoices = indexToUuid;
+                    decisionState.setLastChoices(indexToUuid);
                     String combatPhase = result.combat_phase;
                     if ("declare_attackers".equals(combatPhase)) {
                         result.respond_with = "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)";
@@ -1662,7 +1642,7 @@ public class BridgeCallbackHandler {
                 } else {
                     result.response_type = "boolean";
                     result.respond_with = "choice=yes (confirm) or choice=no (pass)";
-                    lastChoices = null;
+                    decisionState.clearLastChoices();
                 }
                 break;
             }
@@ -1739,11 +1719,11 @@ public class BridgeCallbackHandler {
                     result.response_type = "select";
                     result.respond_with = "choice=pN to tap, or choice=no to cancel";
                     result.choices = manaChoiceList;
-                    lastChoices = manaIndexToChoice;
+                    decisionState.setLastChoices(manaIndexToChoice);
                 } else {
                     result.response_type = "boolean";
                     result.respond_with = "choice=no to cancel";
-                    lastChoices = null;
+                    decisionState.clearLastChoices();
                 }
                 break;
             }
@@ -1813,12 +1793,12 @@ public class BridgeCallbackHandler {
                     result.action_pending = false;
                     result.action_taken = "auto_cancelled_no_targets";
                     result.message = stripHtml(msg.getMessage());
-                    lastChoices = null;
+                    decisionState.clearLastChoices();
                     break;
                 }
 
                 result.choices = choiceList;
-                lastChoices = indexToUuid;
+                decisionState.setLastChoices(indexToUuid);
                 break;
             }
 
@@ -1866,7 +1846,7 @@ public class BridgeCallbackHandler {
                 }
 
                 result.choices = choiceList;
-                lastChoices = indexToUuid;
+                decisionState.setLastChoices(indexToUuid);
                 break;
             }
 
@@ -1939,7 +1919,7 @@ public class BridgeCallbackHandler {
                 }
 
                 result.choices = choiceList;
-                lastChoices = indexToKey;
+                decisionState.setLastChoices(indexToKey);
                 break;
             }
 
@@ -1962,7 +1942,7 @@ public class BridgeCallbackHandler {
                 }
                 result.pile1 = pile1;
                 result.pile2 = pile2;
-                lastChoices = null;
+                decisionState.clearLastChoices();
                 break;
             }
 
@@ -1972,7 +1952,7 @@ public class BridgeCallbackHandler {
                 result.respond_with = "amount=N (min=" + msg.getMin() + ", max=" + msg.getMax() + ")";
                 result.min = msg.getMin();
                 result.max = msg.getMax();
-                lastChoices = null;
+                decisionState.clearLastChoices();
                 break;
             }
 
@@ -2006,14 +1986,14 @@ public class BridgeCallbackHandler {
                         result.message = stripHtml((String) header);
                     }
                 }
-                lastChoices = null;
+                decisionState.clearLastChoices();
                 break;
             }
 
             default:
                 result.response_type = "unknown";
                 result.error = "Unhandled action type: " + method;
-                lastChoices = null;
+                decisionState.clearLastChoices();
         }
 
         String responseType = result.response_type;
@@ -2022,22 +2002,16 @@ public class BridgeCallbackHandler {
             if (result.choices != null) {
                 choiceCount = result.choices.size();
             }
-            recordChoiceSnapshot(method.name(), responseType, choiceCount);
+            decisionState.recordChoiceSnapshot(method.name(), responseType, choiceCount);
         } else {
-            clearChoiceSnapshot();
+            decisionState.clearChoiceSnapshot();
         }
 
         return result;
     }
 
     private boolean clearPendingActionIfCurrent(PendingAction action) {
-        synchronized (actionLock) {
-            if (pendingAction == action) {
-                pendingAction = null;
-                return true;
-            }
-        }
-        return false;
+        return decisionState.clearPendingActionIfCurrent(action);
     }
 
     private DecisionBoundaryTransition transitionToDecisionBoundary(PendingAction action, String source) {
@@ -2051,7 +2025,7 @@ public class BridgeCallbackHandler {
         if (nonDecisionStatus == NonDecisionActionStatus.CHANGED) {
             return new DecisionBoundaryTransition(DecisionBoundaryStatus.CHANGED, null);
         }
-        if (pendingAction != action) {
+        if (decisionState.pendingAction() != action) {
             return new DecisionBoundaryTransition(DecisionBoundaryStatus.CHANGED, null);
         }
         return new DecisionBoundaryTransition(DecisionBoundaryStatus.READY, action);
@@ -2085,12 +2059,12 @@ public class BridgeCallbackHandler {
             if (clearPendingActionIfCurrent(action)) {
                 logger.info("[" + client.getUsername() + "] " + source
                     + ": auto-cancelling optional GAME_TARGET with no valid targets");
-                lastChoices = null;
-                clearChoiceSnapshot();
+                decisionState.clearLastChoices();
+                decisionState.clearChoiceSnapshot();
                 sendBooleanOrDie(action.gameId(), false, "auto-cancel optional GAME_TARGET");
                 return NonDecisionActionStatus.AUTO_HANDLED;
             }
-            return pendingAction != action
+            return decisionState.pendingAction() != action
                 ? NonDecisionActionStatus.CHANGED
                 : NonDecisionActionStatus.NOT_HANDLED;
         }
@@ -2105,26 +2079,26 @@ public class BridgeCallbackHandler {
                 + ": auto-selecting single required GAME_TARGET " + onlyTarget.toString().substring(0, 8));
             GameView gv = targetMsg.getGameView();
             updateLastGameView(gv, source + ":single_required_target");
-            lastChoices = null;
-            clearChoiceSnapshot();
+            decisionState.clearLastChoices();
+            decisionState.clearChoiceSnapshot();
             sendUuidOrDie(action.gameId(), onlyTarget, "auto-select single required GAME_TARGET");
             return NonDecisionActionStatus.AUTO_HANDLED;
         }
-        return pendingAction != action
+        return decisionState.pendingAction() != action
             ? NonDecisionActionStatus.CHANGED
             : NonDecisionActionStatus.NOT_HANDLED;
     }
 
     private NonDecisionActionStatus maybeAutoHandlePendingManaAction(PendingAction action, String source) {
         if (!clearPendingActionIfCurrent(action)) {
-            return pendingAction != action
+            return decisionState.pendingAction() != action
                 ? NonDecisionActionStatus.CHANGED
                 : NonDecisionActionStatus.NOT_HANDLED;
         }
 
         try {
-            lastChoices = null;
-            clearChoiceSnapshot();
+            decisionState.clearLastChoices();
+            decisionState.clearChoiceSnapshot();
             boolean handled = handleGamePlayManaAuto(action.gameId(), (GameClientMessage) action.data());
             if (handled) {
                 logger.info("[" + client.getUsername() + "] " + source
@@ -2138,12 +2112,8 @@ public class BridgeCallbackHandler {
             logger.debug("[" + client.getUsername() + "] Pending mana auto-handler stack trace", e);
         }
 
-        synchronized (actionLock) {
-            if (pendingAction == null) {
-                pendingAction = action;
-            }
-        }
-        return pendingAction != action
+        decisionState.restorePendingActionIfEmpty(action);
+        return decisionState.pendingAction() != action
             ? NonDecisionActionStatus.CHANGED
             : NonDecisionActionStatus.NOT_HANDLED;
     }
@@ -2157,12 +2127,12 @@ public class BridgeCallbackHandler {
             if (clearPendingActionIfCurrent(action)) {
                 logger.warn("[" + client.getUsername() + "] " + source
                     + ": auto-selecting ability: no choices, sending null");
-                lastChoices = null;
-                clearChoiceSnapshot();
+                decisionState.clearLastChoices();
+                decisionState.clearChoiceSnapshot();
                 sendUuidOrDie(action.gameId(), null, "auto GAME_CHOOSE_ABILITY null_choice");
                 return NonDecisionActionStatus.AUTO_HANDLED;
             }
-            return pendingAction != action
+            return decisionState.pendingAction() != action
                 ? NonDecisionActionStatus.CHANGED
                 : NonDecisionActionStatus.NOT_HANDLED;
         }
@@ -2192,8 +2162,8 @@ public class BridgeCallbackHandler {
                             unseenChat.add("[System] Spell cancelled — mana plan ability index was incorrect.");
                         }
                         logBridgeEvent("SPELL_CANCELLED", "mana plan ability index out of range");
-                        lastChoices = null;
-                        clearChoiceSnapshot();
+                        decisionState.clearLastChoices();
+                        decisionState.clearChoiceSnapshot();
                         sendUuidOrDie(action.gameId(), null,
                             "auto GAME_CHOOSE_ABILITY bad_mana_plan");
                         return NonDecisionActionStatus.AUTO_HANDLED;
@@ -2212,13 +2182,13 @@ public class BridgeCallbackHandler {
                             + "\" -> " + choices.get(selected));
                     }
                 }
-                lastChoices = null;
-                clearChoiceSnapshot();
+                decisionState.clearLastChoices();
+                decisionState.clearChoiceSnapshot();
                 sendUuidOrDie(action.gameId(), selected,
                     "auto GAME_CHOOSE_ABILITY mana_plan");
                 return NonDecisionActionStatus.AUTO_HANDLED;
             }
-            return pendingAction != action
+            return decisionState.pendingAction() != action
                 ? NonDecisionActionStatus.CHANGED
                 : NonDecisionActionStatus.NOT_HANDLED;
         }
@@ -2227,32 +2197,20 @@ public class BridgeCallbackHandler {
         return NonDecisionActionStatus.NOT_HANDLED;
     }
 
-    private void recordChoiceSnapshot(String actionType, String responseType, int choiceCount) {
-        lastChoicesActionType = actionType;
-        lastChoicesResponseType = responseType;
-        lastChoicesCount = choiceCount;
-        lastChoicesGeneratedAtMs = System.currentTimeMillis();
-    }
-
-    private void clearChoiceSnapshot() {
-        lastChoicesActionType = null;
-        lastChoicesResponseType = null;
-        lastChoicesCount = -1;
-        lastChoicesGeneratedAtMs = 0;
-    }
-
     private void logChoiceOutOfRangeDiagnostic(ClientCallbackMethod method, Integer index, List<Object> choices) {
-        long ageMs = lastChoicesGeneratedAtMs == 0 ? -1 : System.currentTimeMillis() - lastChoicesGeneratedAtMs;
-        PendingAction nowPending = pendingAction;
+        long generatedAtMs = decisionState.lastChoicesGeneratedAtMs();
+        long ageMs = generatedAtMs == 0 ? -1 : System.currentTimeMillis() - generatedAtMs;
+        PendingAction nowPending = decisionState.pendingAction();
         String nowPendingType = nowPending == null ? "none" : nowPending.method().name();
         logger.warn("[" + client.getUsername() + "] choose_action out-of-range diagnostic: "
                 + "method=" + method.name()
                 + ", index=" + index
                 + ", choices_size=" + (choices == null ? -1 : choices.size())
                 + ", pending_now=" + nowPendingType
-                + ", last_choices_action=" + (lastChoicesActionType == null ? "none" : lastChoicesActionType)
-                + ", last_choices_response=" + (lastChoicesResponseType == null ? "none" : lastChoicesResponseType)
-                + ", last_choices_count=" + lastChoicesCount
+                + ", last_choices_action=" + (decisionState.lastChoicesActionType() == null ? "none" : decisionState.lastChoicesActionType())
+                + ", last_choices_response="
+                + (decisionState.lastChoicesResponseType() == null ? "none" : decisionState.lastChoicesResponseType())
+                + ", last_choices_count=" + decisionState.lastChoicesCount()
                 + ", last_choices_age_ms=" + ageMs);
     }
 
@@ -2283,7 +2241,7 @@ public class BridgeCallbackHandler {
         result.error = message;
         result.error_code = errorCode;
         result.retryable = retryable;
-        pendingAction = action;
+        decisionState.restorePendingAction(action);
         if (attachChoices) {
             attachChoicesToError(result);
         }
@@ -2360,7 +2318,7 @@ public class BridgeCallbackHandler {
             blockersArray
         );
         BridgeChooseActionFlow flow = processor.submit(BridgeCommand.of(() -> {
-            if (pendingChooseActionFlow != null) {
+            if (decisionState.pendingChooseActionFlow() != null) {
                 return null;
             }
             return startChooseActionFlow(input);
@@ -2465,7 +2423,7 @@ public class BridgeCallbackHandler {
                 result.warning = "Both id and index provided; used id=" + id + ", ignored index=" + resolvedIndex;
                 resolvedIndex = null;
             }
-            List<Object> choices = lastChoices;
+            List<Object> choices = decisionState.lastChoices();
             if (choices == null) {
                 try {
                     getActionChoices(null);
@@ -2477,7 +2435,7 @@ public class BridgeCallbackHandler {
                     attachUnseenChat(result);
                     return chooseActionDone(result);
                 }
-                choices = lastChoices;
+                choices = decisionState.lastChoices();
             }
             if ("all".equals(id)) {
                 // Find the "special" entry in lastChoices
@@ -2523,18 +2481,14 @@ public class BridgeCallbackHandler {
         // Auto-populate choices if the model skipped get_action_choices.
         // Use the captured action directly so the choice snapshot matches the
         // decision we're answering even if pendingAction changes concurrently.
-        if (resolvedIndex != null && lastChoices == null) {
+        if (resolvedIndex != null && decisionState.lastChoices() == null) {
             logger.info("[" + client.getUsername() + "] choose_action: auto-populating choices (get_action_choices was not called)");
             buildActionChoices(action, null, false);
         }
 
         // Clear pending action only if it hasn't been overwritten by a new callback.
         // Without this CAS, a callback arriving between our read and this write would be lost.
-        synchronized (actionLock) {
-            if (pendingAction == action) {
-                pendingAction = null;
-            }
-        }
+        decisionState.clearPendingActionIfCurrent(action);
 
         UUID gameId = action.gameId();
         Object data = action.data();
@@ -2564,7 +2518,7 @@ public class BridgeCallbackHandler {
                     // try index first but fall through to answer if index is invalid.
                     boolean usedIndex = false;
                     if (resolvedIndex != null) {
-                        List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
+                        List<Object> choices = decisionState.lastChoices();
                         if (choices == null || resolvedIndex < 0 || resolvedIndex >= choices.size()) {
                             logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
                             // Index is invalid — if answer is also available, fall through
@@ -2642,7 +2596,7 @@ public class BridgeCallbackHandler {
                     // When both are provided and index is invalid, fall through to answer.
                     boolean usedManaIndex = false;
                     if (resolvedIndex != null) {
-                        List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
+                        List<Object> choices = decisionState.lastChoices();
                         if (choices == null || resolvedIndex < 0 || resolvedIndex >= choices.size()) {
                             logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
                             if (answer != null && !answer) {
@@ -2683,7 +2637,7 @@ public class BridgeCallbackHandler {
                             // answer=true with no mana sources: treat as cancel.
                             // When the choice list is empty, storePendingAction sends response_type "boolean".
                             // Models interpret this as a confirmation and send true, but cancel is the only option.
-                            List<Object> choices = lastChoices;
+                            List<Object> choices = decisionState.lastChoices();
                             if (choices == null || choices.isEmpty()) {
                                 logger.warn("[" + client.getUsername() + "] choose_action: answer=true for GAME_PLAY_MANA with no mana sources, auto-cancelling");
                                 cancel = true;
@@ -2717,7 +2671,7 @@ public class BridgeCallbackHandler {
                         if (answer != null) {
                             logger.warn("[" + client.getUsername() + "] choose_action: ignoring answer=" + answer + " because index was also provided for GAME_TARGET");
                         }
-                        List<Object> choices = lastChoices; // snapshot volatile to prevent TOCTOU race
+                        List<Object> choices = decisionState.lastChoices();
                         if (choices != null && resolvedIndex >= 0 && resolvedIndex < choices.size()) {
                             UUID targetUUID = (UUID) choices.get(resolvedIndex);
                             sendUuidOrDie(gameId, targetUUID, "chooseAction:GAME_TARGET_index");
@@ -2729,7 +2683,7 @@ public class BridgeCallbackHandler {
                         // infinite retry loops. For optional targets, return an error so
                         // the model can retry with a valid index or answer=false.
                         if (!required) {
-                            List<Object> targetChoices = lastChoices;
+                            List<Object> targetChoices = decisionState.lastChoices();
                             return chooseActionDone(buildError(result, "index_out_of_range",
                                 "Index " + resolvedIndex + " is out of range"
                                 + (targetChoices != null ? " (valid: 0-" + (targetChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
@@ -2757,7 +2711,7 @@ public class BridgeCallbackHandler {
                     // Auto-select for required targets when index was invalid/missing
                     Set<UUID> autoTargets = findValidTargets(targetMsg);
                     if (autoTargets != null && !autoTargets.isEmpty()) {
-                        UUID firstTarget = selectDeterministicTarget(autoTargets, lastChoices);
+                        UUID firstTarget = selectDeterministicTarget(autoTargets, decisionState.lastChoices());
                         logger.warn("[" + client.getUsername() + "] choose_action: auto-selecting first target for required GAME_TARGET");
                         sendUuidOrDie(gameId, firstTarget, "chooseAction:GAME_TARGET_auto_select");
                         result.action_taken = "auto_selected_required_target";
@@ -2777,7 +2731,7 @@ public class BridgeCallbackHandler {
                             + "the available abilities, then choose_action with the index of the one you want.",
                             true, action, true));
                     }
-                    List<Object> abilityChoices = lastChoices; // snapshot volatile to prevent TOCTOU race
+                    List<Object> abilityChoices = decisionState.lastChoices();
                     if (abilityChoices == null || resolvedIndex < 0 || resolvedIndex >= abilityChoices.size()) {
                         logChoiceOutOfRangeDiagnostic(method, resolvedIndex, abilityChoices);
                         return chooseActionDone(buildError(result, "index_out_of_range",
@@ -2848,7 +2802,7 @@ public class BridgeCallbackHandler {
                         return chooseActionDone(buildError(result, "missing_param",
                             "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE", true, action, true));
                     }
-                    List<Object> choiceChoices = lastChoices; // snapshot volatile to prevent TOCTOU race
+                    List<Object> choiceChoices = decisionState.lastChoices();
                     if (choiceChoices == null || resolvedIndex < 0 || resolvedIndex >= choiceChoices.size()) {
                         logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceChoices);
                         return chooseActionDone(buildError(result, "index_out_of_range",
@@ -2921,7 +2875,7 @@ public class BridgeCallbackHandler {
             attachUnseenChat(result);
             return chooseActionDone(result);
         } finally {
-            lastChoices = null;
+            decisionState.clearLastChoices();
             if (Boolean.FALSE.equals(result.success)) {
                 logger.warn("[" + client.getUsername() + "] choose_action failed: " + result.error);
             }
@@ -2932,26 +2886,24 @@ public class BridgeCallbackHandler {
 
     private BridgeChooseActionFlow startChooseActionFlow(BridgeChooseActionInput input) {
         BridgeChooseActionFlow flow = new BridgeChooseActionFlow(chooseActionFlowContext, input);
-        pendingChooseActionFlow = flow;
+        decisionState.setPendingChooseActionFlow(flow);
         interactionsThisTurn++;
         try {
             flow.start();
         } catch (ResponseDeliveryException e) {
             flow.finish(chooseActionDeliveryErrorResult(e.getMessage()));
         } catch (RuntimeException e) {
-            if (pendingChooseActionFlow == flow) {
-                pendingChooseActionFlow = null;
-            }
+            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
             throw e;
         }
-        if (flow.isDone() && pendingChooseActionFlow == flow) {
-            pendingChooseActionFlow = null;
+        if (flow.isDone()) {
+            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
         }
         return flow;
     }
 
     private void advancePendingChooseActionFlow() {
-        BridgeChooseActionFlow flow = pendingChooseActionFlow;
+        BridgeChooseActionFlow flow = decisionState.pendingChooseActionFlow();
         if (flow == null) {
             return;
         }
@@ -2960,13 +2912,13 @@ public class BridgeCallbackHandler {
         } catch (ResponseDeliveryException e) {
             flow.finish(chooseActionDeliveryErrorResult(e.getMessage()));
         }
-        if (flow.isDone() && pendingChooseActionFlow == flow) {
-            pendingChooseActionFlow = null;
+        if (flow.isDone()) {
+            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
         }
     }
 
     private void tickPendingChooseActionFlow(BridgeChooseActionFlow flow) {
-        if (pendingChooseActionFlow != flow) {
+        if (decisionState.pendingChooseActionFlow() != flow) {
             return;
         }
         advancePendingChooseActionFlow();
@@ -2976,9 +2928,7 @@ public class BridgeCallbackHandler {
         try {
             return flow.interrupt();
         } finally {
-            if (pendingChooseActionFlow == flow) {
-                pendingChooseActionFlow = null;
-            }
+            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
         }
     }
 
@@ -2996,9 +2946,7 @@ public class BridgeCallbackHandler {
         try {
             return flow.finishAfterProcessorShutdown();
         } finally {
-            if (pendingChooseActionFlow == flow) {
-                pendingChooseActionFlow = null;
-            }
+            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
         }
     }
 
@@ -3020,7 +2968,7 @@ public class BridgeCallbackHandler {
      */
     private PendingAction currentDecisionAction() {
         while (true) {
-            PendingAction action = pendingAction;
+            PendingAction action = decisionState.pendingAction();
             if (action == null) {
                 return null;
             }
@@ -3497,7 +3445,7 @@ public class BridgeCallbackHandler {
      */
     public ActionResult passPriority(String until, Long boardCursorParam) {
         BridgePassPriorityFlow flow = processor.submit(BridgeCommand.of(() -> {
-            if (pendingPassPriorityFlow != null) {
+            if (decisionState.pendingPassPriorityFlow() != null) {
                 return null;
             }
             return startPassPriorityFlow(until, boardCursorParam);
@@ -3541,23 +3489,21 @@ public class BridgeCallbackHandler {
 
     private BridgePassPriorityFlow startPassPriorityFlow(String until, Long boardCursorParam) {
         BridgePassPriorityFlow flow = new BridgePassPriorityFlow(passPriorityFlowContext, until, boardCursorParam);
-        pendingPassPriorityFlow = flow;
+        decisionState.setPendingPassPriorityFlow(flow);
         interactionsThisTurn++;
         try {
             flow.start();
         } catch (ResponseDeliveryException e) {
             flow.finishWithDeliveryError(e.getMessage());
         } catch (RuntimeException e) {
-            if (pendingPassPriorityFlow == flow) {
-                pendingPassPriorityFlow = null;
-            }
+            decisionState.clearPendingPassPriorityFlowIfCurrent(flow);
             throw e;
         }
         return flow;
     }
 
     private void advancePendingPassPriorityFlow() {
-        BridgePassPriorityFlow flow = pendingPassPriorityFlow;
+        BridgePassPriorityFlow flow = decisionState.pendingPassPriorityFlow();
         if (flow == null) {
             return;
         }
@@ -3569,7 +3515,7 @@ public class BridgeCallbackHandler {
     }
 
     private void tickPendingPassPriorityFlow(BridgePassPriorityFlow flow) {
-        if (pendingPassPriorityFlow != flow) {
+        if (decisionState.pendingPassPriorityFlow() != flow) {
             return;
         }
         try {
@@ -3834,9 +3780,6 @@ public class BridgeCallbackHandler {
             logger.error("[" + client.getUsername() + "] CRITICAL: Actionable callback " + method
                     + " dropped due to exception — declaring player dead to prevent hang");
             playerDead = true;
-            synchronized (actionLock) {
-                actionLock.notifyAll();
-            }
             try {
                 processor.submit(BridgeCommand.of(() -> {
                     advancePendingChooseActionFlow();
@@ -3860,13 +3803,8 @@ public class BridgeCallbackHandler {
             updateLastGameView(gv, "storePendingAction:" + method.name());
             gameSeq = gv.getGameSeq();
         }
-        PendingAction replacedAction = null;
         PendingAction newAction = new PendingAction(gameId, method, data, message, gameSeq);
-        synchronized (actionLock) {
-            replacedAction = pendingAction;
-            pendingAction = newAction;
-            actionLock.notifyAll();
-        }
+        PendingAction replacedAction = decisionState.replacePendingAction(newAction);
         if (replacedAction != null) {
             String summary = "old=" + summarizePendingAction(replacedAction)
                 + ",new=" + summarizePendingAction(newAction);
@@ -4552,9 +4490,6 @@ public class BridgeCallbackHandler {
      */
     private boolean cleanupGame(UUID gameId) {
         boolean wasActive = activeGames.remove(gameId) != null;
-        synchronized (actionLock) {
-            actionLock.notifyAll();
-        }
         UUID chatId = gameChatIds.remove(gameId);
         if (chatId != null) {
             session.leaveChat(chatId);
