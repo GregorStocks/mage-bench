@@ -8,37 +8,23 @@ from pathlib import Path
 
 import pytest
 
+import magebench.leaderboard.elo as leaderboard_elo
+import magebench.leaderboard.leaderboard as leaderboard_module
 from magebench.game.game_export_types import Annotation, Player, json_default
-from magebench.leaderboard import (
-    capitalize_provider,
-    compute_elo_ratings,
+from magebench.leaderboard.elo import compute_elo_ratings, extract_placements, player_key, split_key
+from magebench.leaderboard.formats import derive_format
+from magebench.leaderboard.leaderboard import (
     compute_thinking_time,
-    derive_display_name,
-    derive_format,
-    extract_placements,
     generate_all_leaderboards,
-    generate_internals_data,
     generate_leaderboard,
     generate_leaderboard_file,
-    generate_model_stats,
+)
+from magebench.leaderboard.registry import (
+    capitalize_provider,
+    derive_display_name,
     load_model_registry,
 )
-from magebench.leaderboard import (
-    elo as leaderboard_elo,
-)
-from magebench.leaderboard import (
-    formats as leaderboard_formats,
-)
-from magebench.leaderboard import (
-    leaderboard as leaderboard_module,
-)
-from magebench.leaderboard import (
-    registry as leaderboard_registry,
-)
-from magebench.leaderboard import (
-    stats as leaderboard_stats,
-)
-from magebench.leaderboard.elo import player_key, split_key
+from magebench.leaderboard.stats import generate_internals_data, generate_model_stats
 from puppeteer.harness_epoch import HARNESS_EPOCH
 
 
@@ -183,20 +169,20 @@ def test_load_model_registry_missing_file():
     assert load_model_registry(Path("/nonexistent/models.json")) == {}
 
 
-def test_leaderboard_module_uses_owner_module_public_helpers():
+def test_leaderboard_module_keeps_owner_helpers_out_of_its_public_namespace():
     assert not hasattr(leaderboard_module, "_player_key")
     assert not hasattr(leaderboard_module, "_split_key")
+    assert not hasattr(leaderboard_module, "compute_elo_ratings")
+    assert not hasattr(leaderboard_module, "extract_placements")
+    assert not hasattr(leaderboard_module, "derive_format")
+    assert not hasattr(leaderboard_module, "capitalize_provider")
+    assert not hasattr(leaderboard_module, "derive_display_name")
+    assert not hasattr(leaderboard_module, "load_model_registry")
+    assert not hasattr(leaderboard_module, "generate_model_stats")
+    assert not hasattr(leaderboard_module, "generate_internals_data")
+    assert not hasattr(leaderboard_module, "generate_blunder_stats")
     assert leaderboard_elo.player_key is player_key
     assert leaderboard_elo.split_key is split_key
-    assert leaderboard_module.compute_elo_ratings is leaderboard_elo.compute_elo_ratings
-    assert leaderboard_module.extract_placements is leaderboard_elo.extract_placements
-    assert leaderboard_module.derive_format is leaderboard_formats.derive_format
-    assert leaderboard_module.capitalize_provider is leaderboard_registry.capitalize_provider
-    assert leaderboard_module.derive_display_name is leaderboard_registry.derive_display_name
-    assert leaderboard_module.load_model_registry is leaderboard_registry.load_model_registry
-    assert leaderboard_module.generate_model_stats is leaderboard_stats.generate_model_stats
-    assert leaderboard_module.generate_internals_data is leaderboard_stats.generate_internals_data
-    assert leaderboard_module.generate_blunder_stats is leaderboard_stats.generate_blunder_stats
 
 
 # --- extract_placements ---

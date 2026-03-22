@@ -1,0 +1,20 @@
+{
+  "title": "Burn down legacy __all__ usage in core Python modules",
+  "description": "We now have a weird-test ratchet that forbids introducing any new top-level `__all__` usage. The remaining core-library/schema exceptions should be removed carefully so callers import the right module directly instead of depending on export lists.\n\
+\n\
+Current core exceptions:\n\
+- `src/magebench/common/json5_utils.py`\n\
+- `src/magebench/game/game_export_types.py`\n\
+- `schemas/game_export_migrations.py`\n\
+\n\
+This issue should ratchet that list downward. When one of these is cleaned up, delete it from `puppeteer/tests/weird/test_convention_dunder_all.py` in the same change.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "python",
+    "cleanup",
+  ],
+  "created_at": "2026-03-22T10:41:51.136836-07:00",
+  "updated_at": "2026-03-22T10:41:51.136836-07:00",
+}

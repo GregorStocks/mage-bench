@@ -6,10 +6,10 @@ import json
 import shutil
 from pathlib import Path
 
-from magebench.leaderboard.leaderboard import (
+from magebench.leaderboard.leaderboard import generate_leaderboard_file
+from magebench.leaderboard.stats import (
     generate_blunder_stats,
     generate_internals_data,
-    generate_leaderboard_file,
     generate_model_stats,
 )
 

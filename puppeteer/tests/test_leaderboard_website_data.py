@@ -2,7 +2,7 @@
 
 import json
 
-from magebench.leaderboard import website_data
+import magebench.leaderboard.website_data as website_data
 
 
 def test_copy_season_data_copies_authoritative_file(tmp_path):
