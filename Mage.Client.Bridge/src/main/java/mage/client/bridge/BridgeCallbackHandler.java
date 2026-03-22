@@ -5,13 +5,13 @@ import mage.client.bridge.processor.BridgeCallbackDispatcher;
 import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
 import mage.client.bridge.processor.BridgeCallbackEvent;
 import mage.client.bridge.processor.BridgeChooseActionFlow;
-import mage.client.bridge.processor.BridgeChooseActionFlowContext;
 import mage.client.bridge.processor.BridgeChooseActionInput;
+import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
-import mage.client.bridge.processor.BridgePassPriorityFlowContext;
+import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
@@ -106,8 +106,8 @@ public class BridgeCallbackHandler {
     private final BridgeCardFormatter cardFormatter;
     private final BridgeGameStateBuilder gameStateBuilder;
     private final BridgeOracleTextService oracleTextService;
-    private final BridgeChooseActionFlowContext chooseActionFlowContext;
-    private final BridgePassPriorityFlowContext passPriorityFlowContext;
+    private final BridgeChooseActionFlowManager chooseActionFlowManager;
+    private final BridgePassPriorityFlowManager passPriorityFlowManager;
     // Step 1/2 processor scaffold: callback ingress now goes through the processor thread,
     // while MCP methods still read transitional shared fields until step 3 lands.
     private final BridgeProcessor processor;
@@ -234,8 +234,6 @@ public class BridgeCallbackHandler {
         this.cardFormatter = new BridgeCardFormatter(viewLocator, () -> currentGameId, this::playerIdForGame);
         this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator, () -> currentGameId, this::playerIdForGame);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
-        this.chooseActionFlowContext = createChooseActionFlowContext();
-        this.passPriorityFlowContext = createPassPriorityFlowContext();
         BridgeCallbackDispatcher dispatcher = new BridgeCallbackDispatcher(new BridgeCallbackDispatcherContext() {
             @Override
             public String nonCurrentGameCallbackIgnoreReason(UUID callbackGameId, ClientCallbackMethod method) {
@@ -340,348 +338,197 @@ public class BridgeCallbackHandler {
         });
         this.processor = new BridgeProcessor(client.getUsername(), logger, dispatcher::process);
         this.processor.start();
+        this.chooseActionFlowManager = new BridgeChooseActionFlowManager(
+            decisionState,
+            new BridgeChooseActionFlowContextImpl(this, decisionState),
+            this::chooseActionDeliveryErrorResult
+        );
+        this.passPriorityFlowManager = new BridgePassPriorityFlowManager(
+            decisionState,
+            new BridgePassPriorityFlowContextImpl(this, decisionState)
+        );
     }
 
-    // TODO: Delete this adapter once processor-owned wakeup/result helpers move
-    // out of BridgeCallbackHandler. BridgeChooseActionFlow should depend on
-    // processor-local collaborators, not a broad handler facade.
-    private BridgeChooseActionFlowContext createChooseActionFlowContext() {
-        return new BridgeChooseActionFlowContext() {
-            @Override
-            public PendingAction currentPendingAction() {
-                return decisionState.pendingAction();
-            }
-
-            @Override
-            public PendingAction currentDecisionAction() {
-                return BridgeCallbackHandler.this.currentDecisionAction();
-            }
-
-            @Override
-            public boolean requestCannotContinue() {
-                return superseded
-                    || playerDead
-                    || (activeGames.isEmpty() && gameEverStarted)
-                    || !client.isRunning();
-            }
-
-            @Override
-            public ChooseActionTool.Result noPendingActionResult() {
-                var result = new ChooseActionTool.Result();
-                return buildError(result, "no_pending_action", "No pending action (game over or shutting down)", false, null);
-            }
-
-            @Override
-            public BridgeChooseActionStartResult applyChooseAction(BridgeChooseActionInput input, PendingAction action) {
-                return BridgeCallbackHandler.this.applyChooseActionNow(input, action);
-            }
-
-            @Override
-            public String detectCombatSelect(PendingAction action) {
-                return BridgeCallbackHandler.this.detectCombatSelect(action);
-            }
-
-            @Override
-            public UUID resolveShortId(String shortId) {
-                return shortIds.resolve(shortId);
-            }
-
-            @Override
-            public Set<UUID> validTargets(PendingAction action) {
-                if (!(action.data() instanceof GameClientMessage targetMsg)) {
-                    return null;
-                }
-                return findValidTargets(targetMsg);
-            }
-
-            @Override
-            public boolean clearPendingActionIfCurrent(PendingAction action) {
-                return BridgeCallbackHandler.this.clearPendingActionIfCurrent(action);
-            }
-
-            @Override
-            public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
-                BridgeCallbackHandler.this.sendBooleanOrDie(gameId, data, sendContext);
-            }
-
-            @Override
-            public void sendUuidOrDie(UUID gameId, UUID data, String sendContext) {
-                BridgeCallbackHandler.this.sendUuidOrDie(gameId, data, sendContext);
-            }
-
-            @Override
-            public void sendStringOrDie(UUID gameId, String data, String sendContext) {
-                BridgeCallbackHandler.this.sendStringOrDie(gameId, data, sendContext);
-            }
-
-            @Override
-            public void clearLastChoices() {
-                decisionState.clearLastChoices();
-            }
-
-            @Override
-            public ChooseActionTool.Result buildChooseActionError(
-                    ChooseActionTool.Result result,
-                    String errorCode,
-                    String message,
-                    boolean retryable,
-                    PendingAction action) {
-                return BridgeCallbackHandler.this.buildError(result, errorCode, message, retryable, action);
-            }
-
-            @Override
-            public void finishChooseActionWithNextDecision(
-                    ChooseActionTool.Result result,
-                    PendingAction previousAction,
-                    PendingAction nextAction) {
-                result.game_seq = nextAction.gameSeq();
-                mergeActionChoices(result, null, nextAction);
-                String summary = "after=" + summarizePendingAction(previousAction)
-                    + ",woke_to=" + summarizePendingAction(nextAction)
-                    + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
-                logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
-                logBridgeEvent("CHOOSE_ACTION_WAKEUP", nextAction.gameId(), summary);
-            }
-
-            @Override
-            public void finishChooseActionWithoutNextDecision(
-                    ChooseActionTool.Result result,
-                    PendingAction previousAction) {
-                String summary = "after=" + summarizePendingAction(previousAction)
-                    + ",woke_to=game_over"
-                    + ",playerDead=" + playerDead
-                    + ",activeGames=" + activeGames.size()
-                    + ",clientRunning=" + client.isRunning();
-                logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
-                logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
-                attachUnseenChat(result);
-            }
-
-            @Override
-            public void finishBatchChooseActionWithNextDecision(
-                    ChooseActionTool.Result result,
-                    PendingAction nextAction) {
-                result.game_seq = nextAction.gameSeq();
-                mergeActionChoices(result, null, nextAction);
-            }
-
-            @Override
-            public void finishBatchChooseActionWithoutNextDecision(ChooseActionTool.Result result) {
-                attachUnseenChat(result);
-            }
-
-            @Override
-            public ChooseActionTool.Result interruptedChooseActionResult(
-                    PendingAction previousAction,
-                    ChooseActionTool.Result partialResult) {
-                ChooseActionTool.Result result = partialResult != null ? partialResult : new ChooseActionTool.Result();
-                result.success = false;
-                result.error = "Interrupted while waiting for choose_action";
-                result.error_code = "interrupted";
-                result.retryable = false;
-                attachUnseenChat(result);
-                if (previousAction != null) {
-                    String summary = "after=" + summarizePendingAction(previousAction) + ",woke_to=interrupted";
-                    logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
-                    logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
-                }
-                return result;
-            }
-        };
+    String username() {
+        return client.getUsername();
     }
 
-    // TODO: Delete this adapter once processor-owned state/result helpers move
-    // out of BridgeCallbackHandler. BridgePassPriorityFlow should depend on
-    // processor-local collaborators, not a broad handler facade.
-    private BridgePassPriorityFlowContext createPassPriorityFlowContext() {
-        return new BridgePassPriorityFlowContext() {
-            @Override
-            public String username() {
-                return client.getUsername();
-            }
+    boolean chooseActionRequestCannotContinue() {
+        return superseded
+            || playerDead
+            || (activeGames.isEmpty() && gameEverStarted)
+            || !client.isRunning();
+    }
 
-            @Override
-            public PendingAction currentPendingAction() {
-                return decisionState.pendingAction();
-            }
+    ChooseActionTool.Result noPendingChooseActionResult() {
+        var result = new ChooseActionTool.Result();
+        return buildError(result, "no_pending_action", "No pending action (game over or shutting down)", false, null);
+    }
 
-            @Override
-            public PendingAction currentDecisionAction() {
-                return BridgeCallbackHandler.this.currentDecisionAction();
-            }
+    UUID resolveShortId(String shortId) {
+        return shortIds.resolve(shortId);
+    }
 
-            @Override
-            public PendingAction resolvePassPriorityAction(PendingAction action) {
-                DecisionBoundaryTransition transition =
-                    transitionToDecisionBoundary(action, "passPriority");
-                return transition.status() == DecisionBoundaryStatus.READY ? transition.action() : null;
-            }
+    Set<UUID> validTargets(PendingAction action) {
+        if (!(action.data() instanceof GameClientMessage targetMsg)) {
+            return null;
+        }
+        return findValidTargets(targetMsg);
+    }
 
-            @Override
-            public GameView preparePassPriorityActionView(PendingAction action) {
-                if (action.data() instanceof GameClientMessage gcm) {
-                    GameView gv = gcm.getGameView();
-                    if (gv != null) {
-                        updateLastGameView(gv, "passPriority:" + action.method().name());
-                        int turn = gv.getTurn();
-                        if (turn != lastTurnNumber) {
-                            lastTurnNumber = turn;
-                            failedManaCasts.clear();
-                            interactionsThisTurn = 0;
-                            poolManaAttempts = 0;
-                            poolManaPayingForId = null;
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
-                        }
-                    }
+    void finishChooseActionWithNextDecision(
+            ChooseActionTool.Result result,
+            PendingAction previousAction,
+            PendingAction nextAction) {
+        result.game_seq = nextAction.gameSeq();
+        mergeActionChoices(result, null, nextAction);
+        String summary = "after=" + summarizePendingAction(previousAction)
+            + ",woke_to=" + summarizePendingAction(nextAction)
+            + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
+        logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+        logBridgeEvent("CHOOSE_ACTION_WAKEUP", nextAction.gameId(), summary);
+    }
+
+    void finishChooseActionWithoutNextDecision(
+            ChooseActionTool.Result result,
+            PendingAction previousAction) {
+        String summary = "after=" + summarizePendingAction(previousAction)
+            + ",woke_to=game_over"
+            + ",playerDead=" + playerDead
+            + ",activeGames=" + activeGames.size()
+            + ",clientRunning=" + client.isRunning();
+        logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+        logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
+        attachUnseenChat(result);
+    }
+
+    void finishBatchChooseActionWithNextDecision(
+            ChooseActionTool.Result result,
+            PendingAction nextAction) {
+        result.game_seq = nextAction.gameSeq();
+        mergeActionChoices(result, null, nextAction);
+    }
+
+    void finishBatchChooseActionWithoutNextDecision(ChooseActionTool.Result result) {
+        attachUnseenChat(result);
+    }
+
+    ChooseActionTool.Result interruptedChooseActionResult(
+            PendingAction previousAction,
+            ChooseActionTool.Result partialResult) {
+        ChooseActionTool.Result result = partialResult != null ? partialResult : new ChooseActionTool.Result();
+        result.success = false;
+        result.error = "Interrupted while waiting for choose_action";
+        result.error_code = "interrupted";
+        result.retryable = false;
+        attachUnseenChat(result);
+        if (previousAction != null) {
+            String summary = "after=" + summarizePendingAction(previousAction) + ",woke_to=interrupted";
+            logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
+            logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
+        }
+        return result;
+    }
+
+    PendingAction resolvePassPriorityAction(PendingAction action) {
+        DecisionBoundaryTransition transition =
+            transitionToDecisionBoundary(action, "passPriority");
+        return transition.status() == DecisionBoundaryStatus.READY ? transition.action() : null;
+    }
+
+    GameView preparePassPriorityActionView(PendingAction action) {
+        if (action.data() instanceof GameClientMessage gcm) {
+            GameView gv = gcm.getGameView();
+            if (gv != null) {
+                updateLastGameView(gv, "passPriority:" + action.method().name());
+                int turn = gv.getTurn();
+                if (turn != lastTurnNumber) {
+                    lastTurnNumber = turn;
+                    failedManaCasts.clear();
+                    interactionsThisTurn = 0;
+                    poolManaAttempts = 0;
+                    poolManaPayingForId = null;
+                    manaPlan = null;
+                    manaPlanAbilityIndex = null;
                 }
-                if (action.data() instanceof GameClientMessage gcm) {
-                    return gcm.getGameView();
-                }
-                return lastGameView;
             }
+        }
+        if (action.data() instanceof GameClientMessage gcm) {
+            return gcm.getGameView();
+        }
+        return lastGameView;
+    }
 
-            @Override
-            public int interactionsThisTurn() {
-                return interactionsThisTurn;
-            }
+    int interactionsThisTurn() {
+        return interactionsThisTurn;
+    }
 
-            @Override
-            public int maxInteractionsPerTurn() {
-                return maxInteractionsPerTurn;
-            }
+    int maxInteractionsPerTurn() {
+        return maxInteractionsPerTurn;
+    }
 
-            @Override
-            public void executeDefaultAction() {
-                BridgeCallbackHandler.this.executeDefaultAction();
-            }
+    UUID currentGameId() {
+        return currentGameId;
+    }
 
-            @Override
-            public String detectCombatSelect(PendingAction action) {
-                return BridgeCallbackHandler.this.detectCombatSelect(action);
-            }
+    GameView lastGameView() {
+        return lastGameView;
+    }
 
-            @Override
-            public ActionResult pendingActionResult(PendingAction action, String stopReason, Long boardCursorParam) {
-                return BridgeCallbackHandler.this.pendingActionResult(action, stopReason, boardCursorParam);
-            }
+    int lastTurnNumber() {
+        return lastTurnNumber;
+    }
 
-            @Override
-            public ActionResult pendingActionResult(
-                    PendingAction action,
-                    String stopReason,
-                    Long boardCursorParam,
-                    Consumer<ActionResult> customizer) {
-                return BridgeCallbackHandler.this.pendingActionResult(action, stopReason, boardCursorParam, customizer);
-            }
+    int activeGamesSize() {
+        return activeGames.size();
+    }
 
-            @Override
-            public ActionResult stepYieldResult(PendingAction action, GameView gameView, String stopReason, Long boardCursorParam) {
-                return BridgeCallbackHandler.this.stepYieldResult(action, gameView, stopReason, boardCursorParam);
-            }
+    boolean superseded() {
+        return superseded;
+    }
 
-            @Override
-            public ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
-                return BridgeCallbackHandler.this.stackResolvedResult(action, boardCursorParam);
-            }
+    boolean playerDead() {
+        return playerDead;
+    }
 
-            @Override
-            public UUID lowestStackObjectId(GameView gameView) {
-                return BridgeCallbackHandler.this.lowestStackObjectId(gameView);
-            }
+    boolean gameEverStarted() {
+        return gameEverStarted;
+    }
 
-            @Override
-            public boolean stackContains(GameView gameView, UUID stackObjectId) {
-                return BridgeCallbackHandler.this.stackContains(gameView, stackObjectId);
-            }
+    boolean clientRunning() {
+        return client.isRunning();
+    }
 
-            @Override
-            public boolean clearPendingActionIfCurrent(PendingAction action) {
-                return BridgeCallbackHandler.this.clearPendingActionIfCurrent(action);
-            }
+    long lastActionableCallbackAt() {
+        return lastActionableCallbackAt;
+    }
 
-            @Override
-            public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
-                BridgeCallbackHandler.this.sendBooleanOrDie(gameId, data, sendContext);
-            }
+    long lastCallbackReceivedAt() {
+        return lastCallbackReceivedAt;
+    }
 
-            @Override
-            public UUID currentGameId() {
-                return currentGameId;
-            }
+    void declareZombieGame(long absoluteIdleMs) {
+        logger.error("[" + client.getUsername() + "] Zombie game detected: "
+            + "no actionable callback for " + absoluteIdleMs + "ms, declaring game dead");
+        logError("Zombie game detected: no actionable callback for " + absoluteIdleMs + "ms");
+        playerDead = true;
+    }
 
-            @Override
-            public GameView lastGameView() {
-                return lastGameView;
-            }
+    boolean failedManaCast(UUID objectId) {
+        return failedManaCasts.contains(objectId);
+    }
 
-            @Override
-            public int lastTurnNumber() {
-                return lastTurnNumber;
-            }
-
-            @Override
-            public int activeGamesSize() {
-                return activeGames.size();
-            }
-
-            @Override
-            public boolean superseded() {
-                return superseded;
-            }
-
-            @Override
-            public boolean playerDead() {
-                return playerDead;
-            }
-
-            @Override
-            public boolean gameEverStarted() {
-                return gameEverStarted;
-            }
-
-            @Override
-            public boolean clientRunning() {
-                return client.isRunning();
-            }
-
-            @Override
-            public long lastActionableCallbackAt() {
-                return lastActionableCallbackAt;
-            }
-
-            @Override
-            public long lastCallbackReceivedAt() {
-                return lastCallbackReceivedAt;
-            }
-
-            @Override
-            public void declareZombieGame(long absoluteIdleMs) {
-                logger.error("[" + client.getUsername() + "] Zombie game detected: "
-                    + "no actionable callback for " + absoluteIdleMs + "ms, declaring game dead");
-                logError("Zombie game detected: no actionable callback for " + absoluteIdleMs + "ms");
-                playerDead = true;
-            }
-
-            @Override
-            public boolean failedManaCast(UUID objectId) {
-                return failedManaCasts.contains(objectId);
-            }
-
-            @Override
-            public void finalizePassPriorityResult(
-                    BridgePassPriorityFlow flow,
-                    String until,
-                    int actionsPassed,
-                    PendingAction action,
-                    GameView view,
-                    ActionResult result,
-                    boolean actionPending) {
-                decisionState.clearPendingPassPriorityFlowIfCurrent(flow);
-                attachUnseenChat(result);
-                logPassPriorityReturn(until, actionsPassed, action, view, result, actionPending);
-            }
-        };
+    void finalizePassPriorityResult(
+            BridgePassPriorityFlow flow,
+            String until,
+            int actionsPassed,
+            PendingAction action,
+            GameView view,
+            ActionResult result,
+            boolean actionPending) {
+        decisionState.clearPendingPassPriorityFlowIfCurrent(flow);
+        attachUnseenChat(result);
+        logPassPriorityReturn(until, actionsPassed, action, view, result, actionPending);
     }
 
     /**
@@ -696,21 +543,21 @@ public class BridgeCallbackHandler {
      * Detecting the failure immediately lets the wait loops exit cleanly instead
      * of blocking until the HTTP socket times out.
      */
-    private void sendBooleanOrDie(UUID gameId, boolean data, String context) {
+    void sendBooleanOrDie(UUID gameId, boolean data, String context) {
         boolean ok = session.sendPlayerBoolean(gameId, data);
         if (!ok) {
             declareResponseFailed("sendPlayerBoolean(" + data + ")", context, gameId);
         }
     }
 
-    private void sendUuidOrDie(UUID gameId, UUID data, String context) {
+    void sendUuidOrDie(UUID gameId, UUID data, String context) {
         boolean ok = session.sendPlayerUUID(gameId, data);
         if (!ok) {
             declareResponseFailed("sendPlayerUUID(" + data + ")", context, gameId);
         }
     }
 
-    private void sendStringOrDie(UUID gameId, String data, String context) {
+    void sendStringOrDie(UUID gameId, String data, String context) {
         boolean ok = session.sendPlayerString(gameId, data);
         if (!ok) {
             declareResponseFailed("sendPlayerString(" + data + ")", context, gameId);
@@ -735,7 +582,7 @@ public class BridgeCallbackHandler {
      * Unchecked exception thrown when a sendPlayer* call fails.
      * Prevents callers from continuing on the success path after a dropped response.
      */
-    static class ResponseDeliveryException extends RuntimeException {
+    public static class ResponseDeliveryException extends RuntimeException {
         ResponseDeliveryException(String message) {
             super(message);
         }
@@ -2010,7 +1857,7 @@ public class BridgeCallbackHandler {
         return result;
     }
 
-    private boolean clearPendingActionIfCurrent(PendingAction action) {
+    boolean clearPendingActionIfCurrent(PendingAction action) {
         return decisionState.clearPendingActionIfCurrent(action);
     }
 
@@ -2235,7 +2082,7 @@ public class BridgeCallbackHandler {
      * Build a standardized error response for choose_action failures.
      * Must reuse the caller's result map so the finally block can read success=false.
      */
-    private ChooseActionTool.Result buildError(ChooseActionTool.Result result, String errorCode,
+    ChooseActionTool.Result buildError(ChooseActionTool.Result result, String errorCode,
             String message, boolean retryable, PendingAction action, boolean attachChoices) {
         result.success = false;
         result.error = message;
@@ -2249,7 +2096,7 @@ public class BridgeCallbackHandler {
         return result;
     }
 
-    private ChooseActionTool.Result buildError(ChooseActionTool.Result result, String errorCode,
+    ChooseActionTool.Result buildError(ChooseActionTool.Result result, String errorCode,
             String message, boolean retryable, PendingAction action) {
         return buildError(result, errorCode, message, retryable, action, false);
     }
@@ -2321,7 +2168,8 @@ public class BridgeCallbackHandler {
             if (decisionState.pendingChooseActionFlow() != null) {
                 return null;
             }
-            return startChooseActionFlow(input);
+            interactionsThisTurn++;
+            return chooseActionFlowManager.startPendingFlow(input);
         }));
         if (flow == null) {
             return processor.submit(BridgeCommand.of(() -> {
@@ -2341,18 +2189,18 @@ public class BridgeCallbackHandler {
             } catch (TimeoutException e) {
                 try {
                     processor.submit(BridgeCommand.of(() -> {
-                        tickPendingChooseActionFlow(flow);
+                        chooseActionFlowManager.tickPendingFlow(flow);
                         return null;
                     }));
                 } catch (IllegalStateException ignored) {
-                    return finishChooseActionAfterProcessorShutdown(flow);
+                    return chooseActionFlowManager.finishAfterProcessorShutdown(flow);
                 }
             } catch (InterruptedException e) {
                 ChooseActionTool.Result interruptedResult;
                 try {
-                    interruptedResult = processor.submit(BridgeCommand.of(() -> interruptChooseActionFlow(flow)));
+                    interruptedResult = processor.submit(BridgeCommand.of(() -> chooseActionFlowManager.interruptFlow(flow)));
                 } catch (IllegalStateException ignored) {
-                    interruptedResult = finishChooseActionAfterProcessorShutdown(flow);
+                    interruptedResult = chooseActionFlowManager.finishAfterProcessorShutdown(flow);
                 }
                 Thread.currentThread().interrupt();
                 return interruptedResult;
@@ -2374,7 +2222,7 @@ public class BridgeCallbackHandler {
         return new BridgeChooseActionStartResult(result, true);
     }
 
-    private BridgeChooseActionStartResult applyChooseActionNow(
+    BridgeChooseActionStartResult applyChooseActionNow(
             BridgeChooseActionInput input,
             PendingAction action) {
         var result = new ChooseActionTool.Result();
@@ -2884,54 +2732,6 @@ public class BridgeCallbackHandler {
         return chooseActionAwaitNextDecision(result);
     }
 
-    private BridgeChooseActionFlow startChooseActionFlow(BridgeChooseActionInput input) {
-        BridgeChooseActionFlow flow = new BridgeChooseActionFlow(chooseActionFlowContext, input);
-        decisionState.setPendingChooseActionFlow(flow);
-        interactionsThisTurn++;
-        try {
-            flow.start();
-        } catch (ResponseDeliveryException e) {
-            flow.finish(chooseActionDeliveryErrorResult(e.getMessage()));
-        } catch (RuntimeException e) {
-            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
-            throw e;
-        }
-        if (flow.isDone()) {
-            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
-        }
-        return flow;
-    }
-
-    private void advancePendingChooseActionFlow() {
-        BridgeChooseActionFlow flow = decisionState.pendingChooseActionFlow();
-        if (flow == null) {
-            return;
-        }
-        try {
-            flow.advance();
-        } catch (ResponseDeliveryException e) {
-            flow.finish(chooseActionDeliveryErrorResult(e.getMessage()));
-        }
-        if (flow.isDone()) {
-            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
-        }
-    }
-
-    private void tickPendingChooseActionFlow(BridgeChooseActionFlow flow) {
-        if (decisionState.pendingChooseActionFlow() != flow) {
-            return;
-        }
-        advancePendingChooseActionFlow();
-    }
-
-    private ChooseActionTool.Result interruptChooseActionFlow(BridgeChooseActionFlow flow) {
-        try {
-            return flow.interrupt();
-        } finally {
-            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
-        }
-    }
-
     private ChooseActionTool.Result chooseActionDeliveryErrorResult(String message) {
         var result = new ChooseActionTool.Result();
         result.success = false;
@@ -2942,19 +2742,15 @@ public class BridgeCallbackHandler {
         return result;
     }
 
-    private ChooseActionTool.Result finishChooseActionAfterProcessorShutdown(BridgeChooseActionFlow flow) {
-        try {
-            return flow.finishAfterProcessorShutdown();
-        } finally {
-            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
-        }
+    private void advancePendingFlows() {
+        chooseActionFlowManager.advancePendingFlow();
+        passPriorityFlowManager.advancePendingFlow();
     }
 
     private void advancePendingFlowsBeforeShutdown() {
         try {
             processor.submit(BridgeCommand.of(() -> {
-                advancePendingChooseActionFlow();
-                advancePendingPassPriorityFlow();
+                advancePendingFlows();
                 return null;
             }));
         } catch (IllegalStateException ignored) {
@@ -2966,7 +2762,7 @@ public class BridgeCallbackHandler {
      * Inspect the current pending action and auto-resolve any deterministic
      * non-decision callbacks without waiting for a future callback.
      */
-    private PendingAction currentDecisionAction() {
+    PendingAction currentDecisionAction() {
         while (true) {
             PendingAction action = decisionState.pendingAction();
             if (action == null) {
@@ -3366,7 +3162,7 @@ public class BridgeCallbackHandler {
         result.mergeFrom(choices);
     }
 
-    private ActionResult pendingActionResult(
+    ActionResult pendingActionResult(
             PendingAction action,
             String stopReason,
             Long boardCursorParam
@@ -3374,7 +3170,7 @@ public class BridgeCallbackHandler {
         return pendingActionResult(action, stopReason, boardCursorParam, null);
     }
 
-    private ActionResult pendingActionResult(
+    ActionResult pendingActionResult(
             PendingAction action,
             String stopReason,
             Long boardCursorParam,
@@ -3393,11 +3189,11 @@ public class BridgeCallbackHandler {
         return result;
     }
 
-    private ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
+    ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
         return pendingActionResult(action, "stack_resolved", boardCursorParam);
     }
 
-    private ActionResult stepYieldResult(PendingAction action, GameView gv, String stopReason, Long boardCursorParam) {
+    ActionResult stepYieldResult(PendingAction action, GameView gv, String stopReason, Long boardCursorParam) {
         return pendingActionResult(action, stopReason, boardCursorParam, result -> {
             if (gv != null && gv.getStep() != null) {
                 result.current_step = gv.getStep().toString();
@@ -3405,7 +3201,7 @@ public class BridgeCallbackHandler {
         });
     }
 
-    private UUID lowestStackObjectId(GameView gameView) {
+    UUID lowestStackObjectId(GameView gameView) {
         if (gameView == null || gameView.getStack() == null || gameView.getStack().isEmpty()) {
             return null;
         }
@@ -3418,7 +3214,7 @@ public class BridgeCallbackHandler {
         return lowest;
     }
 
-    private boolean stackContains(GameView gameView, UUID stackObjectId) {
+    boolean stackContains(GameView gameView, UUID stackObjectId) {
         return gameView != null
             && gameView.getStack() != null
             && stackObjectId != null
@@ -3448,7 +3244,8 @@ public class BridgeCallbackHandler {
             if (decisionState.pendingPassPriorityFlow() != null) {
                 return null;
             }
-            return startPassPriorityFlow(until, boardCursorParam);
+            interactionsThisTurn++;
+            return passPriorityFlowManager.startPendingFlow(until, boardCursorParam);
         }));
 
         if (flow == null) {
@@ -3465,15 +3262,15 @@ public class BridgeCallbackHandler {
                 return flow.awaitResult(200);
             } catch (TimeoutException e) {
                 processor.submit(BridgeCommand.of(() -> {
-                    tickPendingPassPriorityFlow(flow);
+                    passPriorityFlowManager.tickPendingFlow(flow);
                     return null;
                 }));
             } catch (InterruptedException e) {
                 ActionResult interruptedResult;
                 try {
-                    interruptedResult = processor.submit(BridgeCommand.of(() -> interruptPassPriorityFlow(flow)));
+                    interruptedResult = processor.submit(BridgeCommand.of(() -> passPriorityFlowManager.interruptFlow(flow)));
                 } catch (IllegalStateException ignored) {
-                    interruptedResult = interruptPassPriorityFlow(flow);
+                    interruptedResult = passPriorityFlowManager.interruptFlow(flow);
                 }
                 Thread.currentThread().interrupt();
                 return interruptedResult;
@@ -3485,48 +3282,6 @@ public class BridgeCallbackHandler {
                 throw new IllegalStateException("passPriority request failed", cause);
             }
         }
-    }
-
-    private BridgePassPriorityFlow startPassPriorityFlow(String until, Long boardCursorParam) {
-        BridgePassPriorityFlow flow = new BridgePassPriorityFlow(passPriorityFlowContext, until, boardCursorParam);
-        decisionState.setPendingPassPriorityFlow(flow);
-        interactionsThisTurn++;
-        try {
-            flow.start();
-        } catch (ResponseDeliveryException e) {
-            flow.finishWithDeliveryError(e.getMessage());
-        } catch (RuntimeException e) {
-            decisionState.clearPendingPassPriorityFlowIfCurrent(flow);
-            throw e;
-        }
-        return flow;
-    }
-
-    private void advancePendingPassPriorityFlow() {
-        BridgePassPriorityFlow flow = decisionState.pendingPassPriorityFlow();
-        if (flow == null) {
-            return;
-        }
-        try {
-            flow.advance();
-        } catch (ResponseDeliveryException e) {
-            flow.finishWithDeliveryError(e.getMessage());
-        }
-    }
-
-    private void tickPendingPassPriorityFlow(BridgePassPriorityFlow flow) {
-        if (decisionState.pendingPassPriorityFlow() != flow) {
-            return;
-        }
-        try {
-            flow.tick();
-        } catch (ResponseDeliveryException e) {
-            flow.finishWithDeliveryError(e.getMessage());
-        }
-    }
-
-    private ActionResult interruptPassPriorityFlow(BridgePassPriorityFlow flow) {
-        return flow.interrupt();
     }
 
     /**
@@ -3722,7 +3477,7 @@ public class BridgeCallbackHandler {
      * by inspecting the options map for possibleAttackers/possibleBlockers keys.
      * Returns "attackers", "blockers", or null.
      */
-    private String detectCombatSelect(PendingAction action) {
+    String detectCombatSelect(PendingAction action) {
         if (action == null || action.method() != ClientCallbackMethod.GAME_SELECT) {
             return null;
         }
@@ -3782,8 +3537,7 @@ public class BridgeCallbackHandler {
             playerDead = true;
             try {
                 processor.submit(BridgeCommand.of(() -> {
-                    advancePendingChooseActionFlow();
-                    advancePendingPassPriorityFlow();
+                    advancePendingFlows();
                     return null;
                 }));
             } catch (IllegalStateException ignored) {
@@ -3812,8 +3566,7 @@ public class BridgeCallbackHandler {
             logBridgeEvent("PENDING_ACTION_REPLACED", gameId, summary);
         }
         logger.debug("[" + client.getUsername() + "] Stored pending action: " + method + " - " + message);
-        advancePendingChooseActionFlow();
-        advancePendingPassPriorityFlow();
+        advancePendingFlows();
     }
 
     private static GameView extractGameView(Object data) {
@@ -4530,8 +4283,7 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] Game ended, stopping client");
             client.stop();
         }
-        advancePendingChooseActionFlow();
-        advancePendingPassPriorityFlow();
+        advancePendingFlows();
     }
 
     /**
@@ -4561,8 +4313,7 @@ public class BridgeCallbackHandler {
             logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (missed GAME_OVER)");
             client.stop();
         }
-        advancePendingChooseActionFlow();
-        advancePendingPassPriorityFlow();
+        advancePendingFlows();
     }
 
     private void handleUserRequestDialog(Object data) {
