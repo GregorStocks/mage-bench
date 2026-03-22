@@ -22,6 +22,8 @@ import mage.client.bridge.processor.BridgeManaPlanEntry;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
+import mage.client.bridge.processor.BridgeStartGameFlow;
+import mage.client.bridge.processor.BridgeStartGameFlowManager;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardInfo;
@@ -95,6 +97,7 @@ public class BridgeCallbackHandler {
 
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
     private static final int SHUTDOWN_FLOW_DRAIN_MAX_PASSES = 8;
+    private static final long START_GAME_WAIT_MS = 60_000;
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -114,6 +117,7 @@ public class BridgeCallbackHandler {
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
     private final BridgeConcedeFlowManager concedeFlowManager;
+    private final BridgeStartGameFlowManager startGameFlowManager;
     private final BridgeCallbackIngress callbackIngress;
     private final BridgeMcpActionApi mcpActionApi;
     private final BridgeMcpQueryApi mcpQueryApi;
@@ -315,6 +319,12 @@ public class BridgeCallbackHandler {
             logger,
             client.getUsername(),
             KEEPALIVE_CONCEDE_WAIT_SECONDS
+        );
+        this.startGameFlowManager = new BridgeStartGameFlowManager(
+            processor,
+            logger,
+            client.getUsername(),
+            START_GAME_WAIT_MS
         );
         this.mcpActionApi = new BridgeMcpActionApi(
             client.getUsername(),
@@ -825,16 +835,6 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Block until {@code handleStartGame()} fires. Used by join_table tool.
-     * TODO(bridge-processor): Move join_table onto a processor-owned lifecycle
-     * flow so MCP no longer waits on a shared start latch.
-     * @return true if game started, false if timed out
-     */
-    public boolean awaitGameStart(long timeoutMs) throws InterruptedException {
-        return gameState.awaitGameStart(timeoutMs);
-    }
-
-    /**
      * Join the next available game table with a new deck. Used by JoinTableTool.
      * Creates a fresh handler (discarding all old game state), loads the deck,
      * joins a table, and waits for game start.
@@ -845,20 +845,30 @@ public class BridgeCallbackHandler {
         BridgeCallbackHandler fresh = createFreshForNextGame();
         DeckCardLists deck = BridgeClient.loadDeck(deckPath);
         fresh.setDeckList(deck);
-        fresh.gameState.setStartGameArmed(true);
-        // Set expectedStartTableId BEFORE joining so stale START_GAME callbacks
-        // (from server reconnection replaying old games) are rejected during the
-        // window between createFreshForNextGame() and jh.joinTable().
-        if (targetTableId != null) {
-            fresh.gameState.setExpectedStartTableId(targetTableId);
+        BridgeStartGameFlow flow = fresh.startPendingStartGameFlow(targetTableId);
+        try {
+            UUID tableId = jh.joinTable(deckPath, targetTableId);
+            assert tableId != null : "Failed to join any table within timeout";
+            fresh.recordJoinedStartGameTable(flow, tableId);
+            logger.info("[" + client.getUsername() + "] Joined table " + tableId + ", waiting for game start...");
+            boolean started = flow.awaitResult();
+            assert started : "Game did not start within 60s after joining table";
+            logger.info("[" + client.getUsername() + "] Game started after join_table");
+        } catch (InterruptedException e) {
+            fresh.cancelPendingStartGameFlow(flow);
+            Thread.currentThread().interrupt();
+            throw e;
+        } catch (ExecutionException e) {
+            fresh.cancelPendingStartGameFlow(flow);
+            Throwable cause = e.getCause();
+            if (cause instanceof RuntimeException runtimeException) {
+                throw runtimeException;
+            }
+            throw new IllegalStateException("join_table start-game flow failed", cause);
+        } catch (Exception | AssertionError e) {
+            fresh.cancelPendingStartGameFlow(flow);
+            throw e;
         }
-        UUID tableId = jh.joinTable(deckPath, targetTableId);
-        assert tableId != null : "Failed to join any table within timeout";
-        fresh.gameState.setExpectedStartTableId(tableId);
-        logger.info("[" + client.getUsername() + "] Joined table " + tableId + ", waiting for game start...");
-        boolean started = fresh.awaitGameStart(60_000);
-        assert started : "Game did not start within 60s after joining table";
-        logger.info("[" + client.getUsername() + "] Game started after join_table");
     }
 
     public void reset() {
@@ -894,7 +904,34 @@ public class BridgeCallbackHandler {
         chooseActionFlowManager.shutdown();
         passPriorityFlowManager.shutdown();
         concedeFlowManager.shutdown();
+        startGameFlowManager.shutdown();
         processor.shutdown(reason);
+    }
+
+    private BridgeStartGameFlow startPendingStartGameFlow(UUID expectedTableId) {
+        return processor.submit(BridgeCommand.of(() -> startGameFlowManager.startPendingFlow(expectedTableId)));
+    }
+
+    private void recordJoinedStartGameTable(BridgeStartGameFlow flow, UUID tableId) {
+        try {
+            processor.submit(BridgeCommand.of(() -> {
+                startGameFlowManager.recordJoinedTable(flow, tableId);
+                return null;
+            }));
+        } catch (IllegalStateException ignored) {
+            startGameFlowManager.cancelFlow(flow);
+        }
+    }
+
+    private void cancelPendingStartGameFlow(BridgeStartGameFlow flow) {
+        try {
+            processor.submit(BridgeCommand.of(() -> {
+                startGameFlowManager.cancelFlow(flow);
+                return null;
+            }));
+        } catch (IllegalStateException ignored) {
+            startGameFlowManager.cancelFlow(flow);
+        }
     }
 
     public boolean isActionPending() {
@@ -3123,21 +3160,16 @@ public class BridgeCallbackHandler {
     private void handleStartGame(UUID gameId, Object data) {
         TableClientMessage message = (TableClientMessage) data;
         UUID startTableId = message.getCurrentTableId();
-        if (gameState.keepAliveAfterGame() && !gameState.startGameArmed()) {
+        String ignoreReason = startGameFlowManager.ignoreReasonForStartGame(
+            startTableId,
+            gameState.keepAliveAfterGame()
+        );
+        if (ignoreReason != null) {
             logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
-                    + startTableId + " because join_table has not armed a next game"
+                    + startTableId + " because " + ignoreReason
                     + " (gameId=" + gameId + ")");
             return;
         }
-        UUID expectedTableId = gameState.expectedStartTableId();
-        if (expectedTableId != null && !expectedTableId.equals(startTableId)) {
-            logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
-                    + startTableId + " while waiting for table " + expectedTableId
-                    + " (gameId=" + gameId + ")");
-            return;
-        }
-        gameState.setExpectedStartTableId(null);
-        gameState.setStartGameArmed(false);
         UUID playerId = message.getPlayerId();
         gameState.activateGame(gameId, playerId);
         shortIds.clear();
@@ -3155,7 +3187,7 @@ public class BridgeCallbackHandler {
         });
 
         logger.info("[" + client.getUsername() + "] Game started: gameId=" + gameId + ", playerId=" + playerId);
-        gameState.signalGameStarted();
+        startGameFlowManager.completePendingFlow();
     }
 
     private void handleGameInit(Object data) {

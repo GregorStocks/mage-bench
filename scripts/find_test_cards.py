@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 from typing import NamedTuple
 
-from scripts import scryfall
+from magebench.game import scryfall
 
 
 class Recipe(NamedTuple):

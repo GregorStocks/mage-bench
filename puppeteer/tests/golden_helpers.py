@@ -33,7 +33,8 @@ from types import SimpleNamespace
 
 import psutil
 
-from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.common.json5_utils import loads_json5
+from magebench.common.json5_writer import dumps_json5
 from magebench.game.export_game import build_export
 from magebench.game.game_export_types import Decision, json_default
 from puppeteer.config import load_prompts

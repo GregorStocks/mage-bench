@@ -51,6 +51,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -2064,6 +2065,253 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void joinNextTableWaitsForStartGameOnProcessorFlow() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        gameState.setKeepAliveAfterGame(true);
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        AtomicReference<String> joinGameThreadName = new AtomicReference<>();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "joinGame" -> {
+                        joinGameThreadName.set(Thread.currentThread().getName());
+                        assertThat(args[0]).isEqualTo(gameId);
+                        return true;
+                    }
+                    case "getGameChatId" -> {
+                        return Optional.empty();
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        handler.setJoinHandler((deckPath, requestedTableId) -> {
+            assertThat(requestedTableId).isEqualTo(tableId);
+            Thread callbackThread = new Thread(() -> {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+                client.getCallbackHandler().handleCallback(new ClientCallback(
+                    ClientCallbackMethod.START_GAME,
+                    gameId,
+                    new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+                    false
+                ));
+            }, "join-table-start-game-test");
+            callbackThread.setDaemon(true);
+            callbackThread.start();
+            return tableId;
+        });
+
+        try {
+            handler.joinNextTable(joinTableDeckPath(), tableId);
+
+            BridgeCallbackHandler fresh = client.getCallbackHandler();
+            fresh.awaitProcessorIdle();
+            assertThat(fresh).isNotSameAs(handler);
+            assertThat(joinGameThreadName.get()).startsWith("bridge-processor-TestPlayer");
+            assertThat(getField(fresh, "currentGameId")).isEqualTo(gameId);
+            assertThat(getField(fresh, "currentPlayerId")).isEqualTo(playerId);
+        } finally {
+            client.stop();
+        }
+    }
+
+    @Test
+    void joinNextTableIgnoresWrongStartGameTableWhileWaiting() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        gameState.setKeepAliveAfterGame(true);
+
+        UUID wrongGameId = UUID.randomUUID();
+        UUID rightGameId = UUID.randomUUID();
+        UUID wrongTableId = UUID.randomUUID();
+        UUID rightTableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        AtomicInteger joinGameCalls = new AtomicInteger();
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "joinGame" -> {
+                        joinGameCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(rightGameId);
+                        return true;
+                    }
+                    case "getGameChatId" -> {
+                        return Optional.empty();
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        handler.setJoinHandler((deckPath, requestedTableId) -> {
+            assertThat(requestedTableId).isEqualTo(rightTableId);
+            Thread callbackThread = new Thread(() -> {
+                client.getCallbackHandler().handleCallback(new ClientCallback(
+                    ClientCallbackMethod.START_GAME,
+                    wrongGameId,
+                    new TableClientMessage().withTable(wrongTableId, null).withPlayer(playerId),
+                    false
+                ));
+                client.getCallbackHandler().handleCallback(new ClientCallback(
+                    ClientCallbackMethod.START_GAME,
+                    rightGameId,
+                    new TableClientMessage().withTable(rightTableId, null).withPlayer(playerId),
+                    false
+                ));
+            }, "join-table-wrong-table-test");
+            callbackThread.setDaemon(true);
+            callbackThread.start();
+            return rightTableId;
+        });
+
+        try {
+            handler.joinNextTable(joinTableDeckPath(), rightTableId);
+
+            BridgeCallbackHandler fresh = client.getCallbackHandler();
+            fresh.awaitProcessorIdle();
+            assertThat(joinGameCalls.get()).isEqualTo(1);
+            assertThat(getField(fresh, "currentGameId")).isEqualTo(rightGameId);
+            assertThat(getField(fresh, "currentPlayerId")).isEqualTo(playerId);
+        } finally {
+            client.stop();
+        }
+    }
+
+    @Test
+    void joinNextTableReturnsWhenProcessorStopsBeforeStartGame() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        gameState.setKeepAliveAfterGame(true);
+
+        UUID tableId = UUID.randomUUID();
+        CountDownLatch joinReturned = new CountDownLatch(1);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("getGameChatId".equals(method.getName())) {
+                    return Optional.empty();
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        handler.setJoinHandler((deckPath, requestedTableId) -> {
+            assertThat(requestedTableId).isEqualTo(tableId);
+            joinReturned.countDown();
+            return tableId;
+        });
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<?> future = executor.submit(() -> {
+                try {
+                    handler.joinNextTable(joinTableDeckPath(), tableId);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            assertThat(joinReturned.await(1, TimeUnit.SECONDS)).isTrue();
+            BridgeCallbackHandler fresh = client.getCallbackHandler();
+            fresh.awaitProcessorIdle();
+            client.stop();
+
+            assertThatThrownBy(() -> future.get(1, TimeUnit.SECONDS))
+                .isInstanceOf(ExecutionException.class)
+                .hasCauseInstanceOf(AssertionError.class)
+                .hasMessageContaining("Game did not start within 60s after joining table");
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void queuedStartGameFlowFailsAfterShutdownInsteadOfCreatingOrphanedWaiter() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeCallbackHandler fresh = handler.createFreshForNextGame();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(fresh, "processor");
+        UUID tableId = UUID.randomUUID();
+
+        CountDownLatch blockerEntered = new CountDownLatch(1);
+        CountDownLatch releaseBlocker = new CountDownLatch(1);
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        try {
+            Future<?> blockerFuture = executor.submit(() -> processor.submit(new BridgeCommand<Void>() {
+                @Override
+                public Void execute() {
+                    blockerEntered.countDown();
+                    try {
+                        assertThat(releaseBlocker.await(1, TimeUnit.SECONDS)).isTrue();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new IllegalStateException("Interrupted while blocking processor", e);
+                    }
+                    return null;
+                }
+            }));
+
+            assertThat(blockerEntered.await(1, TimeUnit.SECONDS)).isTrue();
+
+            Future<?> shutdownFuture = executor.submit(() -> {
+                fresh.shutdownProcessor("test shutdown");
+                return null;
+            });
+            Thread.sleep(50);
+            assertThat(shutdownFuture.isDone()).isFalse();
+
+            Future<?> startFuture = executor.submit(() -> invokeStartPendingStartGameFlow(fresh, tableId));
+
+            releaseBlocker.countDown();
+
+            ExecutionException failure = null;
+            try {
+                startFuture.get(1, TimeUnit.SECONDS);
+            } catch (ExecutionException e) {
+                failure = e;
+            }
+            assertThat(failure).isNotNull();
+            assertThat(failure).hasCauseInstanceOf(IllegalStateException.class);
+            assertThat(failure.getCause().getMessage()).isIn(
+                "START_GAME flow manager is shut down",
+                "Bridge processor is shut down"
+            );
+
+            blockerFuture.get(1, TimeUnit.SECONDS);
+            shutdownFuture.get(1, TimeUnit.SECONDS);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
     void executeDefaultActionRunsOnProcessorThread() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -3054,6 +3302,29 @@ class BridgeCallbackHandlerTest {
         List<BridgeLogEntry> cached = (List<BridgeLogEntry>) getField(handler, "cachedBridgeEvents");
         cached.clear();
         cached.addAll(events);
+    }
+
+    private static String joinTableDeckPath() {
+        return Path.of("..", "puppeteer", "tests", "decks", "filler_opponent.dck")
+            .toAbsolutePath()
+            .normalize()
+            .toString();
+    }
+
+    private static Object invokeStartPendingStartGameFlow(BridgeCallbackHandler handler, UUID expectedTableId) {
+        try {
+            Method method = BridgeCallbackHandler.class.getDeclaredMethod("startPendingStartGameFlow", UUID.class);
+            method.setAccessible(true);
+            return method.invoke(handler, expectedTableId);
+        } catch (ReflectiveOperationException e) {
+            Throwable cause = e instanceof java.lang.reflect.InvocationTargetException invocationTargetException
+                ? invocationTargetException.getCause()
+                : e;
+            if (cause instanceof RuntimeException runtimeException) {
+                throw runtimeException;
+            }
+            throw new IllegalStateException("Failed to invoke startPendingStartGameFlow", cause);
+        }
     }
 
     private static Object getField(Object target, String name) throws Exception {

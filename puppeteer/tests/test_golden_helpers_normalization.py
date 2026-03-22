@@ -5,7 +5,8 @@ from pathlib import Path
 import pytest
 
 import tests.golden_helpers as golden_helpers
-from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.common.json5_utils import loads_json5
+from magebench.common.json5_writer import dumps_json5
 from magebench.game.game_export_types import (
     Choice,
     CombatCreature,

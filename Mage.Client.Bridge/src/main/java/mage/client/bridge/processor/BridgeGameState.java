@@ -7,8 +7,6 @@ import org.apache.log4j.Logger;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 public final class BridgeGameState {
     private final Map<UUID, UUID> activeGames = new ConcurrentHashMap<>();
@@ -17,15 +15,12 @@ public final class BridgeGameState {
     private volatile boolean gameEverStarted = false;
     private volatile UUID currentGameId = null;
     private volatile UUID currentPlayerId = null;
-    private volatile UUID expectedStartTableId = null;
-    private volatile boolean startGameArmed = false;
     private volatile boolean superseded = false;
     private volatile boolean playerDead = false;
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
     private volatile long lastCallbackReceivedAt = 0;
     private volatile long lastActionableCallbackAt = 0;
-    private volatile CountDownLatch gameStartLatch = new CountDownLatch(1);
 
     public boolean keepAliveAfterGame() {
         return keepAliveAfterGame;
@@ -49,22 +44,6 @@ public final class BridgeGameState {
 
     public UUID currentPlayerId() {
         return currentPlayerId;
-    }
-
-    public UUID expectedStartTableId() {
-        return expectedStartTableId;
-    }
-
-    public void setExpectedStartTableId(UUID expectedStartTableId) {
-        this.expectedStartTableId = expectedStartTableId;
-    }
-
-    public boolean startGameArmed() {
-        return startGameArmed;
-    }
-
-    public void setStartGameArmed(boolean startGameArmed) {
-        this.startGameArmed = startGameArmed;
     }
 
     public boolean superseded() {
@@ -184,14 +163,6 @@ public final class BridgeGameState {
 
     public UUID forgetGameChatId(UUID gameId) {
         return gameChatIds.remove(gameId);
-    }
-
-    public boolean awaitGameStart(long timeoutMs) throws InterruptedException {
-        return gameStartLatch.await(timeoutMs, TimeUnit.MILLISECONDS);
-    }
-
-    public void signalGameStarted() {
-        gameStartLatch.countDown();
     }
 
     public void resetProcessorState() {
