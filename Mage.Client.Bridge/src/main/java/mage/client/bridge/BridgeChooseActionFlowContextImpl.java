@@ -121,9 +121,9 @@ final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowC
     }
 
     @Override
-    public ChooseActionTool.Result interruptedChooseActionResult(
+    public ChooseActionTool.Result cancelledChooseActionResult(
             PendingAction previousAction,
             ChooseActionTool.Result partialResult) {
-        return handler.interruptedChooseActionResult(previousAction, partialResult);
+        return handler.cancelledChooseActionResult(previousAction, partialResult);
     }
 }

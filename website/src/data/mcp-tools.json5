@@ -422,7 +422,7 @@
         },
         "stop_reason": {
           "type": "string",
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, interrupted",
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, cancelled",
         },
         "current_step": {
           "type": "string",
@@ -1075,7 +1075,7 @@
         },
         "stop_reason": {
           "type": "string",
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, interrupted",
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, cancelled",
         },
         "current_step": {
           "type": "string",
@@ -1483,7 +1483,7 @@
         },
         "stop_reason": {
           "type": "string",
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, interrupted",
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached, stack_resolved, end_of_turn, turn_advanced, cancelled",
         },
         "current_step": {
           "type": "string",
@@ -1507,7 +1507,7 @@
         },
         "error_code": {
           "type": "string",
-          "description": "no_pending_action, missing_param, index_out_of_range, invalid_choice, batch_failed, internal_error, unknown_action_type",
+          "description": "no_pending_action, missing_param, index_out_of_range, invalid_choice, batch_failed, cancelled, internal_error, unknown_action_type",
         },
         "retryable": {
           "type": "boolean",

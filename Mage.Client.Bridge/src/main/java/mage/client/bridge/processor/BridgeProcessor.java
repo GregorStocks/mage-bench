@@ -46,6 +46,17 @@ public final class BridgeProcessor {
         return command.awaitResult();
     }
 
+    public <T> T submitPreservingInterrupt(BridgeCommand<T> command) {
+        if (Thread.currentThread() == thread) {
+            return command.execute();
+        }
+        if (closed) {
+            throw new IllegalStateException("Bridge processor is shut down");
+        }
+        mailbox.offer(command);
+        return command.awaitResultPreservingInterrupt();
+    }
+
     public boolean isProcessorThread() {
         return Thread.currentThread() == thread;
     }

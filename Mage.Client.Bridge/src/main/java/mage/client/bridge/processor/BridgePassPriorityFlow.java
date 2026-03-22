@@ -15,8 +15,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public final class BridgePassPriorityFlow {
     private final BridgePassPriorityFlowContext context;
@@ -194,16 +192,20 @@ public final class BridgePassPriorityFlow {
         advance();
     }
 
-    public ActionResult interrupt() {
+    public boolean isDone() {
+        return result.isDone();
+    }
+
+    public ActionResult cancel() {
         if (result.isDone()) {
             return result.join();
         }
-        var interrupted = new ActionResult();
-        interrupted.action_pending = false;
-        interrupted.stop_reason = "interrupted";
-        interrupted.game_seq = lastSeenGameSeq;
-        finish(interrupted, null, context.lastGameView(), false);
-        return interrupted;
+        var cancelled = new ActionResult();
+        cancelled.action_pending = false;
+        cancelled.stop_reason = "cancelled";
+        cancelled.game_seq = lastSeenGameSeq;
+        finish(cancelled, null, context.lastGameView(), false);
+        return cancelled;
     }
 
     public void finishWithDeliveryError(String error) {
@@ -217,8 +219,8 @@ public final class BridgePassPriorityFlow {
         finish(deliveryError, null, context.lastGameView(), false);
     }
 
-    public ActionResult awaitResult(long timeoutMs) throws InterruptedException, ExecutionException, TimeoutException {
-        return result.get(timeoutMs, TimeUnit.MILLISECONDS);
+    public ActionResult awaitResult() throws InterruptedException, ExecutionException {
+        return result.get();
     }
 
     private boolean initialize() {

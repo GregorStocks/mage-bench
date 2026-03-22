@@ -14,8 +14,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public final class BridgeChooseActionFlow {
     private enum Phase {
@@ -90,45 +88,21 @@ public final class BridgeChooseActionFlow {
         return result.isDone();
     }
 
-    public ChooseActionTool.Result interrupt() {
+    public ChooseActionTool.Result cancel() {
         if (result.isDone()) {
             return result.join();
         }
-        ChooseActionTool.Result interrupted = context.interruptedChooseActionResult(previousAction, partialResult);
-        result.complete(interrupted);
-        return interrupted;
+        ChooseActionTool.Result cancelled = context.cancelledChooseActionResult(previousAction, partialResult);
+        result.complete(cancelled);
+        return cancelled;
     }
 
-    public ChooseActionTool.Result awaitResult(long timeoutMs)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        return result.get(timeoutMs, TimeUnit.MILLISECONDS);
+    public ChooseActionTool.Result awaitResult() throws InterruptedException, ExecutionException {
+        return result.get();
     }
 
     public void finish(ChooseActionTool.Result finalResult) {
         result.complete(finalResult);
-    }
-
-    public ChooseActionTool.Result finishAfterProcessorShutdown() {
-        if (result.isDone()) {
-            return result.join();
-        }
-        if (!context.requestCannotContinue()) {
-            throw new IllegalStateException("Bridge processor shut down while choose_action was still waiting");
-        }
-
-        ChooseActionTool.Result finalResult;
-        if (phase == Phase.WAITING_FOR_ACTION) {
-            finalResult = context.noPendingActionResult();
-        } else if (batchMode == BatchMode.NONE) {
-            context.finishChooseActionWithoutNextDecision(partialResult, previousAction);
-            finalResult = partialResult;
-        } else {
-            finalizeBatchResult(true);
-            context.finishBatchChooseActionWithoutNextDecision(partialResult);
-            finalResult = partialResult;
-        }
-        result.complete(finalResult);
-        return finalResult;
     }
 
     private void advanceWaitingForAction() {

@@ -75,8 +75,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
@@ -344,6 +344,8 @@ public class BridgeCallbackHandler {
             this::chooseActionDeliveryErrorResult
         );
         this.passPriorityFlowManager = new BridgePassPriorityFlowManager(
+            processor,
+            client.getUsername(),
             decisionState,
             new BridgePassPriorityFlowContextImpl(this, decisionState)
         );
@@ -413,17 +415,17 @@ public class BridgeCallbackHandler {
         attachUnseenChat(result);
     }
 
-    ChooseActionTool.Result interruptedChooseActionResult(
+    ChooseActionTool.Result cancelledChooseActionResult(
             PendingAction previousAction,
             ChooseActionTool.Result partialResult) {
         ChooseActionTool.Result result = partialResult != null ? partialResult : new ChooseActionTool.Result();
         result.success = false;
-        result.error = "Interrupted while waiting for choose_action";
-        result.error_code = "interrupted";
+        result.error = "Cancelled while waiting for choose_action";
+        result.error_code = "cancelled";
         result.retryable = false;
         attachUnseenChat(result);
         if (previousAction != null) {
-            String summary = "after=" + summarizePendingAction(previousAction) + ",woke_to=interrupted";
+            String summary = "after=" + summarizePendingAction(previousAction) + ",woke_to=cancelled";
             logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
             logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
         }
@@ -873,8 +875,7 @@ public class BridgeCallbackHandler {
         // awaitPendingAction / passPriority / chooseAction bail out immediately
         // instead of blocking for 120+ seconds on an abandoned handler.
         this.superseded = true;
-        advancePendingFlowsBeforeShutdown();
-        processor.shutdown("superseded by createFreshForNextGame");
+        shutdownProcessor("superseded by createFreshForNextGame");
 
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
         fresh.session = this.session;
@@ -969,6 +970,7 @@ public class BridgeCallbackHandler {
 
     void shutdownProcessor(String reason) {
         advancePendingFlowsBeforeShutdown();
+        passPriorityFlowManager.shutdown();
         processor.shutdown(reason);
     }
 
@@ -2164,15 +2166,15 @@ public class BridgeCallbackHandler {
             attackers,
             blockersArray
         );
-        BridgeChooseActionFlow flow = processor.submit(BridgeCommand.of(() -> {
+        BridgeChooseActionFlow flow = submitProcessorCommandPreservingInterrupt(() -> {
             if (decisionState.pendingChooseActionFlow() != null) {
                 return null;
             }
             interactionsThisTurn++;
             return chooseActionFlowManager.startPendingFlow(input);
-        }));
+        });
         if (flow == null) {
-            return processor.submit(BridgeCommand.of(() -> {
+            return submitProcessorCommandPreservingInterrupt(() -> {
                 var result = new ChooseActionTool.Result();
                 result.success = false;
                 result.error = "choose_action already pending";
@@ -2180,37 +2182,19 @@ public class BridgeCallbackHandler {
                 result.retryable = true;
                 attachUnseenChat(result);
                 return result;
-            }));
+            });
         }
 
-        while (true) {
-            try {
-                return flow.awaitResult(200);
-            } catch (TimeoutException e) {
-                try {
-                    processor.submit(BridgeCommand.of(() -> {
-                        chooseActionFlowManager.tickPendingFlow(flow);
-                        return null;
-                    }));
-                } catch (IllegalStateException ignored) {
-                    return chooseActionFlowManager.finishAfterProcessorShutdown(flow);
-                }
-            } catch (InterruptedException e) {
-                ChooseActionTool.Result interruptedResult;
-                try {
-                    interruptedResult = processor.submit(BridgeCommand.of(() -> chooseActionFlowManager.interruptFlow(flow)));
-                } catch (IllegalStateException ignored) {
-                    interruptedResult = chooseActionFlowManager.finishAfterProcessorShutdown(flow);
-                }
-                Thread.currentThread().interrupt();
-                return interruptedResult;
-            } catch (ExecutionException e) {
-                Throwable cause = e.getCause();
-                if (cause instanceof RuntimeException runtimeException) {
-                    throw runtimeException;
-                }
-                throw new IllegalStateException("chooseAction request failed", cause);
+        try {
+            return flow.awaitResult();
+        } catch (InterruptedException e) {
+            return cancelChooseActionFlowAfterCallerInterrupt(flow);
+        } catch (ExecutionException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof RuntimeException runtimeException) {
+                throw runtimeException;
             }
+            throw new IllegalStateException("chooseAction request failed", cause);
         }
     }
 
@@ -3240,48 +3224,58 @@ public class BridgeCallbackHandler {
      * immediately without a separate round-trip.
      */
     public ActionResult passPriority(String until, Long boardCursorParam) {
-        BridgePassPriorityFlow flow = processor.submit(BridgeCommand.of(() -> {
+        BridgePassPriorityFlow flow = submitProcessorCommandPreservingInterrupt(() -> {
             if (decisionState.pendingPassPriorityFlow() != null) {
                 return null;
             }
             interactionsThisTurn++;
             return passPriorityFlowManager.startPendingFlow(until, boardCursorParam);
-        }));
+        });
 
         if (flow == null) {
-            return processor.submit(BridgeCommand.of(() -> {
+            return submitProcessorCommandPreservingInterrupt(() -> {
                 var result = new ActionResult();
                 result.error = "pass_priority already pending";
                 attachUnseenChat(result);
                 return result;
-            }));
+            });
         }
 
-        while (true) {
-            try {
-                return flow.awaitResult(200);
-            } catch (TimeoutException e) {
-                processor.submit(BridgeCommand.of(() -> {
-                    passPriorityFlowManager.tickPendingFlow(flow);
-                    return null;
-                }));
-            } catch (InterruptedException e) {
-                ActionResult interruptedResult;
-                try {
-                    interruptedResult = processor.submit(BridgeCommand.of(() -> passPriorityFlowManager.interruptFlow(flow)));
-                } catch (IllegalStateException ignored) {
-                    interruptedResult = passPriorityFlowManager.interruptFlow(flow);
-                }
-                Thread.currentThread().interrupt();
-                return interruptedResult;
-            } catch (ExecutionException e) {
-                Throwable cause = e.getCause();
-                if (cause instanceof RuntimeException runtimeException) {
-                    throw runtimeException;
-                }
-                throw new IllegalStateException("passPriority request failed", cause);
+        try {
+            return flow.awaitResult();
+        } catch (InterruptedException e) {
+            return cancelPassPriorityFlowAfterCallerInterrupt(flow);
+        } catch (ExecutionException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof RuntimeException runtimeException) {
+                throw runtimeException;
             }
+            throw new IllegalStateException("passPriority request failed", cause);
         }
+    }
+
+    private ChooseActionTool.Result cancelChooseActionFlowAfterCallerInterrupt(BridgeChooseActionFlow flow) {
+        try {
+            return submitProcessorCommandPreservingInterrupt(() -> chooseActionFlowManager.cancelFlow(flow));
+        } catch (IllegalStateException e) {
+            return chooseActionFlowManager.cancelFlow(flow);
+        } finally {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private ActionResult cancelPassPriorityFlowAfterCallerInterrupt(BridgePassPriorityFlow flow) {
+        try {
+            return submitProcessorCommandPreservingInterrupt(() -> passPriorityFlowManager.cancelFlow(flow));
+        } catch (IllegalStateException e) {
+            return passPriorityFlowManager.cancelFlow(flow);
+        } finally {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private <T> T submitProcessorCommandPreservingInterrupt(Supplier<T> supplier) {
+        return processor.submitPreservingInterrupt(BridgeCommand.of(supplier));
     }
 
     /**

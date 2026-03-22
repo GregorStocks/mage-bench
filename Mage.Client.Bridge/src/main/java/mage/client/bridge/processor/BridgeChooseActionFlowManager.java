@@ -51,24 +51,9 @@ public final class BridgeChooseActionFlowManager {
         }
     }
 
-    public void tickPendingFlow(BridgeChooseActionFlow flow) {
-        if (decisionState.pendingChooseActionFlow() != flow) {
-            return;
-        }
-        advancePendingFlow();
-    }
-
-    public ChooseActionTool.Result interruptFlow(BridgeChooseActionFlow flow) {
+    public ChooseActionTool.Result cancelFlow(BridgeChooseActionFlow flow) {
         try {
-            return flow.interrupt();
-        } finally {
-            decisionState.clearPendingChooseActionFlowIfCurrent(flow);
-        }
-    }
-
-    public ChooseActionTool.Result finishAfterProcessorShutdown(BridgeChooseActionFlow flow) {
-        try {
-            return flow.finishAfterProcessorShutdown();
+            return flow.cancel();
         } finally {
             decisionState.clearPendingChooseActionFlowIfCurrent(flow);
         }

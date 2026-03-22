@@ -1252,7 +1252,7 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void chooseActionReturnsInterruptedResultWhenCallerThreadIsInterrupted() throws Exception {
+    void chooseActionReturnsCancelledResultWhenCallerThreadIsInterrupted() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
 
@@ -1314,7 +1314,7 @@ class BridgeCallbackHandlerTest {
             assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
             assertThat(resultRef.get()).isNotNull();
             assertThat(resultRef.get().success).isFalse();
-            assertThat(resultRef.get().error_code).isEqualTo("interrupted");
+            assertThat(resultRef.get().error_code).isEqualTo("cancelled");
             assertThat(interruptFlagAfterReturn.get()).isTrue();
         } finally {
             worker.join(1000);
@@ -1652,6 +1652,129 @@ class BridgeCallbackHandlerTest {
         } finally {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void passPriorityReturnsAfterClientStopWithoutFollowupCallback() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView initialView = gameView(92);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerBoolean".equals(method.getName())) {
+                    sendPlayerBooleanCalls.incrementAndGet();
+                    autoPassSent.countDown();
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", initialView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            92
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority(null, null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            client.stop();
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("game_over");
+            assertThat(result.action_pending).isFalse();
+            assertThat(result.game_seq).isEqualTo(92);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void passPriorityReturnsCancelledResultWhenCallerThreadIsInterrupted() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView initialView = gameView(93);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerBoolean".equals(method.getName())) {
+                    sendPlayerBooleanCalls.incrementAndGet();
+                    autoPassSent.countDown();
+                    return true;
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", initialView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            93
+        ));
+
+        AtomicReference<ActionResult> resultRef = new AtomicReference<>();
+        AtomicReference<Throwable> errorRef = new AtomicReference<>();
+        AtomicBoolean interruptFlagAfterReturn = new AtomicBoolean(false);
+        CountDownLatch done = new CountDownLatch(1);
+
+        Thread worker = new Thread(() -> {
+            try {
+                resultRef.set(handler.passPriority(null, null));
+                interruptFlagAfterReturn.set(Thread.currentThread().isInterrupted());
+            } catch (Throwable t) {
+                errorRef.set(t);
+            } finally {
+                done.countDown();
+            }
+        }, "pass-priority-interrupt-test");
+
+        worker.start();
+        try {
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+
+            worker.interrupt();
+
+            assertThat(done.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThat(errorRef.get()).isNull();
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(resultRef.get()).isNotNull();
+            assertThat(resultRef.get().stop_reason).isEqualTo("cancelled");
+            assertThat(resultRef.get().action_pending).isFalse();
+            assertThat(interruptFlagAfterReturn.get()).isTrue();
+        } finally {
+            worker.join(1000);
         }
     }
 

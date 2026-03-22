@@ -33,6 +33,29 @@ public abstract class BridgeCommand<T> implements BridgeProcessorMessage {
         }
     }
 
+    public final T awaitResultPreservingInterrupt() {
+        boolean interrupted = false;
+        try {
+            while (true) {
+                try {
+                    return result.get();
+                } catch (InterruptedException e) {
+                    interrupted = true;
+                } catch (ExecutionException e) {
+                    Throwable cause = e.getCause();
+                    if (cause instanceof RuntimeException runtimeException) {
+                        throw runtimeException;
+                    }
+                    throw new IllegalStateException("Bridge processor command failed", cause);
+                }
+            }
+        } finally {
+            if (interrupted) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
     final void complete(T value) {
         result.complete(value);
     }

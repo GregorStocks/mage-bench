@@ -59,7 +59,7 @@ public interface BridgeChooseActionFlowContext {
 
     void finishBatchChooseActionWithoutNextDecision(ChooseActionTool.Result result);
 
-    ChooseActionTool.Result interruptedChooseActionResult(
+    ChooseActionTool.Result cancelledChooseActionResult(
         PendingAction previousAction,
         ChooseActionTool.Result partialResult
     );
