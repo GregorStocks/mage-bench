@@ -31,6 +31,8 @@ jobs:
           key: build-cache-${{ github.sha }}
           restore-keys: build-cache-
 
+      - uses: astral-sh/setup-uv@v7
+
       - run: mvn install -q -DskipTests -T 1C
 
       - run: make lint-java
