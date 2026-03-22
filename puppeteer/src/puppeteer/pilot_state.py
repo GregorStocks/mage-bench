@@ -3,7 +3,7 @@
 import json
 from dataclasses import dataclass, field
 
-from puppeteer.pilot_rendering import _build_reset_message, _extract_last_reasoning
+from puppeteer.pilot_rendering import build_reset_message, extract_last_reasoning
 
 _BOARD_CURSOR_TOOLS = frozenset({"pass_priority", "get_action_choices"})
 
@@ -76,18 +76,18 @@ def _reset_render_cache(state: PilotLoopState) -> None:
     state.render_counter = 0
 
 
-def _reset_context(
+def reset_context(
     state: PilotLoopState,
     base_text: str,
     *,
     reset_board_context: bool,
 ) -> None:
     """Reset the conversation while preserving the last assistant reasoning."""
-    last_reasoning = _extract_last_reasoning(state.history)
+    last_reasoning = extract_last_reasoning(state.history)
     state.history = [
         {
             "role": "user",
-            "content": _build_reset_message(base_text, last_reasoning),
+            "content": build_reset_message(base_text, last_reasoning),
         },
     ]
     _reset_render_cache(state)

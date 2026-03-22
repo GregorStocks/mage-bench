@@ -14,11 +14,11 @@ from puppeteer.pilot_rendering import (
     CONTEXT_SUMMARY_COUNT,
     RENDER_INTERVAL,
     TOOL_SUMMARY_TRIGGER_CHARS,
-    _build_reset_message,
-    _extract_last_reasoning,
     _find_tool_name,
     _summarize_tool_result,
     _with_cache_control,
+    build_reset_message,
+    extract_last_reasoning,
     render_context,
 )
 from puppeteer.pilot_state import PilotLoopState
@@ -491,7 +491,7 @@ def test_render_keeps_tool_results_contiguous():
 
 
 # ---------------------------------------------------------------------------
-# _extract_last_reasoning
+# extract_last_reasoning
 # ---------------------------------------------------------------------------
 
 
@@ -501,7 +501,7 @@ def test_extract_last_reasoning_basic():
         {"role": "assistant", "content": "First thought"},
         {"role": "assistant", "content": "Second thought"},
     ]
-    assert _extract_last_reasoning(history) == "Second thought"
+    assert extract_last_reasoning(history) == "Second thought"
 
 
 def test_extract_last_reasoning_skips_tool_messages():
@@ -509,21 +509,21 @@ def test_extract_last_reasoning_skips_tool_messages():
         {"role": "assistant", "content": "My plan"},
         _make_tool_msg("call_1", "{}"),
     ]
-    assert _extract_last_reasoning(history) == "My plan"
+    assert extract_last_reasoning(history) == "My plan"
 
 
 def test_extract_last_reasoning_empty_history():
-    assert _extract_last_reasoning([]) == ""
+    assert extract_last_reasoning([]) == ""
 
 
 def test_extract_last_reasoning_no_assistant():
     history = [{"role": "user", "content": "hello"}]
-    assert _extract_last_reasoning(history) == ""
+    assert extract_last_reasoning(history) == ""
 
 
 def test_extract_last_reasoning_truncates():
     history = [{"role": "assistant", "content": "x" * 500}]
-    result = _extract_last_reasoning(history)
+    result = extract_last_reasoning(history)
     assert len(result) == 300
 
 
@@ -532,21 +532,21 @@ def test_extract_last_reasoning_skips_none_content():
         {"role": "assistant", "content": "Good thought"},
         {"role": "assistant", "content": None},
     ]
-    assert _extract_last_reasoning(history) == "Good thought"
+    assert extract_last_reasoning(history) == "Good thought"
 
 
 # ---------------------------------------------------------------------------
-# _build_reset_message
+# build_reset_message
 # ---------------------------------------------------------------------------
 
 
 def test_build_reset_message_base_only():
-    result = _build_reset_message("Continue playing.", "")
+    result = build_reset_message("Continue playing.", "")
     assert result == "Continue playing."
 
 
 def test_build_reset_message_with_reasoning():
-    result = _build_reset_message("Continue.", "I was about to attack")
+    result = build_reset_message("Continue.", "I was about to attack")
     assert "Continue." in result
     assert "Before your context was reset, you were thinking: I was about to attack" in result
 

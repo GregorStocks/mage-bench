@@ -5,8 +5,8 @@ import json
 from mcp import ClientSession
 
 from puppeteer.decision_renderer import render_decision
-from puppeteer.pilot_bridge import _build_pilot_decision, _build_pilot_snapshot, execute_tool
-from puppeteer.pilot_game_state import _extract_oracle_texts_from_board
+from puppeteer.pilot_bridge import build_pilot_decision, build_pilot_snapshot, execute_tool
+from puppeteer.pilot_game_state import extract_oracle_texts_from_board
 from puppeteer.tool_error import ToolExecutionError
 
 # Context window management.
@@ -43,10 +43,10 @@ def render_for_pilot(
     else:
         board = last_board
 
-    decision = _build_pilot_decision(data)
-    snapshot = _build_pilot_snapshot(data, board, decision)
+    decision = build_pilot_decision(data)
+    snapshot = build_pilot_snapshot(data, board, decision)
 
-    oracle_texts = _extract_oracle_texts_from_board(board) if board else {}
+    oracle_texts = extract_oracle_texts_from_board(board) if board else {}
     if seen_oracle_cards is not None:
         oracle_texts = {k: v for k, v in oracle_texts.items() if k not in seen_oracle_cards}
         seen_oracle_cards.update(oracle_texts)
@@ -204,7 +204,7 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
     return ""
 
 
-def _extract_last_reasoning(history: list[dict]) -> str:
+def extract_last_reasoning(history: list[dict]) -> str:
     """Extract the last assistant reasoning text from history (for context resets)."""
     for msg in reversed(history):
         if msg.get("role") != "assistant":
@@ -215,7 +215,7 @@ def _extract_last_reasoning(history: list[dict]) -> str:
     return ""
 
 
-def _build_reset_message(base_text: str, last_reasoning: str) -> str:
+def build_reset_message(base_text: str, last_reasoning: str) -> str:
     """Build the user message for a context reset."""
     parts = [base_text]
     if last_reasoning:
