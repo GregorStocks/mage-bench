@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from schemas.game_export_migrations import CURRENT_GAME_EXPORT_VERSION
 from tests.weird import repo_convention_helpers
 from tests.weird.repo_convention_helpers import (
     PUPPETEER_DIR,
@@ -30,6 +31,14 @@ class TestAllExportsValid:
         validator = game_export_validator[version]
         errors = sorted(validator.iter_errors(data), key=lambda error: list(error.absolute_path))
         assert not errors, f"{errors[0].message} (at {'/'.join(str(part) for part in errors[0].absolute_path)})"
+
+    @pytest.mark.parametrize(
+        "game_file",
+        glob_game_files(),
+        ids=lambda p: p.name,
+    )
+    def test_game_uses_current_wire_version(self, game_file: Path, all_games_data: Mapping[Path, dict]) -> None:
+        assert all_games_data[game_file]["version"] == CURRENT_GAME_EXPORT_VERSION
 
 
 class TestExportedGameModelsKnown:

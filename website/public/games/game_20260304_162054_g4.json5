@@ -1,19 +1,19 @@
 {
-  "version": 8,
+  "version": 9,
   "id": "game_20260304_162054_g4",
   "timestamp": "20260304_162054",
-  "gameType": "Two Player Duel",
-  "deckType": "Limited",
-  "totalTurns": 1,
+  "game_type": "Two Player Duel",
+  "deck_type": "Limited",
+  "total_turns": 1,
   "winner": null,
   "players": [
     {
       "name": "GPT5 Optim",
       "type": "pilot",
-      "deckName": "Gigantic + J22 Spirits",
+      "deck_name": "Gigantic + J22 Spirits",
       "model": "openai/gpt-5",
-      "reasoningEffort": "medium",
-      "totalCostUsd": 0.0239,
+      "reasoning_effort": "medium",
+      "total_cost_usd": 0.0239,
       "tools": [
         "get_game_log",
         "send_chat_message",
@@ -21,19 +21,19 @@
         "get_game_state",
         "get_oracle_text",
         "get_action_choices",
-        "choose_action"
+        "choose_action",
       ],
-      "toolCallsOk": 3,
-      "toolCallsFailed": 0,
-      "thinkingTimeSecs": 130.3
+      "tool_calls_ok": 3,
+      "tool_calls_failed": 0,
+      "thinking_time_secs": 130.3,
     },
     {
       "name": "GptOSS Rambler",
       "type": "pilot",
-      "deckName": "Above the Clouds + Scrying",
+      "deck_name": "Above the Clouds + Scrying",
       "model": "openai/gpt-oss-120b",
-      "reasoningEffort": "medium",
-      "totalCostUsd": 0.0011,
+      "reasoning_effort": "medium",
+      "total_cost_usd": 0.0011,
       "tools": [
         "get_game_log",
         "send_chat_message",
@@ -41,14 +41,14 @@
         "get_game_state",
         "get_oracle_text",
         "get_action_choices",
-        "choose_action"
+        "choose_action",
       ],
-      "toolCallsOk": 7,
-      "toolCallsFailed": 0,
-      "thinkingTimeSecs": 94.7
+      "tool_calls_ok": 7,
+      "tool_calls_failed": 0,
+      "thinking_time_secs": 94.7,
     }
   ],
-  "cardImages": {
+  "card_images": {
     "Angel of Flight Alabaster": "https://api.scryfall.com/cards/j22/144?format=image&version=small",
     "Selfless Spirit": "https://api.scryfall.com/cards/j22/239?format=image&version=small",
     "Eidolon of Rhetoric": "https://api.scryfall.com/cards/j22/54?format=image&version=small",
@@ -102,75 +102,79 @@
     "Rain of Revelation": "https://api.scryfall.com/cards/m21/61?format=image&version=small",
     "Rookie Mistake": "https://api.scryfall.com/cards/m21/66?format=image&version=small",
     "Unsubstantiate": "https://api.scryfall.com/cards/m21/82?format=image&version=small",
-    "Capture Sphere": "https://api.scryfall.com/cards/m21/47?format=image&version=small"
+    "Capture Sphere": "https://api.scryfall.com/cards/m21/47?format=image&version=small",
   },
-  "cardData": {
+  "card_data": {
     "Colossal Dreadmaw": {
       "mana_cost": "{4}{G}{G}",
       "type_line": "Creature — Dinosaur",
       "oracle_text": "Trample (This creature can deal excess combat damage to the player or planeswalker it's attacking.)",
       "power": "6",
-      "toughness": "6"
+      "toughness": "6",
     },
     "Forest": {
       "mana_cost": "",
       "type_line": "Basic Land — Forest",
-      "oracle_text": "({T}: Add {G}.)"
+      "oracle_text": "({T}: Add {G}.)",
     },
     "Island": {
       "mana_cost": "",
       "type_line": "Basic Land — Island",
-      "oracle_text": "({T}: Add {U}.)"
+      "oracle_text": "({T}: Add {U}.)",
     },
     "Keen Glidemaster": {
       "mana_cost": "{1}{U}",
       "type_line": "Creature — Human Soldier",
       "oracle_text": "{2}{U}: Target creature gains flying until end of turn.",
       "power": "2",
-      "toughness": "1"
+      "toughness": "1",
     },
     "Plains": {
       "mana_cost": "",
       "type_line": "Basic Land — Plains",
-      "oracle_text": "({T}: Add {W}.)"
+      "oracle_text": "({T}: Add {W}.)",
     },
     "Sage's Row Savant": {
       "mana_cost": "{1}{U}",
       "type_line": "Creature — Vedalken Wizard",
       "oracle_text": "When this creature enters, scry 2.",
       "power": "2",
-      "toughness": "1"
+      "toughness": "1",
     },
     "Thriving Grove": {
       "mana_cost": "",
       "type_line": "Land",
-      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n\
+{T}: Add {G} or one mana of the chosen color.",
     },
     "Towering Gibbon": {
       "mana_cost": "{3}{G}",
       "type_line": "Creature — Ape",
-      "oracle_text": "Reach\nTowering Gibbon's power is equal to the greatest mana value among creatures you control.",
+      "oracle_text": "Reach\n\
+Towering Gibbon's power is equal to the greatest mana value among creatures you control.",
       "power": "*",
-      "toughness": "4"
+      "toughness": "4",
     },
     "No Escape": {
       "mana_cost": "{2}{U}",
       "type_line": "Instant",
-      "oracle_text": "Counter target creature or planeswalker spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.\nScry 1."
+      "oracle_text": "Counter target creature or planeswalker spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.\n\
+Scry 1.",
     },
     "Ondu Giant": {
       "mana_cost": "{3}{G}",
       "type_line": "Creature — Giant Druid",
       "oracle_text": "When this creature enters, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
       "power": "2",
-      "toughness": "4"
+      "toughness": "4",
     },
     "Tide Skimmer": {
       "mana_cost": "{3}{U}",
       "type_line": "Creature — Drake",
-      "oracle_text": "Flying\nWhenever you attack with two or more creatures with flying, draw a card.",
+      "oracle_text": "Flying\n\
+Whenever you attack with two or more creatures with flying, draw a card.",
       "power": "2",
-      "toughness": "3"
+      "toughness": "3",
     }
   },
   "snapshots": [
@@ -188,7 +192,7 @@
           "hand": [],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         },
         {
           "name": "GptOSS Rambler",
@@ -197,11 +201,11 @@
           "hand": [],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         }
       ],
       "stack": [],
-      "seq": 5
+      "seq": 5,
     },
     {
       "turn": 1,
@@ -219,55 +223,55 @@
               "id": "p3",
               "name": "Colossal Dreadmaw",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p4",
               "name": "Forest",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p5",
               "name": "Ondu Giant",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p6",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p7",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p8",
               "name": "Thriving Grove",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p9",
               "name": "Towering Gibbon",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         },
         {
           "name": "GptOSS Rambler",
@@ -278,59 +282,59 @@
               "id": "p10",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p11",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p12",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p13",
               "name": "Keen Glidemaster",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p14",
               "name": "No Escape",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p15",
               "name": "Sage's Row Savant",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p16",
               "name": "Tide Skimmer",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         }
       ],
       "stack": [],
-      "seq": 7
+      "seq": 7,
     },
     {
       "turn": 1,
@@ -348,55 +352,55 @@
               "id": "p3",
               "name": "Colossal Dreadmaw",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p4",
               "name": "Forest",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p5",
               "name": "Ondu Giant",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p6",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p7",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p8",
               "name": "Thriving Grove",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p9",
               "name": "Towering Gibbon",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         },
         {
           "name": "GptOSS Rambler",
@@ -407,59 +411,59 @@
               "id": "p10",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p11",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p12",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p13",
               "name": "Keen Glidemaster",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p14",
               "name": "No Escape",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p15",
               "name": "Sage's Row Savant",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p16",
               "name": "Tide Skimmer",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         }
       ],
       "stack": [],
-      "seq": 11
+      "seq": 11,
     },
     {
       "turn": 1,
@@ -477,55 +481,55 @@
               "id": "p3",
               "name": "Colossal Dreadmaw",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p4",
               "name": "Forest",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p5",
               "name": "Ondu Giant",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p6",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p7",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p8",
               "name": "Thriving Grove",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p9",
               "name": "Towering Gibbon",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         },
         {
           "name": "GptOSS Rambler",
@@ -536,59 +540,59 @@
               "id": "p10",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p11",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p12",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p13",
               "name": "Keen Glidemaster",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p14",
               "name": "No Escape",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p15",
               "name": "Sage's Row Savant",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p16",
               "name": "Tide Skimmer",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         }
       ],
       "stack": [],
-      "seq": 12
+      "seq": 12,
     },
     {
       "turn": 1,
@@ -606,55 +610,55 @@
               "id": "p3",
               "name": "Colossal Dreadmaw",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p4",
               "name": "Forest",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p5",
               "name": "Ondu Giant",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p6",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p7",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p8",
               "name": "Thriving Grove",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p9",
               "name": "Towering Gibbon",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         },
         {
           "name": "GptOSS Rambler",
@@ -665,59 +669,59 @@
               "id": "p10",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p11",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p12",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p13",
               "name": "Keen Glidemaster",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p14",
               "name": "No Escape",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p15",
               "name": "Sage's Row Savant",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p16",
               "name": "Tide Skimmer",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         }
       ],
       "stack": [],
-      "seq": 15
+      "seq": 15,
     },
     {
       "turn": 1,
@@ -735,55 +739,55 @@
               "id": "p3",
               "name": "Colossal Dreadmaw",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p4",
               "name": "Forest",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p5",
               "name": "Ondu Giant",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p6",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p7",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p8",
               "name": "Thriving Grove",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p9",
               "name": "Towering Gibbon",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         },
         {
           "name": "GptOSS Rambler",
@@ -794,59 +798,59 @@
               "id": "p10",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p11",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p12",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p13",
               "name": "Keen Glidemaster",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p14",
               "name": "No Escape",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p15",
               "name": "Sage's Row Savant",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p16",
               "name": "Tide Skimmer",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         }
       ],
       "stack": [],
-      "seq": 16
+      "seq": 16,
     },
     {
       "turn": 1,
@@ -864,55 +868,55 @@
               "id": "p3",
               "name": "Colossal Dreadmaw",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p4",
               "name": "Forest",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p5",
               "name": "Ondu Giant",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p6",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p7",
               "name": "Plains",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p8",
               "name": "Thriving Grove",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
             },
             {
               "id": "p9",
               "name": "Towering Gibbon",
               "visible_to": [
-                "GPT5 Optim"
+                "GPT5 Optim",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         },
         {
           "name": "GptOSS Rambler",
@@ -923,59 +927,59 @@
               "id": "p10",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p11",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p12",
               "name": "Island",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p13",
               "name": "Keen Glidemaster",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p14",
               "name": "No Escape",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p15",
               "name": "Sage's Row Savant",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
             },
             {
               "id": "p16",
               "name": "Tide Skimmer",
               "visible_to": [
-                "GptOSS Rambler"
+                "GptOSS Rambler",
               ]
-            }
+            },
           ],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         }
       ],
       "stack": [],
-      "seq": 17
+      "seq": 17,
     },
     {
       "turn": 1,
@@ -991,7 +995,7 @@
           "hand": [],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         },
         {
           "name": "GptOSS Rambler",
@@ -1000,23 +1004,23 @@
           "hand": [],
           "battlefield": [],
           "graveyard": [],
-          "exile": []
+          "exile": [],
         }
       ],
       "stack": [],
-      "seq": 19
+      "seq": 19,
     }
   ],
   "actions": [
     {
       "seq": 1,
-      "message": "GptOSS Rambler's library is shuffled"
+      "message": "GptOSS Rambler's library is shuffled",
     },
     {
       "seq": 2,
       "type": "turn_change",
       "turn": 1,
-      "active_player": null
+      "active_player": null,
     },
     {
       "seq": 3,
@@ -1024,19 +1028,19 @@
       "turn": 1,
       "phase": null,
       "step": null,
-      "active_player": null
+      "active_player": null,
     },
     {
       "seq": 4,
-      "message": "GPT5 Optim's library is shuffled"
+      "message": "GPT5 Optim's library is shuffled",
     },
     {
       "seq": 6,
-      "message": "GptOSS Rambler chooses that GPT5 Optim take the first turn"
+      "message": "GptOSS Rambler chooses that GPT5 Optim take the first turn",
     },
     {
       "seq": 9,
-      "message": "GPT5 Optim skips Draw step"
+      "message": "GPT5 Optim skips Draw step",
     },
     {
       "seq": 10,
@@ -1044,11 +1048,11 @@
       "turn": 1,
       "phase": "BEGINNING",
       "step": "DRAW",
-      "active_player": "GPT5 Optim"
+      "active_player": "GPT5 Optim",
     },
     {
       "seq": 13,
-      "message": "GPT5 Optim skip attack"
+      "message": "GPT5 Optim skip attack",
     },
     {
       "seq": 14,
@@ -1056,24 +1060,24 @@
       "turn": 1,
       "phase": "COMBAT",
       "step": "DECLARE_ATTACKERS",
-      "active_player": "GPT5 Optim"
+      "active_player": "GPT5 Optim",
     }
   ],
-  "llmEvents": [
+  "llm_events": [
     {
       "ts": "2026-03-04T16:30:30.842516-08:00",
       "seq": 1,
       "player": "GPT5 Optim",
       "type": "game_start",
       "model": "openai/gpt-5",
-      "availableTools": [
+      "available_tools": [
         "get_game_log",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
         "get_oracle_text",
         "get_action_choices",
-        "choose_action"
+        "choose_action",
       ]
     },
     {
@@ -1082,14 +1086,14 @@
       "player": "GptOSS Rambler",
       "type": "game_start",
       "model": "openai/gpt-oss-120b",
-      "availableTools": [
+      "available_tools": [
         "get_game_log",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
         "get_oracle_text",
         "get_action_choices",
-        "choose_action"
+        "choose_action",
       ]
     },
     {
@@ -1098,19 +1102,21 @@
       "player": "GptOSS Rambler",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "get_action_choices",
-          "arguments": "{\n\"until\": \"my_turn\"\n}"
+          "arguments": "{\n\
+\"until\": \"my_turn\"\n\
+}",
         }
       ],
       "usage": {
-        "promptTokens": 1995,
-        "completionTokens": 40,
-        "cachedTokens": 6,
-        "reasoningTokens": 13
+        "prompt_tokens": 1995,
+        "completion_tokens": 40,
+        "cached_tokens": 6,
+        "reasoning_tokens": 13,
       },
-      "costUsd": 8.5e-05
+      "cost_usd": 8.5e-05,
     },
     {
       "ts": "2026-03-04T16:31:03.051605-08:00",
@@ -1119,11 +1125,11 @@
       "type": "tool_call",
       "tool": "get_action_choices",
       "args": {
-        "until": "my_turn"
+        "until": "my_turn",
       },
       "result": "{\"action_pending\":true,\"action_type\":\"GAME_TARGET\",\"message\":\"Select a starting player\",\"response_type\":\"index\",\"respond_with\":\"choice\\u003dpN — must pick a target\",\"context\":\"T1 ()\",\"board\":[{\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"name\":\"GptOSS Rambler\",\"library_size\":40,\"life\":20,\"hand\":[]},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"name\":\"GPT5 Optim\",\"library_size\":40,\"life\":20}],\"board_cursor\":1,\"choices\":[{\"is_you\":true,\"name\":\"GptOSS Rambler\",\"target_type\":\"player\",\"index\":0,\"id\":\"p2\"},{\"name\":\"GPT5 Optim\",\"target_type\":\"player\",\"index\":1,\"id\":\"p1\"}],\"game_seq\":5,\"required\":true,\"can_cancel\":false,\"stop_reason\":\"non_priority_action\"}",
-      "latencyMs": 51,
-      "gameSeq": 5
+      "latency_ms": 51,
+      "game_seq": 5,
     },
     {
       "ts": "2026-03-04T16:31:11.444707-08:00",
@@ -1131,20 +1137,22 @@
       "player": "GptOSS Rambler",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "choose_action",
-          "arguments": "{\n\"choice\": \"p1\"\n}"
+          "arguments": "{\n\
+\"choice\": \"p1\"\n\
+}",
         }
       ],
       "usage": {
-        "promptTokens": 2128,
-        "completionTokens": 148,
-        "cachedTokens": 6,
-        "reasoningTokens": 135
+        "prompt_tokens": 2128,
+        "completion_tokens": 148,
+        "cached_tokens": 6,
+        "reasoning_tokens": 135,
       },
-      "costUsd": 0.000111,
-      "gameSeq": 5
+      "cost_usd": 0.000111,
+      "game_seq": 5,
     },
     {
       "ts": "2026-03-04T16:31:21.655193-08:00",
@@ -1153,11 +1161,11 @@
       "type": "tool_call",
       "tool": "choose_action",
       "args": {
-        "choice": "p1"
+        "choice": "p1",
       },
       "result": "{\"success\":true,\"action_taken\":\"selected_target_1\",\"game_seq\":5}",
-      "latencyMs": 10209,
-      "gameSeq": 5
+      "latency_ms": 10209,
+      "game_seq": 5,
     },
     {
       "ts": "2026-03-04T16:31:30.730663-08:00",
@@ -1165,20 +1173,22 @@
       "player": "GptOSS Rambler",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "pass_priority",
-          "arguments": "{\n\"until\": \"my_turn\"\n}"
+          "arguments": "{\n\
+\"until\": \"my_turn\"\n\
+}",
         }
       ],
       "usage": {
-        "promptTokens": 2182,
-        "completionTokens": 96,
-        "cachedTokens": 2127,
-        "reasoningTokens": 85
+        "prompt_tokens": 2182,
+        "completion_tokens": 96,
+        "cached_tokens": 2127,
+        "reasoning_tokens": 85,
       },
-      "costUsd": 0.000103,
-      "gameSeq": 5
+      "cost_usd": 0.000103,
+      "game_seq": 5,
     },
     {
       "ts": "2026-03-04T16:31:31.231791-08:00",
@@ -1186,18 +1196,18 @@
       "player": "GPT5 Optim",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "pass_priority",
-          "arguments": "{\"until\":\"my_turn\",\"board_cursor\":0}"
+          "arguments": "{\"until\":\"my_turn\",\"board_cursor\":0}",
         }
       ],
       "usage": {
-        "promptTokens": 1941,
-        "completionTokens": 192,
-        "reasoningTokens": 128
+        "prompt_tokens": 1941,
+        "completion_tokens": 192,
+        "reasoning_tokens": 128,
       },
-      "costUsd": 0.004346
+      "cost_usd": 0.004346,
     },
     {
       "ts": "2026-03-04T16:31:31.280908-08:00",
@@ -1207,11 +1217,11 @@
       "tool": "pass_priority",
       "args": {
         "until": "my_turn",
-        "board_cursor": 0
+        "board_cursor": 0,
       },
       "result": "{\"action_pending\":true,\"action_type\":\"GAME_ASK\",\"message\":\"Mulligan down to 6 cards?\",\"response_type\":\"boolean\",\"respond_with\":\"choice\\u003dyes or choice\\u003dno\",\"context\":\"T1 ()\",\"board\":[{\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"name\":\"GPT5 Optim\",\"library_size\":33,\"life\":20,\"hand\":[{\"mana_cost\":\"{4}{G}{G}\",\"name\":\"Colossal Dreadmaw\",\"rules\":[\"Trample\"],\"power\":\"6\",\"id\":\"p3\",\"toughness\":\"6\"},{\"name\":\"Forest\",\"is_land\":true,\"rules\":[\"{T}: Add {G}.\"],\"id\":\"p4\"},{\"mana_cost\":\"{3}{G}\",\"name\":\"Ondu Giant\",\"rules\":[\"When {this} enters, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\"],\"power\":\"2\",\"id\":\"p5\",\"toughness\":\"4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Thriving Grove\",\"is_land\":true,\"rules\":[\"{this} enters tapped.\",\"As {this} enters, choose a color other than green.\",\"{T}: Add {G}.\",\"{T}: Add one mana of the chosen color.\"],\"id\":\"p8\"},{\"mana_cost\":\"{3}{G}\",\"name\":\"Towering Gibbon\",\"rules\":[\"Reach\",\"{this}\\u0027s power is equal to the greatest mana value among creatures you control.\"],\"power\":\"0\",\"id\":\"p9\",\"toughness\":\"4\"}]},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"name\":\"GptOSS Rambler\",\"library_size\":33,\"life\":20}],\"board_cursor\":1,\"your_hand\":[{\"mana_cost\":\"{4}{G}{G}\",\"name\":\"Colossal Dreadmaw\",\"rules\":[\"Trample\"],\"power\":\"6\",\"toughness\":\"6\"},{\"name\":\"Forest\",\"is_land\":true,\"rules\":[\"{T}: Add {G}.\"]},{\"mana_cost\":\"{3}{G}\",\"name\":\"Ondu Giant\",\"rules\":[\"When {this} enters, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\"],\"power\":\"2\",\"toughness\":\"4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Thriving Grove\",\"is_land\":true,\"rules\":[\"{this} enters tapped.\",\"As {this} enters, choose a color other than green.\",\"{T}: Add {G}.\",\"{T}: Add one mana of the chosen color.\"]},{\"mana_cost\":\"{3}{G}\",\"name\":\"Towering Gibbon\",\"rules\":[\"Reach\",\"{this}\\u0027s power is equal to the greatest mana value among creatures you control.\"],\"power\":\"0\",\"toughness\":\"4\"}],\"game_seq\":7,\"stop_reason\":\"non_priority_action\"}",
-      "latencyMs": 47,
-      "gameSeq": 7
+      "latency_ms": 47,
+      "game_seq": 7,
     },
     {
       "ts": "2026-03-04T16:33:02.404671-08:00",
@@ -1219,20 +1229,20 @@
       "player": "GPT5 Optim",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "choose_action",
-          "arguments": "{\"amount\":0,\"amounts\":[],\"auto_tap\":true,\"pile\":1,\"mana_plan\":\"\",\"attackers\":\"\",\"blockers\":\"\",\"text\":\"\",\"choice\":\"no\"}"
+          "arguments": "{\"amount\":0,\"amounts\":[],\"auto_tap\":true,\"pile\":1,\"mana_plan\":\"\",\"attackers\":\"\",\"blockers\":\"\",\"text\":\"\",\"choice\":\"no\"}",
         }
       ],
       "usage": {
-        "promptTokens": 2225,
-        "completionTokens": 1124,
-        "cachedTokens": 1920,
-        "reasoningTokens": 1024
+        "prompt_tokens": 2225,
+        "completion_tokens": 1124,
+        "cached_tokens": 1920,
+        "reasoning_tokens": 1024,
       },
-      "costUsd": 0.014021,
-      "gameSeq": 7
+      "cost_usd": 0.014021,
+      "game_seq": 7,
     },
     {
       "ts": "2026-03-04T16:33:02.844405-08:00",
@@ -1242,11 +1252,11 @@
       "tool": "pass_priority",
       "args": {
         "until": "my_turn",
-        "board_cursor": 1
+        "board_cursor": 1,
       },
       "result": "{\"action_pending\":true,\"action_type\":\"GAME_ASK\",\"message\":\"Mulligan down to 6 cards?\",\"response_type\":\"boolean\",\"respond_with\":\"choice\\u003dyes or choice\\u003dno\",\"context\":\"T1 ()\",\"board\":[{\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"name\":\"GptOSS Rambler\",\"library_size\":33,\"life\":20,\"hand\":[{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p10\"},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p11\"},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p12\"},{\"mana_cost\":\"{1}{U}\",\"name\":\"Keen Glidemaster\",\"rules\":[\"{2}{U}: Target creature gains flying until end of turn.\"],\"power\":\"2\",\"id\":\"p13\",\"toughness\":\"1\"},{\"mana_cost\":\"{2}{U}\",\"name\":\"No Escape\",\"rules\":[\"Counter target creature or planeswalker spell. If that spell is countered this way, exile it instead of putting it into its owner\\u0027s graveyard. : Scry 1.\"],\"id\":\"p14\"},{\"mana_cost\":\"{1}{U}\",\"name\":\"Sage\\u0027s Row Savant\",\"rules\":[\"When {this} enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)\"],\"power\":\"2\",\"id\":\"p15\",\"toughness\":\"1\"},{\"mana_cost\":\"{3}{U}\",\"name\":\"Tide Skimmer\",\"rules\":[\"Flying\",\"Whenever you attack with two or more creatures with flying, draw a card.\"],\"power\":\"2\",\"id\":\"p16\",\"toughness\":\"3\"}]},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"name\":\"GPT5 Optim\",\"library_size\":33,\"life\":20}],\"board_cursor\":2,\"your_hand\":[{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"mana_cost\":\"{1}{U}\",\"name\":\"Keen Glidemaster\",\"rules\":[\"{2}{U}: Target creature gains flying until end of turn.\"],\"power\":\"2\",\"toughness\":\"1\"},{\"mana_cost\":\"{2}{U}\",\"name\":\"No Escape\",\"rules\":[\"Counter target creature or planeswalker spell. If that spell is countered this way, exile it instead of putting it into its owner\\u0027s graveyard. : Scry 1.\"]},{\"mana_cost\":\"{1}{U}\",\"name\":\"Sage\\u0027s Row Savant\",\"rules\":[\"When {this} enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)\"],\"power\":\"2\",\"toughness\":\"1\"},{\"mana_cost\":\"{3}{U}\",\"name\":\"Tide Skimmer\",\"rules\":[\"Flying\",\"Whenever you attack with two or more creatures with flying, draw a card.\"],\"power\":\"2\",\"toughness\":\"3\"}],\"game_seq\":8,\"stop_reason\":\"non_priority_action\"}",
-      "latencyMs": 92112,
-      "gameSeq": 8
+      "latency_ms": 92112,
+      "game_seq": 8,
     },
     {
       "ts": "2026-03-04T16:33:04.591705-08:00",
@@ -1254,20 +1264,22 @@
       "player": "GptOSS Rambler",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "choose_action",
-          "arguments": "{\n\"choice\": \"no\"\n}"
+          "arguments": "{\n\
+\"choice\": \"no\"\n\
+}",
         }
       ],
       "usage": {
-        "promptTokens": 2485,
-        "completionTokens": 111,
-        "cachedTokens": 1994,
-        "reasoningTokens": 72
+        "prompt_tokens": 2485,
+        "completion_tokens": 111,
+        "cached_tokens": 1994,
+        "reasoning_tokens": 72,
       },
-      "costUsd": 0.000118,
-      "gameSeq": 8
+      "cost_usd": 0.000118,
+      "game_seq": 8,
     },
     {
       "ts": "2026-03-04T16:33:05.227751-08:00",
@@ -1284,11 +1296,11 @@
         "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": "no"
+        "choice": "no",
       },
       "result": "{\"success\":true,\"action_taken\":\"no\",\"game_seq\":7,\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_message\":\"Play spells and abilities\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\"}",
-      "latencyMs": 2792,
-      "gameSeq": 7
+      "latency_ms": 2792,
+      "game_seq": 7,
     },
     {
       "ts": "2026-03-04T16:33:14.812349-08:00",
@@ -1297,11 +1309,11 @@
       "type": "tool_call",
       "tool": "choose_action",
       "args": {
-        "choice": "no"
+        "choice": "no",
       },
       "result": "{\"success\":true,\"action_taken\":\"no\",\"game_seq\":8}",
-      "latencyMs": 10218,
-      "gameSeq": 8
+      "latency_ms": 10218,
+      "game_seq": 8,
     },
     {
       "ts": "2026-03-04T16:33:18.551052-08:00",
@@ -1309,20 +1321,22 @@
       "player": "GptOSS Rambler",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "get_action_choices",
-          "arguments": "{\n\"until\": \"precombat_main\"\n}"
+          "arguments": "{\n\
+\"until\": \"precombat_main\"\n\
+}",
         }
       ],
       "usage": {
-        "promptTokens": 2535,
-        "completionTokens": 49,
-        "cachedTokens": 2181,
-        "reasoningTokens": 18
+        "prompt_tokens": 2535,
+        "completion_tokens": 49,
+        "cached_tokens": 2181,
+        "reasoning_tokens": 18,
       },
-      "costUsd": 0.000108,
-      "gameSeq": 8
+      "cost_usd": 0.000108,
+      "game_seq": 8,
     },
     {
       "ts": "2026-03-04T16:33:38.661897-08:00",
@@ -1330,20 +1344,20 @@
       "player": "GPT5 Optim",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "pass_priority",
-          "arguments": "{\"until\":\"my_turn\",\"board_cursor\":0}"
+          "arguments": "{\"until\":\"my_turn\",\"board_cursor\":0}",
         }
       ],
       "usage": {
-        "promptTokens": 2339,
-        "completionTokens": 259,
-        "cachedTokens": 2176,
-        "reasoningTokens": 192
+        "prompt_tokens": 2339,
+        "completion_tokens": 259,
+        "cached_tokens": 2176,
+        "reasoning_tokens": 192,
       },
-      "costUsd": 0.005514,
-      "gameSeq": 7
+      "cost_usd": 0.005514,
+      "game_seq": 7,
     },
     {
       "ts": "2026-03-04T16:33:39.076873-08:00",
@@ -1353,11 +1367,11 @@
       "tool": "get_action_choices",
       "args": {
         "until": "precombat_main",
-        "board_cursor": 2
+        "board_cursor": 2,
       },
       "result": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"message\":\"Play instants and activated abilities\",\"response_type\":\"boolean\",\"respond_with\":\"choice\\u003dyes (confirm) or choice\\u003dno (pass)\",\"context\":\"T1 Precombat Main/Precombat Main (GPT5 Optim)\",\"board\":[{\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"name\":\"GptOSS Rambler\",\"library_size\":33,\"life\":20,\"hand\":[{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p10\"},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p11\"},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p12\"},{\"mana_cost\":\"{1}{U}\",\"name\":\"Keen Glidemaster\",\"rules\":[\"{2}{U}: Target creature gains flying until end of turn.\"],\"power\":\"2\",\"id\":\"p13\",\"toughness\":\"1\"},{\"mana_cost\":\"{2}{U}\",\"name\":\"No Escape\",\"rules\":[\"Counter target creature or planeswalker spell. If that spell is countered this way, exile it instead of putting it into its owner\\u0027s graveyard. : Scry 1.\"],\"id\":\"p14\"},{\"mana_cost\":\"{1}{U}\",\"name\":\"Sage\\u0027s Row Savant\",\"rules\":[\"When {this} enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)\"],\"power\":\"2\",\"id\":\"p15\",\"toughness\":\"1\"},{\"mana_cost\":\"{3}{U}\",\"name\":\"Tide Skimmer\",\"rules\":[\"Flying\",\"Whenever you attack with two or more creatures with flying, draw a card.\"],\"power\":\"2\",\"id\":\"p16\",\"toughness\":\"3\"}]},{\"hand_size\":7,\"is_active\":true,\"is_you\":false,\"name\":\"GPT5 Optim\",\"library_size\":33,\"life\":20}],\"board_cursor\":3,\"game_seq\":12,\"stop_reason\":\"reached_step\",\"current_step\":\"Precombat Main\"}",
-      "latencyMs": 20515,
-      "gameSeq": 12
+      "latency_ms": 20515,
+      "game_seq": 12,
     },
     {
       "ts": "2026-03-04T16:33:59.852602-08:00",
@@ -1365,20 +1379,22 @@
       "player": "GptOSS Rambler",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "get_game_state",
-          "arguments": "{\n\"cursor\": 0\n}"
+          "arguments": "{\n\
+\"cursor\": 0\n\
+}",
         }
       ],
       "usage": {
-        "promptTokens": 2849,
-        "completionTokens": 750,
-        "cachedTokens": 2534,
-        "reasoningTokens": 750
+        "prompt_tokens": 2849,
+        "completion_tokens": 750,
+        "cached_tokens": 2534,
+        "reasoning_tokens": 750,
       },
-      "costUsd": 0.000254,
-      "gameSeq": 12
+      "cost_usd": 0.000254,
+      "game_seq": 12,
     },
     {
       "ts": "2026-03-04T16:33:59.929588-08:00",
@@ -1387,11 +1403,11 @@
       "type": "tool_call",
       "tool": "get_game_state",
       "args": {
-        "cursor": 0
+        "cursor": 0,
       },
       "result": "{\"available\":true,\"cursor\":1,\"turn\":1,\"phase\":\"Precombat Main\",\"step\":\"Precombat Main\",\"active_player\":\"GPT5 Optim\",\"priority_player\":\"GptOSS Rambler\",\"players\":[{\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"name\":\"GptOSS Rambler\",\"library_size\":33,\"life\":20,\"hand\":[{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p10\"},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p11\"},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p12\"},{\"mana_cost\":\"{1}{U}\",\"name\":\"Keen Glidemaster\",\"rules\":[\"{2}{U}: Target creature gains flying until end of turn.\"],\"power\":\"2\",\"id\":\"p13\",\"toughness\":\"1\"},{\"mana_cost\":\"{2}{U}\",\"name\":\"No Escape\",\"rules\":[\"Counter target creature or planeswalker spell. If that spell is countered this way, exile it instead of putting it into its owner\\u0027s graveyard. : Scry 1.\"],\"id\":\"p14\"},{\"mana_cost\":\"{1}{U}\",\"name\":\"Sage\\u0027s Row Savant\",\"rules\":[\"When {this} enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)\"],\"power\":\"2\",\"id\":\"p15\",\"toughness\":\"1\"},{\"mana_cost\":\"{3}{U}\",\"name\":\"Tide Skimmer\",\"rules\":[\"Flying\",\"Whenever you attack with two or more creatures with flying, draw a card.\"],\"power\":\"2\",\"id\":\"p16\",\"toughness\":\"3\"}]},{\"hand_size\":7,\"is_active\":true,\"is_you\":false,\"name\":\"GPT5 Optim\",\"library_size\":33,\"life\":20}],\"stack\":[],\"game_seq\":12}",
-      "latencyMs": 70,
-      "gameSeq": 12
+      "latency_ms": 70,
+      "game_seq": 12,
     },
     {
       "ts": "2026-03-04T16:34:10.267380-08:00",
@@ -1399,20 +1415,22 @@
       "player": "GptOSS Rambler",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "choose_action",
-          "arguments": "{\n\"choice\": \"no\"\n}"
+          "arguments": "{\n\
+\"choice\": \"no\"\n\
+}",
         }
       ],
       "usage": {
-        "promptTokens": 3322,
-        "completionTokens": 223,
-        "cachedTokens": 2848,
-        "reasoningTokens": 216
+        "prompt_tokens": 3322,
+        "completion_tokens": 223,
+        "cached_tokens": 2848,
+        "reasoning_tokens": 216,
       },
-      "costUsd": 0.000172,
-      "gameSeq": 12
+      "cost_usd": 0.000172,
+      "game_seq": 12,
     },
     {
       "ts": "2026-03-04T16:34:11.476817-08:00",
@@ -1421,11 +1439,11 @@
       "type": "tool_call",
       "tool": "choose_action",
       "args": {
-        "choice": "no"
+        "choice": "no",
       },
       "result": "{\"success\":true,\"action_taken\":\"passed_priority\",\"game_seq\":12,\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_message\":\"Play instants and activated abilities\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\"}",
-      "latencyMs": 1207,
-      "gameSeq": 12
+      "latency_ms": 1207,
+      "game_seq": 12,
     },
     {
       "ts": "2026-03-04T16:34:14.992823-08:00",
@@ -1433,20 +1451,22 @@
       "player": "GptOSS Rambler",
       "type": "llm_response",
       "reasoning": null,
-      "toolCalls": [
+      "tool_calls": [
         {
           "name": "pass_priority",
-          "arguments": "{\n\"until\": \"begin_combat\"\n}"
+          "arguments": "{\n\
+\"until\": \"begin_combat\"\n\
+}",
         }
       ],
       "usage": {
-        "promptTokens": 3419,
-        "completionTokens": 52,
-        "cachedTokens": 3321,
-        "reasoningTokens": 28
+        "prompt_tokens": 3419,
+        "completion_tokens": 52,
+        "cached_tokens": 3321,
+        "reasoning_tokens": 28,
       },
-      "costUsd": 0.000143,
-      "gameSeq": 12
+      "cost_usd": 0.000143,
+      "game_seq": 12,
     },
     {
       "ts": "2026-03-04T16:34:15.906163-08:00",
@@ -1456,31 +1476,31 @@
       "tool": "pass_priority",
       "args": {
         "until": "my_turn",
-        "board_cursor": 1
+        "board_cursor": 1,
       },
       "result": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"message\":\"Play spells and abilities\",\"response_type\":\"select\",\"respond_with\":\"choice\\u003dpN to play, or choice\\u003dno to pass\",\"context\":\"T1 Postcombat Main/Postcombat Main (GPT5 Optim) YOUR_MAIN\",\"board\":[{\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"name\":\"GPT5 Optim\",\"library_size\":33,\"life\":20,\"hand\":[{\"mana_cost\":\"{4}{G}{G}\",\"name\":\"Colossal Dreadmaw\",\"rules\":[\"Trample\"],\"power\":\"6\",\"id\":\"p3\",\"toughness\":\"6\"},{\"name\":\"Forest\",\"is_land\":true,\"rules\":[\"{T}: Add {G}.\"],\"id\":\"p4\",\"playable\":true},{\"mana_cost\":\"{3}{G}\",\"name\":\"Ondu Giant\",\"rules\":[\"When {this} enters, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\"],\"power\":\"2\",\"id\":\"p5\",\"toughness\":\"4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Thriving Grove\",\"is_land\":true,\"rules\":[\"{this} enters tapped.\",\"As {this} enters, choose a color other than green.\",\"{T}: Add {G}.\",\"{T}: Add one mana of the chosen color.\"],\"id\":\"p8\",\"playable\":true},{\"mana_cost\":\"{3}{G}\",\"name\":\"Towering Gibbon\",\"rules\":[\"Reach\",\"{this}\\u0027s power is equal to the greatest mana value among creatures you control.\"],\"power\":\"0\",\"id\":\"p9\",\"toughness\":\"4\"}]},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"name\":\"GptOSS Rambler\",\"library_size\":33,\"life\":20}],\"board_cursor\":2,\"choices\":[{\"name\":\"Forest\",\"index\":0,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Thriving Grove\",\"index\":3,\"action\":\"land\",\"id\":\"p8\"}],\"game_seq\":17,\"land_drops_used\":0,\"stop_reason\":\"playable_cards\",\"has_playable_cards\":true}",
-      "latencyMs": 37242,
-      "gameSeq": 17
+      "latency_ms": 37242,
+      "game_seq": 17,
     }
   ],
-  "gameOver": {
+  "game_over": {
     "seq": 19,
-    "message": "Game ended"
+    "message": "Game ended",
   },
-  "harnessEpoch": 41,
-  "youtubeUrl": "https://youtu.be/b5JIRDzNva0",
+  "harness_epoch": 41,
+  "youtube_url": "https://youtu.be/b5JIRDzNva0",
   "season": 1,
   "tournament": null,
   "decisions": [
     {
       "index": 0,
-      "snapshotIndex": 0,
+      "snapshot_index": 0,
       "player": "GptOSS Rambler",
       "turn": 1,
       "phase": null,
       "step": null,
-      "actionType": "GAME_TARGET",
-      "responseType": "index",
+      "action_type": "GAME_TARGET",
+      "response_type": "index",
       "message": "Select a starting player",
       "choices": [
         {
@@ -1488,51 +1508,51 @@
           "name": "GptOSS Rambler",
           "target_type": "player",
           "index": 0,
-          "id": "p2"
+          "id": "p2",
         },
         {
           "name": "GPT5 Optim",
           "target_type": "player",
           "index": 1,
-          "id": "p1"
+          "id": "p1",
         }
       ],
-      "choiceCount": 2,
-      "isForced": false,
+      "choice_count": 2,
+      "is_forced": false,
       "chosen": 1,
-      "chosenArgs": {
-        "choice": "p1"
+      "chosen_args": {
+        "choice": "p1",
       },
-      "actionResult": {
+      "action_result": {
         "success": true,
         "action_taken": "selected_target_1",
-        "game_seq": 5
+        "game_seq": 5,
       },
-      "llmEventIndices": [
+      "llm_event_indices": [
         3,
         4,
-        5
+        5,
       ],
-      "subsequentActions": [
-        "GptOSS Rambler chooses that GPT5 Optim take the first turn"
+      "subsequent_actions": [
+        "GptOSS Rambler chooses that GPT5 Optim take the first turn",
       ],
-      "actionSeq": 5
+      "action_seq": 5,
     },
     {
       "index": 1,
-      "snapshotIndex": 1,
+      "snapshot_index": 1,
       "player": "GPT5 Optim",
       "turn": 1,
       "phase": null,
       "step": null,
-      "actionType": "GAME_ASK",
-      "responseType": "boolean",
+      "action_type": "GAME_ASK",
+      "response_type": "boolean",
       "message": "Mulligan down to 6 cards?",
       "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
+      "choice_count": 0,
+      "is_forced": false,
       "chosen": false,
-      "chosenArgs": {
+      "chosen_args": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
@@ -1541,151 +1561,151 @@
         "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": "no"
+        "choice": "no",
       },
-      "actionResult": {
+      "action_result": {
         "success": true,
         "action_taken": "no",
         "game_seq": 7,
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "next_action_message": "Play spells and abilities",
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       },
-      "llmEventIndices": [
+      "llm_event_indices": [
         8,
         9,
-        12
+        12,
       ],
-      "subsequentActions": [],
-      "actionSeq": 7
+      "subsequent_actions": [],
+      "action_seq": 7,
     },
     {
       "index": 2,
-      "snapshotIndex": 1,
+      "snapshot_index": 1,
       "player": "GptOSS Rambler",
       "turn": 1,
       "phase": null,
       "step": null,
-      "actionType": "GAME_ASK",
-      "responseType": "boolean",
+      "action_type": "GAME_ASK",
+      "response_type": "boolean",
       "message": "Mulligan down to 6 cards?",
       "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
+      "choice_count": 0,
+      "is_forced": false,
       "chosen": false,
-      "chosenArgs": {
-        "choice": "no"
+      "chosen_args": {
+        "choice": "no",
       },
-      "actionResult": {
+      "action_result": {
         "success": true,
         "action_taken": "no",
-        "game_seq": 8
+        "game_seq": 8,
       },
-      "llmEventIndices": [
+      "llm_event_indices": [
         10,
         11,
-        13
+        13,
       ],
-      "subsequentActions": [
-        "GPT5 Optim skips Draw step"
+      "subsequent_actions": [
+        "GPT5 Optim skips Draw step",
       ],
-      "actionSeq": 8
+      "action_seq": 8,
     },
     {
       "index": 3,
-      "snapshotIndex": 3,
+      "snapshot_index": 3,
       "player": "GptOSS Rambler",
       "turn": 1,
       "phase": "PRECOMBAT_MAIN",
       "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
+      "action_type": "GAME_SELECT",
+      "response_type": "boolean",
       "message": "Play instants and activated abilities",
       "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
+      "choice_count": 0,
+      "is_forced": false,
       "chosen": false,
-      "chosenArgs": {
-        "choice": "no"
+      "chosen_args": {
+        "choice": "no",
       },
-      "actionResult": {
+      "action_result": {
         "success": true,
         "action_taken": "passed_priority",
         "game_seq": 12,
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "next_action_message": "Play instants and activated abilities",
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       },
-      "llmEventIndices": [
+      "llm_event_indices": [
         16,
         17,
         19,
-        20
+        20,
       ],
-      "subsequentActions": [
-        "GPT5 Optim skip attack"
+      "subsequent_actions": [
+        "GPT5 Optim skip attack",
       ],
-      "actionSeq": 12
+      "action_seq": 12,
     },
     {
       "index": 4,
-      "snapshotIndex": 6,
+      "snapshot_index": 6,
       "player": "GPT5 Optim",
       "turn": 1,
       "phase": "POSTCOMBAT_MAIN",
       "step": "POSTCOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "select",
+      "action_type": "GAME_SELECT",
+      "response_type": "select",
       "message": "Play spells and abilities",
       "choices": [
         {
           "name": "Forest",
           "index": 0,
           "action": "land",
-          "id": "p4"
+          "id": "p4",
         },
         {
           "name": "Plains",
           "index": 1,
           "action": "land",
-          "id": "p6"
+          "id": "p6",
         },
         {
           "name": "Plains",
           "index": 2,
           "action": "land",
-          "id": "p7"
+          "id": "p7",
         },
         {
           "name": "Thriving Grove",
           "index": 3,
           "action": "land",
-          "id": "p8"
+          "id": "p8",
         }
       ],
-      "choiceCount": 4,
-      "isForced": false,
+      "choice_count": 4,
+      "is_forced": false,
       "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        22
+      "chosen_args": {},
+      "action_result": {},
+      "llm_event_indices": [
+        22,
       ],
-      "subsequentActions": [],
-      "actionSeq": 17,
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
+      "subsequent_actions": [],
+      "action_seq": 17,
+      "pilot_context": {
+        "land_drops_used": 0,
+        "playable_cards": [
           "p4",
           "p6",
           "p7",
-          "p8"
+          "p8",
         ]
-      }
+      },
     }
   ],
   "annotations": [],
-  "blunderScriptVersion": 32
+  "blunder_script_version": 32,
 }
