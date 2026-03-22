@@ -8,24 +8,15 @@ callers use `magebench.cli` wrappers directly.
 import sys
 from pathlib import Path
 
-from magebench.game.export_game import (
-    LOGS_DIR,
-    GameExportError,
-    build_export,
-    export_game,
-    read_game_winner,
-)
+from magebench.game import export_game as _export_game
 from magebench.game.game_exports import GAMES_DIR as WEBSITE_GAMES_DIR
 from magebench.leaderboard.website_data import generate_all_website_data
 
-__all__ = [
-    "LOGS_DIR",
-    "WEBSITE_GAMES_DIR",
-    "GameExportError",
-    "build_export",
-    "export_game",
-    "read_game_winner",
-]
+LOGS_DIR = _export_game.LOGS_DIR
+GameExportError = _export_game.GameExportError
+build_export = _export_game.build_export
+export_game = _export_game.export_game
+read_game_winner = _export_game.read_game_winner
 
 
 def main() -> None:

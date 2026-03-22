@@ -4,22 +4,12 @@ TODO(shim): expires=issue:python-migration-step12 Delete this wrapper once
 callers import `magebench.game.scryfall` directly.
 """
 
-from magebench.game.scryfall import (
-    collection,
-    extract_oracle_fields,
-    get_oracle_texts,
-    named,
-    resolve_cards,
-    search,
-    search_token,
-)
+from magebench.game import scryfall as _scryfall
 
-__all__ = [
-    "collection",
-    "extract_oracle_fields",
-    "get_oracle_texts",
-    "named",
-    "resolve_cards",
-    "search",
-    "search_token",
-]
+collection = _scryfall.collection
+extract_oracle_fields = _scryfall.extract_oracle_fields
+get_oracle_texts = _scryfall.get_oracle_texts
+named = _scryfall.named
+resolve_cards = _scryfall.resolve_cards
+search = _scryfall.search
+search_token = _scryfall.search_token

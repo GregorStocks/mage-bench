@@ -28,6 +28,7 @@ from zoneinfo import ZoneInfo
 
 from openai import AsyncOpenAI
 
+from magebench.game import scryfall
 from puppeteer.config import (
     PilotPlayer,
     load_personalities,
@@ -43,7 +44,6 @@ from puppeteer.llm_cost import (
     load_prices,
     required_api_key_env,
 )
-from scripts import scryfall
 from scripts.draft_history import (
     CURRENT_DRAFT_HISTORY_VERSION,
     assert_current_draft_history_version,

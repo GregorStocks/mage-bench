@@ -37,16 +37,6 @@ logger = get_logger(__name__)
 
 _LOG_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 
-__all__ = [
-    "OrchestratorRunResult",
-    "clean_stale_h2_locks",
-    "compile_project",
-    "main",
-    "parse_args",
-    "refresh_observer_resources",
-    "run_orchestrator",
-]
-
 
 def _missing_llm_api_keys(config: Config) -> list[str]:
     """Return validation errors for LLM players missing required API keys."""

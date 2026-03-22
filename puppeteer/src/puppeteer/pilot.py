@@ -76,19 +76,6 @@ MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty 
 MAX_EMPTY_RESPONSES = 10
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
 
-__all__ = [
-    "DEFAULT_MODEL",
-    "MAX_CHAT_MESSAGES_PER_TURN",
-    "MAX_CONSECUTIVE_EMPTY_CHOICES",
-    "MAX_TOKENS",
-    "PERMANENT_FAILURE_EXIT_CODE",
-    "PermanentLLMError",
-    "build_initial_message",
-    "main",
-    "run_pilot",
-    "run_pilot_loop",
-]
-
 
 class PermanentLLMError(Exception):
     """Raised when the LLM is permanently unreachable (model not found, credits exhausted)."""
