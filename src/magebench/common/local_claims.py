@@ -2,6 +2,7 @@ import fcntl
 import json
 import os
 import subprocess
+from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime
@@ -165,7 +166,7 @@ def _cleanup_stale_claims_locked(context: WorktreeContext, namespace: str) -> No
 
 
 @contextmanager
-def _locked_namespace(context: WorktreeContext, namespace: str):
+def _locked_namespace(context: WorktreeContext, namespace: str) -> Iterator[Path]:
     namespace_dir = _namespace_dir(context, namespace)
     active_dir = namespace_dir / "active"
     active_dir.mkdir(parents=True, exist_ok=True)
