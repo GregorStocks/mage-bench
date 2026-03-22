@@ -6,7 +6,10 @@ import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
 import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeConcedeFlow;
+import mage.client.bridge.processor.BridgeConcedeFlowManager;
 import mage.client.bridge.processor.BridgeDecisionState;
+import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
@@ -566,7 +569,7 @@ class BridgeCallbackHandlerTest {
         );
         handler.handleCallback(callback);
 
-        assertThat(handler.awaitGameFinished(100)).isTrue();
+        handler.awaitProcessorIdle();
         assertThat(getBridgeEventsCalls.get()).isZero();
         assertThat(activeGames).doesNotContainKey(gameId);
         assertThat(leaveChatCalls.get()).isEqualTo(1);
@@ -682,7 +685,6 @@ class BridgeCallbackHandlerTest {
 
         handler.awaitProcessorIdle();
         assertThat(activeGames).doesNotContainKey(gameId);
-        assertThat(handler.awaitGameFinished(100)).isTrue();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
     }
 
@@ -740,6 +742,121 @@ class BridgeCallbackHandlerTest {
 
         // leaveChat should NOT have been called a second time
         assertThat(leaveChatCalls.get()).isEqualTo(1);
+    }
+
+    @Test
+    void concedeWaitsForGameOverOnProcessorFlow() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID chatId = UUID.randomUUID();
+        CountDownLatch concedeSent = new CountDownLatch(1);
+        AtomicReference<String> concedeThreadName = new AtomicReference<>();
+        AtomicInteger leaveChatCalls = new AtomicInteger();
+
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerAction" -> {
+                        concedeThreadName.set(Thread.currentThread().getName());
+                        assertThat(args[0]).isEqualTo(mage.constants.PlayerAction.CONCEDE);
+                        assertThat(args[1]).isEqualTo(gameId);
+                        assertThat(args[2]).isNull();
+                        concedeSent.countDown();
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                    case "leaveChat" -> {
+                        leaveChatCalls.incrementAndGet();
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setKeepAliveAfterGame(true);
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
+        activeGames.put(gameId, playerId);
+        gameChatIds.put(gameId, chatId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "currentPlayerId", playerId);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<Boolean> future = executor.submit(handler::concede);
+
+            assertThat(concedeSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            handler.handleCallback(new ClientCallback(
+                ClientCallbackMethod.GAME_OVER,
+                gameId,
+                new GameClientMessage(
+                    gameView(9),
+                    Collections.<String, Serializable>emptyMap(),
+                    "Player Opponent is the winner"
+                ),
+                false
+            ));
+
+            assertThat(future.get(1, TimeUnit.SECONDS)).isTrue();
+            handler.awaitProcessorIdle();
+            assertThat(concedeThreadName.get()).startsWith("bridge-processor-TestPlayer");
+            assertThat(activeGames).doesNotContainKey(gameId);
+            assertThat(leaveChatCalls.get()).isEqualTo(1);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void concedeReturnsFalseWhenProcessorStopsWhileWaitingForGameOver() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        CountDownLatch concedeSent = new CountDownLatch(1);
+
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerAction".equals(method.getName())) {
+                    concedeSent.countDown();
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setKeepAliveAfterGame(true);
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        activeGames.put(gameId, playerId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "currentPlayerId", playerId);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<Boolean> future = executor.submit(handler::concede);
+
+            assertThat(concedeSent.await(1, TimeUnit.SECONDS)).isTrue();
+            client.stop();
+
+            assertThat(future.get(1, TimeUnit.SECONDS)).isFalse();
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
     }
 
     @Test
@@ -2416,6 +2533,53 @@ class BridgeCallbackHandlerTest {
 
         assertThat(invokeDecisionBoundaryStatus(handler, staleTargetAction, "test"))
             .isEqualTo("CHANGED");
+    }
+
+    @Test
+    void concedeFlowManagerReturnsTrueAfterKeepAliveTimeout() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        AtomicReference<String> concedeThreadName = new AtomicReference<>();
+
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgeCallbackHandlerTest.class),
+            ignored -> { }
+        );
+        BridgeGameState gameState = new BridgeGameState();
+        Session session = (Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("sendPlayerAction".equals(method.getName())) {
+                    concedeThreadName.set(Thread.currentThread().getName());
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        );
+        BridgeConcedeFlowManager manager = new BridgeConcedeFlowManager(
+            processor,
+            gameState,
+            () -> session,
+            Logger.getLogger(BridgeCallbackHandlerTest.class),
+            "TestPlayer",
+            0
+        );
+        processor.start();
+
+        try {
+            BridgeConcedeFlow flow = processor.submit(BridgeCommand.of(() -> {
+                gameState.setKeepAliveAfterGame(true);
+                gameState.activateGame(gameId, playerId);
+                return manager.startPendingFlow();
+            }));
+
+            assertThat(flow.awaitResult()).isTrue();
+            assertThat(concedeThreadName.get()).startsWith("bridge-processor-TestPlayer");
+        } finally {
+            manager.shutdown();
+            processor.shutdown("test done");
+        }
     }
 
     @Test

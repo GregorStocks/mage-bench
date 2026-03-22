@@ -62,21 +62,23 @@ bags of mutable fields.
 
 ## Current Status
 
-Helpful refactors have already landed:
+The actual target state has **not** been reached yet.
 
-- callback ingress is visibly separated into `mage.client.bridge.listener`
-- MCP query/command entrypoints are visibly separated into `mage.client.bridge.mcp`
-- callback processing and flow progression already use the processor thread in
-  more places than before
+Write-side MCP actions are much closer to the desired model now:
 
-But the actual target state has **not** been reached yet.
+- `choose_action`, `pass_priority`, `send_chat_message`, default-response
+  helpers, and `concede` all go through processor-owned commands or flows
+- the old `gameFinishedLatch` keepAlive concede wait is gone; post-concede
+  completion now comes from processor-observed game cleanup
 
-Today, MCP-side code still directly reads shared runtime state such as:
+But the bridge is still transitional.
+
+MCP-side code still directly reads shared runtime state such as:
 
 - pending-action state
 - last game view / current game identifiers
 - cached chat / bridge-event state
-- concede/chat lifecycle state
+- deck / history / log caches
 
 And the bridge still relies on shared mutable state containers such as:
 
@@ -86,12 +88,25 @@ And the bridge still relies on shared mutable state containers such as:
 - `BridgeGameLogState`
 - `BridgeCursorState`
 
-Those are still being read outside the processor thread, which means the model
-is still transitional rather than actor-pure.
+Those are still being read outside the processor thread.
+
+There is also still at least one MCP-side lifecycle wait on shared state:
+
+- `join_table` still waits for `START_GAME` via `gameStartLatch`
+
+So the model is still transitional rather than actor-pure.
 
 ## Remaining Work
 
-### 1. Make live runtime state processor-private
+### 1. Move remaining lifecycle waits onto processor-owned requests
+
+`concede` is no longer latch-based, but `join_table` still is.
+
+`START_GAME` completion should move off `gameStartLatch` and onto a
+processor-owned lifecycle request/future, the same way keepAlive concede
+completion now does.
+
+### 2. Make live runtime state processor-private
 
 The `Bridge*State` classes should stop being cross-thread APIs.
 
@@ -105,24 +120,6 @@ That includes:
 - interaction/mana-plan state
 - chat/log state
 - cursor/signature state
-
-### 2. Make MCP writes true commands
-
-For write/action surfaces like:
-
-- `choose_action`
-- `pass_priority`
-- `send_chat_message`
-- `concede`
-- default-response helpers
-
-the MCP thread should only submit a command/future pair to the processor.
-
-It should not:
-
-- inspect live bridge state directly
-- perform lifecycle coordination by touching shared state
-- wait on shared latches that are part of live runtime ownership
 
 ### 3. Make MCP reads use processor-published data
 

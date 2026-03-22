@@ -26,7 +26,6 @@ public final class BridgeGameState {
     private volatile long lastCallbackReceivedAt = 0;
     private volatile long lastActionableCallbackAt = 0;
     private volatile CountDownLatch gameStartLatch = new CountDownLatch(1);
-    private volatile CountDownLatch gameFinishedLatch = new CountDownLatch(1);
 
     public boolean keepAliveAfterGame() {
         return keepAliveAfterGame;
@@ -191,16 +190,8 @@ public final class BridgeGameState {
         return gameStartLatch.await(timeoutMs, TimeUnit.MILLISECONDS);
     }
 
-    public boolean awaitGameFinished(long timeoutMs) throws InterruptedException {
-        return gameFinishedLatch.await(timeoutMs, TimeUnit.MILLISECONDS);
-    }
-
     public void signalGameStarted() {
         gameStartLatch.countDown();
-    }
-
-    public void signalGameFinished() {
-        gameFinishedLatch.countDown();
     }
 
     public void resetProcessorState() {

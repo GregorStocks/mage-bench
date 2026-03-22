@@ -5,6 +5,8 @@ import mage.client.bridge.processor.BridgeChooseActionFlow;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeConcedeFlow;
+import mage.client.bridge.processor.BridgeConcedeFlowManager;
 import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgeGameState;
@@ -33,9 +35,9 @@ public final class BridgeMcpActionApi {
     private final BridgeInteractionState interactionState;
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
+    private final BridgeConcedeFlowManager concedeFlowManager;
     private final Supplier<Session> sessionSupplier;
     private final long chatDedupWindowMs;
-    private final long keepAliveConcedeWaitSeconds;
     private final Supplier<Map<String, Object>> executeDefaultActionImpl;
     private final Function<Long, ActionResult> getActionChoicesImpl;
     private final Consumer<ActionResult> actionResultChatAttacher;
@@ -51,9 +53,9 @@ public final class BridgeMcpActionApi {
             BridgeInteractionState interactionState,
             BridgeChooseActionFlowManager chooseActionFlowManager,
             BridgePassPriorityFlowManager passPriorityFlowManager,
+            BridgeConcedeFlowManager concedeFlowManager,
             Supplier<Session> sessionSupplier,
             long chatDedupWindowMs,
-            long keepAliveConcedeWaitSeconds,
             Supplier<Map<String, Object>> executeDefaultActionImpl,
             Function<Long, ActionResult> getActionChoicesImpl,
             Consumer<ActionResult> actionResultChatAttacher,
@@ -67,9 +69,9 @@ public final class BridgeMcpActionApi {
         this.interactionState = interactionState;
         this.chooseActionFlowManager = chooseActionFlowManager;
         this.passPriorityFlowManager = passPriorityFlowManager;
+        this.concedeFlowManager = concedeFlowManager;
         this.sessionSupplier = sessionSupplier;
         this.chatDedupWindowMs = chatDedupWindowMs;
-        this.keepAliveConcedeWaitSeconds = keepAliveConcedeWaitSeconds;
         this.executeDefaultActionImpl = executeDefaultActionImpl;
         this.getActionChoicesImpl = getActionChoicesImpl;
         this.actionResultChatAttacher = actionResultChatAttacher;
@@ -157,31 +159,19 @@ public final class BridgeMcpActionApi {
     }
 
     public boolean concede() {
-        var gameId = gameState.currentGameId();
-        if (gameId == null) {
-            logger.warn("[" + username + "] Cannot concede: no active game");
-            return false;
-        }
-        if (!gameState.containsActiveGame(gameId)) {
-            logger.info("[" + username + "] Game already over, concede is a no-op");
-            return true;
-        }
-        logger.info("[" + username + "] Conceding game " + gameId);
-        sessionSupplier.get().sendPlayerAction(mage.constants.PlayerAction.CONCEDE, gameId, null);
-        if (gameState.keepAliveAfterGame()) {
-            try {
-                boolean finished = gameState.awaitGameFinished(keepAliveConcedeWaitSeconds * 1000);
-                if (!finished) {
-                    logger.warn(
-                        "[" + username + "] Concede sent but GAME_OVER not received within "
-                            + keepAliveConcedeWaitSeconds + "s"
-                    );
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+        BridgeConcedeFlow flow = processor.submit(BridgeCommand.of(concedeFlowManager::startPendingFlow));
+        try {
+            return flow.awaitResult();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted while waiting for concede result", e);
+        } catch (ExecutionException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof RuntimeException runtimeException) {
+                throw runtimeException;
             }
+            throw new IllegalStateException("concede request failed", cause);
         }
-        return true;
     }
 
     public ActionResult passPriority(String until, Long boardCursorParam) {

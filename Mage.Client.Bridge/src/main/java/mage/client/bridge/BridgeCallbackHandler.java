@@ -12,6 +12,7 @@ import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
 import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeConcedeFlowManager;
 import mage.client.bridge.processor.BridgeCursorState;
 import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgeGameState;
@@ -112,6 +113,7 @@ public class BridgeCallbackHandler {
     private final BridgeOracleTextService oracleTextService;
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
+    private final BridgeConcedeFlowManager concedeFlowManager;
     private final BridgeCallbackIngress callbackIngress;
     private final BridgeMcpActionApi mcpActionApi;
     private final BridgeMcpQueryApi mcpQueryApi;
@@ -306,6 +308,14 @@ public class BridgeCallbackHandler {
             decisionState,
             new BridgePassPriorityFlowContextImpl(this, decisionState, gameState)
         );
+        this.concedeFlowManager = new BridgeConcedeFlowManager(
+            processor,
+            gameState,
+            () -> session,
+            logger,
+            client.getUsername(),
+            KEEPALIVE_CONCEDE_WAIT_SECONDS
+        );
         this.mcpActionApi = new BridgeMcpActionApi(
             client.getUsername(),
             logger,
@@ -316,9 +326,9 @@ public class BridgeCallbackHandler {
             interactionState,
             chooseActionFlowManager,
             passPriorityFlowManager,
+            concedeFlowManager,
             () -> session,
             CHAT_DEDUP_WINDOW_MS,
-            KEEPALIVE_CONCEDE_WAIT_SECONDS,
             this::executeDefaultActionImpl,
             this::getActionChoicesImpl,
             this::attachUnseenChat,
@@ -816,18 +826,12 @@ public class BridgeCallbackHandler {
 
     /**
      * Block until {@code handleStartGame()} fires. Used by join_table tool.
+     * TODO(bridge-processor): Move join_table onto a processor-owned lifecycle
+     * flow so MCP no longer waits on a shared start latch.
      * @return true if game started, false if timed out
      */
     public boolean awaitGameStart(long timeoutMs) throws InterruptedException {
         return gameState.awaitGameStart(timeoutMs);
-    }
-
-    /**
-     * Block until {@code handleGameOver()} fires. Used by keepAlive session management.
-     * @return true if game finished, false if timed out
-     */
-    public boolean awaitGameFinished(long timeoutMs) throws InterruptedException {
-        return gameState.awaitGameFinished(timeoutMs);
     }
 
     /**
@@ -889,6 +893,7 @@ public class BridgeCallbackHandler {
         advancePendingFlowsBeforeShutdown();
         chooseActionFlowManager.shutdown();
         passPriorityFlowManager.shutdown();
+        concedeFlowManager.shutdown();
         processor.shutdown(reason);
     }
 
@@ -2592,6 +2597,7 @@ public class BridgeCallbackHandler {
     private void advancePendingFlows() {
         chooseActionFlowManager.advancePendingFlow();
         passPriorityFlowManager.advancePendingFlow();
+        concedeFlowManager.advancePendingFlow();
     }
 
     private void advancePendingFlowsBeforeShutdown() {
@@ -3649,10 +3655,9 @@ public class BridgeCallbackHandler {
         logger.info("[" + client.getUsername() + "] Game over: " + message.getMessage());
 
         if (gameState.keepAliveAfterGame()) {
-            // Multi-game session: signal game finished but keep the client alive.
-            // The Python side (join_table tool) drives the next game.
+            // Multi-game session: keep the client alive and let the processor-owned
+            // concede flow observe the cleanup via advancePendingFlows().
             logger.info("[" + client.getUsername() + "] Game ended (keepAlive mode, staying connected)");
-            gameState.signalGameFinished();
         } else {
             // Each game gets its own pilot process + bridge client.
             // Disconnect immediately so the XMage server doesn't auto-join us
@@ -3684,9 +3689,7 @@ public class BridgeCallbackHandler {
         // GAME_OVER was missed — perform the shutdown that handleGameOver would have done.
         logger.warn("[" + client.getUsername() + "] END_GAME_INFO cleaning up game " + gameId
             + " (GAME_OVER was likely dropped)");
-        if (gameState.keepAliveAfterGame()) {
-            gameState.signalGameFinished();
-        } else {
+        if (!gameState.keepAliveAfterGame()) {
             logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (missed GAME_OVER)");
             client.stop();
         }
