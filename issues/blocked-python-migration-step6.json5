@@ -1,6 +1,6 @@
 {
   "title": "Move leaderboard code into magebench.leaderboard",
-  "description": "Do Step 6 of `docs/python-magebench-migration-plan.md`: move leaderboard code into `src/magebench/leaderboard/`.\n\
+  "description": "Do Step 6 of `doc/python-magebench-migration-plan.md`: move leaderboard code into `src/magebench/leaderboard/`.\n\
 \n\
 Scope:\n\
 - move the leaderboard library modules out of `puppeteer/src/puppeteer/`\n\
@@ -14,7 +14,7 @@ Scope:\n\
     "refactoring",
     "leaderboard",
   ],
-  "blocked": "Blocked on Step 5 in docs/python-magebench-migration-plan.md: move the export/build pipeline into magebench.game.",
+  "blocked": "Blocked on Step 5 in doc/python-magebench-migration-plan.md: move the export/build pipeline into magebench.game.",
   "created_at": "2026-03-21T18:56:22.822934-07:00",
   "updated_at": "2026-03-21T18:56:22.822934-07:00",
 }

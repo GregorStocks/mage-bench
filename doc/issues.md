@@ -2,6 +2,8 @@
 
 Issues are stored as individual JSON5 files in the `issues/` directory. The filename serves as the issue ID and must start with `p1-`, `p2-`, `p3-`, `p4-`, or `blocked-` (e.g., `p3-commander-zone-gy-exile-layout.json5`).
 
+For intentionally related issue series, include a stable sequencing token in the filename after that prefix so `ls issues/` keeps the set grouped and ordered. Example: `blocked-python-migration-step5.json5` and later `p3-python-migration-step5.json5`.
+
 Resolved issues should be deleted, not marked as resolved/closed.
 
 ## Format

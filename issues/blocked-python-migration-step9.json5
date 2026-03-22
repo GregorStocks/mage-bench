@@ -1,6 +1,6 @@
 {
   "title": "Move pilot runtime into magebench.pilot",
-  "description": "Do Step 9 of `docs/python-magebench-migration-plan.md`: move pilot runtime code into `src/magebench/pilot/`.\n\
+  "description": "Do Step 9 of `doc/python-magebench-migration-plan.md`: move pilot runtime code into `src/magebench/pilot/`.\n\
 \n\
 Scope:\n\
 - move pilot-facing runtime modules out of `puppeteer/src/puppeteer/`\n\
@@ -14,7 +14,7 @@ Scope:\n\
     "refactoring",
     "pilot",
   ],
-  "blocked": "Blocked on Steps 3 and 4 in docs/python-magebench-migration-plan.md: move the canonical v8 game types/schema into magebench.game and move leaf helpers into magebench.common.",
+  "blocked": "Blocked on Steps 3 and 4 in doc/python-magebench-migration-plan.md: move the canonical v8 game types/schema into magebench.game and move leaf helpers into magebench.common.",
   "created_at": "2026-03-21T18:56:22.822934-07:00",
   "updated_at": "2026-03-21T18:56:22.822934-07:00",
 }

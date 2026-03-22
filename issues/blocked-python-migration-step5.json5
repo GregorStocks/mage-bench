@@ -1,6 +1,6 @@
 {
   "title": "Move export pipeline into magebench.game",
-  "description": "Do Step 5 of `docs/python-magebench-migration-plan.md`: move the export/build pipeline into `src/magebench/game/`.\n\
+  "description": "Do Step 5 of `doc/python-magebench-migration-plan.md`: move the export/build pipeline into `src/magebench/game/`.\n\
 \n\
 Scope:\n\
 - move the export builder and related helpers into `magebench.game`\n\
@@ -14,7 +14,7 @@ Scope:\n\
     "refactoring",
     "export",
   ],
-  "blocked": "Blocked on Steps 3 and 4 in docs/python-magebench-migration-plan.md: move the canonical v8 game types/schema into magebench.game and move leaf helpers into magebench.common.",
+  "blocked": "Blocked on Steps 3 and 4 in doc/python-magebench-migration-plan.md: move the canonical v8 game types/schema into magebench.game and move leaf helpers into magebench.common.",
   "created_at": "2026-03-21T18:56:22.822934-07:00",
   "updated_at": "2026-03-21T18:56:22.822934-07:00",
 }

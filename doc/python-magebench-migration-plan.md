@@ -33,10 +33,12 @@ Python roots.
 The issue schema does not have a dedicated dependency field. For this plan:
 
 - Step 1 is claimable immediately.
-- Later step issues start as `blocked-*` issues.
+- Later step issues use `blocked-python-migration-stepN.json5`.
 - Their `blocked` strings reference prerequisite step numbers from this file.
 - When a prerequisite step lands, the next issue should be renamed from
-  `blocked-*` to `p3-*` and have its `blocked` field removed.
+  `blocked-python-migration-stepN.json5` to
+  `p{priority}-python-migration-stepN.json5` and have its `blocked` field
+  removed.
 
 ## Steps
 

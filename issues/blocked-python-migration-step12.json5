@@ -1,6 +1,6 @@
 {
   "title": "Finalize magebench.cli and delete legacy Python roots",
-  "description": "Do Step 12 of `docs/python-magebench-migration-plan.md`: finalize `magebench.cli` and delete the legacy Python roots.\n\
+  "description": "Do Step 12 of `doc/python-magebench-migration-plan.md`: finalize `magebench.cli` and delete the legacy Python roots.\n\
 \n\
 Scope:\n\
 - replace legacy command entrypoints with thin `magebench.cli` wrappers\n\
@@ -15,7 +15,7 @@ Scope:\n\
     "refactoring",
     "cli",
   ],
-  "blocked": "Blocked on Step 11 in docs/python-magebench-migration-plan.md: move Python tests to a top-level tests package.",
+  "blocked": "Blocked on Step 11 in doc/python-magebench-migration-plan.md: move Python tests to a top-level tests package.",
   "created_at": "2026-03-21T18:56:22.822934-07:00",
   "updated_at": "2026-03-21T18:56:22.822934-07:00",
 }
