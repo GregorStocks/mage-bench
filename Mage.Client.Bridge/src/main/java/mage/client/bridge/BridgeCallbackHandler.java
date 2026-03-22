@@ -2764,11 +2764,18 @@ public class BridgeCallbackHandler {
     private GameLogSnapshot snapshotGameLog() {
         pullBridgeEvents();
         List<BridgeLogEntry> allEvents = gameLogState.snapshotBridgeEvents();
-        return new GameLogSnapshot(allEvents, gameLogState.nextBridgeEventCursor());
+        // TODO(bridge-processor): Replace this handler-side snapshot/cursor
+        // reconstruction with reads from a processor-owned published log that
+        // already carries local monotonic sequence numbers.
+        return new GameLogSnapshot(allEvents, nextBridgeEventCursor(allEvents));
     }
 
     private List<BridgeChatLogEntry> snapshotChatLog() {
         return gameLogState.snapshotChatLog();
+    }
+
+    private static int nextBridgeEventCursor(List<BridgeLogEntry> events) {
+        return events.isEmpty() ? 0 : events.get(events.size() - 1).index() + 1;
     }
 
     private static GetGameLogTool.Result buildGameLogResult(
@@ -2832,7 +2839,7 @@ public class BridgeCallbackHandler {
             } else {
                 events = cachedEvents;
             }
-            newCursor = gameLogState.nextBridgeEventCursor();
+            newCursor = nextBridgeEventCursor(cachedEvents);
         }
 
         // Filter by sinceTurn if specified

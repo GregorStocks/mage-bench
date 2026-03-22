@@ -11,6 +11,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public final class BridgeGameLogState {
+    // TODO(bridge-processor): Replace this shared synchronized state with a
+    // processor-owned append-only published log. The intended end state is that
+    // the processor assigns local monotonic sequence numbers when appending
+    // bridge events/chat/system messages, and readers consume immutable slices
+    // from that log instead of copying shared mutable lists.
     private final Object stateLock = new Object();
     private final List<String> unseenChat = new ArrayList<>();
     private final List<BridgeChatLogEntry> chatLog = new ArrayList<>();
@@ -35,6 +40,9 @@ public final class BridgeGameLogState {
             return;
         }
         synchronized (stateLock) {
+            // Transitional: chat entries still borrow the current fetched-event
+            // cursor. The intended replacement is a processor-owned local seq
+            // assigned when this record is appended to the published log.
             chatLog.add(new BridgeChatLogEntry(bridgeEventCursor, msg, "[Chat] " + user + ": " + msg));
             if (!user.equals(username)) {
                 unseenChat.add(user + ": " + msg);
@@ -98,12 +106,6 @@ public final class BridgeGameLogState {
     public List<BridgeLogEntry> snapshotBridgeEvents() {
         synchronized (stateLock) {
             return new ArrayList<>(cachedBridgeEvents);
-        }
-    }
-
-    public int nextBridgeEventCursor() {
-        synchronized (stateLock) {
-            return cachedBridgeEvents.isEmpty() ? 0 : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index() + 1;
         }
     }
 

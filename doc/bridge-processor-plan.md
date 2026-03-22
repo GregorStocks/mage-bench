@@ -37,6 +37,18 @@ Move the bridge toward an actor-style processor architecture:
 
 In short: no shared mutable processor state across threads, only message passing.
 
+Longer-term, the processor should bias heavily toward an append-only model:
+
+- the processor-owned event/log stream should be the primary source of truth
+- processor-local sequence numbers should be assigned when records are appended
+- most read surfaces should be derived snapshots or stateless readers over that log
+- mutable in-memory state should be minimized to transient control state such as
+  in-flight requests, scheduler state, and rebuildable indexes/cursors
+
+This does not mean "literally no mutable state anywhere." It means the bridge
+should prefer "append-only log + derived views" over large bags of ad hoc
+mutable fields whenever that is practical.
+
 ## Non-Goals
 
 This plan does not require:
@@ -126,6 +138,15 @@ The MCP/tool layer should only:
 - construct commands
 - await results
 - translate results into tool responses
+
+For game-log/history style surfaces, the intended end state is stronger:
+
+- the processor owns a local append-only published log
+- the processor assigns local monotonic IDs/cursors for that published log
+- server bridge-event `index()` values are treated as source metadata, not as
+  the bridge's cross-thread publication cursor
+- MCP readers consume immutable slices/snapshots from the processor-owned log
+  rather than reconstructing cursors from shared mutable lists
 
 ## Why This Is Better
 
@@ -369,6 +390,12 @@ That means we are not yet at the "final-ish" state where the listener can be
 audited as "just enqueue callbacks" and the MCP layer can be audited as "small,
 mostly read-only, and only issuing processor commands when the user acts."
 
+The extracted game-log state is also still transitional. In the short term,
+some synchronized access may still be necessary because log/history reads are
+not yet fully serialized through a processor-owned published log. The intended
+end state is to remove that shared synchronized state by moving to
+processor-assigned local log IDs and immutable published snapshots.
+
 At that point there should be:
 
 - **2 required PRs** left for the core processor refactor
@@ -387,6 +414,11 @@ Recommended remaining split:
   processor boundary is easy to review. Query methods should be clearly
   separated from action methods, and both should talk to the processor through
   a narrow interface instead of a broad handler helper surface.
+
+  This PR should also start moving log/history reads toward the intended
+  processor-owned append-only model: processor-assigned local sequence numbers,
+  immutable published snapshots, and stateless/derived readers instead of
+  shared synchronized lists and cursor bookkeeping on the handler surface.
 
 If review size gets too large, split `E2` again:
 
