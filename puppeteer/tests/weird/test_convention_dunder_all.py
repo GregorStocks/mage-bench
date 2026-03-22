@@ -14,19 +14,7 @@ _SEARCH_ROOTS = (
     REPO_ROOT / "src",
 )
 
-_ALLOWED_DUNDER_ALL_FILES = frozenset(
-    {
-        "puppeteer/src/puppeteer/orchestrator.py",
-        "puppeteer/src/puppeteer/pilot.py",
-        "scripts/export_card_data.py",
-        "scripts/export_decisions.py",
-        "scripts/export_errors.py",
-        "scripts/export_game.py",
-        "scripts/export_llm_events.py",
-        "scripts/game_exports.py",
-        "scripts/scryfall.py",
-    }
-)
+_ALLOWED_DUNDER_ALL_FILES = frozenset()
 
 
 def _has_top_level_dunder_all(path: Path) -> bool:

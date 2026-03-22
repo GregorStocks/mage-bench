@@ -119,6 +119,7 @@ Pick and solve exactly **one** issue, then create a PR. Issue claims live in the
 
    - If you need live progress or a concrete failing sub-target, prefer `make check VERBOSE=1` over launching a second blind `make check`. The quiet wrapper can hide long-running child jobs, and overlapping retries leave duplicate Maven/pytest work chewing through the same branch.
    - If the quiet wrapper prints some target results and then appears stuck, inspect the listed failing sub-targets directly instead of waiting indefinitely. The expensive child jobs may already be done, and targeted reruns (`make format-check`, `make test`, etc.) recover the concrete failures faster.
+   - In Codex exec sessions, `scripts/checks/quiet_check.py` output may stay fully buffered until exit. If a quiet `make check` looks silent, inspect the process tree to see which sub-target is still active before assuming it hung. If you edit files while a full check is still running, stop that stale run and rerun `make check` on the final tree instead of trusting the old result.
    - For large Java refactors, especially under `Mage.Client.Bridge/`, use a module-scoped Maven loop for fast feedback while iterating (for example `mvn -pl Mage.Client.Bridge -DskipTests compile` or `mvn -pl Mage.Client.Bridge test -Dtest=...`). Still finish with the full `make check` before deleting the issue file or finalizing the PR.
 
 10. Delete the issue file (e.g., `rm issues/<issue-filename>.json5`) and **include the deletion in the commit** — the issue removal must ship with the fix
