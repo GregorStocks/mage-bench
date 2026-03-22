@@ -14,6 +14,7 @@ public final class BridgeGameLogState {
     private record PendingOutgoingChat(String message, long sentAtMs) {
     }
 
+    private final Object unseenChatLock = new Object();
     private final List<String> unseenChat = new ArrayList<>();
     private final List<BridgePublishedLogEntry> publishedLog = new ArrayList<>();
     private final Set<Integer> publishedBridgeEventIndexes = new HashSet<>();
@@ -25,7 +26,9 @@ public final class BridgeGameLogState {
     private int lastPublishedBridgeEventIndex = -1;
 
     public void reset() {
-        unseenChat.clear();
+        synchronized (unseenChatLock) {
+            unseenChat.clear();
+        }
         publishedLog.clear();
         publishedBridgeEventIndexes.clear();
         pendingOutgoingChatEchoes.clear();
@@ -54,13 +57,17 @@ public final class BridgeGameLogState {
         }
         appendRenderedEntry("[Chat] " + user + ": " + msg);
         if (!user.equals(username)) {
-            unseenChat.add(user + ": " + msg);
+            synchronized (unseenChatLock) {
+                unseenChat.add(user + ": " + msg);
+            }
         }
     }
 
     public void addSystemMessage(String message) {
         appendRenderedEntry(message);
-        unseenChat.add(message);
+        synchronized (unseenChatLock) {
+            unseenChat.add(message);
+        }
     }
 
     public void attachUnseenChat(Map<String, Object> result, boolean playerDead, boolean gameOver) {
@@ -70,9 +77,9 @@ public final class BridgeGameLogState {
         if (gameOver) {
             result.put("game_over", true);
         }
-        if (!unseenChat.isEmpty()) {
-            result.put("recent_chat", new ArrayList<>(unseenChat));
-            unseenChat.clear();
+        List<String> recentChat = drainUnseenChat();
+        if (recentChat != null) {
+            result.put("recent_chat", recentChat);
         }
     }
 
@@ -83,9 +90,9 @@ public final class BridgeGameLogState {
         if (gameOver) {
             result.game_over = true;
         }
-        if (!unseenChat.isEmpty()) {
-            result.recent_chat = new ArrayList<>(unseenChat);
-            unseenChat.clear();
+        List<String> recentChat = drainUnseenChat();
+        if (recentChat != null) {
+            result.recent_chat = recentChat;
         }
     }
 
@@ -154,5 +161,16 @@ public final class BridgeGameLogState {
             }
         }
         return false;
+    }
+
+    private List<String> drainUnseenChat() {
+        synchronized (unseenChatLock) {
+            if (unseenChat.isEmpty()) {
+                return null;
+            }
+            List<String> recentChat = new ArrayList<>(unseenChat);
+            unseenChat.clear();
+            return recentChat;
+        }
     }
 }
