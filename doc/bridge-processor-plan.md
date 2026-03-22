@@ -93,6 +93,20 @@ Likely shape:
 - `mage.client.bridge.processor`
 - `mage.client.bridge.mcp` (or equivalent)
 
+The "final-ish" architectural checkpoint is not just "state moved under the
+processor." It is also:
+
+- listener logic visibly lives under `mage.client.bridge.listener`
+- MCP query/command logic visibly lives under `mage.client.bridge.mcp`
+- `BridgeCallbackHandler` no longer mixes listener ingress and MCP surface area
+- the processor boundary is easy to audit because listener code only enqueues
+  events, while MCP code is small and primarily read-only except when it sends a
+  player action
+
+If `BridgeCallbackHandler` still contains both the XMage callback ingress path
+and the MCP-facing tool surface, the ownership model is still harder to verify
+than it should be, even if more mutable state has moved under `processor/`.
+
 ### Ownership rules
 
 Processor-owned state should include, at minimum:
@@ -345,14 +359,41 @@ After the helper-state extraction work lands:
 - `BridgeCallbackHandler` no longer owns those processor fields directly
 
 That is a meaningful ownership cleanup, but it still leaves too much
-processor-side helper logic on `BridgeCallbackHandler`.
+processor-side helper logic on `BridgeCallbackHandler`. More importantly,
+`BridgeCallbackHandler` still visibly contains both:
+
+- listener/callback ingress logic
+- MCP-facing query and command methods
+
+That means we are not yet at the "final-ish" state where the listener can be
+audited as "just enqueue callbacks" and the MCP layer can be audited as "small,
+mostly read-only, and only issuing processor commands when the user acts."
 
 At that point there should be:
 
-- **1 required PR** left for the core processor refactor:
-  move the remaining processor helper/service logic out of the handler and
-  shrink the flow/context reach-back surface
+- **2 required PRs** left for the core processor refactor
 - **1 optional PR** left for the published read model
+
+Recommended remaining split:
+
+- **PR E1: Extract listener logic into `mage.client.bridge.listener`**
+  Move XMage callback ingress and callback-to-event translation into listener
+  classes so the listener path is conceptually and visibly enqueue-only. If
+  XMage still requires `BridgeCallbackHandler` as the entrypoint, keep it as a
+  thin compatibility shell that delegates immediately into the listener package.
+
+- **PR E2: Extract MCP logic into `mage.client.bridge.mcp` and finish shrinking the handler**
+  Move the MCP-facing query/command surface into dedicated classes so the
+  processor boundary is easy to review. Query methods should be clearly
+  separated from action methods, and both should talk to the processor through
+  a narrow interface instead of a broad handler helper surface.
+
+If review size gets too large, split `E2` again:
+
+- **PR E2a:** move read-mostly MCP queries into `mcp/`
+- **PR E2b:** move action commands plus the last handler-owned helper/adaptor
+  logic, then shrink `BridgeCallbackHandler` to a compatibility shell or remove
+  it entirely
 
 ### Step 5: Published Read Model / Append-Only Log
 
