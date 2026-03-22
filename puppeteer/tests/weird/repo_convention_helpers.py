@@ -6,6 +6,8 @@ import subprocess
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+SRC_DIR = REPO_ROOT / "src"
+MAGEBENCH_DIR = SRC_DIR / "magebench"
 PUPPETEER_DIR = REPO_ROOT / "puppeteer"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 DECKS_DIR = REPO_ROOT / "data" / "decks"

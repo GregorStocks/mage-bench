@@ -17,7 +17,7 @@ lint:
 	uv run python scripts/checks/lint_issues.py
 	uv run python scripts/checks/lint_scripts_are_python.py
 	uv run python scripts/checks/lint_no_fallback.py
-	uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/
+	uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/ src/
 
 .PHONY: lint-java
 lint-java:
@@ -26,11 +26,11 @@ lint-java:
 
 .PHONY: lint-fix
 lint-fix:
-	uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/
+	uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/ src/
 
 .PHONY: format
 format:
-	uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/
+	uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/ src/
 
 .PHONY: lint-md
 lint-md: $(WEBSITE_NPM_STAMP)
@@ -46,11 +46,11 @@ astro-check: $(WEBSITE_NPM_STAMP)
 
 .PHONY: format-check
 format-check:
-	uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/
+	uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/ src/
 
 .PHONY: typecheck
 typecheck:
-	uv run --project puppeteer mypy --config-file puppeteer/pyproject.toml puppeteer/src/puppeteer/ scripts/ schemas/
+	uv run --project puppeteer mypy --config-file puppeteer/pyproject.toml puppeteer/src/puppeteer/ scripts/ schemas/ src/magebench/
 
 .PHONY: test
 test:

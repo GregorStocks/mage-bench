@@ -32,11 +32,25 @@ def test_make_check_routes_java_validation_through_lint_java() -> None:
 def test_make_lint_uses_root_ruff_config() -> None:
     project_root = Path(__file__).resolve().parent.parent.parent
     makefile = (project_root / "Makefile").read_text()
-    lint_cmd = "uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/"
-    lint_fix_cmd = "uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/"
+    lint_cmd = "uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/ src/"
+    lint_fix_cmd = (
+        "uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/ src/"
+    )
 
     assert lint_cmd in makefile
     assert lint_fix_cmd in makefile
+
+
+def test_make_python_checks_include_src_tree() -> None:
+    project_root = Path(__file__).resolve().parent.parent.parent
+    makefile = (project_root / "Makefile").read_text()
+
+    assert "uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/ src/" in makefile
+    assert "uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/ src/" in makefile
+    assert (
+        "uv run --project puppeteer mypy --config-file puppeteer/pyproject.toml "
+        "puppeteer/src/puppeteer/ scripts/ schemas/ src/magebench/"
+    ) in makefile
 
 
 def test_make_check_serializes_website_targets() -> None:

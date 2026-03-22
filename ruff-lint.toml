@@ -52,7 +52,7 @@ external = []
 "typing.cast".msg = "Don't use cast — fix the underlying types or use assert to narrow."
 
 [lint.isort]
-known-first-party = ["puppeteer", "scripts", "schemas"]
+known-first-party = ["magebench", "puppeteer", "scripts", "schemas"]
 
 [lint.pycodestyle]
 max-line-length = 120

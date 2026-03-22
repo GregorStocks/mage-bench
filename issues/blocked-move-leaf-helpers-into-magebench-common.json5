@@ -1,0 +1,20 @@
+{
+  "title": "Move leaf helpers into magebench.common",
+  "description": "Do Step 4 of `docs/python-magebench-migration-plan.md`: move leaf shared helpers into `src/magebench/common/`.\n\
+\n\
+Scope:\n\
+- move low-level helpers with no game-domain knowledge into `common`\n\
+- expected early candidates: JSON/JSON5 helpers, HTTP helpers, issue-file helpers, and similar leaf utilities\n\
+- avoid turning `common` into a junk drawer",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "python",
+    "refactoring",
+    "common",
+  ],
+  "blocked": "Blocked on Step 1 in docs/python-magebench-migration-plan.md: wire src/magebench into packaging and import resolution.",
+  "created_at": "2026-03-21T18:56:22.822934-07:00",
+  "updated_at": "2026-03-21T18:56:22.822934-07:00",
+}
