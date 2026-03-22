@@ -1,6 +1,7 @@
 package mage.client.bridge;
 
 import mage.client.bridge.listener.BridgeCallbackIngress;
+import mage.client.bridge.mcp.BridgeMcpActionApi;
 import mage.client.bridge.mcp.BridgeMcpQueryApi;
 import mage.client.bridge.processor.BridgeActionableCallbackOutcome;
 import mage.client.bridge.processor.BridgeCallbackDispatcher;
@@ -112,6 +113,7 @@ public class BridgeCallbackHandler {
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
     private final BridgeCallbackIngress callbackIngress;
+    private final BridgeMcpActionApi mcpActionApi;
     private final BridgeMcpQueryApi mcpQueryApi;
     private final BridgeProcessor processor;
     private final BridgeDecisionState decisionState = new BridgeDecisionState();
@@ -122,13 +124,12 @@ public class BridgeCallbackHandler {
     private volatile Session session;
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private static final int MAX_POOL_MANA_ATTEMPTS = 10; // Cancel payment after this many pool retries
+    private static final long CHAT_DEDUP_WINDOW_MS = 30_000;
+    private static final long KEEPALIVE_CONCEDE_WAIT_SECONDS = 15;
 
     private volatile DeckCardLists deckList = null; // Original decklist for get_my_decklist
     private volatile String errorLogPath = null; // Path to write errors to (set via system property)
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
-    private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
-    private static final long KEEPALIVE_CONCEDE_WAIT_SECONDS = 15;
-
     // Join handler: provided by BridgeClient so JoinTableTool can trigger table joining
     @FunctionalInterface
     public interface JoinHandler {
@@ -304,6 +305,24 @@ public class BridgeCallbackHandler {
             client.getUsername(),
             decisionState,
             new BridgePassPriorityFlowContextImpl(this, decisionState, gameState)
+        );
+        this.mcpActionApi = new BridgeMcpActionApi(
+            client.getUsername(),
+            logger,
+            processor,
+            decisionState,
+            gameState,
+            gameLogState,
+            interactionState,
+            chooseActionFlowManager,
+            passPriorityFlowManager,
+            () -> session,
+            CHAT_DEDUP_WINDOW_MS,
+            KEEPALIVE_CONCEDE_WAIT_SECONDS,
+            this::executeDefaultActionImpl,
+            this::getActionChoicesImpl,
+            this::attachUnseenChat,
+            this::attachUnseenChat
         );
     }
 
@@ -878,7 +897,7 @@ public class BridgeCallbackHandler {
     }
 
     public Map<String, Object> executeDefaultAction() {
-        return processor.submit(BridgeCommand.of(this::executeDefaultActionImpl));
+        return mcpActionApi.executeDefaultAction();
     }
 
     private Map<String, Object> executeDefaultActionImpl() {
@@ -1011,7 +1030,7 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     public ActionResult getActionChoices(Long boardCursorParam) {
-        return processor.submit(BridgeCommand.of(() -> getActionChoicesImpl(boardCursorParam)));
+        return mcpActionApi.getActionChoices(boardCursorParam);
     }
 
     @SuppressWarnings("unchecked")
@@ -1029,14 +1048,7 @@ public class BridgeCallbackHandler {
      * it to an ActionResult error instead of letting it propagate as an exception.
      */
     public ActionResult getActionChoicesSafe(Long boardCursorParam) {
-        try {
-            return getActionChoices(boardCursorParam);
-        } catch (ResponseDeliveryException e) {
-            var result = new ActionResult();
-            result.error = e.getMessage();
-            attachUnseenChat(result);
-            return result;
-        }
+        return mcpActionApi.getActionChoicesSafe(boardCursorParam);
     }
 
     @SuppressWarnings("unchecked")
@@ -2040,7 +2052,7 @@ public class BridgeCallbackHandler {
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
     public ChooseActionTool.Result chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
-        BridgeChooseActionInput input = new BridgeChooseActionInput(
+        return mcpActionApi.chooseAction(
             index,
             id,
             answer,
@@ -2053,36 +2065,6 @@ public class BridgeCallbackHandler {
             attackers,
             blockersArray
         );
-        BridgeChooseActionFlow flow = submitProcessorCommandPreservingInterrupt(() -> {
-            if (decisionState.pendingChooseActionFlow() != null) {
-                return null;
-            }
-            interactionState.incrementInteractionsThisTurn();
-            return chooseActionFlowManager.startPendingFlow(input);
-        });
-        if (flow == null) {
-            return submitProcessorCommandPreservingInterrupt(() -> {
-                var result = new ChooseActionTool.Result();
-                result.success = false;
-                result.error = "choose_action already pending";
-                result.error_code = "choose_action_already_pending";
-                result.retryable = true;
-                attachUnseenChat(result);
-                return result;
-            });
-        }
-
-        try {
-            return flow.awaitResult();
-        } catch (InterruptedException e) {
-            return cancelChooseActionFlowAfterCallerInterrupt(flow);
-        } catch (ExecutionException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof RuntimeException runtimeException) {
-                throw runtimeException;
-            }
-            throw new IllegalStateException("chooseAction request failed", cause);
-        }
     }
 
     private static BridgeChooseActionStartResult chooseActionDone(ChooseActionTool.Result result) {
@@ -2708,30 +2690,7 @@ public class BridgeCallbackHandler {
      * Send a chat message. Returns null on success, or an error string on failure.
      */
     public String sendChatMessage(String message) {
-        return processor.submit(BridgeCommand.of(() -> sendChatMessageImpl(message)));
-    }
-
-    private String sendChatMessageImpl(String message) {
-        UUID gameId = gameState.currentGameId();
-        if (gameId == null) {
-            logger.warn("[" + client.getUsername() + "] Cannot send chat: no active game");
-            return "no active game";
-        }
-        UUID chatId = gameState.chatIdForGame(gameId);
-        if (chatId == null) {
-            logger.warn("[" + client.getUsername() + "] Cannot send chat: no chat ID for game " + gameId);
-            return "no chat session for this game";
-        }
-        // Suppress duplicate messages within the dedup window
-        long now = System.currentTimeMillis();
-        if (gameLogState.shouldSuppressOutgoingChat(message, now, CHAT_DEDUP_WINDOW_MS)) {
-            logger.info("[" + client.getUsername() + "] Suppressing duplicate chat message");
-            return null; // Pretend success so the model doesn't retry
-        }
-        if (!session.sendChatMessage(chatId, message)) {
-            return "server rejected the message";
-        }
-        return null;
+        return mcpActionApi.sendChatMessage(message);
     }
 
     /**
@@ -2744,35 +2703,7 @@ public class BridgeCallbackHandler {
      * and unable to join the next table — causing a bridge_join timeout flake.
      */
     public boolean concede() {
-        UUID gameId = gameState.currentGameId();
-        if (gameId == null) {
-            logger.warn("[" + client.getUsername() + "] Cannot concede: no active game");
-            return false;
-        }
-        if (!gameState.containsActiveGame(gameId)) {
-            // Game already ended (e.g. opponent conceded first) — the XMage
-            // session is disconnected, so sending CONCEDE would fail.
-            logger.info("[" + client.getUsername() + "] Game already over, concede is a no-op");
-            return true;
-        }
-        logger.info("[" + client.getUsername() + "] Conceding game " + gameId);
-        session.sendPlayerAction(PlayerAction.CONCEDE, gameId, null);
-        // In keepAlive mode, wait for the server to end the game before returning.
-        // handleGameOver fires gameFinishedLatch when the server confirms the game ended.
-        if (gameState.keepAliveAfterGame()) {
-            try {
-                boolean finished = gameState.awaitGameFinished(KEEPALIVE_CONCEDE_WAIT_SECONDS * 1000);
-                if (!finished) {
-                    logger.warn(
-                        "[" + client.getUsername() + "] Concede sent but GAME_OVER not received within "
-                            + KEEPALIVE_CONCEDE_WAIT_SECONDS + "s"
-                    );
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-        return true;
+        return mcpActionApi.concede();
     }
 
     /**
@@ -2878,58 +2809,7 @@ public class BridgeCallbackHandler {
      * immediately without a separate round-trip.
      */
     public ActionResult passPriority(String until, Long boardCursorParam) {
-        BridgePassPriorityFlow flow = submitProcessorCommandPreservingInterrupt(() -> {
-            if (decisionState.pendingPassPriorityFlow() != null) {
-                return null;
-            }
-            interactionState.incrementInteractionsThisTurn();
-            return passPriorityFlowManager.startPendingFlow(until, boardCursorParam);
-        });
-
-        if (flow == null) {
-            return submitProcessorCommandPreservingInterrupt(() -> {
-                var result = new ActionResult();
-                result.error = "pass_priority already pending";
-                attachUnseenChat(result);
-                return result;
-            });
-        }
-
-        try {
-            return flow.awaitResult();
-        } catch (InterruptedException e) {
-            return cancelPassPriorityFlowAfterCallerInterrupt(flow);
-        } catch (ExecutionException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof RuntimeException runtimeException) {
-                throw runtimeException;
-            }
-            throw new IllegalStateException("passPriority request failed", cause);
-        }
-    }
-
-    private ChooseActionTool.Result cancelChooseActionFlowAfterCallerInterrupt(BridgeChooseActionFlow flow) {
-        try {
-            return submitProcessorCommandPreservingInterrupt(() -> chooseActionFlowManager.cancelFlow(flow));
-        } catch (IllegalStateException e) {
-            return chooseActionFlowManager.cancelFlow(flow);
-        } finally {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    private ActionResult cancelPassPriorityFlowAfterCallerInterrupt(BridgePassPriorityFlow flow) {
-        try {
-            return submitProcessorCommandPreservingInterrupt(() -> passPriorityFlowManager.cancelFlow(flow));
-        } catch (IllegalStateException e) {
-            return passPriorityFlowManager.cancelFlow(flow);
-        } finally {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    private <T> T submitProcessorCommandPreservingInterrupt(Supplier<T> supplier) {
-        return processor.submitPreservingInterrupt(BridgeCommand.of(supplier));
+        return mcpActionApi.passPriority(until, boardCursorParam);
     }
 
     /**
@@ -2937,7 +2817,7 @@ public class BridgeCallbackHandler {
      * pass_priority already merges action choices, so this is just a pass-through.
      */
     public ActionResult waitAndGetChoices(String until, Long boardCursorParam) {
-        return passPriority(until, boardCursorParam);
+        return mcpActionApi.waitAndGetChoices(until, boardCursorParam);
     }
 
 

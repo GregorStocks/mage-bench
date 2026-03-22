@@ -427,42 +427,36 @@ If review size gets too large, split `E2` again:
   logic, then shrink `BridgeCallbackHandler` to a compatibility shell or remove
   it entirely
 
-#### Current checkpoint after the MCP read-query extraction PR
+#### Current checkpoint after the MCP action extraction PR
 
-After the MCP read-query extraction work lands:
+After the MCP action extraction work lands:
 
 - XMage callback ingress lives under `mage.client.bridge.listener`
 - read-mostly MCP queries live under `mage.client.bridge.mcp`
+- MCP action/command entrypoints also live under `mage.client.bridge.mcp`
 - `BridgeCallbackHandler.handleCallback(...)` is reduced to an immediate
   delegation into the listener package
-- read-only handler methods such as `getGameState`, `getGameLog*`,
+- handler read methods such as `getGameState`, `getGameLog*`,
   `getGameHistory`, `getMyDecklist`, `getOracleText`, and
   `isActionPending` delegate into `mcp/`
-- MCP game-log/history formatting also lives under `mcp/`
+- handler action methods such as `getActionChoices*`, `chooseAction`,
+  `passPriority`, `executeDefaultAction`, `waitAndGetChoices`,
+  `sendChatMessage`, and `concede` also delegate into `mcp/`
 
-That is a meaningful verification step: the bridge now has visibly separate
-listener logic and visibly separate read-mostly MCP logic.
+That crosses the main architectural line this plan was aiming for:
 
-But the handler is still not at the desired final-ish shape, because it still
-owns the MCP action/command surface:
-
-- `getActionChoices*`
-- `chooseAction`
-- `passPriority`
-- `executeDefaultAction`
-- `waitAndGetChoices`
-- `sendChatMessage`
-- `concede`
-
-Those action methods also still depend on too much handler-owned helper logic.
+- the listener layer is visibly enqueue-only
+- the MCP layer is visibly separate from callback ingress
+- `BridgeCallbackHandler` is reduced to a compatibility shell plus the
+  remaining helper/adaptor bag used by processor flows
 
 At that point there should be:
 
-- **1 required PR** left for the core processor refactor:
-  move the MCP action/command surface into `mage.client.bridge.mcp`, then
-  shrink `BridgeCallbackHandler` to a thin compatibility shell or remove it
-- **1 optional split** of that final required PR if review size gets too large:
-  first move the action methods, then do the last handler shrink-wrap cleanup
+- **0 required PRs** left for the core processor refactor
+- **1 optional cleanup PR** to keep shrinking `BridgeCallbackHandler` by moving
+  the remaining helper/adaptor logic (for example the choose/pass flow context
+  adapters and action-helper methods) out of the handler if we want to make the
+  shell even thinner or remove it entirely
 - **1 optional PR** left for the published read model / append-only log
 
 ### Step 5: Published Read Model / Append-Only Log
