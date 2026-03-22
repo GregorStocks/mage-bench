@@ -6,6 +6,8 @@ import mage.remote.Session;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -143,12 +145,28 @@ public final class BridgeGameLogState {
         }
         synchronized (stateLock) {
             bridgeEventCursor = events.get(events.size() - 1).index() + 1;
-            int cacheHighWater = cachedBridgeEvents.isEmpty() ? -1
-                : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index();
-            for (BridgeLogEntry entry : events) {
-                if (entry.index() > cacheHighWater) {
-                    cachedBridgeEvents.add(entry);
-                }
+            mergeBridgeEventsIntoCache(events);
+        }
+    }
+
+    public void cacheHistoryEvents(List<BridgeLogEntry> events) {
+        if (events == null || events.isEmpty()) {
+            return;
+        }
+        synchronized (stateLock) {
+            mergeBridgeEventsIntoCache(events);
+        }
+    }
+
+    private void mergeBridgeEventsIntoCache(List<BridgeLogEntry> events) {
+        for (BridgeLogEntry entry : events) {
+            int position = Collections.binarySearch(
+                cachedBridgeEvents,
+                entry,
+                Comparator.comparingInt(BridgeLogEntry::index)
+            );
+            if (position < 0) {
+                cachedBridgeEvents.add(-position - 1, entry);
             }
         }
     }

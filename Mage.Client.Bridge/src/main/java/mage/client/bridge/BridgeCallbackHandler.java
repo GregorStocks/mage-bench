@@ -2823,7 +2823,9 @@ public class BridgeCallbackHandler {
                 if (fetched != null && !fetched.isEmpty()) {
                     events = fetched;
                     newCursor = fetched.get(fetched.size() - 1).index() + 1;
-                    gameLogState.mergeFetchedBridgeEvents(fetched);
+                    // History reads may populate the fallback cache, but they must
+                    // not advance the live pull cursor used by pullBridgeEvents().
+                    gameLogState.cacheHistoryEvents(fetched);
                 }
             } catch (Exception e) {
                 logger.error("[" + client.getUsername() + "] Failed to fetch bridge events for history", e);
