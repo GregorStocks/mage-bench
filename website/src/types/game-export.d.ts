@@ -56,7 +56,7 @@ export interface GameExportV8 {
     [k: string]: string;
   };
   /**
-   * Map of card name to Scryfall metadata (oracle text, type line, mana cost, etc.). Present in version 3+ exports.
+   * Map of card name to Scryfall metadata (oracle text, type line, mana cost, etc.).
    */
   cardData?: {
     [k: string]: CardMetadata;
@@ -86,11 +86,11 @@ export interface GameExportV8 {
    */
   blunderScriptVersion: number;
   /**
-   * Season number. 0 = pre-season (harnessEpoch < SEASON_1_START_EPOCH), 1 = season 1. Present in version 4+ exports.
+   * Season number. 0 = pre-season (harnessEpoch < SEASON_1_START_EPOCH), 1 = season 1.
    */
   season: number;
   /**
-   * Tournament identifier, or null for non-tournament games. Present in version 4+ exports.
+   * Tournament identifier, or null for non-tournament games.
    */
   tournament: string | null;
   /**
@@ -175,7 +175,7 @@ export interface Snapshot {
    */
   seq: number;
   /**
-   * ISO timestamp (present in older exports, may be absent in newer ones).
+   * ISO timestamp for the snapshot, when recorded.
    */
   ts?: string;
   turn: number;

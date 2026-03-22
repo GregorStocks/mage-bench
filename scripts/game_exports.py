@@ -1,7 +1,7 @@
 """Shared raw helpers for game export files.
 
-These helpers intentionally avoid schema validation so migration and backfill
-scripts can operate on older export versions.
+These helpers intentionally avoid schema validation so backfill and repair
+scripts can rewrite committed exports without going through typed loaders.
 """
 
 import gzip

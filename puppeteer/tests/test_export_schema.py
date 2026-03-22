@@ -1,4 +1,4 @@
-"""Validate the per-version game-export JSON Schemas (structure, rejects bad input).
+"""Validate the current game-export JSON schema (structure, rejects bad input).
 
 Full per-game validation is in tests/weird/test_convention_exports.py::TestAllExportsValid.
 """
@@ -72,7 +72,7 @@ def _parse_built_export_path(path: Path) -> BuiltGameExport:
 
 
 def _minimal_export(version: int, **overrides) -> dict:
-    """Build a minimal valid export for the given version."""
+    """Build a minimal export payload for schema validation tests."""
     base = {
         "version": version,
         "id": f"test_v{version}",
@@ -187,165 +187,6 @@ def _assert_dataclass_matches_schema(
 
 
 class TestExportSchema:
-    def test_v2_schema_is_valid(self) -> None:
-        schema = _load_schema(2)
-        jsonschema.Draft7Validator.check_schema(schema)
-
-    def test_v3_schema_is_valid(self) -> None:
-        schema = _load_schema(3)
-        jsonschema.Draft7Validator.check_schema(schema)
-
-    def test_v4_schema_is_valid(self) -> None:
-        schema = _load_schema(4)
-        jsonschema.Draft7Validator.check_schema(schema)
-
-    def test_v2_schema_accepts_v2(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(2))
-        errors = list(validator.iter_errors(_minimal_export(2)))
-        assert errors == [], f"v2 should be valid: {errors}"
-
-    def test_v2_schema_rejects_v3(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(2))
-        errors = list(validator.iter_errors(_minimal_export(3)))
-        assert errors, "v2 schema should reject version 3"
-
-    def test_v3_schema_accepts_v3(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(3))
-        v3 = _minimal_export(
-            3,
-            cardData={
-                "Lightning Bolt": {
-                    "mana_cost": "{R}",
-                    "type_line": "Instant",
-                    "oracle_text": "Lightning Bolt deals 3 damage to any target.",
-                }
-            },
-        )
-        errors = list(validator.iter_errors(v3))
-        assert errors == [], f"v3 should be valid: {errors}"
-
-    def test_v3_schema_rejects_v4(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(3))
-        errors = list(validator.iter_errors(_minimal_export(4)))
-        assert errors, "v3 schema should reject version 4"
-
-    def test_v4_schema_accepts_v4_with_season_tournament(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(4))
-        v4 = _minimal_export(
-            4,
-            harnessEpoch=40,
-            season=1,
-            tournament=None,
-            cardData={
-                "Lightning Bolt": {
-                    "mana_cost": "{R}",
-                    "type_line": "Instant",
-                    "oracle_text": "Lightning Bolt deals 3 damage to any target.",
-                }
-            },
-        )
-        errors = list(validator.iter_errors(v4))
-        assert errors == [], f"v4 should be valid: {errors}"
-
-    def test_v4_schema_accepts_tournament_string(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(4))
-        v4 = _minimal_export(4, season=1, tournament="season-1-championship")
-        errors = list(validator.iter_errors(v4))
-        assert errors == [], f"v4 with tournament string should be valid: {errors}"
-
-    def test_v4_schema_rejects_v2(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(4))
-        errors = list(validator.iter_errors(_minimal_export(2)))
-        assert errors, "v4 schema should reject version 2"
-
-    def test_v5_schema_is_valid(self) -> None:
-        schema = _load_schema(5)
-        jsonschema.Draft7Validator.check_schema(schema)
-
-    def test_v5_schema_accepts_v5(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(5))
-        v5 = _minimal_export(5, season=1, tournament=None)
-        errors = list(validator.iter_errors(v5))
-        assert errors == [], f"v5 should be valid: {errors}"
-
-    def test_v5_schema_rejects_v4(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(5))
-        errors = list(validator.iter_errors(_minimal_export(4)))
-        assert errors, "v5 schema should reject version 4"
-
-    def test_v6_schema_is_valid(self) -> None:
-        schema = _load_schema(6)
-        jsonschema.Draft7Validator.check_schema(schema)
-
-    def test_v6_schema_accepts_v6(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(6))
-        v6 = _minimal_export(6, season=1, tournament=None)
-        errors = list(validator.iter_errors(v6))
-        assert errors == [], f"v6 should be valid: {errors}"
-
-    def test_v6_schema_rejects_v5(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(6))
-        errors = list(validator.iter_errors(_minimal_export(5)))
-        assert errors, "v6 schema should reject version 5"
-
-    def test_v6_schema_rejects_llm_trace(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(6))
-        v6_with_trace = _minimal_export(6, season=1, tournament=None, llmTrace=[])
-        errors = list(validator.iter_errors(v6_with_trace))
-        assert errors, "v6 schema should reject exports with llmTrace"
-
-    def test_v6_schema_rejects_empty_format_fields(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(6))
-        v6 = _minimal_export(6, season=1, tournament=None, gameType="", deckType="")
-        errors = list(validator.iter_errors(v6))
-        assert errors, "v6 schema should reject empty gameType/deckType"
-
-    def test_v7_schema_is_valid(self) -> None:
-        schema = _load_schema(7)
-        jsonschema.Draft7Validator.check_schema(schema)
-
-    def test_v7_schema_accepts_v7(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(7))
-        v7 = _minimal_export(
-            7,
-            season=1,
-            tournament=None,
-            players=[
-                {
-                    "name": "Alice",
-                    "type": "pilot",
-                    "model": "test/model",
-                    "toolCallsOk": 3,
-                    "toolCallsFailed": 1,
-                    "thinkingTimeSecs": 12.5,
-                }
-            ],
-        )
-        errors = list(validator.iter_errors(v7))
-        assert errors == [], f"v7 should be valid: {errors}"
-
-    def test_v7_schema_rejects_v6(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(7))
-        errors = list(validator.iter_errors(_minimal_export(6, season=1, tournament=None)))
-        assert errors, "v7 schema should reject version 6"
-
-    def test_v7_schema_rejects_player_missing_stats(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(7))
-        v7 = _minimal_export(
-            7,
-            season=1,
-            tournament=None,
-            players=[{"name": "Alice", "type": "pilot"}],
-        )
-        errors = list(validator.iter_errors(v7))
-        assert errors, "v7 schema should reject players without normalized stats"
-
-    def test_v7_schema_rejects_empty_format_fields(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(7))
-        v7 = _minimal_export(7, season=1, tournament=None, gameType="", deckType="")
-        errors = list(validator.iter_errors(v7))
-        assert errors, "v7 schema should reject empty gameType/deckType"
-
     def test_v8_schema_is_valid(self) -> None:
         schema = _load_schema(8)
         jsonschema.Draft7Validator.check_schema(schema)
@@ -399,7 +240,7 @@ class TestExportSchema:
         errors = list(validator.iter_errors(v8))
         assert errors == [], f"v8 should be valid: {errors}"
 
-    def test_v8_schema_rejects_v7(self) -> None:
+    def test_v8_schema_rejects_other_version_numbers(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(8))
         errors = list(validator.iter_errors(_minimal_export(7, season=1, tournament=None)))
         assert errors, "v8 schema should reject version 7"
@@ -436,8 +277,8 @@ class TestExportSchema:
         assert errors, "v8 schema should reject annotations without decisionIndex"
 
     def test_schema_rejects_missing_required_field(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(5))
-        bad = {"version": 5}
+        validator = jsonschema.Draft7Validator(_load_schema(8))
+        bad = {"version": 8}
         errors = list(validator.iter_errors(bad))
         assert len(errors) > 0
 

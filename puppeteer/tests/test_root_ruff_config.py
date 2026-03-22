@@ -7,7 +7,6 @@ from pathlib import Path
 import pytest
 
 _PLC0415_TARGET_PATTERNS = (
-    "schemas/migrations/*.py",
     "scripts/analysis/blunder_analysis.py",
     "scripts/analysis/blunder_audit.py",
     "scripts/analysis/blunder_audit_web.py",
@@ -21,7 +20,6 @@ _PLC0415_TARGET_PATTERNS = (
 )
 
 _PLC0415_TARGET_PATHS = (
-    "schemas/migrations",
     "scripts/analysis/blunder_analysis.py",
     "scripts/analysis/blunder_audit.py",
     "scripts/analysis/blunder_audit_web.py",
