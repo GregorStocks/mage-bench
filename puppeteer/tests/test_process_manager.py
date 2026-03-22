@@ -7,7 +7,7 @@ from unittest.mock import Mock
 import pytest
 
 from puppeteer import process_manager
-from puppeteer.process_manager import ProcessManager, jvm_oom_preexec_fn
+from puppeteer.process_manager import ProcessManager, jvm_oom_preexec_fn, kill_tree
 
 
 @pytest.fixture(autouse=True)
@@ -94,3 +94,56 @@ def test_start_jvm_process_passes_oom_preference_kwargs(monkeypatch: pytest.Monk
 
     pm.start_process(["echo", "hi"], cwd=tmp_path)
     assert "preexec_fn" not in popen.call_args_list[1].kwargs
+
+
+def test_kill_tree_terminates_only_tracked_descendants(monkeypatch: pytest.MonkeyPatch):
+    """kill_tree should terminate the target tree without sending process-group signals."""
+    parent = Mock()
+    child_one = Mock()
+    child_two = Mock()
+    parent.children.return_value = [child_one, child_two]
+
+    killpg = Mock(side_effect=AssertionError("killpg should not be used"))
+    wait_procs = Mock(return_value=([], []))
+    target_pid = 1234
+
+    def fake_process(pid: int) -> Mock:
+        assert pid == target_pid
+        return parent
+
+    monkeypatch.setattr(process_manager.os, "killpg", killpg, raising=False)
+    monkeypatch.setattr(process_manager.psutil, "Process", fake_process)
+    monkeypatch.setattr(process_manager.psutil, "wait_procs", wait_procs)
+
+    kill_tree(target_pid)
+
+    parent.children.assert_called_once_with(recursive=True)
+    child_one.terminate.assert_called_once_with()
+    child_two.terminate.assert_called_once_with()
+    parent.terminate.assert_called_once_with()
+    wait_procs.assert_called_once_with([child_one, child_two, parent], timeout=3)
+    killpg.assert_not_called()
+
+
+def test_kill_tree_force_kills_remaining_processes(monkeypatch: pytest.MonkeyPatch):
+    """kill_tree should escalate to SIGKILL for descendants that ignore terminate()."""
+    parent = Mock()
+    child = Mock()
+    parent.children.return_value = [child]
+    target_pid = 5678
+
+    def fake_process(pid: int) -> Mock:
+        assert pid == target_pid
+        return parent
+
+    monkeypatch.setattr(process_manager.psutil, "Process", fake_process)
+    monkeypatch.setattr(
+        process_manager.psutil,
+        "wait_procs",
+        Mock(return_value=([], [child, parent])),
+    )
+
+    kill_tree(target_pid)
+
+    child.kill.assert_called_once_with()
+    parent.kill.assert_called_once_with()

@@ -35,20 +35,9 @@ def jvm_oom_preexec_fn() -> Callable[[], object] | None:
 
 
 def kill_tree(pid: int) -> None:
-    """Kill a process and all its children."""
+    """Kill a process and its descendant tree without touching peer processes."""
     try:
         parent = psutil.Process(pid)
-
-        # If the target process is in a different process group, try
-        # terminating the entire group (avoid killing our own group).
-        if hasattr(os, "getpgrp") and hasattr(os, "getpgid") and hasattr(os, "killpg"):
-            try:
-                parent_pgid = os.getpgrp()
-                child_pgid = os.getpgid(pid)
-                if child_pgid != parent_pgid:
-                    os.killpg(child_pgid, signal.SIGTERM)
-            except (OSError, ProcessLookupError):
-                pass
 
         children = parent.children(recursive=True)
 

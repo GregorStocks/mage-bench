@@ -52,8 +52,8 @@ Return ONLY valid JSON — either `null` (no blunder) or a single annotation obj
 {\n\
   \"severity\": \"questionable\" | \"minor\" | \"moderate\" | \"major\",\n\
   \"description\": \"<what went wrong in concrete game terms>\",\n\
-  \"actionTaken\": \"<what they actually did>\",\n\
-  \"betterLine\": \"<what they should have done>\"\n\
+  \"action_taken\": \"<what they actually did>\",\n\
+  \"better_line\": \"<what they should have done>\"\n\
 }",
   "user": "## Game Overview\n\
 Game: dark_depths_combo\n\
