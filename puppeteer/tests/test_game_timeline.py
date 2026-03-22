@@ -1,4 +1,3 @@
-import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -6,21 +5,8 @@ from unittest.mock import patch
 
 import pytest
 
+import magebench.analysis.toolbox.game_timeline as game_timeline
 from magebench.game.game_export_types import GameStartEvent, Snapshot
-
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-GAME_TIMELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "toolbox" / "game_timeline.py"
-
-
-def _import_game_timeline():
-    spec = importlib.util.spec_from_file_location("game_timeline", GAME_TIMELINE_PATH)
-    assert spec and spec.loader
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
-
-
-game_timeline = _import_game_timeline()
 
 
 def _write_export(tmp_path: Path, *, annotated: bool = True) -> Path:

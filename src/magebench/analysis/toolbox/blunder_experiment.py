@@ -37,11 +37,6 @@ from typing import TypeAlias
 
 from openai import OpenAI
 
-from puppeteer.decision_renderer import (
-    chosen_display,
-    format_choice,
-)
-from magebench.game.game_export_types import BuiltGameExport, Decision, GameExport
 from magebench.analysis.blunder.blunder_context import game_overview
 from magebench.analysis.blunder.blunder_eval_common import (
     decision_index,
@@ -49,6 +44,11 @@ from magebench.analysis.blunder.blunder_eval_common import (
     load_game_for_annotation,
 )
 from magebench.analysis.blunder.extract_decisions import extract_decisions
+from magebench.game.game_export_types import BuiltGameExport, Decision, GameExport
+from puppeteer.decision_renderer import (
+    chosen_display,
+    format_choice,
+)
 
 GameData: TypeAlias = BuiltGameExport | GameExport
 

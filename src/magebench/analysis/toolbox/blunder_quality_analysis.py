@@ -284,9 +284,9 @@ def analyze_decision_accuracy(
     """
     print_section("DECISION ATTRIBUTION ANALYSIS")
 
-    MERGE_WINDOW = 3
+    merge_window = 3
     # Minimum word overlap fraction to consider two annotations about the same blunder
-    MIN_OVERLAP_FRAC = 0.25
+    min_overlap_frac = 0.25
 
     merge_candidates: list[tuple[str, list[int], dict[int, dict]]] = []
 
@@ -294,7 +294,7 @@ def analyze_decision_accuracy(
         game_data = consensus[game_id]
         consensus_decs = sorted(s for s, d in game_data.items() if d["is_consensus"])
 
-        # Find pairs of consensus decisions within MERGE_WINDOW
+        # Find pairs of consensus decisions within merge_window
         used: set[int] = set()
         for i, d1 in enumerate(consensus_decs):
             if d1 in used:
@@ -302,7 +302,7 @@ def analyze_decision_accuracy(
             group = [d1]
             for j in range(i + 1, len(consensus_decs)):
                 d2 = consensus_decs[j]
-                if d2 - d1 <= MERGE_WINDOW and d2 not in used:
+                if d2 - d1 <= merge_window and d2 not in used:
                     # Check description similarity
                     descs1 = [
                         a.get("description").lower()
@@ -326,7 +326,7 @@ def analyze_decision_accuracy(
                         words2.update(w for w in desc.split() if len(w) > 4)
                     if words1 and words2:
                         overlap = len(words1 & words2) / min(len(words1), len(words2))
-                        if overlap >= MIN_OVERLAP_FRAC:
+                        if overlap >= min_overlap_frac:
                             group.append(d2)
                             used.add(d2)
 
