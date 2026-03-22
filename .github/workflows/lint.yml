@@ -44,8 +44,8 @@ jobs:
 
       - name: Install agent-issues
         run: |
-          git clone --depth 1 https://github.com/GregorStocks/agent-issues.git ~/agent-issues
-          echo "$HOME/agent-issues/bin" >> $GITHUB_PATH
+          git clone --depth 1 https://github.com/GregorStocks/agent-issues.git ~/code/agent-issues
+          echo "$HOME/code/agent-issues/bin" >> $GITHUB_PATH
 
       - run: make lint
 
