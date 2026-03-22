@@ -119,7 +119,7 @@ public class BridgeCallbackHandler {
     private volatile PendingAction pendingAction = null;
     private BridgeChooseActionFlow pendingChooseActionFlow = null;
     private BridgePassPriorityFlow pendingPassPriorityFlow = null;
-    private final Object actionLock = new Object(); // For wait_for_action blocking
+    private final Object actionLock = new Object(); // Transitional pendingAction synchronization/notifications
     private volatile UUID currentGameId = null;
     private volatile UUID currentPlayerId = null; // retained after GAME_OVER for postgame fetches
     private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
@@ -352,6 +352,11 @@ public class BridgeCallbackHandler {
     private BridgeChooseActionFlowContext createChooseActionFlowContext() {
         return new BridgeChooseActionFlowContext() {
             @Override
+            public PendingAction currentPendingAction() {
+                return pendingAction;
+            }
+
+            @Override
             public PendingAction currentDecisionAction() {
                 return BridgeCallbackHandler.this.currentDecisionAction();
             }
@@ -372,7 +377,60 @@ public class BridgeCallbackHandler {
 
             @Override
             public BridgeChooseActionStartResult applyChooseAction(BridgeChooseActionInput input, PendingAction action) {
-                return BridgeCallbackHandler.this.applyChooseActionNow(input, action, false);
+                return BridgeCallbackHandler.this.applyChooseActionNow(input, action);
+            }
+
+            @Override
+            public String detectCombatSelect(PendingAction action) {
+                return BridgeCallbackHandler.this.detectCombatSelect(action);
+            }
+
+            @Override
+            public UUID resolveShortId(String shortId) {
+                return shortIds.resolve(shortId);
+            }
+
+            @Override
+            public Set<UUID> validTargets(PendingAction action) {
+                if (!(action.data() instanceof GameClientMessage targetMsg)) {
+                    return null;
+                }
+                return findValidTargets(targetMsg);
+            }
+
+            @Override
+            public boolean clearPendingActionIfCurrent(PendingAction action) {
+                return BridgeCallbackHandler.this.clearPendingActionIfCurrent(action);
+            }
+
+            @Override
+            public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
+                BridgeCallbackHandler.this.sendBooleanOrDie(gameId, data, sendContext);
+            }
+
+            @Override
+            public void sendUuidOrDie(UUID gameId, UUID data, String sendContext) {
+                BridgeCallbackHandler.this.sendUuidOrDie(gameId, data, sendContext);
+            }
+
+            @Override
+            public void sendStringOrDie(UUID gameId, String data, String sendContext) {
+                BridgeCallbackHandler.this.sendStringOrDie(gameId, data, sendContext);
+            }
+
+            @Override
+            public void clearLastChoices() {
+                lastChoices = null;
+            }
+
+            @Override
+            public ChooseActionTool.Result buildChooseActionError(
+                    ChooseActionTool.Result result,
+                    String errorCode,
+                    String message,
+                    boolean retryable,
+                    PendingAction action) {
+                return BridgeCallbackHandler.this.buildError(result, errorCode, message, retryable, action);
             }
 
             @Override
@@ -400,6 +458,19 @@ public class BridgeCallbackHandler {
                     + ",clientRunning=" + client.isRunning();
                 logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
                 logBridgeEvent("CHOOSE_ACTION_WAKEUP", previousAction.gameId(), summary);
+                attachUnseenChat(result);
+            }
+
+            @Override
+            public void finishBatchChooseActionWithNextDecision(
+                    ChooseActionTool.Result result,
+                    PendingAction nextAction) {
+                result.game_seq = nextAction.gameSeq();
+                mergeActionChoices(result, null, nextAction);
+            }
+
+            @Override
+            public void finishBatchChooseActionWithoutNextDecision(ChooseActionTool.Result result) {
                 attachUnseenChat(result);
             }
 
@@ -2271,18 +2342,6 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Build a human-readable error message from batch combat failed entries.
-     */
-    private String batchFailedMessage(List<Map<String, Object>> failed) {
-        var sb = new StringBuilder();
-        for (var entry : failed) {
-            if (sb.length() > 0) sb.append("; ");
-            sb.append(entry.get("id")).append(": ").append(entry.get("reason"));
-        }
-        return sb.toString();
-    }
-
-    /**
      * Respond to the current pending action with a specific choice.
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
@@ -2300,10 +2359,6 @@ public class BridgeCallbackHandler {
             attackers,
             blockersArray
         );
-        if (input.usesBatchCombat()) {
-            return processor.submit(BridgeCommand.of(() -> chooseActionBlockingImpl(input)));
-        }
-
         BridgeChooseActionFlow flow = processor.submit(BridgeCommand.of(() -> {
             if (pendingChooseActionFlow != null) {
                 return null;
@@ -2353,49 +2408,6 @@ public class BridgeCallbackHandler {
         }
     }
 
-    private ChooseActionTool.Result chooseActionBlockingImpl(BridgeChooseActionInput input) {
-        interactionsThisTurn++;
-        PendingAction action = pendingAction;
-
-        // Block until a pending action arrives (like pass_priority does).
-        // The LLM may call choose_action before the next callback arrives
-        // (e.g. double choose_action in one response, or calling it before
-        // pass_priority).
-        if (action == null) {
-            action = awaitPendingAction();
-            if (action == null) {
-                return chooseActionFlowContext.noPendingActionResult();
-            }
-        }
-
-        BridgeChooseActionStartResult startResult = applyChooseActionNow(input, action, true);
-        ChooseActionTool.Result result = startResult.result();
-        if (!startResult.waitForNextDecision()) {
-            return result;
-        }
-
-        // After successful action, block until the next real decision arrives.
-        // Transient callbacks that can be auto-resolved should not leak back to the model.
-        // awaitDecisionAction() can trigger sendBooleanOrDie/sendUuidOrDie via
-        // transitionToDecisionBoundary auto-resolve, so catch delivery failures here too.
-        try {
-            PendingAction next = awaitDecisionAction();
-            if (next != null) {
-                chooseActionFlowContext.finishChooseActionWithNextDecision(result, action, next);
-            } else {
-                chooseActionFlowContext.finishChooseActionWithoutNextDecision(result, action);
-            }
-        } catch (ResponseDeliveryException e) {
-            result.success = false;
-            result.error = e.getMessage();
-            result.error_code = "response_delivery_failed";
-            result.retryable = false;
-            attachUnseenChat(result);
-        }
-
-        return result;
-    }
-
     private static BridgeChooseActionStartResult chooseActionDone(ChooseActionTool.Result result) {
         return new BridgeChooseActionStartResult(result, false);
     }
@@ -2406,17 +2418,11 @@ public class BridgeCallbackHandler {
 
     private BridgeChooseActionStartResult applyChooseActionNow(
             BridgeChooseActionInput input,
-            PendingAction action,
-            boolean allowBatchCombat) {
-        if (!allowBatchCombat && input.usesBatchCombat()) {
-            throw new IllegalStateException("Batch combat choose_action must use the blocking path");
-        }
+            PendingAction action) {
         var result = new ChooseActionTool.Result();
         result.game_seq = action.gameSeq();
         // Local copies of parameters that may be nulled/reassigned during validation
         Integer resolvedIndex = input.index();
-        String[] effectiveAttackers = input.attackers();
-        String[] effectiveBlockers = input.blockers();
         String[] effectiveManaPlan = input.manaPlan();
         String id = input.id();
         Boolean answer = input.answer();
@@ -2445,30 +2451,6 @@ public class BridgeCallbackHandler {
             result.action_taken = "auto_passed_loop_detected";
             result.warning = "Too many interactions this turn (" + interactionsThisTurn + "). Auto-passing until next turn.";
             return chooseActionDone(result);
-        }
-
-        // Batch combat: attackers
-        if (allowBatchCombat && effectiveAttackers != null && effectiveAttackers.length > 0) {
-            String combatType = detectCombatSelect(action);
-            if ("attackers".equals(combatType)) {
-                return chooseActionDone(handleBatchAttackers(effectiveAttackers, action, result));
-            }
-            // Not in declare_attackers — ignore the param and fall through
-            logger.warn("[" + client.getUsername() + "] choose_action: ignoring attackers param (not in declare_attackers)");
-            result.warning = "Ignored attackers parameter (not in declare_attackers phase)";
-            effectiveAttackers = null;
-        }
-
-        // Batch combat: blockers
-        if (allowBatchCombat && effectiveBlockers != null && effectiveBlockers.length > 0) {
-            String combatType = detectCombatSelect(action);
-            if ("blockers".equals(combatType)) {
-                return chooseActionDone(handleBatchBlockers(effectiveBlockers, action, result));
-            }
-            // Not in declare_blockers — ignore the param and fall through
-            logger.warn("[" + client.getUsername() + "] choose_action: ignoring blockers param (not in declare_blockers)");
-            result.warning = "Ignored blockers parameter (not in declare_blockers phase)";
-            effectiveBlockers = null;
         }
 
         ClientCallbackMethod method = action.method();
@@ -3032,74 +3014,9 @@ public class BridgeCallbackHandler {
         }
     }
 
-    // ── Batch combat ──────────────────────────────────────────────────────
-
-    /**
-     * Transitional step-4 behavior: the remaining batch-combat choose_action
-     * helpers still block on the
-     * processor thread while waiting for later callbacks. In that state we must
-     * keep pumping callback events instead of sleeping on actionLock, otherwise
-     * the processor deadlocks waiting on the very callbacks it is supposed to
-     * consume.
-     *
-     * TODO: Remove this once batch combat becomes a split-phase processor
-     * request that suspends via processor-owned state and future completion
-     * rather than monopolizing the processor thread.
-     */
-    private boolean waitForCallbackProgress(long timeoutMs) {
-        if (processor.isProcessorThread()) {
-            return processor.processNextCallback(timeoutMs);
-        }
-        synchronized (actionLock) {
-            try {
-                actionLock.wait(timeoutMs);
-                return true;
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return false;
-            }
-        }
-    }
-
-    /**
-     * Block indefinitely until a pending action arrives or the game ends.
-     * Shared by the remaining blocking batch-combat choose_action path.
-     */
-    private PendingAction awaitPendingAction() {
-        while (pendingAction == null) {
-            if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                break;
-            }
-            if (!waitForCallbackProgress(200) && Thread.currentThread().isInterrupted()) {
-                break;
-            }
-        }
-        return pendingAction;
-    }
-
-    /**
-     * Block until the next real player decision is pending.
-     * Auto-resolves deterministic non-decisions (for example single-target mandatory
-     * selections) instead of returning them to the model. Used by the remaining
-     * blocking batch-combat choose_action path.
-     */
-    private PendingAction awaitDecisionAction() {
-        while (true) {
-            PendingAction action = awaitPendingAction();
-            if (action == null) {
-                return null;
-            }
-            DecisionBoundaryTransition transition =
-                transitionToDecisionBoundary(action, "awaitDecisionAction");
-            if (transition.status() == DecisionBoundaryStatus.READY) {
-                return transition.action();
-            }
-        }
-    }
-
     /**
      * Inspect the current pending action and auto-resolve any deterministic
-     * non-decision callbacks. Unlike awaitDecisionAction(), this does not block.
+     * non-decision callbacks without waiting for a future callback.
      */
     private PendingAction currentDecisionAction() {
         while (true) {
@@ -3114,375 +3031,6 @@ public class BridgeCallbackHandler {
             }
         }
     }
-
-    /**
-     * Wait for the next pending action callback from the server.
-     * Used internally by batch combat to chain multiple send→wait cycles.
-     * Returns the new PendingAction, or null on timeout.
-     */
-    private PendingAction waitForNextCallback() {
-        long waitStart = System.currentTimeMillis();
-        while (true) {
-            PendingAction next = pendingAction;
-            if (next != null) {
-                return next;
-            }
-            if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                return null;
-            }
-            if (System.currentTimeMillis() - waitStart > 10_000) {
-                logger.warn("[" + client.getUsername() + "] waitForNextCallback: timed out after 10s");
-                return null;
-            }
-            if (!waitForCallbackProgress(200) && Thread.currentThread().isInterrupted()) {
-                return null;
-            }
-        }
-    }
-
-    /**
-     * Declare multiple attackers in one batch.
-     * Sends each attacker UUID, waits for the next GAME_SELECT, then confirms.
-     * Special case: attackers=["all"] sends the "special" all-attack button.
-     */
-    @SuppressWarnings("unchecked")
-    private ChooseActionTool.Result handleBatchAttackers(String[] attackerIds, PendingAction action, ChooseActionTool.Result result) {
-        try {
-            return handleBatchAttackersBody(attackerIds, action, result);
-        } catch (ResponseDeliveryException e) {
-            result.success = false;
-            result.error = e.getMessage();
-            result.error_code = "response_delivery_failed";
-            result.retryable = false;
-            attachUnseenChat(result);
-            return result;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private ChooseActionTool.Result handleBatchAttackersBody(String[] attackerIds, PendingAction action, ChooseActionTool.Result result) {
-        UUID gameId = action.gameId();
-        var declared = new ArrayList<Map<String, Object>>();
-        var failed = new ArrayList<Map<String, Object>>();
-
-        // Special case: "all" attack
-        if (attackerIds.length == 1 && "all".equals(attackerIds[0])) {
-            synchronized (actionLock) {
-                if (pendingAction == action) {
-                    pendingAction = null;
-                }
-            }
-            sendStringOrDie(gameId, "special", "batchAttack:all");
-            // Wait for next callback (server will send a new GAME_SELECT to confirm)
-            PendingAction next = waitForNextCallback();
-            if (next != null && next.method() == ClientCallbackMethod.GAME_SELECT) {
-                synchronized (actionLock) {
-                    if (pendingAction == next) {
-                        pendingAction = null;
-                    }
-                }
-                sendBooleanOrDie(gameId, true, "batchAttack:confirm_all");
-            }
-            result.success = true;
-            result.action_taken = "batch_attack";
-            declared.add(Map.of("id", "all"));
-            result.declared = new ArrayList<>(declared);
-            lastChoices = null;
-            waitForNextActionAfterBatch(result);
-            return result;
-        }
-
-        // Get possibleAttackers from the current action's options
-        GameClientMessage gcm = (GameClientMessage) action.data();
-        Map<String, Serializable> options = gcm.getOptions();
-        List<UUID> possibleAttackerUuids = (List<UUID>) options.get("possibleAttackers");
-
-        for (String shortId : attackerIds) {
-            UUID attackerUuid;
-            try {
-                attackerUuid = shortIds.resolve(shortId);
-            } catch (IllegalArgumentException e) {
-                failed.add(Map.of("id", shortId, "reason", "unknown short ID"));
-                continue;
-            }
-
-            // Verify this attacker is in the possible list
-            if (possibleAttackerUuids == null || !possibleAttackerUuids.contains(attackerUuid)) {
-                failed.add(Map.of("id", shortId, "reason", "not a valid attacker"));
-                continue;
-            }
-
-            // Clear pending action and send the attacker UUID
-            synchronized (actionLock) {
-                if (pendingAction != null) {
-                    pendingAction = null;
-                }
-            }
-            sendUuidOrDie(gameId, attackerUuid, "batchAttack:declare_attacker");
-            declared.add(Map.of("id", shortId));
-
-            // Wait for next callback
-            PendingAction next = waitForNextCallback();
-            if (next == null) {
-                result.interrupted = true;
-                break;
-            }
-            if (next.method() != ClientCallbackMethod.GAME_SELECT) {
-                // Interrupted by a trigger or other callback
-                result.interrupted = true;
-                break;
-            }
-            // Update possibleAttackers from the new callback for validation
-            if (next.data() instanceof GameClientMessage nextGcm) {
-                Map<String, Serializable> nextOptions = nextGcm.getOptions();
-                if (nextOptions != null && nextOptions.containsKey("possibleAttackers")) {
-                    possibleAttackerUuids = (List<UUID>) nextOptions.get("possibleAttackers");
-                }
-            }
-        }
-
-        // Confirm attackers (send true)
-        if (!Boolean.TRUE.equals(result.interrupted)) {
-            synchronized (actionLock) {
-                if (pendingAction != null) {
-                    pendingAction = null;
-                }
-            }
-            sendBooleanOrDie(gameId, true, "batchAttack:confirm");
-        }
-
-        result.success = !Boolean.TRUE.equals(result.interrupted) && failed.isEmpty();
-        result.action_taken = "batch_attack";
-        result.declared = new ArrayList<>(declared);
-        if (!failed.isEmpty()) {
-            result.failed = new ArrayList<>(failed);
-            result.error = batchFailedMessage(failed);
-            result.error_code = "batch_failed";
-            result.retryable = true;
-        }
-        lastChoices = null;
-        waitForNextActionAfterBatch(result);
-        return result;
-    }
-
-    /**
-     * Declare multiple blockers in one batch.
-     * Format: [{"id":"p5","blocks":"p1"},{"id":"p6","blocks":"p2"}]
-     * Sends each blocker UUID, then the attacker UUID when prompted, then confirms.
-     */
-    @SuppressWarnings("unchecked")
-    private ChooseActionTool.Result handleBatchBlockers(String[] blockersArray, PendingAction action, ChooseActionTool.Result result) {
-        try {
-            return handleBatchBlockersBody(blockersArray, action, result);
-        } catch (ResponseDeliveryException e) {
-            result.success = false;
-            result.error = e.getMessage();
-            result.error_code = "response_delivery_failed";
-            result.retryable = false;
-            attachUnseenChat(result);
-            return result;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private ChooseActionTool.Result handleBatchBlockersBody(String[] blockersArray, PendingAction action, ChooseActionTool.Result result) {
-        UUID gameId = action.gameId();
-        var declared = new ArrayList<Map<String, Object>>();
-        var failed = new ArrayList<Map<String, Object>>();
-
-        // Parse blocker assignments
-        // Expected: ["p5:p1","p6:p2"] (blocker_id:attacker_id)
-        List<Map<String, String>> assignments;
-        try {
-            assignments = parseBlockerAssignments(blockersArray);
-        } catch (IllegalArgumentException e) {
-            return buildError(result, "invalid_blockers",
-                "Invalid blockers: " + e.getMessage()
-                + ". Expected: [\"blocker:attacker\",...]", false, action);
-        }
-
-        // Get possibleBlockers from the current action's options
-        GameClientMessage gcm = (GameClientMessage) action.data();
-        Map<String, Serializable> options = gcm.getOptions();
-        List<UUID> possibleBlockerUuids = (List<UUID>) options.get("possibleBlockers");
-
-        for (Map<String, String> assignment : assignments) {
-            String blockerShortId = assignment.get("id");
-            String attackerShortId = assignment.get("blocks");
-
-            UUID blockerUuid;
-            try {
-                blockerUuid = shortIds.resolve(blockerShortId);
-            } catch (IllegalArgumentException e) {
-                failed.add(Map.of("id", blockerShortId, "reason", "unknown short ID"));
-                continue;
-            }
-
-            // Verify this blocker is in the possible list
-            if (possibleBlockerUuids == null || !possibleBlockerUuids.contains(blockerUuid)) {
-                failed.add(Map.of("id", blockerShortId, "reason", "not a valid blocker"));
-                continue;
-            }
-
-            // Clear pending action and send the blocker UUID
-            synchronized (actionLock) {
-                if (pendingAction != null) {
-                    pendingAction = null;
-                }
-            }
-            sendUuidOrDie(gameId, blockerUuid, "batchBlock:declare_blocker");
-
-            // Wait for next callback — could be GAME_TARGET (pick which attacker)
-            // or GAME_SELECT (single attacker, auto-assigned)
-            PendingAction next = waitForNextCallback();
-            if (next == null) {
-                result.interrupted = true;
-                break;
-            }
-
-            if (next.method() == ClientCallbackMethod.GAME_TARGET) {
-                // Multiple attackers — server asks which one to block
-                UUID attackerUuid;
-                try {
-                    attackerUuid = shortIds.resolve(attackerShortId);
-                } catch (IllegalArgumentException e) {
-                    failed.add(Map.of("id", blockerShortId, "reason", "unknown attacker ID: " + attackerShortId));
-                    // Cancel the target selection
-                    synchronized (actionLock) {
-                        if (pendingAction == next) {
-                            pendingAction = null;
-                        }
-                    }
-                    sendBooleanOrDie(gameId, false, "batchBlock:cancel_unknown_attacker");
-                    next = waitForNextCallback();
-                    if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                        result.interrupted = true;
-                        break;
-                    }
-                    continue;
-                }
-
-                // Verify the attacker UUID is a valid target
-                GameClientMessage targetMsg = (GameClientMessage) next.data();
-                Set<UUID> validTargets = findValidTargets(targetMsg);
-                if (validTargets == null || !validTargets.contains(attackerUuid)) {
-                    failed.add(Map.of("id", blockerShortId, "reason",
-                        "attacker " + attackerShortId + " is not a valid block target"));
-                    synchronized (actionLock) {
-                        if (pendingAction == next) {
-                            pendingAction = null;
-                        }
-                    }
-                    sendBooleanOrDie(gameId, false, "batchBlock:cancel_invalid_target");
-                    next = waitForNextCallback();
-                    if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                        result.interrupted = true;
-                        break;
-                    }
-                    continue;
-                }
-
-                // Send the attacker UUID as the target
-                synchronized (actionLock) {
-                    if (pendingAction == next) {
-                        pendingAction = null;
-                    }
-                }
-                sendUuidOrDie(gameId, attackerUuid, "batchBlock:select_attacker");
-                declared.add(Map.of("id", blockerShortId, "blocks", attackerShortId));
-
-                // Wait for next GAME_SELECT (back to blocker selection)
-                next = waitForNextCallback();
-                if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                    result.interrupted = true;
-                    break;
-                }
-
-                // Update possibleBlockers from the new callback
-                if (next.data() instanceof GameClientMessage nextGcm) {
-                    Map<String, Serializable> nextOptions = nextGcm.getOptions();
-                    if (nextOptions != null && nextOptions.containsKey("possibleBlockers")) {
-                        possibleBlockerUuids = (List<UUID>) nextOptions.get("possibleBlockers");
-                    }
-                }
-            } else if (next.method() == ClientCallbackMethod.GAME_SELECT) {
-                // Single attacker — auto-assigned by the server (lines 3010-3024 in handleCallback)
-                declared.add(Map.of("id", blockerShortId, "blocks", attackerShortId));
-
-                // Update possibleBlockers from the new callback
-                if (next.data() instanceof GameClientMessage nextGcm2) {
-                    Map<String, Serializable> nextOptions = nextGcm2.getOptions();
-                    if (nextOptions != null && nextOptions.containsKey("possibleBlockers")) {
-                        possibleBlockerUuids = (List<UUID>) nextOptions.get("possibleBlockers");
-                    }
-                }
-            } else {
-                // Interrupted by unexpected callback
-                result.interrupted = true;
-                break;
-            }
-        }
-
-        // Confirm blockers (send true)
-        if (!Boolean.TRUE.equals(result.interrupted)) {
-            synchronized (actionLock) {
-                if (pendingAction != null) {
-                    pendingAction = null;
-                }
-            }
-            sendBooleanOrDie(gameId, true, "batchBlock:confirm");
-        }
-
-        result.success = !Boolean.TRUE.equals(result.interrupted) && failed.isEmpty();
-        result.action_taken = "batch_block";
-        result.declared = new ArrayList<>(declared);
-        if (!failed.isEmpty()) {
-            result.failed = new ArrayList<>(failed);
-            result.error = batchFailedMessage(failed);
-            result.error_code = "batch_failed";
-            result.retryable = true;
-        }
-        lastChoices = null;
-        waitForNextActionAfterBatch(result);
-        return result;
-    }
-
-    /**
-     * Parse blocker assignments: ["p5:p1","p6:p2"] where each entry is "blocker_id:attacker_id".
-     */
-    private List<Map<String, String>> parseBlockerAssignments(String[] arr) {
-        var assignments = new ArrayList<Map<String, String>>();
-        for (int i = 0; i < arr.length; i++) {
-            String entry = arr[i];
-            int colonIdx = entry.indexOf(':');
-            if (colonIdx < 0) {
-                throw new IllegalArgumentException("blockers entry " + i + " must be \"blocker:attacker\", got: " + entry);
-            }
-            String blockerId = entry.substring(0, colonIdx);
-            String attackerId = entry.substring(colonIdx + 1);
-            if (blockerId.isEmpty() || attackerId.isEmpty()) {
-                throw new IllegalArgumentException("blockers entry " + i + " has empty id in: " + entry);
-            }
-            assignments.add(Map.of("id", blockerId, "blocks", attackerId));
-        }
-        return assignments;
-    }
-
-    /**
-     * After batch combat, block until the next pending action arrives.
-     * Populates full ActionResult fields via mergeActionChoices.
-     */
-    private void waitForNextActionAfterBatch(ChooseActionTool.Result result) {
-        PendingAction next = awaitDecisionAction();
-        if (next != null) {
-            result.game_seq = next.gameSeq();
-            mergeActionChoices(result, null, next);
-        } else {
-            attachUnseenChat(result);
-        }
-    }
-
-    // ── End batch combat ──────────────────────────────────────────────────
 
     /** Populate target info and return the resolved CardView (null if target is a player or unknown). */
     private CardView buildTargetInfo(Map<String, Object> entry, UUID targetId,

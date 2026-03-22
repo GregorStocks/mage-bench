@@ -36,6 +36,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -1007,6 +1008,193 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void batchChooseActionAttackersDoesNotMonopolizeProcessorThreadWhileWaiting() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID attackerUuid = UUID.randomUUID();
+        CountDownLatch sendPlayerUuidCalled = new CountDownLatch(1);
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView combatView = gameView(45);
+        GameView confirmView = gameView(46);
+        GameView nextDecisionView = gameView(47);
+
+        registerShortId(handler, attackerUuid, "p1");
+
+        var combatOptions = new LinkedHashMap<String, Serializable>();
+        combatOptions.put("possibleAttackers", new ArrayList<>(List.of(attackerUuid)));
+        GameClientMessage combatMessage = new GameClientMessage(combatView, combatOptions, "Declare attackers");
+        GameClientMessage confirmMessage = new GameClientMessage(confirmView, Collections.<String, Serializable>emptyMap(), "Declare attackers");
+        GameClientMessage nextDecisionMessage = new GameClientMessage(
+            nextDecisionView,
+            Collections.<String, Serializable>emptyMap(),
+            "Play spells and abilities"
+        );
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerUUID" -> {
+                        sendPlayerUuidCalls.incrementAndGet();
+                        sendPlayerUuidCalled.countDown();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(attackerUuid);
+                        return true;
+                    }
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(true);
+                        enqueueCallback(handler, ClientCallbackMethod.GAME_SELECT, gameId, nextDecisionMessage);
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", combatView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            combatMessage,
+            "Declare attackers",
+            45
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ChooseActionTool.Result> future = executor.submit(() -> handler.chooseAction(
+                null, null, null, null, null, null, null, null, null, new String[]{"p1"}, null
+            ));
+
+            assertThat(sendPlayerUuidCalled.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            handler.awaitProcessorIdle();
+
+            enqueueCallback(handler, ClientCallbackMethod.GAME_SELECT, gameId, confirmMessage);
+
+            ChooseActionTool.Result result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerUuidCalls.get()).isEqualTo(1);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.success).isTrue();
+            assertThat(result.action_taken).isEqualTo("batch_attack");
+            assertThat(result.declared).containsExactly(Map.of("id", "p1"));
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.game_seq).isEqualTo(47);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void batchChooseActionBlockersHandlesTargetPromptAndReturnsNextDecision() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID blockerUuid = UUID.randomUUID();
+        UUID attackerUuid = UUID.randomUUID();
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView combatView = gameView(48);
+        GameView targetView = gameView(49);
+        GameView returnSelectView = gameView(50);
+        GameView nextDecisionView = gameView(51);
+
+        registerShortId(handler, blockerUuid, "p5");
+        registerShortId(handler, attackerUuid, "p1");
+
+        var combatOptions = new LinkedHashMap<String, Serializable>();
+        combatOptions.put("possibleBlockers", new ArrayList<>(List.of(blockerUuid)));
+        GameClientMessage combatMessage = new GameClientMessage(combatView, combatOptions, "Declare blockers");
+        GameClientMessage targetMessage = new GameClientMessage(
+            targetView,
+            Collections.<String, Serializable>emptyMap(),
+            "Choose attacker to block",
+            new CardsView(),
+            Set.of(attackerUuid),
+            true
+        );
+        GameClientMessage returnSelectMessage = new GameClientMessage(
+            returnSelectView,
+            Collections.<String, Serializable>emptyMap(),
+            "Declare blockers"
+        );
+        GameClientMessage nextDecisionMessage = new GameClientMessage(
+            nextDecisionView,
+            Collections.<String, Serializable>emptyMap(),
+            "Play spells and abilities"
+        );
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerUUID" -> {
+                        sendPlayerUuidCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        if (sendPlayerUuidCalls.get() == 1) {
+                            assertThat(args[1]).isEqualTo(blockerUuid);
+                            enqueueCallback(handler, ClientCallbackMethod.GAME_TARGET, gameId, targetMessage);
+                        } else {
+                            assertThat(sendPlayerUuidCalls.get()).isEqualTo(2);
+                            assertThat(args[1]).isEqualTo(attackerUuid);
+                            enqueueCallback(handler, ClientCallbackMethod.GAME_SELECT, gameId, returnSelectMessage);
+                        }
+                        return true;
+                    }
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(true);
+                        enqueueCallback(handler, ClientCallbackMethod.GAME_SELECT, gameId, nextDecisionMessage);
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", combatView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            combatMessage,
+            "Declare blockers",
+            48
+        ));
+
+        ChooseActionTool.Result result = handler.chooseAction(
+            null, null, null, null, null, null, null, null, null, null, new String[]{"p5:p1"}
+        );
+
+        assertThat(sendPlayerUuidCalls.get()).isEqualTo(2);
+        assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+        assertThat(result.success).isTrue();
+        assertThat(result.action_taken).isEqualTo("batch_block");
+        assertThat(result.declared).containsExactly(Map.of("id", "p5", "blocks", "p1"));
+        assertThat(result.action_pending).isTrue();
+        assertThat(result.game_seq).isEqualTo(51);
+    }
+
+    @Test
     void chooseActionReturnsAfterClientStopWithoutFollowupCallback() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -1749,6 +1937,11 @@ class BridgeCallbackHandlerTest {
     private static void addActiveGame(BridgeCallbackHandler handler, UUID gameId) throws Exception {
         Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
         activeGames.put(gameId, UUID.randomUUID());
+    }
+
+    private static void registerShortId(BridgeCallbackHandler handler, UUID uuid, String shortId) throws Exception {
+        ShortIdRegistry shortIds = (ShortIdRegistry) getField(handler, "shortIds");
+        shortIds.register(uuid, shortId);
     }
 
     private static void enqueueCallback(

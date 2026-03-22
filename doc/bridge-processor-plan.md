@@ -225,68 +225,59 @@ the adapter instead of polishing it.
 
 This step cashes in the simplification. It should shrink the handler and the processor core meaningfully.
 
-#### Current checkpoint after the non-batch `choose_action` flow
+#### Current checkpoint after the batch-combat `choose_action` flow
 
-After the split-phase non-batch `choose_action` work lands, steps 1-3 are
-substantially complete, but step 4 is not. The main remaining transitional
-behavior is the batch-combat `choose_action` path, which still blocks and pumps
-callbacks from inside `BridgeCallbackHandler`.
+After the split-phase batch-combat `choose_action` work lands, the last
+processor-owning wait loop should be gone:
 
-That remaining path currently keeps these escape hatches alive:
+- batch attackers/blockers no longer block inside `BridgeCallbackHandler`
+- `choose_action` no longer has a separate blocking implementation
+- `BridgeProcessor.processNextCallback(...)` and deferred nested-command
+  draining should be deleted
 
-- `waitForCallbackProgress(...)`
-- `awaitPendingAction()`
-- `awaitDecisionAction()`
-- `waitForNextCallback()`
-- `BridgeProcessor.processNextCallback(...)`
-- deferred nested-command draining in `BridgeProcessor`
+At that point, the processor refactor is past the behavioral transition. The
+main remaining work is structural cleanup: too much processor-owned state and
+helper logic still lives in `BridgeCallbackHandler`, and the processor-side
+flows still reach back through broad context adapters.
 
-Those pieces should be treated as temporary compatibility scaffolding, not as
-part of the desired processor design.
-
-#### Expected remaining PRs after the current `choose_action` PR
+#### Expected remaining PRs after the batch-combat `choose_action` PR
 
 Recommended minimum:
 
-- **One required PR** to finish step 4's behavioral transition:
-  convert batch-combat `choose_action` to a split-phase processor-owned flow so
-  no MCP command needs to block while "owning" the processor thread.
 - **One required PR** to finish step 4's structural cleanup:
-  delete the now-unused callback-pumping machinery, move remaining
-  processor-owned state/helpers out of `BridgeCallbackHandler`, and remove the
-  broad flow-context adapters.
+  move remaining processor-owned state/helpers out of
+  `BridgeCallbackHandler`, remove large adapters like
+  `createPassPriorityFlowContext()` / `createChooseActionFlowContext()`, and
+  delete leftover synchronization/notification plumbing that only exists for
+  the old shared-state model.
 - **One optional PR** for step 5:
   published immutable snapshots / append-only log read model.
 
-In other words: after the current PR, expect **2 required PRs** to finish the
-core processor refactor, plus **1 optional followup PR** if the published read
-model still looks worthwhile.
+In other words: after the batch-combat `choose_action` PR, expect
+**1 required PR** to finish the core processor refactor, plus
+**1 optional followup PR** if the published read model still looks worthwhile.
 
 #### Recommended split of the remaining required work
 
-The remaining required work should stay split. Do not combine it into one large
-cleanup PR.
+Keep the remaining required work focused on ownership cleanup, not behavior
+changes.
 
 Recommended cut:
 
-- **PR A: Batch combat split-phase flow**
-  Replace the remaining blocking batch-combat `choose_action` path with a
-  processor-owned flow that suspends via processor state and future completion
-  instead of callback-pumping waits.
-- **PR B: Delete transitional machinery and shrink the handler**
-  Remove `waitForCallbackProgress(...)`, `awaitPendingAction()`,
-  `awaitDecisionAction()`, `waitForNextCallback()`,
-  `BridgeProcessor.processNextCallback(...)`, and deferred nested-command
-  draining once nothing depends on them. In the same PR, move remaining
-  processor-owned helper/state ownership out of `BridgeCallbackHandler` and
-  delete adapters like `createPassPriorityFlowContext()` and
-  `createChooseActionFlowContext()`.
+- **PR C: Move processor ownership out of the handler**
+  Introduce a real processor-owned state/service boundary so flows stop
+  depending on broad handler facades. Move the remaining processor-owned helper
+  logic and mutable state out of `BridgeCallbackHandler`, then delete adapters
+  like `createPassPriorityFlowContext()` and `createChooseActionFlowContext()`.
+- **PR C (same PR if reviewable, or followup cleanup commit):**
+  remove any leftover `actionLock` notifications, extra `volatile` fields, and
+  similar transitional synchronization that no longer has a real waiter or
+  cross-thread consumer.
 
-If PR B turns out larger than expected in review, split it again:
+If PR C turns out too large in review, split it again:
 
-- **PR B1:** delete the now-unused blocking/callback-pumping machinery
-- **PR B2:** move remaining processor-owned helpers/state out of the handler and
-  remove the context adapters
+- **PR C1:** move processor-owned state/helpers out of `BridgeCallbackHandler`
+- **PR C2:** delete the now-obsolete synchronization/notification scaffolding
 
 ### Step 5: Published Read Model / Append-Only Log
 
