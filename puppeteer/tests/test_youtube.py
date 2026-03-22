@@ -7,9 +7,9 @@ from unittest.mock import patch
 
 import pytest
 
+from magebench.common.json5_utils import loads_json5
 from puppeteer.post_game_analysis import save_youtube_url, update_website_youtube_url, upload_and_export
 from scripts.export_game import GameExportError, export_game
-from scripts.json5_utils import loads_json5
 from scripts.upload_youtube import (
     YouTubeUploadError,
     _build_description,
