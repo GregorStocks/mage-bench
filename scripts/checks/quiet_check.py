@@ -3,7 +3,10 @@
 Pass -v for verbose (sequential) output.
 
 Independent targets run in parallel by default. Website/npm-backed targets run
-sequentially to avoid contending over `website/node_modules`.
+sequentially to avoid contending over ``website/node_modules``.
+
+On non-master branches, targets are skipped when their input files haven't
+changed relative to origin/master. Set CHECK_ALL=1 to force all targets.
 """
 
 import os
@@ -47,6 +50,111 @@ RECURSIVE_MAKE_ENV_VARS = (
     "MFLAGS",
 )
 
+# Maps each target to path prefixes and suffixes that should trigger it.
+# A target runs if ANY changed file matches ANY of its triggers.
+# Prefix matches use startswith; suffix matches (starting with *) use endswith.
+TARGET_TRIGGERS: dict[str, list[str]] = {
+    "lint": ["puppeteer/", "scripts/", "schemas/", "src/", "issues/"],
+    "lint-java": ["Mage.", "pom.xml"],
+    "lint-website": ["website/"],
+    "lint-md": ["*.md"],
+    "astro-check": ["website/"],
+    "format-check": ["puppeteer/", "scripts/", "schemas/", "src/"],
+    "typecheck": ["puppeteer/", "scripts/", "schemas/", "src/"],
+    "test": ["puppeteer/", "scripts/", "schemas/", "src/", "website/public/games/"],
+    "test-js": ["website/"],
+    "verify-decks": ["Mage.", "pom.xml"],
+    "verify-schema-types": ["schemas/", "src/magebench/game/", "website/src/types/"],
+}
+
+# Files that, if changed, force all targets to run.
+ALWAYS_RUN_TRIGGERS = ["Makefile", "scripts/checks/", "pyproject.toml"]
+
+
+def _file_matches(path: str, triggers: list[str]) -> bool:
+    for trigger in triggers:
+        if trigger.startswith("*"):
+            if path.endswith(trigger[1:]):
+                return True
+        elif path.startswith(trigger):
+            return True
+    return False
+
+
+def _changed_files_vs_master() -> list[str] | None:
+    """Return files changed on this branch vs origin/master, or None to run all."""
+    if os.environ.get("CHECK_ALL") == "1":
+        return None
+
+    try:
+        head = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL
+        ).strip()
+        master = subprocess.check_output(
+            ["git", "rev-parse", "origin/master"],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except subprocess.CalledProcessError:
+        return None
+
+    if head == master:
+        return None
+
+    try:
+        merge_base = subprocess.check_output(
+            ["git", "merge-base", "origin/master", "HEAD"],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except subprocess.CalledProcessError:
+        return None
+
+    # Include both committed and uncommitted changes
+    committed = subprocess.check_output(
+        ["git", "diff", "--name-only", merge_base, "HEAD"], text=True
+    ).strip()
+    uncommitted = subprocess.check_output(
+        ["git", "diff", "--name-only", "HEAD"], text=True
+    ).strip()
+    untracked = subprocess.check_output(
+        ["git", "ls-files", "--others", "--exclude-standard"], text=True
+    ).strip()
+
+    files: set[str] = set()
+    for block in (committed, uncommitted, untracked):
+        if block:
+            files.update(block.splitlines())
+
+    return sorted(files)
+
+
+def _targets_to_run(targets: list[str]) -> tuple[list[str], list[str]]:
+    """Return (targets_to_run, targets_to_skip)."""
+    changed = _changed_files_vs_master()
+    if changed is None:
+        return targets, []
+
+    if not changed:
+        return [], targets
+
+    # Check if any always-run trigger files changed
+    for path in changed:
+        if _file_matches(path, ALWAYS_RUN_TRIGGERS):
+            return targets, []
+
+    to_run = []
+    to_skip = []
+    for target in targets:
+        triggers = TARGET_TRIGGERS.get(target)
+        assert triggers is not None, f"no triggers defined for target {target!r}"
+        if any(_file_matches(path, triggers) for path in changed):
+            to_run.append(target)
+        else:
+            to_skip.append(target)
+
+    return to_run, to_skip
+
 
 def _make_env() -> dict[str, str]:
     env = os.environ.copy()
@@ -86,8 +194,10 @@ def _run_make(target: str, *, capture_output: bool) -> subprocess.CompletedProce
     )
 
 
-def _run_target(target: str) -> tuple[str, subprocess.CompletedProcess]:
-    return target, _run_make(target, capture_output=True)
+def _run_target(target: str) -> tuple[str, subprocess.CompletedProcess, float]:
+    t = time.monotonic()
+    result = _run_make(target, capture_output=True)
+    return target, result, time.monotonic() - t
 
 
 def _report_result(
@@ -115,24 +225,41 @@ def main() -> None:
                 sys.exit(result.returncode)
         return
 
+    to_run, to_skip = _targets_to_run(TARGETS)
+
+    if to_skip:
+        for target in to_skip:
+            print(f"  {target:<25} skip (no changes)")
+
+    if not to_run:
+        print("\n  all targets skipped — no relevant changes on this branch")
+        return
+
+    parallel = [t for t in to_run if t in PARALLEL_TARGETS]
+    serial = [t for t in to_run if t in SERIAL_TARGETS]
+
     # Run independent targets in parallel, then website/npm-backed targets
     # sequentially so `npm install` does not race with itself in node_modules.
     t0 = time.monotonic()
     futures = {}
-    with ThreadPoolExecutor(max_workers=len(PARALLEL_TARGETS)) as pool:
-        for target in PARALLEL_TARGETS:
+    failed: list[tuple[str, subprocess.CompletedProcess]] = []
+    timings: list[tuple[str, float]] = []
+
+    with ThreadPoolExecutor(max_workers=max(len(parallel), 1)) as pool:
+        for target in parallel:
             futures[pool.submit(_run_target, target)] = target
 
-        failed: list[tuple[str, subprocess.CompletedProcess]] = []
         for future in as_completed(futures):
-            target, result = future.result()
-            elapsed = time.monotonic() - t0
-            _report_result(target, result, elapsed=elapsed, failed=failed)
+            target, result, duration = future.result()
+            timings.append((target, duration))
+            _report_result(target, result, elapsed=duration, failed=failed)
 
-    for target in SERIAL_TARGETS:
+    for target in serial:
+        t_serial = time.monotonic()
         result = _run_make(target, capture_output=True)
-        elapsed = time.monotonic() - t0
-        _report_result(target, result, elapsed=elapsed, failed=failed)
+        duration = time.monotonic() - t_serial
+        timings.append((target, duration))
+        _report_result(target, result, elapsed=duration, failed=failed)
 
     if failed:
         for target, result in failed:
@@ -142,7 +269,22 @@ def main() -> None:
         sys.exit(1)
 
     elapsed = time.monotonic() - t0
+    timings.sort(key=lambda x: x[1], reverse=True)
     print(f"\n  all checks passed in {elapsed:.1f}s")
+    print("\n  timing breakdown (slowest first):")
+    total_cpu = 0.0
+    for name, dur in timings:
+        total_cpu += dur
+        bar = "\u2588" * int(dur / 2)
+        print(f"    {name:<25} {dur:6.1f}s  {bar}")
+    parallel_wall = max(
+        (dur for name, dur in timings if name in PARALLEL_TARGETS),
+        default=0,
+    )
+    serial_wall = sum(dur for name, dur in timings if name in SERIAL_TARGETS)
+    print(f"\n  parallel phase wall:  {parallel_wall:.1f}s")
+    print(f"  serial phase wall:   {serial_wall:.1f}s")
+    print(f"  sum of all targets:  {total_cpu:.1f}s")
 
 
 if __name__ == "__main__":
