@@ -1,9 +1,8 @@
 package mage.client.bridge.mcp;
 
-import mage.game.BridgeLogEntry;
-import mage.client.bridge.processor.BridgeChatLogEntry;
+import mage.client.bridge.processor.BridgePublishedLogEntry;
 
 import java.util.List;
 
-record BridgeGameLogSnapshot(List<BridgeLogEntry> events, List<BridgeChatLogEntry> chatEntries, int cursor) {
+record BridgeGameLogSnapshot(List<BridgePublishedLogEntry> entries, int firstCursor, int nextCursor) {
 }

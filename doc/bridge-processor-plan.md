@@ -97,11 +97,22 @@ live state directly:
 - game log
 - game history
 
-But that published snapshot is still transitional:
+The game-log/history slice is now closer to the intended model:
 
-- it is rebuilt from the old `Bridge*State` holders
-- it still derives log cursors from server event indexes
-- the underlying log/cache state still uses synchronized mutable storage
+- the processor publishes a local append-only game log with processor-assigned
+  monotonic cursors
+- `get_game_log` and `get_game_history` read only that published log
+- MCP log/history reads no longer fetch bridge events or read shared
+  synchronized log state directly
+
+But the bridge is still transitional overall:
+
+- the published MCP snapshot is still rebuilt from mutable `Bridge*State`
+  holders
+- the processor still needs an async `Session.getBridgeEvents(...)` shim to
+  append structured bridge events into the local published log
+- other MCP reads still depend on shared mutable runtime state holders rather
+  than processor-private internals
 
 And the bridge still relies on shared mutable state containers such as:
 
@@ -151,13 +162,16 @@ Preferred end state:
 
 This is where the append-only model becomes important.
 
-The next cleanup after the current published-snapshot step should focus on:
+The game-log/history path now does this.
 
-- replacing shared cached log/chat state with a processor-owned append-only log
-- assigning processor-local monotonic read cursors instead of reusing server
-  event indexes as the MCP publication boundary
+The remaining read-side cleanup should focus on:
+
+- making the rest of MCP reads consume processor-published immutable state
+  instead of reading mutable `Bridge*State` holders
 - shrinking or deleting read helpers that only exist to rebuild published
-  snapshots from the old mutable state holders
+  snapshots from those mutable state holders
+- eventually deleting the remaining async `Session.getBridgeEvents(...)` sync
+  shim once authoritative log records can be appended directly by the processor
 
 ### 3. Delete transitional shared-memory machinery
 
