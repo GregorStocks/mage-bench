@@ -1,4 +1,8 @@
-"""Compatibility wrapper for `magebench.game.game_exports`."""
+"""Compatibility wrapper for `magebench.game.game_exports`.
+
+TODO(shim): expires=issue:python-migration-step12 Delete this wrapper once
+callers import `magebench.game.game_exports` directly.
+"""
 
 from magebench.game.game_exports import (
     GAME_EXPORT_GZ_THRESHOLD,

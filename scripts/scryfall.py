@@ -1,4 +1,8 @@
-"""Compatibility wrapper for `magebench.game.scryfall`."""
+"""Compatibility wrapper for `magebench.game.scryfall`.
+
+TODO(shim): expires=issue:python-migration-step12 Delete this wrapper once
+callers import `magebench.game.scryfall` directly.
+"""
 
 from magebench.game.scryfall import (
     collection,
