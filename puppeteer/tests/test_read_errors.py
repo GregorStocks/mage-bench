@@ -3,7 +3,7 @@
 import tempfile
 from pathlib import Path
 
-from scripts.export_errors import read_errors
+from magebench.game.export_errors import read_errors
 
 
 def test_read_errors_parses_code_bugs():

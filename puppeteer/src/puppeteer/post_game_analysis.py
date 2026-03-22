@@ -11,12 +11,12 @@ from pathlib import Path
 
 from openai import OpenAIError
 
+from magebench.game.export_game import GameExportError
+from magebench.game.export_game import export_game as _export_game
+from magebench.game.game_exports import load_raw_game_export, write_raw_game_export
 from puppeteer.log import get_logger
 from scripts.analysis.blunder_analysis import BlunderAnalysisError
 from scripts.analysis.blunder_analysis import main as _analyze_blunders
-from scripts.export_game import GameExportError
-from scripts.export_game import export_game as _export_game
-from scripts.game_exports import load_raw_game_export, write_raw_game_export
 from scripts.upload_youtube import YouTubeUploadError
 from scripts.upload_youtube import upload_to_youtube as _upload_to_youtube
 

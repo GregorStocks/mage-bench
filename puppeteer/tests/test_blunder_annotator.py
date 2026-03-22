@@ -9,8 +9,8 @@ import pytest
 
 from magebench.common.json5_utils import loads_json5
 from magebench.game.game_export_types import Choice, Decision
+from magebench.game.game_exports import load_raw_game_export
 from scripts.analysis.extract_decisions import extract_decisions
-from scripts.game_exports import load_raw_game_export
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts" / "analysis"
 

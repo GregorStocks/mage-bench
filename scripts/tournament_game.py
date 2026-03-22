@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
+from magebench.game.export_game import read_game_winner
 from puppeteer.config import (
     Config,
     generate_player_name,
@@ -36,7 +37,6 @@ from puppeteer.post_game_analysis import (
     resolve_annotation_failures,
     upload_and_export,
 )
-from scripts.export_game import read_game_winner
 from scripts.generate_leaderboard import generate_all_website_data
 
 _ROOT = Path(__file__).resolve().parent.parent

@@ -34,6 +34,7 @@ from types import SimpleNamespace
 import psutil
 
 from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.game.export_game import build_export
 from magebench.game.game_export_types import Decision, json_default
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
@@ -52,7 +53,6 @@ from scripts.analysis.blunder_context import (
 )
 from scripts.analysis.blunder_eval_common import decision_index
 from scripts.analysis.extract_decisions import extract_decisions
-from scripts.export_game import build_export
 
 # ---------------------------------------------------------------------------
 # Timing instrumentation

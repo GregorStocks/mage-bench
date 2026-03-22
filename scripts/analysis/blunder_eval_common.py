@@ -25,7 +25,7 @@ from magebench.game.game_export_types import (
     parse_built_game_export,
     parse_game_export,
 )
-from scripts.game_exports import GAMES_DIR, glob_game_export_paths
+from magebench.game.game_exports import GAMES_DIR, glob_game_export_paths
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
