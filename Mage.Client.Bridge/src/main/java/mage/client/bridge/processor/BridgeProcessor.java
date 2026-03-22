@@ -13,7 +13,7 @@ public final class BridgeProcessor {
     private final Logger logger;
     private final String username;
     private final Consumer<BridgeCallbackEvent> callbackHandler;
-    private Runnable afterMessageHook = () -> {};
+    private Consumer<BridgeProcessorMessage> afterMessageHook = message -> {};
     private volatile boolean closed = false;
 
     public BridgeProcessor(String username, Logger logger, Consumer<BridgeCallbackEvent> callbackHandler) {
@@ -28,7 +28,7 @@ public final class BridgeProcessor {
         thread.start();
     }
 
-    public void setAfterMessageHook(Runnable afterMessageHook) {
+    public void setAfterMessageHook(Consumer<BridgeProcessorMessage> afterMessageHook) {
         this.afterMessageHook = Objects.requireNonNull(afterMessageHook);
     }
 
@@ -91,7 +91,7 @@ public final class BridgeProcessor {
             }
             if (message instanceof BridgeCallbackEvent event) {
                 callbackHandler.accept(event);
-                runAfterMessageHookOnCallback();
+                runAfterMessageHook(message, "callback");
                 continue;
             }
             if (message instanceof BridgeCommand<?> command) {
@@ -100,11 +100,11 @@ public final class BridgeProcessor {
         }
     }
 
-    private void runAfterMessageHookOnCallback() {
+    private void runAfterMessageHook(BridgeProcessorMessage message, String context) {
         try {
-            afterMessageHook.run();
+            afterMessageHook.accept(message);
         } catch (Throwable hookFailure) {
-            logger.error("[" + username + "] Bridge processor after-message hook failed on callback", hookFailure);
+            logger.error("[" + username + "] Bridge processor after-message hook failed on " + context, hookFailure);
         }
     }
 
@@ -118,7 +118,7 @@ public final class BridgeProcessor {
         }
 
         try {
-            afterMessageHook.run();
+            afterMessageHook.accept(command);
         } catch (Throwable hookFailure) {
             if (failure == null) {
                 failure = hookFailure;

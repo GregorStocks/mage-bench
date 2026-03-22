@@ -49,8 +49,8 @@ public final class BridgeGameLogRefresher {
         });
     }
 
-    public void afterProcessorMessage() {
-        requireProcessorThread("afterProcessorMessage");
+    public void afterCallbackProcessed() {
+        requireProcessorThread("afterCallbackProcessed");
         if (closed) {
             return;
         }

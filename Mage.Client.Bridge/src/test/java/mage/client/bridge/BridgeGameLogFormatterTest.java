@@ -33,6 +33,25 @@ class BridgeGameLogFormatterTest {
     }
 
     @Test
+    void renderGameLogFlatKeepsPreTurnChatAndSystemLines() {
+        List<BridgePublishedLogEntry> entries = List.of(
+            new BridgePublishedLogEntry(0, null, "[System] Table ready"),
+            new BridgePublishedLogEntry(1, null, "[Chat] Bob: glhf"),
+            new BridgePublishedLogEntry(2, bridgeLogEntry(2, "LAND_PLAYED", 0, "Alice", "Alice", "Pre-game Island", null), null),
+            new BridgePublishedLogEntry(3, bridgeLogEntry(3, "BEGIN_TURN", 1, "Alice", "Alice", null, null), null),
+            new BridgePublishedLogEntry(4, bridgeLogEntry(4, "LAND_PLAYED", 1, "Alice", "Alice", "Island", null), null)
+        );
+
+        assertThat(BridgeGameLogFormatter.renderGameLogFlat(entries, Map.of()))
+            .isEqualTo(String.join("\n",
+                "[System] Table ready",
+                "[Chat] Bob: glhf",
+                "Alice turn 1:",
+                "Alice played Island"
+            ));
+    }
+
+    @Test
     void buildGameHistoryResultFormatsTurnsAndPhaseHeaders() {
         List<BridgeLogEntry> events = List.of(
             new BridgeLogEntry(

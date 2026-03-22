@@ -2266,7 +2266,7 @@ class BridgeCallbackHandlerTest {
             Logger.getLogger(BridgeCallbackHandlerTest.class),
             event -> callbackHandled.countDown()
         );
-        processor.setAfterMessageHook(() -> {
+        processor.setAfterMessageHook(message -> {
             if (hookCalls.getAndIncrement() == 0) {
                 throw new IllegalStateException("hook failed");
             }

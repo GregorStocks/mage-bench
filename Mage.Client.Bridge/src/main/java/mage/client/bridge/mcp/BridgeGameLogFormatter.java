@@ -90,9 +90,6 @@ public final class BridgeGameLogFormatter {
         boolean seenFirstTurn = !initialTurnCounts.isEmpty();
         for (BridgePublishedLogEntry entry : entries) {
             if (!entry.isBridgeEvent()) {
-                if (!seenFirstTurn) {
-                    continue;
-                }
                 if (sb.length() > 0) {
                     sb.append("\n");
                 }

@@ -1,0 +1,202 @@
+package mage.client.bridge.processor;
+
+import mage.game.BridgeLogEntry;
+import mage.interfaces.callback.ClientCallbackMethod;
+import mage.remote.Session;
+import org.apache.log4j.Logger;
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Proxy;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class BridgeGameLogRefresherTest {
+
+    @Test
+    void callbackTriggerDoesNotPollAgainAfterEmptyFetch() throws Exception {
+        AtomicInteger fetchCalls = new AtomicInteger();
+        CountDownLatch firstFetch = new CountDownLatch(1);
+        Session session = sessionProxy((proxy, method, args) -> {
+            if ("getBridgeEvents".equals(method.getName())) {
+                fetchCalls.incrementAndGet();
+                firstFetch.countDown();
+                return List.of();
+            }
+            return defaultReturnValue(method.getReturnType());
+        });
+
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            event -> {}
+        );
+        BridgeGameState gameState = new BridgeGameState();
+        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
+            processor,
+            gameState,
+            gameLogState,
+            () -> session,
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            "TestPlayer"
+        );
+        processor.setAfterMessageHook(message -> {
+            if (message instanceof BridgeCallbackEvent) {
+                refresher.afterCallbackProcessed();
+            }
+        });
+        processor.start();
+
+        try {
+            UUID gameId = UUID.randomUUID();
+            UUID playerId = UUID.randomUUID();
+            processor.submit(BridgeCommand.of(() -> {
+                gameState.activateGame(gameId, playerId);
+                return null;
+            }));
+
+            processor.enqueueCallback(new BridgeCallbackEvent(gameId, ClientCallbackMethod.GAME_UPDATE, null));
+
+            assertThat(firstFetch.await(1, TimeUnit.SECONDS)).isTrue();
+            Thread.sleep(200);
+            assertThat(fetchCalls.get()).isEqualTo(1);
+        } finally {
+            refresher.shutdown();
+            processor.shutdown("test");
+        }
+    }
+
+    @Test
+    void callbackTriggerDrainsFollowupFetchesUntilServerIsCaughtUp() throws Exception {
+        AtomicInteger fetchCalls = new AtomicInteger();
+        CountDownLatch secondFetch = new CountDownLatch(1);
+        Session session = sessionProxy((proxy, method, args) -> {
+            if ("getBridgeEvents".equals(method.getName())) {
+                int call = fetchCalls.incrementAndGet();
+                if (call == 1) {
+                    return List.of(
+                        bridgeLogEntry(5, "BEGIN_TURN", 1, "Alice", "Alice", null, null),
+                        bridgeLogEntry(6, "LAND_PLAYED", 1, "Alice", "Alice", "Island", null)
+                    );
+                }
+                secondFetch.countDown();
+                return List.of();
+            }
+            return defaultReturnValue(method.getReturnType());
+        });
+
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            event -> {}
+        );
+        BridgeGameState gameState = new BridgeGameState();
+        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
+            processor,
+            gameState,
+            gameLogState,
+            () -> session,
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            "TestPlayer"
+        );
+        processor.setAfterMessageHook(message -> {
+            if (message instanceof BridgeCallbackEvent) {
+                refresher.afterCallbackProcessed();
+            }
+        });
+        processor.start();
+
+        try {
+            UUID gameId = UUID.randomUUID();
+            UUID playerId = UUID.randomUUID();
+            processor.submit(BridgeCommand.of(() -> {
+                gameState.activateGame(gameId, playerId);
+                return null;
+            }));
+
+            processor.enqueueCallback(new BridgeCallbackEvent(gameId, ClientCallbackMethod.GAME_UPDATE, null));
+
+            assertThat(secondFetch.await(1, TimeUnit.SECONDS)).isTrue();
+
+            BridgePublishedGameLog publishedLog = processor.submit(BridgeCommand.of(gameLogState::publishedGameLog));
+            assertThat(fetchCalls.get()).isEqualTo(2);
+            assertThat(publishedLog.nextCursor()).isEqualTo(2);
+            assertThat(publishedLog.entries()).extracting(BridgePublishedLogEntry::seq)
+                .containsExactly(0, 1);
+            assertThat(publishedLog.entries()).extracting(entry -> entry.bridgeEvent().type())
+                .containsExactly("BEGIN_TURN", "LAND_PLAYED");
+        } finally {
+            refresher.shutdown();
+            processor.shutdown("test");
+        }
+    }
+
+    private static Session sessionProxy(java.lang.reflect.InvocationHandler handler) {
+        return (Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            handler
+        );
+    }
+
+    private static Object defaultReturnValue(Class<?> returnType) {
+        if (!returnType.isPrimitive()) {
+            return null;
+        }
+        if (returnType == boolean.class) {
+            return false;
+        }
+        if (returnType == int.class) {
+            return 0;
+        }
+        if (returnType == long.class) {
+            return 0L;
+        }
+        if (returnType == double.class) {
+            return 0d;
+        }
+        if (returnType == float.class) {
+            return 0f;
+        }
+        if (returnType == short.class) {
+            return (short) 0;
+        }
+        if (returnType == byte.class) {
+            return (byte) 0;
+        }
+        if (returnType == char.class) {
+            return '\0';
+        }
+        return null;
+    }
+
+    private static BridgeLogEntry bridgeLogEntry(
+            int index,
+            String type,
+            int turn,
+            String activePlayer,
+            String player,
+            String cardName,
+            String targetName) {
+        return new BridgeLogEntry(
+            index,
+            index,
+            type,
+            turn,
+            "PRECOMBAT_MAIN",
+            "PRECOMBAT_MAIN",
+            activePlayer,
+            player,
+            cardName,
+            targetName,
+            0,
+            true
+        );
+    }
+}
