@@ -4,7 +4,7 @@ import json
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 
-from scripts.analysis.toolbox.blunder_experiment import OPUS, _call_llm, _parse_inline_response
+from magebench.analysis.toolbox.blunder_experiment import OPUS, _call_llm, _parse_inline_response
 
 
 def _ann(**overrides: object) -> dict:

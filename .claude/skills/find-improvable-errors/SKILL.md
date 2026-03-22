@@ -5,7 +5,7 @@ description: Analyze MCP tool errors across exports to find unhelpful error mess
 
 # Find Improvable Error Messages
 
-Analyze MCP tool errors across game exports to find error messages that models struggle to recover from. Uses `scripts/analysis/toolbox/mcp_errors.py`.
+Analyze MCP tool errors across game exports to find error messages that models struggle to recover from. Uses `magebench.analysis.toolbox.mcp_errors`.
 
 ## Workflow
 
@@ -14,7 +14,7 @@ Analyze MCP tool errors across game exports to find error messages that models s
 Run against all exported games:
 
 ```bash
-uv run python scripts/analysis/toolbox/mcp_errors.py website/public/games/
+uv run python -m magebench.analysis.toolbox.mcp_errors website/public/games/
 ```
 
 ### Step 2: Identify candidates
@@ -81,7 +81,7 @@ make regen-mcp-tools
 
 ### Step 5: Update the analysis script if needed
 
-If you find error patterns that `mcp_errors.py` doesn't capture well (e.g. new error codes, different tool failures), update the script in `scripts/analysis/toolbox/`. The script should grow to cover new patterns over time.
+If you find error patterns that `mcp_errors.py` doesn't capture well (e.g. new error codes, different tool failures), update the script in `src/magebench/analysis/toolbox/`. The script should grow to cover new patterns over time.
 
 ### Step 6: Verify
 
@@ -94,5 +94,5 @@ make check
 Run the analysis again to verify the old bad messages are gone (they'll still appear in historical data but new games should use the improved messages):
 
 ```bash
-uv run python scripts/analysis/toolbox/mcp_errors.py website/public/games/
+uv run python -m magebench.analysis.toolbox.mcp_errors website/public/games/
 ```

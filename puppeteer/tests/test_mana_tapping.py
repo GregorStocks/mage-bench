@@ -1,18 +1,12 @@
-"""Tests for scripts/analysis/toolbox/mana_tapping.py."""
+"""Tests for magebench.analysis.toolbox.mana_tapping."""
 
 import gzip
-import importlib.util
 import json
 from pathlib import Path
 
 import pytest
 
-SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts" / "analysis" / "toolbox"
-
-spec = importlib.util.spec_from_file_location("mana_tapping", SCRIPTS_DIR / "mana_tapping.py")
-assert spec and spec.loader
-mana_tapping = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(mana_tapping)
+import magebench.analysis.toolbox.mana_tapping as mana_tapping
 
 
 def _make_gz(tmp_path: Path, events: list[dict], players: list[dict] | None = None) -> Path:

@@ -1,9 +1,9 @@
-"""Smoke test: every module in scripts/analysis/toolbox/ is importable."""
+"""Smoke test: every module in magebench.analysis.toolbox is importable."""
 
 import importlib
 from pathlib import Path
 
-TOOLBOX_DIR = Path(__file__).resolve().parent.parent.parent / "scripts" / "analysis" / "toolbox"
+TOOLBOX_DIR = Path(__file__).resolve().parent.parent.parent / "src" / "magebench" / "analysis" / "toolbox"
 
 # dump_sample_prompt runs code at module scope that requires a specific game
 # file on disk, so it can't be import-tested in CI.
@@ -17,7 +17,7 @@ def test_all_toolbox_modules_importable() -> None:
 
     failures: list[str] = []
     for name in modules:
-        module_path = f"scripts.analysis.toolbox.{name}"
+        module_path = f"magebench.analysis.toolbox.{name}"
         try:
             importlib.import_module(module_path)
         except ImportError as exc:

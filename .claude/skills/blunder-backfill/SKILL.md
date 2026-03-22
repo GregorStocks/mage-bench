@@ -10,7 +10,7 @@ Re-annotate games that have outdated or missing blunder analysis.
 Run the backfill script on the most recent N outdated games (default 10):
 
 ```bash
-uv run --project puppeteer python scripts/analysis/toolbox/backfill_annotations.py [N]
+uv run python -m magebench.analysis.toolbox.backfill_annotations [N]
 ```
 
 The script:

@@ -1,8 +1,8 @@
-"""Tests for scripts/analysis/toolbox/game_narrative.py."""
+"""Tests for magebench.analysis.toolbox.game_narrative."""
 
 from types import SimpleNamespace
 
-import scripts.analysis.toolbox.game_narrative as game_narrative
+import magebench.analysis.toolbox.game_narrative as game_narrative
 from magebench.game.game_export_types import Permanent, Snapshot, SnapshotPlayer
 
 

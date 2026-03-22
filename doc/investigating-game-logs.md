@@ -358,7 +358,7 @@ grep -c "Unknown tool:" "$GAME_DIR"/*_errors.log
 ## `game_timeline.py --turns` caveat
 
 Some v7 exports omit `snapshots[].ts`. When that happens,
-`scripts/analysis/toolbox/game_timeline.py --turns ...` silently maps every `llmEvent`
+`python -m magebench.analysis.toolbox.game_timeline --turns ...` silently maps every `llmEvent`
 to the final turn because it falls back to `""` for missing snapshot timestamps.
 Sanity-check the export before trusting turn-range filters:
 
