@@ -112,6 +112,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
 8. Update tests to expect the correct behavior
    - If your code changes prompt rendering, bridge responses, MCP tool output, replay behavior, or exported game data, proactively search existing goldens for the affected prompt fragment or behavior and regenerate every impacted golden before moving on. Do not assume a newly added golden is the only file that needs updating, and do not wait for CI to discover stale goldens you could have found locally.
+   - If you move a canonical file or schema path, search `conftest.py` and shared test fixtures for hardcoded repo paths before relying on the full test suite. A single stale fixture path can fan out into hundreds of duplicate failures.
 9. Run `make check` to verify lint, typecheck, and tests pass
 
    - If you need live progress or a concrete failing sub-target, prefer `make check VERBOSE=1` over launching a second blind `make check`. The quiet wrapper can hide long-running child jobs, and overlapping retries leave duplicate Maven/pytest work chewing through the same branch.

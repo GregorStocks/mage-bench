@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from tests.weird import repo_convention_helpers
 from tests.weird.repo_convention_helpers import (
     PUPPETEER_DIR,
     RETIRED_MODELS,
@@ -55,3 +56,14 @@ class TestExportedGameModelsKnown:
         assert not unknown, (
             "Exported games reference unknown models (add to RETIRED_MODELS if intentional):\n  " + "\n  ".join(unknown)
         )
+
+
+class TestChangedGameFilenames:
+    def test_moved_schema_path_forces_full_export_validation(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr(
+            repo_convention_helpers,
+            "changed_files_since_master",
+            lambda: {"src/magebench/game/game-export-v8.schema.json"},
+        )
+
+        assert repo_convention_helpers.changed_game_filenames() is None

@@ -7,8 +7,8 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from magebench.game.game_export_types import Player
 from puppeteer.leaderboard_common import load_game_file
-from schemas.game_export_types import Player
 
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 

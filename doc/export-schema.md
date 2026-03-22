@@ -4,7 +4,7 @@ Game exports live in `website/public/games/` as either `.json5` or `.json5.gz`
 files. The on-disk payload is the same either way; large files are gzipped to
 keep the repo manageable.
 
-`schemas/game-export-v8.schema.json` is the current canonical export contract.
+`src/magebench/game/game-export-v8.schema.json` is the current canonical export contract.
 TypeScript types are generated from that schema today. If a future change needs
 another persisted format version, add the new schema and any migration/backfill
 plan in that PR instead of keeping retired v2-v7 history around indefinitely.
@@ -90,7 +90,7 @@ are the pre-export format and may not be available for older games.
 When the export contract changes:
 
 1. **Current-schema updates**: If the on-disk format stays v8, update
-   `game-export-v8.schema.json`, regenerate the derived TypeScript types, and
+   `src/magebench/game/game-export-v8.schema.json`, regenerate the derived TypeScript types, and
    backfill committed exports in place as needed.
 
 2. **New persisted format versions**: If the change genuinely needs a new

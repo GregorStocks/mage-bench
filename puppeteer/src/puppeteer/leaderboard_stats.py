@@ -9,11 +9,15 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
+from magebench.game.game_export_types import (
+    LlmErrorEvent,
+    LlmResponseEvent,
+    is_pilot_player,
+)
 from puppeteer.leaderboard_common import glob_game_files, load_game_file, write_if_changed
 from puppeteer.leaderboard_elo import player_key, split_key
 from puppeteer.leaderboard_formats import derive_format
 from puppeteer.leaderboard_registry import capitalize_provider, derive_display_name, load_model_registry
-from schemas.game_export_types import LlmErrorEvent, LlmResponseEvent, is_pilot_player
 
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 

@@ -6,8 +6,8 @@ import re
 import sys
 from pathlib import Path
 
+from magebench.game.game_export_types import BuiltGameExport, require_built_game_export
 from puppeteer.harness_epoch import SEASON_1_START_EPOCH
-from schemas.game_export_types import BuiltGameExport, require_built_game_export
 from scripts.export_card_data import DECKLIST_RE, build_card_data
 from scripts.export_decisions import build_decisions
 from scripts.export_errors import link_errors_to_decisions, read_errors

@@ -6,7 +6,7 @@ import gzip
 import re
 from pathlib import Path
 
-from schemas.game_export_types import GameExport, parse_game_export
+from magebench.game.game_export_types import GameExport, parse_game_export
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
 
