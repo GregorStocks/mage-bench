@@ -14,7 +14,7 @@ clean:
 
 .PHONY: lint
 lint:
-	uv run python scripts/checks/lint_issues.py
+	issue-lint
 	uv run python scripts/checks/lint_scripts_are_python.py
 	uv run python scripts/checks/lint_no_fallback.py
 	uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/ src/

@@ -43,7 +43,7 @@ If the PR is closed/merged, create a new one instead of pushing to a dead branch
    )"
    ```
 
-3. **Run the CI watcher**: `uv run python scripts/watch_pr.py` — wait for CI to finish and check for review feedback. If CI fails or feedback arrives, fix it, then do all three steps again (cap at 3 iterations).
+3. **Run the CI watcher**: `issue-watch-pr` — wait for CI to finish and check for review feedback. If CI fails or feedback arrives, fix it, then do all three steps again (cap at 3 iterations).
 
 ## Build System
 
@@ -132,7 +132,7 @@ Each worktree gets a unique port assigned by `worktree_setup.py` (written to `.e
 
 ## Issues
 
-Issues are tracked as JSON5 files in `issues/`. See `doc/issues.md` for format and queries.
+Issues are tracked as JSON5 files in `issues/` following the [agent-issues](https://github.com/GregorStocks/agent-issues) format. See `doc/issues.md` for format details. If agent-issues tools are installed, use them (`issue-query`, `issue-autoclaim`, etc.) and the `/solve-issue` skill. Otherwise, read issues directly.
 
 **File issues for bugs you discover**, even if you're not fixing them. Future Claudes benefit from documented issues — they provide context, reproduction steps, and save re-investigation time. If you notice something broken while working on something else, create a JSON5 file in `issues/` and include it in your commit.
 
