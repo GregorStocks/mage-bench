@@ -219,8 +219,9 @@ public final class BridgeMcpQueryApi {
 
     private BridgeGameLogSnapshot snapshotGameLog() {
         BridgePublishedMcpSnapshot snapshot = publishedSnapshot.get();
-        // TODO(bridge-processor): Publish processor-local monotonic read cursors
-        // instead of deriving MCP cursors from server bridge-event indexes.
+        // TODO(shim): expires=issue:bridge-processor-local-read-cursors Publish
+        // processor-local monotonic read cursors instead of deriving MCP
+        // cursors from server bridge-event indexes.
         return new BridgeGameLogSnapshot(
             snapshot.bridgeEvents(),
             snapshot.chatLog(),
