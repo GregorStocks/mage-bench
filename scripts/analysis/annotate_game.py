@@ -8,7 +8,7 @@ validates the annotation schema, and writes back.
 import json
 import sys
 
-from scripts.game_exports import load_raw_game_export, write_raw_game_export
+from magebench.game.game_exports import load_raw_game_export, write_raw_game_export
 
 VALID_SEVERITIES = {"questionable", "minor", "moderate", "major"}
 REQUIRED_FIELDS = {

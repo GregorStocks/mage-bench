@@ -37,6 +37,18 @@ Move the bridge toward an actor-style processor architecture:
 
 In short: no shared mutable processor state across threads, only message passing.
 
+Longer-term, the processor should bias heavily toward an append-only model:
+
+- the processor-owned event/log stream should be the primary source of truth
+- processor-local sequence numbers should be assigned when records are appended
+- most read surfaces should be derived snapshots or stateless readers over that log
+- mutable in-memory state should be minimized to transient control state such as
+  in-flight requests, scheduler state, and rebuildable indexes/cursors
+
+This does not mean "literally no mutable state anywhere." It means the bridge
+should prefer "append-only log + derived views" over large bags of ad hoc
+mutable fields whenever that is practical.
+
 ## Non-Goals
 
 This plan does not require:
@@ -93,6 +105,20 @@ Likely shape:
 - `mage.client.bridge.processor`
 - `mage.client.bridge.mcp` (or equivalent)
 
+The "final-ish" architectural checkpoint is not just "state moved under the
+processor." It is also:
+
+- listener logic visibly lives under `mage.client.bridge.listener`
+- MCP query/command logic visibly lives under `mage.client.bridge.mcp`
+- `BridgeCallbackHandler` no longer mixes listener ingress and MCP surface area
+- the processor boundary is easy to audit because listener code only enqueues
+  events, while MCP code is small and primarily read-only except when it sends a
+  player action
+
+If `BridgeCallbackHandler` still contains both the XMage callback ingress path
+and the MCP-facing tool surface, the ownership model is still harder to verify
+than it should be, even if more mutable state has moved under `processor/`.
+
 ### Ownership rules
 
 Processor-owned state should include, at minimum:
@@ -112,6 +138,15 @@ The MCP/tool layer should only:
 - construct commands
 - await results
 - translate results into tool responses
+
+For game-log/history style surfaces, the intended end state is stronger:
+
+- the processor owns a local append-only published log
+- the processor assigns local monotonic IDs/cursors for that published log
+- server bridge-event `index()` values are treated as source metadata, not as
+  the bridge's cross-thread publication cursor
+- MCP readers consume immutable slices/snapshots from the processor-owned log
+  rather than reconstructing cursors from shared mutable lists
 
 ## Why This Is Better
 
@@ -329,6 +364,68 @@ At that point there should be:
 
 - **1 required PR** left for the core processor refactor (`D2b`)
 - **1 optional PR** left for the published read model
+
+#### Current checkpoint after the helper-state extraction PR
+
+The original `D2b` scope turned out to be too large for one reviewable PR, so it
+is now split into two smaller cuts.
+
+After the helper-state extraction work lands:
+
+- `BridgeInteractionState` owns mana-plan state, failed-mana tracking, pool-mana
+  retry tracking, and turn/interaction loop counters
+- `BridgeGameLogState` owns unseen chat, chat-log capture, bridge-event cursor
+  state, and cached bridge events
+- `BridgeCursorState` owns game-state / board signature cursor tracking
+- `BridgeCallbackHandler` no longer owns those processor fields directly
+
+That is a meaningful ownership cleanup, but it still leaves too much
+processor-side helper logic on `BridgeCallbackHandler`. More importantly,
+`BridgeCallbackHandler` still visibly contains both:
+
+- listener/callback ingress logic
+- MCP-facing query and command methods
+
+That means we are not yet at the "final-ish" state where the listener can be
+audited as "just enqueue callbacks" and the MCP layer can be audited as "small,
+mostly read-only, and only issuing processor commands when the user acts."
+
+The extracted game-log state is also still transitional. In the short term,
+some synchronized access may still be necessary because log/history reads are
+not yet fully serialized through a processor-owned published log. The intended
+end state is to remove that shared synchronized state by moving to
+processor-assigned local log IDs and immutable published snapshots.
+
+At that point there should be:
+
+- **2 required PRs** left for the core processor refactor
+- **1 optional PR** left for the published read model
+
+Recommended remaining split:
+
+- **PR E1: Extract listener logic into `mage.client.bridge.listener`**
+  Move XMage callback ingress and callback-to-event translation into listener
+  classes so the listener path is conceptually and visibly enqueue-only. If
+  XMage still requires `BridgeCallbackHandler` as the entrypoint, keep it as a
+  thin compatibility shell that delegates immediately into the listener package.
+
+- **PR E2: Extract MCP logic into `mage.client.bridge.mcp` and finish shrinking the handler**
+  Move the MCP-facing query/command surface into dedicated classes so the
+  processor boundary is easy to review. Query methods should be clearly
+  separated from action methods, and both should talk to the processor through
+  a narrow interface instead of a broad handler helper surface.
+
+  This PR should also start moving log/history reads toward the intended
+  processor-owned append-only model: processor-assigned local sequence numbers,
+  immutable published snapshots, and stateless/derived readers instead of
+  shared synchronized lists and cursor bookkeeping on the handler surface.
+
+If review size gets too large, split `E2` again:
+
+- **PR E2a:** move read-mostly MCP queries into `mcp/`
+- **PR E2b:** move action commands plus the last handler-owned helper/adaptor
+  logic, then shrink `BridgeCallbackHandler` to a compatibility shell or remove
+  it entirely
 
 ### Step 5: Published Read Model / Append-Only Log
 

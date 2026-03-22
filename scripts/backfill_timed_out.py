@@ -15,7 +15,7 @@ import re
 import sys
 from pathlib import Path
 
-from scripts.game_exports import (
+from magebench.game.game_exports import (
     GAMES_DIR,
     glob_game_export_paths,
     load_raw_game_export,

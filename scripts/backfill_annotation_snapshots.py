@@ -17,8 +17,8 @@ Usage:
 import sys
 from pathlib import Path
 
-from scripts.export_decisions import build_decisions
-from scripts.game_exports import (
+from magebench.game.export_decisions import build_decisions
+from magebench.game.game_exports import (
     GAMES_DIR,
     glob_game_export_paths,
     load_raw_game_export,

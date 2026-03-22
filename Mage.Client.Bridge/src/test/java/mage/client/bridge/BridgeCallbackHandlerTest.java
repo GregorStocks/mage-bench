@@ -580,6 +580,67 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void getGameHistoryCachesAheadWithoutAdvancingLiveBridgeCursor() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        List<Integer> requestedCursors = new ArrayList<>();
+        List<BridgeLogEntry> historyEvents = List.of(
+            new BridgeLogEntry(70, 70, "LAND_PLAYED", 4, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+                "TestPlayer", "TestPlayer", "Mountain", null, 0, true),
+            new BridgeLogEntry(71, 71, "SPELL_CAST", 4, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+                "TestPlayer", "TestPlayer", "Shock", "Opponent", 0, true)
+        );
+        List<BridgeLogEntry> liveEvents = List.of(
+            new BridgeLogEntry(50, 50, "LAND_PLAYED", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+                "TestPlayer", "TestPlayer", "Island", null, 0, true),
+            new BridgeLogEntry(51, 51, "SPELL_CAST", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+                "TestPlayer", "TestPlayer", "Opt", null, 0, true)
+        );
+
+        InvocationHandler sessionHandler = (proxy, method, args) -> {
+            if ("getBridgeEvents".equals(method.getName())) {
+                int cursor = (Integer) args[2];
+                requestedCursors.add(cursor);
+                if (cursor == 70) {
+                    return historyEvents;
+                }
+                if (cursor == 50) {
+                    return liveEvents;
+                }
+                return List.of();
+            }
+            return defaultReturnValue(method.getReturnType());
+        };
+
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            sessionHandler
+        ));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        activeGames.put(gameId, playerId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "currentPlayerId", playerId);
+        setIntField(handler, "bridgeEventCursor", 50);
+
+        var history = handler.getGameHistory(null, 70);
+        assertThat(history.cursor).isEqualTo(72);
+        assertThat(requestedCursors).containsExactly(70);
+
+        handler.getGameLogChunk(0, null);
+
+        assertThat(requestedCursors).containsExactly(70, 50);
+        @SuppressWarnings("unchecked")
+        List<BridgeLogEntry> cachedEvents = (List<BridgeLogEntry>) getField(handler, "cachedBridgeEvents");
+        assertThat(cachedEvents).extracting(BridgeLogEntry::index).containsExactly(50, 51, 70, 71);
+        assertThat((int) getField(handler, "bridgeEventCursor")).isEqualTo(52);
+    }
+
+    @Test
     void endGameInfoCleansUpWhenGameOverMissed() throws Exception {
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
@@ -2885,9 +2946,16 @@ class BridgeCallbackHandlerTest {
                 findField(decisionState.getClass(), name);
                 return decisionState;
             } catch (NoSuchFieldException ignoredDecisionState) {
-                Object gameState = getDirectField(handler, "gameState");
-                findField(gameState.getClass(), name);
-                return gameState;
+                for (String ownerField : List.of("gameState", "interactionState", "gameLogState", "cursorState")) {
+                    Object owner = getDirectField(handler, ownerField);
+                    try {
+                        findField(owner.getClass(), name);
+                        return owner;
+                    } catch (NoSuchFieldException ignoredOwner) {
+                        // Keep searching the remaining extracted state holders.
+                    }
+                }
+                throw ignoredDecisionState;
             }
         }
     }

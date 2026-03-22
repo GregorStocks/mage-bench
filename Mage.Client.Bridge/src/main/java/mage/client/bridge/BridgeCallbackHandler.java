@@ -8,9 +8,14 @@ import mage.client.bridge.processor.BridgeChooseActionFlow;
 import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
+import mage.client.bridge.processor.BridgeChatLogEntry;
 import mage.client.bridge.processor.BridgeCommand;
+import mage.client.bridge.processor.BridgeCursorState;
 import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgeGameState;
+import mage.client.bridge.processor.BridgeGameLogState;
+import mage.client.bridge.processor.BridgeInteractionState;
+import mage.client.bridge.processor.BridgeManaPlanEntry;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
@@ -114,35 +119,17 @@ public class BridgeCallbackHandler {
     private final BridgeProcessor processor;
     private final BridgeDecisionState decisionState = new BridgeDecisionState();
     private final BridgeGameState gameState = new BridgeGameState();
+    private final BridgeCursorState cursorState = new BridgeCursorState();
+    private final BridgeInteractionState interactionState = new BridgeInteractionState();
+    private final BridgeGameLogState gameLogState = new BridgeGameLogState();
     private volatile Session session;
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
-    private final Object stateCursorLock = new Object();
-    private volatile long gameStateCursor = 0; // Monotonic cursor for get_game_state
-    private volatile String lastGameStateSignature = null; // Canonicalized state signature for cursoring
-    private final Object boardCursorLock = new Object();
-    private volatile long boardCursor = 0; // Monotonic cursor for board state dedup in pass_priority/get_action_choices
-    private volatile String lastBoardSignature = null; // Canonicalized board signature for cursoring
-    private final Set<UUID> failedManaCasts = ConcurrentHashMap.newKeySet(); // Spells that failed mana payment (avoid retry loops)
-    private volatile UUID poolManaPayingForId = null; // Tracks which spell pool-mana is being paid for (loop detection)
-    private volatile int poolManaAttempts = 0; // Consecutive pool-mana sends for the same spell
     private static final int MAX_POOL_MANA_ATTEMPTS = 10; // Cancel payment after this many pool retries
-    private volatile CopyOnWriteArrayList<ManaPlanEntry> manaPlan = null; // Explicit mana sourcing plan from LLM
-    private volatile Integer manaPlanAbilityIndex = null; // Ability index from last consumed mana plan entry (for GAME_CHOOSE_ABILITY)
-    private volatile boolean manaPlanAutoTapFallback = true; // When mana plan is exhausted, fall through to auto-tap (true) or cancel (false)
-    private volatile int lastTurnNumber = -1; // For clearing failedManaCasts on turn change
-    private volatile int interactionsThisTurn = 0; // Generic loop detection: count model interactions per turn
-    private volatile int maxInteractionsPerTurn = 25; // Configurable per-model; after this many, auto-pass rest of turn
 
     private volatile DeckCardLists deckList = null; // Original decklist for get_my_decklist
     private volatile String errorLogPath = null; // Path to write errors to (set via system property)
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
-    private final List<String> unseenChat = new ArrayList<>(); // Chat messages from other players not yet shown to LLM
-    private final List<BridgeChatLogEntry> chatLog = new ArrayList<>(); // Chat messages interleaved with bridge events at render time
-    private volatile String lastChatMessage = null; // For deduplicating outgoing chat
-    private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
-    private volatile int bridgeEventCursor = 0; // Pull cursor for bridge event log
-    private final List<BridgeLogEntry> cachedBridgeEvents = new ArrayList<>(); // Client-side cache survives game cleanup
     private static final long KEEPALIVE_CONCEDE_WAIT_SECONDS = 15;
 
     // Join handler: provided by BridgeClient so JoinTableTool can trigger table joining
@@ -152,9 +139,6 @@ public class BridgeCallbackHandler {
     }
     private volatile JoinHandler joinHandler = null;
 
-    private record ManaPlanEntry(String type, String value, Integer abilityIndex) {
-        ManaPlanEntry(String type, String value) { this(type, value, null); }
-    }
     private record TargetChoice(UUID targetId, Map<String, Object> entry, CardView cardView) {
     }
     private enum DecisionBoundaryStatus {
@@ -399,16 +383,7 @@ public class BridgeCallbackHandler {
             GameView gv = gcm.getGameView();
             if (gv != null) {
                 updateLastGameView(gv, "passPriority:" + action.method().name());
-                int turn = gv.getTurn();
-                if (turn != lastTurnNumber) {
-                    lastTurnNumber = turn;
-                    failedManaCasts.clear();
-                    interactionsThisTurn = 0;
-                    poolManaAttempts = 0;
-                    poolManaPayingForId = null;
-                    manaPlan = null;
-                    manaPlanAbilityIndex = null;
-                }
+                interactionState.advanceTurn(gv);
             }
         }
         if (action.data() instanceof GameClientMessage gcm) {
@@ -418,15 +393,15 @@ public class BridgeCallbackHandler {
     }
 
     int interactionsThisTurn() {
-        return interactionsThisTurn;
+        return interactionState.interactionsThisTurn();
     }
 
     int maxInteractionsPerTurn() {
-        return maxInteractionsPerTurn;
+        return interactionState.maxInteractionsPerTurn();
     }
 
     int lastTurnNumber() {
-        return lastTurnNumber;
+        return interactionState.lastTurnNumber();
     }
 
     void declareZombieGame(long absoluteIdleMs) {
@@ -437,7 +412,7 @@ public class BridgeCallbackHandler {
     }
 
     boolean failedManaCast(UUID objectId) {
-        return failedManaCasts.contains(objectId);
+        return interactionState.failedManaCast(objectId);
     }
 
     void finalizePassPriorityResult(
@@ -771,8 +746,9 @@ public class BridgeCallbackHandler {
     }
 
     public void setMaxInteractionsPerTurn(int max) {
-        this.maxInteractionsPerTurn = Math.max(5, max);
-        logger.info("[" + client.getUsername() + "] maxInteractionsPerTurn set to " + this.maxInteractionsPerTurn);
+        int effectiveMax = Math.max(5, max);
+        interactionState.setMaxInteractionsPerTurn(effectiveMax);
+        logger.info("[" + client.getUsername() + "] maxInteractionsPerTurn set to " + effectiveMax);
     }
 
     public void setJoinHandler(JoinHandler handler) {
@@ -793,7 +769,7 @@ public class BridgeCallbackHandler {
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
         fresh.session = this.session;
         fresh.gameState.setKeepAliveAfterGame(this.gameState.keepAliveAfterGame());
-        fresh.maxInteractionsPerTurn = this.maxInteractionsPerTurn;
+        fresh.interactionState.setMaxInteractionsPerTurn(this.interactionState.maxInteractionsPerTurn());
         fresh.errorLogPath = this.errorLogPath;
         fresh.bridgeLogPath = this.bridgeLogPath;
         fresh.joinHandler = this.joinHandler;
@@ -858,11 +834,9 @@ public class BridgeCallbackHandler {
     private void resetProcessorState() {
         gameState.resetProcessorState();
         decisionState.reset();
-        cachedBridgeEvents.clear();
-        bridgeEventCursor = 0;
-        synchronized (chatLog) {
-            chatLog.clear();
-        }
+        gameLogState.reset();
+        cursorState.reset();
+        interactionState.resetRuntimeState();
     }
 
     // Visible for tests that need to wait for queued callback processing.
@@ -1178,16 +1152,7 @@ public class BridgeCallbackHandler {
                 if (playable != null && !playable.isEmpty()) {
                     // Clear failed casts and loop counters on turn change
                     if (gameView != null) {
-                        int turn = gameView.getTurn();
-                        if (turn != lastTurnNumber) {
-                            lastTurnNumber = turn;
-                            failedManaCasts.clear();
-                            interactionsThisTurn = 0;
-                            poolManaAttempts = 0;
-                            poolManaPayingForId = null;
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
-                        }
+                        interactionState.advanceTurn(gameView);
                     }
 
                     // Sort playable objects by card name for deterministic ordering
@@ -1204,7 +1169,7 @@ public class BridgeCallbackHandler {
                         PlayableObjectStats stats = entry.getValue();
 
                         // Skip spells that failed mana payment (can't afford them)
-                        if (failedManaCasts.contains(objectId)) {
+                        if (interactionState.failedManaCast(objectId)) {
                             continue;
                         }
 
@@ -1895,10 +1860,9 @@ public class BridgeCallbackHandler {
         }
 
         // Mana plan active: consume ability index and select
-        if (manaPlan != null) {
+        if (interactionState.manaPlan() != null) {
             if (clearPendingActionIfCurrent(action)) {
-                Integer abilityIdx = manaPlanAbilityIndex;
-                manaPlanAbilityIndex = null;  // consume
+                Integer abilityIdx = interactionState.consumeManaPlanAbilityIndex();
                 UUID selected;
                 if (abilityIdx != null) {
                     List<UUID> abilityIds = new ArrayList<>(choices.keySet());
@@ -1914,10 +1878,8 @@ public class BridgeCallbackHandler {
                             + ": mana plan ability index " + abilityIdx
                             + " out of range (0-" + (abilityIds.size() - 1) + ") for \""
                             + picker.getMessage() + "\", cancelling spell");
-                        manaPlan = null;
-                        synchronized (unseenChat) {
-                            unseenChat.add("[System] Spell cancelled — mana plan ability index was incorrect.");
-                        }
+                        interactionState.clearManaPlan();
+                        gameLogState.addSystemMessage("[System] Spell cancelled — mana plan ability index was incorrect.");
                         logBridgeEvent("SPELL_CANCELLED", "mana plan ability index out of range");
                         decisionState.clearLastChoices();
                         decisionState.clearChoiceSnapshot();
@@ -2078,7 +2040,7 @@ public class BridgeCallbackHandler {
             if (decisionState.pendingChooseActionFlow() != null) {
                 return null;
             }
-            interactionsThisTurn++;
+            interactionState.incrementInteractionsThisTurn();
             return chooseActionFlowManager.startPendingFlow(input);
         });
         if (flow == null) {
@@ -2131,8 +2093,8 @@ public class BridgeCallbackHandler {
         Boolean autoTap = input.autoTap();
 
         // Loop detection: model has made too many interactions this turn — auto-handle
-        if (interactionsThisTurn > maxInteractionsPerTurn) {
-            logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
+        if (interactionState.interactionsThisTurn() > interactionState.maxInteractionsPerTurn()) {
+            logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionState.interactionsThisTurn()
                 + " interactions this turn), auto-handling " + action.method().name());
             // Not a critical error — LLM is stuck in a loop, not a code bug
             try {
@@ -2147,7 +2109,7 @@ public class BridgeCallbackHandler {
             }
             result.success = true;
             result.action_taken = "auto_passed_loop_detected";
-            result.warning = "Too many interactions this turn (" + interactionsThisTurn + "). Auto-passing until next turn.";
+            result.warning = "Too many interactions this turn (" + interactionState.interactionsThisTurn() + "). Auto-passing until next turn.";
             return chooseActionDone(result);
         }
 
@@ -2277,7 +2239,7 @@ public class BridgeCallbackHandler {
                                 // Validate mana plan before sending spell to server —
                                 // once sent, cancellation is async and confuses the model
                                 if (effectiveManaPlan != null) {
-                                    CopyOnWriteArrayList<ManaPlanEntry> parsedPlan;
+                                    CopyOnWriteArrayList<BridgeManaPlanEntry> parsedPlan;
                                     try {
                                         parsedPlan = parseManaPlan(effectiveManaPlan);
                                     } catch (IllegalArgumentException e) {
@@ -2285,23 +2247,18 @@ public class BridgeCallbackHandler {
                                             "Invalid mana_plan: " + e.getMessage()
                                             + ". Expected: [\"p1\",\"p2:0\",\"RED\"]", true, action));
                                     }
-                                    for (ManaPlanEntry entry : parsedPlan) {
+                                    for (BridgeManaPlanEntry entry : parsedPlan) {
                                         if ("tap".equals(entry.type()) && shortIds.tryResolve(entry.value()) == null) {
                                             return chooseActionDone(buildError(result, "invalid_mana_plan",
                                                 "Mana plan references unknown permanent '" + entry.value()
                                                 + "'. Check the board state for correct permanent IDs.", true, action));
                                         }
                                     }
-                                    manaPlan = parsedPlan;
-                                    // auto_tap controls fallback when plan runs out:
-                                    // false = cancel spell, true/null = fall through to auto-tap
-                                    manaPlanAutoTapFallback = !(autoTap != null && !autoTap);
+                                    interactionState.setManaPlan(parsedPlan, !(autoTap != null && !autoTap));
                                     result.mana_plan_set = true;
-                                    result.mana_plan_size = manaPlan.size();
+                                    result.mana_plan_size = parsedPlan.size();
                                 } else if (autoTap != null && autoTap) {
-                                    manaPlan = null;  // Explicit auto-tap mode
-                                    manaPlanAbilityIndex = null;
-                                    manaPlanAutoTapFallback = true;
+                                    interactionState.clearManaPlan();  // Explicit auto-tap mode
                                 }
                                 sendUuidOrDie(gameId, chosenUuid, "chooseAction:GAME_SELECT_index");
                                 result.action_taken = "selected_" + resolvedIndex;
@@ -2387,10 +2344,9 @@ public class BridgeCallbackHandler {
                             // Mark spell as failed to prevent infinite retry loop
                             UUID payingForId = extractPayingForId(action.message());
                             if (payingForId != null) {
-                                failedManaCasts.add(payingForId);
+                                interactionState.markFailedManaCast(payingForId);
                             }
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
+                            interactionState.clearManaPlan();
                             sendBooleanOrDie(gameId, false, "chooseAction:GAME_PLAY_MANA_cancel");
                             result.action_taken = "cancelled_spell";
                         } else {
@@ -2807,18 +2763,19 @@ public class BridgeCallbackHandler {
 
     private GameLogSnapshot snapshotGameLog() {
         pullBridgeEvents();
-        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
+        List<BridgeLogEntry> allEvents = gameLogState.snapshotBridgeEvents();
+        // TODO(bridge-processor): Replace this handler-side snapshot/cursor
+        // reconstruction with reads from a processor-owned published log that
+        // already carries local monotonic sequence numbers.
         return new GameLogSnapshot(allEvents, nextBridgeEventCursor(allEvents));
     }
 
     private List<BridgeChatLogEntry> snapshotChatLog() {
-        synchronized (chatLog) {
-            return new ArrayList<>(chatLog);
-        }
+        return gameLogState.snapshotChatLog();
     }
 
-    private static int nextBridgeEventCursor(List<BridgeLogEntry> allEvents) {
-        return allEvents.isEmpty() ? 0 : allEvents.get(allEvents.size() - 1).index() + 1;
+    private static int nextBridgeEventCursor(List<BridgeLogEntry> events) {
+        return events.isEmpty() ? 0 : events.get(events.size() - 1).index() + 1;
     }
 
     private static GetGameLogTool.Result buildGameLogResult(
@@ -2838,26 +2795,7 @@ public class BridgeCallbackHandler {
         if (gameId == null) return List.of();
         UUID playerId = playerIdForGame(gameId);
         if (playerId == null) return List.of();
-        try {
-            List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
-            if (events != null && !events.isEmpty()) {
-                bridgeEventCursor = events.get(events.size() - 1).index() + 1;
-                // Only append events not already in the cache. getGameHistory() temporarily
-                // rewinds bridgeEventCursor (save/restore pattern), which can re-fetch events
-                // that were already cached from a prior pull.
-                int cacheHighWater = cachedBridgeEvents.isEmpty() ? -1
-                        : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index();
-                for (BridgeLogEntry e : events) {
-                    if (e.index() > cacheHighWater) {
-                        cachedBridgeEvents.add(e);
-                    }
-                }
-            }
-            return events != null ? events : List.of();
-        } catch (Exception e) {
-            logger.error("[" + client.getUsername() + "] Failed to pull bridge events", e);
-            return List.of();
-        }
+        return gameLogState.pullBridgeEvents(session, gameId, playerId, logger, client.getUsername());
     }
 
     /**
@@ -2885,15 +2823,9 @@ public class BridgeCallbackHandler {
                 if (fetched != null && !fetched.isEmpty()) {
                     events = fetched;
                     newCursor = fetched.get(fetched.size() - 1).index() + 1;
-                    // Merge into cache for post-game fallback, using high-water dedup
-                    // to avoid duplicates without polluting order.
-                    int cacheHighWater = cachedBridgeEvents.isEmpty() ? -1
-                            : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index();
-                    for (BridgeLogEntry e : fetched) {
-                        if (e.index() > cacheHighWater) {
-                            cachedBridgeEvents.add(e);
-                        }
-                    }
+                    // History reads may populate the fallback cache, but they must
+                    // not advance the live pull cursor used by pullBridgeEvents().
+                    gameLogState.cacheHistoryEvents(fetched);
                 }
             } catch (Exception e) {
                 logger.error("[" + client.getUsername() + "] Failed to fetch bridge events for history", e);
@@ -2902,16 +2834,14 @@ public class BridgeCallbackHandler {
 
         // If the server returned nothing (game ended, controller cleaned up),
         // fall back to cached events from earlier pulls.
-        if (events.isEmpty() && !cachedBridgeEvents.isEmpty()) {
+        List<BridgeLogEntry> cachedEvents = gameLogState.snapshotBridgeEvents();
+        if (events.isEmpty() && !cachedEvents.isEmpty()) {
             if (sinceCursor != null) {
-                events = cachedBridgeEvents.stream()
-                        .filter(e -> e.index() >= sinceCursor)
-                        .toList();
+                events = gameLogState.cachedBridgeEventsSince(sinceCursor);
             } else {
-                events = new ArrayList<>(cachedBridgeEvents);
+                events = cachedEvents;
             }
-            newCursor = cachedBridgeEvents.isEmpty() ? 0
-                    : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index() + 1;
+            newCursor = nextBridgeEventCursor(cachedEvents);
         }
 
         // Filter by sinceTurn if specified
@@ -2969,12 +2899,10 @@ public class BridgeCallbackHandler {
         }
         // Suppress duplicate messages within the dedup window
         long now = System.currentTimeMillis();
-        if (message.equals(lastChatMessage) && (now - lastChatTimeMs) < CHAT_DEDUP_WINDOW_MS) {
+        if (gameLogState.shouldSuppressOutgoingChat(message, now, CHAT_DEDUP_WINDOW_MS)) {
             logger.info("[" + client.getUsername() + "] Suppressing duplicate chat message");
             return null; // Pretend success so the model doesn't retry
         }
-        lastChatMessage = message;
-        lastChatTimeMs = now;
         if (!session.sendChatMessage(chatId, message)) {
             return "server rejected the message";
         }
@@ -3026,29 +2954,11 @@ public class BridgeCallbackHandler {
      * Drain unseen chat messages and attach to result map (if any).
      */
     private void attachUnseenChat(Map<String, Object> result) {
-        if (gameState.playerDead()) {
-            result.put("player_dead", true);
-        }
-        if (gameState.gameOverObserved()) {
-            result.put("game_over", true);
-        }
-        synchronized (unseenChat) {
-            if (!unseenChat.isEmpty()) {
-                result.put("recent_chat", new ArrayList<>(unseenChat));
-                unseenChat.clear();
-            }
-        }
+        gameLogState.attachUnseenChat(result, gameState.playerDead(), gameState.gameOverObserved());
     }
 
     private void attachUnseenChat(ActionResult result) {
-        if (gameState.playerDead()) result.player_dead = true;
-        if (gameState.gameOverObserved()) result.game_over = true;
-        synchronized (unseenChat) {
-            if (!unseenChat.isEmpty()) {
-                result.recent_chat = new ArrayList<>(unseenChat);
-                unseenChat.clear();
-            }
-        }
+        gameLogState.attachUnseenChat(result, gameState.playerDead(), gameState.gameOverObserved());
     }
 
     private void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
@@ -3147,7 +3057,7 @@ public class BridgeCallbackHandler {
             if (decisionState.pendingPassPriorityFlow() != null) {
                 return null;
             }
-            interactionsThisTurn++;
+            interactionState.incrementInteractionsThisTurn();
             return passPriorityFlowManager.startPendingFlow(until, boardCursorParam);
         });
 
@@ -3297,24 +3207,12 @@ public class BridgeCallbackHandler {
 
     private long updateGameStateCursor(Map<String, Object> state) {
         String signature = BridgeGameStateBuilder.buildStateSignature(state);
-        synchronized (stateCursorLock) {
-            if (lastGameStateSignature == null || !lastGameStateSignature.equals(signature)) {
-                gameStateCursor++;
-                lastGameStateSignature = signature;
-            }
-            return gameStateCursor;
-        }
+        return cursorState.updateGameStateCursor(signature);
     }
 
     private long updateBoardCursor(List<Map<String, Object>> players) {
         String signature = BridgeGameStateBuilder.buildStateSignature(players);
-        synchronized (boardCursorLock) {
-            if (lastBoardSignature == null || !lastBoardSignature.equals(signature)) {
-                boardCursor++;
-                lastBoardSignature = signature;
-            }
-            return boardCursor;
-        }
+        return cursorState.updateBoardCursor(signature);
     }
 
     public Map<String, Object> getMyDecklist() {
@@ -3599,20 +3497,7 @@ public class BridgeCallbackHandler {
                 String user = chatMsg.getUsername();
                 String msg = chatMsg.getMessage();
                 if (user != null && msg != null && !msg.isEmpty()) {
-                    // Capture chat for game log rendering (interleaved with bridge events).
-                    // bridgeEventCursor is the best-known event position; it advances when
-                    // pullBridgeEvents() runs. Chat arriving before the first pull gets
-                    // cursor=0, placing it before game events — chronologically correct since
-                    // the chat predates the first event pull.
-                    synchronized (chatLog) {
-                        chatLog.add(new BridgeChatLogEntry(bridgeEventCursor, msg, "[Chat] " + user + ": " + msg));
-                    }
-                    // Buffer chat from other players so pass_priority can surface it
-                    if (!user.equals(client.getUsername())) {
-                        synchronized (unseenChat) {
-                            unseenChat.add(user + ": " + msg);
-                        }
-                    }
+                    gameLogState.recordTalkMessage(client.getUsername(), user, msg);
                 }
             }
             logger.debug("[" + client.getUsername() + "] Chat: " + chatMsg.getMessage());
@@ -3896,19 +3781,19 @@ public class BridgeCallbackHandler {
      * Format: ["p1", "p2:0", "RED"] — short IDs activate mana abilities (with optional
      * :N ability index for multi-ability permanents), color names spend from pool.
      */
-    private CopyOnWriteArrayList<ManaPlanEntry> parseManaPlan(String[] arr) {
-        var plan = new CopyOnWriteArrayList<ManaPlanEntry>();
+    private CopyOnWriteArrayList<BridgeManaPlanEntry> parseManaPlan(String[] arr) {
+        var plan = new CopyOnWriteArrayList<BridgeManaPlanEntry>();
         for (String entry : arr) {
             if (isPoolColor(entry)) {
-                plan.add(new ManaPlanEntry("pool", entry));
+                plan.add(new BridgeManaPlanEntry("pool", entry));
             } else {
                 int colonIdx = entry.indexOf(':');
                 if (colonIdx >= 0) {
                     String shortId = entry.substring(0, colonIdx);
                     int abilityIndex = Integer.parseInt(entry.substring(colonIdx + 1));
-                    plan.add(new ManaPlanEntry("tap", shortId, abilityIndex));
+                    plan.add(new BridgeManaPlanEntry("tap", shortId, abilityIndex));
                 } else {
-                    plan.add(new ManaPlanEntry("tap", entry));
+                    plan.add(new BridgeManaPlanEntry("tap", entry));
                 }
             }
         }
@@ -3925,14 +3810,9 @@ public class BridgeCallbackHandler {
      * Marks the spell as failed, clears the plan, and notifies the LLM.
      */
     private boolean cancelSpellFromBadManaPlan(UUID gameId, UUID payingForId) {
-        if (payingForId != null) {
-            failedManaCasts.add(payingForId);
-        }
-        manaPlan = null;
-        manaPlanAbilityIndex = null;
-        synchronized (unseenChat) {
-            unseenChat.add("[System] Spell cancelled — mana plan was incorrect or incomplete.");
-        }
+        interactionState.markFailedManaCast(payingForId);
+        interactionState.clearManaPlan();
+        gameLogState.addSystemMessage("[System] Spell cancelled — mana plan was incorrect or incomplete.");
         logBridgeEvent("SPELL_CANCELLED", "mana plan was incorrect or incomplete");
         sendBooleanOrDie(gameId, false, "cancelSpellFromBadManaPlan");
         return true;
@@ -3962,12 +3842,12 @@ public class BridgeCallbackHandler {
         // Consume explicit mana plan if active.
         // If any entry fails or the plan is exhausted, cancel the spell — the LLM
         // must either pass a CORRECT plan, fill the pool in advance, or use auto_tap.
-        CopyOnWriteArrayList<ManaPlanEntry> plan = manaPlan;
+        CopyOnWriteArrayList<BridgeManaPlanEntry> plan = interactionState.manaPlan();
         if (plan != null && !plan.isEmpty()) {
-            ManaPlanEntry entry = plan.remove(0);  // consume first entry
+            BridgeManaPlanEntry entry = plan.remove(0);  // consume first entry
 
             if ("tap".equals(entry.type())) {
-                manaPlanAbilityIndex = entry.abilityIndex();  // save for GAME_CHOOSE_ABILITY
+                interactionState.setManaPlanAbilityIndex(entry.abilityIndex());  // save for GAME_CHOOSE_ABILITY
                 UUID targetId = shortIds.tryResolve(entry.value());
                 if (targetId == null) {
                     logger.warn("[" + client.getUsername() + "] Mana plan: unknown short ID '" + entry.value() + "', cancelling spell");
@@ -3976,9 +3856,9 @@ public class BridgeCallbackHandler {
                 PlayableObjectsList playableForPlan = gameView != null ? gameView.getCanPlayObjects() : null;
                 if (playableForPlan != null) {
                     PlayableObjectStats stats = playableForPlan.getObjects().get(targetId);
-                    if (stats != null && !targetId.equals(payingForId) && !failedManaCasts.contains(targetId)) {
+                    if (stats != null && !targetId.equals(payingForId) && !interactionState.failedManaCast(targetId)) {
                         logger.info("[" + client.getUsername() + "] Mana plan: \"" + msg + "\" -> tapping " + entry.value());
-                        poolManaAttempts = 0;
+                        interactionState.resetPoolManaTracking();
                         sendUuidOrDie(gameId, targetId, "manaAuto:plan_tap");
                         return true;
                     }
@@ -4007,10 +3887,9 @@ public class BridgeCallbackHandler {
 
         // Plan exists but is exhausted — either fall through to auto-tap or cancel
         if (plan != null) {
-            if (manaPlanAutoTapFallback) {
+            if (interactionState.manaPlanAutoTapFallback()) {
                 logger.info("[" + client.getUsername() + "] Mana plan: exhausted, falling through to auto-tap for remaining pips");
-                manaPlan = null;
-                manaPlanAbilityIndex = null;
+                interactionState.clearManaPlan();
                 // Fall through to auto-tap code below
             } else {
                 logger.warn("[" + client.getUsername() + "] Mana plan: exhausted with pips remaining, cancelling spell (auto_tap=false)");
@@ -4049,7 +3928,7 @@ public class BridgeCallbackHandler {
                     continue;
                 }
                 // Don't re-tap a source whose activation cost already failed to pay
-                if (failedManaCasts.contains(objectId)) {
+                if (interactionState.failedManaCast(objectId)) {
                     continue;
                 }
                 PlayableObjectStats stats = entry.getValue();
@@ -4074,7 +3953,7 @@ public class BridgeCallbackHandler {
                 }
                 if (hasTapManaAbility) {
                     logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> tapping " + objectId.toString().substring(0, 8));
-                    poolManaAttempts = 0; // Reset pool counter — tap may produce needed mana
+                    interactionState.resetPoolManaTracking(); // Reset pool counter — tap may produce needed mana
                     sendUuidOrDie(gameId, objectId, "manaAuto:tap");
                     return true;
                 }
@@ -4090,25 +3969,14 @@ public class BridgeCallbackHandler {
                 // Track consecutive pool payment attempts for the same spell.
                 // If XMage keeps re-sending GAME_PLAY_MANA after we send pool mana,
                 // the payment isn't actually progressing — cancel to break the loop.
-                if (payingForId != null && payingForId.equals(poolManaPayingForId)) {
-                    poolManaAttempts++;
-                } else {
-                    poolManaPayingForId = payingForId;
-                    poolManaAttempts = 1;
-                }
+                int poolManaAttempts = interactionState.recordPoolManaAttempt(payingForId);
                 if (poolManaAttempts > MAX_POOL_MANA_ATTEMPTS) {
                     logger.warn("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> pool payment not progressing after "
                             + poolManaAttempts + " attempts, cancelling spell");
-                    poolManaAttempts = 0;
-                    poolManaPayingForId = null;
-                    manaPlan = null;
-                    manaPlanAbilityIndex = null;
-                    if (payingForId != null) {
-                        failedManaCasts.add(payingForId);
-                    }
-                    synchronized (unseenChat) {
-                        unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-                    }
+                    interactionState.resetPoolManaTracking();
+                    interactionState.clearManaPlan();
+                    interactionState.markFailedManaCast(payingForId);
+                    gameLogState.addSystemMessage("[System] Spell cancelled — not enough mana to complete payment.");
                     logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
                     sendBooleanOrDie(gameId, false, "manaAuto:pool_loop_cancel");
                     return true;
@@ -4128,14 +3996,9 @@ public class BridgeCallbackHandler {
 
         // No suitable source/pool choice found — cancel spell and mark as failed.
         logger.info("[" + client.getUsername() + "] Mana: \"" + msg + "\" -> no mana source available, cancelling spell");
-        if (payingForId != null) {
-            failedManaCasts.add(payingForId);
-        }
-        manaPlan = null;
-        manaPlanAbilityIndex = null;
-        synchronized (unseenChat) {
-            unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-        }
+        interactionState.markFailedManaCast(payingForId);
+        interactionState.clearManaPlan();
+        gameLogState.addSystemMessage("[System] Spell cancelled — not enough mana to complete payment.");
         logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
         sendBooleanOrDie(gameId, false, "manaAuto:no_source_cancel");
         return true;

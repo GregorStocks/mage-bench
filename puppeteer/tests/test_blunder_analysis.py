@@ -20,6 +20,7 @@ from magebench.game.game_export_types import (
     ToolCallEvent,
     json_default,
 )
+from magebench.game.game_exports import load_raw_game_export
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
@@ -35,7 +36,6 @@ from scripts.analysis.blunder_context import (
     format_current_turn_actions,
 )
 from scripts.analysis.blunder_llm import compute_cost, parse_annotation
-from scripts.game_exports import load_raw_game_export
 
 # Fake prices for testing
 _TEST_PRICES = {

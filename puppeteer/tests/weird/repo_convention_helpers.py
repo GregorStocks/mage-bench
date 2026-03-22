@@ -96,7 +96,7 @@ def changed_game_filenames() -> set[str] | None:
         for f in changed
         if f.endswith(".schema.json") and any(f.startswith(prefix) for prefix in _SCHEMA_CHANGE_PREFIXES)
     }
-    if schema_files or "scripts/export_game.py" in changed:
+    if schema_files or "scripts/export_game.py" in changed or "src/magebench/game/export_game.py" in changed:
         return None
 
     prefix = "website/public/games/"

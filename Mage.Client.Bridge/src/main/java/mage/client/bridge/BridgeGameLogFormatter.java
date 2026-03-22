@@ -1,5 +1,6 @@
 package mage.client.bridge;
 
+import mage.client.bridge.processor.BridgeChatLogEntry;
 import mage.client.bridge.tools.GetGameHistoryTool;
 import mage.client.bridge.tools.GetGameLogTool;
 import mage.game.BridgeLogEntry;
