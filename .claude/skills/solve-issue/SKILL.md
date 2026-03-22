@@ -22,6 +22,8 @@ Pick and solve exactly **one** issue, then create a PR. Issue claims live in the
 
    If any check fails, **stop immediately** and tell the user. Do not proceed — solve-issue must start from a clean branch that matches `origin/master` exactly and is not already tied to an open PR.
 
+   If those checks pass, **create a fresh feature branch before claiming anything**. Use the worktree-name prefix rule from `AGENTS.md` (for example `kumquat-toad-spark-<topic>`). The local issue claim store is keyed by both worktree and branch; if you claim first and switch branches afterward, the claim will be cleaned up as stale and `finalize_issue_pr.py` will fail later.
+
 1. **Resolve a user-supplied issue argument** — only if the user explicitly passed an issue name/path. Use your judgment to determine the issue file they very obviously meant before invoking the claim script.
 
    Canonicalize the argument to the basename expected by `scripts/autoclaim_issue.py`:
