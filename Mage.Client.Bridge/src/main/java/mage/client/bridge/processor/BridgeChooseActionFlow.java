@@ -175,6 +175,7 @@ public final class BridgeChooseActionFlow {
         possibleCombatants = extractUuidOptionList(action, "possibleAttackers");
 
         if (input.attackers().length == 1 && "all".equals(input.attackers()[0])) {
+            batchDeclared.add(Map.of("id", "all"));
             context.clearPendingActionIfCurrent(action);
             context.sendStringOrDie(action.gameId(), "special", "batchAttack:all");
             batchPhase = BatchPhase.ATTACKERS_WAITING_FOR_SPECIAL_CONFIRM;
