@@ -1,6 +1,6 @@
 {
   "title": "Move analysis toolbox into magebench.analysis.toolbox",
-  "description": "Do Step 8 of `docs/python-magebench-migration-plan.md`: move toolbox utilities into `src/magebench/analysis/toolbox/`.\n\
+  "description": "Do Step 8 of `doc/python-magebench-migration-plan.md`: move toolbox utilities into `src/magebench/analysis/toolbox/`.\n\
 \n\
 Scope:\n\
 - move the one-off inspection and research utilities from `scripts/analysis/toolbox/`\n\
@@ -13,7 +13,7 @@ Scope:\n\
     "refactoring",
     "analysis",
   ],
-  "blocked": "Blocked on Step 7 in docs/python-magebench-migration-plan.md: move blunder analysis core into magebench.analysis.blunder.",
+  "blocked": "Blocked on Step 7 in doc/python-magebench-migration-plan.md: move blunder analysis core into magebench.analysis.blunder.",
   "created_at": "2026-03-21T18:56:22.822934-07:00",
   "updated_at": "2026-03-21T18:56:22.822934-07:00",
 }
