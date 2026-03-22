@@ -41,11 +41,7 @@ def _metadata_for_games(
 
 
 def _print_claimed_game(game_id: str) -> None:
-    try:
-        print(game_path_for_id(game_id))
-    except AssertionError:
-        # Explicit claims can target a log-only game before export exists.
-        print(game_id)
+    print(game_path_for_id(game_id))
 
 
 def main() -> None:

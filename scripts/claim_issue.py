@@ -41,7 +41,11 @@ def current_claimed_issue_stem() -> str | None:
     assert len(claims) == 1, (
         f"Expected at most one issue claim for this worktree, got {claims}"
     )
-    return resolve_issue_stem_for_key(ISSUES_DIR, claims[0].key) or claims[0].key
+    resolved = resolve_issue_stem_for_key(ISSUES_DIR, claims[0].key)
+    assert resolved is not None, (
+        f"Current issue claim {claims[0].key!r} does not resolve to an issue file"
+    )
+    return resolved
 
 
 def main() -> None:

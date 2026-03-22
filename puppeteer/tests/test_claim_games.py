@@ -61,9 +61,7 @@ def test_claim_games_exact_ids_conflict_exits_1() -> None:
         claim_games.main()
 
 
-def test_claim_games_exact_ids_prints_game_id_when_export_missing(
-    capsys: pytest.CaptureFixture[str],
-) -> None:
+def test_claim_games_exact_ids_raise_when_export_missing() -> None:
     game_id = "game_20260301_010101"
 
     with (
@@ -74,10 +72,9 @@ def test_claim_games_exact_ids_prints_game_id_when_export_missing(
             "game_path_for_id",
             side_effect=AssertionError("missing export"),
         ),
+        pytest.raises(AssertionError, match="missing export"),
     ):
         claim_games.main()
-
-    assert capsys.readouterr().out == f"{game_id}\n"
 
 
 def test_claim_games_auto_mode_claims_requested_count(capsys: pytest.CaptureFixture[str]) -> None:

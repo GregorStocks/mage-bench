@@ -213,6 +213,17 @@ class TestClaimIssue:
         ):
             claim_issue.main()
 
+    def test_current_claim_requires_resolved_issue_file(self, tmp_path: Path) -> None:
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", tmp_path),
+            patch.object(claim_issue, "current_owner_claims", return_value=[_claim_record("bug-a")]),
+            pytest.raises(
+                AssertionError,
+                match="Current issue claim 'bug-a' does not resolve to an issue file",
+            ),
+        ):
+            claim_issue.current_claimed_issue_stem()
+
     def test_master_branch_exits_2(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
         _write_issue(issues_dir, "p1-bug-a", {"title": "Bug A", "priority": 1})
