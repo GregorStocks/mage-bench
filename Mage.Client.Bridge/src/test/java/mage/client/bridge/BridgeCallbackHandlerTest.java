@@ -707,6 +707,32 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void getGameHistoryDoesNotRewindCursorWhenNoEventsAreReturned() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                if ("getBridgeEvents".equals(method.getName())) {
+                    return List.of();
+                }
+                return defaultReturnValue(method.getReturnType());
+            }
+        ));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        addActiveGame(handler, gameId, playerId);
+
+        var history = handler.getGameHistory(null, 17);
+        assertThat(history.cursor).isEqualTo(17);
+        assertThat(history.event_count).isZero();
+        assertThat(history.history).isEqualTo("No game events recorded yet.");
+    }
+
+    @Test
     void endGameInfoCleansUpWhenGameOverMissed() throws Exception {
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();

@@ -183,7 +183,10 @@ public final class BridgeMcpQueryApi {
                     .filter(e -> e.turn() >= sinceTurn)
                     .toList();
         }
-        return BridgeGameLogFormatter.buildGameHistoryResult(events, snapshot.cursor());
+        int responseCursor = sinceCursor != null
+            ? Math.max(snapshot.cursor(), sinceCursor)
+            : snapshot.cursor();
+        return BridgeGameLogFormatter.buildGameHistoryResult(events, responseCursor);
     }
 
     public GetGameStateTool.Result getGameState(Long cursor) {
