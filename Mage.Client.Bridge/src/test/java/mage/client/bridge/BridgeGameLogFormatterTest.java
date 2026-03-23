@@ -1,7 +1,7 @@
 package mage.client.bridge;
 
 import mage.client.bridge.mcp.BridgeGameLogFormatter;
-import mage.client.bridge.processor.BridgeChatLogEntry;
+import mage.client.bridge.processor.BridgePublishedLogEntry;
 import mage.client.bridge.tools.GetGameHistoryTool;
 import mage.game.BridgeLogEntry;
 import org.junit.jupiter.api.Test;
@@ -14,23 +14,39 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BridgeGameLogFormatterTest {
 
     @Test
-    void renderGameLogFlatSortsSameCursorChatByMessageAndSkipsSetupEvents() {
-        List<BridgeLogEntry> events = List.of(
-            bridgeLogEntry(0, "LAND_PLAYED", 0, "Alice", "Alice", "Pre-game Island", null),
-            bridgeLogEntry(1, "BEGIN_TURN", 1, "Alice", "Alice", null, null),
-            bridgeLogEntry(2, "LAND_PLAYED", 1, "Alice", "Alice", "Island", null)
+    void renderGameLogFlatUsesPublishedEntryOrderAndSkipsSetupEvents() {
+        List<BridgePublishedLogEntry> entries = List.of(
+            new BridgePublishedLogEntry(0, bridgeLogEntry(0, "LAND_PLAYED", 0, "Alice", "Alice", "Pre-game Island", null), null),
+            new BridgePublishedLogEntry(1, bridgeLogEntry(1, "BEGIN_TURN", 1, "Alice", "Alice", null, null), null),
+            new BridgePublishedLogEntry(2, null, "[Chat] Zoe: alpha"),
+            new BridgePublishedLogEntry(3, null, "[Chat] Bob: zeta"),
+            new BridgePublishedLogEntry(4, bridgeLogEntry(2, "LAND_PLAYED", 1, "Alice", "Alice", "Island", null), null)
         );
 
-        List<BridgeChatLogEntry> chats = List.of(
-            new BridgeChatLogEntry(2, "zeta", "[Chat] Bob: zeta"),
-            new BridgeChatLogEntry(2, "alpha", "[Chat] Zoe: alpha")
-        );
-
-        assertThat(BridgeGameLogFormatter.renderGameLogFlat(events, chats, Map.of(), 0, true))
+        assertThat(BridgeGameLogFormatter.renderGameLogFlat(entries, Map.of()))
             .isEqualTo(String.join("\n",
                 "Alice turn 1:",
                 "[Chat] Zoe: alpha",
                 "[Chat] Bob: zeta",
+                "Alice played Island"
+            ));
+    }
+
+    @Test
+    void renderGameLogFlatKeepsPreTurnChatAndSystemLines() {
+        List<BridgePublishedLogEntry> entries = List.of(
+            new BridgePublishedLogEntry(0, null, "[System] Table ready"),
+            new BridgePublishedLogEntry(1, null, "[Chat] Bob: glhf"),
+            new BridgePublishedLogEntry(2, bridgeLogEntry(2, "LAND_PLAYED", 0, "Alice", "Alice", "Pre-game Island", null), null),
+            new BridgePublishedLogEntry(3, bridgeLogEntry(3, "BEGIN_TURN", 1, "Alice", "Alice", null, null), null),
+            new BridgePublishedLogEntry(4, bridgeLogEntry(4, "LAND_PLAYED", 1, "Alice", "Alice", "Island", null), null)
+        );
+
+        assertThat(BridgeGameLogFormatter.renderGameLogFlat(entries, Map.of()))
+            .isEqualTo(String.join("\n",
+                "[System] Table ready",
+                "[Chat] Bob: glhf",
+                "Alice turn 1:",
                 "Alice played Island"
             ));
     }

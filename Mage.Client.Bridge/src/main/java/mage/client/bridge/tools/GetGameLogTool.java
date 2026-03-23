@@ -20,7 +20,7 @@ public class GetGameLogTool {
         @ResultField(description = "Older content was omitted")
         public Boolean truncated;
 
-        @ResultField(description = "Bridge event cursor for next call")
+        @ResultField(description = "Game log cursor for next call")
         public Integer cursor;
 
         @ResultField(description = "Cursor was too old and was reset",

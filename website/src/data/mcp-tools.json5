@@ -41,7 +41,7 @@
         },
         "cursor": {
           "type": "integer",
-          "description": "Bridge event cursor for next call",
+          "description": "Game log cursor for next call",
         },
         "cursor_reset": {
           "type": "boolean",

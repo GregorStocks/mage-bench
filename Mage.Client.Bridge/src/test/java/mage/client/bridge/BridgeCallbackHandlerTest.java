@@ -1,5 +1,6 @@
 package mage.client.bridge;
 
+import mage.client.bridge.mcp.BridgeMcpQueryApi;
 import mage.client.bridge.processor.BridgeChooseActionFlow;
 import mage.client.bridge.processor.BridgeChooseActionFlowContext;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
@@ -10,6 +11,7 @@ import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeConcedeFlow;
 import mage.client.bridge.processor.BridgeConcedeFlowManager;
 import mage.client.bridge.processor.BridgeDecisionState;
+import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
@@ -73,6 +75,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BooleanSupplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -603,8 +606,12 @@ class BridgeCallbackHandlerTest {
                     getBridgeEventsCalls.incrementAndGet();
                     assertThat(args[0]).isEqualTo(gameId);
                     assertThat(args[1]).isEqualTo(playerId);
-                    assertThat(args[2]).isEqualTo(0);
-                    return bridgeEvents;
+                    int cursor = (Integer) args[2];
+                    if (cursor == 0) {
+                        return bridgeEvents;
+                    }
+                    assertThat(cursor).isEqualTo(1);
+                    return List.of();
                 }
                 case "leaveChat" -> {
                     leaveChatCalls.incrementAndGet();
@@ -638,12 +645,14 @@ class BridgeCallbackHandlerTest {
         handler.handleCallback(callback);
 
         handler.awaitProcessorIdle();
-        assertThat(getBridgeEventsCalls.get()).isZero();
+        waitForCondition(() -> getBridgeEventsCalls.get() >= 2
+            && handler.getGameHistory(null, null).event_count == 1);
         assertThat(hasActiveGame(handler, gameId)).isFalse();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
 
+        int callsBeforeHistory = getBridgeEventsCalls.get();
         var history = handler.getGameHistory(null, null);
-        assertThat(getBridgeEventsCalls.get()).isEqualTo(1);
+        assertThat(getBridgeEventsCalls.get()).isEqualTo(callsBeforeHistory);
         assertThat(history.cursor).isEqualTo(1);
         assertThat(history.event_count).isEqualTo(1);
         assertThat(history.history).contains("Turn 3 (TestPlayer):");
@@ -651,125 +660,75 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void getGameHistoryCachesAheadWithoutAdvancingLiveBridgeCursor() throws Exception {
-        UUID gameId = UUID.randomUUID();
-        UUID playerId = UUID.randomUUID();
-        List<Integer> requestedCursors = new ArrayList<>();
-        List<BridgeLogEntry> historyEvents = List.of(
-            new BridgeLogEntry(70, 70, "LAND_PLAYED", 4, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
-                "TestPlayer", "TestPlayer", "Mountain", null, 0, true),
-            new BridgeLogEntry(71, 71, "SPELL_CAST", 4, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
-                "TestPlayer", "TestPlayer", "Shock", "Opponent", 0, true)
-        );
-        List<BridgeLogEntry> liveEvents = List.of(
-            new BridgeLogEntry(50, 50, "LAND_PLAYED", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+    void gameLogUsesProcessorLocalCursorInsteadOfServerEventIndex() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        setCachedBridgeEvents(handler, List.of(
+            new BridgeLogEntry(50, 50, "BEGIN_TURN", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+                "TestPlayer", "TestPlayer", null, null, 0, true),
+            new BridgeLogEntry(51, 51, "LAND_PLAYED", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
                 "TestPlayer", "TestPlayer", "Island", null, 0, true),
-            new BridgeLogEntry(51, 51, "SPELL_CAST", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+            new BridgeLogEntry(71, 71, "SPELL_CAST", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
                 "TestPlayer", "TestPlayer", "Opt", null, 0, true)
-        );
-
-        InvocationHandler sessionHandler = (proxy, method, args) -> {
-            if ("getBridgeEvents".equals(method.getName())) {
-                int cursor = (Integer) args[2];
-                requestedCursors.add(cursor);
-                if (cursor == 70) {
-                    return historyEvents;
-                }
-                if (cursor == 50) {
-                    return liveEvents;
-                }
-                return List.of();
-            }
-            return defaultReturnValue(method.getReturnType());
-        };
-
-        BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        client.setSession((Session) Proxy.newProxyInstance(
-            Session.class.getClassLoader(),
-            new Class<?>[]{Session.class},
-            sessionHandler
         ));
-        BridgeCallbackHandler handler = client.getCallbackHandler();
 
-        addActiveGame(handler, gameId, playerId);
-        setIntField(handler, "bridgeEventCursor", 50);
+        var log = handler.getGameLogChunk(0, null);
+        var history = handler.getGameHistory(null, null);
 
-        var history = handler.getGameHistory(null, 70);
-        assertThat(history.cursor).isEqualTo(72);
-        assertThat(requestedCursors).containsExactly(70);
-
-        handler.getGameLogChunk(0, null);
-
-        assertThat(requestedCursors).containsExactly(70, 50);
-        @SuppressWarnings("unchecked")
-        List<BridgeLogEntry> cachedEvents = (List<BridgeLogEntry>) getField(handler, "cachedBridgeEvents");
-        assertThat(cachedEvents).extracting(BridgeLogEntry::index).containsExactly(50, 51, 70, 71);
-        assertThat((int) getField(handler, "bridgeEventCursor")).isEqualTo(52);
+        assertThat(log.cursor).isEqualTo(3);
+        assertThat(history.cursor).isEqualTo(3);
+        assertThat(log.log).contains("TestPlayer turn 1:");
+        assertThat(history.event_count).isEqualTo(3);
     }
 
     @Test
-    void getGameHistoryDoesNotRewindCursorWhenNoEventsAreReturned() throws Exception {
-        UUID gameId = UUID.randomUUID();
-        UUID playerId = UUID.randomUUID();
-
+    void getGameLogResetsStaleCursorToFirstPublishedEntry() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        setCachedBridgeEvents(handler, sampleBridgeLogEvents());
+
+        handler.reset();
+        setCachedBridgeEvents(handler, List.of(
+            bridgeLogEntry(9, "BEGIN_TURN", 4, "Alice", "Alice", null, null),
+            bridgeLogEntry(10, "SPELL_CAST", 4, "Alice", "Alice", "Shock", "Bob")
+        ));
+
+        var result = handler.getGameLogChunk(0, 0);
+
+        assertThat(result.cursor_reset).isTrue();
+        assertThat(result.cursor).isEqualTo(8);
+        assertThat(result.log).contains("Alice turn 1:");
+        assertThat(result.log).contains("Alice cast Shock targeting Bob");
+    }
+
+    @Test
+    void getGameHistoryReadsPublishedSnapshotWithoutFetchingServerBridgeEvents() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        AtomicInteger getBridgeEventsCalls = new AtomicInteger();
         client.setSession((Session) Proxy.newProxyInstance(
             Session.class.getClassLoader(),
             new Class<?>[]{Session.class},
             (proxy, method, args) -> {
                 if ("getBridgeEvents".equals(method.getName())) {
-                    return List.of();
-                }
-                return defaultReturnValue(method.getReturnType());
-            }
-        ));
-        BridgeCallbackHandler handler = client.getCallbackHandler();
-
-        addActiveGame(handler, gameId, playerId);
-
-        var history = handler.getGameHistory(null, 17);
-        assertThat(history.cursor).isEqualTo(17);
-        assertThat(history.event_count).isZero();
-        assertThat(history.history).isEqualTo("No game events recorded yet.");
-    }
-
-    @Test
-    void getGameHistoryFetchDoesNotBlockProcessorThread() throws Exception {
-        UUID gameId = UUID.randomUUID();
-        UUID playerId = UUID.randomUUID();
-        CountDownLatch fetchStarted = new CountDownLatch(1);
-        CountDownLatch releaseFetch = new CountDownLatch(1);
-
-        BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        client.setSession((Session) Proxy.newProxyInstance(
-            Session.class.getClassLoader(),
-            new Class<?>[]{Session.class},
-            (proxy, method, args) -> {
-                if ("getBridgeEvents".equals(method.getName())) {
-                    fetchStarted.countDown();
-                    assertThat(releaseFetch.await(1, TimeUnit.SECONDS)).isTrue();
-                    return List.of();
+                    getBridgeEventsCalls.incrementAndGet();
+                    throw new AssertionError("MCP reads should not fetch bridge events");
                 }
                 return defaultReturnValue(method.getReturnType());
             }
         ));
         BridgeCallbackHandler handler = client.getCallbackHandler();
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
-
-        addActiveGame(handler, gameId, playerId);
+        setCachedBridgeEvents(handler, sampleBridgeLogEvents());
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
         try {
             Future<?> historyFuture = executor.submit(() -> handler.getGameHistory(null, null));
-            assertThat(fetchStarted.await(1, TimeUnit.SECONDS)).isTrue();
-
             Future<Void> processorFuture = executor.submit(() -> processor.submit(BridgeCommand.of(() -> null)));
             processorFuture.get(1, TimeUnit.SECONDS);
 
-            releaseFetch.countDown();
             historyFuture.get(1, TimeUnit.SECONDS);
+            assertThat(getBridgeEventsCalls.get()).isZero();
         } finally {
-            releaseFetch.countDown();
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.SECONDS);
         }
@@ -2307,7 +2266,7 @@ class BridgeCallbackHandlerTest {
             Logger.getLogger(BridgeCallbackHandlerTest.class),
             event -> callbackHandled.countDown()
         );
-        processor.setAfterMessageHook(() -> {
+        processor.setAfterMessageHook(message -> {
             if (hookCalls.getAndIncrement() == 0) {
                 throw new IllegalStateException("hook failed");
             }
@@ -3624,13 +3583,29 @@ class BridgeCallbackHandlerTest {
     @SuppressWarnings("unchecked")
     private static void setCachedBridgeEvents(BridgeCallbackHandler handler, List<BridgeLogEntry> events)
             throws Exception {
-        List<BridgeLogEntry> cached = (List<BridgeLogEntry>) getField(handler, "cachedBridgeEvents");
-        cached.clear();
-        cached.addAll(events);
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeGameLogState gameLogState = (BridgeGameLogState) getDirectField(handler, "gameLogState");
+        BridgeMcpQueryApi mcpQueryApi = (BridgeMcpQueryApi) getDirectField(handler, "mcpQueryApi");
+        processor.submit(BridgeCommand.of(() -> {
+            gameLogState.recordFetchedBridgeEvents(events);
+            mcpQueryApi.publishProcessorState();
+            return null;
+        }));
+    }
+
+    private static void waitForCondition(BooleanSupplier condition) throws Exception {
+        long deadline = System.currentTimeMillis() + 1_000;
+        while (System.currentTimeMillis() < deadline) {
+            if (condition.getAsBoolean()) {
+                return;
+            }
+            Thread.sleep(10);
+        }
+        assertThat(condition.getAsBoolean()).isTrue();
     }
 
     private static String joinTableDeckPath() {
-        return Path.of("..", "puppeteer", "tests", "decks", "filler_opponent.dck")
+        return Path.of("..", "tests", "decks", "filler_opponent.dck")
             .toAbsolutePath()
             .normalize()
             .toString();

@@ -31,6 +31,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Client side implementation (process commands from a server)
@@ -44,13 +46,13 @@ public class CallbackClientImpl implements CallbackClient {
     private final MageFrame frame;
     private final Map<ClientCallbackType, Integer> lastMessages;
     private final Map<UUID, GameClientMessage> firstGameData;
-    private final Map<UUID, PendingGameInit> pendingGameInits;
+    private final ConcurrentMap<UUID, PendingGameView> pendingGameViews;
 
     public CallbackClientImpl(MageFrame frame) {
         this.frame = frame;
         this.lastMessages = new HashMap<>();
         this.firstGameData = new HashMap<>();
-        this.pendingGameInits = new HashMap<>();
+        this.pendingGameViews = new ConcurrentHashMap<>();
         Arrays.stream(ClientCallbackType.values()).forEach(t -> this.lastMessages.put(t, 0));
     }
 
@@ -59,7 +61,7 @@ public class CallbackClientImpl implements CallbackClient {
         // must clean temp data for each new connection
         this.lastMessages.clear();
         this.firstGameData.clear();
-        this.pendingGameInits.clear();
+        this.pendingGameViews.clear();
     }
 
     @Override
@@ -75,7 +77,7 @@ public class CallbackClientImpl implements CallbackClient {
         if (callback.getData() instanceof GameClientMessage) {
             firstGameData.putIfAbsent(callback.getObjectId(), (GameClientMessage) callback.getData());
         }
-        rememberPendingGameInit(callback);
+        rememberPendingGameView(callback);
 
         // all GUI related code must be executed in swing thread
         SwingUtilities.invokeLater(() -> {
@@ -162,7 +164,7 @@ public class CallbackClientImpl implements CallbackClient {
                     case WATCHGAME: {
                         TableClientMessage message = (TableClientMessage) callback.getData();
                         watchGame(message.getCurrentTableId(), message.getParentTableId(), callback.getObjectId());
-                        applyPendingGameInitIfNeeded(callback.getObjectId());
+                        applyPendingGameViewIfNeeded(callback.getObjectId());
                         break;
                     }
 
@@ -255,7 +257,7 @@ public class CallbackClientImpl implements CallbackClient {
                             if (shouldApplyGameInit(panel, callback.getMessageId())) {
                                 panel.init(callback.getMessageId(), (GameView) callback.getData(), true);
                             }
-                            clearPendingGameInit(callback.getObjectId(), callback.getMessageId());
+                            clearPendingGameView(callback.getObjectId(), callback.getMessageId());
                         }
                         break;
                     }
@@ -388,6 +390,7 @@ public class CallbackClientImpl implements CallbackClient {
                         if (panel != null) {
                             appendJsonEvent("GAME_UPDATE", callback.getObjectId(), callback.getData());
                             panel.updateGame(callback.getMessageId(), (GameView) callback.getData(), true, null, null); // update after undo wtf?! // TODO: clean dialogs?!
+                            clearPendingGameView(callback.getObjectId(), callback.getMessageId());
                         }
                         break;
                     }
@@ -421,6 +424,7 @@ public class CallbackClientImpl implements CallbackClient {
                         if (panel != null) {
                             appendJsonEvent("GAME_INFORM", callback.getObjectId(), message);
                             panel.inform(callback.getMessageId(), message.getGameView(), message.getMessage());
+                            clearPendingGameView(callback.getObjectId(), callback.getMessageId());
                         }
                         break;
                     }
@@ -688,19 +692,31 @@ public class CallbackClientImpl implements CallbackClient {
         }
     }
 
-    private void rememberPendingGameInit(ClientCallback callback) {
-        if (callback.getMethod() != ClientCallbackMethod.GAME_INIT || !(callback.getData() instanceof GameView gameView)) {
+    private void rememberPendingGameView(ClientCallback callback) {
+        GameView gameView = switch (callback.getMethod()) {
+            case GAME_INIT, GAME_UPDATE -> callback.getData() instanceof GameView directView ? directView : null;
+            case GAME_UPDATE_AND_INFORM -> callback.getData() instanceof GameClientMessage message
+                    ? message.getGameView()
+                    : null;
+            default -> null;
+        };
+        if (gameView == null) {
             return;
         }
-        pendingGameInits.merge(
+        pendingGameViews.compute(
                 callback.getObjectId(),
-                new PendingGameInit(callback.getMessageId(), gameView),
-                (current, incoming) -> incoming.messageId() >= current.messageId() ? incoming : current
+                (gameId, current) -> {
+                    PendingGameView incoming = new PendingGameView(callback.getMessageId(), gameView);
+                    if (current == null) {
+                        return incoming;
+                    }
+                    return incoming.messageId() >= current.messageId() ? incoming : current;
+                }
         );
     }
 
-    private void applyPendingGameInitIfNeeded(UUID gameId) {
-        PendingGameInit pending = pendingGameInits.get(gameId);
+    private void applyPendingGameViewIfNeeded(UUID gameId) {
+        PendingGameView pending = pendingGameViews.get(gameId);
         if (pending == null) {
             return;
         }
@@ -708,16 +724,16 @@ public class CallbackClientImpl implements CallbackClient {
         if (panel == null || !shouldApplyGameInit(panel, pending.messageId())) {
             return;
         }
-        logger.info("Applying buffered GAME_INIT for game " + gameId + " after watch pane creation");
+        logger.info("Applying buffered GameView for game " + gameId + " after watch pane creation");
         panel.init(pending.messageId(), pending.gameView(), true);
-        clearPendingGameInit(gameId, pending.messageId());
+        clearPendingGameView(gameId, pending.messageId());
     }
 
-    private void clearPendingGameInit(UUID gameId, int messageId) {
-        PendingGameInit pending = pendingGameInits.get(gameId);
-        if (pending != null && pending.messageId() <= messageId) {
-            pendingGameInits.remove(gameId);
-        }
+    private void clearPendingGameView(UUID gameId, int messageId) {
+        pendingGameViews.computeIfPresent(
+                gameId,
+                (ignoredGameId, pending) -> pending.messageId() <= messageId ? null : pending
+        );
     }
 
     private static boolean shouldApplyGameInit(GamePanel panel, int messageId) {

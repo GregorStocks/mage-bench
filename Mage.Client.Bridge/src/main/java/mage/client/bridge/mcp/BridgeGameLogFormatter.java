@@ -1,12 +1,10 @@
 package mage.client.bridge.mcp;
 
-import mage.client.bridge.processor.BridgeChatLogEntry;
+import mage.client.bridge.processor.BridgePublishedLogEntry;
 import mage.client.bridge.tools.GetGameHistoryTool;
 import mage.client.bridge.tools.GetGameLogTool;
 import mage.game.BridgeLogEntry;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,46 +80,33 @@ public final class BridgeGameLogFormatter {
     }
 
     public static String renderGameLogFlat(
-            List<BridgeLogEntry> events,
-            List<BridgeChatLogEntry> chatEntries,
-            Map<String, Integer> initialTurnCounts,
-            int minChatCursor,
-            boolean includeChat
+            List<BridgePublishedLogEntry> entries,
+            Map<String, Integer> initialTurnCounts
     ) {
         StringBuilder sb = new StringBuilder();
         Map<String, Integer> perPlayerTurns = new HashMap<>(initialTurnCounts);
         String lastTurnHeader = null;
 
-        List<BridgeChatLogEntry> chats = List.of();
-        int chatIdx = 0;
-        if (includeChat) {
-            chats = new ArrayList<>(chatEntries);
-            chats.sort(Comparator.comparingInt(BridgeChatLogEntry::eventCursor).thenComparing(BridgeChatLogEntry::message));
-            while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() < minChatCursor) {
-                chatIdx++;
-            }
-        }
-
         boolean seenFirstTurn = !initialTurnCounts.isEmpty();
-        for (BridgeLogEntry entry : events) {
+        for (BridgePublishedLogEntry entry : entries) {
+            if (!entry.isBridgeEvent()) {
+                if (sb.length() > 0) {
+                    sb.append("\n");
+                }
+                sb.append(entry.rendered());
+                continue;
+            }
+            BridgeLogEntry bridgeEvent = entry.bridgeEvent();
             if (!seenFirstTurn) {
-                if ("BEGIN_TURN".equals(entry.type())) {
+                if ("BEGIN_TURN".equals(bridgeEvent.type())) {
                     seenFirstTurn = true;
                 } else {
                     continue;
                 }
             }
 
-            while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() <= entry.index()) {
-                if (sb.length() > 0) {
-                    sb.append("\n");
-                }
-                sb.append(chats.get(chatIdx).rendered());
-                chatIdx++;
-            }
-
-            if ("BEGIN_TURN".equals(entry.type())) {
-                String active = entry.activePlayer();
+            if ("BEGIN_TURN".equals(bridgeEvent.type())) {
+                String active = bridgeEvent.activePlayer();
                 int playerTurn = perPlayerTurns.merge(active, 1, Integer::sum);
                 String header = active + " turn " + playerTurn + ":";
                 if (!header.equals(lastTurnHeader)) {
@@ -134,21 +119,13 @@ public final class BridgeGameLogFormatter {
                 continue;
             }
 
-            String desc = formatBridgeEvent(entry);
+            String desc = formatBridgeEvent(bridgeEvent);
             if (desc != null) {
                 if (sb.length() > 0) {
                     sb.append("\n");
                 }
                 sb.append(desc);
             }
-        }
-
-        while (chatIdx < chats.size()) {
-            if (sb.length() > 0) {
-                sb.append("\n");
-            }
-            sb.append(chats.get(chatIdx).rendered());
-            chatIdx++;
         }
 
         return sb.toString();

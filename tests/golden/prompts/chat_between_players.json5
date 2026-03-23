@@ -248,10 +248,11 @@ Call get_action_choices to see your options, then choose_action to decide.",
   },
   {
     "content": {
-      "cursor": 16,
+      "cursor": 17,
       "log": "TestPlayer turn 1:\n\
-TestPlayer played Mountain",
-      "total_length": 45,
+TestPlayer played Mountain\n\
+[Chat] TestPlayer: Good luck have fun!",
+      "total_length": 84,
       "truncated": false,
     },
     "role": "tool",
@@ -332,14 +333,14 @@ TestPlayer played Mountain",
   },
   {
     "content": {
-      "cursor": 22,
+      "cursor": 24,
       "log": "TestPlayer turn 1:\n\
 TestPlayer played Mountain\n\
 [Chat] TestPlayer: Good luck have fun!\n\
-[Chat] Opponent: You too, glhf!\n\
 Opponent turn 1:\n\
 Opponent drew a card\n\
 Opponent played Mountain\n\
+[Chat] Opponent: You too, glhf!\n\
 TestPlayer turn 2:\n\
 TestPlayer drew Mountain\n\
 TestPlayer played Mountain",

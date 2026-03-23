@@ -16,6 +16,7 @@ import mage.client.bridge.processor.BridgeConcedeFlowManager;
 import mage.client.bridge.processor.BridgeCursorState;
 import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgeGameState;
+import mage.client.bridge.processor.BridgeGameLogRefresher;
 import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgeInteractionState;
 import mage.client.bridge.processor.BridgeManaPlanEntry;
@@ -122,6 +123,7 @@ public class BridgeCallbackHandler {
     private final BridgeMcpActionApi mcpActionApi;
     private final BridgeMcpQueryApi mcpQueryApi;
     private final BridgeProcessor processor;
+    private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgeDecisionState decisionState = new BridgeDecisionState();
     private final BridgeGameState gameState = new BridgeGameState();
     private final BridgeCursorState cursorState = new BridgeCursorState();
@@ -283,6 +285,14 @@ public class BridgeCallbackHandler {
             processor::enqueueCallback,
             this::handleCallbackException
         );
+        this.gameLogRefresher = new BridgeGameLogRefresher(
+            processor,
+            gameState,
+            gameLogState,
+            () -> session,
+            logger,
+            client.getUsername()
+        );
         this.mcpQueryApi = new BridgeMcpQueryApi(
             client.getUsername(),
             logger,
@@ -290,7 +300,7 @@ public class BridgeCallbackHandler {
             decisionState,
             gameState,
             gameLogState,
-            () -> session,
+            gameLogRefresher,
             () -> deckList,
             gameStateBuilder::buildPlayersArray,
             gameStateBuilder::buildCombatGroups,
@@ -343,7 +353,14 @@ public class BridgeCallbackHandler {
             this::attachUnseenChat,
             this::attachUnseenChat
         );
-        this.processor.setAfterMessageHook(mcpQueryApi::publishProcessorState);
+        this.processor.setAfterMessageHook(message -> {
+            if (message instanceof BridgeCallbackEvent event
+                    && gameState.currentGameId() != null
+                    && gameState.currentGameId().equals(event.objectId())) {
+                gameLogRefresher.afterCallbackProcessed();
+            }
+            mcpQueryApi.publishProcessorState();
+        });
         this.processor.start();
     }
 
@@ -899,11 +916,12 @@ public class BridgeCallbackHandler {
     }
 
     void shutdownProcessor(String reason) {
+        startGameFlowManager.shutdown();
+        gameLogRefresher.shutdown();
         advancePendingFlowsBeforeShutdown();
         chooseActionFlowManager.shutdown();
         passPriorityFlowManager.shutdown();
         concedeFlowManager.shutdown();
-        startGameFlowManager.shutdown();
         processor.shutdown(reason);
     }
 
@@ -3134,7 +3152,7 @@ public class BridgeCallbackHandler {
     // Remaining effects after passive-state audit (see issue: minimize-bridge-passive-callback-state):
     //  REQUIRED  – playerDead detection: early bail-out prevents bridge hangs after elimination
     //  REQUIRED  – unseenChat buffering: surfaces player-to-player chat + system messages via attachUnseenChat()
-    //  REQUIRED  – chatLog capture: TALK messages interleaved with bridge events by renderGameLogFlat()
+    //  REQUIRED  – published log append: TALK messages are appended to the processor-owned local log
     //  DONE      – gameLog accumulation: migrated to server-side bridge events (epoch 55)
     private void handleChatMessage(Object data) {
         if (data instanceof ChatMessage chatMsg) {
@@ -3150,7 +3168,13 @@ public class BridgeCallbackHandler {
                 String user = chatMsg.getUsername();
                 String msg = chatMsg.getMessage();
                 if (user != null && msg != null && !msg.isEmpty()) {
-                    gameLogState.recordTalkMessage(client.getUsername(), user, msg);
+                    gameLogState.recordTalkMessage(
+                        client.getUsername(),
+                        user,
+                        msg,
+                        System.currentTimeMillis(),
+                        CHAT_DEDUP_WINDOW_MS
+                    );
                 }
             }
             logger.debug("[" + client.getUsername() + "] Chat: " + chatMsg.getMessage());
