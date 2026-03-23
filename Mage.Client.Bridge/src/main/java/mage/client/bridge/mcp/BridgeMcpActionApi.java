@@ -7,6 +7,7 @@ import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeConcedeFlow;
 import mage.client.bridge.processor.BridgeConcedeFlowManager;
 import mage.client.bridge.processor.BridgeDecisionState;
+import mage.client.bridge.processor.BridgeGameLogRefresher;
 import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgeInteractionState;
@@ -29,6 +30,7 @@ public final class BridgeMcpActionApi {
     private final BridgeProcessor processor;
     private final BridgeDecisionState decisionState;
     private final BridgeGameState gameState;
+    private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgeGameLogState gameLogState;
     private final BridgeInteractionState interactionState;
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
@@ -46,6 +48,7 @@ public final class BridgeMcpActionApi {
             BridgeProcessor processor,
             BridgeDecisionState decisionState,
             BridgeGameState gameState,
+            BridgeGameLogRefresher gameLogRefresher,
             BridgeGameLogState gameLogState,
             BridgeInteractionState interactionState,
             BridgeChooseActionFlowManager chooseActionFlowManager,
@@ -61,6 +64,7 @@ public final class BridgeMcpActionApi {
         this.processor = processor;
         this.decisionState = decisionState;
         this.gameState = gameState;
+        this.gameLogRefresher = gameLogRefresher;
         this.gameLogState = gameLogState;
         this.interactionState = interactionState;
         this.chooseActionFlowManager = chooseActionFlowManager;
@@ -232,7 +236,8 @@ public final class BridgeMcpActionApi {
         if (!sessionSupplier.get().sendChatMessage(chatId, message)) {
             return "server rejected the message";
         }
-        gameLogState.recordOutgoingChatMessage(username, message, now, chatDedupWindowMs);
+        long publishAfterSyncEpoch = gameLogRefresher.captureSyncBarrierEpoch();
+        gameLogState.recordOutgoingChatMessage(username, message, now, chatDedupWindowMs, publishAfterSyncEpoch);
         return null;
     }
 }

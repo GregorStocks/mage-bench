@@ -88,6 +88,12 @@ public final class BridgeGameLogRefresher {
         return requestedSyncEpoch;
     }
 
+    public long completedSyncEpoch() {
+        synchronized (syncLock) {
+            return completedSyncEpoch;
+        }
+    }
+
     public void awaitSyncThrough(long targetEpoch) {
         synchronized (syncLock) {
             while (!closed && completedSyncEpoch < targetEpoch) {

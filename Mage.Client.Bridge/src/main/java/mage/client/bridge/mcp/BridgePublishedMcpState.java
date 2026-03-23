@@ -1,6 +1,7 @@
 package mage.client.bridge.mcp;
 
 import mage.client.bridge.processor.BridgeGameLogState;
+import mage.client.bridge.processor.BridgeGameLogRefresher;
 import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.client.bridge.tools.GetGameStateTool;
@@ -21,6 +22,7 @@ public final class BridgePublishedMcpState {
     private final BridgeProcessor processor;
     private final BridgeGameState gameState;
     private final BridgeGameLogState gameLogState;
+    private final BridgeGameLogRefresher gameLogRefresher;
     private final Supplier<BridgePublishedActionChoices> publishedActionChoicesBuilder;
     private final Function<GameView, List<Map<String, Object>>> playersBuilder;
     private final Function<GameView, List<Map<String, Object>>> combatGroupsBuilder;
@@ -33,6 +35,7 @@ public final class BridgePublishedMcpState {
             BridgeProcessor processor,
             BridgeGameState gameState,
             BridgeGameLogState gameLogState,
+            BridgeGameLogRefresher gameLogRefresher,
             Supplier<BridgePublishedActionChoices> publishedActionChoicesBuilder,
             Function<GameView, List<Map<String, Object>>> playersBuilder,
             Function<GameView, List<Map<String, Object>>> combatGroupsBuilder,
@@ -41,6 +44,7 @@ public final class BridgePublishedMcpState {
         this.processor = processor;
         this.gameState = gameState;
         this.gameLogState = gameLogState;
+        this.gameLogRefresher = gameLogRefresher;
         this.publishedActionChoicesBuilder = publishedActionChoicesBuilder;
         this.playersBuilder = playersBuilder;
         this.combatGroupsBuilder = combatGroupsBuilder;
@@ -65,7 +69,7 @@ public final class BridgePublishedMcpState {
         return new BridgePublishedMcpSnapshot(
             publishedActionChoicesBuilder.get(),
             buildPublishedGameState(),
-            gameLogState.publishedGameLog()
+            gameLogState.publishedGameLog(gameLogRefresher.completedSyncEpoch())
         );
     }
 
