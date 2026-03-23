@@ -131,6 +131,13 @@ That API should keep its semantics explicit:
 
 But the bridge is still transitional overall:
 
+- callback-dispatch state mutation now lives in a processor-side callback
+  service instead of an anonymous `BridgeCallbackHandler` adapter:
+  - `START_GAME`
+  - pending-action storage
+  - passive callback state updates
+  - game cleanup / `GAME_OVER` handling
+  - callback ingress failure handling
 - the live `Bridge*State` holders now sit under a single `BridgeProcessorState`
   owner instead of being flat fields on `BridgeCallbackHandler`
 - the published MCP snapshot is still rebuilt from mutable `Bridge*State`
@@ -153,6 +160,11 @@ And the bridge still relies on shared mutable state containers such as:
 Those are still being read outside the processor thread.
 So the model is still transitional rather than actor-pure.
 
+The biggest remaining ownership smell is that `BridgeCallbackHandler` still
+acts as a processor helper bag for choose/pass flow contexts and other utility
+methods. That is better than before, but it is still not the final actor
+boundary.
+
 ## Remaining Work
 
 ### 1. Make live runtime state processor-private
@@ -169,6 +181,8 @@ That includes:
 - interaction/mana-plan state
 - chat/log state
 - cursor/signature state
+- choose/pass flow helper logic that still reaches back into
+  `BridgeCallbackHandler`
 
 ### 2. Make MCP reads use processor-published data
 
