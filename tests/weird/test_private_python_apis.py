@@ -4,12 +4,9 @@ import ast
 from functools import cache
 from pathlib import Path
 
-from tests.weird.repo_convention_helpers import PUPPETEER_DIR, REPO_ROOT, SRC_DIR
+from tests.weird.repo_convention_helpers import REPO_ROOT, SRC_DIR
 
 _PRIVATE_IMPORT_SCAN_ROOTS = (
-    REPO_ROOT / "puppeteer" / "src",
-    REPO_ROOT / "scripts",
-    REPO_ROOT / "schemas",
     SRC_DIR,
 )
 
@@ -53,9 +50,7 @@ _ALLOWED_PRIVATE_REEXPORTS: set[tuple[str, str]] = set()
 
 
 def _module_name_for_path(path: Path) -> str:
-    if path.is_relative_to(PUPPETEER_DIR / "src"):
-        rel = path.relative_to(PUPPETEER_DIR / "src")
-    elif path.is_relative_to(SRC_DIR):
+    if path.is_relative_to(SRC_DIR):
         rel = path.relative_to(SRC_DIR)
     else:
         rel = path.relative_to(REPO_ROOT)

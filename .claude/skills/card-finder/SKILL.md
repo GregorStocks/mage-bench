@@ -20,10 +20,10 @@ Read only what you need:
 2. If the mechanic is not covered there, run the helper script:
 
    ```bash
-   uv run python scripts/find_test_cards.py --list-recipes
-   uv run python scripts/find_test_cards.py --recipe zero-mana-body
-   uv run python scripts/find_test_cards.py --recipe trigger-prompt --filter 't:white'
-   uv run python scripts/find_test_cards.py --query 'game:paper unique:cards function:clone is:spell mv<=4 order:cmc direction:asc'
+   uv run python -m magebench.cli.find_test_cards --list-recipes
+   uv run python -m magebench.cli.find_test_cards --recipe zero-mana-body
+   uv run python -m magebench.cli.find_test_cards --recipe trigger-prompt --filter 't:white'
+   uv run python -m magebench.cli.find_test_cards --query 'game:paper unique:cards function:clone is:spell mv<=4 order:cmc direction:asc'
    ```
 
 3. Bias toward cards that reduce turns, prompts, and unrelated board text:

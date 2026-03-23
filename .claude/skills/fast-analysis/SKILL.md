@@ -16,29 +16,29 @@ Determine which game(s) to analyze:
 - If the user specified game ID(s), claim those exact game IDs before doing any analysis:
 
   ```bash
-  uv run python scripts/analysis/claim_games.py --type fast {game_id}...
+  uv run python -m magebench.cli.analysis.claim_games --type fast {game_id}...
   ```
 
   If the claim fails, stop instead of analyzing an already-claimed game.
 - If the user said "most recent" or similar, find the latest:
 
   ```bash
-  uv run python scripts/list_recent_games.py
+  uv run python -m magebench.cli.list_recent_games
   ```
 
-  Then claim the resolved game ID with `uv run python scripts/analysis/claim_games.py --type fast {game_id}`.
+  Then claim the resolved game ID with `uv run python -m magebench.cli.analysis.claim_games --type fast {game_id}`.
 
 - If the user mentioned a config name (e.g. "round-robin-commander", "jumpstart-dumb", "modern-staller"), use the corresponding symlink:
 
   ```bash
-  uv run python scripts/list_recent_games.py --config {config}
+  uv run python -m magebench.cli.list_recent_games --config {config}
   ```
 
   where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`. Then claim the resolved game ID(s) with `claim_games.py --type fast`.
 - **If no game specified at all**, claim the most recent unanalyzed games:
 
   ```bash
-  uv run python scripts/analysis/claim_games.py --type fast --count 10
+  uv run python -m magebench.cli.analysis.claim_games --type fast --count 10
   ```
 
   This atomically claims up to 10 exported games from the shared local claim store, so concurrent runs do not double-grab the same work. The picks are still newest-first within the currently unclaimed pool, but two concurrent runs may split adjacent games between them. Use `--count N` to change the batch size and `--max-staleness 0` to disable staleness filtering.
@@ -56,14 +56,14 @@ a. Check if `website/public/games/${GAME_ID}.json` or `.json.gz` exists on the c
 b. If not, check if `~/.mage-bench/logs/${GAME_ID}/game_events.jsonl` exists. If so, generate the export:
 
    ```bash
-   uv run python scripts/export_game.py ${GAME_ID}
+   uv run python -m magebench.cli.export_game ${GAME_ID}
    ```
 
 c. If neither exists, tell the user and stop.
 
 ### Step 3: Use reusable analysis scripts
 
-All analysis logic lives in `scripts/analysis/` and `src/magebench/analysis/`. Standalone investigation tools live in `src/magebench/analysis/toolbox/`. Check what already exists before creating anything new — reuse or extend existing scripts. Run toolbox scripts with `uv run python -m magebench.analysis.toolbox.<module>`.
+Analysis logic lives in `src/magebench/analysis/blunder/` and `src/magebench/analysis/toolbox/`. Thin entrypoint wrappers live in `src/magebench/cli/analysis/`. Check what already exists before creating anything new — reuse or extend existing scripts. Run toolbox scripts with `uv run python -m magebench.analysis.toolbox.<module>`.
 
 If a script you need doesn't exist yet, **create it in `src/magebench/analysis/toolbox/`** and check it in. Do NOT write inline `python3 -c "..."` one-liners. These scripts accumulate over time into a reusable analysis toolkit.
 

@@ -16,29 +16,29 @@ Determine which game to analyze:
 - If the user specified a game ID (e.g. `game_20260211_080409`), claim it before doing any analysis:
 
   ```bash
-  uv run python scripts/analysis/claim_games.py --type deep {game_id}
+  uv run python -m magebench.cli.analysis.claim_games --type deep {game_id}
   ```
 
   If the claim fails, stop instead of analyzing an already-claimed game.
 - If the user said "most recent" or similar, find the latest:
 
   ```bash
-  uv run python scripts/list_recent_games.py
+  uv run python -m magebench.cli.list_recent_games
   ```
 
-  Then claim the resolved game ID with `uv run python scripts/analysis/claim_games.py --type deep {game_id}`.
+  Then claim the resolved game ID with `uv run python -m magebench.cli.analysis.claim_games --type deep {game_id}`.
 
 - If the user mentioned a config name (e.g. "round-robin-commander", "jumpstart-dumb", "modern-staller"), use the corresponding symlink:
 
   ```bash
-  uv run python scripts/list_recent_games.py --config {config}
+  uv run python -m magebench.cli.list_recent_games --config {config}
   ```
 
   where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`. Then claim the resolved game ID with `claim_games.py --type deep`.
 - **If no game specified at all**, claim the most recent unanalyzed game:
 
   ```bash
-  uv run python scripts/analysis/claim_games.py --type deep --count 1
+  uv run python -m magebench.cli.analysis.claim_games --type deep --count 1
   ```
 
 Set `GAME_DIR=~/.mage-bench/logs/{game_id}`.
@@ -50,22 +50,22 @@ If the full log directory doesn't exist but the game export exists in `website/p
 If `website/public/games/${GAME_ID}.json` or `.json.gz` exists (either on the current branch or generatable from the logs), extract a quick overview before diving into raw logs:
 
 ```bash
-uv run python scripts/game_gz_bootstrap.py ${GAME_ID}
+uv run python -m magebench.cli.game_gz_bootstrap ${GAME_ID}
 ```
 
 This gives you a roadmap — you'll know which players had errors, roughly when, and what to look for in the raw logs.
 
-Bootstrap caveat: `game_gz_bootstrap.py` currently overcounts failed tool calls because it substring-matches normal fields like `required`, and its auto-export fallback still checks `~/mage-bench-logs` instead of `~/.mage-bench/logs`. Treat its failure count as advisory and run `uv run python scripts/export_game.py ${GAME_ID}` manually if the export is missing.
+Bootstrap caveat: `game_gz_bootstrap.py` currently overcounts failed tool calls because it substring-matches normal fields like `required`, and its auto-export fallback still checks `~/mage-bench-logs` instead of `~/.mage-bench/logs`. Treat its failure count as advisory and run `uv run python -m magebench.cli.export_game ${GAME_ID}` manually if the export is missing.
 
 **Check the `errors` array first**: The export may contain an `errors` field with critical issues surfaced from the per-player error logs (loop detection, uncaught exceptions, short ID collisions). These are high-signal bug indicators — always check and call them out before diving into raw logs.
 
 **Check for existing annotations**: If the export has an `annotations` array, blunder analysis has already been run. Reference these annotations to guide your investigation — they identify specific decisions that were likely mistakes and explain why.
 
-Retry caveat: if an annotation claims a timeout/default choice on `GAME_CHOOSE_CHOICE`, verify it against raw `*_llm.jsonl`. `scripts/export_game.py` can currently record the first failed `choose_action` attempt and drop the later successful retry into a blank follow-up decision, which makes the annotation look like a timeout when the model actually recovered.
+Retry caveat: if an annotation claims a timeout/default choice on `GAME_CHOOSE_CHOICE`, verify it against raw `*_llm.jsonl`. `magebench.cli.export_game` can currently record the first failed `choose_action` attempt and drop the later successful retry into a blank follow-up decision, which makes the annotation look like a timeout when the model actually recovered.
 
 Crash-accounting caveat: if a player's export summary says `toolCallsFailed=0` but the game clearly ended on a bad tool call, compare the tail of `*_llm.jsonl` and `*_pilot.log`. A final `llm_response` with no matching `tool_call` usually means the MCP request crashed before it could be logged. Those pilot-only crashes currently do not surface into export `errors` unless they also hit `*_errors.log`.
 
-**Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. Pass the export path, not just the game ID (for example: `uv run python scripts/analysis/extract_decisions.py website/public/games/${GAME_ID}.json`). This is often more useful than manually correlating events across log files.
+**Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. Pass the export path, not just the game ID (for example: `uv run python -m magebench.cli.analysis.extract_decisions website/public/games/${GAME_ID}.json`). This is often more useful than manually correlating events across log files.
 
 ### Step 3: Read game metadata
 
@@ -87,7 +87,7 @@ issue-query
 - **Error logs**: Read `*_errors.log` files. Look for Java exceptions (NPE, IndexOutOfBounds, ClassCast), MCP tool failures, and stack traces. Note the exact filename and line numbers.
 - **Pilot logs**: Read `*_pilot.log` files. Look for LLM decision failures, repeated tool call patterns (loops), models sending wrong parameters, empty responses, and context trimming warnings. **Pay close attention to what models complain about in their reasoning/thinking traces** — when a model says "this doesn't make sense", "the tool returned wrong data", or "why can't I cast this", those are often smoking guns for real platform bugs rather than model confusion. Also check for **personality infection**: if the reasoning/thinking is full of in-character narrative (dramatic monologues, villain speeches, valley-girl speak) instead of game analysis, the chat personality is bleeding into gameplay decisions. Note the personality and flag affected decisions.
   - If a model appears to hallucinate IDs or misunderstand a prompt, compare the exact rendered tool text in `*_llm_trace.jsonl` against the structured MCP/export payload. This catches renderer bugs where the raw JSON has the needed field (for example `incoming_attackers`) but the prompt text shown to the model omits it.
-  - If `*_llm_trace.jsonl` tells the model `pass with answer=false`, localize that stale instruction to the pilot state-bridge text in `puppeteer/src/puppeteer/pilot.py`, not to the live bridge tool schema.
+  - If `*_llm_trace.jsonl` tells the model `pass with answer=false`, localize that stale instruction to the pilot state-bridge text in `src/magebench/pilot/pilot.py`, not to the live bridge tool schema.
   - If a triggered ability prompt only shows `Stack: [Ability -> {'name': 'Player (you)', ...}]`, compare `*_llm.jsonl` / `*_llm_trace.jsonl` against exported snapshots. If the export has `source_card` / `ability_text`, localize the bug to bridge stack serialization plus `decision_renderer.py`, not the underlying game state.
   - If `get_oracle_text(card_name=...)` returns `Card not found in database` for normal cards but later `get_oracle_text(object_id=...)` succeeds for the same board, treat it as a bridge bug, not model confusion. Localize it to `BridgeOracleTextService` using `CardRepository.findCard(name)`, and inspect the bridge startup path in `BridgeClient` that skips bulk card scanning.
   - If a pilot exits before any LLM activity with `Bridge MCP HTTP server did not start ... (rc=1)`, inspect the embedded log tail or matching `*_mcp.log` before blaming the model. A common pre-game failure is the Java bridge dying during startup (for example `BridgeClient.loadDeck()` rejecting a generated `.dck` file such as line 1 `NAME:...`), so the HTTP port never opens.
@@ -171,7 +171,7 @@ Present a summary of all issues created, grouped by priority. For model-only iss
 
 ### Step 12: Create reusable analysis scripts
 
-If you need to write any non-trivial log analysis logic (more than a simple jq one-liner), create a Python script in `src/magebench/analysis/toolbox/` rather than writing throwaway one-off code. Run these scripts with `uv run python -m magebench.analysis.toolbox.your_module`. These scripts accumulate over time into a reusable analysis toolkit. Check what already exists in `src/magebench/analysis/toolbox/` before creating something new — you may be able to reuse or extend an existing script. Key scripts already available: `game_timeline.py`, `mcp_errors.py`, `mana_tapping.py`, `extract_decisions.py` (note: `extract_decisions.py` is in `scripts/analysis/`, not `toolbox/`).
+If you need to write any non-trivial log analysis logic (more than a simple jq one-liner), create a Python script in `src/magebench/analysis/toolbox/` rather than writing throwaway one-off code. Run these scripts with `uv run python -m magebench.analysis.toolbox.your_module`. These scripts accumulate over time into a reusable analysis toolkit. Check what already exists in `src/magebench/analysis/toolbox/` before creating something new — you may be able to reuse or extend an existing script. Key scripts already available: `game_timeline.py`, `mcp_errors.py`, `mana_tapping.py`, and `extract_decisions.py` (exposed via `uv run python -m magebench.cli.analysis.extract_decisions`).
 
 ### Step 13: Document investigation tricks
 

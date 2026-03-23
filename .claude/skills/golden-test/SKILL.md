@@ -1,6 +1,6 @@
 ---
 name: golden-test
-description: Write or update low-noise golden prompt tests in puppeteer/tests, including minimal decks, replay scripts, and golden regeneration.
+description: Write or update low-noise golden prompt tests in tests/, including minimal decks, replay scripts, and golden regeneration.
 ---
 
 # Golden Test Workflow
@@ -10,7 +10,7 @@ Use this when adding a new gameplay golden or tightening an existing one.
 Read only what you need:
 
 - `doc/golden-prompts.md` for the full model
-- `puppeteer/tests/golden_helpers.py` for deck constants and `run_golden_scenario`
+- `tests/golden_helpers.py` for deck constants and `run_golden_scenario`
 - One or two nearby examples such as `test_golden_bolt_on_stack.py`, `test_golden_clone_copies_memnite.py`, or `test_golden_dark_depths_combo.py`
 
 ## Goal
@@ -47,7 +47,7 @@ Rules:
 If you know the mechanic but not the exact cards, use `card-finder` before
 inventing a deck from memory. Start with
 `.claude/skills/card-finder/references/golden-test-cards.md`, then use
-`uv run python scripts/find_test_cards.py --list-recipes` or a targeted
+`uv run python -m magebench.cli.find_test_cards --list-recipes` or a targeted
 `--query` search. Prefer reusable utility cards from that reference first, then
 use the helper to find narrower one-off cards when the scenario really needs
 them.
@@ -89,10 +89,10 @@ Low-noise heuristics:
 
 Touch the minimum set of files:
 
-- Deck: `puppeteer/tests/decks/<name>.dck`
-- Test: `puppeteer/tests/test_golden_<name>.py`
+- Deck: `tests/decks/<name>.dck`
+- Test: `tests/test_golden_<name>.py`
 - Golden helper constant if adding a new deck path
-- Generated files under `puppeteer/tests/golden/`
+- Generated files under `tests/golden/`
 
 Mark gameplay goldens with `@pytest.mark.golden`.
 
@@ -123,7 +123,7 @@ After the targeted goldens are right, run:
 make test
 ```
 
-`make check` also covers golden tests in CI, but for Python changes in `puppeteer/`, at minimum run `make test` locally.
+`make check` also covers golden tests in CI, but for Python changes in `src/magebench/` or `tests/`, at minimum run `make test` locally.
 
 ## Failure Triage
 

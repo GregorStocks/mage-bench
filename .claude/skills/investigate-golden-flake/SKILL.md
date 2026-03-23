@@ -83,19 +83,19 @@ Based on the classification, read the key files. Almost all golden flakes trace 
   - `getGameHistory()` (~line 2737): Formats bridge events into human-readable history
   - `handleGameUpdate()`: Asynchronous game state updates from the server
 
-- **`puppeteer/tests/golden_helpers.py`** — test infrastructure:
+- **`tests/golden_helpers.py`** — test infrastructure:
   - `run_golden_scenario()` (~line 611): Orchestrates the full test (spectator, bridges, replay, comparison)
   - `_strip_volatile()` (~line 993): Removes timing-dependent fields from export data
   - `_normalize_prompt_for_golden()` (~line 924): Normalizes prompt data (strips short IDs, sorts JSON)
   - `assert_golden_export()` (~line 1022): Export comparison with normalization
   - `assert_golden_prompt()` (~line 949): Prompt comparison
 
-- **`puppeteer/src/puppeteer/replay.py`** — replay script execution:
+- **`src/magebench/pilot/replay.py`** — replay script execution:
   - `execute_replay_script()`: Runs the scripted tool calls, captures post-script `get_game_state` + `get_game_history`
 
-- **`puppeteer/tests/conftest.py`** — fixtures for XMage server, bridge sessions, spectator process
+- **`tests/conftest.py`** — fixtures for XMage server, bridge sessions, spectator process
 
-Also read the **specific golden test file** (`puppeteer/tests/test_golden_<name>.py`) and its **golden files** (`puppeteer/tests/golden/prompts/<name>.json` and `puppeteer/tests/golden/exports/<name>.json`).
+Also read the **specific golden test file** (`tests/test_golden_<name>.py`) and its **golden files** (`tests/golden/prompts/<name>.json` and `tests/golden/exports/<name>.json`).
 
 ## Step 4: Trace the bug
 

@@ -9,22 +9,22 @@ Cut a new game export format version. This creates a standalone schema, migratio
 
 ## Background
 
-Each export version has its own schema file (`schemas/game-export-vN.schema.json`). In this repo, export migrations live in the single module `schemas/game_export_migrations.py`, and raw export file I/O lives in `scripts/game_exports.py`.
+Each export version has its own schema file (`src/magebench/game/game-export-vN.schema.json`). In this repo, export migrations live in the single module `src/magebench/game/game_export_migrations.py`, and raw export file I/O lives in `src/magebench/game/game_exports.py`.
 
 Key files:
 
-- `schemas/game-export-v*.schema.json` — per-version JSON Schemas
-- `schemas/game_export_migrations.py` — current/legacy version constants and normalization helpers
-- `scripts/game_exports.py` — raw export load/write helpers used by scripts and tests
-- `scripts/export_game.py` — export producer (sets version, computes new fields)
-- `puppeteer/tests/test_game_export_migrations.py` — roundtrip migration tests
-- `puppeteer/tests/test_export_schema.py` — schema validation tests
+- `src/magebench/game/game-export-v*.schema.json` — per-version JSON Schemas
+- `src/magebench/game/game_export_migrations.py` — current/legacy version constants and normalization helpers
+- `src/magebench/game/game_exports.py` — raw export load/write helpers used by scripts and tests
+- `src/magebench/game/export_game.py` — export producer (sets version, computes new fields)
+- `tests/test_game_export_migrations.py` — roundtrip migration tests
+- `tests/test_export_schema.py` — schema validation tests
 
 ## Step 1: Determine what's changing
 
 Ask the user what fields are being added, removed, or modified. Determine:
 
-- The current version number N (check the `"version"` line in `scripts/export_game.py`)
+- The current version number N (check the `"version"` line in `src/magebench/game/export_game.py`)
 - What new fields to add and their JSON Schema types
 - Whether the `up()` migration needs external data or is purely derived from existing fields
 - Whether the `down()` migration is lossless (can we reconstruct N from N+1?)
@@ -38,7 +38,7 @@ in-place backfill on the existing version is the safer path.
 
 ## Step 2: Create the new schema file
 
-Copy `schemas/game-export-vN.schema.json` to `schemas/game-export-v{N+1}.schema.json`:
+Copy `src/magebench/game/game-export-vN.schema.json` to `src/magebench/game/game-export-v{N+1}.schema.json`:
 
 - Change `"const": N` to `"const": N+1` in the `version` property
 - Update `$id`, `title`, `description` to reference v{N+1}
@@ -47,7 +47,7 @@ Copy `schemas/game-export-vN.schema.json` to `schemas/game-export-v{N+1}.schema.
 
 ## Step 3: Extend the migration module
 
-Add `vN <-> v{N+1}` support to `schemas/game_export_migrations.py`:
+Add `vN <-> v{N+1}` support to `src/magebench/game/game_export_migrations.py`:
 
 ```python
 """Migration: vN -> v{N+1} (description of what changes)."""
@@ -72,7 +72,7 @@ def down(data: dict) -> dict:
 
 The migration must satisfy: `down(up(game)) == game` for all exported games.
 
-## Step 4: Update `scripts/export_game.py`
+## Step 4: Update `src/magebench/game/export_game.py`
 
 1. Change `"version": N` to `"version": N+1` in `build_export()`
 2. Add computation for new fields in `build_export()`
@@ -97,13 +97,13 @@ Verify the generated types look correct in `website/src/types/game-export.d.ts`.
 
 ## Step 7: Add tests
 
-In `puppeteer/tests/test_export_schema.py`, add:
+In `tests/test_export_schema.py`, add:
 
 - `test_v{N+1}_schema_is_valid` — validates the new schema structure
 - `test_v{N+1}_schema_accepts_v{N+1}` — minimal valid export passes
 - `test_v{N+1}_schema_rejects_vN` — old version is rejected
 
-In `puppeteer/tests/test_game_export_migrations.py`, add migration tests:
+In `tests/test_game_export_migrations.py`, add migration tests:
 
 - `test_vN_to_v{N+1}_up_adds_fields` — verify up() adds the right fields
 - `test_v{N+1}_to_vN_down_removes_fields` — verify down() strips them
@@ -128,4 +128,4 @@ Default to a code-only PR. Game migrations touch hundreds of JSON files and GitH
 
 ## Step 10: Follow-up migration
 
-This repo does not currently have a generic `scripts/migrate_exports.py` runner. For bounded migrations, use `scripts/game_exports.py` helpers (`load_raw_game_export()` / `write_raw_game_export()`) or add a one-off script in the PR. Verify the migrated files with `make check`.
+This repo does not currently have a generic export migration runner. For bounded migrations, use `src/magebench/game/game_exports.py` helpers (`load_raw_game_export()` / `write_raw_game_export()`) or add a one-off script in the PR. Verify the migrated files with `make check`.

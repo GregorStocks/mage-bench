@@ -81,7 +81,7 @@ The renderer takes an `oracle_texts` parameter. Callers pass whatever's availabl
 
 ### 3. Shared renderer: `decision_renderer.py`
 
-New module at `puppeteer/src/puppeteer/decision_renderer.py`:
+New module at `src/magebench/game/decision_renderer.py`:
 
 ```python
 def render_decision(
@@ -208,7 +208,7 @@ No changes needed to Scryfall handling.
 
 | File | Purpose |
 | ------ | --------- |
-| `puppeteer/src/puppeteer/decision_renderer.py` | Shared `render_decision()` function |
+| `src/magebench/game/decision_renderer.py` | Shared `render_decision()` function |
 | `tests/test_decision_renderer.py` | Tests for renderer |
 
 ### Export pipeline
@@ -216,28 +216,28 @@ No changes needed to Scryfall handling.
 | File | Change |
 | ------ | -------- |
 | `src/magebench/game/game-export-v9.schema.json` | Add `decisions` array + `Decision` $def |
-| `scripts/export_game.py` | Add `_build_decisions()`. Call from `build_export()` |
+| `src/magebench/game/export_game.py` | Add `_build_decisions()`. Call from `build_export()` |
 | `doc/export-schema.md` | Update consumers table, describe `decisions` |
 
 ### Annotator
 
 | File | Change |
 | ------ | -------- |
-| `scripts/analysis/extract_decisions.py` | Read pre-built `decisions` when present; keep legacy path |
-| `scripts/analysis/blunder_analysis.py` | Use `render_decision()`, read reasoning from llm_events via indices |
+| `src/magebench/analysis/blunder/extract_decisions.py` | Read pre-built `decisions` when present; keep legacy path |
+| `src/magebench/analysis/blunder/blunder_analysis.py` | Use `render_decision()`, read reasoning from llm_events via indices |
 
 ### Pilot
 
 | File | Change |
 | ------ | -------- |
-| `puppeteer/src/puppeteer/pilot.py` | Render pass_priority/get_action_choices results; track last board for board_unchanged |
+| `src/magebench/pilot/pilot.py` | Render pass_priority/get_action_choices results; track last board for board_unchanged |
 | `puppeteer/prompts.json` | Update system prompt for text format |
 
 ### Infrastructure
 
 | File | Change |
 | ------ | -------- |
-| `puppeteer/src/puppeteer/harness_epoch.py` | Bump epoch |
+| `src/magebench/game/harness_epoch.py` | Bump epoch |
 
 ### Tests
 
@@ -278,11 +278,11 @@ No changes needed to Scryfall handling.
 
 ## Key Existing Code to Reuse
 
-- `scripts/analysis/extract_decisions.py:_extract_decisions_v2()` — core decision extraction logic (lines 364-496)
-- `scripts/analysis/blunder_analysis.py:_format_decisions()` — current text rendering (reference for output format)
-- `scripts/analysis/blunder_analysis.py:_collect_card_names()` — card name extraction from snapshots/choices (lines 187-247)
-- `scripts/analysis/blunder_analysis.py:_format_prior_context()` — prior context builder (stays annotator-specific)
-- `scripts/analysis/blunder_analysis.py:_format_current_turn_actions()` — current turn actions (stays annotator-specific)
-- `scripts/scryfall.py:collection()` — Scryfall batch lookup (lines 59-137)
-- `puppeteer/src/puppeteer/pilot.py:_summarize_tool_result()` — existing summarizer (will be partially replaced by renderer)
-- `puppeteer/src/puppeteer/pilot.py:BoardCursorTracker` — board cursor tracking (reuse pattern for last-known board)
+- `src/magebench/analysis/blunder/extract_decisions.py:_extract_decisions_v2()` — core decision extraction logic (lines 364-496)
+- `src/magebench/analysis/blunder/blunder_analysis.py:_format_decisions()` — current text rendering (reference for output format)
+- `src/magebench/analysis/blunder/blunder_analysis.py:_collect_card_names()` — card name extraction from snapshots/choices (lines 187-247)
+- `src/magebench/analysis/blunder/blunder_analysis.py:_format_prior_context()` — prior context builder (stays annotator-specific)
+- `src/magebench/analysis/blunder/blunder_analysis.py:_format_current_turn_actions()` — current turn actions (stays annotator-specific)
+- `src/magebench/game/scryfall.py:collection()` — Scryfall batch lookup (lines 59-137)
+- `src/magebench/pilot/pilot.py:_summarize_tool_result()` — existing summarizer (will be partially replaced by renderer)
+- `src/magebench/pilot/pilot.py:BoardCursorTracker` — board cursor tracking (reuse pattern for last-known board)
