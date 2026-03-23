@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -241,12 +242,17 @@ public final class BridgeChooseActionFlow {
 
     private void advanceBatchAttackers(PendingAction action) {
         if (batchPhase == BatchPhase.ATTACKERS_WAITING_FOR_SPECIAL_CONFIRM) {
-            if (action.method() != ClientCallbackMethod.GAME_SELECT) {
-                transitionBatchToNextDecision(true);
+            if (!isAttackersCombatSelect(action)) {
+                transitionBatchToNextDecision(false);
                 return;
             }
             context.clearPendingActionIfCurrent(action);
             context.sendBooleanOrDie(action.gameId(), true, "batchAttack:confirm_all");
+            transitionBatchToNextDecision(false);
+            return;
+        }
+
+        if (batchPhase == BatchPhase.ATTACKERS_WAITING_FOR_NEXT_SELECT && !isAttackersCombatSelect(action)) {
             transitionBatchToNextDecision(false);
             return;
         }
@@ -277,6 +283,17 @@ public final class BridgeChooseActionFlow {
         context.clearPendingActionIfCurrent(action);
         context.sendBooleanOrDie(action.gameId(), true, "batchAttack:confirm");
         transitionBatchToNextDecision(false);
+    }
+
+    private boolean isAttackersCombatSelect(PendingAction action) {
+        if (action.method() != ClientCallbackMethod.GAME_SELECT) {
+            return false;
+        }
+        if ("attackers".equals(context.detectCombatSelect(action))) {
+            return true;
+        }
+        String message = action.message();
+        return message != null && message.toLowerCase(Locale.ROOT).contains("attack");
     }
 
     private void advanceBatchBlockers(PendingAction action) {

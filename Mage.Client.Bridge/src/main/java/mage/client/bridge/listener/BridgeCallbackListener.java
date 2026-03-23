@@ -14,6 +14,7 @@ public final class BridgeCallbackListener {
     private final String username;
     private final Thread thread;
     private volatile boolean closed = false;
+    private volatile String shutdownReason = "shutdown";
 
     public BridgeCallbackListener(String username, Logger logger) {
         this.username = Objects.requireNonNull(username);
@@ -50,8 +51,9 @@ public final class BridgeCallbackListener {
         if (closed) {
             return;
         }
+        shutdownReason = Objects.requireNonNull(reason);
         closed = true;
-        mailbox.offer(new BridgeCallbackListenerShutdown(reason));
+        mailbox.offer(new BridgeCallbackListenerWakeup(reason));
     }
 
     private void runLoop() {
@@ -64,19 +66,18 @@ public final class BridgeCallbackListener {
                 return;
             }
 
-            if (message instanceof BridgeCallbackListenerShutdown shutdown) {
-                logger.info("[" + username + "] Bridge callback listener stopped: " + shutdown.reason());
-                return;
-            }
             if (message instanceof BridgeCallbackListenerBarrier barrier) {
                 barrier.complete();
-                continue;
-            }
-            if (message instanceof BridgeIncomingCallback incoming) {
+            } else if (message instanceof BridgeIncomingCallback incoming) {
                 incoming.handler().handleCallback(incoming.callback());
-                continue;
+            } else if (!(message instanceof BridgeCallbackListenerWakeup)) {
+                throw new IllegalStateException("Unknown bridge callback listener message: " + message.getClass().getName());
             }
-            throw new IllegalStateException("Unknown bridge callback listener message: " + message.getClass().getName());
+
+            if (closed && mailbox.isEmpty()) {
+                logger.info("[" + username + "] Bridge callback listener stopped: " + shutdownReason);
+                return;
+            }
         }
     }
 }

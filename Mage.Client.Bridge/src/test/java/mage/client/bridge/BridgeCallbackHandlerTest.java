@@ -1547,6 +1547,89 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void batchChooseActionAttackersAllWithSingleAttackerReturnsImmediateNextDecisionWithoutConfirm() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID attackerUuid = UUID.randomUUID();
+        CountDownLatch sendPlayerUuidCalled = new CountDownLatch(1);
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        GameView combatView = gameView(182);
+        GameView nextDecisionView = gameView(187, 5, PhaseStep.DECLARE_ATTACKERS);
+
+        registerShortId(handler, attackerUuid, "p1");
+
+        var combatOptions = new LinkedHashMap<String, Serializable>();
+        combatOptions.put("possibleAttackers", new ArrayList<>(List.of(attackerUuid)));
+        GameClientMessage combatMessage = new GameClientMessage(combatView, combatOptions, "Declare attackers");
+        GameClientMessage nextDecisionMessage = new GameClientMessage(
+            nextDecisionView,
+            Collections.<String, Serializable>emptyMap(),
+            "Play instants and activated abilities"
+        );
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerUUID" -> {
+                        sendPlayerUuidCalls.incrementAndGet();
+                        sendPlayerUuidCalled.countDown();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(attackerUuid);
+                        enqueueCallback(handler, ClientCallbackMethod.GAME_SELECT, gameId, nextDecisionMessage);
+                        return true;
+                    }
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        throw new AssertionError("single-attacker attackers=all should not confirm when XMage already moved to the next decision");
+                    }
+                    case "sendPlayerString" -> throw new AssertionError("single-attacker attackers=all should not use special path");
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        addActiveGame(handler, gameId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", combatView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            combatMessage,
+            "Declare attackers",
+            182
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ChooseActionTool.Result> future = executor.submit(() -> handler.chooseAction(
+                null, null, null, null, null, null, null, null, null, new String[]{"all"}, null
+            ));
+
+            assertThat(sendPlayerUuidCalled.await(1, TimeUnit.SECONDS)).isTrue();
+
+            ChooseActionTool.Result result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerUuidCalls.get()).isEqualTo(1);
+            assertThat(sendPlayerBooleanCalls.get()).isZero();
+            assertThat(result.success).isTrue();
+            assertThat(result.action_taken).isEqualTo("batch_attack");
+            assertThat(result.declared).containsExactly(Map.of("id", "all"));
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.message).isEqualTo("Play instants and activated abilities");
+            assertThat(result.game_seq).isEqualTo(187);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
     void batchChooseActionBlockersHandlesTargetPromptAndReturnsNextDecision() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
