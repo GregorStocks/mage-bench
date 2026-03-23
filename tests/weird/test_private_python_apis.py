@@ -6,9 +6,7 @@ from pathlib import Path
 
 from tests.weird.repo_convention_helpers import REPO_ROOT, SRC_DIR
 
-_PRIVATE_IMPORT_SCAN_ROOTS = (
-    SRC_DIR,
-)
+_PRIVATE_IMPORT_SCAN_ROOTS = (SRC_DIR,)
 
 _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
     (
@@ -50,10 +48,7 @@ _ALLOWED_PRIVATE_REEXPORTS: set[tuple[str, str]] = set()
 
 
 def _module_name_for_path(path: Path) -> str:
-    if path.is_relative_to(SRC_DIR):
-        rel = path.relative_to(SRC_DIR)
-    else:
-        rel = path.relative_to(REPO_ROOT)
+    rel = path.relative_to(SRC_DIR) if path.is_relative_to(SRC_DIR) else path.relative_to(REPO_ROOT)
     return ".".join(rel.with_suffix("").parts)
 
 
