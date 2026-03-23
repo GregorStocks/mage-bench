@@ -25,23 +25,7 @@ _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS = {
     ("magebench.pilot.pilot", "magebench.pilot.pilot_rendering", "_with_cache_control"),
 }
 
-_ALLOWED_PRIVATE_REEXPORTS = {
-    ("puppeteer.orchestrator", "_check_regular_season_block"),
-    ("puppeteer.orchestrator", "_ensure_game_over_event"),
-    ("puppeteer.orchestrator", "_finalize_game"),
-    ("puppeteer.orchestrator", "_git"),
-    ("puppeteer.orchestrator", "_missing_llm_api_keys"),
-    ("puppeteer.orchestrator", "_print_game_summary"),
-    ("puppeteer.orchestrator", "_save_youtube_url"),
-    ("puppeteer.orchestrator", "_setup_game"),
-    ("puppeteer.orchestrator", "_update_website_youtube_url"),
-    ("puppeteer.orchestrator", "_wait_for_all_games"),
-    ("puppeteer.orchestrator", "_wait_for_game_start"),
-    ("puppeteer.orchestrator", "_wait_for_spectator_table"),
-    ("puppeteer.orchestrator", "_wait_with_pilot_monitoring"),
-    ("puppeteer.orchestrator", "_write_error_log"),
-    ("puppeteer.orchestrator", "_write_game_meta"),
-}
+_ALLOWED_PRIVATE_REEXPORTS: set[tuple[str, str]] = set()
 
 
 def _module_name_for_path(path: Path) -> str:

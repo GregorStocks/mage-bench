@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from puppeteer.xml_config import modify_server_config
+from magebench.orchestration.xml_config import modify_server_config
 
 
 def test_modify_server_config():

@@ -15,27 +15,35 @@ from puppeteer.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
 from puppeteer.log import get_logger
 from puppeteer.process_manager import ProcessManager
 
-logger = get_logger("puppeteer.orchestrator")
+logger = get_logger(__name__)
 
 _SPECTATOR_TABLE_READY = "AI Puppeteer: waiting for"
 _SPECTATOR_GAME_STARTED = "AI Puppeteer: all players joined"
 
 
-def wait_for_spectator_table(log_path: Path, proc: subprocess.Popen, timeout: int = 300) -> None:
+def wait_for_spectator_table(
+    log_path: Path, proc: subprocess.Popen, timeout: int = 300
+) -> None:
     """Block until the spectator log indicates the game table is ready."""
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         if proc.poll() is not None:
-            raise RuntimeError("Spectator process exited before creating the game table")
+            raise RuntimeError(
+                "Spectator process exited before creating the game table"
+            )
         if log_path.exists():
             text = log_path.read_text()
             if _SPECTATOR_TABLE_READY in text:
                 return
         time.sleep(2)
-    raise TimeoutError(f"Spectator did not create a table within {timeout}s — check {log_path}")
+    raise TimeoutError(
+        f"Spectator did not create a table within {timeout}s — check {log_path}"
+    )
 
 
-def wait_for_game_start(log_path: Path, proc: subprocess.Popen, timeout: int = 600) -> None:
+def wait_for_game_start(
+    log_path: Path, proc: subprocess.Popen, timeout: int = 600
+) -> None:
     """Block until the spectator log indicates the game started."""
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
@@ -76,14 +84,18 @@ def wait_with_pilot_monitoring(
         spectator_rc = spectator_proc.poll()
         if spectator_rc is not None:
             if spectator_rc != 0:
-                logger.error("Spectator exited with code %s — aborting game.", spectator_rc)
+                logger.error(
+                    "Spectator exited with code %s — aborting game.", spectator_rc
+                )
                 pm.cleanup()
             return spectator_rc
 
         for name, proc in pilot_procs:
             rc = proc.poll()
             if rc is not None and rc != 0:
-                logger.error("Pilot '%s' exited with code %s — aborting game.", name, rc)
+                logger.error(
+                    "Pilot '%s' exited with code %s — aborting game.", name, rc
+                )
                 pm.cleanup()
                 return -1
 
@@ -288,7 +300,9 @@ def start_pilot_client(
     if player.provider != DEFAULT_LLM_PROVIDER:
         args.extend(["--provider", player.provider])
 
-    assert player.system_prompt, f"Pilot player {player.name} has no system_prompt (check preset)"
+    assert player.system_prompt, (
+        f"Pilot player {player.name} has no system_prompt (check preset)"
+    )
     effective_prompt = player.system_prompt
     if player.prompt_suffix:
         effective_prompt += (
@@ -302,7 +316,9 @@ def start_pilot_client(
         )
     args.extend(["--system-prompt", effective_prompt])
     if player.max_interactions_per_turn is not None:
-        args.extend(["--max-interactions-per-turn", str(player.max_interactions_per_turn)])
+        args.extend(
+            ["--max-interactions-per-turn", str(player.max_interactions_per_turn)]
+        )
     if player.reasoning_effort:
         args.extend(["--reasoning-effort", player.reasoning_effort])
     if player.tools is not None:
@@ -349,7 +365,10 @@ def start_observer_client(
     if game_dir:
         jvm_args_list.append(f"-Dxmage.observer.gameDir={game_dir}")
     if config.record:
-        resolved_game_dir = game_dir or (project_root / config.log_dir / f"game_{config.timestamp}").resolve()
+        resolved_game_dir = (
+            game_dir
+            or (project_root / config.log_dir / f"game_{config.timestamp}").resolve()
+        )
         record_path = config.record_output or (resolved_game_dir / "recording.mov")
         jvm_args_list.append(f"-Dxmage.observer.record={record_path}")
 
@@ -374,7 +393,11 @@ def start_observer_client(
         env["XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING"] = "true"
 
     args = ["mvn", "-q", "exec:java"]
-    if sys.platform == "linux" and "DISPLAY" not in os.environ and "WAYLAND_DISPLAY" not in os.environ:
+    if (
+        sys.platform == "linux"
+        and "DISPLAY" not in os.environ
+        and "WAYLAND_DISPLAY" not in os.environ
+    ):
         xvfb = shutil.which("xvfb-run")
         assert xvfb is not None, (
             "Headless environment detected (no DISPLAY set) but xvfb-run is not installed. "

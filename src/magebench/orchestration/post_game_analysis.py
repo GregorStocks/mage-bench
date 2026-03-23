@@ -20,7 +20,7 @@ from puppeteer.log import get_logger
 from scripts.upload_youtube import YouTubeUploadError
 from scripts.upload_youtube import upload_to_youtube as _upload_to_youtube
 
-logger = get_logger("puppeteer.orchestrator")
+logger = get_logger(__name__)
 
 
 def save_youtube_url(game_dir: Path, url: str) -> None:
@@ -67,7 +67,9 @@ class AnnotationFailure:
     game_id: str
 
 
-def _attempt_annotation(gz_path: Path, max_retries: int = 2) -> tuple[str | None, float]:
+def _attempt_annotation(
+    gz_path: Path, max_retries: int = 2
+) -> tuple[str | None, float]:
     """Try to annotate a game file, with automatic retries."""
     last_error = ""
     for attempt in range(1 + max_retries):
@@ -87,7 +89,11 @@ def _prompt_annotation_failure(game_id: str, error: str) -> str:
     logger.warning("  Annotation failed for %s: %s", game_id, error)
     while True:
         try:
-            answer = input("  [r]etry / [e]mit without annotation / [s]kip? ").strip().lower()
+            answer = (
+                input("  [r]etry / [e]mit without annotation / [s]kip? ")
+                .strip()
+                .lower()
+            )
         except (EOFError, KeyboardInterrupt):
             logger.info("")
             return "skip"
@@ -191,7 +197,9 @@ def upload_and_export(
                 post_game_failures.append(f"{game_id}: Blunder analysis failed: {err}")
             return 0.0
         if post_game_failures is not None:
-            post_game_failures.append(f"{game_id}: Blunder analysis failed (skipped): {err}")
+            post_game_failures.append(
+                f"{game_id}: Blunder analysis failed (skipped): {err}"
+            )
         final_path.unlink(missing_ok=True)
         logger.info("  Skipped %s", game_id)
         return 0.0
