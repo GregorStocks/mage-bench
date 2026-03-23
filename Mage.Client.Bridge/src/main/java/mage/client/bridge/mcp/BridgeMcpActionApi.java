@@ -1,6 +1,5 @@
 package mage.client.bridge.mcp;
 
-import mage.client.bridge.BridgeCallbackHandler;
 import mage.client.bridge.processor.BridgeChooseActionFlow;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionInput;
@@ -22,7 +21,6 @@ import org.apache.log4j.Logger;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class BridgeMcpActionApi {
@@ -39,7 +37,6 @@ public final class BridgeMcpActionApi {
     private final Supplier<Session> sessionSupplier;
     private final long chatDedupWindowMs;
     private final Supplier<Map<String, Object>> executeDefaultActionImpl;
-    private final Function<Long, ActionResult> getActionChoicesImpl;
     private final Consumer<ActionResult> actionResultChatAttacher;
     private final Consumer<ChooseActionTool.Result> chooseActionResultChatAttacher;
 
@@ -57,7 +54,6 @@ public final class BridgeMcpActionApi {
             Supplier<Session> sessionSupplier,
             long chatDedupWindowMs,
             Supplier<Map<String, Object>> executeDefaultActionImpl,
-            Function<Long, ActionResult> getActionChoicesImpl,
             Consumer<ActionResult> actionResultChatAttacher,
             Consumer<ChooseActionTool.Result> chooseActionResultChatAttacher) {
         this.username = username;
@@ -73,28 +69,12 @@ public final class BridgeMcpActionApi {
         this.sessionSupplier = sessionSupplier;
         this.chatDedupWindowMs = chatDedupWindowMs;
         this.executeDefaultActionImpl = executeDefaultActionImpl;
-        this.getActionChoicesImpl = getActionChoicesImpl;
         this.actionResultChatAttacher = actionResultChatAttacher;
         this.chooseActionResultChatAttacher = chooseActionResultChatAttacher;
     }
 
     public Map<String, Object> executeDefaultAction() {
         return processor.submit(BridgeCommand.of(executeDefaultActionImpl));
-    }
-
-    public ActionResult getActionChoices(Long boardCursorParam) {
-        return processor.submit(BridgeCommand.of(() -> getActionChoicesImpl.apply(boardCursorParam)));
-    }
-
-    public ActionResult getActionChoicesSafe(Long boardCursorParam) {
-        try {
-            return getActionChoices(boardCursorParam);
-        } catch (BridgeCallbackHandler.ResponseDeliveryException e) {
-            var result = new ActionResult();
-            result.error = e.getMessage();
-            actionResultChatAttacher.accept(result);
-            return result;
-        }
     }
 
     public ChooseActionTool.Result chooseAction(

@@ -3,6 +3,7 @@ package mage.client.bridge;
 import mage.client.bridge.listener.BridgeCallbackIngress;
 import mage.client.bridge.mcp.BridgeMcpActionApi;
 import mage.client.bridge.mcp.BridgeMcpQueryApi;
+import mage.client.bridge.mcp.BridgePublishedActionChoices;
 import mage.client.bridge.processor.BridgeActionableCallbackOutcome;
 import mage.client.bridge.processor.BridgeCallbackDispatcher;
 import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
@@ -297,10 +298,10 @@ public class BridgeCallbackHandler {
             client.getUsername(),
             logger,
             processor,
-            decisionState,
             gameState,
             gameLogState,
             gameLogRefresher,
+            this::buildPublishedActionChoices,
             () -> deckList,
             gameStateBuilder::buildPlayersArray,
             gameStateBuilder::buildCombatGroups,
@@ -349,7 +350,6 @@ public class BridgeCallbackHandler {
             () -> session,
             CHAT_DEDUP_WINDOW_MS,
             this::executeDefaultActionImpl,
-            this::getActionChoicesImpl,
             this::attachUnseenChat,
             this::attachUnseenChat
         );
@@ -1082,32 +1082,21 @@ public class BridgeCallbackHandler {
     /**
      * Get structured information about the current pending action's available choices.
      * Returns indexed choices so external clients can pick by index via chooseAction().
-     *
-     * Throws ResponseDeliveryException if auto-resolve triggers a send that fails,
-     * so internal callers (chooseAction, attachChoicesToError) see the transport failure.
-     * MCP tool boundary should use {@link #getActionChoicesSafe} instead.
      */
     @SuppressWarnings("unchecked")
     public ActionResult getActionChoices(Long boardCursorParam) {
-        return mcpActionApi.getActionChoices(boardCursorParam);
-    }
-
-    @SuppressWarnings("unchecked")
-    private ActionResult getActionChoicesImpl(Long boardCursorParam) {
-        PendingAction action = decisionState.pendingAction();
-        ActionResult result = buildActionChoices(action, boardCursorParam, true);
-        if (action == null) {
-            attachUnseenChat(result);
-        }
-        return result;
+        return mcpQueryApi.getActionChoices(boardCursorParam);
     }
 
     /**
-     * MCP tool boundary wrapper: catches ResponseDeliveryException and converts
-     * it to an ActionResult error instead of letting it propagate as an exception.
+     * MCP tool boundary wrapper for get_action_choices.
      */
     public ActionResult getActionChoicesSafe(Long boardCursorParam) {
-        return mcpActionApi.getActionChoicesSafe(boardCursorParam);
+        return mcpQueryApi.getActionChoicesSafe(boardCursorParam);
+    }
+
+    private BridgePublishedActionChoices buildPublishedActionChoices() {
+        return BridgePublishedActionChoices.from(buildActionChoices(decisionState.pendingAction(), null, false));
     }
 
     @SuppressWarnings("unchecked")
@@ -2025,16 +2014,10 @@ public class BridgeCallbackHandler {
      * When choose_action fails validation, attach the available choices to the error response
      * so the model can self-correct without a separate get_action_choices round trip.
      */
-    private void attachChoicesToError(ChooseActionTool.Result errorResult) {
-        try {
-            ActionResult choicesResult = getActionChoices(null);
-            if (choicesResult.choices != null) {
-                errorResult.choices = choicesResult.choices;
-            }
-        } catch (ResponseDeliveryException e) {
-            // Already in an error path — delivery failure means we can't attach choices,
-            // but we shouldn't mask the original validation error.
-            logger.warn("[" + client.getUsername() + "] attachChoicesToError: delivery failed, skipping: " + e.getMessage());
+    private void attachChoicesToError(ChooseActionTool.Result errorResult, PendingAction action) {
+        ActionResult choicesResult = buildActionChoices(action, null, false);
+        if (choicesResult.choices != null) {
+            errorResult.choices = choicesResult.choices;
         }
     }
 
@@ -2050,7 +2033,7 @@ public class BridgeCallbackHandler {
         result.retryable = retryable;
         decisionState.restorePendingAction(action);
         if (attachChoices) {
-            attachChoicesToError(result);
+            attachChoicesToError(result, action);
         }
         attachUnseenChat(result);
         return result;
@@ -2185,16 +2168,7 @@ public class BridgeCallbackHandler {
             }
             List<Object> choices = decisionState.lastChoices();
             if (choices == null) {
-                try {
-                    getActionChoices(null);
-                } catch (ResponseDeliveryException e) {
-                    result.success = false;
-                    result.error = e.getMessage();
-                    result.error_code = "response_delivery_failed";
-                    result.retryable = false;
-                    attachUnseenChat(result);
-                    return chooseActionDone(result);
-                }
+                buildActionChoices(action, null, false);
                 choices = decisionState.lastChoices();
             }
             if ("all".equals(id)) {

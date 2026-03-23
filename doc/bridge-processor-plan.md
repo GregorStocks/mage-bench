@@ -94,6 +94,7 @@ live state directly:
 
 - pending-action visibility
 - game state
+- action choices
 - game log
 - game history
 
@@ -104,6 +105,15 @@ The game-log/history slice is now closer to the intended model:
 - `get_game_log` and `get_game_history` read only that published log
 - MCP log/history reads no longer fetch bridge events or read shared
   synchronized log state directly
+
+The action/game-state slice is also closer to the intended model now:
+
+- the processor publishes immutable `get_game_state` and `get_action_choices`
+  snapshots after each processed message
+- MCP reads sync to that published snapshot instead of rebuilding live state on
+  the MCP thread
+- `get_action_choices` is now a real read surface rather than a hidden
+  auto-resolve path
 
 But the bridge is still transitional overall:
 
@@ -163,6 +173,8 @@ Preferred end state:
 This is where the append-only model becomes important.
 
 The game-log/history path now does this.
+The game-state/action-choices path now does this too, but it is still rebuilt
+from mutable shared state holders.
 
 The remaining read-side cleanup should focus on:
 
