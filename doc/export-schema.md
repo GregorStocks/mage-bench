@@ -14,7 +14,7 @@ TypeScript types are generated from the latest schema: `website/src/types/game-e
 ## Validation
 
 - **Exporter**: `scripts/export_game.py` runs lightweight assert checks after `build_export()`.
-- **All exports**: `puppeteer/tests/test_export_schema.py` validates every game in `website/public/games/` against the full JSON Schema. Runs as part of `make check`.
+- **All exports**: `tests/test_export_schema.py` validates every game in `website/public/games/` against the full JSON Schema. Runs as part of `make check`.
 
 ## Seq Number Semantics
 

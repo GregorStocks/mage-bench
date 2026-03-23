@@ -19,9 +19,7 @@ _MODE_TO_DECK_TYPE = {
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Round-robin matchmaker: fill coverage gaps in the matchup matrix."
-    )
+    parser = argparse.ArgumentParser(description="Round-robin matchmaker: fill coverage gaps in the matchup matrix.")
     parser.add_argument(
         "mode",
         choices=["1v1", "commander"],

@@ -84,9 +84,7 @@ def main() -> None:
         if added > 0:
             print(f"  {game_id}: +{added} entries ({len(entries)} annotations)")
 
-    print(
-        f"\nSeeded {total_added} new entries from {total_annotations} annotations across {total_games} games"
-    )
+    print(f"\nSeeded {total_added} new entries from {total_annotations} annotations across {total_games} games")
 
 
 if __name__ == "__main__":

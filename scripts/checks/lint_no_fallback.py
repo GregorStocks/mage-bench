@@ -35,18 +35,12 @@ def _is_empty_literal(node: ast.expr) -> str | None:
         return "[]"
     if isinstance(node, ast.Dict) and not node.keys:
         return "{}"
-    if (
-        isinstance(node, ast.Constant)
-        and node.value == ""
-        and isinstance(node.value, str)
-    ):
+    if isinstance(node, ast.Constant) and node.value == "" and isinstance(node.value, str):
         return '""'
     return None
 
 
-def _check_file(
-    path: Path, source_lines: list[str], repo_root: Path = REPO_ROOT
-) -> list[str]:
+def _check_file(path: Path, source_lines: list[str], repo_root: Path = REPO_ROOT) -> list[str]:
     """Return lint errors for a single file."""
     try:
         tree = ast.parse("".join(source_lines), filename=str(path))
@@ -64,9 +58,7 @@ def _check_file(
                 if desc is None:
                     continue
                 lineno = value.lineno
-                errors.append(
-                    f"{rel}:{lineno}: or {desc} (silent fallback — restructure the code)"
-                )
+                errors.append(f"{rel}:{lineno}: or {desc} (silent fallback — restructure the code)")
 
         # --- .get(key, {}) ---
         elif (
@@ -78,10 +70,7 @@ def _check_file(
             and not node.args[1].keys
         ):
             lineno = node.args[1].lineno
-            errors.append(
-                f"{rel}:{lineno}: .get(key, {{}})"
-                " (silent default — use explicit key access or None check)"
-            )
+            errors.append(f"{rel}:{lineno}: .get(key, {{}}) (silent default — use explicit key access or None check)")
 
         # --- .get(key, "") ---
         elif (
@@ -94,10 +83,7 @@ def _check_file(
             and isinstance(node.args[1].value, str)
         ):
             lineno = node.args[1].lineno
-            errors.append(
-                f'{rel}:{lineno}: .get(key, "")'
-                " (silent default — use explicit key access or None check)"
-            )
+            errors.append(f'{rel}:{lineno}: .get(key, "") (silent default — use explicit key access or None check)')
 
         # --- .get(key, []) ---
         elif (
@@ -109,10 +95,7 @@ def _check_file(
             and not node.args[1].elts
         ):
             lineno = node.args[1].lineno
-            errors.append(
-                f"{rel}:{lineno}: .get(key, [])"
-                " (silent default — use explicit key access or None check)"
-            )
+            errors.append(f"{rel}:{lineno}: .get(key, []) (silent default — use explicit key access or None check)")
 
         # --- getattr(obj, attr, <non-None>) ---
         elif (
@@ -126,8 +109,7 @@ def _check_file(
             if not is_none:
                 lineno = default.lineno
                 errors.append(
-                    f"{rel}:{lineno}: getattr with non-None default"
-                    " (silent fallback — use explicit None check)"
+                    f"{rel}:{lineno}: getattr with non-None default (silent fallback — use explicit None check)"
                 )
 
         # --- bare except: / except Exception: pass ---
@@ -141,15 +123,11 @@ def _check_file(
             )
             if is_bare:
                 lineno = node.lineno
-                errors.append(
-                    f"{rel}:{lineno}: bare except"
-                    " (catches KeyboardInterrupt — use specific exception)"
-                )
+                errors.append(f"{rel}:{lineno}: bare except (catches KeyboardInterrupt — use specific exception)")
             elif is_exception_pass:
                 lineno = node.lineno
                 errors.append(
-                    f"{rel}:{lineno}: except Exception: pass"
-                    " (silently swallows errors — handle or propagate)"
+                    f"{rel}:{lineno}: except Exception: pass (silently swallows errors — handle or propagate)"
                 )
 
     return errors
@@ -172,9 +150,7 @@ def main() -> None:
     errors = lint_no_fallback()
 
     if errors:
-        print(
-            "No-fallback lint errors (AGENTS.md: no silent defaults):", file=sys.stderr
-        )
+        print("No-fallback lint errors (AGENTS.md: no silent defaults):", file=sys.stderr)
         for error in errors:
             print(f"  {error}", file=sys.stderr)
         sys.exit(1)

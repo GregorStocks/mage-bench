@@ -45,10 +45,7 @@ def patch_game(game_path: Path) -> int:
         return 0
 
     # Check if already patched (any non-zero value means it's good)
-    if any(
-        e.get("messagesBefore", 0) != 0 or e.get("messagesAfter", 0) != 0
-        for e in trim_events
-    ):
+    if any(e.get("messagesBefore", 0) != 0 or e.get("messagesAfter", 0) != 0 for e in trim_events):
         return 0
 
     raw_trims = load_raw_trims(log_dir)
@@ -83,9 +80,7 @@ def main() -> None:
             total_fixed += fixed
             print(f"  {game_path.name}: {fixed} events fixed")
 
-    print(
-        f"\nPatched {games_patched}/{len(game_files)} games, {total_fixed} events total"
-    )
+    print(f"\nPatched {games_patched}/{len(game_files)} games, {total_fixed} events total")
 
 
 if __name__ == "__main__":

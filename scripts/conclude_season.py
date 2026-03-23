@@ -78,9 +78,7 @@ def main() -> int:
     personalities = json.loads(_PERSONALITIES_JSON.read_text())
     personality_keys = list(personalities.keys())
     random.shuffle(personality_keys)
-    assert len(personality_keys) >= size, (
-        f"Only {len(personality_keys)} personalities available, need {size}"
-    )
+    assert len(personality_keys) >= size, f"Only {len(personality_keys)} personalities available, need {size}"
 
     # Build entrants list
     entrants = []
@@ -89,9 +87,7 @@ def main() -> int:
         effort = model.get("reasoningEffort")
         key = f"{model_id}::{effort}" if effort else model_id
         preset_name = key_to_preset.get(key)
-        assert preset_name is not None, (
-            f"No preset found for model key {key!r}. Is this model in presets.json?"
-        )
+        assert preset_name is not None, f"No preset found for model key {key!r}. Is this model in presets.json?"
 
         personality = personality_keys[i]
 
@@ -111,9 +107,7 @@ def main() -> int:
     # Create tournament file
     _TOURNAMENTS_DIR.mkdir(parents=True, exist_ok=True)
     tournament_file = _TOURNAMENTS_DIR / f"season-{season_num}.json"
-    assert not tournament_file.exists(), (
-        f"Tournament file already exists: {tournament_file}"
-    )
+    assert not tournament_file.exists(), f"Tournament file already exists: {tournament_file}"
 
     tournament = {
         "season": season_num,

@@ -1,6 +1,6 @@
 ## Testing
 
-When changing Python code in `puppeteer/`, add or update tests in `puppeteer/tests/`. Run tests with `make test`.
+When changing Python code, add or update tests in `tests/`. Run tests with `make test`.
 
 ## CI Flakes
 

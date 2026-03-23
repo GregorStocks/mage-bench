@@ -43,9 +43,7 @@ def migrate_tournament(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Migrate tournament draft histories to a target version."
-    )
+    parser = argparse.ArgumentParser(description="Migrate tournament draft histories to a target version.")
     parser.add_argument(
         "--to",
         type=int,
@@ -80,9 +78,7 @@ def main() -> None:
         else:
             skipped += 1
 
-    print(
-        f"\nDone: {migrated} migrated, {skipped} skipped (target v{args.target_version})"
-    )
+    print(f"\nDone: {migrated} migrated, {skipped} skipped (target v{args.target_version})")
 
 
 if __name__ == "__main__":

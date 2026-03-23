@@ -1250,13 +1250,9 @@ def _parse_xmage_j22() -> dict[str, tuple[str, str]]:
 def main() -> None:
     names = jumpstart_themes.collect_card_names(J22_THEMES, _BASIC_LAND_DEFAULTS)
     xmage_j22 = _parse_xmage_j22()
-    resolved = scryfall.resolve_cards(
-        names, pre_resolved=xmage_j22, preferred_sets=_PREFERRED_SETS
-    )
+    resolved = scryfall.resolve_cards(names, pre_resolved=xmage_j22, preferred_sets=_PREFERRED_SETS)
     jumpstart_themes.validate_themes(J22_THEMES, resolved, _BASIC_LAND_DEFAULTS)
-    jumpstart_themes.generate_and_append(
-        J22_THEMES, resolved, _BASIC_LAND_DEFAULTS, _OUTPUT_PATHS
-    )
+    jumpstart_themes.generate_and_append(J22_THEMES, resolved, _BASIC_LAND_DEFAULTS, _OUTPUT_PATHS)
 
 
 if __name__ == "__main__":

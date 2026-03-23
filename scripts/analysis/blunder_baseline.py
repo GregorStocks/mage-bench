@@ -101,9 +101,7 @@ def main() -> None:
 
     detected = sum(1 for r in baseline["results"].values() if r["detected"])
     total = len(baseline["results"])
-    print(
-        f"Baseline v{baseline['blunder_script_version']}: {detected}/{total} detected"
-    )
+    print(f"Baseline v{baseline['blunder_script_version']}: {detected}/{total} detected")
     print("Written to blunder_baseline.json")
 
 

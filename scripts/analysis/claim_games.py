@@ -31,9 +31,7 @@ def _namespace(analysis_type: str) -> str:
     return f"games/{analysis_type}"
 
 
-def _metadata_for_games(
-    game_ids: list[str], analysis_type: str
-) -> dict[str, dict[str, str]]:
+def _metadata_for_games(game_ids: list[str], analysis_type: str) -> dict[str, dict[str, str]]:
     return {
         game_id: {
             "game_id": game_id,

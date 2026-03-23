@@ -92,9 +92,7 @@ def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str
     return ""
 
 
-def _find_retry_outcome(
-    events: Sequence[LlmEvent], idx: int, player: str, tool: str, error_code: str
-) -> str:
+def _find_retry_outcome(events: Sequence[LlmEvent], idx: int, player: str, tool: str, error_code: str) -> str:
     """Look forward from an error to see if the model retried and what happened."""
     for j in range(idx + 1, min(idx + 20, len(events))):
         ev = events[j]
@@ -139,9 +137,7 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
             continue
 
         player = e.player
-        assert player in player_models, (
-            f"{game_id}: tool_call event for unknown pilot player {player!r}"
-        )
+        assert player in player_models, f"{game_id}: tool_call event for unknown pilot player {player!r}"
         tool = e.tool
         model = player_models[player]
         result_str = e.result
@@ -162,18 +158,14 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
             )
             resolved_error_code = error_code or _infer_error_code(error_message)
             retryable = r.get("retryable", False)
-            assert isinstance(retryable, bool), (
-                f"{game_id}: tool retryable flag must be a bool, got {retryable!r}"
-            )
+            assert isinstance(retryable, bool), f"{game_id}: tool retryable flag must be a bool, got {retryable!r}"
             had_choices = "choices" in r
 
             action_type = ""
             if tool == "choose_action":
                 action_type = _infer_action_type(events, i, player)
 
-            retry_outcome = _find_retry_outcome(
-                events, i, player, tool, resolved_error_code
-            )
+            retry_outcome = _find_retry_outcome(events, i, player, tool, resolved_error_code)
 
             errors.append(
                 ErrorEvent(
@@ -207,69 +199,37 @@ def report(all_errors: list[ErrorEvent], num_games: int) -> None:
         return
 
     # Count total tool calls for context (not available here, but we can count errors)
-    print(
-        f"=== MCP Error Analysis ({len(all_errors)} errors across {num_games} games) ===\n"
-    )
+    print(f"=== MCP Error Analysis ({len(all_errors)} errors across {num_games} games) ===\n")
 
     # --- Section 1: By error_code ---
     print("--- By error_code ---")
     code_counts = Counter(e.error_code for e in all_errors)
     for code, count in code_counts.most_common():
-        retry_ok = sum(
-            1
-            for e in all_errors
-            if e.error_code == code and e.retry_outcome == "success"
-        )
-        retry_same = sum(
-            1
-            for e in all_errors
-            if e.error_code == code and e.retry_outcome == "same_error"
-        )
-        print(
-            f"  {code}: {count}  (retry→success: {retry_ok}, retry→same_error: {retry_same})"
-        )
+        retry_ok = sum(1 for e in all_errors if e.error_code == code and e.retry_outcome == "success")
+        retry_same = sum(1 for e in all_errors if e.error_code == code and e.retry_outcome == "same_error")
+        print(f"  {code}: {count}  (retry→success: {retry_ok}, retry→same_error: {retry_same})")
 
     # --- Section 2: By error message (deduplicated) ---
     print("\n--- By error message ---")
     msg_counts = Counter(e.error_message for e in all_errors)
     for msg, count in msg_counts.most_common(20):
-        retry_ok = sum(
-            1
-            for e in all_errors
-            if e.error_message == msg and e.retry_outcome == "success"
-        )
-        retry_same = sum(
-            1
-            for e in all_errors
-            if e.error_message == msg and e.retry_outcome == "same_error"
-        )
+        retry_ok = sum(1 for e in all_errors if e.error_message == msg and e.retry_outcome == "success")
+        retry_same = sum(1 for e in all_errors if e.error_message == msg and e.retry_outcome == "same_error")
         recovery_rate = _pct(retry_ok, count)
         print(f"  ({count}x, recovery {recovery_rate}) {msg}")
         if retry_same > 0:
-            print(
-                f"       ^ {retry_same} retried with same error (message not helping)"
-            )
+            print(f"       ^ {retry_same} retried with same error (message not helping)")
 
     # --- Section 3: By action_type (choose_action only) ---
-    choose_errors = [
-        e for e in all_errors if e.tool == "choose_action" and e.action_type
-    ]
+    choose_errors = [e for e in all_errors if e.tool == "choose_action" and e.action_type]
     if choose_errors:
         print("\n--- By action_type (choose_action errors) ---")
         type_counts = Counter(e.action_type for e in choose_errors)
         for atype, count in type_counts.most_common():
-            retry_ok = sum(
-                1
-                for e in choose_errors
-                if e.action_type == atype and e.retry_outcome == "success"
-            )
-            codes = Counter(
-                e.error_code for e in choose_errors if e.action_type == atype
-            )
+            retry_ok = sum(1 for e in choose_errors if e.action_type == atype and e.retry_outcome == "success")
+            codes = Counter(e.error_code for e in choose_errors if e.action_type == atype)
             codes_str = ", ".join(f"{c}={n}" for c, n in codes.most_common(5))
-            print(
-                f"  {atype}: {count}  (recovery: {_pct(retry_ok, count)})  [{codes_str}]"
-            )
+            print(f"  {atype}: {count}  (recovery: {_pct(retry_ok, count)})  [{codes_str}]")
 
     # --- Section 4: By model ---
     print("\n--- By model ---")
@@ -296,11 +256,7 @@ def report(all_errors: list[ErrorEvent], num_games: int) -> None:
     print("\n--- Least helpful error messages (model retries with same error) ---")
     msg_stuck: list[tuple[str, int, int]] = []
     for msg, count in msg_counts.items():
-        stuck = sum(
-            1
-            for e in all_errors
-            if e.error_message == msg and e.retry_outcome == "same_error"
-        )
+        stuck = sum(1 for e in all_errors if e.error_message == msg and e.retry_outcome == "same_error")
         if stuck > 0:
             msg_stuck.append((msg, stuck, count))
     msg_stuck.sort(key=lambda x: x[1], reverse=True)

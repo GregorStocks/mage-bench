@@ -59,12 +59,7 @@ def call_llm(
             )
         except OpenAIError as e:
             err_str = str(e)
-            retryable = (
-                "500" in err_str
-                or "502" in err_str
-                or "503" in err_str
-                or "401" in err_str
-            )
+            retryable = "500" in err_str or "502" in err_str or "503" in err_str or "401" in err_str
             if attempt < retries and retryable:
                 print(f"    Retrying after error (attempt {attempt + 1})...")
                 time.sleep(2 ** (attempt + 1))
@@ -79,9 +74,7 @@ def call_llm(
         if ptd is not None and ptd.cached_tokens is not None:
             cached = ptd.cached_tokens
         return text, usage.prompt_tokens, usage.completion_tokens, cached
-    raise AssertionError(
-        f"unreachable: loop over {retries + 1} attempts completed without return or raise"
-    )
+    raise AssertionError(f"unreachable: loop over {retries + 1} attempts completed without return or raise")
 
 
 def parse_annotation(text: str) -> dict | None:
@@ -114,9 +107,7 @@ def parse_annotation(text: str) -> dict | None:
             or "not a blunder" in text_lower
         ):
             return None
-        raise AssertionError(
-            f"No JSON found and can't interpret as null:\n{text[:500]}"
-        )
+        raise AssertionError(f"No JSON found and can't interpret as null:\n{text[:500]}")
 
     start = json_match.start()
     end = text.rfind("}")
@@ -134,7 +125,5 @@ def parse_annotation(text: str) -> dict | None:
         return None
     if isinstance(result, list):
         return result[0] if result else None
-    assert isinstance(result, dict), (
-        f"Expected JSON object or null, got {type(result).__name__}"
-    )
+    assert isinstance(result, dict), f"Expected JSON object or null, got {type(result).__name__}"
     return result

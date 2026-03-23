@@ -13,18 +13,14 @@ def _validate_https_url(url: str, *, allowed_hosts: frozenset[str]) -> None:
     """Reject unexpected schemes, hosts, and ports before opening a URL."""
     parsed = urllib.parse.urlsplit(url)
     assert parsed.scheme == "https", f"Expected https URL, got {url!r}"
-    assert parsed.username is None and parsed.password is None, (
-        f"Credentials are not allowed in URL: {url!r}"
-    )
+    assert parsed.username is None and parsed.password is None, f"Credentials are not allowed in URL: {url!r}"
     hostname = parsed.hostname
     assert hostname is not None, f"Expected hostname in URL: {url!r}"
     assert hostname in allowed_hosts, (
-        f"Unexpected HTTPS host {hostname!r} for {url!r}; "
-        f"expected one of {sorted(allowed_hosts)}"
+        f"Unexpected HTTPS host {hostname!r} for {url!r}; expected one of {sorted(allowed_hosts)}"
     )
     assert parsed.port in _HTTPS_PORTS, (
-        f"Unexpected HTTPS port {parsed.port!r} for {url!r}; "
-        "expected 443 or no explicit port"
+        f"Unexpected HTTPS port {parsed.port!r} for {url!r}; expected 443 or no explicit port"
     )
 
 
@@ -58,9 +54,7 @@ def fetch_https_bytes(
     """Fetch bytes from an HTTPS URL after validating scheme, host, and redirects."""
     allowed_host_set = frozenset(allowed_hosts)
     _validate_https_url(url, allowed_hosts=allowed_host_set)
-    opener = urllib.request.build_opener(
-        _ValidatedHttpsRedirectHandler(allowed_hosts=allowed_host_set)
-    )
+    opener = urllib.request.build_opener(_ValidatedHttpsRedirectHandler(allowed_hosts=allowed_host_set))
     if headers is None:
         request_headers: dict[str, str] = {}
     else:
@@ -70,16 +64,10 @@ def fetch_https_bytes(
         data=data,
         headers=request_headers,
     )
-    response = (
-        opener.open(request)
-        if timeout is None
-        else opener.open(request, timeout=timeout)
-    )
+    response = opener.open(request) if timeout is None else opener.open(request, timeout=timeout)
     with response as resp:
         body = resp.read()
-    assert isinstance(body, bytes), (
-        f"Expected bytes response body from {url!r}, got {type(body).__name__}"
-    )
+    assert isinstance(body, bytes), f"Expected bytes response body from {url!r}, got {type(body).__name__}"
     return body
 
 

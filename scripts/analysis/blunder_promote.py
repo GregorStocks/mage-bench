@@ -28,9 +28,7 @@ def find_latest_eval() -> Path:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Promote eval results to baseline")
-    parser.add_argument(
-        "path", nargs="?", help="Path to eval file (default: most recent)"
-    )
+    parser.add_argument("path", nargs="?", help="Path to eval file (default: most recent)")
     args = parser.parse_args()
 
     eval_path = Path(args.path) if args.path else find_latest_eval()
@@ -40,9 +38,7 @@ def main() -> None:
     data = json.loads(eval_path.read_text())
 
     assert "results" in data, f"Invalid eval file (no 'results' key): {eval_path}"
-    assert "blunder_script_version" in data, (
-        f"Invalid eval file (no 'blunder_script_version' key): {eval_path}"
-    )
+    assert "blunder_script_version" in data, f"Invalid eval file (no 'blunder_script_version' key): {eval_path}"
 
     save_baseline(data)
 

@@ -147,18 +147,14 @@ def read_llm_events(
                     if usage.get("cached_tokens"):
                         exported["usage"]["cached_tokens"] = usage["cached_tokens"]
                     if usage.get("reasoning_tokens"):
-                        exported["usage"]["reasoning_tokens"] = usage[
-                            "reasoning_tokens"
-                        ]
+                        exported["usage"]["reasoning_tokens"] = usage["reasoning_tokens"]
                 if "cost_usd" in raw:
                     exported["cost_usd"] = raw["cost_usd"]
             elif event_type == "tool_call":
                 exported["tool"] = raw["tool"]
                 assert "arguments" in raw, f"tool_call event missing arguments: {raw!r}"
                 arguments = raw["arguments"]
-                assert isinstance(arguments, dict), (
-                    f"tool_call arguments must be an object, got {arguments!r}"
-                )
+                assert isinstance(arguments, dict), f"tool_call arguments must be an object, got {arguments!r}"
                 exported["args"] = arguments
                 exported["result"] = raw["result"]
                 if "latency_ms" in raw:
@@ -173,9 +169,7 @@ def read_llm_events(
                         except (json.JSONDecodeError, TypeError):
                             pass
             elif event_type == "stall":
-                exported["turns_without_progress"] = raw.get(
-                    "turns_without_progress", 0
-                )
+                exported["turns_without_progress"] = raw.get("turns_without_progress", 0)
                 last_tools = raw.get("last_tools")
                 if last_tools is not None:
                     exported["last_tools"] = last_tools

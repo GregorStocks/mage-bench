@@ -56,9 +56,7 @@ def build_consensus(
 
     for game_id, results in games.items():
         # Collect all decisionIndex -> {approach: [annotations]} mapping
-        decision_to_approaches: dict[int, dict[str, list[dict]]] = defaultdict(
-            lambda: defaultdict(list)
-        )
+        decision_to_approaches: dict[int, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
         all_approaches = set()
 
         for r in results:
@@ -66,9 +64,7 @@ def build_consensus(
             all_approaches.add(approach)
             for ann in r["annotations"]:
                 dec = ann.get("decisionIndex")
-                assert isinstance(dec, int), (
-                    f"annotation missing decisionIndex in {approach}: {ann}"
-                )
+                assert isinstance(dec, int), f"annotation missing decisionIndex in {approach}: {ann}"
                 decision_to_approaches[dec][approach].append(ann)
 
         num_approaches = len(all_approaches)
@@ -118,18 +114,14 @@ def analyze_consensus_blunders(
     for game_id in sorted(consensus.keys()):
         game_data = consensus[game_id]
         consensus_snaps = {s: d for s, d in game_data.items() if d["is_consensus"]}
-        non_consensus_snaps = {
-            s: d for s, d in game_data.items() if not d["is_consensus"]
-        }
+        non_consensus_snaps = {s: d for s, d in game_data.items() if not d["is_consensus"]}
         total_consensus += len(consensus_snaps)
         total_non_consensus += len(non_consensus_snaps)
 
         if not consensus_snaps:
             continue
 
-        print_subsection(
-            f"{game_id}: {len(consensus_snaps)} consensus, {len(non_consensus_snaps)} non-consensus"
-        )
+        print_subsection(f"{game_id}: {len(consensus_snaps)} consensus, {len(non_consensus_snaps)} non-consensus")
 
         for dec_idx in sorted(consensus_snaps.keys()):
             info = consensus_snaps[dec_idx]
@@ -138,9 +130,7 @@ def analyze_consensus_blunders(
             total = info["num_approaches_total"]
             frac = info["fraction"]
 
-            print(
-                f"\n  decision={dec_idx}  ({len(found)}/{total} approaches = {frac:.0%})"
-            )
+            print(f"\n  decision={dec_idx}  ({len(found)}/{total} approaches = {frac:.0%})")
 
             # Show which approaches found it with their details
             print("  FOUND BY:")
@@ -168,14 +158,10 @@ def analyze_consensus_blunders(
             if len(set(all_decs)) > 1:
                 print(f"  DECISION DISAGREEMENT: values={sorted(set(all_decs))}")
             else:
-                print(
-                    f"  DECISION AGREEMENT: all say {all_decs[0] if all_decs else '?'}"
-                )
+                print(f"  DECISION AGREEMENT: all say {all_decs[0] if all_decs else '?'}")
 
             # Check severity agreement
-            all_sevs = [
-                ann.get("severity", "?") for anns in found.values() for ann in anns
-            ]
+            all_sevs = [ann.get("severity", "?") for anns in found.values() for ann in anns]
             sev_set = set(all_sevs)
             if len(sev_set) > 1:
                 sev_counts: dict[str, int] = defaultdict(int)
@@ -251,14 +237,8 @@ def analyze_per_approach(
 
     for approach in sorted(approach_stats.keys()):
         s = approach_stats[approach]
-        fp_rate = (
-            s["false_positives"] / s["total_annotations"] * 100
-            if s["total_annotations"] > 0
-            else 0
-        )
-        avg_desc = (
-            statistics.mean(s["description_lengths"]) if s["description_lengths"] else 0
-        )
+        fp_rate = s["false_positives"] / s["total_annotations"] * 100 if s["total_annotations"] > 0 else 0
+        avg_desc = statistics.mean(s["description_lengths"]) if s["description_lengths"] else 0
         print(
             f"  {approach:<25} {s['games_present']:>5} {s['total_annotations']:>5} "
             f"{s['consensus_hits']:>5} {s['consensus_misses']:>5} "
@@ -335,9 +315,7 @@ def analyze_decision_accuracy(
                 dec_details = {d: game_data[d] for d in group}
                 merge_candidates.append((game_id, group, dec_details))
 
-    print(
-        f"\n  Nearby consensus blunders that may be the same mistake: {len(merge_candidates)}"
-    )
+    print(f"\n  Nearby consensus blunders that may be the same mistake: {len(merge_candidates)}")
 
     if merge_candidates:
         for game_id, decs, details in merge_candidates:
@@ -373,9 +351,7 @@ def analyze_decision_accuracy(
                 else:
                     approach_minority[approach] += 1
 
-    all_approaches_here = sorted(
-        set(list(approach_majority.keys()) + list(approach_minority.keys()))
-    )
+    all_approaches_here = sorted(set(list(approach_majority.keys()) + list(approach_minority.keys())))
     if all_approaches_here:
         print("\n  Per-approach alignment in split-attribution cases:")
         print(f"  {'Approach':<25} {'Majority':>8} {'Minority':>8} {'Align%':>7}")
@@ -418,9 +394,7 @@ def analyze_hellkite_test(
     num_approaches = len(results)
 
     # --- Hellkite land destruction (snap=75 neighborhood) ---
-    print_subsection(
-        f"Hellkite land destruction (correct snap=75, {num_approaches} approaches)"
-    )
+    print_subsection(f"Hellkite land destruction (correct snap=75, {num_approaches} approaches)")
     print("  Context: Magmatic Hellkite ETB lets you destroy a nonbasic land.")
     print("  Sonnet Timmy chose Multiversal Passage over Spirebluff Canal.")
     print("  Spirebluff Canal was the better target (dual land, harder to replace).")
@@ -452,9 +426,7 @@ def analyze_hellkite_test(
         print(f"  {approach:<25} decision={dec:<20} {sev:<14} {cat}")
         print(f"    {abbreviate(desc, 100)}")
     if missed_hellkite:
-        print(
-            f"\n  MISSED BY ({len(missed_hellkite)}): {', '.join(sorted(missed_hellkite))}"
-        )
+        print(f"\n  MISSED BY ({len(missed_hellkite)}): {', '.join(sorted(missed_hellkite))}")
 
     # --- Momo legend-rule ---
     print_subsection(f"Momo legend-rule blunder ({num_approaches} approaches)")
@@ -536,17 +508,9 @@ def analyze_cost_effectiveness(
     for approach in sorted(approach_data.keys()):
         d = approach_data[approach]
         cost_per_game = d["total_cost"] / d["games"] if d["games"] > 0 else 0
-        ann_per_dollar = (
-            d["total_annotations"] / d["total_cost"] if d["total_cost"] > 0 else 0
-        )
-        chit_per_dollar = (
-            d["consensus_hits"] / d["total_cost"] if d["total_cost"] > 0 else 0
-        )
-        fp_rate = (
-            d["false_positives"] / d["total_annotations"] * 100
-            if d["total_annotations"] > 0
-            else 0
-        )
+        ann_per_dollar = d["total_annotations"] / d["total_cost"] if d["total_cost"] > 0 else 0
+        chit_per_dollar = d["consensus_hits"] / d["total_cost"] if d["total_cost"] > 0 else 0
+        fp_rate = d["false_positives"] / d["total_annotations"] * 100 if d["total_annotations"] > 0 else 0
         time_per_game = d["wall_time"] / d["games"] if d["games"] > 0 else 0
 
         print(
@@ -584,9 +548,7 @@ def analyze_severity_consistency(
 
             # Get all severities
             all_sevs: list[tuple[str, str]] = [
-                (approach, ann.get("severity", "?"))
-                for approach, anns in found.items()
-                for ann in anns
+                (approach, ann.get("severity", "?")) for approach, anns in found.items() for ann in anns
             ]
 
             if not all_sevs:

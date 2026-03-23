@@ -39,18 +39,13 @@ def find_outdated_games(limit: int) -> list[str]:
         if len(outdated) >= limit:
             break
         data = load_game(game_path)
-        if (
-            data.annotations is None
-            or data.blunder_script_version < BLUNDER_SCRIPT_VERSION
-        ):
+        if data.annotations is None or data.blunder_script_version < BLUNDER_SCRIPT_VERSION:
             outdated.append(str(game_path))
     return outdated
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Backfill blunder annotations on outdated games"
-    )
+    parser = argparse.ArgumentParser(description="Backfill blunder annotations on outdated games")
     parser.add_argument(
         "limit",
         nargs="?",
@@ -84,9 +79,7 @@ def main() -> None:
         print(f"All games are up to date (v{BLUNDER_SCRIPT_VERSION}).")
         return
 
-    print(
-        f"Found {len(games)} game(s) to annotate (target v{BLUNDER_SCRIPT_VERSION}):\n"
-    )
+    print(f"Found {len(games)} game(s) to annotate (target v{BLUNDER_SCRIPT_VERSION}):\n")
     for gz in games:
         game_id = Path(gz).stem.replace(".json", "")
         data = load_game(gz)

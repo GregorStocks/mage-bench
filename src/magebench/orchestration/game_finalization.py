@@ -40,9 +40,7 @@ def run_git(cmd: str, cwd: Path) -> str:
             detail = exc.stderr.strip() or exc.stdout.strip() or str(exc)
         else:
             detail = str(exc)
-        raise RuntimeError(
-            f"git command failed in {cwd}: {' '.join(argv)}: {detail}"
-        ) from exc
+        raise RuntimeError(f"git command failed in {cwd}: {' '.join(argv)}: {detail}") from exc
 
 
 def ensure_game_over_event(game_dir: Path, spectator_exit_code: int = -1) -> None:
@@ -98,9 +96,7 @@ def write_error_log(game_dir: Path) -> None:
     for log_file in sorted(game_dir.glob("*_errors.log")):
         try:
             error_lines.extend(
-                f"[{log_file.stem}] {line}"
-                for line in log_file.read_text().splitlines()
-                if line.strip()
+                f"[{log_file.stem}] {line}" for line in log_file.read_text().splitlines() if line.strip()
             )
         except OSError:
             pass
@@ -134,9 +130,7 @@ def write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None:
         if player.deck_strategy:
             entry["deck_strategy"] = player.deck_strategy
         if isinstance(player, PilotPlayer):
-            assert player.model, (
-                f"Pilot player {player.name} has no model (check preset)"
-            )
+            assert player.model, f"Pilot player {player.name} has no model (check preset)"
             entry["model"] = player.model
             if player.personality:
                 entry["personality"] = player.personality
@@ -152,9 +146,7 @@ def write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None:
         "game_type": config.game_type,
         "deck_type": config.deck_type,
         "harness_epoch": HARNESS_EPOCH,
-        "season": json.loads((project_root / "data" / "season.json").read_text())[
-            "current_season"
-        ],
+        "season": json.loads((project_root / "data" / "season.json").read_text())["current_season"],
         "players": players,
         "git_branch": run_git("rev-parse --abbrev-ref HEAD", project_root),
         "git_commit": run_git("rev-parse --short HEAD", project_root),
@@ -171,9 +163,7 @@ def print_game_summary(game_dir: Path) -> float:
     logger.info("=" * 60)
 
     game_over_found = False
-    for log_file in sorted(game_dir.glob("*_pilot.log")) + sorted(
-        game_dir.glob("*_mcp.log")
-    ):
+    for log_file in sorted(game_dir.glob("*_pilot.log")) + sorted(game_dir.glob("*_mcp.log")):
         try:
             text = log_file.read_text()
             for line in text.splitlines():
@@ -202,10 +192,7 @@ def print_game_summary(game_dir: Path) -> float:
                         if reason == "spectator_closed":
                             game_over_found = True
                             logger.info("  %s", msg)
-                        elif (
-                            reason not in ("timeout_or_killed", "spectator_crashed")
-                            and msg
-                        ):
+                        elif reason not in ("timeout_or_killed", "spectator_crashed") and msg:
                             game_over_found = True
                             logger.info("  Game over: %s", msg)
                         break

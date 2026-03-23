@@ -20,17 +20,13 @@ from magebench.game.game_exports import (
 )
 
 
-def backfill_game(
-    path: Path, *, dry_run: bool = False, force: bool = False
-) -> tuple[str, int]:
+def backfill_game(path: Path, *, dry_run: bool = False, force: bool = False) -> tuple[str, int]:
     """Backfill or rebuild decisions for a single game export."""
     data = load_raw_game_export(path)
 
     existing = data.get("decisions")
     if existing is not None and not force:
-        assert isinstance(existing, list), (
-            f"{path.name}: decisions must be a list when present, got {existing!r}"
-        )
+        assert isinstance(existing, list), f"{path.name}: decisions must be a list when present, got {existing!r}"
         return "skipped", len(existing)
 
     decisions = build_decisions(
@@ -55,12 +51,8 @@ def backfill_game(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Backfill or rebuild canonical decisions on existing exports."
-    )
-    parser.add_argument(
-        "--dry-run", action="store_true", help="Preview without writing files."
-    )
+    parser = argparse.ArgumentParser(description="Backfill or rebuild canonical decisions on existing exports.")
+    parser.add_argument("--dry-run", action="store_true", help="Preview without writing files.")
     parser.add_argument(
         "--force",
         action="store_true",
@@ -87,9 +79,7 @@ def main() -> None:
         print(f"{path.name}: {count} decisions {label}")
         total += count
 
-    print(
-        f"\nDone: {updated} updated, {unchanged} unchanged, {skipped} skipped, {total} total decisions written"
-    )
+    print(f"\nDone: {updated} updated, {unchanged} unchanged, {skipped} skipped, {total} total decisions written")
 
 
 if __name__ == "__main__":

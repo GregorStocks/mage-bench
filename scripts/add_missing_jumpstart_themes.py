@@ -474,9 +474,7 @@ def main() -> None:
     names = jumpstart_themes.collect_card_names(MISSING_THEMES, _BASIC_LAND_DEFAULTS)
     resolved = scryfall.resolve_cards(names, preferred_sets=_PREFERRED_SETS)
     jumpstart_themes.validate_themes(MISSING_THEMES, resolved, _BASIC_LAND_DEFAULTS)
-    jumpstart_themes.generate_and_append(
-        MISSING_THEMES, resolved, _BASIC_LAND_DEFAULTS, _OUTPUT_PATHS
-    )
+    jumpstart_themes.generate_and_append(MISSING_THEMES, resolved, _BASIC_LAND_DEFAULTS, _OUTPUT_PATHS)
 
 
 if __name__ == "__main__":

@@ -194,9 +194,7 @@ def _get_authenticated_service() -> Any:
                     f"YouTube client secrets not found at {CLIENT_SECRETS_FILE}.\n"
                     "See doc/youtube.md for setup instructions."
                 )
-            flow = installed_app_flow_cls.from_client_secrets_file(
-                str(CLIENT_SECRETS_FILE), SCOPES
-            )
+            flow = installed_app_flow_cls.from_client_secrets_file(str(CLIENT_SECRETS_FILE), SCOPES)
             creds = flow.run_local_server(port=0)
 
         MAGE_BENCH_DIR.mkdir(parents=True, exist_ok=True)
@@ -262,9 +260,7 @@ def upload_to_youtube(game_dir: Path) -> str | None:
             chunksize=10 * 1024 * 1024,
         )
 
-        request = youtube.videos().insert(
-            part="snippet,status", body=body, media_body=media
-        )
+        request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
 
         response = None
         while response is None:

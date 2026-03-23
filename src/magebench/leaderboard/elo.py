@@ -31,19 +31,13 @@ def split_key(key: str) -> tuple[str, str | None]:
     return key, None
 
 
-def extract_placements(
-    game: Mapping[str, object], games_dir: Path | None = None
-) -> dict[str, int]:
+def extract_placements(game: Mapping[str, object], games_dir: Path | None = None) -> dict[str, int]:
     """Extract player placements from game data."""
     players_obj = game["players"]
-    assert isinstance(players_obj, list), (
-        f"game {game.get('id', '<unknown>')}: players must be a list"
-    )
+    assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
     players: list[Player] = []
     for index, player in enumerate(players_obj):
-        assert isinstance(player, Player), (
-            f"game {game.get('id', '<unknown>')}: players[{index}] must be a Player"
-        )
+        assert isinstance(player, Player), f"game {game.get('id', '<unknown>')}: players[{index}] must be a Player"
         players.append(player)
 
     if any(player.placement is not None for player in players):
@@ -103,13 +97,9 @@ def _placements_from_winner(game: Mapping[str, object]) -> dict[str, int]:
         return {}
     placements: dict[str, int] = {}
     players_obj = game["players"]
-    assert isinstance(players_obj, list), (
-        f"game {game.get('id', '<unknown>')}: players must be a list"
-    )
+    assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
     for index, player in enumerate(players_obj):
-        assert isinstance(player, Player), (
-            f"game {game.get('id', '<unknown>')}: players[{index}] must be a Player"
-        )
+        assert isinstance(player, Player), f"game {game.get('id', '<unknown>')}: players[{index}] must be a Player"
         placements[player.name] = 1 if player.name == winner else 2
     return placements
 
@@ -122,9 +112,7 @@ def compute_elo_ratings(
     ratings: dict[str, float] = {}
     per_game: list[dict[str, Any]] = []
 
-    sorted_games = sorted(
-        games_index, key=lambda game: game["timestamp"] if "timestamp" in game else ""
-    )
+    sorted_games = sorted(games_index, key=lambda game: game["timestamp"] if "timestamp" in game else "")
 
     for game in sorted_games:
         pilots = [
@@ -188,10 +176,7 @@ def compute_elo_ratings(
         per_game.append(
             {
                 "id": game["id"],
-                "players": [
-                    {"key": key, "ratingBefore": before[key], "ratingAfter": after[key]}
-                    for key in pilot_keys
-                ],
+                "players": [{"key": key, "ratingBefore": before[key], "ratingAfter": after[key]} for key in pilot_keys],
             }
         )
 

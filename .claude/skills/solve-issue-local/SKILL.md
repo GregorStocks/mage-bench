@@ -31,6 +31,7 @@ If you run targeted Ruff fixes or formatting on "changed files only", remember t
 
 - If your code changes prompt rendering, bridge responses, MCP tool output, replay behavior, or exported game data, proactively search existing goldens for the affected prompt fragment or behavior and regenerate every impacted golden before moving on.
 - If you move a canonical file or schema path, search `conftest.py` and shared test fixtures for hardcoded repo paths before relying on the full test suite.
+- If you move Python tests across roots (for example out of `puppeteer/` into top-level `tests/`), also update repo plumbing that discovers or consumes them: `Makefile` lint/test targets, `scripts/checks/quiet_check.py` triggers, pytest config location, and any website/utilities that read golden assets by path. The file move alone is not enough to keep `make check` green.
 
 ## Harness Epoch
 

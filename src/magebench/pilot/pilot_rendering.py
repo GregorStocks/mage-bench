@@ -52,9 +52,7 @@ def render_for_pilot(
 
     oracle_texts = extract_oracle_texts_from_board(board) if board else {}
     if seen_oracle_cards is not None:
-        oracle_texts = {
-            k: v for k, v in oracle_texts.items() if k not in seen_oracle_cards
-        }
+        oracle_texts = {k: v for k, v in oracle_texts.items() if k not in seen_oracle_cards}
         seen_oracle_cards.update(oracle_texts)
 
     rendered = render_decision(
@@ -115,9 +113,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
                 parts.append(resp_type)
             choices = data.get("choices")
             if choices:
-                names = [
-                    c.get("name", c.get("description", "?"))[:30] for c in choices[:3]
-                ]
+                names = [c.get("name", c.get("description", "?"))[:30] for c in choices[:3]]
                 parts.append(f"{len(choices)} choices: {', '.join(names)}")
             msg = data.get("message")
             if msg and not choices:
@@ -189,9 +185,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
     return content
 
 
-def _find_tool_name(
-    history: list[dict], tool_result_idx: int, tool_call_id: str
-) -> str:
+def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str) -> str:
     """Find the tool name for a tool result by searching backward for its assistant message."""
     for idx in range(tool_result_idx - 1, -1, -1):
         msg = history[idx]
@@ -208,9 +202,7 @@ def _find_tool_name(
                 f"assistant tool call {tool_call_id!r} missing function payload: {tool_call!r}"
             )
             name = function.get("name")
-            assert isinstance(name, str), (
-                f"assistant tool call {tool_call_id!r} missing function name: {tool_call!r}"
-            )
+            assert isinstance(name, str), f"assistant tool call {tool_call_id!r} missing function name: {tool_call!r}"
             return name
         break
     return ""
@@ -231,9 +223,7 @@ def build_reset_message(base_text: str, last_reasoning: str) -> str:
     """Build the user message for a context reset."""
     parts = [base_text]
     if last_reasoning:
-        parts.append(
-            f"Before your context was reset, you were thinking: {last_reasoning}"
-        )
+        parts.append(f"Before your context was reset, you were thinking: {last_reasoning}")
     return "\n\n".join(parts)
 
 
@@ -246,9 +236,7 @@ def _with_cache_control(msg: dict, cache_control: dict) -> dict:
         if isinstance(content, str):
             return {
                 **msg,
-                "content": [
-                    {"type": "text", "text": content, "cache_control": cache_control}
-                ],
+                "content": [{"type": "text", "text": content, "cache_control": cache_control}],
             }
         if isinstance(content, list):
             new_content = [dict(block) for block in content]
@@ -260,9 +248,7 @@ def _with_cache_control(msg: dict, cache_control: dict) -> dict:
     elif role == "assistant" and isinstance(content, str) and content:
         return {
             **msg,
-            "content": [
-                {"type": "text", "text": content, "cache_control": cache_control}
-            ],
+            "content": [{"type": "text", "text": content, "cache_control": cache_control}],
         }
 
     return msg
@@ -274,20 +260,14 @@ def _message_text(msg: dict) -> str:
     if isinstance(content, str):
         return content
     if isinstance(content, list):
-        return "".join(
-            block["text"]
-            for block in content
-            if isinstance(block, dict) and block.get("type") == "text"
-        )
+        return "".join(block["text"] for block in content if isinstance(block, dict) and block.get("type") == "text")
     return ""
 
 
 def _find_cache_breakpoint_idx(messages: list[dict]) -> int:
     """Return the message index that ends the stable cacheable prefix."""
     for idx in range(len(messages) - 1, -1, -1):
-        if messages[idx].get(
-            "role"
-        ) == "user" and _CACHE_BREAKPOINT_MARKER in _message_text(messages[idx]):
+        if messages[idx].get("role") == "user" and _CACHE_BREAKPOINT_MARKER in _message_text(messages[idx]):
             return idx
     return len(messages) - 1
 
@@ -330,14 +310,9 @@ def render_context(
 
     for idx in range(summary_start, recent_start):
         msg = history[idx]
-        if (
-            msg.get("role") == "tool"
-            and len(msg["content"]) > TOOL_SUMMARY_TRIGGER_CHARS
-        ):
+        if msg.get("role") == "tool" and len(msg["content"]) > TOOL_SUMMARY_TRIGGER_CHARS:
             tool_name = _find_tool_name(history, idx, msg["tool_call_id"])
-            messages.append(
-                {**msg, "content": _summarize_tool_result(tool_name, msg["content"])}
-            )
+            messages.append({**msg, "content": _summarize_tool_result(tool_name, msg["content"])})
         else:
             messages.append(msg)
 
@@ -374,17 +349,11 @@ async def _fetch_state_summary(session: ClientSession) -> str:
     try:
         state_data = json.loads(state_result)
     except (json.JSONDecodeError, TypeError) as exc:
-        raise ToolExecutionError(
-            f"get_game_state returned invalid JSON: {state_result!r}"
-        ) from exc
+        raise ToolExecutionError(f"get_game_state returned invalid JSON: {state_result!r}") from exc
     if not isinstance(state_data, dict):
-        raise ToolExecutionError(
-            f"get_game_state returned non-object payload: {state_data!r}"
-        )
+        raise ToolExecutionError(f"get_game_state returned non-object payload: {state_data!r}")
     if "error" in state_data:
-        raise ToolExecutionError(
-            f"get_game_state returned error: {state_data['error']}"
-        )
+        raise ToolExecutionError(f"get_game_state returned error: {state_data['error']}")
     parts: list[str] = []
     if "turn" in state_data:
         parts.append(f"Turn {state_data['turn']}")

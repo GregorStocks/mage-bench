@@ -35,9 +35,7 @@ _SAFE_EXPORT_COMPONENT_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 _SAFE_EXPORT_FILENAME_RE = re.compile(r"^game_[A-Za-z0-9_]+\.json5?(?:\.gz)?$")
 
 GAME_ID_PATTERN = re.compile(r"^game_\d{8}_\d{6}(?:_g\d+)?$")
-GAME_EXPORT_FILENAME_PATTERN = re.compile(
-    r"^(game_\d{8}_\d{6}(?:_g\d+)?)\.json5?(?:\.gz)?$"
-)
+GAME_EXPORT_FILENAME_PATTERN = re.compile(r"^(game_\d{8}_\d{6}(?:_g\d+)?)\.json5?(?:\.gz)?$")
 
 
 # --- Decision format helpers ---
@@ -52,18 +50,14 @@ DecisionLike = Decision | Mapping[str, Any]
 def decision_index(d: DecisionLike) -> int:
     """Get the decision index."""
     value = d.get("index", d.get("decision_index", 0))
-    assert isinstance(value, int) and not isinstance(value, bool), (
-        f"decision index must be an int, got {value!r}"
-    )
+    assert isinstance(value, int) and not isinstance(value, bool), f"decision index must be an int, got {value!r}"
     return value
 
 
 def snapshot_index(d: DecisionLike) -> int:
     """Get the snapshot index."""
     value = d.get("snapshot_index", 0)
-    assert isinstance(value, int) and not isinstance(value, bool), (
-        f"snapshot index must be an int, got {value!r}"
-    )
+    assert isinstance(value, int) and not isinstance(value, bool), f"snapshot index must be an int, got {value!r}"
     return value
 
 
@@ -124,9 +118,7 @@ def is_mana_ability_subdecision(d: DecisionLike) -> bool:
         choices = d.get("choices")
         if choices is not None:
             assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
-        if choices and all(
-            isinstance(c, Choice) and "Add {" in _choice_text(c) for c in choices
-        ):
+        if choices and all(isinstance(c, Choice) and "Add {" in _choice_text(c) for c in choices):
             return True
     return False
 
@@ -136,14 +128,10 @@ def subsequent_actions(d: DecisionLike) -> list[str]:
     actions = d.get("subsequent_actions")
     if actions is None:
         return []
-    assert isinstance(actions, list), (
-        f"subsequent_actions must be a list, got {actions!r}"
-    )
+    assert isinstance(actions, list), f"subsequent_actions must be a list, got {actions!r}"
     result: list[str] = []
     for index, action in enumerate(actions):
-        assert isinstance(action, str), (
-            f"subsequent_actions[{index}] must be a string, got {action!r}"
-        )
+        assert isinstance(action, str), f"subsequent_actions[{index}] must be a string, got {action!r}"
         result.append(action)
     return result
 
@@ -193,9 +181,7 @@ def _validate_export_path(path: str | Path) -> Path:
 
     candidate = root.joinpath(*relative.parts)
     resolved = candidate.resolve()
-    assert resolved.is_relative_to(root), (
-        f"Game export must stay under {root} after resolution, got {resolved}"
-    )
+    assert resolved.is_relative_to(root), f"Game export must stay under {root} after resolution, got {resolved}"
     assert resolved.exists(), f"Game export not found: {resolved}"
     assert resolved.is_file(), f"Game export is not a file: {resolved}"
     return resolved
@@ -204,9 +190,7 @@ def _validate_export_path(path: str | Path) -> Path:
 def _read_export_text(export_path: Path) -> str:
     """Read a validated export path as decoded JSON5 text."""
     return (
-        gzip.decompress(export_path.read_bytes()).decode()
-        if export_path.suffix == ".gz"
-        else export_path.read_text()
+        gzip.decompress(export_path.read_bytes()).decode() if export_path.suffix == ".gz" else export_path.read_text()
     )
 
 
@@ -219,9 +203,7 @@ def load_game(path: str | Path) -> GameExport:
 def load_game_for_annotation(path: str | Path) -> BuiltGameExport:
     """Load a game export that may not have annotations yet."""
     export_path = _validate_export_path(path)
-    return parse_built_game_export(
-        _read_export_text(export_path), source=export_path.name
-    )
+    return parse_built_game_export(_read_export_text(export_path), source=export_path.name)
 
 
 def export_record_name(record: object) -> str:
@@ -243,9 +225,7 @@ def validate_game_id(game_id: str) -> str:
 def validate_export_filename(filename: str) -> str:
     """Validate a served export filename like game_...json(.gz)."""
     assert isinstance(filename, str), f"filename must be a string, got {filename!r}"
-    assert GAME_EXPORT_FILENAME_PATTERN.fullmatch(filename), (
-        f"Invalid game export filename: {filename!r}"
-    )
+    assert GAME_EXPORT_FILENAME_PATTERN.fullmatch(filename), f"Invalid game export filename: {filename!r}"
     return filename
 
 
@@ -291,9 +271,7 @@ def load_ground_truth() -> dict[str, list[dict]]:
         assert isinstance(entries, list), f"{p}: expected JSON array"
         typed_entries: list[dict] = []
         for index, entry in enumerate(entries):
-            assert isinstance(entry, dict), (
-                f"{p}: entries[{index}] must be an object, got {entry!r}"
-            )
+            assert isinstance(entry, dict), f"{p}: entries[{index}] must be an object, got {entry!r}"
             typed_entries.append(entry)
         result[game_id] = typed_entries
     return result
@@ -309,9 +287,7 @@ def load_game_ground_truth(game_id: str) -> list[dict]:
     assert isinstance(entries, list), f"{path}: expected JSON array"
     typed_entries: list[dict] = []
     for index, entry in enumerate(entries):
-        assert isinstance(entry, dict), (
-            f"{path}: entries[{index}] must be an object, got {entry!r}"
-        )
+        assert isinstance(entry, dict), f"{path}: entries[{index}] must be an object, got {entry!r}"
         typed_entries.append(entry)
     return typed_entries
 
@@ -374,9 +350,7 @@ def make_audited_entry(
 # --- Aftermath / reverse mapping ---
 
 
-def compute_aftermath_index(
-    decision: DecisionLike, snapshots: Sequence[Snapshot]
-) -> int:
+def compute_aftermath_index(decision: DecisionLike, snapshots: Sequence[Snapshot]) -> int:
     """Compute the aftermath snapshot index for a decision.
 
     Finds the first snapshot strictly after action_seq, starting from the
@@ -385,11 +359,7 @@ def compute_aftermath_index(
     """
     s_idx = snapshot_index(decision)
     action_seq_raw = decision.get("action_seq", 0)
-    action_seq = (
-        action_seq_raw
-        if isinstance(action_seq_raw, int) and not isinstance(action_seq_raw, bool)
-        else 0
-    )
+    action_seq = action_seq_raw if isinstance(action_seq_raw, int) and not isinstance(action_seq_raw, bool) else 0
     if action_seq:
         for i in range(s_idx, len(snapshots)):
             if snapshots[i].seq > action_seq:
@@ -415,9 +385,7 @@ def reverse_map_annotations(
             f"annotation decision_index {direct_decision_idx} out of range for {len(decisions)} decisions"
         )
         decision_player_raw = decisions[direct_decision_idx]["player"]
-        assert isinstance(decision_player_raw, str), (
-            f"decision player must be a string, got {decision_player_raw!r}"
-        )
+        assert isinstance(decision_player_raw, str), f"decision player must be a string, got {decision_player_raw!r}"
         assert decision_player_raw == ann.player, (
             "annotation player "
             f"{ann.player!r} does not match decision {direct_decision_idx} "
@@ -456,16 +424,12 @@ def chosen_display(decision: DecisionLike) -> str:
         if isinstance(c, dict):
             name = c.get("name")
             if name is not None:
-                assert isinstance(name, str), (
-                    f"choice name must be a string, got {name!r}"
-                )
+                assert isinstance(name, str), f"choice name must be a string, got {name!r}"
                 if name:
                     return name
             description = c.get("description")
             if description is not None:
-                assert isinstance(description, str), (
-                    f"choice description must be a string, got {description!r}"
-                )
+                assert isinstance(description, str), f"choice description must be a string, got {description!r}"
             if description:
                 return description
         return f"option_{chosen}"
@@ -475,9 +439,7 @@ def chosen_display(decision: DecisionLike) -> str:
     chosen_args = decision.get("chosen_args")
     if not chosen_args:
         return "?"
-    assert isinstance(chosen_args, dict), (
-        f"chosen_args must be an object when present, got {chosen_args!r}"
-    )
+    assert isinstance(chosen_args, dict), f"chosen_args must be an object when present, got {chosen_args!r}"
     if chosen_args.get("attackers"):
         return f"Attack with: {chosen_args['attackers']}"
     if chosen_args.get("blockers"):

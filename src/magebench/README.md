@@ -34,5 +34,4 @@ The allowed top-level package dependencies are:
 
 Nothing should import `cli`, and `magebench/__init__.py` should stay thin.
 
-The weird test at
-`puppeteer/tests/weird/test_magebench_package_dag.py` ratchets this DAG.
+The weird test at `tests/weird/test_magebench_package_dag.py` ratchets this DAG.

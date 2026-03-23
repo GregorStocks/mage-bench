@@ -12,12 +12,7 @@ import json
 import re
 from pathlib import Path
 
-GROUND_TRUTH_DIR = (
-    Path(__file__).resolve().parent.parent.parent.parent.parent
-    / "scripts"
-    / "analysis"
-    / "ground_truth"
-)
+GROUND_TRUTH_DIR = Path(__file__).resolve().parent.parent.parent.parent.parent / "scripts" / "analysis" / "ground_truth"
 
 
 def extract_version(source: str | None) -> int:
@@ -87,20 +82,12 @@ def main() -> None:
             entries = json.load(f)
         for e in entries:
             if "verdict" in e:
-                assert "annotation_version" in e, (
-                    f"Missing annotation_version in {path}: {e}"
-                )
-                assert "annotation_severity" in e, (
-                    f"Missing annotation_severity in {path}: {e}"
-                )
-                assert "annotation_description" in e, (
-                    f"Missing annotation_description in {path}: {e}"
-                )
+                assert "annotation_version" in e, f"Missing annotation_version in {path}: {e}"
+                assert "annotation_severity" in e, f"Missing annotation_severity in {path}: {e}"
+                assert "annotation_description" in e, f"Missing annotation_description in {path}: {e}"
                 assert "human_notes" in e, f"Missing human_notes in {path}: {e}"
             else:
-                assert list(e.keys()) == ["decision_index"], (
-                    f"Unexpected keys in unaudited entry {path}: {e}"
-                )
+                assert list(e.keys()) == ["decision_index"], f"Unexpected keys in unaudited entry {path}: {e}"
 
     print("Validation passed.")
 
