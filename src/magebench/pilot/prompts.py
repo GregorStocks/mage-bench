@@ -16,7 +16,12 @@ def _load_json_file(name: str, config_file: Path | None) -> dict[str, str]:
         if candidate.exists():
             data = loads_json5(candidate.read_text())
             assert isinstance(data, dict), f"{candidate}: expected JSON object"
-            return {str(key): str(value) for key, value in data.items()}
+            typed_prompts: dict[str, str] = {}
+            for key, value in data.items():
+                assert isinstance(key, str), f"{candidate}: prompt key must be a string, got {key!r}"
+                assert isinstance(value, str), f"{candidate}: prompt {key!r} must be a string, got {value!r}"
+                typed_prompts[key] = value
+            return typed_prompts
     return {}
 
 

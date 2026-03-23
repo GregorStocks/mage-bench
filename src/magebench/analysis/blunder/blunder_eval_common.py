@@ -27,9 +27,10 @@ from magebench.game.game_export_types import (
 )
 from magebench.game.game_exports import GAMES_DIR, glob_game_export_paths
 
+MODULE_DIR = Path(__file__).resolve().parent
 REPO_ROOT = Path(__file__).resolve().parents[4]
-GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
-BASELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "blunder_baseline.json"
+GROUND_TRUTH_DIR = MODULE_DIR / "ground_truth"
+BASELINE_PATH = MODULE_DIR / "blunder_baseline.json"
 TMP_DIR = REPO_ROOT / "tmp"
 _SAFE_EXPORT_COMPONENT_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 _SAFE_EXPORT_FILENAME_RE = re.compile(r"^game_[A-Za-z0-9_]+\.json5?(?:\.gz)?$")
