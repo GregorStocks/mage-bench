@@ -2756,6 +2756,53 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void awaitCallbackListenerIdleAfterShutdownWaitsForInFlightCallback() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        CountDownLatch callbackStarted = new CountDownLatch(1);
+        CountDownLatch releaseCallback = new CountDownLatch(1);
+
+        ClientCallback callback = new ClientCallback(
+            ClientCallbackMethod.GAME_SELECT,
+            UUID.randomUUID(),
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Pass"),
+            false
+        ) {
+            @Override
+            public void decompressData() {
+                callbackStarted.countDown();
+                try {
+                    assertThat(releaseCallback.await(1, TimeUnit.SECONDS)).isTrue();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new AssertionError(e);
+                }
+                super.decompressData();
+            }
+        };
+
+        client.onCallback(callback);
+        assertThat(callbackStarted.await(1, TimeUnit.SECONDS)).isTrue();
+        client.stop();
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<?> future = executor.submit(() -> {
+                client.awaitCallbackListenerIdle();
+                return null;
+            });
+
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            releaseCallback.countDown();
+            future.get(1, TimeUnit.SECONDS);
+        } finally {
+            releaseCallback.countDown();
+            executor.shutdownNow();
+        }
+    }
+
+    @Test
     void joinNextTableWaitsForStartGameOnProcessorFlow() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
