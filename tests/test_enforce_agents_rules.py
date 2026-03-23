@@ -7,12 +7,7 @@ from pathlib import Path
 
 import pytest
 
-HOOK_SCRIPT = (
-    Path(__file__).resolve().parent.parent
-    / ".claude"
-    / "hooks"
-    / "enforce-agents-rules.py"
-)
+HOOK_SCRIPT = Path(__file__).resolve().parent.parent / ".claude" / "hooks" / "enforce-agents-rules.py"
 
 
 def _run_hook(command: str) -> subprocess.CompletedProcess[str]:

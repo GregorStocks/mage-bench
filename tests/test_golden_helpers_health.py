@@ -107,15 +107,11 @@ def mock_health_server():
 
 
 class TestWaitForHealth:
-    def test_commands_ready_immediately(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_commands_ready_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _wait_for_commands(port, timeout=5)
 
-    def test_commands_ready_after_delay(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_commands_ready_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.commands_ready_delay = 0.3
         t0 = time.monotonic()
@@ -124,15 +120,11 @@ class TestWaitForHealth:
         assert elapsed >= 0.2
         assert elapsed < 2.0
 
-    def test_lobby_ready_immediately(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_lobby_ready_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _wait_for_health(port, timeout=5)
 
-    def test_lobby_ready_after_delay(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_lobby_ready_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.lobby_ready_delay = 0.3
         t0 = time.monotonic()
@@ -143,16 +135,12 @@ class TestWaitForHealth:
 
 
 class TestWaitForGameReady:
-    def test_game_ready_immediately(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_game_ready_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         table_id = _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
         assert table_id == "test-table-id"
 
-    def test_game_ready_after_delay(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_game_ready_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.game_ready_delay = 0.3
         t0 = time.monotonic()
@@ -162,9 +150,7 @@ class TestWaitForGameReady:
         assert elapsed < 2.0
         assert table_id == "test-table-id"
 
-    def test_game_ready_timeout(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_game_ready_timeout(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.game_ready_delay = 10
         with pytest.raises(RuntimeError, match="Wait-for-ready failed"):
@@ -172,15 +158,11 @@ class TestWaitForGameReady:
 
 
 class TestWaitForGameWatching:
-    def test_game_watching_immediately(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_game_watching_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _wait_for_game_watching(port, Path("/tmp/test-game"), timeout=5)
 
-    def test_game_watching_after_delay(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_game_watching_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.game_watching_delay = 0.3
         t0 = time.monotonic()
@@ -189,9 +171,7 @@ class TestWaitForGameWatching:
         assert elapsed >= 0.2
         assert elapsed < 2.0
 
-    def test_game_watching_timeout(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_game_watching_timeout(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.game_watching_delay = 10
         with pytest.raises(RuntimeError, match="Wait-for-watching failed"):
@@ -199,15 +179,11 @@ class TestWaitForGameWatching:
 
 
 class TestWaitForGameEnd:
-    def test_game_end_immediately(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_game_end_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _wait_for_game_end_http(port, Path("/tmp/test-game"), timeout=5)
 
-    def test_game_end_after_delay(
-        self, mock_health_server: tuple[int, HTTPServer]
-    ) -> None:
+    def test_game_end_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.game_end_delay = 0.3
         t0 = time.monotonic()

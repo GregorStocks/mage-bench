@@ -106,14 +106,9 @@ def _setup_fixtures(tmp_path: Path, n: int = 3) -> tuple[Path, Path, Path, Path]
     season_path = tmp_path / "season.json"
 
     names = ["alpha", "beta", "gamma", "delta", "epsilon"][:n]
-    presets = {
-        f"{name}-medium": {"model": f"v/{name}", "reasoning_effort": "medium"}
-        for name in names
-    }
+    presets = {f"{name}-medium": {"model": f"v/{name}", "reasoning_effort": "medium"} for name in names}
     _write_presets(presets_path, presets)
-    _write_models(
-        models_path, [{"id": f"v/{name}", "name": name.title()} for name in names]
-    )
+    _write_models(models_path, [{"id": f"v/{name}", "name": name.title()} for name in names])
     season_path.write_text(json.dumps({"current_season": 1}))
     return games_dir, presets_path, models_path, season_path
 
@@ -226,9 +221,7 @@ class TestBuildMatchupMatrix:
         assert game_counts["beta-medium"] == 2
 
     def test_counts_commander_pairs(self, tmp_path: Path) -> None:
-        _games_dir, presets_path, _models_path, _season_path = _setup_fixtures(
-            tmp_path, n=4
-        )
+        _games_dir, presets_path, _models_path, _season_path = _setup_fixtures(tmp_path, n=4)
         key_to_preset = _build_key_to_preset(presets_path)
 
         models = [
@@ -249,9 +242,7 @@ class TestBuildMatchupMatrix:
         key_to_preset = _build_key_to_preset(presets_path)
 
         # "v/unknown" is not in the active pool
-        game = _make_1v1_game(
-            "g1", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/unknown"
-        )
+        game = _make_1v1_game("g1", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/unknown")
         pair_counts, game_counts = _build_matchup_matrix([game], key_to_preset)
 
         assert len(pair_counts) == 0  # No valid pair (one side is unknown)
@@ -259,9 +250,7 @@ class TestBuildMatchupMatrix:
         assert "unknown" not in str(game_counts)
 
     def test_extra_matchups(self) -> None:
-        pair_counts, game_counts = _build_matchup_matrix(
-            [], {}, extra_matchups=[("alpha-medium", "beta-medium")]
-        )
+        pair_counts, game_counts = _build_matchup_matrix([], {}, extra_matchups=[("alpha-medium", "beta-medium")])
         assert pair_counts[("alpha-medium", "beta-medium")] == 1
         assert game_counts["alpha-medium"] == 1
         assert game_counts["beta-medium"] == 1
@@ -316,9 +305,7 @@ class TestGetRoundRobinMatchup:
 
     def test_tiebreaks_by_games_played(self, tmp_path: Path) -> None:
         """Among pairs with equal matchup count, prefer models with fewer games."""
-        games_dir, presets_path, models_path, season_path = _setup_fixtures(
-            tmp_path, n=4
-        )
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path, n=4)
 
         # alpha-beta: 1 game, alpha-gamma: 1 game
         # Unplayed pairs: alpha-delta, beta-gamma, beta-delta, gamma-delta
@@ -332,9 +319,7 @@ class TestGetRoundRobinMatchup:
         _write_game(
             games_dir,
             "game_2",
-            _make_1v1_game(
-                "game_2", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma"
-            ),
+            _make_1v1_game("game_2", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma"),
         )
 
         picks = get_round_robin_matchup(
@@ -352,9 +337,7 @@ class TestGetRoundRobinMatchup:
         assert "alpha-medium" not in picked
 
     def test_commander_four_seats(self, tmp_path: Path) -> None:
-        games_dir, presets_path, models_path, season_path = _setup_fixtures(
-            tmp_path, n=5
-        )
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path, n=5)
         picks = get_round_robin_matchup(
             "",
             4,
@@ -368,9 +351,7 @@ class TestGetRoundRobinMatchup:
 
     def test_filters_by_format(self, tmp_path: Path) -> None:
         """1v1 matchmaker should only count 1v1 games, not commander."""
-        games_dir, presets_path, models_path, season_path = _setup_fixtures(
-            tmp_path, n=4
-        )
+        games_dir, presets_path, models_path, season_path = _setup_fixtures(tmp_path, n=4)
 
         # Alpha-beta played in commander (should be ignored for 1v1)
         models = [
@@ -388,9 +369,7 @@ class TestGetRoundRobinMatchup:
         _write_game(
             games_dir,
             "game_1v1",
-            _make_1v1_game(
-                "game_1v1", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma"
-            ),
+            _make_1v1_game("game_1v1", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma"),
         )
 
         picks = get_round_robin_matchup(
@@ -416,9 +395,7 @@ class TestGetRoundRobinMatchup:
         _write_game(
             games_dir,
             "game_old",
-            _make_1v1_game(
-                "game_old", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta", season=0
-            ),
+            _make_1v1_game("game_old", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta", season=0),
         )
         # Write a season-2 game (future season) — should also be ignored
         _write_game(
@@ -518,9 +495,7 @@ class TestResolveRandomsRoundRobin:
 
     def test_round_robin_picks_in_order(self) -> None:
         """preset='round-robin' should consume picks in order."""
-        presets_data, prompts, toolsets, models_data, personalities = (
-            self._make_fixtures()
-        )
+        presets_data, prompts, toolsets, models_data, personalities = self._make_fixtures()
 
         p1 = PilotPlayer(name="Player One", preset="round-robin", personality="spike")
         p2 = PilotPlayer(name="Player Two", preset="round-robin", personality="villain")
@@ -558,9 +533,7 @@ class TestResolveRandomsRoundRobin:
 
     def test_round_robin_asserts_insufficient_picks(self) -> None:
         """More round-robin players than picks should fail."""
-        presets_data, prompts, toolsets, models_data, personalities = (
-            self._make_fixtures()
-        )
+        presets_data, prompts, toolsets, models_data, personalities = self._make_fixtures()
 
         p1 = PilotPlayer(name="PlayerOne", preset="round-robin", personality="spike")
         p2 = PilotPlayer(name="PlayerTwo", preset="round-robin", personality="villain")

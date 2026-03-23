@@ -67,20 +67,12 @@ def _load_schema(version: int) -> dict:
 
 
 def _parse_export_path(path: Path) -> GameExport:
-    raw = (
-        gzip.decompress(path.read_bytes()).decode("utf-8")
-        if path.suffix == ".gz"
-        else path.read_text()
-    )
+    raw = gzip.decompress(path.read_bytes()).decode("utf-8") if path.suffix == ".gz" else path.read_text()
     return parse_game_export(raw, source=path.name)
 
 
 def _parse_built_export_path(path: Path) -> BuiltGameExport:
-    raw = (
-        gzip.decompress(path.read_bytes()).decode("utf-8")
-        if path.suffix == ".gz"
-        else path.read_text()
-    )
+    raw = gzip.decompress(path.read_bytes()).decode("utf-8") if path.suffix == ".gz" else path.read_text()
     return parse_built_game_export(raw, source=path.name)
 
 
@@ -123,11 +115,7 @@ def _assert_typed_dict_matches_schema(
     required_override: set[str] | None = None,
 ) -> None:
     expected_props = set(schema["properties"])
-    expected_required = (
-        required_override
-        if required_override is not None
-        else set(schema.get("required", []))
-    )
+    expected_required = required_override if required_override is not None else set(schema.get("required", []))
     assert _typed_dict_keys(typed_dict_cls) == expected_props
     assert set(typed_dict_cls.__required_keys__) == expected_required
     assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
@@ -176,11 +164,7 @@ def _assert_dataclass_matches_schema(
 ) -> None:
     assert is_dataclass(dataclass_cls)
     expected_props = set(schema["properties"])
-    expected_required = (
-        required_override
-        if required_override is not None
-        else set(schema.get("required", []))
-    )
+    expected_required = required_override if required_override is not None else set(schema.get("required", []))
     actual_fields = fields(dataclass_cls)
     internal_fields = [field for field in actual_fields if field.name.startswith("_")]
     ignored_fields = {field.name for field in internal_fields}
@@ -194,10 +178,9 @@ def _assert_dataclass_matches_schema(
         )
         == expected_props
     )
-    assert all(
-        field.default is not MISSING or field.default_factory is not MISSING
-        for field in internal_fields
-    ), "internal dataclass fields must be optional"
+    assert all(field.default is not MISSING or field.default_factory is not MISSING for field in internal_fields), (
+        "internal dataclass fields must be optional"
+    )
     assert (
         _dataclass_required_keys(
             dataclass_cls,
@@ -310,22 +293,18 @@ class TestExportSchema:
         _assert_dataclass_matches_schema(
             BuiltGameExport,
             schema=schema,
-            required_override=set(schema["required"])
-            - {"annotations", "blunder_script_version"},
+            required_override=set(schema["required"]) - {"annotations", "blunder_script_version"},
         )
         _assert_dataclass_matches_schema(Player, schema=defs["Player"])
         _assert_dataclass_matches_schema(
             PilotPlayer,
             schema=defs["Player"],
-            required_override=(set(defs["Player"].get("required", [])) | {"model"})
-            - {"type"},
+            required_override=(set(defs["Player"].get("required", [])) | {"model"}) - {"type"},
         )
         _assert_dataclass_matches_schema(Snapshot, schema=defs["Snapshot"])
         _assert_dataclass_matches_schema(SnapshotPlayer, schema=defs["SnapshotPlayer"])
         _assert_dataclass_matches_schema(CombatGroup, schema=defs["CombatGroup"])
-        _assert_dataclass_matches_schema(
-            Action, schema=defs["Action"], field_renames={"from_": "from"}
-        )
+        _assert_dataclass_matches_schema(Action, schema=defs["Action"], field_renames={"from_": "from"})
         # LlmEvent is a Union of discriminated variants — verify the union
         # of all variant keys matches the flat JSON schema properties, and the
         # intersection of required keys matches the schema's required set.
@@ -359,9 +338,7 @@ class TestExportSchema:
         _assert_dataclass_matches_schema(LlmUsage, schema=defs["LlmUsage"])
         _assert_dataclass_matches_schema(GameOver, schema=defs["GameOver"])
         _assert_dataclass_matches_schema(Annotation, schema=defs["Annotation"])
-        _assert_dataclass_matches_schema(
-            Decision, schema=defs["Decision"], extra_fields={"action_seq"}
-        )
+        _assert_dataclass_matches_schema(Decision, schema=defs["Decision"], extra_fields={"action_seq"})
         _assert_dataclass_matches_schema(GameError, schema=defs["GameError"])
         _assert_dataclass_matches_schema(CardMetadata, schema=defs["CardMetadata"])
         _assert_dataclass_matches_schema(PilotContext, schema=defs["PilotContext"])
@@ -370,9 +347,7 @@ class TestExportSchema:
         _assert_dataclass_matches_schema(StackTarget, schema=defs["StackTarget"])
         _assert_dataclass_matches_schema(CombatCreature, schema=defs["CombatCreature"])
         _assert_dataclass_matches_schema(Choice, schema=defs["Choice"])
-        _assert_dataclass_matches_schema(
-            MultiAmountItem, schema=defs["MultiAmountItem"]
-        )
+        _assert_dataclass_matches_schema(MultiAmountItem, schema=defs["MultiAmountItem"])
 
     def test_typed_loader_accepts_minimal_v9_export(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v9.json5"
@@ -418,9 +393,7 @@ class TestExportSchema:
         )
         path.write_text(json.dumps(payload))
 
-        with pytest.raises(
-            AssertionError, match="Unsupported game export version 8; expected 9"
-        ):
+        with pytest.raises(AssertionError, match="Unsupported game export version 8; expected 9"):
             _parse_export_path(path)
 
     def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
@@ -446,9 +419,7 @@ class TestExportSchema:
 
         assert game.id == f"test_v{CURRENT_VERSION}"
 
-    def test_loader_coerces_board_and_stack_leaf_records_to_dataclasses(
-        self, tmp_path: Path
-    ) -> None:
+    def test_loader_coerces_board_and_stack_leaf_records_to_dataclasses(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v9.json5"
         payload = _minimal_export(
             CURRENT_VERSION,
@@ -529,9 +500,7 @@ class TestExportSchema:
                     "is_forced": True,
                     "llm_event_indices": [],
                     "subsequent_actions": [],
-                    "pilot_context": {
-                        "incoming_attackers": [{"name": "Goblin Guide", "id": "a1"}]
-                    },
+                    "pilot_context": {"incoming_attackers": [{"name": "Goblin Guide", "id": "a1"}]},
                 }
             ],
         )
@@ -542,11 +511,7 @@ class TestExportSchema:
         snap = game.snapshots[0]
         battlefield_card = snap.players[0].battlefield[0]
         stack_item = snap.stack[0]
-        target = (
-            stack_item.targets[0]
-            if isinstance(stack_item, StackItem) and stack_item.targets
-            else None
-        )
+        target = stack_item.targets[0] if isinstance(stack_item, StackItem) and stack_item.targets else None
         assert snap.combat is not None
         attacker = snap.combat[0].attackers[0]
         assert game.decisions is not None
@@ -567,9 +532,7 @@ class TestExportSchema:
         assert export_record_field(snap.players[0].hand[0], "type_line") == "Instant"
         assert export_record_field(stack_item, "controller") == "Alice"
 
-    def test_is_game_export_accepts_already_coerced_leaf_dataclasses(
-        self, tmp_path: Path
-    ) -> None:
+    def test_is_game_export_accepts_already_coerced_leaf_dataclasses(self, tmp_path: Path) -> None:
         path = tmp_path / "game_v9.json5"
         payload = _minimal_export(
             CURRENT_VERSION,
@@ -736,9 +699,7 @@ class TestExportSchema:
         assert built.version == CURRENT_VERSION
         assert built.annotations is None
 
-    def test_loader_accepts_empty_decision_strings_allowed_by_schema(
-        self, tmp_path: Path
-    ) -> None:
+    def test_loader_accepts_empty_decision_strings_allowed_by_schema(self, tmp_path: Path) -> None:
         path = tmp_path / "empty_decision_strings.json5"
         payload = _minimal_export(
             CURRENT_VERSION,
@@ -782,9 +743,7 @@ class TestExportSchema:
         assert game.decisions[0].response_type == ""
         assert game.decisions[0].message == ""
 
-    def test_loader_coerces_decision_support_records_to_dataclasses(
-        self, tmp_path: Path
-    ) -> None:
+    def test_loader_coerces_decision_support_records_to_dataclasses(self, tmp_path: Path) -> None:
         path = tmp_path / "decision_support.json5"
         payload = _minimal_export(
             CURRENT_VERSION,
@@ -935,9 +894,7 @@ class TestExportSchema:
             ],
         )
 
-        with pytest.raises(
-            AssertionError, match=r"(choices\[0\]\.index|Choice\.index)"
-        ):
+        with pytest.raises(AssertionError, match=r"(choices\[0\]\.index|Choice\.index)"):
             require_built_game_export(payload, source="built export")
 
     def test_decision_support_dataclass_extras_are_read_only(self) -> None:
@@ -947,12 +904,12 @@ class TestExportSchema:
             choice.extras["power"] = "2"  # type: ignore[index]
 
     def test_decision_support_dataclass_equality_includes_extra_keys(self) -> None:
-        assert Choice.from_mapping(
-            {"name": "Memnite", "power": "1"}
-        ) != Choice.from_mapping({"name": "Memnite", "power": "2"})
-        assert PilotContext.from_mapping(
-            {"untapped_lands": 1, "manaPool": {"WHITE": 1}}
-        ) != PilotContext.from_mapping({"untapped_lands": 1, "manaPool": {"BLUE": 1}})
+        assert Choice.from_mapping({"name": "Memnite", "power": "1"}) != Choice.from_mapping(
+            {"name": "Memnite", "power": "2"}
+        )
+        assert PilotContext.from_mapping({"untapped_lands": 1, "manaPool": {"WHITE": 1}}) != PilotContext.from_mapping(
+            {"untapped_lands": 1, "manaPool": {"BLUE": 1}}
+        )
         assert PilotContext.from_mapping({"combat_phase": None}) != PilotContext()
 
     def test_v9_schema_rejects_pilot_without_model(self) -> None:

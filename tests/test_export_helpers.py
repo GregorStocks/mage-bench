@@ -413,9 +413,7 @@ def test_write_raw_game_export_serializes_decision_support_dataclasses(
                 "action_type": "play",
                 "response_type": "choice",
                 "message": "Play spells and abilities",
-                "choices": [
-                    Choice.from_mapping({"index": 0, "name": "Memnite", "power": "1"})
-                ],
+                "choices": [Choice.from_mapping({"index": 0, "name": "Memnite", "power": "1"})],
                 "choice_count": 1,
                 "is_forced": True,
                 "llm_event_indices": [],
@@ -427,11 +425,7 @@ def test_write_raw_game_export_serializes_decision_support_dataclasses(
                         "manaPool": {"WHITE": 1},
                     }
                 ),
-                "items": [
-                    MultiAmountItem.from_mapping(
-                        {"description": "Assign damage", "target": "p1"}
-                    )
-                ],
+                "items": [MultiAmountItem.from_mapping({"description": "Assign damage", "target": "p1"})],
             }
         ],
     }

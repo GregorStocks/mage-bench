@@ -56,9 +56,7 @@ def validate_themes(
     for theme, variants in themes.items():
         for i, cards in enumerate(variants):
             total = sum(qty for qty, _ in cards)
-            assert total == expected_count, (
-                f"{theme} variant {i + 1} has {total} cards, expected {expected_count}"
-            )
+            assert total == expected_count, f"{theme} variant {i + 1} has {total} cards, expected {expected_count}"
 
 
 def generate_and_append(
@@ -72,9 +70,7 @@ def generate_and_append(
     for theme in sorted(themes.keys()):
         variants = themes[theme]
         for i, cards in enumerate(variants):
-            entry = format_theme_entry(
-                theme, i, len(variants), cards, resolved, basic_lands
-            )
+            entry = format_theme_entry(theme, i, len(variants), cards, resolved, basic_lands)
             entries.append(entry)
 
     text_to_append = "\n\n" + "\n\n".join(entries) + "\n"

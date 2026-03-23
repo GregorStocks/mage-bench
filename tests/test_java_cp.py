@@ -103,9 +103,7 @@ def test_find_reactor_modules_nested(tmp_path):
     try:
         result = _find_reactor_modules(tmp_path)
         assert "child-mod" in result
-        assert (
-            result["child-mod"] == tmp_path / "Parent" / "Child" / "target" / "classes"
-        )
+        assert result["child-mod"] == tmp_path / "Parent" / "Child" / "target" / "classes"
     finally:
         _reactor_module_cache.pop(tmp_path, None)
 
@@ -133,9 +131,7 @@ def test_replace_reactor_jars(tmp_path):
     (tmp_path / "Mage.Common" / "target" / "classes").mkdir(parents=True)
 
     m2_mage = "/home/user/.m2/repository/org/mage/mage/1.4.58/mage-1.4.58.jar"
-    m2_common = (
-        "/home/user/.m2/repository/org/mage/mage-common/1.4.58/mage-common-1.4.58.jar"
-    )
+    m2_common = "/home/user/.m2/repository/org/mage/mage-common/1.4.58/mage-common-1.4.58.jar"
     external = "/home/user/.m2/repository/com/google/guava/guava-31.1.jar"
 
     classpath = f"{m2_mage}:{m2_common}:{external}"

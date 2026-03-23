@@ -55,9 +55,7 @@ class TestBridgeSession:
 
     @patch("urllib.request.urlopen")
     def test_list_tools_returns_names(self, mock_urlopen):
-        tools_result = {
-            "tools": [{"name": "pass_priority"}, {"name": "get_game_state"}]
-        }
+        tools_result = {"tools": [{"name": "pass_priority"}, {"name": "get_game_state"}]}
         response = {"jsonrpc": "2.0", "id": 1, "result": tools_result}
         mock_urlopen.return_value = _mock_http_response(response)
 
@@ -118,9 +116,7 @@ class TestBridgeSession:
     @patch("urllib.request.urlopen")
     def test_sequential_ids_increment(self, mock_urlopen):
         responses = [
-            _mock_http_response(
-                {"jsonrpc": "2.0", "id": 1, "result": {"protocolVersion": "2024-11-05"}}
-            ),
+            _mock_http_response({"jsonrpc": "2.0", "id": 1, "result": {"protocolVersion": "2024-11-05"}}),
             _mock_http_response(
                 {
                     "jsonrpc": "2.0",

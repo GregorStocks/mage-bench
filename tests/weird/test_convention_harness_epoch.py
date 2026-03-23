@@ -11,9 +11,7 @@ from tests.weird.repo_convention_helpers import REPO_ROOT, changed_files_since_m
 
 class TestHarnessEpochMonotonic:
     def test_epoch_matches_history(self) -> None:
-        source = (
-            REPO_ROOT / "puppeteer" / "src" / "puppeteer" / "harness_epoch.py"
-        ).read_text()
+        source = (REPO_ROOT / "puppeteer" / "src" / "puppeteer" / "harness_epoch.py").read_text()
 
         tree = ast.parse(source)
         epoch_value = None
@@ -26,13 +24,9 @@ class TestHarnessEpochMonotonic:
                 and isinstance(node.value, ast.Constant)
             ):
                 epoch_value = node.value.value
-        assert isinstance(epoch_value, int), (
-            f"HARNESS_EPOCH must be an int, got {type(epoch_value)}"
-        )
+        assert isinstance(epoch_value, int), f"HARNESS_EPOCH must be an int, got {type(epoch_value)}"
 
-        history_epochs = [
-            int(match) for match in re.findall(r"#\s+(\d+)\s+-\s+", source)
-        ]
+        history_epochs = [int(match) for match in re.findall(r"#\s+(\d+)\s+-\s+", source)]
         assert history_epochs, "No history comments found in harness_epoch.py"
 
         assert epoch_value == max(history_epochs), (
@@ -40,9 +34,7 @@ class TestHarnessEpochMonotonic:
         )
 
         expected = list(range(1, max(history_epochs) + 1))
-        assert sorted(history_epochs) == expected, (
-            f"History has gaps or duplicates: {sorted(history_epochs)}"
-        )
+        assert sorted(history_epochs) == expected, f"History has gaps or duplicates: {sorted(history_epochs)}"
 
 
 class TestGoldenEpochCoherence:
@@ -81,9 +73,7 @@ class TestGoldenEpochCoherence:
             text=True,
             check=True,
         )
-        modified_goldens = (
-            set(result.stdout.strip().splitlines()) if result.stdout.strip() else set()
-        )
+        modified_goldens = set(result.stdout.strip().splitlines()) if result.stdout.strip() else set()
         if not modified_goldens:
             return
 
@@ -109,9 +99,7 @@ class TestGoldenEpochCoherence:
             return
 
         exports_dir = REPO_ROOT / "tests" / "golden" / "exports"
-        all_exports = {
-            str(path.relative_to(REPO_ROOT)) for path in exports_dir.glob("*.json5")
-        }
+        all_exports = {str(path.relative_to(REPO_ROOT)) for path in exports_dir.glob("*.json5")}
 
         untouched = all_exports - changed
         assert not untouched, (

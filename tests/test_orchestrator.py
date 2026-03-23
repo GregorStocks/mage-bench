@@ -142,9 +142,7 @@ def test_parse_args_rejects_mismatched_batch_games(tmp_path: Path, monkeypatch):
 def test_compile_project_default_args(tmp_path: Path):
     completed = MagicMock(returncode=0)
 
-    with patch(
-        "magebench.orchestration.orchestrator.subprocess.run", return_value=completed
-    ) as run_mock:
+    with patch("magebench.orchestration.orchestrator.subprocess.run", return_value=completed) as run_mock:
         assert compile_project(tmp_path) is True
 
     run_mock.assert_called_once()
@@ -164,12 +162,8 @@ def test_compile_project_default_args(tmp_path: Path):
 def test_compile_project_can_disable_build_cache(tmp_path: Path):
     completed = MagicMock(returncode=0)
 
-    with patch(
-        "magebench.orchestration.orchestrator.subprocess.run", return_value=completed
-    ) as run_mock:
-        assert (
-            compile_project(tmp_path, observer=True, populate_local_repo=True) is True
-        )
+    with patch("magebench.orchestration.orchestrator.subprocess.run", return_value=completed) as run_mock:
+        assert compile_project(tmp_path, observer=True, populate_local_repo=True) is True
 
     run_mock.assert_called_once()
     cmd = run_mock.call_args.args[0]
@@ -189,9 +183,7 @@ def test_compile_project_can_disable_build_cache(tmp_path: Path):
 def test_check_regular_season_block_allows_regular_season(tmp_path: Path):
     data_dir = tmp_path / "data"
     data_dir.mkdir()
-    (data_dir / "season.json").write_text(
-        json.dumps({"current_season": 2, "phase": "regular-season"}) + "\n"
-    )
+    (data_dir / "season.json").write_text(json.dumps({"current_season": 2, "phase": "regular-season"}) + "\n")
 
     assert _check_regular_season_block(tmp_path) is None
 
@@ -199,9 +191,7 @@ def test_check_regular_season_block_allows_regular_season(tmp_path: Path):
 def test_check_regular_season_block_blocks_between_seasons(tmp_path: Path):
     data_dir = tmp_path / "data"
     data_dir.mkdir()
-    (data_dir / "season.json").write_text(
-        json.dumps({"current_season": 2, "phase": "between-seasons"}) + "\n"
-    )
+    (data_dir / "season.json").write_text(json.dumps({"current_season": 2, "phase": "between-seasons"}) + "\n")
 
     message = _check_regular_season_block(tmp_path)
     assert message is not None
@@ -223,9 +213,7 @@ def test_ensure_game_over_event_already_present():
         ensure_game_over_event(game_dir)
 
         lines = events_file.read_text().strip().splitlines()
-        game_over_count = sum(
-            1 for line in lines if json.loads(line).get("type") == "game_over"
-        )
+        game_over_count = sum(1 for line in lines if json.loads(line).get("type") == "game_over")
         assert game_over_count == 1
 
 
@@ -234,10 +222,7 @@ def test_ensure_game_over_event_appended():
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         events_file = game_dir / "game_events.jsonl"
-        events_file.write_text(
-            json.dumps({"ts": "2024-01-01T00:00:00", "seq": 42, "type": "game_start"})
-            + "\n"
-        )
+        events_file.write_text(json.dumps({"ts": "2024-01-01T00:00:00", "seq": 42, "type": "game_start"}) + "\n")
 
         ensure_game_over_event(game_dir)
 
@@ -254,10 +239,7 @@ def test_ensure_game_over_event_spectator_closed():
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         events_file = game_dir / "game_events.jsonl"
-        events_file.write_text(
-            json.dumps({"ts": "2024-01-01T00:00:00", "seq": 10, "type": "game_start"})
-            + "\n"
-        )
+        events_file.write_text(json.dumps({"ts": "2024-01-01T00:00:00", "seq": 10, "type": "game_start"}) + "\n")
 
         ensure_game_over_event(game_dir, spectator_exit_code=0)
 
@@ -275,10 +257,7 @@ def test_ensure_game_over_event_spectator_crashed():
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         events_file = game_dir / "game_events.jsonl"
-        events_file.write_text(
-            json.dumps({"ts": "2024-01-01T00:00:00", "seq": 10, "type": "game_start"})
-            + "\n"
-        )
+        events_file.write_text(json.dumps({"ts": "2024-01-01T00:00:00", "seq": 10, "type": "game_start"}) + "\n")
 
         ensure_game_over_event(game_dir, spectator_exit_code=1)
 
@@ -331,9 +310,7 @@ def test_print_game_summary_from_pilot_log(caplog):
     """Bridge client logs take priority over game_events.jsonl."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        (game_dir / "ace_pilot.log").write_text(
-            "INFO Game over: Player1 won the game\n"
-        )
+        (game_dir / "ace_pilot.log").write_text("INFO Game over: Player1 won the game\n")
 
         with caplog.at_level("INFO"):
             print_game_summary(game_dir)
@@ -434,13 +411,9 @@ def test_print_game_summary_turns_and_actions(caplog):
         game_dir = Path(tmpdir)
         # Game events with turn markers
         events = [
-            json.dumps(
-                {"type": "game_action", "message": "TURN 1 for Alice (20 - 20)"}
-            ),
+            json.dumps({"type": "game_action", "message": "TURN 1 for Alice (20 - 20)"}),
             json.dumps({"type": "game_action", "message": "TURN 2 for Bob (20 - 18)"}),
-            json.dumps(
-                {"type": "game_action", "message": "TURN 3 for Alice (15 - 18)"}
-            ),
+            json.dumps({"type": "game_action", "message": "TURN 3 for Alice (15 - 18)"}),
             json.dumps({"type": "game_over", "message": "Alice wins"}),
         ]
         (game_dir / "game_events.jsonl").write_text("\n".join(events) + "\n")
@@ -573,9 +546,7 @@ def test_write_game_meta_raises_on_missing_deck(tmp_path: Path):
         game_type="Two Player Duel",
         deck_type="Constructed - Legacy",
     )
-    config.pilot_players = [
-        PilotPlayer(name="ace", deck="missing.dck", model="test/model")
-    ]
+    config.pilot_players = [PilotPlayer(name="ace", deck="missing.dck", model="test/model")]
 
     with pytest.raises(FileNotFoundError):
         write_game_meta(game_dir, config, tmp_path)
@@ -672,9 +643,7 @@ def test_wait_for_game_start_finds_marker(_mock_sleep):
     """Should return once the spectator log contains the game-started marker."""
     with tempfile.TemporaryDirectory() as tmpdir:
         log_path = Path(tmpdir) / "spectator.log"
-        log_path.write_text(
-            "AI Puppeteer: all players joined, starting match for table abc\n"
-        )
+        log_path.write_text("AI Puppeteer: all players joined, starting match for table abc\n")
         proc = _mock_proc([None])  # Still running
 
         wait_for_game_start(log_path, proc, timeout=5)
@@ -757,9 +726,7 @@ def test_finalize_game_writes_logs():
         game_dir = Path(tmpdir)
         (game_dir / "alice_errors.log").write_text("Some error\n")
         events_file = game_dir / "game_events.jsonl"
-        events_file.write_text(
-            json.dumps({"ts": "2024-01-01", "seq": 1, "type": "game_start"}) + "\n"
-        )
+        events_file.write_text(json.dumps({"ts": "2024-01-01", "seq": 1, "type": "game_start"}) + "\n")
 
         config = Config()
         config.skip_post_game_prompts = True
@@ -778,9 +745,7 @@ def test_finalize_game_tolerates_merge_io_error():
         game_dir = Path(tmpdir)
         (game_dir / "alice_errors.log").write_text("Some error\n")
         events_file = game_dir / "game_events.jsonl"
-        events_file.write_text(
-            json.dumps({"ts": "2024-01-01", "seq": 1, "type": "game_start"}) + "\n"
-        )
+        events_file.write_text(json.dumps({"ts": "2024-01-01", "seq": 1, "type": "game_start"}) + "\n")
 
         config = Config()
         config.skip_post_game_prompts = True
@@ -796,9 +761,7 @@ def test_finalize_game_tolerates_merge_io_error():
                 return_value=1.25,
             ),
         ):
-            pilot_cost, blunder_cost = finalize_game(
-                session, Path("/fake/root"), spectator_rc=0
-            )
+            pilot_cost, blunder_cost = finalize_game(session, Path("/fake/root"), spectator_rc=0)
 
         assert pilot_cost == 1.25
         assert blunder_cost == 0.0
@@ -810,9 +773,7 @@ def test_finalize_game_propagates_unexpected_merge_error():
         game_dir = Path(tmpdir)
         (game_dir / "alice_errors.log").write_text("Some error\n")
         events_file = game_dir / "game_events.jsonl"
-        events_file.write_text(
-            json.dumps({"ts": "2024-01-01", "seq": 1, "type": "game_start"}) + "\n"
-        )
+        events_file.write_text(json.dumps({"ts": "2024-01-01", "seq": 1, "type": "game_start"}) + "\n")
 
         config = Config()
         config.skip_post_game_prompts = True
@@ -860,12 +821,8 @@ def test_setup_game_uses_batch_specific_config(
     """Batch mode should load the config file assigned to that game index."""
     config_a = tmp_path / "g1.json"
     config_b = tmp_path / "g2.json"
-    config_a.write_text(
-        json.dumps({"players": [{"type": "cpu", "name": "alpha"}]}) + "\n"
-    )
-    config_b.write_text(
-        json.dumps({"players": [{"type": "cpu", "name": "beta"}]}) + "\n"
-    )
+    config_a.write_text(json.dumps({"players": [{"type": "cpu", "name": "alpha"}]}) + "\n")
+    config_b.write_text(json.dumps({"players": [{"type": "cpu", "name": "beta"}]}) + "\n")
 
     spectator_proc = MagicMock()
     spectator_proc.poll.return_value = None
@@ -893,10 +850,7 @@ def test_setup_game_uses_batch_specific_config(
 
     assert session.config.config_file == config_b
     assert [player.name for player in session.config.cpu_players] == ["beta"]
-    assert (
-        json.loads((session.game_dir / "config.json").read_text())["players"][0]["name"]
-        == "beta"
-    )
+    assert json.loads((session.game_dir / "config.json").read_text())["players"][0]["name"] == "beta"
 
 
 # --- setup_game cleanup on failure tests ---
@@ -931,9 +885,7 @@ def test_setup_game_cleans_up_on_spectator_crash(
         pilot_proc.poll.return_value = None
         mock_start_pilot.return_value = pilot_proc
 
-        mock_wait_table.side_effect = RuntimeError(
-            "Spectator process exited before creating the game table"
-        )
+        mock_wait_table.side_effect = RuntimeError("Spectator process exited before creating the game table")
 
         # Use num_games=1 (non-batch) so setup_game uses the config directly
         # without creating a new Config and calling load_config.
@@ -941,9 +893,7 @@ def test_setup_game_cleans_up_on_spectator_crash(
         config.pilot_players = [PilotPlayer(name="ace", model="test/model")]
 
         with pytest.raises(RuntimeError, match="Spectator process exited"):
-            setup_game(
-                0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000"
-            )
+            setup_game(0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000")
 
         spectator_proc.terminate.assert_called_once()
         # Pilots were not started yet (crash happened before bridge client launch)
@@ -985,17 +935,13 @@ def test_setup_game_cleans_up_pilots_on_timeout(
         # a TimeoutError from wait_for_spectator_table after pilot launch
         # doesn't apply. Instead, test that pilots are terminated when the
         # except block runs (by raising from within the try block after pilots).
-        mock_wait_table.side_effect = TimeoutError(
-            "Spectator did not create a table within 300s"
-        )
+        mock_wait_table.side_effect = TimeoutError("Spectator did not create a table within 300s")
 
         config = Config(observer=True, num_games=1)
         config.pilot_players = [PilotPlayer(name="ace", model="test/model")]
 
         with pytest.raises(TimeoutError, match="300s"):
-            setup_game(
-                0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000"
-            )
+            setup_game(0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000")
 
         spectator_proc.terminate.assert_called_once()
 

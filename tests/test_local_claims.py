@@ -49,17 +49,13 @@ def test_claim_exact_keys_conflicts_for_other_worktree(tmp_path: Path) -> None:
     }
 
     with (
-        patch.object(
-            local_claims, "current_worktree_context", return_value=first_context
-        ),
+        patch.object(local_claims, "current_worktree_context", return_value=first_context),
         patch.object(local_claims, "_active_worktree_branches", return_value=active),
     ):
         local_claims.claim_exact_keys("issues", ["bug-a"])
 
     with (
-        patch.object(
-            local_claims, "current_worktree_context", return_value=second_context
-        ),
+        patch.object(local_claims, "current_worktree_context", return_value=second_context),
         patch.object(local_claims, "_active_worktree_branches", return_value=active),
         pytest.raises(local_claims.ClaimConflictError, match="bug-a"),
     ):
@@ -77,17 +73,13 @@ def test_claim_first_available_keys_skips_other_owner_and_claims_next(
     }
 
     with (
-        patch.object(
-            local_claims, "current_worktree_context", return_value=first_context
-        ),
+        patch.object(local_claims, "current_worktree_context", return_value=first_context),
         patch.object(local_claims, "_active_worktree_branches", return_value=active),
     ):
         local_claims.claim_exact_keys("games/fast", ["game_20260301_010101"])
 
     with (
-        patch.object(
-            local_claims, "current_worktree_context", return_value=second_context
-        ),
+        patch.object(local_claims, "current_worktree_context", return_value=second_context),
         patch.object(local_claims, "_active_worktree_branches", return_value=active),
     ):
         claimed = local_claims.claim_first_available_keys(
@@ -126,11 +118,4 @@ def test_list_claims_drops_stale_branch_reuse(tmp_path: Path) -> None:
         listed = local_claims.list_claims("issues")
 
     assert listed == []
-    assert not (
-        context.git_common_dir
-        / "coordination"
-        / "claims-v1"
-        / "issues"
-        / "active"
-        / "bug-a.json"
-    ).exists()
+    assert not (context.git_common_dir / "coordination" / "claims-v1" / "issues" / "active" / "bug-a.json").exists()

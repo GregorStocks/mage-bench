@@ -69,9 +69,7 @@ def setup_game(
     if batch:
         config_file = base_config.config_file
         if base_config.batch_config_files:
-            assert index < len(base_config.batch_config_files), (
-                f"Missing batch config for game {index + 1}/{num_games}"
-            )
+            assert index < len(base_config.batch_config_files), f"Missing batch config for game {index + 1}/{num_games}"
             config_file = base_config.batch_config_files[index]
         game_config = base_config.new_game_config(
             config_file=config_file,
@@ -108,9 +106,7 @@ def setup_game(
         "commit": run_git("rev-parse HEAD", project_root),
         "commit_log": run_git("log --oneline -10", project_root).splitlines(),
         "command": sys.argv,
-        "config_file": str(game_config.config_file)
-        if game_config.config_file
-        else None,
+        "config_file": str(game_config.config_file) if game_config.config_file else None,
     }
     if batch:
         manifest["game_index"] = index + 1
@@ -137,9 +133,7 @@ def setup_game(
     else:
         start_spectator_client = start_gui_client
 
-    spectator_proc = start_spectator_client(
-        pm, project_root, game_config, spectator_log, game_dir=game_dir
-    )
+    spectator_proc = start_spectator_client(pm, project_root, game_config, spectator_log, game_dir=game_dir)
     session = GameSession(
         index=index,
         game_dir=game_dir,
@@ -148,9 +142,7 @@ def setup_game(
     )
 
     bridge_count = (
-        len(game_config.sleepwalker_players)
-        + len(game_config.pilot_players)
-        + len(game_config.replay_players)
+        len(game_config.sleepwalker_players) + len(game_config.pilot_players) + len(game_config.replay_players)
     )
 
     try:
@@ -176,9 +168,7 @@ def setup_game(
 
             for pilot_player in game_config.pilot_players:
                 log_path = game_dir / f"{pilot_player.name}_pilot.log"
-                logger.info(
-                    "%sPilot (%s) log: %s", game_label, pilot_player.name, log_path
-                )
+                logger.info("%sPilot (%s) log: %s", game_label, pilot_player.name, log_path)
                 proc = start_pilot_client(
                     pm,
                     project_root,
@@ -191,9 +181,7 @@ def setup_game(
 
             for replay_player in game_config.replay_players:
                 log_path = game_dir / f"{replay_player.name}_replay.log"
-                logger.info(
-                    "%sReplay (%s) log: %s", game_label, replay_player.name, log_path
-                )
+                logger.info("%sReplay (%s) log: %s", game_label, replay_player.name, log_path)
                 proc = start_replay_client(
                     pm,
                     project_root,
@@ -282,9 +270,7 @@ def finalize_game(
     write_error_log(session.game_dir)
     try:
         merge_game_log(session.game_dir)
-        logger.info(
-            "  %sMerged game log: %s", game_label, session.game_dir / "game.jsonl"
-        )
+        logger.info("  %sMerged game log: %s", game_label, session.game_dir / "game.jsonl")
     except (OSError, UnicodeError) as exc:
         logger.warning("  %sFailed to merge game log: %s", game_label, exc)
 

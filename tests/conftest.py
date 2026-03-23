@@ -118,9 +118,7 @@ def _read_shared_server_info(path: Path) -> _SharedXmageServerInfo:
     )
 
 
-def _wait_for_shared_server_info(
-    path: Path, timeout: float = 300.0
-) -> _SharedXmageServerInfo:
+def _wait_for_shared_server_info(path: Path, timeout: float = 300.0) -> _SharedXmageServerInfo:
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         try:
@@ -128,17 +126,13 @@ def _wait_for_shared_server_info(
         except FileNotFoundError:
             pass
         time.sleep(0.1)
-    raise RuntimeError(
-        f"Shared XMage server info {path} was not written within {timeout:.1f}s"
-    )
+    raise RuntimeError(f"Shared XMage server info {path} was not written within {timeout:.1f}s")
 
 
 def _start_xmage_server(project_root: Path) -> _OwnedXmageServer:
     # Compile all needed modules once before any worker launches clients.
     with timed_phase("session", "compilation"):
-        assert compile_project(project_root, observer=True, populate_local_repo=True), (
-            "Compilation failed"
-        )
+        assert compile_project(project_root, observer=True, populate_local_repo=True), "Compilation failed"
 
     port_res = find_available_port(17171)
     port = port_res.port
@@ -192,9 +186,7 @@ def _start_xmage_server(project_root: Path) -> _OwnedXmageServer:
 
     try:
         with timed_phase("session", "server_startup"):
-            assert wait_for_port("localhost", port, 90), (
-                f"XMage server failed to start within 90s — check {server_log}"
-            )
+            assert wait_for_port("localhost", port, 90), f"XMage server failed to start within 90s — check {server_log}"
     except Exception:
         kill_tree(server_proc.pid)
         server_log_fh.close()
@@ -279,9 +271,7 @@ def xmage_server(project_root, request: pytest.FixtureRequest):
 def golden_identity(request: pytest.FixtureRequest) -> GoldenTestIdentity:
     """Per-test identity bundle for real golden integration tests."""
     identity = get_golden_test_identity(getattr(request.node, "obj", None))
-    assert identity is not None, (
-        f"{request.node.nodeid} uses golden fixtures but is missing @golden_test(...)."
-    )
+    assert identity is not None, f"{request.node.nodeid} uses golden fixtures but is missing @golden_test(...)."
     return identity
 
 
@@ -386,9 +376,7 @@ def spectator_process(xmage_server, project_root, golden_identity: GoldenTestIde
     )
 
     with timed_phase(golden_identity.case_id, "spectator_jvm_startup"):
-        print(
-            f"Spectator JVM started (pid={proc.pid}), waiting for health port file..."
-        )
+        print(f"Spectator JVM started (pid={proc.pid}), waiting for health port file...")
         health_port = read_health_port_file(health_port_file, timeout=120)
         print(f"Observer health server bound to port {health_port}")
         spectator = SpectatorProcess(
@@ -515,17 +503,13 @@ def pytest_unconfigure(config: pytest.Config) -> None:
     _stop_shared_xmage_server(project_root)
 
 
-def pytest_collection_modifyitems(
-    config: pytest.Config, items: list[pytest.Item]
-) -> None:
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
     _ = config
     golden_cases: list[tuple[str, GoldenTestIdentity | None]] = []
     for item in items:
         if item.get_closest_marker("golden") is None:
             continue
-        golden_cases.append(
-            (item.nodeid, get_golden_test_identity(getattr(item, "obj", None)))
-        )
+        golden_cases.append((item.nodeid, get_golden_test_identity(getattr(item, "obj", None))))
     validate_golden_test_identities(golden_cases)
 
 
@@ -539,9 +523,7 @@ def pytest_runtest_setup(item: pytest.Item) -> None:
 
 
 @pytest.hookimpl(wrapper=True)
-def pytest_runtest_makereport(
-    item: pytest.Item, call: pytest.CallInfo[None]
-) -> Generator[None, object, object]:
+def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo[None]) -> Generator[None, object, object]:
     _ = call
     report = yield
     if item.get_closest_marker("golden") is None:

@@ -29,9 +29,7 @@ def _make_manager(tmp_path: Path, label: str = "bridge") -> BridgeManager:
 
 
 class TestBridgeLogRotation:
-    def test_prepare_live_log_path_rotates_existing_live_log(
-        self, tmp_path: Path
-    ) -> None:
+    def test_prepare_live_log_path_rotates_existing_live_log(self, tmp_path: Path) -> None:
         manager = _make_manager(tmp_path)
         log_dir = tmp_path / "tmp" / "golden-bridge"
         log_dir.mkdir(parents=True)
@@ -49,9 +47,7 @@ class TestBridgeLogRotation:
 
         assert (log_dir / "bridge.2.log").read_text(encoding="utf-8") == "second run\n"
 
-    def test_prepare_live_log_path_rotates_jsonl_artifacts(
-        self, tmp_path: Path
-    ) -> None:
+    def test_prepare_live_log_path_rotates_jsonl_artifacts(self, tmp_path: Path) -> None:
         manager = _make_manager(tmp_path)
         log_dir = tmp_path / "tmp" / "golden-bridge"
         log_dir.mkdir(parents=True)
@@ -62,13 +58,9 @@ class TestBridgeLogRotation:
 
         assert next_live_log == live_log
         assert not live_log.exists()
-        assert (log_dir / "bridge-events.1.jsonl").read_text(
-            encoding="utf-8"
-        ) == '{"method":"GAME_SELECT"}\n'
+        assert (log_dir / "bridge-events.1.jsonl").read_text(encoding="utf-8") == '{"method":"GAME_SELECT"}\n'
 
-    def test_start_passes_bridge_jsonl_log_path(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_start_passes_bridge_jsonl_log_path(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         manager = _make_manager(tmp_path)
         captured_props: dict[str, str] = {}
 
@@ -108,13 +100,9 @@ class TestBridgeLogRotation:
             lambda *_args, **_kwargs: "/fake/classpath",
         )
         monkeypatch.setattr(golden_helpers, "_build_java_cmd", _fake_build_java_cmd)
-        monkeypatch.setattr(
-            golden_helpers, "wait_for_port", lambda *_args, **_kwargs: True
-        )
+        monkeypatch.setattr(golden_helpers, "wait_for_port", lambda *_args, **_kwargs: True)
         monkeypatch.setattr(golden_helpers, "BridgeSession", _FakeBridgeSession)
-        monkeypatch.setattr(
-            golden_helpers.subprocess, "Popen", lambda *_args, **_kwargs: _FakePopen()
-        )
+        monkeypatch.setattr(golden_helpers.subprocess, "Popen", lambda *_args, **_kwargs: _FakePopen())
 
         manager.start()
 
@@ -153,9 +141,7 @@ class TestReconnectValidation:
         manager._current_log_path = log_path
         manager._needs_reconnect_validation = True
 
-        with pytest.raises(
-            RuntimeError, match="restarted into leaked game state"
-        ) as excinfo:
+        with pytest.raises(RuntimeError, match="restarted into leaked game state") as excinfo:
             manager.assert_clean_reconnect("multi_amount_combat/bridge_join")
 
         msg = str(excinfo.value)
@@ -175,9 +161,7 @@ class TestReconnectValidation:
         with pytest.raises(RuntimeError, match="staleCallbacks="):
             manager.assert_clean_reconnect("multi_amount_combat/bridge_join")
 
-    def test_ensure_healthy_marks_restart_for_validation(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_ensure_healthy_marks_restart_for_validation(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         manager = _make_manager(tmp_path)
         monkeypatch.setattr(manager, "is_healthy", lambda: False)
         monkeypatch.setattr(manager, "stop", lambda: None)
@@ -211,9 +195,7 @@ class TestPerTestSnapshots:
             bridge_event_log_offset=len(b'{"method":"GAME_SELECT"}\n'),
         )
 
-    def test_write_test_log_snapshots_slices_only_current_test_bytes(
-        self, tmp_path: Path
-    ) -> None:
+    def test_write_test_log_snapshots_slices_only_current_test_bytes(self, tmp_path: Path) -> None:
         manager = _make_manager(tmp_path)
         log_dir = tmp_path / "tmp" / "golden-bridge"
         log_dir.mkdir(parents=True)
@@ -228,20 +210,14 @@ class TestPerTestSnapshots:
         bridge_log.write_text("before\nafter\n", encoding="utf-8")
         event_log.write_text('{"method":"OLD"}\n{"method":"NEW"}\n', encoding="utf-8")
 
-        bridge_snapshot, event_snapshot = manager.write_test_log_snapshots(
-            "mana drain/fact or fiction", offsets
-        )
+        bridge_snapshot, event_snapshot = manager.write_test_log_snapshots("mana drain/fact or fiction", offsets)
 
         assert bridge_snapshot == log_dir / "mana_drain_fact_or_fiction.bridge.log"
         assert bridge_snapshot.read_text(encoding="utf-8") == "after\n"
-        assert (
-            event_snapshot == log_dir / "mana_drain_fact_or_fiction.bridge-events.jsonl"
-        )
+        assert event_snapshot == log_dir / "mana_drain_fact_or_fiction.bridge-events.jsonl"
         assert event_snapshot.read_text(encoding="utf-8") == '{"method":"NEW"}\n'
 
-    def test_write_test_log_snapshots_sanitizes_names_and_handles_missing_event_log(
-        self, tmp_path: Path
-    ) -> None:
+    def test_write_test_log_snapshots_sanitizes_names_and_handles_missing_event_log(self, tmp_path: Path) -> None:
         manager = _make_manager(tmp_path)
         log_dir = tmp_path / "tmp" / "golden-bridge"
         log_dir.mkdir(parents=True)
@@ -254,9 +230,7 @@ class TestPerTestSnapshots:
         offsets = manager.capture_log_offsets()
         bridge_log.write_text("current\nnext\n", encoding="utf-8")
 
-        bridge_snapshot, event_snapshot = manager.write_test_log_snapshots(
-            "!combat??", offsets
-        )
+        bridge_snapshot, event_snapshot = manager.write_test_log_snapshots("!combat??", offsets)
 
         assert bridge_snapshot.name == "combat.bridge.log"
         assert bridge_snapshot.read_text(encoding="utf-8") == "next\n"

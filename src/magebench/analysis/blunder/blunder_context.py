@@ -28,9 +28,7 @@ def _record_field(record: object, field: str) -> object | None:
 _SNAPSHOT_ZONES = frozenset({"hand", "battlefield", "graveyard", "exile", "commanders"})
 
 
-def _snapshot_zone_cards(
-    player: SnapshotPlayer, zone: str
-) -> list[str | Permanent] | None:
+def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[str | Permanent] | None:
     """Return a snapshot player's cards for a supported public/private zone."""
     assert zone in _SNAPSHOT_ZONES, f"unexpected zone {zone!r}"
     cards: list[str | Permanent] | None = getattr(player, zone)
@@ -98,20 +96,12 @@ def collect_card_names(data: BuiltGameExport | GameExport) -> set[str]:
                 result_already_attacking = result.get("already_attacking")
                 if result_already_attacking is not None:
                     for a in result_already_attacking:
-                        if (
-                            isinstance(a, dict)
-                            and isinstance(a.get("name"), str)
-                            and a["name"]
-                        ):
+                        if isinstance(a, dict) and isinstance(a.get("name"), str) and a["name"]:
                             names.add(a["name"])
                 result_incoming = result.get("incoming_attackers")
                 if result_incoming is not None:
                     for a in result_incoming:
-                        if (
-                            isinstance(a, dict)
-                            and isinstance(a.get("name"), str)
-                            and a["name"]
-                        ):
+                        if isinstance(a, dict) and isinstance(a.get("name"), str) and a["name"]:
                             names.add(a["name"])
                 result_combat = result.get("combat")
                 if result_combat is not None:
@@ -121,20 +111,12 @@ def collect_card_names(data: BuiltGameExport | GameExport) -> set[str]:
                         group_attackers = group.get("attackers")
                         if group_attackers is not None:
                             for a in group_attackers:
-                                if (
-                                    isinstance(a, dict)
-                                    and isinstance(a.get("name"), str)
-                                    and a["name"]
-                                ):
+                                if isinstance(a, dict) and isinstance(a.get("name"), str) and a["name"]:
                                     names.add(a["name"])
                         group_blockers = group.get("blockers")
                         if group_blockers is not None:
                             for b in group_blockers:
-                                if (
-                                    isinstance(b, dict)
-                                    and isinstance(b.get("name"), str)
-                                    and b["name"]
-                                ):
+                                if isinstance(b, dict) and isinstance(b.get("name"), str) and b["name"]:
                                     names.add(b["name"])
             except (json.JSONDecodeError, TypeError):
                 pass
@@ -264,9 +246,7 @@ def format_current_turn_actions(
         if msg is None:
             continue
         assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
-        assert isinstance(ts, str) or ts is None, (
-            f"action ts must be a string when present, got {ts!r}"
-        )
+        assert isinstance(ts, str) or ts is None, f"action ts must be a string when present, got {ts!r}"
 
         # Track TURN markers to find current turn boundaries
         m = re.match(r"^TURN (\d+) for", msg)

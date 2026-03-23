@@ -22,9 +22,7 @@ BRIDGE_CALLBACK_HANDLER = (
 def _java_keepalive_concede_wait_seconds() -> int:
     source = BRIDGE_CALLBACK_HANDLER.read_text(encoding="utf-8")
     match = re.search(r"KEEPALIVE_CONCEDE_WAIT_SECONDS\s*=\s*(\d+)\s*;", source)
-    assert match is not None, (
-        "BridgeCallbackHandler must define KEEPALIVE_CONCEDE_WAIT_SECONDS"
-    )
+    assert match is not None, "BridgeCallbackHandler must define KEEPALIVE_CONCEDE_WAIT_SECONDS"
     return int(match.group(1))
 
 

@@ -43,6 +43,4 @@ class TestDeckFormatDirectories:
         """Every expected format directory should exist and contain decks."""
         for deck_format in sorted(EXPECTED_DECK_FORMATS):
             format_dir = DECKS_DIR / deck_format
-            assert format_dir.is_dir(), (
-                f"Expected deck format directory missing: {deck_format}/"
-            )
+            assert format_dir.is_dir(), f"Expected deck format directory missing: {deck_format}/"

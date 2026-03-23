@@ -331,9 +331,7 @@ def _make_tool_msg(call_id: str, content: str = "{}") -> dict:
 
 def test_find_tool_name_basic():
     history = [
-        _make_assistant_msg(
-            [("call_1", "pass_priority"), ("call_2", "get_action_choices")]
-        ),
+        _make_assistant_msg([("call_1", "pass_priority"), ("call_2", "get_action_choices")]),
         _make_tool_msg("call_1"),
         _make_tool_msg("call_2"),
     ]
@@ -442,11 +440,7 @@ def test_render_long_history_summarizes_old():
 
     # Find tool messages in the summarised section (between system and bridge)
     summarised_section = messages[1:bridge_idx]
-    summary_tool = next(
-        msg
-        for msg in summarised_section
-        if msg["role"] == "tool" and msg["tool_call_id"] == "call_4"
-    )
+    summary_tool = next(msg for msg in summarised_section if msg["role"] == "tool" and msg["tool_call_id"] == "call_4")
     assert summary_tool["content"].startswith("log(")
     assert "Alice turn 3" in summary_tool["content"]
     assert "Bob blocked Goblin Guide with Ornithopter" in summary_tool["content"]
@@ -478,9 +472,7 @@ def test_render_includes_state_summary():
             bridge_idx = i
             break
     assert bridge is not None, "State bridge not found"
-    assert bridge_idx > 1, (
-        f"State bridge at position {bridge_idx}, expected after summarised section"
-    )
+    assert bridge_idx > 1, f"State bridge at position {bridge_idx}, expected after summarised section"
     assert "pass_priority" in bridge["content"]
 
 
@@ -507,9 +499,7 @@ def test_render_keeps_tool_results_contiguous():
     history = _make_history(CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 6)
     history.extend(
         [
-            _make_assistant_msg(
-                [("call_chat", "send_chat_message"), ("call_act", "choose_action")]
-            ),
+            _make_assistant_msg([("call_chat", "send_chat_message"), ("call_act", "choose_action")]),
             _make_tool_msg("call_chat", '{"success": true}'),
             _make_tool_msg("call_act", '{"success": true}'),
         ]
@@ -522,9 +512,7 @@ def test_render_keeps_tool_results_contiguous():
             remaining_call_ids = {tc["id"] for tc in msg["tool_calls"]}
             continue
         if msg.get("role") == "tool":
-            assert remaining_call_ids, (
-                f"Tool result {msg['tool_call_id']} has no open assistant tool-call block"
-            )
+            assert remaining_call_ids, f"Tool result {msg['tool_call_id']} has no open assistant tool-call block"
             assert msg["tool_call_id"] in remaining_call_ids
             remaining_call_ids.remove(msg["tool_call_id"])
             continue
@@ -589,10 +577,7 @@ def test_build_reset_message_base_only():
 def test_build_reset_message_with_reasoning():
     result = build_reset_message("Continue.", "I was about to attack")
     assert "Continue." in result
-    assert (
-        "Before your context was reset, you were thinking: I was about to attack"
-        in result
-    )
+    assert "Before your context was reset, you were thinking: I was about to attack" in result
 
 
 # ---------------------------------------------------------------------------
@@ -615,9 +600,7 @@ def test_render_state_bridge_after_summarized():
     assert bridge_idx is not None, "State bridge not found in rendered messages"
 
     # Should not be at position 1 (old behavior) — must be after summarized section
-    assert bridge_idx > 1, (
-        f"State bridge at position {bridge_idx}, expected after summarized section"
-    )
+    assert bridge_idx > 1, f"State bridge at position {bridge_idx}, expected after summarized section"
 
     # Should be right before the recent window
     recent_messages = messages[bridge_idx + 1 :]
@@ -636,9 +619,7 @@ async def test_build_loop_messages_matches_fresh_render_after_history_growth():
         new_callable=AsyncMock,
         return_value=STATE_SUMMARY,
     ) as fetch:
-        first = await _build_loop_messages(
-            state, session, SYSTEM_PROMPT, cache_control=None
-        )
+        first = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
         assert first == render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
 
         state.history.extend(
@@ -653,9 +634,7 @@ async def test_build_loop_messages_matches_fresh_render_after_history_growth():
             ]
         )
 
-        second = await _build_loop_messages(
-            state, session, SYSTEM_PROMPT, cache_control=None
-        )
+        second = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
 
     assert second == render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
     assert fetch.await_count == 1
@@ -772,15 +751,11 @@ def test_render_cache_control_on_state_bridge():
     # Find the state bridge
     bridge = None
     for msg in messages:
-        if msg.get("role") == "user" and "Continue playing" in str(
-            msg.get("content", "")
-        ):
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
             bridge = msg
             break
     assert bridge is not None, "State bridge not found"
-    assert isinstance(bridge["content"], list), (
-        "State bridge should use content block format"
-    )
+    assert isinstance(bridge["content"], list), "State bridge should use content block format"
     block = bridge["content"][0]
     assert block["type"] == "text"
     assert block["cache_control"] == cc
@@ -795,15 +770,11 @@ def test_render_no_cache_on_state_bridge_without_cache_control():
 
     bridge = None
     for msg in messages:
-        if msg.get("role") == "user" and "Continue playing" in str(
-            msg.get("content", "")
-        ):
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
             bridge = msg
             break
     assert bridge is not None
-    assert isinstance(bridge["content"], str), (
-        "Without cache_control, state bridge should be plain string"
-    )
+    assert isinstance(bridge["content"], str), "Without cache_control, state bridge should be plain string"
 
 
 def test_render_short_history_no_state_bridge():
@@ -812,9 +783,7 @@ def test_render_short_history_no_state_bridge():
     cc = {"type": "ephemeral"}
     messages = render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
     for msg in messages:
-        if msg.get("role") == "user" and "Continue playing" in str(
-            msg.get("content", "")
-        ):
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
             raise AssertionError("State bridge should not appear in short history")
 
 
@@ -914,15 +883,11 @@ async def test_long_history_tail_breakpoint_marks_state_bridge():
         new_callable=AsyncMock,
         return_value=STATE_SUMMARY,
     ):
-        messages = await _build_loop_messages(
-            state, session, SYSTEM_PROMPT, cache_control=cc
-        )
+        messages = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=cc)
 
     bridge_idx = None
     for i, msg in enumerate(messages):
-        if msg.get("role") == "user" and "Continue playing" in str(
-            msg.get("content", "")
-        ):
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
             bridge_idx = i
             break
     assert bridge_idx is not None, "State bridge not found"
@@ -933,11 +898,7 @@ async def test_long_history_tail_breakpoint_marks_state_bridge():
     assert messages[-1] == original_last
     bridge_content = messages[bridge_idx]["content"]
     assert isinstance(bridge_content, list)
-    assert any(
-        block.get("cache_control") == cc
-        for block in bridge_content
-        if isinstance(block, dict)
-    )
+    assert any(block.get("cache_control") == cc for block in bridge_content if isinstance(block, dict))
 
 
 def test_short_history_tail_breakpoint():

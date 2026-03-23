@@ -31,14 +31,10 @@ _cache: dict[str, dict | str | None] | None = None
 
 
 def _dict_list(value: object, *, context: str) -> list[dict]:
-    assert isinstance(value, list), (
-        f"{context}: expected list, got {type(value).__name__}"
-    )
+    assert isinstance(value, list), f"{context}: expected list, got {type(value).__name__}"
     items: list[dict] = []
     for index, item in enumerate(value):
-        assert isinstance(item, dict), (
-            f"{context}[{index}]: expected object, got {type(item).__name__}"
-        )
+        assert isinstance(item, dict), f"{context}[{index}]: expected object, got {type(item).__name__}"
         items.append(item)
     return items
 
@@ -90,12 +86,8 @@ def _fetch_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     found_data = data.get("data")
     not_found_data = data.get("not_found")
     return (
-        _dict_list(found_data, context="Scryfall collection data")
-        if found_data is not None
-        else [],
-        _dict_list(not_found_data, context="Scryfall collection not_found")
-        if not_found_data is not None
-        else [],
+        _dict_list(found_data, context="Scryfall collection data") if found_data is not None else [],
+        _dict_list(not_found_data, context="Scryfall collection not_found") if not_found_data is not None else [],
     )
 
 
@@ -165,9 +157,7 @@ def named(name: str) -> dict | None:
                 headers=_HEADERS,
             )
         )
-        assert isinstance(card, dict), (
-            f"Scryfall named({name!r}) returned non-object payload"
-        )
+        assert isinstance(card, dict), f"Scryfall named({name!r}) returned non-object payload"
         cache[name] = card
         _save_cache()
         return card
@@ -195,9 +185,7 @@ def search_token(token_name: str) -> str | None:
 
     _rate_limit()
     query = f'!"{base_name}" t:token'
-    qs = urllib.parse.urlencode(
-        {"q": query, "unique": "art", "order": "released", "dir": "desc"}
-    )
+    qs = urllib.parse.urlencode({"q": query, "unique": "art", "order": "released", "dir": "desc"})
     try:
         data = json.loads(
             http_utils.fetch_https_bytes(
@@ -206,9 +194,7 @@ def search_token(token_name: str) -> str | None:
                 headers=_HEADERS,
             )
         )
-        assert isinstance(data, dict), (
-            f"Scryfall token search for {token_name!r} returned non-object payload"
-        )
+        assert isinstance(data, dict), f"Scryfall token search for {token_name!r} returned non-object payload"
         token_data = data.get("data")
         cards = (
             _dict_list(token_data, context=f"Scryfall token search for {token_name!r}")
@@ -250,9 +236,7 @@ def extract_oracle_fields(card: dict) -> dict:
     if card.get("loyalty") is not None:
         fields["loyalty"] = card["loyalty"]
     if card.get("card_faces"):
-        fields["card_faces"] = [
-            extract_oracle_fields(face) for face in card["card_faces"]
-        ]
+        fields["card_faces"] = [extract_oracle_fields(face) for face in card["card_faces"]]
     return fields
 
 
@@ -324,9 +308,7 @@ def resolve_cards(
     if preferred_sets:
         recheck = [n for n in resolved if resolved[n][0] not in preferred_sets]
         if recheck:
-            print(
-                f"Re-resolving {len(recheck)} cards to find preferred set printings..."
-            )
+            print(f"Re-resolving {len(recheck)} cards to find preferred set printings...")
             for name in recheck:
                 search_name = name.split(" // ")[0] if " // " in name else name
                 for pref_set in sorted(preferred_sets):
@@ -356,9 +338,7 @@ def search(query: str) -> list[dict]:
                 headers=_HEADERS,
             )
         )
-        assert isinstance(data, dict), (
-            f"Scryfall search({query!r}) returned non-object payload"
-        )
+        assert isinstance(data, dict), f"Scryfall search({query!r}) returned non-object payload"
         search_data = data.get("data")
         if search_data is not None:
             return _dict_list(search_data, context=f"Scryfall search({query!r})")

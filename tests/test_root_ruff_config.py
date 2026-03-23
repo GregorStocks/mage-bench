@@ -63,9 +63,7 @@ def test_root_ruff_config_catches_import_outside_toplevel() -> None:
     assert "PLC0415" in output
 
 
-def test_root_ruff_config_does_not_ignore_plc0415_for_analysis_and_export_targets() -> (
-    None
-):
+def test_root_ruff_config_does_not_ignore_plc0415_for_analysis_and_export_targets() -> None:
     project_root = Path(__file__).resolve().parent.parent
     config = tomllib.loads((project_root / "ruff-lint.toml").read_text())
     per_file_ignores = config["lint"]["per-file-ignores"]

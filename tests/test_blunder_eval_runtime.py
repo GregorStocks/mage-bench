@@ -24,9 +24,7 @@ def _make_game_ctx() -> dict:
 
 def _configure_runtime(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     monkeypatch.setattr(blunder_eval, "TMP_DIR", tmp_path)
-    monkeypatch.setattr(
-        blunder_eval, "BASELINE_PATH", tmp_path / "missing-baseline.json"
-    )
+    monkeypatch.setattr(blunder_eval, "BASELINE_PATH", tmp_path / "missing-baseline.json")
     monkeypatch.setattr(
         blunder_eval,
         "load_ground_truth",
@@ -38,15 +36,11 @@ def _configure_runtime(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         "game_path_for_id",
         lambda _game_id: Path("/tmp/game_fake.json5.gz"),
     )
-    monkeypatch.setattr(
-        blunder_eval, "load_game_context", lambda _path: _make_game_ctx()
-    )
+    monkeypatch.setattr(blunder_eval, "load_game_context", lambda _path: _make_game_ctx())
     monkeypatch.setattr("sys.argv", ["blunder_eval.py"])
 
 
-def test_main_continues_on_openai_error(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-) -> None:
+def test_main_continues_on_openai_error(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     _configure_runtime(monkeypatch, tmp_path)
     monkeypatch.setattr(
         blunder_eval,
@@ -62,9 +56,7 @@ def test_main_continues_on_openai_error(
     assert saved["results"] == {"game_test_001:0": {"detected": False}}
 
 
-def test_main_propagates_non_openai_error(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-) -> None:
+def test_main_propagates_non_openai_error(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     _configure_runtime(monkeypatch, tmp_path)
     monkeypatch.setattr(
         blunder_eval,

@@ -72,9 +72,7 @@ class TestGameIdValidation:
         with pytest.raises(AssertionError, match="Invalid game_id"):
             game_path_for_id("../etc/passwd")
 
-    def test_game_path_for_id_prefers_gz_export(
-        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-    ) -> None:
+    def test_game_path_for_id_prefers_gz_export(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         games_dir = tmp_path / "website" / "public" / "games"
         monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
         gz_path = games_dir / "game_20260320_123456.json5.gz"
@@ -86,9 +84,7 @@ class TestGameIdValidation:
 
         assert resolved == gz_path
 
-    def test_game_path_for_id_falls_back_to_json5(
-        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-    ) -> None:
+    def test_game_path_for_id_falls_back_to_json5(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         games_dir = tmp_path / "website" / "public" / "games"
         monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
         json5_path = games_dir / "game_20260320_123456_g1.json5"
@@ -100,9 +96,7 @@ class TestGameIdValidation:
 
 
 class TestLoadGameValidation:
-    def test_loads_export_from_games_dir(
-        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-    ) -> None:
+    def test_loads_export_from_games_dir(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         games_dir = tmp_path / "website" / "public" / "games"
         monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
         monkeypatch.setattr(
@@ -117,9 +111,7 @@ class TestLoadGameValidation:
 
         assert loaded.id == "game_test_001"
 
-    def test_loads_relative_repo_export_path(
-        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-    ) -> None:
+    def test_loads_relative_repo_export_path(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         repo_root = tmp_path / "repo"
         games_dir = repo_root / "website" / "public" / "games"
         repo_root.mkdir(parents=True, exist_ok=True)
@@ -133,15 +125,11 @@ class TestLoadGameValidation:
         export_path = games_dir / "game_test_001.json5"
         _write_export(export_path)
 
-        loaded = blunder_eval_common.load_game(
-            Path("website/public/games/game_test_001.json5")
-        )
+        loaded = blunder_eval_common.load_game(Path("website/public/games/game_test_001.json5"))
 
         assert loaded.id == "game_test_001"
 
-    def test_loads_export_from_system_temp(
-        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-    ) -> None:
+    def test_loads_export_from_system_temp(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         temp_root = tmp_path / "system-temp"
         monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", tmp_path / "repo-games")
         monkeypatch.setattr(
@@ -156,9 +144,7 @@ class TestLoadGameValidation:
 
         assert loaded.id == "game_test_001"
 
-    def test_rejects_path_outside_allowed_roots(
-        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-    ) -> None:
+    def test_rejects_path_outside_allowed_roots(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", tmp_path / "repo-games")
         monkeypatch.setattr(
             blunder_eval_common.tempfile,
@@ -190,9 +176,7 @@ class TestLoadGameValidation:
         ):
             blunder_eval_common.load_game(export_path)
 
-    def test_rejects_symlink_escape_from_games_dir(
-        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-    ) -> None:
+    def test_rejects_symlink_escape_from_games_dir(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         games_dir = tmp_path / "website" / "public" / "games"
         outside_path = tmp_path / "outside" / "game_test_001.json5.gz"
         symlink_path = games_dir / "game_test_001.json5.gz"
@@ -498,12 +482,8 @@ class TestLookupAnnotationForDecision:
 
 
 class TestMergeIntoGroundTruth:
-    def test_merge_new_entries(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
-        monkeypatch.setattr(
-            "magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path
-        )
+    def test_merge_new_entries(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr("magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         entries = [
             {"decision_index": 0},
@@ -515,12 +495,8 @@ class TestMergeIntoGroundTruth:
         loaded = load_game_ground_truth(VALID_GAME_ID)
         assert len(loaded) == 2
 
-    def test_merge_preserves_existing(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
-        monkeypatch.setattr(
-            "magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path
-        )
+    def test_merge_preserves_existing(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr("magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         # Create existing audited entry
         existing = [
@@ -549,12 +525,8 @@ class TestMergeIntoGroundTruth:
         existing_entry = next(e for e in loaded if e["decision_index"] == 0)
         assert existing_entry["verdict"] == "blunder"
 
-    def test_merge_deduplicates_new(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
-        monkeypatch.setattr(
-            "magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path
-        )
+    def test_merge_deduplicates_new(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr("magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         # Two new entries for same decision_index — keeps first
         entries = [
@@ -567,12 +539,8 @@ class TestMergeIntoGroundTruth:
         loaded = load_game_ground_truth(VALID_GAME_ID)
         assert len(loaded) == 1
 
-    def test_merge_empty_new(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
-        monkeypatch.setattr(
-            "magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path
-        )
+    def test_merge_empty_new(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr("magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         existing = [{"decision_index": 0}]
         save_game_ground_truth(VALID_GAME_ID, existing)

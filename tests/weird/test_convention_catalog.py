@@ -15,9 +15,7 @@ class TestPresetsReferenceValidModels:
             if preset["model"] not in model_ids:
                 missing.append(f"{name!r} -> {preset['model']!r}")
 
-        assert not missing, "Presets reference unknown models:\n  " + "\n  ".join(
-            missing
-        )
+        assert not missing, "Presets reference unknown models:\n  " + "\n  ".join(missing)
 
     def test_all_presets_have_valid_status(self) -> None:
         presets_data = load_json(PUPPETEER_DIR / "presets.json")
@@ -51,30 +49,20 @@ class TestPresetsReferenceValidModels:
             if system_prompt and system_prompt not in prompt_keys:
                 missing.append(f"{name!r} -> {system_prompt!r}")
 
-        assert not missing, (
-            "Presets reference unknown system_prompts:\n  " + "\n  ".join(missing)
-        )
+        assert not missing, "Presets reference unknown system_prompts:\n  " + "\n  ".join(missing)
 
 
 class TestToolsetsReferenceValidTools:
     def test_all_toolset_tools_exist(self) -> None:
         toolsets = load_json(PUPPETEER_DIR / "toolsets.json")
-        mcp_tools = loads_json5(
-            (REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json5").read_text()
-        )
+        mcp_tools = loads_json5((REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json5").read_text())
         real_tool_names = {t["name"] for t in mcp_tools}
 
         missing = []
         for toolset_name, tools in toolsets.items():
-            missing.extend(
-                f"{toolset_name!r} -> {tool!r}"
-                for tool in tools
-                if tool not in real_tool_names
-            )
+            missing.extend(f"{toolset_name!r} -> {tool!r}" for tool in tools if tool not in real_tool_names)
 
-        assert not missing, (
-            "Toolsets reference nonexistent MCP tools:\n  " + "\n  ".join(missing)
-        )
+        assert not missing, "Toolsets reference nonexistent MCP tools:\n  " + "\n  ".join(missing)
 
     def test_preset_toolsets_exist(self) -> None:
         presets_data = load_json(PUPPETEER_DIR / "presets.json")
@@ -86,9 +74,7 @@ class TestToolsetsReferenceValidTools:
             if toolset and toolset not in toolsets:
                 missing.append(f"{name!r} -> {toolset!r}")
 
-        assert not missing, "Presets reference unknown toolsets:\n  " + "\n  ".join(
-            missing
-        )
+        assert not missing, "Presets reference unknown toolsets:\n  " + "\n  ".join(missing)
 
 
 class TestModelNamePartsUnique:
@@ -100,9 +86,8 @@ class TestModelNamePartsUnique:
             seen.setdefault(model["name_part"], []).append(model["id"])
 
         dupes = {name_part: ids for name_part, ids in seen.items() if len(ids) > 1}
-        assert not dupes, (
-            "Duplicate name_parts (would be ambiguous on leaderboard):\n  "
-            + "\n  ".join(f"{name_part!r}: {ids}" for name_part, ids in dupes.items())
+        assert not dupes, "Duplicate name_parts (would be ambiguous on leaderboard):\n  " + "\n  ".join(
+            f"{name_part!r}: {ids}" for name_part, ids in dupes.items()
         )
 
 
@@ -132,15 +117,12 @@ class TestNoOrphanedPrompts:
 
         presets_data = load_json(PUPPETEER_DIR / "presets.json")
         referenced = {
-            preset.get("system_prompt")
-            for preset in presets_data["presets"].values()
-            if preset.get("system_prompt")
+            preset.get("system_prompt") for preset in presets_data["presets"].values() if preset.get("system_prompt")
         }
 
         orphaned = prompt_files - referenced
-        assert not orphaned, (
-            "Prompt files not referenced by any preset:\n  "
-            + "\n  ".join(f"{name}.md" for name in sorted(orphaned))
+        assert not orphaned, "Prompt files not referenced by any preset:\n  " + "\n  ".join(
+            f"{name}.md" for name in sorted(orphaned)
         )
 
 
@@ -158,20 +140,11 @@ class TestPersonalityNamePartLength:
             for key, value in personalities.items()
             if len(value["name_part"]) > self._MAX_LENGTH
         ]
-        assert not too_long, (
-            f"Personality name_parts exceed {self._MAX_LENGTH} chars:\n  "
-            + "\n  ".join(too_long)
-        )
+        assert not too_long, f"Personality name_parts exceed {self._MAX_LENGTH} chars:\n  " + "\n  ".join(too_long)
 
 
 class TestActivePresetsExist:
     def test_has_active_presets(self) -> None:
         presets_data = load_json(PUPPETEER_DIR / "presets.json")
-        active = [
-            name
-            for name, preset in presets_data["presets"].items()
-            if preset.get("status") == "active"
-        ]
-        assert active, (
-            "No presets with status='active' — matchmaking needs at least one"
-        )
+        active = [name for name, preset in presets_data["presets"].items() if preset.get("status") == "active"]
+        assert active, "No presets with status='active' — matchmaking needs at least one"

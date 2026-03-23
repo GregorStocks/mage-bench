@@ -15,9 +15,7 @@ _COMPONENT_DEPENDENCIES = {
     "leaderboard": frozenset({"common", "game"}),
     "pilot": frozenset({"common", "game"}),
     "orchestration": frozenset({"analysis", "common", "game", "leaderboard", "pilot"}),
-    "cli": frozenset(
-        {"analysis", "common", "game", "leaderboard", "orchestration", "pilot"}
-    ),
+    "cli": frozenset({"analysis", "common", "game", "leaderboard", "orchestration", "pilot"}),
 }
 
 
@@ -31,14 +29,10 @@ def _module_name_for_path(path: Path) -> str:
 
 def _importer_package_parts(importer_module: str, importer_path: Path) -> list[str]:
     importer_parts = importer_module.split(".")
-    return (
-        importer_parts if importer_path.name == "__init__.py" else importer_parts[:-1]
-    )
+    return importer_parts if importer_path.name == "__init__.py" else importer_parts[:-1]
 
 
-def _is_beyond_top_level_relative_import(
-    importer_module: str, importer_path: Path, node: ast.ImportFrom
-) -> bool:
+def _is_beyond_top_level_relative_import(importer_module: str, importer_path: Path, node: ast.ImportFrom) -> bool:
     if node.level == 0:
         return False
 
@@ -47,9 +41,7 @@ def _is_beyond_top_level_relative_import(
     return levels_up >= len(importer_package)
 
 
-def _resolve_imported_module(
-    importer_module: str, importer_path: Path, node: ast.ImportFrom
-) -> str | None:
+def _resolve_imported_module(importer_module: str, importer_path: Path, node: ast.ImportFrom) -> str | None:
     if node.level == 0:
         return node.module
     if _is_beyond_top_level_relative_import(importer_module, importer_path, node):
@@ -69,9 +61,7 @@ def _magebench_modules() -> dict[str, Path]:
 
 
 def _is_internal_package_or_module(candidate: str, modules: dict[str, Path]) -> bool:
-    return candidate in modules or any(
-        name.startswith(candidate + ".") for name in modules
-    )
+    return candidate in modules or any(name.startswith(candidate + ".") for name in modules)
 
 
 def _component_for_module(module_name: str) -> str | None:
@@ -119,11 +109,7 @@ def _component_dependencies() -> frozenset[tuple[str, str, str, str]]:
                     target_module = base_module
                 else:
                     candidate = f"{base_module}.{alias.name}"
-                    target_module = (
-                        candidate
-                        if _is_internal_package_or_module(candidate, modules)
-                        else base_module
-                    )
+                    target_module = candidate if _is_internal_package_or_module(candidate, modules) else base_module
                 imported_component = _component_for_module(target_module)
                 if imported_component is None:
                     continue
@@ -152,9 +138,7 @@ def _invalid_relative_imports() -> frozenset[tuple[str, int, str]]:
                 continue
             module = node.module or ""
             dots = "." * node.level
-            invalid_imports.add(
-                (importer_module, node.lineno, f"from {dots}{module} import ...")
-            )
+            invalid_imports.add((importer_module, node.lineno, f"from {dots}{module} import ..."))
 
     return frozenset(invalid_imports)
 
@@ -165,16 +149,13 @@ class TestMagebenchPackageDag:
             "`src/magebench` contains relative imports beyond the top-level package.\n"
             "Use an absolute `magebench.*` import or a valid in-package relative import instead.\n  "
             + "\n  ".join(
-                f"{module}:{lineno}: {statement}"
-                for module, lineno, statement in sorted(_invalid_relative_imports())
+                f"{module}:{lineno}: {statement}" for module, lineno, statement in sorted(_invalid_relative_imports())
             )
         )
 
     def test_top_level_components_match_declared_dag(self) -> None:
         actual_components = {
-            path.name
-            for path in MAGEBENCH_DIR.iterdir()
-            if path.is_dir() and (path / "__init__.py").exists()
+            path.name for path in MAGEBENCH_DIR.iterdir() if path.is_dir() and (path / "__init__.py").exists()
         }
         assert actual_components == set(_COMPONENT_DEPENDENCIES), (
             "Top-level `src/magebench` packages changed.\n"
@@ -194,8 +175,6 @@ class TestMagebenchPackageDag:
             "Move shared code downward or split it into a lower-level package instead of creating a cycle.\n  "
             + "\n  ".join(
                 f"{importer_module} ({importer_component}) imports {imported_module} ({imported_component})"
-                for importer_component, imported_component, importer_module, imported_module in sorted(
-                    violations
-                )
+                for importer_component, imported_component, importer_module, imported_module in sorted(violations)
             )
         )

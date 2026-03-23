@@ -90,9 +90,7 @@ def _make_finished_tournament(size: int = 4) -> dict:
         "season": 1,
         "size": size,
         "best_of": 3,
-        "entrants": [
-            {"seed": i + 1, "display_name": f"Seed {i + 1}"} for i in range(size)
-        ],
+        "entrants": [{"seed": i + 1, "display_name": f"Seed {i + 1}"} for i in range(size)],
         "rounds": [],
     }
     game_num = 1
@@ -172,9 +170,7 @@ class TestFindNextMatch:
             # Higher seed (lower number) always wins
             winner = min(match["seed_a"], match["seed_b"])
             match["winner_seed"] = winner
-            match["games"].append(
-                {"game_id": f"game_{matches_played}", "winner_seed": winner}
-            )
+            match["games"].append({"game_id": f"game_{matches_played}", "winner_seed": winner})
             matches_played += 1
         assert matches_played == 7
         # Seed 1 wins the tournament
@@ -188,9 +184,7 @@ def test_get_tournament_champion_seed_requires_complete_bracket():
     assert tournament_game.get_tournament_champion_seed(tournament) is None
 
 
-def test_run_match_crowns_champion_and_enters_between_seasons(
-    monkeypatch, tmp_path: Path, capsys
-):
+def test_run_match_crowns_champion_and_enters_between_seasons(monkeypatch, tmp_path: Path, capsys):
     tournament = _make_finished_tournament()
     data_dir = tmp_path / "data"
     tournaments_dir = data_dir / "tournaments"
@@ -300,15 +294,11 @@ class TestWriteTournamentDeck:
         assert "7 [JMP:2] Plains" in content
 
     def test_filename_contains_seed(self, tmp_path: Path):
-        rel_path = tournament_game.write_tournament_deck(
-            tmp_path, 5, ["1 [JMP:1] Card"], ["Pack"]
-        )
+        rel_path = tournament_game.write_tournament_deck(tmp_path, 5, ["1 [JMP:1] Card"], ["Pack"])
         assert "seed-5" in str(rel_path)
 
     def test_path_is_relative(self, tmp_path: Path):
-        rel_path = tournament_game.write_tournament_deck(
-            tmp_path, 1, ["1 [JMP:1] Card"], ["Pack"]
-        )
+        rel_path = tournament_game.write_tournament_deck(tmp_path, 1, ["1 [JMP:1] Card"], ["Pack"])
         assert not rel_path.is_absolute()
 
 
@@ -362,9 +352,7 @@ def test_run_games_reads_winners_in_session_order(monkeypatch):
     monkeypatch.setattr(
         tournament_game,
         "build_game_config",
-        lambda _tournament, seed_a, seed_b, _root: Path(
-            f"/tmp/{seed_a}-vs-{seed_b}.json"
-        ),
+        lambda _tournament, seed_a, seed_b, _root: Path(f"/tmp/{seed_a}-vs-{seed_b}.json"),
     )
     monkeypatch.setattr(tournament_game, "run_orchestrator", fake_run_orchestrator)
     monkeypatch.setattr(
@@ -375,9 +363,7 @@ def test_run_games_reads_winners_in_session_order(monkeypatch):
     monkeypatch.setattr(
         tournament_game,
         "map_winner_to_seed",
-        lambda winner_name, seed_a, seed_b, _tournament: (
-            seed_a if winner_name == "alice" else seed_b
-        ),
+        lambda winner_name, seed_a, seed_b, _tournament: seed_a if winner_name == "alice" else seed_b,
     )
 
     results = tournament_game._run_games(
@@ -392,9 +378,7 @@ def test_run_games_reads_winners_in_session_order(monkeypatch):
     ]
 
 
-def test_record_match_game_updates_series_and_finishes_match(
-    monkeypatch, tmp_path: Path
-):
+def test_record_match_game_updates_series_and_finishes_match(monkeypatch, tmp_path: Path):
     tournament = {
         "entrants": [
             {"seed": 1, "display_name": "Alpha"},
@@ -461,9 +445,7 @@ def test_run_match_on_resumes_partial_series(monkeypatch, tmp_path: Path):
         "_run_games",
         lambda *_args, **_kwargs: [(Path("/tmp/game_2"), 1)],
     )
-    monkeypatch.setattr(
-        tournament_game, "upload_and_export", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(tournament_game, "upload_and_export", lambda *_args, **_kwargs: None)
 
     tournament_game._run_match_on(
         tournament,
@@ -511,9 +493,7 @@ def test_run_match_batch_plays_each_series_until_decided(monkeypatch, tmp_path: 
         return results_by_call.pop(0)
 
     monkeypatch.setattr(tournament_game, "_run_games", fake_run_games)
-    monkeypatch.setattr(
-        tournament_game, "upload_and_export", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(tournament_game, "upload_and_export", lambda *_args, **_kwargs: None)
 
     tournament_game._run_match_batch(
         tournament,
@@ -557,22 +537,12 @@ def test_main_parallel_uses_batch_runner(monkeypatch):
         "load_tournament",
         lambda _allowed_phases=None: (tournament, Path("/tmp/tournament.json")),
     )
-    monkeypatch.setattr(
-        tournament_game, "compile_project", lambda *_args, **_kwargs: True
-    )
-    monkeypatch.setattr(
-        tournament_game, "refresh_observer_resources", lambda *_args, **_kwargs: True
-    )
-    monkeypatch.setattr(
-        tournament_game, "clean_stale_h2_locks", lambda *_args, **_kwargs: None
-    )
-    monkeypatch.setattr(
-        tournament_game, "find_ready_matches", lambda _tournament: ready
-    )
+    monkeypatch.setattr(tournament_game, "compile_project", lambda *_args, **_kwargs: True)
+    monkeypatch.setattr(tournament_game, "refresh_observer_resources", lambda *_args, **_kwargs: True)
+    monkeypatch.setattr(tournament_game, "clean_stale_h2_locks", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(tournament_game, "find_ready_matches", lambda _tournament: ready)
     monkeypatch.setattr(tournament_game, "_run_match_batch", run_match_batch)
-    monkeypatch.setattr(
-        tournament_game, "resolve_annotation_failures", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(tournament_game, "resolve_annotation_failures", lambda *_args, **_kwargs: None)
     monkeypatch.setattr(tournament_game, "generate_all_website_data", lambda: None)
     monkeypatch.setattr(sys, "argv", ["tournament_game.py", "--games", "2"])
 

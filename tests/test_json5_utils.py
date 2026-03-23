@@ -63,9 +63,7 @@ def test_continuation_lines_not_indented() -> None:
         # Continuation lines (after \\\n) must start at column 0
         if line and not line.startswith((" ", "{", "}", "[", "]", '"')):
             # This is a continuation line — verify no leading whitespace
-            assert line == line.lstrip(), (
-                f"Continuation line has leading whitespace: {line!r}"
-            )
+            assert line == line.lstrip(), f"Continuation line has leading whitespace: {line!r}"
 
 
 def test_string_ending_with_newline() -> None:

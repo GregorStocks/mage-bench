@@ -3,20 +3,14 @@
 import importlib
 from pathlib import Path
 
-ORCHESTRATION_DIR = (
-    Path(__file__).resolve().parent.parent / "src" / "magebench" / "orchestration"
-)
+ORCHESTRATION_DIR = Path(__file__).resolve().parent.parent / "src" / "magebench" / "orchestration"
 
 SKIP_MODULES = {"__init__"}
 
 
 def test_all_orchestration_modules_importable() -> None:
     """Import every .py file in the orchestration package."""
-    modules = sorted(
-        path.stem
-        for path in ORCHESTRATION_DIR.glob("*.py")
-        if path.stem not in SKIP_MODULES
-    )
+    modules = sorted(path.stem for path in ORCHESTRATION_DIR.glob("*.py") if path.stem not in SKIP_MODULES)
     assert modules, f"No modules found in {ORCHESTRATION_DIR}"
 
     failures: list[str] = []

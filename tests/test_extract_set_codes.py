@@ -12,9 +12,7 @@ def test_extract_set_codes_from_deck_files(tmp_path: Path) -> None:
     decks_dir.mkdir(parents=True)
 
     # Write a test deck file
-    (decks_dir / "test.dck").write_text(
-        "1 [KLD:253] Island\n1 [M13:45] Clone\n1 [SOM:174] Memnite\n"
-    )
+    (decks_dir / "test.dck").write_text("1 [KLD:253] Island\n1 [M13:45] Clone\n1 [SOM:174] Memnite\n")
 
     # Write a legacy deck
     legacy_dir = tmp_path / "Mage.Client" / "release" / "sample-decks" / "Legacy"

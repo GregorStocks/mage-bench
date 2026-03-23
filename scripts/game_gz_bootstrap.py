@@ -62,11 +62,7 @@ def _is_failed_tool_call(event: LlmEvent) -> bool:
 
 def _failed_tool_calls(events: list[LlmEvent]) -> list[ToolCallEvent]:
     """Return tool_call events with explicit structured failures."""
-    return [
-        event
-        for event in events
-        if isinstance(event, ToolCallEvent) and _is_failed_tool_call(event)
-    ]
+    return [event for event in events if isinstance(event, ToolCallEvent) and _is_failed_tool_call(event)]
 
 
 def _format_result_preview(event: ToolCallEvent) -> str:

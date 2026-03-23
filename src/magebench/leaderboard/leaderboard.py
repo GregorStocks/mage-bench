@@ -130,11 +130,7 @@ def generate_leaderboard(
     games_dir: Path | None = None,
 ) -> tuple[dict[str, Any], dict[str, dict[str, dict[str, int]]]]:
     """Aggregate game results into leaderboard data."""
-    scored_games = [
-        game
-        for game in games_index
-        if game.get("winner") and not game.get("tournament")
-    ]
+    scored_games = [game for game in games_index if game.get("winner") and not game.get("tournament")]
     final_ratings, per_game = _elo.compute_elo_ratings(scored_games, games_dir)
 
     ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
@@ -156,9 +152,9 @@ def generate_leaderboard(
             for annotation in annotations:
                 if annotation.type != "blunder" or not annotation.player:
                     continue
-                blunder_weight_by_name[annotation.player] = blunder_weight_by_name.get(
-                    annotation.player, 0
-                ) + (BLUNDER_WEIGHTS.get(annotation.severity, 0))
+                blunder_weight_by_name[annotation.player] = blunder_weight_by_name.get(annotation.player, 0) + (
+                    BLUNDER_WEIGHTS.get(annotation.severity, 0)
+                )
 
         total_turns = game.get("total_turns", 0)
         for player in game["players"]:
@@ -189,9 +185,7 @@ def generate_leaderboard(
             assert annotations is not None, f"Game {game.get('id')} has no annotations"
             assert total_turns > 0, f"Game {game.get('id')} has no turns"
             stats[key]["total_annotated_turns"] += total_turns
-            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(
-                player.name, 0
-            )
+            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(player.name, 0)
 
     models: list[_ModelEntry] = []
     for key, stat in stats.items():
@@ -203,9 +197,7 @@ def generate_leaderboard(
         assert total_annotated_turns > 0, f"Model {model_id} has no annotated turns"
         assert key in final_ratings, f"Missing final rating for {key}"
 
-        display_name = model_registry.get(model_id) or _registry.derive_display_name(
-            model_id
-        )
+        display_name = model_registry.get(model_id) or _registry.derive_display_name(model_id)
         if effort:
             display_name = f"{display_name} ({effort})"
 
@@ -222,15 +214,9 @@ def generate_leaderboard(
                 timeout_loss_rate=round(timeout_losses / games_played, 4),
                 avg_api_cost=round(stat["total_cost"] / games_played, 2),
                 avg_tool_calls_ok=round(stat["total_tool_calls_ok"] / games_played, 1),
-                avg_tool_calls_failed=round(
-                    stat["total_tool_calls_failed"] / games_played, 1
-                ),
-                avg_thinking_time_secs=round(
-                    stat["total_thinking_time"] / games_played, 1
-                ),
-                blunder_score=round(
-                    stat["total_weighted_blunders"] / total_annotated_turns, 2
-                ),
+                avg_tool_calls_failed=round(stat["total_tool_calls_failed"] / games_played, 1),
+                avg_thinking_time_secs=round(stat["total_thinking_time"] / games_played, 1),
+                blunder_score=round(stat["total_weighted_blunders"] / total_annotated_turns, 2),
                 reasoning_effort=effort,
             )
         )
@@ -258,9 +244,9 @@ def generate_exhibition_leaderboard(
             for annotation in annotations:
                 if annotation.type != "blunder" or not annotation.player:
                     continue
-                blunder_weight_by_name[annotation.player] = blunder_weight_by_name.get(
-                    annotation.player, 0
-                ) + (BLUNDER_WEIGHTS.get(annotation.severity, 0))
+                blunder_weight_by_name[annotation.player] = blunder_weight_by_name.get(annotation.player, 0) + (
+                    BLUNDER_WEIGHTS.get(annotation.severity, 0)
+                )
 
         total_turns = game.get("total_turns", 0)
         for player in game["players"]:
@@ -291,9 +277,7 @@ def generate_exhibition_leaderboard(
             assert annotations is not None, f"Game {game.get('id')} has no annotations"
             assert total_turns > 0, f"Game {game.get('id')} has no turns"
             stats[key]["total_annotated_turns"] += total_turns
-            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(
-                player.name, 0
-            )
+            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(player.name, 0)
 
     models: list[_ModelEntry] = []
     for key, stat in stats.items():
@@ -304,9 +288,7 @@ def generate_exhibition_leaderboard(
         total_annotated_turns = int(stat["total_annotated_turns"])
         assert total_annotated_turns > 0, f"Model {model_id} has no annotated turns"
 
-        display_name = model_registry.get(model_id) or _registry.derive_display_name(
-            model_id
-        )
+        display_name = model_registry.get(model_id) or _registry.derive_display_name(model_id)
         if effort:
             display_name = f"{display_name} ({effort})"
 
@@ -323,15 +305,9 @@ def generate_exhibition_leaderboard(
                 timeout_loss_rate=round(timeout_losses / games_played, 4),
                 avg_api_cost=round(stat["total_cost"] / games_played, 2),
                 avg_tool_calls_ok=round(stat["total_tool_calls_ok"] / games_played, 1),
-                avg_tool_calls_failed=round(
-                    stat["total_tool_calls_failed"] / games_played, 1
-                ),
-                avg_thinking_time_secs=round(
-                    stat["total_thinking_time"] / games_played, 1
-                ),
-                blunder_score=round(
-                    stat["total_weighted_blunders"] / total_annotated_turns, 2
-                ),
+                avg_tool_calls_failed=round(stat["total_tool_calls_failed"] / games_played, 1),
+                avg_thinking_time_secs=round(stat["total_thinking_time"] / games_played, 1),
+                blunder_score=round(stat["total_weighted_blunders"] / total_annotated_turns, 2),
                 reasoning_effort=effort,
             )
         )
@@ -351,9 +327,7 @@ def generate_all_leaderboards(
     games_dir: Path | None = None,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, dict[str, int]]]]:
     """Generate per-format leaderboards plus a combined view."""
-    games_by_format: dict[str, list[dict[str, Any]]] = {
-        fmt: [] for fmt in _formats.FORMAT_POOLS
-    }
+    games_by_format: dict[str, list[dict[str, Any]]] = {fmt: [] for fmt in _formats.FORMAT_POOLS}
     for game in games_index:
         game_format = _formats.derive_format(game)
         if game_format in games_by_format:
@@ -363,22 +337,14 @@ def generate_all_leaderboards(
     ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
 
     for game_format in _formats.RATED_POOLS:
-        results, ratings = generate_leaderboard(
-            games_by_format[game_format], model_registry, games_dir
-        )
+        results, ratings = generate_leaderboard(games_by_format[game_format], model_registry, games_dir)
         format_results[game_format] = results
         ratings_by_game.update(ratings)
 
     for game_format in _formats.EXHIBITION_POOLS:
-        format_results[game_format] = generate_exhibition_leaderboard(
-            games_by_format[game_format], model_registry
-        )
+        format_results[game_format] = generate_exhibition_leaderboard(games_by_format[game_format], model_registry)
 
-    rated_games = [
-        game
-        for game_format in _formats.RATED_POOLS
-        for game in games_by_format[game_format]
-    ]
+    rated_games = [game for game_format in _formats.RATED_POOLS for game in games_by_format[game_format]]
     combined_results, _ = generate_leaderboard(rated_games, model_registry, games_dir)
     format_results["combined"] = combined_results
 
@@ -413,9 +379,7 @@ def generate_leaderboard_file(
         games_index.append(game_entry)
 
     model_registry = _registry.load_model_registry(models_json)
-    inactive_statuses = _registry.load_inactive_statuses(
-        models_json.parent / "presets.json"
-    )
+    inactive_statuses = _registry.load_inactive_statuses(models_json.parent / "presets.json")
 
     def _mark_inactive(format_results: dict[str, Any]) -> None:
         if inactive_statuses is None:
@@ -431,9 +395,7 @@ def generate_leaderboard_file(
     def _build_output(
         season_games: list[dict[str, Any]],
     ) -> tuple[dict[str, Any], dict[str, Any]]:
-        format_results, ratings = generate_all_leaderboards(
-            season_games, model_registry, games_dir
-        )
+        format_results, ratings = generate_all_leaderboards(season_games, model_registry, games_dir)
         _mark_inactive(format_results)
         combined_pool = format_results["combined"]
         total_games = sum(
@@ -465,9 +427,7 @@ def generate_leaderboard_file(
 
     for season_num in available_seasons:
         season_games = games_by_season.get(season_num)
-        season_output, season_ratings = _build_output(
-            season_games if season_games is not None else []
-        )
+        season_output, season_ratings = _build_output(season_games if season_games is not None else [])
         season_output["availableSeasons"] = available_seasons
         season_path = public_data_dir / f"benchmark-results-season-{season_num}.json"
         _write_if_changed(season_path, json.dumps(season_output, indent=2) + "\n")
@@ -477,9 +437,7 @@ def generate_leaderboard_file(
     if len(rated_seasons) == 1 and rated_seasons[0] in games_by_season:
         output, ratings_by_game = _build_output(games_by_season[rated_seasons[0]])
     else:
-        output, ratings_by_game = _build_output(
-            [game for game in games_index if game["season"] >= 1]
-        )
+        output, ratings_by_game = _build_output([game for game in games_index if game["season"] >= 1])
     all_ratings.update(ratings_by_game)
     output["availableSeasons"] = available_seasons
     output_path = data_dir / "benchmark-results.json"

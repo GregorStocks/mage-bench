@@ -35,16 +35,13 @@ def _json_field_name(dataclass_field: dataclasses.Field[object]) -> str:
     json_key = dataclass_field.metadata.get(_JSON_KEY_METADATA)
     if json_key is None:
         return dataclass_field.name
-    assert isinstance(json_key, str), (
-        f"json_key metadata must be a string, got {json_key!r}"
-    )
+    assert isinstance(json_key, str), f"json_key metadata must be a string, got {json_key!r}"
     return json_key
 
 
 def _field_name_from_json(dataclass_cls: type[object]) -> dict[str, str]:
     return {
-        _json_field_name(dataclass_field): dataclass_field.name
-        for dataclass_field in _dataclass_fields(dataclass_cls)
+        _json_field_name(dataclass_field): dataclass_field.name for dataclass_field in _dataclass_fields(dataclass_cls)
     }
 
 
@@ -97,9 +94,7 @@ class _DecisionSupportRecord:
     def __post_init__(self) -> None:
         object.__setattr__(self, "_extras", MappingProxyType(dict(self._extras)))
         present_fields = self._present_fields or frozenset(
-            name
-            for name in self._KNOWN_FIELDS
-            if getattr(self, self._attr_name_for_known_field(name)) is not None
+            name for name in self._KNOWN_FIELDS if getattr(self, self._attr_name_for_known_field(name)) is not None
         )
         object.__setattr__(self, "_present_fields", frozenset(present_fields))
 
@@ -129,15 +124,11 @@ class _DecisionSupportRecord:
         return copy.deepcopy(self.to_mapping(), memo)
 
 
-def _extras_from_mapping(
-    obj: Mapping[str, object], known_fields: tuple[str, ...]
-) -> Mapping[str, object]:
+def _extras_from_mapping(obj: Mapping[str, object], known_fields: tuple[str, ...]) -> Mapping[str, object]:
     return {key: value for key, value in obj.items() if key not in known_fields}
 
 
-def _present_fields_from_mapping(
-    obj: Mapping[str, object], known_fields: tuple[str, ...]
-) -> frozenset[str]:
+def _present_fields_from_mapping(obj: Mapping[str, object], known_fields: tuple[str, ...]) -> frozenset[str]:
     return frozenset(key for key in known_fields if key in obj)
 
 
@@ -161,9 +152,7 @@ class Permanent:
     copy: bool | None = None
     # The JSON schema allows additional leaf fields; keep them here so loading
     # into dataclasses does not silently drop export data.
-    _extras: JsonObject = field(
-        default_factory=dict, repr=False, compare=False, kw_only=True
-    )
+    _extras: JsonObject = field(default_factory=dict, repr=False, compare=False, kw_only=True)
 
 
 @dataclass(frozen=True, slots=True)
@@ -172,9 +161,7 @@ class StackTarget:
 
     name: str | None = None
     id: str | None = None
-    _extras: JsonObject = field(
-        default_factory=dict, repr=False, compare=False, kw_only=True
-    )
+    _extras: JsonObject = field(default_factory=dict, repr=False, compare=False, kw_only=True)
 
 
 @dataclass(frozen=True, slots=True)
@@ -186,9 +173,7 @@ class StackItem:
     source_card: str | None = None
     ability_text: str | None = None
     targets: list[str | StackTarget] | None = None
-    _extras: JsonObject = field(
-        default_factory=dict, repr=False, compare=False, kw_only=True
-    )
+    _extras: JsonObject = field(default_factory=dict, repr=False, compare=False, kw_only=True)
 
 
 @dataclass(frozen=True, slots=True)
@@ -201,17 +186,11 @@ class CombatCreature:
     toughness: int | str | None = None
     power_toughness: str | None = None
     pt: str | None = None
-    _extras: JsonObject = field(
-        default_factory=dict, repr=False, compare=False, kw_only=True
-    )
+    _extras: JsonObject = field(default_factory=dict, repr=False, compare=False, kw_only=True)
 
 
 def _public_dataclass_fields(dataclass_cls: type[object]) -> set[str]:
-    return {
-        _json_field_name(member)
-        for member in _dataclass_fields(dataclass_cls)
-        if not member.name.startswith("_")
-    }
+    return {_json_field_name(member) for member in _dataclass_fields(dataclass_cls) if not member.name.startswith("_")}
 
 
 _PERMANENT_FIELDS = _public_dataclass_fields(Permanent)
@@ -279,11 +258,7 @@ class Choice(_DecisionSupportRecord):
     @classmethod
     def coerce_list(cls, raw: list[object]) -> "list[Choice]":
         """Convert a list of raw dicts/Choice instances to typed Choice list."""
-        return [
-            c if isinstance(c, Choice) else cls.from_mapping(c)
-            for c in raw
-            if isinstance(c, (dict, Choice))
-        ]
+        return [c if isinstance(c, Choice) else cls.from_mapping(c) for c in raw if isinstance(c, (dict, Choice))]
 
     def __deepcopy__(self, memo: dict[int, object]) -> "Choice":
         duplicate = Choice.from_mapping(self._deepcopy_mapping(memo))
@@ -304,9 +279,7 @@ class MultiAmountItem(_DecisionSupportRecord):
     @classmethod
     def from_mapping(cls, obj: Mapping[str, object]) -> "MultiAmountItem":
         return cls(
-            description=_load_required(
-                obj, "description", _require_str, "MultiAmountItem"
-            ),
+            description=_load_required(obj, "description", _require_str, "MultiAmountItem"),
             min=_load_optional(obj, "min", _require_int, "MultiAmountItem"),
             max=_load_optional(obj, "max", _require_int, "MultiAmountItem"),
             _extras=_extras_from_mapping(obj, cls._KNOWN_FIELDS),
@@ -348,28 +321,16 @@ class Player:
     type: str
     tool_calls_ok: int = field(metadata={_JSON_KEY_METADATA: "tool_calls_ok"})
     tool_calls_failed: int = field(metadata={_JSON_KEY_METADATA: "tool_calls_failed"})
-    thinking_time_secs: float = field(
-        metadata={_JSON_KEY_METADATA: "thinking_time_secs"}
-    )
+    thinking_time_secs: float = field(metadata={_JSON_KEY_METADATA: "thinking_time_secs"})
     model: str | None = None
-    deck_name: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "deck_name"}
-    )
-    deck_strategy: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "deck_strategy"}
-    )
+    deck_name: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "deck_name"})
+    deck_strategy: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "deck_strategy"})
     commander: str | None = None
-    reasoning_effort: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "reasoning_effort"}
-    )
-    total_cost_usd: float | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "total_cost_usd"}
-    )
+    reasoning_effort: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "reasoning_effort"})
+    total_cost_usd: float | None = field(default=None, metadata={_JSON_KEY_METADATA: "total_cost_usd"})
     placement: int | None = None
     tools: list[str] | None = None
-    timed_out: bool | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "timed_out"}
-    )
+    timed_out: bool | None = field(default=None, metadata={_JSON_KEY_METADATA: "timed_out"})
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -380,37 +341,23 @@ class PilotPlayer:
     model: str
     tool_calls_ok: int = field(metadata={_JSON_KEY_METADATA: "tool_calls_ok"})
     tool_calls_failed: int = field(metadata={_JSON_KEY_METADATA: "tool_calls_failed"})
-    thinking_time_secs: float = field(
-        metadata={_JSON_KEY_METADATA: "thinking_time_secs"}
-    )
+    thinking_time_secs: float = field(metadata={_JSON_KEY_METADATA: "thinking_time_secs"})
     type: Literal["pilot"] = "pilot"
-    deck_name: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "deck_name"}
-    )
-    deck_strategy: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "deck_strategy"}
-    )
+    deck_name: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "deck_name"})
+    deck_strategy: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "deck_strategy"})
     commander: str | None = None
-    reasoning_effort: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "reasoning_effort"}
-    )
-    total_cost_usd: float | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "total_cost_usd"}
-    )
+    reasoning_effort: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "reasoning_effort"})
+    total_cost_usd: float | None = field(default=None, metadata={_JSON_KEY_METADATA: "total_cost_usd"})
     placement: int | None = None
     tools: list[str] | None = None
-    timed_out: bool | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "timed_out"}
-    )
+    timed_out: bool | None = field(default=None, metadata={_JSON_KEY_METADATA: "timed_out"})
 
 
 def is_pilot_player(player: Player) -> TypeGuard[PilotPlayer]:
     """Narrow a Player to PilotPlayer.  Crashes if type is pilot but model is missing."""
     if player.type != "pilot":
         return False
-    assert isinstance(player.model, str) and player.model, (
-        f"pilot player missing model: {player!r}"
-    )
+    assert isinstance(player.model, str) and player.model, f"pilot player missing model: {player!r}"
     return True
 
 
@@ -479,18 +426,10 @@ class Action:
 
 @dataclass(kw_only=True)
 class LlmUsage:
-    prompt_tokens: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "prompt_tokens"}
-    )
-    completion_tokens: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "completion_tokens"}
-    )
-    cached_tokens: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "cached_tokens"}
-    )
-    reasoning_tokens: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "reasoning_tokens"}
-    )
+    prompt_tokens: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "prompt_tokens"})
+    completion_tokens: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "completion_tokens"})
+    cached_tokens: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "cached_tokens"})
+    reasoning_tokens: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "reasoning_tokens"})
 
 
 @dataclass(kw_only=True)
@@ -499,18 +438,14 @@ class _LlmEventBase:
     player: str
     ts: str | None = None
     seq: int | None = None
-    game_seq: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "game_seq"}
-    )
+    game_seq: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "game_seq"})
 
 
 @dataclass(kw_only=True)
 class GameStartEvent(_LlmEventBase):
     type: Literal["game_start"]
     model: str | None = None
-    available_tools: list[str] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "available_tools"}
-    )
+    available_tools: list[str] | None = field(default=None, metadata={_JSON_KEY_METADATA: "available_tools"})
 
 
 @dataclass(kw_only=True)
@@ -518,13 +453,9 @@ class LlmResponseEvent(_LlmEventBase):
     type: Literal["llm_response"]
     reasoning: str | None = None
     thinking: str | None = None
-    tool_calls: object | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "tool_calls"}
-    )
+    tool_calls: object | None = field(default=None, metadata={_JSON_KEY_METADATA: "tool_calls"})
     usage: LlmUsage | None = None
-    cost_usd: float | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "cost_usd"}
-    )
+    cost_usd: float | None = field(default=None, metadata={_JSON_KEY_METADATA: "cost_usd"})
 
 
 @dataclass(kw_only=True)
@@ -533,20 +464,14 @@ class ToolCallEvent(_LlmEventBase):
     tool: str
     args: JsonObject
     result: str
-    latency_ms: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "latency_ms"}
-    )
+    latency_ms: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "latency_ms"})
 
 
 @dataclass(kw_only=True)
 class StallEvent(_LlmEventBase):
     type: Literal["stall"]
-    turns_without_progress: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "turns_without_progress"}
-    )
-    last_tools: list[str] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "last_tools"}
-    )
+    turns_without_progress: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "turns_without_progress"})
+    last_tools: list[str] | None = field(default=None, metadata={_JSON_KEY_METADATA: "last_tools"})
 
 
 @dataclass(kw_only=True)
@@ -558,23 +483,15 @@ class ContextResetEvent(_LlmEventBase):
 @dataclass(kw_only=True)
 class ContextTrimEvent(_LlmEventBase):
     type: Literal["context_trim"]
-    messages_before: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "messages_before"}
-    )
-    messages_after: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "messages_after"}
-    )
+    messages_before: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "messages_before"})
+    messages_after: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "messages_after"})
 
 
 @dataclass(kw_only=True)
 class LlmErrorEvent(_LlmEventBase):
     type: Literal["llm_error"]
-    error_type: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "error_type"}
-    )
-    error_message: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "error_message"}
-    )
+    error_type: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "error_type"})
+    error_message: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "error_message"})
 
 
 @dataclass(kw_only=True)
@@ -610,9 +527,7 @@ _LLM_EVENT_CLASSES: dict[str, type[LlmEvent]] = {
 def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
     """Convert a validated raw dict into the appropriate LlmEvent dataclass."""
     event_type = d["type"]
-    assert isinstance(event_type, str) and event_type in _LLM_EVENT_CLASSES, (
-        f"unknown llm event type: {event_type!r}"
-    )
+    assert isinstance(event_type, str) and event_type in _LLM_EVENT_CLASSES, f"unknown llm event type: {event_type!r}"
     cls = _LLM_EVENT_CLASSES[event_type]
     field_names = _field_name_from_json(cls)
     kwargs: dict[str, object] = {}
@@ -635,18 +550,10 @@ def _llm_event_from_dict(d: JsonObject) -> LlmEvent:
                 }
             }
             usage_instance = LlmUsage(
-                prompt_tokens=_load_optional(
-                    v, "prompt_tokens", _require_non_negative_int, "LlmUsage"
-                ),
-                completion_tokens=_load_optional(
-                    v, "completion_tokens", _require_non_negative_int, "LlmUsage"
-                ),
-                cached_tokens=_load_optional(
-                    v, "cached_tokens", _require_non_negative_int, "LlmUsage"
-                ),
-                reasoning_tokens=_load_optional(
-                    v, "reasoning_tokens", _require_non_negative_int, "LlmUsage"
-                ),
+                prompt_tokens=_load_optional(v, "prompt_tokens", _require_non_negative_int, "LlmUsage"),
+                completion_tokens=_load_optional(v, "completion_tokens", _require_non_negative_int, "LlmUsage"),
+                cached_tokens=_load_optional(v, "cached_tokens", _require_non_negative_int, "LlmUsage"),
+                reasoning_tokens=_load_optional(v, "reasoning_tokens", _require_non_negative_int, "LlmUsage"),
             )
             object.__setattr__(usage_instance, "_source_keys", frozenset(v.keys()))
             object.__setattr__(usage_instance, "_extra", usage_extra)
@@ -677,28 +584,16 @@ class Annotation:
     description: str
     action_taken: str = field(metadata={_JSON_KEY_METADATA: "action_taken"})
     better_line: str = field(metadata={_JSON_KEY_METADATA: "better_line"})
-    snapshot_index: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "snapshot_index"}
-    )
-    llm_reasoning: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "llm_reasoning"}
-    )
+    snapshot_index: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "snapshot_index"})
+    llm_reasoning: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "llm_reasoning"})
 
 
 @dataclass(frozen=True, slots=True)
 class PilotContext(_DecisionSupportRecord):
-    untapped_lands: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "untapped_lands"}
-    )
-    land_drops_used: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "land_drops_used"}
-    )
-    playable_cards: list[str] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "playable_cards"}
-    )
-    combat_phase: str | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "combat_phase"}
-    )
+    untapped_lands: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "untapped_lands"})
+    land_drops_used: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "land_drops_used"})
+    playable_cards: list[str] | None = field(default=None, metadata={_JSON_KEY_METADATA: "playable_cards"})
+    combat_phase: str | None = field(default=None, metadata={_JSON_KEY_METADATA: "combat_phase"})
     already_attacking: list[str | CombatCreature] | None = field(
         default=None, metadata={_JSON_KEY_METADATA: "already_attacking"}
     )
@@ -718,18 +613,10 @@ class PilotContext(_DecisionSupportRecord):
     @classmethod
     def from_mapping(cls, obj: Mapping[str, object]) -> "PilotContext":
         return cls(
-            untapped_lands=_load_optional(
-                obj, "untapped_lands", _require_int, "PilotContext"
-            ),
-            land_drops_used=_load_optional(
-                obj, "land_drops_used", _require_int, "PilotContext"
-            ),
-            playable_cards=_load_optional(
-                obj, "playable_cards", _require_str_list, "PilotContext"
-            ),
-            combat_phase=_load_optional(
-                obj, "combat_phase", _require_optional_str, "PilotContext"
-            ),
+            untapped_lands=_load_optional(obj, "untapped_lands", _require_int, "PilotContext"),
+            land_drops_used=_load_optional(obj, "land_drops_used", _require_int, "PilotContext"),
+            playable_cards=_load_optional(obj, "playable_cards", _require_str_list, "PilotContext"),
+            combat_phase=_load_optional(obj, "combat_phase", _require_optional_str, "PilotContext"),
             already_attacking=(
                 _coerce_str_or_typed_list(
                     obj["already_attacking"],
@@ -795,51 +682,27 @@ class Decision:
     choices: list[Choice]
     choice_count: int = field(metadata={_JSON_KEY_METADATA: "choice_count"})
     is_forced: bool = field(metadata={_JSON_KEY_METADATA: "is_forced"})
-    llm_event_indices: list[int] = field(
-        metadata={_JSON_KEY_METADATA: "llm_event_indices"}
-    )
-    subsequent_actions: list[str] = field(
-        metadata={_JSON_KEY_METADATA: "subsequent_actions"}
-    )
+    llm_event_indices: list[int] = field(metadata={_JSON_KEY_METADATA: "llm_event_indices"})
+    subsequent_actions: list[str] = field(metadata={_JSON_KEY_METADATA: "subsequent_actions"})
     step: str | None = None
-    pilot_context: PilotContext | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "pilot_context"}
-    )
+    pilot_context: PilotContext | None = field(default=None, metadata={_JSON_KEY_METADATA: "pilot_context"})
     chosen: object = None
-    chosen_args: JsonObject | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "chosen_args"}
-    )
-    action_result: JsonObject | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "action_result"}
-    )
-    cast_rolled_back: bool = field(
-        default=False, metadata={_JSON_KEY_METADATA: "cast_rolled_back"}
-    )
+    chosen_args: JsonObject | None = field(default=None, metadata={_JSON_KEY_METADATA: "chosen_args"})
+    action_result: JsonObject | None = field(default=None, metadata={_JSON_KEY_METADATA: "action_result"})
+    cast_rolled_back: bool = field(default=False, metadata={_JSON_KEY_METADATA: "cast_rolled_back"})
     items: list[MultiAmountItem] | None = None
-    total_min: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "total_min"}
-    )
-    total_max: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "total_max"}
-    )
-    action_seq: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "action_seq"}
-    )
+    total_min: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "total_min"})
+    total_max: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "total_max"})
+    action_seq: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "action_seq"})
 
     @classmethod
     def from_dict(cls, value: JsonObject) -> "Decision":
         raw_choices = value["choices"]
-        assert isinstance(raw_choices, list), (
-            f"Decision.choices must be a list, got {raw_choices!r}"
-        )
+        assert isinstance(raw_choices, list), f"Decision.choices must be a list, got {raw_choices!r}"
         choices: list[Choice] = []
         for index, choice in enumerate(raw_choices):
-            assert isinstance(choice, (dict, Choice)), (
-                f"Decision.choices[{index}] must be an object, got {choice!r}"
-            )
-            choices.append(
-                choice if isinstance(choice, Choice) else Choice.from_mapping(choice)
-            )
+            assert isinstance(choice, (dict, Choice)), f"Decision.choices[{index}] must be an object, got {choice!r}"
+            choices.append(choice if isinstance(choice, Choice) else Choice.from_mapping(choice))
         chosen_args = value.get("chosen_args")
         assert chosen_args is None or isinstance(chosen_args, dict), (
             f"Decision.chosen_args must be an object when present, got {chosen_args!r}"
@@ -849,9 +712,7 @@ class Decision:
             f"Decision.action_result must be an object when present, got {action_result!r}"
         )
         raw_pilot_context = value.get("pilot_context")
-        assert raw_pilot_context is None or isinstance(
-            raw_pilot_context, (dict, PilotContext)
-        ), (
+        assert raw_pilot_context is None or isinstance(raw_pilot_context, (dict, PilotContext)), (
             f"Decision.pilot_context must be an object when present, got {raw_pilot_context!r}"
         )
         pilot_context = (
@@ -870,11 +731,7 @@ class Decision:
                 assert isinstance(item, (dict, MultiAmountItem)), (
                     f"Decision.items[{index}] must be an object, got {item!r}"
                 )
-                items.append(
-                    item
-                    if isinstance(item, MultiAmountItem)
-                    else MultiAmountItem.from_mapping(item)
-                )
+                items.append(item if isinstance(item, MultiAmountItem) else MultiAmountItem.from_mapping(item))
         total_min = value.get("total_min")
         assert total_min is None or _is_int(total_min), (
             f"Decision.total_min must be an int when present, got {total_min!r}"
@@ -893,28 +750,18 @@ class Decision:
         )
         return cls(
             index=_load_required(value, "index", _require_int, "Decision"),
-            snapshot_index=_load_required(
-                value, "snapshot_index", _require_int, "Decision"
-            ),
+            snapshot_index=_load_required(value, "snapshot_index", _require_int, "Decision"),
             player=_load_required(value, "player", _require_str, "Decision"),
             turn=_load_required(value, "turn", _require_int, "Decision"),
             phase=_load_required(value, "phase", _require_optional_str, "Decision"),
             action_type=_load_required(value, "action_type", _require_str, "Decision"),
-            response_type=_load_required(
-                value, "response_type", _require_str, "Decision"
-            ),
+            response_type=_load_required(value, "response_type", _require_str, "Decision"),
             message=_load_required(value, "message", _require_str, "Decision"),
             choices=choices,
-            choice_count=_load_required(
-                value, "choice_count", _require_int, "Decision"
-            ),
+            choice_count=_load_required(value, "choice_count", _require_int, "Decision"),
             is_forced=_load_required(value, "is_forced", _require_bool, "Decision"),
-            llm_event_indices=_load_required(
-                value, "llm_event_indices", _require_int_list, "Decision"
-            ),
-            subsequent_actions=_load_required(
-                value, "subsequent_actions", _require_str_list, "Decision"
-            ),
+            llm_event_indices=_load_required(value, "llm_event_indices", _require_int_list, "Decision"),
+            subsequent_actions=_load_required(value, "subsequent_actions", _require_str_list, "Decision"),
             step=_load_optional(value, "step", _require_optional_str, "Decision"),
             pilot_context=pilot_context,
             chosen=value.get("chosen"),
@@ -982,9 +829,7 @@ class GameError:
     player: str
     source: str
     message: str
-    decision_index: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "decision_index"}
-    )
+    decision_index: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "decision_index"})
 
 
 @dataclass
@@ -1018,10 +863,7 @@ def _game_export_from_dict(cls: type[GameExportT], obj: JsonObject) -> GameExpor
     kwargs: dict[str, object] = {}
     for f in _dataclass_fields(cls):
         json_key = _json_field_name(f)
-        if (
-            f.default is not dataclasses.MISSING
-            or f.default_factory is not dataclasses.MISSING
-        ):
+        if f.default is not dataclasses.MISSING or f.default_factory is not dataclasses.MISSING:
             if json_key in obj:
                 kwargs[f.name] = obj[json_key]
         else:
@@ -1050,15 +892,11 @@ class BuiltGameExport:
     game_over: GameOver | None = field(metadata={_JSON_KEY_METADATA: "game_over"})
     season: int
     tournament: str | None
-    card_data: dict[str, CardMetadata] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "card_data"}
-    )
+    card_data: dict[str, CardMetadata] | None = field(default=None, metadata={_JSON_KEY_METADATA: "card_data"})
     decisions: list[Decision] | None = None
     errors: list[GameError] | None = None
     annotations: list[Annotation] | None = None
-    blunder_script_version: int | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "blunder_script_version"}
-    )
+    blunder_script_version: int | None = field(default=None, metadata={_JSON_KEY_METADATA: "blunder_script_version"})
 
     def to_dict(self) -> JsonObject:
         return _game_export_to_dict(self)
@@ -1090,12 +928,8 @@ class GameExport:
     season: int
     tournament: str | None
     annotations: list[Annotation]
-    blunder_script_version: int = field(
-        metadata={_JSON_KEY_METADATA: "blunder_script_version"}
-    )
-    card_data: dict[str, CardMetadata] | None = field(
-        default=None, metadata={_JSON_KEY_METADATA: "card_data"}
-    )
+    blunder_script_version: int = field(metadata={_JSON_KEY_METADATA: "blunder_script_version"})
+    card_data: dict[str, CardMetadata] | None = field(default=None, metadata={_JSON_KEY_METADATA: "card_data"})
     decisions: list[Decision] | None = None
     errors: list[GameError] | None = None
 
@@ -1120,9 +954,7 @@ def _is_number(value: object) -> bool:
 
 
 def _require_object(value: object, source: str) -> JsonObject:
-    assert isinstance(value, dict), (
-        f"{source}: expected object, got {_type_name(value)}"
-    )
+    assert isinstance(value, dict), f"{source}: expected object, got {_type_name(value)}"
     return value
 
 
@@ -1143,31 +975,23 @@ def _require_non_empty_str(value: object, source: str) -> str:
 
 
 def _require_optional_str(value: object, source: str) -> str | None:
-    assert value is None or isinstance(value, str), (
-        f"{source}: expected string or null, got {_type_name(value)}"
-    )
+    assert value is None or isinstance(value, str), f"{source}: expected string or null, got {_type_name(value)}"
     return value
 
 
 def _require_int(value: object, source: str) -> int:
-    assert isinstance(value, int) and not isinstance(value, bool), (
-        f"{source}: expected int, got {_type_name(value)}"
-    )
+    assert isinstance(value, int) and not isinstance(value, bool), f"{source}: expected int, got {_type_name(value)}"
     return value
 
 
 def _require_non_negative_int(value: object, source: str) -> int:
-    assert isinstance(value, int) and not isinstance(value, bool), (
-        f"{source}: expected int, got {_type_name(value)}"
-    )
+    assert isinstance(value, int) and not isinstance(value, bool), f"{source}: expected int, got {_type_name(value)}"
     assert value >= 0, f"{source}: expected non-negative int, got {value!r}"
     return value
 
 
 def _require_positive_int(value: object, source: str) -> int:
-    assert isinstance(value, int) and not isinstance(value, bool), (
-        f"{source}: expected int, got {_type_name(value)}"
-    )
+    assert isinstance(value, int) and not isinstance(value, bool), f"{source}: expected int, got {_type_name(value)}"
     assert value >= 1, f"{source}: expected positive int, got {value!r}"
     return value
 
@@ -1190,36 +1014,25 @@ def _require_list(value: object, source: str) -> list[object]:
 
 
 def _require_str_list(value: object, source: str) -> list[str]:
-    return [
-        _require_str(item, f"{source}[{index}]")
-        for index, item in enumerate(_require_list(value, source))
-    ]
+    return [_require_str(item, f"{source}[{index}]") for index, item in enumerate(_require_list(value, source))]
 
 
 def _require_int_list(value: object, source: str) -> list[int]:
     return [
-        _require_non_negative_int(item, f"{source}[{index}]")
-        for index, item in enumerate(_require_list(value, source))
+        _require_non_negative_int(item, f"{source}[{index}]") for index, item in enumerate(_require_list(value, source))
     ]
 
 
 def _require_object_list(value: object, source: str) -> list[JsonObject]:
-    return [
-        _require_object(item, f"{source}[{index}]")
-        for index, item in enumerate(_require_list(value, source))
-    ]
+    return [_require_object(item, f"{source}[{index}]") for index, item in enumerate(_require_list(value, source))]
 
 
 def _require_int_or_str(value: object, source: str) -> int | str:
     if isinstance(value, bool):
-        raise AssertionError(
-            f"{source}: expected int or string, got {_type_name(value)}"
-        )
+        raise AssertionError(f"{source}: expected int or string, got {_type_name(value)}")
     if isinstance(value, int):
         return value
-    assert isinstance(value, str), (
-        f"{source}: expected int or string, got {_type_name(value)}"
-    )
+    assert isinstance(value, str), f"{source}: expected int or string, got {_type_name(value)}"
     return value
 
 
@@ -1320,9 +1133,7 @@ def _is_stack_item(value: object, source: str) -> bool:
     if "ability_text" in obj:
         _require_str(obj["ability_text"], f"{source}.ability_text")
     if "targets" in obj:
-        _validate_str_or_typed_list(
-            obj["targets"], f"{source}.targets", _is_stack_target
-        )
+        _validate_str_or_typed_list(obj["targets"], f"{source}.targets", _is_stack_target)
     return True
 
 
@@ -1356,11 +1167,7 @@ def _is_combat_creature(value: object, source: str) -> bool:
 
 
 def _coerce_choice(value: object, source: str) -> Choice:
-    obj = (
-        value.to_mapping()
-        if isinstance(value, Choice)
-        else _require_object(value, source)
-    )
+    obj = value.to_mapping() if isinstance(value, Choice) else _require_object(value, source)
     if "index" in obj:
         _require_int(obj["index"], f"{source}.index")
     if "name" in obj:
@@ -1381,11 +1188,7 @@ def _coerce_choice(value: object, source: str) -> Choice:
 
 
 def _coerce_multi_amount_item(value: object, source: str) -> MultiAmountItem:
-    obj = (
-        value.to_mapping()
-        if isinstance(value, MultiAmountItem)
-        else _require_object(value, source)
-    )
+    obj = value.to_mapping() if isinstance(value, MultiAmountItem) else _require_object(value, source)
     _require_str(_require_key(obj, "description", source), f"{source}.description")
     if "min" in obj:
         _require_int(obj["min"], f"{source}.min")
@@ -1495,9 +1298,7 @@ def _coerce_stack_item(value: object, source: str) -> StackItem:
         source_card=_load_optional(obj, "source_card", _require_str, source),
         ability_text=_load_optional(obj, "ability_text", _require_str, source),
         targets=(
-            _coerce_str_or_typed_list(
-                targets, f"{source}.targets", _coerce_stack_target
-            )
+            _coerce_str_or_typed_list(targets, f"{source}.targets", _coerce_stack_target)
             if targets is not None
             else None
         ),
@@ -1531,15 +1332,9 @@ def _validate_player(value: object, source: str) -> Player:
     obj = _require_object(value, source)
     name = _load_required(obj, "name", _require_str, source)
     player_type = _load_required(obj, "type", _require_str, source)
-    tool_calls_ok = _load_required(
-        obj, "tool_calls_ok", _require_non_negative_int, source
-    )
-    tool_calls_failed = _load_required(
-        obj, "tool_calls_failed", _require_non_negative_int, source
-    )
-    thinking_time_secs = float(
-        _load_required(obj, "thinking_time_secs", _require_number, source)
-    )
+    tool_calls_ok = _load_required(obj, "tool_calls_ok", _require_non_negative_int, source)
+    tool_calls_failed = _load_required(obj, "tool_calls_failed", _require_non_negative_int, source)
+    thinking_time_secs = float(_load_required(obj, "thinking_time_secs", _require_number, source))
     model = _load_optional(obj, "model", _require_str, source)
     deck_name = _load_optional(obj, "deck_name", _require_str, source)
     deck_strategy = _load_optional(obj, "deck_strategy", _require_str, source)
@@ -1595,12 +1390,8 @@ def _is_snapshot_player(value: object, source: str) -> bool:
     obj = _require_object(value, source)
     _require_non_empty_str(_require_key(obj, "name", source), f"{source}.name")
     _require_int(_require_key(obj, "life", source), f"{source}.life")
-    _require_non_negative_int(
-        _require_key(obj, "library_size", source), f"{source}.library_size"
-    )
-    _validate_card_list(
-        _require_key(obj, "battlefield", source), f"{source}.battlefield"
-    )
+    _require_non_negative_int(_require_key(obj, "library_size", source), f"{source}.library_size")
+    _validate_card_list(_require_key(obj, "battlefield", source), f"{source}.battlefield")
     _validate_card_list(_require_key(obj, "graveyard", source), f"{source}.graveyard")
     _validate_card_list(_require_key(obj, "hand", source), f"{source}.hand")
     if "hand_count" in obj:
@@ -1635,14 +1426,10 @@ def _is_combat_group(value: object, source: str) -> bool:
         return True
     obj = _require_object(value, source)
     if "attackers" in obj:
-        for idx, item in enumerate(
-            _require_list(obj["attackers"], f"{source}.attackers")
-        ):
+        for idx, item in enumerate(_require_list(obj["attackers"], f"{source}.attackers")):
             assert _is_combat_creature(item, f"{source}.attackers[{idx}]")
     if "blockers" in obj:
-        for idx, item in enumerate(
-            _require_list(obj["blockers"], f"{source}.blockers")
-        ):
+        for idx, item in enumerate(_require_list(obj["blockers"], f"{source}.blockers")):
             assert _is_combat_creature(item, f"{source}.blockers[{idx}]")
     if "blocked" in obj:
         _require_bool(obj["blocked"], f"{source}.blocked")
@@ -1673,19 +1460,11 @@ def _is_snapshot(value: object, source: str) -> bool:
     _require_int(_require_key(obj, "turn", source), f"{source}.turn")
     _require_optional_str(_require_key(obj, "phase", source), f"{source}.phase")
     _require_optional_str(_require_key(obj, "step", source), f"{source}.step")
-    _require_optional_str(
-        _require_key(obj, "active_player", source), f"{source}.active_player"
-    )
-    _require_optional_str(
-        _require_key(obj, "priority_player", source), f"{source}.priority_player"
-    )
-    for index, player in enumerate(
-        _require_list(_require_key(obj, "players", source), f"{source}.players")
-    ):
+    _require_optional_str(_require_key(obj, "active_player", source), f"{source}.active_player")
+    _require_optional_str(_require_key(obj, "priority_player", source), f"{source}.priority_player")
+    for index, player in enumerate(_require_list(_require_key(obj, "players", source), f"{source}.players")):
         assert _is_snapshot_player(player, f"{source}.players[{index}]")
-    _validate_str_or_typed_list(
-        _require_key(obj, "stack", source), f"{source}.stack", _is_stack_item
-    )
+    _validate_str_or_typed_list(_require_key(obj, "stack", source), f"{source}.stack", _is_stack_item)
     if "ts" in obj:
         _require_str(obj["ts"], f"{source}.ts")
     if "combat" in obj:
@@ -1705,9 +1484,7 @@ def _parse_action(value: object, source: str) -> Action:
     type_: str | None = None
     if "type" in obj:
         type_ = _require_str(obj["type"], f"{source}.type")
-        assert type_ in _ACTION_TYPES, (
-            f"{source}.type: unexpected action type {type_!r}"
-        )
+        assert type_ in _ACTION_TYPES, f"{source}.type: unexpected action type {type_!r}"
     turn: int | None = None
     if "turn" in obj:
         turn = _require_int(obj["turn"], f"{source}.turn")
@@ -1719,9 +1496,7 @@ def _parse_action(value: object, source: str) -> Action:
         step = _require_optional_str(obj["step"], f"{source}.step")
     active_player: str | None = None
     if "active_player" in obj:
-        active_player = _require_optional_str(
-            obj["active_player"], f"{source}.active_player"
-        )
+        active_player = _require_optional_str(obj["active_player"], f"{source}.active_player")
     ts: str | None = None
     if "ts" in obj:
         ts = _require_str(obj["ts"], f"{source}.ts")
@@ -1757,9 +1532,7 @@ def _is_llm_usage(value: object, source: str) -> bool:
 def _is_llm_event(value: object, source: str) -> bool:
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "type", source), f"{source}.type")
-    assert obj["type"] in _LLM_EVENT_TYPES, (
-        f"{source}.type: unexpected llm event type {obj['type']!r}"
-    )
+    assert obj["type"] in _LLM_EVENT_TYPES, f"{source}.type: unexpected llm event type {obj['type']!r}"
     _require_str(_require_key(obj, "player", source), f"{source}.player")
 
     # Base fields (shared by all variants)
@@ -1829,30 +1602,18 @@ def _parse_annotation(value: object, source: str) -> Annotation:
     if isinstance(value, Annotation):
         return value
     obj = _require_object(value, source)
-    decision_index = _require_non_negative_int(
-        _require_key(obj, "decision_index", source), f"{source}.decision_index"
-    )
+    decision_index = _require_non_negative_int(_require_key(obj, "decision_index", source), f"{source}.decision_index")
     snapshot_index: int | None = None
     if "snapshot_index" in obj:
-        snapshot_index = _require_non_negative_int(
-            obj["snapshot_index"], f"{source}.snapshot_index"
-        )
+        snapshot_index = _require_non_negative_int(obj["snapshot_index"], f"{source}.snapshot_index")
     player = _require_str(_require_key(obj, "player", source), f"{source}.player")
     type_ = _require_str(_require_key(obj, "type", source), f"{source}.type")
     assert type_ == "blunder", f"{source}.type: expected 'blunder', got {type_!r}"
     severity = _require_str(_require_key(obj, "severity", source), f"{source}.severity")
-    assert severity in _ANNOTATION_SEVERITIES, (
-        f"{source}.severity: unexpected annotation severity {severity!r}"
-    )
-    description = _require_str(
-        _require_key(obj, "description", source), f"{source}.description"
-    )
-    action_taken = _require_str(
-        _require_key(obj, "action_taken", source), f"{source}.action_taken"
-    )
-    better_line = _require_str(
-        _require_key(obj, "better_line", source), f"{source}.better_line"
-    )
+    assert severity in _ANNOTATION_SEVERITIES, f"{source}.severity: unexpected annotation severity {severity!r}"
+    description = _require_str(_require_key(obj, "description", source), f"{source}.description")
+    action_taken = _require_str(_require_key(obj, "action_taken", source), f"{source}.action_taken")
+    better_line = _require_str(_require_key(obj, "better_line", source), f"{source}.better_line")
     llm_reasoning: str | None = None
     if "llm_reasoning" in obj:
         llm_reasoning = _require_str(obj["llm_reasoning"], f"{source}.llm_reasoning")
@@ -1870,11 +1631,7 @@ def _parse_annotation(value: object, source: str) -> Annotation:
 
 
 def _coerce_pilot_context(value: object, source: str) -> PilotContext:
-    obj = (
-        dict(value.to_mapping())
-        if isinstance(value, PilotContext)
-        else _require_object(value, source)
-    )
+    obj = dict(value.to_mapping()) if isinstance(value, PilotContext) else _require_object(value, source)
     if "untapped_lands" in obj:
         _require_non_negative_int(obj["untapped_lands"], f"{source}.untapped_lands")
     if "land_drops_used" in obj:
@@ -1899,15 +1656,9 @@ def _coerce_pilot_context(value: object, source: str) -> PilotContext:
 
 
 def _is_decision(value: object, source: str) -> TypeIs[Decision]:
-    obj = (
-        value.to_dict()
-        if isinstance(value, Decision)
-        else _require_object(value, source)
-    )
+    obj = value.to_dict() if isinstance(value, Decision) else _require_object(value, source)
     _require_non_negative_int(_require_key(obj, "index", source), f"{source}.index")
-    _require_non_negative_int(
-        _require_key(obj, "snapshot_index", source), f"{source}.snapshot_index"
-    )
+    _require_non_negative_int(_require_key(obj, "snapshot_index", source), f"{source}.snapshot_index")
     _require_str(_require_key(obj, "player", source), f"{source}.player")
     _require_non_negative_int(_require_key(obj, "turn", source), f"{source}.turn")
     _require_optional_str(_require_key(obj, "phase", source), f"{source}.phase")
@@ -1917,22 +1668,14 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     choices = _require_list(_require_key(obj, "choices", source), f"{source}.choices")
     for index, choice in enumerate(choices):
         choices[index] = _coerce_choice(choice, f"{source}.choices[{index}]")
-    _require_non_negative_int(
-        _require_key(obj, "choice_count", source), f"{source}.choice_count"
-    )
+    _require_non_negative_int(_require_key(obj, "choice_count", source), f"{source}.choice_count")
     _require_bool(_require_key(obj, "is_forced", source), f"{source}.is_forced")
-    _require_int_list(
-        _require_key(obj, "llm_event_indices", source), f"{source}.llm_event_indices"
-    )
-    _require_str_list(
-        _require_key(obj, "subsequent_actions", source), f"{source}.subsequent_actions"
-    )
+    _require_int_list(_require_key(obj, "llm_event_indices", source), f"{source}.llm_event_indices")
+    _require_str_list(_require_key(obj, "subsequent_actions", source), f"{source}.subsequent_actions")
     if "step" in obj:
         _require_optional_str(obj["step"], f"{source}.step")
     if "pilot_context" in obj:
-        obj["pilot_context"] = _coerce_pilot_context(
-            obj["pilot_context"], f"{source}.pilot_context"
-        )
+        obj["pilot_context"] = _coerce_pilot_context(obj["pilot_context"], f"{source}.pilot_context")
     if "chosen_args" in obj:
         _require_object(obj["chosen_args"], f"{source}.chosen_args")
     if "action_result" in obj:
@@ -1962,9 +1705,7 @@ def _parse_game_error(value: object, source: str) -> GameError:
     message = _require_str(_require_key(obj, "message", source), f"{source}.message")
     decision_index: int | None = None
     if "decision_index" in obj:
-        decision_index = _require_non_negative_int(
-            obj["decision_index"], f"{source}.decision_index"
-        )
+        decision_index = _require_non_negative_int(obj["decision_index"], f"{source}.decision_index")
     return GameError(
         ts=ts,
         player=player,
@@ -2006,13 +1747,9 @@ def _coerce_snapshot_player(value: object, source: str) -> SnapshotPlayer:
         graveyard=_coerce_card_list(obj["graveyard"], f"{source}.graveyard"),
         hand=_coerce_card_list(obj["hand"], f"{source}.hand"),
         hand_count=_load_optional(obj, "hand_count", _require_int, source),
-        exile=_coerce_card_list(obj["exile"], f"{source}.exile")
-        if "exile" in obj
-        else None,
+        exile=_coerce_card_list(obj["exile"], f"{source}.exile") if "exile" in obj else None,
         counters=obj.get("counters"),
-        commanders=_coerce_card_list(obj["commanders"], f"{source}.commanders")
-        if "commanders" in obj
-        else None,
+        commanders=_coerce_card_list(obj["commanders"], f"{source}.commanders") if "commanders" in obj else None,
         command_zone=_coerce_card_list(obj["command_zone"], f"{source}.command_zone")
         if "command_zone" in obj
         else None,
@@ -2030,17 +1767,13 @@ def _coerce_combat_group(value: object, source: str) -> CombatGroup:
     return CombatGroup(
         attackers=[
             _coerce_combat_creature(item, f"{source}.attackers[{index}]")
-            for index, item in enumerate(
-                _require_list(obj["attackers"], f"{source}.attackers")
-            )
+            for index, item in enumerate(_require_list(obj["attackers"], f"{source}.attackers"))
         ]
         if "attackers" in obj
         else None,
         blockers=[
             _coerce_combat_creature(item, f"{source}.blockers[{index}]")
-            for index, item in enumerate(
-                _require_list(obj["blockers"], f"{source}.blockers")
-            )
+            for index, item in enumerate(_require_list(obj["blockers"], f"{source}.blockers"))
         ]
         if "blockers" in obj
         else None,
@@ -2060,27 +1793,17 @@ def _coerce_snapshot(value: object, source: str) -> Snapshot:
         turn=_load_required(obj, "turn", _require_int, source),
         phase=_load_required(obj, "phase", _require_optional_str, source),
         step=_load_required(obj, "step", _require_optional_str, source),
-        active_player=_load_required(
-            obj, "active_player", _require_optional_str, source
-        ),
-        priority_player=_load_required(
-            obj, "priority_player", _require_optional_str, source
-        ),
+        active_player=_load_required(obj, "active_player", _require_optional_str, source),
+        priority_player=_load_required(obj, "priority_player", _require_optional_str, source),
         players=[
             _coerce_snapshot_player(player, f"{source}.players[{index}]")
-            for index, player in enumerate(
-                _require_list(obj["players"], f"{source}.players")
-            )
+            for index, player in enumerate(_require_list(obj["players"], f"{source}.players"))
         ],
-        stack=_coerce_str_or_typed_list(
-            obj["stack"], f"{source}.stack", _coerce_stack_item
-        ),
+        stack=_coerce_str_or_typed_list(obj["stack"], f"{source}.stack", _coerce_stack_item),
         ts=_load_optional(obj, "ts", _require_str, source),
         combat=[
             _coerce_combat_group(group, f"{source}.combat[{index}]")
-            for index, group in enumerate(
-                _require_list(obj["combat"], f"{source}.combat")
-            )
+            for index, group in enumerate(_require_list(obj["combat"], f"{source}.combat"))
         ]
         if "combat" in obj
         else None,
@@ -2094,16 +1817,12 @@ def _coerce_decision(value: object, source: str) -> Decision:
             return value
         return dataclasses.replace(
             value,
-            pilot_context=_coerce_pilot_context(
-                value.pilot_context, f"{source}.pilot_context"
-            ),
+            pilot_context=_coerce_pilot_context(value.pilot_context, f"{source}.pilot_context"),
         )
     obj = _require_object(value, source)
     decision = dict(obj)
     if "pilot_context" in obj:
-        decision["pilot_context"] = _coerce_pilot_context(
-            obj["pilot_context"], f"{source}.pilot_context"
-        )
+        decision["pilot_context"] = _coerce_pilot_context(obj["pilot_context"], f"{source}.pilot_context")
     return Decision.from_dict(decision)
 
 
@@ -2111,16 +1830,12 @@ def _coerce_common_game_export(obj: JsonObject, source: str) -> JsonObject:
     coerced = dict(obj)
     coerced["snapshots"] = [
         _coerce_snapshot(snapshot, f"{source}.snapshots[{index}]")
-        for index, snapshot in enumerate(
-            _require_list(obj["snapshots"], f"{source}.snapshots")
-        )
+        for index, snapshot in enumerate(_require_list(obj["snapshots"], f"{source}.snapshots"))
     ]
     if "decisions" in obj:
         coerced["decisions"] = [
             _coerce_decision(decision, f"{source}.decisions[{index}]")
-            for index, decision in enumerate(
-                _require_list(obj["decisions"], f"{source}.decisions")
-            )
+            for index, decision in enumerate(_require_list(obj["decisions"], f"{source}.decisions"))
         ]
     return coerced
 
@@ -2134,41 +1849,27 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
     )
     _require_non_empty_str(_require_key(obj, "id", source), f"{source}.id")
     _require_str(_require_key(obj, "timestamp", source), f"{source}.timestamp")
-    _require_non_empty_str(
-        _require_key(obj, "game_type", source), f"{source}.game_type"
-    )
-    _require_non_empty_str(
-        _require_key(obj, "deck_type", source), f"{source}.deck_type"
-    )
-    _require_non_negative_int(
-        _require_key(obj, "total_turns", source), f"{source}.total_turns"
-    )
+    _require_non_empty_str(_require_key(obj, "game_type", source), f"{source}.game_type")
+    _require_non_empty_str(_require_key(obj, "deck_type", source), f"{source}.deck_type")
+    _require_non_negative_int(_require_key(obj, "total_turns", source), f"{source}.total_turns")
     winner = _require_key(obj, "winner", source)
     _require_optional_str(winner, f"{source}.winner")
-    _require_non_negative_int(
-        _require_key(obj, "harness_epoch", source), f"{source}.harness_epoch"
-    )
+    _require_non_negative_int(_require_key(obj, "harness_epoch", source), f"{source}.harness_epoch")
     _require_str(_require_key(obj, "youtube_url", source), f"{source}.youtube_url")
     players = _require_list(_require_key(obj, "players", source), f"{source}.players")
     for index in range(len(players)):
         players[index] = _validate_player(players[index], f"{source}.players[{index}]")
-    card_images = _require_object(
-        _require_key(obj, "card_images", source), f"{source}.card_images"
-    )
+    card_images = _require_object(_require_key(obj, "card_images", source), f"{source}.card_images")
     for name, url in card_images.items():
         _require_str(name, f"{source}.card_images key")
         _require_str(url, f"{source}.card_images[{name}]")
-    snapshots = _require_list(
-        _require_key(obj, "snapshots", source), f"{source}.snapshots"
-    )
+    snapshots = _require_list(_require_key(obj, "snapshots", source), f"{source}.snapshots")
     for index, snapshot in enumerate(snapshots):
         assert _is_snapshot(snapshot, f"{source}.snapshots[{index}]")
     actions = _require_list(_require_key(obj, "actions", source), f"{source}.actions")
     for index, action in enumerate(actions):
         actions[index] = _parse_action(action, f"{source}.actions[{index}]")
-    llm_events = _require_list(
-        _require_key(obj, "llm_events", source), f"{source}.llm_events"
-    )
+    llm_events = _require_list(_require_key(obj, "llm_events", source), f"{source}.llm_events")
     for index in range(len(llm_events)):
         if dataclasses.is_dataclass(llm_events[index]):
             continue  # Already converted (re-validation)
@@ -2185,17 +1886,13 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
         card_data = _require_object(obj["card_data"], f"{source}.card_data")
         for card_name in card_data:
             _require_str(card_name, f"{source}.card_data key")
-            card_data[card_name] = _parse_card_metadata(
-                card_data[card_name], f"{source}.card_data[{card_name}]"
-            )
+            card_data[card_name] = _parse_card_metadata(card_data[card_name], f"{source}.card_data[{card_name}]")
     if "decisions" in obj:
         decisions = _require_list(obj["decisions"], f"{source}.decisions")
         for index, decision in enumerate(decisions):
             assert _is_decision(decision, f"{source}.decisions[{index}]")
             if not isinstance(decision, Decision):
-                decisions[index] = Decision.from_dict(
-                    _require_object(decision, f"{source}.decisions[{index}]")
-                )
+                decisions[index] = Decision.from_dict(_require_object(decision, f"{source}.decisions[{index}]"))
     if "errors" in obj:
         errors = _require_list(obj["errors"], f"{source}.errors")
         for index, error in enumerate(errors):
@@ -2203,13 +1900,9 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
     if "annotations" in obj:
         annotations = _require_list(obj["annotations"], f"{source}.annotations")
         for index, annotation in enumerate(annotations):
-            annotations[index] = _parse_annotation(
-                annotation, f"{source}.annotations[{index}]"
-            )
+            annotations[index] = _parse_annotation(annotation, f"{source}.annotations[{index}]")
     if "blunder_script_version" in obj:
-        _require_non_negative_int(
-            obj["blunder_script_version"], f"{source}.blunder_script_version"
-        )
+        _require_non_negative_int(obj["blunder_script_version"], f"{source}.blunder_script_version")
     return obj
 
 
@@ -2231,15 +1924,9 @@ def is_game_export(value: object, source: str = "game export") -> bool:
     return True
 
 
-def require_built_game_export(
-    value: object, source: str = "game export"
-) -> BuiltGameExport:
+def require_built_game_export(value: object, source: str = "game export") -> BuiltGameExport:
     if isinstance(value, (BuiltGameExport, GameExport)):
-        return (
-            value
-            if isinstance(value, BuiltGameExport)
-            else BuiltGameExport.from_dict(value.to_dict())
-        )
+        return value if isinstance(value, BuiltGameExport) else BuiltGameExport.from_dict(value.to_dict())
     validated = _validate_common_game_export(value, source)
     coerced = _coerce_common_game_export(validated, source)
     return BuiltGameExport.from_dict(coerced)
@@ -2267,9 +1954,7 @@ def parse_game_export(raw: str, *, source: str = "game export") -> GameExport:
     return require_game_export(loads_json5(raw), source=source)
 
 
-def parse_built_game_export(
-    raw: str, *, source: str = "built game export"
-) -> BuiltGameExport:
+def parse_built_game_export(raw: str, *, source: str = "built game export") -> BuiltGameExport:
     """Validate a serialized built export that may omit annotations."""
     return require_built_game_export(loads_json5(raw), source=source)
 
@@ -2298,9 +1983,7 @@ def json_default(obj: object) -> object:
             for f in dataclasses.fields(obj):
                 value = getattr(obj, f.name)
                 if f.name == "_extras":
-                    assert isinstance(value, Mapping), (
-                        f"dataclass _extras must be a mapping, got {value!r}"
-                    )
+                    assert isinstance(value, Mapping), f"dataclass _extras must be a mapping, got {value!r}"
                     extras = value
                     continue
                 if value is not None:
@@ -2326,10 +2009,7 @@ def json_default(obj: object) -> object:
             v = getattr(obj, f.name)
             # Include required fields even when None (preserves null in JSON),
             # omit optional fields (those with defaults) when None.
-            if v is not None or (
-                f.default is dataclasses.MISSING
-                and f.default_factory is dataclasses.MISSING
-            ):
+            if v is not None or (f.default is dataclasses.MISSING and f.default_factory is dataclasses.MISSING):
                 result[_json_field_name(f)] = v
         return result
     raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")

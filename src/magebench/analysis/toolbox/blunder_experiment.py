@@ -67,9 +67,7 @@ def _parse_json_array(text: str) -> list:
     except json.JSONDecodeError:
         start = text.find("[")
         end = text.rfind("]")
-        assert start != -1 and end != -1, (
-            f"No JSON array found in response:\n{text[:500]}"
-        )
+        assert start != -1 and end != -1, f"No JSON array found in response:\n{text[:500]}"
         result = json.loads(text[start : end + 1])
     assert isinstance(result, list), f"Expected JSON array, got {type(result).__name__}"
     return result
@@ -174,11 +172,7 @@ def _format_decisions(decisions: Sequence[Decision]) -> str:
             f"  Choices ({len(decision.choices)}): {choices}",
             f"  Chosen: {chosen}",
         ]
-        own_actions = [
-            action
-            for action in decision.subsequent_actions
-            if action.startswith(decision.player)
-        ]
+        own_actions = [action for action in decision.subsequent_actions if action.startswith(decision.player)]
         if own_actions:
             lines.append(f"  After: {'; '.join(own_actions)}")
         parts.append("\n".join(lines))
@@ -310,19 +304,14 @@ def _call_llm(
         details = usage.completion_tokens_details
         if hasattr(details, "reasoning_tokens"):
             raw_reasoning_tokens = details.reasoning_tokens
-            assert raw_reasoning_tokens is None or isinstance(
-                raw_reasoning_tokens, int
-            ), (
+            assert raw_reasoning_tokens is None or isinstance(raw_reasoning_tokens, int), (
                 f"reasoning_tokens must be an int when present, got {raw_reasoning_tokens!r}"
             )
             thinking_tokens = raw_reasoning_tokens or 0
 
     thinking_text = ""
     choice = response.choices[0]
-    if (
-        hasattr(choice.message, "reasoning_content")
-        and choice.message.reasoning_content
-    ):
+    if hasattr(choice.message, "reasoning_content") and choice.message.reasoning_content:
         thinking_text = choice.message.reasoning_content
     elif hasattr(choice.message, "reasoning") and choice.message.reasoning:
         thinking_text = choice.message.reasoning
@@ -441,14 +430,9 @@ def _approach_inline(
     parts: list[str] = []
     for d in non_forced:
         formatted = _format_decisions([d])
-        parts.append(
-            f"--- DECISION (respond PASS or annotation below) ---\n{formatted}"
-        )
+        parts.append(f"--- DECISION (respond PASS or annotation below) ---\n{formatted}")
 
-    user_msg = (
-        f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} total)\n\n"
-        + "\n\n".join(parts)
-    )
+    user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} total)\n\n" + "\n\n".join(parts)
 
     trace = _call_llm(client, OPUS, INLINE_SYSTEM, user_msg, label="full_game")
     result.calls.append(trace)
@@ -477,9 +461,7 @@ def _parse_inline_response(text: str) -> list[dict]:
                     if depth == 0:
                         try:
                             obj = json.loads(text[start : i + 1])
-                            if isinstance(obj, dict) and (
-                                "decisionIndex" in obj or "snapshotIndex" in obj
-                            ):
+                            if isinstance(obj, dict) and ("decisionIndex" in obj or "snapshotIndex" in obj):
                                 annotations.append(obj)
                         except json.JSONDecodeError:
                             pass
@@ -598,10 +580,7 @@ def _approach_thinking(
     non_forced = [d for d in decisions if not is_forced(d)]
 
     user_msg = (
-        "## Game Overview\n"
-        f"{overview}\n\n"
-        f"## Decisions ({len(non_forced)} non-forced)\n\n"
-        f"{_format_decisions(decisions)}"
+        f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
     )
 
     trace = _call_llm(
@@ -636,10 +615,7 @@ def _approach_baseline(
     non_forced = [d for d in decisions if not is_forced(d)]
 
     user_msg = (
-        "## Game Overview\n"
-        f"{overview}\n\n"
-        f"## Decisions ({len(non_forced)} non-forced)\n\n"
-        f"{_format_decisions(decisions)}"
+        f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} non-forced)\n\n{_format_decisions(decisions)}"
     )
 
     trace = _call_llm(client, OPUS, OPUS_SYSTEM, user_msg, label="full_game")
@@ -694,9 +670,7 @@ def _approach_per_decision_minimal(
             formatted = _format_decisions([d])
             user_msg = f"## Decision\n\n{formatted}"
             label = f"decision_{decision_index(d)}"
-            fut = pool.submit(
-                _eval_one_decision, client, model, MINIMAL_SYSTEM, user_msg, label
-            )
+            fut = pool.submit(_eval_one_decision, client, model, MINIMAL_SYSTEM, user_msg, label)
             futures[fut] = decision_index(d)
 
         results_by_idx: dict[int, tuple[CallTrace, list[dict]]] = {}
@@ -752,9 +726,7 @@ def _approach_flash_opus(
     overview: str,
 ) -> ExperimentResult:
     """Two-phase: Flash screens each decision, Opus analyzes flagged ones."""
-    result = ExperimentResult(
-        approach="G_flash_opus", game_id=data.id, model=f"{FLASH}+{OPUS}"
-    )
+    result = ExperimentResult(approach="G_flash_opus", game_id=data.id, model=f"{FLASH}+{OPUS}")
     non_forced = [d for d in decisions if not is_forced(d)]
 
     # Phase 1: Flash screens each decision (parallel)
@@ -785,9 +757,7 @@ def _approach_flash_opus(
         if was_flagged:
             flagged_decisions.append(d)
 
-    print(
-        f"    Flash flagged {len(flagged_decisions)}/{len(non_forced)} decisions for Opus review"
-    )
+    print(f"    Flash flagged {len(flagged_decisions)}/{len(non_forced)} decisions for Opus review")
 
     # Phase 2: Opus analyzes flagged decisions (parallel)
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
@@ -796,9 +766,7 @@ def _approach_flash_opus(
             formatted = _format_decisions([d])
             user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
             label = f"opus_{decision_index(d)}"
-            eval_fut = pool.submit(
-                _eval_one_decision, client, OPUS, PER_DECISION_SYSTEM, user_msg, label
-            )
+            eval_fut = pool.submit(_eval_one_decision, client, OPUS, PER_DECISION_SYSTEM, user_msg, label)
             eval_futures[eval_fut] = decision_index(d)
 
         opus_results: dict[int, tuple[CallTrace, list[dict]]] = {}
@@ -824,9 +792,7 @@ def _approach_flash_sonnet(
     overview: str,
 ) -> ExperimentResult:
     """Two-phase: sensitive Flash screens each decision, Sonnet+low analyzes flagged."""
-    result = ExperimentResult(
-        approach="Q_flash_sonnet", game_id=data.id, model=f"{FLASH}+{SONNET}"
-    )
+    result = ExperimentResult(approach="Q_flash_sonnet", game_id=data.id, model=f"{FLASH}+{SONNET}")
     non_forced = [d for d in decisions if not is_forced(d)]
 
     # Phase 1: Flash screens each decision (parallel) with sensitive prompt
@@ -857,9 +823,7 @@ def _approach_flash_sonnet(
         if was_flagged:
             flagged_decisions.append(d)
 
-    print(
-        f"    Flash flagged {len(flagged_decisions)}/{len(non_forced)} decisions for Sonnet review"
-    )
+    print(f"    Flash flagged {len(flagged_decisions)}/{len(non_forced)} decisions for Sonnet review")
 
     # Phase 2: Sonnet+low analyzes flagged decisions (parallel)
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
@@ -942,10 +906,7 @@ def _approach_batched(
             formatted = _format_decisions([d])
             parts.append(f"--- DECISION ---\n{formatted}")
 
-        user_msg = (
-            f"## Game Overview\n{overview}\n\n## Decisions ({len(batch)} to evaluate)\n\n"
-            + "\n\n".join(parts)
-        )
+        user_msg = f"## Game Overview\n{overview}\n\n## Decisions ({len(batch)} to evaluate)\n\n" + "\n\n".join(parts)
         label = f"batch_{batch_indices[0]}-{batch_indices[-1]}"
         batches.append((batch, user_msg, label))
 
@@ -1145,35 +1106,23 @@ def run_approach(
     if approach == "A_inline":
         return _approach_inline(client, data, decisions, overview)
     if approach == "B_flash":
-        return _approach_per_decision(
-            client, data, decisions, overview, FLASH, "B_flash"
-        )
+        return _approach_per_decision(client, data, decisions, overview, FLASH, "B_flash")
     if approach == "C_thinking":
         return _approach_thinking(client, data, decisions, overview)
     if approach == "D_opus":
         return _approach_per_decision(client, data, decisions, overview, OPUS, "D_opus")
     if approach == "E_sonnet":
-        return _approach_per_decision(
-            client, data, decisions, overview, SONNET, "E_sonnet"
-        )
+        return _approach_per_decision(client, data, decisions, overview, SONNET, "E_sonnet")
     if approach == "F_opus_minimal":
-        return _approach_per_decision_minimal(
-            client, data, decisions, overview, OPUS, "F_opus_minimal"
-        )
+        return _approach_per_decision_minimal(client, data, decisions, overview, OPUS, "F_opus_minimal")
     if approach == "G_flash_opus":
         return _approach_flash_opus(client, data, decisions, overview)
     if approach == "H_opus_batched":
-        return _approach_batched(
-            client, data, decisions, overview, OPUS, "H_opus_batched"
-        )
+        return _approach_batched(client, data, decisions, overview, OPUS, "H_opus_batched")
     if approach == "I_convo_opus":
-        return _approach_conversation(
-            client, data, decisions, overview, OPUS, "I_convo_opus"
-        )
+        return _approach_conversation(client, data, decisions, overview, OPUS, "I_convo_opus")
     if approach == "J_convo_sonnet":
-        return _approach_conversation(
-            client, data, decisions, overview, SONNET, "J_convo_sonnet"
-        )
+        return _approach_conversation(client, data, decisions, overview, SONNET, "J_convo_sonnet")
     if approach == "K_opus_thinking":
         return _approach_per_decision(
             client,
@@ -1333,9 +1282,7 @@ def _dry_run(gz_path: str) -> None:
         formatted = _format_decisions([d])
         per_dec_user = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
         print(f"=== Per-decision input (decision {decision_index(d)}) ===")
-        print(
-            f"System: {len(PER_DECISION_SYSTEM)} chars (~{len(PER_DECISION_SYSTEM) // 4} tokens)"
-        )
+        print(f"System: {len(PER_DECISION_SYSTEM)} chars (~{len(PER_DECISION_SYSTEM) // 4} tokens)")
         print(f"User: {len(per_dec_user)} chars (~{len(per_dec_user) // 4} tokens)")
         print()
 
@@ -1343,13 +1290,8 @@ def _dry_run(gz_path: str) -> None:
     parts = []
     for d in non_forced:
         formatted = _format_decisions([d])
-        parts.append(
-            f"--- DECISION (respond PASS or annotation below) ---\n{formatted}"
-        )
-    inline_user = (
-        f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} total)\n\n"
-        + "\n\n".join(parts)
-    )
+        parts.append(f"--- DECISION (respond PASS or annotation below) ---\n{formatted}")
+    inline_user = f"## Game Overview\n{overview}\n\n## Decisions ({len(non_forced)} total)\n\n" + "\n\n".join(parts)
     print("=== Inline input ===")
     print(f"System: {len(INLINE_SYSTEM)} chars (~{len(INLINE_SYSTEM) // 4} tokens)")
     print(f"User: {len(inline_user)} chars (~{len(inline_user) // 4} tokens)")
@@ -1364,26 +1306,14 @@ def _dry_run(gz_path: str) -> None:
 
     baseline_in = sys_base + len(baseline_user) // 4
     print(f"Baseline (Opus):     ~${_compute_cost(OPUS, baseline_in, 500):.3f}")
-    print(
-        f"Thinking (Opus):     ~${_compute_cost(OPUS, baseline_in, 2000):.3f} (more output from thinking)"
-    )
-    print(
-        f"Inline (Opus):       ~${_compute_cost(OPUS, sys_inline + len(inline_user) // 4, 800):.3f}"
-    )
+    print(f"Thinking (Opus):     ~${_compute_cost(OPUS, baseline_in, 2000):.3f} (more output from thinking)")
+    print(f"Inline (Opus):       ~${_compute_cost(OPUS, sys_inline + len(inline_user) // 4, 800):.3f}")
 
-    per_dec_in = sum(
-        sys_per + overview_tok + len(_format_decisions([d])) // 4 for d in non_forced
-    )
+    per_dec_in = sum(sys_per + overview_tok + len(_format_decisions([d])) // 4 for d in non_forced)
     per_dec_out = len(non_forced) * 80
-    print(
-        f"Per-decision (Opus): ~${_compute_cost(OPUS, per_dec_in, per_dec_out):.3f} ({len(non_forced)} calls)"
-    )
-    print(
-        f"Per-decision (Son):  ~${_compute_cost(SONNET, per_dec_in, per_dec_out):.3f} ({len(non_forced)} calls)"
-    )
-    print(
-        f"Per-decision (Flash):~${_compute_cost(FLASH, per_dec_in, per_dec_out):.3f} ({len(non_forced)} calls)"
-    )
+    print(f"Per-decision (Opus): ~${_compute_cost(OPUS, per_dec_in, per_dec_out):.3f} ({len(non_forced)} calls)")
+    print(f"Per-decision (Son):  ~${_compute_cost(SONNET, per_dec_in, per_dec_out):.3f} ({len(non_forced)} calls)")
+    print(f"Per-decision (Flash):~${_compute_cost(FLASH, per_dec_in, per_dec_out):.3f} ({len(non_forced)} calls)")
 
     # Show existing annotations for comparison
     existing = data.annotations
@@ -1391,24 +1321,16 @@ def _dry_run(gz_path: str) -> None:
         print(f"\n=== Existing v5 annotations ({len(existing)}) ===")
         for a in existing:
             print(f"  decision={a.decision_index} {a.player} {a.severity.upper()}")
-            print(
-                f"       {a.description[:120] if a.description else '(no description)'}"
-            )
+            print(f"       {a.description[:120] if a.description else '(no description)'}")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Blunder analysis experiment")
     parser.add_argument("game", help="Path to game .json.gz file")
-    parser.add_argument(
-        "--approach", choices=list(APPROACHES.keys()), help="Run specific approach"
-    )
+    parser.add_argument("--approach", choices=list(APPROACHES.keys()), help="Run specific approach")
     parser.add_argument("--all", action="store_true", help="Run all approaches")
-    parser.add_argument(
-        "--dry-run", action="store_true", help="Print inputs without calling APIs"
-    )
-    parser.add_argument(
-        "--compare", action="store_true", help="Compare existing results"
-    )
+    parser.add_argument("--dry-run", action="store_true", help="Print inputs without calling APIs")
+    parser.add_argument("--compare", action="store_true", help="Compare existing results")
     args = parser.parse_args()
 
     if args.dry_run:

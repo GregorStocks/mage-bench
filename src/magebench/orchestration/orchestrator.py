@@ -69,10 +69,7 @@ def _missing_llm_api_keys_for_run(config: Config) -> list[str]:
     for config_file in config.batch_config_files:
         game_config = Config(config_file=config_file)
         game_config.load_config()
-        errors.extend(
-            f"{config_file}: {missing}"
-            for missing in _missing_llm_api_keys(game_config)
-        )
+        errors.extend(f"{config_file}: {missing}" for missing in _missing_llm_api_keys(game_config))
     return errors
 
 
@@ -221,8 +218,7 @@ def _check_regular_season_block(project_root: Path) -> str | None:
     season_num = season_data.get("current_season", "?")
     if phase == "tournament":
         return (
-            f"Season {season_num} is in the tournament phase! "
-            "Regular-season games are not allowed during tournaments."
+            f"Season {season_num} is in the tournament phase! Regular-season games are not allowed during tournaments."
         )
     if phase == "between-seasons":
         return (
@@ -243,9 +239,7 @@ class OrchestratorRunResult:
     post_game_failures: list[str] = field(default_factory=list)
 
 
-def run_orchestrator(
-    config: Config, project_root: Path | None = None
-) -> OrchestratorRunResult:
+def run_orchestrator(config: Config, project_root: Path | None = None) -> OrchestratorRunResult:
     """Run one orchestrator job programmatically."""
     if project_root is None:
         project_root = Path.cwd().resolve()
@@ -268,9 +262,7 @@ def run_orchestrator(
 
     try:
         if batch and config.record_output:
-            logger.error(
-                "--record=PATH cannot be used with --games (use --record without a path instead)"
-            )
+            logger.error("--record=PATH cannot be used with --games (use --record without a path instead)")
             return OrchestratorRunResult(exit_code=2)
 
         missing_llm_keys = _missing_llm_api_keys_for_run(config)
@@ -278,9 +270,7 @@ def run_orchestrator(
             logger.error("LLM players configured without required API keys:")
             for missing in missing_llm_keys:
                 logger.error("  - %s", missing)
-            logger.error(
-                "Set the required key(s) or use a non-LLM config (e.g. make run)."
-            )
+            logger.error("Set the required key(s) or use a non-LLM config (e.g. make run).")
             return OrchestratorRunResult(exit_code=2)
 
         config.timestamp = datetime.now(_LOG_TIMESTAMP_TZ).strftime("%Y%m%d_%H%M%S")
@@ -395,23 +385,19 @@ def run_orchestrator(
             deferred: list[AnnotationFailure] = []
             for session in sessions:
                 spectator_rc = results.get(session.index, -1)
-                pilot_costs[session.index], blunder_costs[session.index] = (
-                    finalize_game(
-                        session,
-                        project_root,
-                        spectator_rc,
-                        deferred_failures=deferred,
-                        post_game_failures=post_game_failures,
-                    )
+                pilot_costs[session.index], blunder_costs[session.index] = finalize_game(
+                    session,
+                    project_root,
+                    spectator_rc,
+                    deferred_failures=deferred,
+                    post_game_failures=post_game_failures,
                 )
             resolve_annotation_failures(deferred)
         else:
             session = sessions[0]
             assert session.spectator_proc is not None
             if session.pilot_procs:
-                spectator_rc = wait_with_pilot_monitoring(
-                    session.spectator_proc, session.pilot_procs, pm
-                )
+                spectator_rc = wait_with_pilot_monitoring(session.spectator_proc, session.pilot_procs, pm)
             else:
                 spectator_rc = session.spectator_proc.wait()
             pilot_costs[session.index], blunder_costs[session.index] = finalize_game(

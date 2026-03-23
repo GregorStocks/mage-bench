@@ -47,10 +47,7 @@ def test_read_errors_filters_llm_errors():
         errors = read_errors(game_dir)
         # Only the zombie game error should survive
         assert len(errors) == 1
-        assert (
-            errors[0]["message"]
-            == "Zombie game detected: no actionable callback for 15000ms"
-        )
+        assert errors[0]["message"] == "Zombie game detected: no actionable callback for 15000ms"
 
 
 def test_read_errors_multiple_players():
@@ -80,9 +77,7 @@ def test_read_errors_blank_lines_skipped():
 
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        (game_dir / "Alice_errors.log").write_text(
-            "\n[10:30:45] [mcp] Error handling callback GAME_SELECT: NPE\n\n"
-        )
+        (game_dir / "Alice_errors.log").write_text("\n[10:30:45] [mcp] Error handling callback GAME_SELECT: NPE\n\n")
         errors = read_errors(game_dir)
         assert len(errors) == 1
 

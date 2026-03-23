@@ -73,9 +73,7 @@ def _summarize_stack_item(item: object) -> str | dict:
     name = _record_name(item, source="stack item")
     targets = _record_field(item, "targets")
     if targets:
-        assert isinstance(targets, list), (
-            f"stack item targets must be a list, got {targets!r}"
-        )
+        assert isinstance(targets, list), f"stack item targets must be a list, got {targets!r}"
         return {"name": name, "targets": [_summarize_stack_target(t) for t in targets]}
     return name
 
@@ -128,8 +126,7 @@ def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
 
         hand_cards = p.hand
         p_summary["hand"] = [
-            _record_name(c, source="hand card") if not isinstance(c, str) else str(c)
-            for c in hand_cards
+            _record_name(c, source="hand card") if not isinstance(c, str) else str(c) for c in hand_cards
         ]
 
         if p.hand_count is not None:
@@ -140,26 +137,17 @@ def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
         p_summary["battlefield"] = [_summarize_permanent(c) for c in p.battlefield]
 
         p_summary["graveyard"] = [
-            _record_name(c, source="graveyard card")
-            if not isinstance(c, str)
-            else str(c)
-            for c in p.graveyard
+            _record_name(c, source="graveyard card") if not isinstance(c, str) else str(c) for c in p.graveyard
         ]
 
         if p.exile is not None:
             p_summary["exile"] = [
-                _record_name(c, source="exile card")
-                if not isinstance(c, str)
-                else str(c)
-                for c in p.exile
+                _record_name(c, source="exile card") if not isinstance(c, str) else str(c) for c in p.exile
             ]
 
         if p.commanders is not None:
             p_summary["commanders"] = [
-                _record_name(c, source="commander card")
-                if not isinstance(c, str)
-                else c
-                for c in p.commanders
+                _record_name(c, source="commander card") if not isinstance(c, str) else c for c in p.commanders
             ]
 
         if p.counters:
@@ -222,9 +210,7 @@ def _parse_choices_result(result_str: str | None) -> JsonObject:
         parsed = json.loads(result_str)
     except json.JSONDecodeError:
         return {}
-    assert isinstance(parsed, dict), (
-        f"get_action_choices result must be a JSON object, got {parsed!r}"
-    )
+    assert isinstance(parsed, dict), f"get_action_choices result must be a JSON object, got {parsed!r}"
     return parsed
 
 
@@ -236,9 +222,7 @@ def _parse_action_result(result_str: str | None) -> JsonObject:
         parsed = json.loads(result_str)
     except json.JSONDecodeError:
         return {}
-    assert isinstance(parsed, dict), (
-        f"choose_action result must be a JSON object, got {parsed!r}"
-    )
+    assert isinstance(parsed, dict), f"choose_action result must be a JSON object, got {parsed!r}"
     return parsed
 
 
@@ -302,9 +286,7 @@ def _resolve_chosen_index(
     # Handles selected_0, selected_target_1, selected_ability_0, etc.
     taken = action_result.get("action_taken")
     if taken is not None:
-        assert isinstance(taken, str), (
-            f"action_taken must be a string when present, got {taken!r}"
-        )
+        assert isinstance(taken, str), f"action_taken must be a string when present, got {taken!r}"
     if isinstance(taken, str) and taken.startswith("selected"):
         try:
             return int(taken.rsplit("_", 1)[1])
@@ -420,9 +402,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         # Parse available choices
         available_choices_raw = choices_result.get("choices")
         if available_choices_raw is not None:
-            available_choices = (
-                available_choices_raw if isinstance(available_choices_raw, list) else []
-            )
+            available_choices = available_choices_raw if isinstance(available_choices_raw, list) else []
         else:
             available_choices = []
         response_type = choices_result.get("response_type")
@@ -430,27 +410,19 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         message = choices_result.get("message")
         combat_phase = choices_result.get("combat_phase")
         if response_type is not None:
-            assert isinstance(response_type, str), (
-                f"response_type must be a string, got {response_type!r}"
-            )
+            assert isinstance(response_type, str), f"response_type must be a string, got {response_type!r}"
         else:
             response_type = ""
         if action_type is not None:
-            assert isinstance(action_type, str), (
-                f"action_type must be a string, got {action_type!r}"
-            )
+            assert isinstance(action_type, str), f"action_type must be a string, got {action_type!r}"
         else:
             action_type = ""
         if message is not None:
-            assert isinstance(message, str), (
-                f"message must be a string, got {message!r}"
-            )
+            assert isinstance(message, str), f"message must be a string, got {message!r}"
         else:
             message = ""
         if combat_phase is not None:
-            assert isinstance(combat_phase, str), (
-                f"combat_phase must be a string when present, got {combat_phase!r}"
-            )
+            assert isinstance(combat_phase, str), f"combat_phase must be a string when present, got {combat_phase!r}"
         else:
             combat_phase = ""
 
@@ -458,14 +430,10 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         combat = combat_raw if isinstance(combat_raw, list) else []
 
         already_attacking_raw = choices_result.get("already_attacking")
-        already_attacking = (
-            already_attacking_raw if isinstance(already_attacking_raw, list) else []
-        )
+        already_attacking = already_attacking_raw if isinstance(already_attacking_raw, list) else []
 
         incoming_attackers_raw = choices_result.get("incoming_attackers")
-        incoming_attackers = (
-            incoming_attackers_raw if isinstance(incoming_attackers_raw, list) else []
-        )
+        incoming_attackers = incoming_attackers_raw if isinstance(incoming_attackers_raw, list) else []
 
         # Look forward for the next llm_response and choose_action from same player
         reasoning = ""
@@ -485,9 +453,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
             if ev.type == "tool_call" and ev.tool == "choose_action":
                 chosen_args = ev.args
                 action_result = _parse_action_result(ev.result)
-                chosen_index = _resolve_chosen_index(
-                    chosen_args, available_choices, action_result
-                )
+                chosen_index = _resolve_chosen_index(chosen_args, available_choices, action_result)
                 if ev.ts is not None:
                     action_ts = ev.ts
                 if _is_failed_choose_action_result(action_result):
@@ -501,9 +467,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
         # Find nearest snapshot (None if decision precedes all snapshots,
         # e.g. play/draw choice before hands are dealt)
         snap_idx = _find_snapshot_index(snapshots, choices_ts) if choices_ts else None
-        game_state = (
-            _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
-        )
+        game_state = _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
 
         # Collect subsequent game actions (between this decision and next)
         next_choices_ts: str | None = None
@@ -515,9 +479,7 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
             for a in actions:
                 a_ts = a.ts
                 if a_ts is not None:
-                    assert isinstance(a_ts, str), (
-                        f"action ts must be a string when present, got {a_ts!r}"
-                    )
+                    assert isinstance(a_ts, str), f"action ts must be a string when present, got {a_ts!r}"
                 compare_ts = action_ts if action_ts else choices_ts
                 if a_ts is None or compare_ts is None or a_ts <= compare_ts:
                     continue
@@ -599,9 +561,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
 
         available_choices_raw = choices_result.get("choices")
         if available_choices_raw is not None:
-            available_choices = (
-                available_choices_raw if isinstance(available_choices_raw, list) else []
-            )
+            available_choices = available_choices_raw if isinstance(available_choices_raw, list) else []
         else:
             available_choices = []
         response_type = choices_result.get("response_type")
@@ -609,27 +569,19 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         message = choices_result.get("message")
         combat_phase = choices_result.get("combat_phase")
         if response_type is not None:
-            assert isinstance(response_type, str), (
-                f"response_type must be a string, got {response_type!r}"
-            )
+            assert isinstance(response_type, str), f"response_type must be a string, got {response_type!r}"
         else:
             response_type = ""
         if action_type is not None:
-            assert isinstance(action_type, str), (
-                f"action_type must be a string, got {action_type!r}"
-            )
+            assert isinstance(action_type, str), f"action_type must be a string, got {action_type!r}"
         else:
             action_type = ""
         if message is not None:
-            assert isinstance(message, str), (
-                f"message must be a string, got {message!r}"
-            )
+            assert isinstance(message, str), f"message must be a string, got {message!r}"
         else:
             message = ""
         if combat_phase is not None:
-            assert isinstance(combat_phase, str), (
-                f"combat_phase must be a string when present, got {combat_phase!r}"
-            )
+            assert isinstance(combat_phase, str), f"combat_phase must be a string when present, got {combat_phase!r}"
         else:
             combat_phase = ""
 
@@ -637,14 +589,10 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         combat = combat_raw if isinstance(combat_raw, list) else []
 
         already_attacking_raw = choices_result.get("already_attacking")
-        already_attacking = (
-            already_attacking_raw if isinstance(already_attacking_raw, list) else []
-        )
+        already_attacking = already_attacking_raw if isinstance(already_attacking_raw, list) else []
 
         incoming_attackers_raw = choices_result.get("incoming_attackers")
-        incoming_attackers = (
-            incoming_attackers_raw if isinstance(incoming_attackers_raw, list) else []
-        )
+        incoming_attackers = incoming_attackers_raw if isinstance(incoming_attackers_raw, list) else []
 
         # Look forward for llm_response and choose_action from same player
         reasoning = ""
@@ -665,9 +613,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
             if ev.type == "tool_call" and ev.tool == "choose_action":
                 chosen_args = ev.args
                 action_result = _parse_action_result(ev.result)
-                chosen_index = _resolve_chosen_index(
-                    chosen_args, available_choices, action_result
-                )
+                chosen_index = _resolve_chosen_index(chosen_args, available_choices, action_result)
                 if ev.ts is not None:
                     action_ts = ev.ts
                 game_seq_raw = ev.game_seq if ev.game_seq is not None else action_seq
@@ -686,21 +632,14 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         # events from older harness versions that didn't emit gameSeq).
         choices_seq_raw = source_event.game_seq
         choices_seq = (
-            choices_seq_raw
-            if isinstance(choices_seq_raw, int)
-            and not isinstance(choices_seq_raw, bool)
-            else 0
+            choices_seq_raw if isinstance(choices_seq_raw, int) and not isinstance(choices_seq_raw, bool) else 0
         )
         if choices_seq:
             snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
         else:
             choices_ts = source_event.ts
-            snap_idx = (
-                _find_snapshot_index(snapshots, choices_ts) if choices_ts else None
-            )
-        game_state = (
-            _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
-        )
+            snap_idx = _find_snapshot_index(snapshots, choices_ts) if choices_ts else None
+        game_state = _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
 
         # Collect subsequent game actions using seq
         if not action_seq:
@@ -709,9 +648,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         next_choices_seq = 0
         if ds_idx + 1 < len(decision_sources):
             next_game_seq_raw = decision_sources[ds_idx + 1][1].game_seq
-            if isinstance(next_game_seq_raw, int) and not isinstance(
-                next_game_seq_raw, bool
-            ):
+            if isinstance(next_game_seq_raw, int) and not isinstance(next_game_seq_raw, bool):
                 next_choices_seq = next_game_seq_raw
 
         subsequent: list[str] = []
@@ -765,8 +702,7 @@ def extract_decisions(gz_path: str) -> list[Decision]:
     data = load_game_for_annotation(gz_path)
 
     assert data.decisions is not None, (
-        f"Game export {gz_path} missing decisions[] field — "
-        "all exports must have pre-built decisions"
+        f"Game export {gz_path} missing decisions[] field — all exports must have pre-built decisions"
     )
     return list(data.decisions)
 
@@ -828,9 +764,7 @@ def _find_spell_cancelled_events(
     return cancelled
 
 
-def _mark_rolled_back_casts(
-    decisions: list[dict[str, object]], cancelled_events: list[tuple[str, str]]
-) -> None:
+def _mark_rolled_back_casts(decisions: list[dict[str, object]], cancelled_events: list[tuple[str, str]]) -> None:
     """Post-process decisions to mark rolled-back cast sequences.
 
     When XMage can't complete mana payment for a spell, it silently rolls back
@@ -848,9 +782,7 @@ def _mark_rolled_back_casts(
                 continue
             # Skip decisions after the cancel event
             action_ts_raw = d["action_ts"]
-            assert isinstance(action_ts_raw, str), (
-                f"action_ts must be a string, got {action_ts_raw!r}"
-            )
+            assert isinstance(action_ts_raw, str), f"action_ts must be a string, got {action_ts_raw!r}"
             if action_ts_raw > cancel_ts:
                 continue
             # Already handled by a previous cancel event

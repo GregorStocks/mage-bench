@@ -11,9 +11,7 @@ SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
 
 
 def _import_script(path: str):
-    spec = importlib.util.spec_from_file_location(
-        path.replace("/", "_"), SCRIPTS_DIR / path
-    )
+    spec = importlib.util.spec_from_file_location(path.replace("/", "_"), SCRIPTS_DIR / path)
     assert spec and spec.loader
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -51,16 +49,12 @@ def test_claim_games_exact_ids(capsys: pytest.CaptureFixture[str]) -> None:
 
     mock_claim_exact.assert_called_once()
     assert mock_claim_exact.call_args.args == ("games/fast", game_ids)
-    assert capsys.readouterr().out == "".join(
-        f"/games/{game_id}.json5\n" for game_id in game_ids
-    )
+    assert capsys.readouterr().out == "".join(f"/games/{game_id}.json5\n" for game_id in game_ids)
 
 
 def test_claim_games_exact_ids_conflict_exits_1() -> None:
     with (
-        patch.object(
-            sys, "argv", ["claim_games.py", "--type", "deep", "game_20260301_010101"]
-        ),
+        patch.object(sys, "argv", ["claim_games.py", "--type", "deep", "game_20260301_010101"]),
         patch.object(
             claim_games,
             "claim_exact_keys",
@@ -102,12 +96,8 @@ def test_claim_games_auto_mode_claims_requested_count(
 
     with (
         patch.object(sys, "argv", ["claim_games.py", "--type", "fast", "--count", "2"]),
-        patch.object(
-            claim_games, "find_unanalyzed", return_value=candidates
-        ) as mock_find,
-        patch.object(
-            claim_games, "claim_first_available_keys", return_value=claimed
-        ) as mock_claim,
+        patch.object(claim_games, "find_unanalyzed", return_value=candidates) as mock_find,
+        patch.object(claim_games, "claim_first_available_keys", return_value=claimed) as mock_claim,
         patch.object(
             claim_games,
             "game_path_for_id",
@@ -122,7 +112,4 @@ def test_claim_games_auto_mode_claims_requested_count(
         ["game_20260301_010101", "game_20260301_020202", "game_20260301_030303"],
         2,
     )
-    assert (
-        capsys.readouterr().out
-        == "/games/game_20260301_010101.json5\n/games/game_20260301_020202.json5\n"
-    )
+    assert capsys.readouterr().out == "/games/game_20260301_010101.json5\n/games/game_20260301_020202.json5\n"

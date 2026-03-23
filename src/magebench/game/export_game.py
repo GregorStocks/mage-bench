@@ -62,9 +62,7 @@ def _build_card_images(players_meta: list[dict]) -> dict[str, str]:
             set_code = m.group(2).lower()
             card_num = m.group(3)
             card_name = m.group(4).strip()
-            images[card_name] = (
-                f"https://api.scryfall.com/cards/{set_code}/{card_num}?format=image&version=small"
-            )
+            images[card_name] = f"https://api.scryfall.com/cards/{set_code}/{card_num}?format=image&version=small"
     return images
 
 
@@ -97,9 +95,7 @@ def _deck_display_name(player_meta: dict, deck_type: str) -> str | None:
     # New: deck_name from registry
     if player_meta.get("deck_name"):
         deck_name = player_meta["deck_name"]
-        assert isinstance(deck_name, str), (
-            f"deck_name must be a string, got {deck_name!r}"
-        )
+        assert isinstance(deck_name, str), f"deck_name must be a string, got {deck_name!r}"
         return deck_name
     # Legacy fallback for old game_metas
     if deck_type in _COMMANDER_DECK_TYPES:
@@ -220,9 +216,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     snapshots, actions, game_over, winner = _read_server_events(game_dir)
 
     # Read LLM logs
-    llm_events, player_costs, player_tools, player_tool_calls, player_thinking = (
-        read_llm_events(game_dir)
-    )
+    llm_events, player_costs, player_tools, player_tool_calls, player_thinking = read_llm_events(game_dir)
     # Build card images map from decklists
     card_images = _build_card_images(meta["players"])
 
@@ -348,9 +342,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
     tournament_id: str | None = None
     if meta.get("tournament_game", False):
         tournament_id = _find_tournament_for_game(game_dir.name)
-        assert tournament_id is not None, (
-            f"tournament_game flag set but {game_dir.name} not found in any bracket"
-        )
+        assert tournament_id is not None, f"tournament_game flag set but {game_dir.name} not found in any bracket"
     else:
         # Check tournament data for older games that predate the meta flag
         tournament_id = _find_tournament_for_game(game_dir.name)
@@ -382,9 +374,7 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
         game_id = output.id
 
         website_games_dir.mkdir(parents=True, exist_ok=True)
-        output_path = write_raw_game_export(
-            website_games_dir / f"{game_id}.json", output
-        )
+        output_path = write_raw_game_export(website_games_dir / f"{game_id}.json", output)
     except (AssertionError, OSError, json.JSONDecodeError) as exc:
         raise GameExportError(str(exc)) from exc
 

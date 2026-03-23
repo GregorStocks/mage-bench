@@ -242,9 +242,7 @@ def test_create_random_jumpstart_deck() -> None:
         assert content.startswith("NAME:")
         assert display_name  # non-empty
         # Should be a 40-card deck
-        lines = [
-            line for line in content.strip().split("\n") if not line.startswith("NAME:")
-        ]
+        lines = [line for line in content.strip().split("\n") if not line.startswith("NAME:")]
         total_cards = sum(int(line.split()[0]) for line in lines)
         assert total_cards == 40
 
@@ -257,9 +255,7 @@ def test_create_random_jumpstart_deck_exclude_themes() -> None:
 
         # Exclude Cats — should get Dogs + Lightning
         with patch("puppeteer.jumpstart._cached_representatives", None):
-            deck_path, display_name = create_random_jumpstart_deck(
-                root, exclude_themes={"Cats"}
-            )
+            deck_path, display_name = create_random_jumpstart_deck(root, exclude_themes={"Cats"})
 
         full_path = root / deck_path
         content = full_path.read_text()

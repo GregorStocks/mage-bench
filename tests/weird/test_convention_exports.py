@@ -43,9 +43,7 @@ class TestAllExportsValid:
         glob_game_files(),
         ids=lambda p: p.name,
     )
-    def test_game_uses_current_wire_version(
-        self, game_file: Path, all_games_data: Mapping[Path, dict]
-    ) -> None:
+    def test_game_uses_current_wire_version(self, game_file: Path, all_games_data: Mapping[Path, dict]) -> None:
         assert all_games_data[game_file]["version"] == CURRENT_GAME_EXPORT_VERSION
 
 
@@ -71,15 +69,12 @@ class TestExportedGameModelsKnown:
                     unknown.append(f"{game_file.name}: {model!r}")
 
         assert not unknown, (
-            "Exported games reference unknown models (add to RETIRED_MODELS if intentional):\n  "
-            + "\n  ".join(unknown)
+            "Exported games reference unknown models (add to RETIRED_MODELS if intentional):\n  " + "\n  ".join(unknown)
         )
 
 
 class TestChangedGameFilenames:
-    def test_moved_schema_path_forces_full_export_validation(
-        self, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_moved_schema_path_forces_full_export_validation(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr(
             repo_convention_helpers,
             "changed_files_since_master",

@@ -30,9 +30,7 @@ def download_deck_text(url: str) -> str:
         download_url,
         allowed_hosts=_MTGGOLDFISH_HOSTS,
     )
-    assert isinstance(body, bytes), (
-        f"MTGGoldfish returned non-bytes response: {type(body).__name__}"
-    )
+    assert isinstance(body, bytes), f"MTGGoldfish returned non-bytes response: {type(body).__name__}"
     return body.decode("utf-8")
 
 

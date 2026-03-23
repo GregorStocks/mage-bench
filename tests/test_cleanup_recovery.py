@@ -15,9 +15,7 @@ class _FakeSession:
         self.calls: list[tuple[str, dict, int | None]] = []
         self._concede_error = concede_error
 
-    def call_tool(
-        self, name: str, arguments: dict | None = None, timeout: int | None = None
-    ) -> str:
+    def call_tool(self, name: str, arguments: dict | None = None, timeout: int | None = None) -> str:
         args = arguments or {}
         self.calls.append((name, args, timeout))
         if name == "concede" and self._concede_error is not None:
@@ -54,9 +52,7 @@ class _FakeBridgeManager:
     def capture_log_offsets(self) -> tuple[int, int]:
         return (0, 0)
 
-    def write_test_log_snapshots(
-        self, _test_name: str, _offsets: tuple[int, int]
-    ) -> None:
+    def write_test_log_snapshots(self, _test_name: str, _offsets: tuple[int, int]) -> None:
         self.events.append("snapshot")
 
     def restart(self) -> None:
@@ -88,16 +84,10 @@ def stubbed_golden(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Path:
         "_run_pilot_on_bridge",
         lambda *_args, **_kwargs: [{"role": "assistant"}],
     )
-    monkeypatch.setattr(
-        golden_helpers, "record_registered_rss_snapshot", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(golden_helpers, "record_registered_rss_snapshot", lambda *_args, **_kwargs: None)
     monkeypatch.setattr(golden_helpers, "build_export", lambda _game_dir: {"ok": True})
-    monkeypatch.setattr(
-        golden_helpers, "assert_golden_prompt", lambda *_args, **_kwargs: None
-    )
-    monkeypatch.setattr(
-        golden_helpers, "assert_golden_export", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(golden_helpers, "assert_golden_prompt", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(golden_helpers, "assert_golden_export", lambda *_args, **_kwargs: None)
     monkeypatch.setattr(golden_helpers, "_script_blunder_indices", lambda _script: [])
     monkeypatch.setattr(
         golden_helpers,
@@ -117,9 +107,7 @@ def test_run_golden_scenario_restarts_bridge_after_benign_player_b_replay_error(
     spectator = _FakeSpectator()
 
     def _raise_player_b_error(*_args, **_kwargs) -> None:
-        raise RuntimeError(
-            "Bridge RPC error after 120.0s for tools/call(pass_priority): timed out"
-        )
+        raise RuntimeError("Bridge RPC error after 120.0s for tools/call(pass_priority): timed out")
 
     monkeypatch.setattr(golden_helpers, "_run_opponent_autopass", _raise_player_b_error)
 
@@ -155,9 +143,7 @@ def test_run_golden_scenario_restarts_bridge_when_cleanup_concede_times_out(
     bridge_b = _FakeBridgeManager(player_b, "opponent")
     spectator = _FakeSpectator()
 
-    monkeypatch.setattr(
-        golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None)
 
     prompt = golden_helpers.run_golden_scenario(
         server="localhost",
@@ -194,13 +180,9 @@ def test_run_golden_scenario_preserves_primary_replay_failure_over_cleanup_error
     monkeypatch.setattr(
         golden_helpers,
         "_run_pilot_on_bridge",
-        lambda *_args, **_kwargs: (_ for _ in ()).throw(
-            RuntimeError("player A replay failed")
-        ),
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError("player A replay failed")),
     )
-    monkeypatch.setattr(
-        golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None)
 
     with pytest.raises(RuntimeError, match="player A replay failed"):
         golden_helpers.run_golden_scenario(
@@ -273,13 +255,9 @@ def test_run_golden_scenario_preserves_primary_failure_when_restart_fails(
     monkeypatch.setattr(
         golden_helpers,
         "_run_pilot_on_bridge",
-        lambda *_args, **_kwargs: (_ for _ in ()).throw(
-            RuntimeError("player A replay failed")
-        ),
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError("player A replay failed")),
     )
-    monkeypatch.setattr(
-        golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None)
 
     with pytest.raises(RuntimeError, match="player A replay failed") as excinfo:
         golden_helpers.run_golden_scenario(
@@ -315,13 +293,9 @@ def test_run_golden_scenario_fails_successful_scenario_when_restart_fails(
     )
     spectator = _FakeSpectator()
 
-    monkeypatch.setattr(
-        golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None
-    )
+    monkeypatch.setattr(golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None)
 
-    with pytest.raises(
-        RuntimeError, match="Golden cleanup restart failed after scenario success"
-    ) as excinfo:
+    with pytest.raises(RuntimeError, match="Golden cleanup restart failed after scenario success") as excinfo:
         golden_helpers.run_golden_scenario(
             server="localhost",
             port=17171,
@@ -341,9 +315,7 @@ def test_run_golden_scenario_fails_successful_scenario_when_restart_fails(
     assert bridge_b.restart_calls == 1
 
 
-def test_bridge_manager_restart_wraps_start_failures(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-) -> None:
+def test_bridge_manager_restart_wraps_start_failures(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     bridge = golden_helpers.BridgeManager(
         server="localhost",
         port=17171,

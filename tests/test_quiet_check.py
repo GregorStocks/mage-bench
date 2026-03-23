@@ -25,22 +25,16 @@ def test_make_check_routes_java_validation_through_lint_java() -> None:
     makefile = (project_root / "Makefile").read_text()
 
     assert ".PHONY: lint-java" in makefile
-    assert (
-        "mvn -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify" in makefile
-    )
+    assert "mvn -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify" in makefile
     assert "$(MAKE) verify-mcp-tools" in makefile
 
 
 def test_make_lint_uses_root_ruff_config() -> None:
     project_root = Path(__file__).resolve().parent.parent
     makefile = (project_root / "Makefile").read_text()
-    lint_cmd = (
-        "uv run --project puppeteer ruff check --config ruff-lint.toml "
-        "puppeteer/ scripts/ schemas/ src/ tests/"
-    )
+    lint_cmd = "uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/ src/ tests/"
     lint_fix_cmd = (
-        "uv run --project puppeteer ruff check --config ruff-lint.toml --fix "
-        "puppeteer/ scripts/ schemas/ src/ tests/"
+        "uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/ src/ tests/"
     )
 
     assert lint_cmd in makefile
@@ -51,14 +45,8 @@ def test_make_python_checks_include_src_and_tests_tree() -> None:
     project_root = Path(__file__).resolve().parent.parent
     makefile = (project_root / "Makefile").read_text()
 
-    assert (
-        "uv run --project puppeteer ruff format "
-        "puppeteer/ scripts/ schemas/ src/ tests/" in makefile
-    )
-    assert (
-        "uv run --project puppeteer ruff format --check "
-        "puppeteer/ scripts/ schemas/ src/ tests/" in makefile
-    )
+    assert "uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/ src/ tests/" in makefile
+    assert "uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/ src/ tests/" in makefile
     assert (
         "uv run --project puppeteer mypy --config-file puppeteer/pyproject.toml "
         "puppeteer/src/puppeteer/ scripts/ schemas/ src/magebench/"
@@ -156,9 +144,7 @@ def test_captured_output_returns_after_child_exit_even_if_descendant_holds_fd(
     try:
         os.kill(descendant_pid, 0)
     except ProcessLookupError as exc:
-        raise AssertionError(
-            "captured output blocked until the descendant exited"
-        ) from exc
+        raise AssertionError("captured output blocked until the descendant exited") from exc
     finally:
         try:
             os.kill(descendant_pid, signal.SIGTERM)

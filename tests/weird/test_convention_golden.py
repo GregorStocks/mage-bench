@@ -28,15 +28,10 @@ class TestGoldenFilesHaveMarker:
             if "@golden_test(" not in source:
                 missing_marker.append(path.name)
 
-        assert not missing_marker, (
-            "Golden test files without @golden_test(...):\n  "
-            + "\n  ".join(missing_marker)
-        )
+        assert not missing_marker, "Golden test files without @golden_test(...):\n  " + "\n  ".join(missing_marker)
 
     def test_infra_files_exist(self) -> None:
         """Ensure the infra allowlist doesn't reference deleted files."""
         tests_dir = REPO_ROOT / "tests"
         for name in self._INFRA_FILES:
-            assert (tests_dir / name).exists(), (
-                f"{name} is in _INFRA_FILES allowlist but doesn't exist — remove it"
-            )
+            assert (tests_dir / name).exists(), f"{name} is in _INFRA_FILES allowlist but doesn't exist — remove it"

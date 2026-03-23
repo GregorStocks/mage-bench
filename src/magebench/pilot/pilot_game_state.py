@@ -52,14 +52,10 @@ def parse_context_metadata(
     """Parse bridge context strings like 'T3 Precombat Main/Precombat Main (Alice)'."""
     if context is None:
         return None, None, None, None
-    assert isinstance(context, str), (
-        f"context must be a string when present, got {context!r}"
-    )
+    assert isinstance(context, str), f"context must be a string when present, got {context!r}"
 
     parts = context.split(maxsplit=1)
-    assert parts and parts[0].startswith("T"), (
-        f"context must start with turn marker, got {context!r}"
-    )
+    assert parts and parts[0].startswith("T"), f"context must start with turn marker, got {context!r}"
     turn = int(parts[0][1:])
 
     active_player: str | None = None

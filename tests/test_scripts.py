@@ -62,9 +62,7 @@ class TestHttpUtils:
         response.read.return_value = b"{}"
         opener.open.return_value = response
 
-        with patch.object(
-            http_utils.urllib.request, "build_opener", return_value=opener
-        ):
+        with patch.object(http_utils.urllib.request, "build_opener", return_value=opener):
             body = http_utils.fetch_https_bytes(
                 "https://api.scryfall.com/cards/search?q=bolt",
                 allowed_hosts={"api.scryfall.com"},
@@ -87,9 +85,7 @@ class TestHttpUtils:
         assert opener.open.call_args.kwargs == {"timeout": 3.5}
 
     def test_redirect_handler_rejects_unexpected_host(self) -> None:
-        handler = http_utils._ValidatedHttpsRedirectHandler(
-            allowed_hosts=frozenset({"api.scryfall.com"})
-        )
+        handler = http_utils._ValidatedHttpsRedirectHandler(allowed_hosts=frozenset({"api.scryfall.com"}))
         req = urllib.request.Request("https://api.scryfall.com/cards/search?q=bolt")
 
         with pytest.raises(AssertionError, match="Unexpected HTTPS host"):
@@ -211,9 +207,7 @@ class TestWorktreeSetup:
         (main_m2 / "org").mkdir()
         (main_m2 / "org" / "example.jar").write_text("artifact")
 
-        with self._patches(
-            project_root, tmp_path, shared_images, main_worktree_root=main_root
-        ):
+        with self._patches(project_root, tmp_path, shared_images, main_worktree_root=main_root):
             worktree_setup.main()
 
         # .m2-repo seeded from main worktree
@@ -237,9 +231,7 @@ class TestWorktreeSetup:
         main_m2.mkdir()
         (main_m2 / "other.jar").write_text("other")
 
-        with self._patches(
-            project_root, tmp_path, shared_images, main_worktree_root=main_root
-        ):
+        with self._patches(project_root, tmp_path, shared_images, main_worktree_root=main_root):
             worktree_setup.main()
 
         # Existing content preserved, no seed overwrite
@@ -269,12 +261,8 @@ class TestWorktreeSetup:
 
 class TestImportDeck:
     def test_download_deck_text_uses_validated_https_fetch(self) -> None:
-        with patch.object(
-            http_utils, "fetch_https_bytes", return_value=b"4 Lightning Bolt\n"
-        ) as mock_fetch:
-            deck_text = import_deck.download_deck_text(
-                "https://www.mtggoldfish.com/deck/7616949"
-            )
+        with patch.object(http_utils, "fetch_https_bytes", return_value=b"4 Lightning Bolt\n") as mock_fetch:
+            deck_text = import_deck.download_deck_text("https://www.mtggoldfish.com/deck/7616949")
 
         assert deck_text == "4 Lightning Bolt\n"
         mock_fetch.assert_called_once_with(
@@ -328,10 +316,7 @@ class TestImportDeck:
         assert import_deck._normalize_split_name("Lightning Bolt") == "Lightning Bolt"
 
     def test_normalize_room_card(self) -> None:
-        assert (
-            import_deck._normalize_split_name("Spiked Corridor/Torture Pit")
-            == "Spiked Corridor // Torture Pit"
-        )
+        assert import_deck._normalize_split_name("Spiked Corridor/Torture Pit") == "Spiked Corridor // Torture Pit"
 
     def test_parse_deck_text_split_card(self) -> None:
         text = "1 Wear/Tear\n4 Lightning Bolt\n"
@@ -471,9 +456,7 @@ class TestFindTestCards:
         assert "clone-effect" in out
         assert "function:clone" in out
 
-    def test_main_prints_search_results(
-        self, capsys: pytest.CaptureFixture[str]
-    ) -> None:
+    def test_main_prints_search_results(self, capsys: pytest.CaptureFixture[str]) -> None:
         results = [
             {
                 "name": "Memnite",
@@ -620,9 +603,7 @@ class TestConcludeSeason:
         )
 
         personalities_file = puppeteer_dir / "personalities.json"
-        personalities_file.write_text(
-            json.dumps({f"personality-{i}": {} for i in range(8)}, indent=2) + "\n"
-        )
+        personalities_file.write_text(json.dumps({f"personality-{i}": {} for i in range(8)}, indent=2) + "\n")
 
         with (
             patch.object(conclude_season, "_ROOT", tmp_path),
@@ -654,9 +635,7 @@ class TestConcludeSeason:
 
 
 class TestConcludeTournament:
-    def test_main_advances_to_next_regular_season(
-        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
-    ) -> None:
+    def test_main_advances_to_next_regular_season(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         data_dir = tmp_path / "data"
         tournaments_dir = data_dir / "tournaments"
         website_data_dir = tmp_path / "website" / "src" / "data"
@@ -809,9 +788,7 @@ class TestImportMetagame:
             <a href="/archetype/legacy-sneak-and-show">Sneak</a>
             <a href="/archetype/legacy-death-s-shadow">Shadow again</a>
         """
-        with patch.object(
-            http_utils, "fetch_https_text", return_value=html
-        ) as mock_fetch:
+        with patch.object(http_utils, "fetch_https_text", return_value=html) as mock_fetch:
             urls = import_metagame.fetch_archetype_urls("legacy", 5)
 
         assert urls == [
@@ -825,12 +802,8 @@ class TestImportMetagame:
 
     def test_get_deck_id_uses_validated_https_fetch(self) -> None:
         html = '<a href="/deck/7616949">Deck</a>'
-        with patch.object(
-            http_utils, "fetch_https_text", return_value=html
-        ) as mock_fetch:
-            deck_id = import_metagame.get_deck_id(
-                "https://www.mtggoldfish.com/archetype/legacy-death-s-shadow#paper"
-            )
+        with patch.object(http_utils, "fetch_https_text", return_value=html) as mock_fetch:
+            deck_id = import_metagame.get_deck_id("https://www.mtggoldfish.com/archetype/legacy-death-s-shadow#paper")
 
         assert deck_id == "7616949"
         mock_fetch.assert_called_once_with(
@@ -840,22 +813,15 @@ class TestImportMetagame:
 
     def test_clean_archetype_name_uuid(self) -> None:
         assert (
-            import_metagame.clean_archetype_name(
-                "4c-reanimator-70c5fc5f-0149-4242-8b1c-dd0b72eeb297"
-            )
+            import_metagame.clean_archetype_name("4c-reanimator-70c5fc5f-0149-4242-8b1c-dd0b72eeb297")
             == "4c-reanimator"
         )
 
     def test_clean_archetype_name_numeric(self) -> None:
-        assert (
-            import_metagame.clean_archetype_name("death-s-shadow-472")
-            == "death-s-shadow"
-        )
+        assert import_metagame.clean_archetype_name("death-s-shadow-472") == "death-s-shadow"
 
     def test_clean_archetype_name_noop(self) -> None:
-        assert (
-            import_metagame.clean_archetype_name("sneak-and-show") == "sneak-and-show"
-        )
+        assert import_metagame.clean_archetype_name("sneak-and-show") == "sneak-and-show"
 
     def test_slug_to_title_case(self) -> None:
         assert import_metagame.slug_to_title_case("sneak-and-show") == "Sneak-And-Show"
@@ -868,9 +834,7 @@ class TestImportMetagame:
 
 
 class TestGameGzBootstrap:
-    def test_bootstraps_from_shared_logs_dir(
-        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
-    ) -> None:
+    def test_bootstraps_from_shared_logs_dir(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         game_id = "game_20260314_111422_g1"
         games_dir = tmp_path / "website" / "public" / "games"
         logs_dir = tmp_path / ".mage-bench" / "logs"
@@ -932,9 +896,7 @@ class TestGameGzBootstrap:
         with (
             patch.object(game_gz_bootstrap, "GAMES_DIR", games_dir),
             patch.object(game_gz_bootstrap, "LOGS_DIR", logs_dir),
-            patch.object(
-                game_gz_bootstrap.subprocess, "run", side_effect=fake_run
-            ) as mock_run,
+            patch.object(game_gz_bootstrap.subprocess, "run", side_effect=fake_run) as mock_run,
         ):
             game_gz_bootstrap.main(game_id)
 

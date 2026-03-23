@@ -292,10 +292,7 @@ def test_ratings_no_placements_no_change():
     _ratings, per_game = compute_elo_ratings(games)
     assert len(per_game) == 1
     # Ratings should be equal (both start the same, no update)
-    assert (
-        per_game[0]["players"][0]["ratingBefore"]
-        == per_game[0]["players"][0]["ratingAfter"]
-    )
+    assert per_game[0]["players"][0]["ratingBefore"] == per_game[0]["players"][0]["ratingAfter"]
 
 
 def test_ratings_chronological_order():
@@ -316,10 +313,7 @@ def test_ratings_chronological_order():
     ]
     _ratings, per_game = compute_elo_ratings(games)
     # After 2 wins, Alice should be higher than after 1 win
-    assert (
-        per_game[1]["players"][0]["ratingBefore"]
-        > per_game[0]["players"][0]["ratingBefore"]
-    )
+    assert per_game[1]["players"][0]["ratingBefore"] > per_game[0]["players"][0]["ratingBefore"]
 
 
 def test_ratings_per_game_snapshots():
@@ -460,10 +454,7 @@ def test_elo_ignores_multiplayer_games():
     # All players should stay at 1600 since Elo only updates 1v1 games
     assert ratings["a/a"] == 1600
     assert ratings["b/b"] == 1600
-    assert (
-        per_game[0]["players"][0]["ratingBefore"]
-        == per_game[0]["players"][0]["ratingAfter"]
-    )
+    assert per_game[0]["players"][0]["ratingBefore"] == per_game[0]["players"][0]["ratingAfter"]
 
 
 # --- generate_leaderboard ---
@@ -592,12 +583,8 @@ def test_generate_leaderboard_missing_cost():
 
 def test_generate_leaderboard_avg_cost():
     games = [
-        _make_game(
-            "g1", "20260101_000000", "A", [_pilot("A", "a/x", cost=10.0, placement=1)]
-        ),
-        _make_game(
-            "g2", "20260102_000000", "A", [_pilot("A", "a/x", cost=20.0, placement=1)]
-        ),
+        _make_game("g1", "20260101_000000", "A", [_pilot("A", "a/x", cost=10.0, placement=1)]),
+        _make_game("g2", "20260102_000000", "A", [_pilot("A", "a/x", cost=20.0, placement=1)]),
     ]
     result, _ = generate_leaderboard(
         games,
@@ -649,12 +636,8 @@ def test_generate_leaderboard_excludes_no_winner():
 def test_generate_leaderboard_all_no_winner():
     """If all games lack a winner, leaderboard should be empty."""
     games = [
-        _make_game(
-            "g1", "20260101_000000", None, [_pilot("A", "a/x"), _pilot("B", "b/y")]
-        ),
-        _make_game(
-            "g2", "20260102_000000", None, [_pilot("A", "a/x"), _pilot("B", "b/y")]
-        ),
+        _make_game("g1", "20260101_000000", None, [_pilot("A", "a/x"), _pilot("B", "b/y")]),
+        _make_game("g2", "20260102_000000", None, [_pilot("A", "a/x"), _pilot("B", "b/y")]),
     ]
     result, ratings_by_game = generate_leaderboard(
         games,
@@ -814,9 +797,7 @@ def test_generate_leaderboard_file_integration():
         ratings_data = json.loads(ratings_path.read_text())
         assert "game_20260101_000000" in ratings_data
         assert "anthropic/claude-sonnet-4.5" in ratings_data["game_20260101_000000"]
-        claude_rating = ratings_data["game_20260101_000000"][
-            "anthropic/claude-sonnet-4.5"
-        ]
+        claude_rating = ratings_data["game_20260101_000000"]["anthropic/claude-sonnet-4.5"]
         assert claude_rating["after"] > claude_rating["before"]
 
 
@@ -913,10 +894,7 @@ def test_derive_format_standard():
 
 
 def test_derive_format_commander():
-    assert (
-        derive_format({"deck_type": "Variant Magic - Freeform Commander"})
-        == "commander"
-    )
+    assert derive_format({"deck_type": "Variant Magic - Freeform Commander"}) == "commander"
 
 
 def test_derive_format_requires_deck_type():
@@ -928,10 +906,7 @@ def test_derive_format_requires_deck_type():
 
 def test_derive_format_unknown_deck_type_slugifies():
     assert (
-        derive_format(
-            {"game_type": "Commander Free For All", "deck_type": "Some Weird Format"}
-        )
-        == "some-weird-format"
+        derive_format({"game_type": "Commander Free For All", "deck_type": "Some Weird Format"}) == "some-weird-format"
     )
 
 
@@ -980,9 +955,7 @@ def test_generate_all_leaderboards_legacy_and_commander():
 def test_generate_all_leaderboards_separate_format_pools():
     """Each constructed format gets its own independent rating pool."""
     games = []
-    for i, fmt in enumerate(
-        ["Constructed - Legacy", "Constructed - Modern", "Constructed - Standard"]
-    ):
+    for i, fmt in enumerate(["Constructed - Legacy", "Constructed - Modern", "Constructed - Standard"]):
         g = _make_game(
             f"g{i}",
             f"2026010{i}_000000",
@@ -1116,12 +1089,8 @@ def test_generate_leaderboard_splits_by_reasoning_effort():
             "20260101_000000",
             "Alice",
             [
-                _pilot(
-                    "Alice", "a/haiku", cost=1.0, placement=1, reasoning_effort="low"
-                ),
-                _pilot(
-                    "Bob", "a/haiku", cost=2.0, placement=2, reasoning_effort="medium"
-                ),
+                _pilot("Alice", "a/haiku", cost=1.0, placement=1, reasoning_effort="low"),
+                _pilot("Bob", "a/haiku", cost=2.0, placement=2, reasoning_effort="medium"),
             ],
         ),
     ]
@@ -1452,9 +1421,7 @@ def test_compute_thinking_time_empty():
 
 
 def test_compute_thinking_time_single_event():
-    events = [
-        {"ts": "2026-02-14T10:00:00-08:00", "player": "Alice", "type": "tool_call"}
-    ]
+    events = [{"ts": "2026-02-14T10:00:00-08:00", "player": "Alice", "type": "tool_call"}]
     assert compute_thinking_time(events) == {}
 
 
@@ -1493,18 +1460,10 @@ def test_generate_leaderboard_thinking_time():
         ),
     ]
     # Add thinking time to players
-    games[0]["players"][0] = dataclasses.replace(
-        games[0]["players"][0], thinking_time_secs=120.0
-    )
-    games[0]["players"][1] = dataclasses.replace(
-        games[0]["players"][1], thinking_time_secs=90.0
-    )
-    games[1]["players"][0] = dataclasses.replace(
-        games[1]["players"][0], thinking_time_secs=80.0
-    )
-    games[1]["players"][1] = dataclasses.replace(
-        games[1]["players"][1], thinking_time_secs=110.0
-    )
+    games[0]["players"][0] = dataclasses.replace(games[0]["players"][0], thinking_time_secs=120.0)
+    games[0]["players"][1] = dataclasses.replace(games[0]["players"][1], thinking_time_secs=90.0)
+    games[1]["players"][0] = dataclasses.replace(games[1]["players"][0], thinking_time_secs=80.0)
+    games[1]["players"][1] = dataclasses.replace(games[1]["players"][1], thinking_time_secs=110.0)
 
     result, _ = generate_leaderboard(games, {})
 
@@ -1629,12 +1588,8 @@ def test_generate_model_stats_basic():
             epoch=10,
         )
         # Override the default zero values so aggregation exercises non-zero totals.
-        game["players"][0] = dataclasses.replace(
-            game["players"][0], thinking_time_secs=60.0
-        )
-        game["players"][1] = dataclasses.replace(
-            game["players"][1], thinking_time_secs=30.0
-        )
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=60.0)
+        game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=30.0)
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1775,9 +1730,7 @@ def test_generate_model_stats_epoch_bucketing():
                 ],
                 epoch=epoch,
             )
-            game["players"][0] = dataclasses.replace(
-                game["players"][0], thinking_time_secs=10.0
-            )
+            game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
             (games_dir / f"{game_id}.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1846,9 +1799,7 @@ def test_generate_model_stats_error_types():
             ],
             epoch=10,
         )
-        game["players"][0] = dataclasses.replace(
-            game["players"][0], thinking_time_secs=10.0
-        )
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1875,9 +1826,7 @@ def test_generate_model_stats_includes_no_winner_games():
             "20260101_000000",
             None,  # no winner
             [
-                _pilot(
-                    "Alice", "a/model-a", cost=1.0, tool_calls_ok=5, tool_calls_failed=0
-                ),
+                _pilot("Alice", "a/model-a", cost=1.0, tool_calls_ok=5, tool_calls_failed=0),
             ],
             [
                 {
@@ -1889,9 +1838,7 @@ def test_generate_model_stats_includes_no_winner_games():
             ],
             epoch=10,
         )
-        game["players"][0] = dataclasses.replace(
-            game["players"][0], thinking_time_secs=10.0
-        )
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -1970,12 +1917,8 @@ def test_generate_model_stats_reasoning_effort():
             ],
             epoch=10,
         )
-        game["players"][0] = dataclasses.replace(
-            game["players"][0], thinking_time_secs=10.0
-        )
-        game["players"][1] = dataclasses.replace(
-            game["players"][1], thinking_time_secs=20.0
-        )
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
+        game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=20.0)
         (games_dir / "game_20260101_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -2063,12 +2006,8 @@ def test_generate_internals_data_basic():
             ],
             epoch=10,
         )
-        game["players"][0] = dataclasses.replace(
-            game["players"][0], thinking_time_secs=60.0
-        )
-        game["players"][1] = dataclasses.replace(
-            game["players"][1], thinking_time_secs=30.0
-        )
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=60.0)
+        game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=30.0)
         (games_dir / "game_20260115_120000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"
@@ -2130,12 +2069,8 @@ def test_generate_internals_data_format_detection():
             epoch=10,
         )
         game["deck_type"] = "Constructed - Standard"
-        game["players"][0] = dataclasses.replace(
-            game["players"][0], thinking_time_secs=10.0
-        )
-        game["players"][1] = dataclasses.replace(
-            game["players"][1], thinking_time_secs=10.0
-        )
+        game["players"][0] = dataclasses.replace(game["players"][0], thinking_time_secs=10.0)
+        game["players"][1] = dataclasses.replace(game["players"][1], thinking_time_secs=10.0)
         (games_dir / "game_20260116_000000.json5.gz").write_bytes(_dump(game))
 
         models_json = root / "models.json"

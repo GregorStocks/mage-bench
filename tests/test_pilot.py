@@ -52,23 +52,17 @@ async def test_execute_tool_raises_on_mcp_failure():
     session = MagicMock()
     session.call_tool = AsyncMock(side_effect=RuntimeError("bridge died"))
 
-    with pytest.raises(
-        ToolExecutionError, match="MCP tool pass_priority failed: bridge died"
-    ):
+    with pytest.raises(ToolExecutionError, match="MCP tool pass_priority failed: bridge died"):
         await execute_tool(session, "pass_priority", {})
 
 
 @pytest.mark.asyncio
 async def test_fetch_state_summary_raises_on_error_payload():
     session = MagicMock()
-    result = CallToolResult(
-        content=[TextContent(type="text", text='{"error": "bridge died"}')]
-    )
+    result = CallToolResult(content=[TextContent(type="text", text='{"error": "bridge died"}')])
     session.call_tool = AsyncMock(return_value=result)
 
-    with pytest.raises(
-        ToolExecutionError, match="get_game_state returned error: bridge died"
-    ):
+    with pytest.raises(ToolExecutionError, match="get_game_state returned error: bridge died"):
         await _fetch_state_summary(session)
 
 
@@ -90,9 +84,7 @@ def test_main_accepts_explicit_api_key_for_non_default_provider():
         ),
         patch("magebench.pilot.pilot.setup_logging"),
         patch("magebench.pilot.pilot.load_prices", return_value={}),
-        patch(
-            "magebench.pilot.pilot._load_default_system_prompt", return_value="system"
-        ),
+        patch("magebench.pilot.pilot._load_default_system_prompt", return_value="system"),
         patch("magebench.pilot.pilot.run_pilot", new=fake_run_pilot),
         patch("magebench.pilot.pilot.asyncio.run") as run_mock,
     ):
@@ -139,11 +131,7 @@ def _no_prefetch():
 async def test_401_raises_permanent_failure():
     """A 401 error (user not found / bad API key) should raise PermanentLLMError."""
     session = _make_session()
-    client = _make_client(
-        OpenAIError(
-            "Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"
-        )
-    )
+    client = _make_client(OpenAIError("Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"))
 
     with pytest.raises(PermanentLLMError, match="Credits exhausted"):
         await run_pilot_loop(
@@ -221,9 +209,7 @@ async def test_game_over_from_pass_priority_triggers_auto_pass():
     session = _make_session()
 
     # Mock pass_priority to return game_over
-    pass_result = CallToolResult(
-        content=[TextContent(type="text", text='{"game_over": true, "timeout": true}')]
-    )
+    pass_result = CallToolResult(content=[TextContent(type="text", text='{"game_over": true, "timeout": true}')])
     session.call_tool = AsyncMock(return_value=pass_result)
 
     # Mock LLM to call pass_priority
@@ -244,9 +230,7 @@ async def test_game_over_from_pass_priority_triggers_auto_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(return_value=response)
 
-    with patch(
-        "magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock
-    ) as mock_auto_pass:
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
         await run_pilot_loop(
             session=session,
             client=client,
@@ -272,9 +256,7 @@ async def test_game_over_from_get_action_choices_triggers_auto_pass():
 
     # Mock get_action_choices to return game_over
     choices_text = '{"action_pending": false, "game_over": true}'
-    choices_result = CallToolResult(
-        content=[TextContent(type="text", text=choices_text)]
-    )
+    choices_result = CallToolResult(content=[TextContent(type="text", text=choices_text)])
     session.call_tool = AsyncMock(return_value=choices_result)
 
     # Mock LLM to call get_action_choices
@@ -295,9 +277,7 @@ async def test_game_over_from_get_action_choices_triggers_auto_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(return_value=response)
 
-    with patch(
-        "magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock
-    ) as mock_auto_pass:
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
         await run_pilot_loop(
             session=session,
             client=client,
@@ -347,9 +327,7 @@ async def test_game_over_from_choose_action_triggers_auto_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(return_value=response)
 
-    with patch(
-        "magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock
-    ) as mock_auto_pass:
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
         await run_pilot_loop(
             session=session,
             client=client,
@@ -381,10 +359,7 @@ def _make_mcp_tool(name: str) -> MagicMock:
 
 def test_mcp_tools_to_openai_no_filter():
     """With no allowed_tools, should include all MCP tools."""
-    mcp_tools = [
-        _make_mcp_tool(name)
-        for name in ["pass_priority", "choose_action", "wait_for_action"]
-    ]
+    mcp_tools = [_make_mcp_tool(name) for name in ["pass_priority", "choose_action", "wait_for_action"]]
     result = mcp_tools_to_openai(mcp_tools)
     names = {t["function"]["name"] for t in result}
     assert names == {"pass_priority", "choose_action", "wait_for_action"}
@@ -392,10 +367,7 @@ def test_mcp_tools_to_openai_no_filter():
 
 def test_mcp_tools_to_openai_custom_filter():
     """With custom allowed_tools, should filter to that set."""
-    mcp_tools = [
-        _make_mcp_tool(name)
-        for name in ["pass_priority", "choose_action", "get_game_state"]
-    ]
+    mcp_tools = [_make_mcp_tool(name) for name in ["pass_priority", "choose_action", "get_game_state"]]
     custom = {"pass_priority", "get_game_state"}
     result = mcp_tools_to_openai(mcp_tools, allowed_tools=custom)
     names = {t["function"]["name"] for t in result}
@@ -512,13 +484,9 @@ async def test_run_pilot_loop_raises_on_tool_failure():
     session.call_tool = AsyncMock(side_effect=RuntimeError("bridge died"))
 
     client = MagicMock()
-    client.chat.completions.create = AsyncMock(
-        return_value=_make_llm_response("pass_priority", "{}")
-    )
+    client.chat.completions.create = AsyncMock(return_value=_make_llm_response("pass_priority", "{}"))
 
-    with pytest.raises(
-        ToolExecutionError, match="MCP tool pass_priority failed: bridge died"
-    ):
+    with pytest.raises(ToolExecutionError, match="MCP tool pass_priority failed: bridge died"):
         await run_pilot_loop(
             session=session,
             client=client,
@@ -537,16 +505,12 @@ async def test_run_pilot_loop_logs_failed_tool_call_before_reraising():
     session.call_tool = AsyncMock(side_effect=RuntimeError("bridge died"))
 
     client = MagicMock()
-    client.chat.completions.create = AsyncMock(
-        return_value=_make_llm_response("choose_action", '{"choice":"no"}')
-    )
+    client.chat.completions.create = AsyncMock(return_value=_make_llm_response("choose_action", '{"choice":"no"}'))
 
     game_log = MagicMock()
     with (
         patch("magebench.pilot.pilot.log_error") as log_error_mock,
-        pytest.raises(
-            ToolExecutionError, match="MCP tool choose_action failed: bridge died"
-        ),
+        pytest.raises(ToolExecutionError, match="MCP tool choose_action failed: bridge died"),
     ):
         await run_pilot_loop(
             session=session,
@@ -565,11 +529,7 @@ async def test_run_pilot_loop_logs_failed_tool_call_before_reraising():
             game_log=game_log,
         )
 
-    failed_tool_calls = [
-        call
-        for call in game_log.emit.call_args_list
-        if call.args and call.args[0] == "tool_call"
-    ]
+    failed_tool_calls = [call for call in game_log.emit.call_args_list if call.args and call.args[0] == "tool_call"]
     assert len(failed_tool_calls) == 1
     failed_call = failed_tool_calls[0]
     assert failed_call.kwargs["tool"] == "choose_action"
@@ -587,10 +547,7 @@ async def test_run_pilot_loop_logs_failed_tool_call_before_reraising():
         error_message="MCP tool choose_action failed: bridge died",
     )
     log_error_mock.assert_called_once()
-    assert (
-        log_error_mock.call_args.args[3]
-        == "[pilot] Fatal tool error: MCP tool choose_action failed: bridge died"
-    )
+    assert log_error_mock.call_args.args[3] == "[pilot] Fatal tool error: MCP tool choose_action failed: bridge died"
 
 
 @pytest.mark.asyncio
@@ -606,18 +563,14 @@ async def test_repeated_pass_error_forces_plain_pass():
         if name == "pass_priority":
             pass_call_count += 1
             if pass_call_count == 1:  # prefetch
-                return _mock_tool_result(
-                    '{"action_pending": true, "action_type": "GAME_SELECT"}'
-                )
+                return _mock_tool_result('{"action_pending": true, "action_type": "GAME_SELECT"}')
             if pass_call_count in (2, 3, 4):  # LLM turns 1-3: error
                 return _mock_tool_result(_PASS_ERROR)
             if pass_call_count == 5:  # forced plain pass
                 return _mock_tool_result(_PASS_OK)
             return _mock_tool_result('{"game_over": true}')  # exit
         if name == "get_action_choices":
-            return _mock_tool_result(
-                '{"action_type": "GAME_SELECT", "message": "Choose"}'
-            )
+            return _mock_tool_result('{"action_type": "GAME_SELECT", "message": "Choose"}')
         return _mock_tool_result("{}")
 
     session.call_tool = AsyncMock(side_effect=fake_call_tool)
@@ -626,9 +579,7 @@ async def test_repeated_pass_error_forces_plain_pass():
     clean_pass = _make_llm_response("pass_priority", "{}")
 
     client = MagicMock()
-    client.chat.completions.create = AsyncMock(
-        side_effect=[bad_pass, bad_pass, bad_pass, clean_pass]
-    )
+    client.chat.completions.create = AsyncMock(side_effect=[bad_pass, bad_pass, bad_pass, clean_pass])
 
     with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
@@ -665,9 +616,7 @@ async def test_different_pass_errors_dont_trigger_forced_pass():
             if (not args or args == {}) and pass_call_count > 1:  # not prefetch
                 forced_pass_count += 1
             if pass_call_count == 1:  # prefetch
-                return _mock_tool_result(
-                    '{"action_pending": true, "action_type": "GAME_SELECT"}'
-                )
+                return _mock_tool_result('{"action_pending": true, "action_type": "GAME_SELECT"}')
             if pass_call_count > 5:
                 return _mock_tool_result('{"game_over": true}')
             # Alternate between two different errors
@@ -675,9 +624,7 @@ async def test_different_pass_errors_dont_trigger_forced_pass():
                 return _mock_tool_result(error_a)
             return _mock_tool_result(error_b)
         if name == "get_action_choices":
-            return _mock_tool_result(
-                '{"action_type": "GAME_SELECT", "message": "Choose"}'
-            )
+            return _mock_tool_result('{"action_type": "GAME_SELECT", "message": "Choose"}')
         return _mock_tool_result("{}")
 
     session.call_tool = AsyncMock(side_effect=fake_call_tool)
@@ -687,9 +634,7 @@ async def test_different_pass_errors_dont_trigger_forced_pass():
     exit_pass = _make_llm_response("pass_priority", '{"until":"my_turn"}')
 
     client = MagicMock()
-    client.chat.completions.create = AsyncMock(
-        side_effect=[bad_pass, bad_pass, bad_pass, bad_pass, exit_pass]
-    )
+    client.chat.completions.create = AsyncMock(side_effect=[bad_pass, bad_pass, bad_pass, bad_pass, exit_pass])
 
     with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
@@ -720,22 +665,16 @@ async def test_successful_pass_resets_error_counter():
             if (not args or args == {}) and pass_call_count > 1:  # not prefetch
                 forced_pass_count += 1
             if pass_call_count == 1:  # prefetch
-                return _mock_tool_result(
-                    '{"action_pending": true, "action_type": "GAME_SELECT"}'
-                )
+                return _mock_tool_result('{"action_pending": true, "action_type": "GAME_SELECT"}')
             if pass_call_count in (2, 3):  # 2 errors
                 return _mock_tool_result(_PASS_ERROR)
             if pass_call_count == 4:  # success resets counter
-                return _mock_tool_result(
-                    '{"action_pending": true, "stop_reason": "playable_cards"}'
-                )
+                return _mock_tool_result('{"action_pending": true, "stop_reason": "playable_cards"}')
             if pass_call_count in (5, 6):  # 2 more errors (not 3 consecutive)
                 return _mock_tool_result(_PASS_ERROR)
             return _mock_tool_result('{"game_over": true}')
         if name == "get_action_choices":
-            return _mock_tool_result(
-                '{"action_type": "GAME_SELECT", "message": "Choose"}'
-            )
+            return _mock_tool_result('{"action_type": "GAME_SELECT", "message": "Choose"}')
         return _mock_tool_result("{}")
 
     session.call_tool = AsyncMock(side_effect=fake_call_tool)
@@ -746,9 +685,7 @@ async def test_successful_pass_resets_error_counter():
 
     client = MagicMock()
     # 2 errors, 1 success, 2 errors, then game_over
-    client.chat.completions.create = AsyncMock(
-        side_effect=[bad_pass, bad_pass, ok_pass, bad_pass, bad_pass, ok_pass]
-    )
+    client.chat.completions.create = AsyncMock(side_effect=[bad_pass, bad_pass, ok_pass, bad_pass, bad_pass, ok_pass])
 
     with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock):
         await run_pilot_loop(
@@ -1026,9 +963,7 @@ async def test_stall_recovery_preserves_board_context():
 
     pass_calls = [args for name, args in tool_calls if name == "pass_priority"]
     assert pass_calls == [{}, {}, {"board_cursor": 9}]
-    game_log.emit.assert_any_call(
-        "stall", turns_without_progress=1, last_tools=["pass_priority"]
-    )
+    game_log.emit.assert_any_call("stall", turns_without_progress=1, last_tools=["pass_priority"])
 
 
 # --- Chat rate limiting tests ---
@@ -1080,10 +1015,7 @@ async def test_chat_messages_rate_limited_per_turn():
 
     # LLM sends 4 chat messages + pass_priority in one turn
     chat_count = MAX_CHAT_MESSAGES_PER_TURN + 2
-    tool_calls = [
-        ("send_chat_message", json.dumps({"message": f"msg {i}"}))
-        for i in range(chat_count)
-    ]
+    tool_calls = [("send_chat_message", json.dumps({"message": f"msg {i}"})) for i in range(chat_count)]
     tool_calls.append(("pass_priority", '{"timeout_ms": 10000}'))
     llm_response = _make_multi_tool_response(tool_calls)
 
@@ -1150,9 +1082,7 @@ def _sample_pass_priority_result() -> dict:
                         "rules": ["{T}: Add {R}."],
                     },
                 ],
-                "battlefield": [
-                    {"name": "Mountain", "is_land": True, "id": "p1", "tapped": False}
-                ],
+                "battlefield": [{"name": "Mountain", "is_land": True, "id": "p1", "tapped": False}],
             },
             {
                 "name": "Bob",
@@ -1320,9 +1250,7 @@ async def test_consecutive_empty_choices_triggers_auto_pass():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(return_value=response)
 
-    with patch(
-        "magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock
-    ) as mock_auto_pass:
+    with patch("magebench.pilot.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
         await run_pilot_loop(
             session=session,
             client=client,

@@ -74,9 +74,7 @@ def _collect_card_names(snapshots: list[dict]) -> tuple[set[str], set[str]]:
     return real_cards, tokens
 
 
-def build_card_data(
-    card_images: dict[str, str], snapshots: list[dict]
-) -> tuple[dict[str, str], dict[str, dict]]:
+def build_card_data(card_images: dict[str, str], snapshots: list[dict]) -> tuple[dict[str, str], dict[str, dict]]:
     """Build cardData metadata and add token images to cardImages.
 
     Returns (updated_card_images, card_data).

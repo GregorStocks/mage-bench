@@ -163,20 +163,13 @@ def test_find_context_uses_timestamp_for_older_exports() -> None:
         ),
     ]
     # Use a dataclass instance — GameStartEvent is arbitrary, we just need ts/game_seq
-    event = GameStartEvent(
-        type="game_start", player="Alice", ts="2026-03-01T00:00:06.000000Z"
-    )
+    event = GameStartEvent(type="game_start", player="Alice", ts="2026-03-01T00:00:06.000000Z")
 
     assert game_timeline.find_turn_for_event(snapshots, event) == 1
-    assert (
-        game_timeline.find_context_for_event(snapshots, event)
-        == "T1 PRECOMBAT_MAIN (Alice)"
-    )
+    assert game_timeline.find_context_for_event(snapshots, event) == "T1 PRECOMBAT_MAIN (Alice)"
 
 
-def test_seq_based_exports_use_game_seq_for_context(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str]
-) -> None:
+def test_seq_based_exports_use_game_seq_for_context(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     export_path = _write_export(tmp_path)
 
     with patch.object(sys, "argv", ["game_timeline.py", str(export_path)]):
@@ -184,12 +177,8 @@ def test_seq_based_exports_use_game_seq_for_context(
 
     lines = capsys.readouterr().out.splitlines()
     start_line = next(line for line in lines if "=== GAME START ===" in line)
-    alice_line = next(
-        line for line in lines if "Alice" in line and "get_action_choices()" in line
-    )
-    bob_line = next(
-        line for line in lines if "Bob" in line and "get_action_choices()" in line
-    )
+    alice_line = next(line for line in lines if "Alice" in line and "get_action_choices()" in line)
+    bob_line = next(line for line in lines if "Bob" in line and "get_action_choices()" in line)
 
     assert "T1 " not in start_line
     assert "T2 " not in start_line
@@ -197,14 +186,10 @@ def test_seq_based_exports_use_game_seq_for_context(
     assert "T2 PRECOMBAT_MAIN (Bob)" in bob_line
 
 
-def test_turn_filter_excludes_unresolved_events(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str]
-) -> None:
+def test_turn_filter_excludes_unresolved_events(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     export_path = _write_export(tmp_path)
 
-    with patch.object(
-        sys, "argv", ["game_timeline.py", str(export_path), "--turns", "1"]
-    ):
+    with patch.object(sys, "argv", ["game_timeline.py", str(export_path), "--turns", "1"]):
         game_timeline.main()
 
     out = capsys.readouterr().out
@@ -215,9 +200,7 @@ def test_turn_filter_excludes_unresolved_events(
     assert "(1 events shown)" in out
 
 
-def test_unannotated_exports_are_supported(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str]
-) -> None:
+def test_unannotated_exports_are_supported(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     export_path = _write_export(tmp_path, annotated=False)
 
     with patch.object(sys, "argv", ["game_timeline.py", str(export_path)]):

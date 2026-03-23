@@ -180,18 +180,13 @@ def test_build_choice_prompt_already_chosen():
         DeckEntry(name="Zurgo", strategy="", cards=["1 [CMD:1] Sol Ring"]),
     ]
     already = [("Player1", "Burn"), ("Player2", "Delver")]
-    prompt = _build_choice_prompt(
-        entries, "TestBot", already, "Variant Magic - Commander"
-    )
+    prompt = _build_choice_prompt(entries, "TestBot", already, "Variant Magic - Commander")
     assert "Player1: Burn" in prompt
     assert "Player2: Delver" in prompt
 
 
 def test_build_choice_prompt_large_pool_no_summaries():
-    entries = [
-        DeckEntry(name=f"Deck{i:02d}", strategy="", cards=[f"4 [M21:1] Card{i}"])
-        for i in range(35)
-    ]
+    entries = [DeckEntry(name=f"Deck{i:02d}", strategy="", cards=[f"4 [M21:1] Card{i}"]) for i in range(35)]
     prompt = _build_choice_prompt(entries, "TestBot", [], "Constructed - Legacy")
     # Large pool: names only, no card summaries
     assert "1. Deck00" in prompt
@@ -243,9 +238,7 @@ def test_resolve_choice_decks_sets_player_deck():
             },
         )
 
-        player = PilotPlayer(
-            name="TestBot", deck="choice", model="test/model", provider="openrouter"
-        )
+        player = PilotPlayer(name="TestBot", deck="choice", model="test/model", provider="openrouter")
 
         mock_response = MagicMock()
         mock_response.choices = [MagicMock()]
@@ -279,12 +272,8 @@ def test_resolve_choice_decks_no_duplicates():
             },
         )
 
-        p1 = PilotPlayer(
-            name="Bot1", deck="choice", model="test/model", provider="openrouter"
-        )
-        p2 = PilotPlayer(
-            name="Bot2", deck="choice", model="test/model", provider="openrouter"
-        )
+        p1 = PilotPlayer(name="Bot1", deck="choice", model="test/model", provider="openrouter")
+        p2 = PilotPlayer(name="Bot2", deck="choice", model="test/model", provider="openrouter")
 
         def make_response(text):
             resp = MagicMock()

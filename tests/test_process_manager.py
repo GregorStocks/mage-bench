@@ -79,9 +79,7 @@ def test_jvm_oom_preexec_fn_non_linux(monkeypatch: pytest.MonkeyPatch):
     assert jvm_oom_preexec_fn() is None
 
 
-def test_start_jvm_process_passes_oom_preference_kwargs(
-    monkeypatch: pytest.MonkeyPatch, tmp_path
-):
+def test_start_jvm_process_passes_oom_preference_kwargs(monkeypatch: pytest.MonkeyPatch, tmp_path):
     """JVM launches should always receive the Linux OOM-bias hook."""
     popen = Mock()
     popen.return_value = Mock()

@@ -10,9 +10,7 @@ SKIP_MODULES = {"__init__"}
 
 def test_all_pilot_modules_importable() -> None:
     """Import every .py file in the pilot package to catch syntax/import errors."""
-    modules = sorted(
-        p.stem for p in PILOT_DIR.glob("*.py") if p.stem not in SKIP_MODULES
-    )
+    modules = sorted(p.stem for p in PILOT_DIR.glob("*.py") if p.stem not in SKIP_MODULES)
     assert modules, f"No modules found in {PILOT_DIR}"
 
     failures: list[str] = []

@@ -25,9 +25,7 @@ class TestAllConfigsLoad:
         """Every config file must be valid JSON with a players array."""
         data = json.loads(config_path.read_text())
         assert "players" in data, f"{config_path.name} missing 'players'"
-        assert isinstance(data["players"], list), (
-            f"{config_path.name} players is not a list"
-        )
+        assert isinstance(data["players"], list), f"{config_path.name} players is not a list"
         assert data["players"], f"{config_path.name} has empty players list"
 
 
@@ -42,16 +40,10 @@ class TestConfigReferencesValid:
             data = load_json(config_path)
             for i, player in enumerate(data.get("players", [])):
                 preset = player.get("preset")
-                if (
-                    preset
-                    and preset not in SPECIAL_PRESET_KEYWORDS
-                    and preset not in preset_names
-                ):
+                if preset and preset not in SPECIAL_PRESET_KEYWORDS and preset not in preset_names:
                     bad.append(f"{config_path.name} player[{i}]: {preset!r}")
 
-        assert not bad, "Config players reference unknown presets:\n  " + "\n  ".join(
-            bad
-        )
+        assert not bad, "Config players reference unknown presets:\n  " + "\n  ".join(bad)
 
     def test_config_personalities_are_valid(self) -> None:
         """Every personality in a config player must be a special keyword or exist in personalities.json."""
@@ -70,9 +62,7 @@ class TestConfigReferencesValid:
                 ):
                     bad.append(f"{config_path.name} player[{i}]: {personality!r}")
 
-        assert not bad, (
-            "Config players reference unknown personalities:\n  " + "\n  ".join(bad)
-        )
+        assert not bad, "Config players reference unknown personalities:\n  " + "\n  ".join(bad)
 
 
 class TestConfigDeckTypes:
@@ -94,13 +84,8 @@ class TestConfigDeckTypes:
             if deck_type is None:
                 continue
             types = deck_type if isinstance(deck_type, list) else [deck_type]
-            bad.extend(
-                f"{config_path.name}: {value!r}"
-                for value in types
-                if value not in self._VALID_DECK_TYPES
-            )
+            bad.extend(f"{config_path.name}: {value!r}" for value in types if value not in self._VALID_DECK_TYPES)
 
         assert not bad, (
-            "Configs use unrecognized deckType values (add to _VALID_DECK_TYPES if intentional):\n  "
-            + "\n  ".join(bad)
+            "Configs use unrecognized deckType values (add to _VALID_DECK_TYPES if intentional):\n  " + "\n  ".join(bad)
         )

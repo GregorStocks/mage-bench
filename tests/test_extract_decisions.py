@@ -128,9 +128,7 @@ class TestMarkRolledBackCasts:
         """Cast spell -> cost choice -> mana tap -> cancel event."""
         decisions = [
             _make_decision(0, message="Play spells and abilities", action_ts="T01"),
-            _make_decision(
-                1, message="You may choose an alternative cost", action_ts="T02"
-            ),
+            _make_decision(1, message="You may choose an alternative cost", action_ts="T02"),
             _make_decision(
                 2,
                 message="Choose which mana to produce from Gloomlake Verge",
@@ -150,9 +148,7 @@ class TestMarkRolledBackCasts:
         """Normal decisions without spell cancelled events are untouched."""
         decisions = [
             _make_decision(0, message="Play spells and abilities", action_ts="T01"),
-            _make_decision(
-                1, message="You may choose an alternative cost", action_ts="T02"
-            ),
+            _make_decision(1, message="You may choose an alternative cost", action_ts="T02"),
             _make_decision(2, message="Play spells and abilities", action_ts="T03"),
         ]
         _mark_rolled_back_casts(decisions, [])
@@ -164,9 +160,7 @@ class TestMarkRolledBackCasts:
     def test_interleaved_players(self) -> None:
         """Rolled-back cast with opponent decisions interleaved."""
         decisions = [
-            _make_decision(
-                0, player="Alice", message="Play spells and abilities", action_ts="T01"
-            ),
+            _make_decision(0, player="Alice", message="Play spells and abilities", action_ts="T01"),
             _make_decision(
                 1,
                 player="Alice",
@@ -179,9 +173,7 @@ class TestMarkRolledBackCasts:
                 message="Play instants and activated abilities",
                 action_ts="T03",
             ),
-            _make_decision(
-                3, player="Alice", message="Play spells and abilities", action_ts="T05"
-            ),
+            _make_decision(3, player="Alice", message="Play spells and abilities", action_ts="T05"),
         ]
         _mark_rolled_back_casts(decisions, [_cancel("Alice", "T04")])
 
@@ -194,13 +186,9 @@ class TestMarkRolledBackCasts:
     def test_instants_prompt(self) -> None:
         """Cast rolled back from 'Play instants and activated abilities' prompt."""
         decisions = [
-            _make_decision(
-                0, message="Play instants and activated abilities", action_ts="T01"
-            ),
+            _make_decision(0, message="Play instants and activated abilities", action_ts="T01"),
             _make_decision(1, message="Choose which mana to produce", action_ts="T02"),
-            _make_decision(
-                2, message="Play instants and activated abilities", action_ts="T04"
-            ),
+            _make_decision(2, message="Play instants and activated abilities", action_ts="T04"),
         ]
         _mark_rolled_back_casts(decisions, [_cancel("Alice", "T03")])
 
@@ -213,9 +201,7 @@ class TestMarkRolledBackCasts:
             _make_decision(0, message="Play spells and abilities", action_ts="T01"),
             _make_decision(1, message="Choose which mana to produce", action_ts="T02"),
             _make_decision(2, message="Play spells and abilities", action_ts="T04"),
-            _make_decision(
-                3, message="You may choose an alternative cost", action_ts="T05"
-            ),
+            _make_decision(3, message="You may choose an alternative cost", action_ts="T05"),
             _make_decision(4, message="Play spells and abilities", action_ts="T07"),
         ]
         _mark_rolled_back_casts(
@@ -243,20 +229,12 @@ class TestMarkRolledBackCasts:
     def test_different_players_independent(self) -> None:
         """Cancel events for different players don't interfere."""
         decisions = [
-            _make_decision(
-                0, player="Alice", message="Play spells and abilities", action_ts="T01"
-            ),
+            _make_decision(0, player="Alice", message="Play spells and abilities", action_ts="T01"),
             _make_decision(1, player="Alice", message="Choose mana", action_ts="T02"),
-            _make_decision(
-                2, player="Bob", message="Play spells and abilities", action_ts="T03"
-            ),
+            _make_decision(2, player="Bob", message="Play spells and abilities", action_ts="T03"),
             _make_decision(3, player="Bob", message="Choose mana", action_ts="T04"),
-            _make_decision(
-                4, player="Alice", message="Play spells and abilities", action_ts="T06"
-            ),
-            _make_decision(
-                5, player="Bob", message="Play spells and abilities", action_ts="T07"
-            ),
+            _make_decision(4, player="Alice", message="Play spells and abilities", action_ts="T06"),
+            _make_decision(5, player="Bob", message="Play spells and abilities", action_ts="T07"),
         ]
         _mark_rolled_back_casts(
             decisions,
@@ -281,9 +259,7 @@ class TestFindSpellCancelledEvents:
                 "result": '{"recent_chat": ["[System] Spell cancelled — mana plan was incorrect."]}',
             },
         ]
-        assert _find_spell_cancelled_events(_convert_events(events)) == [
-            ("Alice", "T01")
-        ]
+        assert _find_spell_cancelled_events(_convert_events(events)) == [("Alice", "T01")]
 
     def test_finds_cancel_in_choose_action(self) -> None:
         result = '{"action_taken": "selected_0", "recent_chat": ["[System] Spell cancelled — not enough mana."]}'
@@ -310,9 +286,7 @@ class TestFindSpellCancelledEvents:
                 "result": '{"recent_chat": ["[System] Spell cancelled — mana plan was incorrect or incomplete."]}',
             },
         ]
-        assert _find_spell_cancelled_events(_convert_events(events)) == [
-            ("Alice", "T03")
-        ]
+        assert _find_spell_cancelled_events(_convert_events(events)) == [("Alice", "T03")]
 
     def test_ignores_non_system_chat(self) -> None:
         events = [
@@ -434,9 +408,7 @@ def _v2_pass_priority_no_action(player: str, ts: str) -> dict:
     }
 
 
-def _v2_choose_action(
-    player: str, ts: str, args: dict, action_taken: str = "selected_0"
-) -> dict:
+def _v2_choose_action(player: str, ts: str, args: dict, action_taken: str = "selected_0") -> dict:
     """Build a v2 choose_action tool_call event."""
     result = {"success": True, "action_taken": action_taken}
     return {
@@ -449,9 +421,7 @@ def _v2_choose_action(
     }
 
 
-def _v2_choose_action_with_result(
-    player: str, ts: str, args: dict, result: dict
-) -> dict:
+def _v2_choose_action_with_result(player: str, ts: str, args: dict, result: dict) -> dict:
     """Build a v2 choose_action tool_call event with an explicit result."""
     return {
         "type": "tool_call",
@@ -527,15 +497,11 @@ class TestResolveChosenIndex:
         assert _resolve_chosen_index({"id": "p2"}, choices, {}) == 1
 
     def test_id_not_found_falls_back_to_action_taken(self) -> None:
-        result = _resolve_chosen_index(
-            {"id": "p99"}, [], {"action_taken": "selected_3"}
-        )
+        result = _resolve_chosen_index({"id": "p99"}, [], {"action_taken": "selected_3"})
         assert result == 3
 
     def test_fallback_to_action_taken(self) -> None:
-        result = _resolve_chosen_index(
-            {"attackers": ["p1"]}, [], {"action_taken": "selected_0"}
-        )
+        result = _resolve_chosen_index({"attackers": ["p1"]}, [], {"action_taken": "selected_0"})
         assert result == 0
 
     def test_id_overrides_index_when_both_present(self) -> None:
@@ -545,9 +511,7 @@ class TestResolveChosenIndex:
             {"name": "Opponent", "id": "p1"},
         ]
         # Model sends index=0 (default) but id=p1 (actual intent)
-        result = _resolve_chosen_index(
-            {"index": 0, "id": "p1"}, choices, {"action_taken": "selected_target_1"}
-        )
+        result = _resolve_chosen_index({"index": 0, "id": "p1"}, choices, {"action_taken": "selected_target_1"})
         assert result == 1  # id=p1 is at index 1, not index 0
 
     def test_id_overrides_index_id_not_found_falls_back(self) -> None:
@@ -564,16 +528,12 @@ class TestResolveChosenIndex:
 
     def test_action_taken_selected_target(self) -> None:
         """Fallback handles selected_target_N format."""
-        result = _resolve_chosen_index(
-            {"attackers": ["p1"]}, [], {"action_taken": "selected_target_2"}
-        )
+        result = _resolve_chosen_index({"attackers": ["p1"]}, [], {"action_taken": "selected_target_2"})
         assert result == 2
 
     def test_action_taken_selected_ability(self) -> None:
         """Fallback handles selected_ability_N format."""
-        result = _resolve_chosen_index(
-            {"attackers": ["p1"]}, [], {"action_taken": "selected_ability_0"}
-        )
+        result = _resolve_chosen_index({"attackers": ["p1"]}, [], {"action_taken": "selected_ability_0"})
         assert result == 0
 
     def test_no_resolution(self) -> None:
@@ -617,9 +577,7 @@ class TestResolveChosenIndex:
     def test_choice_takes_precedence_over_old_fields(self) -> None:
         """When choice is present alongside old fields, choice wins."""
         choices = [{"name": "A", "id": "p1"}, {"name": "B", "id": "p2"}]
-        result = _resolve_chosen_index(
-            {"choice": "p2", "index": 0, "answer": True}, choices, {}
-        )
+        result = _resolve_chosen_index({"choice": "p2", "index": 0, "answer": True}, choices, {})
         assert result == 1  # choice=p2 at index 1, not index=0 or answer=True
 
 
@@ -691,13 +649,9 @@ class TestExtractDecisionsV2:
     def test_two_players_interleaved(self) -> None:
         """Decisions from two players don't interfere."""
         events = [
-            _v2_pass_priority(
-                "Alice", "T01", [{"name": "Bolt", "id": "p1", "index": 0}]
-            ),
+            _v2_pass_priority("Alice", "T01", [{"name": "Bolt", "id": "p1", "index": 0}]),
             _v2_llm_response("Alice", "T02"),
-            _v2_pass_priority(
-                "Bob", "T03", [{"name": "Counter", "id": "p2", "index": 0}]
-            ),
+            _v2_pass_priority("Bob", "T03", [{"name": "Counter", "id": "p2", "index": 0}]),
             _v2_choose_action("Alice", "T04", {"id": "p1"}),
             _v2_llm_response("Bob", "T05"),
             _v2_choose_action("Bob", "T06", {"id": "p2"}),
@@ -712,9 +666,7 @@ class TestExtractDecisionsV2:
     def test_sequential_decisions_same_player(self) -> None:
         """Multiple sequential decisions for the same player."""
         events = [
-            _v2_pass_priority(
-                "Alice", "T01", [{"name": "Forest", "id": "p1", "index": 0}]
-            ),
+            _v2_pass_priority("Alice", "T01", [{"name": "Forest", "id": "p1", "index": 0}]),
             _v2_llm_response("Alice", "T02"),
             _v2_choose_action("Alice", "T03", {"id": "p1"}),
             _v2_pass_priority(
@@ -736,13 +688,9 @@ class TestExtractDecisionsV2:
     def test_decision_without_choose_action(self) -> None:
         """Decision source followed by another decision source (no choose_action)."""
         events = [
-            _v2_pass_priority(
-                "Alice", "T01", [{"name": "Bolt", "id": "p1", "index": 0}]
-            ),
+            _v2_pass_priority("Alice", "T01", [{"name": "Bolt", "id": "p1", "index": 0}]),
             _v2_llm_response("Alice", "T02"),
-            _v2_pass_priority(
-                "Alice", "T03", [{"name": "Bear", "id": "p2", "index": 0}]
-            ),
+            _v2_pass_priority("Alice", "T03", [{"name": "Bear", "id": "p2", "index": 0}]),
             _v2_llm_response("Alice", "T04"),
             _v2_choose_action("Alice", "T05", {"id": "p2"}),
         ]
@@ -961,9 +909,7 @@ class TestExtractDecisionsV1:
                 "player": "Alice",
                 "ts": "T05",
                 "args": {"text": "Black"},
-                "result": json.dumps(
-                    {"success": True, "action_taken": "selected_choice_text_Black"}
-                ),
+                "result": json.dumps({"success": True, "action_taken": "selected_choice_text_Black"}),
             },
         ]
         data = _minimal_built_export(llm_events=_convert_events(events))

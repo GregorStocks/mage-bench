@@ -13,8 +13,6 @@ def test_root_compiler_uses_incremental_compilation():
     )
     assert plugin is not None
 
-    use_incremental = plugin.find(
-        "./m:configuration/m:useIncrementalCompilation", MAVEN_NS
-    )
+    use_incremental = plugin.find("./m:configuration/m:useIncrementalCompilation", MAVEN_NS)
     assert use_incremental is not None
     assert use_incremental.text == "true"

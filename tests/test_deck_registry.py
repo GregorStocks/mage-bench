@@ -48,12 +48,8 @@ def test_deck_files_valid_json(all_deck_files):
         data = json.loads(f.read_text())
         assert "name" in data, f"{f.name} missing 'name'"
         assert "cards" in data, f"{f.name} missing 'cards'"
-        assert isinstance(data["name"], str) and data["name"], (
-            f"{f.name} has empty name"
-        )
-        assert isinstance(data["cards"], list) and data["cards"], (
-            f"{f.name} has empty cards"
-        )
+        assert isinstance(data["name"], str) and data["name"], f"{f.name} has empty name"
+        assert isinstance(data["cards"], list) and data["cards"], f"{f.name} has empty cards"
         assert "strategy" in data, f"{f.name} missing 'strategy'"
 
 
@@ -62,9 +58,7 @@ def test_card_lines_parse(all_deck_files):
     for f in all_deck_files:
         data = json.loads(f.read_text())
         for i, line in enumerate(data["cards"]):
-            assert _CARD_LINE_RE.match(line), (
-                f"{f.name} card line {i} doesn't match .dck format: {line!r}"
-            )
+            assert _CARD_LINE_RE.match(line), f"{f.name} card line {i} doesn't match .dck format: {line!r}"
 
 
 def test_no_duplicate_names(all_deck_files):
@@ -86,9 +80,7 @@ def test_jumpstart_files_valid(jumpstart_files):
         data = json.loads(f.read_text())
         assert "name" in data, f"{f.name} missing 'name'"
         assert "variants" in data, f"{f.name} missing 'variants'"
-        assert isinstance(data["variants"], list) and data["variants"], (
-            f"{f.name} has empty variants"
-        )
+        assert isinstance(data["variants"], list) and data["variants"], f"{f.name} has empty variants"
         for vi, variant in enumerate(data["variants"]):
             assert "cards" in variant, f"{f.name} variant {vi} missing 'cards'"
             # Each half-deck should have 20 cards worth
@@ -116,9 +108,7 @@ def test_strategies_populated(all_deck_files):
         data = json.loads(f.read_text())
         strategy = data.get("strategy", "")
         assert strategy, f"{f.name} has empty strategy"
-        assert len(strategy) <= 200, (
-            f"{f.name} strategy too long ({len(strategy)} chars)"
-        )
+        assert len(strategy) <= 200, f"{f.name} strategy too long ({len(strategy)} chars)"
 
 
 def test_jumpstart_strategies_populated(jumpstart_files):
@@ -127,6 +117,4 @@ def test_jumpstart_strategies_populated(jumpstart_files):
         data = json.loads(f.read_text())
         strategy = data.get("strategy", "")
         assert strategy, f"{f.name} has empty strategy"
-        assert len(strategy) <= 200, (
-            f"{f.name} strategy too long ({len(strategy)} chars)"
-        )
+        assert len(strategy) <= 200, f"{f.name} strategy too long ({len(strategy)} chars)"

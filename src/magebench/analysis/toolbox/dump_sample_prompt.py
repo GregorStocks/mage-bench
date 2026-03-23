@@ -47,9 +47,7 @@ system_prompt, user_msg = build_decision_prompt(
     all_actions=game_actions,
 )
 
-output = (
-    f"=== SYSTEM PROMPT ===\n\n{system_prompt}\n\n=== USER MESSAGE ===\n\n{user_msg}"
-)
+output = f"=== SYSTEM PROMPT ===\n\n{system_prompt}\n\n=== USER MESSAGE ===\n\n{user_msg}"
 
 out_path = TMP_DIR / "sample_prompt.txt"
 out_path.write_text(output)

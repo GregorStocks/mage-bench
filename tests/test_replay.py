@@ -31,9 +31,7 @@ async def test_execute_replay_script_skips_assert_action_steps():
     )
 
     assert calls == [("pass_priority", {})]
-    tool_names = [
-        tc["function"]["name"] for msg in prompt for tc in msg.get("tool_calls", [])
-    ]
+    tool_names = [tc["function"]["name"] for msg in prompt for tc in msg.get("tool_calls", [])]
     assert tool_names == ["pass_priority"]
 
 

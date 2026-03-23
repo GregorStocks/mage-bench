@@ -73,12 +73,9 @@ def _validate_expiration(path: Path, line_no: int, body: str) -> str | None:
         if not matches:
             return f"{path.relative_to(REPO_ROOT)}:{line_no}: expires={expires} does not match any current issue file"
         if len(matches) > 1:
-            match_list = ", ".join(
-                str(match.relative_to(REPO_ROOT)) for match in matches
-            )
+            match_list = ", ".join(str(match.relative_to(REPO_ROOT)) for match in matches)
             return (
-                f"{path.relative_to(REPO_ROOT)}:{line_no}: expires={expires} "
-                f"matches multiple issue files: {match_list}"
+                f"{path.relative_to(REPO_ROOT)}:{line_no}: expires={expires} matches multiple issue files: {match_list}"
             )
         return None
 
@@ -105,15 +102,11 @@ class TestShimMetadata:
         for path in sorted((REPO_ROOT / "scripts").rglob("*.py")):
             source = path.read_text()
             header = "\n".join(source.splitlines()[:4])
-            if (
-                "Compatibility wrapper for `" not in header
-                and "CLI wrapper for `" not in header
-            ):
+            if "Compatibility wrapper for `" not in header and "CLI wrapper for `" not in header:
                 continue
             if _SHIM_TODO_RE.search(source) is None:
                 missing_markers.append(str(path.relative_to(REPO_ROOT)))
 
         assert not missing_markers, (
-            "Self-identified wrapper modules must declare shim expiration metadata:\n  "
-            + "\n  ".join(missing_markers)
+            "Self-identified wrapper modules must declare shim expiration metadata:\n  " + "\n  ".join(missing_markers)
         )

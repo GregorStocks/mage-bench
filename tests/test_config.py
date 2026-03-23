@@ -55,15 +55,11 @@ def test_config_load_players_from_json():
 
         # Create presets + prompts so preset resolution works
         presets = {
-            "presets": {
-                "test-preset": {"model": "test/model", "system_prompt": "default"}
-            },
+            "presets": {"test-preset": {"model": "test/model", "system_prompt": "default"}},
             "gauntlet": [],
         }
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
-        (tmpdir_path / "prompts.json").write_text(
-            json.dumps({"default": "You are a test player."})
-        )
+        (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "You are a test player."}))
         (tmpdir_path / "personalities.json").write_text("{}")
         (tmpdir_path / "models.json").write_text(
             json.dumps(
@@ -113,15 +109,11 @@ def test_config_rejects_base_url_field():
     with tempfile.TemporaryDirectory() as tmpdir:
         tmpdir_path = Path(tmpdir)
         presets = {
-            "presets": {
-                "test-preset": {"model": "test/model", "system_prompt": "default"}
-            },
+            "presets": {"test-preset": {"model": "test/model", "system_prompt": "default"}},
             "gauntlet": [],
         }
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
-        (tmpdir_path / "prompts.json").write_text(
-            json.dumps({"default": "You are a test player."})
-        )
+        (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "You are a test player."}))
         (tmpdir_path / "personalities.json").write_text("{}")
         (tmpdir_path / "models.json").write_text(
             json.dumps(
@@ -160,15 +152,11 @@ def test_get_players_config_json_roundtrip():
         tmpdir_path = Path(tmpdir)
 
         presets = {
-            "presets": {
-                "test-preset": {"model": "test/model", "system_prompt": "default"}
-            },
+            "presets": {"test-preset": {"model": "test/model", "system_prompt": "default"}},
             "gauntlet": [],
         }
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
-        (tmpdir_path / "prompts.json").write_text(
-            json.dumps({"default": "Test prompt."})
-        )
+        (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Test prompt."}))
         (tmpdir_path / "personalities.json").write_text("{}")
         (tmpdir_path / "models.json").write_text(
             json.dumps(
@@ -513,9 +501,7 @@ def test_preset_end_to_end_config_load():
             "gauntlet": [],
         }
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
-        (tmpdir_path / "prompts.json").write_text(
-            json.dumps({"default": "Be a great player."})
-        )
+        (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Be a great player."}))
         (tmpdir_path / "models.json").write_text(
             json.dumps(
                 {
@@ -621,9 +607,7 @@ SAMPLE_PERSONALITIES_WITH_PARTS = {
 
 def test_validate_name_parts_valid():
     """Valid name_part combos should not raise."""
-    _validate_name_parts(
-        SAMPLE_PERSONALITIES_WITH_PARTS, SAMPLE_PRESETS_WITH_POOL, SAMPLE_MODELS_DATA
-    )
+    _validate_name_parts(SAMPLE_PERSONALITIES_WITH_PARTS, SAMPLE_PRESETS_WITH_POOL, SAMPLE_MODELS_DATA)
 
 
 def test_validate_name_parts_catches_overflow():
@@ -632,9 +616,7 @@ def test_validate_name_parts_catches_overflow():
         "longname": {"name_part": "TooLong!", "prompt_suffix": "hi"},
     }
     bad_presets = {
-        "presets": {
-            "p": {"model": "test/m", "status": "active", "system_prompt": "default"}
-        },
+        "presets": {"p": {"model": "test/m", "status": "active", "system_prompt": "default"}},
     }
     bad_models = {
         "models": [{"id": "test/m", "name": "M", "name_part": "Longish"}],
@@ -673,18 +655,14 @@ def test_validate_name_parts_real_data():
 
 def test_generate_player_name():
     """Name should be '{model_part} {personality_part}'."""
-    name = generate_player_name(
-        "test/model-a", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS
-    )
+    name = generate_player_name("test/model-a", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
     assert name == "ModA Hero"
 
 
 def test_generate_player_name_requires_known_model():
     """Unknown model IDs should fail fast."""
     with pytest.raises(AssertionError, match="Unknown model"):
-        generate_player_name(
-            "unknown/model", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS
-        )
+        generate_player_name("unknown/model", "hero", SAMPLE_MODELS_DATA, SAMPLE_PERSONALITIES_WITH_PARTS)
 
 
 def test_generate_player_name_requires_known_personality():
@@ -699,9 +677,7 @@ def test_generate_player_name_requires_known_personality():
 
 
 def test_deck_registry_format_dir():
-    assert (
-        deck_registry_format_dir("Constructed - Modern", source="registry") == "modern"
-    )
+    assert deck_registry_format_dir("Constructed - Modern", source="registry") == "modern"
 
 
 def test_deck_registry_format_dir_requires_known_deck_type():
@@ -898,9 +874,7 @@ def test_random_end_to_end_config_load():
             "gauntlet": ["fast-med", "smart-med"],
         }
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
-        (tmpdir_path / "prompts.json").write_text(
-            json.dumps({"default": "Test prompt."})
-        )
+        (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Test prompt."}))
 
         models = {
             "models": [
@@ -1154,13 +1128,7 @@ def test_tools_loaded_from_config_json():
         (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Test."}))
         (tmpdir_path / "personalities.json").write_text("{}")
         (tmpdir_path / "models.json").write_text(
-            json.dumps(
-                {
-                    "models": [
-                        {"id": "test/m", "name": "Test Model", "name_part": "TModel"}
-                    ]
-                }
-            )
+            json.dumps({"models": [{"id": "test/m", "name": "Test Model", "name_part": "TModel"}]})
         )
         (tmpdir_path / "toolsets.json").write_text("{}")
 
@@ -1190,13 +1158,7 @@ def test_tools_none_when_not_specified():
         (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Test."}))
         (tmpdir_path / "personalities.json").write_text("{}")
         (tmpdir_path / "models.json").write_text(
-            json.dumps(
-                {
-                    "models": [
-                        {"id": "test/m", "name": "Test Model", "name_part": "TModel"}
-                    ]
-                }
-            )
+            json.dumps({"models": [{"id": "test/m", "name": "Test Model", "name_part": "TModel"}]})
         )
         (tmpdir_path / "toolsets.json").write_text("{}")
 
@@ -1241,9 +1203,7 @@ def test_load_config_choice_on_non_pilot_crashes():
         config_path.write_text(json.dumps(config_data))
 
         config = Config(config_file=config_path)
-        with pytest.raises(
-            AssertionError, match="deck='choice' requires a pilot player"
-        ):
+        with pytest.raises(AssertionError, match="deck='choice' requires a pilot player"):
             config.load_config()
 
 
@@ -1252,9 +1212,7 @@ def test_toolset_end_to_end_config_load():
     with tempfile.TemporaryDirectory() as tmpdir:
         tmpdir_path = Path(tmpdir)
 
-        personalities = {
-            "test-hero": {"name_part": "Hero", "prompt_suffix": "You are heroic."}
-        }
+        personalities = {"test-hero": {"name_part": "Hero", "prompt_suffix": "You are heroic."}}
         (tmpdir_path / "personalities.json").write_text(json.dumps(personalities))
 
         presets = {
@@ -1271,17 +1229,9 @@ def test_toolset_end_to_end_config_load():
         (tmpdir_path / "presets.json").write_text(json.dumps(presets))
         (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "Be great."}))
         (tmpdir_path / "models.json").write_text(
-            json.dumps(
-                {
-                    "models": [
-                        {"id": "test/hero-model", "name": "Hero", "name_part": "HeroM"}
-                    ]
-                }
-            )
+            json.dumps({"models": [{"id": "test/hero-model", "name": "Hero", "name_part": "HeroM"}]})
         )
-        (tmpdir_path / "toolsets.json").write_text(
-            json.dumps({"minimal": ["pass_priority", "choose_action"]})
-        )
+        (tmpdir_path / "toolsets.json").write_text(json.dumps({"minimal": ["pass_priority", "choose_action"]}))
 
         config_data = {
             "players": [
@@ -1479,9 +1429,7 @@ EXPRESSIVE_PRESETS = {
 
 def test_random_personality_skips_expressive_for_restricted_model():
     """Random personality on a skip_expressive_personalities model should never pick expressive."""
-    player = PilotPlayer(
-        name="player-0", personality="random", preset="restricted-preset"
-    )
+    player = PilotPlayer(name="player-0", personality="random", preset="restricted-preset")
     players = [(player, False)]
 
     # First choice is "villain" (expressive, should be re-rolled), second is "chill" (ok)
@@ -1501,9 +1449,7 @@ def test_random_personality_skips_expressive_for_restricted_model():
 
 def test_explicit_expressive_personality_allowed_on_restricted_model():
     """Explicit (non-random) expressive personality should work on restricted models."""
-    player = PilotPlayer(
-        name="player-0", personality="villain", preset="restricted-preset"
-    )
+    player = PilotPlayer(name="player-0", personality="villain", preset="restricted-preset")
     players = [(player, False)]
 
     _resolve_randoms(

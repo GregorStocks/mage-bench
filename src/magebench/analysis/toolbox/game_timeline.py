@@ -47,10 +47,7 @@ def resolve_game_path(path_or_id: str) -> str:
         if candidate.is_file():
             return str(candidate)
     # Try glob match
-    matches = sorted(
-        list(GAMES_DIR.glob(f"*{path_or_id}*.json5.gz"))
-        + list(GAMES_DIR.glob(f"*{path_or_id}*.json5"))
-    )
+    matches = sorted(list(GAMES_DIR.glob(f"*{path_or_id}*.json5.gz")) + list(GAMES_DIR.glob(f"*{path_or_id}*.json5")))
     assert matches, f"No game found matching '{path_or_id}' in {GAMES_DIR}"
     if len(matches) > 1:
         print("Multiple matches, using first:", file=sys.stderr)
@@ -98,9 +95,7 @@ def _find_snapshot_index_by_ts(snapshots: Sequence[Snapshot], ts: str) -> int | 
     return best
 
 
-def _find_snapshot_index_for_event(
-    snapshots: Sequence[Snapshot], event: LlmEvent
-) -> int | None:
+def _find_snapshot_index_for_event(snapshots: Sequence[Snapshot], event: LlmEvent) -> int | None:
     """Resolve the snapshot index for an event using the best available coordinate."""
     game_seq = event.game_seq
     if isinstance(game_seq, int) and not isinstance(game_seq, bool):
@@ -274,9 +269,7 @@ def fmt_result(tool: str, result_str: str, *, verbose: bool = False) -> str:
             at = result.get("action_type", "?")
             msg = result.get("message")
             choices = result.get("choices")
-            assert msg is None or isinstance(msg, str), (
-                f"message must be a string, got {msg!r}"
-            )
+            assert msg is None or isinstance(msg, str), f"message must be a string, got {msg!r}"
             parts.append(f"{at}: {msg[:80]}" if msg else f"{at}")
             if isinstance(choices, list) and choices and verbose:
                 for c in choices[:8]:
@@ -347,9 +340,7 @@ def print_event(
         latency = event.latency_ms or 0
 
         args_fmt = fmt_args(tool, args)
-        result_fmt = fmt_result(
-            tool, result_str if result_str is not None else "", verbose=verbose
-        )
+        result_fmt = fmt_result(tool, result_str if result_str is not None else "", verbose=verbose)
 
         print(f"{ts_short} {context:<30} {player:<25} {prefix}{tool}({args_fmt})")
         print(f"{'':>12} {'':>30} {'':>25}   -> {result_fmt}")
@@ -368,9 +359,7 @@ def print_event(
         if mana_only and not reasoning:
             return False
 
-        tc_summary = ", ".join(
-            str(tc.get("name", "?")) for tc in tool_calls if isinstance(tc, dict)
-        )
+        tc_summary = ", ".join(str(tc.get("name", "?")) for tc in tool_calls if isinstance(tc, dict))
         prompt_t = (usage.prompt_tokens or 0) if usage else 0
         comp_t = (usage.completion_tokens or 0) if usage else 0
 
@@ -411,12 +400,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Game event timeline viewer")
     parser.add_argument("game", help="Game .json.gz path or game ID")
     parser.add_argument("--turns", help="Turn range, e.g. '3-5' or '3'")
-    parser.add_argument(
-        "--player", help="Filter to a specific player name (substring match)"
-    )
-    parser.add_argument(
-        "--mana", action="store_true", help="Show only mana-related events"
-    )
+    parser.add_argument("--player", help="Filter to a specific player name (substring match)")
+    parser.add_argument("--mana", action="store_true", help="Show only mana-related events")
     parser.add_argument(
         "-v",
         "--verbose",

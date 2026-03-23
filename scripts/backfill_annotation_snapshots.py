@@ -90,9 +90,7 @@ def main() -> None:
             total_dec += dec_rebuilt
             games_modified += 1
 
-    print(
-        f"\nDone: {games_modified} games modified, {total_ann} annotations fixed, {total_dec} decisions rebuilt"
-    )
+    print(f"\nDone: {games_modified} games modified, {total_ann} annotations fixed, {total_dec} decisions rebuilt")
 
 
 if __name__ == "__main__":

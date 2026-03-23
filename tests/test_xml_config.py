@@ -11,8 +11,7 @@ from magebench.orchestration.xml_config import modify_server_config
 
 def test_modify_server_config():
     source_xml = (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<config><server port="1234" secondaryBindPort="1242"/></config>'
+        '<?xml version="1.0" encoding="UTF-8"?>\n<config><server port="1234" secondaryBindPort="1242"/></config>'
     )
 
     with tempfile.TemporaryDirectory() as tmpdir:

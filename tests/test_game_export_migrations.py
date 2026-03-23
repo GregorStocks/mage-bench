@@ -166,7 +166,5 @@ def test_migrate_game_export_to_current_accepts_v9_payload() -> None:
 def test_migrate_game_export_to_current_rejects_legacy_versions() -> None:
     legacy = _minimal_v9_export(version=8)
 
-    with pytest.raises(
-        AssertionError, match="Unsupported game export version 8; expected 9"
-    ):
+    with pytest.raises(AssertionError, match="Unsupported game export version 8; expected 9"):
         migrate_game_export_to_current(legacy)

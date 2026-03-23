@@ -31,10 +31,7 @@ def test_strip_multiple():
 def test_strip_mid_sentence():
     """Suffix appears mid-sentence, not just at end."""
     s = "sacrificed Mishra's Bauble [aeb] (source: Mishra's Bauble [aeb])"
-    assert (
-        HEX_SUFFIX_RE.sub("", s)
-        == "sacrificed Mishra's Bauble (source: Mishra's Bauble)"
-    )
+    assert HEX_SUFFIX_RE.sub("", s) == "sacrificed Mishra's Bauble (source: Mishra's Bauble)"
 
 
 def test_no_strip_uppercase():
@@ -67,10 +64,7 @@ def test_no_strip_mana_costs():
 
 def test_no_strip_deck_format():
     """Deck format uses [SET:NUM] — different pattern."""
-    assert (
-        HEX_SUFFIX_RE.sub("", "4 [LCI:123] Lightning Bolt")
-        == "4 [LCI:123] Lightning Bolt"
-    )
+    assert HEX_SUFFIX_RE.sub("", "4 [LCI:123] Lightning Bolt") == "4 [LCI:123] Lightning Bolt"
 
 
 def test_passthrough_empty():
@@ -127,8 +121,5 @@ def test_historical_data_no_false_positives():
     assert not false_positives, (
         f"Found {len(false_positives)} potential false positives "
         f"(out of {total_matches} total matches):\n"
-        + "\n".join(
-            f"  {fp['file']}: ...{fp['context']}{fp['match']}"
-            for fp in false_positives[:10]
-        )
+        + "\n".join(f"  {fp['file']}: ...{fp['context']}{fp['match']}" for fp in false_positives[:10])
     )

@@ -35,16 +35,12 @@ RECIPES = (
     Recipe(
         name="clone-effect",
         summary="Cheap clone cards for copy-target scenarios.",
-        query=(
-            "game:paper unique:cards order:cmc direction:asc function:clone is:spell mv<=4"
-        ),
+        query=("game:paper unique:cards order:cmc direction:asc function:clone is:spell mv<=4"),
     ),
     Recipe(
         name="trigger-prompt",
         summary="Permanents with explicit triggered abilities for prompt coverage.",
-        query=(
-            "game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)"
-        ),
+        query=("game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)"),
     ),
     Recipe(
         name="stack-interaction",
@@ -63,9 +59,7 @@ RECIPES = (
     Recipe(
         name="weird-frames",
         summary="Cards with MDFC, suspend, split, or transform presentation.",
-        query=(
-            "game:paper unique:cards order:cmc direction:asc (is:mdfc or is:split or is:transform or o:suspend)"
-        ),
+        query=("game:paper unique:cards order:cmc direction:asc (is:mdfc or is:split or is:transform or o:suspend)"),
     ),
     Recipe(
         name="clean-combat-body",
@@ -81,9 +75,7 @@ RECIPES = (
 RECIPE_BY_NAME = {recipe.name: recipe for recipe in RECIPES}
 
 
-def build_query(
-    *, recipe: Recipe | None, raw_query: str | None, extra_filter: str | None
-) -> str:
+def build_query(*, recipe: Recipe | None, raw_query: str | None, extra_filter: str | None) -> str:
     base_query = recipe.query if recipe is not None else raw_query
     assert base_query is not None, "build_query requires a recipe or raw query"
     query = " ".join(base_query.split())
@@ -103,14 +95,10 @@ def _card_faces(card: dict) -> list[dict]:
     faces = card.get("card_faces")
     if not faces:
         return []
-    assert isinstance(faces, list), (
-        f"card_faces: expected list, got {type(faces).__name__}"
-    )
+    assert isinstance(faces, list), f"card_faces: expected list, got {type(faces).__name__}"
     result: list[dict] = []
     for index, face in enumerate(faces):
-        assert isinstance(face, dict), (
-            f"card_faces[{index}]: expected object, got {type(face).__name__}"
-        )
+        assert isinstance(face, dict), f"card_faces[{index}]: expected object, got {type(face).__name__}"
         result.append(face)
     return result
 
@@ -164,9 +152,7 @@ def search_cards(query: str, limit: int) -> list[dict]:
     results = scryfall.search(query)
     cards: list[dict] = []
     for index, card in enumerate(results[:limit]):
-        assert isinstance(card, dict), (
-            f"search result {index}: expected object, got {type(card).__name__}"
-        )
+        assert isinstance(card, dict), f"search result {index}: expected object, got {type(card).__name__}"
         cards.append(card)
     return cards
 
@@ -179,9 +165,7 @@ def print_recipe_list() -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Find compact cards for golden-test scenarios with Scryfall"
-    )
+    parser = argparse.ArgumentParser(description="Find compact cards for golden-test scenarios with Scryfall")
     parser.add_argument(
         "--list-recipes",
         action="store_true",

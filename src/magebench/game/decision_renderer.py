@@ -133,22 +133,16 @@ def _render_decision_block(
     phase_value = decision.phase
     if not phase_value:
         message_value = decision.message
-        assert turn in (0, 1), (
-            f"decision has empty phase on turn {turn}: {message_value}"
-        )
+        assert turn in (0, 1), f"decision has empty phase on turn {turn}: {message_value}"
     phase = phase_value or "PREGAME"
     player = decision.player
     message = decision.message
     assert isinstance(player, str), f"decision player must be a string, got {player!r}"
-    assert isinstance(message, str), (
-        f"decision message must be a string, got {message!r}"
-    )
+    assert isinstance(message, str), f"decision message must be a string, got {message!r}"
 
     # Header
     lines: list[str] = [
-        (
-            f"[Decision {decision.index}, snapshot={decision.snapshot_index}] Turn {turn} {phase} - {player}"
-        )
+        (f"[Decision {decision.index}, snapshot={decision.snapshot_index}] Turn {turn} {phase} - {player}")
     ]
     pilot_ctx: PilotContext | None = None
     raw_pilot_ctx = decision.pilot_context
@@ -187,14 +181,10 @@ def _render_decision_block(
         f"incoming_attackers must be a list when present, got {incoming_attackers!r}"
     )
     if _is_declare_blockers_phase(combat_phase) and incoming_attackers:
-        lines.append(
-            f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}"
-        )
+        lines.append(f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}")
 
     # has_field() distinguishes "field absent" from "field is 0", which matters here
-    if pilot_ctx is not None and (
-        pilot_ctx.has_field("untapped_lands") or pilot_ctx.has_field("land_drops_used")
-    ):
+    if pilot_ctx is not None and (pilot_ctx.has_field("untapped_lands") or pilot_ctx.has_field("land_drops_used")):
         ctx_parts: list[str] = []
         if pilot_ctx.has_field("untapped_lands"):
             untapped_lands = pilot_ctx.untapped_lands
@@ -213,15 +203,11 @@ def _render_decision_block(
 
     # Message and choices/items
     choices = decision.choices
-    assert isinstance(choices, list), (
-        f"decision choices must be a list, got {choices!r}"
-    )
+    assert isinstance(choices, list), f"decision choices must be a list, got {choices!r}"
     items = decision.items
     lines.append(f"  Message: {message if message else ''}")
     if items:
-        assert isinstance(items, list), (
-            f"decision items must be a list when present, got {items!r}"
-        )
+        assert isinstance(items, list), f"decision items must be a list when present, got {items!r}"
         total_min = decision.total_min
         total_max = decision.total_max
         header = f"  Items ({len(items)})"
@@ -237,16 +223,10 @@ def _render_decision_block(
                 header += f": {', '.join(total_parts)}"
         lines.append(header)
         for i, item in enumerate(items):
-            assert isinstance(item, MultiAmountItem), (
-                f"multi-amount item {i} must be an object, got {item!r}"
-            )
-            assert decision_support_has(item, "description"), (
-                f"multi-amount item {i} missing 'description': {item}"
-            )
+            assert isinstance(item, MultiAmountItem), f"multi-amount item {i} must be an object, got {item!r}"
+            assert decision_support_has(item, "description"), f"multi-amount item {i} missing 'description': {item}"
             desc = decision_support_get(item, "description")
-            assert isinstance(desc, str), (
-                f"multi-amount item {i} description must be a string, got {desc!r}"
-            )
+            assert isinstance(desc, str), f"multi-amount item {i} description must be a string, got {desc!r}"
             constraints: list[str] = []
             if decision_support_has(item, "min"):
                 constraints.append(f"min={decision_support_get(item, 'min')}")
@@ -287,11 +267,7 @@ def _render_board(snapshot: Snapshot, deciding_player: str | None) -> str:
                 s += f" hand={hand_count}"
         else:
             hand_strs = [card_display(c) for c in hand] if hand else []
-            s = (
-                f"{name}: {life}hp hand=[{', '.join(hand_strs)}]"
-                if hand_strs
-                else f"{name}: {life}hp hand=0"
-            )
+            s = f"{name}: {life}hp hand=[{', '.join(hand_strs)}]" if hand_strs else f"{name}: {life}hp hand=0"
 
         s += f" lib={p.library_size}"
 
@@ -341,9 +317,7 @@ def permanent_display(c: object) -> str:
     if counters:
         if isinstance(counters, list):
             extras.extend(
-                f"{ctr.get('name', '?')}={ctr.get('count', '?')}"
-                for ctr in counters
-                if isinstance(ctr, dict)
+                f"{ctr.get('name', '?')}={ctr.get('count', '?')}" for ctr in counters if isinstance(ctr, dict)
             )
         elif isinstance(counters, dict):
             for k, v in counters.items():
@@ -373,9 +347,7 @@ def _format_counters(counters: object) -> str:
     parts: list[str] = []
     if isinstance(counters, list):
         parts.extend(
-            f" {ctr['name']}={ctr.get('count', '?')}"
-            for ctr in counters
-            if isinstance(ctr, dict) and ctr.get("name")
+            f" {ctr['name']}={ctr.get('count', '?')}" for ctr in counters if isinstance(ctr, dict) and ctr.get("name")
         )
     elif isinstance(counters, dict):
         for name, val in counters.items():
@@ -393,9 +365,7 @@ def _render_stack(stack: Sequence[object]) -> list[str]:
             desc = _render_stack_item(item)
             targets = _record_field(item, "targets")
             if targets:
-                assert isinstance(targets, list), (
-                    f"stack item targets must be a list, got {targets!r}"
-                )
+                assert isinstance(targets, list), f"stack item targets must be a list, got {targets!r}"
                 desc += " -> " + ", ".join(_render_stack_target(t) for t in targets)
             parts.append(desc)
     return parts
@@ -405,12 +375,7 @@ def _render_stack_item(item: object) -> str:
     """Render a stack item name with triggered-ability context when available."""
     source_card = _record_field(item, "source_card")
     ability_text = _record_field(item, "ability_text")
-    if (
-        isinstance(source_card, str)
-        and source_card
-        and isinstance(ability_text, str)
-        and ability_text
-    ):
+    if isinstance(source_card, str) and source_card and isinstance(ability_text, str) and ability_text:
         return f"{source_card} - {ability_text}"
     return _record_name(item, source="stack item")
 
@@ -430,19 +395,11 @@ def _render_combat(combat_groups: Sequence[CombatGroup]) -> str:
         attackers = group.attackers
         atk_names: list[str] = []
         if attackers is not None:
-            atk_names = [
-                _record_name(a, source="combat attacker")
-                for a in attackers
-                if _record_field(a, "name")
-            ]
+            atk_names = [_record_name(a, source="combat attacker") for a in attackers if _record_field(a, "name")]
         blockers = group.blockers
         blk_names: list[str] = []
         if blockers is not None:
-            blk_names = [
-                _record_name(b, source="combat blocker")
-                for b in blockers
-                if _record_field(b, "name")
-            ]
+            blk_names = [_record_name(b, source="combat blocker") for b in blockers if _record_field(b, "name")]
         part = ", ".join(atk_names)
         if blk_names:
             part += f" blocked by {', '.join(blk_names)}"
@@ -500,11 +457,7 @@ def format_choice(choice: Choice | str) -> str:
         name = raw_name
     else:
         raw_description = decision_support_get(choice, "description")
-        name = (
-            raw_description
-            if isinstance(raw_description, str) and raw_description
-            else "?"
-        )
+        name = raw_description if isinstance(raw_description, str) and raw_description else "?"
     parts: list[str] = [name]
     choice_id = decision_support_get(choice, "id")
     if isinstance(choice_id, str) and choice_id:
@@ -526,16 +479,12 @@ def _render_chosen_block(decision: Decision, snapshot: Snapshot | None = None) -
     chosen = decision.chosen
     raw_chosen_args = decision.chosen_args
     if raw_chosen_args is not None:
-        assert isinstance(raw_chosen_args, dict), (
-            f"chosen_args must be an object when present, got {raw_chosen_args!r}"
-        )
+        assert isinstance(raw_chosen_args, dict), f"chosen_args must be an object when present, got {raw_chosen_args!r}"
         chosen_args = raw_chosen_args
     else:
         chosen_args = {}
     choices = decision.choices
-    assert isinstance(choices, list), (
-        f"decision choices must be a list, got {choices!r}"
-    )
+    assert isinstance(choices, list), f"decision choices must be a list, got {choices!r}"
 
     # Display chosen
     chosen_name = chosen_display(chosen, chosen_args, choices)
@@ -585,19 +534,13 @@ def _resolve_mana_plan(mana_plan: object, snapshot: Snapshot | None) -> str:
                 perm_id = _record_field(perm, "id")
                 if isinstance(perm_id, str) and perm_id:
                     perm_name = _record_field(perm, "name")
-                    id_to_name[perm_id] = (
-                        perm_name
-                        if isinstance(perm_name, str) and perm_name
-                        else perm_id
-                    )
+                    id_to_name[perm_id] = perm_name if isinstance(perm_name, str) and perm_name else perm_id
 
     parts: list[str] = []
     if isinstance(mana_plan, str):
         raw_entries: Sequence[object] = mana_plan.split(",")
     else:
-        assert isinstance(mana_plan, list), (
-            f"mana_plan must be a CSV string or list, got {mana_plan!r}"
-        )
+        assert isinstance(mana_plan, list), f"mana_plan must be a CSV string or list, got {mana_plan!r}"
         raw_entries = mana_plan
 
     for raw_entry in raw_entries:
@@ -616,9 +559,7 @@ def _render_mana_plan_entry(entry: object, id_to_name: dict[str, str]) -> str:
             return ""
         return _render_mana_plan_token(token, id_to_name)
 
-    assert isinstance(entry, dict), (
-        f"mana_plan entry must be str or dict, got {entry!r}"
-    )
+    assert isinstance(entry, dict), f"mana_plan entry must be str or dict, got {entry!r}"
     keys = set(entry)
     assert keys in ({"tap"}, {"pool"}), (
         f"mana_plan dict entry must contain exactly one of 'tap' or 'pool', got {entry!r}"
@@ -626,9 +567,7 @@ def _render_mana_plan_entry(entry: object, id_to_name: dict[str, str]) -> str:
 
     if "tap" in entry:
         tap = entry["tap"]
-        assert isinstance(tap, str), (
-            f"mana_plan tap target must be a string, got {tap!r}"
-        )
+        assert isinstance(tap, str), f"mana_plan tap target must be a string, got {tap!r}"
         token = tap.strip()
         assert token, f"mana_plan tap target must be non-empty, got {entry!r}"
         return _render_mana_plan_token(token, id_to_name)

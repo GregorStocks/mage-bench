@@ -45,8 +45,7 @@ _TEST_PRICES = {
 
 def _make_decision(**overrides: object) -> Decision:
     json_key_by_field = {
-        field.name: field.metadata.get("json_key", field.name)
-        for field in dataclasses.fields(Decision)
+        field.name: field.metadata.get("json_key", field.name) for field in dataclasses.fields(Decision)
     }
     d: dict[str, object] = {
         "index": 0,
@@ -70,12 +69,7 @@ def _make_decision(**overrides: object) -> Decision:
         "subsequent_actions": ["Alice plays Mountain"],
         "action_seq": 1,
     }
-    d.update(
-        {
-            str(json_key_by_field.get(field_name, field_name)): value
-            for field_name, value in overrides.items()
-        }
-    )
+    d.update({str(json_key_by_field.get(field_name, field_name)): value for field_name, value in overrides.items()})
     return Decision.from_dict(d)
 
 
@@ -235,9 +229,7 @@ def _make_snapshot(
     )
 
 
-def _mock_response(
-    content: str, prompt_tokens: int = 2000, completion_tokens: int = 200
-) -> MagicMock:
+def _mock_response(content: str, prompt_tokens: int = 2000, completion_tokens: int = 200) -> MagicMock:
     """Create a mock API response."""
     response = MagicMock()
     response.choices = [MagicMock()]
@@ -285,9 +277,7 @@ class TestParseAnnotation:
         assert parse_annotation("This is a reasonable play.") is None
 
     def test_unquoted_keys(self) -> None:
-        text = (
-            '{severity: "minor", description: "d", action_taken: "a", better_line: "b"}'
-        )
+        text = '{severity: "minor", description: "d", action_taken: "a", better_line: "b"}'
         result = parse_annotation(text)
         assert result is not None
         assert result["severity"] == "minor"
@@ -320,26 +310,20 @@ class TestFormatCurrentTurnActions:
                 message="Alice puts Sol Ring from stack onto the Battlefield",
             ),
             Action(seq=5, ts="2026-01-01T00:00:10.000", message="Alice skip attack"),
-            Action(
-                seq=6, ts="2026-01-01T00:00:15.000", message="TURN 2 for Bob (20 - 20)"
-            ),
+            Action(seq=6, ts="2026-01-01T00:00:15.000", message="TURN 2 for Bob (20 - 20)"),
             Action(seq=7, ts="2026-01-01T00:00:16.000", message="Bob plays Forest"),
         ]
 
     def test_shows_current_turn_actions(self) -> None:
         decision = _make_decision(turn=1)
-        result = format_current_turn_actions(
-            decision, self._actions(), "2026-01-01T00:00:12.000"
-        )
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
         assert "## This Turn" in result
         assert "Alice plays Mountain" in result
         assert "Alice casts Sol Ring from hand" in result
 
     def test_filters_noise(self) -> None:
         decision = _make_decision(turn=1)
-        result = format_current_turn_actions(
-            decision, self._actions(), "2026-01-01T00:00:12.000"
-        )
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
         # "puts from stack" and "skip attack" are noise
         assert "Sol Ring from stack" not in result
         assert "skip attack" not in result
@@ -347,36 +331,25 @@ class TestFormatCurrentTurnActions:
     def test_respects_cutoff_timestamp(self) -> None:
         decision = _make_decision(turn=1)
         # Cutoff before Sol Ring cast
-        result = format_current_turn_actions(
-            decision, self._actions(), "2026-01-01T00:00:02.500"
-        )
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:02.500")
         assert "Alice plays Mountain" in result
         assert "Sol Ring" not in result
 
     def test_no_actions_yet(self) -> None:
         decision = _make_decision(turn=1)
         # Cutoff before any non-TURN action
-        result = format_current_turn_actions(
-            decision, self._actions(), "2026-01-01T00:00:01.500"
-        )
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:01.500")
         assert "(no actions yet)" in result
 
     def test_wrong_turn_excluded(self) -> None:
         decision = _make_decision(turn=2)
-        result = format_current_turn_actions(
-            decision, self._actions(), "2026-01-01T00:00:20.000"
-        )
+        result = format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:20.000")
         assert "Bob plays Forest" in result
         assert "Alice plays Mountain" not in result
 
     def test_no_turn_returns_empty(self) -> None:
         decision = _make_decision(turn=0)
-        assert (
-            format_current_turn_actions(
-                decision, self._actions(), "2026-01-01T00:00:10.000"
-            )
-            == ""
-        )
+        assert format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:10.000") == ""
 
 
 # --- compute_cost ---
@@ -405,12 +378,8 @@ class TestCollectCardNames:
     def test_filters_tokens(self) -> None:
         game = GameExport.from_dict(_make_game())
         snap = game.snapshots[0]
-        new_player = dataclasses.replace(
-            snap.players[0], battlefield=[{"name": "Otter Token"}]
-        )
-        game.snapshots[0] = dataclasses.replace(
-            snap, players=[new_player, snap.players[1]]
-        )
+        new_player = dataclasses.replace(snap.players[0], battlefield=[{"name": "Otter Token"}])
+        game.snapshots[0] = dataclasses.replace(snap, players=[new_player, snap.players[1]])
         names = collect_card_names(game)
         assert "Otter Token" not in names
 
@@ -421,12 +390,8 @@ class TestCollectCardNames:
             snap,
             combat=[
                 CombatGroup(
-                    attackers=[
-                        CombatCreature(name="Goblin Guide", power="2", toughness="2")
-                    ],
-                    blockers=[
-                        CombatCreature(name="Wall of Omens", power="0", toughness="4")
-                    ],
+                    attackers=[CombatCreature(name="Goblin Guide", power="2", toughness="2")],
+                    blockers=[CombatCreature(name="Wall of Omens", power="0", toughness="4")],
                     blocked=True,
                     defending="Bob",
                 )
@@ -588,9 +553,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
     @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
-    @patch(
-        "magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={}
-    )
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
     @patch(
         "magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices",
         return_value=_TEST_PRICES,
@@ -649,9 +612,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
     @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
-    @patch(
-        "magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={}
-    )
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
     @patch(
         "magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices",
         return_value=_TEST_PRICES,
@@ -672,9 +633,7 @@ class TestMainIntegration:
 
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
-        mock_client.chat.completions.create.return_value = _mock_response(
-            "[]", completion_tokens=10
-        )
+        mock_client.chat.completions.create.return_value = _mock_response("[]", completion_tokens=10)
 
         main(str(gz_path))
 
@@ -687,9 +646,7 @@ class TestMainIntegration:
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("magebench.analysis.blunder.blunder_analysis.OpenAI")
-    def test_skips_current_version(
-        self, mock_openai_cls: MagicMock, tmp_path: Path
-    ) -> None:
+    def test_skips_current_version(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
         game = self._make_game_with_decisions()
         game["annotations"] = [
             {
@@ -715,9 +672,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
     @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
-    @patch(
-        "magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={}
-    )
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
     @patch(
         "magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices",
         return_value=_TEST_PRICES,
@@ -746,9 +701,7 @@ class TestMainIntegration:
             "action_taken": "test",
             "better_line": "test",
         }
-        mock_client.chat.completions.create.return_value = _mock_response(
-            json.dumps(llm_ann)
-        )
+        mock_client.chat.completions.create.return_value = _mock_response(json.dumps(llm_ann))
 
         main(str(gz_path))
 
@@ -764,9 +717,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
     @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
-    @patch(
-        "magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={}
-    )
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
     @patch(
         "magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices",
         return_value=_TEST_PRICES,
@@ -790,9 +741,7 @@ class TestMainIntegration:
         mock_openai_cls.return_value = mock_client
 
         # Return unparseable garbage for the single decision (1/1 = 100% failure)
-        mock_client.chat.completions.create.return_value = _mock_response(
-            "not json at all {"
-        )
+        mock_client.chat.completions.create.return_value = _mock_response("not json at all {")
 
         with pytest.raises(BlunderAnalysisError, match="Too many parse failures"):
             main(str(gz_path))
@@ -800,9 +749,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
     @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
-    @patch(
-        "magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={}
-    )
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
     @patch(
         "magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices",
         return_value=_TEST_PRICES,
@@ -825,9 +772,7 @@ class TestMainIntegration:
 
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
-        mock_client.chat.completions.create.return_value = _mock_response(
-            "[]", completion_tokens=10
-        )
+        mock_client.chat.completions.create.return_value = _mock_response("[]", completion_tokens=10)
 
         main(str(gz_path))
 
@@ -837,9 +782,7 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("magebench.analysis.blunder.blunder_analysis._append_blunder_stats")
     @patch("magebench.analysis.blunder.blunder_analysis._auto_ingest_ground_truth")
-    @patch(
-        "magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={}
-    )
+    @patch("magebench.analysis.blunder.blunder_analysis.get_oracle_texts", return_value={})
     @patch(
         "magebench.analysis.blunder.blunder_analysis.fetch_openrouter_prices",
         return_value=_TEST_PRICES,
@@ -904,9 +847,7 @@ class TestMainIntegration:
 
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
-        mock_client.chat.completions.create.return_value = _mock_response(
-            "[]", completion_tokens=10
-        )
+        mock_client.chat.completions.create.return_value = _mock_response("[]", completion_tokens=10)
 
         main(str(gz_path))
 
@@ -951,9 +892,7 @@ class TestPrecedingAction:
             preceding_by_index={1: d0},
         )
 
-        with patch(
-            "magebench.analysis.blunder.blunder_analysis.evaluate_one_decision"
-        ) as mock_eval:
+        with patch("magebench.analysis.blunder.blunder_analysis.evaluate_one_decision") as mock_eval:
             mock_eval.return_value = ([], 0.0, True, {})
             eval_decisions([d0, d1], ctx, MagicMock(), _TEST_PRICES)
 
@@ -974,9 +913,7 @@ class TestOperationalFailures:
         "magebench.analysis.blunder.blunder_analysis.evaluate_one_decision",
         side_effect=OpenAIError("temporary upstream failure"),
     )
-    def test_eval_decisions_continues_on_openai_error(
-        self, _mock_eval: MagicMock
-    ) -> None:
+    def test_eval_decisions_continues_on_openai_error(self, _mock_eval: MagicMock) -> None:
         results = eval_decisions(
             [_make_decision()],
             _make_game_ctx(),
@@ -990,9 +927,7 @@ class TestOperationalFailures:
         "magebench.analysis.blunder.blunder_analysis.evaluate_one_decision",
         side_effect=AssertionError("unexpected bug"),
     )
-    def test_eval_decisions_propagates_non_openai_error(
-        self, _mock_eval: MagicMock
-    ) -> None:
+    def test_eval_decisions_propagates_non_openai_error(self, _mock_eval: MagicMock) -> None:
         with pytest.raises(AssertionError, match="unexpected bug"):
             eval_decisions(
                 [_make_decision()],

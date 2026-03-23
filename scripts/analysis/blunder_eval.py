@@ -44,17 +44,13 @@ from magebench.analysis.blunder.blunder_eval_common import (
 _LOG_TZ = ZoneInfo("America/Los_Angeles")
 
 
-def _detected_flag(
-    result: dict | None, *, play_key: str, label: str, allow_missing: bool
-) -> bool:
+def _detected_flag(result: dict | None, *, play_key: str, label: str, allow_missing: bool) -> bool:
     """Return a result's detected flag, optionally allowing a missing entry."""
     if result is None:
         assert allow_missing, f"Missing {label} result for {play_key}"
         return False
     detected = result.get("detected")
-    assert isinstance(detected, bool), (
-        f"{label} result for {play_key} missing bool detected flag: {result!r}"
-    )
+    assert isinstance(detected, bool), f"{label} result for {play_key} missing bool detected flag: {result!r}"
     return detected
 
 
@@ -81,12 +77,8 @@ def compare_results(
             pk = play_key(game_id, entry["decision_index"])
             eval_entry = eval_results.get(pk)
             baseline_entry = baseline_results.get(pk)
-            eval_detected = _detected_flag(
-                eval_entry, play_key=pk, label="eval", allow_missing=False
-            )
-            base_detected = _detected_flag(
-                baseline_entry, play_key=pk, label="baseline", allow_missing=True
-            )
+            eval_detected = _detected_flag(eval_entry, play_key=pk, label="eval", allow_missing=False)
+            base_detected = _detected_flag(baseline_entry, play_key=pk, label="baseline", allow_missing=True)
 
             is_blunder = verdict == "blunder"
 
@@ -107,15 +99,9 @@ def compare_results(
                         "verdict": verdict,
                         "eval_detected": eval_detected,
                         "baseline_detected": base_detected,
-                        "baseline_description": baseline_entry.get("description")
-                        if baseline_entry
-                        else None,
-                        "eval_severity": eval_entry.get("severity")
-                        if eval_entry
-                        else None,
-                        "eval_description": eval_entry.get("description")
-                        if eval_entry
-                        else None,
+                        "baseline_description": baseline_entry.get("description") if baseline_entry else None,
+                        "eval_severity": eval_entry.get("severity") if eval_entry else None,
+                        "eval_description": eval_entry.get("description") if eval_entry else None,
                         "human_notes": entry.get("human_notes"),
                     }
                 )
@@ -144,12 +130,8 @@ def print_report(comparison: dict) -> None:
     delta_fp = comparison["delta_fp"]
     delta_fn = comparison["delta_fn"]
     print("\n  Delta vs baseline:")
-    print(
-        f"    FP: {delta_fp:+d} ({comparison['baseline_false_positives']} -> {comparison['false_positives']})"
-    )
-    print(
-        f"    FN: {delta_fn:+d} ({comparison['baseline_false_negatives']} -> {comparison['false_negatives']})"
-    )
+    print(f"    FP: {delta_fp:+d} ({comparison['baseline_false_positives']} -> {comparison['false_positives']})")
+    print(f"    FN: {delta_fn:+d} ({comparison['baseline_false_negatives']} -> {comparison['false_negatives']})")
 
     details = comparison["details"]
     if details:
@@ -196,9 +178,7 @@ def print_report(comparison: dict) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Run blunder eval against ground truth"
-    )
+    parser = argparse.ArgumentParser(description="Run blunder eval against ground truth")
     parser.add_argument("--limit", type=int, help="Limit number of plays to evaluate")
     parser.add_argument("--game", help="Filter to a specific game ID")
     args = parser.parse_args()
@@ -217,9 +197,7 @@ def main() -> None:
             validated_by_game[game_id] = v
             total_validated += len(v)
 
-    assert total_validated > 0, (
-        "No validated entries found. Run 'make blunder-audit' first."
-    )
+    assert total_validated > 0, "No validated entries found. Run 'make blunder-audit' first."
 
     if args.limit and args.limit < total_validated:
         print(f"Limiting to {args.limit} of {total_validated} validated plays")
@@ -234,18 +212,14 @@ def main() -> None:
         validated_by_game = trimmed
         total_validated = args.limit
 
-    print(
-        f"Evaluating {total_validated} validated plays across {len(validated_by_game)} games"
-    )
+    print(f"Evaluating {total_validated} validated plays across {len(validated_by_game)} games")
 
     # Load baseline
     baseline_results: dict[str, dict] = {}
     if BASELINE_PATH.exists():
         baseline = load_baseline()
         baseline_results = baseline["results"]
-        print(
-            f"Baseline: v{baseline.get('blunder_script_version', '?')} ({len(baseline_results)} results)"
-        )
+        print(f"Baseline: v{baseline.get('blunder_script_version', '?')} ({len(baseline_results)} results)")
     else:
         print("No baseline found -- will compare against empty baseline")
 

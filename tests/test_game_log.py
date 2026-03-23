@@ -64,9 +64,7 @@ def test_merge_game_log_invalid_timestamp_raises():
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         events = game_dir / "game_events.jsonl"
-        events.write_text(
-            json.dumps({"ts": "not-a-timestamp", "type": "game_start"}) + "\n"
-        )
+        events.write_text(json.dumps({"ts": "not-a-timestamp", "type": "game_start"}) + "\n")
 
         with pytest.raises(ValueError, match="not-a-timestamp"):
             merge_game_log(game_dir)
@@ -256,10 +254,7 @@ def test_merge_excludes_trace_files():
         game_dir = Path(tmpdir)
 
         events = game_dir / "game_events.jsonl"
-        events.write_text(
-            json.dumps({"ts": "2024-06-15T10:00:01.000-07:00", "type": "game_start"})
-            + "\n"
-        )
+        events.write_text(json.dumps({"ts": "2024-06-15T10:00:01.000-07:00", "type": "game_start"}) + "\n")
 
         # Write an LLM trace file — should NOT appear in merge
         trace = game_dir / "alice_llm_trace.jsonl"

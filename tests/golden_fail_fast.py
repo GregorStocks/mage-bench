@@ -13,11 +13,7 @@ class GoldenFailureGate:
         self.first_failure_phase = when
 
     def skip_reason_for(self, nodeid: str, *, is_golden: bool) -> str | None:
-        if (
-            not is_golden
-            or self.first_failure_nodeid is None
-            or nodeid == self.first_failure_nodeid
-        ):
+        if not is_golden or self.first_failure_nodeid is None or nodeid == self.first_failure_nodeid:
             return None
         phase = self.first_failure_phase or "call"
         return (

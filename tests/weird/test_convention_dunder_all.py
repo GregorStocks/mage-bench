@@ -24,11 +24,7 @@ def _has_top_level_dunder_all(path: Path) -> bool:
             for target in node.targets:
                 if isinstance(target, ast.Name) and target.id == "__all__":
                     return True
-        elif (
-            isinstance(node, ast.AnnAssign)
-            and isinstance(node.target, ast.Name)
-            and node.target.id == "__all__"
-        ):
+        elif isinstance(node, ast.AnnAssign) and isinstance(node.target, ast.Name) and node.target.id == "__all__":
             return True
     return False
 
@@ -52,14 +48,6 @@ class TestDunderAllUsageRatchet:
             "Legacy top-level `__all__` usage changed.\n"
             "Do not add new `__all__` exports; import the concrete module you need instead.\n"
             "If you removed one of the allowed legacy cases, update this ratchet too.\n"
-            + (
-                "Unexpected new files:\n  " + "\n  ".join(sorted(unexpected)) + "\n"
-                if unexpected
-                else ""
-            )
-            + (
-                "Removed allowlisted files:\n  " + "\n  ".join(sorted(missing))
-                if missing
-                else ""
-            )
+            + ("Unexpected new files:\n  " + "\n  ".join(sorted(unexpected)) + "\n" if unexpected else "")
+            + ("Removed allowlisted files:\n  " + "\n  ".join(sorted(missing)) if missing else "")
         )

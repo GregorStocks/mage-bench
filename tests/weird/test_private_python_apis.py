@@ -114,10 +114,7 @@ def _private_reexports() -> frozenset[tuple[str, str]]:
         for node in ast.walk(tree):
             if not isinstance(node, ast.Assign):
                 continue
-            if not any(
-                isinstance(target, ast.Name) and target.id == "__all__"
-                for target in node.targets
-            ):
+            if not any(isinstance(target, ast.Name) and target.id == "__all__" for target in node.targets):
                 continue
             try:
                 exported_names = ast.literal_eval(node.value)
@@ -134,16 +131,11 @@ def _private_reexports() -> frozenset[tuple[str, str]]:
 
 class TestPrivatePythonApis:
     def test_no_new_cross_module_private_imports(self) -> None:
-        unexpected = (
-            _private_cross_module_imports() - _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS
-        )
+        unexpected = _private_cross_module_imports() - _ALLOWED_PRIVATE_CROSS_MODULE_IMPORTS
         assert not unexpected, (
             "New cross-module imports of underscore-prefixed helpers were added.\n"
             "If another module needs the helper, rename it to a public symbol in the owner module instead.\n  "
-            + "\n  ".join(
-                f"{importer} imports {exporter}.{name}"
-                for importer, exporter, name in sorted(unexpected)
-            )
+            + "\n  ".join(f"{importer} imports {exporter}.{name}" for importer, exporter, name in sorted(unexpected))
         )
 
     def test_no_new_private_reexports(self) -> None:

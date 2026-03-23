@@ -22,9 +22,7 @@ def _temp_ground_truth(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """Set up temp ground truth directory with sample data."""
     gt_dir = tmp_path / "ground_truth"
     gt_dir.mkdir()
-    monkeypatch.setattr(
-        "magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", gt_dir
-    )
+    monkeypatch.setattr("magebench.analysis.blunder.blunder_eval_common.GROUND_TRUTH_DIR", gt_dir)
 
     # Write a sample ground truth file
     data = [
@@ -130,31 +128,23 @@ class TestHostnameConfig:
         assert blunder_audit_web._get_hostname() == "my-server.local"
 
     def test_defaults_to_localhost(self, monkeypatch: pytest.MonkeyPatch) -> None:
-        monkeypatch.setattr(
-            blunder_audit_web, "CONFIG_PATH", Path("/nonexistent/config.json")
-        )
+        monkeypatch.setattr(blunder_audit_web, "CONFIG_PATH", Path("/nonexistent/config.json"))
         assert blunder_audit_web._get_hostname() == "localhost"
 
 
 class TestExpectedApiErrors:
     def test_find_decision_raises_audit_api_error(self) -> None:
-        with pytest.raises(
-            blunder_audit_web.AuditApiError, match="Decision 9 not found"
-        ):
+        with pytest.raises(blunder_audit_web.AuditApiError, match="Decision 9 not found"):
             blunder_audit_web._find_decision([], 9)
 
-    def test_play_detail_returns_json_500(
-        self, server_port: int, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_play_detail_returns_json_500(self, server_port: int, monkeypatch: pytest.MonkeyPatch) -> None:
         def _raise(_game_id: str, _di: int) -> dict:
             raise blunder_audit_web.AuditApiError("detail failed")
 
         monkeypatch.setattr(blunder_audit_web, "_build_play_detail", _raise)
 
         with pytest.raises(HTTPError) as excinfo:
-            urlopen(
-                f"http://127.0.0.1:{server_port}/api/plays/{VALID_GAME_ID}/0", timeout=5
-            )
+            urlopen(f"http://127.0.0.1:{server_port}/api/plays/{VALID_GAME_ID}/0", timeout=5)
 
         assert excinfo.value.code == 500
         assert json.loads(excinfo.value.read()) == {"error": "detail failed"}
@@ -175,9 +165,7 @@ class TestExpectedApiErrors:
             "error": "Invalid JSON: Expecting property name enclosed in double quotes"
         }
 
-    def test_verdict_returns_json_500(
-        self, server_port: int, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_verdict_returns_json_500(self, server_port: int, monkeypatch: pytest.MonkeyPatch) -> None:
         def _raise(_game_id: str, _di: int, _body: dict) -> dict:
             raise blunder_audit_web.AuditApiError("save failed")
 
@@ -195,9 +183,7 @@ class TestExpectedApiErrors:
         assert excinfo.value.code == 500
         assert json.loads(excinfo.value.read()) == {"error": "save failed"}
 
-    def test_build_play_detail_formats_dataclass_hand_names(
-        self, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_build_play_detail_formats_dataclass_hand_names(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr(
             blunder_audit_web,
             "_load_game_cached",
@@ -275,9 +261,7 @@ class TestPathValidation:
             )
 
         assert excinfo.value.code == 400
-        assert json.loads(excinfo.value.read()) == {
-            "error": "Invalid game_id: '../../etc/passwd'"
-        }
+        assert json.loads(excinfo.value.read()) == {"error": "Invalid game_id: '../../etc/passwd'"}
 
     def test_rejects_invalid_game_export_filename(
         self,
@@ -288,14 +272,10 @@ class TestPathValidation:
         monkeypatch.setattr(blunder_audit_web, "GAMES_DIR", tmp_path)
 
         with pytest.raises(HTTPError) as excinfo:
-            urlopen(
-                f"http://127.0.0.1:{server_port}/games/{VALID_GAME_ID}/extra", timeout=5
-            )
+            urlopen(f"http://127.0.0.1:{server_port}/games/{VALID_GAME_ID}/extra", timeout=5)
 
         assert excinfo.value.code == 400
-        assert json.loads(excinfo.value.read()) == {
-            "error": f"Invalid game export filename: '{VALID_GAME_ID}/extra'"
-        }
+        assert json.loads(excinfo.value.read()) == {"error": f"Invalid game export filename: '{VALID_GAME_ID}/extra'"}
 
     def test_serves_valid_game_export_file(
         self,

@@ -164,8 +164,7 @@ def record_rss_snapshot(label: str, processes: Mapping[str, int]) -> None:
 
     _rss_snapshots.append(RssSnapshot(label, total_rss_bytes, process_rss_bytes))
     breakdown = " ".join(
-        f"{process_label}:{_format_rss_bytes(rss_bytes)}"
-        for process_label, rss_bytes in process_rss_bytes.items()
+        f"{process_label}:{_format_rss_bytes(rss_bytes)}" for process_label, rss_bytes in process_rss_bytes.items()
     )
     print(
         f"  [rss/{label}] total={_format_rss_bytes(total_rss_bytes)} [{breakdown}]",
@@ -173,9 +172,7 @@ def record_rss_snapshot(label: str, processes: Mapping[str, int]) -> None:
     )
 
 
-def record_registered_rss_snapshot(
-    label: str, process_labels: Iterable[str] | None = None
-) -> None:
+def record_registered_rss_snapshot(label: str, process_labels: Iterable[str] | None = None) -> None:
     """Capture RSS for a subset of registered processes, preserving label order."""
     if process_labels is None:
         selected = dict(_observed_process_pids)
@@ -397,9 +394,7 @@ def compute_module_classpath(project_root: Path, module: str) -> str:
         text=True,
         preexec_fn=jvm_oom_preexec_fn(),
     )
-    assert result.returncode == 0, (
-        f"Failed to compute classpath for {module}: {result.stderr}"
-    )
+    assert result.returncode == 0, f"Failed to compute classpath for {module}: {result.stderr}"
     dep_classpath = cp_file.read_text().strip()
     dep_classpath = _replace_reactor_jars(dep_classpath, project_root)
     classpath = f"{module_dir / 'target' / 'classes'}:{dep_classpath}"
@@ -492,9 +487,7 @@ class BridgeSession:
         return resp["result"]
 
     def initialize(self) -> dict:
-        return self._rpc(
-            "initialize", {"protocolVersion": "2024-11-05", "capabilities": {}}
-        )
+        return self._rpc("initialize", {"protocolVersion": "2024-11-05", "capabilities": {}})
 
     def list_tool_defs(self) -> list[dict]:
         """Return raw MCP tool definitions."""
@@ -505,9 +498,7 @@ class BridgeSession:
         """Return names of available MCP tools."""
         return [t["name"] for t in self.list_tool_defs()]
 
-    def call_tool(
-        self, name: str, arguments: dict | None = None, timeout: int | None = None
-    ) -> str:
+    def call_tool(self, name: str, arguments: dict | None = None, timeout: int | None = None) -> str:
         """Call an MCP tool and return the result text (matches execute_tool() return format)."""
         kwargs: dict = {"name": name, "arguments": arguments or {}}
         rpc_kwargs: dict = {}
@@ -617,24 +608,16 @@ class BridgeManager:
     @staticmethod
     def _slice_log_bytes(path: Path, offset: int) -> bytes:
         if not path.exists():
-            assert offset == 0, (
-                f"Missing log file {path} after recording non-zero offset {offset}"
-            )
+            assert offset == 0, f"Missing log file {path} after recording non-zero offset {offset}"
             return b""
         data = path.read_bytes()
-        assert offset <= len(data), (
-            f"Offset {offset} exceeds log size {len(data)} for {path}"
-        )
+        assert offset <= len(data), f"Offset {offset} exceeds log size {len(data)} for {path}"
         return data[offset:]
 
     def capture_log_offsets(self) -> BridgeLogOffsets:
         """Capture the current end offsets so one test can snapshot only its own log slice."""
-        assert self._current_log_path is not None, (
-            "Bridge log path must be set before capturing offsets"
-        )
-        assert self._current_event_log_path is not None, (
-            "Bridge event log path must be set before capturing offsets"
-        )
+        assert self._current_log_path is not None, "Bridge log path must be set before capturing offsets"
+        assert self._current_event_log_path is not None, "Bridge event log path must be set before capturing offsets"
         return BridgeLogOffsets(
             bridge_log_path=self._current_log_path,
             bridge_log_offset=self._log_size(self._current_log_path),
@@ -642,22 +625,14 @@ class BridgeManager:
             bridge_event_log_offset=self._log_size(self._current_event_log_path),
         )
 
-    def write_test_log_snapshots(
-        self, golden_name: str, offsets: BridgeLogOffsets
-    ) -> tuple[Path, Path]:
+    def write_test_log_snapshots(self, golden_name: str, offsets: BridgeLogOffsets) -> tuple[Path, Path]:
         """Write per-test bridge log slices alongside the live session log files."""
         snapshot_stem = self._sanitize_snapshot_stem(golden_name)
         bridge_snapshot = self._prepare_live_log_path(f"{snapshot_stem}.bridge.log")
-        bridge_snapshot.write_bytes(
-            self._slice_log_bytes(offsets.bridge_log_path, offsets.bridge_log_offset)
-        )
-        event_snapshot = self._prepare_live_log_path(
-            f"{snapshot_stem}.bridge-events.jsonl"
-        )
+        bridge_snapshot.write_bytes(self._slice_log_bytes(offsets.bridge_log_path, offsets.bridge_log_offset))
+        event_snapshot = self._prepare_live_log_path(f"{snapshot_stem}.bridge-events.jsonl")
         event_snapshot.write_bytes(
-            self._slice_log_bytes(
-                offsets.bridge_event_log_path, offsets.bridge_event_log_offset
-            )
+            self._slice_log_bytes(offsets.bridge_event_log_path, offsets.bridge_event_log_offset)
         )
         return bridge_snapshot, event_snapshot
 
@@ -666,9 +641,7 @@ class BridgeManager:
         if not self._needs_reconnect_validation:
             return
         self._needs_reconnect_validation = False
-        assert self._current_log_path is not None, (
-            "Bridge log path must be set before reconnect validation"
-        )
+        assert self._current_log_path is not None, "Bridge log path must be set before reconnect validation"
         log_text = self._current_log_path.read_text(encoding="utf-8", errors="replace")
 
         started_game_ids: list[str] = []
@@ -680,8 +653,7 @@ class BridgeManager:
         stale_callback_lines = [
             line.strip()
             for line in log_text.splitlines()
-            if "Ignoring " in line
-            and ("for non-current game " in line or "for inactive game " in line)
+            if "Ignoring " in line and ("for non-current game " in line or "for inactive game " in line)
         ]
 
         if len(started_game_ids) <= 1 and not stale_callback_lines:
@@ -712,9 +684,7 @@ class BridgeManager:
         bridge_event_log = self._prepare_live_log_path("bridge-events.jsonl")
 
         with timed_phase("session", f"{self._label}_classpath"):
-            bridge_cp = compute_module_classpath(
-                self._project_root, "Mage.Client.Bridge"
-            )
+            bridge_cp = compute_module_classpath(self._project_root, "Mage.Client.Bridge")
         bridge_cmd = _build_java_cmd(
             bridge_cp,
             MAIN_CLASS_BRIDGE,
@@ -753,9 +723,7 @@ class BridgeManager:
         self.session = BridgeSession(f"http://127.0.0.1:{mcp_port}/mcp")
         self.session.initialize()
         print(f"{self._label.title()} MCP initialized via HTTP", flush=True)
-        assert self._proc is not None, (
-            "Bridge process must exist after successful start"
-        )
+        assert self._proc is not None, "Bridge process must exist after successful start"
         register_observed_process(self._label, self._proc.pid)
         record_registered_rss_snapshot(f"{self._label}_ready", [self._label])
 
@@ -832,9 +800,7 @@ class SpectatorProcess:
         self.health_port = health_port
         self.label = label
         assert proc.stdin is not None, "SpectatorProcess requires stdin=PIPE"
-        self._stdin = io.TextIOWrapper(
-            proc.stdin, encoding="utf-8", line_buffering=True
-        )
+        self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
 
     def start_game(
         self,
@@ -853,33 +819,23 @@ class SpectatorProcess:
         self._stdin.write(json.dumps(cmd, separators=(",", ":")) + "\n")
         self._stdin.flush()
 
-    def wait_for_ready(
-        self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS
-    ) -> str:
+    def wait_for_ready(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
         """Wait for the spectator to create the table and be ready for players.
 
         Uses the HTTP health endpoint for long-poll readiness detection.
         Returns the tableId string for bridge clients to join.
         """
-        assert self.health_port > 0, (
-            "SpectatorProcess requires health_port for readiness detection"
-        )
+        assert self.health_port > 0, "SpectatorProcess requires health_port for readiness detection"
         return _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
 
-    def wait_for_watching(
-        self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS
-    ) -> None:
+    def wait_for_watching(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
         """Wait for the spectator to attach to the actual game before replay starts."""
-        assert self.health_port > 0, (
-            "SpectatorProcess requires health_port for watch detection"
-        )
+        assert self.health_port > 0, "SpectatorProcess requires health_port for watch detection"
         _wait_for_game_watching(self.health_port, game_dir, timeout=timeout)
 
     def wait_for_game_end(self, game_dir: Path, timeout: int = 30) -> None:
         """Wait for the spectator to signal that event files are fully written."""
-        assert self.health_port > 0, (
-            "SpectatorProcess requires health_port for game-end detection"
-        )
+        assert self.health_port > 0, "SpectatorProcess requires health_port for game-end detection"
         _wait_for_game_end_http(self.health_port, game_dir, timeout=timeout)
 
     def close(self) -> None:
@@ -946,9 +902,7 @@ def _run_replay_on_bridge(
         if write_log:
             # Write prompt to file for debugging / golden comparison
             prompt_path = game_dir / f"{player_name}_golden_prompt.json"
-            prompt_path.write_text(
-                json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
-            )
+            prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
 
         if should_concede:
             # Concede to end the game (no-op if game already ended from opponent)
@@ -979,9 +933,7 @@ def _pilot_script_from_replay_script(script: list[dict]) -> list[dict]:
     scripted step to match production history exactly.
     """
     tool_steps = [step for step in script if not _is_meta_script_step(step)]
-    assert tool_steps, (
-        "Golden pilot script must contain at least the initial pass_priority"
-    )
+    assert tool_steps, "Golden pilot script must contain at least the initial pass_priority"
     first = tool_steps[0]
     assert first.get("name") == "pass_priority", (
         "Golden pilot scripts must start with pass_priority so production prefetch can consume the opening decision."
@@ -1059,11 +1011,7 @@ class _ScriptedResponse:
                 arguments=json.dumps(step.get("arguments", {})),
             ),
         )
-        self.choices = [
-            _ScriptedChoice(
-                finish_reason="tool_calls", message=_ScriptedMessage(None, [tool_call])
-            )
-        ]
+        self.choices = [_ScriptedChoice(finish_reason="tool_calls", message=_ScriptedMessage(None, [tool_call]))]
         self.usage = None
 
     def model_dump(self) -> dict:
@@ -1118,17 +1066,11 @@ class _ScriptedChatCompletions:
 
     async def create(self, **kwargs) -> _ScriptedResponse:
         self._capture.last_messages = json.loads(json.dumps(kwargs["messages"]))
-        while self._step_index < len(self._script) and _is_meta_script_step(
-            self._script[self._step_index]
-        ):
+        while self._step_index < len(self._script) and _is_meta_script_step(self._script[self._step_index]):
             _run_meta_script_step(
                 self._script[self._step_index],
-                last_tool_name=self._execution_state.last_tool_name
-                if self._execution_state
-                else None,
-                last_result_text=self._execution_state.last_result_text
-                if self._execution_state
-                else None,
+                last_tool_name=self._execution_state.last_tool_name if self._execution_state else None,
+                last_result_text=self._execution_state.last_result_text if self._execution_state else None,
             )
             self._step_index += 1
         if self._step_index >= len(self._script):
@@ -1147,9 +1089,7 @@ class _ScriptedOpenAIClient:
         capture: _CapturedPilotRequest,
         execution_state: _ScriptedExecutionState | None = None,
     ) -> None:
-        self.chat = SimpleNamespace(
-            completions=_ScriptedChatCompletions(script, capture, execution_state)
-        )
+        self.chat = SimpleNamespace(completions=_ScriptedChatCompletions(script, capture, execution_state))
 
 
 def _run_pilot_on_bridge(
@@ -1206,25 +1146,17 @@ def _run_pilot_on_bridge(
         prompt = capture.post_script_messages or capture.last_messages
         assert prompt is not None, "Scripted pilot did not capture a prompt"
         prompt_path = game_dir / f"{player_name}_golden_prompt.json"
-        prompt_path.write_text(
-            json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
-        )
+        prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
         return prompt
     finally:
         if should_concede:
             bridge.call_tool("concede", {})
-        game_log.emit(
-            "game_end", total_cost_usd=round(game_log.last_cumulative_cost_usd(), 6)
-        )
+        game_log.emit("game_end", total_cost_usd=round(game_log.last_cumulative_cost_usd(), 6))
         game_log.__exit__(None, None, None)
 
 
 def _is_game_over(data: dict) -> bool:
-    return bool(
-        data.get("game_over")
-        or data.get("player_dead")
-        or data.get("stop_reason") == "game_over"
-    )
+    return bool(data.get("game_over") or data.get("player_dead") or data.get("stop_reason") == "game_over")
 
 
 def _run_opponent_autopass(bridge: BridgeSession) -> None:
@@ -1301,23 +1233,17 @@ def _wait_for_commands(port: int, timeout: int = 120) -> None:
     with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
         data = json.loads(resp.read())
         if data.get("status") != "ready":
-            raise RuntimeError(
-                f"Observer wait-for-commands returned unexpected status: {data}"
-            )
+            raise RuntimeError(f"Observer wait-for-commands returned unexpected status: {data}")
 
 
-def _wait_for_game_ready(
-    port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS
-) -> str:
+def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
     """Wait for observer to create a game table via long-poll HTTP endpoint.
 
     Returns the tableId string once bridge clients can join the table.
     """
     url = f"http://127.0.0.1:{port}/wait-for-ready"
     body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
-    req = urllib.request.Request(
-        url, data=body, headers={"Content-Type": "application/json"}
-    )
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
             data = json.loads(resp.read())
@@ -1326,20 +1252,14 @@ def _wait_for_game_ready(
             return data["tableId"]
     except urllib.error.HTTPError as e:
         error_body = e.read().decode()
-        raise RuntimeError(
-            f"Wait-for-ready failed (HTTP {e.code}): {error_body}"
-        ) from e
+        raise RuntimeError(f"Wait-for-ready failed (HTTP {e.code}): {error_body}") from e
 
 
-def _wait_for_game_watching(
-    port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS
-) -> None:
+def _wait_for_game_watching(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
     """Wait for observer to attach to the game's actual GameView via HTTP endpoint."""
     url = f"http://127.0.0.1:{port}/wait-for-watching"
     body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
-    req = urllib.request.Request(
-        url, data=body, headers={"Content-Type": "application/json"}
-    )
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
             data = json.loads(resp.read())
@@ -1347,9 +1267,7 @@ def _wait_for_game_watching(
                 raise RuntimeError(f"Wait-for-watching returned: {data}")
     except urllib.error.HTTPError as e:
         error_body = e.read().decode()
-        raise RuntimeError(
-            f"Wait-for-watching failed (HTTP {e.code}): {error_body}"
-        ) from e
+        raise RuntimeError(f"Wait-for-watching failed (HTTP {e.code}): {error_body}") from e
 
 
 def _wait_for_game_end_http(port: int, game_dir: Path, timeout: int = 30) -> None:
@@ -1361,9 +1279,7 @@ def _wait_for_game_end_http(port: int, game_dir: Path, timeout: int = 30) -> Non
     """
     url = f"http://127.0.0.1:{port}/wait-for-game-end"
     body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
-    req = urllib.request.Request(
-        url, data=body, headers={"Content-Type": "application/json"}
-    )
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
             data = json.loads(resp.read())
@@ -1371,9 +1287,7 @@ def _wait_for_game_end_http(port: int, game_dir: Path, timeout: int = 30) -> Non
                 raise RuntimeError(f"Wait-for-game-end returned: {data}")
     except urllib.error.HTTPError as e:
         error_body = e.read().decode()
-        raise RuntimeError(
-            f"Wait-for-game-end failed (HTTP {e.code}): {error_body}"
-        ) from e
+        raise RuntimeError(f"Wait-for-game-end failed (HTTP {e.code}): {error_body}") from e
 
 
 def run_golden_scenario(
@@ -1438,12 +1352,8 @@ def run_golden_scenario(
 
     session_a = bridge_a.session
     session_b = bridge_b.session
-    assert session_a is not None, (
-        "Bridge A session must be initialized before running a golden scenario"
-    )
-    assert session_b is not None, (
-        "Bridge B session must be initialized before running a golden scenario"
-    )
+    assert session_a is not None, "Bridge A session must be initialized before running a golden scenario"
+    assert session_b is not None, "Bridge B session must be initialized before running a golden scenario"
     bridge_a_log_offsets = bridge_a.capture_log_offsets()
     bridge_b_log_offsets = bridge_b.capture_log_offsets()
 
@@ -1638,9 +1548,7 @@ def run_golden_scenario(
                 cleanup_restart_failures.append((bridge._label, exc))
 
         if cleanup_restart_failures:
-            details = "; ".join(
-                f"{label}: {exc}" for label, exc in cleanup_restart_failures
-            )
+            details = "; ".join(f"{label}: {exc}" for label, exc in cleanup_restart_failures)
             if primary_exc is not None:
                 primary_exc.add_note(
                     f"Cleanup restart failures while preserving the primary scenario exception: {details}"
@@ -1717,23 +1625,16 @@ def _json_ready(obj: object) -> object:
     return obj
 
 
-def _canonicalize_golden_names(
-    obj: object, name_map: Mapping[str, str] | None
-) -> object:
+def _canonicalize_golden_names(obj: object, name_map: Mapping[str, str] | None) -> object:
     """Replace runtime-unique test usernames with stable golden-comparison names."""
     if not name_map:
         return obj
     if isinstance(obj, dict):
-        normalized = {
-            key: _canonicalize_golden_names(value, name_map)
-            for key, value in obj.items()
-        }
+        normalized = {key: _canonicalize_golden_names(value, name_map) for key, value in obj.items()}
         log_text = normalized.get("text")
         if not isinstance(log_text, str):
             log_text = normalized.get("log")
-        if isinstance(log_text, str) and isinstance(
-            normalized.get("total_length"), int
-        ):
+        if isinstance(log_text, str) and isinstance(normalized.get("total_length"), int):
             normalized["total_length"] = len(log_text)
         return normalized
     if isinstance(obj, list):
@@ -1760,9 +1661,7 @@ def _brief(value: object, max_len: int = 80) -> str:
     return s
 
 
-def _json_diff(
-    expected: object, actual: object, path: str = "", max_diffs: int = 30
-) -> list[str]:
+def _json_diff(expected: object, actual: object, path: str = "", max_diffs: int = 30) -> list[str]:
     """Structural diff between two parsed JSON values.
 
     Returns a list of human-readable diff lines with JSON paths, e.g.:
@@ -1842,9 +1741,7 @@ def _normalize_prompt_for_golden(obj: object) -> object:
     return obj
 
 
-def assert_golden_prompt(
-    name: str, actual: list[dict], *, name_map: Mapping[str, str] | None = None
-) -> None:
+def assert_golden_prompt(name: str, actual: list[dict], *, name_map: Mapping[str, str] | None = None) -> None:
     """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
     normalized = _normalize_prompt_for_golden(actual)
     normalized = _canonicalize_golden_names(normalized, name_map)
@@ -1857,9 +1754,7 @@ def assert_golden_prompt(
         print(f"Updated golden file: {golden_file}")
         return
 
-    assert golden_file.exists(), (
-        f"Golden file not found: {golden_file}\nRun 'make regen-golden' to generate it."
-    )
+    assert golden_file.exists(), f"Golden file not found: {golden_file}\nRun 'make regen-golden' to generate it."
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json5:
@@ -1913,9 +1808,7 @@ def _strip_volatile(data: dict) -> None:
     for i, player in enumerate(players):
         if dataclasses.is_dataclass(player) and not isinstance(player, type):
             d = json_default(player)
-            assert isinstance(d, dict), (
-                f"expected json_default(player) to return dict, got {d!r}"
-            )
+            assert isinstance(d, dict), f"expected json_default(player) to return dict, got {d!r}"
             d.pop("thinking_time_secs", None)
             players[i] = d
         elif isinstance(player, dict):
@@ -1937,11 +1830,7 @@ def _strip_volatile(data: dict) -> None:
         if dataclasses.is_dataclass(event) and not isinstance(event, type):
             source_keys: frozenset[str] | None = getattr(event, "_source_keys", None)
             if source_keys is not None:
-                d = {
-                    f.name: getattr(event, f.name)
-                    for f in dataclasses.fields(event)
-                    if f.name in source_keys
-                }
+                d = {f.name: getattr(event, f.name) for f in dataclasses.fields(event) if f.name in source_keys}
                 extra: dict[str, object] | None = getattr(event, "_extra", None)
                 if extra:
                     d.update(extra)
@@ -1963,14 +1852,10 @@ def _strip_volatile(data: dict) -> None:
     data.get("llmTrace", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
 
-def _normalize_export_for_golden(
-    export_data: dict, *, name_map: Mapping[str, str] | None = None
-) -> dict:
+def _normalize_export_for_golden(export_data: dict, *, name_map: Mapping[str, str] | None = None) -> dict:
     """Return a deterministic export copy for golden comparison."""
     normalized = _json_ready(export_data)
-    assert isinstance(normalized, dict), (
-        f"expected export normalization to produce an object, got {normalized!r}"
-    )
+    assert isinstance(normalized, dict), f"expected export normalization to produce an object, got {normalized!r}"
     _strip_volatile(normalized)
     normalized = _normalize_embedded_json(normalized)
     normalized = _canonicalize_golden_names(normalized, name_map)
@@ -1978,9 +1863,7 @@ def _normalize_export_for_golden(
     return json.loads(json.dumps(normalized, default=json_default))
 
 
-def assert_golden_export(
-    name: str, export_data: dict, *, name_map: Mapping[str, str] | None = None
-) -> None:
+def assert_golden_export(name: str, export_data: dict, *, name_map: Mapping[str, str] | None = None) -> None:
     """Compare export data against a golden file."""
     normalized_export = _normalize_export_for_golden(export_data, name_map=name_map)
     actual_json5 = dumps_json5(normalized_export, sort_keys=True)
@@ -1992,9 +1875,7 @@ def assert_golden_export(
         print(f"Updated golden export: {golden_file}")
         return
 
-    assert golden_file.exists(), (
-        f"Golden export file not found: {golden_file}\nRun 'make regen-golden' to generate it."
-    )
+    assert golden_file.exists(), f"Golden export file not found: {golden_file}\nRun 'make regen-golden' to generate it."
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json5:

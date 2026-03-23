@@ -413,9 +413,7 @@ class TestAnnotateGame:
         _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         annotation = _make_valid_annotation()
-        annotation["llm_reasoning"] = (
-            "The LLM prioritized mana development over combat advantage"
-        )
+        annotation["llm_reasoning"] = "The LLM prioritized mana development over combat advantage"
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text(json.dumps([annotation]))
 
@@ -423,10 +421,7 @@ class TestAnnotateGame:
 
         data = _read_export(gz_path)
         assert len(data["annotations"]) == 1
-        assert (
-            data["annotations"][0]["llm_reasoning"]
-            == "The LLM prioritized mana development over combat advantage"
-        )
+        assert data["annotations"][0]["llm_reasoning"] == "The LLM prioritized mana development over combat advantage"
 
     def test_replaces_existing(self, tmp_path: Path) -> None:
         game = _make_test_game(include_decisions=True)

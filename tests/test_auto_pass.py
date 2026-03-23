@@ -20,10 +20,7 @@ def _no_sleep():
 def _make_session(responses: list[str]) -> MagicMock:
     """Create a mock MCP session that returns the given responses in order."""
     session = MagicMock()
-    results = [
-        CallToolResult(content=[TextContent(type="text", text=text)])
-        for text in responses
-    ]
+    results = [CallToolResult(content=[TextContent(type="text", text=text)]) for text in responses]
     session.call_tool = AsyncMock(side_effect=results)
     return session
 

@@ -30,12 +30,7 @@ def _ann(**overrides: object) -> dict:
         "actionTaken": "a",
         "betterLine": "b",
     }
-    base.update(
-        {
-            json_key_by_field.get(field_name, field_name): value
-            for field_name, value in overrides.items()
-        }
-    )
+    base.update({json_key_by_field.get(field_name, field_name): value for field_name, value in overrides.items()})
     return base
 
 
@@ -100,9 +95,7 @@ def _fake_completion_response() -> SimpleNamespace:
 
 def test_call_llm_uses_temperature_without_reasoning_effort() -> None:
     create = MagicMock(return_value=_fake_completion_response())
-    client = SimpleNamespace(
-        chat=SimpleNamespace(completions=SimpleNamespace(create=create))
-    )
+    client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
 
     _call_llm(client, OPUS, "system", "user", label="baseline")
 
@@ -113,13 +106,9 @@ def test_call_llm_uses_temperature_without_reasoning_effort() -> None:
 
 def test_call_llm_uses_reasoning_effort_when_requested() -> None:
     create = MagicMock(return_value=_fake_completion_response())
-    client = SimpleNamespace(
-        chat=SimpleNamespace(completions=SimpleNamespace(create=create))
-    )
+    client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
 
-    _call_llm(
-        client, OPUS, "system", "user", reasoning_effort="medium", label="reasoned"
-    )
+    _call_llm(client, OPUS, "system", "user", reasoning_effort="medium", label="reasoned")
 
     kwargs = create.call_args.kwargs
     assert kwargs["extra_body"] == {"reasoning": {"effort": "medium"}}

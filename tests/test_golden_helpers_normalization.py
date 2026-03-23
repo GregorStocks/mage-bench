@@ -99,9 +99,7 @@ def test_normalize_embedded_json_converts_dataclass_export_records():
                         targets=[StackTarget(name="Goblin Guide", id="p1")],
                     )
                 ],
-                "combat": [
-                    {"attackers": [CombatCreature(name="Goblin Guide", id="a1")]}
-                ],
+                "combat": [{"attackers": [CombatCreature(name="Goblin Guide", id="a1")]}],
             }
         ]
     }
@@ -160,18 +158,14 @@ def test_dumps_json5_serializes_dataclass_export_records():
     }
 
 
-def test_extract_blunder_decisions_serializes_dataclass_export_records(
-    tmp_path: Path, monkeypatch
-):
+def test_extract_blunder_decisions_serializes_dataclass_export_records(tmp_path: Path, monkeypatch):
     captured: dict[str, object] = {}
 
     def fake_extract_decisions(path: str) -> list[dict]:
         captured["payload"] = json.loads(Path(path).read_text())
         return []
 
-    monkeypatch.setattr(
-        "tests.golden_helpers.extract_decisions", fake_extract_decisions
-    )
+    monkeypatch.setattr("tests.golden_helpers.extract_decisions", fake_extract_decisions)
 
     export_data = {
         "snapshots": [
@@ -305,9 +299,7 @@ def test_pilot_script_from_replay_script_requires_initial_plain_pass_priority():
         _pilot_script_from_replay_script([{"name": "get_game_state", "arguments": {}}])
 
     with pytest.raises(AssertionError, match="pass_priority\\(\\{\\}\\)"):
-        _pilot_script_from_replay_script(
-            [{"name": "pass_priority", "arguments": {"until": "my_turn"}}]
-        )
+        _pilot_script_from_replay_script([{"name": "pass_priority", "arguments": {"until": "my_turn"}}])
 
 
 def test_pilot_script_from_replay_script_filters_assert_action_steps():
@@ -328,9 +320,7 @@ def test_pilot_script_from_replay_script_filters_assert_action_steps():
 @pytest.mark.asyncio
 async def test_scripted_chat_completion_captures_terminal_request():
     capture = _CapturedPilotRequest()
-    completions = _ScriptedChatCompletions(
-        [{"name": "choose_action", "arguments": {"choice": "0"}}], capture
-    )
+    completions = _ScriptedChatCompletions([{"name": "choose_action", "arguments": {"choice": "0"}}], capture)
 
     first_messages = [{"role": "user", "content": "before scripted tool call"}]
     second_messages = [{"role": "user", "content": "after scripted tool call"}]
@@ -371,15 +361,10 @@ async def test_scripted_chat_completion_skips_assert_action_steps():
         execution_state,
     )
 
-    response = await completions.create(
-        messages=[{"role": "user", "content": "before scripted tool call"}]
-    )
+    response = await completions.create(messages=[{"role": "user", "content": "before scripted tool call"}])
 
     assert response.choices[0].message.tool_calls[0].function.name == "choose_action"
-    assert (
-        response.choices[0].message.tool_calls[0].function.arguments
-        == '{"amounts": [1, 1]}'
-    )
+    assert response.choices[0].message.tool_calls[0].function.arguments == '{"amounts": [1, 1]}'
 
 
 def test_strip_volatile_sorts_llm_events_by_seq_player():
@@ -476,9 +461,7 @@ def test_strip_volatile_keeps_errors_but_strips_error_timestamps():
     ]
 
 
-def test_extract_blunder_decisions_serializes_dataclass_leaves(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-):
+def test_extract_blunder_decisions_serializes_dataclass_leaves(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     export_data = {
         "version": 9,
         "id": "game_20260317_000000",

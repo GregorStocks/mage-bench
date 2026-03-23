@@ -9,9 +9,7 @@ import pytest
 import magebench.analysis.toolbox.mana_tapping as mana_tapping
 
 
-def _make_gz(
-    tmp_path: Path, events: list[dict], players: list[dict] | None = None
-) -> Path:
+def _make_gz(tmp_path: Path, events: list[dict], players: list[dict] | None = None) -> Path:
     """Create a minimal .json5.gz file with given llm_events."""
     raw_players = players or [
         {"name": "Alice", "model": "test/model-a", "total_cost_usd": 0.1},
@@ -99,9 +97,7 @@ class TestAnalyzeGame:
                 "tool": "choose_action",
                 "player": "Alice",
                 "args": {"index": 1, "mana_plan": [{"tap": "bad-id"}]},
-                "result": json.dumps(
-                    {"success": False, "error": "Index 1 out of range"}
-                ),
+                "result": json.dumps({"success": False, "error": "Index 1 out of range"}),
             }
         ]
         gz = _make_gz(tmp_path, events)
@@ -134,9 +130,7 @@ class TestAnalyzeGame:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "args": {},
-                "result": json.dumps(
-                    {"action_type": "GAME_PLAY_MANA", "choices": [{"index": 0}]}
-                ),
+                "result": json.dumps({"action_type": "GAME_PLAY_MANA", "choices": [{"index": 0}]}),
             },
             {
                 "type": "tool_call",
@@ -168,9 +162,7 @@ class TestAnalyzeGame:
                 "tool": "choose_action",
                 "player": "Alice",
                 "args": {"answer": False},
-                "result": json.dumps(
-                    {"success": True, "action_taken": "cancelled_spell"}
-                ),
+                "result": json.dumps({"success": True, "action_taken": "cancelled_spell"}),
             },
         ]
         gz = _make_gz(tmp_path, events)
@@ -201,9 +193,7 @@ class TestAnalyzeGame:
                 "tool": "choose_action",
                 "player": "Bob",
                 "args": {"index": 0},
-                "result": json.dumps(
-                    {"success": True, "action_taken": "selected_ability_0"}
-                ),
+                "result": json.dumps({"success": True, "action_taken": "selected_ability_0"}),
             },
         ]
         gz = _make_gz(tmp_path, events)
@@ -220,18 +210,14 @@ class TestAnalyzeGame:
                 "tool": "get_action_choices",
                 "player": "Alice",
                 "args": {},
-                "result": json.dumps(
-                    {"action_type": "GAME_CHOOSE_ABILITY", "choices": [{"index": 0}]}
-                ),
+                "result": json.dumps({"action_type": "GAME_CHOOSE_ABILITY", "choices": [{"index": 0}]}),
             },
             {
                 "type": "tool_call",
                 "tool": "choose_action",
                 "player": "Alice",
                 "args": {},
-                "result": json.dumps(
-                    {"success": False, "error": "Integer 'index' required"}
-                ),
+                "result": json.dumps({"success": False, "error": "Integer 'index' required"}),
             },
         ]
         gz = _make_gz(tmp_path, events)
@@ -247,9 +233,7 @@ class TestAnalyzeGame:
                 "tool": "choose_action",
                 "player": "Alice",
                 "args": {"answer": False},
-                "result": json.dumps(
-                    {"success": True, "action_taken": "cancelled_spell"}
-                ),
+                "result": json.dumps({"success": True, "action_taken": "cancelled_spell"}),
             }
         ]
         gz = _make_gz(tmp_path, events)
@@ -375,9 +359,7 @@ class TestDirectoryMode:
         assert total_mp == 1
         assert total_at == 1
 
-    def test_main_directory(
-        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
-    ) -> None:
+    def test_main_directory(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         events = [
             {
                 "type": "tool_call",
@@ -426,9 +408,7 @@ class TestDirectoryMode:
         assert "auto_tap Usage" in out
         assert "test/model" in out
 
-    def test_main_single_file(
-        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
-    ) -> None:
+    def test_main_single_file(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         gz = _make_gz(tmp_path, [])
         mana_tapping.main(gz)
         out = capsys.readouterr().out

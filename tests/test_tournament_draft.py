@@ -52,9 +52,7 @@ def golden_packs(all_packs):
     """Return the two specific packs used for golden tests."""
     by_theme = {hd.theme: hd for hd in all_packs}
     for theme in GOLDEN_PACK_THEMES:
-        assert theme in by_theme, (
-            f"Golden test pack {theme!r} not found in jumpstart themes"
-        )
+        assert theme in by_theme, f"Golden test pack {theme!r} not found in jumpstart themes"
     return [by_theme[t] for t in GOLDEN_PACK_THEMES]
 
 
@@ -105,9 +103,7 @@ class TestDraftOrder:
         for size in (4, 8, 16):
             order = draft_order(size)
             for seed in range(1, size + 1):
-                assert order.count(seed) == 2, (
-                    f"Seed {seed} doesn't appear exactly twice in size {size}"
-                )
+                assert order.count(seed) == 2, f"Seed {seed} doesn't appear exactly twice in size {size}"
 
     def test_higher_seed_always_picks_first(self):
         order = draft_order(8)
@@ -173,11 +169,7 @@ def _mock_draft_response(
 ) -> MagicMock:
     """Create a mock draft completion response."""
     response = MagicMock()
-    response.choices = [
-        SimpleNamespace(
-            message=SimpleNamespace(content=content, reasoning_content=thinking)
-        )
-    ]
+    response.choices = [SimpleNamespace(message=SimpleNamespace(content=content, reasoning_content=thinking))]
     response.usage = SimpleNamespace(
         prompt_tokens=prompt_tokens,
         completion_tokens=completion_tokens,
@@ -247,9 +239,7 @@ class TestLlmPick:
         assert usage == {"prompt_tokens": 200, "completion_tokens": 20}
 
         assert client.chat.completions.create.await_count == 2
-        retry_messages = client.chat.completions.create.await_args_list[1].kwargs[
-            "messages"
-        ]
+        retry_messages = client.chat.completions.create.await_args_list[1].kwargs["messages"]
         assert retry_messages[-2] == {
             "role": "assistant",
             "content": "**17**\n\nElves is the clear pick here because it stays open.",
@@ -297,9 +287,7 @@ class TestBuildDraftPrompts:
     def test_user_prompt_round_2(self, all_packs):
         picked = all_packs[0]
         options = all_packs[1:5]
-        prompt = build_draft_user_prompt(
-            2, options, _minimal_oracle_for_packs(options), already_picked=picked
-        )
+        prompt = build_draft_user_prompt(2, options, _minimal_oracle_for_packs(options), already_picked=picked)
         assert "Pick 2 of 2" in prompt
         assert f"already picked: {picked.theme}" in prompt
         assert f"Option 1: {options[0].theme}" in prompt
@@ -313,9 +301,7 @@ class TestBuildDraftPrompts:
                 if card.name not in {"Plains", "Island", "Swamp", "Mountain", "Forest"}:
                     oracle = oracle_cache.get(card.name, {})
                     if oracle.get("type_line"):
-                        assert oracle["type_line"] in prompt, (
-                            f"Type line for {card.name} not in prompt"
-                        )
+                        assert oracle["type_line"] in prompt, f"Type line for {card.name} not in prompt"
 
     def test_basic_lands_simplified(self, golden_packs, oracle_cache):
         prompt = build_draft_user_prompt(1, golden_packs, oracle_cache)
@@ -368,9 +354,7 @@ class TestGoldenDraftPrompts:
             seed=3,
             num_entrants=8,
         )
-        user = build_draft_user_prompt(
-            2, [golden_packs[1]], oracle_cache, already_picked=already_picked
-        )
+        user = build_draft_user_prompt(2, [golden_packs[1]], oracle_cache, already_picked=already_picked)
 
         actual = {"system": system, "user": user}
 
