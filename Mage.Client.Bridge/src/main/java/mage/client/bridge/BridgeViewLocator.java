@@ -16,13 +16,13 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-final class BridgeViewLocator {
+public final class BridgeViewLocator {
 
     private final ShortIdRegistry shortIds;
     private final Supplier<GameView> lastGameViewSupplier;
     private final Consumer<String> errorLogger;
 
-    BridgeViewLocator(
+    public BridgeViewLocator(
             ShortIdRegistry shortIds,
             Supplier<GameView> lastGameViewSupplier,
             Consumer<String> errorLogger
@@ -32,11 +32,11 @@ final class BridgeViewLocator {
         this.errorLogger = errorLogger;
     }
 
-    CardView findCardViewById(UUID objectId) {
+    public CardView findCardViewById(UUID objectId) {
         return findCardViewById(objectId, lastGameViewSupplier.get());
     }
 
-    String getStableShortId(UUID objectId, CardView cardView) {
+    public String getStableShortId(UUID objectId, CardView cardView) {
         Objects.requireNonNull(objectId, "objectId");
         if (cardView != null) {
             String serverShortId = cardView.getShortId();
@@ -58,15 +58,15 @@ final class BridgeViewLocator {
         return shortIds.getOrAssign(objectId);
     }
 
-    int getStableShortIdSequence(UUID objectId) {
+    public int getStableShortIdSequence(UUID objectId) {
         return getStableShortIdSequence(objectId, findCardViewById(objectId));
     }
 
-    int getStableShortIdSequence(UUID objectId, CardView cardView) {
+    public int getStableShortIdSequence(UUID objectId, CardView cardView) {
         return parseShortIdSequence(getStableShortId(objectId, cardView));
     }
 
-    CardView findCardViewById(UUID objectId, GameView gameView) {
+    public CardView findCardViewById(UUID objectId, GameView gameView) {
         if (gameView == null) {
             return null;
         }
@@ -122,7 +122,7 @@ final class BridgeViewLocator {
         return null;
     }
 
-    PermanentView findPermanentViewById(UUID objectId, GameView gameView) {
+    public PermanentView findPermanentViewById(UUID objectId, GameView gameView) {
         if (gameView == null) {
             return null;
         }
@@ -135,7 +135,7 @@ final class BridgeViewLocator {
         return null;
     }
 
-    static int parseShortIdSequence(String shortId) {
+    public static int parseShortIdSequence(String shortId) {
         if (shortId == null || shortId.length() < 2 || (shortId.charAt(0) != 'p' && shortId.charAt(0) != 'l')) {
             return Integer.MAX_VALUE;
         }

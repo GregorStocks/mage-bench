@@ -119,6 +119,9 @@ The action/game-state slice is also closer to the intended model now:
 - `get_action_choices` is now a real read surface rather than a hidden
   auto-resolve path
 - the published query-state owner now lives in `processor/`, not `mcp/`
+- published game-state and action-choice construction now lives under
+  `processor/` too, instead of being built by `BridgeCallbackHandler` and
+  passed back in through handler-owned lambdas
 - `BridgeMcpQueryApi` is now closer to a read shell:
   - published-state reads stay on the published snapshot/log path
   - `get_my_decklist` and `get_oracle_text` now go through a processor-side
@@ -169,6 +172,12 @@ The biggest remaining ownership smell is that `BridgeCallbackHandler` still
 acts as a processor helper bag for choose/pass flow contexts and other utility
 methods. That is better than before, but it is still not the final actor
 boundary.
+
+Another remaining smell is that processor-side query publication still depends
+on utility classes that were historically handler-adjacent (`BridgeViewLocator`,
+`BridgeCardFormatter`, `BridgeGameStateBuilder`, prompt-format helpers). The
+published query path is now processor-owned, but those helpers are still a
+mixed boundary rather than a processor-private read-model layer.
 
 The biggest remaining MCP-side smell is that some reads still need
 processor/barrier synchronization around mutable state holders instead of

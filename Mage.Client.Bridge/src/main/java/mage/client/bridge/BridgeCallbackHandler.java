@@ -20,6 +20,7 @@ import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.client.bridge.processor.BridgeProcessorState;
 import mage.client.bridge.processor.BridgePublishedActionChoices;
+import mage.client.bridge.processor.BridgePublishedQueryBuilder;
 import mage.client.bridge.processor.BridgePublishedQueryState;
 import mage.client.bridge.processor.BridgeQueryCommandService;
 import mage.client.bridge.processor.BridgeStartGameFlow;
@@ -118,6 +119,7 @@ public class BridgeCallbackHandler {
     private final BridgeCallbackIngress callbackIngress;
     private final BridgeMcpActionApi mcpActionApi;
     private final BridgeMcpQueryApi mcpQueryApi;
+    private final BridgePublishedQueryBuilder publishedQueryBuilder;
     private final BridgePublishedQueryState publishedQueryState;
     private final BridgeProcessor processor;
     private final BridgeProcessorState processorState = new BridgeProcessorState();
@@ -214,17 +216,21 @@ public class BridgeCallbackHandler {
             logger,
             client.getUsername()
         );
+        this.publishedQueryBuilder = new BridgePublishedQueryBuilder(
+            client.getUsername(),
+            processorState,
+            gameStateBuilder,
+            cardFormatter,
+            viewLocator,
+            () -> deckList
+        );
         this.publishedQueryState = new BridgePublishedQueryState(
             logger,
             client.getUsername(),
             processor,
             processorState,
             gameLogRefresher,
-            this::buildPublishedActionChoices,
-            gameStateBuilder::buildPlayersArray,
-            gameStateBuilder::buildCombatGroups,
-            gameView -> buildStackItems(gameView, true, true),
-            this::updateGameStateSnapshotId
+            publishedQueryBuilder
         );
         this.queryCommandService = new BridgeQueryCommandService(
             () -> deckList,
@@ -919,718 +925,8 @@ public class BridgeCallbackHandler {
         return mcpQueryApi.getActionChoicesSafe(boardCursorParam);
     }
 
-    private BridgePublishedActionChoices buildPublishedActionChoices() {
-        return BridgePublishedActionChoices.from(buildActionChoices(processorState.decisionState().pendingAction(), null, false));
-    }
-
-    @SuppressWarnings("unchecked")
-    private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam, boolean allowAutoResolve) {
-        var result = new ActionResult();
-        // Prefer the action's own GameView over lastGameView — a concurrent GAME_UPDATE
-        // can overwrite lastGameView with a view from a different phase (race condition).
-        GameView gameView = null;
-        if (action != null && action.data() instanceof GameClientMessage gcm) {
-            gameView = gcm.getGameView();
-        }
-        if (gameView == null) {
-            gameView = processorState.gameState().lastGameView();
-        }
-        // Capture for use in lambdas (must be effectively final).
-        final GameView gv = gameView;
-        if (action != null) {
-            result.game_seq = action.gameSeq();
-        }
-
-        if (action == null) {
-            result.action_pending = false;
-            processorState.decisionState().clearChoiceSnapshot();
-            return result;
-        }
-
-        result.action_pending = true;
-        result.action_type = action.method().name();
-        result.message = stripHtml(action.message());
-
-        // Add compact phase context and player summary
-        if (gameView != null) {
-            int turn = processorState.gameState().updateRound(gameView);
-            boolean isMyTurn = client.getUsername().equals(gameView.getActivePlayerName());
-            boolean isMainPhase = gameView.getPhase() != null && gameView.getPhase().isMain();
-
-            var ctx = new StringBuilder();
-            ctx.append("T").append(turn);
-            if (gameView.getPhase() != null) {
-                ctx.append(" ").append(gameView.getPhase());
-            }
-            if (gameView.getStep() != null) {
-                ctx.append("/").append(gameView.getStep());
-            }
-            ctx.append(" (").append(gameView.getActivePlayerName()).append(")");
-            if (isMyTurn && isMainPhase) {
-                ctx.append(" YOUR_MAIN");
-            }
-            result.context = ctx.toString();
-
-            // Full board state: players with battlefield, graveyard, exile, hand, etc.
-            // Board cursor dedup: skip the board payload when caller already has it.
-            List<Map<String, Object>> players = buildPlayersArray(gameView);
-            long currentBoardCursor = updateBoardCursor(players);
-            result.board_cursor = currentBoardCursor;
-            if (boardCursorParam != null && boardCursorParam.longValue() == currentBoardCursor) {
-                result.board_unchanged = true;
-            } else {
-                result.board = players;
-            }
-
-            // Convenience top-level fields (also available per-player in board)
-            PlayerView myPlayer = gameView.getMyPlayer();
-            if (myPlayer != null && myPlayer.getBattlefield() != null) {
-                int untappedLands = 0;
-                for (PermanentView perm : myPlayer.getBattlefield().values()) {
-                    if (perm.isLand() && !perm.isTapped()) {
-                        untappedLands++;
-                    }
-                }
-                if (untappedLands > 0) {
-                    result.untapped_lands = untappedLands;
-                }
-            }
-            // Analogous to Arena highlighting your lands when you have a land drop left.
-            // Helps LLMs remember they can play a land this turn.
-            // Uses the authoritative server value from PlayerView, not chat-message counting.
-            if (isMyTurn && isMainPhase && myPlayer != null) {
-                result.land_drops_used = myPlayer.getLandsPlayed();
-            }
-
-            // Stack summary — helps LLMs see what's pending before casting instants/counters
-            List<Map<String, Object>> stackSummary = buildStackItems(gameView, false, false);
-            if (!stackSummary.isEmpty()) {
-                result.stack = stackSummary;
-            }
-
-            // Combat context — show attackers/blockers during any combat step
-            // so LLMs see the combat state when casting instants or activating abilities
-            List<Map<String, Object>> combatGroups = buildCombatGroups(gameView);
-            if (combatGroups != null) {
-                result.combat = combatGroups;
-            }
-        }
-
-        ClientCallbackMethod method = action.method();
-        Object data = action.data();
-
-        switch (method) {
-            case GAME_ASK: {
-                result.response_type = "boolean";
-                result.respond_with = "choice=yes or choice=no";
-                processorState.decisionState().clearLastChoices();
-
-                // For mulligan decisions, include hand contents so LLM can evaluate
-                String askMsg = action.message();
-                if (askMsg != null && askMsg.toLowerCase().contains("mulligan") && gameView != null) {
-                    CardsView hand = gameView.getMyHand();
-                    if (hand != null && !hand.isEmpty()) {
-                        // Sort hand by card name for deterministic ordering
-                        var sortedHand = new ArrayList<>(hand.values());
-                        sortedHand.sort(Comparator.comparing(c -> safeDisplayName(c)));
-
-                        var handCards = new ArrayList<Map<String, Object>>();
-                        for (CardView card : sortedHand) {
-                            handCards.add(buildCardInfoMap(card));
-                        }
-                        result.your_hand = handCards;
-                    }
-                }
-                break;
-            }
-
-            case GAME_SELECT: {
-                // Check for playable cards in the current game view
-                PlayableObjectsList playable = gameView != null ? gameView.getCanPlayObjects() : null;
-                var choiceList = new ArrayList<Map<String, Object>>();
-                var indexToUuid = new ArrayList<Object>();
-
-                if (playable != null && !playable.isEmpty()) {
-                    // Clear failed casts and loop counters on turn change
-                    if (gameView != null) {
-                        processorState.interactionState().advanceTurn(gameView);
-                    }
-
-                    // Sort playable objects by card name for deterministic ordering
-                    // (HashMap iteration order depends on UUID hashCodes, which vary across JVM runs)
-                    var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
-                    sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
-                        CardView cv = findCardViewById(e.getKey(), gv);
-                        return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gv))));
-
-                    int idx = 0;
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
-                        UUID objectId = entry.getKey();
-                        PlayableObjectStats stats = entry.getValue();
-
-                        // Skip spells that failed mana payment (can't afford them)
-                        if (processorState.interactionState().failedManaCast(objectId)) {
-                            continue;
-                        }
-
-                        // Skip objects whose only abilities are mana abilities
-                        // (mana payment is handled during GAME_PLAY_MANA, not GAME_SELECT)
-                        List<String> abilityNames = stats.getPlayableAbilityNames();
-                        List<String> manaNames = stats.getAllManaAbilityNames();
-                        if (!abilityNames.isEmpty() && manaNames.size() == abilityNames.size()) {
-                            continue;
-                        }
-
-                        // Determine where this object lives (hand = cast, battlefield = activate)
-                        CardView cardView = findCardViewById(objectId, gameView);
-                        var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
-                        choiceEntry.put("id", getStableShortId(objectId, cardView));
-
-                        boolean isOnBattlefield = false;
-                        if (cardView == null) {
-                            // not found in hand/stack, check battlefield directly
-                            isOnBattlefield = true;
-                        } else if (gameView.getMyHand().get(objectId) == null
-                                   && gameView.getStack().get(objectId) == null) {
-                            isOnBattlefield = true;
-                        }
-
-                        if (cardView != null) {
-                            choiceEntry.put("name", safeDisplayName(cardView));
-                            if (isOnBattlefield) {
-                                choiceEntry.put("action", "activate");
-                                // Filter out mana abilities
-                                var manaNameSet = new HashSet<>(stats.getAllManaAbilityNames());
-                                var nonManaAbilities = new ArrayList<String>();
-                                for (String name : abilityNames) {
-                                    if (!manaNameSet.contains(name)) {
-                                        nonManaAbilities.add(name);
-                                    }
-                                }
-                                if (!nonManaAbilities.isEmpty()) {
-                                    choiceEntry.put("playable_abilities", nonManaAbilities);
-                                }
-                            } else {
-                                if (cardView.isLand()) {
-                                    choiceEntry.put("action", "land");
-                                } else {
-                                    choiceEntry.put("action", "cast");
-                                }
-                                String manaCost = cardView.getManaCostStr();
-                                if (manaCost != null && !manaCost.isEmpty()) {
-                                    choiceEntry.put("mana_cost", manaCost);
-                                }
-                                if (cardView.isCreature() && cardView.getPower() != null) {
-                                    choiceEntry.put("power", cardView.getPower());
-                                    choiceEntry.put("toughness", cardView.getToughness());
-                                }
-                            }
-                        } else {
-                            choiceEntry.put("name", "Unknown (" + objectId.toString().substring(0, 8) + ")");
-                        }
-
-                        choiceList.add(choiceEntry);
-                        indexToUuid.add(objectId);
-                        idx++;
-                    }
-                }
-
-                // Check for combat selections (declare attackers / declare blockers)
-                if (data instanceof GameClientMessage gcm) {
-                    Map<String, Serializable> options = gcm.getOptions();
-                    if (options != null) {
-                        @SuppressWarnings("unchecked")
-                        List<UUID> possibleAttackerIds = (List<UUID>) options.get("possibleAttackers");
-                        @SuppressWarnings("unchecked")
-                        List<UUID> possibleBlockerIds = (List<UUID>) options.get("possibleBlockers");
-
-                        if (possibleAttackerIds != null && !possibleAttackerIds.isEmpty()) {
-                            result.combat_phase = "declare_attackers";
-
-                            // Show which creatures are already attacking
-                            var alreadyAttacking = new ArrayList<Map<String, Object>>();
-                            if (gameView != null && gameView.getCombat() != null) {
-                                for (CombatGroupView group : gameView.getCombat()) {
-                                    for (CardView attacker : group.getAttackers().values()) {
-                                        var aInfo = new HashMap<String, Object>();
-                                        if (attacker.getId() != null) {
-                                            aInfo.put("id", getStableShortId(attacker.getId(), attacker));
-                                        }
-                                        aInfo.put("name", safeDisplayName(attacker));
-                                        if (attacker.getPower() != null) {
-                                            aInfo.put("power", attacker.getPower());
-                                            aInfo.put("toughness", attacker.getToughness());
-                                        }
-                                        alreadyAttacking.add(aInfo);
-                                    }
-                                }
-                            }
-                            if (!alreadyAttacking.isEmpty()) {
-                                result.already_attacking = alreadyAttacking;
-                            }
-
-                            int idx = choiceList.size();
-                            for (UUID attackerId : possibleAttackerIds) {
-                                PermanentView perm = findPermanentViewById(attackerId, gameView);
-                                if (perm == null) continue;
-
-                                var choiceEntry = new HashMap<String, Object>();
-                                choiceEntry.put("index", idx);
-                                choiceEntry.put("id", getStableShortId(attackerId, perm));
-                                choiceEntry.put("name", safeDisplayName(perm));
-                                if (perm.getPower() != null) {
-                                    choiceEntry.put("power", perm.getPower());
-                                    choiceEntry.put("toughness", perm.getToughness());
-                                }
-                                choiceEntry.put("choice_type", "attacker");
-                                choiceList.add(choiceEntry);
-                                indexToUuid.add(attackerId);
-                                idx++;
-                            }
-
-                            // Add "All attack" special option if available
-                            if (options.containsKey("specialButton")) {
-                                var allAttackEntry = new HashMap<String, Object>();
-                                allAttackEntry.put("index", idx);
-                                allAttackEntry.put("id", "all");
-                                allAttackEntry.put("name", "All attack");
-                                allAttackEntry.put("choice_type", "special");
-                                choiceList.add(allAttackEntry);
-                                indexToUuid.add("special");
-                                idx++;
-                            }
-                        }
-
-                        if (possibleBlockerIds != null && !possibleBlockerIds.isEmpty()) {
-                            result.combat_phase = "declare_blockers";
-
-                            // Show attacking creatures for context
-                            var incomingAttackers = new ArrayList<Map<String, Object>>();
-                            if (gameView != null && gameView.getCombat() != null) {
-                                for (CombatGroupView group : gameView.getCombat()) {
-                                    for (CardView attacker : group.getAttackers().values()) {
-                                        var aInfo = new HashMap<String, Object>();
-                                        if (attacker.getId() != null) {
-                                            aInfo.put("id", getStableShortId(attacker.getId(), attacker));
-                                        }
-                                        aInfo.put("name", attacker.getDisplayName());
-                                        if (attacker.getPower() != null) {
-                                            aInfo.put("power", attacker.getPower());
-                                            aInfo.put("toughness", attacker.getToughness());
-                                        }
-                                        incomingAttackers.add(aInfo);
-                                    }
-                                }
-                            }
-                            if (!incomingAttackers.isEmpty()) {
-                                result.incoming_attackers = incomingAttackers;
-                            }
-
-                            int idx = choiceList.size();
-                            for (UUID blockerId : possibleBlockerIds) {
-                                PermanentView perm = findPermanentViewById(blockerId, gameView);
-                                if (perm == null) continue;
-
-                                var choiceEntry = new HashMap<String, Object>();
-                                choiceEntry.put("index", idx);
-                                choiceEntry.put("id", getStableShortId(blockerId, perm));
-                                choiceEntry.put("name", safeDisplayName(perm));
-                                if (perm.getPower() != null) {
-                                    choiceEntry.put("power", perm.getPower());
-                                    choiceEntry.put("toughness", perm.getToughness());
-                                }
-                                choiceEntry.put("choice_type", "blocker");
-                                choiceList.add(choiceEntry);
-                                indexToUuid.add(blockerId);
-                                idx++;
-                            }
-                        }
-                    }
-                }
-
-                if (!choiceList.isEmpty()) {
-                    result.response_type = "select";
-                    result.choices = choiceList;
-                    processorState.decisionState().setLastChoices(indexToUuid);
-                    String combatPhase = result.combat_phase;
-                    if ("declare_attackers".equals(combatPhase)) {
-                        result.respond_with = "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)";
-                    } else if ("declare_blockers".equals(combatPhase)) {
-                        result.respond_with = "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)";
-                    } else {
-                        result.respond_with = "choice=pN to play, or choice=no to pass";
-                    }
-                } else {
-                    result.response_type = "boolean";
-                    result.respond_with = "choice=yes (confirm) or choice=no (pass)";
-                    processorState.decisionState().clearLastChoices();
-                }
-                break;
-            }
-
-            case GAME_PLAY_MANA:
-            case GAME_PLAY_XMANA: {
-                // Auto-tap couldn't find a source — show available mana sources to the LLM
-                GameClientMessage manaMsg = (GameClientMessage) data;
-                PlayableObjectsList manaPlayable = gameView != null ? gameView.getCanPlayObjects() : null;
-                var manaChoiceList = new ArrayList<Map<String, Object>>();
-                var manaIndexToChoice = new ArrayList<Object>();
-                UUID payingForId = extractPayingForId(manaMsg.getMessage());
-
-                if (manaPlayable != null) {
-                    // Sort mana sources by card name for deterministic ordering
-                    var sortedManaEntries = new ArrayList<>(manaPlayable.getObjects().entrySet());
-                    sortedManaEntries.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
-                        CardView cv = findCardViewById(e.getKey(), gv);
-                        return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gv))));
-
-                    int idx = 0;
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : sortedManaEntries) {
-                        UUID manaObjectId = entry.getKey();
-                        if (manaObjectId.equals(payingForId)) {
-                            continue;
-                        }
-                        PlayableObjectStats stats = entry.getValue();
-                        List<String> manaAbilities = stats.getAllManaAbilityNames();
-                        if (manaAbilities.isEmpty()) {
-                            continue;
-                        }
-
-                        CardView cardView = findCardViewById(manaObjectId, gameView);
-                        String cardName;
-                        if (cardView != null) {
-                            cardName = cardView.getDisplayName();
-                        } else {
-                            cardName = "Unknown (" + manaObjectId.toString().substring(0, 8) + ")";
-                        }
-
-                        for (String manaAbilityText : manaAbilities) {
-                            var choiceEntry = new HashMap<String, Object>();
-                            choiceEntry.put("index", idx);
-                            choiceEntry.put("id", getStableShortId(manaObjectId, cardView));
-                            boolean isTap = manaAbilityText.contains("{T}");
-                            choiceEntry.put("choice_type", isTap ? "tap_source" : "mana_source");
-                            choiceEntry.put("name", cardName);
-                            choiceEntry.put("ability", manaAbilityText);
-                            manaChoiceList.add(choiceEntry);
-                            manaIndexToChoice.add(manaObjectId);
-                            idx++;
-                        }
-                    }
-                }
-
-                List<ManaType> poolChoices = getPoolManaChoices(gameView, manaMsg.getMessage());
-                if (!poolChoices.isEmpty()) {
-                    int idx = manaChoiceList.size();
-                    ManaPoolView manaPool = getMyManaPoolView(gameView);
-                    for (ManaType manaType : poolChoices) {
-                        var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
-                        choiceEntry.put("choice_type", "pool_mana");
-                        choiceEntry.put("name", prettyManaType(manaType));
-                        choiceEntry.put("count", getManaPoolCount(manaPool, manaType));
-                        manaChoiceList.add(choiceEntry);
-                        manaIndexToChoice.add(manaType);
-                        idx++;
-                    }
-                }
-
-                if (!manaChoiceList.isEmpty()) {
-                    result.response_type = "select";
-                    result.respond_with = "choice=pN to tap, or choice=no to cancel";
-                    result.choices = manaChoiceList;
-                    processorState.decisionState().setLastChoices(manaIndexToChoice);
-                } else {
-                    result.response_type = "boolean";
-                    result.respond_with = "choice=no to cancel";
-                    processorState.decisionState().clearLastChoices();
-                }
-                break;
-            }
-
-            case GAME_TARGET: {
-                GameClientMessage msg = (GameClientMessage) data;
-                result.response_type = "index";
-                boolean required = msg.isFlag();
-                result.required = required;
-                result.can_cancel = !required;
-                result.respond_with = required
-                    ? "choice=pN — must pick a target"
-                    : "choice=pN, or choice=no to cancel";
-
-                Set<UUID> targets = findValidTargets(msg);
-                var choiceList = new ArrayList<Map<String, Object>>();
-                var indexToUuid = new ArrayList<Object>();
-
-                if (targets != null) {
-                    CardsView cardsView = msg.getCardsView1();
-                    GameView targetGameView = msg.getGameView() != null ? msg.getGameView() : processorState.gameState().lastGameView();
-                    UUID gameId = processorState.gameState().currentGameId();
-                    UUID myPlayerId = playerIdForGame(gameId);
-                    var targetChoices = new ArrayList<TargetChoice>();
-                    for (UUID targetId : targets) {
-                        var choiceEntry = new HashMap<String, Object>();
-                        // ID assigned after sorting — see below
-                        CardView resolvedCv = buildTargetInfo(choiceEntry, targetId, cardsView, targetGameView, myPlayerId);
-                        targetChoices.add(new TargetChoice(targetId, choiceEntry, resolvedCv));
-                    }
-
-                    // Sort all target choices deterministically: "you" first, then alphabetical.
-                    // HashMap iteration order depends on UUID hashCodes which vary across JVM runs.
-                    // IDs are assigned AFTER sorting so they're deterministic.
-                    targetChoices.sort((a, b) -> {
-                        boolean aIsYou = Boolean.TRUE.equals(a.entry().get("is_you"));
-                        boolean bIsYou = Boolean.TRUE.equals(b.entry().get("is_you"));
-                        int youCmp = Boolean.compare(bIsYou, aIsYou);
-                        if (youCmp != 0) {
-                            return youCmp;
-                        }
-                        String aName = Objects.toString(a.entry().get("name"), "");
-                        String bName = Objects.toString(b.entry().get("name"), "");
-                        int nameCmp = String.CASE_INSENSITIVE_ORDER.compare(aName, bName);
-                        if (nameCmp != 0) {
-                            return nameCmp;
-                        }
-                        return Integer.compare(
-                            getStableShortIdSequence(a.targetId(), a.cardView()),
-                            getStableShortIdSequence(b.targetId(), b.cardView()));
-                    });
-
-                    int idx = 0;
-                    for (TargetChoice tc : targetChoices) {
-                        tc.entry().put("id", getStableShortId(tc.targetId(), tc.cardView()));
-                        tc.entry().put("index", idx);
-                        choiceList.add(tc.entry());
-                        indexToUuid.add(tc.targetId());
-                        idx++;
-                    }
-                }
-
-                // Optional GAME_TARGET with no valid targets: auto-cancel
-                if (choiceList.isEmpty() && !required && allowAutoResolve) {
-                    clearPendingActionIfCurrent(action);
-                    sendBooleanOrDie(action.gameId(), false, "buildActionChoices:auto_cancel_no_targets");
-                    result.action_pending = false;
-                    result.action_taken = "auto_cancelled_no_targets";
-                    result.message = stripHtml(msg.getMessage());
-                    processorState.decisionState().clearLastChoices();
-                    break;
-                }
-
-                result.choices = choiceList;
-                processorState.decisionState().setLastChoices(indexToUuid);
-                break;
-            }
-
-            case GAME_CHOOSE_ABILITY: {
-                AbilityPickerView picker = (AbilityPickerView) data;
-                Map<UUID, String> choices = picker.getChoices();
-                result.response_type = "index";
-                result.respond_with = "choice=0, choice=1, etc. (not yes/no)";
-
-                var choiceList = new ArrayList<Map<String, Object>>();
-                var indexToUuid = new ArrayList<Object>();
-
-                boolean allManaAbilities = choices != null && !choices.isEmpty();
-                if (choices != null) {
-                    int idx = 0;
-                    for (Map.Entry<UUID, String> entry : choices.entrySet()) {
-                        var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
-                        String desc = stripAbilityPickerOrdinalPrefix(stripHtml(entry.getValue()), idx);
-                        choiceEntry.put("description", desc);
-                        choiceList.add(choiceEntry);
-                        indexToUuid.add(entry.getKey());
-                        idx++;
-                        // Check if this looks like a mana ability (e.g. "{T}: Add {W}.")
-                        if (!desc.contains("Add {")) {
-                            allManaAbilities = false;
-                        }
-                    }
-                }
-
-                // When all choices are mana abilities, rewrite the message to clarify
-                // this is a mana payment step, not a game action choice. Models often
-                // get confused when they see "Choose spell or ability" during mana payment.
-                if (allManaAbilities) {
-                    String msg = result.message;
-                    if (msg != null && msg.startsWith("Choose spell or ability")) {
-                        // Extract the card name after ": " (from stripHtml's <br> replacement)
-                        int colonIdx = msg.indexOf(": ");
-                        String cardName = colonIdx >= 0 ? msg.substring(colonIdx + 2).trim() : "";
-                        if (!cardName.isEmpty()) {
-                            result.message = "Choose which mana to produce from " + cardName
-                                    + " (tapping to pay for a spell)";
-                        }
-                    }
-                }
-
-                result.choices = choiceList;
-                processorState.decisionState().setLastChoices(indexToUuid);
-                break;
-            }
-
-            case GAME_CHOOSE_CHOICE: {
-                GameClientMessage msg = (GameClientMessage) data;
-                Choice choice = msg.getChoice();
-                result.response_type = "index";
-                result.respond_with = "choice=0, choice=1, etc. or text=Name (not yes/no)";
-
-                var choiceList = new ArrayList<Map<String, Object>>();
-                var indexToKey = new ArrayList<Object>();
-
-                if (choice != null) {
-                    if (choice.isKeyChoice()) {
-                        Map<String, String> keyChoices = choice.getKeyChoices();
-                        if (keyChoices != null) {
-                            int idx = 0;
-                            for (Map.Entry<String, String> entry : keyChoices.entrySet()) {
-                                var choiceEntry = new HashMap<String, Object>();
-                                choiceEntry.put("index", idx);
-                                choiceEntry.put("description", stripHtml(entry.getValue()));
-                                choiceList.add(choiceEntry);
-                                indexToKey.add(entry.getKey());
-                                idx++;
-                            }
-                        }
-                    } else {
-                        Set<String> choices = choice.getChoices();
-                        if (choices != null) {
-                            int idx = 0;
-                            for (String c : choices) {
-                                var choiceEntry = new HashMap<String, Object>();
-                                choiceEntry.put("index", idx);
-                                choiceEntry.put("description", c);
-                                choiceList.add(choiceEntry);
-                                indexToKey.add(c);
-                                idx++;
-                            }
-                        }
-                    }
-                }
-
-                // Filter large choice lists to deck-relevant options
-                int totalChoices = choiceList.size();
-                if (totalChoices >= 50 && deckList != null) {
-                    Set<String> deckTypes = getDeckCreatureTypes();
-                    if (!deckTypes.isEmpty()) {
-                        var filtered = new ArrayList<Map<String, Object>>();
-                        var filteredKeys = new ArrayList<Object>();
-                        int idx = 0;
-                        for (int i = 0; i < choiceList.size(); i++) {
-                            String desc = (String) choiceList.get(i).get("description");
-                            if (deckTypes.contains(desc)) {
-                                var entry = new HashMap<String, Object>();
-                                entry.put("index", idx);
-                                entry.put("description", desc);
-                                filtered.add(entry);
-                                filteredKeys.add(indexToKey.get(i));
-                                idx++;
-                            }
-                        }
-                        if (!filtered.isEmpty()) {
-                            choiceList = filtered;
-                            indexToKey = filteredKeys;
-                            result.note = "Showing " + filtered.size()
-                                + " types from your deck (" + totalChoices
-                                + " total available). Use choose_action(text='TypeName') for any other type.";
-                        }
-                    }
-                }
-
-                result.choices = choiceList;
-                processorState.decisionState().setLastChoices(indexToKey);
-                break;
-            }
-
-            case GAME_CHOOSE_PILE: {
-                GameClientMessage msg = (GameClientMessage) data;
-                result.response_type = "pile";
-                result.respond_with = "pile=1 or pile=2";
-
-                var pile1 = new ArrayList<Map<String, Object>>();
-                var pile2 = new ArrayList<Map<String, Object>>();
-                if (msg.getCardsView1() != null) {
-                    for (CardView card : msg.getCardsView1().values()) {
-                        pile1.add(buildCardInfoMap(card));
-                    }
-                }
-                if (msg.getCardsView2() != null) {
-                    for (CardView card : msg.getCardsView2().values()) {
-                        pile2.add(buildCardInfoMap(card));
-                    }
-                }
-                result.pile1 = pile1;
-                result.pile2 = pile2;
-                processorState.decisionState().clearLastChoices();
-                break;
-            }
-
-            case GAME_GET_AMOUNT: {
-                GameClientMessage msg = (GameClientMessage) data;
-                result.response_type = "amount";
-                result.respond_with = "amount=N (min=" + msg.getMin() + ", max=" + msg.getMax() + ")";
-                result.min = msg.getMin();
-                result.max = msg.getMax();
-                processorState.decisionState().clearLastChoices();
-                break;
-            }
-
-            case GAME_GET_MULTI_AMOUNT: {
-                GameClientMessage msg = (GameClientMessage) data;
-                result.response_type = "multi_amount";
-                result.respond_with = "amounts=[N,N,...] — one per item, sum between total_min and total_max";
-                result.total_min = msg.getMin();
-                result.total_max = msg.getMax();
-
-                var items = new ArrayList<Map<String, Object>>();
-                if (msg.getMessages() != null) {
-                    for (MultiAmountMessage mam : msg.getMessages()) {
-                        var item = new HashMap<String, Object>();
-                        item.put("description", stripHtml(mam.message));
-                        item.put("min", mam.min);
-                        item.put("max", mam.max);
-                        item.put("default", mam.defaultValue);
-                        items.add(item);
-                    }
-                }
-                result.items = items;
-                // The multi-amount GameClientMessage constructor doesn't set
-                // the message field; the useful context ("Assign combat damage
-                // among creatures blocking X" etc.) lives in options.header
-                // from MultiAmountType.
-                if ((result.message == null || result.message.isEmpty())
-                        && msg.getOptions() != null) {
-                    Object header = msg.getOptions().get("header");
-                    if (header instanceof String) {
-                        result.message = stripHtml((String) header);
-                    }
-                }
-                processorState.decisionState().clearLastChoices();
-                break;
-            }
-
-            default:
-                result.response_type = "unknown";
-                result.error = "Unhandled action type: " + method;
-                processorState.decisionState().clearLastChoices();
-        }
-
-        String responseType = result.response_type;
-        if (responseType != null) {
-            int choiceCount = -1;
-            if (result.choices != null) {
-                choiceCount = result.choices.size();
-            }
-            processorState.decisionState().recordChoiceSnapshot(method.name(), responseType, choiceCount);
-        } else {
-            processorState.decisionState().clearChoiceSnapshot();
-        }
-
-        return result;
+    private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam) {
+        return publishedQueryBuilder.buildActionChoices(action, boardCursorParam);
     }
 
     boolean clearPendingActionIfCurrent(PendingAction action) {
@@ -1839,7 +1135,7 @@ public class BridgeCallbackHandler {
      * so the model can self-correct without a separate get_action_choices round trip.
      */
     private void attachChoicesToError(ChooseActionTool.Result errorResult, PendingAction action) {
-        ActionResult choicesResult = buildActionChoices(action, null, false);
+        ActionResult choicesResult = buildActionChoices(action, null);
         if (choicesResult.choices != null) {
             errorResult.choices = choicesResult.choices;
         }
@@ -1992,7 +1288,7 @@ public class BridgeCallbackHandler {
             }
             List<Object> choices = processorState.decisionState().lastChoices();
             if (choices == null) {
-                buildActionChoices(action, null, false);
+                buildActionChoices(action, null);
                 choices = processorState.decisionState().lastChoices();
             }
             if ("all".equals(id)) {
@@ -2041,7 +1337,7 @@ public class BridgeCallbackHandler {
         // decision we're answering even if pendingAction changes concurrently.
         if (resolvedIndex != null && processorState.decisionState().lastChoices() == null) {
             logger.info("[" + client.getUsername() + "] choose_action: auto-populating choices (get_action_choices was not called)");
-            buildActionChoices(action, null, false);
+            buildActionChoices(action, null);
         }
 
         // Clear pending action only if it hasn't been overwritten by a new callback.
@@ -2495,26 +1791,8 @@ public class BridgeCallbackHandler {
         }
     }
 
-    /** Populate target info and return the resolved CardView (null if target is a player or unknown). */
-    private CardView buildTargetInfo(Map<String, Object> entry, UUID targetId,
-                                  CardsView cardsView, GameView gameView, UUID myPlayerId) {
-        return cardFormatter.buildTargetInfo(entry, targetId, cardsView, gameView, myPlayerId);
-    }
-
-    private List<Map<String, Object>> buildStackItems(GameView gameView, boolean includeIds, boolean includeRules) {
-        return cardFormatter.buildStackItems(gameView, includeIds, includeRules);
-    }
-
     private String safeDisplayName(CardView cv) {
         return cardFormatter.safeDisplayName(cv);
-    }
-
-    /**
-     * Build a structured info map for a card: name, mana_cost, is_land, power/toughness, rules.
-     * Used for hand cards, pile decisions, and mulligan hands.
-     */
-    private Map<String, Object> buildCardInfoMap(CardView cv) {
-        return cardFormatter.buildCardInfoMap(cv);
     }
 
     public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
@@ -2576,7 +1854,7 @@ public class BridgeCallbackHandler {
     }
 
     private void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
-        ActionResult choices = buildActionChoices(action, boardCursorParam, false);
+        ActionResult choices = buildActionChoices(action, boardCursorParam);
         if (!Boolean.TRUE.equals(choices.action_pending)) {
             // The caller expected to merge a specific observed action, but by merge time
             // there was no longer a stable decision to expose.
@@ -2687,64 +1965,12 @@ public class BridgeCallbackHandler {
         return mcpQueryApi.getGameState();
     }
 
-    /**
-     * Build the full players array with board state. Includes hand (ours only),
-     * battlefield (with rules), graveyard, exile, mana pool, counters, commanders.
-     * Shared by getGameState() and getActionChoices().
-     */
-    private List<Map<String, Object>> buildPlayersArray(GameView gameView) {
-        return gameStateBuilder.buildPlayersArray(gameView);
-    }
-
-    /**
-     * Build combat group info from the game view. Returns null if no combat.
-     * Shared by getActionChoices() and getGameState().
-     */
-    private List<Map<String, Object>> buildCombatGroups(GameView gameView) {
-        return gameStateBuilder.buildCombatGroups(gameView);
-    }
-
-    private long updateGameStateSnapshotId(Map<String, Object> state) {
-        String signature = BridgeGameStateBuilder.buildStateSignature(state);
-        return processorState.cursorState().updateGameStateSnapshotId(signature);
-    }
-
-    private long updateBoardCursor(List<Map<String, Object>> players) {
-        String signature = BridgeGameStateBuilder.buildStateSignature(players);
-        return processorState.cursorState().updateBoardCursor(signature);
-    }
-
     public Map<String, Object> getMyDecklist() {
         return mcpQueryApi.getMyDecklist();
     }
 
-    /**
-     * Collect all creature subtypes from cards in the deck.
-     * Used to filter large GAME_CHOOSE_CHOICE lists (e.g. Herald's Horn).
-     */
-    private Set<String> getDeckCreatureTypes() {
-        var types = new HashSet<String>();
-        DeckCardLists deck = this.deckList;
-        if (deck == null) return types;
-        for (DeckCardInfo card : deck.getCards()) {
-            CardInfo info = CardRepository.instance.findCard(card.getCardName());
-            if (info != null) {
-                for (SubType st : info.getSubTypes()) {
-                    if (st.getSubTypeSet() == SubTypeSet.CreatureType) {
-                        types.add(st.toString());
-                    }
-                }
-            }
-        }
-        return types;
-    }
-
     public GetOracleTextTool.Result getOracleText(String cardName, String objectId, String[] cardNames, String[] objectIds) {
         return mcpQueryApi.getOracleText(cardName, objectId, cardNames, objectIds);
-    }
-
-    private String getStableShortId(UUID objectId, CardView cardView) {
-        return viewLocator.getStableShortId(objectId, cardView);
     }
 
     private int getStableShortIdSequence(UUID objectId) {
@@ -2783,23 +2009,8 @@ public class BridgeCallbackHandler {
         return null;
     }
 
-    /**
-     * Look up a PermanentView by UUID from all players' battlefields.
-     */
-    private PermanentView findPermanentViewById(UUID objectId, GameView gameView) {
-        return viewLocator.findPermanentViewById(objectId, gameView);
-    }
-
     public void handleCallback(ClientCallback callback) {
         callbackIngress.handleCallback(callback);
-    }
-
-    /**
-     * Clean a string for LLM consumption: strip HTML tags and 3-char hex ID suffixes.
-     * Must be applied after internal HTML parsing (cast owner tracking, mana payment extraction).
-     */
-    private static String stripHtml(String s) {
-        return BridgePromptFormatting.stripHtml(s);
     }
 
     static String stripAbilityPickerOrdinalPrefix(String description, int zeroBasedIndex) {
@@ -2930,18 +2141,6 @@ public class BridgeCallbackHandler {
             case GREEN -> manaPool.getGreen();
             case COLORLESS -> manaPool.getColorless();
             case GENERIC -> 0;
-        };
-    }
-
-    private String prettyManaType(ManaType manaType) {
-        return switch (manaType) {
-            case WHITE -> "White";
-            case BLUE -> "Blue";
-            case BLACK -> "Black";
-            case RED -> "Red";
-            case GREEN -> "Green";
-            case COLORLESS -> "Colorless";
-            case GENERIC -> "Generic";
         };
     }
 

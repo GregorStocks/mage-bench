@@ -15,13 +15,13 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-final class BridgeCardFormatter {
+public final class BridgeCardFormatter {
 
     private final BridgeViewLocator viewLocator;
     private final Supplier<UUID> currentGameIdSupplier;
     private final Function<UUID, UUID> playerIdForGame;
 
-    BridgeCardFormatter(
+    public BridgeCardFormatter(
             BridgeViewLocator viewLocator,
             Supplier<UUID> currentGameIdSupplier,
             Function<UUID, UUID> playerIdForGame
@@ -31,7 +31,7 @@ final class BridgeCardFormatter {
         this.playerIdForGame = playerIdForGame;
     }
 
-    String safeDisplayName(CardView cv) {
+    public String safeDisplayName(CardView cv) {
         if (cv instanceof StackAbilityView sav) {
             CardView sourceCard = sav.getSourceCard();
             if (sourceCard != null) {
@@ -51,7 +51,7 @@ final class BridgeCardFormatter {
         return name;
     }
 
-    Map<String, Object> buildCardInfoMap(CardView cv) {
+    public Map<String, Object> buildCardInfoMap(CardView cv) {
         var info = new HashMap<String, Object>();
         info.put("name", safeDisplayName(cv));
         String manaCost = cv.getManaCostStr();
@@ -116,7 +116,7 @@ final class BridgeCardFormatter {
         return "Unknown (" + targetId.toString().substring(0, 8) + ")";
     }
 
-    CardView buildTargetInfo(
+    public CardView buildTargetInfo(
             Map<String, Object> entry,
             UUID targetId,
             CardsView cardsView,
@@ -173,7 +173,7 @@ final class BridgeCardFormatter {
         return null;
     }
 
-    List<Map<String, Object>> buildStackItems(GameView gameView, boolean includeIds, boolean includeRules) {
+    public List<Map<String, Object>> buildStackItems(GameView gameView, boolean includeIds, boolean includeRules) {
         var stack = new ArrayList<Map<String, Object>>();
         if (gameView == null || gameView.getStack() == null || gameView.getStack().isEmpty()) {
             return stack;

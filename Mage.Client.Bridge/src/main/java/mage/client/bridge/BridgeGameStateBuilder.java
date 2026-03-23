@@ -21,14 +21,14 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-final class BridgeGameStateBuilder {
+public final class BridgeGameStateBuilder {
 
     private final BridgeCardFormatter cardFormatter;
     private final BridgeViewLocator viewLocator;
     private final Supplier<UUID> currentGameIdSupplier;
     private final Function<UUID, UUID> playerIdForGame;
 
-    BridgeGameStateBuilder(
+    public BridgeGameStateBuilder(
             BridgeCardFormatter cardFormatter,
             BridgeViewLocator viewLocator,
             Supplier<UUID> currentGameIdSupplier,
@@ -40,7 +40,7 @@ final class BridgeGameStateBuilder {
         this.playerIdForGame = playerIdForGame;
     }
 
-    List<Map<String, Object>> buildPlayersArray(GameView gameView) {
+    public List<Map<String, Object>> buildPlayersArray(GameView gameView) {
         var players = new ArrayList<Map<String, Object>>();
         UUID myPlayerId = playerIdForGame.apply(currentGameIdSupplier.get());
 
@@ -229,7 +229,7 @@ final class BridgeGameStateBuilder {
         return players;
     }
 
-    List<Map<String, Object>> buildCombatGroups(GameView gameView) {
+    public List<Map<String, Object>> buildCombatGroups(GameView gameView) {
         if (gameView == null || gameView.getCombat() == null || gameView.getCombat().isEmpty()) {
             return null;
         }
@@ -274,7 +274,7 @@ final class BridgeGameStateBuilder {
         return combatGroups;
     }
 
-    static String buildStateSignature(Object value) {
+    public static String buildStateSignature(Object value) {
         if (value == null) {
             return "null";
         }

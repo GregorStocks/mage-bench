@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-final class BridgePromptFormatting {
+public final class BridgePromptFormatting {
 
     private static final Pattern HTML_TAG_PATTERN = Pattern.compile("<[^>]+>");
     private static final Pattern HEX_SUFFIX_PATTERN = Pattern.compile(" \\[[0-9a-f]{3}\\]");
@@ -17,7 +17,7 @@ final class BridgePromptFormatting {
      * Clean a string for LLM consumption: strip HTML tags and 3-char hex ID suffixes.
      * Must be applied after internal HTML parsing (cast owner tracking, mana payment extraction).
      */
-    static String stripHtml(String s) {
+    public static String stripHtml(String s) {
         if (s == null || s.isEmpty()) {
             return s;
         }
@@ -28,7 +28,7 @@ final class BridgePromptFormatting {
         return result;
     }
 
-    static String stripAbilityPickerOrdinalPrefix(String description, int zeroBasedIndex) {
+    public static String stripAbilityPickerOrdinalPrefix(String description, int zeroBasedIndex) {
         String normalized = Objects.requireNonNull(description, "Ability choice description must not be null");
         String expectedPrefix = (zeroBasedIndex + 1) + ". ";
         if (normalized.startsWith(expectedPrefix)) {
@@ -37,7 +37,7 @@ final class BridgePromptFormatting {
         return normalized;
     }
 
-    static List<String> stripHtmlList(List<String> list) {
+    public static List<String> stripHtmlList(List<String> list) {
         if (list == null) {
             return null;
         }

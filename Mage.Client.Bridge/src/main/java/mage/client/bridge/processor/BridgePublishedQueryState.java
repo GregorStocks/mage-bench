@@ -1,19 +1,9 @@
 package mage.client.bridge.processor;
 
 import mage.client.bridge.tools.GetGameStateTool;
-import mage.client.bridge.tools.McpToolRegistry;
-import mage.view.GameView;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.function.ToLongFunction;
 
 public final class BridgePublishedQueryState {
     private final Logger logger;
@@ -21,11 +11,7 @@ public final class BridgePublishedQueryState {
     private final BridgeProcessor processor;
     private final BridgeProcessorState processorState;
     private final BridgeGameLogRefresher gameLogRefresher;
-    private final Supplier<BridgePublishedActionChoices> publishedActionChoicesBuilder;
-    private final Function<GameView, List<Map<String, Object>>> playersBuilder;
-    private final Function<GameView, List<Map<String, Object>>> combatGroupsBuilder;
-    private final Function<GameView, List<Map<String, Object>>> stackItemsBuilder;
-    private final ToLongFunction<Map<String, Object>> gameStateSnapshotIdUpdater;
+    private final BridgePublishedQueryBuilder queryBuilder;
     private final boolean tracePublishedState = Boolean.getBoolean("xmage.bridge.tracePublishedState");
     private final AtomicReference<BridgePublishedQuerySnapshot> publishedSnapshot =
         new AtomicReference<>(BridgePublishedQuerySnapshot.empty());
@@ -37,21 +23,13 @@ public final class BridgePublishedQueryState {
             BridgeProcessor processor,
             BridgeProcessorState processorState,
             BridgeGameLogRefresher gameLogRefresher,
-            Supplier<BridgePublishedActionChoices> publishedActionChoicesBuilder,
-            Function<GameView, List<Map<String, Object>>> playersBuilder,
-            Function<GameView, List<Map<String, Object>>> combatGroupsBuilder,
-            Function<GameView, List<Map<String, Object>>> stackItemsBuilder,
-            ToLongFunction<Map<String, Object>> gameStateSnapshotIdUpdater) {
+            BridgePublishedQueryBuilder queryBuilder) {
         this.logger = logger;
         this.username = username;
         this.processor = processor;
         this.processorState = processorState;
         this.gameLogRefresher = gameLogRefresher;
-        this.publishedActionChoicesBuilder = publishedActionChoicesBuilder;
-        this.playersBuilder = playersBuilder;
-        this.combatGroupsBuilder = combatGroupsBuilder;
-        this.stackItemsBuilder = stackItemsBuilder;
-        this.gameStateSnapshotIdUpdater = gameStateSnapshotIdUpdater;
+        this.queryBuilder = queryBuilder;
     }
 
     public void publishProcessorState(BridgeProcessorMessage cause) {
@@ -78,7 +56,7 @@ public final class BridgePublishedQueryState {
         BridgePublishedGameStateBuild gameStateBuild = buildPublishedGameState();
         return new BridgePublishedSnapshotBuild(
             new BridgePublishedQuerySnapshot(
-                publishedActionChoicesBuilder.get(),
+                queryBuilder.buildPublishedActionChoices(),
                 gameStateBuild.state(),
                 processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch())
             ),
@@ -88,49 +66,10 @@ public final class BridgePublishedQueryState {
     }
 
     private BridgePublishedGameStateBuild buildPublishedGameState() {
-        GameView gameView = processorState.gameState().lastGameView();
-        if (gameView == null) {
-            return new BridgePublishedGameStateBuild(
-                BridgePublishedGameState.unavailable("No game state available yet"),
-                "unavailable:error=No game state available yet"
-            );
-        }
-
-        List<Map<String, Object>> players = freezeMapList(playersBuilder.apply(gameView));
-        List<Map<String, Object>> stack = freezeMapList(stackItemsBuilder.apply(gameView));
-        List<Map<String, Object>> combat = freezeMapList(combatGroupsBuilder.apply(gameView));
-
-        var state = new GetGameStateTool.Result();
-        state.available = true;
-        state.game_seq = gameView.getGameSeq();
-        state.turn = processorState.gameState().currentRound();
-        state.phase = gameView.getPhase() != null ? gameView.getPhase().toString() : null;
-        state.step = gameView.getStep() != null ? gameView.getStep().toString() : null;
-        state.active_player = gameView.getActivePlayerName();
-        state.priority_player = gameView.getPriorityPlayerName();
-        state.players = players;
-        state.stack = stack;
-        state.combat = combat;
-
-        Map<String, Object> stateMap = McpToolRegistry.resultToMap(state);
-        long snapshotId = gameStateSnapshotIdUpdater.applyAsLong(stateMap);
-
+        BridgePublishedQueryBuilder.BridgePublishedGameStateBuild built = queryBuilder.buildPublishedGameState();
         return new BridgePublishedGameStateBuild(
-            new BridgePublishedGameState(
-                true,
-                null,
-                snapshotId,
-                state.turn,
-                state.phase,
-                state.step,
-                state.active_player,
-                state.priority_player,
-                players,
-                stack,
-                combat,
-                state.game_seq
-            ),
-            stateMap.toString()
+            built.state(),
+            built.payload()
         );
     }
 
@@ -184,40 +123,4 @@ public final class BridgePublishedQueryState {
     ) {
     }
 
-    private static List<Map<String, Object>> freezeMapList(List<Map<String, Object>> values) {
-        if (values == null) {
-            return null;
-        }
-        var frozen = new ArrayList<Map<String, Object>>(values.size());
-        for (Map<String, Object> value : values) {
-            frozen.add(freezeMap(value));
-        }
-        return Collections.unmodifiableList(frozen);
-    }
-
-    private static Map<String, Object> freezeMap(Map<String, Object> value) {
-        var frozen = new LinkedHashMap<String, Object>();
-        for (Map.Entry<String, Object> entry : value.entrySet()) {
-            frozen.put(entry.getKey(), freezeJsonLike(entry.getValue()));
-        }
-        return Collections.unmodifiableMap(frozen);
-    }
-
-    private static Object freezeJsonLike(Object value) {
-        if (value instanceof Map<?, ?> map) {
-            var frozen = new LinkedHashMap<String, Object>();
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                frozen.put((String) entry.getKey(), freezeJsonLike(entry.getValue()));
-            }
-            return Collections.unmodifiableMap(frozen);
-        }
-        if (value instanceof List<?> list) {
-            var frozen = new ArrayList<>(list.size());
-            for (Object entry : list) {
-                frozen.add(freezeJsonLike(entry));
-            }
-            return Collections.unmodifiableList(frozen);
-        }
-        return value;
-    }
 }
