@@ -17,7 +17,7 @@ public final class BridgeGameLogRefresher {
     // TODO(shim): expires=2026-06-30 Delete this server bridge-event sync once
     // the processor can append authoritative game-log records directly from
     // processor-owned event data instead of polling Session.getBridgeEvents().
-    private record FetchRequest(long generation, UUID gameId, UUID playerId, int serverCursor, long syncEpoch) {
+    private record FetchRequest(long requestId, long generation, UUID gameId, UUID playerId, int serverCursor, long syncEpoch) {
     }
     private static final long FETCH_RETRY_DELAY_MS = 250;
 
@@ -30,9 +30,10 @@ public final class BridgeGameLogRefresher {
     private final ScheduledExecutorService fetchExecutor;
     private final Object syncLock = new Object();
     private boolean refreshQueued = false;
-    private boolean fetchInFlight = false;
     private boolean closed = false;
     private ScheduledFuture<?> scheduledRetry = null;
+    private FetchRequest blockingRequest = null;
+    private long nextRequestId = 1;
     private long requestedSyncEpoch = 0;
     private long completedSyncEpoch = 0;
 
@@ -49,7 +50,7 @@ public final class BridgeGameLogRefresher {
         this.sessionSupplier = sessionSupplier;
         this.logger = logger;
         this.username = username;
-        this.fetchExecutor = Executors.newSingleThreadScheduledExecutor(runnable -> {
+        this.fetchExecutor = Executors.newScheduledThreadPool(2, runnable -> {
             Thread thread = new Thread(runnable, "bridge-log-refresher-" + username);
             thread.setDaemon(true);
             return thread;
@@ -102,7 +103,7 @@ public final class BridgeGameLogRefresher {
 
     private void startFetchIfNeeded() {
         requireProcessorThread("startFetchIfNeeded");
-        if (!refreshQueued || fetchInFlight || closed) {
+        if (!refreshQueued || closed) {
             return;
         }
         Session session = sessionSupplier.get();
@@ -111,12 +112,16 @@ public final class BridgeGameLogRefresher {
         if (session == null || gameId == null || playerId == null) {
             return;
         }
+        if (blockingRequest != null && isRequestForCurrentState(blockingRequest, gameState.generation(), gameId, playerId)) {
+            return;
+        }
         if (scheduledRetry != null) {
             scheduledRetry.cancel(false);
             scheduledRetry = null;
         }
 
         FetchRequest request = new FetchRequest(
+            nextRequestId++,
             gameState.generation(),
             gameId,
             playerId,
@@ -124,11 +129,11 @@ public final class BridgeGameLogRefresher {
             requestedSyncEpoch
         );
         refreshQueued = false;
-        fetchInFlight = true;
+        blockingRequest = request;
         try {
             fetchExecutor.execute(() -> fetchBridgeEvents(request, session));
         } catch (RejectedExecutionException e) {
-            fetchInFlight = false;
+            blockingRequest = null;
             throw new IllegalStateException("Bridge game log refresher rejected fetch task", e);
         }
     }
@@ -156,7 +161,9 @@ public final class BridgeGameLogRefresher {
 
     private void finishFetch(FetchRequest request, List<BridgeLogEntry> fetched, Throwable failure) {
         requireProcessorThread("finishFetch");
-        fetchInFlight = false;
+        if (blockingRequest != null && blockingRequest.requestId() == request.requestId()) {
+            blockingRequest = null;
+        }
         long completedEpoch = -1;
         boolean currentRequest = request.generation() == gameState.generation()
                 && request.gameId().equals(gameState.currentGameId())
@@ -217,6 +224,12 @@ public final class BridgeGameLogRefresher {
         if (!processor.isProcessorThread()) {
             throw new IllegalStateException(method + " must run on the bridge processor thread");
         }
+    }
+
+    private static boolean isRequestForCurrentState(FetchRequest request, long generation, UUID gameId, UUID playerId) {
+        return request.generation() == generation
+                && request.gameId().equals(gameId)
+                && request.playerId().equals(playerId);
     }
 
     private void markSyncCompleted(long syncEpoch) {

@@ -3605,7 +3605,7 @@ class BridgeCallbackHandlerTest {
     }
 
     private static String joinTableDeckPath() {
-        return Path.of("..", "puppeteer", "tests", "decks", "filler_opponent.dck")
+        return Path.of("..", "tests", "decks", "filler_opponent.dck")
             .toAbsolutePath()
             .normalize()
             .toString();

@@ -378,6 +378,95 @@ class BridgeGameLogRefresherTest {
         }
     }
 
+    @Test
+    void hungStaleFetchDoesNotBlockCurrentGameSyncBarrier() throws Exception {
+        AtomicInteger fetchCalls = new AtomicInteger();
+        CountDownLatch firstFetchStarted = new CountDownLatch(1);
+        CountDownLatch releaseFirstFetch = new CountDownLatch(1);
+        CountDownLatch secondFetchStarted = new CountDownLatch(1);
+        Session session = sessionProxy((proxy, method, args) -> {
+            if ("getBridgeEvents".equals(method.getName())) {
+                int call = fetchCalls.incrementAndGet();
+                if (call == 1) {
+                    firstFetchStarted.countDown();
+                    if (!releaseFirstFetch.await(2, TimeUnit.SECONDS)) {
+                        throw new AssertionError("Timed out waiting to release stale fetch");
+                    }
+                    return List.of();
+                }
+                secondFetchStarted.countDown();
+                return List.of();
+            }
+            return defaultReturnValue(method.getReturnType());
+        });
+
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            event -> {}
+        );
+        BridgeGameState gameState = new BridgeGameState();
+        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
+            processor,
+            gameState,
+            gameLogState,
+            () -> session,
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            "TestPlayer"
+        );
+        processor.setAfterMessageHook(message -> {
+            if (message instanceof BridgeCallbackEvent) {
+                refresher.afterCallbackProcessed();
+            }
+        });
+        processor.start();
+
+        try {
+            UUID gameId1 = UUID.randomUUID();
+            UUID playerId1 = UUID.randomUUID();
+            processor.submit(BridgeCommand.of(() -> {
+                gameState.activateGame(gameId1, playerId1);
+                return null;
+            }));
+            processor.enqueueCallback(new BridgeCallbackEvent(gameId1, ClientCallbackMethod.GAME_UPDATE, null));
+            assertThat(firstFetchStarted.await(1, TimeUnit.SECONDS)).isTrue();
+
+            UUID gameId2 = UUID.randomUUID();
+            UUID playerId2 = UUID.randomUUID();
+            processor.submit(BridgeCommand.of(() -> {
+                gameState.clearActiveGame(gameId1);
+                gameState.activateGame(gameId2, playerId2);
+                return null;
+            }));
+            processor.enqueueCallback(new BridgeCallbackEvent(gameId2, ClientCallbackMethod.GAME_UPDATE, null));
+
+            CountDownLatch waiterFinished = new CountDownLatch(1);
+            AtomicReference<Throwable> waiterFailure = new AtomicReference<>();
+            Thread waiter = new Thread(() -> {
+                try {
+                    long syncEpoch = processor.submit(BridgeCommand.of(refresher::captureSyncBarrierEpoch));
+                    refresher.awaitSyncThrough(syncEpoch);
+                } catch (Throwable t) {
+                    waiterFailure.set(t);
+                } finally {
+                    waiterFinished.countDown();
+                }
+            }, "bridge-log-stale-hang-waiter");
+            waiter.start();
+
+            assertThat(secondFetchStarted.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThat(waiterFinished.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThat(waiterFailure.get()).isNull();
+
+            releaseFirstFetch.countDown();
+            assertThat(fetchCalls.get()).isEqualTo(2);
+        } finally {
+            refresher.shutdown();
+            processor.shutdown("test");
+        }
+    }
+
     private static Session sessionProxy(java.lang.reflect.InvocationHandler handler) {
         return (Session) Proxy.newProxyInstance(
             Session.class.getClassLoader(),
