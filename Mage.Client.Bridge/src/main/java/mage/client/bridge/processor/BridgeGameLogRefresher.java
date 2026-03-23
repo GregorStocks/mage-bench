@@ -158,15 +158,16 @@ public final class BridgeGameLogRefresher {
         requireProcessorThread("finishFetch");
         fetchInFlight = false;
         long completedEpoch = -1;
+        boolean currentRequest = request.generation() == gameState.generation()
+                && request.gameId().equals(gameState.currentGameId())
+                && request.playerId().equals(gameState.currentPlayerId());
         if (failure != null) {
             logger.error("[" + username + "] Failed to fetch bridge events", failure);
         }
         if (closed) {
             return;
         }
-        if (request.generation() == gameState.generation()
-                && request.gameId().equals(gameState.currentGameId())
-                && request.playerId().equals(gameState.currentPlayerId())) {
+        if (currentRequest) {
             gameLogState.recordFetchedBridgeEvents(fetched);
             if (failure != null) {
                 refreshQueued = true;
@@ -180,7 +181,7 @@ public final class BridgeGameLogRefresher {
         } else {
             completedEpoch = request.syncEpoch();
         }
-        if (failure == null) {
+        if (!currentRequest || failure == null) {
             startFetchIfNeeded();
         }
         if (completedEpoch >= 0) {
