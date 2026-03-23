@@ -1,11 +1,10 @@
 package mage.client.bridge.mcp;
 
 import mage.client.bridge.processor.BridgeCallbackEvent;
-import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgeGameLogRefresher;
-import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgeProcessorMessage;
 import mage.client.bridge.processor.BridgeProcessor;
+import mage.client.bridge.processor.BridgeProcessorState;
 import mage.client.bridge.processor.BridgeProcessorShutdown;
 import mage.client.bridge.tools.GetGameStateTool;
 import mage.client.bridge.tools.McpToolRegistry;
@@ -26,8 +25,7 @@ public final class BridgePublishedMcpState {
     private final Logger logger;
     private final String username;
     private final BridgeProcessor processor;
-    private final BridgeGameState gameState;
-    private final BridgeGameLogState gameLogState;
+    private final BridgeProcessorState processorState;
     private final BridgeGameLogRefresher gameLogRefresher;
     private final Supplier<BridgePublishedActionChoices> publishedActionChoicesBuilder;
     private final Function<GameView, List<Map<String, Object>>> playersBuilder;
@@ -43,8 +41,7 @@ public final class BridgePublishedMcpState {
             Logger logger,
             String username,
             BridgeProcessor processor,
-            BridgeGameState gameState,
-            BridgeGameLogState gameLogState,
+            BridgeProcessorState processorState,
             BridgeGameLogRefresher gameLogRefresher,
             Supplier<BridgePublishedActionChoices> publishedActionChoicesBuilder,
             Function<GameView, List<Map<String, Object>>> playersBuilder,
@@ -54,8 +51,7 @@ public final class BridgePublishedMcpState {
         this.logger = logger;
         this.username = username;
         this.processor = processor;
-        this.gameState = gameState;
-        this.gameLogState = gameLogState;
+        this.processorState = processorState;
         this.gameLogRefresher = gameLogRefresher;
         this.publishedActionChoicesBuilder = publishedActionChoicesBuilder;
         this.playersBuilder = playersBuilder;
@@ -90,7 +86,7 @@ public final class BridgePublishedMcpState {
             new BridgePublishedMcpSnapshot(
                 publishedActionChoicesBuilder.get(),
                 gameStateBuild.state(),
-                gameLogState.publishedGameLog(gameLogRefresher.completedSyncEpoch())
+                processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch())
             ),
             gameStateBuild.state(),
             gameStateBuild.payload()
@@ -98,7 +94,7 @@ public final class BridgePublishedMcpState {
     }
 
     private BridgePublishedGameStateBuild buildPublishedGameState() {
-        GameView gameView = gameState.lastGameView();
+        GameView gameView = processorState.gameState().lastGameView();
         if (gameView == null) {
             return new BridgePublishedGameStateBuild(
                 BridgePublishedGameState.unavailable("No game state available yet"),
@@ -113,7 +109,7 @@ public final class BridgePublishedMcpState {
         var state = new GetGameStateTool.Result();
         state.available = true;
         state.game_seq = gameView.getGameSeq();
-        state.turn = gameState.currentRound();
+        state.turn = processorState.gameState().currentRound();
         state.phase = gameView.getPhase() != null ? gameView.getPhase().toString() : null;
         state.step = gameView.getStep() != null ? gameView.getStep().toString() : null;
         state.active_player = gameView.getActivePlayerName();

@@ -3,8 +3,7 @@ package mage.client.bridge;
 import mage.client.bridge.processor.BridgeChooseActionFlowContext;
 import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeChooseActionStartResult;
-import mage.client.bridge.processor.BridgeDecisionState;
-import mage.client.bridge.processor.BridgeGameState;
+import mage.client.bridge.processor.BridgeProcessorState;
 import mage.client.bridge.tools.ChooseActionTool;
 
 import java.util.Set;
@@ -12,21 +11,18 @@ import java.util.UUID;
 
 final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowContext {
     private final BridgeCallbackHandler handler;
-    private final BridgeDecisionState decisionState;
-    private final BridgeGameState gameState;
+    private final BridgeProcessorState processorState;
 
     BridgeChooseActionFlowContextImpl(
             BridgeCallbackHandler handler,
-            BridgeDecisionState decisionState,
-            BridgeGameState gameState) {
+            BridgeProcessorState processorState) {
         this.handler = handler;
-        this.decisionState = decisionState;
-        this.gameState = gameState;
+        this.processorState = processorState;
     }
 
     @Override
     public PendingAction currentPendingAction() {
-        return decisionState.pendingAction();
+        return processorState.decisionState().pendingAction();
     }
 
     @Override
@@ -36,9 +32,9 @@ final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowC
 
     @Override
     public boolean requestCannotContinue() {
-        return gameState.superseded()
-            || gameState.playerDead()
-            || gameState.gameOverObserved()
+        return processorState.gameState().superseded()
+            || processorState.gameState().playerDead()
+            || processorState.gameState().gameOverObserved()
             || !handler.clientRunning();
     }
 
@@ -89,7 +85,7 @@ final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowC
 
     @Override
     public void clearLastChoices() {
-        decisionState.clearLastChoices();
+        processorState.decisionState().clearLastChoices();
     }
 
     @Override

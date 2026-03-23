@@ -18,6 +18,7 @@ import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
+import mage.client.bridge.processor.BridgeProcessorState;
 import mage.cards.repository.CardInfo;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
@@ -771,8 +772,8 @@ class BridgeCallbackHandlerTest {
         ));
         BridgeCallbackHandler handler = client.getCallbackHandler();
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
-        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
-        BridgeGameLogState gameLogState = (BridgeGameLogState) getDirectField(handler, "gameLogState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
+        BridgeGameLogState gameLogState = (BridgeGameLogState) getProcessorStateField(handler, "gameLogState");
         BridgeGameLogRefresher gameLogRefresher = (BridgeGameLogRefresher) getDirectField(handler, "gameLogRefresher");
         BridgePublishedMcpState publishedMcpState = (BridgePublishedMcpState) getDirectField(handler, "publishedMcpState");
 
@@ -2420,7 +2421,7 @@ class BridgeCallbackHandlerTest {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
-        BridgeDecisionState decisionState = (BridgeDecisionState) getDirectField(handler, "decisionState");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
         UUID gameId = UUID.randomUUID();
         PendingAction pendingAction = new PendingAction(
             gameId,
@@ -2523,7 +2524,7 @@ class BridgeCallbackHandlerTest {
     void joinNextTableWaitsForStartGameOnProcessorFlow() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
         gameState.setKeepAliveAfterGame(true);
 
         UUID gameId = UUID.randomUUID();
@@ -2590,7 +2591,7 @@ class BridgeCallbackHandlerTest {
     void joinNextTableIgnoresWrongStartGameTableWhileWaiting() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
         gameState.setKeepAliveAfterGame(true);
 
         UUID wrongGameId = UUID.randomUUID();
@@ -2658,7 +2659,7 @@ class BridgeCallbackHandlerTest {
     void joinNextTableReturnsWhenProcessorStopsBeforeStartGame() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
         gameState.setKeepAliveAfterGame(true);
 
         UUID tableId = UUID.randomUUID();
@@ -3249,7 +3250,8 @@ class BridgeCallbackHandlerTest {
             Logger.getLogger(BridgeCallbackHandlerTest.class),
             ignored -> { }
         );
-        BridgeGameState gameState = new BridgeGameState();
+        BridgeProcessorState processorState = new BridgeProcessorState();
+        BridgeGameState gameState = processorState.gameState();
         Session session = (Session) Proxy.newProxyInstance(
             Session.class.getClassLoader(),
             new Class<?>[]{Session.class},
@@ -3262,7 +3264,7 @@ class BridgeCallbackHandlerTest {
         );
         BridgeConcedeFlowManager manager = new BridgeConcedeFlowManager(
             processor,
-            gameState,
+            processorState,
             () -> session,
             Logger.getLogger(BridgeCallbackHandlerTest.class),
             "TestPlayer",
@@ -3528,17 +3530,17 @@ class BridgeCallbackHandlerTest {
     }
 
     private static void addActiveGame(BridgeCallbackHandler handler, UUID gameId, UUID playerId) throws Exception {
-        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
         gameState.activateGame(gameId, playerId);
     }
 
     private static void setCurrentChatId(BridgeCallbackHandler handler, UUID gameId, UUID chatId) throws Exception {
-        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
         gameState.setCurrentChatId(gameId, chatId);
     }
 
     private static boolean hasActiveGame(BridgeCallbackHandler handler, UUID gameId) throws Exception {
-        BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
         return gameState.isCurrentActiveGame(gameId);
     }
 
@@ -3775,7 +3777,7 @@ class BridgeCallbackHandlerTest {
     private static void setCachedBridgeEvents(BridgeCallbackHandler handler, List<BridgeLogEntry> events)
             throws Exception {
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
-        BridgeGameLogState gameLogState = (BridgeGameLogState) getDirectField(handler, "gameLogState");
+        BridgeGameLogState gameLogState = (BridgeGameLogState) getProcessorStateField(handler, "gameLogState");
         BridgePublishedMcpState publishedMcpState = (BridgePublishedMcpState) getDirectField(handler, "publishedMcpState");
         processor.submit(BridgeCommand.of(() -> {
             gameLogState.recordFetchedBridgeEvents(events);
@@ -3883,13 +3885,20 @@ class BridgeCallbackHandlerTest {
             if (!(target instanceof BridgeCallbackHandler handler)) {
                 throw ignored;
             }
-            Object decisionState = getDirectField(handler, "decisionState");
+            Object processorState = getDirectField(handler, "processorState");
+            try {
+                findField(processorState.getClass(), name);
+                return processorState;
+            } catch (NoSuchFieldException ignoredProcessorState) {
+                // Keep searching through the extracted state holders below.
+            }
+            Object decisionState = getDirectField(processorState, "decisionState");
             try {
                 findField(decisionState.getClass(), name);
                 return decisionState;
             } catch (NoSuchFieldException ignoredDecisionState) {
                 for (String ownerField : List.of("gameState", "interactionState", "gameLogState", "cursorState")) {
-                    Object owner = getDirectField(handler, ownerField);
+                    Object owner = getDirectField(processorState, ownerField);
                     try {
                         findField(owner.getClass(), name);
                         return owner;
@@ -3900,6 +3909,11 @@ class BridgeCallbackHandlerTest {
                 throw ignoredDecisionState;
             }
         }
+    }
+
+    private static Object getProcessorStateField(BridgeCallbackHandler handler, String name) throws Exception {
+        Object processorState = getDirectField(handler, "processorState");
+        return getDirectField(processorState, name);
     }
 
     private static Object getDirectField(Object target, String name) throws Exception {

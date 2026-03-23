@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public final class BridgeConcedeFlowManager {
     private final BridgeProcessor processor;
-    private final BridgeGameState gameState;
+    private final BridgeProcessorState processorState;
     private final Supplier<Session> sessionSupplier;
     private final Logger logger;
     private final String username;
@@ -27,13 +27,13 @@ public final class BridgeConcedeFlowManager {
 
     public BridgeConcedeFlowManager(
             BridgeProcessor processor,
-            BridgeGameState gameState,
+            BridgeProcessorState processorState,
             Supplier<Session> sessionSupplier,
             Logger logger,
             String username,
             long keepAliveConcedeWaitSeconds) {
         this.processor = processor;
-        this.gameState = gameState;
+        this.processorState = processorState;
         this.sessionSupplier = sessionSupplier;
         this.logger = logger;
         this.username = username;
@@ -50,12 +50,12 @@ public final class BridgeConcedeFlowManager {
             return pendingFlow;
         }
 
-        UUID gameId = gameState.currentGameId();
+        UUID gameId = processorState.gameState().currentGameId();
         if (gameId == null) {
             logger.warn("[" + username + "] Cannot concede: no active game");
             return BridgeConcedeFlow.completed(null, false);
         }
-        if (!gameState.isCurrentActiveGame(gameId)) {
+        if (!processorState.gameState().isCurrentActiveGame(gameId)) {
             logger.info("[" + username + "] Game already over, concede is a no-op");
             return BridgeConcedeFlow.completed(gameId, true);
         }
@@ -63,13 +63,13 @@ public final class BridgeConcedeFlowManager {
         logger.info("[" + username + "] Conceding game " + gameId);
         sessionSupplier.get().sendPlayerAction(PlayerAction.CONCEDE, gameId, null);
 
-        if (!gameState.keepAliveAfterGame()) {
+        if (!processorState.gameState().keepAliveAfterGame()) {
             return BridgeConcedeFlow.completed(gameId, true);
         }
 
         BridgeConcedeFlow flow = new BridgeConcedeFlow(gameId);
         pendingFlow = flow;
-        if (!gameState.isCurrentActiveGame(gameId)) {
+        if (!processorState.gameState().isCurrentActiveGame(gameId)) {
             clearPendingFlowIfCurrent(flow);
             flow.complete(true);
             return flow;
@@ -84,7 +84,7 @@ public final class BridgeConcedeFlowManager {
         if (flow == null) {
             return;
         }
-        if (!gameState.isCurrentActiveGame(flow.gameId())) {
+        if (!processorState.gameState().isCurrentActiveGame(flow.gameId())) {
             finishFlow(flow, true);
         }
     }

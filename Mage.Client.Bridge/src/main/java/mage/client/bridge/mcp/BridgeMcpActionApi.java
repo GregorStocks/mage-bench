@@ -6,14 +6,11 @@ import mage.client.bridge.processor.BridgeChooseActionInput;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeConcedeFlow;
 import mage.client.bridge.processor.BridgeConcedeFlowManager;
-import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgeGameLogRefresher;
-import mage.client.bridge.processor.BridgeGameLogState;
-import mage.client.bridge.processor.BridgeGameState;
-import mage.client.bridge.processor.BridgeInteractionState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
+import mage.client.bridge.processor.BridgeProcessorState;
 import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.ChooseActionTool;
 import mage.remote.Session;
@@ -28,11 +25,8 @@ public final class BridgeMcpActionApi {
     private final String username;
     private final Logger logger;
     private final BridgeProcessor processor;
-    private final BridgeDecisionState decisionState;
-    private final BridgeGameState gameState;
+    private final BridgeProcessorState processorState;
     private final BridgeGameLogRefresher gameLogRefresher;
-    private final BridgeGameLogState gameLogState;
-    private final BridgeInteractionState interactionState;
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
     private final BridgeConcedeFlowManager concedeFlowManager;
@@ -46,11 +40,8 @@ public final class BridgeMcpActionApi {
             String username,
             Logger logger,
             BridgeProcessor processor,
-            BridgeDecisionState decisionState,
-            BridgeGameState gameState,
+            BridgeProcessorState processorState,
             BridgeGameLogRefresher gameLogRefresher,
-            BridgeGameLogState gameLogState,
-            BridgeInteractionState interactionState,
             BridgeChooseActionFlowManager chooseActionFlowManager,
             BridgePassPriorityFlowManager passPriorityFlowManager,
             BridgeConcedeFlowManager concedeFlowManager,
@@ -62,11 +53,8 @@ public final class BridgeMcpActionApi {
         this.username = username;
         this.logger = logger;
         this.processor = processor;
-        this.decisionState = decisionState;
-        this.gameState = gameState;
+        this.processorState = processorState;
         this.gameLogRefresher = gameLogRefresher;
-        this.gameLogState = gameLogState;
-        this.interactionState = interactionState;
         this.chooseActionFlowManager = chooseActionFlowManager;
         this.passPriorityFlowManager = passPriorityFlowManager;
         this.concedeFlowManager = concedeFlowManager;
@@ -107,10 +95,10 @@ public final class BridgeMcpActionApi {
             blockersArray
         );
         BridgeChooseActionFlow flow = submitProcessorCommandPreservingInterrupt(() -> {
-            if (decisionState.pendingChooseActionFlow() != null) {
+            if (processorState.decisionState().pendingChooseActionFlow() != null) {
                 return null;
             }
-            interactionState.incrementInteractionsThisTurn();
+            processorState.interactionState().incrementInteractionsThisTurn();
             return chooseActionFlowManager.startPendingFlow(input);
         });
         if (flow == null) {
@@ -160,10 +148,10 @@ public final class BridgeMcpActionApi {
 
     public ActionResult passPriority(String until, Long boardCursorParam) {
         BridgePassPriorityFlow flow = submitProcessorCommandPreservingInterrupt(() -> {
-            if (decisionState.pendingPassPriorityFlow() != null) {
+            if (processorState.decisionState().pendingPassPriorityFlow() != null) {
                 return null;
             }
-            interactionState.incrementInteractionsThisTurn();
+            processorState.interactionState().incrementInteractionsThisTurn();
             return passPriorityFlowManager.startPendingFlow(until, boardCursorParam);
         });
 
@@ -218,18 +206,18 @@ public final class BridgeMcpActionApi {
     }
 
     private String sendChatMessageImpl(String message) {
-        var gameId = gameState.currentGameId();
+        var gameId = processorState.gameState().currentGameId();
         if (gameId == null) {
             logger.warn("[" + username + "] Cannot send chat: no active game");
             return "no active game";
         }
-        var chatId = gameState.currentChatId();
+        var chatId = processorState.gameState().currentChatId();
         if (chatId == null) {
             logger.warn("[" + username + "] Cannot send chat: no chat ID for game " + gameId);
             return "no chat session for this game";
         }
         long now = System.currentTimeMillis();
-        if (gameLogState.shouldSuppressOutgoingChat(message, now, chatDedupWindowMs)) {
+        if (processorState.gameLogState().shouldSuppressOutgoingChat(message, now, chatDedupWindowMs)) {
             logger.info("[" + username + "] Suppressing duplicate chat message");
             return null;
         }
@@ -237,7 +225,13 @@ public final class BridgeMcpActionApi {
             return "server rejected the message";
         }
         long publishAfterSyncEpoch = gameLogRefresher.captureSyncBarrierEpoch();
-        gameLogState.recordOutgoingChatMessage(username, message, now, chatDedupWindowMs, publishAfterSyncEpoch);
+        processorState.gameLogState().recordOutgoingChatMessage(
+            username,
+            message,
+            now,
+            chatDedupWindowMs,
+            publishAfterSyncEpoch
+        );
         return null;
     }
 }

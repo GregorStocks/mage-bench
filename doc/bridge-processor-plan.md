@@ -124,6 +124,8 @@ That API should keep its semantics explicit:
 
 But the bridge is still transitional overall:
 
+- the live `Bridge*State` holders now sit under a single `BridgeProcessorState`
+  owner instead of being flat fields on `BridgeCallbackHandler`
 - the published MCP snapshot is still rebuilt from mutable `Bridge*State`
   holders
 - MCP reads still need a processor sync barrier before reading the published

@@ -22,8 +22,7 @@ public final class BridgeGameLogRefresher {
     private static final long FETCH_RETRY_DELAY_MS = 250;
 
     private final BridgeProcessor processor;
-    private final BridgeGameState gameState;
-    private final BridgeGameLogState gameLogState;
+    private final BridgeProcessorState processorState;
     private final Supplier<Session> sessionSupplier;
     private final Logger logger;
     private final String username;
@@ -39,14 +38,12 @@ public final class BridgeGameLogRefresher {
 
     public BridgeGameLogRefresher(
             BridgeProcessor processor,
-            BridgeGameState gameState,
-            BridgeGameLogState gameLogState,
+            BridgeProcessorState processorState,
             Supplier<Session> sessionSupplier,
             Logger logger,
             String username) {
         this.processor = processor;
-        this.gameState = gameState;
-        this.gameLogState = gameLogState;
+        this.processorState = processorState;
         this.sessionSupplier = sessionSupplier;
         this.logger = logger;
         this.username = username;
@@ -82,7 +79,10 @@ public final class BridgeGameLogRefresher {
 
     public long captureSyncBarrierEpoch() {
         requireProcessorThread("captureSyncBarrierEpoch");
-        if (closed || sessionSupplier.get() == null || gameState.currentGameId() == null || gameState.currentPlayerId() == null) {
+        if (closed
+                || sessionSupplier.get() == null
+                || processorState.gameState().currentGameId() == null
+                || processorState.gameState().currentPlayerId() == null) {
             return completedSyncEpoch;
         }
         return requestedSyncEpoch;
@@ -113,12 +113,13 @@ public final class BridgeGameLogRefresher {
             return;
         }
         Session session = sessionSupplier.get();
-        UUID gameId = gameState.currentGameId();
-        UUID playerId = gameState.currentPlayerId();
+        UUID gameId = processorState.gameState().currentGameId();
+        UUID playerId = processorState.gameState().currentPlayerId();
         if (session == null || gameId == null || playerId == null) {
             return;
         }
-        if (blockingRequest != null && isRequestForCurrentState(blockingRequest, gameState.generation(), gameId, playerId)) {
+        if (blockingRequest != null
+                && isRequestForCurrentState(blockingRequest, processorState.gameState().generation(), gameId, playerId)) {
             return;
         }
         if (scheduledRetry != null) {
@@ -128,10 +129,10 @@ public final class BridgeGameLogRefresher {
 
         FetchRequest request = new FetchRequest(
             nextRequestId++,
-            gameState.generation(),
+            processorState.gameState().generation(),
             gameId,
             playerId,
-            gameLogState.nextServerCursor(),
+            processorState.gameLogState().nextServerCursor(),
             requestedSyncEpoch
         );
         refreshQueued = false;
@@ -171,9 +172,9 @@ public final class BridgeGameLogRefresher {
             blockingRequest = null;
         }
         long completedEpoch = -1;
-        boolean currentRequest = request.generation() == gameState.generation()
-                && request.gameId().equals(gameState.currentGameId())
-                && request.playerId().equals(gameState.currentPlayerId());
+        boolean currentRequest = request.generation() == processorState.gameState().generation()
+                && request.gameId().equals(processorState.gameState().currentGameId())
+                && request.playerId().equals(processorState.gameState().currentPlayerId());
         if (failure != null) {
             logger.error("[" + username + "] Failed to fetch bridge events", failure);
         }
@@ -181,7 +182,7 @@ public final class BridgeGameLogRefresher {
             return;
         }
         if (currentRequest) {
-            gameLogState.recordFetchedBridgeEvents(fetched);
+            processorState.gameLogState().recordFetchedBridgeEvents(fetched);
             if (failure != null) {
                 refreshQueued = true;
                 completedEpoch = request.syncEpoch();

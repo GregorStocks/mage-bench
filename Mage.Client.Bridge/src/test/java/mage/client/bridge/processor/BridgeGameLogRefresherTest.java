@@ -36,12 +36,12 @@ class BridgeGameLogRefresherTest {
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             event -> {}
         );
-        BridgeGameState gameState = new BridgeGameState();
-        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeProcessorState processorState = new BridgeProcessorState();
+        BridgeGameState gameState = processorState.gameState();
+        BridgeGameLogState gameLogState = processorState.gameLogState();
         BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
             processor,
-            gameState,
-            gameLogState,
+            processorState,
             () -> session,
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             "TestPlayer"
@@ -96,12 +96,12 @@ class BridgeGameLogRefresherTest {
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             event -> {}
         );
-        BridgeGameState gameState = new BridgeGameState();
-        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeProcessorState processorState = new BridgeProcessorState();
+        BridgeGameState gameState = processorState.gameState();
+        BridgeGameLogState gameLogState = processorState.gameLogState();
         BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
             processor,
-            gameState,
-            gameLogState,
+            processorState,
             () -> session,
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             "TestPlayer"
@@ -163,12 +163,12 @@ class BridgeGameLogRefresherTest {
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             event -> {}
         );
-        BridgeGameState gameState = new BridgeGameState();
-        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeProcessorState processorState = new BridgeProcessorState();
+        BridgeGameState gameState = processorState.gameState();
+        BridgeGameLogState gameLogState = processorState.gameLogState();
         BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
             processor,
-            gameState,
-            gameLogState,
+            processorState,
             () -> session,
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             "TestPlayer"
@@ -249,12 +249,12 @@ class BridgeGameLogRefresherTest {
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             event -> {}
         );
-        BridgeGameState gameState = new BridgeGameState();
-        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeProcessorState processorState = new BridgeProcessorState();
+        BridgeGameState gameState = processorState.gameState();
+        BridgeGameLogState gameLogState = processorState.gameLogState();
         BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
             processor,
-            gameState,
-            gameLogState,
+            processorState,
             () -> session,
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             "TestPlayer"
@@ -332,12 +332,12 @@ class BridgeGameLogRefresherTest {
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             event -> {}
         );
-        BridgeGameState gameState = new BridgeGameState();
-        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeProcessorState processorState = new BridgeProcessorState();
+        BridgeGameState gameState = processorState.gameState();
+        BridgeGameLogState gameLogState = processorState.gameLogState();
         BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
             processor,
-            gameState,
-            gameLogState,
+            processorState,
             () -> session,
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             "TestPlayer"
@@ -405,12 +405,12 @@ class BridgeGameLogRefresherTest {
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             event -> {}
         );
-        BridgeGameState gameState = new BridgeGameState();
-        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeProcessorState processorState = new BridgeProcessorState();
+        BridgeGameState gameState = processorState.gameState();
+        BridgeGameLogState gameLogState = processorState.gameLogState();
         BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
             processor,
-            gameState,
-            gameLogState,
+            processorState,
             () -> session,
             Logger.getLogger(BridgeGameLogRefresherTest.class),
             "TestPlayer"
