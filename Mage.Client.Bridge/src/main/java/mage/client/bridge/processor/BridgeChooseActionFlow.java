@@ -153,6 +153,15 @@ public final class BridgeChooseActionFlow {
         possibleCombatants = extractUuidOptionList(action, "possibleAttackers");
 
         if (input.attackers().length == 1 && "all".equals(input.attackers()[0])) {
+            if (possibleCombatants.size() == 1) {
+                batchDeclared.add(Map.of("id", "all"));
+                batchIndex = input.attackers().length;
+                context.clearPendingActionIfCurrent(action);
+                context.sendUuidOrDie(action.gameId(), possibleCombatants.getFirst(), "batchAttack:all_single");
+                batchPhase = BatchPhase.ATTACKERS_WAITING_FOR_NEXT_SELECT;
+                phase = Phase.WAITING_FOR_BATCH_CALLBACK;
+                return;
+            }
             batchDeclared.add(Map.of("id", "all"));
             context.clearPendingActionIfCurrent(action);
             context.sendStringOrDie(action.gameId(), "special", "batchAttack:all");
