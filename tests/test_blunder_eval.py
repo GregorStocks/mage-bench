@@ -552,9 +552,13 @@ class TestMergeIntoGroundTruth:
 class TestDefaultBlunderDataPaths:
     def test_defaults_point_at_migrated_blunder_package_data(self) -> None:
         module_dir = Path(blunder_eval_common.__file__).resolve().parent
+        ground_truth_dir = blunder_eval_common.GROUND_TRUTH_DIR
+        baseline_path = blunder_eval_common.BASELINE_PATH
+        expected_ground_truth_dir = module_dir / "ground_truth"
+        expected_baseline_path = module_dir / "blunder_baseline.json"
 
-        assert blunder_eval_common.GROUND_TRUTH_DIR == module_dir / "ground_truth"
-        assert blunder_eval_common.BASELINE_PATH == module_dir / "blunder_baseline.json"
+        assert ground_truth_dir == expected_ground_truth_dir
+        assert baseline_path == expected_baseline_path
 
 
 # --- Baseline derivation ---
