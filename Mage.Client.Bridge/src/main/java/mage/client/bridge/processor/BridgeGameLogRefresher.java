@@ -125,7 +125,7 @@ public final class BridgeGameLogRefresher {
                 && request.gameId().equals(gameState.currentGameId())
                 && request.playerId().equals(gameState.currentPlayerId())) {
             gameLogState.recordFetchedBridgeEvents(fetched);
-            if (!fetched.isEmpty()) {
+            if (failure != null || !fetched.isEmpty()) {
                 refreshQueued = true;
             }
         }

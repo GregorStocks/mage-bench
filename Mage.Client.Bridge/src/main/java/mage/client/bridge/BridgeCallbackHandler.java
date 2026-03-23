@@ -353,7 +353,9 @@ public class BridgeCallbackHandler {
             this::attachUnseenChat
         );
         this.processor.setAfterMessageHook(message -> {
-            if (message instanceof BridgeCallbackEvent) {
+            if (message instanceof BridgeCallbackEvent event
+                    && gameState.currentGameId() != null
+                    && gameState.currentGameId().equals(event.objectId())) {
                 gameLogRefresher.afterCallbackProcessed();
             }
             mcpQueryApi.publishProcessorState();
