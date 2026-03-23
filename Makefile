@@ -17,7 +17,7 @@ lint:
 	issue-lint
 	uv run python scripts/checks/lint_scripts_are_python.py
 	uv run python scripts/checks/lint_no_fallback.py
-	uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/ src/
+	uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/ src/ tests/
 
 .PHONY: lint-java
 lint-java:
@@ -26,11 +26,11 @@ lint-java:
 
 .PHONY: lint-fix
 lint-fix:
-	uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/ src/
+	uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/ src/ tests/
 
 .PHONY: format
 format:
-	uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/ src/
+	uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/ src/ tests/
 
 .PHONY: lint-md
 lint-md: $(WEBSITE_NPM_STAMP)
@@ -46,7 +46,7 @@ astro-check: $(WEBSITE_NPM_STAMP)
 
 .PHONY: format-check
 format-check:
-	uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/ src/
+	uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/ src/ tests/
 
 .PHONY: typecheck
 typecheck:
@@ -54,7 +54,7 @@ typecheck:
 
 .PHONY: test
 test:
-	uv run --project puppeteer pytest puppeteer/ -n auto --dist=load
+	uv run --project puppeteer pytest tests/ -n auto --dist=load
 
 .PHONY: test-js
 test-js: $(WEBSITE_NPM_STAMP)
@@ -71,12 +71,12 @@ check:
 
 .PHONY: test-golden
 test-golden:
-	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest -m golden -v $(if $(GOLDEN_N),-n $(GOLDEN_N) --dist=load,) $(if $(K),-k "$(K)")
+	GOLDEN_INTEGRATION=1 uv run --project puppeteer pytest -m golden -v tests/ $(if $(GOLDEN_N),-n $(GOLDEN_N) --dist=load,) $(if $(K),-k "$(K)")
 
 .PHONY: regen-golden
 regen-golden:
-	cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v $(if $(K),-k "$(K)")
-	UPDATE_BLUNDER_GOLDEN=1 uv run --project puppeteer pytest puppeteer/tests/test_blunder_golden_prompts.py -v
+	GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run --project puppeteer pytest -m golden -v tests/ $(if $(K),-k "$(K)")
+	UPDATE_BLUNDER_GOLDEN=1 uv run --project puppeteer pytest tests/test_blunder_golden_prompts.py -v
 
 .PHONY: build
 build:

@@ -209,7 +209,7 @@ No changes needed to Scryfall handling.
 | File | Purpose |
 | ------ | --------- |
 | `puppeteer/src/puppeteer/decision_renderer.py` | Shared `render_decision()` function |
-| `puppeteer/tests/test_decision_renderer.py` | Tests for renderer |
+| `tests/test_decision_renderer.py` | Tests for renderer |
 
 ### Export pipeline
 
@@ -243,9 +243,9 @@ No changes needed to Scryfall handling.
 
 | File | Change |
 | ------ | -------- |
-| `puppeteer/tests/test_blunder_annotator.py` | Update for new code paths |
-| `puppeteer/tests/test_blunder_golden_prompts.py` | Regenerate golden prompt files |
-| `puppeteer/tests/test_export_schema.py` | Auto-validates against updated schema |
+| `tests/test_blunder_annotator.py` | Update for new code paths |
+| `tests/test_blunder_golden_prompts.py` | Regenerate golden prompt files |
+| `tests/test_export_schema.py` | Auto-validates against updated schema |
 
 ### No Java changes
 

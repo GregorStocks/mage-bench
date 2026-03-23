@@ -15,7 +15,6 @@ import type {
 const GOLDEN_EXPORTS_DIR = path.resolve(
   process.cwd(),
   '..',
-  'puppeteer',
   'tests',
   'golden',
   'exports',

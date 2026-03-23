@@ -54,7 +54,7 @@ RECURSIVE_MAKE_ENV_VARS = (
 # A target runs if ANY changed file matches ANY of its triggers.
 # Prefix matches use startswith; suffix matches (starting with *) use endswith.
 TARGET_TRIGGERS: dict[str, list[str]] = {
-    "lint": ["puppeteer/", "scripts/", "schemas/", "src/", "issues/"],
+    "lint": ["puppeteer/", "scripts/", "schemas/", "src/", "tests/", "issues/"],
     "lint-java": [
         "Mage.",
         "pom.xml",
@@ -64,13 +64,14 @@ TARGET_TRIGGERS: dict[str, list[str]] = {
     "lint-website": ["website/"],
     "lint-md": ["*.md", ".markdownlint"],
     "astro-check": ["website/"],
-    "format-check": ["puppeteer/", "scripts/", "schemas/", "src/"],
+    "format-check": ["puppeteer/", "scripts/", "schemas/", "src/", "tests/"],
     "typecheck": ["puppeteer/", "scripts/", "schemas/", "src/"],
     "test": [
         "puppeteer/",
         "scripts/",
         "schemas/",
         "src/",
+        "tests/",
         "website/public/games/",
         "configs/",
     ],

@@ -19,3 +19,8 @@ puppeteer = { workspace = true }
 
 [tool.uv.workspace]
 members = ["puppeteer"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = ["golden: Golden prompt integration tests (require XMage server)"]

@@ -55,9 +55,3 @@ ignore_missing_imports = false
 module = ["google_auth_oauthlib.*"]
 ignore_missing_imports = true
 disable_error_code = ["import-untyped"]
-
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-asyncio_mode = "auto"
-markers = ["golden: Golden prompt integration tests (require XMage server)"]

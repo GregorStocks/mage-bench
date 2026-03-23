@@ -84,7 +84,7 @@ is why golden tests are gated behind `GOLDEN_INTEGRATION=1` and excluded from
 
 A golden test has three inputs:
 
-1. **Deck file** (`puppeteer/tests/decks/*.dck`): A 60-card deck with
+1. **Deck file** (`tests/decks/*.dck`): A 60-card deck with
    deterministic draw order. The first 7 cards become the opening hand
    (shuffle is disabled via `SKIP_INIT_SHUFFLING`). Cards 8+ are drawn
    in order on subsequent turns. Format: `<count> [<SET>:<NUM>] <Card Name>`.
@@ -283,10 +283,10 @@ All require `GOLDEN_INTEGRATION=1` (set automatically by the make targets).
 
 ## Adding a new test
 
-1. Design a deck in `puppeteer/tests/decks/<name>.dck` — first 7 cards are
+1. Design a deck in `tests/decks/<name>.dck` — first 7 cards are
    the opening hand, pad to 60 with filler
 2. Write the replay script (predict card IDs, plan mana carefully)
-3. Create `puppeteer/tests/test_golden_<name>.py` following the existing
+3. Create `tests/test_golden_<name>.py` following the existing
    pattern (mark with `@pytest.mark.golden`, call `run_golden_scenario`)
 4. Run `make regen-golden` to generate golden files
 5. Review the generated files — verify the prompt, export, and any blunder
@@ -323,12 +323,12 @@ work around nondeterminism. Find and fix the root cause.
 
 | Path | Purpose |
 | ------ | --------- |
-| `puppeteer/tests/golden_helpers.py` | Core infrastructure: `BridgeSession`, `BridgeManager`, `SpectatorProcess`, `run_golden_scenario`, normalization, assertions |
-| `puppeteer/tests/conftest.py` | Session fixtures: XMage server, bridge JVMs, spectator |
-| `puppeteer/tests/test_golden_*.py` | Individual test files |
-| `puppeteer/tests/decks/*.dck` | Deterministic deck files |
-| `puppeteer/tests/golden/prompts/*.json` | Golden prompt files |
-| `puppeteer/tests/golden/exports/*.json` | Golden export files |
-| `puppeteer/tests/golden/blunder_prompts/` | Golden blunder prompt files |
+| `tests/golden_helpers.py` | Core infrastructure: `BridgeSession`, `BridgeManager`, `SpectatorProcess`, `run_golden_scenario`, normalization, assertions |
+| `tests/conftest.py` | Session fixtures: XMage server, bridge JVMs, spectator |
+| `tests/test_golden_*.py` | Individual test files |
+| `tests/decks/*.dck` | Deterministic deck files |
+| `tests/golden/prompts/*.json5` | Golden prompt files |
+| `tests/golden/exports/*.json5` | Golden export files |
+| `tests/golden/blunder_prompts/` | Golden blunder prompt files |
 | `.claude/skills/golden-test/SKILL.md` | Skill for adding new tests |
 | `.claude/skills/investigate-golden-flake/SKILL.md` | Skill for debugging flakes |

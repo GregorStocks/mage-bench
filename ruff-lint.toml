@@ -58,7 +58,7 @@ known-first-party = ["magebench", "puppeteer", "scripts", "schemas"]
 max-line-length = 120
 
 [lint.per-file-ignores]
-"puppeteer/tests/**" = [
+"tests/**" = [
     "S105", "S106", "S108", "S310",   # test data: fake credentials, /tmp paths, localhost URLs
     "ERA001",                          # documentation comments that look like code
     "N815",                            # inputSchema — MCP protocol field name
