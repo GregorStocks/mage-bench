@@ -112,6 +112,8 @@ The action/game-state slice is also closer to the intended model now:
   snapshots after each processed message
 - MCP reads sync to that published snapshot instead of rebuilding live state on
   the MCP thread
+- `get_game_state` cursor assignment now happens at publish time on the
+  processor, not lazily on the MCP read path
 - `get_action_choices` is now a real read surface rather than a hidden
   auto-resolve path
 
@@ -119,6 +121,8 @@ But the bridge is still transitional overall:
 
 - the published MCP snapshot is still rebuilt from mutable `Bridge*State`
   holders
+- MCP reads still need a processor sync barrier before reading the published
+  snapshot
 - the processor still needs an async `Session.getBridgeEvents(...)` shim to
   append structured bridge events into the local published log
 - other MCP reads still depend on shared mutable runtime state holders rather
@@ -180,6 +184,8 @@ The remaining read-side cleanup should focus on:
 
 - making the rest of MCP reads consume processor-published immutable state
   instead of reading mutable `Bridge*State` holders
+- shrinking `BridgeMcpQueryApi` toward a pure "sync barrier + published read"
+  shell, with publication/build logic owned elsewhere
 - shrinking or deleting read helpers that only exist to rebuild published
   snapshots from those mutable state holders
 - eventually deleting the remaining async `Session.getBridgeEvents(...)` sync

@@ -1,6 +1,6 @@
 package mage.client.bridge;
 
-import mage.client.bridge.mcp.BridgeMcpQueryApi;
+import mage.client.bridge.mcp.BridgePublishedMcpState;
 import mage.client.bridge.processor.BridgeChooseActionFlow;
 import mage.client.bridge.processor.BridgeChooseActionFlowContext;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
@@ -774,7 +774,7 @@ class BridgeCallbackHandlerTest {
         BridgeGameState gameState = (BridgeGameState) getDirectField(handler, "gameState");
         BridgeGameLogState gameLogState = (BridgeGameLogState) getDirectField(handler, "gameLogState");
         BridgeGameLogRefresher gameLogRefresher = (BridgeGameLogRefresher) getDirectField(handler, "gameLogRefresher");
-        BridgeMcpQueryApi mcpQueryApi = (BridgeMcpQueryApi) getDirectField(handler, "mcpQueryApi");
+        BridgePublishedMcpState publishedMcpState = (BridgePublishedMcpState) getDirectField(handler, "publishedMcpState");
 
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
@@ -800,7 +800,7 @@ class BridgeCallbackHandlerTest {
                     throw new IllegalStateException("Interrupted while blocking afterMessageHook", e);
                 }
             }
-            mcpQueryApi.publishProcessorState();
+            publishedMcpState.publishProcessorState();
         });
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -2227,6 +2227,45 @@ class BridgeCallbackHandlerTest {
         assertThat(result.turn).isEqualTo(1);
         assertThat(result.active_player).isEqualTo("TestPlayer");
         assertThat(result.priority_player).isEqualTo("TestPlayer");
+    }
+
+    @Test
+    void publishesGameStateCursorBeforeFirstMcpRead() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        GameView gameView = gameView(12, List.of(playerView(playerId, "TestPlayer", "p2")), new CardsView());
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                return switch (method.getName()) {
+                    case "joinGame" -> true;
+                    case "getGameChatId" -> Optional.empty();
+                    default -> defaultReturnValue(method.getReturnType());
+                };
+            }
+        ));
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.START_GAME,
+            gameId,
+            new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+            false
+        ));
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_INIT,
+            gameId,
+            gameView,
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        assertThat(publishedGameStateCursor(handler)).isEqualTo(1L);
     }
 
     @Test
@@ -3736,21 +3775,28 @@ class BridgeCallbackHandlerTest {
             throws Exception {
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
         BridgeGameLogState gameLogState = (BridgeGameLogState) getDirectField(handler, "gameLogState");
-        BridgeMcpQueryApi mcpQueryApi = (BridgeMcpQueryApi) getDirectField(handler, "mcpQueryApi");
+        BridgePublishedMcpState publishedMcpState = (BridgePublishedMcpState) getDirectField(handler, "publishedMcpState");
         processor.submit(BridgeCommand.of(() -> {
             gameLogState.recordFetchedBridgeEvents(events);
-            mcpQueryApi.publishProcessorState();
+            publishedMcpState.publishProcessorState();
             return null;
         }));
     }
 
     private static void publishProcessorState(BridgeCallbackHandler handler) throws Exception {
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
-        BridgeMcpQueryApi mcpQueryApi = (BridgeMcpQueryApi) getDirectField(handler, "mcpQueryApi");
+        BridgePublishedMcpState publishedMcpState = (BridgePublishedMcpState) getDirectField(handler, "publishedMcpState");
         processor.submit(BridgeCommand.of(() -> {
-            mcpQueryApi.publishProcessorState();
+            publishedMcpState.publishProcessorState();
             return null;
         }));
+    }
+
+    private static Long publishedGameStateCursor(BridgeCallbackHandler handler) throws Exception {
+        Object publishedMcpState = getDirectField(handler, "publishedMcpState");
+        Object snapshot = invokeNoArg(publishedMcpState, "snapshot");
+        Object gameState = invokeNoArg(snapshot, "gameState");
+        return (Long) invokeNoArg(gameState, "cursor");
     }
 
     private static void waitForCondition(BooleanSupplier condition) throws Exception {
@@ -3859,5 +3905,11 @@ class BridgeCallbackHandlerTest {
         Field field = findField(target.getClass(), name);
         field.setAccessible(true);
         return field.get(target);
+    }
+
+    private static Object invokeNoArg(Object target, String name) throws Exception {
+        Method method = target.getClass().getDeclaredMethod(name);
+        method.setAccessible(true);
+        return method.invoke(target);
     }
 }

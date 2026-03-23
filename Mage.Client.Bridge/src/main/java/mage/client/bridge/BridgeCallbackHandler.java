@@ -4,6 +4,7 @@ import mage.client.bridge.listener.BridgeCallbackIngress;
 import mage.client.bridge.mcp.BridgeMcpActionApi;
 import mage.client.bridge.mcp.BridgeMcpQueryApi;
 import mage.client.bridge.mcp.BridgePublishedActionChoices;
+import mage.client.bridge.mcp.BridgePublishedMcpState;
 import mage.client.bridge.processor.BridgeActionableCallbackOutcome;
 import mage.client.bridge.processor.BridgeCallbackDispatcher;
 import mage.client.bridge.processor.BridgeCallbackDispatcherContext;
@@ -123,6 +124,7 @@ public class BridgeCallbackHandler {
     private final BridgeCallbackIngress callbackIngress;
     private final BridgeMcpActionApi mcpActionApi;
     private final BridgeMcpQueryApi mcpQueryApi;
+    private final BridgePublishedMcpState publishedMcpState;
     private final BridgeProcessor processor;
     private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgeDecisionState decisionState = new BridgeDecisionState();
@@ -294,19 +296,23 @@ public class BridgeCallbackHandler {
             logger,
             client.getUsername()
         );
+        this.publishedMcpState = new BridgePublishedMcpState(
+            processor,
+            gameState,
+            gameLogState,
+            this::buildPublishedActionChoices,
+            gameStateBuilder::buildPlayersArray,
+            gameStateBuilder::buildCombatGroups,
+            gameView -> buildStackItems(gameView, true, true),
+            this::updateGameStateCursor
+        );
         this.mcpQueryApi = new BridgeMcpQueryApi(
             client.getUsername(),
             logger,
             processor,
-            gameState,
-            gameLogState,
             gameLogRefresher,
-            this::buildPublishedActionChoices,
+            publishedMcpState,
             () -> deckList,
-            gameStateBuilder::buildPlayersArray,
-            gameStateBuilder::buildCombatGroups,
-            gameView -> buildStackItems(gameView, true, true),
-            this::updateGameStateCursor,
             oracleTextService::getOracleText
         );
         this.chooseActionFlowManager = new BridgeChooseActionFlowManager(
@@ -359,7 +365,7 @@ public class BridgeCallbackHandler {
                     && gameState.currentGameId().equals(event.objectId())) {
                 gameLogRefresher.afterCallbackProcessed();
             }
-            mcpQueryApi.publishProcessorState();
+            publishedMcpState.publishProcessorState();
         });
         this.processor.start();
     }

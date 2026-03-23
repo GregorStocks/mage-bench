@@ -4,92 +4,56 @@ import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeGameLogRefresher;
-import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgePublishedLogEntry;
-import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.GetGameHistoryTool;
 import mage.client.bridge.tools.GetGameLogTool;
 import mage.client.bridge.tools.GetGameStateTool;
 import mage.client.bridge.tools.GetOracleTextTool;
-import mage.client.bridge.tools.McpToolRegistry;
 import mage.game.BridgeLogEntry;
-import mage.view.GameView;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToLongFunction;
 
 public final class BridgeMcpQueryApi {
     private final String username;
     private final Logger logger;
     private final BridgeProcessor processor;
-    private final BridgeGameState gameState;
-    private final BridgeGameLogState gameLogState;
     private final BridgeGameLogRefresher gameLogRefresher;
-    private final Supplier<BridgePublishedActionChoices> publishedActionChoicesBuilder;
+    private final BridgePublishedMcpState publishedMcpState;
     private final Supplier<DeckCardLists> deckListSupplier;
-    private final Function<GameView, List<Map<String, Object>>> playersBuilder;
-    private final Function<GameView, List<Map<String, Object>>> combatGroupsBuilder;
-    private final Function<GameView, List<Map<String, Object>>> stackItemsBuilder;
-    private final ToLongFunction<Map<String, Object>> gameStateCursorUpdater;
     private final BridgeOracleTextLookup oracleTextLookup;
-    private final AtomicReference<BridgePublishedMcpSnapshot> publishedSnapshot =
-        new AtomicReference<>(BridgePublishedMcpSnapshot.empty());
 
     public BridgeMcpQueryApi(
             String username,
             Logger logger,
             BridgeProcessor processor,
-            BridgeGameState gameState,
-            BridgeGameLogState gameLogState,
             BridgeGameLogRefresher gameLogRefresher,
-            Supplier<BridgePublishedActionChoices> publishedActionChoicesBuilder,
+            BridgePublishedMcpState publishedMcpState,
             Supplier<DeckCardLists> deckListSupplier,
-            Function<GameView, List<Map<String, Object>>> playersBuilder,
-            Function<GameView, List<Map<String, Object>>> combatGroupsBuilder,
-            Function<GameView, List<Map<String, Object>>> stackItemsBuilder,
-            ToLongFunction<Map<String, Object>> gameStateCursorUpdater,
             BridgeOracleTextLookup oracleTextLookup) {
         this.username = username;
         this.logger = logger;
         this.processor = processor;
-        this.gameState = gameState;
-        this.gameLogState = gameLogState;
         this.gameLogRefresher = gameLogRefresher;
-        this.publishedActionChoicesBuilder = publishedActionChoicesBuilder;
+        this.publishedMcpState = publishedMcpState;
         this.deckListSupplier = deckListSupplier;
-        this.playersBuilder = playersBuilder;
-        this.combatGroupsBuilder = combatGroupsBuilder;
-        this.stackItemsBuilder = stackItemsBuilder;
-        this.gameStateCursorUpdater = gameStateCursorUpdater;
         this.oracleTextLookup = oracleTextLookup;
-    }
-
-    public void publishProcessorState() {
-        if (!processor.isProcessorThread()) {
-            throw new IllegalStateException("publishProcessorState must run on the bridge processor thread");
-        }
-        publishedSnapshot.set(buildPublishedSnapshot());
     }
 
     public boolean isActionPending() {
         syncPublishedState();
-        return publishedSnapshot.get().actionChoices().actionPending();
+        return publishedMcpState.snapshot().actionChoices().actionPending();
     }
 
     public ActionResult getActionChoices(Long boardCursorParam) {
         syncPublishedState();
-        return publishedSnapshot.get().actionChoices().copyForRead(boardCursorParam);
+        return publishedMcpState.snapshot().actionChoices().copyForRead(boardCursorParam);
     }
 
     public ActionResult getActionChoicesSafe(Long boardCursorParam) {
@@ -239,43 +203,13 @@ public final class BridgeMcpQueryApi {
     private BridgeGameLogSnapshot snapshotGameLog() {
         long syncEpoch = processor.submit(BridgeCommand.of(gameLogRefresher::captureSyncBarrierEpoch));
         gameLogRefresher.awaitSyncThrough(syncEpoch);
-        var gameLog = processor.submit(BridgeCommand.of(() -> publishedSnapshot.get().gameLog()));
+        var gameLog = publishedMcpState.snapshot().gameLog();
         return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
     }
 
     private BridgePublishedGameState snapshotGameStateForRead() {
-        return processor.submit(BridgeCommand.of(() -> {
-            BridgePublishedGameState snapshot = publishedSnapshot.get().gameState();
-            if (!snapshot.available()) {
-                return snapshot;
-            }
-            var state = new GetGameStateTool.Result();
-            state.available = true;
-            state.game_seq = snapshot.gameSeq();
-            state.turn = snapshot.turn();
-            state.phase = snapshot.phase();
-            state.step = snapshot.step();
-            state.active_player = snapshot.activePlayer();
-            state.priority_player = snapshot.priorityPlayer();
-            state.players = snapshot.players();
-            state.stack = snapshot.stack();
-            state.combat = snapshot.combat();
-            long currentCursor = gameStateCursorUpdater.applyAsLong(McpToolRegistry.resultToMap(state));
-            return new BridgePublishedGameState(
-                true,
-                null,
-                currentCursor,
-                snapshot.turn(),
-                snapshot.phase(),
-                snapshot.step(),
-                snapshot.activePlayer(),
-                snapshot.priorityPlayer(),
-                snapshot.players(),
-                snapshot.stack(),
-                snapshot.combat(),
-                snapshot.gameSeq()
-            );
-        }));
+        syncPublishedState();
+        return publishedMcpState.snapshot().gameState();
     }
 
     private GetGameLogTool.Result buildGameLogResult(
@@ -325,38 +259,6 @@ public final class BridgeMcpQueryApi {
         return state;
     }
 
-    private BridgePublishedMcpSnapshot buildPublishedSnapshot() {
-        // TODO(shim): expires=2026-06-30 Stop rebuilding MCP snapshots from mutable Bridge*State
-        // holders once processor-private state and native published read models exist.
-        return new BridgePublishedMcpSnapshot(
-            publishedActionChoicesBuilder.get(),
-            buildPublishedGameState(),
-            gameLogState.publishedGameLog()
-        );
-    }
-
-    private BridgePublishedGameState buildPublishedGameState() {
-        GameView gameView = gameState.lastGameView();
-        if (gameView == null) {
-            return BridgePublishedGameState.unavailable("No game state available yet");
-        }
-
-        return new BridgePublishedGameState(
-            true,
-            null,
-            null,
-            gameState.currentRound(),
-            gameView.getPhase() != null ? gameView.getPhase().toString() : null,
-            gameView.getStep() != null ? gameView.getStep().toString() : null,
-            gameView.getActivePlayerName(),
-            gameView.getPriorityPlayerName(),
-            freezeMapList(playersBuilder.apply(gameView)),
-            freezeMapList(stackItemsBuilder.apply(gameView)),
-            freezeMapList(combatGroupsBuilder.apply(gameView)),
-            gameView.getGameSeq()
-        );
-    }
-
     private void syncPublishedState() {
         processor.submit(BridgeCommand.of(() -> null));
     }
@@ -376,43 +278,6 @@ public final class BridgeMcpQueryApi {
             return snapshot.nextCursor();
         }
         return requestedCursor;
-    }
-
-    private static List<Map<String, Object>> freezeMapList(List<Map<String, Object>> values) {
-        if (values == null) {
-            return null;
-        }
-        var frozen = new ArrayList<Map<String, Object>>(values.size());
-        for (Map<String, Object> value : values) {
-            frozen.add(freezeMap(value));
-        }
-        return Collections.unmodifiableList(frozen);
-    }
-
-    private static Map<String, Object> freezeMap(Map<String, Object> value) {
-        var frozen = new LinkedHashMap<String, Object>();
-        for (Map.Entry<String, Object> entry : value.entrySet()) {
-            frozen.put(entry.getKey(), freezeJsonLike(entry.getValue()));
-        }
-        return Collections.unmodifiableMap(frozen);
-    }
-
-    private static Object freezeJsonLike(Object value) {
-        if (value instanceof Map<?, ?> map) {
-            var frozen = new LinkedHashMap<String, Object>();
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                frozen.put((String) entry.getKey(), freezeJsonLike(entry.getValue()));
-            }
-            return Collections.unmodifiableMap(frozen);
-        }
-        if (value instanceof List<?> list) {
-            var frozen = new ArrayList<>(list.size());
-            for (Object entry : list) {
-                frozen.add(freezeJsonLike(entry));
-            }
-            return Collections.unmodifiableList(frozen);
-        }
-        return value;
     }
 
     private static String renderDeckSection(List<DeckCardInfo> cards) {
