@@ -15,7 +15,7 @@ public final class BridgeGameLogRefresher {
     // TODO(shim): expires=2026-06-30 Delete this server bridge-event sync once
     // the processor can append authoritative game-log records directly from
     // processor-owned event data instead of polling Session.getBridgeEvents().
-    private record FetchRequest(long generation, UUID gameId, UUID playerId, int serverCursor) {
+    private record FetchRequest(long generation, UUID gameId, UUID playerId, int serverCursor, long syncEpoch) {
     }
 
     private final BridgeProcessor processor;
@@ -25,9 +25,12 @@ public final class BridgeGameLogRefresher {
     private final Logger logger;
     private final String username;
     private final ExecutorService fetchExecutor;
+    private final Object syncLock = new Object();
     private boolean refreshQueued = false;
     private boolean fetchInFlight = false;
     private boolean closed = false;
+    private long requestedSyncEpoch = 0;
+    private long completedSyncEpoch = 0;
 
     public BridgeGameLogRefresher(
             BridgeProcessor processor,
@@ -54,13 +57,39 @@ public final class BridgeGameLogRefresher {
         if (closed) {
             return;
         }
+        requestedSyncEpoch++;
         refreshQueued = true;
         startFetchIfNeeded();
     }
 
     public void shutdown() {
         closed = true;
+        synchronized (syncLock) {
+            completedSyncEpoch = Math.max(completedSyncEpoch, requestedSyncEpoch);
+            syncLock.notifyAll();
+        }
         fetchExecutor.shutdownNow();
+    }
+
+    public long captureSyncBarrierEpoch() {
+        requireProcessorThread("captureSyncBarrierEpoch");
+        if (closed || sessionSupplier.get() == null || gameState.currentGameId() == null || gameState.currentPlayerId() == null) {
+            return completedSyncEpoch;
+        }
+        return requestedSyncEpoch;
+    }
+
+    public void awaitSyncThrough(long targetEpoch) {
+        synchronized (syncLock) {
+            while (!closed && completedSyncEpoch < targetEpoch) {
+                try {
+                    syncLock.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new IllegalStateException("Interrupted while waiting for published game-log sync", e);
+                }
+            }
+        }
     }
 
     private void startFetchIfNeeded() {
@@ -79,7 +108,8 @@ public final class BridgeGameLogRefresher {
             gameState.generation(),
             gameId,
             playerId,
-            gameLogState.nextServerCursor()
+            gameLogState.nextServerCursor(),
+            requestedSyncEpoch
         );
         refreshQueued = false;
         fetchInFlight = true;
@@ -115,6 +145,7 @@ public final class BridgeGameLogRefresher {
     private void finishFetch(FetchRequest request, List<BridgeLogEntry> fetched, Throwable failure) {
         requireProcessorThread("finishFetch");
         fetchInFlight = false;
+        long completedEpoch = -1;
         if (failure != null) {
             logger.error("[" + username + "] Failed to fetch bridge events", failure);
         }
@@ -127,14 +158,30 @@ public final class BridgeGameLogRefresher {
             gameLogState.recordFetchedBridgeEvents(fetched);
             if (failure != null || !fetched.isEmpty()) {
                 refreshQueued = true;
+            } else if (!refreshQueued) {
+                completedEpoch = request.syncEpoch();
             }
+        } else {
+            completedEpoch = request.syncEpoch();
         }
         startFetchIfNeeded();
+        if (completedEpoch >= 0) {
+            markSyncCompleted(completedEpoch);
+        }
     }
 
     private void requireProcessorThread(String method) {
         if (!processor.isProcessorThread()) {
             throw new IllegalStateException(method + " must run on the bridge processor thread");
+        }
+    }
+
+    private void markSyncCompleted(long syncEpoch) {
+        synchronized (syncLock) {
+            if (syncEpoch > completedSyncEpoch) {
+                completedSyncEpoch = syncEpoch;
+            }
+            syncLock.notifyAll();
         }
     }
 }

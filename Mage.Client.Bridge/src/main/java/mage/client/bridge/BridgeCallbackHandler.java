@@ -285,20 +285,6 @@ public class BridgeCallbackHandler {
             processor::enqueueCallback,
             this::handleCallbackException
         );
-        this.mcpQueryApi = new BridgeMcpQueryApi(
-            client.getUsername(),
-            logger,
-            processor,
-            decisionState,
-            gameState,
-            gameLogState,
-            () -> deckList,
-            gameStateBuilder::buildPlayersArray,
-            gameStateBuilder::buildCombatGroups,
-            gameView -> buildStackItems(gameView, true, true),
-            this::updateGameStateCursor,
-            oracleTextService::getOracleText
-        );
         this.gameLogRefresher = new BridgeGameLogRefresher(
             processor,
             gameState,
@@ -306,6 +292,21 @@ public class BridgeCallbackHandler {
             () -> session,
             logger,
             client.getUsername()
+        );
+        this.mcpQueryApi = new BridgeMcpQueryApi(
+            client.getUsername(),
+            logger,
+            processor,
+            decisionState,
+            gameState,
+            gameLogState,
+            gameLogRefresher,
+            () -> deckList,
+            gameStateBuilder::buildPlayersArray,
+            gameStateBuilder::buildCombatGroups,
+            gameView -> buildStackItems(gameView, true, true),
+            this::updateGameStateCursor,
+            oracleTextService::getOracleText
         );
         this.chooseActionFlowManager = new BridgeChooseActionFlowManager(
             processor,

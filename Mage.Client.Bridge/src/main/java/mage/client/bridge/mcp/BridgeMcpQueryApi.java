@@ -4,6 +4,7 @@ import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeDecisionState;
+import mage.client.bridge.processor.BridgeGameLogRefresher;
 import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgePublishedLogEntry;
 import mage.client.bridge.processor.BridgeGameState;
@@ -35,6 +36,7 @@ public final class BridgeMcpQueryApi {
     private final BridgeDecisionState decisionState;
     private final BridgeGameState gameState;
     private final BridgeGameLogState gameLogState;
+    private final BridgeGameLogRefresher gameLogRefresher;
     private final Supplier<DeckCardLists> deckListSupplier;
     private final Function<GameView, List<Map<String, Object>>> playersBuilder;
     private final Function<GameView, List<Map<String, Object>>> combatGroupsBuilder;
@@ -51,6 +53,7 @@ public final class BridgeMcpQueryApi {
             BridgeDecisionState decisionState,
             BridgeGameState gameState,
             BridgeGameLogState gameLogState,
+            BridgeGameLogRefresher gameLogRefresher,
             Supplier<DeckCardLists> deckListSupplier,
             Function<GameView, List<Map<String, Object>>> playersBuilder,
             Function<GameView, List<Map<String, Object>>> combatGroupsBuilder,
@@ -63,6 +66,7 @@ public final class BridgeMcpQueryApi {
         this.decisionState = decisionState;
         this.gameState = gameState;
         this.gameLogState = gameLogState;
+        this.gameLogRefresher = gameLogRefresher;
         this.deckListSupplier = deckListSupplier;
         this.playersBuilder = playersBuilder;
         this.combatGroupsBuilder = combatGroupsBuilder;
@@ -223,7 +227,9 @@ public final class BridgeMcpQueryApi {
     }
 
     private BridgeGameLogSnapshot snapshotGameLog() {
-        var gameLog = publishedSnapshot.get().gameLog();
+        long syncEpoch = processor.submit(BridgeCommand.of(gameLogRefresher::captureSyncBarrierEpoch));
+        gameLogRefresher.awaitSyncThrough(syncEpoch);
+        var gameLog = processor.submit(BridgeCommand.of(() -> publishedSnapshot.get().gameLog()));
         return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
     }
 

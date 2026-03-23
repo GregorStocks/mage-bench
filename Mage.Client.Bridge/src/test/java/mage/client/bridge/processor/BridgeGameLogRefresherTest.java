@@ -12,6 +12,7 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -131,6 +132,94 @@ class BridgeGameLogRefresherTest {
                 .containsExactly(0, 1);
             assertThat(publishedLog.entries()).extracting(entry -> entry.bridgeEvent().type())
                 .containsExactly("BEGIN_TURN", "LAND_PLAYED");
+        } finally {
+            refresher.shutdown();
+            processor.shutdown("test");
+        }
+    }
+
+    @Test
+    void syncBarrierWaitsForTriggeredRefreshChainToDrain() throws Exception {
+        AtomicInteger fetchCalls = new AtomicInteger();
+        CountDownLatch firstFetchStarted = new CountDownLatch(1);
+        CountDownLatch releaseFirstFetch = new CountDownLatch(1);
+        Session session = sessionProxy((proxy, method, args) -> {
+            if ("getBridgeEvents".equals(method.getName())) {
+                int call = fetchCalls.incrementAndGet();
+                if (call == 1) {
+                    firstFetchStarted.countDown();
+                    if (!releaseFirstFetch.await(1, TimeUnit.SECONDS)) {
+                        throw new AssertionError("Timed out waiting to release first fetch");
+                    }
+                    return List.of(bridgeLogEntry(5, "LAND_PLAYED", 1, "Alice", "Alice", "Mountain", null));
+                }
+                return List.of();
+            }
+            return defaultReturnValue(method.getReturnType());
+        });
+
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            event -> {}
+        );
+        BridgeGameState gameState = new BridgeGameState();
+        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
+            processor,
+            gameState,
+            gameLogState,
+            () -> session,
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            "TestPlayer"
+        );
+        processor.setAfterMessageHook(message -> {
+            if (message instanceof BridgeCallbackEvent) {
+                refresher.afterCallbackProcessed();
+            }
+        });
+        processor.start();
+
+        try {
+            UUID gameId = UUID.randomUUID();
+            UUID playerId = UUID.randomUUID();
+            processor.submit(BridgeCommand.of(() -> {
+                gameState.activateGame(gameId, playerId);
+                return null;
+            }));
+
+            processor.enqueueCallback(new BridgeCallbackEvent(gameId, ClientCallbackMethod.GAME_UPDATE, null));
+            assertThat(firstFetchStarted.await(1, TimeUnit.SECONDS)).isTrue();
+
+            CountDownLatch waiterFinished = new CountDownLatch(1);
+            AtomicReference<BridgePublishedGameLog> published = new AtomicReference<>();
+            AtomicReference<Throwable> waiterFailure = new AtomicReference<>();
+            Thread waiter = new Thread(() -> {
+                try {
+                    long syncEpoch = processor.submit(BridgeCommand.of(refresher::captureSyncBarrierEpoch));
+                    refresher.awaitSyncThrough(syncEpoch);
+                    published.set(processor.submit(BridgeCommand.of(gameLogState::publishedGameLog)));
+                } catch (Throwable t) {
+                    waiterFailure.set(t);
+                } finally {
+                    waiterFinished.countDown();
+                }
+            }, "bridge-log-sync-waiter");
+            waiter.start();
+
+            Thread.sleep(100);
+            assertThat(waiterFinished.getCount()).isEqualTo(1);
+
+            releaseFirstFetch.countDown();
+
+            assertThat(waiterFinished.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThat(waiterFailure.get()).isNull();
+            assertThat(fetchCalls.get()).isEqualTo(2);
+            assertThat(published.get()).isNotNull();
+            assertThat(published.get().entries()).extracting(BridgePublishedLogEntry::seq)
+                .containsExactly(0);
+            assertThat(published.get().entries()).extracting(entry -> entry.bridgeEvent().cardName())
+                .containsExactly("Mountain");
         } finally {
             refresher.shutdown();
             processor.shutdown("test");
