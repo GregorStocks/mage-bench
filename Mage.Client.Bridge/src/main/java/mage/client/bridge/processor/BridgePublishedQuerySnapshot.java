@@ -1,14 +1,12 @@
-package mage.client.bridge.mcp;
+package mage.client.bridge.processor;
 
-import mage.client.bridge.processor.BridgePublishedGameLog;
-
-record BridgePublishedMcpSnapshot(
+public record BridgePublishedQuerySnapshot(
         BridgePublishedActionChoices actionChoices,
         BridgePublishedGameState gameState,
         BridgePublishedGameLog gameLog
 ) {
-    static BridgePublishedMcpSnapshot empty() {
-        return new BridgePublishedMcpSnapshot(
+    public static BridgePublishedQuerySnapshot empty() {
+        return new BridgePublishedQuerySnapshot(
             BridgePublishedActionChoices.empty(),
             BridgePublishedGameState.unavailable("No game state available yet"),
             BridgePublishedGameLog.empty()

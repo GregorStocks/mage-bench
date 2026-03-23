@@ -1,6 +1,5 @@
 package mage.client.bridge;
 
-import mage.client.bridge.mcp.BridgePublishedMcpState;
 import mage.client.bridge.processor.BridgeChooseActionFlow;
 import mage.client.bridge.processor.BridgeChooseActionFlowContext;
 import mage.client.bridge.processor.BridgeChooseActionFlowManager;
@@ -17,8 +16,11 @@ import mage.client.bridge.processor.BridgeGameState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
+import mage.client.bridge.processor.BridgePublishedQueryState;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.client.bridge.processor.BridgeProcessorState;
+import mage.cards.decks.DeckCardInfo;
+import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardInfo;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
@@ -775,7 +777,7 @@ class BridgeCallbackHandlerTest {
         BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
         BridgeGameLogState gameLogState = (BridgeGameLogState) getProcessorStateField(handler, "gameLogState");
         BridgeGameLogRefresher gameLogRefresher = (BridgeGameLogRefresher) getDirectField(handler, "gameLogRefresher");
-        BridgePublishedMcpState publishedMcpState = (BridgePublishedMcpState) getDirectField(handler, "publishedMcpState");
+        BridgePublishedQueryState publishedQueryState = (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
 
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
@@ -801,7 +803,7 @@ class BridgeCallbackHandlerTest {
                     throw new IllegalStateException("Interrupted while blocking afterMessageHook", e);
                 }
             }
-            publishedMcpState.publishProcessorState();
+            publishedQueryState.publishProcessorState();
         });
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -2928,6 +2930,24 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void queryApisFailFastAfterProcessorShutdown() {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        DeckCardLists deck = new DeckCardLists();
+        deck.setCards(List.of(new DeckCardInfo("Lightning Bolt", "150", "lea", 4)));
+        handler.setDeckList(deck);
+
+        handler.shutdownProcessor("test shutdown");
+
+        assertThatThrownBy(handler::getMyDecklist)
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessageContaining("Bridge processor is shut down");
+        assertThatThrownBy(() -> handler.getOracleText("Lightning Bolt", null, null, null))
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessageContaining("Bridge processor is shut down");
+    }
+
+    @Test
     void passPriorityReturnsCancelledResultWhenCallerThreadIsInterrupted() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -3778,26 +3798,26 @@ class BridgeCallbackHandlerTest {
             throws Exception {
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
         BridgeGameLogState gameLogState = (BridgeGameLogState) getProcessorStateField(handler, "gameLogState");
-        BridgePublishedMcpState publishedMcpState = (BridgePublishedMcpState) getDirectField(handler, "publishedMcpState");
+        BridgePublishedQueryState publishedQueryState = (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
         processor.submit(BridgeCommand.of(() -> {
             gameLogState.recordFetchedBridgeEvents(events);
-            publishedMcpState.publishProcessorState();
+            publishedQueryState.publishProcessorState();
             return null;
         }));
     }
 
     private static void publishProcessorState(BridgeCallbackHandler handler) throws Exception {
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
-        BridgePublishedMcpState publishedMcpState = (BridgePublishedMcpState) getDirectField(handler, "publishedMcpState");
+        BridgePublishedQueryState publishedQueryState = (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
         processor.submit(BridgeCommand.of(() -> {
-            publishedMcpState.publishProcessorState();
+            publishedQueryState.publishProcessorState();
             return null;
         }));
     }
 
     private static Long publishedGameStateSnapshotId(BridgeCallbackHandler handler) throws Exception {
-        Object publishedMcpState = getDirectField(handler, "publishedMcpState");
-        Object snapshot = invokeNoArg(publishedMcpState, "snapshot");
+        Object publishedQueryState = getDirectField(handler, "publishedQueryState");
+        Object snapshot = invokeNoArg(publishedQueryState, "snapshot");
         Object gameState = invokeNoArg(snapshot, "gameState");
         return (Long) invokeNoArg(gameState, "snapshotId");
     }

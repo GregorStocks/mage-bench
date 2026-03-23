@@ -1,4 +1,4 @@
-package mage.client.bridge.mcp;
+package mage.client.bridge.processor;
 
 import mage.client.bridge.tools.ActionResult;
 
@@ -16,7 +16,7 @@ public final class BridgePublishedActionChoices {
         this.snapshot = snapshot;
     }
 
-    static BridgePublishedActionChoices empty() {
+    public static BridgePublishedActionChoices empty() {
         var result = new ActionResult();
         result.action_pending = false;
         return new BridgePublishedActionChoices(result);
@@ -26,11 +26,11 @@ public final class BridgePublishedActionChoices {
         return new BridgePublishedActionChoices(copyActionResult(result, true, null));
     }
 
-    boolean actionPending() {
+    public boolean actionPending() {
         return Boolean.TRUE.equals(snapshot.action_pending);
     }
 
-    ActionResult copyForRead(Long boardCursorParam) {
+    public ActionResult copyForRead(Long boardCursorParam) {
         return copyActionResult(snapshot, false, boardCursorParam);
     }
 

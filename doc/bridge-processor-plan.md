@@ -118,6 +118,11 @@ The action/game-state slice is also closer to the intended model now:
   processor, not lazily on the MCP read path
 - `get_action_choices` is now a real read surface rather than a hidden
   auto-resolve path
+- the published query-state owner now lives in `processor/`, not `mcp/`
+- `BridgeMcpQueryApi` is now closer to a read shell:
+  - published-state reads stay on the published snapshot/log path
+  - `get_my_decklist` and `get_oracle_text` now go through a processor-side
+    query command service instead of touching handler-owned helpers directly
 
 That API should keep its semantics explicit:
 

@@ -1,11 +1,13 @@
 package mage.client.bridge.mcp;
 
-import mage.cards.decks.DeckCardInfo;
-import mage.cards.decks.DeckCardLists;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeGameLogRefresher;
+import mage.client.bridge.processor.BridgePublishedGameState;
 import mage.client.bridge.processor.BridgePublishedLogEntry;
+import mage.client.bridge.processor.BridgePublishedQuerySnapshot;
+import mage.client.bridge.processor.BridgePublishedQueryState;
 import mage.client.bridge.processor.BridgeProcessor;
+import mage.client.bridge.processor.BridgeQueryCommandService;
 import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.GetGameHistoryTool;
 import mage.client.bridge.tools.GetGameLogTool;
@@ -14,36 +16,31 @@ import mage.client.bridge.tools.GetOracleTextTool;
 import mage.game.BridgeLogEntry;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public final class BridgeMcpQueryApi {
     private final String username;
     private final Logger logger;
     private final BridgeProcessor processor;
     private final BridgeGameLogRefresher gameLogRefresher;
-    private final BridgePublishedMcpState publishedMcpState;
-    private final Supplier<DeckCardLists> deckListSupplier;
-    private final BridgeOracleTextLookup oracleTextLookup;
+    private final BridgePublishedQueryState publishedQueryState;
+    private final BridgeQueryCommandService queryCommandService;
 
     public BridgeMcpQueryApi(
             String username,
             Logger logger,
             BridgeProcessor processor,
             BridgeGameLogRefresher gameLogRefresher,
-            BridgePublishedMcpState publishedMcpState,
-            Supplier<DeckCardLists> deckListSupplier,
-            BridgeOracleTextLookup oracleTextLookup) {
+            BridgePublishedQueryState publishedQueryState,
+            BridgeQueryCommandService queryCommandService) {
         this.username = username;
         this.logger = logger;
         this.processor = processor;
         this.gameLogRefresher = gameLogRefresher;
-        this.publishedMcpState = publishedMcpState;
-        this.deckListSupplier = deckListSupplier;
-        this.oracleTextLookup = oracleTextLookup;
+        this.publishedQueryState = publishedQueryState;
+        this.queryCommandService = queryCommandService;
     }
 
     public boolean isActionPending() {
@@ -176,18 +173,7 @@ public final class BridgeMcpQueryApi {
     }
 
     public Map<String, Object> getMyDecklist() {
-        var result = new HashMap<String, Object>();
-        DeckCardLists deck = deckListSupplier.get();
-        if (deck == null) {
-            result.put("error", "No deck loaded");
-            return result;
-        }
-
-        result.put("cards", renderDeckSection(deck.getCards()));
-        if (!deck.getSideboard().isEmpty()) {
-            result.put("sideboard", renderDeckSection(deck.getSideboard()));
-        }
-        return result;
+        return processor.submit(BridgeCommand.of(queryCommandService::getMyDecklist));
     }
 
     public GetOracleTextTool.Result getOracleText(
@@ -195,14 +181,16 @@ public final class BridgeMcpQueryApi {
             String objectId,
             String[] cardNames,
             String[] objectIds) {
-        return oracleTextLookup.getOracleText(cardName, objectId, cardNames, objectIds);
+        return processor.submit(BridgeCommand.of(
+            () -> queryCommandService.getOracleText(cardName, objectId, cardNames, objectIds)
+        ));
     }
 
     private BridgeGameLogSnapshot snapshotGameLog() {
         long syncEpoch = processor.submit(BridgeCommand.of(gameLogRefresher::captureSyncBarrierEpoch));
         gameLogRefresher.awaitSyncThrough(syncEpoch);
         return processor.submit(BridgeCommand.of(() -> {
-            var gameLog = publishedMcpState.snapshot().gameLog();
+            var gameLog = publishedQueryState.snapshot().gameLog();
             return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
         }));
     }
@@ -250,8 +238,8 @@ public final class BridgeMcpQueryApi {
         return state;
     }
 
-    private BridgePublishedMcpSnapshot snapshotForRead() {
-        return processor.submit(BridgeCommand.of(publishedMcpState::snapshot));
+    private BridgePublishedQuerySnapshot snapshotForRead() {
+        return processor.submit(BridgeCommand.of(publishedQueryState::snapshot));
     }
 
     private GetGameLogTool.Result buildGameLogResult(
@@ -277,16 +265,5 @@ public final class BridgeMcpQueryApi {
             return snapshot.nextCursor();
         }
         return requestedCursor;
-    }
-
-    private static String renderDeckSection(List<DeckCardInfo> cards) {
-        var sb = new StringBuilder();
-        for (DeckCardInfo card : cards) {
-            if (sb.length() > 0) {
-                sb.append("\n");
-            }
-            sb.append(card.getAmount()).append("x ").append(card.getCardName());
-        }
-        return sb.toString();
     }
 }

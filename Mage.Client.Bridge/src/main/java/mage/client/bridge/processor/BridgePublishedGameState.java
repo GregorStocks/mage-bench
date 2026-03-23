@@ -1,9 +1,9 @@
-package mage.client.bridge.mcp;
+package mage.client.bridge.processor;
 
 import java.util.List;
 import java.util.Map;
 
-record BridgePublishedGameState(
+public record BridgePublishedGameState(
         boolean available,
         String error,
         Long snapshotId,
@@ -17,7 +17,7 @@ record BridgePublishedGameState(
         List<Map<String, Object>> combat,
         Integer gameSeq
 ) {
-    static BridgePublishedGameState unavailable(String error) {
+    public static BridgePublishedGameState unavailable(String error) {
         return new BridgePublishedGameState(
             false,
             error,

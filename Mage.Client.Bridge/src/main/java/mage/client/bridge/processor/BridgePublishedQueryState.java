@@ -1,11 +1,5 @@
-package mage.client.bridge.mcp;
+package mage.client.bridge.processor;
 
-import mage.client.bridge.processor.BridgeCallbackEvent;
-import mage.client.bridge.processor.BridgeGameLogRefresher;
-import mage.client.bridge.processor.BridgeProcessorMessage;
-import mage.client.bridge.processor.BridgeProcessor;
-import mage.client.bridge.processor.BridgeProcessorState;
-import mage.client.bridge.processor.BridgeProcessorShutdown;
 import mage.client.bridge.tools.GetGameStateTool;
 import mage.client.bridge.tools.McpToolRegistry;
 import mage.view.GameView;
@@ -21,7 +15,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToLongFunction;
 
-public final class BridgePublishedMcpState {
+public final class BridgePublishedQueryState {
     private final Logger logger;
     private final String username;
     private final BridgeProcessor processor;
@@ -33,11 +27,11 @@ public final class BridgePublishedMcpState {
     private final Function<GameView, List<Map<String, Object>>> stackItemsBuilder;
     private final ToLongFunction<Map<String, Object>> gameStateSnapshotIdUpdater;
     private final boolean tracePublishedState = Boolean.getBoolean("xmage.bridge.tracePublishedState");
-    private final AtomicReference<BridgePublishedMcpSnapshot> publishedSnapshot =
-        new AtomicReference<>(BridgePublishedMcpSnapshot.empty());
+    private final AtomicReference<BridgePublishedQuerySnapshot> publishedSnapshot =
+        new AtomicReference<>(BridgePublishedQuerySnapshot.empty());
     private String lastPublishedGameStatePayload = null;
 
-    public BridgePublishedMcpState(
+    public BridgePublishedQueryState(
             Logger logger,
             String username,
             BridgeProcessor processor,
@@ -64,7 +58,7 @@ public final class BridgePublishedMcpState {
         if (!processor.isProcessorThread()) {
             throw new IllegalStateException("publishProcessorState must run on the bridge processor thread");
         }
-        BridgePublishedMcpSnapshot previous = publishedSnapshot.get();
+        BridgePublishedQuerySnapshot previous = publishedSnapshot.get();
         BridgePublishedSnapshotBuild built = buildPublishedSnapshot();
         publishedSnapshot.set(built.snapshot());
         tracePublishedGameStateChange(cause, previous.gameState(), built.gameState(), built.gameStatePayload());
@@ -74,7 +68,7 @@ public final class BridgePublishedMcpState {
         publishProcessorState(null);
     }
 
-    BridgePublishedMcpSnapshot snapshot() {
+    public BridgePublishedQuerySnapshot snapshot() {
         return publishedSnapshot.get();
     }
 
@@ -83,7 +77,7 @@ public final class BridgePublishedMcpState {
         // holders once processor-private state and native published read models exist.
         BridgePublishedGameStateBuild gameStateBuild = buildPublishedGameState();
         return new BridgePublishedSnapshotBuild(
-            new BridgePublishedMcpSnapshot(
+            new BridgePublishedQuerySnapshot(
                 publishedActionChoicesBuilder.get(),
                 gameStateBuild.state(),
                 processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch())
@@ -178,7 +172,7 @@ public final class BridgePublishedMcpState {
     }
 
     private record BridgePublishedSnapshotBuild(
-            BridgePublishedMcpSnapshot snapshot,
+            BridgePublishedQuerySnapshot snapshot,
             BridgePublishedGameState gameState,
             String gameStatePayload
     ) {

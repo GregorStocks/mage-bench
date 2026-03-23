@@ -3,8 +3,6 @@ package mage.client.bridge;
 import mage.client.bridge.listener.BridgeCallbackIngress;
 import mage.client.bridge.mcp.BridgeMcpActionApi;
 import mage.client.bridge.mcp.BridgeMcpQueryApi;
-import mage.client.bridge.mcp.BridgePublishedActionChoices;
-import mage.client.bridge.mcp.BridgePublishedMcpState;
 import mage.client.bridge.processor.BridgeActionableCallbackOutcome;
 import mage.client.bridge.processor.BridgeActionCommandService;
 import mage.client.bridge.processor.BridgeCallbackDispatcher;
@@ -22,6 +20,9 @@ import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.client.bridge.processor.BridgeProcessorState;
+import mage.client.bridge.processor.BridgePublishedActionChoices;
+import mage.client.bridge.processor.BridgePublishedQueryState;
+import mage.client.bridge.processor.BridgeQueryCommandService;
 import mage.client.bridge.processor.BridgeStartGameFlow;
 import mage.client.bridge.processor.BridgeStartGameFlowManager;
 import mage.cards.decks.DeckCardInfo;
@@ -121,11 +122,12 @@ public class BridgeCallbackHandler {
     private final BridgeCallbackIngress callbackIngress;
     private final BridgeMcpActionApi mcpActionApi;
     private final BridgeMcpQueryApi mcpQueryApi;
-    private final BridgePublishedMcpState publishedMcpState;
+    private final BridgePublishedQueryState publishedQueryState;
     private final BridgeProcessor processor;
     private final BridgeProcessorState processorState = new BridgeProcessorState();
     private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgeActionCommandService actionCommandService;
+    private final BridgeQueryCommandService queryCommandService;
     private volatile Session session;
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private static final int MAX_POOL_MANA_ATTEMPTS = 10; // Cancel payment after this many pool retries
@@ -298,7 +300,7 @@ public class BridgeCallbackHandler {
             logger,
             client.getUsername()
         );
-        this.publishedMcpState = new BridgePublishedMcpState(
+        this.publishedQueryState = new BridgePublishedQueryState(
             logger,
             client.getUsername(),
             processor,
@@ -310,14 +312,17 @@ public class BridgeCallbackHandler {
             gameView -> buildStackItems(gameView, true, true),
             this::updateGameStateSnapshotId
         );
+        this.queryCommandService = new BridgeQueryCommandService(
+            () -> deckList,
+            oracleTextService::getOracleText
+        );
         this.mcpQueryApi = new BridgeMcpQueryApi(
             client.getUsername(),
             logger,
             processor,
             gameLogRefresher,
-            publishedMcpState,
-            () -> deckList,
-            oracleTextService::getOracleText
+            publishedQueryState,
+            queryCommandService
         );
         this.chooseActionFlowManager = new BridgeChooseActionFlowManager(
             processor,
@@ -367,7 +372,7 @@ public class BridgeCallbackHandler {
                     && processorState.gameState().currentGameId().equals(event.objectId())) {
                 gameLogRefresher.afterCallbackProcessed();
             }
-            publishedMcpState.publishProcessorState(message);
+            publishedQueryState.publishProcessorState(message);
         });
         this.processor.start();
     }
