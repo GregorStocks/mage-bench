@@ -8,12 +8,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parseJSON5 } from '../../utils/parse-json5';
 
-const goldenDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden');
+const goldenDir = path.resolve(process.cwd(), '..', 'tests', 'golden');
 const exportsDir = path.join(goldenDir, 'exports');
 const promptsDir = path.join(goldenDir, 'prompts');
 
 export function getStaticPaths() {
-  const exportsDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden', 'exports');
+  const exportsDir = path.resolve(process.cwd(), '..', 'tests', 'golden', 'exports');
   if (!fs.existsSync(exportsDir)) {
     return [];
   }
