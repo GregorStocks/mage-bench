@@ -8,10 +8,10 @@ from magebench.game.export_card_data import DECKLIST_RE, build_card_data
 from magebench.game.export_decisions import build_decisions
 from magebench.game.export_errors import link_errors_to_decisions, read_errors
 from magebench.game.export_llm_events import read_llm_events
+from magebench.game.game_export_migrations import CURRENT_GAME_EXPORT_VERSION
 from magebench.game.game_export_types import BuiltGameExport, require_built_game_export
 from magebench.game.game_exports import write_raw_game_export
 from magebench.game.season import SEASON_1_START_EPOCH
-from schemas.game_export_migrations import CURRENT_GAME_EXPORT_VERSION
 
 _ROOT = Path(__file__).resolve().parents[3]
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"

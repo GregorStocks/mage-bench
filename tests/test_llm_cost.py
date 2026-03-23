@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from magebench.common import http_utils
-from puppeteer.llm_cost import (
+from magebench.common.llm_cost import (
     DEFAULT_LLM_PROVIDER,
     fetch_openrouter_prices,
     get_model_price,

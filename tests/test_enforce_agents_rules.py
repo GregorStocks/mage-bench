@@ -159,8 +159,8 @@ class TestBlockedCommands:
     @pytest.mark.parametrize(
         "command",
         [
-            "GOLDEN_INTEGRATION=1 uv run --project puppeteer pytest -m golden -v tests/",
-            "GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run --project puppeteer pytest -m golden -v tests/",
+            "GOLDEN_INTEGRATION=1 uv run pytest -m golden -v tests/",
+            "GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v tests/",
             'GOLDEN_INTEGRATION=1 uv run pytest -m golden -k "bolt"',
             "uv run pytest -m golden -v",
         ],
@@ -206,7 +206,7 @@ class TestAllowedCommands:
             "git diff",
             "git log --oneline -5",
             "uv run python script.py",
-            "uv run --project puppeteer python -m pytest",
+            "uv run python -m pytest",
             "ls -la",
             "cat foo.txt",
             "grep -r pattern .",

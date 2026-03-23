@@ -12,8 +12,6 @@ from magebench.common.json5_utils import loads_json5
 from magebench.game.game_export_types import Choice, Decision
 from magebench.game.game_exports import load_raw_game_export
 
-SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts" / "analysis"
-
 
 def _make_test_game(
     *,
@@ -213,8 +211,12 @@ def _read_export(path: Path) -> dict:
 
 
 def _run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]:
+    module_name = {
+        "annotate_game.py": "magebench.analysis.blunder.annotate_game",
+        "extract_decisions.py": "magebench.cli.analysis.extract_decisions",
+    }[script_name]
     return subprocess.run(
-        ["uv", "run", "python", str(SCRIPTS_DIR / script_name), *args],
+        ["uv", "run", "python", "-m", module_name, *args],
         capture_output=True,
         text=True,
         check=True,

@@ -8,17 +8,17 @@ from unittest.mock import patch
 import pytest
 
 from magebench.common.json5_utils import loads_json5
+from magebench.common.youtube_upload import (
+    YouTubeUploadError,
+    _build_description,
+    _build_title,
+    upload_to_youtube,
+)
 from magebench.game.export_game import GameExportError, export_game
 from magebench.orchestration.post_game_analysis import (
     save_youtube_url,
     update_website_youtube_url,
     upload_and_export,
-)
-from scripts.upload_youtube import (
-    YouTubeUploadError,
-    _build_description,
-    _build_title,
-    upload_to_youtube,
 )
 
 
@@ -213,7 +213,7 @@ def test_upload_to_youtube_wraps_operational_errors():
 
         with (
             patch(
-                "scripts.upload_youtube._get_authenticated_service",
+                "magebench.common.youtube_upload._get_authenticated_service",
                 side_effect=FileNotFoundError("missing client secrets"),
             ),
             pytest.raises(YouTubeUploadError, match="missing client secrets"),

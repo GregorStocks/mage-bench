@@ -35,13 +35,13 @@ real runtime evidence:
 jq '.players[] | {name, tool_calls_failed}' website/public/games/GAME_ID.json
 
 # If the export is missing, generate it manually from the real log root
-uv run python scripts/export_game.py GAME_ID
+uv run python -m magebench.cli.export_game GAME_ID
 ```
 
 If a player summary still says `tool_calls_failed: 0` after an obvious mid-game
 crash, compare the tail of `*_llm.jsonl` and `*_pilot.log`. A final
 `llm_response` with no matching `tool_call` often means the MCP request died
-before the pilot could log a structured result. `scripts/export_game.py`
+before the pilot could log a structured result. `src/magebench/game/export_game.py`
 currently only counts serialized `tool_call` results with `success=false` and
 only surfaces `*_errors.log`, so these pilot-only crashes can look clean in the
 export.
@@ -225,7 +225,7 @@ rg -n "pass with answer=false" "$GAME_DIR"/*_llm_trace.jsonl
 
 If the same trace or the raw `*_llm.jsonl` results still render
 `choice=no` / `choice=yes`, localize the bug to
-`puppeteer/src/puppeteer/pilot.py` rather than `BridgeCallbackHandler`.
+`src/magebench/pilot/pilot.py` rather than `BridgeCallbackHandler`.
 
 ## GAME_CHOOSE_ABILITY numbering mismatch
 
@@ -298,7 +298,7 @@ for d in data['decisions']:
 
 ## Exported decisions can stop at the first failed `choose_action`
 
-If a model retries the same pending action after an error, `scripts/export_game.py`
+If a model retries the same pending action after an error, `src/magebench/game/export_game.py`
 can record the first failed `choose_action` as the decision and split the later
 successful retry into a blank follow-up decision. Symptoms:
 
@@ -320,8 +320,8 @@ nl -ba ~/.mage-bench/logs/GAME_ID/*_llm.jsonl | grep -n "selected_choice_text_\|
 ```
 
 If the later raw log succeeds but the export still shows a failed choice plus a blank
-next decision, trust the raw `*_llm.jsonl` and inspect `scripts/export_game.py` /
-`scripts/analysis/extract_decisions.py` before trusting annotations.
+next decision, trust the raw `*_llm.jsonl` and inspect `src/magebench/game/export_game.py` /
+`src/magebench/analysis/blunder/extract_decisions.py` before trusting annotations.
 
 ## Ward / additional cost prompt confusion
 

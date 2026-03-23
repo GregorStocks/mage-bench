@@ -13,7 +13,7 @@ TypeScript types are generated from the latest schema: `website/src/types/game-e
 
 ## Validation
 
-- **Exporter**: `scripts/export_game.py` runs lightweight assert checks after `build_export()`.
+- **Exporter**: `src/magebench/game/export_game.py` runs lightweight assert checks after `build_export()`.
 - **All exports**: `tests/test_export_schema.py` validates every game in `website/public/games/` against the full JSON Schema. Runs as part of `make check`.
 
 ## Seq Number Semantics
@@ -70,7 +70,7 @@ Code that reads the export format and would need updating if the schema changes:
 
 | Consumer | Language | What it reads |
 | ---------- | ---------- | --------------- |
-| `scripts/export_game.py` | Python | Raw logs -> export (producer) |
+| `src/magebench/game/export_game.py` | Python | Raw logs -> export (producer) |
 | `website/src/pages/games/[...slug].astro` | Astro/JS | Full export for game replay |
 | `website/public/game-renderer.js` | JS | Snapshots, actions, llm_events for rendering |
 | `website/src/pages/leaderboard.astro` | Astro | Player summaries, placements, costs |
@@ -78,9 +78,9 @@ Code that reads the export format and would need updating if the schema changes:
 | `website/src/pages/model-stats.astro` | Astro | Player stats aggregation |
 | `website/src/pages/golden.astro` | Astro | Golden test exports |
 | `src/magebench/leaderboard/leaderboard.py` | Python | Player data, placements for Elo |
-| `scripts/analysis/extract_decisions.py` | Python | Snapshots + llm_events for blunder analysis |
-| `scripts/analysis/blunder_analysis.py` | Python | Full export for annotation |
-| `puppeteer/src/puppeteer/decision_renderer.py` | Python | Decisions + snapshots for shared rendering |
+| `src/magebench/analysis/blunder/extract_decisions.py` | Python | Snapshots + llm_events for blunder analysis |
+| `src/magebench/analysis/blunder/blunder_analysis.py` | Python | Full export for annotation |
+| `src/magebench/game/decision_renderer.py` | Python | Decisions + snapshots for shared rendering |
 
 ## Evolving the Schema
 

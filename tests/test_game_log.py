@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from puppeteer.game_log import GameLogWriter, _parse_ts, merge_game_log, read_decklist
+from magebench.game.game_log import GameLogWriter, _parse_ts, merge_game_log, read_decklist
 
 
 def test_read_decklist():

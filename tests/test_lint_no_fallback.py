@@ -1,8 +1,8 @@
-"""Tests for scripts/checks/lint_no_fallback.py."""
+"""Tests for magebench CLI fallback linting."""
 
 from pathlib import Path
 
-from scripts.checks.lint_no_fallback import _check_file, lint_no_fallback
+from magebench.cli.checks.lint_no_fallback import _check_file, lint_no_fallback
 
 _TEST_DIR = Path("/lint-test")
 

@@ -14,10 +14,10 @@ import fastjsonschema
 import pytest
 
 from magebench.common.json5_utils import loads_json5
+from magebench.common.port import find_available_port, wait_for_port
+from magebench.common.process_manager import jvm_oom_preexec_fn, kill_tree
 from magebench.orchestration.orchestrator import compile_project
 from magebench.orchestration.xml_config import modify_server_config
-from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from tests.golden_fail_fast import GoldenFailureGate
 from tests.golden_helpers import (
     DECK_GOBLINS,

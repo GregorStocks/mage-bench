@@ -2,13 +2,13 @@
 
 import pytest
 
+from magebench.analysis.blunder.blunder_audit import format_play_context, parse_viewer_url
 from magebench.game.game_export_types import (
     Permanent,
     Snapshot,
     SnapshotPlayer,
     StackItem,
 )
-from scripts.analysis.blunder_audit import format_play_context, parse_viewer_url
 
 VALID_GAME_ID = "game_20260214_005111_g1"
 

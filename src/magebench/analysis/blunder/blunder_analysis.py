@@ -5,7 +5,7 @@ Per-decision approach: sends each non-forced decision to Opus individually
 for high-quality blunder detection.
 
 Usage:
-    uv run --project puppeteer python scripts/analysis/blunder_analysis.py <game.json.gz | game_id>
+    uv run python -m magebench.cli.analysis.blunder_analysis <game.json.gz | game_id>
 
 Accepts either a file path or a bare game ID (e.g. game_20260214_185313_g1).
 
@@ -59,6 +59,7 @@ from magebench.analysis.blunder.blunder_prompts import (
     TOOL_REFERENCE,
 )
 from magebench.analysis.blunder.extract_decisions import extract_decisions
+from magebench.common.llm_cost import fetch_openrouter_prices, get_model_price
 from magebench.game.decision_renderer import chosen_display, render_decision
 from magebench.game.game_export_types import (
     Action,
@@ -67,7 +68,6 @@ from magebench.game.game_export_types import (
     Snapshot,
     json_default,
 )
-from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 
 # Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
 logging.getLogger("httpx").setLevel(logging.WARNING)

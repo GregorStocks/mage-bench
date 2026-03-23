@@ -44,7 +44,7 @@ make upload-youtube GAME=game_20260210_074307
 Or directly:
 
 ```bash
-python scripts/upload_youtube.py game_20260210_074307
+uv run python -m magebench.cli.upload_youtube game_20260210_074307
 ```
 
 ## Details
@@ -52,4 +52,4 @@ python scripts/upload_youtube.py game_20260210_074307
 - Videos are uploaded as **unlisted** (accessible via URL, not searchable)
 - Category: Gaming
 - The YouTube URL is saved to `game_meta.json` and propagated to the website JSON on export
-- YouTube dependencies are installed automatically with `uv sync --project puppeteer`
+- YouTube dependencies are installed automatically with `uv sync`

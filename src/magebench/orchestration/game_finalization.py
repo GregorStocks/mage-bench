@@ -11,10 +11,10 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
 
-from puppeteer.config import Config, PilotPlayer, Player
-from puppeteer.game_log import read_decklist
-from puppeteer.harness_epoch import HARNESS_EPOCH
-from puppeteer.log import get_logger
+from magebench.common.log import get_logger
+from magebench.game.game_log import read_decklist
+from magebench.game.harness_epoch import HARNESS_EPOCH
+from magebench.orchestration.config import Config, PilotPlayer, Player
 
 if TYPE_CHECKING:
     from magebench.orchestration.batch_coordination import GameSession

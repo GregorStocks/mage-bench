@@ -15,6 +15,7 @@ from magebench.orchestration.batch_coordination import (
     setup_game,
     wait_for_all_games,
 )
+from magebench.orchestration.config import Config, PilotPlayer
 from magebench.orchestration.game_finalization import (
     ensure_game_over_event,
     print_game_summary,
@@ -33,7 +34,6 @@ from magebench.orchestration.orchestrator import (
     compile_project,
     parse_args,
 )
-from puppeteer.config import Config, PilotPlayer
 
 
 def test_missing_llm_api_keys_none():

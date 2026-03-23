@@ -1,10 +1,16 @@
 [project]
 name = "mage-scripts"
 version = "0.1.0"
-description = "Mage-bench scripts package"
+description = "Mage-bench Python package"
 requires-python = ">=3.11"
 dependencies = [
-    "puppeteer",
+    "psutil>=5.9.0",
+    "mcp>=1.0.0",
+    "openai>=1.0.0",
+    "google-api-python-client>=2.0.0",
+    "google-auth-oauthlib>=1.0.0",
+    "google-auth-httplib2>=0.2.0",
+    "pyjson5>=2.0.0",
 ]
 
 [build-system]
@@ -12,17 +18,39 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["scripts", "schemas", "src/magebench"]
+packages = ["src/magebench"]
 
-[tool.uv.sources]
-puppeteer = { workspace = true }
-
-[tool.uv.workspace]
-members = ["puppeteer"]
+[dependency-groups]
+dev = [
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+    "types-psutil>=5.9.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-xdist>=3.5.0",
+    "fastjsonschema>=2.21.0",
+    "google-api-python-client-stubs>=1.32.0",
+    "google-auth-stubs>=0.3.0",
+]
 
 [tool.ruff]
 target-version = "py311"
 line-length = 120
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+ignore_missing_imports = false
+
+[[tool.mypy.overrides]]
+module = ["google_auth_oauthlib.*"]
+ignore_missing_imports = true
+disable_error_code = ["import-untyped"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

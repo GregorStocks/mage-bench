@@ -1,4 +1,4 @@
-"""Tests for scripts/checks/quiet_check.py."""
+"""Tests for magebench.cli.checks.quiet_check."""
 
 import os
 import shlex
@@ -6,7 +6,7 @@ import signal
 import subprocess
 from pathlib import Path
 
-from scripts.checks.quiet_check import (
+from magebench.cli.checks.quiet_check import (
     PARALLEL_TARGETS,
     RECURSIVE_MAKE_ENV_VARS,
     SERIAL_TARGETS,
@@ -32,10 +32,8 @@ def test_make_check_routes_java_validation_through_lint_java() -> None:
 def test_make_lint_uses_root_ruff_config() -> None:
     project_root = Path(__file__).resolve().parent.parent
     makefile = (project_root / "Makefile").read_text()
-    lint_cmd = "uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/ src/ tests/"
-    lint_fix_cmd = (
-        "uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/ src/ tests/"
-    )
+    lint_cmd = "uv run ruff check --config ruff-lint.toml src/ tests/"
+    lint_fix_cmd = "uv run ruff check --config ruff-lint.toml --fix src/ tests/"
 
     assert lint_cmd in makefile
     assert lint_fix_cmd in makefile
@@ -45,12 +43,9 @@ def test_make_python_checks_include_src_and_tests_tree() -> None:
     project_root = Path(__file__).resolve().parent.parent
     makefile = (project_root / "Makefile").read_text()
 
-    assert "uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/ src/ tests/" in makefile
-    assert "uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/ src/ tests/" in makefile
-    assert (
-        "uv run --project puppeteer mypy --config-file puppeteer/pyproject.toml "
-        "puppeteer/src/puppeteer/ scripts/ schemas/ src/magebench/"
-    ) in makefile
+    assert "uv run ruff format src/ tests/" in makefile
+    assert "uv run ruff format --check src/ tests/" in makefile
+    assert "uv run mypy src/magebench/" in makefile
 
 
 def test_make_check_serializes_website_targets() -> None:
@@ -93,7 +88,7 @@ def test_run_make_live_output_uses_clean_env(monkeypatch) -> None:
         called["kwargs"] = kwargs
         return subprocess.CompletedProcess(args[0], 0)
 
-    monkeypatch.setattr("scripts.checks.quiet_check.subprocess.run", fake_run)
+    monkeypatch.setattr("magebench.cli.checks.quiet_check.subprocess.run", fake_run)
 
     _run_make("lint", capture_output=False)
 
@@ -114,7 +109,7 @@ def test_run_make_capture_uses_clean_env(monkeypatch) -> None:
         def wait(self) -> int:
             return 0
 
-    monkeypatch.setattr("scripts.checks.quiet_check.subprocess.Popen", FakePopen)
+    monkeypatch.setattr("magebench.cli.checks.quiet_check.subprocess.Popen", FakePopen)
 
     result = _run_make("lint", capture_output=True)
 

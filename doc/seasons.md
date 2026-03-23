@@ -63,7 +63,7 @@ make conclude-season
 make conclude-season SIZE=16
 ```
 
-`make conclude-season` runs `make leaderboard` first, then `scripts/conclude_season.py`:
+`make conclude-season` runs `make leaderboard` first, then `python -m magebench.cli.conclude_season`:
 
 1. Reads `website/src/data/benchmark-results.json`
 2. Selects the top `SIZE` models by combined Elo
@@ -150,7 +150,7 @@ Tournament match configs set:
 - `tournamentGame: true`
 - `skipPostGamePrompts: true`
 
-When the bracket finishes, `scripts/tournament_game.py`:
+When the bracket finishes, `python -m magebench.cli.tournament_game`:
 
 1. Writes `champion_seed` to the tournament JSON
 2. Writes `completed_at` to the tournament JSON
@@ -166,7 +166,7 @@ Advance from a crowned champion to the next regular season:
 make conclude-tournament
 ```
 
-`scripts/conclude_tournament.py` requires:
+`python -m magebench.cli.conclude_tournament` requires:
 
 - `data/season.json` to be in `between-seasons`
 - the current tournament file to exist
@@ -199,10 +199,10 @@ Then it:
 | `website/src/data/season.json` | Generated copy of `data/season.json` used by Astro |
 | `website/src/data/benchmark-results.json` | Combined rated leaderboard |
 | `website/public/data/benchmark-results-season-N.json` | Per-season leaderboard data |
-| `scripts/conclude_season.py` | Creates the bracket and enters tournament phase |
-| `scripts/tournament_draft.py` | Runs the championship draft |
-| `scripts/tournament_game.py` | Runs tournament matches and crowns the champion |
-| `scripts/conclude_tournament.py` | Advances to the next regular season |
+| `src/magebench/cli/conclude_season.py` | Creates the bracket and enters tournament phase |
+| `src/magebench/cli/tournament_draft.py` | Runs the championship draft |
+| `src/magebench/cli/tournament_game.py` | Runs tournament matches and crowns the champion |
+| `src/magebench/cli/conclude_tournament.py` | Advances to the next regular season |
 
 ## Command Summary
 

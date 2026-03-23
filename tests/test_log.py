@@ -1,17 +1,17 @@
-"""Tests for the puppeteer.log module."""
+"""Tests for the magebench logging helpers."""
 
 import logging
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-import puppeteer.log
-from puppeteer.log import _PuppeteerFormatter, get_logger, log_error, setup_logging
+import magebench.common.log as common_log
+from magebench.common.log import _PuppeteerFormatter, get_logger, log_error, setup_logging
 
 
 def _reset_logging():
     """Reset the module-level setup guard so setup_logging can be called again."""
-    puppeteer.log._setup_done = False
+    common_log._setup_done = False
     # Remove any handlers added by previous setup_logging calls
     root = logging.getLogger()
     root.handlers.clear()

@@ -15,9 +15,9 @@ clean:
 .PHONY: lint
 lint:
 	issue-lint
-	uv run python scripts/checks/lint_scripts_are_python.py
-	uv run python scripts/checks/lint_no_fallback.py
-	uv run --project puppeteer ruff check --config ruff-lint.toml puppeteer/ scripts/ schemas/ src/ tests/
+	uv run python -m magebench.cli.checks.lint_scripts_are_python
+	uv run python -m magebench.cli.checks.lint_no_fallback
+	uv run ruff check --config ruff-lint.toml src/ tests/
 
 .PHONY: lint-java
 lint-java:
@@ -26,11 +26,11 @@ lint-java:
 
 .PHONY: lint-fix
 lint-fix:
-	uv run --project puppeteer ruff check --config ruff-lint.toml --fix puppeteer/ scripts/ schemas/ src/ tests/
+	uv run ruff check --config ruff-lint.toml --fix src/ tests/
 
 .PHONY: format
 format:
-	uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/ src/ tests/
+	uv run ruff format src/ tests/
 
 .PHONY: lint-md
 lint-md: $(WEBSITE_NPM_STAMP)
@@ -46,15 +46,15 @@ astro-check: $(WEBSITE_NPM_STAMP)
 
 .PHONY: format-check
 format-check:
-	uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/ src/ tests/
+	uv run ruff format --check src/ tests/
 
 .PHONY: typecheck
 typecheck:
-	uv run --project puppeteer mypy --config-file puppeteer/pyproject.toml puppeteer/src/puppeteer/ scripts/ schemas/ src/magebench/
+	uv run mypy src/magebench/
 
 .PHONY: test
 test:
-	uv run --project puppeteer pytest tests/ -n auto --dist=load
+	uv run pytest tests/ -n auto --dist=load
 
 .PHONY: test-js
 test-js: $(WEBSITE_NPM_STAMP)
@@ -66,17 +66,17 @@ test-e2e: $(WEBSITE_NPM_STAMP)
 
 .PHONY: check
 check:
-	@uv run python scripts/checks/quiet_check.py $(if $(VERBOSE),-v)
+	@uv run python -m magebench.cli.checks.quiet_check $(if $(VERBOSE),-v)
 	@touch tmp/.check-passed
 
 .PHONY: test-golden
 test-golden:
-	GOLDEN_INTEGRATION=1 uv run --project puppeteer pytest -m golden -v tests/ $(if $(GOLDEN_N),-n $(GOLDEN_N) --dist=load,) $(if $(K),-k "$(K)")
+	GOLDEN_INTEGRATION=1 uv run pytest -m golden -v tests/ $(if $(GOLDEN_N),-n $(GOLDEN_N) --dist=load,) $(if $(K),-k "$(K)")
 
 .PHONY: regen-golden
 regen-golden:
-	GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run --project puppeteer pytest -m golden -v tests/ $(if $(K),-k "$(K)")
-	UPDATE_BLUNDER_GOLDEN=1 uv run --project puppeteer pytest tests/test_blunder_golden_prompts.py -v
+	GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v tests/ $(if $(K),-k "$(K)")
+	UPDATE_BLUNDER_GOLDEN=1 uv run pytest tests/test_blunder_golden_prompts.py -v
 
 .PHONY: build
 build:
@@ -102,7 +102,7 @@ install: clean build package
 # Regenerate leaderboard + Elo data from game results
 .PHONY: leaderboard
 leaderboard:
-	@uv run --project puppeteer python scripts/generate_leaderboard.py
+	@uv run python -m magebench.cli.generate_leaderboard
 
 # Build the website (Astro static site).
 # Only rebuilds when dist/ is missing; delete dist/ to force a rebuild.
@@ -125,7 +125,7 @@ run:
 	  */*|*.json) ;; \
 	  *) CONFIG_PATH="configs/$$CONFIG_PATH.json" ;; \
 	esac; \
-	uv run --project puppeteer python -m puppeteer --observer \
+	uv run python -m magebench.cli --observer \
 	  --record$(if $(OUTPUT),=$(OUTPUT)) $(if $(GAMES),--games $(GAMES)) \
 	  --config "$$CONFIG_PATH" $(ARGS)
 
@@ -140,7 +140,7 @@ list-configs:
 regen-mcp-tools:
 	mvn -q -pl Mage.Client.Bridge -am -DskipTests -Dmaven.build.cache.enabled=false install
 	cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
-		| PYTHONPATH=../src:.. uv run --project ../puppeteer python -m scripts.mcp_tools_json5 > ../website/src/data/mcp-tools.json5
+		| PYTHONPATH=../src:.. uv run --project .. python -m magebench.cli.mcp_tools_json5 > ../website/src/data/mcp-tools.json5
 
 # Launch the desktop client (for image downloads, deck building, etc.)
 .PHONY: run-client
@@ -174,13 +174,13 @@ diagrams:
 # Usage: make export-game GAME=game_20260208_220934
 .PHONY: export-game
 export-game:
-	uv run python scripts/export_game.py $(GAME)
+	uv run python -m magebench.cli.export_game $(GAME)
 
 # Upload a game recording to YouTube
 # Usage: make upload-youtube GAME=game_20260208_220934
 .PHONY: upload-youtube
 upload-youtube:
-	uv run --project puppeteer python scripts/upload_youtube.py $(GAME)
+	uv run python -m magebench.cli.upload_youtube $(GAME)
 
 # Extract a screenshot from a game recording
 # Usage: make screenshot [GAME=path] [T=time] [FILE=path]
@@ -212,16 +212,16 @@ verify-decks:
 #        make blunders GAME=website/public/games/game_20260214_185313_g1.json.gz
 .PHONY: blunders
 blunders:
-	uv run --project puppeteer python scripts/analysis/blunder_analysis.py $(GAME)
+	uv run python -m magebench.cli.analysis.blunder_analysis $(GAME)
 
 # Blunder eval harness
 .PHONY: blunder-seed
 blunder-seed:
-	uv run --project puppeteer python scripts/analysis/blunder_seed.py
+	uv run python -m magebench.cli.analysis.blunder_seed
 
 .PHONY: blunder-audit
 blunder-audit:
-	uv run --project puppeteer python scripts/analysis/blunder_audit.py $(ARGS)
+	uv run python -m magebench.cli.analysis.blunder_audit $(ARGS)
 
 AUDIT_API_PORT ?= $(shell expr $(WEBSITE_PORT) + 100)
 AUDIT_BIND_HOST ?= 0.0.0.0
@@ -229,13 +229,13 @@ AUDIT_BIND_HOST ?= 0.0.0.0
 .PHONY: blunder-audit-web
 blunder-audit-web: leaderboard
 	@echo "  Audit API bind: $(AUDIT_BIND_HOST):$(AUDIT_API_PORT)"
-	@uv run --project puppeteer python scripts/analysis/blunder_audit_web.py --port $(AUDIT_API_PORT) --bind-host $(AUDIT_BIND_HOST) $(ARGS) &
+	@uv run python -m magebench.cli.analysis.blunder_audit_web --port $(AUDIT_API_PORT) --bind-host $(AUDIT_BIND_HOST) $(ARGS) &
 	@sleep 1
 	AUDIT_API_PORT=$(AUDIT_API_PORT) $(MAKE) website
 
 .PHONY: blunder-baseline
 blunder-baseline:
-	uv run --project puppeteer python scripts/analysis/blunder_baseline.py
+	uv run python -m magebench.cli.analysis.blunder_baseline
 
 # Generate TypeScript types from the JSON Schema
 .PHONY: regen-schema-types
@@ -256,21 +256,21 @@ verify-schema-types: $(WEBSITE_NPM_STAMP)
 verify-mcp-tools:
 	@mvn -q -pl Mage.Client.Bridge -am -DskipTests -Dmaven.build.cache.enabled=false install
 	@cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
-		| PYTHONPATH=../src:.. uv run --project ../puppeteer python -m scripts.mcp_tools_json5 \
+		| PYTHONPATH=../src:.. uv run --project .. python -m magebench.cli.mcp_tools_json5 \
 		| diff --unified - ../website/src/data/mcp-tools.json5 > /tmp/mcp-tools-diff.txt 2>&1 \
 		|| (echo "ERROR: website/src/data/mcp-tools.json5 is out of date. Run 'make regen-mcp-tools' to regenerate." && head -60 /tmp/mcp-tools-diff.txt && exit 1)
 
 .PHONY: list-games-to-analyze
 list-games-to-analyze:
-	uv run --project puppeteer python scripts/analysis/find_unanalyzed.py $(ARGS)
+	uv run python -m magebench.cli.analysis.find_unanalyzed $(ARGS)
 
 .PHONY: blunder-eval
 blunder-eval:
-	uv run --project puppeteer python scripts/analysis/blunder_eval.py $(ARGS)
+	uv run python -m magebench.cli.analysis.blunder_eval $(ARGS)
 
 .PHONY: blunder-promote
 blunder-promote:
-	uv run --project puppeteer python scripts/analysis/blunder_promote.py $(ARGS)
+	uv run python -m magebench.cli.analysis.blunder_promote $(ARGS)
 
 # Conclude the current season and create a postseason tournament.
 # SIZE selects how many top players qualify (typically 8 or 16).
@@ -279,22 +279,22 @@ blunder-promote:
 SIZE ?= 8
 .PHONY: conclude-season
 conclude-season: leaderboard
-	uv run python scripts/conclude_season.py $(SIZE)
+	uv run python -m magebench.cli.conclude_season $(SIZE)
 
 # Start the next regular season after a champion has already been crowned.
 .PHONY: conclude-tournament
 conclude-tournament:
-	uv run python scripts/conclude_tournament.py
+	uv run python -m magebench.cli.conclude_tournament
 
 # Run a Jumpstart snake draft for the current tournament.
 # Each entrant's LLM picks two half-deck packs to form their tournament deck.
 .PHONY: tournament-draft
 tournament-draft:
-	uv run python scripts/tournament_draft.py
+	uv run python -m magebench.cli.tournament_draft
 
 # Run tournament match(es). GAMES=N plays N sequential matches (default: 1).
 #   make tournament-game             # play the next match
 #   make tournament-game GAMES=3     # play the next 3 matches
 .PHONY: tournament-game
 tournament-game:
-	uv run python scripts/tournament_game.py $(if $(GAMES),--games $(GAMES))
+	uv run python -m magebench.cli.tournament_game $(if $(GAMES),--games $(GAMES))

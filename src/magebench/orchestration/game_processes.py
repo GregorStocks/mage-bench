@@ -10,10 +10,10 @@ import sys
 import time
 from pathlib import Path
 
-from puppeteer.config import Config, PilotPlayer
-from puppeteer.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
-from puppeteer.log import get_logger
-from puppeteer.process_manager import ProcessManager
+from magebench.common.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
+from magebench.common.log import get_logger
+from magebench.common.process_manager import ProcessManager
+from magebench.orchestration.config import Config, PilotPlayer
 
 logger = get_logger(__name__)
 

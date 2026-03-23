@@ -1,6 +1,6 @@
 """Tests for draft history versioning and migrations."""
 
-from scripts.draft_history import (
+from magebench.game.draft_history import (
     CURRENT_DRAFT_HISTORY_VERSION,
     assert_current_draft_history_version,
     migrate_draft_history_to_current,

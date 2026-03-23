@@ -6,8 +6,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from puppeteer import process_manager
-from puppeteer.process_manager import ProcessManager, jvm_oom_preexec_fn, kill_tree
+import magebench.common.process_manager as process_manager
+from magebench.common.process_manager import ProcessManager, jvm_oom_preexec_fn, kill_tree
 
 
 @pytest.fixture(autouse=True)

@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 
-from scripts.draft_history import CURRENT_DRAFT_HISTORY_VERSION
-from scripts.migrate_draft_histories import migrate_tournament
+from magebench.cli.migrate_draft_histories import migrate_tournament
+from magebench.game.draft_history import CURRENT_DRAFT_HISTORY_VERSION
 
 
 def _write_tournament(path: Path, *, history_version: int) -> None:

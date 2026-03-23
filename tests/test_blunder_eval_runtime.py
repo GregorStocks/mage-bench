@@ -7,7 +7,7 @@ from unittest.mock import MagicMock
 import pytest
 from openai import OpenAIError
 
-import scripts.analysis.blunder_eval as blunder_eval
+import magebench.analysis.blunder.blunder_eval as blunder_eval
 
 
 def _make_game_ctx() -> dict:

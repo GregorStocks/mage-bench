@@ -18,9 +18,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from magebench.common.json5_utils import dumps_json5, loads_json5
-from puppeteer.jumpstart import load_jumpstart_themes
-from scripts.tournament_draft import (
+from magebench.cli.tournament_draft import (
     _fetch_oracle_texts,
     _llm_pick,
     build_draft_system_prompt,
@@ -28,6 +26,8 @@ from scripts.tournament_draft import (
     draft_order,
     parse_pick,
 )
+from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.game.jumpstart import load_jumpstart_themes
 
 _ROOT = Path(__file__).resolve().parent.parent
 GOLDEN_DIR = Path(__file__).parent / "golden" / "draft_prompts"

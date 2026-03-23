@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
-from puppeteer.config import (
+from magebench.orchestration.config import (
     Config,
     CpuPlayer,
     PilotPlayer,
@@ -690,7 +690,7 @@ def test_resolve_randoms_picks_personality_and_preset():
     player = PilotPlayer(name="player-0", personality="random", preset="random")
     players = [(player, False)]
 
-    with patch("puppeteer.config.random.choice", side_effect=["hero", "preset-b"]):
+    with patch("magebench.orchestration.config.random.choice", side_effect=["hero", "preset-b"]):
         _resolve_randoms(
             players,
             SAMPLE_PERSONALITIES_WITH_PARTS,
@@ -713,7 +713,7 @@ def test_resolve_randoms_no_duplicate_personalities():
     players = [(p1, False), (p2, False)]
 
     choices = ["hero", "preset-a", "chill", "preset-b"]
-    with patch("puppeteer.config.random.choice", side_effect=choices):
+    with patch("magebench.orchestration.config.random.choice", side_effect=choices):
         _resolve_randoms(
             players,
             SAMPLE_PERSONALITIES_WITH_PARTS,
@@ -731,7 +731,7 @@ def test_resolve_randoms_explicit_preset_not_randomized():
     player = PilotPlayer(name="player-0", personality="random", preset="preset-c")
     players = [(player, False)]
 
-    with patch("puppeteer.config.random.choice", return_value="nerd"):
+    with patch("magebench.orchestration.config.random.choice", return_value="nerd"):
         _resolve_randoms(
             players,
             SAMPLE_PERSONALITIES_WITH_PARTS,
@@ -751,7 +751,7 @@ def test_resolve_randoms_explicit_name_preserved():
     player = PilotPlayer(name="MyCustom", personality="random", preset="random")
     players = [(player, True)]  # had_explicit_name=True
 
-    with patch("puppeteer.config.random.choice", side_effect=["hero", "preset-a"]):
+    with patch("magebench.orchestration.config.random.choice", side_effect=["hero", "preset-a"]):
         _resolve_randoms(
             players,
             SAMPLE_PERSONALITIES_WITH_PARTS,
@@ -805,7 +805,7 @@ def test_resolve_randoms_cross_game_dedup():
 
     # First call returns "hero" (collides), second call returns "chill" (unique)
     choices = ["hero", "preset-a", "chill"]
-    with patch("puppeteer.config.random.choice", side_effect=choices):
+    with patch("magebench.orchestration.config.random.choice", side_effect=choices):
         _resolve_randoms(
             players,
             SAMPLE_PERSONALITIES_WITH_PARTS,
@@ -828,7 +828,7 @@ def test_resolve_randoms_cross_game_dedup_crashes_when_exhausted():
 
     choices = ["hero", "preset-a", "chill", "nerd"]
     with (
-        patch("puppeteer.config.random.choice", side_effect=choices),
+        patch("magebench.orchestration.config.random.choice", side_effect=choices),
         pytest.raises(AssertionError, match="Cannot generate unique player name"),
     ):
         _resolve_randoms(
@@ -905,7 +905,7 @@ def test_random_end_to_end_config_load():
         config_path.write_text(json.dumps(config_data))
 
         with patch(
-            "puppeteer.config.random.choice",
+            "magebench.orchestration.config.random.choice",
             side_effect=["alpha", "fast-med", "beta", "smart-med"],
         ):
             config = Config(config_file=config_path)
@@ -1434,7 +1434,7 @@ def test_random_personality_skips_expressive_for_restricted_model():
 
     # First choice is "villain" (expressive, should be re-rolled), second is "chill" (ok)
     choices = ["villain", "chill"]
-    with patch("puppeteer.config.random.choice", side_effect=choices):
+    with patch("magebench.orchestration.config.random.choice", side_effect=choices):
         _resolve_randoms(
             players,
             EXPRESSIVE_PERSONALITIES,
@@ -1469,7 +1469,7 @@ def test_random_expressive_personality_allowed_on_normal_model():
     player = PilotPlayer(name="player-0", personality="random", preset="normal-preset")
     players = [(player, False)]
 
-    with patch("puppeteer.config.random.choice", return_value="villain"):
+    with patch("magebench.orchestration.config.random.choice", return_value="villain"):
         _resolve_randoms(
             players,
             EXPRESSIVE_PERSONALITIES,

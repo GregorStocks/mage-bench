@@ -52,7 +52,7 @@ external = []
 "typing.cast".msg = "Don't use cast — fix the underlying types or use assert to narrow."
 
 [lint.isort]
-known-first-party = ["magebench", "puppeteer", "scripts", "schemas"]
+known-first-party = ["magebench"]
 
 [lint.pycodestyle]
 max-line-length = 120
@@ -63,14 +63,14 @@ max-line-length = 120
     "ERA001",                          # documentation comments that look like code
     "N815",                            # inputSchema — MCP protocol field name
 ]
-"puppeteer/src/puppeteer/pilot.py" = ["N815"]  # inputSchema — MCP protocol field name
+"src/magebench/pilot/pilot.py" = ["N815"]  # inputSchema — MCP protocol field name
 "src/magebench/game/game_export_types.py" = ["ANN401", "N815", "RUF022", "SIM108", "TID251", "UP035"]
-"scripts/add_missing_jumpstart_themes.py" = ["ERA001"]  # deck-variant section labels
-"scripts/analysis/blunder_audit.py" = ["B904"]
-"scripts/analysis/blunder_eval.py" = ["I001", "TID251"]
-"scripts/analysis/blunder_eval_common.py" = ["I001"]
-"scripts/analysis/extract_decisions.py" = ["I001"]
-"scripts/game_exports.py" = ["ANN401"]
-"scripts/import_metagame.py" = ["E501"]
+"src/magebench/cli/add_missing_jumpstart_themes.py" = ["ERA001"]  # deck-variant section labels
+"src/magebench/analysis/blunder/blunder_audit.py" = ["B904"]
+"src/magebench/analysis/blunder/blunder_eval.py" = ["I001", "TID251"]
+"src/magebench/analysis/blunder/blunder_eval_common.py" = ["I001"]
+"src/magebench/analysis/blunder/extract_decisions.py" = ["I001"]
+"src/magebench/game/game_exports.py" = ["ANN401"]
+"src/magebench/cli/import_metagame.py" = ["E501"]
 "src/magebench/common/json5_utils.py" = ["ANN401"]
-"scripts/upload_youtube.py" = ["ANN401"]
+"src/magebench/common/youtube_upload.py" = ["ANN401"]

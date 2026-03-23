@@ -11,6 +11,10 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from magebench.common.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
+from magebench.common.log import get_logger, setup_logging
+from magebench.common.port import find_available_port, wait_for_port
+from magebench.common.process_manager import ProcessManager, jvm_oom_preexec_fn
 from magebench.leaderboard.website_data import generate_all_website_data
 from magebench.orchestration.batch_coordination import (
     GameSession,
@@ -18,6 +22,7 @@ from magebench.orchestration.batch_coordination import (
     setup_game,
     wait_for_all_games,
 )
+from magebench.orchestration.config import Config
 from magebench.orchestration.game_finalization import (
     print_run_cost_summary,
     run_git,
@@ -32,11 +37,6 @@ from magebench.orchestration.post_game_analysis import (
     resolve_annotation_failures,
 )
 from magebench.orchestration.xml_config import modify_server_config
-from puppeteer.config import Config
-from puppeteer.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
-from puppeteer.log import get_logger, setup_logging
-from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import ProcessManager, jvm_oom_preexec_fn
 
 logger = get_logger(__name__)
 

@@ -12,6 +12,9 @@ from pathlib import Path
 import fastjsonschema
 import pytest
 
+from magebench.game.game_export_migrations import (
+    CURRENT_GAME_EXPORT_VERSION,
+)
 from magebench.game.game_export_types import (
     Action,
     Annotation,
@@ -50,9 +53,6 @@ from magebench.game.game_export_types import (
     parse_built_game_export,
     parse_game_export,
     require_built_game_export,
-)
-from schemas.game_export_migrations import (
-    CURRENT_GAME_EXPORT_VERSION,
 )
 
 REPO_ROOT = Path(__file__).resolve().parent.parent

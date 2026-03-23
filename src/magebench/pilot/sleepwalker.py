@@ -10,9 +10,9 @@ from pathlib import Path
 
 from mcp import McpError
 
+from magebench.common.log import get_logger, setup_logging
 from magebench.pilot.bridge_transport import build_bridge_launch_args, spawn_bridge_http
 from magebench.pilot.tool_error import ToolExecutionError, extract_text_content
-from puppeteer.log import get_logger, setup_logging
 
 logger = get_logger(__name__)
 
@@ -159,7 +159,7 @@ def main() -> int:
     else:
         # Default: assume we're in the puppeteer directory
         project_root = Path.cwd().resolve()
-        # If we're in puppeteer/src/puppeteer, go up
+        # If we're in src/magebench/pilot, go up to the repo root.
         if project_root.name == "puppeteer" and project_root.parent.name == "src":
             project_root = project_root.parent.parent.parent
         elif project_root.name == "puppeteer":

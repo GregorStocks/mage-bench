@@ -70,7 +70,7 @@ A separate Java client (`Mage.Client.Observer/`) connects as a spectator and aut
 
 ## Game Export
 
-`scripts/export_game.py` transforms raw game logs into website-ready JSON files that power the game viewer, leaderboard, and blunder analysis.
+`src/magebench/game/export_game.py` transforms raw game logs into website-ready JSON files that power the game viewer, leaderboard, and blunder analysis.
 
 The export pipeline:
 
@@ -85,7 +85,7 @@ Error classification filters LLM-caused errors (invalid tool calls, empty respon
 
 ## Blunder Analysis
 
-`scripts/analysis/blunder_analysis.py` reviews every non-forced decision in an exported game using Claude Opus via OpenRouter.
+`src/magebench/analysis/blunder/blunder_analysis.py` reviews every non-forced decision in an exported game using Claude Opus via OpenRouter.
 
 For each decision, the pipeline renders the full board context via `render_decision()` (with prior board state from 2 turns back, action log deltas, and card oracle text) and sends it to Claude for classification. Decisions are rated at four severity levels:
 
@@ -98,7 +98,7 @@ Each annotation includes the severity, a description of what went wrong, what th
 
 ## Harness Epochs
 
-`HARNESS_EPOCH` (currently 37) is a monotonic integer in `puppeteer/src/puppeteer/harness_epoch.py` that tracks breaking changes to the evaluation harness. It gets bumped when MCP tools, pilot logic, or priority semantics change enough to make game results non-comparable across versions.
+`HARNESS_EPOCH` (currently 37) is a monotonic integer in `src/magebench/game/harness_epoch.py` that tracks breaking changes to the evaluation harness. It gets bumped when MCP tools, pilot logic, or priority semantics change enough to make game results non-comparable across versions.
 
 Ratings are per-season and the leaderboard shows the current season. New games write `season` directly to `game_meta.json` at run time. For older games that predate this, `SEASON_1_START_EPOCH` (= 11) in `harness_epoch.py` is used at export time to assign `season: 0` or `season: 1`.
 

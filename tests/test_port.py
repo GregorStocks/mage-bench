@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 import pytest
 
-from puppeteer.port import (
+from magebench.common.port import (
     _lock_path_for_port,
     can_bind_port,
     find_available_port,
@@ -72,14 +72,14 @@ def test_find_available_port():
 
 def test_lock_path_uses_tempdir():
     """Port lock files live under the active temp directory."""
-    with patch("puppeteer.port.tempfile.gettempdir", return_value="/var/tmp/mage-tests"):
+    with patch("magebench.common.port.tempfile.gettempdir", return_value="/var/tmp/mage-tests"):
         assert _lock_path_for_port(19000) == "/var/tmp/mage-tests/mage-port-19000.lock"
 
 
 def test_find_available_port_exhausted():
     """Should raise RuntimeError when all ports are locked."""
     with (
-        patch("puppeteer.port._try_lock_port", return_value=None),
+        patch("magebench.common.port._try_lock_port", return_value=None),
         pytest.raises(RuntimeError, match="No available port found"),
     ):
         find_available_port(19000, max_attempts=5)
@@ -145,8 +145,8 @@ def test_wait_for_port_immediate():
 def test_wait_for_port_timeout():
     """Should return False after timeout when port never opens."""
     with (
-        patch("puppeteer.port.is_port_in_use", return_value=False),
-        patch("puppeteer.port.time") as mock_time,
+        patch("magebench.common.port.is_port_in_use", return_value=False),
+        patch("magebench.common.port.time") as mock_time,
     ):
         # Simulate time passing: first call returns 0, second returns timeout+1
         mock_time.time.side_effect = [0, 0, 2]

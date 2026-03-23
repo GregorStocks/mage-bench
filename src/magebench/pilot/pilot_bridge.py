@@ -16,9 +16,9 @@ from magebench.game.game_export_types import (
     Snapshot,
     require_snapshot,
 )
+from magebench.game.game_log import GameLogWriter
 from magebench.pilot.pilot_game_state import parse_context_metadata
 from magebench.pilot.tool_error import ToolExecutionError, extract_text_content
-from puppeteer.game_log import GameLogWriter
 
 
 def build_pilot_snapshot(data: dict, board: list[dict] | None, decision: Decision) -> Snapshot:

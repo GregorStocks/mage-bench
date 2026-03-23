@@ -10,6 +10,11 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from magebench.common.log import get_logger
+from magebench.common.process_manager import ProcessManager, kill_tree
+from magebench.game.game_log import merge_game_log
+from magebench.orchestration.config import Config
+from magebench.orchestration.deck_choice import resolve_choice_decks
 from magebench.orchestration.game_finalization import (
     ensure_game_over_event,
     print_game_summary,
@@ -30,11 +35,6 @@ from magebench.orchestration.post_game_analysis import (
     AnnotationFailure,
     upload_and_export,
 )
-from puppeteer.config import Config
-from puppeteer.deck_choice import resolve_choice_decks
-from puppeteer.game_log import merge_game_log
-from puppeteer.log import get_logger
-from puppeteer.process_manager import ProcessManager, kill_tree
 
 logger = get_logger(__name__)
 

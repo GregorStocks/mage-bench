@@ -7,7 +7,7 @@ from typing import Any
 
 from openai import OpenAI, OpenAIError
 
-from puppeteer.llm_cost import get_model_price
+from magebench.common.llm_cost import get_model_price
 
 LLM_REQUIRED_FIELDS = {"severity", "description", "action_taken", "better_line"}
 

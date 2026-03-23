@@ -6,7 +6,7 @@ from pathlib import Path
 import fastjsonschema
 import pytest
 
-from schemas.game_export_migrations import CURRENT_GAME_EXPORT_VERSION
+from magebench.game.game_export_migrations import CURRENT_GAME_EXPORT_VERSION
 from tests.weird import repo_convention_helpers
 from tests.weird.repo_convention_helpers import (
     PUPPETEER_DIR,

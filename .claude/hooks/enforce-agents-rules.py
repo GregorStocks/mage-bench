@@ -56,7 +56,11 @@ def check_generated_files(command: str) -> None:
 
     # game-export-v*.schema.json -> game-export.d.ts
     # TypeScript types are generated from the latest schema version.
-    schema_sources = {f for f in staged if f.startswith("schemas/game-export-v") and f.endswith(".schema.json")}
+    schema_sources = {
+        f
+        for f in staged
+        if f.startswith("src/magebench/game/game-export-v") and f.endswith(".schema.json")
+    }
     schema_output = "website/src/types/game-export.d.ts"
     if schema_sources and schema_output not in staged and schema_output in dirty:
         block(
@@ -150,7 +154,7 @@ def check(command: str) -> None:
     if re.search(r"(?:^|\s|[;&|])\s*(?:python3|pip3?)\b", stripped):
         block(
             "Blocked: all Python must go through uv for dependency management.\n"
-            "Use 'uv run python ...', 'uv run --project puppeteer python -m ...', or 'uv add <pkg>'."
+            "Use 'uv run python ...' or 'uv add <pkg>'."
         )
 
     if re.search(r"(?:^|\s|[;&|])\s*(?:pkill|killall)\b", stripped):

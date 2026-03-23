@@ -17,14 +17,14 @@ from collections.abc import Awaitable, Callable
 from contextlib import ExitStack
 from pathlib import Path
 
+from magebench.common.log import get_logger, setup_logging
+from magebench.game.game_log import GameLogWriter
 from magebench.pilot.bridge_transport import build_bridge_launch_args, spawn_bridge_http
 from magebench.pilot.pilot import build_initial_message
 from magebench.pilot.pilot_bridge import execute_tool
 from magebench.pilot.pilot_rendering import render_context, render_for_pilot
 from magebench.pilot.pilot_state import BoardCursorTracker
-from puppeteer.config import load_prompts
-from puppeteer.game_log import GameLogWriter
-from puppeteer.log import get_logger, setup_logging
+from magebench.pilot.prompts import load_prompts
 
 logger = get_logger(__name__)
 _ASSERT_ACTION_STEP = "assert_action"

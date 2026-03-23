@@ -1,12 +1,12 @@
-"""Tests for scripts.mcp_tools_json5."""
+"""Tests for magebench.cli.mcp_tools_json5."""
 
 import os
 import shutil
 import subprocess
 from pathlib import Path
 
+from magebench.cli.mcp_tools_json5 import format_mcp_tools_json5
 from magebench.common.json5_utils import loads_json5
-from scripts.mcp_tools_json5 import format_mcp_tools_json5
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -44,10 +44,10 @@ def test_cli_runs_under_system_python_without_site_packages() -> None:
             uv,
             "run",
             "--project",
-            "../puppeteer",
+            "..",
             "python",
             "-m",
-            "scripts.mcp_tools_json5",
+            "magebench.cli.mcp_tools_json5",
         ],
         cwd=REPO_ROOT / "Mage.Client.Bridge",
         env={**os.environ, "PYTHONPATH": pythonpath},

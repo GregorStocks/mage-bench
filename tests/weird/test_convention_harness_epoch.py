@@ -11,7 +11,7 @@ from tests.weird.repo_convention_helpers import REPO_ROOT, changed_files_since_m
 
 class TestHarnessEpochMonotonic:
     def test_epoch_matches_history(self) -> None:
-        source = (REPO_ROOT / "puppeteer" / "src" / "puppeteer" / "harness_epoch.py").read_text()
+        source = (REPO_ROOT / "src" / "magebench" / "game" / "harness_epoch.py").read_text()
 
         tree = ast.parse(source)
         epoch_value = None
@@ -45,7 +45,7 @@ class TestGoldenEpochCoherence:
     """
 
     _EXPORT_GOLDEN_PREFIX = "tests/golden/exports/"
-    _EPOCH_FILE = "puppeteer/src/puppeteer/harness_epoch.py"
+    _EPOCH_FILE = "src/magebench/game/harness_epoch.py"
 
     def test_golden_changes_require_epoch_bump(self) -> None:
         """If existing export golden output changed, HARNESS_EPOCH must be bumped too."""

@@ -11,7 +11,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-import scripts.tournament_game as tournament_game
+import magebench.cli.tournament_game as tournament_game
 
 # -- Bracket generation --
 

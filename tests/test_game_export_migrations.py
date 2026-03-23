@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from schemas.game_export_migrations import (
+from magebench.game.game_export_migrations import (
     CURRENT_GAME_EXPORT_VERSION,
     migrate_game_export_to_current,
 )

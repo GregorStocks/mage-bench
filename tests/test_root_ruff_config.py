@@ -7,29 +7,29 @@ from pathlib import Path
 import pytest
 
 _PLC0415_TARGET_PATTERNS = (
-    "scripts/analysis/blunder_analysis.py",
-    "scripts/analysis/blunder_audit.py",
-    "scripts/analysis/blunder_audit_web.py",
-    "scripts/analysis/blunder_eval.py",
-    "scripts/analysis/blunder_promote.py",
-    "scripts/analysis/blunder_seed.py",
-    "scripts/analysis/extract_decisions.py",
-    "scripts/export_game.py",
-    "scripts/tournament_draft.py",
-    "scripts/upload_youtube.py",
+    "src/magebench/analysis/blunder/blunder_analysis.py",
+    "src/magebench/analysis/blunder/blunder_audit.py",
+    "src/magebench/analysis/blunder/blunder_audit_web.py",
+    "src/magebench/analysis/blunder/blunder_eval.py",
+    "src/magebench/analysis/blunder/blunder_promote.py",
+    "src/magebench/analysis/blunder/blunder_seed.py",
+    "src/magebench/analysis/blunder/extract_decisions.py",
+    "src/magebench/common/youtube_upload.py",
+    "src/magebench/cli/export_game.py",
+    "src/magebench/cli/tournament_draft.py",
 )
 
 _PLC0415_TARGET_PATHS = (
-    "scripts/analysis/blunder_analysis.py",
-    "scripts/analysis/blunder_audit.py",
-    "scripts/analysis/blunder_audit_web.py",
-    "scripts/analysis/blunder_eval.py",
-    "scripts/analysis/blunder_promote.py",
-    "scripts/analysis/blunder_seed.py",
-    "scripts/analysis/extract_decisions.py",
-    "scripts/export_game.py",
-    "scripts/tournament_draft.py",
-    "scripts/upload_youtube.py",
+    "src/magebench/analysis/blunder/blunder_analysis.py",
+    "src/magebench/analysis/blunder/blunder_audit.py",
+    "src/magebench/analysis/blunder/blunder_audit_web.py",
+    "src/magebench/analysis/blunder/blunder_eval.py",
+    "src/magebench/analysis/blunder/blunder_promote.py",
+    "src/magebench/analysis/blunder/blunder_seed.py",
+    "src/magebench/analysis/blunder/extract_decisions.py",
+    "src/magebench/common/youtube_upload.py",
+    "src/magebench/cli/export_game.py",
+    "src/magebench/cli/tournament_draft.py",
 )
 
 
@@ -41,14 +41,12 @@ def test_root_ruff_config_catches_import_outside_toplevel() -> None:
         [
             "uv",
             "run",
-            "--project",
-            "puppeteer",
             "ruff",
             "check",
             "--config",
             "ruff-lint.toml",
             "--stdin-filename",
-            "scripts/_lint_import_outside_toplevel_repro.py",
+            "src/magebench/cli/_lint_import_outside_toplevel_repro.py",
             "-",
         ],
         input=source,
@@ -80,8 +78,6 @@ def test_target_analysis_and_export_scripts_pass_plc0415() -> None:
         [
             "uv",
             "run",
-            "--project",
-            "puppeteer",
             "ruff",
             "check",
             "--config",
@@ -104,7 +100,7 @@ def test_target_analysis_and_export_scripts_pass_plc0415() -> None:
     ("stdin_filename", "source"),
     [
         (
-            "scripts/_lint_boolean_trap_repro.py",
+            "src/magebench/cli/_lint_boolean_trap_repro.py",
             "def f(flag: bool = False):\n    return flag\n",
         ),
         (
@@ -123,8 +119,6 @@ def test_root_ruff_config_catches_boolean_traps(
         [
             "uv",
             "run",
-            "--project",
-            "puppeteer",
             "ruff",
             "check",
             "--config",
@@ -154,7 +148,7 @@ def test_root_ruff_config_catches_boolean_traps(
             ["ARG002", "ARG005"],
         ),
         (
-            "puppeteer/src/puppeteer/orchestrator.py",
+            "src/magebench/orchestration/orchestrator.py",
             "def f(arg):\n    return 1\n",
             ["ARG001"],
         ),
@@ -164,12 +158,12 @@ def test_root_ruff_config_catches_boolean_traps(
             ["ARG001"],
         ),
         (
-            "scripts/analysis/blunder_analysis.py",
+            "src/magebench/analysis/blunder/blunder_analysis.py",
             "def f(arg):\n    return 1\n",
             ["ARG001"],
         ),
         (
-            "scripts/analysis/blunder_audit.py",
+            "src/magebench/analysis/blunder/blunder_audit.py",
             "def f(arg):\n    return 1\n",
             ["ARG001"],
         ),
@@ -186,8 +180,6 @@ def test_root_ruff_config_catches_unused_arguments(
         [
             "uv",
             "run",
-            "--project",
-            "puppeteer",
             "ruff",
             "check",
             "--config",

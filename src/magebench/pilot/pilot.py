@@ -13,6 +13,17 @@ from typing import Protocol
 from mcp import ClientSession
 from openai import AsyncOpenAI, OpenAIError
 
+from magebench.common.llm_cost import (
+    DEFAULT_LLM_PROVIDER,
+    SUPPORTED_LLM_PROVIDERS,
+    get_model_price,
+    llm_base_url,
+    load_prices,
+    required_api_key_env,
+    write_cost_file,
+)
+from magebench.common.log import get_logger, log_error, setup_logging
+from magebench.game.game_log import GameLogWriter
 from magebench.pilot.auto_pass import auto_pass_loop
 from magebench.pilot.bridge_transport import build_bridge_launch_args, spawn_bridge_http
 from magebench.pilot.pilot_bridge import (
@@ -45,19 +56,8 @@ from magebench.pilot.pilot_rendering import (
     render_for_pilot,
 )
 from magebench.pilot.pilot_state import PilotLoopState, PilotTurnState, reset_context
+from magebench.pilot.prompts import load_prompts
 from magebench.pilot.tool_error import ToolExecutionError
-from puppeteer.config import load_prompts
-from puppeteer.game_log import GameLogWriter
-from puppeteer.llm_cost import (
-    DEFAULT_LLM_PROVIDER,
-    SUPPORTED_LLM_PROVIDERS,
-    get_model_price,
-    llm_base_url,
-    load_prices,
-    required_api_key_env,
-    write_cost_file,
-)
-from puppeteer.log import get_logger, log_error, setup_logging
 
 logger = get_logger(__name__)
 

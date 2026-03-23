@@ -43,20 +43,20 @@ from magebench.analysis.blunder.blunder_context import (
 from magebench.analysis.blunder.blunder_eval_common import decision_index
 from magebench.analysis.blunder.extract_decisions import extract_decisions
 from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.common.port import find_available_port, wait_for_port
+from magebench.common.process_manager import jvm_oom_preexec_fn, kill_tree
 from magebench.game.export_game import build_export
 from magebench.game.game_export_types import Decision, json_default
+from magebench.game.game_log import GameLogWriter
+from magebench.game.harness_epoch import HARNESS_EPOCH
 from magebench.pilot.pilot import DEFAULT_MODEL, run_pilot_loop
 from magebench.pilot.pilot_bridge import mcp_tools_to_openai
+from magebench.pilot.prompts import load_prompts
 from magebench.pilot.replay import (
     _is_meta_script_step,
     _run_meta_script_step,
     execute_replay_script,
 )
-from puppeteer.config import load_prompts
-from puppeteer.game_log import GameLogWriter
-from puppeteer.harness_epoch import HARNESS_EPOCH
-from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 
 # ---------------------------------------------------------------------------
 # Timing instrumentation

@@ -16,7 +16,7 @@ from typing import ClassVar, Literal, TypeAlias, TypeGuard, TypeVar
 from typing_extensions import TypeIs
 
 from magebench.common.json5_utils import loads_json5
-from schemas.game_export_migrations import (
+from magebench.game.game_export_migrations import (
     CURRENT_GAME_EXPORT_VERSION,
     migrate_game_export_to_current,
 )

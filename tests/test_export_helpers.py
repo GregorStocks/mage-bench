@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from unittest.mock import patch
 
+from magebench.cli.backfill_decisions import backfill_game
 from magebench.common.json5_utils import loads_json5
 from magebench.game.export_card_data import _collect_card_names, _trim_card
 from magebench.game.export_decisions import build_decisions
@@ -20,8 +21,7 @@ from magebench.game.game_exports import (
     load_raw_game_export,
     write_raw_game_export,
 )
-from puppeteer.harness_epoch import SEASON_1_START_EPOCH
-from scripts.backfill_decisions import backfill_game
+from magebench.game.harness_epoch import SEASON_1_START_EPOCH
 
 
 def _make_stub_export(game_id: str = "game_20260301_120000") -> dict:

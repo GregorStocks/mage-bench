@@ -1,4 +1,4 @@
-"""Tests for puppeteer.jumpstart module."""
+"""Tests for magebench.game.jumpstart."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from puppeteer.jumpstart import (
+from magebench.game.jumpstart import (
     Card,
     HalfDeck,
     _parse_dck_card,
@@ -233,7 +233,7 @@ def test_create_random_jumpstart_deck() -> None:
         (root / "tmp").mkdir()
 
         # Clear cache so test uses our temp data
-        with patch("puppeteer.jumpstart._cached_representatives", None):
+        with patch("magebench.game.jumpstart._cached_representatives", None):
             deck_path, display_name = create_random_jumpstart_deck(root)
 
         full_path = root / deck_path
@@ -254,7 +254,7 @@ def test_create_random_jumpstart_deck_exclude_themes() -> None:
         (root / "tmp").mkdir()
 
         # Exclude Cats — should get Dogs + Lightning
-        with patch("puppeteer.jumpstart._cached_representatives", None):
+        with patch("magebench.game.jumpstart._cached_representatives", None):
             deck_path, display_name = create_random_jumpstart_deck(root, exclude_themes={"Cats"})
 
         full_path = root / deck_path

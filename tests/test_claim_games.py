@@ -1,4 +1,4 @@
-import importlib.util
+import importlib
 import sys
 from pathlib import Path
 from unittest.mock import patch
@@ -7,18 +7,7 @@ import pytest
 
 from magebench.common.local_claims import ClaimConflictError, ClaimRecord
 
-SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
-
-
-def _import_script(path: str):
-    spec = importlib.util.spec_from_file_location(path.replace("/", "_"), SCRIPTS_DIR / path)
-    assert spec and spec.loader
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
-
-
-claim_games = _import_script("analysis/claim_games.py")
+claim_games = importlib.import_module("magebench.analysis.toolbox.claim_games")
 
 
 def _record(game_id: str, namespace: str) -> ClaimRecord:

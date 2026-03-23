@@ -1,6 +1,6 @@
-"""Tests for scripts/ Python rewrites."""
+"""Tests for migrated magebench CLI modules."""
 
-import importlib.util
+import importlib
 import json
 import sys
 import urllib.request
@@ -14,24 +14,13 @@ from magebench.common import http_utils
 from magebench.game import scryfall
 from magebench.game.game_export_types import ToolCallEvent
 
-SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
-
-
-def _import_script(name: str):
-    spec = importlib.util.spec_from_file_location(name, SCRIPTS_DIR / f"{name}.py")
-    assert spec and spec.loader
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
-
-
-worktree_setup = _import_script("worktree_setup")
-import_deck = _import_script("import_deck")
-import_metagame = _import_script("import_metagame")
-conclude_season = _import_script("conclude_season")
-conclude_tournament = _import_script("conclude_tournament")
-game_gz_bootstrap = _import_script("game_gz_bootstrap")
-find_test_cards = _import_script("find_test_cards")
+worktree_setup = importlib.import_module("magebench.cli.worktree_setup")
+import_deck = importlib.import_module("magebench.cli.import_deck")
+import_metagame = importlib.import_module("magebench.cli.import_metagame")
+conclude_season = importlib.import_module("magebench.cli.conclude_season")
+conclude_tournament = importlib.import_module("magebench.cli.conclude_tournament")
+game_gz_bootstrap = importlib.import_module("magebench.cli.game_gz_bootstrap")
+find_test_cards = importlib.import_module("magebench.cli.find_test_cards")
 
 
 # ===========================================================================
@@ -887,7 +876,7 @@ class TestGameGzBootstrap:
         export_path.write_text(json.dumps(export_data))
 
         def fake_run(cmd: list[str], *, check: bool) -> MagicMock:
-            assert cmd == ["uv", "run", "python", "scripts/export_game.py", game_id]
+            assert cmd == ["uv", "run", "python", "-m", "magebench.cli.export_game", game_id]
             assert check is True
             export_path.write_text(json.dumps(export_data))
             return MagicMock()

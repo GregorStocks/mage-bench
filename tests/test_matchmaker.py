@@ -6,14 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from puppeteer.config import PilotPlayer, _resolve_randoms
-from puppeteer.matchmaker import (
+from magebench.leaderboard.matchmaker import (
     _build_key_to_preset,
     _build_matchup_matrix,
     _load_games_index,
     get_round_robin_matchup,
     pick_round_robin_format,
 )
+from magebench.orchestration.config import PilotPlayer, _resolve_randoms
 
 
 def _write_presets(path: Path, presets: dict) -> None:

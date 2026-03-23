@@ -11,7 +11,7 @@ from urllib.request import Request, urlopen
 
 import pytest
 
-import scripts.analysis.blunder_audit_web as blunder_audit_web
+import magebench.analysis.blunder.blunder_audit_web as blunder_audit_web
 from magebench.game.game_export_types import Permanent, Snapshot, SnapshotPlayer
 
 VALID_GAME_ID = "game_20260214_005111_g1"
@@ -38,7 +38,7 @@ def _temp_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """Set up temp config with custom hostname."""
     config_path = tmp_path / "config.json"
     config_path.write_text(json.dumps({"hostname": "my-server.local"}))
-    monkeypatch.setattr("scripts.analysis.blunder_audit_web.CONFIG_PATH", config_path)
+    monkeypatch.setattr("magebench.analysis.blunder.blunder_audit_web.CONFIG_PATH", config_path)
     return config_path
 
 

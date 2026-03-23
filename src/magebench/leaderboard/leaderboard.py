@@ -31,7 +31,7 @@ BLUNDER_WEIGHTS: dict[str, int] = {
 
 # Minimum blunder analysis version for "acceptable" annotations. Games
 # analyzed below this show an "(older analysis)" tag on the website.
-# (See BLUNDER_SCRIPT_VERSION in scripts/analysis/blunder_analysis.py.)
+# (See BLUNDER_SCRIPT_VERSION in magebench.analysis.blunder.blunder_analysis.)
 MIN_BLUNDER_VERSION = 11
 
 

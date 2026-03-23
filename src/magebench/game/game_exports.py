@@ -11,8 +11,8 @@ from pathlib import Path
 from typing import Any
 
 from magebench.common.json5_utils import dumps_json5, loads_json5
+from magebench.game.game_export_migrations import migrate_game_export_to_current
 from magebench.game.game_export_types import BuiltGameExport, GameExport, json_default
-from schemas.game_export_migrations import migrate_game_export_to_current
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"

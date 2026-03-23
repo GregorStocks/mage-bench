@@ -64,7 +64,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run python \"$CLAUDE_PROJECT_DIR/scripts/install_cloud_deps.py\"",
+            "command": "uv run python -m magebench.cli.install_cloud_deps",
             "timeout": 120
           }
         ]

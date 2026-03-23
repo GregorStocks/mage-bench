@@ -21,8 +21,8 @@ from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
 from mcp.shared._httpx_utils import create_mcp_http_client
 
-from puppeteer.port import PortReservation, find_available_port, wait_for_port
-from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
+from magebench.common.port import PortReservation, find_available_port, wait_for_port
+from magebench.common.process_manager import jvm_oom_preexec_fn, kill_tree
 
 # MCP HTTP ports start at 19000 to avoid overlap with XMage server ports (17171+)
 _MCP_PORT_START = 19000

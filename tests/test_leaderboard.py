@@ -11,6 +11,7 @@ import pytest
 import magebench.leaderboard.elo as leaderboard_elo
 import magebench.leaderboard.leaderboard as leaderboard_module
 from magebench.game.game_export_types import Annotation, Player, json_default
+from magebench.game.harness_epoch import HARNESS_EPOCH
 from magebench.leaderboard.elo import (
     compute_elo_ratings,
     extract_placements,
@@ -30,7 +31,6 @@ from magebench.leaderboard.registry import (
     load_model_registry,
 )
 from magebench.leaderboard.stats import generate_internals_data, generate_model_stats
-from puppeteer.harness_epoch import HARNESS_EPOCH
 
 
 class _PlayerEncoder(json.JSONEncoder):

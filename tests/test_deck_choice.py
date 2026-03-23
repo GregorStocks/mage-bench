@@ -7,8 +7,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from puppeteer.config import DeckEntry, PilotPlayer
-from puppeteer.deck_choice import (
+from magebench.orchestration.config import DeckEntry, PilotPlayer
+from magebench.orchestration.deck_choice import (
     _build_choice_prompt,
     _parse_card_name,
     _parse_choice,
@@ -246,7 +246,7 @@ def test_resolve_choice_decks_sets_player_deck():
 
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"}),
-            patch("puppeteer.deck_choice.OpenAI") as mock_openai,
+            patch("magebench.orchestration.deck_choice.OpenAI") as mock_openai,
         ):
             mock_client = MagicMock()
             mock_client.chat.completions.create.return_value = mock_response
@@ -283,7 +283,7 @@ def test_resolve_choice_decks_no_duplicates():
 
         with (
             patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"}),
-            patch("puppeteer.deck_choice.OpenAI") as mock_openai,
+            patch("magebench.orchestration.deck_choice.OpenAI") as mock_openai,
         ):
             mock_client = MagicMock()
             mock_client.chat.completions.create.side_effect = [
