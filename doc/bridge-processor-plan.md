@@ -131,6 +131,11 @@ That API should keep its semantics explicit:
 
 But the bridge is still transitional overall:
 
+- raw XMage callbacks now enter through a dedicated `bridge-listener-*` thread
+  instead of calling straight into `BridgeCallbackHandler` from arbitrary
+  remoting threads
+- listener ingress now captures the target handler at enqueue time and performs
+  callback decompression / normalization on that listener thread
 - callback-dispatch state mutation now lives in a processor-side callback
   service instead of an anonymous `BridgeCallbackHandler` adapter:
   - `START_GAME`
@@ -164,6 +169,10 @@ The biggest remaining ownership smell is that `BridgeCallbackHandler` still
 acts as a processor helper bag for choose/pass flow contexts and other utility
 methods. That is better than before, but it is still not the final actor
 boundary.
+
+The biggest remaining MCP-side smell is that some reads still need
+processor/barrier synchronization around mutable state holders instead of
+reading from purely append-only processor-owned publication structures.
 
 ## Remaining Work
 

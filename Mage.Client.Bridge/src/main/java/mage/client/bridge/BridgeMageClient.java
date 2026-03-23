@@ -1,5 +1,6 @@
 package mage.client.bridge;
 
+import mage.client.bridge.listener.BridgeCallbackListener;
 import mage.interfaces.MageClient;
 import mage.interfaces.callback.ClientCallback;
 import mage.remote.Session;
@@ -16,6 +17,7 @@ public class BridgeMageClient implements MageClient {
     private static final MageVersion version = new MageVersion(BridgeMageClient.class);
 
     private final String username;
+    private final BridgeCallbackListener callbackListener;
     private Session session;
     private volatile BridgeCallbackHandler callbackHandler;
     private volatile boolean running = true;
@@ -25,6 +27,8 @@ public class BridgeMageClient implements MageClient {
     public BridgeMageClient(String username) {
         this.username = username;
         this.callbackHandler = new BridgeCallbackHandler(this);
+        this.callbackListener = new BridgeCallbackListener(username, logger);
+        this.callbackListener.start();
     }
 
     public void setSession(Session session) {
@@ -54,6 +58,7 @@ public class BridgeMageClient implements MageClient {
 
     public void stop() {
         running = false;
+        callbackListener.shutdown("client.stop()");
         callbackHandler.shutdownProcessor("client.stop()");
     }
 
@@ -113,6 +118,10 @@ public class BridgeMageClient implements MageClient {
 
     @Override
     public void onCallback(ClientCallback callback) {
-        callbackHandler.handleCallback(callback);
+        callbackListener.enqueue(callbackHandler, callback);
+    }
+
+    void awaitCallbackListenerIdle() throws InterruptedException {
+        callbackListener.awaitIdle();
     }
 }

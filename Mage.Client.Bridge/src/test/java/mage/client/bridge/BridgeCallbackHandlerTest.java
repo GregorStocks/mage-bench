@@ -2582,6 +2582,7 @@ class BridgeCallbackHandlerTest {
         UUID tableId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
         AtomicReference<String> joinGameThreadName = new AtomicReference<>();
+        AtomicReference<String> listenerThreadName = new AtomicReference<>();
 
         client.setSession((Session) Proxy.newProxyInstance(
             Session.class.getClassLoader(),
@@ -2601,16 +2602,74 @@ class BridgeCallbackHandlerTest {
             gameId,
             new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
             false
-        );
+        ) {
+            @Override
+            public void decompressData() {
+                listenerThreadName.set(Thread.currentThread().getName());
+                super.decompressData();
+            }
+        };
 
-        String listenerThreadName = Thread.currentThread().getName();
-        handler.handleCallback(callback);
+        String callbackCallerThreadName = Thread.currentThread().getName();
+        client.onCallback(callback);
+        client.awaitCallbackListenerIdle();
         handler.awaitProcessorIdle();
 
         assertThat(joinGameThreadName.get()).startsWith("bridge-processor-TestPlayer");
-        assertThat(joinGameThreadName.get()).isNotEqualTo(listenerThreadName);
+        assertThat(listenerThreadName.get()).startsWith("bridge-listener-TestPlayer");
+        assertThat(listenerThreadName.get()).isNotEqualTo(callbackCallerThreadName);
+        assertThat(joinGameThreadName.get()).isNotEqualTo(listenerThreadName.get());
         assertThat(getField(handler, "currentGameId")).isEqualTo(gameId);
         assertThat(getField(handler, "currentPlayerId")).isEqualTo(playerId);
+    }
+
+    @Test
+    void clientOnCallbackSerializesConcurrentIngressOnSingleListenerThread() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        Set<String> listenerThreads = Collections.synchronizedSet(new LinkedHashSet<>());
+
+        ClientCallback first = new ClientCallback(
+            ClientCallbackMethod.GAME_SELECT,
+            gameId,
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Pass"),
+            false
+        ) {
+            @Override
+            public void decompressData() {
+                listenerThreads.add(Thread.currentThread().getName());
+                super.decompressData();
+            }
+        };
+        ClientCallback second = new ClientCallback(
+            ClientCallbackMethod.GAME_SELECT,
+            gameId,
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Pass"),
+            false
+        ) {
+            @Override
+            public void decompressData() {
+                listenerThreads.add(Thread.currentThread().getName());
+                super.decompressData();
+            }
+        };
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        try {
+            Future<?> firstFuture = executor.submit(() -> client.onCallback(first));
+            Future<?> secondFuture = executor.submit(() -> client.onCallback(second));
+
+            firstFuture.get(1, TimeUnit.SECONDS);
+            secondFuture.get(1, TimeUnit.SECONDS);
+            client.awaitCallbackListenerIdle();
+            handler.awaitProcessorIdle();
+        } finally {
+            executor.shutdownNow();
+        }
+
+        assertThat(listenerThreads).containsExactly("bridge-listener-TestPlayer");
     }
 
     @Test
