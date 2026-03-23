@@ -550,9 +550,9 @@
     "inputSchema": {
       "type": "object",
       "properties": {
-        "cursor": {
+        "snapshot_id": {
           "type": "integer",
-          "description": "Cursor from previous call. Returns compact payload if unchanged.",
+          "description": "Snapshot identifier from a previous get_game_state call. Returns compact payload if unchanged.",
         }
       },
       "additionalProperties": false,
@@ -568,13 +568,13 @@
           "type": "string",
           "description": "Error message",
         },
-        "cursor": {
+        "snapshot_id": {
           "type": "integer",
-          "description": "State cursor",
+          "description": "Snapshot identifier for the current published state",
         },
         "unchanged": {
           "type": "boolean",
-          "description": "Cursor matched (no changes)",
+          "description": "Snapshot matched (no changes)",
         },
         "turn": {
           "type": "integer",

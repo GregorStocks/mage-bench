@@ -112,10 +112,15 @@ The action/game-state slice is also closer to the intended model now:
   snapshots after each processed message
 - MCP reads sync to that published snapshot instead of rebuilding live state on
   the MCP thread
-- `get_game_state` cursor assignment now happens at publish time on the
+- `get_game_state` snapshot identity now happens at publish time on the
   processor, not lazily on the MCP read path
 - `get_action_choices` is now a real read surface rather than a hidden
   auto-resolve path
+
+That API should keep its semantics explicit:
+
+- `get_game_state.snapshot_id` is a snapshot identity / unchanged token
+- `get_game_log.cursor` and `get_game_history.cursor` are real stream cursors
 
 But the bridge is still transitional overall:
 
@@ -213,6 +218,8 @@ This refactor is done only when all of the following are true:
 - no non-processor thread reads live mutable runtime state directly
 - `BridgeCallbackHandler` is no longer the place where cross-thread ownership
   is hidden behind helper methods
+- MCP naming reflects the actual model: snapshot ids for snapshot reads, cursors
+  for append-only log/history reads
 - recurring golden flakes caused by shared-memory races are gone, or any
   remaining flakes reduce to deterministic processor-logic bugs
 

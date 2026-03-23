@@ -73,10 +73,12 @@ from magebench.game.season import SEASON_1_START_EPOCH as GAME_EXPORT_SEASON_1_S
 #  56 - Move GAME_PLAY_MANA auto-handling from callback thread to decision boundary (Mar 20)
 #  57 - Processor-published game-log cursors replace server bridge-event indexes (Mar 22)
 #  58 - get_game_state cursor now comes from processor-published state changes, not lazy read-time assignment (Mar 22)
+#  59 - get_game_state cursor is now a deterministic function of the published state, not a transition counter (Mar 22)
+#  60 - Rename get_game_state cursor to snapshot_id for snapshot-style unchanged reads (Mar 22)
 #  --- Golden exports updated: game export wire format v9 uses snake_case keys (Mar 21)
 #  --- Golden exports updated: add model to test pilot players for stricter export validation (Mar 16)
 #  --- Golden exports updated: dataclass serialization includes null optional fields (Mar 17)
-HARNESS_EPOCH = 58
+HARNESS_EPOCH = 60
 
 # Re-exported here so existing callers keep a stable import path while the
 # canonical season boundary now lives with the export pipeline.

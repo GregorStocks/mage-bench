@@ -1914,7 +1914,7 @@
     "seq": 82,
   },
   "game_type": "Two Player Duel",
-  "harness_epoch": 58,
+  "harness_epoch": 60,
   "id": "mana_drain_fact_or_fiction",
   "llm_events": [
     {
@@ -4329,7 +4329,6 @@
       "result": {
         "active_player": "TestPlayer",
         "available": true,
-        "cursor": 70,
         "game_seq": 80,
         "phase": "Postcombat Main",
         "players": [
@@ -4495,6 +4494,7 @@
           }
         ],
         "priority_player": "TestPlayer",
+        "snapshot_id": 597385116241,
         "stack": [],
         "step": "Postcombat Main",
         "turn": 2,

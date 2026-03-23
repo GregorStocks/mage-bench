@@ -455,7 +455,6 @@ Turn 3 (TestPlayer):\n\
     "content": {
       "active_player": "TestPlayer",
       "available": true,
-      "cursor": 65,
       "game_seq": 66,
       "phase": "Postcombat Main",
       "players": [
@@ -565,6 +564,7 @@ Turn 3 (TestPlayer):\n\
         }
       ],
       "priority_player": "TestPlayer",
+      "snapshot_id": 188590599080,
       "stack": [],
       "step": "Postcombat Main",
       "turn": 2,

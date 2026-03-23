@@ -2521,7 +2521,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     "seq": 96,
   },
   "game_type": "Two Player Duel",
-  "harness_epoch": 58,
+  "harness_epoch": 60,
   "id": "dark_depths_combo",
   "llm_events": [
     {
@@ -5576,7 +5576,6 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "defending": "Opponent",
           }
         ],
-        "cursor": 89,
         "game_seq": 87,
         "phase": "Combat",
         "players": [
@@ -5705,6 +5704,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
           }
         ],
         "priority_player": "TestPlayer",
+        "snapshot_id": 698816322071,
         "stack": [],
         "step": "Declare Attackers",
         "turn": 3,

@@ -18,10 +18,10 @@ public class GetGameStateTool {
         @ResultField(description = "Error message")
         public String error;
 
-        @ResultField(description = "State cursor")
-        public Long cursor;
+        @ResultField(description = "Snapshot identifier for the current published state")
+        public Long snapshot_id;
 
-        @ResultField(description = "Cursor matched (no changes)")
+        @ResultField(description = "Snapshot matched (no changes)")
         public Boolean unchanged;
 
         @ResultField(description = "Turn number")
@@ -58,8 +58,8 @@ public class GetGameStateTool {
     )
     public static Result execute(
             BridgeCallbackHandler handler,
-            @Param(description = "Cursor from previous call. Returns compact payload if unchanged.") Long cursor) {
-        return handler.getGameState(cursor);
+            @Param(description = "Snapshot identifier from a previous get_game_state call. Returns compact payload if unchanged.") Long snapshot_id) {
+        return handler.getGameState(snapshot_id);
     }
 
     public static List<Map<String, Object>> examples() {

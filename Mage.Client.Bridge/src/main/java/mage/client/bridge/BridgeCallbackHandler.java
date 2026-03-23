@@ -297,6 +297,8 @@ public class BridgeCallbackHandler {
             client.getUsername()
         );
         this.publishedMcpState = new BridgePublishedMcpState(
+            logger,
+            client.getUsername(),
             processor,
             gameState,
             gameLogState,
@@ -305,7 +307,7 @@ public class BridgeCallbackHandler {
             gameStateBuilder::buildPlayersArray,
             gameStateBuilder::buildCombatGroups,
             gameView -> buildStackItems(gameView, true, true),
-            this::updateGameStateCursor
+            this::updateGameStateSnapshotId
         );
         this.mcpQueryApi = new BridgeMcpQueryApi(
             client.getUsername(),
@@ -367,7 +369,7 @@ public class BridgeCallbackHandler {
                     && gameState.currentGameId().equals(event.objectId())) {
                 gameLogRefresher.afterCallbackProcessed();
             }
-            publishedMcpState.publishProcessorState();
+            publishedMcpState.publishProcessorState(message);
         });
         this.processor.start();
     }
@@ -2863,8 +2865,8 @@ public class BridgeCallbackHandler {
     }
 
 
-    public GetGameStateTool.Result getGameState(Long cursor) {
-        return mcpQueryApi.getGameState(cursor);
+    public GetGameStateTool.Result getGameState(Long snapshotId) {
+        return mcpQueryApi.getGameState(snapshotId);
     }
 
     public GetGameStateTool.Result getGameState() {
@@ -2888,9 +2890,9 @@ public class BridgeCallbackHandler {
         return gameStateBuilder.buildCombatGroups(gameView);
     }
 
-    private long updateGameStateCursor(Map<String, Object> state) {
+    private long updateGameStateSnapshotId(Map<String, Object> state) {
         String signature = BridgeGameStateBuilder.buildStateSignature(state);
-        return cursorState.updateGameStateCursor(signature);
+        return cursorState.updateGameStateSnapshotId(signature);
     }
 
     private long updateBoardCursor(List<Map<String, Object>> players) {

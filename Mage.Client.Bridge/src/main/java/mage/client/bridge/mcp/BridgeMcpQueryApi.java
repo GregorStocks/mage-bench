@@ -47,13 +47,11 @@ public final class BridgeMcpQueryApi {
     }
 
     public boolean isActionPending() {
-        syncPublishedState();
-        return publishedMcpState.snapshot().actionChoices().actionPending();
+        return snapshotForRead().actionChoices().actionPending();
     }
 
     public ActionResult getActionChoices(Long boardCursorParam) {
-        syncPublishedState();
-        return publishedMcpState.snapshot().actionChoices().copyForRead(boardCursorParam);
+        return snapshotForRead().actionChoices().copyForRead(boardCursorParam);
     }
 
     public ActionResult getActionChoicesSafe(Long boardCursorParam) {
@@ -169,8 +167,8 @@ public final class BridgeMcpQueryApi {
         return BridgeGameLogFormatter.buildGameHistoryResult(events, snapshot.nextCursor());
     }
 
-    public GetGameStateTool.Result getGameState(Long cursor) {
-        return buildGameStateFromPublished(cursor, snapshotGameStateForRead());
+    public GetGameStateTool.Result getGameState(Long snapshotId) {
+        return buildGameStateFromPublished(snapshotId, snapshotGameStateForRead());
     }
 
     public GetGameStateTool.Result getGameState() {
@@ -203,22 +201,14 @@ public final class BridgeMcpQueryApi {
     private BridgeGameLogSnapshot snapshotGameLog() {
         long syncEpoch = processor.submit(BridgeCommand.of(gameLogRefresher::captureSyncBarrierEpoch));
         gameLogRefresher.awaitSyncThrough(syncEpoch);
-        syncPublishedState();
-        var gameLog = publishedMcpState.snapshot().gameLog();
-        return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
+        return processor.submit(BridgeCommand.of(() -> {
+            var gameLog = publishedMcpState.snapshot().gameLog();
+            return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
+        }));
     }
 
     private BridgePublishedGameState snapshotGameStateForRead() {
-        syncPublishedState();
-        return publishedMcpState.snapshot().gameState();
-    }
-
-    private GetGameLogTool.Result buildGameLogResult(
-            BridgeGameLogSnapshot snapshot,
-            String rendered,
-            Integer totalLength,
-            Integer maxChars) {
-        return BridgeGameLogFormatter.buildGameLogResult(snapshot.nextCursor(), rendered, totalLength, maxChars);
+        return snapshotForRead().gameState();
     }
 
     private String renderGameLogFlat(
@@ -227,23 +217,23 @@ public final class BridgeMcpQueryApi {
         return BridgeGameLogFormatter.renderGameLogFlat(entries, initialTurnCounts);
     }
 
-    private GetGameStateTool.Result buildGameStateFromPublished(Long cursor, BridgePublishedGameState snapshot) {
+    private GetGameStateTool.Result buildGameStateFromPublished(Long snapshotId, BridgePublishedGameState snapshot) {
         if (!snapshot.available()) {
             var unavailable = new GetGameStateTool.Result();
             unavailable.available = false;
             unavailable.error = snapshot.error();
             return unavailable;
         }
-        if (cursor != null && cursor.longValue() == snapshot.cursor().longValue()) {
+        if (snapshotId != null && snapshotId.longValue() == snapshot.snapshotId().longValue()) {
             var unchanged = new GetGameStateTool.Result();
             unchanged.available = true;
             unchanged.unchanged = true;
-            unchanged.cursor = snapshot.cursor();
+            unchanged.snapshot_id = snapshot.snapshotId();
             return unchanged;
         }
         var state = new GetGameStateTool.Result();
         state.available = true;
-        state.cursor = snapshot.cursor();
+        state.snapshot_id = snapshot.snapshotId();
         state.game_seq = snapshot.gameSeq();
         String step = snapshot.step() != null ? snapshot.step() : "null";
         logger.debug("[" + username + "] getGameState returning game_seq="
@@ -260,8 +250,16 @@ public final class BridgeMcpQueryApi {
         return state;
     }
 
-    private void syncPublishedState() {
-        processor.submit(BridgeCommand.of(() -> null));
+    private BridgePublishedMcpSnapshot snapshotForRead() {
+        return processor.submit(BridgeCommand.of(publishedMcpState::snapshot));
+    }
+
+    private GetGameLogTool.Result buildGameLogResult(
+            BridgeGameLogSnapshot snapshot,
+            String rendered,
+            Integer totalLength,
+            Integer maxChars) {
+        return BridgeGameLogFormatter.buildGameLogResult(snapshot.nextCursor(), rendered, totalLength, maxChars);
     }
 
     private int normalizeSnapshotCursor(BridgeGameLogSnapshot snapshot, int requestedCursor) {

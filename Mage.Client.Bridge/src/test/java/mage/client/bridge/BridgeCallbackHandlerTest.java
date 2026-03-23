@@ -2223,7 +2223,7 @@ class BridgeCallbackHandlerTest {
         var result = handler.getGameState(null);
 
         assertThat(result.available).isTrue();
-        assertThat(result.cursor).isEqualTo(1);
+        assertThat(result.snapshot_id).isEqualTo(publishedGameStateSnapshotId(handler));
         assertThat(result.game_seq).isEqualTo(12);
         assertThat(result.turn).isEqualTo(1);
         assertThat(result.active_player).isEqualTo("TestPlayer");
@@ -2231,7 +2231,7 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void publishesGameStateCursorBeforeFirstMcpRead() throws Exception {
+    void publishesGameStateSnapshotIdBeforeFirstMcpRead() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
 
@@ -2266,11 +2266,11 @@ class BridgeCallbackHandlerTest {
         ));
         handler.awaitProcessorIdle();
 
-        assertThat(publishedGameStateCursor(handler)).isEqualTo(1L);
+        assertThat(publishedGameStateSnapshotId(handler)).isEqualTo(handler.getGameState(null).snapshot_id);
     }
 
     @Test
-    void getGameStateWithCursorWaitsForQueuedCallbacksBeforeReportingUnchanged() throws Exception {
+    void getGameStateWithSnapshotIdWaitsForQueuedCallbacksBeforeReportingUnchanged() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
 
@@ -2306,7 +2306,7 @@ class BridgeCallbackHandlerTest {
         ));
         handler.awaitProcessorIdle();
 
-        long initialCursor = handler.getGameState(null).cursor;
+        long initialSnapshotId = handler.getGameState(null).snapshot_id;
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
 
         CountDownLatch blockerEntered = new CountDownLatch(1);
@@ -2336,7 +2336,7 @@ class BridgeCallbackHandlerTest {
                 new GameClientMessage(queuedView, Collections.<String, Serializable>emptyMap(), "Pass")
             );
 
-            Future<GetGameStateTool.Result> future = executor.submit(() -> handler.getGameState(initialCursor));
+            Future<GetGameStateTool.Result> future = executor.submit(() -> handler.getGameState(initialSnapshotId));
 
             assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
                 .isInstanceOf(TimeoutException.class);
@@ -2349,7 +2349,7 @@ class BridgeCallbackHandlerTest {
             assertThat(result.available).isTrue();
             assertThat(result.unchanged).isNull();
             assertThat(result.game_seq).isEqualTo(13);
-            assertThat(result.cursor).isNotEqualTo(initialCursor);
+            assertThat(result.snapshot_id).isNotEqualTo(initialSnapshotId);
         } finally {
             releaseBlocker.countDown();
             executor.shutdownNow();
@@ -3793,11 +3793,11 @@ class BridgeCallbackHandlerTest {
         }));
     }
 
-    private static Long publishedGameStateCursor(BridgeCallbackHandler handler) throws Exception {
+    private static Long publishedGameStateSnapshotId(BridgeCallbackHandler handler) throws Exception {
         Object publishedMcpState = getDirectField(handler, "publishedMcpState");
         Object snapshot = invokeNoArg(publishedMcpState, "snapshot");
         Object gameState = invokeNoArg(snapshot, "gameState");
-        return (Long) invokeNoArg(gameState, "cursor");
+        return (Long) invokeNoArg(gameState, "snapshotId");
     }
 
     private static void waitForCondition(BooleanSupplier condition) throws Exception {

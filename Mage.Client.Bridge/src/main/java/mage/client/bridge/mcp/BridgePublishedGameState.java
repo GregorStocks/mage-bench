@@ -6,7 +6,7 @@ import java.util.Map;
 record BridgePublishedGameState(
         boolean available,
         String error,
-        Long cursor,
+        Long snapshotId,
         Integer turn,
         String phase,
         String step,
