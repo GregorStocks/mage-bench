@@ -31,6 +31,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Client side implementation (process commands from a server)
@@ -44,13 +46,13 @@ public class CallbackClientImpl implements CallbackClient {
     private final MageFrame frame;
     private final Map<ClientCallbackType, Integer> lastMessages;
     private final Map<UUID, GameClientMessage> firstGameData;
-    private final Map<UUID, PendingGameView> pendingGameViews;
+    private final ConcurrentMap<UUID, PendingGameView> pendingGameViews;
 
     public CallbackClientImpl(MageFrame frame) {
         this.frame = frame;
         this.lastMessages = new HashMap<>();
         this.firstGameData = new HashMap<>();
-        this.pendingGameViews = new HashMap<>();
+        this.pendingGameViews = new ConcurrentHashMap<>();
         Arrays.stream(ClientCallbackType.values()).forEach(t -> this.lastMessages.put(t, 0));
     }
 
@@ -701,10 +703,15 @@ public class CallbackClientImpl implements CallbackClient {
         if (gameView == null) {
             return;
         }
-        pendingGameViews.merge(
+        pendingGameViews.compute(
                 callback.getObjectId(),
-                new PendingGameView(callback.getMessageId(), gameView),
-                (current, incoming) -> incoming.messageId() >= current.messageId() ? incoming : current
+                (gameId, current) -> {
+                    PendingGameView incoming = new PendingGameView(callback.getMessageId(), gameView);
+                    if (current == null) {
+                        return incoming;
+                    }
+                    return incoming.messageId() >= current.messageId() ? incoming : current;
+                }
         );
     }
 
@@ -723,10 +730,10 @@ public class CallbackClientImpl implements CallbackClient {
     }
 
     private void clearPendingGameView(UUID gameId, int messageId) {
-        PendingGameView pending = pendingGameViews.get(gameId);
-        if (pending != null && pending.messageId() <= messageId) {
-            pendingGameViews.remove(gameId);
-        }
+        pendingGameViews.computeIfPresent(
+                gameId,
+                (ignoredGameId, pending) -> pending.messageId() <= messageId ? null : pending
+        );
     }
 
     private static boolean shouldApplyGameInit(GamePanel panel, int messageId) {

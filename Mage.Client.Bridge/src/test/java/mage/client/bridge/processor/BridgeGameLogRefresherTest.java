@@ -226,6 +226,85 @@ class BridgeGameLogRefresherTest {
         }
     }
 
+    @Test
+    void fetchFailureCompletesSyncBarrierAndRetriesAfterCooldown() throws Exception {
+        AtomicInteger fetchCalls = new AtomicInteger();
+        CountDownLatch firstFailure = new CountDownLatch(1);
+        CountDownLatch secondFetchStarted = new CountDownLatch(1);
+        Session session = sessionProxy((proxy, method, args) -> {
+            if ("getBridgeEvents".equals(method.getName())) {
+                int call = fetchCalls.incrementAndGet();
+                if (call == 1) {
+                    firstFailure.countDown();
+                    throw new IllegalStateException("boom");
+                }
+                secondFetchStarted.countDown();
+                return List.of(bridgeLogEntry(7, "LAND_PLAYED", 1, "Alice", "Alice", "Swamp", null));
+            }
+            return defaultReturnValue(method.getReturnType());
+        });
+
+        BridgeProcessor processor = new BridgeProcessor(
+            "TestPlayer",
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            event -> {}
+        );
+        BridgeGameState gameState = new BridgeGameState();
+        BridgeGameLogState gameLogState = new BridgeGameLogState();
+        BridgeGameLogRefresher refresher = new BridgeGameLogRefresher(
+            processor,
+            gameState,
+            gameLogState,
+            () -> session,
+            Logger.getLogger(BridgeGameLogRefresherTest.class),
+            "TestPlayer"
+        );
+        processor.setAfterMessageHook(message -> {
+            if (message instanceof BridgeCallbackEvent) {
+                refresher.afterCallbackProcessed();
+            }
+        });
+        processor.start();
+
+        try {
+            UUID gameId = UUID.randomUUID();
+            UUID playerId = UUID.randomUUID();
+            processor.submit(BridgeCommand.of(() -> {
+                gameState.activateGame(gameId, playerId);
+                return null;
+            }));
+
+            processor.enqueueCallback(new BridgeCallbackEvent(gameId, ClientCallbackMethod.GAME_UPDATE, null));
+            assertThat(firstFailure.await(1, TimeUnit.SECONDS)).isTrue();
+
+            CountDownLatch waiterFinished = new CountDownLatch(1);
+            AtomicReference<Throwable> waiterFailure = new AtomicReference<>();
+            Thread waiter = new Thread(() -> {
+                try {
+                    long syncEpoch = processor.submit(BridgeCommand.of(refresher::captureSyncBarrierEpoch));
+                    refresher.awaitSyncThrough(syncEpoch);
+                } catch (Throwable t) {
+                    waiterFailure.set(t);
+                } finally {
+                    waiterFinished.countDown();
+                }
+            }, "bridge-log-failure-waiter");
+            waiter.start();
+
+            assertThat(waiterFinished.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThat(waiterFailure.get()).isNull();
+
+            Thread.sleep(100);
+            assertThat(fetchCalls.get()).isEqualTo(1);
+
+            assertThat(secondFetchStarted.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThat(fetchCalls.get()).isEqualTo(2);
+        } finally {
+            refresher.shutdown();
+            processor.shutdown("test");
+        }
+    }
+
     private static Session sessionProxy(java.lang.reflect.InvocationHandler handler) {
         return (Session) Proxy.newProxyInstance(
             Session.class.getClassLoader(),

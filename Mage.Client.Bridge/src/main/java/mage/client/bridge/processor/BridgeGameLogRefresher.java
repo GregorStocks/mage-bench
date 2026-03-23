@@ -6,9 +6,11 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 public final class BridgeGameLogRefresher {
@@ -17,6 +19,7 @@ public final class BridgeGameLogRefresher {
     // processor-owned event data instead of polling Session.getBridgeEvents().
     private record FetchRequest(long generation, UUID gameId, UUID playerId, int serverCursor, long syncEpoch) {
     }
+    private static final long FETCH_RETRY_DELAY_MS = 250;
 
     private final BridgeProcessor processor;
     private final BridgeGameState gameState;
@@ -24,11 +27,12 @@ public final class BridgeGameLogRefresher {
     private final Supplier<Session> sessionSupplier;
     private final Logger logger;
     private final String username;
-    private final ExecutorService fetchExecutor;
+    private final ScheduledExecutorService fetchExecutor;
     private final Object syncLock = new Object();
     private boolean refreshQueued = false;
     private boolean fetchInFlight = false;
     private boolean closed = false;
+    private ScheduledFuture<?> scheduledRetry = null;
     private long requestedSyncEpoch = 0;
     private long completedSyncEpoch = 0;
 
@@ -45,7 +49,7 @@ public final class BridgeGameLogRefresher {
         this.sessionSupplier = sessionSupplier;
         this.logger = logger;
         this.username = username;
-        this.fetchExecutor = Executors.newSingleThreadExecutor(runnable -> {
+        this.fetchExecutor = Executors.newSingleThreadScheduledExecutor(runnable -> {
             Thread thread = new Thread(runnable, "bridge-log-refresher-" + username);
             thread.setDaemon(true);
             return thread;
@@ -67,6 +71,10 @@ public final class BridgeGameLogRefresher {
         synchronized (syncLock) {
             completedSyncEpoch = Math.max(completedSyncEpoch, requestedSyncEpoch);
             syncLock.notifyAll();
+        }
+        if (scheduledRetry != null) {
+            scheduledRetry.cancel(false);
+            scheduledRetry = null;
         }
         fetchExecutor.shutdownNow();
     }
@@ -102,6 +110,10 @@ public final class BridgeGameLogRefresher {
         UUID playerId = gameState.currentPlayerId();
         if (session == null || gameId == null || playerId == null) {
             return;
+        }
+        if (scheduledRetry != null) {
+            scheduledRetry.cancel(false);
+            scheduledRetry = null;
         }
 
         FetchRequest request = new FetchRequest(
@@ -156,7 +168,11 @@ public final class BridgeGameLogRefresher {
                 && request.gameId().equals(gameState.currentGameId())
                 && request.playerId().equals(gameState.currentPlayerId())) {
             gameLogState.recordFetchedBridgeEvents(fetched);
-            if (failure != null || !fetched.isEmpty()) {
+            if (failure != null) {
+                refreshQueued = true;
+                completedEpoch = request.syncEpoch();
+                scheduleRetry();
+            } else if (!fetched.isEmpty()) {
                 refreshQueued = true;
             } else if (!refreshQueued) {
                 completedEpoch = request.syncEpoch();
@@ -164,9 +180,35 @@ public final class BridgeGameLogRefresher {
         } else {
             completedEpoch = request.syncEpoch();
         }
-        startFetchIfNeeded();
+        if (failure == null) {
+            startFetchIfNeeded();
+        }
         if (completedEpoch >= 0) {
             markSyncCompleted(completedEpoch);
+        }
+    }
+
+    private void scheduleRetry() {
+        requireProcessorThread("scheduleRetry");
+        if (closed || scheduledRetry != null) {
+            return;
+        }
+        try {
+            scheduledRetry = fetchExecutor.schedule(this::retryFetchAfterDelay, FETCH_RETRY_DELAY_MS, TimeUnit.MILLISECONDS);
+        } catch (RejectedExecutionException e) {
+            throw new IllegalStateException("Bridge game log refresher rejected retry task", e);
+        }
+    }
+
+    private void retryFetchAfterDelay() {
+        try {
+            processor.submit(BridgeCommand.of(() -> {
+                scheduledRetry = null;
+                startFetchIfNeeded();
+                return null;
+            }));
+        } catch (IllegalStateException ignored) {
+            // Processor is already shut down; nothing left to publish.
         }
     }
 
