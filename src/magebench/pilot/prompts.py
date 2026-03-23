@@ -10,7 +10,7 @@ def _load_json_file(name: str, config_file: Path | None) -> dict[str, str]:
     candidates: list[Path] = []
     if config_file is not None:
         candidates.append(config_file.parent / name)
-        candidates.append(Path("puppeteer") / name)
+    candidates.append(Path("puppeteer") / name)
 
     for candidate in candidates:
         if candidate.exists():
