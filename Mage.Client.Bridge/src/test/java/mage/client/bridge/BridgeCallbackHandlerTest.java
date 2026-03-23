@@ -818,6 +818,7 @@ class BridgeCallbackHandlerTest {
             GetGameHistoryTool.Result result = future.get(1, TimeUnit.SECONDS);
             assertThat(getBridgeEventsCalls.get()).isGreaterThanOrEqualTo(1);
             assertThat(result.event_count).isEqualTo(1);
+            assertThat(result.cursor).isEqualTo(1);
             assertThat(result.history).contains("Alice played Shock");
         } finally {
             releaseAfterHook.countDown();

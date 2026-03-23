@@ -203,6 +203,7 @@ public final class BridgeMcpQueryApi {
     private BridgeGameLogSnapshot snapshotGameLog() {
         long syncEpoch = processor.submit(BridgeCommand.of(gameLogRefresher::captureSyncBarrierEpoch));
         gameLogRefresher.awaitSyncThrough(syncEpoch);
+        syncPublishedState();
         var gameLog = publishedMcpState.snapshot().gameLog();
         return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
     }
