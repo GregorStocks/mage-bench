@@ -25,9 +25,7 @@ def _assert_game_export_path(path: Path) -> None:
     for ext in _VALID_EXTENSIONS:
         if path.name.endswith(ext):
             return
-    raise AssertionError(
-        f"Expected game export path ending in {_VALID_EXTENSIONS}, got {path}"
-    )
+    raise AssertionError(f"Expected game export path ending in {_VALID_EXTENSIONS}, got {path}")
 
 
 def _base_game_export_path(path: Path) -> Path:
@@ -39,11 +37,7 @@ def load_raw_game_export(path: str | Path) -> dict[str, Any]:
     """Load a game export in the current wire format without schema validation."""
     export_path = Path(path)
     _assert_game_export_path(export_path)
-    raw = (
-        gzip.decompress(export_path.read_bytes()).decode()
-        if export_path.suffix == ".gz"
-        else export_path.read_text()
-    )
+    raw = gzip.decompress(export_path.read_bytes()).decode() if export_path.suffix == ".gz" else export_path.read_text()
     data = loads_json5(raw)
     assert isinstance(data, dict), f"{export_path}: expected JSON object"
     return migrate_game_export_to_current(data)
@@ -59,9 +53,7 @@ def write_raw_game_export(
     export_path = Path(path)
     _assert_game_export_path(export_path)
 
-    json5_bytes = dumps_json5(
-        _jsonify_export_payload(data), ensure_ascii=False
-    ).encode()
+    json5_bytes = dumps_json5(_jsonify_export_payload(data), ensure_ascii=False).encode()
     if compress is None:
         compress = len(json5_bytes) > GAME_EXPORT_GZ_THRESHOLD
 
@@ -104,7 +96,5 @@ def glob_game_export_paths(games_dir: Path = GAMES_DIR) -> list[Path]:
     """List game export files, preferring .json5.gz when both variants exist."""
     gz_files = set(games_dir.glob("game_*.json5.gz"))
     gz_stems = {path.name.removesuffix(".gz") for path in gz_files}
-    json5_files = [
-        path for path in games_dir.glob("game_*.json5") if path.name not in gz_stems
-    ]
+    json5_files = [path for path in games_dir.glob("game_*.json5") if path.name not in gz_stems]
     return sorted(gz_files | set(json5_files))

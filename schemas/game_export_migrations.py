@@ -20,9 +20,7 @@ def migrate_game_export_to_current(data: Mapping[str, JsonValue]) -> JsonObject:
     """Require the current v9 snake_case export wire format."""
     migrated = _copy_dict(data)
     version = data.get("version")
-    assert isinstance(version, int), (
-        f"game export version must be an int, got {version!r}"
-    )
+    assert isinstance(version, int), f"game export version must be an int, got {version!r}"
     assert version == CURRENT_GAME_EXPORT_VERSION, (
         f"Unsupported game export version {version}; expected {CURRENT_GAME_EXPORT_VERSION}"
     )

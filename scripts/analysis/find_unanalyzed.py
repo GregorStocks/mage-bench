@@ -87,9 +87,7 @@ def find_unanalyzed(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Find unanalyzed game exports")
-    parser.add_argument(
-        "--count", type=int, default=10, help="Number of games to list (default: 10)"
-    )
+    parser.add_argument("--count", type=int, default=10, help="Number of games to list (default: 10)")
     parser.add_argument(
         "--type",
         choices=["fast", "deep"],

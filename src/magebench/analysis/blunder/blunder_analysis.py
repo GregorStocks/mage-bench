@@ -150,9 +150,7 @@ class BlunderAnalysisError(RuntimeError):
 def _write_annotations(gz_path: str, annotations: list[Annotation]) -> None:
     """Write annotations (possibly empty) to the game file."""
     TMP_DIR.mkdir(exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".json", delete=False, dir=str(TMP_DIR)
-    ) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, dir=str(TMP_DIR)) as f:
         json.dump(annotations, f, default=json_default)
         ann_path = f.name
 
@@ -201,9 +199,7 @@ def _format_preceding_action(preceding: Decision) -> str:
     di = decision_index(preceding)
     parts = [f"[Decision {di}] {msg}"]
     if preceding.chosen is not None:
-        parts.append(
-            f"→ Chose: {chosen_display(preceding.chosen, preceding.chosen_args, preceding.choices)}"
-        )
+        parts.append(f"→ Chose: {chosen_display(preceding.chosen, preceding.chosen_args, preceding.choices)}")
     return "## Preceding Action\n\n" + " ".join(parts)
 
 
@@ -303,18 +299,14 @@ def evaluate_one_decision(
     parsed_ok = True
 
     for attempt in range(max_attempts):
-        text, in_tok, out_tok, cached_tok = call_llm(
-            client, model, PER_DECISION_SYSTEM, user_msg
-        )
+        text, in_tok, out_tok, cached_tok = call_llm(client, model, PER_DECISION_SYSTEM, user_msg)
         attempt_cost = compute_cost(prices, model, in_tok, out_tok)
         total_cost += attempt_cost
         suffix = f" (attempt {attempt + 1})" if attempt > 0 else ""
         cache_info = ""
         if cached_tok > 0 and in_tok > 0:
             cache_info = f" cache={cached_tok / in_tok * 100:.0f}%"
-        print(
-            f"  [{label}] {in_tok:,} in / {out_tok:,} out (${attempt_cost:.4f}){cache_info}{suffix}"
-        )
+        print(f"  [{label}] {in_tok:,} in / {out_tok:,} out (${attempt_cost:.4f}){cache_info}{suffix}")
 
         try:
             ann = parse_annotation(text)
@@ -332,9 +324,7 @@ def evaluate_one_decision(
 
         # Validate LLM-generated fields are present and non-null strings
         missing = LLM_REQUIRED_FIELDS - set(ann.keys())
-        null_fields = {
-            f for f in LLM_REQUIRED_FIELDS if f in ann and not isinstance(ann[f], str)
-        }
+        null_fields = {f for f in LLM_REQUIRED_FIELDS if f in ann and not isinstance(ann[f], str)}
         if not missing and not null_fields:
             break
         bad = missing | null_fields
@@ -343,9 +333,7 @@ def evaluate_one_decision(
         if attempt < max_attempts - 1:
             ann = None
         else:
-            print(
-                f"  WARNING: {label} still missing fields after {max_attempts} attempts, skipping"
-            )
+            print(f"  WARNING: {label} still missing fields after {max_attempts} attempts, skipping")
             ann = None
             break
 
@@ -440,9 +428,7 @@ def init_api() -> tuple[OpenAI, dict[str, tuple[float, float]]]:
 
     prices = fetch_openrouter_prices()
     if get_model_price(OPUS_MODEL, prices) is None:
-        raise BlunderAnalysisError(
-            f"Could not fetch pricing for {OPUS_MODEL} from OpenRouter"
-        )
+        raise BlunderAnalysisError(f"Could not fetch pricing for {OPUS_MODEL} from OpenRouter")
 
     client = OpenAI(base_url=BASE_URL, api_key=api_key, timeout=300)
     return client, prices
@@ -522,19 +508,11 @@ def main(gz_path: str) -> float:
     # Missing blunder_script_version with existing annotations → v1.
     data = load_game_for_annotation(gz_path)
     if data.annotations is not None:
-        existing_version = (
-            data.blunder_script_version
-            if data.blunder_script_version is not None
-            else 1
-        )
+        existing_version = data.blunder_script_version if data.blunder_script_version is not None else 1
         if existing_version >= BLUNDER_SCRIPT_VERSION:
-            print(
-                f"Already analyzed (v{existing_version}): {gz_path} ({len(data.annotations)} annotations)"
-            )
+            print(f"Already analyzed (v{existing_version}): {gz_path} ({len(data.annotations)} annotations)")
             return 0.0
-        print(
-            f"Reanalyzing: v{existing_version} → v{BLUNDER_SCRIPT_VERSION} ({gz_path})"
-        )
+        print(f"Reanalyzing: v{existing_version} → v{BLUNDER_SCRIPT_VERSION} ({gz_path})")
 
     client, prices = init_api()
 
@@ -628,9 +606,7 @@ def main(gz_path: str) -> float:
             raw_records.append(raw)
 
     if parse_failures > len(non_forced) / 2:
-        raise BlunderAnalysisError(
-            f"Too many parse failures: {parse_failures}/{len(non_forced)} decisions failed"
-        )
+        raise BlunderAnalysisError(f"Too many parse failures: {parse_failures}/{len(non_forced)} decisions failed")
 
     total_prompt = sum(r.get("prompt_tokens", 0) for r in raw_records)
     total_completion = sum(r.get("completion_tokens", 0) for r in raw_records)
@@ -647,9 +623,7 @@ def main(gz_path: str) -> float:
         log_dir = Path.home() / ".mage-bench" / "logs" / game_id
         if log_dir.is_dir():
             ts = datetime.now(_LOG_TZ).strftime("%Y%m%d_%H%M%S")
-            raw_path = (
-                log_dir / f"blunder_analysis_v{BLUNDER_SCRIPT_VERSION}_{ts}.jsonl"
-            )
+            raw_path = log_dir / f"blunder_analysis_v{BLUNDER_SCRIPT_VERSION}_{ts}.jsonl"
             raw_records.sort(key=lambda r: r.get("decision_index", 0))
             with open(raw_path, "w") as f:
                 for rec in raw_records:
@@ -662,15 +636,11 @@ def main(gz_path: str) -> float:
     for ann in annotations:
         idx = ann.snapshot_index
         if not isinstance(idx, int) or idx < 0 or idx >= num_snapshots:
-            print(
-                f"  WARNING: Dropping annotation with invalid snapshotIndex {idx} (max {num_snapshots - 1})"
-            )
+            print(f"  WARNING: Dropping annotation with invalid snapshotIndex {idx} (max {num_snapshots - 1})")
             continue
         valid_annotations.append(ann)
     if len(valid_annotations) < len(annotations):
-        print(
-            f"  Dropped {len(annotations) - len(valid_annotations)} invalid annotation(s)"
-        )
+        print(f"  Dropped {len(annotations) - len(valid_annotations)} invalid annotation(s)")
     annotations = valid_annotations
 
     if not annotations:

@@ -49,18 +49,11 @@ def main(gz_path: str) -> None:
                 is_failure = True
         except (json.JSONDecodeError, TypeError):
             # Fallback for very old logs without JSON structure
-            if any(
-                x in result.lower()
-                for x in ["error", "out of range", "required", "invalid", "failed"]
-            ):
+            if any(x in result.lower() for x in ["error", "out of range", "required", "invalid", "failed"]):
                 is_failure = True
         if is_failure:
             fail_count += 1
-            print(
-                f"  {tc.player} | {tc.tool} "
-                f"| args={json.dumps(tc.args)} "
-                f"| {result[:200]}"
-            )
+            print(f"  {tc.player} | {tc.tool} | args={json.dumps(tc.args)} | {result[:200]}")
     if fail_count == 0:
         print("  (none)")
 
@@ -81,9 +74,7 @@ def main(gz_path: str) -> None:
             continue
         prompt_tokens = sum((e.usage.prompt_tokens or 0) for e in pr if e.usage)
         completion_tokens = sum((e.usage.completion_tokens or 0) for e in pr if e.usage)
-        print(
-            f"{player}: {len(pr)} responses, {prompt_tokens:,} prompt, {completion_tokens:,} completion tokens"
-        )
+        print(f"{player}: {len(pr)} responses, {prompt_tokens:,} prompt, {completion_tokens:,} completion tokens")
 
     # Game-level errors from error logs
     errors = d.errors

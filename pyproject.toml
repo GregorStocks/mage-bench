@@ -19,3 +19,7 @@ puppeteer = { workspace = true }
 
 [tool.uv.workspace]
 members = ["puppeteer"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120

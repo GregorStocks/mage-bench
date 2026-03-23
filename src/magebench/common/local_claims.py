@@ -52,9 +52,7 @@ def _run_git(repo_root: Path | None, *args: str) -> str:
 
 def current_worktree_context(repo_root: Path | None = None) -> WorktreeContext:
     worktree_path = Path(_run_git(repo_root, "rev-parse", "--show-toplevel")).resolve()
-    git_common_dir = Path(
-        _run_git(repo_root, "rev-parse", "--path-format=absolute", "--git-common-dir")
-    ).resolve()
+    git_common_dir = Path(_run_git(repo_root, "rev-parse", "--path-format=absolute", "--git-common-dir")).resolve()
     branch = _run_git(repo_root, "branch", "--show-current")
     assert branch, f"Expected current branch for worktree {worktree_path}"
     return WorktreeContext(
@@ -79,11 +77,7 @@ def canonical_issue_key(issue_name: str) -> str:
 
 
 def resolve_issue_stem_for_key(issues_dir: Path, key: str) -> str | None:
-    matches = [
-        path.stem
-        for path in iter_issue_files(issues_dir)
-        if canonical_issue_key(path.stem) == key
-    ]
+    matches = [path.stem for path in iter_issue_files(issues_dir) if canonical_issue_key(path.stem) == key]
     if not matches:
         return None
     assert len(matches) == 1, f"Multiple issue files resolve to {key}: {matches}"
@@ -128,10 +122,7 @@ def _load_claim(path: Path, namespace: str) -> ClaimRecord:
 
 
 def _same_owner(record: ClaimRecord, context: WorktreeContext) -> bool:
-    return (
-        record.worktree_path == context.worktree_path
-        and record.branch == context.branch
-    )
+    return record.worktree_path == context.worktree_path and record.branch == context.branch
 
 
 def _active_worktree_branches(context: WorktreeContext) -> dict[Path, str | None]:
@@ -180,9 +171,7 @@ def _locked_namespace(context: WorktreeContext, namespace: str) -> Iterator[Path
         os.close(fd)
 
 
-def _load_claims_locked(
-    context: WorktreeContext, namespace: str
-) -> dict[str, ClaimRecord]:
+def _load_claims_locked(context: WorktreeContext, namespace: str) -> dict[str, ClaimRecord]:
     return {
         claim_file.stem: _load_claim(claim_file, namespace)
         for claim_file in sorted(_active_dir(context, namespace).glob("*.json"))
@@ -195,9 +184,7 @@ def list_claims(namespace: str, repo_root: Path | None = None) -> list[ClaimReco
         return list(_load_claims_locked(context, namespace).values())
 
 
-def current_owner_claims(
-    namespace: str, repo_root: Path | None = None
-) -> list[ClaimRecord]:
+def current_owner_claims(namespace: str, repo_root: Path | None = None) -> list[ClaimRecord]:
     context = current_worktree_context(repo_root)
     with _locked_namespace(context, namespace):
         claims = _load_claims_locked(context, namespace)
@@ -245,8 +232,7 @@ def claim_exact_keys(
             record = claims.get(key)
             if record is not None and not _same_owner(record, context):
                 raise ClaimConflictError(
-                    f"{namespace} claim {key} is already owned by "
-                    f"{record.worktree_name} ({record.branch})"
+                    f"{namespace} claim {key} is already owned by {record.worktree_name} ({record.branch})"
                 )
 
         selected: list[ClaimRecord] = []

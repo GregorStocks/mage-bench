@@ -106,9 +106,7 @@ def _changed_files_vs_master() -> list[str] | None:
         return None
 
     try:
-        head = subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL
-        ).strip()
+        head = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL).strip()
         master = subprocess.check_output(
             ["git", "rev-parse", "origin/master"],
             text=True,
@@ -130,15 +128,9 @@ def _changed_files_vs_master() -> list[str] | None:
         return None
 
     # Include both committed and uncommitted changes
-    committed = subprocess.check_output(
-        ["git", "diff", "--name-only", merge_base, "HEAD"], text=True
-    ).strip()
-    uncommitted = subprocess.check_output(
-        ["git", "diff", "--name-only", "HEAD"], text=True
-    ).strip()
-    untracked = subprocess.check_output(
-        ["git", "ls-files", "--others", "--exclude-standard"], text=True
-    ).strip()
+    committed = subprocess.check_output(["git", "diff", "--name-only", merge_base, "HEAD"], text=True).strip()
+    uncommitted = subprocess.check_output(["git", "diff", "--name-only", "HEAD"], text=True).strip()
+    untracked = subprocess.check_output(["git", "ls-files", "--others", "--exclude-standard"], text=True).strip()
 
     files: set[str] = set()
     for block in (committed, uncommitted, untracked):
@@ -182,9 +174,7 @@ def _make_env() -> dict[str, str]:
     return env
 
 
-def _run_command_with_captured_output(
-    command: list[str], *, env: dict[str, str]
-) -> subprocess.CompletedProcess:
+def _run_command_with_captured_output(command: list[str], *, env: dict[str, str]) -> subprocess.CompletedProcess:
     # `subprocess.run(..., capture_output=True)` waits for pipe EOF, which can
     # hang if the target exits while a descendant still has stdout/stderr open.
     with tempfile.TemporaryFile(mode="w+", encoding="utf-8") as output_file:

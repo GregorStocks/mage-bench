@@ -38,9 +38,7 @@ def main() -> int:
     season_data = _load_season()
     season_num = season_data["current_season"]
     tournament_rel = season_data.get("tournament")
-    assert tournament_rel is not None, (
-        f"Season {season_num} has no active tournament pointer"
-    )
+    assert tournament_rel is not None, f"Season {season_num} has no active tournament pointer"
     tournament_path = _ROOT / tournament_rel
     assert tournament_path.exists(), f"Tournament file not found: {tournament_path}"
     tournament = json.loads(tournament_path.read_text())

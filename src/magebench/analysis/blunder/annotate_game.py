@@ -58,9 +58,7 @@ def _validate_annotation(ann: dict, index: int, game_data: dict) -> None:
         f"decision_index {ann['decision_index']} player '{decision_player}'"
     )
 
-    assert ann["type"] == "blunder", (
-        f"Annotation {index}: type must be 'blunder', got '{ann['type']}'"
-    )
+    assert ann["type"] == "blunder", f"Annotation {index}: type must be 'blunder', got '{ann['type']}'"
 
     assert ann["severity"] in VALID_SEVERITIES, (
         f"Annotation {index}: severity '{ann['severity']}' not in {VALID_SEVERITIES}"
@@ -79,9 +77,7 @@ def annotate_game(
     with open(annotations_path) as f:
         annotations = json.load(f)
 
-    assert isinstance(annotations, list), (
-        f"Annotations must be a JSON array, got {type(annotations).__name__}"
-    )
+    assert isinstance(annotations, list), f"Annotations must be a JSON array, got {type(annotations).__name__}"
 
     for i, ann in enumerate(annotations):
         _validate_annotation(ann, i, game_data)

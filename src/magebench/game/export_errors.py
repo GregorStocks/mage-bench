@@ -6,9 +6,7 @@ from pathlib import Path
 from magebench.game.game_export_types import Decision
 
 _ERROR_LINE_RE = re.compile(r"^\[(\d{2}:\d{2}:\d{2})\]\s+\[(\w+)\]\s+(.+)$")
-_ERROR_LINE_ISO_RE = re.compile(
-    r"^\[\d{4}-\d{2}-\d{2}T(\d{2}:\d{2}:\d{2})\.\d+[-+]\d{2}:\d{2}\]\s+\[(\w+)\]\s+(.+)$"
-)
+_ERROR_LINE_ISO_RE = re.compile(r"^\[\d{4}-\d{2}-\d{2}T(\d{2}:\d{2}:\d{2})\.\d+[-+]\d{2}:\d{2}\]\s+\[(\w+)\]\s+(.+)$")
 
 _LLM_ERROR_PREFIXES = (
     "choose_action failed:",
@@ -75,9 +73,7 @@ def read_errors(game_dir: Path) -> list[dict]:
     return errors
 
 
-def link_errors_to_decisions(
-    errors: list[dict], decisions: list[Decision], llm_events: list[dict]
-) -> None:
+def link_errors_to_decisions(errors: list[dict], decisions: list[Decision], llm_events: list[dict]) -> None:
     """Add decision_index to each error by matching player + timestamp.
 
     For each error, finds the most recent decision for the same player whose
@@ -94,9 +90,7 @@ def link_errors_to_decisions(
             ts_hms = ts_iso[11:19]
         else:
             continue
-        player_decisions.setdefault(decision.player, []).append(
-            (ts_hms, decision.index)
-        )
+        player_decisions.setdefault(decision.player, []).append((ts_hms, decision.index))
 
     for err in errors:
         err_ts = err.get("ts")
@@ -105,9 +99,7 @@ def link_errors_to_decisions(
         player_raw = err.get("player")
         if not player_raw:
             continue
-        assert isinstance(player_raw, str), (
-            f"error player must be a string, got {player_raw!r}"
-        )
+        assert isinstance(player_raw, str), f"error player must be a string, got {player_raw!r}"
         player_decisions_for_error = player_decisions.get(player_raw)
         if not player_decisions_for_error:
             continue

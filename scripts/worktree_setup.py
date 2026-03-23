@@ -96,10 +96,7 @@ def main() -> None:
         plugins_dir.mkdir(parents=True, exist_ok=True)
         images_link = plugins_dir / "images"
 
-        if (
-            images_link.is_symlink()
-            and images_link.resolve() == SHARED_IMAGES.resolve()
-        ):
+        if images_link.is_symlink() and images_link.resolve() == SHARED_IMAGES.resolve():
             # Already a correct symlink, we're good
             pass
         elif images_link.is_symlink():
@@ -134,9 +131,7 @@ def main() -> None:
 
     # Skip rewrite if port is already set correctly (idempotent fast path)
     if port_line not in existing_lines:
-        env_lines = [
-            line for line in existing_lines if not line.startswith("WEBSITE_PORT=")
-        ]
+        env_lines = [line for line in existing_lines if not line.startswith("WEBSITE_PORT=")]
         env_lines.append(port_line)
         env_file.write_text("\n".join(env_lines) + "\n")
 

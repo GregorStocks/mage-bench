@@ -75,9 +75,7 @@ def load_tournament(
     """Load the current tournament JSON. Returns (tournament_data, file_path)."""
     season_data = load_season(allowed_phases or (TOURNAMENT_PHASE,))
     tournament_rel = season_data.get("tournament")
-    assert tournament_rel is not None, (
-        f"Season {season_data['current_season']} has no active tournament pointer"
-    )
+    assert tournament_rel is not None, f"Season {season_data['current_season']} has no active tournament pointer"
     tournament_path = _ROOT / tournament_rel
     assert tournament_path.exists(), f"Tournament file not found: {tournament_path}"
     tournament = json.loads(tournament_path.read_text())
@@ -95,9 +93,7 @@ def generate_bracket(size: int) -> list[tuple[int, int]]:
       [1, 2] -> [1, 4, 2, 3] -> [1, 8, 4, 5, 2, 7, 3, 6]
     Then pairs adjacent entries: (1,8), (4,5), (2,7), (3,6).
     """
-    assert size >= 2 and (size & (size - 1)) == 0, (
-        f"Bracket size must be a power of 2, got {size}"
-    )
+    assert size >= 2 and (size & (size - 1)) == 0, f"Bracket size must be a power of 2, got {size}"
     positions = [1, 2]
     while len(positions) < size:
         next_size = len(positions) * 2
@@ -119,9 +115,7 @@ def round_name(num_matches: int) -> str:
 # -- Bracket state management --
 
 
-def _build_round(
-    round_num: int, matchups: Sequence[tuple[int | None, int | None]]
-) -> dict:
+def _build_round(round_num: int, matchups: Sequence[tuple[int | None, int | None]]) -> dict:
     """Build a round dict from a list of (seed_a, seed_b) matchups."""
     return {
         "round": round_num,
@@ -197,9 +191,7 @@ def find_ready_matches(tournament: dict) -> list[tuple[dict, dict]]:
             continue
 
         return [
-            (current_round, match)
-            for match in matches
-            if match["winner_seed"] is None and match["seed_a"] is not None
+            (current_round, match) for match in matches if match["winner_seed"] is None and match["seed_a"] is not None
         ]
 
     return []
@@ -218,9 +210,7 @@ def tournament_is_complete(tournament: dict) -> bool:
         return False
     matches = [match for round_dict in rounds for match in round_dict["matches"]]
     expected_matches = tournament["size"] - 1
-    assert len(matches) == expected_matches, (
-        f"Expected {expected_matches} bracket matches, found {len(matches)}"
-    )
+    assert len(matches) == expected_matches, f"Expected {expected_matches} bracket matches, found {len(matches)}"
     return all(match["winner_seed"] is not None for match in matches)
 
 
@@ -240,18 +230,14 @@ def get_tournament_champion_seed(tournament: dict) -> int | None:
     return champion_seed
 
 
-def _finalize_completed_tournament_state(
-    tournament: dict, tournament_path: Path
-) -> bool:
+def _finalize_completed_tournament_state(tournament: dict, tournament_path: Path) -> bool:
     """Persist champion data and switch the season into the between-seasons phase."""
     champion_seed = get_tournament_champion_seed(tournament)
     if champion_seed is None:
         return False
 
     entrants_by_seed = {entrant["seed"]: entrant for entrant in tournament["entrants"]}
-    assert champion_seed in entrants_by_seed, (
-        f"Champion seed {champion_seed} not found in entrants"
-    )
+    assert champion_seed in entrants_by_seed, f"Champion seed {champion_seed} not found in entrants"
     champion = entrants_by_seed[champion_seed]
     changed = False
 
@@ -266,9 +252,7 @@ def _finalize_completed_tournament_state(
 
     season_data = load_season(ACTIVE_TOURNAMENT_PHASES)
     tournament_rel = season_data.get("tournament")
-    assert tournament_rel is not None, (
-        f"Season {season_data['current_season']} has no active tournament pointer"
-    )
+    assert tournament_rel is not None, f"Season {season_data['current_season']} has no active tournament pointer"
     expected_tournament_path = (_ROOT / tournament_rel).resolve()
     assert expected_tournament_path == tournament_path.resolve(), (
         f"Season points at {expected_tournament_path}, not {tournament_path.resolve()}"
@@ -282,18 +266,14 @@ def _finalize_completed_tournament_state(
             "you run 'make conclude-tournament'."
         )
 
-    print(
-        f"Tournament is complete! Champion: #{champion_seed} {champion['display_name']}"
-    )
+    print(f"Tournament is complete! Champion: #{champion_seed} {champion['display_name']}")
     return True
 
 
 # -- Deck file management --
 
 
-def write_tournament_deck(
-    project_root: Path, seed: int, card_lines: list[str], half_decks: list[str]
-) -> Path:
+def write_tournament_deck(project_root: Path, seed: int, card_lines: list[str], half_decks: list[str]) -> Path:
     """Write a tournament decklist to a .dck file. Returns path relative to project root."""
     tmp_dir = project_root / "tmp" / "tournament-decks"
     tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -323,9 +303,7 @@ def build_game_config(
         entrant = entrants_by_seed[seed]
         decklist = decklists[str(seed)]
 
-        deck_path = write_tournament_deck(
-            project_root, seed, decklist["cards"], decklist["half_decks"]
-        )
+        deck_path = write_tournament_deck(project_root, seed, decklist["cards"], decklist["half_decks"])
 
         player: dict = {
             "type": "pilot",
@@ -376,9 +354,7 @@ def _load_match_wins(match: dict, seed_a: int, seed_b: int) -> dict[int, int]:
     wins = {seed_a: 0, seed_b: 0}
     for game in match["games"]:
         winner_seed = game["winner_seed"]
-        assert winner_seed in wins, (
-            f"Recorded game winner {winner_seed} is not part of match {seed_a} vs {seed_b}"
-        )
+        assert winner_seed in wins, f"Recorded game winner {winner_seed} is not part of match {seed_a} vs {seed_b}"
         wins[winner_seed] += 1
     return wins
 
@@ -397,9 +373,7 @@ def map_winner_to_seed(
     name_to_seed: dict[str, int] = {}
     for seed in (seed_a, seed_b):
         entrant = entrants_by_seed[seed]
-        name = generate_player_name(
-            entrant["model"], entrant["personality"], models_data, personalities
-        )
+        name = generate_player_name(entrant["model"], entrant["personality"], models_data, personalities)
         name_to_seed[name] = seed
 
     assert winner_name in name_to_seed, (
@@ -428,9 +402,7 @@ def _make_runner_config(
     )
 
 
-def _print_match_header(
-    round_dict: dict, match: dict, entrants_by_seed: dict[int, dict], best_of: int
-) -> None:
+def _print_match_header(round_dict: dict, match: dict, entrants_by_seed: dict[int, dict], best_of: int) -> None:
     """Print the standard per-match banner."""
     seed_a = match["seed_a"]
     seed_b = match["seed_b"]
@@ -455,9 +427,7 @@ def _complete_match_if_decided(
         if count < wins_needed:
             continue
         match_winner = seed
-        match_loser = (
-            match["seed_b"] if match_winner == match["seed_a"] else match["seed_a"]
-        )
+        match_loser = match["seed_b"] if match_winner == match["seed_a"] else match["seed_a"]
         match["winner_seed"] = match_winner
         _save_tournament(tournament, tournament_path)
         winner_display = entrants_by_seed[match_winner]["display_name"]
@@ -480,9 +450,7 @@ def _read_game_result(
 ) -> tuple[Path, int]:
     """Read a finished game's winner and map it back to a tournament seed."""
     winner_name = read_game_winner(game_dir)
-    assert winner_name is not None, (
-        f"No winner found in {game_dir}. Check server_game_events.jsonl for details."
-    )
+    assert winner_name is not None, f"No winner found in {game_dir}. Check server_game_events.jsonl for details."
     winner_seed = map_winner_to_seed(winner_name, seed_a, seed_b, tournament)
     return game_dir, winner_seed
 
@@ -495,18 +463,13 @@ def _run_games(
 ) -> list[tuple[Path, int]]:
     """Run one game for each matchup and return the winner for each."""
     assert matchups, "_run_games requires at least one matchup"
-    config_paths = [
-        build_game_config(tournament, seed_a, seed_b, _ROOT)
-        for seed_a, seed_b in matchups
-    ]
+    config_paths = [build_game_config(tournament, seed_a, seed_b, _ROOT) for seed_a, seed_b in matchups]
     result = run_orchestrator(
         _make_runner_config(config_paths, skip_compile=skip_compile),
         project_root=_ROOT,
     )
     assert result.exit_code == 0, f"Orchestrator exited with code {result.exit_code}"
-    assert len(result.sessions) == len(matchups), (
-        f"Expected {len(matchups)} game sessions, got {len(result.sessions)}"
-    )
+    assert len(result.sessions) == len(matchups), f"Expected {len(matchups)} game sessions, got {len(result.sessions)}"
     return [
         _read_game_result(session.game_dir, seed_a, seed_b, tournament)
         for session, (seed_a, seed_b) in zip(result.sessions, matchups, strict=False)
@@ -541,9 +504,7 @@ def _record_match_game(
     )
 
     winner_display = entrants_by_seed[winner_seed]["display_name"]
-    print(
-        f"  {result_label}: #{winner_seed} {winner_display} wins ({wins[match['seed_a']]}-{wins[match['seed_b']]})"
-    )
+    print(f"  {result_label}: #{winner_seed} {winner_display} wins ({wins[match['seed_a']]}-{wins[match['seed_b']]})")
     return _complete_match_if_decided(
         tournament,
         tournament_path,
@@ -573,16 +534,12 @@ def _run_match_on(
 
     # Play games until one player reaches wins_needed
     wins = _load_match_wins(match, seed_a, seed_b)
-    if _complete_match_if_decided(
-        tournament, tournament_path, match, wins, wins_needed, entrants_by_seed
-    ):
+    if _complete_match_if_decided(tournament, tournament_path, match, wins, wins_needed, entrants_by_seed):
         return
 
     for game_num in range(len(match["games"]) + 1, best_of + 1):
         if best_of > 1:
-            print(
-                f"\n--- Game {game_num} of {best_of} (series: {wins[seed_a]}-{wins[seed_b]}) ---"
-            )
+            print(f"\n--- Game {game_num} of {best_of} (series: {wins[seed_a]}-{wins[seed_b]}) ---")
 
         game_dir, winner_seed = _run_games(
             tournament,
@@ -621,9 +578,7 @@ def _run_match_batch(
     for round_dict, match in batch:
         _print_match_header(round_dict, match, entrants_by_seed, best_of)
         wins = _load_match_wins(match, match["seed_a"], match["seed_b"])
-        if not _complete_match_if_decided(
-            tournament, tournament_path, match, wins, wins_needed, entrants_by_seed
-        ):
+        if not _complete_match_if_decided(tournament, tournament_path, match, wins, wins_needed, entrants_by_seed):
             active_series.append(MatchSeries(match, wins))
 
     while active_series:
@@ -637,17 +592,12 @@ def _run_match_batch(
 
         results = _run_games(
             tournament,
-            [
-                (series.match["seed_a"], series.match["seed_b"])
-                for series in active_series
-            ],
+            [(series.match["seed_a"], series.match["seed_b"]) for series in active_series],
             skip_compile=skip_compile,
         )
 
         next_active: list[MatchSeries] = []
-        for series, (game_dir, winner_seed) in zip(
-            active_series, results, strict=False
-        ):
+        for series, (game_dir, winner_seed) in zip(active_series, results, strict=False):
             if not _record_match_game(
                 tournament,
                 tournament_path,
@@ -694,23 +644,14 @@ def main() -> int:
     assert args.games >= 1, f"--games must be >= 1, got {args.games}"
 
     tournament, tournament_path = load_tournament(ACTIVE_TOURNAMENT_PHASES)
-    assert "draft" in tournament, (
-        "Tournament has no draft results. Run 'make tournament-draft' first."
-    )
+    assert "draft" in tournament, "Tournament has no draft results. Run 'make tournament-draft' first."
 
     total_matches = tournament["size"] - 1
-    played = sum(
-        1
-        for r in tournament["rounds"]
-        for m in r["matches"]
-        if m["winner_seed"] is not None
-    )
+    played = sum(1 for r in tournament["rounds"] for m in r["matches"] if m["winner_seed"] is not None)
     remaining = total_matches - played
 
     print(f"Tournament: Season {tournament['season']}, {tournament['size']} players")
-    print(
-        f"Format: best-of-{tournament['best_of']}, {tournament['elimination']} elimination"
-    )
+    print(f"Format: best-of-{tournament['best_of']}, {tournament['elimination']} elimination")
     print(f"Progress: {played}/{total_matches} matches played, {remaining} remaining")
 
     games_to_play = min(args.games, remaining)
@@ -755,9 +696,7 @@ def main() -> int:
         else:
             # Multiple matches — run one game per match on a shared server batch
             _save_tournament(tournament, tournament_path)
-            print(
-                f"\nStarting {batch_size} matches in parallel on one XMage server...\n"
-            )
+            print(f"\nStarting {batch_size} matches in parallel on one XMage server...\n")
             _run_match_batch(
                 tournament,
                 tournament_path,

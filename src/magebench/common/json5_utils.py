@@ -26,9 +26,7 @@ def dumps_json5(
     Strings containing newlines are split at \\n boundaries using JSON5 line
     continuations so each logical line appears on its own file line.
     """
-    text = json.dumps(
-        obj, indent=indent, sort_keys=sort_keys, ensure_ascii=ensure_ascii
-    )
+    text = json.dumps(obj, indent=indent, sort_keys=sort_keys, ensure_ascii=ensure_ascii)
     text = _add_trailing_commas(text)
     return _expand_multiline_strings(text)
 

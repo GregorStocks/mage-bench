@@ -64,9 +64,7 @@ def _find_free_port() -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("", 0))
         sockname = s.getsockname()
-        assert isinstance(sockname, tuple) and len(sockname) >= 2, (
-            f"Unexpected socket name: {sockname!r}"
-        )
+        assert isinstance(sockname, tuple) and len(sockname) >= 2, f"Unexpected socket name: {sockname!r}"
         port = sockname[1]
         assert isinstance(port, int), f"Expected integer port, got {port!r}"
         return port
@@ -184,9 +182,7 @@ def get_current_annotation(
         return ann, BLUNDER_SCRIPT_VERSION
 
     # Stale game — run annotator on just this decision
-    print(
-        f"  Running annotator (game v{game_version}, current v{BLUNDER_SCRIPT_VERSION})..."
-    )
+    print(f"  Running annotator (game v{game_version}, current v{BLUNDER_SCRIPT_VERSION})...")
     client, prices = init_api()
     game_ctx = load_game_context(gz_path)
 
@@ -223,17 +219,13 @@ def _recent_actions_before(
         a_ts = a.ts
         if a_ts is None:
             continue
-        assert isinstance(a_ts, str), (
-            f"action ts must be a string when present, got {a_ts!r}"
-        )
+        assert isinstance(a_ts, str), f"action ts must be a string when present, got {a_ts!r}"
         if a_ts > snap_ts:
             break
         msg = a.message
         if msg is None:
             continue
-        assert isinstance(msg, str), (
-            f"action message must be a string when present, got {msg!r}"
-        )
+        assert isinstance(msg, str), f"action message must be a string when present, got {msg!r}"
         if msg:
             recent.append(msg)
     return recent[-count:]
@@ -255,16 +247,12 @@ def format_play_context(
 
     # Find the current player's hand
     player_name = decision["player"]
-    assert isinstance(player_name, str), (
-        f"decision player must be a string, got {player_name!r}"
-    )
+    assert isinstance(player_name, str), f"decision player must be a string, got {player_name!r}"
     hand_str = "?"
     for p in snapshot.players if snapshot is not None else []:
         if p.name == player_name:
             hand = p.hand
-            hand_str = (
-                ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
-            )
+            hand_str = ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
             break
 
     lines = [
@@ -309,9 +297,7 @@ def collect_verdict() -> tuple[str | None, str | None]:
     while True:
         try:
             resp = (
-                input(
-                    "\nVerdict [b]lunder / [n]ot_blunder / [?] questionable / [s]kip / [g] next game / [q]uit: "
-                )
+                input("\nVerdict [b]lunder / [n]ot_blunder / [?] questionable / [s]kip / [g] next game / [q]uit: ")
                 .strip()
                 .lower()
             )
@@ -356,9 +342,7 @@ def audit_plays(game_filter: str | None = None) -> None:
     for game_id, entries in sorted(all_gt.items(), reverse=True):
         if game_filter and game_filter != game_id:
             continue
-        unaudited.extend(
-            (game_id, entry) for entry in entries if entry.get("verdict") is None
-        )
+        unaudited.extend((game_id, entry) for entry in entries if entry.get("verdict") is None)
 
     if not unaudited:
         total = sum(len(entries) for entries in all_gt.values())
@@ -400,11 +384,7 @@ def audit_plays(game_filter: str | None = None) -> None:
         # Show existing annotation for context (may be stale)
         display_annotation = _lookup_existing_annotation(decision, game_data)
         game_actions = game_data.actions
-        print(
-            format_play_context(
-                game_id, decision, snapshots, display_annotation, game_actions
-            )
-        )
+        print(format_play_context(game_id, decision, snapshots, display_annotation, game_actions))
 
         verdict, notes = collect_verdict()
         if verdict is None:
@@ -417,18 +397,14 @@ def audit_plays(game_filter: str | None = None) -> None:
             continue
 
         # Get current-version annotation (re-runs annotator if game is stale)
-        annotation, ann_version = get_current_annotation(
-            decision, game_data, snapshots, gz_path
-        )
+        annotation, ann_version = get_current_annotation(decision, game_data, snapshots, gz_path)
 
         # Build and save full audited entry
         audited_entry = make_audited_entry(
             decision_index=di,
             annotation_version=ann_version,
             annotation_severity=annotation.severity if annotation is not None else None,
-            annotation_description=annotation.description
-            if annotation is not None
-            else None,
+            annotation_description=annotation.description if annotation is not None else None,
             verdict=verdict,
             human_notes=notes,
         )
@@ -489,9 +465,7 @@ def add_from_url(url: str) -> None:
     game_data = _load_game_data(gz_path)
 
     snapshots = game_data.snapshots
-    assert 0 <= snapshot < len(snapshots), (
-        f"Snapshot {snapshot} out of range [0, {len(snapshots)})"
-    )
+    assert 0 <= snapshot < len(snapshots), f"Snapshot {snapshot} out of range [0, {len(snapshots)})"
 
     decisions = extract_decisions(gz_path)
     assert decisions, f"No decisions found in {game_id}"
@@ -511,28 +485,20 @@ def add_from_url(url: str) -> None:
                 best_dist = dist
                 best_decision = d
 
-    assert best_decision is not None, (
-        f"No decision found near snapshot {snapshot} in {game_id}"
-    )
+    assert best_decision is not None, f"No decision found near snapshot {snapshot} in {game_id}"
 
     # Check if already in ground truth
     existing = load_game_ground_truth(game_id)
     best_di = get_decision_index(best_decision)
     for e in existing:
         if e["decision_index"] == best_di:
-            print(
-                f"Decision {best_di} already in ground truth (verdict={e.get('verdict')})"
-            )
+            print(f"Decision {best_di} already in ground truth (verdict={e.get('verdict')})")
             return
 
     # Show existing annotation for context (may be stale)
     display_annotation = _lookup_existing_annotation(best_decision, game_data)
     game_actions = game_data.actions
-    print(
-        format_play_context(
-            game_id, best_decision, snapshots, display_annotation, game_actions
-        )
-    )
+    print(format_play_context(game_id, best_decision, snapshots, display_annotation, game_actions))
 
     try:
         notes = input("\nNotes (Enter=skip): ").strip() or None
@@ -541,16 +507,12 @@ def add_from_url(url: str) -> None:
         notes = None
 
     # Get current-version annotation (re-runs annotator if game is stale)
-    annotation, ann_version = get_current_annotation(
-        best_decision, game_data, snapshots, gz_path
-    )
+    annotation, ann_version = get_current_annotation(best_decision, game_data, snapshots, gz_path)
     audited_entry = make_audited_entry(
         decision_index=best_di,
         annotation_version=ann_version,
         annotation_severity=annotation.severity if annotation is not None else None,
-        annotation_description=annotation.description
-        if annotation is not None
-        else None,
+        annotation_description=annotation.description if annotation is not None else None,
         verdict="blunder",
         human_notes=notes,
     )

@@ -33,9 +33,7 @@ def main() -> None:
     # Show cache directory stats
     print(f"Cache directory: {CACHE_DIR}")
     if CACHE_DIR.is_dir():
-        result = subprocess.run(
-            ["du", "-sh", str(CACHE_DIR)], capture_output=True, text=True
-        )
+        result = subprocess.run(["du", "-sh", str(CACHE_DIR)], capture_output=True, text=True)
         cache_size = result.stdout.split()[0] if result.stdout else "?"
         cache_modules = len(list(CACHE_DIR.rglob("buildinfo.xml")))
         print(f"  Size: {cache_size}")

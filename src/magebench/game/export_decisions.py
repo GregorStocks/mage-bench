@@ -18,9 +18,7 @@ def _parse_json(s: str | None) -> dict:
         parsed = json.loads(s)
     except json.JSONDecodeError:
         return {}
-    assert isinstance(parsed, dict), (
-        f"tool result must be a JSON object, got {parsed!r}"
-    )
+    assert isinstance(parsed, dict), f"tool result must be a JSON object, got {parsed!r}"
     return parsed
 
 
@@ -53,9 +51,7 @@ def _is_v1_decision_source(event: dict) -> bool:
         return False
     result = _parse_json(event.get("result"))
     action_pending = result.get("action_pending", True)
-    assert isinstance(action_pending, bool), (
-        f"get_action_choices action_pending must be a bool, got {action_pending!r}"
-    )
+    assert isinstance(action_pending, bool), f"get_action_choices action_pending must be a bool, got {action_pending!r}"
     return action_pending
 
 
@@ -67,9 +63,7 @@ def _is_failed_choose_action_result(result: dict) -> bool:
     return "error" in result or "error_code" in result
 
 
-def _has_followup_choose_action(
-    llm_events: list[dict], event_idx: int, player: str, *, uses_v2_sources: bool
-) -> bool:
+def _has_followup_choose_action(llm_events: list[dict], event_idx: int, player: str, *, uses_v2_sources: bool) -> bool:
     """Return True if the source is followed by another choose_action response."""
     for j in range(event_idx + 1, len(llm_events)):
         ev = llm_events[j]
@@ -121,9 +115,7 @@ def _follows_failed_choose_action_retry(
     return False
 
 
-def _collect_decision_sources(
-    llm_events: list[dict], harness_epoch: int
-) -> list[tuple[int, dict]]:
+def _collect_decision_sources(llm_events: list[dict], harness_epoch: int) -> list[tuple[int, dict]]:
     """Collect decision sources, dropping synthetic blanks after failed retries."""
     is_v2 = harness_epoch >= 20
     candidate_sources: list[tuple[int, dict]] = []
@@ -157,9 +149,7 @@ def _collect_decision_sources(
     return decision_sources
 
 
-def _resolve_chosen_index(
-    chosen_args: dict, available_choices: list, action_result: dict
-) -> object | None:
+def _resolve_chosen_index(chosen_args: dict, available_choices: list, action_result: dict) -> object | None:
     """Resolve chosen_index from choose_action args.
 
     Handles both new format (choice field) and old format (index/id/answer).
@@ -175,10 +165,7 @@ def _resolve_chosen_index(
             return int(choice)
         except ValueError:
             for ci, current_choice in enumerate(available_choices):
-                if (
-                    isinstance(current_choice, dict)
-                    and current_choice.get("id") == choice
-                ):
+                if isinstance(current_choice, dict) and current_choice.get("id") == choice:
                     return ci
             return None
 
@@ -188,10 +175,7 @@ def _resolve_chosen_index(
         if has_id:
             target_id = chosen_args["id"]
             for ci, current_choice in enumerate(available_choices):
-                if (
-                    isinstance(current_choice, dict)
-                    and current_choice.get("id") == target_id
-                ):
+                if isinstance(current_choice, dict) and current_choice.get("id") == target_id:
                     return ci
         chosen_index: object = chosen_args["index"]
         return chosen_index
@@ -204,10 +188,7 @@ def _resolve_chosen_index(
     if has_id:
         target_id = chosen_args["id"]
         for ci, current_choice in enumerate(available_choices):
-            if (
-                isinstance(current_choice, dict)
-                and current_choice.get("id") == target_id
-            ):
+            if isinstance(current_choice, dict) and current_choice.get("id") == target_id:
                 return ci
     taken = action_result.get("action_taken")
     if taken and taken.startswith("selected"):
@@ -307,9 +288,7 @@ def _find_spell_cancelled_seqs(llm_events: list[dict]) -> list[tuple[str, int]]:
     return cancelled
 
 
-def _mark_rolled_back_casts(
-    decisions: list[Decision], cancelled: list[tuple[str, int]]
-) -> None:
+def _mark_rolled_back_casts(decisions: list[Decision], cancelled: list[tuple[str, int]]) -> None:
     """Mark rolled-back cast sequences on canonical decisions."""
     for player, cancel_idx in sorted(cancelled, key=lambda item: item[1]):
         for j in range(len(decisions) - 1, -1, -1):
@@ -396,14 +375,10 @@ def build_decisions(
                 llm_event_indices.append(j)
                 assert "args" in ev, f"choose_action event missing args: {ev!r}"
                 raw_args = ev["args"]
-                assert isinstance(raw_args, dict), (
-                    f"choose_action args must be an object, got {raw_args!r}"
-                )
+                assert isinstance(raw_args, dict), f"choose_action args must be an object, got {raw_args!r}"
                 chosen_args = raw_args
                 action_result = _parse_json(ev.get("result"))
-                chosen_index = _resolve_chosen_index(
-                    chosen_args, available_choices, action_result
-                )
+                chosen_index = _resolve_chosen_index(chosen_args, available_choices, action_result)
                 game_seq_raw = ev.get("game_seq", action_seq)
                 if isinstance(game_seq_raw, int) and not isinstance(game_seq_raw, bool):
                     action_seq = game_seq_raw
@@ -421,11 +396,7 @@ def build_decisions(
             snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
         else:
             choices_ts = source_event.get("ts")
-            snap_idx = (
-                _find_snapshot_index_by_ts(snapshots, choices_ts)
-                if choices_ts
-                else None
-            )
+            snap_idx = _find_snapshot_index_by_ts(snapshots, choices_ts) if choices_ts else None
 
         snap = snapshots[snap_idx] if snap_idx is not None else {}
         snap_idx_val = snap_idx if snap_idx is not None else 0

@@ -20,9 +20,7 @@ def lint_scripts(project_root: Path) -> list[str]:
             continue
         if path.suffix != ".py":
             rel = path.relative_to(project_root)
-            errors.append(
-                f"{rel}: not a Python script (suffix: {path.suffix or 'none'})"
-            )
+            errors.append(f"{rel}: not a Python script (suffix: {path.suffix or 'none'})")
 
     return errors
 

@@ -182,14 +182,10 @@ def build_draft_user_prompt(
     lines = []
 
     if already_picked:
-        lines.append(
-            f"You already picked: {already_picked.theme}. Now pick a second half-deck to pair with it."
-        )
+        lines.append(f"You already picked: {already_picked.theme}. Now pick a second half-deck to pair with it.")
         lines.append("")
 
-    lines.append(
-        f"Pick {round_num} of 2 — choose a half-deck pack for your tournament deck."
-    )
+    lines.append(f"Pick {round_num} of 2 — choose a half-deck pack for your tournament deck.")
     lines.append("")
 
     for i, hd in enumerate(options, 1):
@@ -223,9 +219,7 @@ def parse_pick(response_text: str, num_options: int) -> int:
             return n
 
     # Look for explicit patterns: "Option 12", "pick #3", "choose 7"
-    explicit = re.findall(
-        r"(?:option|pick|choose|choice)\s*#?\s*(\d+)", text, re.IGNORECASE
-    )
+    explicit = re.findall(r"(?:option|pick|choose|choice)\s*#?\s*(\d+)", text, re.IGNORECASE)
     valid_explicit = [int(m) for m in explicit if 1 <= int(m) <= num_options]
     if valid_explicit:
         return valid_explicit[0]
@@ -262,15 +256,11 @@ def _resolve_entrant_config(
     )
     resolve_preset(player, presets_data, prompts, toolsets)
 
-    assert player.model is not None, (
-        f"Preset {entrant['preset']!r} did not resolve a model"
-    )
+    assert player.model is not None, f"Preset {entrant['preset']!r} did not resolve a model"
 
     # Get personality prompt_suffix
     personality_name = entrant["personality"]
-    assert personality_name in personalities, (
-        f"Personality {personality_name!r} not found in personalities"
-    )
+    assert personality_name in personalities, f"Personality {personality_name!r} not found in personalities"
     prompt_suffix = personalities[personality_name].get("prompt_suffix")
 
     return (
@@ -316,9 +306,7 @@ def _extract_content(message: object) -> tuple[str | None, str | None]:
     content: str | None = getattr(message, "content", None)
     if content is not None:
         content = content.strip() or None
-    thinking: str | None = getattr(message, "reasoning_content", None) or getattr(
-        message, "reasoning", None
-    )
+    thinking: str | None = getattr(message, "reasoning_content", None) or getattr(message, "reasoning", None)
     return content, thinking
 
 
@@ -390,9 +378,7 @@ async def _llm_pick(
             pick_meta=pick_meta,
         )
 
-        assert response.choices, (
-            f"LLM returned empty choices for model {model} (attempt {attempt})"
-        )
+        assert response.choices, f"LLM returned empty choices for model {model} (attempt {attempt})"
 
         if response.usage:
             usage["prompt_tokens"] += response.usage.prompt_tokens or 0
@@ -422,16 +408,12 @@ async def _llm_pick(
         messages.append(
             {
                 "role": "user",
-                "content": (
-                    f"{reason} Reply with ONLY a single number from 1 to {num_options}. No other text."
-                ),
+                "content": (f"{reason} Reply with ONLY a single number from 1 to {num_options}. No other text."),
             }
         )
         print(f"    Attempt {attempt} failed: {reason} Retrying...")
 
-    raise AssertionError(
-        f"Model {model} failed to produce a valid pick after {MAX_PICK_RETRIES} attempts"
-    )
+    raise AssertionError(f"Model {model} failed to produce a valid pick after {MAX_PICK_RETRIES} attempts")
 
 
 async def run_draft(tournament: dict, tournament_path: Path) -> None:
@@ -479,9 +461,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     else:
         # Fresh draft — sample a random pool
         pool_size = PACKS_PER_PLAYER * num_entrants
-        assert len(half_decks) >= pool_size, (
-            f"Need {pool_size} packs for draft but only {len(half_decks)} available"
-        )
+        assert len(half_decks) >= pool_size, f"Need {pool_size} packs for draft but only {len(half_decks)} available"
         pool = random.sample(half_decks, pool_size)
         available_packs = {hd.theme: hd for hd in pool}
 
@@ -556,9 +536,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
             # Build prompts
             already_picked = entrant_picks[seed][0] if entrant_picks[seed] else None
             system_prompt = build_draft_system_prompt(prompt_suffix, seed, num_entrants)
-            user_prompt = build_draft_user_prompt(
-                round_num, options, oracle, already_picked
-            )
+            user_prompt = build_draft_user_prompt(round_num, options, oracle, already_picked)
 
             key_env = required_api_key_env(provider)
             api_key = os.environ.get(key_env)
@@ -643,16 +621,10 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     # Build decklists
     decklists: dict[str, dict] = {}
     for seed, picked_packs in entrant_picks.items():
-        assert len(picked_packs) == 2, (
-            f"Seed #{seed} has {len(picked_packs)} picks, expected 2"
-        )
+        assert len(picked_packs) == 2, f"Seed #{seed} has {len(picked_packs)} picks, expected 2"
         half1, half2 = picked_packs
         dck_content = generate_dck(half1, half2)
-        card_lines = [
-            line
-            for line in dck_content.splitlines()
-            if line and not line.startswith("NAME:")
-        ]
+        card_lines = [line for line in dck_content.splitlines() if line and not line.startswith("NAME:")]
         decklists[str(seed)] = {
             "half_decks": [half1.theme, half2.theme],
             "cards": card_lines,
@@ -671,9 +643,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     for seed in sorted(entrant_picks.keys()):
         entrant = entrants_by_seed[seed]
         dl = decklists[str(seed)]
-        print(
-            f"  #{seed} {entrant['display_name']}: {dl['half_decks'][0]} + {dl['half_decks'][1]}"
-        )
+        print(f"  #{seed} {entrant['display_name']}: {dl['half_decks'][0]} + {dl['half_decks'][1]}")
 
 
 def main() -> int:

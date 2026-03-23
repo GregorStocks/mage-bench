@@ -13,9 +13,7 @@ from pathlib import Path
 
 GAMES_DIR = Path(__file__).resolve().parent.parent / "website" / "public" / "games"
 
-_ERROR_LINE_ISO_RE = re.compile(
-    r"^\[\d{4}-\d{2}-\d{2}T(\d{2}:\d{2}:\d{2})\.\d+[-+]\d{2}:\d{2}\]\s+\[(\w+)\]\s+(.+)$"
-)
+_ERROR_LINE_ISO_RE = re.compile(r"^\[\d{4}-\d{2}-\d{2}T(\d{2}:\d{2}:\d{2})\.\d+[-+]\d{2}:\d{2}\]\s+\[(\w+)\]\s+(.+)$")
 
 
 def _fix_error(err: dict) -> dict:
@@ -33,9 +31,7 @@ def _fix_error(err: dict) -> dict:
     }
 
 
-def _link_errors_to_decisions(
-    errors: list[dict], decisions: list[dict], llm_events: list[dict]
-) -> None:
+def _link_errors_to_decisions(errors: list[dict], decisions: list[dict], llm_events: list[dict]) -> None:
     """Add decisionIndex to each error by matching player + timestamp."""
     player_decisions: dict[str, list[tuple[str, int]]] = {}
     for d in decisions:

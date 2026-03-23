@@ -165,17 +165,13 @@ def _recent_actions_before(
         a_ts = a.ts
         if a_ts is None:
             continue
-        assert isinstance(a_ts, str), (
-            f"action ts must be a string when present, got {a_ts!r}"
-        )
+        assert isinstance(a_ts, str), f"action ts must be a string when present, got {a_ts!r}"
         if a_ts > snap_ts:
             break
         msg = a.message
         if msg is None:
             continue
-        assert isinstance(msg, str), (
-            f"action message must be a string when present, got {msg!r}"
-        )
+        assert isinstance(msg, str), f"action message must be a string when present, got {msg!r}"
         if msg:
             recent.append(msg)
     return recent[-count:]
@@ -218,9 +214,7 @@ def _build_play_detail(game_id: str, di: int) -> dict:
     for p in before_snapshot.players if before_snapshot is not None else []:
         if p.name == player_name:
             hand = p.hand
-            hand_str = (
-                ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
-            )
+            hand_str = ", ".join(export_record_name(h) for h in hand) if hand else "(empty)"
             break
 
     # Get ground truth entry
@@ -277,9 +271,7 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     gz_path = str(game_path_for_id(game_id))
 
     try:
-        annotation, ann_version = get_current_annotation(
-            decision, game_data, snapshots, gz_path
-        )
+        annotation, ann_version = get_current_annotation(decision, game_data, snapshots, gz_path)
     except (AssertionError, FileNotFoundError, OSError, json.JSONDecodeError) as exc:
         raise AuditApiError(str(exc)) from exc
 
@@ -287,9 +279,7 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
         decision_index=di,
         annotation_version=ann_version,
         annotation_severity=annotation.severity if annotation is not None else None,
-        annotation_description=annotation.description
-        if annotation is not None
-        else None,
+        annotation_description=annotation.description if annotation is not None else None,
         verdict=verdict,
         human_notes=notes,
     )
@@ -416,9 +406,7 @@ class AuditHandler(BaseHTTPRequestHandler):
             return
         data = path.read_bytes()
         if content_type is None:
-            content_type = (
-                mimetypes.guess_type(str(path))[0] or "application/octet-stream"
-            )
+            content_type = mimetypes.guess_type(str(path))[0] or "application/octet-stream"
         self.send_response(200)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(data)))
@@ -562,9 +550,7 @@ def _find_free_port() -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("", 0))
         sockname = s.getsockname()
-        assert isinstance(sockname, tuple) and len(sockname) >= 2, (
-            f"Unexpected socket name: {sockname!r}"
-        )
+        assert isinstance(sockname, tuple) and len(sockname) >= 2, f"Unexpected socket name: {sockname!r}"
         port = sockname[1]
         assert isinstance(port, int), f"Expected integer port, got {port!r}"
         return port
@@ -592,9 +578,7 @@ def main() -> None:
     # Pre-load ground truth to report stats at startup
     all_gt = load_ground_truth()
     total = sum(len(entries) for entries in all_gt.values())
-    unaudited = sum(
-        1 for entries in all_gt.values() for e in entries if e.get("verdict") is None
-    )
+    unaudited = sum(1 for entries in all_gt.values() for e in entries if e.get("verdict") is None)
 
     url = _viewer_url(args.bind_host, port, args.game)
     print(f"Listening on {args.bind_host}:{port}")

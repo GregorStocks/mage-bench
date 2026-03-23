@@ -72,9 +72,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
         tool = e.tool
         player = e.player
-        assert player in stats, (
-            f"{game_id}: tool_call event for unknown pilot player {player!r}"
-        )
+        assert player in stats, f"{game_id}: tool_call event for unknown pilot player {player!r}"
         ps = stats[player]
 
         # --- choose_action: check for mana_plan, auto_tap, spell cancellations ---
@@ -152,9 +150,7 @@ def _track_followup(
                     if prefix == "mana_deferred":
                         ps.mana_deferred_cancelled += 1
                     else:
-                        raise AssertionError(
-                            f"Unexpected cancelled_spell follow-up for {prefix}: {result!r}"
-                        )
+                        raise AssertionError(f"Unexpected cancelled_spell follow-up for {prefix}: {result!r}")
                 else:
                     setattr(
                         ps,
@@ -214,9 +210,7 @@ def report(all_stats: list[PlayerStats]) -> None:
         for model in sorted(model_agg):
             a = model_agg[model]
             if a.mana_plan_used > 0:
-                print(
-                    f"    {model}: {a.mana_plan_used} ({a.mana_plan_success} ok, {a.mana_plan_failed} failed)"
-                )
+                print(f"    {model}: {a.mana_plan_used} ({a.mana_plan_success} ok, {a.mana_plan_failed} failed)")
         # Show error reasons
         all_errors: list[str] = []
         for a in model_agg.values():
@@ -246,9 +240,7 @@ def report(all_stats: list[PlayerStats]) -> None:
     _print_section("Auto-Tap Effectiveness (GAME_PLAY_MANA deferrals to LLM)")
     print(f"  Total deferrals: {total_def}")
     if total_def > 0:
-        print(
-            f"  LLM handled: {total_def_ok} success, {total_def_fail} failed, {total_def_cancel} cancelled"
-        )
+        print(f"  LLM handled: {total_def_ok} success, {total_def_fail} failed, {total_def_cancel} cancelled")
         print("  By model:")
         for model in sorted(model_agg):
             a = model_agg[model]
@@ -297,11 +289,7 @@ def report(all_stats: list[PlayerStats]) -> None:
         mp = f"{a.mana_plan_success}/{a.mana_plan_used}" if a.mana_plan_used else "-"
         at = str(a.auto_tap_used) if a.auto_tap_used else "-"
         de = f"{a.mana_deferred_success}/{a.mana_deferred}" if a.mana_deferred else "-"
-        ca = (
-            f"{a.choose_ability_success}/{a.choose_ability}"
-            if a.choose_ability
-            else "-"
-        )
+        ca = f"{a.choose_ability_success}/{a.choose_ability}" if a.choose_ability else "-"
         cn = str(a.spells_cancelled) if a.spells_cancelled else "-"
         print(f"  {model:<40} {games:>5} {mp:>9} {at:>8} {de:>9} {ca:>8} {cn:>7}")
 
