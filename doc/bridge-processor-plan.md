@@ -84,6 +84,8 @@ Write-side MCP actions are much closer to the desired model now:
 - `join_table` waits for `START_GAME` through a processor-owned lifecycle flow
 - `choose_action`, `pass_priority`, `send_chat_message`, default-response
   helpers, and `concede` all go through processor-owned commands or flows
+- `BridgeMcpActionApi` is now a submit/await shell; the stateful action logic
+  lives in a processor-side command service instead of in `mcp/`
 - the old `gameFinishedLatch` keepAlive concede wait is gone; post-concede
   completion now comes from processor-observed game cleanup
 
