@@ -206,8 +206,7 @@ public final class BridgeMcpQueryApi {
     }
 
     public GetGameStateTool.Result getGameState(Long cursor) {
-        syncPublishedState();
-        return buildGameStateFromPublished(cursor, publishedSnapshot.get().gameState());
+        return buildGameStateFromPublished(cursor, snapshotGameStateForRead());
     }
 
     public GetGameStateTool.Result getGameState() {
@@ -242,6 +241,41 @@ public final class BridgeMcpQueryApi {
         gameLogRefresher.awaitSyncThrough(syncEpoch);
         var gameLog = publishedSnapshot.get().gameLog();
         return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
+    }
+
+    private BridgePublishedGameState snapshotGameStateForRead() {
+        return processor.submit(BridgeCommand.of(() -> {
+            BridgePublishedGameState snapshot = publishedSnapshot.get().gameState();
+            if (!snapshot.available()) {
+                return snapshot;
+            }
+            var state = new GetGameStateTool.Result();
+            state.available = true;
+            state.game_seq = snapshot.gameSeq();
+            state.turn = snapshot.turn();
+            state.phase = snapshot.phase();
+            state.step = snapshot.step();
+            state.active_player = snapshot.activePlayer();
+            state.priority_player = snapshot.priorityPlayer();
+            state.players = snapshot.players();
+            state.stack = snapshot.stack();
+            state.combat = snapshot.combat();
+            long currentCursor = gameStateCursorUpdater.applyAsLong(McpToolRegistry.resultToMap(state));
+            return new BridgePublishedGameState(
+                true,
+                null,
+                currentCursor,
+                snapshot.turn(),
+                snapshot.phase(),
+                snapshot.step(),
+                snapshot.activePlayer(),
+                snapshot.priorityPlayer(),
+                snapshot.players(),
+                snapshot.stack(),
+                snapshot.combat(),
+                snapshot.gameSeq()
+            );
+        }));
     }
 
     private GetGameLogTool.Result buildGameLogResult(
@@ -307,33 +341,19 @@ public final class BridgeMcpQueryApi {
             return BridgePublishedGameState.unavailable("No game state available yet");
         }
 
-        var state = new GetGameStateTool.Result();
-        state.available = true;
-        state.game_seq = gameView.getGameSeq();
-        state.turn = gameState.currentRound();
-        state.phase = gameView.getPhase() != null ? gameView.getPhase().toString() : null;
-        state.step = gameView.getStep() != null ? gameView.getStep().toString() : null;
-        state.active_player = gameView.getActivePlayerName();
-        state.priority_player = gameView.getPriorityPlayerName();
-        state.players = freezeMapList(playersBuilder.apply(gameView));
-        state.stack = freezeMapList(stackItemsBuilder.apply(gameView));
-        state.combat = freezeMapList(combatGroupsBuilder.apply(gameView));
-
-        long cursor = gameStateCursorUpdater.applyAsLong(McpToolRegistry.resultToMap(state));
-
         return new BridgePublishedGameState(
             true,
             null,
-            cursor,
-            state.turn,
-            state.phase,
-            state.step,
-            state.active_player,
-            state.priority_player,
-            state.players,
-            state.stack,
-            state.combat,
-            state.game_seq
+            null,
+            gameState.currentRound(),
+            gameView.getPhase() != null ? gameView.getPhase().toString() : null,
+            gameView.getStep() != null ? gameView.getStep().toString() : null,
+            gameView.getActivePlayerName(),
+            gameView.getPriorityPlayerName(),
+            freezeMapList(playersBuilder.apply(gameView)),
+            freezeMapList(stackItemsBuilder.apply(gameView)),
+            freezeMapList(combatGroupsBuilder.apply(gameView)),
+            gameView.getGameSeq()
         );
     }
 

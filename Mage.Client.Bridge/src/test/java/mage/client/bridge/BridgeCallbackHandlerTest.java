@@ -2144,6 +2144,7 @@ class BridgeCallbackHandlerTest {
         var result = handler.getGameState(null);
 
         assertThat(result.available).isTrue();
+        assertThat(result.cursor).isEqualTo(1);
         assertThat(result.game_seq).isEqualTo(12);
         assertThat(result.turn).isEqualTo(1);
         assertThat(result.active_player).isEqualTo("TestPlayer");
