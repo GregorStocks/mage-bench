@@ -222,6 +222,7 @@ public class BridgeCallbackHandler {
             client.getUsername(),
             logger,
             processorState,
+            publishedQueryState,
             publishedQueryBuilder,
             processorServices,
             () -> session,

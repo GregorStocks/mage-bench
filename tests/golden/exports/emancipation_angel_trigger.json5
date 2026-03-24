@@ -452,7 +452,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -528,6 +528,14 @@ When this creature enters, return a permanent you control to its owner's hand.",
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -623,7 +631,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -756,7 +764,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 8,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -916,7 +924,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 12,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 29,
         "land_drops_used": 1,
@@ -1517,8 +1525,92 @@ When this creature enters, return a permanent you control to its owner's hand.",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "playable": true,
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{1}{W}{W}",
+                "name": "Emancipation Angel",
+                "power": "3",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand.",
+                ],
+                "toughness": "3",
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -1679,7 +1771,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -1810,7 +1902,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -1929,7 +2021,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 8,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -1965,7 +2057,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
     },
     {
       "args": {
-        "board_cursor": 6,
+        "board_cursor": 8,
       },
       "game_seq": 24,
       "player": "TestPlayer",
@@ -2054,7 +2146,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 9,
         "choices": [
           {
             "action": "cast",
@@ -2180,7 +2272,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 12,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 29,
         "land_drops_used": 1,
@@ -2215,7 +2307,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
     },
     {
       "args": {
-        "board_cursor": 10,
+        "board_cursor": 12,
       },
       "game_seq": 35,
       "player": "TestPlayer",
@@ -2308,7 +2400,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 14,
         "can_cancel": false,
         "choices": [
           {

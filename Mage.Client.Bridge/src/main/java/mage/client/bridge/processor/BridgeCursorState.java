@@ -1,12 +1,9 @@
 package mage.client.bridge.processor;
 
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-
 public final class BridgeCursorState {
-    private long nextBoardCursorId = 1;
-    private final Map<String, Long> boardCursorIds = new HashMap<>();
+    private long boardCursor = 0;
+    private String lastBoardSignature = null;
 
     public long updateGameStateSnapshotId(String signature) {
         long hash = 0xcbf29ce484222325L;
@@ -24,17 +21,15 @@ public final class BridgeCursorState {
     }
 
     public long updateBoardCursor(String signature) {
-        Long existing = boardCursorIds.get(signature);
-        if (existing != null) {
-            return existing;
+        if (lastBoardSignature == null || !lastBoardSignature.equals(signature)) {
+            boardCursor++;
+            lastBoardSignature = signature;
         }
-        long assigned = nextBoardCursorId++;
-        boardCursorIds.put(signature, assigned);
-        return assigned;
+        return boardCursor;
     }
 
     public void reset() {
-        nextBoardCursorId = 1;
-        boardCursorIds.clear();
+        boardCursor = 0;
+        lastBoardSignature = null;
     }
 }

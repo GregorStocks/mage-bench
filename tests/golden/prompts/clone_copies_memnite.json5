@@ -174,8 +174,8 @@ Call get_action_choices to see your options, then choose_action to decide.",
   {
     "content": "## Decision\n\
 \n\
-[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n\
-  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n\
+[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n\
+  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=53 | Opponent: 20hp hand=7 lib=53\n\
   Land drops remaining: 1\n\
   Message: Play spells and abilities\n\
   Choices (6): Black Lotus [id=p10, cast, {0}], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Memnite [id=p16, cast, {0}]\n\
@@ -521,8 +521,8 @@ Call get_action_choices to see your options, then choose_action to decide.",
   {
     "content": "## Decision\n\
 \n\
-[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n\
-  Board: TestPlayer: 20hp hand=4 lib=52 bf=[Island (tapped), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n\
+[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n\
+  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=52 bf=[Island (tapped), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n\
   Stack: [Clone]\n\
   Land drops remaining: 1\n\
   Message: Use effect of Clone?\n\
@@ -582,8 +582,8 @@ Call get_action_choices to see your options, then choose_action to decide.",
   {
     "content": "## Decision\n\
 \n\
-[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - You\n\
-  Board: TestPlayer: 20hp hand=4 lib=52 bf=[Island (tapped), Memnite 1/1 (sick, copy of Clone), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n\
+[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n\
+  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=52 bf=[Island (tapped), Memnite 1/1 (sick, copy of Clone), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n\
   Land drops remaining: 1\n\
   Message: Play spells and abilities\n\
   Choices (4): Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land]\n\

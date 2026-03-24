@@ -176,8 +176,8 @@ Call get_action_choices to see your options, then choose_action to decide.",
   {
     "content": "## Decision\n\
 \n\
-[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n\
-  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n\
+[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n\
+  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Mountain, Plateau, Taiga] lib=53 | Opponent: 20hp hand=7 lib=53\n\
   Land drops remaining: 1\n\
   Message: Play spells and abilities\n\
   Choices (5): Badlands [id=p10, land], Memnite [id=p13, cast, {0}], Mountain [id=p14, land], Plateau [id=p15, land], Taiga [id=p16, land]\n\
@@ -299,8 +299,8 @@ Call get_action_choices to see your options, then choose_action to decide.",
   {
     "content": "## Decision\n\
 \n\
-[Decision 0, snapshot=0] Turn 1 COMBAT - You\n\
-  Board: TestPlayer: 20hp hand=6 lib=53 bf=[Mountain] | Opponent: 20hp hand=8 lib=52\n\
+[Decision 0, snapshot=0] Turn 1 COMBAT - TestPlayer\n\
+  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain] | Opponent: 20hp hand=8 lib=52\n\
   Untapped lands: 1\n\
   Message: Play instants and activated abilities\n\
   Choices (2): Lightning Bolt [id=p11, cast, {R}], Lightning Bolt [id=p12, cast, {R}]\n\

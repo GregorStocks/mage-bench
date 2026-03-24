@@ -515,7 +515,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -592,6 +592,14 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -675,7 +683,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 8,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -872,7 +880,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 15,
         "choices": [
           {
             "choice_type": "attacker",
@@ -1122,7 +1130,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 13,
+        "board_cursor": 17,
         "combat": [
           {
             "attackers": [
@@ -1756,8 +1764,88 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{W}",
+                "name": "Savannah Lions",
+                "power": "2",
+                "toughness": "1",
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "land",
@@ -1913,7 +2001,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -2034,7 +2122,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 8,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -2069,7 +2157,7 @@
     },
     {
       "args": {
-        "board_cursor": 7,
+        "board_cursor": 8,
       },
       "game_seq": 44,
       "player": "TestPlayer",
@@ -2186,7 +2274,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 14,
         "choices": [
           {
             "action": "land",
@@ -2369,7 +2457,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 15,
         "choices": [
           {
             "choice_type": "attacker",
@@ -2415,14 +2503,14 @@
     },
     {
       "args": {
-        "board_cursor": 12,
+        "board_cursor": 15,
       },
       "game_seq": 46,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 12,
+        "board_cursor": 15,
         "board_unchanged": true,
         "choices": [
           {
@@ -2583,7 +2671,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 13,
+        "board_cursor": 17,
         "combat": [
           {
             "attackers": [
@@ -2689,7 +2777,7 @@ Turn 3 (TestPlayer):\n\
     },
     {
       "args": {
-        "board_cursor": 13,
+        "board_cursor": 17,
         "until": "postcombat_main",
       },
       "game_seq": 66,
@@ -2803,7 +2891,7 @@ Turn 3 (TestPlayer):\n\
             "name": "Opponent",
           }
         ],
-        "board_cursor": 15,
+        "board_cursor": 20,
         "choices": [
           {
             "action": "land",

@@ -463,7 +463,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 18,
         "land_drops_used": 1,
@@ -535,6 +535,15 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -676,7 +685,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 11,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 36,
         "land_drops_used": 1,
@@ -1263,8 +1272,90 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "land",
@@ -1426,7 +1517,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 18,
         "land_drops_used": 1,
@@ -1521,7 +1612,7 @@ TestPlayer played Mountain\n\
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
         "until": "my_turn",
       },
       "game_seq": 32,
@@ -1632,7 +1723,7 @@ TestPlayer played Mountain\n\
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 10,
         "choices": [
           {
             "action": "land",
@@ -1816,7 +1907,7 @@ TestPlayer played Mountain\n\
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 11,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 36,
         "land_drops_used": 1,

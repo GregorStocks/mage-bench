@@ -170,8 +170,8 @@ Call get_action_choices to see your options, then choose_action to decide.",
   {
     "content": "## Decision\n\
 \n\
-[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n\
-  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n\
+[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n\
+  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest, Grizzly Bears] lib=53 | Opponent: 20hp hand=7 lib=53\n\
   Land drops remaining: 1\n\
   Message: Play spells and abilities\n\
   Choices (6): Forest [id=p10, land], Forest [id=p11, land], Forest [id=p12, land], Forest [id=p13, land], Forest [id=p14, land], Forest [id=p15, land]\n\
@@ -432,8 +432,8 @@ Call get_action_choices to see your options, then choose_action to decide.",
   {
     "content": "## Decision\n\
 \n\
-[Decision 0, snapshot=0] Turn 3 COMBAT - You\n\
-  Board: TestPlayer: 20hp hand=6 lib=51 bf=[Forest, Forest, Grizzly Bears 2/2 (tapped)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n\
+[Decision 0, snapshot=0] Turn 3 COMBAT - TestPlayer\n\
+  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest, Grizzly Bears 2/2 (tapped)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n\
   Combat: Grizzly Bears blocked by Savannah Lions, Savannah Lions -> Opponent\n\
   Untapped lands: 2\n\
   Message: Assign combat damage among creatures blocking Grizzly Bears, P/T: 2/2\n\

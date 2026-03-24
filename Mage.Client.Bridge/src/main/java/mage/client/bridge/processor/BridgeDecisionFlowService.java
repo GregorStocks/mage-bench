@@ -64,6 +64,7 @@ public final class BridgeDecisionFlowService {
     private final String username;
     private final Logger logger;
     private final BridgeProcessorState processorState;
+    private final BridgePublishedQueryState publishedQueryState;
     private final BridgePublishedQueryBuilder publishedQueryBuilder;
     private final BridgeProcessorServices processorServices;
     private final Supplier<Session> sessionSupplier;
@@ -76,6 +77,7 @@ public final class BridgeDecisionFlowService {
             String username,
             Logger logger,
             BridgeProcessorState processorState,
+            BridgePublishedQueryState publishedQueryState,
             BridgePublishedQueryBuilder publishedQueryBuilder,
             BridgeProcessorServices processorServices,
             Supplier<Session> sessionSupplier,
@@ -86,6 +88,7 @@ public final class BridgeDecisionFlowService {
         this.username = username;
         this.logger = logger;
         this.processorState = processorState;
+        this.publishedQueryState = publishedQueryState;
         this.publishedQueryBuilder = publishedQueryBuilder;
         this.processorServices = processorServices;
         this.sessionSupplier = sessionSupplier;
@@ -301,7 +304,7 @@ public final class BridgeDecisionFlowService {
             }
             List<Object> choices = processorState.decisionState().lastChoices();
             if (choices == null) {
-                buildActionChoices(action, null, false);
+                buildActionChoices(action);
                 choices = processorState.decisionState().lastChoices();
             }
             if ("all".equals(id)) {
@@ -345,7 +348,7 @@ public final class BridgeDecisionFlowService {
 
         if (resolvedIndex != null && processorState.decisionState().lastChoices() == null) {
             logger.info("[" + username + "] choose_action: auto-populating choices (get_action_choices was not called)");
-            buildActionChoices(action, null, false);
+            buildActionChoices(action);
         }
 
         processorState.decisionState().clearPendingActionIfCurrent(action);
@@ -999,29 +1002,26 @@ public final class BridgeDecisionFlowService {
     }
 
     private void attachChoicesToError(ChooseActionTool.Result errorResult, PendingAction action) {
-        ActionResult choicesResult = buildActionChoices(action, null, false);
+        ActionResult choicesResult = buildActionChoices(action);
         if (choicesResult.choices != null) {
             errorResult.choices = choicesResult.choices;
         }
     }
 
-    private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam) {
-        return buildActionChoices(action, boardCursorParam, true);
-    }
-
-    private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam, boolean assignBoardCursor) {
+    private ActionResult buildActionChoices(PendingAction action) {
         return publishedQueryBuilder.buildActionChoices(
             action,
-            boardCursorParam,
             processorState.gameState().lastGameView(),
-            processorState.gameState().currentRound(),
-            assignBoardCursor
+            processorState.gameState().currentRound()
         );
     }
 
     private void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
-        ActionResult choices = buildActionChoices(action, boardCursorParam);
-        if (!Boolean.TRUE.equals(choices.action_pending)) {
+        publishedQueryState.projectActionChoices("merge_action_choices");
+        ActionResult choices = publishedQueryState.currentActionChoicesForRead(boardCursorParam);
+        if (!Boolean.TRUE.equals(choices.action_pending)
+                || !action.method().name().equals(choices.action_type)
+                || choices.game_seq != action.gameSeq()) {
             result.warning = "Action changed before choices were fetched";
             return;
         }

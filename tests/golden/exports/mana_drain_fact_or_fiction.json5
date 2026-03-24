@@ -558,7 +558,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -628,6 +628,13 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -803,7 +810,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 13,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -1028,7 +1035,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 14,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 50,
         "land_drops_used": 0,
@@ -1226,7 +1233,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 16,
         "choices": [
           {
             "action": "cast",
@@ -1453,7 +1460,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 15,
+        "board_cursor": 20,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 65,
         "land_drops_used": 0,
@@ -1786,7 +1793,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 16,
+        "board_cursor": 22,
         "choices": [
           {
             "action": "land",
@@ -2361,8 +2368,88 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "playable": true,
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Fact or Fiction",
+                "rules": [
+                  "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.",
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{U}{U}",
+                "name": "Mana Drain",
+                "rules": [
+                  "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -2514,7 +2601,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -2553,7 +2640,7 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
       },
       "game_seq": 45,
       "player": "TestPlayer",
@@ -2678,7 +2765,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 12,
         "choices": [
           {
             "action": "cast",
@@ -2864,7 +2951,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 13,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -2900,14 +2987,14 @@
     },
     {
       "args": {
-        "board_cursor": 9,
+        "board_cursor": 13,
       },
       "game_seq": 46,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_ABILITY",
-        "board_cursor": 9,
+        "board_cursor": 13,
         "board_unchanged": true,
         "choices": [
           {
@@ -3060,7 +3147,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 14,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 50,
         "land_drops_used": 0,
@@ -3096,7 +3183,7 @@
     },
     {
       "args": {
-        "board_cursor": 10,
+        "board_cursor": 14,
       },
       "game_seq": 53,
       "player": "TestPlayer",
@@ -3221,7 +3308,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 15,
         "choices": [
           {
             "action": "cast",
@@ -3404,7 +3491,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 16,
         "choices": [
           {
             "action": "cast",
@@ -3442,7 +3529,7 @@
     },
     {
       "args": {
-        "board_cursor": 12,
+        "board_cursor": 16,
       },
       "game_seq": 59,
       "player": "TestPlayer",
@@ -3567,7 +3654,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 17,
         "choices": [
           {
             "action": "cast",
@@ -3742,7 +3829,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 15,
+        "board_cursor": 20,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 65,
         "land_drops_used": 0,
@@ -3779,7 +3866,7 @@
     },
     {
       "args": {
-        "board_cursor": 15,
+        "board_cursor": 20,
         "until": "my_turn",
       },
       "game_seq": 71,
@@ -3787,8 +3874,114 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_PILE",
-        "board_cursor": 15,
-        "board_unchanged": true,
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ],
+                "tapped": true,
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+            ],
+            "hand": [
+              {
+                "id": "p28",
+                "mana_cost": "{3}{U}{U}",
+                "name": "Air Elemental",
+                "power": "4",
+                "rules": [
+                  "Flying",
+                ],
+                "toughness": "4",
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{U}{U}",
+                "name": "Mana Drain",
+                "rules": [
+                  "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.",
+                ]
+              },
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p5",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}.",
+                ],
+                "tapped": false,
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Divination",
+                "rules": [
+                  "Draw two cards.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 50,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 21,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 71,
         "land_drops_used": 0,
@@ -3875,7 +4068,7 @@
     },
     {
       "args": {
-        "board_cursor": 15,
+        "board_cursor": 21,
         "until": "precombat_main",
       },
       "game_seq": 71,
@@ -3883,7 +4076,7 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_PILE",
-        "board_cursor": 15,
+        "board_cursor": 21,
         "board_unchanged": true,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 71,
@@ -4004,14 +4197,14 @@
     },
     {
       "args": {
-        "board_cursor": 15,
+        "board_cursor": 21,
       },
       "game_seq": 71,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_PILE",
-        "board_cursor": 15,
+        "board_cursor": 21,
         "board_unchanged": true,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 71,
@@ -4269,7 +4462,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 16,
+        "board_cursor": 22,
         "choices": [
           {
             "action": "land",

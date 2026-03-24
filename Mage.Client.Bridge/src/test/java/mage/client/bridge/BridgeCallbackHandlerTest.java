@@ -2570,6 +2570,35 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void visibleActionSnapshotChangeAdvancesBoardCursorEvenWhenBoardIsUnchanged() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
+
+        installPublishedSelectPrompt(handler);
+        ActionResult initial = handler.getActionChoices(null);
+
+        processor.submit(BridgeCommand.of(() -> {
+            PendingAction nextAction = new PendingAction(
+                UUID.randomUUID(),
+                ClientCallbackMethod.GAME_ASK,
+                new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Use the optional ability?"),
+                "Use the optional ability?",
+                12
+            );
+            decisionState.replacePendingAction(nextAction);
+            return null;
+        }));
+
+        ActionResult changed = handler.getActionChoices(initial.board_cursor);
+        assertThat(changed.board_cursor).isGreaterThan(initial.board_cursor);
+        assertThat(changed.board_unchanged).isNull();
+        assertThat(changed.board).isEqualTo(initial.board);
+        assertThat(changed.action_type).isEqualTo("GAME_ASK");
+    }
+
+    @Test
     void turnAdvanceReprojectsPublishedActionChoicesAfterClearingFailedManaCast() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();

@@ -859,7 +859,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -945,6 +945,14 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -1104,7 +1112,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 12,
         "choices": [
           {
             "action": "activate",
@@ -1450,7 +1458,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 15,
         "choices": [
           {
             "description": "Play Boggart Bog",
@@ -1533,6 +1541,14 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+          "p24",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -1651,7 +1667,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 16,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 48,
         "land_drops_used": 0,
@@ -1804,7 +1820,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 17,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 51,
         "land_drops_used": 1,
@@ -1999,7 +2015,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 14,
+        "board_cursor": 23,
         "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 75,
         "land_drops_used": 1,
@@ -2249,7 +2265,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 18,
+        "board_cursor": 31,
         "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 105,
         "land_drops_used": 1,
@@ -2514,7 +2530,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 22,
+        "board_cursor": 39,
         "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 135,
         "land_drops_used": 1,
@@ -2776,7 +2792,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 25,
+        "board_cursor": 48,
         "context": "T6 Beginning/Upkeep (TestPlayer)",
         "game_seq": 167,
         "message": "Play instants and activated abilities",
@@ -3402,8 +3418,91 @@ Create two 4/4 green Rhino creature tokens with trample.",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "playable": true,
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard.",
+                ],
+                "toughness": "1",
+              },
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample.",
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "activate",
@@ -3574,7 +3673,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -3612,7 +3711,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
       },
       "game_seq": 33,
       "player": "TestPlayer",
@@ -3723,7 +3822,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 10,
         "choices": [
           {
             "action": "activate",
@@ -3925,7 +4024,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 12,
         "choices": [
           {
             "action": "activate",
@@ -4004,15 +4103,119 @@ Create two 4/4 green Rhino creature tokens with trample.",
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 12,
       },
       "game_seq": 46,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 8,
-        "board_unchanged": true,
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ],
+                "tapped": true,
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample.",
+                ]
+              },
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "playable": true,
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard.",
+                ],
+                "toughness": "1",
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 14,
         "choices": [
           {
             "action": "activate",
@@ -4207,7 +4410,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 15,
         "choices": [
           {
             "description": "Play Boggart Bog",
@@ -4357,7 +4560,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 16,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 48,
         "land_drops_used": 0,
@@ -4495,7 +4698,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 17,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 51,
         "land_drops_used": 1,
@@ -4524,7 +4727,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
     },
     {
       "args": {
-        "board_cursor": 10,
+        "board_cursor": 17,
       },
       "game_seq": 72,
       "player": "TestPlayer",
@@ -4651,7 +4854,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 13,
+        "board_cursor": 22,
         "choices": [
           {
             "action": "land",
@@ -4844,7 +5047,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 14,
+        "board_cursor": 23,
         "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 75,
         "land_drops_used": 1,
@@ -4874,7 +5077,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
     },
     {
       "args": {
-        "board_cursor": 14,
+        "board_cursor": 23,
       },
       "game_seq": 102,
       "player": "TestPlayer",
@@ -5016,7 +5219,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 17,
+        "board_cursor": 30,
         "choices": [
           {
             "action": "land",
@@ -5224,7 +5427,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 18,
+        "board_cursor": 31,
         "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 105,
         "land_drops_used": 1,
@@ -5254,7 +5457,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
     },
     {
       "args": {
-        "board_cursor": 18,
+        "board_cursor": 31,
       },
       "game_seq": 132,
       "player": "TestPlayer",
@@ -5411,7 +5614,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 21,
+        "board_cursor": 38,
         "choices": [
           {
             "action": "land",
@@ -5634,7 +5837,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 22,
+        "board_cursor": 39,
         "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 135,
         "land_drops_used": 1,
@@ -5664,7 +5867,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
     },
     {
       "args": {
-        "board_cursor": 22,
+        "board_cursor": 39,
       },
       "game_seq": 165,
       "player": "TestPlayer",
@@ -5822,7 +6025,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 24,
+        "board_cursor": 47,
         "context": "T6 Beginning/Upkeep (TestPlayer)",
         "game_seq": 165,
         "message": "Cast spell without paying its mana cost (Crashing Footfalls)?",
@@ -6010,7 +6213,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 25,
+        "board_cursor": 48,
         "context": "T6 Beginning/Upkeep (TestPlayer)",
         "game_seq": 167,
         "message": "Play instants and activated abilities",
@@ -6045,7 +6248,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
     },
     {
       "args": {
-        "board_cursor": 25,
+        "board_cursor": 48,
       },
       "game_seq": 172,
       "player": "TestPlayer",
@@ -6241,7 +6444,7 @@ Create two 4/4 green Rhino creature tokens with trample.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 26,
+        "board_cursor": 49,
         "choices": [
           {
             "action": "land",

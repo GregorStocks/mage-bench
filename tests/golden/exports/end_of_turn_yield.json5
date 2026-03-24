@@ -441,7 +441,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -529,6 +529,13 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -1104,8 +1111,90 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Badlands",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {B}.",
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target.",
+                ]
+              },
+              {
+                "id": "p12",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target.",
+                ]
+              },
+              {
+                "id": "p13",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "playable": true,
+                "power": "1",
+                "toughness": "1",
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plateau",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Taiga",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                  "{T}: Add {R}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "land",
@@ -1263,7 +1352,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -1320,7 +1409,7 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
         "until": "end_of_turn",
       },
       "game_seq": 21,
@@ -1410,7 +1499,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 7,
         "choices": [
           {
             "action": "cast",

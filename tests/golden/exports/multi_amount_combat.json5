@@ -606,7 +606,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 18,
         "land_drops_used": 1,
@@ -672,6 +672,14 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -821,7 +829,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 12,
         "choices": [
           {
             "action": "cast",
@@ -1016,7 +1024,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 15,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 46,
         "land_drops_used": 1,
@@ -1237,7 +1245,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 17,
+        "board_cursor": 24,
         "choices": [
           {
             "choice_type": "attacker",
@@ -1511,7 +1519,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 18,
+        "board_cursor": 26,
         "combat": [
           {
             "attackers": [
@@ -1735,7 +1743,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 19,
+        "board_cursor": 29,
         "combat": [
           {
             "attackers": [],
@@ -2353,8 +2361,88 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{1}{G}",
+                "name": "Grizzly Bears",
+                "power": "2",
+                "toughness": "2",
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "land",
@@ -2509,7 +2597,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 18,
         "land_drops_used": 1,
@@ -2539,7 +2627,7 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
       },
       "game_seq": 38,
       "player": "TestPlayer",
@@ -2655,7 +2743,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 11,
         "choices": [
           {
             "action": "land",
@@ -2838,7 +2926,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 12,
         "choices": [
           {
             "action": "cast",
@@ -2985,7 +3073,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 15,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 46,
         "land_drops_used": 1,
@@ -3020,7 +3108,7 @@
     },
     {
       "args": {
-        "board_cursor": 12,
+        "board_cursor": 15,
       },
       "game_seq": 76,
       "player": "TestPlayer",
@@ -3161,7 +3249,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 16,
+        "board_cursor": 23,
         "choices": [
           {
             "action": "land",
@@ -3368,7 +3456,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 17,
+        "board_cursor": 24,
         "choices": [
           {
             "choice_type": "attacker",
@@ -3414,14 +3502,14 @@
     },
     {
       "args": {
-        "board_cursor": 17,
+        "board_cursor": 24,
       },
       "game_seq": 78,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 17,
+        "board_cursor": 24,
         "board_unchanged": true,
         "choices": [
           {
@@ -3606,7 +3694,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 18,
+        "board_cursor": 26,
         "combat": [
           {
             "attackers": [
@@ -3654,15 +3742,142 @@
     },
     {
       "args": {
-        "board_cursor": 18,
+        "board_cursor": 26,
       },
       "game_seq": 92,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_GET_MULTI_AMOUNT",
-        "board_cursor": 18,
-        "board_unchanged": true,
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ],
+                "tapped": false,
+              },
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ],
+                "tapped": false,
+              },
+              {
+                "id": "p16",
+                "name": "Grizzly Bears",
+                "power": "2",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": "2",
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p25",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}.",
+                ]
+              },
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}.",
+                ],
+                "tapped": true,
+              },
+              {
+                "id": "p4",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}.",
+                ],
+                "tapped": false,
+              },
+              {
+                "id": "p8",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1",
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1",
+              }
+            ],
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 28,
         "combat": [
           {
             "attackers": [
@@ -3871,7 +4086,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 19,
+        "board_cursor": 29,
         "combat": [
           {
             "attackers": [],
@@ -3909,7 +4124,7 @@
     },
     {
       "args": {
-        "board_cursor": 19,
+        "board_cursor": 29,
         "until": "postcombat_main",
       },
       "game_seq": 103,
@@ -4043,7 +4258,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 20,
+        "board_cursor": 30,
         "choices": [
           {
             "action": "land",

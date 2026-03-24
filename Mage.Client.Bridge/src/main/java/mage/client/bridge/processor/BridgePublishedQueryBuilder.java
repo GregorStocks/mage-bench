@@ -70,22 +70,11 @@ public final class BridgePublishedQueryBuilder {
         this.deckListSupplier = Objects.requireNonNull(deckListSupplier);
     }
 
-    public BridgePublishedActionChoices buildPublishedActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
-        return BridgePublishedActionChoices.from(
-            buildActionChoices(action, null, fallbackGameView, currentRound, true)
-        );
+    public ActionResult buildPublishedActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
+        return buildActionChoices(action, fallbackGameView, currentRound);
     }
 
-    public ActionResult buildActionChoices(PendingAction action, Long boardCursorParam, GameView fallbackGameView, int currentRound) {
-        return buildActionChoices(action, boardCursorParam, fallbackGameView, currentRound, true);
-    }
-
-    public ActionResult buildActionChoices(
-            PendingAction action,
-            Long boardCursorParam,
-            GameView fallbackGameView,
-            int currentRound,
-            boolean assignBoardCursor) {
+    public ActionResult buildActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
         var result = new ActionResult();
         GameView gameView = extractActionGameView(action, fallbackGameView);
         final GameView capturedGameView = gameView;
@@ -122,17 +111,7 @@ public final class BridgePublishedQueryBuilder {
             result.context = ctx.toString();
 
             List<Map<String, Object>> players = processorServices.gameStateBuilder().buildPlayersArray(gameView);
-            if (assignBoardCursor) {
-                long currentBoardCursor = updateBoardCursor(players);
-                result.board_cursor = currentBoardCursor;
-                if (boardCursorParam != null && boardCursorParam.longValue() == currentBoardCursor) {
-                    result.board_unchanged = true;
-                } else {
-                    result.board = players;
-                }
-            } else {
-                result.board = players;
-            }
+            result.board = players;
 
             PlayerView myPlayer = gameView.getMyPlayer();
             if (myPlayer != null && myPlayer.getBattlefield() != null) {
@@ -787,12 +766,6 @@ public final class BridgePublishedQueryBuilder {
     private long updateGameStateSnapshotId(Map<String, Object> state) {
         return processorState.cursorState().updateGameStateSnapshotId(
             BridgeGameStateBuilder.buildStateSignature(state)
-        );
-    }
-
-    private long updateBoardCursor(List<Map<String, Object>> players) {
-        return processorState.cursorState().updateBoardCursor(
-            BridgeGameStateBuilder.buildStateSignature(players)
         );
     }
 

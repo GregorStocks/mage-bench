@@ -637,7 +637,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -719,6 +719,15 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -876,7 +885,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 11,
         "choices": [
           {
             "action": "cast",
@@ -1123,7 +1132,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 14,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -1166,6 +1175,9 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 1,
+        "playable_cards": [
+          "p10",
+        ],
         "untapped_lands": 2,
       },
       "player": "TestPlayer",
@@ -1308,7 +1320,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 15,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 47,
         "land_drops_used": 1,
@@ -1492,7 +1504,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 17,
         "choices": [
           {
             "description": "{T}: Add {C}.",
@@ -1701,7 +1713,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 18,
         "can_cancel": true,
         "choices": [
           {
@@ -1922,7 +1934,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 20,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 56,
         "land_drops_used": 1,
@@ -2125,7 +2137,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 14,
+        "board_cursor": 22,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 61,
         "land_drops_used": 1,
@@ -2417,7 +2429,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 19,
+        "board_cursor": 30,
         "combat": [
           {
             "attackers": [
@@ -2994,8 +3006,93 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "playable": true,
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Dark Depths",
+                "playable": true,
+                "rules": [
+                  "{this} enters with ten ice counters on it.",
+                  "{3}: Remove an ice counter from {this}.",
+                  "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Thespian's Stage",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {C}.",
+                  "{2}, {T}: {this} becomes a copy of target land, except it has this ability.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -3165,7 +3262,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -3204,7 +3301,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
       },
       "game_seq": 33,
       "player": "TestPlayer",
@@ -3319,7 +3416,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 10,
         "choices": [
           {
             "action": "cast",
@@ -3507,7 +3604,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 11,
         "choices": [
           {
             "action": "cast",
@@ -3546,15 +3643,116 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 11,
       },
       "game_seq": 43,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 8,
-        "board_unchanged": true,
+        "board": [
+          {
+            "battlefield": [
+              {
+                "counters": {
+                  "ice": 10,
+                },
+                "id": "p11",
+                "name": "Dark Depths",
+                "rules": [
+                  "{this} enters with ten ice counters on it.",
+                  "{3}: Remove an ice counter from {this}.",
+                  "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+                ],
+                "tapped": false,
+              },
+              {
+                "id": "p16",
+                "name": "Thespian's Stage",
+                "rules": [
+                  "{T}: Add {C}.",
+                  "{2}, {T}: {this} becomes a copy of target land, except it has this ability.",
+                ],
+                "tapped": false,
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "playable": true,
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}.",
+                ]
+              },
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 13,
         "choices": [
           {
             "action": "cast",
@@ -3706,7 +3904,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 14,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -3742,14 +3940,14 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 14,
       },
       "game_seq": 44,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_ABILITY",
-        "board_cursor": 8,
+        "board_cursor": 14,
         "board_unchanged": true,
         "choices": [
           {
@@ -3889,7 +4087,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 15,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 47,
         "land_drops_used": 1,
@@ -3925,7 +4123,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 10,
+        "board_cursor": 15,
       },
       "game_seq": 50,
       "player": "TestPlayer",
@@ -4033,7 +4231,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 16,
         "choices": [
           {
             "action": "activate",
@@ -4195,7 +4393,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 17,
         "choices": [
           {
             "description": "{T}: Add {C}.",
@@ -4235,14 +4433,14 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 11,
+        "board_cursor": 17,
       },
       "game_seq": 51,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_ABILITY",
-        "board_cursor": 11,
+        "board_cursor": 17,
         "board_unchanged": true,
         "choices": [
           {
@@ -4394,7 +4592,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 18,
         "can_cancel": true,
         "choices": [
           {
@@ -4448,14 +4646,14 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 11,
+        "board_cursor": 18,
       },
       "game_seq": 52,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_TARGET",
-        "board_cursor": 11,
+        "board_cursor": 18,
         "board_unchanged": true,
         "can_cancel": true,
         "choices": [
@@ -4625,7 +4823,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 20,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 56,
         "land_drops_used": 1,
@@ -4669,7 +4867,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 12,
+        "board_cursor": 20,
       },
       "game_seq": 58,
       "player": "TestPlayer",
@@ -4786,7 +4984,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 13,
+        "board_cursor": 21,
         "can_cancel": false,
         "choices": [
           {
@@ -4949,7 +5147,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 14,
+        "board_cursor": 22,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 61,
         "land_drops_used": 1,
@@ -4988,7 +5186,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 14,
+        "board_cursor": 22,
         "until": "my_turn",
       },
       "game_seq": 80,
@@ -5127,7 +5325,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 17,
+        "board_cursor": 27,
         "choices": [
           {
             "action": "land",
@@ -5197,7 +5395,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 17,
+        "board_cursor": 27,
         "until": "declare_attackers",
       },
       "game_seq": 82,
@@ -5330,7 +5528,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 18,
+        "board_cursor": 28,
         "choices": [
           {
             "choice_type": "attacker",
@@ -5510,7 +5708,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
             "name": "Opponent",
           }
         ],
-        "board_cursor": 19,
+        "board_cursor": 30,
         "combat": [
           {
             "attackers": [
@@ -5729,7 +5927,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
     },
     {
       "args": {
-        "board_cursor": 19,
+        "board_cursor": 30,
       },
       "game_seq": 91,
       "player": "TestPlayer",

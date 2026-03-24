@@ -514,7 +514,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -602,6 +602,13 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -826,7 +833,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 9,
         "choices": [
           {
             "action": "cast",
@@ -884,6 +891,10 @@
       "message": "Play instants and activated abilities",
       "phase": "COMBAT",
       "pilot_context": {
+        "playable_cards": [
+          "p11",
+          "p12",
+        ],
         "untapped_lands": 1,
       },
       "player": "TestPlayer",
@@ -1046,7 +1057,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 11,
         "choices": [
           {
             "action": "cast",
@@ -1329,7 +1340,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 13,
         "choices": [
           {
             "action": "cast",
@@ -1561,7 +1572,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 15,
         "can_cancel": true,
         "choices": [
           {
@@ -1734,7 +1745,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 17,
         "choices": [
           {
             "action": "cast",
@@ -1894,7 +1905,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 13,
+        "board_cursor": 18,
         "can_cancel": true,
         "choices": [
           {
@@ -2505,8 +2516,90 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Badlands",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {B}.",
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target.",
+                ]
+              },
+              {
+                "id": "p12",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target.",
+                ]
+              },
+              {
+                "id": "p13",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "playable": true,
+                "power": "1",
+                "toughness": "1",
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Mountain",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plateau",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {R}.",
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Taiga",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}.",
+                  "{T}: Add {R}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "land",
@@ -2664,7 +2757,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -2719,7 +2812,7 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
       },
       "game_seq": 21,
       "player": "TestPlayer",
@@ -2808,7 +2901,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 7,
         "choices": [
           {
             "action": "cast",
@@ -2903,15 +2996,96 @@
     },
     {
       "args": {
-        "board_cursor": 6,
+        "board_cursor": 7,
       },
       "game_seq": 26,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 6,
-        "board_unchanged": true,
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p14",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}.",
+                ],
+                "tapped": false,
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Badlands",
+                "rules": [
+                  "{T}: Add {B}.",
+                  "{T}: Add {R}.",
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "playable": true,
+                "rules": [
+                  "{this} deals 3 damage to any target.",
+                ]
+              },
+              {
+                "id": "p12",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "playable": true,
+                "rules": [
+                  "{this} deals 3 damage to any target.",
+                ]
+              },
+              {
+                "id": "p13",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "power": "1",
+                "toughness": "1",
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plateau",
+                "rules": [
+                  "{T}: Add {R}.",
+                  "{T}: Add {W}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Taiga",
+                "rules": [
+                  "{T}: Add {G}.",
+                  "{T}: Add {R}.",
+                ]
+              },
+            ],
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 8,
+            "is_active": true,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 8,
         "choices": [
           {
             "action": "cast",
@@ -3049,7 +3223,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 9,
         "choices": [
           {
             "action": "cast",
@@ -3094,7 +3268,7 @@
     },
     {
       "args": {
-        "board_cursor": 6,
+        "board_cursor": 9,
       },
       "game_seq": 33,
       "player": "TestPlayer",
@@ -3205,7 +3379,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 10,
         "choices": [
           {
             "action": "land",
@@ -3395,7 +3569,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 11,
         "choices": [
           {
             "action": "cast",
@@ -3450,7 +3624,7 @@
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 11,
       },
       "game_seq": 41,
       "player": "TestPlayer",
@@ -3556,7 +3730,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 12,
         "choices": [
           {
             "action": "cast",
@@ -3712,7 +3886,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 13,
         "choices": [
           {
             "action": "cast",
@@ -3767,7 +3941,7 @@
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 13,
       },
       "game_seq": 46,
       "player": "TestPlayer",
@@ -3873,7 +4047,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 14,
         "choices": [
           {
             "action": "cast",
@@ -4019,7 +4193,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 15,
         "can_cancel": true,
         "choices": [
           {
@@ -4171,7 +4345,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 12,
+        "board_cursor": 17,
         "choices": [
           {
             "action": "cast",
@@ -4312,7 +4486,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 13,
+        "board_cursor": 18,
         "can_cancel": true,
         "choices": [
           {

@@ -533,7 +533,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -621,6 +621,14 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p10",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -788,7 +796,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 11,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -1014,7 +1022,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 12,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 38,
         "land_drops_used": 0,
@@ -1199,7 +1207,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 14,
         "choices": [
           {
             "description": "Cast Memnite",
@@ -1428,7 +1436,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 15,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 44,
         "land_drops_used": 0,
@@ -1599,7 +1607,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 14,
+        "board_cursor": 19,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 52,
         "land_drops_used": 0,
@@ -1817,7 +1825,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 15,
+        "board_cursor": 22,
         "choices": [
           {
             "action": "land",
@@ -1981,6 +1989,12 @@
       "phase": "COMBAT",
       "pilot_context": {
         "land_drops_used": 0,
+        "playable_cards": [
+          "p13",
+          "p14",
+          "p15",
+          "p24",
+        ]
       },
       "player": "TestPlayer",
       "response_type": "select",
@@ -2459,8 +2473,90 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 3,
-        "board_unchanged": true,
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "playable": true,
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield.",
+                ],
+                "toughness": "0",
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "playable": true,
+                "power": "1",
+                "toughness": "1",
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -2623,7 +2719,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -2671,7 +2767,7 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
       },
       "game_seq": 33,
       "player": "TestPlayer",
@@ -2780,7 +2876,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 10,
         "choices": [
           {
             "action": "cast",
@@ -2965,7 +3061,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 11,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -3001,14 +3097,14 @@
     },
     {
       "args": {
-        "board_cursor": 7,
+        "board_cursor": 11,
       },
       "game_seq": 34,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_ABILITY",
-        "board_cursor": 7,
+        "board_cursor": 11,
         "board_unchanged": true,
         "choices": [
           {
@@ -3143,7 +3239,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 12,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 38,
         "land_drops_used": 0,
@@ -3179,7 +3275,7 @@
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 12,
       },
       "game_seq": 41,
       "player": "TestPlayer",
@@ -3288,7 +3384,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 13,
         "choices": [
           {
             "action": "cast",
@@ -3475,7 +3571,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 14,
         "choices": [
           {
             "description": "Cast Memnite",
@@ -3511,14 +3607,14 @@
     },
     {
       "args": {
-        "board_cursor": 9,
+        "board_cursor": 14,
       },
       "game_seq": 42,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_ABILITY",
-        "board_cursor": 9,
+        "board_cursor": 14,
         "board_unchanged": true,
         "choices": [
           {
@@ -3654,7 +3750,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 15,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 44,
         "land_drops_used": 0,
@@ -3690,7 +3786,7 @@
     },
     {
       "args": {
-        "board_cursor": 10,
+        "board_cursor": 15,
       },
       "game_seq": 47,
       "player": "TestPlayer",
@@ -3799,7 +3895,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 16,
         "choices": [
           {
             "action": "cast",
@@ -3963,7 +4059,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 14,
+        "board_cursor": 19,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 52,
         "land_drops_used": 0,
@@ -3998,15 +4094,102 @@
     },
     {
       "args": {
-        "board_cursor": 14,
+        "board_cursor": 19,
       },
       "game_seq": 54,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_ASK",
-        "board_cursor": 14,
-        "board_unchanged": true,
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ],
+                "tapped": true,
+              },
+              {
+                "id": "p16",
+                "name": "Memnite",
+                "power": "1",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1",
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+            ],
+            "hand": [
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+            ],
+            "hand_size": 4,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 20,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 54,
         "land_drops_used": 0,
@@ -4154,7 +4337,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 15,
+        "board_cursor": 22,
         "choices": [
           {
             "action": "land",
@@ -4211,7 +4394,7 @@
     },
     {
       "args": {
-        "board_cursor": 15,
+        "board_cursor": 22,
         "until": "postcombat_main",
       },
       "game_seq": 63,
@@ -4219,8 +4402,110 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 15,
-        "board_unchanged": true,
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}.",
+                ],
+                "tapped": true,
+              },
+              {
+                "copy": true,
+                "id": "p11",
+                "modified": true,
+                "name": "Memnite",
+                "original_card": "Clone",
+                "power": "1",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1",
+              },
+              {
+                "id": "p16",
+                "name": "Memnite",
+                "power": "1",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1",
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color.",
+                ]
+              },
+            ],
+            "hand": [
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}.",
+                ]
+              },
+            ],
+            "hand_size": 4,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer",
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}.",
+                ]
+              },
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent",
+          }
+        ],
+        "board_cursor": 24,
         "choices": [
           {
             "action": "land",
