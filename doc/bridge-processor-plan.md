@@ -123,7 +123,9 @@ The action/game-state slice is also closer to the intended model now:
   `processor/` too, instead of being built by `BridgeCallbackHandler` and
   passed back in through handler-owned lambdas
 - `BridgeMcpQueryApi` is now closer to a read shell:
-  - published-state reads stay on the published snapshot/log path
+  - published-state reads now use listener/processor sync barriers and then
+    read the published immutable snapshot directly, instead of asking the
+    processor thread to read the snapshot on MCP's behalf
   - `get_my_decklist` and `get_oracle_text` now go through a processor-side
     query command service instead of touching handler-owned helpers directly
 
@@ -186,6 +188,13 @@ mixed boundary rather than a processor-private read-model layer.
 The biggest remaining MCP-side smell is that some reads still need
 processor/barrier synchronization around mutable state holders instead of
 reading from purely append-only processor-owned publication structures.
+
+That is better than before, though:
+
+- MCP reads no longer route snapshot retrieval itself back through
+  `processor.submit(...)`
+- the remaining issue is the barrier and publication model, not "MCP asks the
+  processor thread to read mutable state for it"
 
 ## Remaining Work
 

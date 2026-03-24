@@ -27,6 +27,8 @@ public final class BridgeMcpQueryApi {
     private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgePublishedQueryState publishedQueryState;
     private final BridgeQueryCommandService queryCommandService;
+    private final Runnable awaitPublishedReadBarrier;
+    private final Runnable awaitProcessorReadBarrier;
 
     public BridgeMcpQueryApi(
             String username,
@@ -34,13 +36,17 @@ public final class BridgeMcpQueryApi {
             BridgeProcessor processor,
             BridgeGameLogRefresher gameLogRefresher,
             BridgePublishedQueryState publishedQueryState,
-            BridgeQueryCommandService queryCommandService) {
+            BridgeQueryCommandService queryCommandService,
+            Runnable awaitPublishedReadBarrier,
+            Runnable awaitProcessorReadBarrier) {
         this.username = username;
         this.logger = logger;
         this.processor = processor;
         this.gameLogRefresher = gameLogRefresher;
         this.publishedQueryState = publishedQueryState;
         this.queryCommandService = queryCommandService;
+        this.awaitPublishedReadBarrier = awaitPublishedReadBarrier;
+        this.awaitProcessorReadBarrier = awaitProcessorReadBarrier;
     }
 
     public boolean isActionPending() {
@@ -187,12 +193,12 @@ public final class BridgeMcpQueryApi {
     }
 
     private BridgeGameLogSnapshot snapshotGameLog() {
+        awaitPublishedReadBarrier.run();
         long syncEpoch = processor.submit(BridgeCommand.of(gameLogRefresher::captureSyncBarrierEpoch));
         gameLogRefresher.awaitSyncThrough(syncEpoch);
-        return processor.submit(BridgeCommand.of(() -> {
-            var gameLog = publishedQueryState.snapshot().gameLog();
-            return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
-        }));
+        awaitProcessorReadBarrier.run();
+        var gameLog = publishedQueryState.snapshot().gameLog();
+        return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
     }
 
     private BridgePublishedGameState snapshotGameStateForRead() {
@@ -239,7 +245,8 @@ public final class BridgeMcpQueryApi {
     }
 
     private BridgePublishedQuerySnapshot snapshotForRead() {
-        return processor.submit(BridgeCommand.of(publishedQueryState::snapshot));
+        awaitPublishedReadBarrier.run();
+        return publishedQueryState.snapshot();
     }
 
     private GetGameLogTool.Result buildGameLogResult(

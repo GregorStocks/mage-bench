@@ -220,7 +220,9 @@ public class BridgeCallbackHandler {
             processor,
             gameLogRefresher,
             publishedQueryState,
-            queryCommandService
+            queryCommandService,
+            this::awaitPublishedReadBarrier,
+            this::awaitProcessorReadBarrier
         );
         this.decisionFlowService = new BridgeDecisionFlowService(
             client.getUsername(),
@@ -463,14 +465,28 @@ public class BridgeCallbackHandler {
         processorState.reset();
     }
 
-    // Visible for tests that need to wait for queued callback processing.
-    void awaitProcessorIdle() {
+    private void awaitPublishedReadBarrier() {
+        try {
+            client.awaitCallbackListenerIdle();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted while waiting for bridge callback listener idle", e);
+        }
+        awaitProcessorReadBarrier();
+    }
+
+    private void awaitProcessorReadBarrier() {
         processor.submit(new BridgeCommand<Void>() {
             @Override
             public Void execute() {
                 return null;
             }
         });
+    }
+
+    // Visible for tests that need to wait for queued callback processing.
+    void awaitProcessorIdle() {
+        awaitProcessorReadBarrier();
     }
 
     void shutdownProcessor(String reason) {
