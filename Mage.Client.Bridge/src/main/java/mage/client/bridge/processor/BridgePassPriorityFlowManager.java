@@ -1,6 +1,5 @@
 package mage.client.bridge.processor;
 
-import mage.client.bridge.BridgeCallbackHandler;
 import mage.client.bridge.tools.ActionResult;
 
 import java.util.concurrent.Executors;
@@ -40,7 +39,7 @@ public final class BridgePassPriorityFlowManager {
         decisionState.setPendingPassPriorityFlow(flow);
         try {
             flow.start();
-        } catch (BridgeCallbackHandler.ResponseDeliveryException e) {
+        } catch (BridgeResponseDeliveryException e) {
             flow.finishWithDeliveryError(e.getMessage());
         } catch (RuntimeException e) {
             decisionState.clearPendingPassPriorityFlowIfCurrent(flow);
@@ -59,7 +58,7 @@ public final class BridgePassPriorityFlowManager {
         }
         try {
             flow.advance();
-        } catch (BridgeCallbackHandler.ResponseDeliveryException e) {
+        } catch (BridgeResponseDeliveryException e) {
             flow.finishWithDeliveryError(e.getMessage());
         }
         cancelScheduledTickIfInactive(flow);
@@ -72,7 +71,7 @@ public final class BridgePassPriorityFlowManager {
         }
         try {
             flow.tick();
-        } catch (BridgeCallbackHandler.ResponseDeliveryException e) {
+        } catch (BridgeResponseDeliveryException e) {
             flow.finishWithDeliveryError(e.getMessage());
         }
         cancelScheduledTickIfInactive(flow);

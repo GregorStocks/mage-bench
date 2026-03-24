@@ -1,22 +1,19 @@
-package mage.client.bridge;
+package mage.client.bridge.processor;
 
-import mage.client.bridge.processor.BridgeChooseActionFlowContext;
-import mage.client.bridge.processor.BridgeChooseActionInput;
-import mage.client.bridge.processor.BridgeChooseActionStartResult;
-import mage.client.bridge.processor.BridgeProcessorState;
+import mage.client.bridge.PendingAction;
 import mage.client.bridge.tools.ChooseActionTool;
 
 import java.util.Set;
 import java.util.UUID;
 
-final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowContext {
-    private final BridgeCallbackHandler handler;
+public final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowContext {
+    private final BridgeDecisionFlowService decisionFlowService;
     private final BridgeProcessorState processorState;
 
-    BridgeChooseActionFlowContextImpl(
-            BridgeCallbackHandler handler,
+    public BridgeChooseActionFlowContextImpl(
+            BridgeDecisionFlowService decisionFlowService,
             BridgeProcessorState processorState) {
-        this.handler = handler;
+        this.decisionFlowService = decisionFlowService;
         this.processorState = processorState;
     }
 
@@ -27,60 +24,57 @@ final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowC
 
     @Override
     public PendingAction currentDecisionAction() {
-        return handler.currentDecisionAction();
+        return decisionFlowService.currentDecisionAction();
     }
 
     @Override
     public boolean requestCannotContinue() {
-        return processorState.gameState().superseded()
-            || processorState.gameState().playerDead()
-            || processorState.gameState().gameOverObserved()
-            || !handler.clientRunning();
+        return decisionFlowService.requestCannotContinue();
     }
 
     @Override
     public ChooseActionTool.Result noPendingActionResult() {
-        return handler.noPendingChooseActionResult();
+        return decisionFlowService.noPendingChooseActionResult();
     }
 
     @Override
     public BridgeChooseActionStartResult applyChooseAction(BridgeChooseActionInput input, PendingAction action) {
-        return handler.applyChooseActionNow(input, action);
+        return decisionFlowService.applyChooseAction(input, action);
     }
 
     @Override
     public String detectCombatSelect(PendingAction action) {
-        return handler.detectCombatSelect(action);
+        return decisionFlowService.detectCombatSelect(action);
     }
 
     @Override
     public UUID resolveShortId(String shortId) {
-        return handler.resolveShortId(shortId);
+        return decisionFlowService.resolveShortId(shortId);
     }
 
     @Override
     public Set<UUID> validTargets(PendingAction action) {
-        return handler.validTargets(action);
+        return decisionFlowService.validTargets(action);
     }
 
     @Override
     public boolean clearPendingActionIfCurrent(PendingAction action) {
-        return handler.clearPendingActionIfCurrent(action);
+        return decisionFlowService.clearPendingActionIfCurrent(action);
     }
 
     @Override
     public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
-        handler.sendBooleanOrDie(gameId, data, sendContext);
+        decisionFlowService.sendBooleanOrDie(gameId, data, sendContext);
     }
 
     @Override
     public void sendUuidOrDie(UUID gameId, UUID data, String sendContext) {
-        handler.sendUuidOrDie(gameId, data, sendContext);
+        decisionFlowService.sendUuidOrDie(gameId, data, sendContext);
     }
 
     @Override
     public void sendStringOrDie(UUID gameId, String data, String sendContext) {
-        handler.sendStringOrDie(gameId, data, sendContext);
+        decisionFlowService.sendStringOrDie(gameId, data, sendContext);
     }
 
     @Override
@@ -95,7 +89,7 @@ final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowC
             String message,
             boolean retryable,
             PendingAction action) {
-        return handler.buildError(result, errorCode, message, retryable, action);
+        return decisionFlowService.buildChooseActionError(result, errorCode, message, retryable, action);
     }
 
     @Override
@@ -103,32 +97,32 @@ final class BridgeChooseActionFlowContextImpl implements BridgeChooseActionFlowC
             ChooseActionTool.Result result,
             PendingAction previousAction,
             PendingAction nextAction) {
-        handler.finishChooseActionWithNextDecision(result, previousAction, nextAction);
+        decisionFlowService.finishChooseActionWithNextDecision(result, previousAction, nextAction);
     }
 
     @Override
     public void finishChooseActionWithoutNextDecision(
             ChooseActionTool.Result result,
             PendingAction previousAction) {
-        handler.finishChooseActionWithoutNextDecision(result, previousAction);
+        decisionFlowService.finishChooseActionWithoutNextDecision(result, previousAction);
     }
 
     @Override
     public void finishBatchChooseActionWithNextDecision(
             ChooseActionTool.Result result,
             PendingAction nextAction) {
-        handler.finishBatchChooseActionWithNextDecision(result, nextAction);
+        decisionFlowService.finishBatchChooseActionWithNextDecision(result, nextAction);
     }
 
     @Override
     public void finishBatchChooseActionWithoutNextDecision(ChooseActionTool.Result result) {
-        handler.finishBatchChooseActionWithoutNextDecision(result);
+        decisionFlowService.finishBatchChooseActionWithoutNextDecision(result);
     }
 
     @Override
     public ChooseActionTool.Result cancelledChooseActionResult(
             PendingAction previousAction,
             ChooseActionTool.Result partialResult) {
-        return handler.cancelledChooseActionResult(previousAction, partialResult);
+        return decisionFlowService.cancelledChooseActionResult(previousAction, partialResult);
     }
 }

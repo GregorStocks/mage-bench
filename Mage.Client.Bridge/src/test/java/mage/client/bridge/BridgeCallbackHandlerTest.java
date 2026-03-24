@@ -4029,13 +4029,14 @@ class BridgeCallbackHandlerTest {
             PendingAction action,
             String source
     ) throws Exception {
-        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
+        Object decisionFlowService = getField(handler, "decisionFlowService");
+        Method method = decisionFlowService.getClass().getDeclaredMethod(
             "transitionToDecisionBoundary",
             PendingAction.class,
             String.class
         );
         method.setAccessible(true);
-        Object transition = method.invoke(handler, action, source);
+        Object transition = method.invoke(decisionFlowService, action, source);
         Method statusMethod = transition.getClass().getDeclaredMethod("status");
         statusMethod.setAccessible(true);
         Object status = statusMethod.invoke(transition);

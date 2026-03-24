@@ -168,10 +168,14 @@ And the bridge still relies on shared mutable state containers such as:
 Those are still being read outside the processor thread.
 So the model is still transitional rather than actor-pure.
 
-The biggest remaining ownership smell is that `BridgeCallbackHandler` still
-acts as a processor helper bag for choose/pass flow contexts and other utility
-methods. That is better than before, but it is still not the final actor
-boundary.
+One ownership improvement is now in place:
+
+- choose/pass flow context implementations and their decision-boundary helper
+  logic now live under `processor/`
+- `BridgeCallbackHandler` no longer serves as the hidden helper bag for those
+  flows
+
+But that still does **not** make the bridge actor-pure.
 
 Another remaining smell is that processor-side query publication still depends
 on utility classes that were historically handler-adjacent (`BridgeViewLocator`,
@@ -199,8 +203,8 @@ That includes:
 - interaction/mana-plan state
 - chat/log state
 - cursor/signature state
-- choose/pass flow helper logic that still reaches back into
-  `BridgeCallbackHandler`
+- query-publication helpers that still read shared mutable `Bridge*State`
+  holders instead of processor-private publication structures
 
 ### 2. Make MCP reads use processor-published data
 

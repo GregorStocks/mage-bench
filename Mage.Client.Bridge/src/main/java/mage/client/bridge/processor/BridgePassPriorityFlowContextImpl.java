@@ -1,28 +1,26 @@
-package mage.client.bridge;
+package mage.client.bridge.processor;
 
-import mage.client.bridge.processor.BridgePassPriorityFlow;
-import mage.client.bridge.processor.BridgePassPriorityFlowContext;
-import mage.client.bridge.processor.BridgeProcessorState;
+import mage.client.bridge.PendingAction;
 import mage.client.bridge.tools.ActionResult;
 import mage.view.GameView;
 
 import java.util.UUID;
 import java.util.function.Consumer;
 
-final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowContext {
-    private final BridgeCallbackHandler handler;
+public final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowContext {
+    private final BridgeDecisionFlowService decisionFlowService;
     private final BridgeProcessorState processorState;
 
-    BridgePassPriorityFlowContextImpl(
-            BridgeCallbackHandler handler,
+    public BridgePassPriorityFlowContextImpl(
+            BridgeDecisionFlowService decisionFlowService,
             BridgeProcessorState processorState) {
-        this.handler = handler;
+        this.decisionFlowService = decisionFlowService;
         this.processorState = processorState;
     }
 
     @Override
     public String username() {
-        return handler.username();
+        return decisionFlowService.username();
     }
 
     @Override
@@ -32,42 +30,42 @@ final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowC
 
     @Override
     public PendingAction currentDecisionAction() {
-        return handler.currentDecisionAction();
+        return decisionFlowService.currentDecisionAction();
     }
 
     @Override
     public PendingAction resolvePassPriorityAction(PendingAction action) {
-        return handler.resolvePassPriorityAction(action);
+        return decisionFlowService.resolvePassPriorityAction(action);
     }
 
     @Override
     public GameView preparePassPriorityActionView(PendingAction action) {
-        return handler.preparePassPriorityActionView(action);
+        return decisionFlowService.preparePassPriorityActionView(action);
     }
 
     @Override
     public int interactionsThisTurn() {
-        return handler.interactionsThisTurn();
+        return decisionFlowService.interactionsThisTurn();
     }
 
     @Override
     public int maxInteractionsPerTurn() {
-        return handler.maxInteractionsPerTurn();
+        return decisionFlowService.maxInteractionsPerTurn();
     }
 
     @Override
     public void executeDefaultAction() {
-        handler.executeDefaultAction();
+        decisionFlowService.executeDefaultAction();
     }
 
     @Override
     public String detectCombatSelect(PendingAction action) {
-        return handler.detectCombatSelect(action);
+        return decisionFlowService.detectCombatSelect(action);
     }
 
     @Override
     public ActionResult pendingActionResult(PendingAction action, String stopReason, Long boardCursorParam) {
-        return handler.pendingActionResult(action, stopReason, boardCursorParam);
+        return decisionFlowService.pendingActionResult(action, stopReason, boardCursorParam);
     }
 
     @Override
@@ -76,97 +74,97 @@ final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowC
             String stopReason,
             Long boardCursorParam,
             Consumer<ActionResult> customizer) {
-        return handler.pendingActionResult(action, stopReason, boardCursorParam, customizer);
+        return decisionFlowService.pendingActionResult(action, stopReason, boardCursorParam, customizer);
     }
 
     @Override
     public ActionResult stepYieldResult(PendingAction action, GameView gameView, String stopReason, Long boardCursorParam) {
-        return handler.stepYieldResult(action, gameView, stopReason, boardCursorParam);
+        return decisionFlowService.stepYieldResult(action, gameView, stopReason, boardCursorParam);
     }
 
     @Override
     public ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
-        return handler.stackResolvedResult(action, boardCursorParam);
+        return decisionFlowService.stackResolvedResult(action, boardCursorParam);
     }
 
     @Override
     public UUID lowestStackObjectId(GameView gameView) {
-        return handler.lowestStackObjectId(gameView);
+        return decisionFlowService.lowestStackObjectId(gameView);
     }
 
     @Override
     public boolean stackContains(GameView gameView, UUID stackObjectId) {
-        return handler.stackContains(gameView, stackObjectId);
+        return decisionFlowService.stackContains(gameView, stackObjectId);
     }
 
     @Override
     public boolean clearPendingActionIfCurrent(PendingAction action) {
-        return handler.clearPendingActionIfCurrent(action);
+        return decisionFlowService.clearPendingActionIfCurrent(action);
     }
 
     @Override
     public void sendBooleanOrDie(UUID gameId, boolean data, String sendContext) {
-        handler.sendBooleanOrDie(gameId, data, sendContext);
+        decisionFlowService.sendBooleanOrDie(gameId, data, sendContext);
     }
 
     @Override
     public UUID currentGameId() {
-        return processorState.gameState().currentGameId();
+        return decisionFlowService.currentGameId();
     }
 
     @Override
     public GameView lastGameView() {
-        return processorState.gameState().lastGameView();
+        return decisionFlowService.lastGameView();
     }
 
     @Override
     public int lastTurnNumber() {
-        return handler.lastTurnNumber();
+        return decisionFlowService.lastTurnNumber();
     }
 
     @Override
     public boolean hasActiveGame() {
-        return processorState.gameState().hasActiveGame();
+        return decisionFlowService.hasActiveGame();
     }
 
     @Override
     public boolean superseded() {
-        return processorState.gameState().superseded();
+        return decisionFlowService.superseded();
     }
 
     @Override
     public boolean playerDead() {
-        return processorState.gameState().playerDead();
+        return decisionFlowService.playerDead();
     }
 
     @Override
     public boolean gameEverStarted() {
-        return processorState.gameState().gameEverStarted();
+        return decisionFlowService.gameEverStarted();
     }
 
     @Override
     public boolean clientRunning() {
-        return handler.clientRunning();
+        return decisionFlowService.clientRunning();
     }
 
     @Override
     public long lastActionableCallbackAt() {
-        return processorState.gameState().lastActionableCallbackAt();
+        return decisionFlowService.lastActionableCallbackAt();
     }
 
     @Override
     public long lastCallbackReceivedAt() {
-        return processorState.gameState().lastCallbackReceivedAt();
+        return decisionFlowService.lastCallbackReceivedAt();
     }
 
     @Override
     public void declareZombieGame(long absoluteIdleMs) {
-        handler.declareZombieGame(absoluteIdleMs);
+        decisionFlowService.declareZombieGame(absoluteIdleMs);
     }
 
     @Override
     public boolean failedManaCast(UUID objectId) {
-        return handler.failedManaCast(objectId);
+        return decisionFlowService.failedManaCast(objectId);
     }
 
     @Override
@@ -178,6 +176,14 @@ final class BridgePassPriorityFlowContextImpl implements BridgePassPriorityFlowC
             GameView view,
             ActionResult result,
             boolean actionPending) {
-        handler.finalizePassPriorityResult(flow, until, actionsPassed, action, view, result, actionPending);
+        decisionFlowService.finalizePassPriorityResult(
+            flow,
+            until,
+            actionsPassed,
+            action,
+            view,
+            result,
+            actionPending
+        );
     }
 }

@@ -1,6 +1,5 @@
 package mage.client.bridge.processor;
 
-import mage.client.bridge.BridgeCallbackHandler;
 import mage.client.bridge.tools.ChooseActionTool;
 
 import java.util.concurrent.Executors;
@@ -44,7 +43,7 @@ public final class BridgeChooseActionFlowManager {
         decisionState.setPendingChooseActionFlow(flow);
         try {
             flow.start();
-        } catch (BridgeCallbackHandler.ResponseDeliveryException e) {
+        } catch (BridgeResponseDeliveryException e) {
             flow.finish(deliveryErrorResultFactory.apply(e.getMessage()));
         } catch (RuntimeException e) {
             decisionState.clearPendingChooseActionFlowIfCurrent(flow);
@@ -65,7 +64,7 @@ public final class BridgeChooseActionFlowManager {
         }
         try {
             flow.advance();
-        } catch (BridgeCallbackHandler.ResponseDeliveryException e) {
+        } catch (BridgeResponseDeliveryException e) {
             flow.finish(deliveryErrorResultFactory.apply(e.getMessage()));
         }
         cancelScheduledTickIfInactive(flow);
