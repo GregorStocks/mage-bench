@@ -1,6 +1,7 @@
 package mage.client.bridge.processor;
 
 import mage.client.bridge.tools.GetGameStateTool;
+import mage.view.GameView;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -15,6 +16,10 @@ public final class BridgePublishedQueryState {
     private final boolean tracePublishedState = Boolean.getBoolean("xmage.bridge.tracePublishedState");
     private final AtomicReference<BridgePublishedQuerySnapshot> publishedSnapshot =
         new AtomicReference<>(BridgePublishedQuerySnapshot.empty());
+    private final AtomicReference<BridgePublishedGameState> projectedGameState =
+        new AtomicReference<>(BridgePublishedGameState.unavailable("No game state available yet"));
+    private volatile GameView projectedGameView = null;
+    private volatile int projectedRound = 0;
     private String lastPublishedGameStatePayload = null;
 
     public BridgePublishedQueryState(
@@ -36,10 +41,7 @@ public final class BridgePublishedQueryState {
         if (!processor.isProcessorThread()) {
             throw new IllegalStateException("publishProcessorState must run on the bridge processor thread");
         }
-        BridgePublishedQuerySnapshot previous = publishedSnapshot.get();
-        BridgePublishedSnapshotBuild built = buildPublishedSnapshot();
-        publishedSnapshot.set(built.snapshot());
-        tracePublishedGameStateChange(cause, previous.gameState(), built.gameState(), built.gameStatePayload());
+        publishedSnapshot.set(buildPublishedSnapshot());
     }
 
     public void publishProcessorState() {
@@ -50,31 +52,50 @@ public final class BridgePublishedQueryState {
         return publishedSnapshot.get();
     }
 
-    private BridgePublishedSnapshotBuild buildPublishedSnapshot() {
-        // TODO(shim): expires=2026-06-30 Stop rebuilding MCP snapshots from mutable Bridge*State
-        // holders once processor-private state and native published read models exist.
-        BridgePublishedGameStateBuild gameStateBuild = buildPublishedGameState();
-        return new BridgePublishedSnapshotBuild(
-            new BridgePublishedQuerySnapshot(
-                queryBuilder.buildPublishedActionChoices(),
-                gameStateBuild.state(),
-                processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch())
+    public void projectGameState(GameView gameView, int round, String cause) {
+        if (!processor.isProcessorThread()) {
+            throw new IllegalStateException("projectGameState must run on the bridge processor thread");
+        }
+        BridgePublishedQueryBuilder.BridgePublishedGameStateBuild built =
+            queryBuilder.buildPublishedGameState(gameView, round);
+        BridgePublishedGameState previous = projectedGameState.getAndSet(built.state());
+        projectedGameView = gameView;
+        projectedRound = round;
+        traceProjectedGameStateChange(cause, previous, built.state(), built.payload());
+    }
+
+    public void clearProjectedGameState(String error, String cause) {
+        if (!processor.isProcessorThread()) {
+            throw new IllegalStateException("clearProjectedGameState must run on the bridge processor thread");
+        }
+        BridgePublishedGameState next = BridgePublishedGameState.unavailable(error);
+        BridgePublishedGameState previous = projectedGameState.getAndSet(next);
+        projectedGameView = null;
+        projectedRound = 0;
+        traceProjectedGameStateChange(
+            cause,
+            previous,
+            next,
+            "unavailable:error=" + error
+        );
+    }
+
+    private BridgePublishedQuerySnapshot buildPublishedSnapshot() {
+        // TODO(shim): expires=2026-06-30 Stop rebuilding published action choices from mutable
+        // runtime state after the full native query projection lands.
+        return new BridgePublishedQuerySnapshot(
+            queryBuilder.buildPublishedActionChoices(
+                processorState.decisionState().pendingAction(),
+                projectedGameView,
+                projectedRound
             ),
-            gameStateBuild.state(),
-            gameStateBuild.payload()
+            projectedGameState.get(),
+            processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch())
         );
     }
 
-    private BridgePublishedGameStateBuild buildPublishedGameState() {
-        BridgePublishedQueryBuilder.BridgePublishedGameStateBuild built = queryBuilder.buildPublishedGameState();
-        return new BridgePublishedGameStateBuild(
-            built.state(),
-            built.payload()
-        );
-    }
-
-    private void tracePublishedGameStateChange(
-            BridgeProcessorMessage cause,
+    private void traceProjectedGameStateChange(
+            String cause,
             BridgePublishedGameState previous,
             BridgePublishedGameState current,
             String currentPayload) {
@@ -89,38 +110,12 @@ public final class BridgePublishedQueryState {
             return;
         }
         String previousPayload = lastPublishedGameStatePayload;
-        logger.info("[" + username + "] published-game-state cause=" + describeCause(cause)
+        logger.info("[" + username + "] published-game-state cause=" + cause
             + " snapshot_id=" + previousSnapshotId + "->" + currentSnapshotId
             + " game_seq=" + (previous != null ? previous.gameSeq() : null) + "->" + current.gameSeq()
             + " payload_prev=" + previousPayload
             + " payload_next=" + currentPayload);
         lastPublishedGameStatePayload = currentPayload;
-    }
-
-    private String describeCause(BridgeProcessorMessage cause) {
-        if (cause instanceof BridgeCallbackEvent event) {
-            return "callback:" + event.method();
-        }
-        if (cause instanceof BridgeProcessorShutdown shutdown) {
-            return "shutdown:" + shutdown.reason();
-        }
-        if (cause == null) {
-            return "unknown";
-        }
-        return "command:" + cause.getClass().getSimpleName();
-    }
-
-    private record BridgePublishedSnapshotBuild(
-            BridgePublishedQuerySnapshot snapshot,
-            BridgePublishedGameState gameState,
-            String gameStatePayload
-    ) {
-    }
-
-    private record BridgePublishedGameStateBuild(
-            BridgePublishedGameState state,
-            String payload
-    ) {
     }
 
 }

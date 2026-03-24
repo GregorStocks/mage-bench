@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
@@ -69,6 +70,7 @@ public final class BridgeDecisionFlowService {
     private final Supplier<Boolean> clientRunningSupplier;
     private final Consumer<String> errorLogger;
     private final BridgeEventLogger eventLogger;
+    private final BiConsumer<GameView, String> projectPublishedGameState;
 
     public BridgeDecisionFlowService(
             String username,
@@ -79,7 +81,8 @@ public final class BridgeDecisionFlowService {
             Supplier<Session> sessionSupplier,
             Supplier<Boolean> clientRunningSupplier,
             Consumer<String> errorLogger,
-            BridgeEventLogger eventLogger) {
+            BridgeEventLogger eventLogger,
+            BiConsumer<GameView, String> projectPublishedGameState) {
         this.username = username;
         this.logger = logger;
         this.processorState = processorState;
@@ -89,6 +92,7 @@ public final class BridgeDecisionFlowService {
         this.clientRunningSupplier = clientRunningSupplier;
         this.errorLogger = errorLogger;
         this.eventLogger = eventLogger;
+        this.projectPublishedGameState = projectPublishedGameState;
     }
 
     public Map<String, Object> executeDefaultAction() {
@@ -1002,7 +1006,12 @@ public final class BridgeDecisionFlowService {
     }
 
     private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam) {
-        return publishedQueryBuilder.buildActionChoices(action, boardCursorParam);
+        return publishedQueryBuilder.buildActionChoices(
+            action,
+            boardCursorParam,
+            processorState.gameState().lastGameView(),
+            processorState.gameState().currentRound()
+        );
     }
 
     private void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
@@ -1273,6 +1282,7 @@ public final class BridgeDecisionFlowService {
 
     private void updateLastGameView(GameView gameView, String source) {
         processorState.gameState().updateLastGameView(gameView, source, logger, username);
+        projectPublishedGameState.accept(gameView, source);
     }
 
     private void sendIntegerOrDie(UUID gameId, int data, String context) {

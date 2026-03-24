@@ -128,6 +128,9 @@ The action/game-state slice is also closer to the intended model now:
 - published game-state and action-choice construction now lives under
   `processor/` too, instead of being built by `BridgeCallbackHandler` and
   passed back in through handler-owned lambdas
+- published game state is now projected explicitly from authoritative
+  processor-side `GameView` update points instead of being rebuilt from
+  `gameState.lastGameView()` on every processor message
 - `BridgeMcpQueryApi` is now closer to a read shell:
   - published-state reads now use listener/processor sync barriers and then
     read the published immutable snapshot directly, instead of asking the
@@ -176,8 +179,9 @@ There are still real actor-model violations or near-violations left:
   stored as separate fields on `BridgeCallbackHandler`, but those helpers still
   use live-state suppliers and mutable runtime bags rather than native
   processor projections
-- the published query snapshot is still rebuilt from mutable `Bridge*State`
-  holders instead of being a native processor projection
+- published game state is now a native processor-side projection, but
+  published action choices are still rebuilt from mutable decision/runtime
+  state at publish time
 - bridge-event history still depends on the async
   `Session.getBridgeEvents(...)` synchronization shim
 
@@ -238,8 +242,19 @@ Preferred end state:
 This is where the append-only model becomes important.
 
 The game-log/history path is closer to this already.
-The game-state/action-choices path still needs to become a native processor
-projection instead of a rebuild from mutable runtime bags.
+The game-state path is now materially closer: published game state is projected
+from explicit processor-side update points instead of being rebuilt from
+`lastGameView` during publication.
+
+The remaining work in this area is mostly:
+
+- making published action choices a native processor projection instead of a
+  rebuild from mutable decision/runtime state
+- shrinking or deleting query builder helpers that still exist only to rebuild
+  published state from mutable bags
+- continuing to narrow `BridgeProcessorServices` so it becomes a thin
+  processor-private services/context layer instead of a bag of mutable-state
+  readers
 
 The remaining read-side cleanup should focus on:
 
@@ -247,11 +262,8 @@ The remaining read-side cleanup should focus on:
   instead of reading mutable `Bridge*State` holders
 - shrinking `BridgeMcpQueryApi` toward a pure "sync barrier + published read"
   shell, with publication/build logic owned elsewhere
-- shrinking or deleting read helpers that only exist to rebuild published
-  snapshots from those mutable state holders
-- continuing to narrow `BridgeProcessorServices` so it becomes a thin
-  processor-private services/context layer instead of a bag of mutable-state
-  readers
+- deleting the remaining read helpers that only exist to rebuild published
+  action choices from those mutable state holders
 
 ### 2. Delete the `Session.getBridgeEvents(...)` synchronization shim
 

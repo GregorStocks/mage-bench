@@ -70,15 +70,15 @@ public final class BridgePublishedQueryBuilder {
         this.deckListSupplier = Objects.requireNonNull(deckListSupplier);
     }
 
-    public BridgePublishedActionChoices buildPublishedActionChoices() {
+    public BridgePublishedActionChoices buildPublishedActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
         return BridgePublishedActionChoices.from(
-            buildActionChoices(processorState.decisionState().pendingAction(), null)
+            buildActionChoices(action, null, fallbackGameView, currentRound)
         );
     }
 
-    public ActionResult buildActionChoices(PendingAction action, Long boardCursorParam) {
+    public ActionResult buildActionChoices(PendingAction action, Long boardCursorParam, GameView fallbackGameView, int currentRound) {
         var result = new ActionResult();
-        GameView gameView = extractActionGameView(action);
+        GameView gameView = extractActionGameView(action, fallbackGameView);
         final GameView capturedGameView = gameView;
         if (action != null) {
             result.game_seq = action.gameSeq();
@@ -95,12 +95,11 @@ public final class BridgePublishedQueryBuilder {
         result.message = BridgePromptFormatting.stripHtml(action.message());
 
         if (gameView != null) {
-            int turn = processorState.gameState().updateRound(gameView);
             boolean isMyTurn = username.equals(gameView.getActivePlayerName());
             boolean isMainPhase = gameView.getPhase() != null && gameView.getPhase().isMain();
 
             var ctx = new StringBuilder();
-            ctx.append("T").append(turn);
+            ctx.append("T").append(currentRound);
             if (gameView.getPhase() != null) {
                 ctx.append(" ").append(gameView.getPhase());
             }
@@ -180,15 +179,7 @@ public final class BridgePublishedQueryBuilder {
         return result;
     }
 
-    BridgePublishedGameStateBuild buildPublishedGameState() {
-        GameView gameView = processorState.gameState().lastGameView();
-        if (gameView == null) {
-            return new BridgePublishedGameStateBuild(
-                BridgePublishedGameState.unavailable("No game state available yet"),
-                "unavailable:error=No game state available yet"
-            );
-        }
-
+    BridgePublishedGameStateBuild buildPublishedGameState(GameView gameView, int currentRound) {
         List<Map<String, Object>> players = freezeMapList(processorServices.gameStateBuilder().buildPlayersArray(gameView));
         List<Map<String, Object>> stack = freezeMapList(processorServices.cardFormatter().buildStackItems(gameView, true, true));
         List<Map<String, Object>> combat = freezeMapList(processorServices.gameStateBuilder().buildCombatGroups(gameView));
@@ -196,7 +187,7 @@ public final class BridgePublishedQueryBuilder {
         var state = new GetGameStateTool.Result();
         state.available = true;
         state.game_seq = gameView.getGameSeq();
-        state.turn = processorState.gameState().currentRound();
+        state.turn = currentRound;
         state.phase = gameView.getPhase() != null ? gameView.getPhase().toString() : null;
         state.step = gameView.getStep() != null ? gameView.getStep().toString() : null;
         state.active_player = gameView.getActivePlayerName();
@@ -260,10 +251,6 @@ public final class BridgePublishedQueryBuilder {
         var indexToUuid = new ArrayList<Object>();
 
         if (playable != null && !playable.isEmpty()) {
-            if (gameView != null) {
-                processorState.interactionState().advanceTurn(gameView);
-            }
-
             var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
             sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(entry -> {
                 CardView cardView = processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView);
@@ -774,14 +761,14 @@ public final class BridgePublishedQueryBuilder {
         processorState.decisionState().clearLastChoices();
     }
 
-    private GameView extractActionGameView(PendingAction action) {
+    private GameView extractActionGameView(PendingAction action, GameView fallbackGameView) {
         if (action != null && action.data() instanceof GameClientMessage gameClientMessage) {
             GameView gameView = gameClientMessage.getGameView();
             if (gameView != null) {
                 return gameView;
             }
         }
-        return processorState.gameState().lastGameView();
+        return fallbackGameView;
     }
 
     private long updateGameStateSnapshotId(Map<String, Object> state) {

@@ -2449,6 +2449,52 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void unrelatedRepublishDoesNotRebuildPublishedGameStateFromLiveBag() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        GameView initialView = gameView(12, List.of(playerView(playerId, "TestPlayer", "p2")), new CardsView());
+        GameView mutatedLiveBagView = gameView(99, List.of(playerView(playerId, "TestPlayer", "p2")), new CardsView());
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                return switch (method.getName()) {
+                    case "joinGame" -> true;
+                    case "getGameChatId" -> Optional.empty();
+                    default -> defaultReturnValue(method.getReturnType());
+                };
+            }
+        ));
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.START_GAME,
+            gameId,
+            new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+            false
+        ));
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_INIT,
+            gameId,
+            initialView,
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        GetGameStateTool.Result initial = handler.getGameState(null);
+        setField(handler, "lastGameView", mutatedLiveBagView);
+        publishProcessorState(handler);
+
+        GetGameStateTool.Result reread = handler.getGameState(null);
+        assertThat(reread.snapshot_id).isEqualTo(initial.snapshot_id);
+        assertThat(reread.game_seq).isEqualTo(initial.game_seq);
+    }
+
+    @Test
     void getGameStateWithSnapshotIdWaitsForQueuedCallbacksBeforeReportingUnchanged() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -4055,13 +4101,23 @@ class BridgeCallbackHandlerTest {
             String source
     ) throws Exception {
         Object decisionFlowService = getField(handler, "decisionFlowService");
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
         Method method = decisionFlowService.getClass().getDeclaredMethod(
             "transitionToDecisionBoundary",
             PendingAction.class,
             String.class
         );
         method.setAccessible(true);
-        Object transition = method.invoke(decisionFlowService, action, source);
+        Object transition = processor.submit(BridgeCommand.of(() -> {
+            try {
+                return method.invoke(decisionFlowService, action, source);
+            } catch (ReflectiveOperationException e) {
+                Throwable cause = e instanceof java.lang.reflect.InvocationTargetException invocationTargetException
+                    ? invocationTargetException.getCause()
+                    : e;
+                throw new IllegalStateException("Failed to invoke transitionToDecisionBoundary", cause);
+            }
+        }));
         Method statusMethod = transition.getClass().getDeclaredMethod("status");
         statusMethod.setAccessible(true);
         Object status = statusMethod.invoke(transition);

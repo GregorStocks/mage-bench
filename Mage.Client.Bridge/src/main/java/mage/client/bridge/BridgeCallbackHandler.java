@@ -149,6 +149,7 @@ public class BridgeCallbackHandler {
         this.processorServices = new BridgeProcessorServices(processorState, this::logError);
         var processorRef = new AtomicReference<BridgeProcessor>();
         var startGameFlowManagerRef = new AtomicReference<BridgeStartGameFlowManager>();
+        var publishedQueryStateRef = new AtomicReference<BridgePublishedQueryState>();
         var callbackProcessorService = new BridgeCallbackProcessorService(
             client.getUsername(),
             logger,
@@ -163,6 +164,11 @@ public class BridgeCallbackHandler {
             this::advancePendingFlows,
             client::stop,
             processorServices::clearShortIds,
+            (gameView, source) -> publishedQueryStateRef.get().projectGameState(
+                gameView,
+                processorState.gameState().currentRound(),
+                source
+            ),
             CHAT_DEDUP_WINDOW_MS
         );
         BridgeCallbackDispatcher dispatcher = new BridgeCallbackDispatcher(callbackProcessorService);
@@ -194,6 +200,7 @@ public class BridgeCallbackHandler {
             gameLogRefresher,
             publishedQueryBuilder
         );
+        publishedQueryStateRef.set(this.publishedQueryState);
         this.queryCommandService = new BridgeQueryCommandService(
             () -> deckList,
             processorServices::getOracleText
@@ -217,7 +224,12 @@ public class BridgeCallbackHandler {
             () -> session,
             client::isRunning,
             this::logError,
-            this::logBridgeEvent
+            this::logBridgeEvent,
+            (gameView, source) -> publishedQueryState.projectGameState(
+                gameView,
+                processorState.gameState().currentRound(),
+                source
+            )
         );
         this.chooseActionFlowManager = new BridgeChooseActionFlowManager(
             processor,
@@ -444,6 +456,7 @@ public class BridgeCallbackHandler {
 
     private void resetProcessorState() {
         processorState.reset();
+        publishedQueryState.clearProjectedGameState("No game state available yet", "resetProcessorState");
     }
 
     private void applyPersistentProcessorConfig() {
