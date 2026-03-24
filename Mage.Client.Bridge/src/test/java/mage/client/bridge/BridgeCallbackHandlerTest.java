@@ -2599,6 +2599,55 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void actionableCallbackReplacementDoesNotBurnHiddenBoardCursor() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
+        BridgePublishedQueryState publishedQueryState =
+            (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        PlayerView player = playerView(playerId, "TestPlayer", "p2");
+        GameView initialView = gameView(12, List.of(player), new CardsView());
+        GameView replacementView = gameView(13, List.of(player), new CardsView());
+        setField(initialView, "myPlayerId", playerId);
+        setField(replacementView, "myPlayerId", playerId);
+
+        PendingAction initialAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            12
+        );
+
+        processor.submit(BridgeCommand.of(() -> {
+            gameState.activateGame(gameId, playerId);
+            publishedQueryState.projectGameState(initialView, 1, "test_init");
+            decisionState.replacePendingAction(initialAction);
+            return null;
+        }));
+
+        ActionResult initial = handler.getActionChoices(null);
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_ASK,
+            gameId,
+            new GameClientMessage(replacementView, Collections.<String, Serializable>emptyMap(), "Use the optional ability?"),
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        ActionResult changed = handler.getActionChoices(initial.board_cursor);
+        assertThat(changed.board_cursor).isEqualTo(initial.board_cursor + 1);
+        assertThat(changed.action_type).isEqualTo("GAME_ASK");
+        assertThat(changed.message).isEqualTo("Use the optional ability?");
+    }
+
+    @Test
     void turnAdvanceReprojectsPublishedActionChoicesAfterClearingFailedManaCast() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();

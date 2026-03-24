@@ -211,12 +211,20 @@ public final class BridgeCallbackProcessorService
         String message = extractMessage(data);
         int gameSeq = 0;
         GameView gameView = extractGameView(data);
-        if (gameView != null) {
-            updateLastGameView(gameView, "storePendingAction:" + method.name());
-            gameSeq = gameView.getGameSeq();
-        }
         PendingAction newAction = new PendingAction(gameId, method, data, message, gameSeq);
-        PendingAction replacedAction = processorState.decisionState().replacePendingAction(newAction);
+        PendingAction replacedAction;
+        boolean projectedNewAction = false;
+        if (gameView != null) {
+            gameSeq = gameView.getGameSeq();
+            newAction = new PendingAction(gameId, method, data, message, gameSeq);
+            replacedAction = processorState.decisionState().replacePendingActionWithoutNotify(newAction);
+            projectedNewAction = updateLastGameView(gameView, "storePendingAction:" + method.name());
+        } else {
+            replacedAction = processorState.decisionState().replacePendingAction(newAction);
+        }
+        if (!projectedNewAction) {
+            processorState.decisionState().notifyPendingActionChanged();
+        }
         if (replacedAction != null) {
             String summary = "old=" + summarizePendingAction(replacedAction)
                 + ",new=" + summarizePendingAction(newAction);
@@ -401,12 +409,13 @@ public final class BridgeCallbackProcessorService
         return startGameFlowManagerSupplier.get();
     }
 
-    private void updateLastGameView(GameView gameView, String source) {
+    private boolean updateLastGameView(GameView gameView, String source) {
         boolean updated = processorState.gameState().updateLastGameView(gameView, source, logger, username);
         if (updated) {
             processorState.interactionState().advanceTurn(gameView);
             projectPublishedGameState.accept(gameView, source);
         }
+        return updated;
     }
 
     private boolean cleanupGame(UUID gameId) {

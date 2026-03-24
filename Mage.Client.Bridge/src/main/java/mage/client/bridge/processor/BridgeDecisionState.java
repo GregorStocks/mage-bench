@@ -27,6 +27,12 @@ public final class BridgeDecisionState {
         return previousAction;
     }
 
+    public PendingAction replacePendingActionWithoutNotify(PendingAction nextAction) {
+        PendingAction previousAction = pendingAction;
+        pendingAction = nextAction;
+        return previousAction;
+    }
+
     public void restorePendingAction(PendingAction action) {
         pendingAction = action;
         pendingActionChangedListener.run();
@@ -124,6 +130,10 @@ public final class BridgeDecisionState {
 
     public void setPendingActionChangedListener(Runnable listener) {
         pendingActionChangedListener = Objects.requireNonNull(listener);
+    }
+
+    public void notifyPendingActionChanged() {
+        pendingActionChangedListener.run();
     }
 
     public void reset() {
