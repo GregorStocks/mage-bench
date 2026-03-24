@@ -123,6 +123,8 @@ public class BridgeCallbackHandler {
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000;
     private static final long KEEPALIVE_CONCEDE_WAIT_SECONDS = 15;
+    private volatile boolean keepAliveAfterGameConfig = false;
+    private volatile int maxInteractionsPerTurnConfig = 25;
 
     private volatile DeckCardLists deckList = null; // Original decklist for get_my_decklist
     private volatile String errorLogPath = null; // Path to write errors to (set via system property)
@@ -373,7 +375,8 @@ public class BridgeCallbackHandler {
     }
 
     public void setKeepAliveAfterGame(boolean keepAliveAfterGame) {
-        processorState.gameState().setKeepAliveAfterGame(keepAliveAfterGame);
+        keepAliveAfterGameConfig = keepAliveAfterGame;
+        applyPersistentProcessorConfig();
         logger.info("[" + client.getUsername() + "] keepAliveAfterGame=" + keepAliveAfterGame);
     }
 
@@ -383,7 +386,8 @@ public class BridgeCallbackHandler {
 
     public void setMaxInteractionsPerTurn(int max) {
         int effectiveMax = Math.max(5, max);
-        processorState.interactionState().setMaxInteractionsPerTurn(effectiveMax);
+        maxInteractionsPerTurnConfig = effectiveMax;
+        applyPersistentProcessorConfig();
         logger.info("[" + client.getUsername() + "] maxInteractionsPerTurn set to " + effectiveMax);
     }
 
@@ -399,13 +403,14 @@ public class BridgeCallbackHandler {
         // Mark this handler as superseded so threads stuck in
         // awaitPendingAction / passPriority / chooseAction bail out immediately
         // instead of blocking for 120+ seconds on an abandoned handler.
-        processorState.gameState().markSuperseded();
+        markSupersededForReplacement();
         shutdownProcessor("superseded by createFreshForNextGame");
 
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
         fresh.session = this.session;
-        fresh.processorState.gameState().setKeepAliveAfterGame(this.processorState.gameState().keepAliveAfterGame());
-        fresh.processorState.interactionState().setMaxInteractionsPerTurn(this.processorState.interactionState().maxInteractionsPerTurn());
+        fresh.keepAliveAfterGameConfig = this.keepAliveAfterGameConfig;
+        fresh.maxInteractionsPerTurnConfig = this.maxInteractionsPerTurnConfig;
+        fresh.applyPersistentProcessorConfig();
         fresh.errorLogPath = this.errorLogPath;
         fresh.bridgeLogPath = this.bridgeLogPath;
         fresh.joinHandler = this.joinHandler;
@@ -463,6 +468,27 @@ public class BridgeCallbackHandler {
 
     private void resetProcessorState() {
         processorState.reset();
+    }
+
+    private void applyPersistentProcessorConfig() {
+        processor.submit(new BridgeCommand<Void>() {
+            @Override
+            public Void execute() {
+                processorState.gameState().setKeepAliveAfterGame(keepAliveAfterGameConfig);
+                processorState.interactionState().setMaxInteractionsPerTurn(maxInteractionsPerTurnConfig);
+                return null;
+            }
+        });
+    }
+
+    private void markSupersededForReplacement() {
+        processor.submit(new BridgeCommand<Void>() {
+            @Override
+            public Void execute() {
+                processorState.gameState().markSuperseded();
+                return null;
+            }
+        });
     }
 
     private void awaitPublishedReadBarrier() {

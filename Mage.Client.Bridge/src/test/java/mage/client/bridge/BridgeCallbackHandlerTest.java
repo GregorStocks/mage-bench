@@ -13,6 +13,7 @@ import mage.client.bridge.processor.BridgeDecisionState;
 import mage.client.bridge.processor.BridgeGameLogRefresher;
 import mage.client.bridge.processor.BridgeGameLogState;
 import mage.client.bridge.processor.BridgeGameState;
+import mage.client.bridge.processor.BridgeInteractionState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
@@ -2806,8 +2807,7 @@ class BridgeCallbackHandlerTest {
     void joinNextTableWaitsForStartGameOnProcessorFlow() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
-        gameState.setKeepAliveAfterGame(true);
+        handler.setKeepAliveAfterGame(true);
 
         UUID gameId = UUID.randomUUID();
         UUID tableId = UUID.randomUUID();
@@ -2873,8 +2873,7 @@ class BridgeCallbackHandlerTest {
     void joinNextTableIgnoresWrongStartGameTableWhileWaiting() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
-        gameState.setKeepAliveAfterGame(true);
+        handler.setKeepAliveAfterGame(true);
 
         UUID wrongGameId = UUID.randomUUID();
         UUID rightGameId = UUID.randomUUID();
@@ -2941,8 +2940,7 @@ class BridgeCallbackHandlerTest {
     void joinNextTableReturnsWhenProcessorStopsBeforeStartGame() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
-        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
-        gameState.setKeepAliveAfterGame(true);
+        handler.setKeepAliveAfterGame(true);
 
         UUID tableId = UUID.randomUUID();
         CountDownLatch joinReturned = new CountDownLatch(1);
@@ -3206,6 +3204,32 @@ class BridgeCallbackHandlerTest {
         } finally {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void createFreshForNextGameCopiesPersistentConfigInsteadOfLiveProcessorState() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        try {
+            handler.setKeepAliveAfterGame(true);
+            handler.setMaxInteractionsPerTurn(7);
+            handler.awaitProcessorIdle();
+
+            BridgeGameState oldGameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
+            BridgeInteractionState oldInteractionState = (BridgeInteractionState) getProcessorStateField(handler, "interactionState");
+            oldGameState.setKeepAliveAfterGame(false);
+            oldInteractionState.setMaxInteractionsPerTurn(99);
+
+            BridgeCallbackHandler fresh = handler.createFreshForNextGame();
+            fresh.awaitProcessorIdle();
+
+            BridgeGameState freshGameState = (BridgeGameState) getProcessorStateField(fresh, "gameState");
+            BridgeInteractionState freshInteractionState = (BridgeInteractionState) getProcessorStateField(fresh, "interactionState");
+            assertThat(freshGameState.keepAliveAfterGame()).isTrue();
+            assertThat(freshInteractionState.maxInteractionsPerTurn()).isEqualTo(7);
+        } finally {
+            client.stop();
         }
     }
 

@@ -79,6 +79,12 @@ bags of mutable fields.
 
 The actual target state has **not** been reached yet.
 
+This is also **not** in a "two PRs away" state anymore.
+
+In broad architectural milestones, a lot of the refactor is done.
+In review-sized PRs, the remaining work is still more like **4-6 PRs**,
+depending on how aggressively we bundle riskier ownership changes.
+
 Write-side MCP actions are much closer to the desired model now:
 
 - `join_table` waits for `START_GAME` through a processor-owned lifecycle flow
@@ -159,6 +165,20 @@ But the bridge is still transitional overall:
 - other MCP reads still depend on shared mutable runtime state holders rather
   than processor-private internals
 
+There are still real actor-model violations or near-violations left:
+
+- persistent keepalive / interaction-limit config now stays on the handler side
+  and is applied onto the processor via submitted commands, so fresh-handler
+  replacement no longer copies live processor state directly
+- processor-owned helper/services are still constructed and anchored from the
+  handler layer (`BridgeViewLocator`, `BridgeCardFormatter`,
+  `BridgeGameStateBuilder`, `BridgeOracleTextService`, `ShortIdRegistry`)
+  instead of from a processor-private runtime/services layer
+- the published query snapshot is still rebuilt from mutable `Bridge*State`
+  holders instead of being a native processor projection
+- bridge-event history still depends on the async
+  `Session.getBridgeEvents(...)` synchronization shim
+
 And the bridge still relies on shared mutable state containers such as:
 
 - `BridgeDecisionState`
@@ -198,34 +218,33 @@ That is better than before, though:
 
 ## Remaining Work
 
-### 1. Make live runtime state processor-private
+### 1. Make helper/services processor-private
 
-The `Bridge*State` classes should stop being cross-thread APIs.
+The `Bridge*State` classes and the helper stack around them should stop being
+cross-thread APIs.
 
-They should become processor-private internals, with non-processor code no
-longer reading or mutating them directly.
+That means moving the remaining helper/services that still hang off the handler
+into a processor-private ownership model, especially:
 
-That includes:
+- `BridgeViewLocator`
+- `BridgeCardFormatter`
+- `BridgeGameStateBuilder`
+- `BridgeOracleTextService`
+- `ShortIdRegistry`
 
-- decision state
-- game/lifecycle state
-- interaction/mana-plan state
-- chat/log state
-- cursor/signature state
-- query-publication helpers that still read shared mutable `Bridge*State`
-  holders instead of processor-private publication structures
+and removing live-state suppliers where explicit processor context or published
+inputs should be passed instead.
 
-### 2. Make MCP reads use processor-published data
+### 2. Replace mutable-state snapshot rebuilds with native published projections
 
 For read surfaces like:
 
 - game state
 - action choices
-- game log
-- game history
 - pending-action visibility
 
-the MCP side should stop reading shared live state directly.
+the MCP side already reads the published snapshot, but that snapshot is still
+rebuilt from mutable `Bridge*State` holders.
 
 Preferred end state:
 
@@ -235,9 +254,9 @@ Preferred end state:
 
 This is where the append-only model becomes important.
 
-The game-log/history path now does this.
-The game-state/action-choices path now does this too, but it is still rebuilt
-from mutable shared state holders.
+The game-log/history path is closer to this already.
+The game-state/action-choices path still needs to become a native processor
+projection instead of a rebuild from mutable runtime bags.
 
 The remaining read-side cleanup should focus on:
 
@@ -247,10 +266,14 @@ The remaining read-side cleanup should focus on:
   shell, with publication/build logic owned elsewhere
 - shrinking or deleting read helpers that only exist to rebuild published
   snapshots from those mutable state holders
-- eventually deleting the remaining async `Session.getBridgeEvents(...)` sync
-  shim once authoritative log records can be appended directly by the processor
 
-### 3. Delete transitional shared-memory machinery
+### 3. Delete the `Session.getBridgeEvents(...)` synchronization shim
+
+Eventually the processor should append authoritative bridge-log records
+directly from processor-owned events instead of polling the session and
+reconciling later.
+
+### 4. Delete transitional shared-memory machinery
 
 Once reads and writes no longer cross the thread boundary through shared state,
 delete the transitional mechanisms that only exist to prop that model up:
@@ -261,6 +284,20 @@ delete the transitional mechanisms that only exist to prop that model up:
 - shared cursor reconstruction on the MCP side
 - any remaining helper APIs whose purpose is "let another thread peek at
   processor-owned state"
+
+## Expected Remaining PRs
+
+Realistically, expect **3-5 review-sized PRs** from here, not 2.
+
+A plausible decomposition is:
+
+1. move helper/service ownership fully under processor-private services
+2. replace game-state/action-choice snapshot rebuilds with native projections
+3. replace the bridge-event sync shim with authoritative processor log appends
+4. delete leftover shared-memory scaffolding and simplify barriers
+
+Some of those could be combined, but only by making the review and failure
+surface much larger.
 
 ## Definition Of Done
 
