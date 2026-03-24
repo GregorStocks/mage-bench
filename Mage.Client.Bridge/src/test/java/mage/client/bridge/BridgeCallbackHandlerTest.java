@@ -273,6 +273,8 @@ class BridgeCallbackHandlerTest {
     void stripsHtmlNoiseFromMultiAmountDescriptions() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
 
         GameClientMessage message = multiAmountMessage(List.of(
             new MultiAmountMessage(
@@ -283,14 +285,17 @@ class BridgeCallbackHandlerTest {
             )
         ), 2, 2);
 
-        setField(handler, "pendingAction", new PendingAction(
+        PendingAction pendingAction = new PendingAction(
             UUID.randomUUID(),
             ClientCallbackMethod.GAME_GET_MULTI_AMOUNT,
             message,
             "",
             7
-        ));
-        publishProcessorState(handler);
+        );
+        processor.submit(BridgeCommand.of(() -> {
+            decisionState.replacePendingAction(pendingAction);
+            return null;
+        }));
 
         ActionResult result = handler.getActionChoices(null);
 
@@ -2492,6 +2497,76 @@ class BridgeCallbackHandlerTest {
         GetGameStateTool.Result reread = handler.getGameState(null);
         assertThat(reread.snapshot_id).isEqualTo(initial.snapshot_id);
         assertThat(reread.game_seq).isEqualTo(initial.game_seq);
+    }
+
+    @Test
+    void unrelatedRepublishDoesNotRebuildPublishedActionChoicesFromLiveBag() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        PlayerView initialPlayer = playerView(playerId, "TestPlayer", "p2");
+        PlayerView mutatedPlayer = playerView(playerId, "TestPlayer", "p2");
+        UUID landId = UUID.randomUUID();
+        setField(
+            mutatedPlayer,
+            "battlefield",
+            new LinkedHashMap<>(Map.of(landId, permanentView(landId, "p3", "Forest", false)))
+        );
+
+        GameView initialView = gameView(12, List.of(initialPlayer), new CardsView());
+        GameView mutatedLiveBagView = gameView(99, List.of(mutatedPlayer), new CardsView());
+        PendingAction pendingAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            12
+        );
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                return switch (method.getName()) {
+                    case "joinGame" -> true;
+                    case "getGameChatId" -> Optional.empty();
+                    default -> defaultReturnValue(method.getReturnType());
+                };
+            }
+        ));
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.START_GAME,
+            gameId,
+            new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+            false
+        ));
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_INIT,
+            gameId,
+            initialView,
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        processor.submit(BridgeCommand.of(() -> {
+            decisionState.replacePendingAction(pendingAction);
+            return null;
+        }));
+
+        ActionResult initial = handler.getActionChoices(null);
+        setField(handler, "lastGameView", mutatedLiveBagView);
+        publishProcessorState(handler);
+
+        ActionResult reread = handler.getActionChoices(null);
+        assertThat(reread.board_cursor).isEqualTo(initial.board_cursor);
+        assertThat(reread.board).isEqualTo(initial.board);
+        assertThat(reread.context).isEqualTo(initial.context);
     }
 
     @Test

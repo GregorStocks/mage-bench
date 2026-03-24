@@ -131,6 +131,9 @@ The action/game-state slice is also closer to the intended model now:
 - published game state is now projected explicitly from authoritative
   processor-side `GameView` update points instead of being rebuilt from
   `gameState.lastGameView()` on every processor message
+- published action choices are now projected explicitly from processor-owned
+  pending-action changes and authoritative processor-side `GameView` update
+  points instead of being rebuilt during snapshot publication
 - `BridgeMcpQueryApi` is now closer to a read shell:
   - published-state reads now use listener/processor sync barriers and then
     read the published immutable snapshot directly, instead of asking the
@@ -159,8 +162,9 @@ But the bridge is still transitional overall:
   - callback ingress failure handling
 - the live `Bridge*State` holders now sit under a single `BridgeProcessorState`
   owner instead of being flat fields on `BridgeCallbackHandler`
-- the published MCP snapshot is still rebuilt from mutable `Bridge*State`
-  holders
+- the published MCP snapshot is now assembled from explicit processor-owned
+  projections, but those projections still depend on mutable runtime state and
+  helper services at their build points
 - MCP reads still need a processor sync barrier before reading the published
   snapshot
 - the processor still needs an async `Session.getBridgeEvents(...)` shim to
@@ -179,9 +183,9 @@ There are still real actor-model violations or near-violations left:
   stored as separate fields on `BridgeCallbackHandler`, but those helpers still
   use live-state suppliers and mutable runtime bags rather than native
   processor projections
-- published game state is now a native processor-side projection, but
-  published action choices are still rebuilt from mutable decision/runtime
-  state at publish time
+- published game state and action choices are now explicit processor-side
+  projections, but the projection builders still depend on mutable runtime
+  bags and helper services rather than a purely append-only projection model
 - bridge-event history still depends on the async
   `Session.getBridgeEvents(...)` synchronization shim
 
@@ -230,8 +234,8 @@ For read surfaces like:
 - action choices
 - pending-action visibility
 
-the MCP side already reads the published snapshot, but that snapshot is still
-rebuilt from mutable `Bridge*State` holders.
+the MCP side already reads the published snapshot, but the projection builders
+still depend on mutable `Bridge*State` holders and helper services.
 
 Preferred end state:
 
@@ -242,16 +246,14 @@ Preferred end state:
 This is where the append-only model becomes important.
 
 The game-log/history path is closer to this already.
-The game-state path is now materially closer: published game state is projected
-from explicit processor-side update points instead of being rebuilt from
-`lastGameView` during publication.
+The game-state/action-choice path is now materially closer: both published game
+state and published action choices are projected from explicit processor-side
+update points instead of being rebuilt during snapshot publication.
 
 The remaining work in this area is mostly:
 
-- making published action choices a native processor projection instead of a
-  rebuild from mutable decision/runtime state
 - shrinking or deleting query builder helpers that still exist only to rebuild
-  published state from mutable bags
+  projection records from mutable runtime bags
 - continuing to narrow `BridgeProcessorServices` so it becomes a thin
   processor-private services/context layer instead of a bag of mutable-state
   readers
@@ -262,8 +264,8 @@ The remaining read-side cleanup should focus on:
   instead of reading mutable `Bridge*State` holders
 - shrinking `BridgeMcpQueryApi` toward a pure "sync barrier + published read"
   shell, with publication/build logic owned elsewhere
-- deleting the remaining read helpers that only exist to rebuild published
-  action choices from those mutable state holders
+- deleting the remaining read helpers that only exist to rebuild projection
+  records from those mutable state holders
 
 ### 2. Delete the `Session.getBridgeEvents(...)` synchronization shim
 
@@ -285,13 +287,13 @@ delete the transitional mechanisms that only exist to prop that model up:
 
 ## Expected Remaining PRs
 
-Realistically, expect **2-4 review-sized PRs** from here, not 2.
+Realistically, expect **2-3 review-sized PRs** from here, not 2.
 
 A plausible decomposition is:
 
-1. replace game-state/action-choice snapshot rebuilds with native projections
-2. replace the bridge-event sync shim with authoritative processor log appends
-3. delete leftover shared-memory scaffolding and simplify barriers
+1. replace the bridge-event sync shim with authoritative processor log appends
+2. delete leftover shared-memory scaffolding and simplify barriers
+3. split the shared-memory cleanup again if the review gets too large
 
 Some of those could be combined, but only by making the review and failure
 surface much larger.

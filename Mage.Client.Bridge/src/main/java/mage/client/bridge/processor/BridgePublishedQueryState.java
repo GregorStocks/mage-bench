@@ -1,6 +1,5 @@
 package mage.client.bridge.processor;
 
-import mage.client.bridge.tools.GetGameStateTool;
 import mage.view.GameView;
 import org.apache.log4j.Logger;
 
@@ -16,6 +15,8 @@ public final class BridgePublishedQueryState {
     private final boolean tracePublishedState = Boolean.getBoolean("xmage.bridge.tracePublishedState");
     private final AtomicReference<BridgePublishedQuerySnapshot> publishedSnapshot =
         new AtomicReference<>(BridgePublishedQuerySnapshot.empty());
+    private final AtomicReference<BridgePublishedActionChoices> projectedActionChoices =
+        new AtomicReference<>(BridgePublishedActionChoices.empty());
     private final AtomicReference<BridgePublishedGameState> projectedGameState =
         new AtomicReference<>(BridgePublishedGameState.unavailable("No game state available yet"));
     private volatile GameView projectedGameView = null;
@@ -61,6 +62,7 @@ public final class BridgePublishedQueryState {
         BridgePublishedGameState previous = projectedGameState.getAndSet(built.state());
         projectedGameView = gameView;
         projectedRound = round;
+        projectActionChoices(cause);
         traceProjectedGameStateChange(cause, previous, built.state(), built.payload());
     }
 
@@ -80,15 +82,29 @@ public final class BridgePublishedQueryState {
         );
     }
 
-    private BridgePublishedQuerySnapshot buildPublishedSnapshot() {
-        // TODO(shim): expires=2026-06-30 Stop rebuilding published action choices from mutable
-        // runtime state after the full native query projection lands.
-        return new BridgePublishedQuerySnapshot(
+    public void projectActionChoices(String cause) {
+        if (!processor.isProcessorThread()) {
+            throw new IllegalStateException("projectActionChoices must run on the bridge processor thread");
+        }
+        projectedActionChoices.set(
             queryBuilder.buildPublishedActionChoices(
                 processorState.decisionState().pendingAction(),
                 projectedGameView,
                 projectedRound
-            ),
+            )
+        );
+    }
+
+    public void clearProjectedActionChoices(String cause) {
+        if (!processor.isProcessorThread()) {
+            throw new IllegalStateException("clearProjectedActionChoices must run on the bridge processor thread");
+        }
+        projectedActionChoices.set(BridgePublishedActionChoices.empty());
+    }
+
+    private BridgePublishedQuerySnapshot buildPublishedSnapshot() {
+        return new BridgePublishedQuerySnapshot(
+            projectedActionChoices.get(),
             projectedGameState.get(),
             processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch())
         );
