@@ -170,10 +170,12 @@ There are still real actor-model violations or near-violations left:
 - persistent keepalive / interaction-limit config now stays on the handler side
   and is applied onto the processor via submitted commands, so fresh-handler
   replacement no longer copies live processor state directly
-- processor-owned helper/services are still constructed and anchored from the
-  handler layer (`BridgeViewLocator`, `BridgeCardFormatter`,
-  `BridgeGameStateBuilder`, `BridgeOracleTextService`, `ShortIdRegistry`)
-  instead of from a processor-private runtime/services layer
+- the helper stack (`BridgeViewLocator`, `BridgeCardFormatter`,
+  `BridgeGameStateBuilder`, `BridgeOracleTextService`, `ShortIdRegistry`) now
+  hangs off a processor-side `BridgeProcessorServices` owner instead of being
+  stored as separate fields on `BridgeCallbackHandler`, but those helpers still
+  use live-state suppliers and mutable runtime bags rather than native
+  processor projections
 - the published query snapshot is still rebuilt from mutable `Bridge*State`
   holders instead of being a native processor projection
 - bridge-event history still depends on the async
@@ -200,10 +202,8 @@ One ownership improvement is now in place:
 But that still does **not** make the bridge actor-pure.
 
 Another remaining smell is that processor-side query publication still depends
-on utility classes that were historically handler-adjacent (`BridgeViewLocator`,
-`BridgeCardFormatter`, `BridgeGameStateBuilder`, prompt-format helpers). The
-published query path is now processor-owned, but those helpers are still a
-mixed boundary rather than a processor-private read-model layer.
+on helper classes that are now owned under `BridgeProcessorServices` but still
+operate as mutable-state readers rather than native append-only projections.
 
 The biggest remaining MCP-side smell is that some reads still need
 processor/barrier synchronization around mutable state holders instead of
@@ -218,24 +218,7 @@ That is better than before, though:
 
 ## Remaining Work
 
-### 1. Make helper/services processor-private
-
-The `Bridge*State` classes and the helper stack around them should stop being
-cross-thread APIs.
-
-That means moving the remaining helper/services that still hang off the handler
-into a processor-private ownership model, especially:
-
-- `BridgeViewLocator`
-- `BridgeCardFormatter`
-- `BridgeGameStateBuilder`
-- `BridgeOracleTextService`
-- `ShortIdRegistry`
-
-and removing live-state suppliers where explicit processor context or published
-inputs should be passed instead.
-
-### 2. Replace mutable-state snapshot rebuilds with native published projections
+### 1. Replace mutable-state snapshot rebuilds with native published projections
 
 For read surfaces like:
 
@@ -266,14 +249,17 @@ The remaining read-side cleanup should focus on:
   shell, with publication/build logic owned elsewhere
 - shrinking or deleting read helpers that only exist to rebuild published
   snapshots from those mutable state holders
+- continuing to narrow `BridgeProcessorServices` so it becomes a thin
+  processor-private services/context layer instead of a bag of mutable-state
+  readers
 
-### 3. Delete the `Session.getBridgeEvents(...)` synchronization shim
+### 2. Delete the `Session.getBridgeEvents(...)` synchronization shim
 
 Eventually the processor should append authoritative bridge-log records
 directly from processor-owned events instead of polling the session and
 reconciling later.
 
-### 4. Delete transitional shared-memory machinery
+### 3. Delete transitional shared-memory machinery
 
 Once reads and writes no longer cross the thread boundary through shared state,
 delete the transitional mechanisms that only exist to prop that model up:
@@ -287,14 +273,13 @@ delete the transitional mechanisms that only exist to prop that model up:
 
 ## Expected Remaining PRs
 
-Realistically, expect **3-5 review-sized PRs** from here, not 2.
+Realistically, expect **2-4 review-sized PRs** from here, not 2.
 
 A plausible decomposition is:
 
-1. move helper/service ownership fully under processor-private services
-2. replace game-state/action-choice snapshot rebuilds with native projections
-3. replace the bridge-event sync shim with authoritative processor log appends
-4. delete leftover shared-memory scaffolding and simplify barriers
+1. replace game-state/action-choice snapshot rebuilds with native projections
+2. replace the bridge-event sync shim with authoritative processor log appends
+3. delete leftover shared-memory scaffolding and simplify barriers
 
 Some of those could be combined, but only by making the review and failure
 surface much larger.

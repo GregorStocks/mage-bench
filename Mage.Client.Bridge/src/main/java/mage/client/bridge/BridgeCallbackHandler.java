@@ -20,6 +20,7 @@ import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContextImpl;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
+import mage.client.bridge.processor.BridgeProcessorServices;
 import mage.client.bridge.processor.BridgeProcessorState;
 import mage.client.bridge.processor.BridgePublishedActionChoices;
 import mage.client.bridge.processor.BridgePublishedQueryBuilder;
@@ -52,7 +53,6 @@ import mage.view.PlayerView;
 import mage.players.PlayableObjectsList;
 import mage.players.PlayableObjectStats;
 import mage.util.MultiAmountMessage;
-import mage.util.ShortIdRegistry;
 
 import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.ChooseActionTool;
@@ -100,10 +100,7 @@ public class BridgeCallbackHandler {
     private static final long START_GAME_WAIT_MS = 60_000;
 
     private final BridgeMageClient client;
-    private final BridgeViewLocator viewLocator;
-    private final BridgeCardFormatter cardFormatter;
-    private final BridgeGameStateBuilder gameStateBuilder;
-    private final BridgeOracleTextService oracleTextService;
+    private final BridgeProcessorServices processorServices;
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
     private final BridgeConcedeFlowManager concedeFlowManager;
@@ -120,7 +117,6 @@ public class BridgeCallbackHandler {
     private final BridgeActionCommandService actionCommandService;
     private final BridgeQueryCommandService queryCommandService;
     private volatile Session session;
-    private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000;
     private static final long KEEPALIVE_CONCEDE_WAIT_SECONDS = 15;
     private volatile boolean keepAliveAfterGameConfig = false;
@@ -150,19 +146,7 @@ public class BridgeCallbackHandler {
 
     public BridgeCallbackHandler(BridgeMageClient client) {
         this.client = client;
-        this.viewLocator = new BridgeViewLocator(shortIds, processorState.gameState()::lastGameView, this::logError);
-        this.cardFormatter = new BridgeCardFormatter(
-            viewLocator,
-            processorState.gameState()::currentGameId,
-            this::playerIdForGame
-        );
-        this.gameStateBuilder = new BridgeGameStateBuilder(
-            cardFormatter,
-            viewLocator,
-            processorState.gameState()::currentGameId,
-            this::playerIdForGame
-        );
-        this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
+        this.processorServices = new BridgeProcessorServices(processorState, this::logError);
         var processorRef = new AtomicReference<BridgeProcessor>();
         var startGameFlowManagerRef = new AtomicReference<BridgeStartGameFlowManager>();
         var callbackProcessorService = new BridgeCallbackProcessorService(
@@ -178,7 +162,7 @@ public class BridgeCallbackHandler {
             this::logError,
             this::advancePendingFlows,
             client::stop,
-            shortIds::clear,
+            processorServices::clearShortIds,
             CHAT_DEDUP_WINDOW_MS
         );
         BridgeCallbackDispatcher dispatcher = new BridgeCallbackDispatcher(callbackProcessorService);
@@ -199,9 +183,7 @@ public class BridgeCallbackHandler {
         this.publishedQueryBuilder = new BridgePublishedQueryBuilder(
             client.getUsername(),
             processorState,
-            gameStateBuilder,
-            cardFormatter,
-            viewLocator,
+            processorServices,
             () -> deckList
         );
         this.publishedQueryState = new BridgePublishedQueryState(
@@ -214,7 +196,7 @@ public class BridgeCallbackHandler {
         );
         this.queryCommandService = new BridgeQueryCommandService(
             () -> deckList,
-            oracleTextService::getOracleText
+            processorServices::getOracleText
         );
         this.mcpQueryApi = new BridgeMcpQueryApi(
             client.getUsername(),
@@ -231,9 +213,7 @@ public class BridgeCallbackHandler {
             logger,
             processorState,
             publishedQueryBuilder,
-            viewLocator,
-            cardFormatter,
-            shortIds,
+            processorServices,
             () -> session,
             client::isRunning,
             this::logError,
@@ -364,10 +344,6 @@ public class BridgeCallbackHandler {
         }
         sb.append("\"");
         return sb.toString();
-    }
-
-    private UUID playerIdForGame(UUID gameId) {
-        return processorState.gameState().playerIdForGame(gameId);
     }
 
     public void setSession(Session session) {

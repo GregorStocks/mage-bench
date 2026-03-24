@@ -17,6 +17,7 @@ import mage.client.bridge.processor.BridgeInteractionState;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContext;
 import mage.client.bridge.processor.BridgePassPriorityFlowManager;
+import mage.client.bridge.processor.BridgeProcessorServices;
 import mage.client.bridge.processor.BridgePublishedQueryState;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.client.bridge.processor.BridgeProcessorState;
@@ -3869,8 +3870,8 @@ class BridgeCallbackHandlerTest {
     }
 
     private static void registerShortId(BridgeCallbackHandler handler, UUID uuid, String shortId) throws Exception {
-        ShortIdRegistry shortIds = (ShortIdRegistry) getField(handler, "shortIds");
-        shortIds.register(uuid, shortId);
+        BridgeProcessorServices processorServices = (BridgeProcessorServices) getField(handler, "processorServices");
+        processorServices.shortIds().register(uuid, shortId);
     }
 
     private static void enqueueCallback(

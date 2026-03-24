@@ -3,9 +3,7 @@ package mage.client.bridge.processor;
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.choices.Choice;
-import mage.client.bridge.BridgeCardFormatter;
 import mage.client.bridge.BridgePromptFormatting;
-import mage.client.bridge.BridgeViewLocator;
 import mage.client.bridge.PendingAction;
 import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.ChooseActionTool;
@@ -15,7 +13,6 @@ import mage.players.PlayableObjectStats;
 import mage.players.PlayableObjectsList;
 import mage.remote.Session;
 import mage.util.MultiAmountMessage;
-import mage.util.ShortIdRegistry;
 import mage.view.AbilityPickerView;
 import mage.view.CardView;
 import mage.view.CardsView;
@@ -67,9 +64,7 @@ public final class BridgeDecisionFlowService {
     private final Logger logger;
     private final BridgeProcessorState processorState;
     private final BridgePublishedQueryBuilder publishedQueryBuilder;
-    private final BridgeViewLocator viewLocator;
-    private final BridgeCardFormatter cardFormatter;
-    private final ShortIdRegistry shortIds;
+    private final BridgeProcessorServices processorServices;
     private final Supplier<Session> sessionSupplier;
     private final Supplier<Boolean> clientRunningSupplier;
     private final Consumer<String> errorLogger;
@@ -80,9 +75,7 @@ public final class BridgeDecisionFlowService {
             Logger logger,
             BridgeProcessorState processorState,
             BridgePublishedQueryBuilder publishedQueryBuilder,
-            BridgeViewLocator viewLocator,
-            BridgeCardFormatter cardFormatter,
-            ShortIdRegistry shortIds,
+            BridgeProcessorServices processorServices,
             Supplier<Session> sessionSupplier,
             Supplier<Boolean> clientRunningSupplier,
             Consumer<String> errorLogger,
@@ -91,9 +84,7 @@ public final class BridgeDecisionFlowService {
         this.logger = logger;
         this.processorState = processorState;
         this.publishedQueryBuilder = publishedQueryBuilder;
-        this.viewLocator = viewLocator;
-        this.cardFormatter = cardFormatter;
-        this.shortIds = shortIds;
+        this.processorServices = processorServices;
         this.sessionSupplier = sessionSupplier;
         this.clientRunningSupplier = clientRunningSupplier;
         this.errorLogger = errorLogger;
@@ -323,7 +314,7 @@ public final class BridgeDecisionFlowService {
                         "\"all\" is not available in current choices", true, action, true));
                 }
             } else {
-                UUID resolvedUuid = shortIds.tryResolve(id);
+                UUID resolvedUuid = processorServices.shortIds().tryResolve(id);
                 if (resolvedUuid == null) {
                     return chooseActionDone(buildChooseActionError(result, "invalid_choice",
                         "Unknown short ID: " + id + ". Call get_action_choices to see current options.",
@@ -400,7 +391,7 @@ public final class BridgeDecisionFlowService {
                                                 + ". Expected: [\"p1\",\"p2:0\",\"RED\"]", true, action));
                                     }
                                     for (BridgeManaPlanEntry entry : parsedPlan) {
-                                        if ("tap".equals(entry.type()) && shortIds.tryResolve(entry.value()) == null) {
+                                        if ("tap".equals(entry.type()) && processorServices.shortIds().tryResolve(entry.value()) == null) {
                                             return chooseActionDone(buildChooseActionError(result, "invalid_mana_plan",
                                                 "Mana plan references unknown permanent '" + entry.value()
                                                     + "'. Check the board state for correct permanent IDs.", true, action));
@@ -726,7 +717,7 @@ public final class BridgeDecisionFlowService {
     }
 
     public UUID resolveShortId(String shortId) {
-        return shortIds.resolve(shortId);
+        return processorServices.shortIds().resolve(shortId);
     }
 
     public Set<UUID> validTargets(PendingAction action) {
@@ -1378,7 +1369,7 @@ public final class BridgeDecisionFlowService {
         UUID selected = null;
         int selectedSeq = Integer.MAX_VALUE;
         for (UUID candidate : targets) {
-            int seq = viewLocator.getStableShortIdSequence(candidate);
+            int seq = processorServices.viewLocator().getStableShortIdSequence(candidate);
             if (selected == null || seq < selectedSeq) {
                 selected = candidate;
                 selectedSeq = seq;
@@ -1562,7 +1553,7 @@ public final class BridgeDecisionFlowService {
 
             if ("tap".equals(entry.type())) {
                 processorState.interactionState().setManaPlanAbilityIndex(entry.abilityIndex());
-                UUID targetId = shortIds.tryResolve(entry.value());
+                UUID targetId = processorServices.shortIds().tryResolve(entry.value());
                 if (targetId == null) {
                     logger.warn("[" + username + "] Mana plan: unknown short ID '" + entry.value() + "', cancelling spell");
                     return cancelSpellFromBadManaPlan(gameId, payingForId);
@@ -1623,11 +1614,11 @@ public final class BridgeDecisionFlowService {
                 Integer idx = battlefieldOrder.get(entry.getKey());
                 return idx != null ? idx : Integer.MAX_VALUE;
             }).thenComparing(entry -> {
-                CardView cardView = viewLocator.findCardViewById(entry.getKey(), gameView);
-                return cardView != null ? cardFormatter.safeDisplayName(cardView) : "";
-            }).thenComparingInt(entry -> viewLocator.getStableShortIdSequence(
+                CardView cardView = processorServices.viewLocator().findCardViewById(entry.getKey(), gameView);
+                return cardView != null ? processorServices.cardFormatter().safeDisplayName(cardView) : "";
+            }).thenComparingInt(entry -> processorServices.viewLocator().getStableShortIdSequence(
                 entry.getKey(),
-                viewLocator.findCardViewById(entry.getKey(), gameView)
+                processorServices.viewLocator().findCardViewById(entry.getKey(), gameView)
             )));
 
             for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {

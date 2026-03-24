@@ -16,17 +16,17 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-final class BridgeOracleTextService {
+public final class BridgeOracleTextService {
 
     private final ShortIdRegistry shortIds;
     private final BridgeViewLocator viewLocator;
 
-    BridgeOracleTextService(ShortIdRegistry shortIds, BridgeViewLocator viewLocator) {
+    public BridgeOracleTextService(ShortIdRegistry shortIds, BridgeViewLocator viewLocator) {
         this.shortIds = shortIds;
         this.viewLocator = viewLocator;
     }
 
-    GetOracleTextTool.Result getOracleText(String cardName, String objectId, String[] cardNames, String[] objectIds) {
+    public GetOracleTextTool.Result getOracleText(String cardName, String objectId, String[] cardNames, String[] objectIds) {
         var result = new GetOracleTextTool.Result();
 
         boolean hasCardName = cardName != null && !cardName.isEmpty();
