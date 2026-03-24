@@ -73,13 +73,13 @@ public final class BridgeGameState {
         playerDead = false;
     }
 
-    public synchronized void updateLastGameView(
+    public synchronized boolean updateLastGameView(
             GameView gameView,
             String source,
             Logger logger,
             String username) {
         if (gameView == null) {
-            return;
+            return false;
         }
         GameView old = lastGameView;
         if (old != null && gameView.getGameSeq() < old.getGameSeq()) {
@@ -87,7 +87,7 @@ public final class BridgeGameState {
             logger.warn("[" + username + "] lastGameView REJECTED backward update game_seq "
                 + old.getGameSeq() + " -> " + gameView.getGameSeq() + " (source=" + effectiveSource
                 + ", thread=" + Thread.currentThread().getName() + ")");
-            return;
+            return false;
         }
         lastGameView = gameView;
         roundTracker.update(gameView);
@@ -100,6 +100,7 @@ public final class BridgeGameState {
                 + " -> " + newSeq + " (source=" + effectiveSource + ", step=" + step
                 + ", thread=" + Thread.currentThread().getName() + ")");
         }
+        return true;
     }
 
     public GameView lastGameView() {

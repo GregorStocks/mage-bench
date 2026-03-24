@@ -1281,8 +1281,10 @@ public final class BridgeDecisionFlowService {
     }
 
     private void updateLastGameView(GameView gameView, String source) {
-        processorState.gameState().updateLastGameView(gameView, source, logger, username);
-        projectPublishedGameState.accept(gameView, source);
+        boolean updated = processorState.gameState().updateLastGameView(gameView, source, logger, username);
+        if (updated) {
+            projectPublishedGameState.accept(gameView, source);
+        }
     }
 
     private void sendIntegerOrDie(UUID gameId, int data, String context) {
