@@ -301,7 +301,7 @@ public final class BridgeDecisionFlowService {
             }
             List<Object> choices = processorState.decisionState().lastChoices();
             if (choices == null) {
-                buildActionChoices(action, null);
+                buildActionChoices(action, null, false);
                 choices = processorState.decisionState().lastChoices();
             }
             if ("all".equals(id)) {
@@ -345,7 +345,7 @@ public final class BridgeDecisionFlowService {
 
         if (resolvedIndex != null && processorState.decisionState().lastChoices() == null) {
             logger.info("[" + username + "] choose_action: auto-populating choices (get_action_choices was not called)");
-            buildActionChoices(action, null);
+            buildActionChoices(action, null, false);
         }
 
         processorState.decisionState().clearPendingActionIfCurrent(action);
@@ -999,18 +999,23 @@ public final class BridgeDecisionFlowService {
     }
 
     private void attachChoicesToError(ChooseActionTool.Result errorResult, PendingAction action) {
-        ActionResult choicesResult = buildActionChoices(action, null);
+        ActionResult choicesResult = buildActionChoices(action, null, false);
         if (choicesResult.choices != null) {
             errorResult.choices = choicesResult.choices;
         }
     }
 
     private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam) {
+        return buildActionChoices(action, boardCursorParam, true);
+    }
+
+    private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam, boolean assignBoardCursor) {
         return publishedQueryBuilder.buildActionChoices(
             action,
             boardCursorParam,
             processorState.gameState().lastGameView(),
-            processorState.gameState().currentRound()
+            processorState.gameState().currentRound(),
+            assignBoardCursor
         );
     }
 
@@ -1283,6 +1288,7 @@ public final class BridgeDecisionFlowService {
     private void updateLastGameView(GameView gameView, String source) {
         boolean updated = processorState.gameState().updateLastGameView(gameView, source, logger, username);
         if (updated) {
+            processorState.interactionState().advanceTurn(gameView);
             projectPublishedGameState.accept(gameView, source);
         }
     }

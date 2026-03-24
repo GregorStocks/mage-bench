@@ -429,7 +429,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -587,7 +587,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -742,7 +742,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "can_cancel": false,
         "choices": [
           {
@@ -903,7 +903,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 8,
         "can_cancel": false,
         "choices": [
           {
@@ -1675,7 +1675,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -1794,7 +1794,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -1829,14 +1829,14 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 7,
       },
       "game_seq": 23,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_ASK",
-        "board_cursor": 5,
+        "board_cursor": 7,
         "board_unchanged": true,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 23,
@@ -1952,7 +1952,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "can_cancel": false,
         "choices": [
           {
@@ -2111,7 +2111,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 8,
         "can_cancel": false,
         "choices": [
           {

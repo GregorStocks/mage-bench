@@ -445,7 +445,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -729,7 +729,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -1465,7 +1465,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -1520,7 +1520,7 @@
     },
     {
       "args": {
-        "board_cursor": 4,
+        "board_cursor": 5,
       },
       "game_seq": 21,
       "player": "TestPlayer",
@@ -1609,7 +1609,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -1655,14 +1655,14 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
       },
       "game_seq": 21,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 5,
+        "board_cursor": 6,
         "board_unchanged": true,
         "choices": [
           {
@@ -1799,7 +1799,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",

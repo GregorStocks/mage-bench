@@ -72,11 +72,20 @@ public final class BridgePublishedQueryBuilder {
 
     public BridgePublishedActionChoices buildPublishedActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
         return BridgePublishedActionChoices.from(
-            buildActionChoices(action, null, fallbackGameView, currentRound)
+            buildActionChoices(action, null, fallbackGameView, currentRound, true)
         );
     }
 
     public ActionResult buildActionChoices(PendingAction action, Long boardCursorParam, GameView fallbackGameView, int currentRound) {
+        return buildActionChoices(action, boardCursorParam, fallbackGameView, currentRound, true);
+    }
+
+    public ActionResult buildActionChoices(
+            PendingAction action,
+            Long boardCursorParam,
+            GameView fallbackGameView,
+            int currentRound,
+            boolean assignBoardCursor) {
         var result = new ActionResult();
         GameView gameView = extractActionGameView(action, fallbackGameView);
         final GameView capturedGameView = gameView;
@@ -113,10 +122,14 @@ public final class BridgePublishedQueryBuilder {
             result.context = ctx.toString();
 
             List<Map<String, Object>> players = processorServices.gameStateBuilder().buildPlayersArray(gameView);
-            long currentBoardCursor = updateBoardCursor(players);
-            result.board_cursor = currentBoardCursor;
-            if (boardCursorParam != null && boardCursorParam.longValue() == currentBoardCursor) {
-                result.board_unchanged = true;
+            if (assignBoardCursor) {
+                long currentBoardCursor = updateBoardCursor(players);
+                result.board_cursor = currentBoardCursor;
+                if (boardCursorParam != null && boardCursorParam.longValue() == currentBoardCursor) {
+                    result.board_unchanged = true;
+                } else {
+                    result.board = players;
+                }
             } else {
                 result.board = players;
             }

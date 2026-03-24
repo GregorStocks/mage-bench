@@ -495,7 +495,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -725,7 +725,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 7,
         "can_cancel": true,
         "choices": [
           {
@@ -880,7 +880,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 8,
         "context": "T1 Precombat Main/Precombat Main (Opponent)",
         "game_seq": 27,
         "message": "Play instants and activated abilities",
@@ -1698,7 +1698,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -1753,7 +1753,7 @@
     },
     {
       "args": {
-        "board_cursor": 4,
+        "board_cursor": 5,
       },
       "game_seq": 21,
       "player": "TestPlayer",
@@ -1842,7 +1842,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",
@@ -1971,7 +1971,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 7,
         "can_cancel": true,
         "choices": [
           {
@@ -2105,7 +2105,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 8,
         "context": "T1 Precombat Main/Precombat Main (Opponent)",
         "game_seq": 27,
         "message": "Play instants and activated abilities",
@@ -2147,7 +2147,7 @@
     },
     {
       "args": {
-        "board_cursor": 7,
+        "board_cursor": 8,
         "until": "stack_resolved",
       },
       "game_seq": 32,
@@ -2236,7 +2236,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 9,
         "context": "T1 Precombat Main/Precombat Main (Opponent)",
         "game_seq": 32,
         "message": "Play instants and activated abilities",
@@ -2266,7 +2266,7 @@
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 9,
         "until": "stack_resolved",
       },
       "game_seq": 43,
@@ -2378,7 +2378,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 10,
         "choices": [
           {
             "action": "land",

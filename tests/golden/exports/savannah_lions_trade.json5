@@ -515,7 +515,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -675,7 +675,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -872,7 +872,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 12,
         "choices": [
           {
             "choice_type": "attacker",
@@ -1122,7 +1122,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 13,
         "combat": [
           {
             "attackers": [
@@ -1913,7 +1913,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -2034,7 +2034,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -2069,7 +2069,7 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 7,
       },
       "game_seq": 44,
       "player": "TestPlayer",
@@ -2186,7 +2186,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 11,
         "choices": [
           {
             "action": "land",
@@ -2369,7 +2369,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 12,
         "choices": [
           {
             "choice_type": "attacker",
@@ -2415,14 +2415,14 @@
     },
     {
       "args": {
-        "board_cursor": 7,
+        "board_cursor": 12,
       },
       "game_seq": 46,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 7,
+        "board_cursor": 12,
         "board_unchanged": true,
         "choices": [
           {
@@ -2583,7 +2583,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 13,
         "combat": [
           {
             "attackers": [
@@ -2689,7 +2689,7 @@ Turn 3 (TestPlayer):\n\
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 13,
         "until": "postcombat_main",
       },
       "game_seq": 66,
@@ -2803,7 +2803,7 @@ Turn 3 (TestPlayer):\n\
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 15,
         "choices": [
           {
             "action": "land",

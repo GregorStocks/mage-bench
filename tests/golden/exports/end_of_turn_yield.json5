@@ -441,7 +441,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -1263,7 +1263,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -1320,7 +1320,7 @@
     },
     {
       "args": {
-        "board_cursor": 4,
+        "board_cursor": 5,
         "until": "end_of_turn",
       },
       "game_seq": 21,
@@ -1410,7 +1410,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "cast",

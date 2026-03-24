@@ -452,7 +452,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -623,7 +623,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -756,7 +756,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -916,7 +916,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 10,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 29,
         "land_drops_used": 1,
@@ -1679,7 +1679,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -1810,7 +1810,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -1929,7 +1929,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 21,
         "land_drops_used": 1,
@@ -1965,7 +1965,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 6,
       },
       "game_seq": 24,
       "player": "TestPlayer",
@@ -2054,7 +2054,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 7,
         "choices": [
           {
             "action": "cast",
@@ -2180,7 +2180,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 10,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 29,
         "land_drops_used": 1,
@@ -2215,7 +2215,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
     },
     {
       "args": {
-        "board_cursor": 7,
+        "board_cursor": 10,
       },
       "game_seq": 35,
       "player": "TestPlayer",
@@ -2308,7 +2308,7 @@ When this creature enters, return a permanent you control to its owner's hand.",
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 11,
         "can_cancel": false,
         "choices": [
           {

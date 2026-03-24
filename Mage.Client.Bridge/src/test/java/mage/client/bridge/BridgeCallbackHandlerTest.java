@@ -2570,6 +2570,101 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void turnAdvanceReprojectsPublishedActionChoicesAfterClearingFailedManaCast() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
+        BridgeInteractionState interactionState =
+            (BridgeInteractionState) getProcessorStateField(handler, "interactionState");
+        BridgePublishedQueryState publishedQueryState =
+            (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID spellId = UUID.randomUUID();
+
+        PlayerView player = playerView(playerId, "TestPlayer", "p2");
+        CardsView initialHand = new CardsView();
+        CardView initialSpell = cardView(spellId, "p13", "Memnite");
+        setField(initialSpell, "manaCostLeftStr", List.of());
+        setField(initialSpell, "manaCostRightStr", List.of());
+        initialHand.put(spellId, initialSpell);
+
+        GameView initialView = gameView(12, List.of(player), new CardsView());
+        setField(initialView, "myPlayerId", playerId);
+        setField(initialView, "myHand", initialHand);
+        setField(initialView, "canPlayObjects", playableObjects(Map.of(spellId, playStats("Cast Memnite"))));
+
+        CardsView nextTurnHand = new CardsView();
+        CardView nextTurnSpell = cardView(spellId, "p13", "Memnite");
+        setField(nextTurnSpell, "manaCostLeftStr", List.of());
+        setField(nextTurnSpell, "manaCostRightStr", List.of());
+        nextTurnHand.put(spellId, nextTurnSpell);
+        GameView nextTurnView = gameView(13, List.of(player), new CardsView());
+        setField(nextTurnView, "myPlayerId", playerId);
+        setField(nextTurnView, "myHand", nextTurnHand);
+        setField(nextTurnView, "canPlayObjects", playableObjects(Map.of(spellId, playStats("Cast Memnite"))));
+        setIntField(nextTurnView, "turn", 2);
+
+        PendingAction pendingAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            12
+        );
+
+        processor.submit(BridgeCommand.of(() -> {
+            gameState.activateGame(gameId, playerId);
+            interactionState.advanceTurn(initialView);
+            publishedQueryState.projectGameState(initialView, 1, "test_init");
+            interactionState.markFailedManaCast(spellId);
+            decisionState.replacePendingAction(pendingAction);
+            return null;
+        }));
+
+        ActionResult initialChoices = handler.getActionChoices(null);
+        assertThat(initialChoices.choices).isNullOrEmpty();
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_UPDATE,
+            gameId,
+            nextTurnView,
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        ActionResult turnTwoChoices = handler.getActionChoices(null);
+        assertThat(turnTwoChoices.choices)
+            .extracting(choice -> choice.get("id"))
+            .containsExactly("p13");
+    }
+
+    @Test
+    void internalChoiceAutopopulationDoesNotAdvanceVisibleBoardCursor() throws Exception {
+        BridgeCallbackHandler firstHandler = new BridgeMageClient("TestPlayer").getCallbackHandler();
+        installPublishedSelectPrompt(firstHandler);
+        ActionResult directChoices = firstHandler.getActionChoices(null);
+
+        BridgeMageClient secondClient = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler secondHandler = secondClient.getCallbackHandler();
+        installPublishedSelectPrompt(secondHandler);
+
+        ChooseActionTool.Result error = secondHandler.chooseAction(
+            null, "pxxx", null, null, null, null, null, null, null, null, null
+        );
+        assertThat(error.success).isFalse();
+        assertThat(error.error_code).isEqualTo("invalid_choice");
+
+        ActionResult afterError = secondHandler.getActionChoices(null);
+        assertThat(afterError.board_cursor).isEqualTo(directChoices.board_cursor);
+        assertThat(afterError.board).isEqualTo(directChoices.board);
+        assertThat(afterError.context).isEqualTo(directChoices.context);
+    }
+
+    @Test
     void staleCallbackDoesNotRegressProjectedPublishedGameState() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -4300,6 +4395,46 @@ class BridgeCallbackHandlerTest {
         BridgePublishedQueryState publishedQueryState = (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
         processor.submit(BridgeCommand.of(() -> {
             publishedQueryState.publishProcessorState();
+            return null;
+        }));
+    }
+
+    private static void installPublishedSelectPrompt(BridgeCallbackHandler handler) throws Exception {
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
+        BridgePublishedQueryState publishedQueryState =
+            (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID spellId = UUID.randomUUID();
+
+        PlayerView player = playerView(playerId, "TestPlayer", "p2");
+        CardView spell = cardView(spellId, "p13", "Memnite");
+        setField(spell, "manaCostLeftStr", List.of());
+        setField(spell, "manaCostRightStr", List.of());
+
+        CardsView hand = new CardsView();
+        hand.put(spellId, spell);
+
+        GameView view = gameView(12, List.of(player), new CardsView());
+        setField(view, "myPlayerId", playerId);
+        setField(view, "myHand", hand);
+        setField(view, "canPlayObjects", playableObjects(Map.of(spellId, playStats("Cast Memnite"))));
+
+        PendingAction pendingAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            12
+        );
+
+        processor.submit(BridgeCommand.of(() -> {
+            gameState.activateGame(gameId, playerId);
+            publishedQueryState.projectGameState(view, 1, "test_init");
+            decisionState.replacePendingAction(pendingAction);
             return null;
         }));
     }

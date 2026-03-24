@@ -21,15 +21,15 @@ class BridgeCursorStateTest {
     }
 
     @Test
-    void boardCursorStillUsesMonotonicDedupCounter() {
+    void boardCursorReusesStableIdForRepeatedBoardSignature() {
         BridgeCursorState cursorState = new BridgeCursorState();
 
         long alpha1 = cursorState.updateBoardCursor("alpha");
-        long alpha2 = cursorState.updateBoardCursor("alpha");
         long beta = cursorState.updateBoardCursor("beta");
+        long alpha2 = cursorState.updateBoardCursor("alpha");
 
         assertThat(alpha1).isEqualTo(1L);
-        assertThat(alpha2).isEqualTo(alpha1);
         assertThat(beta).isEqualTo(2L);
+        assertThat(alpha2).isEqualTo(alpha1);
     }
 }

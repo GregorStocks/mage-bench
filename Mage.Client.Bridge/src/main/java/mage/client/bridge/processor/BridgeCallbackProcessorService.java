@@ -212,16 +212,7 @@ public final class BridgeCallbackProcessorService
         int gameSeq = 0;
         GameView gameView = extractGameView(data);
         if (gameView != null) {
-            boolean updated = processorState.gameState().updateLastGameView(
-                gameView,
-                "storePendingAction:" + method.name(),
-                logger,
-                username
-            );
-            if (updated) {
-                projectPublishedGameState.accept(gameView, "storePendingAction:" + method.name());
-                processorState.interactionState().advanceTurn(gameView);
-            }
+            updateLastGameView(gameView, "storePendingAction:" + method.name());
             gameSeq = gameView.getGameSeq();
         }
         PendingAction newAction = new PendingAction(gameId, method, data, message, gameSeq);
@@ -281,7 +272,6 @@ public final class BridgeCallbackProcessorService
         GameView gameView = extractGameView(data);
         if (gameView != null) {
             updateLastGameView(gameView, "GAME_UPDATE");
-            processorState.interactionState().advanceTurn(gameView);
             logger.debug("[" + username + "] Game update: turn " + gameView.getTurn()
                     + ", phase " + gameView.getPhase() + ", active player " + gameView.getActivePlayerName());
             return;
@@ -414,6 +404,7 @@ public final class BridgeCallbackProcessorService
     private void updateLastGameView(GameView gameView, String source) {
         boolean updated = processorState.gameState().updateLastGameView(gameView, source, logger, username);
         if (updated) {
+            processorState.interactionState().advanceTurn(gameView);
             projectPublishedGameState.accept(gameView, source);
         }
     }

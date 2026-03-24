@@ -533,7 +533,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -788,7 +788,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -1014,7 +1014,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 8,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 38,
         "land_drops_used": 0,
@@ -1199,7 +1199,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 9,
         "choices": [
           {
             "description": "Cast Memnite",
@@ -1428,7 +1428,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 10,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 44,
         "land_drops_used": 0,
@@ -1599,7 +1599,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 14,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 52,
         "land_drops_used": 0,
@@ -1817,7 +1817,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 15,
         "choices": [
           {
             "action": "land",
@@ -2623,7 +2623,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "cast",
@@ -2671,7 +2671,7 @@
     },
     {
       "args": {
-        "board_cursor": 4,
+        "board_cursor": 5,
       },
       "game_seq": 33,
       "player": "TestPlayer",
@@ -2780,7 +2780,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "choices": [
           {
             "action": "cast",
@@ -2965,7 +2965,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 7,
         "choices": [
           {
             "description": "Cast Black Lotus",
@@ -3001,14 +3001,14 @@
     },
     {
       "args": {
-        "board_cursor": 5,
+        "board_cursor": 7,
       },
       "game_seq": 34,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_ABILITY",
-        "board_cursor": 5,
+        "board_cursor": 7,
         "board_unchanged": true,
         "choices": [
           {
@@ -3143,7 +3143,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 8,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 38,
         "land_drops_used": 0,
@@ -3179,7 +3179,7 @@
     },
     {
       "args": {
-        "board_cursor": 6,
+        "board_cursor": 8,
       },
       "game_seq": 41,
       "player": "TestPlayer",
@@ -3288,7 +3288,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 9,
         "choices": [
           {
             "action": "cast",
@@ -3475,7 +3475,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 9,
         "choices": [
           {
             "description": "Cast Memnite",
@@ -3511,14 +3511,14 @@
     },
     {
       "args": {
-        "board_cursor": 7,
+        "board_cursor": 9,
       },
       "game_seq": 42,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_CHOOSE_ABILITY",
-        "board_cursor": 7,
+        "board_cursor": 9,
         "board_unchanged": true,
         "choices": [
           {
@@ -3654,7 +3654,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 10,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 44,
         "land_drops_used": 0,
@@ -3690,7 +3690,7 @@
     },
     {
       "args": {
-        "board_cursor": 8,
+        "board_cursor": 10,
       },
       "game_seq": 47,
       "player": "TestPlayer",
@@ -3799,7 +3799,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 11,
         "choices": [
           {
             "action": "cast",
@@ -3963,7 +3963,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 14,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 52,
         "land_drops_used": 0,
@@ -3998,14 +3998,14 @@
     },
     {
       "args": {
-        "board_cursor": 10,
+        "board_cursor": 14,
       },
       "game_seq": 54,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_ASK",
-        "board_cursor": 10,
+        "board_cursor": 14,
         "board_unchanged": true,
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 54,
@@ -4154,7 +4154,7 @@
             "name": "Opponent",
           }
         ],
-        "board_cursor": 11,
+        "board_cursor": 15,
         "choices": [
           {
             "action": "land",
@@ -4211,7 +4211,7 @@
     },
     {
       "args": {
-        "board_cursor": 11,
+        "board_cursor": 15,
         "until": "postcombat_main",
       },
       "game_seq": 63,
@@ -4219,7 +4219,7 @@
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 11,
+        "board_cursor": 15,
         "board_unchanged": true,
         "choices": [
           {
