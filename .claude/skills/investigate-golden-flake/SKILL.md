@@ -148,7 +148,7 @@ Common fix patterns:
 
 ## Step 7: Commit and PR
 
-Use `/pr` to create the pull request. The PR description should include:
+Use `/create-pr` to create the pull request. The PR description should include:
 
 - The root cause (which threads raced, what the ordering issue was)
 - The fix (what was reordered/changed and why)
