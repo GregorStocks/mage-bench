@@ -284,8 +284,17 @@ public final class BridgePublishedQueryBuilder {
         if (card == null || card.getId() == null) {
             return;
         }
-        String objectId = processorServices.viewLocator().getStableShortId(card.getId(), card, gameView);
-        cardsByObjectId.putIfAbsent(objectId, BridgeOracleTextService.buildCardFieldsMap(card));
+        cardsByObjectId.putIfAbsent(
+            processorServices.viewLocator().getStableShortId(card.getId(), card, gameView),
+            BridgeOracleTextService.buildCardFieldsMap(card)
+        );
+        CardView secondFace = card.getSecondCardFace();
+        if (secondFace != null && secondFace.getId() != null) {
+            cardsByObjectId.putIfAbsent(
+                processorServices.viewLocator().getStableShortId(secondFace.getId(), secondFace, gameView),
+                BridgeOracleTextService.buildCardFieldsMap(secondFace)
+            );
+        }
     }
 
     private List<Object> buildAskChoices(ActionResult result, PendingAction action, GameView gameView) {

@@ -348,6 +348,18 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void buildCardFieldsMapForCardViewOmitsNullRulesInsteadOfThrowing() throws Exception {
+        CardView card = cardView(UUID.randomUUID(), "p1", "Rulesless Relic");
+        setField(card, "rules", null);
+
+        Map<String, Object> entry = BridgeOracleTextService.buildCardFieldsMap(card);
+
+        assertThat(entry)
+            .containsEntry("name", "Rulesless Relic")
+            .doesNotContainKeys("rules", "toughness");
+    }
+
+    @Test
     void populateCardFieldsResultForCardInfoPreservesSharedOracleFields() throws Exception {
         CardInfo battle = new CardInfo();
         setField(battle, "name", "Test Invasion");
@@ -2514,6 +2526,184 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void getOracleTextSupportsPublishedSecondFaceObjectIds() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID frontId = UUID.randomUUID();
+        UUID backId = UUID.randomUUID();
+
+        CardView backFace = cardView(backId, "p2", "Awakened Insight");
+        setField(backFace, "manaCostLeftStr", List.of());
+        setField(backFace, "manaCostRightStr", List.of());
+        setField(backFace, "rules", List.of("<i>Flying</i>"));
+        setField(backFace, "cardTypes", List.of(CardType.PLANESWALKER));
+        setField(backFace, "subTypes", subTypes(SubType.JACE));
+        setField(backFace, "superTypes", List.of(SuperType.LEGENDARY));
+        setField(backFace, "startingLoyalty", "5");
+
+        CardView frontFace = cardView(frontId, "p1", "Test Front");
+        setField(frontFace, "manaCostLeftStr", List.of("{2}", "{U}"));
+        setField(frontFace, "manaCostRightStr", List.of());
+        setField(frontFace, "rules", List.of("Flying"));
+        setField(frontFace, "cardTypes", List.of(CardType.CREATURE));
+        setField(frontFace, "power", "3");
+        setField(frontFace, "toughness", "4");
+        setField(frontFace, "secondCardFace", backFace);
+
+        PlayerView player = playerView(playerId, "TestPlayer", "p9");
+        CardsView hand = new CardsView();
+        hand.put(frontId, frontFace);
+        GameView initialView = gameView(12, List.of(player), new CardsView());
+        setField(initialView, "myPlayerId", playerId);
+        setField(initialView, "myHand", hand);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                return switch (method.getName()) {
+                    case "joinGame" -> true;
+                    case "getGameChatId" -> Optional.empty();
+                    default -> defaultReturnValue(method.getReturnType());
+                };
+            }
+        ));
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.START_GAME,
+            gameId,
+            new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+            false
+        ));
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_INIT,
+            gameId,
+            initialView,
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        GetOracleTextTool.Result result = handler.getOracleText(null, "p2", null, null);
+
+        assertThat(result.success).isTrue();
+        assertThat(result.name).isEqualTo("Awakened Insight");
+        assertThat(result.type).isEqualTo("Legendary Planeswalker  - Jace");
+        assertThat(result.rules).containsExactly("Flying");
+        assertThat(result.starting_loyalty).isEqualTo("5");
+    }
+
+    @Test
+    void getOracleTextSupportsPublishedStackAbilityObjectIds() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID sourceCardId = UUID.randomUUID();
+        UUID stackAbilityId = UUID.randomUUID();
+        UUID targetId = UUID.randomUUID();
+
+        CardView sourceCard = cardView(sourceCardId, "p2", "Thespian's Stage");
+        setField(sourceCard, "manaCostLeftStr", List.of());
+        setField(sourceCard, "manaCostRightStr", List.of());
+        setField(sourceCard, "rules", List.of("{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability."));
+        setField(sourceCard, "cardTypes", List.of(CardType.LAND));
+
+        StackAbilityView stackAbility = stackAbilityView(stackAbilityId, sourceCard, "Ability text", targetId);
+        setField(stackAbility, "displayName", null);
+        setField(stackAbility, "shortId", "p1");
+
+        PlayerView player = playerView(playerId, "TestPlayer", "p9");
+        CardsView stack = new CardsView();
+        stack.put(stackAbilityId, stackAbility);
+        GameView initialView = gameView(12, List.of(player), stack);
+        setField(initialView, "myPlayerId", playerId);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                return switch (method.getName()) {
+                    case "joinGame" -> true;
+                    case "getGameChatId" -> Optional.empty();
+                    default -> defaultReturnValue(method.getReturnType());
+                };
+            }
+        ));
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.START_GAME,
+            gameId,
+            new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+            false
+        ));
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_INIT,
+            gameId,
+            initialView,
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        GetOracleTextTool.Result result = handler.getOracleText(null, "p1", null, null);
+
+        assertThat(result.success).isTrue();
+        assertThat(result.name).isEqualTo("Thespian's Stage");
+        assertThat(result.rules).containsExactly(
+            "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability."
+        );
+    }
+
+    @Test
+    void getOracleTextTreatsCurrentActionChoiceIdsAsKnownImmediately() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
+        BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
+        BridgeGameState gameState = (BridgeGameState) getProcessorStateField(handler, "gameState");
+        BridgePublishedQueryState publishedQueryState =
+            (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID hiddenChoiceId = UUID.randomUUID();
+
+        PlayerView player = playerView(playerId, "TestPlayer", "p2");
+        GameView view = gameView(12, List.of(player), new CardsView());
+        setField(view, "myPlayerId", playerId);
+        setField(view, "canPlayObjects", playableObjects(Map.of(hiddenChoiceId, playStats("Cast Mystery Spell"))));
+
+        PendingAction pendingAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage((GameView) null, Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            12
+        );
+
+        processor.submit(BridgeCommand.of(() -> {
+            gameState.activateGame(gameId, playerId);
+            publishedQueryState.projectGameState(view, 1, "test_init");
+            decisionState.replacePendingAction(pendingAction);
+            return null;
+        }));
+
+        ActionResult choices = handler.getActionChoices(null);
+        @SuppressWarnings("unchecked")
+        String objectId = (String) ((Map<String, Object>) choices.choices.getFirst()).get("id");
+
+        GetOracleTextTool.Result oracle = handler.getOracleText(null, objectId, null, null);
+
+        assertThat(oracle.success).isFalse();
+        assertThat(oracle.error).isEqualTo("Object not found in current game state: " + objectId);
+    }
+
+    @Test
     void getMyDecklistReadsPublishedSnapshotInsteadOfLiveDeckObject() {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
@@ -4367,8 +4557,12 @@ class BridgeCallbackHandlerTest {
         setField(view, "shortId", shortId);
         setField(view, "name", name);
         setField(view, "displayName", name);
+        setField(view, "manaCostLeftStr", List.of());
+        setField(view, "manaCostRightStr", List.of());
         setField(view, "rules", List.of());
         setField(view, "cardTypes", List.of(CardType.LAND));
+        setField(view, "subTypes", new SubTypes());
+        setField(view, "superTypes", List.of());
         setField(view, "tapped", tapped);
         return view;
     }
@@ -4379,8 +4573,12 @@ class BridgeCallbackHandlerTest {
         setField(view, "shortId", shortId);
         setField(view, "name", name);
         setField(view, "displayName", name);
+        setField(view, "manaCostLeftStr", List.of());
+        setField(view, "manaCostRightStr", List.of());
         setField(view, "rules", List.of());
         setField(view, "cardTypes", List.of());
+        setField(view, "subTypes", new SubTypes());
+        setField(view, "superTypes", List.of());
         return view;
     }
 

@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -155,7 +156,7 @@ public class McpServer {
                 response.put("result", result);
             } catch (Exception e) {
                 logger.warn("[" + client.getUsername() + "] MCP request failed (" + method + "): " + e.getMessage());
-                response.put("error", Map.of("code", -32603, "message", e.getMessage()));
+                response.put("error", errorObject(-32603, exceptionMessage(e)));
             }
 
             byte[] responseBytes = gson.toJson(response).getBytes(StandardCharsets.UTF_8);
@@ -168,7 +169,7 @@ public class McpServer {
             logger.error("Error handling MCP HTTP request", e);
             byte[] errorBytes = gson.toJson(Map.of(
                     "jsonrpc", "2.0",
-                    "error", Map.of("code", -32700, "message", "Parse error: " + e.getMessage())
+                    "error", errorObject(-32700, "Parse error: " + exceptionMessage(e))
             )).getBytes(StandardCharsets.UTF_8);
             exchange.getResponseHeaders().set("Content-Type", "application/json");
             exchange.sendResponseHeaders(200, errorBytes.length);
@@ -176,6 +177,18 @@ public class McpServer {
                 os.write(errorBytes);
             }
         }
+    }
+
+    private static Map<String, Object> errorObject(int code, String message) {
+        var error = new LinkedHashMap<String, Object>();
+        error.put("code", code);
+        error.put("message", message);
+        return error;
+    }
+
+    private static String exceptionMessage(Exception e) {
+        String message = e.getMessage();
+        return message != null ? message : e.getClass().getSimpleName();
     }
 
     private void handleNotification(String method) {

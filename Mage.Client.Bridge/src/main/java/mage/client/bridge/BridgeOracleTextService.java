@@ -9,6 +9,7 @@ import mage.constants.SuperType;
 import mage.util.ShortIdRegistry;
 import mage.view.CardView;
 import mage.view.GameView;
+import mage.view.StackAbilityView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -174,9 +175,13 @@ public final class BridgeOracleTextService {
             if (type != null) {
                 entry.put("type", type);
             }
-            entry.put("rules", rules);
+            if (rules != null) {
+                entry.put("rules", rules);
+            }
             if (power != null) {
                 entry.put("power", power);
+            }
+            if (toughness != null) {
                 entry.put("toughness", toughness);
             }
             if (startingLoyalty != null) {
@@ -210,18 +215,37 @@ public final class BridgeOracleTextService {
     }
 
     private static OracleCardFields extractOracleCardFields(CardView cv) {
-        CardView secondFace = cv.getSecondCardFace();
+        CardView oracleCard = unwrapOracleCardView(cv);
+        CardView secondFace = oracleCard.getSecondCardFace();
         return new OracleCardFields(
-            cv.getDisplayName(),
-            normalizeOptionalField(cv.getManaCostStr()),
-            normalizeOptionalType(cv.getTypeText()),
-            BridgePromptFormatting.stripHtmlList(cv.getRules()),
-            cv.isCreature() && cv.getPower() != null ? cv.getPower() : null,
-            cv.isCreature() && cv.getPower() != null ? cv.getToughness() : null,
-            cv.isPlaneswalker() ? normalizeNonZeroField(cv.getStartingLoyalty()) : null,
-            cv.isBattle() ? normalizeNonZeroField(cv.getStartingDefense()) : null,
+            requireOracleName(oracleCard),
+            normalizeOptionalField(oracleCard.getManaCostStr()),
+            normalizeOptionalType(oracleCard.getTypeText()),
+            BridgePromptFormatting.stripHtmlList(oracleCard.getRules()),
+            oracleCard.isCreature() && oracleCard.getPower() != null ? oracleCard.getPower() : null,
+            oracleCard.isCreature() && oracleCard.getPower() != null ? oracleCard.getToughness() : null,
+            oracleCard.isPlaneswalker() ? normalizeNonZeroField(oracleCard.getStartingLoyalty()) : null,
+            oracleCard.isBattle() ? normalizeNonZeroField(oracleCard.getStartingDefense()) : null,
             secondFace != null ? extractOracleCardFields(secondFace) : null
         );
+    }
+
+    private static CardView unwrapOracleCardView(CardView cv) {
+        if (cv instanceof StackAbilityView stackAbilityView && stackAbilityView.getSourceCard() != null) {
+            return stackAbilityView.getSourceCard();
+        }
+        return cv;
+    }
+
+    private static String requireOracleName(CardView cv) {
+        String name = cv.getDisplayName();
+        if (name == null || name.isEmpty()) {
+            name = cv.getName();
+        }
+        if (name == null || name.isEmpty()) {
+            throw new IllegalStateException("Oracle card view missing name for object " + cv.getId());
+        }
+        return name;
     }
 
     private static OracleCardFields extractOracleCardFields(CardInfo ci, boolean includeSecondFace) {

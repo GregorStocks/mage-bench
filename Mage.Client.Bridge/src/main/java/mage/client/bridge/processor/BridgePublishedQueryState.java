@@ -89,7 +89,6 @@ public final class BridgePublishedQueryState {
         projectedGameState = built.state();
         projectedActionContext = queryBuilder.buildProjectedActionContext(gameView, built.state(), round);
         projectedGameView = gameView;
-        publishedOracleIndex = queryBuilder.buildPublishedOracleIndex(gameView);
         projectActionChoices(cause, projectionInputs);
         traceProjectedGameStateChange(cause, previous, built.state(), built.payload());
     }
@@ -130,6 +129,7 @@ public final class BridgePublishedQueryState {
         if (Boolean.TRUE.equals(result.action_pending)) {
             result.board_cursor = boardCursorAllocator.applyAsLong(McpToolRegistry.resultToMap(result));
         }
+        publishedOracleIndex = queryBuilder.buildPublishedOracleIndex(projectedGameView);
         BridgePublishedActionChoices previous = projectedActionChoices;
         projectedActionChoices = BridgePublishedActionChoices.from(result, built.backingChoices());
         traceProjectedActionChoicesChange(cause, previous, result);

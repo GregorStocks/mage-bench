@@ -149,7 +149,12 @@ The action/game-state slice is also closer to the intended model now:
   - `get_my_decklist` now reads an immutable published decklist snapshot
     instead of submitting a processor query command
   - `get_oracle_text` now resolves object IDs from a processor-published
-    immutable oracle index instead of submitting a processor query command
+    immutable oracle index instead of submitting a processor query command;
+    that index includes second-face object IDs and is refreshed after
+    action-choice projection so newly surfaced short IDs are immediately known
+    to MCP reads, and stack-ability object IDs now resolve against the source
+    card's oracle fields instead of depending on `StackAbilityView`
+    `displayName` state
   - name-based oracle lookups are now pure reference-data reads on the MCP
     side instead of processor round-trips
 
