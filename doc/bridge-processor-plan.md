@@ -154,7 +154,8 @@ The action/game-state slice is also closer to the intended model now:
     action-choice projection so newly surfaced short IDs are immediately known
     to MCP reads, and stack-ability object IDs now resolve against the source
     card's oracle fields instead of depending on `StackAbilityView`
-    `displayName` state
+    `displayName` state; resolve-only short-ID aliases are also preserved in
+    the published snapshot so stale MCP object IDs keep working
   - name-based oracle lookups are now pure reference-data reads on the MCP
     side instead of processor round-trips
 

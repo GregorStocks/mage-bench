@@ -189,32 +189,44 @@ public final class BridgePublishedQueryBuilder {
         }
 
         var cardsByObjectId = new LinkedHashMap<String, Map<String, Object>>();
+        var cardsByUuid = new LinkedHashMap<UUID, Map<String, Object>>();
 
         for (CardView card : gameView.getMyHand().values()) {
-            addOracleCard(cardsByObjectId, card, gameView);
+            addOracleCard(cardsByObjectId, cardsByUuid, card, gameView);
         }
         for (CardView card : gameView.getStack().values()) {
-            addOracleCard(cardsByObjectId, card, gameView);
+            addOracleCard(cardsByObjectId, cardsByUuid, card, gameView);
         }
         for (PlayerView player : gameView.getPlayers()) {
             for (PermanentView permanent : player.getBattlefield().values()) {
-                addOracleCard(cardsByObjectId, permanent, gameView);
+                addOracleCard(cardsByObjectId, cardsByUuid, permanent, gameView);
             }
             for (CardView card : player.getGraveyard().values()) {
-                addOracleCard(cardsByObjectId, card, gameView);
+                addOracleCard(cardsByObjectId, cardsByUuid, card, gameView);
             }
             for (CardView card : player.getExile().values()) {
-                addOracleCard(cardsByObjectId, card, gameView);
+                addOracleCard(cardsByObjectId, cardsByUuid, card, gameView);
             }
             for (CommandObjectView commandObject : player.getCommandObjectList()) {
                 if (commandObject instanceof CardView card) {
-                    addOracleCard(cardsByObjectId, card, gameView);
+                    addOracleCard(cardsByObjectId, cardsByUuid, card, gameView);
                 }
             }
         }
         for (var exileZone : gameView.getExile()) {
             for (CardView card : exileZone.values()) {
-                addOracleCard(cardsByObjectId, card, gameView);
+                addOracleCard(cardsByObjectId, cardsByUuid, card, gameView);
+            }
+        }
+
+        for (String shortId : processorServices.shortIds().snapshotShortIds()) {
+            UUID objectId = processorServices.shortIds().tryResolve(shortId);
+            if (objectId == null) {
+                continue;
+            }
+            Map<String, Object> fields = cardsByUuid.get(objectId);
+            if (fields != null) {
+                cardsByObjectId.putIfAbsent(shortId, fields);
             }
         }
 
@@ -279,20 +291,25 @@ public final class BridgePublishedQueryBuilder {
 
     private void addOracleCard(
             Map<String, Map<String, Object>> cardsByObjectId,
+            Map<UUID, Map<String, Object>> cardsByUuid,
             CardView card,
             GameView gameView) {
         if (card == null || card.getId() == null) {
             return;
         }
+        Map<String, Object> fields = BridgeOracleTextService.buildCardFieldsMap(card);
+        cardsByUuid.putIfAbsent(card.getId(), fields);
         cardsByObjectId.putIfAbsent(
             processorServices.viewLocator().getStableShortId(card.getId(), card, gameView),
-            BridgeOracleTextService.buildCardFieldsMap(card)
+            fields
         );
         CardView secondFace = card.getSecondCardFace();
         if (secondFace != null && secondFace.getId() != null) {
+            Map<String, Object> secondFaceFields = BridgeOracleTextService.buildCardFieldsMap(secondFace);
+            cardsByUuid.putIfAbsent(secondFace.getId(), secondFaceFields);
             cardsByObjectId.putIfAbsent(
                 processorServices.viewLocator().getStableShortId(secondFace.getId(), secondFace, gameView),
-                BridgeOracleTextService.buildCardFieldsMap(secondFace)
+                secondFaceFields
             );
         }
     }
