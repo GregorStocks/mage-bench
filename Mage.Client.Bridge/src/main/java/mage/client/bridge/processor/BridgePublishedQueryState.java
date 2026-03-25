@@ -61,6 +61,10 @@ public final class BridgePublishedQueryState {
         return projectedActionChoices.get().copyForRead(boardCursorParam);
     }
 
+    public BridgePublishedActionChoices currentProjectedActionChoices() {
+        return projectedActionChoices.get();
+    }
+
     public void projectGameState(GameView gameView, int round, String cause) {
         if (!processor.isProcessorThread()) {
             throw new IllegalStateException("projectGameState must run on the bridge processor thread");
@@ -94,17 +98,20 @@ public final class BridgePublishedQueryState {
         if (!processor.isProcessorThread()) {
             throw new IllegalStateException("projectActionChoices must run on the bridge processor thread");
         }
-        ActionResult result = queryBuilder.buildPublishedActionChoices(
+        BridgeBuiltActionChoices built = queryBuilder.buildPublishedActionChoices(
             processorState.decisionState().pendingAction(),
             projectedGameView,
             projectedRound
         );
+        ActionResult result = built.result();
         if (Boolean.TRUE.equals(result.action_pending)) {
             result.board_cursor = processorState.cursorState().updateBoardCursor(
                 BridgeGameStateBuilder.buildStateSignature(McpToolRegistry.resultToMap(result))
             );
         }
-        BridgePublishedActionChoices previous = projectedActionChoices.getAndSet(BridgePublishedActionChoices.from(result));
+        BridgePublishedActionChoices previous = projectedActionChoices.getAndSet(
+            BridgePublishedActionChoices.from(result, built.backingChoices())
+        );
         traceProjectedActionChoicesChange(cause, previous, result);
     }
 

@@ -108,7 +108,6 @@ public class BridgeCallbackHandler {
     private final BridgeCallbackIngress callbackIngress;
     private final BridgeMcpActionApi mcpActionApi;
     private final BridgeMcpQueryApi mcpQueryApi;
-    private final BridgePublishedQueryBuilder publishedQueryBuilder;
     private final BridgePublishedQueryState publishedQueryState;
     private final BridgeProcessor processor;
     private final BridgeProcessorState processorState = new BridgeProcessorState();
@@ -186,7 +185,7 @@ public class BridgeCallbackHandler {
             logger,
             client.getUsername()
         );
-        this.publishedQueryBuilder = new BridgePublishedQueryBuilder(
+        BridgePublishedQueryBuilder publishedQueryBuilder = new BridgePublishedQueryBuilder(
             client.getUsername(),
             processorState,
             processorServices,
@@ -223,7 +222,6 @@ public class BridgeCallbackHandler {
             logger,
             processorState,
             publishedQueryState,
-            publishedQueryBuilder,
             processorServices,
             () -> session,
             client::isRunning,

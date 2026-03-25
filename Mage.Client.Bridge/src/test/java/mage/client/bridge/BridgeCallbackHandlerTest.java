@@ -2094,10 +2094,6 @@ class BridgeCallbackHandlerTest {
             }
 
             @Override
-            public void clearLastChoices() {
-            }
-
-            @Override
             public ChooseActionTool.Result buildChooseActionError(
                     ChooseActionTool.Result result,
                     String errorCode,

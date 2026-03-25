@@ -415,7 +415,6 @@ public final class BridgeChooseActionFlow {
             partialResult.error_code = "batch_failed";
             partialResult.retryable = true;
         }
-        context.clearLastChoices();
         batchResultFinalized = true;
     }
 

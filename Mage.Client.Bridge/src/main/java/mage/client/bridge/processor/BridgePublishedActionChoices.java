@@ -11,19 +11,27 @@ import java.util.Map;
 
 public final class BridgePublishedActionChoices {
     private final ActionResult snapshot;
+    private final List<Object> backingChoices;
+    private final long generatedAtMs;
 
-    private BridgePublishedActionChoices(ActionResult snapshot) {
+    private BridgePublishedActionChoices(ActionResult snapshot, List<Object> backingChoices, long generatedAtMs) {
         this.snapshot = snapshot;
+        this.backingChoices = backingChoices;
+        this.generatedAtMs = generatedAtMs;
     }
 
     public static BridgePublishedActionChoices empty() {
         var result = new ActionResult();
         result.action_pending = false;
-        return new BridgePublishedActionChoices(result);
+        return new BridgePublishedActionChoices(result, List.of(), 0);
     }
 
-    public static BridgePublishedActionChoices from(ActionResult result) {
-        return new BridgePublishedActionChoices(copyActionResult(result, true, null));
+    public static BridgePublishedActionChoices from(ActionResult result, List<Object> backingChoices) {
+        return new BridgePublishedActionChoices(
+            copyActionResult(result, true, null),
+            List.copyOf(backingChoices),
+            System.currentTimeMillis()
+        );
     }
 
     public boolean actionPending() {
@@ -32,6 +40,26 @@ public final class BridgePublishedActionChoices {
 
     public ActionResult copyForRead(Long boardCursorParam) {
         return copyActionResult(snapshot, false, boardCursorParam);
+    }
+
+    public List<Object> backingChoices() {
+        return backingChoices;
+    }
+
+    public long generatedAtMs() {
+        return generatedAtMs;
+    }
+
+    public String actionType() {
+        return snapshot.action_type;
+    }
+
+    public String responseType() {
+        return snapshot.response_type;
+    }
+
+    public int choiceCount() {
+        return snapshot.choices != null ? snapshot.choices.size() : -1;
     }
 
     private static ActionResult copyActionResult(ActionResult source, boolean freezeCollections, Long boardCursorParam) {

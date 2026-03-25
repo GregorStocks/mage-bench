@@ -31,8 +31,6 @@ public interface BridgeChooseActionFlowContext {
 
     void sendStringOrDie(UUID gameId, String data, String sendContext);
 
-    void clearLastChoices();
-
     ChooseActionTool.Result buildChooseActionError(
         ChooseActionTool.Result result,
         String errorCode,

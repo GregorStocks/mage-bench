@@ -134,6 +134,10 @@ The action/game-state slice is also closer to the intended model now:
 - published action choices are now projected explicitly from processor-owned
   pending-action changes and authoritative processor-side `GameView` update
   points instead of being rebuilt during snapshot publication
+- published action choices now carry their own backing choice state for
+  `choose_action` resolution, so MCP reads and processor-side action execution
+  consume the same projected action-choice snapshot instead of sharing a
+  separate mutable `DecisionState.lastChoices` bag
 - `BridgeMcpQueryApi` is now closer to a read shell:
   - published-state reads now use listener/processor sync barriers and then
     read the published immutable snapshot directly, instead of asking the
@@ -199,6 +203,14 @@ And the bridge still relies on shared mutable state containers such as:
 
 Those are still being read outside the processor thread.
 So the model is still transitional rather than actor-pure.
+
+One more ownership improvement is now in place:
+
+- choice-resolution metadata and backing lists are no longer stored in
+  `BridgeDecisionState`
+- the processor-published action-choice projection is now the single source of
+  truth for both MCP `get_action_choices` reads and `choose_action` index/id
+  resolution
 
 One ownership improvement is now in place:
 

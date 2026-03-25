@@ -65,7 +65,6 @@ public final class BridgeDecisionFlowService {
     private final Logger logger;
     private final BridgeProcessorState processorState;
     private final BridgePublishedQueryState publishedQueryState;
-    private final BridgePublishedQueryBuilder publishedQueryBuilder;
     private final BridgeProcessorServices processorServices;
     private final Supplier<Session> sessionSupplier;
     private final Supplier<Boolean> clientRunningSupplier;
@@ -78,7 +77,6 @@ public final class BridgeDecisionFlowService {
             Logger logger,
             BridgeProcessorState processorState,
             BridgePublishedQueryState publishedQueryState,
-            BridgePublishedQueryBuilder publishedQueryBuilder,
             BridgeProcessorServices processorServices,
             Supplier<Session> sessionSupplier,
             Supplier<Boolean> clientRunningSupplier,
@@ -89,7 +87,6 @@ public final class BridgeDecisionFlowService {
         this.logger = logger;
         this.processorState = processorState;
         this.publishedQueryState = publishedQueryState;
-        this.publishedQueryBuilder = publishedQueryBuilder;
         this.processorServices = processorServices;
         this.sessionSupplier = sessionSupplier;
         this.clientRunningSupplier = clientRunningSupplier;
@@ -295,6 +292,8 @@ public final class BridgeDecisionFlowService {
         }
 
         ClientCallbackMethod method = action.method();
+        BridgePublishedActionChoices projectedChoices = refreshProjectedActionChoices("choose_action:apply");
+        List<Object> choiceBackings = projectedChoices.backingChoices();
 
         if (id != null && method != ClientCallbackMethod.GAME_CHOOSE_CHOICE) {
             if (resolvedIndex != null) {
@@ -302,18 +301,11 @@ public final class BridgeDecisionFlowService {
                 result.warning = "Both id and index provided; used id=" + id + ", ignored index=" + resolvedIndex;
                 resolvedIndex = null;
             }
-            List<Object> choices = processorState.decisionState().lastChoices();
-            if (choices == null) {
-                buildActionChoices(action);
-                choices = processorState.decisionState().lastChoices();
-            }
             if ("all".equals(id)) {
-                if (choices != null) {
-                    for (int i = 0; i < choices.size(); i++) {
-                        if ("special".equals(choices.get(i))) {
-                            resolvedIndex = i;
-                            break;
-                        }
+                for (int i = 0; i < choiceBackings.size(); i++) {
+                    if ("special".equals(choiceBackings.get(i))) {
+                        resolvedIndex = i;
+                        break;
                     }
                 }
                 if (resolvedIndex == null) {
@@ -327,12 +319,10 @@ public final class BridgeDecisionFlowService {
                         "Unknown short ID: " + id + ". Call get_action_choices to see current options.",
                         true, action, true));
                 }
-                if (choices != null) {
-                    for (int i = 0; i < choices.size(); i++) {
-                        if (resolvedUuid.equals(choices.get(i))) {
-                            resolvedIndex = i;
-                            break;
-                        }
+                for (int i = 0; i < choiceBackings.size(); i++) {
+                    if (resolvedUuid.equals(choiceBackings.get(i))) {
+                        resolvedIndex = i;
+                        break;
                     }
                 }
                 if (resolvedIndex == null) {
@@ -346,9 +336,10 @@ public final class BridgeDecisionFlowService {
             effectiveManaPlan = null;
         }
 
-        if (resolvedIndex != null && processorState.decisionState().lastChoices() == null) {
+        if (resolvedIndex != null && choiceBackings.isEmpty()) {
             logger.info("[" + username + "] choose_action: auto-populating choices (get_action_choices was not called)");
-            buildActionChoices(action);
+            projectedChoices = refreshProjectedActionChoices("choose_action:auto_populate");
+            choiceBackings = projectedChoices.backingChoices();
         }
 
         processorState.decisionState().clearPendingActionIfCurrent(action);
@@ -373,20 +364,19 @@ public final class BridgeDecisionFlowService {
                 case GAME_SELECT -> {
                     boolean usedIndex = false;
                     if (resolvedIndex != null) {
-                        List<Object> choices = processorState.decisionState().lastChoices();
-                        if (choices == null || resolvedIndex < 0 || resolvedIndex >= choices.size()) {
-                            logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
+                        if (resolvedIndex < 0 || resolvedIndex >= choiceBackings.size()) {
+                            logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceBackings, projectedChoices);
                             if (answer != null) {
                                 logger.warn("[" + username + "] choose_action: index " + resolvedIndex
                                     + " out of range, falling through to answer=" + answer + " for GAME_SELECT");
                             } else {
                                 return chooseActionDone(buildChooseActionError(result, "index_out_of_range",
                                     "Index " + resolvedIndex + " is out of range"
-                                        + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
+                                        + " (valid: 0-" + (choiceBackings.size() - 1) + ")"
                                         + ". Call get_action_choices to see current options.", true, action, true));
                             }
                         } else {
-                            Object chosen = choices.get(resolvedIndex);
+                            Object chosen = choiceBackings.get(resolvedIndex);
                             if (chosen instanceof UUID chosenUuid) {
                                 if (effectiveManaPlan != null) {
                                     CopyOnWriteArrayList<BridgeManaPlanEntry> parsedPlan;
@@ -437,20 +427,19 @@ public final class BridgeDecisionFlowService {
                 case GAME_PLAY_MANA, GAME_PLAY_XMANA -> {
                     boolean usedManaIndex = false;
                     if (resolvedIndex != null) {
-                        List<Object> choices = processorState.decisionState().lastChoices();
-                        if (choices == null || resolvedIndex < 0 || resolvedIndex >= choices.size()) {
-                            logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
+                        if (resolvedIndex < 0 || resolvedIndex >= choiceBackings.size()) {
+                            logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceBackings, projectedChoices);
                             if (answer != null && !answer) {
                                 logger.warn("[" + username + "] choose_action: index " + resolvedIndex
                                     + " out of range, falling through to cancel for GAME_PLAY_MANA");
                             } else {
                                 return chooseActionDone(buildChooseActionError(result, "index_out_of_range",
                                     "Index " + resolvedIndex + " is out of range"
-                                        + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
+                                        + " (valid: 0-" + (choiceBackings.size() - 1) + ")"
                                         + ". Call get_action_choices to see current options.", true, action, true));
                             }
                         } else {
-                            Object manaChoice = choices.get(resolvedIndex);
+                            Object manaChoice = choiceBackings.get(resolvedIndex);
                             if (manaChoice instanceof UUID manaUuid) {
                                 sendUuidOrDie(gameId, manaUuid, "chooseAction:GAME_PLAY_MANA");
                                 result.action_taken = "tapped_mana_" + resolvedIndex;
@@ -474,12 +463,9 @@ public final class BridgeDecisionFlowService {
                         boolean cancel = false;
                         if (answer != null && !answer) {
                             cancel = true;
-                        } else if (answer != null && answer) {
-                            List<Object> choices = processorState.decisionState().lastChoices();
-                            if (choices == null || choices.isEmpty()) {
-                                logger.warn("[" + username + "] choose_action: answer=true for GAME_PLAY_MANA with no mana sources, auto-cancelling");
-                                cancel = true;
-                            }
+                        } else if (answer != null && answer && choiceBackings.isEmpty()) {
+                            logger.warn("[" + username + "] choose_action: answer=true for GAME_PLAY_MANA with no mana sources, auto-cancelling");
+                            cancel = true;
                         }
                         if (cancel) {
                             UUID payingForId = extractPayingForId(action.message());
@@ -504,24 +490,22 @@ public final class BridgeDecisionFlowService {
                         if (answer != null) {
                             logger.warn("[" + username + "] choose_action: ignoring answer=" + answer + " because index was also provided for GAME_TARGET");
                         }
-                        List<Object> choices = processorState.decisionState().lastChoices();
-                        if (choices != null && resolvedIndex >= 0 && resolvedIndex < choices.size()) {
-                            UUID targetUUID = (UUID) choices.get(resolvedIndex);
+                        if (resolvedIndex >= 0 && resolvedIndex < choiceBackings.size()) {
+                            UUID targetUUID = (UUID) choiceBackings.get(resolvedIndex);
                             sendUuidOrDie(gameId, targetUUID, "chooseAction:GAME_TARGET_index");
                             result.action_taken = "selected_target_" + resolvedIndex;
                             break;
                         }
-                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choices);
+                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceBackings, projectedChoices);
                         if (!required) {
-                            List<Object> targetChoices = processorState.decisionState().lastChoices();
                             return chooseActionDone(buildChooseActionError(result, "index_out_of_range",
                                 "Index " + resolvedIndex + " is out of range"
-                                    + (targetChoices != null ? " (valid: 0-" + (targetChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
+                                    + " (valid: 0-" + (choiceBackings.size() - 1) + ")"
                                     + ". Call get_action_choices to see current targets.", true, action, true));
                         }
                         logger.warn("[" + username + "] choose_action: index " + resolvedIndex
                             + " out of range for required GAME_TARGET (choices="
-                            + (choices == null ? "null" : choices.size()) + "), auto-selecting");
+                            + choiceBackings.size() + "), auto-selecting");
                     } else if (answer != null && !answer) {
                         if (!required) {
                             sendBooleanOrDie(gameId, false, "chooseAction:GAME_TARGET_cancel");
@@ -537,7 +521,7 @@ public final class BridgeDecisionFlowService {
 
                     Set<UUID> autoTargets = findValidTargets(targetMsg);
                     if (autoTargets != null && !autoTargets.isEmpty()) {
-                        UUID firstTarget = selectDeterministicTarget(autoTargets, processorState.decisionState().lastChoices());
+                        UUID firstTarget = selectDeterministicTarget(autoTargets, choiceBackings);
                         logger.warn("[" + username + "] choose_action: auto-selecting first target for required GAME_TARGET");
                         sendUuidOrDie(gameId, firstTarget, "chooseAction:GAME_TARGET_auto_select");
                         result.action_taken = "auto_selected_required_target";
@@ -554,15 +538,14 @@ public final class BridgeDecisionFlowService {
                             "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
                             true, action, true));
                     }
-                    List<Object> abilityChoices = processorState.decisionState().lastChoices();
-                    if (abilityChoices == null || resolvedIndex < 0 || resolvedIndex >= abilityChoices.size()) {
-                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, abilityChoices);
+                    if (resolvedIndex < 0 || resolvedIndex >= choiceBackings.size()) {
+                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceBackings, projectedChoices);
                         return chooseActionDone(buildChooseActionError(result, "index_out_of_range",
                             "Index " + resolvedIndex + " is out of range"
-                                + (abilityChoices != null ? " (valid: 0-" + (abilityChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
+                                + " (valid: 0-" + (choiceBackings.size() - 1) + ")"
                                 + ". Call get_action_choices to see current options.", true, action, true));
                     }
-                    UUID abilityUUID = (UUID) abilityChoices.get(resolvedIndex);
+                    UUID abilityUUID = (UUID) choiceBackings.get(resolvedIndex);
                     sendUuidOrDie(gameId, abilityUUID, "chooseAction:GAME_CHOOSE_ABILITY");
                     result.action_taken = "selected_ability_" + resolvedIndex;
                 }
@@ -618,15 +601,14 @@ public final class BridgeDecisionFlowService {
                         return chooseActionDone(buildChooseActionError(result, "missing_param",
                             "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE", true, action, true));
                     }
-                    List<Object> choiceChoices = processorState.decisionState().lastChoices();
-                    if (choiceChoices == null || resolvedIndex < 0 || resolvedIndex >= choiceChoices.size()) {
-                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceChoices);
+                    if (resolvedIndex < 0 || resolvedIndex >= choiceBackings.size()) {
+                        logChoiceOutOfRangeDiagnostic(method, resolvedIndex, choiceBackings, projectedChoices);
                         return chooseActionDone(buildChooseActionError(result, "index_out_of_range",
                             "Index " + resolvedIndex + " is out of range"
-                                + (choiceChoices != null ? " (valid: 0-" + (choiceChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
+                                + " (valid: 0-" + (choiceBackings.size() - 1) + ")"
                                 + ". Call get_action_choices to see current options.", true, action, true));
                     }
-                    String choiceStr = (String) choiceChoices.get(resolvedIndex);
+                    String choiceStr = (String) choiceBackings.get(resolvedIndex);
                     sendStringOrDie(gameId, choiceStr, "chooseAction:GAME_CHOOSE_CHOICE_index");
                     result.action_taken = "selected_choice_" + resolvedIndex;
                 }
@@ -681,7 +663,6 @@ public final class BridgeDecisionFlowService {
             attachUnseenChat(result);
             return chooseActionDone(result);
         } finally {
-            processorState.decisionState().clearLastChoices();
             if (Boolean.FALSE.equals(result.success)) {
                 logger.warn("[" + username + "] choose_action failed: " + result.error);
             }
@@ -995,25 +976,23 @@ public final class BridgeDecisionFlowService {
         result.retryable = retryable;
         processorState.decisionState().restorePendingAction(action);
         if (attachChoices) {
-            attachChoicesToError(result, action);
+            attachChoicesToError(result);
         }
         attachUnseenChat(result);
         return result;
     }
 
-    private void attachChoicesToError(ChooseActionTool.Result errorResult, PendingAction action) {
-        ActionResult choicesResult = buildActionChoices(action);
+    private void attachChoicesToError(ChooseActionTool.Result errorResult) {
+        BridgePublishedActionChoices projectedChoices = refreshProjectedActionChoices("attach_choices_to_error");
+        ActionResult choicesResult = projectedChoices.copyForRead(null);
         if (choicesResult.choices != null) {
             errorResult.choices = choicesResult.choices;
         }
     }
 
-    private ActionResult buildActionChoices(PendingAction action) {
-        return publishedQueryBuilder.buildActionChoices(
-            action,
-            processorState.gameState().lastGameView(),
-            processorState.gameState().currentRound()
-        );
+    private BridgePublishedActionChoices refreshProjectedActionChoices(String cause) {
+        publishedQueryState.projectActionChoices(cause);
+        return publishedQueryState.currentProjectedActionChoices();
     }
 
     private void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
@@ -1069,8 +1048,6 @@ public final class BridgeDecisionFlowService {
             if (clearPendingActionIfCurrent(action)) {
                 logger.info("[" + username + "] " + source
                     + ": auto-cancelling optional GAME_TARGET with no valid targets");
-                processorState.decisionState().clearLastChoices();
-                processorState.decisionState().clearChoiceSnapshot();
                 sendBooleanOrDie(action.gameId(), false, "auto-cancel optional GAME_TARGET");
                 return NonDecisionActionStatus.AUTO_HANDLED;
             }
@@ -1089,8 +1066,6 @@ public final class BridgeDecisionFlowService {
                 + ": auto-selecting single required GAME_TARGET " + onlyTarget.toString().substring(0, 8));
             GameView gameView = targetMsg.getGameView();
             updateLastGameView(gameView, source + ":single_required_target");
-            processorState.decisionState().clearLastChoices();
-            processorState.decisionState().clearChoiceSnapshot();
             sendUuidOrDie(action.gameId(), onlyTarget, "auto-select single required GAME_TARGET");
             return NonDecisionActionStatus.AUTO_HANDLED;
         }
@@ -1107,8 +1082,6 @@ public final class BridgeDecisionFlowService {
         }
 
         try {
-            processorState.decisionState().clearLastChoices();
-            processorState.decisionState().clearChoiceSnapshot();
             boolean handled = handleGamePlayManaAuto(action.gameId(), (GameClientMessage) action.data());
             if (handled) {
                 logger.info("[" + username + "] " + source
@@ -1136,8 +1109,6 @@ public final class BridgeDecisionFlowService {
             if (clearPendingActionIfCurrent(action)) {
                 logger.warn("[" + username + "] " + source
                     + ": auto-selecting ability: no choices, sending null");
-                processorState.decisionState().clearLastChoices();
-                processorState.decisionState().clearChoiceSnapshot();
                 sendUuidOrDie(action.gameId(), null, "auto GAME_CHOOSE_ABILITY null_choice");
                 return NonDecisionActionStatus.AUTO_HANDLED;
             }
@@ -1165,8 +1136,6 @@ public final class BridgeDecisionFlowService {
                         processorState.interactionState().clearManaPlan();
                         processorState.gameLogState().addSystemMessage("[System] Spell cancelled — mana plan ability index was incorrect.");
                         eventLogger.log("SPELL_CANCELLED", processorState.gameState().currentGameId(), "mana plan ability index out of range");
-                        processorState.decisionState().clearLastChoices();
-                        processorState.decisionState().clearChoiceSnapshot();
                         sendUuidOrDie(action.gameId(), null, "auto GAME_CHOOSE_ABILITY bad_mana_plan");
                         return NonDecisionActionStatus.AUTO_HANDLED;
                     }
@@ -1183,8 +1152,6 @@ public final class BridgeDecisionFlowService {
                             + "\" -> " + choices.get(selected));
                     }
                 }
-                processorState.decisionState().clearLastChoices();
-                processorState.decisionState().clearChoiceSnapshot();
                 sendUuidOrDie(action.gameId(), selected, "auto GAME_CHOOSE_ABILITY mana_plan");
                 return NonDecisionActionStatus.AUTO_HANDLED;
             }
@@ -1196,20 +1163,24 @@ public final class BridgeDecisionFlowService {
         return NonDecisionActionStatus.NOT_HANDLED;
     }
 
-    private void logChoiceOutOfRangeDiagnostic(ClientCallbackMethod method, Integer index, List<Object> choices) {
-        long generatedAtMs = processorState.decisionState().lastChoicesGeneratedAtMs();
+    private void logChoiceOutOfRangeDiagnostic(
+            ClientCallbackMethod method,
+            Integer index,
+            List<Object> choices,
+            BridgePublishedActionChoices projectedChoices) {
+        long generatedAtMs = projectedChoices.generatedAtMs();
         long ageMs = generatedAtMs == 0 ? -1 : System.currentTimeMillis() - generatedAtMs;
         PendingAction nowPending = processorState.decisionState().pendingAction();
         String nowPendingType = nowPending == null ? "none" : nowPending.method().name();
         logger.warn("[" + username + "] choose_action out-of-range diagnostic: "
             + "method=" + method.name()
             + ", index=" + index
-            + ", choices_size=" + (choices == null ? -1 : choices.size())
+            + ", choices_size=" + choices.size()
             + ", pending_now=" + nowPendingType
-            + ", last_choices_action=" + (processorState.decisionState().lastChoicesActionType() == null ? "none" : processorState.decisionState().lastChoicesActionType())
+            + ", last_choices_action=" + (projectedChoices.actionType() == null ? "none" : projectedChoices.actionType())
             + ", last_choices_response="
-            + (processorState.decisionState().lastChoicesResponseType() == null ? "none" : processorState.decisionState().lastChoicesResponseType())
-            + ", last_choices_count=" + processorState.decisionState().lastChoicesCount()
+            + (projectedChoices.responseType() == null ? "none" : projectedChoices.responseType())
+            + ", last_choices_count=" + projectedChoices.choiceCount()
             + ", last_choices_age_ms=" + ageMs);
     }
 

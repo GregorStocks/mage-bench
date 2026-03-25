@@ -70,11 +70,7 @@ public final class BridgePublishedQueryBuilder {
         this.deckListSupplier = Objects.requireNonNull(deckListSupplier);
     }
 
-    public ActionResult buildPublishedActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
-        return buildActionChoices(action, fallbackGameView, currentRound);
-    }
-
-    public ActionResult buildActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
+    public BridgeBuiltActionChoices buildPublishedActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
         var result = new ActionResult();
         GameView gameView = extractActionGameView(action, fallbackGameView);
         final GameView capturedGameView = gameView;
@@ -84,8 +80,7 @@ public final class BridgePublishedQueryBuilder {
 
         if (action == null) {
             result.action_pending = false;
-            processorState.decisionState().clearChoiceSnapshot();
-            return result;
+            return new BridgeBuiltActionChoices(result, List.of());
         }
 
         result.action_pending = true;
@@ -143,32 +138,25 @@ public final class BridgePublishedQueryBuilder {
         ClientCallbackMethod method = action.method();
         Object data = action.data();
 
+        List<Object> backingChoices;
         switch (method) {
-            case GAME_ASK -> buildAskChoices(result, action, gameView);
-            case GAME_SELECT -> buildSelectChoices(result, data, gameView, capturedGameView);
-            case GAME_PLAY_MANA, GAME_PLAY_XMANA -> buildManaChoices(result, data, gameView, capturedGameView);
-            case GAME_TARGET -> buildTargetChoices(result, data);
-            case GAME_CHOOSE_ABILITY -> buildAbilityChoices(result, data);
-            case GAME_CHOOSE_CHOICE -> buildChoiceChoices(result, data);
-            case GAME_CHOOSE_PILE -> buildPileChoices(result, data);
-            case GAME_GET_AMOUNT -> buildAmountChoices(result, data);
-            case GAME_GET_MULTI_AMOUNT -> buildMultiAmountChoices(result, data);
+            case GAME_ASK -> backingChoices = buildAskChoices(result, action, gameView);
+            case GAME_SELECT -> backingChoices = buildSelectChoices(result, data, gameView, capturedGameView);
+            case GAME_PLAY_MANA, GAME_PLAY_XMANA -> backingChoices = buildManaChoices(result, data, gameView, capturedGameView);
+            case GAME_TARGET -> backingChoices = buildTargetChoices(result, data);
+            case GAME_CHOOSE_ABILITY -> backingChoices = buildAbilityChoices(result, data);
+            case GAME_CHOOSE_CHOICE -> backingChoices = buildChoiceChoices(result, data);
+            case GAME_CHOOSE_PILE -> backingChoices = buildPileChoices(result, data);
+            case GAME_GET_AMOUNT -> backingChoices = buildAmountChoices(result, data);
+            case GAME_GET_MULTI_AMOUNT -> backingChoices = buildMultiAmountChoices(result, data);
             default -> {
                 result.response_type = "unknown";
                 result.error = "Unhandled action type: " + method;
-                processorState.decisionState().clearLastChoices();
+                backingChoices = List.of();
             }
         }
 
-        String responseType = result.response_type;
-        if (responseType != null) {
-            int choiceCount = result.choices != null ? result.choices.size() : -1;
-            processorState.decisionState().recordChoiceSnapshot(method.name(), responseType, choiceCount);
-        } else {
-            processorState.decisionState().clearChoiceSnapshot();
-        }
-
-        return result;
+        return new BridgeBuiltActionChoices(result, backingChoices);
     }
 
     BridgePublishedGameStateBuild buildPublishedGameState(GameView gameView, int currentRound) {
@@ -216,10 +204,9 @@ public final class BridgePublishedQueryBuilder {
     ) {
     }
 
-    private void buildAskChoices(ActionResult result, PendingAction action, GameView gameView) {
+    private List<Object> buildAskChoices(ActionResult result, PendingAction action, GameView gameView) {
         result.response_type = "boolean";
         result.respond_with = "choice=yes or choice=no";
-        processorState.decisionState().clearLastChoices();
 
         String askMsg = action.message();
         if (askMsg != null && askMsg.toLowerCase().contains("mulligan") && gameView != null) {
@@ -235,9 +222,10 @@ public final class BridgePublishedQueryBuilder {
                 result.your_hand = handCards;
             }
         }
+        return List.of();
     }
 
-    private void buildSelectChoices(ActionResult result, Object data, GameView gameView, GameView capturedGameView) {
+    private List<Object> buildSelectChoices(ActionResult result, Object data, GameView gameView, GameView capturedGameView) {
         PlayableObjectsList playable = gameView != null ? gameView.getCanPlayObjects() : null;
         var choiceList = new ArrayList<Map<String, Object>>();
         var indexToUuid = new ArrayList<Object>();
@@ -424,7 +412,6 @@ public final class BridgePublishedQueryBuilder {
         if (!choiceList.isEmpty()) {
             result.response_type = "select";
             result.choices = choiceList;
-            processorState.decisionState().setLastChoices(indexToUuid);
             String combatPhase = result.combat_phase;
             if ("declare_attackers".equals(combatPhase)) {
                 result.respond_with = "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)";
@@ -433,15 +420,15 @@ public final class BridgePublishedQueryBuilder {
             } else {
                 result.respond_with = "choice=pN to play, or choice=no to pass";
             }
-            return;
+            return indexToUuid;
         }
 
         result.response_type = "boolean";
         result.respond_with = "choice=yes (confirm) or choice=no (pass)";
-        processorState.decisionState().clearLastChoices();
+        return List.of();
     }
 
-    private void buildManaChoices(ActionResult result, Object data, GameView gameView, GameView capturedGameView) {
+    private List<Object> buildManaChoices(ActionResult result, Object data, GameView gameView, GameView capturedGameView) {
         GameClientMessage manaMsg = (GameClientMessage) data;
         PlayableObjectsList manaPlayable = gameView != null ? gameView.getCanPlayObjects() : null;
         var manaChoiceList = new ArrayList<Map<String, Object>>();
@@ -509,16 +496,15 @@ public final class BridgePublishedQueryBuilder {
             result.response_type = "select";
             result.respond_with = "choice=pN to tap, or choice=no to cancel";
             result.choices = manaChoiceList;
-            processorState.decisionState().setLastChoices(manaIndexToChoice);
-            return;
+            return manaIndexToChoice;
         }
 
         result.response_type = "boolean";
         result.respond_with = "choice=no to cancel";
-        processorState.decisionState().clearLastChoices();
+        return List.of();
     }
 
-    private void buildTargetChoices(ActionResult result, Object data) {
+    private List<Object> buildTargetChoices(ActionResult result, Object data) {
         GameClientMessage msg = (GameClientMessage) data;
         result.response_type = "index";
         boolean required = msg.isFlag();
@@ -574,10 +560,10 @@ public final class BridgePublishedQueryBuilder {
         }
 
         result.choices = choiceList;
-        processorState.decisionState().setLastChoices(indexToUuid);
+        return indexToUuid;
     }
 
-    private void buildAbilityChoices(ActionResult result, Object data) {
+    private List<Object> buildAbilityChoices(ActionResult result, Object data) {
         AbilityPickerView picker = (AbilityPickerView) data;
         Map<UUID, String> choices = picker.getChoices();
         result.response_type = "index";
@@ -619,10 +605,10 @@ public final class BridgePublishedQueryBuilder {
         }
 
         result.choices = choiceList;
-        processorState.decisionState().setLastChoices(indexToUuid);
+        return indexToUuid;
     }
 
-    private void buildChoiceChoices(ActionResult result, Object data) {
+    private List<Object> buildChoiceChoices(ActionResult result, Object data) {
         GameClientMessage msg = (GameClientMessage) data;
         Choice choice = msg.getChoice();
         result.response_type = "index";
@@ -691,10 +677,10 @@ public final class BridgePublishedQueryBuilder {
         }
 
         result.choices = choiceList;
-        processorState.decisionState().setLastChoices(indexToKey);
+        return indexToKey;
     }
 
-    private void buildPileChoices(ActionResult result, Object data) {
+    private List<Object> buildPileChoices(ActionResult result, Object data) {
         GameClientMessage msg = (GameClientMessage) data;
         result.response_type = "pile";
         result.respond_with = "pile=1 or pile=2";
@@ -713,19 +699,19 @@ public final class BridgePublishedQueryBuilder {
         }
         result.pile1 = pile1;
         result.pile2 = pile2;
-        processorState.decisionState().clearLastChoices();
+        return List.of();
     }
 
-    private void buildAmountChoices(ActionResult result, Object data) {
+    private List<Object> buildAmountChoices(ActionResult result, Object data) {
         GameClientMessage msg = (GameClientMessage) data;
         result.response_type = "amount";
         result.respond_with = "amount=N (min=" + msg.getMin() + ", max=" + msg.getMax() + ")";
         result.min = msg.getMin();
         result.max = msg.getMax();
-        processorState.decisionState().clearLastChoices();
+        return List.of();
     }
 
-    private void buildMultiAmountChoices(ActionResult result, Object data) {
+    private List<Object> buildMultiAmountChoices(ActionResult result, Object data) {
         GameClientMessage msg = (GameClientMessage) data;
         result.response_type = "multi_amount";
         result.respond_with = "amounts=[N,N,...] — one per item, sum between total_min and total_max";
@@ -750,7 +736,7 @@ public final class BridgePublishedQueryBuilder {
                 result.message = BridgePromptFormatting.stripHtml(headerText);
             }
         }
-        processorState.decisionState().clearLastChoices();
+        return List.of();
     }
 
     private GameView extractActionGameView(PendingAction action, GameView fallbackGameView) {

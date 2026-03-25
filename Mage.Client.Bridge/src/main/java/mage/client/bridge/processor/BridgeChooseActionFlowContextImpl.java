@@ -78,11 +78,6 @@ public final class BridgeChooseActionFlowContextImpl implements BridgeChooseActi
     }
 
     @Override
-    public void clearLastChoices() {
-        processorState.decisionState().clearLastChoices();
-    }
-
-    @Override
     public ChooseActionTool.Result buildChooseActionError(
             ChooseActionTool.Result result,
             String errorCode,
