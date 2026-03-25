@@ -306,7 +306,7 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void populateCardFieldsMapForCardViewPreservesSharedOracleFields() throws Exception {
+    void buildCardFieldsMapForCardViewPreservesSharedOracleFields() throws Exception {
         CardView secondFace = cardView(UUID.randomUUID(), "p2", "Awakened Insight");
         setField(secondFace, "manaCostLeftStr", List.of());
         setField(secondFace, "manaCostRightStr", List.of());
@@ -327,8 +327,7 @@ class BridgeCallbackHandlerTest {
         setField(frontFace, "toughness", "4");
         setField(frontFace, "secondCardFace", secondFace);
 
-        Map<String, Object> entry = new LinkedHashMap<>();
-        oracleTextService().populateCardFields(entry, frontFace);
+        Map<String, Object> entry = BridgeOracleTextService.buildCardFieldsMap(frontFace);
 
         assertThat(entry)
             .containsEntry("name", "Test Front")
@@ -360,7 +359,7 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void populateCardFieldsResultForCardInfoPreservesSharedOracleFields() throws Exception {
+    void buildCardFieldsMapForCardInfoPreservesSharedOracleFields() throws Exception {
         CardInfo battle = new CardInfo();
         setField(battle, "name", "Test Invasion");
         battle.setManaCosts(List.of("{1}", "{W}"));
@@ -373,18 +372,15 @@ class BridgeCallbackHandlerTest {
         ));
         setField(battle, "startingDefense", "4");
 
-        GetOracleTextTool.Result result = new GetOracleTextTool.Result();
-        oracleTextService().populateCardFields(result, battle);
+        Map<String, Object> fields = BridgeOracleTextService.buildCardFieldsMap(battle);
 
-        assertThat(result.name).isEqualTo("Test Invasion");
-        assertThat(result.mana_cost).isEqualTo("{1}{W}");
-        assertThat(result.type).isEqualTo("Legendary Battle — Siege");
-        assertThat(result.rules).containsExactly(
-            "Front rule one",
-            "Front rule two"
-        );
-        assertThat(result.starting_defense).isEqualTo("4");
-        assertThat(result.second_face).isNull();
+        assertThat(fields)
+            .containsEntry("name", "Test Invasion")
+            .containsEntry("mana_cost", "{1}{W}")
+            .containsEntry("type", "Legendary Battle — Siege")
+            .containsEntry("rules", List.of("Front rule one", "Front rule two"))
+            .containsEntry("starting_defense", "4")
+            .doesNotContainKeys("second_face", "power", "toughness");
     }
 
     @Test
@@ -4709,13 +4705,6 @@ class BridgeCallbackHandlerTest {
         BridgeViewLocator viewLocator = new BridgeViewLocator(shortIds, ignored -> {
         });
         return new BridgeCardFormatter(viewLocator);
-    }
-
-    private static BridgeOracleTextService oracleTextService() {
-        ShortIdRegistry shortIds = new ShortIdRegistry("l");
-        BridgeViewLocator viewLocator = new BridgeViewLocator(shortIds, ignored -> {
-        });
-        return new BridgeOracleTextService(shortIds, viewLocator);
     }
 
     private static Session sessionProxy(CountDownLatch autoPassSent, AtomicInteger sendPlayerBooleanCalls) {

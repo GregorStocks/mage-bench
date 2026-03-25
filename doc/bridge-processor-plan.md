@@ -199,9 +199,11 @@ There are still real actor-model violations or near-violations left:
   and is applied onto the processor via submitted commands, so fresh-handler
   replacement no longer copies live processor state directly
 - the helper stack (`BridgeViewLocator`, `BridgeCardFormatter`,
-  `BridgeGameStateBuilder`, `BridgeOracleTextService`, `ShortIdRegistry`) now
-  hangs off a processor-side `BridgeProcessorServices` owner instead of being
-  stored as separate fields on `BridgeCallbackHandler`
+  `BridgeGameStateBuilder`, `ShortIdRegistry`) now hangs off a processor-side
+  `BridgeProcessorServices` owner instead of being stored as separate fields on
+  `BridgeCallbackHandler`; `BridgeOracleTextService` is now a pure static
+  utility with no instance state — the old instance-based oracle-text lookup
+  through `BridgeProcessorServices.getOracleText()` is gone
 - those helpers no longer carry hidden live-state suppliers; processor-owned
   callers now thread explicit `GameView` / player context into them
 - published query building now captures explicit projection inputs
@@ -213,6 +215,11 @@ There are still real actor-model violations or near-violations left:
   reaching back into `processorState` / `BridgeGameLogRefresher` directly
 - processor-published query state now also owns the immutable oracle-object
   lookup surface used by `get_oracle_text(object_id=...)`
+- `BridgePublishedQueryBuilder` no longer holds a mutable `deckListSupplier`;
+  deck creature types are now pre-computed at `setDeckList` time and published
+  as an immutable set alongside the decklist response, so the query builder
+  reads the published creature types instead of reaching back into a mutable
+  `DeckCardLists` object
 - but the helper stack still formats and rebuilds projections from mutable
   runtime bags rather than from native append-only processor projections
 - published game state and action choices are now explicit processor-side
@@ -312,22 +319,25 @@ action-choice publication now reuses a processor-owned projected action
 context instead of re-reading mutable projected game-view bags on every
 reproject.
 
+Most of the query builder's mutable-state dependencies are now gone:
+
+- `BridgeOracleTextService` is a pure static utility (no instance state)
+- the old `BridgeProcessorServices.getOracleText()` instance path is deleted
+- the `deckListSupplier` on `BridgePublishedQueryBuilder` is replaced by a
+  pre-computed immutable `Set<String>` of deck creature types
+
 The remaining work in this area is mostly:
 
-- shrinking or deleting query builder helpers that still exist only to rebuild
-  projection records from mutable runtime bags
 - continuing to narrow `BridgeProcessorServices` so it becomes a thin
   processor-private services/context layer around projections and current-game
   context, not a bag of mutable-state readers
 
 The remaining read-side cleanup should focus on:
 
-- making the rest of MCP reads consume processor-published immutable state
-  instead of reading mutable `Bridge*State` holders
-- shrinking `BridgeMcpQueryApi` toward a pure "sync barrier + published read"
-  shell, with publication/build logic owned elsewhere
-- deleting the remaining read helpers that only exist to rebuild projection
-  records from those mutable state holders
+- the `snapshotGameLog()` path in `BridgeMcpQueryApi`, which still uses
+  `processor.submit()` to capture a sync barrier epoch and waits on the
+  `BridgeGameLogRefresher` — this is the last MCP read that routes through
+  the processor instead of just reading a published snapshot
 
 ### 2. Delete the `Session.getBridgeEvents(...)` synchronization shim
 
@@ -349,17 +359,17 @@ delete the transitional mechanisms that only exist to prop that model up:
 
 ## Expected Remaining PRs
 
-Realistically, expect **2-3 review-sized PRs** from here.
+Realistically, expect **1-2 review-sized PRs** from here.
 
 A plausible decomposition is:
 
-1. replace more of the published query builders with native processor
-   projections so MCP reads stop depending on mutable runtime bags
-2. replace the bridge-event sync shim with authoritative processor log appends
-3. simplify the remaining snapshot/barrier scaffolding once the last mutable
+1. replace the bridge-event sync shim with authoritative processor log appends
+   so `snapshotGameLog()` becomes a pure "barrier + published read" like the
+   other MCP reads, and `BridgeGameLogRefresher` can be deleted
+2. simplify the remaining snapshot/barrier scaffolding once the last mutable
    read dependencies are gone
 
-Some of those could still be split again if the review gets too large.
+These could be combined into one PR if the scope is manageable.
 
 ## Definition Of Done
 

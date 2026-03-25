@@ -2,130 +2,20 @@ package mage.client.bridge;
 
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
-import mage.client.bridge.tools.GetOracleTextTool;
 import mage.constants.CardType;
 import mage.constants.SubType;
 import mage.constants.SuperType;
-import mage.util.ShortIdRegistry;
 import mage.view.CardView;
-import mage.view.GameView;
 import mage.view.StackAbilityView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public final class BridgeOracleTextService {
 
-    private final ShortIdRegistry shortIds;
-    private final BridgeViewLocator viewLocator;
-
-    public BridgeOracleTextService(ShortIdRegistry shortIds, BridgeViewLocator viewLocator) {
-        this.shortIds = shortIds;
-        this.viewLocator = viewLocator;
-    }
-
-    public GetOracleTextTool.Result getOracleText(
-            String cardName,
-            String objectId,
-            String[] cardNames,
-            String[] objectIds,
-            GameView gameView
-    ) {
-        var result = new GetOracleTextTool.Result();
-
-        boolean hasCardName = cardName != null && !cardName.isEmpty();
-        boolean hasObjectId = objectId != null && !objectId.isEmpty();
-        boolean hasCardNames = cardNames != null && cardNames.length > 0;
-        boolean hasObjectIds = objectIds != null && objectIds.length > 0;
-
-        int providedCount = (hasCardName ? 1 : 0)
-            + (hasObjectId ? 1 : 0)
-            + (hasCardNames ? 1 : 0)
-            + (hasObjectIds ? 1 : 0);
-        if (providedCount != 1) {
-            result.success = false;
-            result.error = "Provide exactly one of: card_name, object_id, card_names, or object_ids";
-            return result;
-        }
-
-        if (hasObjectIds) {
-            var results = new ArrayList<Map<String, Object>>();
-            for (String oid : objectIds) {
-                var entry = new HashMap<String, Object>();
-                if (oid == null) {
-                    entry.put("object_id", null);
-                    entry.put("error", "null object_id");
-                } else {
-                    entry.put("object_id", oid);
-                    try {
-                        UUID uuid = shortIds.resolve(oid);
-                        CardView cardView = viewLocator.findCardViewById(uuid, gameView);
-                        if (cardView != null) {
-                            populateCardFields(entry, cardView);
-                        } else {
-                            entry.put("error", "not found");
-                        }
-                    } catch (IllegalArgumentException e) {
-                        entry.put("error", "unknown short ID: " + oid);
-                    }
-                }
-                results.add(entry);
-            }
-            result.success = true;
-            result.cards = results;
-            return result;
-        }
-
-        if (hasCardNames) {
-            var results = new ArrayList<Map<String, Object>>();
-            for (String name : cardNames) {
-                var entry = new HashMap<String, Object>();
-                entry.put("name", name);
-                CardInfo cardInfo = CardRepository.instance.findCard(name);
-                if (cardInfo != null) {
-                    populateCardFields(entry, cardInfo);
-                } else {
-                    entry.put("error", "not found");
-                }
-                results.add(entry);
-            }
-            result.success = true;
-            result.cards = results;
-            return result;
-        }
-
-        if (hasObjectId) {
-            try {
-                UUID uuid = shortIds.resolve(objectId);
-                CardView cardView = viewLocator.findCardViewById(uuid, gameView);
-                if (cardView != null) {
-                    result.success = true;
-                    populateCardFields(result, cardView);
-                    return result;
-                }
-                result.success = false;
-                result.error = "Object not found in current game state: " + objectId;
-                return result;
-            } catch (IllegalArgumentException e) {
-                result.success = false;
-                result.error = "Unknown short ID: " + objectId;
-                return result;
-            }
-        }
-
-        CardInfo cardInfo = CardRepository.instance.findCard(cardName);
-        if (cardInfo != null) {
-            result.success = true;
-            populateCardFields(result, cardInfo);
-            return result;
-        }
-        result.success = false;
-        result.error = "Card not found in database: " + cardName;
-        return result;
+    private BridgeOracleTextService() {
     }
 
     public static Map<String, Object> buildCardFieldsMap(CardView cv) {
@@ -138,22 +28,6 @@ public final class BridgeOracleTextService {
         var entry = new HashMap<String, Object>();
         extractOracleCardFields(ci, true).populate(entry);
         return Map.copyOf(entry);
-    }
-
-    void populateCardFields(Map<String, Object> entry, CardView cv) {
-        extractOracleCardFields(cv).populate(entry);
-    }
-
-    void populateCardFields(Map<String, Object> entry, CardInfo ci) {
-        extractOracleCardFields(ci, true).populate(entry);
-    }
-
-    void populateCardFields(GetOracleTextTool.Result result, CardView cv) {
-        extractOracleCardFields(cv).populate(result);
-    }
-
-    void populateCardFields(GetOracleTextTool.Result result, CardInfo ci) {
-        extractOracleCardFields(ci, true).populate(result);
     }
 
     private record OracleCardFields(
@@ -199,18 +73,6 @@ public final class BridgeOracleTextService {
             var face = new HashMap<String, Object>();
             populate(face);
             return face;
-        }
-
-        private void populate(GetOracleTextTool.Result result) {
-            result.name = name;
-            result.mana_cost = manaCost;
-            result.type = type;
-            result.rules = rules;
-            result.power = power;
-            result.toughness = toughness;
-            result.starting_loyalty = startingLoyalty;
-            result.starting_defense = startingDefense;
-            result.second_face = secondFace != null ? secondFace.toMap() : null;
         }
     }
 

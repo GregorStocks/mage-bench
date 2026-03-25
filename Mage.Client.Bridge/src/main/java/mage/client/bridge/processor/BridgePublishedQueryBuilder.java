@@ -1,9 +1,5 @@
 package mage.client.bridge.processor;
 
-import mage.cards.decks.DeckCardInfo;
-import mage.cards.decks.DeckCardLists;
-import mage.cards.repository.CardInfo;
-import mage.cards.repository.CardRepository;
 import mage.choices.Choice;
 import mage.client.bridge.BridgeOracleTextService;
 import mage.client.bridge.BridgePromptFormatting;
@@ -12,8 +8,6 @@ import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.GetGameStateTool;
 import mage.client.bridge.tools.McpToolRegistry;
 import mage.constants.ManaType;
-import mage.constants.SubType;
-import mage.constants.SubTypeSet;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.players.PlayableObjectStats;
 import mage.players.PlayableObjectsList;
@@ -58,17 +52,17 @@ public final class BridgePublishedQueryBuilder {
 
     private final String username;
     private final BridgeProcessorServices processorServices;
-    private final Supplier<DeckCardLists> deckListSupplier;
+    private final Supplier<Set<String>> deckCreatureTypesSupplier;
     private final ToLongFunction<Map<String, Object>> snapshotIdAllocator;
 
     public BridgePublishedQueryBuilder(
             String username,
             BridgeProcessorServices processorServices,
-            Supplier<DeckCardLists> deckListSupplier,
+            Supplier<Set<String>> deckCreatureTypesSupplier,
             ToLongFunction<Map<String, Object>> snapshotIdAllocator) {
         this.username = Objects.requireNonNull(username);
         this.processorServices = Objects.requireNonNull(processorServices);
-        this.deckListSupplier = Objects.requireNonNull(deckListSupplier);
+        this.deckCreatureTypesSupplier = Objects.requireNonNull(deckCreatureTypesSupplier);
         this.snapshotIdAllocator = Objects.requireNonNull(snapshotIdAllocator);
     }
 
@@ -770,9 +764,8 @@ public final class BridgePublishedQueryBuilder {
         }
 
         int totalChoices = choiceList.size();
-        DeckCardLists deckList = deckListSupplier.get();
-        if (totalChoices >= 50 && deckList != null) {
-            Set<String> deckTypes = getDeckCreatureTypes(deckList);
+        if (totalChoices >= 50) {
+            Set<String> deckTypes = deckCreatureTypesSupplier.get();
             if (!deckTypes.isEmpty()) {
                 var filtered = new ArrayList<Map<String, Object>>();
                 var filteredKeys = new ArrayList<Object>();
@@ -1023,21 +1016,6 @@ public final class BridgePublishedQueryBuilder {
             }
         }
         return currentPlayerId;
-    }
-
-    private Set<String> getDeckCreatureTypes(DeckCardLists deckList) {
-        var types = new HashSet<String>();
-        for (DeckCardInfo card : deckList.getCards()) {
-            CardInfo info = CardRepository.instance.findCard(card.getCardName());
-            if (info != null) {
-                for (SubType subType : info.getSubTypes()) {
-                    if (subType.getSubTypeSet() == SubTypeSet.CreatureType) {
-                        types.add(subType.toString());
-                    }
-                }
-            }
-        }
-        return types;
     }
 
     private static List<Map<String, Object>> summarizeProjectedStack(List<Map<String, Object>> stack) {

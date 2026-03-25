@@ -3,6 +3,7 @@ package mage.client.bridge;
 import mage.client.bridge.listener.BridgeCallbackIngress;
 import mage.client.bridge.mcp.BridgeMcpActionApi;
 import mage.client.bridge.mcp.BridgePublishedDecklist;
+import mage.client.bridge.mcp.BridgePublishedDecklistSnapshot;
 import mage.client.bridge.mcp.BridgeMcpQueryApi;
 import mage.client.bridge.processor.BridgeActionCommandService;
 import mage.client.bridge.processor.BridgeCallbackDispatcher;
@@ -30,7 +31,6 @@ import mage.client.bridge.processor.BridgePublishedQueryState;
 import mage.client.bridge.processor.BridgeStartGameFlow;
 import mage.client.bridge.processor.BridgeStartGameFlowManager;
 import mage.client.bridge.processor.BridgeChooseActionFlowContextImpl;
-import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
@@ -121,8 +121,7 @@ public class BridgeCallbackHandler {
     private volatile boolean keepAliveAfterGameConfig = false;
     private volatile int maxInteractionsPerTurnConfig = 25;
 
-    private volatile DeckCardLists deckList = null; // Original decklist for get_my_decklist
-    private volatile Map<String, Object> publishedDecklist = BridgePublishedDecklist.empty();
+    private volatile BridgePublishedDecklistSnapshot publishedDecklist = BridgePublishedDecklist.emptySnapshot();
     private volatile String errorLogPath = null; // Path to write errors to (set via system property)
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
     // Join handler: provided by BridgeClient so JoinTableTool can trigger table joining
@@ -189,7 +188,7 @@ public class BridgeCallbackHandler {
         BridgePublishedQueryBuilder publishedQueryBuilder = new BridgePublishedQueryBuilder(
             client.getUsername(),
             processorServices,
-            () -> deckList,
+            () -> publishedDecklist.creatureTypes(),
             state -> processorState.cursorState().updateGameStateSnapshotId(
                 BridgeGameStateBuilder.buildStateSignature(state)
             )
@@ -219,7 +218,7 @@ public class BridgeCallbackHandler {
             processor,
             gameLogRefresher,
             publishedQueryState,
-            () -> publishedDecklist,
+            () -> publishedDecklist.response(),
             this::awaitPublishedReadBarrier,
             this::awaitProcessorReadBarrier
         );
@@ -377,8 +376,7 @@ public class BridgeCallbackHandler {
     }
 
     public void setDeckList(DeckCardLists deckList) {
-        this.deckList = deckList;
-        this.publishedDecklist = BridgePublishedDecklist.from(deckList);
+        this.publishedDecklist = BridgePublishedDecklist.snapshot(deckList);
     }
 
     public void setMaxInteractionsPerTurn(int max) {
