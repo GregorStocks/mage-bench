@@ -145,7 +145,7 @@ public class BridgeCallbackHandler {
 
     public BridgeCallbackHandler(BridgeMageClient client) {
         this.client = client;
-        this.processorServices = new BridgeProcessorServices(processorState, this::logError);
+        this.processorServices = new BridgeProcessorServices(this::logError);
         var processorRef = new AtomicReference<BridgeProcessor>();
         var startGameFlowManagerRef = new AtomicReference<BridgeStartGameFlowManager>();
         var publishedQueryStateRef = new AtomicReference<BridgePublishedQueryState>();
@@ -187,9 +187,11 @@ public class BridgeCallbackHandler {
         );
         BridgePublishedQueryBuilder publishedQueryBuilder = new BridgePublishedQueryBuilder(
             client.getUsername(),
-            processorState,
             processorServices,
-            () -> deckList
+            () -> deckList,
+            state -> processorState.cursorState().updateGameStateSnapshotId(
+                BridgeGameStateBuilder.buildStateSignature(state)
+            )
         );
         this.publishedQueryState = new BridgePublishedQueryState(
             logger,
@@ -205,6 +207,7 @@ public class BridgeCallbackHandler {
         );
         this.queryCommandService = new BridgeQueryCommandService(
             () -> deckList,
+            processorState,
             processorServices
         );
         this.mcpQueryApi = new BridgeMcpQueryApi(

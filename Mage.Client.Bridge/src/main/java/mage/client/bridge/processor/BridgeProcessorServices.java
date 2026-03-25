@@ -6,12 +6,12 @@ import mage.client.bridge.BridgeOracleTextService;
 import mage.client.bridge.BridgeViewLocator;
 import mage.client.bridge.tools.GetOracleTextTool;
 import mage.util.ShortIdRegistry;
+import mage.view.GameView;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 
 public final class BridgeProcessorServices {
-    private final BridgeProcessorState processorState;
     private final ShortIdRegistry shortIds;
     private final BridgeViewLocator viewLocator;
     private final BridgeCardFormatter cardFormatter;
@@ -19,11 +19,8 @@ public final class BridgeProcessorServices {
     private final BridgeOracleTextService oracleTextService;
 
     public BridgeProcessorServices(
-            BridgeProcessorState processorState,
             Consumer<String> errorLogger) {
-        Objects.requireNonNull(processorState, "processorState");
         Objects.requireNonNull(errorLogger, "errorLogger");
-        this.processorState = processorState;
         this.shortIds = new ShortIdRegistry("l");
         this.viewLocator = new BridgeViewLocator(shortIds, errorLogger);
         this.cardFormatter = new BridgeCardFormatter(viewLocator);
@@ -55,13 +52,14 @@ public final class BridgeProcessorServices {
             String cardName,
             String objectId,
             String[] cardNames,
-            String[] objectIds) {
+            String[] objectIds,
+            GameView gameView) {
         return oracleTextService.getOracleText(
             cardName,
             objectId,
             cardNames,
             objectIds,
-            processorState.gameState().lastGameView()
+            gameView
         );
     }
 }

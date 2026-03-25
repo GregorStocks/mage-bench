@@ -5,7 +5,6 @@ import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
 import mage.choices.Choice;
-import mage.client.bridge.BridgeGameStateBuilder;
 import mage.client.bridge.BridgePromptFormatting;
 import mage.client.bridge.PendingAction;
 import mage.client.bridge.tools.ActionResult;
@@ -41,6 +40,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Supplier;
+import java.util.function.ToLongFunction;
 import java.util.regex.Pattern;
 
 public final class BridgePublishedQueryBuilder {
@@ -55,25 +55,26 @@ public final class BridgePublishedQueryBuilder {
     }
 
     private final String username;
-    private final BridgeProcessorState processorState;
     private final BridgeProcessorServices processorServices;
     private final Supplier<DeckCardLists> deckListSupplier;
+    private final ToLongFunction<Map<String, Object>> snapshotIdAllocator;
 
     public BridgePublishedQueryBuilder(
             String username,
-            BridgeProcessorState processorState,
             BridgeProcessorServices processorServices,
-            Supplier<DeckCardLists> deckListSupplier) {
+            Supplier<DeckCardLists> deckListSupplier,
+            ToLongFunction<Map<String, Object>> snapshotIdAllocator) {
         this.username = Objects.requireNonNull(username);
-        this.processorState = Objects.requireNonNull(processorState);
         this.processorServices = Objects.requireNonNull(processorServices);
         this.deckListSupplier = Objects.requireNonNull(deckListSupplier);
+        this.snapshotIdAllocator = Objects.requireNonNull(snapshotIdAllocator);
     }
 
     public BridgeBuiltActionChoices buildPublishedActionChoices(
             PendingAction action,
             BridgeProjectedActionContext projectedActionContext,
-            GameView fallbackGameView
+            GameView fallbackGameView,
+            BridgeProjectionInputs projectionInputs
     ) {
         var result = new ActionResult();
         GameView gameView = extractActionGameView(action, fallbackGameView);
@@ -108,9 +109,9 @@ public final class BridgePublishedQueryBuilder {
         List<Object> backingChoices;
         switch (method) {
             case GAME_ASK -> backingChoices = buildAskChoices(result, action, gameView);
-            case GAME_SELECT -> backingChoices = buildSelectChoices(result, data, gameView);
+            case GAME_SELECT -> backingChoices = buildSelectChoices(result, data, gameView, projectionInputs);
             case GAME_PLAY_MANA, GAME_PLAY_XMANA -> backingChoices = buildManaChoices(result, data, gameView);
-            case GAME_TARGET -> backingChoices = buildTargetChoices(result, data);
+            case GAME_TARGET -> backingChoices = buildTargetChoices(result, data, gameView, projectionInputs.currentPlayerId());
             case GAME_CHOOSE_ABILITY -> backingChoices = buildAbilityChoices(result, data);
             case GAME_CHOOSE_CHOICE -> backingChoices = buildChoiceChoices(result, data);
             case GAME_CHOOSE_PILE -> backingChoices = buildPileChoices(result, data);
@@ -180,8 +181,11 @@ public final class BridgePublishedQueryBuilder {
         );
     }
 
-    BridgePublishedGameStateBuild buildPublishedGameState(GameView gameView, int currentRound) {
-        UUID myPlayerId = resolveMyPlayerId(gameView);
+    BridgePublishedGameStateBuild buildPublishedGameState(
+            GameView gameView,
+            int currentRound,
+            UUID currentPlayerId) {
+        UUID myPlayerId = resolveMyPlayerId(gameView, currentPlayerId);
         List<Map<String, Object>> players = freezeMapList(
             processorServices.gameStateBuilder().buildPlayersArray(gameView, myPlayerId)
         );
@@ -251,7 +255,11 @@ public final class BridgePublishedQueryBuilder {
         return List.of();
     }
 
-    private List<Object> buildSelectChoices(ActionResult result, Object data, GameView gameView) {
+    private List<Object> buildSelectChoices(
+            ActionResult result,
+            Object data,
+            GameView gameView,
+            BridgeProjectionInputs projectionInputs) {
         PlayableObjectsList playable = gameView != null ? gameView.getCanPlayObjects() : null;
         var choiceList = new ArrayList<Map<String, Object>>();
         var indexToUuid = new ArrayList<Object>();
@@ -271,7 +279,7 @@ public final class BridgePublishedQueryBuilder {
             for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
                 UUID objectId = entry.getKey();
                 PlayableObjectStats stats = entry.getValue();
-                if (processorState.interactionState().failedManaCast(objectId)) {
+                if (projectionInputs.failedManaCast(objectId)) {
                     continue;
                 }
 
@@ -532,7 +540,11 @@ public final class BridgePublishedQueryBuilder {
         return List.of();
     }
 
-    private List<Object> buildTargetChoices(ActionResult result, Object data) {
+    private List<Object> buildTargetChoices(
+            ActionResult result,
+            Object data,
+            GameView targetGameView,
+            UUID currentPlayerId) {
         GameClientMessage msg = (GameClientMessage) data;
         result.response_type = "index";
         boolean required = msg.isFlag();
@@ -548,8 +560,7 @@ public final class BridgePublishedQueryBuilder {
 
         if (targets != null) {
             CardsView cardsView = msg.getCardsView1();
-            GameView targetGameView = msg.getGameView() != null ? msg.getGameView() : processorState.gameState().lastGameView();
-            UUID myPlayerId = resolveMyPlayerId(targetGameView);
+            UUID myPlayerId = resolveMyPlayerId(targetGameView, currentPlayerId);
             var targetChoices = new ArrayList<TargetChoice>();
             for (UUID targetId : targets) {
                 var choiceEntry = new HashMap<String, Object>();
@@ -781,9 +792,7 @@ public final class BridgePublishedQueryBuilder {
     }
 
     private long updateGameStateSnapshotId(Map<String, Object> state) {
-        return processorState.cursorState().updateGameStateSnapshotId(
-            BridgeGameStateBuilder.buildStateSignature(state)
-        );
+        return snapshotIdAllocator.applyAsLong(state);
     }
 
     @SuppressWarnings("unchecked")
@@ -926,15 +935,14 @@ public final class BridgePublishedQueryBuilder {
         return orderedChoices;
     }
 
-    private UUID resolveMyPlayerId(GameView gameView) {
+    private UUID resolveMyPlayerId(GameView gameView, UUID currentPlayerId) {
         if (gameView != null) {
             PlayerView myPlayer = gameView.getMyPlayer();
             if (myPlayer != null && myPlayer.getPlayerId() != null) {
                 return myPlayer.getPlayerId();
             }
         }
-        UUID gameId = processorState.gameState().currentGameId();
-        return gameId != null ? processorState.gameState().playerIdForGame(gameId) : null;
+        return currentPlayerId;
     }
 
     private Set<String> getDeckCreatureTypes(DeckCardLists deckList) {

@@ -71,13 +71,14 @@ public final class BridgePublishedQueryState {
         if (!processor.isProcessorThread()) {
             throw new IllegalStateException("projectGameState must run on the bridge processor thread");
         }
+        BridgeProjectionInputs projectionInputs = projectionInputs();
         BridgePublishedQueryBuilder.BridgePublishedGameStateBuild built =
-            queryBuilder.buildPublishedGameState(gameView, round);
+            queryBuilder.buildPublishedGameState(gameView, round, projectionInputs.currentPlayerId());
         BridgePublishedGameState previous = projectedGameState;
         projectedGameState = built.state();
         projectedActionContext = queryBuilder.buildProjectedActionContext(gameView, built.state(), round);
         projectedGameView = gameView;
-        projectActionChoices(cause);
+        projectActionChoices(cause, projectionInputs);
         traceProjectedGameStateChange(cause, previous, built.state(), built.payload());
     }
 
@@ -99,13 +100,18 @@ public final class BridgePublishedQueryState {
     }
 
     public void projectActionChoices(String cause) {
+        projectActionChoices(cause, projectionInputs());
+    }
+
+    private void projectActionChoices(String cause, BridgeProjectionInputs projectionInputs) {
         if (!processor.isProcessorThread()) {
             throw new IllegalStateException("projectActionChoices must run on the bridge processor thread");
         }
         BridgeBuiltActionChoices built = queryBuilder.buildPublishedActionChoices(
             processorState.decisionState().pendingAction(),
             projectedActionContext,
-            projectedGameView
+            projectedGameView,
+            projectionInputs
         );
         ActionResult result = built.result();
         if (Boolean.TRUE.equals(result.action_pending)) {
@@ -130,6 +136,13 @@ public final class BridgePublishedQueryState {
             projectedActionChoices,
             projectedGameState,
             processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch())
+        );
+    }
+
+    private BridgeProjectionInputs projectionInputs() {
+        return new BridgeProjectionInputs(
+            processorState.gameState().currentPlayerId(),
+            processorState.interactionState().failedManaCastsSnapshot()
         );
     }
 

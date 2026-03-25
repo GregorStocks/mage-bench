@@ -11,12 +11,15 @@ import java.util.function.Supplier;
 
 public final class BridgeQueryCommandService {
     private final Supplier<DeckCardLists> deckListSupplier;
+    private final BridgeProcessorState processorState;
     private final BridgeProcessorServices processorServices;
 
     public BridgeQueryCommandService(
             Supplier<DeckCardLists> deckListSupplier,
+            BridgeProcessorState processorState,
             BridgeProcessorServices processorServices) {
         this.deckListSupplier = deckListSupplier;
+        this.processorState = processorState;
         this.processorServices = processorServices;
     }
 
@@ -40,7 +43,13 @@ public final class BridgeQueryCommandService {
             String objectId,
             String[] cardNames,
             String[] objectIds) {
-        return processorServices.getOracleText(cardName, objectId, cardNames, objectIds);
+        return processorServices.getOracleText(
+            cardName,
+            objectId,
+            cardNames,
+            objectIds,
+            processorState.gameState().lastGameView()
+        );
     }
 
     private static String renderDeckSection(List<DeckCardInfo> cards) {

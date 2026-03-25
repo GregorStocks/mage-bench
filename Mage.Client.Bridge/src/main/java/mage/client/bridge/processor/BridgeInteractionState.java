@@ -59,6 +59,10 @@ public final class BridgeInteractionState {
         return failedManaCasts.contains(objectId);
     }
 
+    public Set<UUID> failedManaCastsSnapshot() {
+        return Set.copyOf(failedManaCasts);
+    }
+
     public void markFailedManaCast(UUID objectId) {
         if (objectId != null) {
             failedManaCasts.add(objectId);

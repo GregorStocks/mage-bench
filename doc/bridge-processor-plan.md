@@ -194,6 +194,10 @@ There are still real actor-model violations or near-violations left:
   stored as separate fields on `BridgeCallbackHandler`
 - those helpers no longer carry hidden live-state suppliers; processor-owned
   callers now thread explicit `GameView` / player context into them
+- published query building now captures explicit projection inputs
+  (`currentPlayerId`, failed-mana snapshot, current `GameView`) at processor
+  projection/query call sites instead of letting `BridgePublishedQueryBuilder`
+  and `BridgeProcessorServices` reach back into `processorState` directly
 - but the helper stack still formats and rebuilds projections from mutable
   runtime bags rather than from native append-only processor projections
 - published game state and action choices are now explicit processor-side
@@ -243,6 +247,15 @@ But that still does **not** make the bridge actor-pure.
 Another remaining smell is that processor-side query publication still depends
 on helper classes that are now owned under `BridgeProcessorServices` but still
 operate as mutable-state readers rather than native append-only projections.
+
+That smell is narrower now:
+
+- published query building no longer has direct `processorState` reach-backs
+  for current-player identity, failed-mana filtering, or oracle-text `GameView`
+  lookup
+- the remaining issue is that those explicit inputs are still captured from
+  mutable runtime bags rather than from native append-only processor
+  projections
 
 The biggest remaining MCP-side smell is that some reads still need
 processor/barrier synchronization around mutable state holders instead of
