@@ -70,10 +70,13 @@ public final class BridgePublishedQueryBuilder {
         this.deckListSupplier = Objects.requireNonNull(deckListSupplier);
     }
 
-    public BridgeBuiltActionChoices buildPublishedActionChoices(PendingAction action, GameView fallbackGameView, int currentRound) {
+    public BridgeBuiltActionChoices buildPublishedActionChoices(
+            PendingAction action,
+            BridgeProjectedActionContext projectedActionContext,
+            GameView fallbackGameView
+    ) {
         var result = new ActionResult();
         GameView gameView = extractActionGameView(action, fallbackGameView);
-        final GameView capturedGameView = gameView;
         if (action != null) {
             result.game_seq = action.gameSeq();
         }
@@ -87,58 +90,16 @@ public final class BridgePublishedQueryBuilder {
         result.action_type = action.method().name();
         result.message = BridgePromptFormatting.stripHtml(action.message());
 
-        if (gameView != null) {
-            UUID myPlayerId = resolveMyPlayerId(gameView);
-            boolean isMyTurn = username.equals(gameView.getActivePlayerName());
-            boolean isMainPhase = gameView.getPhase() != null && gameView.getPhase().isMain();
-
-            var ctx = new StringBuilder();
-            ctx.append("T").append(currentRound);
-            if (gameView.getPhase() != null) {
-                ctx.append(" ").append(gameView.getPhase());
-            }
-            if (gameView.getStep() != null) {
-                ctx.append("/").append(gameView.getStep());
-            }
-            ctx.append(" (").append(gameView.getActivePlayerName()).append(")");
-            if (isMyTurn && isMainPhase) {
-                ctx.append(" YOUR_MAIN");
-            }
-            result.context = ctx.toString();
-
-            List<Map<String, Object>> players = processorServices.gameStateBuilder().buildPlayersArray(gameView, myPlayerId);
-            result.board = players;
-
-            PlayerView myPlayer = gameView.getMyPlayer();
-            if (myPlayer != null && myPlayer.getBattlefield() != null) {
-                int untappedLands = 0;
-                for (PermanentView perm : myPlayer.getBattlefield().values()) {
-                    if (perm.isLand() && !perm.isTapped()) {
-                        untappedLands++;
-                    }
-                }
-                if (untappedLands > 0) {
-                    result.untapped_lands = untappedLands;
-                }
-            }
-            if (isMyTurn && isMainPhase && myPlayer != null) {
-                result.land_drops_used = myPlayer.getLandsPlayed();
-            }
-
-            List<Map<String, Object>> stackSummary = processorServices.cardFormatter().buildStackItems(
-                gameView,
-                myPlayerId,
-                false,
-                false
-            );
-            if (!stackSummary.isEmpty()) {
-                result.stack = stackSummary;
-            }
-
-            List<Map<String, Object>> combatGroups = processorServices.gameStateBuilder().buildCombatGroups(gameView);
-            if (combatGroups != null) {
-                result.combat = combatGroups;
-            }
+        if (fallbackGameView != null && !projectedActionContext.available()) {
+            throw new IllegalStateException("Published action context missing for projected game view");
+        }
+        if (projectedActionContext.available()) {
+            result.context = projectedActionContext.context();
+            result.board = projectedActionContext.board();
+            result.stack = projectedActionContext.stack();
+            result.combat = projectedActionContext.combat();
+            result.untapped_lands = projectedActionContext.untappedLands();
+            result.land_drops_used = projectedActionContext.landDropsUsed();
         }
 
         ClientCallbackMethod method = action.method();
@@ -147,8 +108,8 @@ public final class BridgePublishedQueryBuilder {
         List<Object> backingChoices;
         switch (method) {
             case GAME_ASK -> backingChoices = buildAskChoices(result, action, gameView);
-            case GAME_SELECT -> backingChoices = buildSelectChoices(result, data, gameView, capturedGameView);
-            case GAME_PLAY_MANA, GAME_PLAY_XMANA -> backingChoices = buildManaChoices(result, data, gameView, capturedGameView);
+            case GAME_SELECT -> backingChoices = buildSelectChoices(result, data, gameView);
+            case GAME_PLAY_MANA, GAME_PLAY_XMANA -> backingChoices = buildManaChoices(result, data, gameView);
             case GAME_TARGET -> backingChoices = buildTargetChoices(result, data);
             case GAME_CHOOSE_ABILITY -> backingChoices = buildAbilityChoices(result, data);
             case GAME_CHOOSE_CHOICE -> backingChoices = buildChoiceChoices(result, data);
@@ -163,6 +124,60 @@ public final class BridgePublishedQueryBuilder {
         }
 
         return new BridgeBuiltActionChoices(result, backingChoices);
+    }
+
+    public BridgeProjectedActionContext buildProjectedActionContext(
+            GameView gameView,
+            BridgePublishedGameState projectedGameState,
+            int currentRound
+    ) {
+        if (gameView == null || !projectedGameState.available()) {
+            return BridgeProjectedActionContext.empty();
+        }
+
+        boolean isMyTurn = username.equals(gameView.getActivePlayerName());
+        boolean isMainPhase = gameView.getPhase() != null && gameView.getPhase().isMain();
+        var ctx = new StringBuilder();
+        ctx.append("T").append(currentRound);
+        if (gameView.getPhase() != null) {
+            ctx.append(" ").append(gameView.getPhase());
+        }
+        if (gameView.getStep() != null) {
+            ctx.append("/").append(gameView.getStep());
+        }
+        ctx.append(" (").append(gameView.getActivePlayerName()).append(")");
+        if (isMyTurn && isMainPhase) {
+            ctx.append(" YOUR_MAIN");
+        }
+
+        Integer untappedLands = null;
+        Integer landDropsUsed = null;
+        PlayerView myPlayer = gameView.getMyPlayer();
+        if (myPlayer != null && myPlayer.getBattlefield() != null) {
+            int count = 0;
+            for (PermanentView perm : myPlayer.getBattlefield().values()) {
+                if (perm.isLand() && !perm.isTapped()) {
+                    count++;
+                }
+            }
+            if (count > 0) {
+                untappedLands = count;
+            }
+        }
+        if (isMyTurn && isMainPhase && myPlayer != null) {
+            landDropsUsed = myPlayer.getLandsPlayed();
+        }
+
+        return new BridgeProjectedActionContext(
+            true,
+            ctx.toString(),
+            projectedGameState.players(),
+            summarizeProjectedStack(projectedGameState.stack()),
+            projectedGameState.combat(),
+            untappedLands,
+            landDropsUsed,
+            projectedGameState.gameSeq()
+        );
     }
 
     BridgePublishedGameStateBuild buildPublishedGameState(GameView gameView, int currentRound) {
@@ -236,7 +251,7 @@ public final class BridgePublishedQueryBuilder {
         return List.of();
     }
 
-    private List<Object> buildSelectChoices(ActionResult result, Object data, GameView gameView, GameView capturedGameView) {
+    private List<Object> buildSelectChoices(ActionResult result, Object data, GameView gameView) {
         PlayableObjectsList playable = gameView != null ? gameView.getCanPlayObjects() : null;
         var choiceList = new ArrayList<Map<String, Object>>();
         var indexToUuid = new ArrayList<Object>();
@@ -244,12 +259,12 @@ public final class BridgePublishedQueryBuilder {
         if (playable != null && !playable.isEmpty()) {
             var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
             sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(entry -> {
-                CardView cardView = processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView);
+                CardView cardView = processorServices.viewLocator().findCardViewById(entry.getKey(), gameView);
                 return cardView != null ? processorServices.cardFormatter().safeDisplayName(cardView) : "";
             }).thenComparingInt(entry -> processorServices.viewLocator().getStableShortIdSequence(
                 entry.getKey(),
-                processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView),
-                capturedGameView
+                processorServices.viewLocator().findCardViewById(entry.getKey(), gameView),
+                gameView
             )));
 
             int idx = 0;
@@ -440,7 +455,7 @@ public final class BridgePublishedQueryBuilder {
         return List.of();
     }
 
-    private List<Object> buildManaChoices(ActionResult result, Object data, GameView gameView, GameView capturedGameView) {
+    private List<Object> buildManaChoices(ActionResult result, Object data, GameView gameView) {
         GameClientMessage manaMsg = (GameClientMessage) data;
         PlayableObjectsList manaPlayable = gameView != null ? gameView.getCanPlayObjects() : null;
         var manaChoiceList = new ArrayList<Map<String, Object>>();
@@ -450,12 +465,12 @@ public final class BridgePublishedQueryBuilder {
         if (manaPlayable != null) {
             var sortedManaEntries = new ArrayList<>(manaPlayable.getObjects().entrySet());
             sortedManaEntries.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(entry -> {
-                CardView cardView = processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView);
+                CardView cardView = processorServices.viewLocator().findCardViewById(entry.getKey(), gameView);
                 return cardView != null ? processorServices.cardFormatter().safeDisplayName(cardView) : "";
             }).thenComparingInt(entry -> processorServices.viewLocator().getStableShortIdSequence(
                 entry.getKey(),
-                processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView),
-                capturedGameView
+                processorServices.viewLocator().findCardViewById(entry.getKey(), gameView),
+                gameView
             )));
 
             int idx = 0;
@@ -935,6 +950,24 @@ public final class BridgePublishedQueryBuilder {
             }
         }
         return types;
+    }
+
+    private static List<Map<String, Object>> summarizeProjectedStack(List<Map<String, Object>> stack) {
+        if (stack == null || stack.isEmpty()) {
+            return null;
+        }
+        var summarized = new ArrayList<Map<String, Object>>(stack.size());
+        for (Map<String, Object> item : stack) {
+            var summary = new LinkedHashMap<String, Object>();
+            for (Map.Entry<String, Object> entry : item.entrySet()) {
+                if ("id".equals(entry.getKey()) || "rules".equals(entry.getKey())) {
+                    continue;
+                }
+                summary.put(entry.getKey(), freezeJsonLike(entry.getValue()));
+            }
+            summarized.add(Collections.unmodifiableMap(summary));
+        }
+        return Collections.unmodifiableList(summarized);
     }
 
     private static List<Map<String, Object>> freezeMapList(List<Map<String, Object>> values) {

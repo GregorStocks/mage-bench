@@ -135,6 +135,9 @@ The action/game-state slice is also closer to the intended model now:
 - published action choices are now projected explicitly from processor-owned
   pending-action changes and authoritative processor-side `GameView` update
   points instead of being rebuilt during snapshot publication
+- published action choices now consume a processor-owned projected action
+  context for board/stack/combat/context instead of re-reading mutable
+  `projectedGameView` and `projectedRound` on each reproject
 - published action choices now carry their own backing choice state for
   `choose_action` resolution, so MCP reads and processor-side action execution
   consume the same projected action-choice snapshot instead of sharing a
@@ -193,6 +196,9 @@ There are still real actor-model violations or near-violations left:
 - published game state and action choices are now explicit processor-side
   projections, but the projection builders still depend on mutable runtime
   bags and helper services rather than a purely append-only projection model
+- action-choice publication no longer rebuilds its shared board/stack/combat
+  context from mutable `GameView` state on every reproject, but it still builds
+  action-specific choice lists from mutable callback/runtime data
 - bridge-event history still depends on the async
   `Session.getBridgeEvents(...)` synchronization shim
 
@@ -263,7 +269,10 @@ This is where the append-only model becomes important.
 The game-log/history path is closer to this already.
 The game-state/action-choice path is now materially closer: both published game
 state and published action choices are projected from explicit processor-side
-update points instead of being rebuilt during snapshot publication.
+update points instead of being rebuilt during snapshot publication, and
+action-choice publication now reuses a processor-owned projected action
+context instead of re-reading mutable projected game-view bags on every
+reproject.
 
 The remaining work in this area is mostly:
 

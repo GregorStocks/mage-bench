@@ -23,8 +23,8 @@ public final class BridgePublishedQueryState {
         new AtomicReference<>(BridgePublishedActionChoices.empty());
     private final AtomicReference<BridgePublishedGameState> projectedGameState =
         new AtomicReference<>(BridgePublishedGameState.unavailable("No game state available yet"));
+    private BridgeProjectedActionContext projectedActionContext = BridgeProjectedActionContext.empty();
     private volatile GameView projectedGameView = null;
-    private volatile int projectedRound = 0;
     private String lastPublishedGameStatePayload = null;
 
     public BridgePublishedQueryState(
@@ -72,8 +72,8 @@ public final class BridgePublishedQueryState {
         BridgePublishedQueryBuilder.BridgePublishedGameStateBuild built =
             queryBuilder.buildPublishedGameState(gameView, round);
         BridgePublishedGameState previous = projectedGameState.getAndSet(built.state());
+        projectedActionContext = queryBuilder.buildProjectedActionContext(gameView, built.state(), round);
         projectedGameView = gameView;
-        projectedRound = round;
         projectActionChoices(cause);
         traceProjectedGameStateChange(cause, previous, built.state(), built.payload());
     }
@@ -84,8 +84,8 @@ public final class BridgePublishedQueryState {
         }
         BridgePublishedGameState next = BridgePublishedGameState.unavailable(error);
         BridgePublishedGameState previous = projectedGameState.getAndSet(next);
+        projectedActionContext = BridgeProjectedActionContext.empty();
         projectedGameView = null;
-        projectedRound = 0;
         traceProjectedGameStateChange(
             cause,
             previous,
@@ -100,8 +100,8 @@ public final class BridgePublishedQueryState {
         }
         BridgeBuiltActionChoices built = queryBuilder.buildPublishedActionChoices(
             processorState.decisionState().pendingAction(),
-            projectedGameView,
-            projectedRound
+            projectedActionContext,
+            projectedGameView
         );
         ActionResult result = built.result();
         if (Boolean.TRUE.equals(result.action_pending)) {

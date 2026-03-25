@@ -2497,11 +2497,13 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void unrelatedRepublishDoesNotRebuildPublishedActionChoicesFromLiveBag() throws Exception {
+    void unrelatedRepublishDoesNotRebuildPublishedActionChoicesFromProjectedContextInputs() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
         BridgeDecisionState decisionState = (BridgeDecisionState) getProcessorStateField(handler, "decisionState");
+        BridgePublishedQueryState publishedQueryState =
+            (BridgePublishedQueryState) getDirectField(handler, "publishedQueryState");
 
         UUID gameId = UUID.randomUUID();
         UUID tableId = UUID.randomUUID();
@@ -2557,7 +2559,7 @@ class BridgeCallbackHandlerTest {
         }));
 
         ActionResult initial = handler.getActionChoices(null);
-        setField(handler, "lastGameView", mutatedLiveBagView);
+        setField(publishedQueryState, "projectedGameView", mutatedLiveBagView);
         publishProcessorState(handler);
 
         ActionResult reread = handler.getActionChoices(null);
