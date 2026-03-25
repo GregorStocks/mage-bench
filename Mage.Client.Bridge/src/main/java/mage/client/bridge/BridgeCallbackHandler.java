@@ -16,7 +16,6 @@ import mage.client.bridge.processor.BridgeChooseActionStartResult;
 import mage.client.bridge.processor.BridgeCommand;
 import mage.client.bridge.processor.BridgeConcedeFlowManager;
 import mage.client.bridge.processor.BridgeDecisionFlowService;
-import mage.client.bridge.processor.BridgeGameLogRefresher;
 import mage.client.bridge.processor.BridgeManaPlanEntry;
 import mage.client.bridge.processor.BridgePassPriorityFlow;
 import mage.client.bridge.processor.BridgePassPriorityFlowContextImpl;
@@ -113,7 +112,6 @@ public class BridgeCallbackHandler {
     private final BridgeProcessor processor;
     private final BridgeProcessorState processorState = new BridgeProcessorState();
     private final BridgeDecisionFlowService decisionFlowService;
-    private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgeActionCommandService actionCommandService;
     private volatile Session session;
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000;
@@ -178,13 +176,6 @@ public class BridgeCallbackHandler {
             processor::enqueueCallback,
             callbackProcessorService
         );
-        this.gameLogRefresher = new BridgeGameLogRefresher(
-            processor,
-            processorState,
-            () -> session,
-            logger,
-            client.getUsername()
-        );
         BridgePublishedQueryBuilder publishedQueryBuilder = new BridgePublishedQueryBuilder(
             client.getUsername(),
             processorServices,
@@ -203,7 +194,7 @@ public class BridgeCallbackHandler {
                 processorState.gameState().currentPlayerId(),
                 processorState.interactionState().failedManaCastsSnapshot()
             ),
-            () -> processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch()),
+            () -> processorState.gameLogState().publishedGameLog(),
             state -> processorState.cursorState().updateBoardCursor(
                 BridgeGameStateBuilder.buildStateSignature(state)
             )
@@ -215,12 +206,9 @@ public class BridgeCallbackHandler {
         this.mcpQueryApi = new BridgeMcpQueryApi(
             client.getUsername(),
             logger,
-            processor,
-            gameLogRefresher,
             publishedQueryState,
             () -> publishedDecklist.response(),
-            this::awaitPublishedReadBarrier,
-            this::awaitProcessorReadBarrier
+            this::awaitPublishedReadBarrier
         );
         this.decisionFlowService = new BridgeDecisionFlowService(
             client.getUsername(),
@@ -270,7 +258,6 @@ public class BridgeCallbackHandler {
             client.getUsername(),
             logger,
             processorState,
-            gameLogRefresher,
             chooseActionFlowManager,
             passPriorityFlowManager,
             concedeFlowManager,
@@ -282,11 +269,6 @@ public class BridgeCallbackHandler {
         );
         this.mcpActionApi = new BridgeMcpActionApi(processor, actionCommandService);
         this.processor.setAfterMessageHook(message -> {
-            if (message instanceof BridgeCallbackEvent event
-                    && processorState.gameState().currentGameId() != null
-                    && processorState.gameState().currentGameId().equals(event.objectId())) {
-                gameLogRefresher.afterCallbackProcessed();
-            }
             publishedQueryState.publishProcessorState(message);
         });
         this.processor.start();
@@ -514,7 +496,6 @@ public class BridgeCallbackHandler {
 
     void shutdownProcessor(String reason) {
         startGameFlowManager.shutdown();
-        gameLogRefresher.shutdown();
         advancePendingFlowsBeforeShutdown();
         chooseActionFlowManager.shutdown();
         passPriorityFlowManager.shutdown();

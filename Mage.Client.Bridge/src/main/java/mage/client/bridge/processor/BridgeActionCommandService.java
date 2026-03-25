@@ -13,7 +13,6 @@ public final class BridgeActionCommandService {
     private final String username;
     private final Logger logger;
     private final BridgeProcessorState processorState;
-    private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgeChooseActionFlowManager chooseActionFlowManager;
     private final BridgePassPriorityFlowManager passPriorityFlowManager;
     private final BridgeConcedeFlowManager concedeFlowManager;
@@ -27,7 +26,6 @@ public final class BridgeActionCommandService {
             String username,
             Logger logger,
             BridgeProcessorState processorState,
-            BridgeGameLogRefresher gameLogRefresher,
             BridgeChooseActionFlowManager chooseActionFlowManager,
             BridgePassPriorityFlowManager passPriorityFlowManager,
             BridgeConcedeFlowManager concedeFlowManager,
@@ -39,7 +37,6 @@ public final class BridgeActionCommandService {
         this.username = username;
         this.logger = logger;
         this.processorState = processorState;
-        this.gameLogRefresher = gameLogRefresher;
         this.chooseActionFlowManager = chooseActionFlowManager;
         this.passPriorityFlowManager = passPriorityFlowManager;
         this.concedeFlowManager = concedeFlowManager;
@@ -114,13 +111,11 @@ public final class BridgeActionCommandService {
         if (!sessionSupplier.get().sendChatMessage(chatId, message)) {
             return "server rejected the message";
         }
-        long publishAfterSyncEpoch = gameLogRefresher.captureSyncBarrierEpoch();
         processorState.gameLogState().recordOutgoingChatMessage(
             username,
             message,
             now,
-            chatDedupWindowMs,
-            publishAfterSyncEpoch
+            chatDedupWindowMs
         );
         return null;
     }

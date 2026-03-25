@@ -1,12 +1,9 @@
 package mage.client.bridge.mcp;
 
-import mage.client.bridge.processor.BridgeCommand;
-import mage.client.bridge.processor.BridgeGameLogRefresher;
 import mage.client.bridge.processor.BridgePublishedGameState;
 import mage.client.bridge.processor.BridgePublishedLogEntry;
 import mage.client.bridge.processor.BridgePublishedQuerySnapshot;
 import mage.client.bridge.processor.BridgePublishedQueryState;
-import mage.client.bridge.processor.BridgeProcessor;
 import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.GetGameHistoryTool;
 import mage.client.bridge.tools.GetGameLogTool;
@@ -23,30 +20,21 @@ import java.util.function.Supplier;
 public final class BridgeMcpQueryApi {
     private final String username;
     private final Logger logger;
-    private final BridgeProcessor processor;
-    private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgePublishedQueryState publishedQueryState;
     private final Supplier<Map<String, Object>> decklistSnapshotSupplier;
     private final Runnable awaitPublishedReadBarrier;
-    private final Runnable awaitProcessorReadBarrier;
 
     public BridgeMcpQueryApi(
             String username,
             Logger logger,
-            BridgeProcessor processor,
-            BridgeGameLogRefresher gameLogRefresher,
             BridgePublishedQueryState publishedQueryState,
             Supplier<Map<String, Object>> decklistSnapshotSupplier,
-            Runnable awaitPublishedReadBarrier,
-            Runnable awaitProcessorReadBarrier) {
+            Runnable awaitPublishedReadBarrier) {
         this.username = username;
         this.logger = logger;
-        this.processor = processor;
-        this.gameLogRefresher = gameLogRefresher;
         this.publishedQueryState = publishedQueryState;
         this.decklistSnapshotSupplier = decklistSnapshotSupplier;
         this.awaitPublishedReadBarrier = awaitPublishedReadBarrier;
-        this.awaitProcessorReadBarrier = awaitProcessorReadBarrier;
     }
 
     public boolean isActionPending() {
@@ -200,9 +188,6 @@ public final class BridgeMcpQueryApi {
 
     private BridgeGameLogSnapshot snapshotGameLog() {
         awaitPublishedReadBarrier.run();
-        long syncEpoch = processor.submit(BridgeCommand.of(gameLogRefresher::captureSyncBarrierEpoch));
-        gameLogRefresher.awaitSyncThrough(syncEpoch);
-        awaitProcessorReadBarrier.run();
         var gameLog = publishedQueryState.snapshot().gameLog();
         return new BridgeGameLogSnapshot(gameLog.entries(), gameLog.firstCursor(), gameLog.nextCursor());
     }

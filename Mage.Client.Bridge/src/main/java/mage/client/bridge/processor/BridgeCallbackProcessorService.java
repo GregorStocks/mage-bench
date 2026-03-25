@@ -2,6 +2,7 @@ package mage.client.bridge.processor;
 
 import mage.client.bridge.PendingAction;
 import mage.client.bridge.listener.BridgeCallbackIngressErrorHandler;
+import mage.game.BridgeLogEntry;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
 import mage.view.AbilityPickerView;
@@ -13,6 +14,7 @@ import mage.view.TableClientMessage;
 import mage.view.UserRequestMessage;
 import org.apache.log4j.Logger;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.BooleanSupplier;
@@ -69,6 +71,11 @@ public final class BridgeCallbackProcessorService
         this.clearShortIds = clearShortIds;
         this.projectPublishedGameState = projectPublishedGameState;
         this.chatDedupWindowMs = chatDedupWindowMs;
+    }
+
+    @Override
+    public void recordPushedBridgeEvents(List<BridgeLogEntry> events) {
+        processorState.gameLogState().recordFetchedBridgeEvents(events);
     }
 
     @Override

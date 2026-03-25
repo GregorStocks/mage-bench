@@ -13,18 +13,14 @@ import java.util.Set;
 public final class BridgeGameLogState {
     private record PendingOutgoingChat(String message, long sentAtMs) {
     }
-    private record PendingPublishedOutgoingChat(String rendered, long publishAfterSyncEpoch) {
-    }
 
     private final List<String> unseenChat = new ArrayList<>();
     private final List<BridgePublishedLogEntry> publishedLog = new ArrayList<>();
     private final Set<Integer> publishedBridgeEventIndexes = new HashSet<>();
     private final ArrayDeque<PendingOutgoingChat> pendingOutgoingChatEchoes = new ArrayDeque<>();
-    private final ArrayDeque<PendingPublishedOutgoingChat> pendingPublishedOutgoingChat = new ArrayDeque<>();
     private String lastChatMessage = null;
     private long lastChatTimeMs = 0;
     private int nextPublishedCursor = 0;
-    private int nextServerCursor = 0;
     private int lastPublishedBridgeEventIndex = -1;
 
     public void reset() {
@@ -32,10 +28,8 @@ public final class BridgeGameLogState {
         publishedLog.clear();
         publishedBridgeEventIndexes.clear();
         pendingOutgoingChatEchoes.clear();
-        pendingPublishedOutgoingChat.clear();
         lastChatMessage = null;
         lastChatTimeMs = 0;
-        nextServerCursor = 0;
         lastPublishedBridgeEventIndex = -1;
     }
 
@@ -43,17 +37,13 @@ public final class BridgeGameLogState {
             String username,
             String message,
             long nowMs,
-            long echoDedupWindowMs,
-            long publishAfterSyncEpoch) {
+            long echoDedupWindowMs) {
         if (message == null || message.isEmpty()) {
             return;
         }
         prunePendingOutgoingChatEchoes(nowMs, echoDedupWindowMs);
         pendingOutgoingChatEchoes.addLast(new PendingOutgoingChat(message, nowMs));
-        pendingPublishedOutgoingChat.addLast(new PendingPublishedOutgoingChat(
-            "[Chat] " + username + ": " + message,
-            publishAfterSyncEpoch
-        ));
+        appendRenderedEntry("[Chat] " + username + ": " + message);
     }
 
     public void recordTalkMessage(String username, String user, String msg, long nowMs, long echoDedupWindowMs) {
@@ -111,17 +101,7 @@ public final class BridgeGameLogState {
     }
 
     public BridgePublishedGameLog publishedGameLog() {
-        publishReadyOutgoingChat(Long.MAX_VALUE);
         return new BridgePublishedGameLog(List.copyOf(publishedLog), nextPublishedCursor);
-    }
-
-    public BridgePublishedGameLog publishedGameLog(long completedSyncEpoch) {
-        publishReadyOutgoingChat(completedSyncEpoch);
-        return new BridgePublishedGameLog(List.copyOf(publishedLog), nextPublishedCursor);
-    }
-
-    public int nextServerCursor() {
-        return nextServerCursor;
     }
 
     public void recordFetchedBridgeEvents(List<BridgeLogEntry> events) {
@@ -145,23 +125,10 @@ public final class BridgeGameLogState {
             lastPublishedBridgeEventIndex = event.index();
             publishedLog.add(new BridgePublishedLogEntry(nextPublishedCursor++, event, null));
         }
-        BridgeLogEntry lastEvent = events.get(events.size() - 1);
-        nextServerCursor = Math.max(nextServerCursor, lastEvent.index() + 1);
     }
 
     private void appendRenderedEntry(String rendered) {
         publishedLog.add(new BridgePublishedLogEntry(nextPublishedCursor++, null, rendered));
-    }
-
-    private void publishReadyOutgoingChat(long completedSyncEpoch) {
-        while (!pendingPublishedOutgoingChat.isEmpty()) {
-            PendingPublishedOutgoingChat pending = pendingPublishedOutgoingChat.peekFirst();
-            if (pending.publishAfterSyncEpoch() > completedSyncEpoch) {
-                return;
-            }
-            pendingPublishedOutgoingChat.removeFirst();
-            appendRenderedEntry(pending.rendered());
-        }
     }
 
     private void prunePendingOutgoingChatEchoes(long nowMs, long echoDedupWindowMs) {

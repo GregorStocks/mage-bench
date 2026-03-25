@@ -1,10 +1,12 @@
 package mage.interfaces.callback;
 
+import mage.game.BridgeLogEntry;
 import mage.remote.traffic.ZippedObject;
 import mage.utils.CompressUtil;
 import mage.util.ThreadUtils;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -26,6 +28,7 @@ public class ClientCallback implements Serializable {
     private Object data;
     private ClientCallbackMethod method;
     private int messageId;
+    private List<BridgeLogEntry> bridgeEvents;
 
     public ClientCallback(ClientCallbackMethod method, UUID objectId) {
         this(method, objectId, null);
@@ -97,6 +100,14 @@ public class ClientCallback implements Serializable {
 
     public int getMessageId() {
         return messageId;
+    }
+
+    public List<BridgeLogEntry> getBridgeEvents() {
+        return bridgeEvents;
+    }
+
+    public void setBridgeEvents(List<BridgeLogEntry> bridgeEvents) {
+        this.bridgeEvents = bridgeEvents;
     }
 
     public String getInfo() {

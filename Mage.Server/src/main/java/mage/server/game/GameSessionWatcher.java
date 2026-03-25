@@ -1,5 +1,6 @@
 package mage.server.game;
 
+import mage.game.BridgeLogEntry;
 import mage.game.Game;
 import mage.game.Table;
 import mage.interfaces.callback.ClientCallback;
@@ -15,6 +16,7 @@ import mage.view.SimpleCardsView;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,6 +33,7 @@ public class GameSessionWatcher {
     protected final Game game;
     protected boolean killed = false;
     protected final boolean isPlayer;
+    private int bridgeEventCursor = 0;
 
     public GameSessionWatcher(UserManager userManager, UUID userId, Game game, boolean isPlayer) {
         this.userManager = userManager;
@@ -82,14 +85,17 @@ public class GameSessionWatcher {
 
     public void update() {
         if (!killed) {
-            userManager.getUser(userId).ifPresent(user -> user.fireCallback(new ClientCallback(ClientCallbackMethod.GAME_UPDATE, game.getId(), getGameView())));
+            userManager.getUser(userId).ifPresent(user -> user.fireCallback(
+                gameCallbackWithBridgeEvents(ClientCallbackMethod.GAME_UPDATE, getGameView())));
         }
 
     }
 
     public void inform(final String message) {
         if (!killed) {
-            userManager.getUser(userId).ifPresent(user -> user.fireCallback(new ClientCallback(ClientCallbackMethod.GAME_UPDATE_AND_INFORM, game.getId(), new GameClientMessage(getGameView(), null, message))));
+            userManager.getUser(userId).ifPresent(user -> user.fireCallback(
+                gameCallbackWithBridgeEvents(ClientCallbackMethod.GAME_UPDATE_AND_INFORM,
+                    new GameClientMessage(getGameView(), null, message))));
         }
 
     }
@@ -178,6 +184,24 @@ public class GameSessionWatcher {
 
     public boolean isPlayer() {
         return isPlayer;
+    }
+
+    protected ClientCallback gameCallbackWithBridgeEvents(ClientCallbackMethod method, Object data) {
+        ClientCallback callback = new ClientCallback(method, game.getId(), data);
+        callback.setBridgeEvents(fetchAndAdvanceBridgeEvents());
+        return callback;
+    }
+
+    private List<BridgeLogEntry> fetchAndAdvanceBridgeEvents() {
+        List<BridgeLogEntry> events = game.getBridgeEventsSince(bridgeEventCursor, getPlayerIdForBridgeEvents());
+        if (!events.isEmpty()) {
+            bridgeEventCursor = events.get(events.size() - 1).index() + 1;
+        }
+        return events;
+    }
+
+    protected UUID getPlayerIdForBridgeEvents() {
+        return null;
     }
 
 }

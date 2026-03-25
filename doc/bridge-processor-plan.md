@@ -188,8 +188,10 @@ But the bridge is still transitional overall:
   helper services at their build points
 - MCP reads still need a processor sync barrier before reading the published
   snapshot
-- the processor still needs an async `Session.getBridgeEvents(...)` shim to
-  append structured bridge events into the local published log
+- bridge events now arrive via push (embedded in callbacks) instead of the
+  old async `Session.getBridgeEvents(...)` polling shim; the processor
+  appends them synchronously during callback processing and
+  `BridgeGameLogRefresher` is deleted
 - other MCP reads still depend on shared mutable runtime state holders rather
   than processor-private internals
 
@@ -228,8 +230,8 @@ There are still real actor-model violations or near-violations left:
 - action-choice publication no longer rebuilds its shared board/stack/combat
   context from mutable `GameView` state on every reproject, but it still builds
   action-specific choice lists from mutable callback/runtime data
-- bridge-event history still depends on the async
-  `Session.getBridgeEvents(...)` synchronization shim
+- bridge-event history now arrives synchronously with callbacks via push
+  instead of the old async `Session.getBridgeEvents(...)` polling shim
 
 And the bridge still relies on shared mutable state containers such as:
 
@@ -332,20 +334,20 @@ The remaining work in this area is mostly:
   processor-private services/context layer around projections and current-game
   context, not a bag of mutable-state readers
 
-The remaining read-side cleanup should focus on:
+The game-log read path is now fully synchronous:
 
-- the `snapshotGameLog()` path in `BridgeMcpQueryApi`, which still uses
-  `processor.submit()` to capture a sync barrier epoch and waits on the
-  `BridgeGameLogRefresher` — this is the last MCP read that routes through
-  the processor instead of just reading a published snapshot
+- bridge events arrive via push (embedded in callbacks) instead of the old
+  async `Session.getBridgeEvents(...)` polling shim
+- the processor appends bridge events to the published log synchronously
+  during callback processing
+- `BridgeGameLogRefresher` is deleted — no async fetch executor, no sync
+  epoch barriers, no `syncLock` coordination
+- `snapshotGameLog()` in `BridgeMcpQueryApi` is now a pure
+  "barrier + published read" like all other MCP reads
+- outgoing chat is published immediately instead of being deferred until a
+  sync epoch completes
 
-### 2. Delete the `Session.getBridgeEvents(...)` synchronization shim
-
-Eventually the processor should append authoritative bridge-log records
-directly from processor-owned events instead of polling the session and
-reconciling later.
-
-### 3. Delete transitional shared-memory machinery
+### 2. Delete transitional shared-memory machinery
 
 Once reads and writes no longer cross the thread boundary through shared state,
 delete the transitional mechanisms that only exist to prop that model up:
@@ -359,17 +361,14 @@ delete the transitional mechanisms that only exist to prop that model up:
 
 ## Expected Remaining PRs
 
-Realistically, expect **1-2 review-sized PRs** from here.
+The major async-coordination and mutable-state-read pieces are now done.
 
-A plausible decomposition is:
+Remaining cleanup is **0-1 review-sized PRs** focused on:
 
-1. replace the bridge-event sync shim with authoritative processor log appends
-   so `snapshotGameLog()` becomes a pure "barrier + published read" like the
-   other MCP reads, and `BridgeGameLogRefresher` can be deleted
-2. simplify the remaining snapshot/barrier scaffolding once the last mutable
-   read dependencies are gone
-
-These could be combined into one PR if the scope is manageable.
+- simplifying or deleting remaining `volatile` / `synchronized` state that
+  only existed to prop up the old async model
+- continuing to narrow `BridgeProcessorServices` toward a thin
+  processor-private services layer
 
 ## Definition Of Done
 
