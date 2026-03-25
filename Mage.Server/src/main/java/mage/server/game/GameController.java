@@ -8,7 +8,6 @@ import mage.choices.Choice;
 import mage.collectors.DataCollectorServices;
 import mage.constants.ManaType;
 import mage.constants.PlayerAction;
-import mage.game.BridgeLogEntry;
 import mage.game.Game;
 import mage.game.GameOptions;
 import mage.game.GameState;
@@ -1029,25 +1028,6 @@ public class GameController implements GameCallback {
 
     public synchronized GameView getGameView(UUID playerId) {
         return getGameSession(playerId).getGameView();
-    }
-
-    public List<BridgeLogEntry> getBridgeEvents(UUID playerId, int sinceCursor) {
-        return game.getBridgeEventsSince(sinceCursor, playerId);
-    }
-
-    /**
-     * Get all bridge events for all players, keyed by player UUID.
-     * Used by GameManagerImpl to cache events before game cleanup.
-     */
-    public Map<UUID, List<BridgeLogEntry>> getAllBridgeEvents() {
-        Map<UUID, List<BridgeLogEntry>> result = new HashMap<>();
-        for (Player p : game.getPlayers().values()) {
-            List<BridgeLogEntry> events = game.getBridgeEventsSince(0, p.getId());
-            if (!events.isEmpty()) {
-                result.put(p.getId(), new ArrayList<>(events));
-            }
-        }
-        return result;
     }
 
     @Override

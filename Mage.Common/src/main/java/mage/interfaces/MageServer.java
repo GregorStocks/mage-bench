@@ -113,8 +113,6 @@ public interface MageServer {
     @Deprecated // TODO: implement GameView request on miss client side data, e.g. on reconnect (empty player panels bug)?
     GameView gameGetView(UUID gameId, String sessionId, UUID playerId) throws MageException;
 
-    java.util.List<mage.game.BridgeLogEntry> gameGetBridgeEvents(UUID gameId, String sessionId, UUID playerId, int sinceCursor) throws MageException;
-
     boolean gameWatchStart(UUID gameId, String sessionId) throws MageException;
 
     void gameWatchStop(UUID gameId, String sessionId) throws MageException;

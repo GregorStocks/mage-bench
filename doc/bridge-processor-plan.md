@@ -346,29 +346,30 @@ The game-log read path is now fully synchronous:
   "barrier + published read" like all other MCP reads
 - outgoing chat is published immediately instead of being deferred until a
   sync epoch completes
+- the dead `Session.getBridgeEvents()` RPC chain is deleted end-to-end:
+  `SessionImpl` → `MageServerImpl` → `GameManagerImpl` → `GameController`,
+  along with the `bridgeEventCache` that existed for post-cleanup RPC queries
 
 ### 2. Delete transitional shared-memory machinery
 
-Once reads and writes no longer cross the thread boundary through shared state,
-delete the transitional mechanisms that only exist to prop that model up:
+Most of the transitional shared-memory machinery has been deleted as part of
+the game-log refactor above. The remaining items are:
 
-- extra `volatile` visibility state
-- `synchronized` runtime access used for correctness
-- cross-thread latches used as part of live runtime coordination
-- shared cursor reconstruction on the MCP side
-- any remaining helper APIs whose purpose is "let another thread peek at
-  processor-owned state"
+- `session` volatile on `BridgeCallbackHandler` — still needed for
+  multi-threaded access from `setSession()`
+- `publishedDecklist` volatile — still needed for cross-thread read from MCP
+- `joinHandler` volatile — still needed for external call from MCP
+- config volatiles (`keepAliveAfterGameConfig`, `maxInteractionsPerTurnConfig`,
+  `errorLogPath`, `bridgeLogPath`) — these could be narrowed to
+  processor-thread-only access but are correct and harmless as-is
 
-## Expected Remaining PRs
+## Status
 
-The major async-coordination and mutable-state-read pieces are now done.
-
-Remaining cleanup is **0-1 review-sized PRs** focused on:
-
-- simplifying or deleting remaining `volatile` / `synchronized` state that
-  only existed to prop up the old async model
-- continuing to narrow `BridgeProcessorServices` toward a thin
-  processor-private services layer
+The major async-coordination, mutable-state-read, and dead-code cleanup pieces
+are done. The remaining volatile fields are genuinely needed for cross-thread
+publication, not remnants of the old async model. Continuing to narrow
+`BridgeProcessorServices` is optional incremental cleanup that doesn't need a
+dedicated PR.
 
 ## Definition Of Done
 

@@ -611,37 +611,15 @@ class BridgeCallbackHandlerTest {
         UUID gameId = UUID.randomUUID();
         UUID playerId = UUID.randomUUID();
         UUID chatId = UUID.randomUUID();
-        AtomicInteger getBridgeEventsCalls = new AtomicInteger();
         AtomicInteger leaveChatCalls = new AtomicInteger();
-        List<BridgeLogEntry> bridgeEvents = List.of(
-            new BridgeLogEntry(
-                0, 9, "LAND_PLAYED", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
-                "TestPlayer", "TestPlayer", "Island", null, 0, true
-            )
-        );
 
         InvocationHandler sessionHandler = (proxy, method, args) -> {
-            switch (method.getName()) {
-                case "getBridgeEvents" -> {
-                    getBridgeEventsCalls.incrementAndGet();
-                    assertThat(args[0]).isEqualTo(gameId);
-                    assertThat(args[1]).isEqualTo(playerId);
-                    int cursor = (Integer) args[2];
-                    if (cursor == 0) {
-                        return bridgeEvents;
-                    }
-                    assertThat(cursor).isEqualTo(1);
-                    return List.of();
-                }
-                case "leaveChat" -> {
-                    leaveChatCalls.incrementAndGet();
-                    assertThat(args[0]).isEqualTo(chatId);
-                    return true;
-                }
-                default -> {
-                    return defaultReturnValue(method.getReturnType());
-                }
+            if ("leaveChat".equals(method.getName())) {
+                leaveChatCalls.incrementAndGet();
+                assertThat(args[0]).isEqualTo(chatId);
+                return true;
             }
+            return defaultReturnValue(method.getReturnType());
         };
 
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
@@ -662,17 +640,19 @@ class BridgeCallbackHandlerTest {
             new GameClientMessage(gameView(9), Collections.<String, Serializable>emptyMap(), "Player Opponent is the winner"),
             false
         );
+        callback.setBridgeEvents(List.of(
+            new BridgeLogEntry(
+                0, 9, "LAND_PLAYED", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+                "TestPlayer", "TestPlayer", "Island", null, 0, true
+            )
+        ));
         handler.handleCallback(callback);
-
         handler.awaitProcessorIdle();
-        waitForCondition(() -> getBridgeEventsCalls.get() >= 2
-            && handler.getGameHistory(null, null).event_count == 1);
+
         assertThat(hasActiveGame(handler, gameId)).isFalse();
         assertThat(leaveChatCalls.get()).isEqualTo(1);
 
-        int callsBeforeHistory = getBridgeEventsCalls.get();
         var history = handler.getGameHistory(null, null);
-        assertThat(getBridgeEventsCalls.get()).isEqualTo(callsBeforeHistory);
         assertThat(history.cursor).isEqualTo(1);
         assertThat(history.event_count).isEqualTo(1);
         assertThat(history.history).contains("Turn 3 (TestPlayer):");
@@ -735,19 +715,12 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void getGameHistoryReadsPublishedSnapshotWithoutFetchingServerBridgeEvents() throws Exception {
+    void getGameHistoryReadsPublishedSnapshotWithoutRpc() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
-        AtomicInteger getBridgeEventsCalls = new AtomicInteger();
         client.setSession((Session) Proxy.newProxyInstance(
             Session.class.getClassLoader(),
             new Class<?>[]{Session.class},
-            (proxy, method, args) -> {
-                if ("getBridgeEvents".equals(method.getName())) {
-                    getBridgeEventsCalls.incrementAndGet();
-                    throw new AssertionError("MCP reads should not fetch bridge events");
-                }
-                return defaultReturnValue(method.getReturnType());
-            }
+            (proxy, method, args) -> defaultReturnValue(method.getReturnType())
         ));
         BridgeCallbackHandler handler = client.getCallbackHandler();
         BridgeProcessor processor = (BridgeProcessor) getDirectField(handler, "processor");
@@ -760,7 +733,6 @@ class BridgeCallbackHandlerTest {
             processorFuture.get(1, TimeUnit.SECONDS);
 
             historyFuture.get(1, TimeUnit.SECONDS);
-            assertThat(getBridgeEventsCalls.get()).isZero();
         } finally {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.SECONDS);

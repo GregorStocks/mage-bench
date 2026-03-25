@@ -10,7 +10,6 @@ import mage.constants.Constants;
 import mage.constants.ManaType;
 import mage.constants.PlayerAction;
 import mage.constants.TableState;
-import mage.game.BridgeLogEntry;
 import mage.game.Table;
 import mage.game.match.MatchOptions;
 import mage.game.tournament.TournamentOptions;
@@ -1026,11 +1025,6 @@ public class MageServerImpl implements MageServer {
         return executeWithResult("getGameView", sessionId, new GetGameViewAction(sessionId, gameId, playerId));
     }
 
-    @Override
-    public List<BridgeLogEntry> gameGetBridgeEvents(final UUID gameId, final String sessionId, final UUID playerId, final int sinceCursor) throws MageException {
-        return executeWithResult("getBridgeEvents", sessionId, new GetBridgeEventsAction(sessionId, gameId, playerId, sinceCursor));
-    }
-
     /**
      * Get user data for admin console
      *
@@ -1245,32 +1239,6 @@ public class MageServerImpl implements MageServer {
             } else {
                 //UUID userId = session.get().getUserId();
                 return managerFactory.gameManager().getGameView(gameId, playerId);
-            }
-        }
-    }
-
-    private class GetBridgeEventsAction extends ActionWithNullNegativeResult<List<BridgeLogEntry>> {
-
-        private final String sessionId;
-        private final UUID gameId;
-        private final UUID playerId;
-        private final int sinceCursor;
-
-        public GetBridgeEventsAction(String sessionId, UUID gameId, UUID playerId, int sinceCursor) {
-            this.sessionId = sessionId;
-            this.gameId = gameId;
-            this.playerId = playerId;
-            this.sinceCursor = sinceCursor;
-        }
-
-        @Override
-        public List<BridgeLogEntry> execute() throws MageException {
-            Optional<Session> session = managerFactory.sessionManager().getSession(sessionId);
-            if (!session.isPresent()) {
-                logger.error("Session not found : " + sessionId);
-                return null;
-            } else {
-                return managerFactory.gameManager().getBridgeEvents(gameId, playerId, sinceCursor);
             }
         }
     }
