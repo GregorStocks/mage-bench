@@ -1,13 +1,21 @@
 {
-  "title": "Add type stubs for google_auth_oauthlib when a working package becomes available",
-  "description": "The only stubs package on PyPI for google_auth_oauthlib (google-auth-oauthlib-stubs) is broken — it installs files to a wrong directory (tool/__init__.pyi instead of google_auth_oauthlib/*.pyi). A mypy override in puppeteer/pyproject.toml suppresses import-untyped errors for google_auth_oauthlib.* as a workaround. When upstream ships py.typed or a working stubs package appears, remove the override and add the stubs dependency.",
+  "title": "Add type stubs for google_auth_oauthlib when a working package \
+becomes available",
+  "description": "The only stubs package on PyPI for google_auth_oauthlib \
+(google-auth-oauthlib-stubs) is broken — it installs files to a wrong \
+directory (tool/__init__.pyi instead of google_auth_oauthlib/*.pyi). A mypy \
+override in puppeteer/pyproject.toml suppresses import-untyped errors for \
+google_auth_oauthlib.* as a workaround. When upstream ships py.typed or a \
+working stubs package appears, remove the override and add the stubs \
+dependency.",
   "status": "open",
   "priority": 4,
   "type": "task",
   "labels": [
     "typing",
   ],
-  "blocked": "Waiting for upstream google-auth-oauthlib-stubs PyPI package to be fixed or for google_auth_oauthlib to ship py.typed.",
+  "blocked": "Waiting for upstream google-auth-oauthlib-stubs PyPI package to \
+be fixed or for google_auth_oauthlib to ship py.typed.",
   "created_at": "2026-03-07T00:00:00.000000-08:00",
   "updated_at": "2026-03-07T00:00:00.000000-08:00",
 }
