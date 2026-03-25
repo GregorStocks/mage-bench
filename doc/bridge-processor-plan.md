@@ -198,6 +198,9 @@ There are still real actor-model violations or near-violations left:
   (`currentPlayerId`, failed-mana snapshot, current `GameView`) at processor
   projection/query call sites instead of letting `BridgePublishedQueryBuilder`
   and `BridgeProcessorServices` reach back into `processorState` directly
+- `BridgePublishedQueryState` now consumes injected pending-action,
+  projection-input, board-cursor, and published-log suppliers instead of
+  reaching back into `processorState` / `BridgeGameLogRefresher` directly
 - but the helper stack still formats and rebuilds projections from mutable
   runtime bags rather than from native append-only processor projections
 - published game state and action choices are now explicit processor-side

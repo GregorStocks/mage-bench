@@ -1,18 +1,24 @@
 package mage.client.bridge.processor;
 
-import mage.client.bridge.BridgeGameStateBuilder;
+import mage.client.bridge.PendingAction;
 import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.McpToolRegistry;
 import mage.view.GameView;
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+import java.util.function.Supplier;
+import java.util.function.ToLongFunction;
+
 public final class BridgePublishedQueryState {
     private final Logger logger;
     private final String username;
     private final BridgeProcessor processor;
-    private final BridgeProcessorState processorState;
-    private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgePublishedQueryBuilder queryBuilder;
+    private final Supplier<PendingAction> pendingActionSupplier;
+    private final Supplier<BridgeProjectionInputs> projectionInputsSupplier;
+    private final Supplier<BridgePublishedGameLog> publishedGameLogSupplier;
+    private final ToLongFunction<Map<String, Object>> boardCursorAllocator;
     private final boolean tracePublishedState = Boolean.getBoolean("xmage.bridge.tracePublishedState");
     private final boolean tracePublishedActionChoices = Boolean.getBoolean("xmage.bridge.tracePublishedActionChoices");
     private volatile BridgePublishedQuerySnapshot publishedSnapshot = BridgePublishedQuerySnapshot.empty();
@@ -27,15 +33,19 @@ public final class BridgePublishedQueryState {
             Logger logger,
             String username,
             BridgeProcessor processor,
-            BridgeProcessorState processorState,
-            BridgeGameLogRefresher gameLogRefresher,
-            BridgePublishedQueryBuilder queryBuilder) {
+            BridgePublishedQueryBuilder queryBuilder,
+            Supplier<PendingAction> pendingActionSupplier,
+            Supplier<BridgeProjectionInputs> projectionInputsSupplier,
+            Supplier<BridgePublishedGameLog> publishedGameLogSupplier,
+            ToLongFunction<Map<String, Object>> boardCursorAllocator) {
         this.logger = logger;
         this.username = username;
         this.processor = processor;
-        this.processorState = processorState;
-        this.gameLogRefresher = gameLogRefresher;
         this.queryBuilder = queryBuilder;
+        this.pendingActionSupplier = pendingActionSupplier;
+        this.projectionInputsSupplier = projectionInputsSupplier;
+        this.publishedGameLogSupplier = publishedGameLogSupplier;
+        this.boardCursorAllocator = boardCursorAllocator;
     }
 
     public void publishProcessorState(BridgeProcessorMessage cause) {
@@ -108,16 +118,14 @@ public final class BridgePublishedQueryState {
             throw new IllegalStateException("projectActionChoices must run on the bridge processor thread");
         }
         BridgeBuiltActionChoices built = queryBuilder.buildPublishedActionChoices(
-            processorState.decisionState().pendingAction(),
+            pendingActionSupplier.get(),
             projectedActionContext,
             projectedGameView,
             projectionInputs
         );
         ActionResult result = built.result();
         if (Boolean.TRUE.equals(result.action_pending)) {
-            result.board_cursor = processorState.cursorState().updateBoardCursor(
-                BridgeGameStateBuilder.buildStateSignature(McpToolRegistry.resultToMap(result))
-            );
+            result.board_cursor = boardCursorAllocator.applyAsLong(McpToolRegistry.resultToMap(result));
         }
         BridgePublishedActionChoices previous = projectedActionChoices;
         projectedActionChoices = BridgePublishedActionChoices.from(result, built.backingChoices());
@@ -135,15 +143,12 @@ public final class BridgePublishedQueryState {
         return new BridgePublishedQuerySnapshot(
             projectedActionChoices,
             projectedGameState,
-            processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch())
+            publishedGameLogSupplier.get()
         );
     }
 
     private BridgeProjectionInputs projectionInputs() {
-        return new BridgeProjectionInputs(
-            processorState.gameState().currentPlayerId(),
-            processorState.interactionState().failedManaCastsSnapshot()
-        );
+        return projectionInputsSupplier.get();
     }
 
     private void traceProjectedGameStateChange(

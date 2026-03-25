@@ -22,6 +22,7 @@ import mage.client.bridge.processor.BridgePassPriorityFlowManager;
 import mage.client.bridge.processor.BridgeProcessor;
 import mage.client.bridge.processor.BridgeProcessorServices;
 import mage.client.bridge.processor.BridgeProcessorState;
+import mage.client.bridge.processor.BridgeProjectionInputs;
 import mage.client.bridge.processor.BridgePublishedActionChoices;
 import mage.client.bridge.processor.BridgePublishedQueryBuilder;
 import mage.client.bridge.processor.BridgePublishedQueryState;
@@ -197,9 +198,16 @@ public class BridgeCallbackHandler {
             logger,
             client.getUsername(),
             processor,
-            processorState,
-            gameLogRefresher,
-            publishedQueryBuilder
+            publishedQueryBuilder,
+            () -> processorState.decisionState().pendingAction(),
+            () -> new BridgeProjectionInputs(
+                processorState.gameState().currentPlayerId(),
+                processorState.interactionState().failedManaCastsSnapshot()
+            ),
+            () -> processorState.gameLogState().publishedGameLog(gameLogRefresher.completedSyncEpoch()),
+            state -> processorState.cursorState().updateBoardCursor(
+                BridgeGameStateBuilder.buildStateSignature(state)
+            )
         );
         publishedQueryStateRef.set(this.publishedQueryState);
         processorState.decisionState().setPendingActionChangedListener(
