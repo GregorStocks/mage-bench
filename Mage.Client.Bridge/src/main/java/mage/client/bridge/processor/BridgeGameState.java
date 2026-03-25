@@ -7,19 +7,19 @@ import org.apache.log4j.Logger;
 import java.util.UUID;
 
 public final class BridgeGameState {
-    private volatile boolean keepAliveAfterGame = false;
-    private volatile boolean gameEverStarted = false;
-    private volatile boolean activeGame = false;
-    private volatile UUID currentGameId = null;
-    private volatile UUID currentPlayerId = null;
-    private volatile UUID currentChatId = null;
-    private volatile boolean superseded = false;
-    private volatile boolean playerDead = false;
-    private volatile long generation = 0;
-    private volatile GameView lastGameView = null;
+    private boolean keepAliveAfterGame = false;
+    private boolean gameEverStarted = false;
+    private boolean activeGame = false;
+    private UUID currentGameId = null;
+    private UUID currentPlayerId = null;
+    private UUID currentChatId = null;
+    private boolean superseded = false;
+    private boolean playerDead = false;
+    private long generation = 0;
+    private GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
-    private volatile long lastCallbackReceivedAt = 0;
-    private volatile long lastActionableCallbackAt = 0;
+    private long lastCallbackReceivedAt = 0;
+    private long lastActionableCallbackAt = 0;
 
     public boolean keepAliveAfterGame() {
         return keepAliveAfterGame;
@@ -73,7 +73,7 @@ public final class BridgeGameState {
         playerDead = false;
     }
 
-    public synchronized boolean updateLastGameView(
+    public boolean updateLastGameView(
             GameView gameView,
             String source,
             Logger logger,

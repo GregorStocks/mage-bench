@@ -2,21 +2,22 @@ package mage.client.bridge.processor;
 
 import mage.view.GameView;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class BridgeInteractionState {
-    private final Set<UUID> failedManaCasts = ConcurrentHashMap.newKeySet();
-    private volatile UUID poolManaPayingForId = null;
-    private volatile int poolManaAttempts = 0;
-    private volatile CopyOnWriteArrayList<BridgeManaPlanEntry> manaPlan = null;
-    private volatile Integer manaPlanAbilityIndex = null;
-    private volatile boolean manaPlanAutoTapFallback = true;
-    private volatile int lastTurnNumber = -1;
-    private volatile int interactionsThisTurn = 0;
-    private volatile int maxInteractionsPerTurn = 25;
+    private final Set<UUID> failedManaCasts = new HashSet<>();
+    private UUID poolManaPayingForId = null;
+    private int poolManaAttempts = 0;
+    private List<BridgeManaPlanEntry> manaPlan = null;
+    private Integer manaPlanAbilityIndex = null;
+    private boolean manaPlanAutoTapFallback = true;
+    private int lastTurnNumber = -1;
+    private int interactionsThisTurn = 0;
+    private int maxInteractionsPerTurn = 25;
 
     public void setMaxInteractionsPerTurn(int maxInteractionsPerTurn) {
         this.maxInteractionsPerTurn = maxInteractionsPerTurn;
@@ -64,12 +65,12 @@ public final class BridgeInteractionState {
         }
     }
 
-    public CopyOnWriteArrayList<BridgeManaPlanEntry> manaPlan() {
+    public List<BridgeManaPlanEntry> manaPlan() {
         return manaPlan;
     }
 
-    public void setManaPlan(CopyOnWriteArrayList<BridgeManaPlanEntry> manaPlan, boolean autoTapFallback) {
-        this.manaPlan = manaPlan;
+    public void setManaPlan(List<BridgeManaPlanEntry> manaPlan, boolean autoTapFallback) {
+        this.manaPlan = manaPlan == null ? null : new ArrayList<>(manaPlan);
         this.manaPlanAutoTapFallback = autoTapFallback;
         this.manaPlanAbilityIndex = null;
     }

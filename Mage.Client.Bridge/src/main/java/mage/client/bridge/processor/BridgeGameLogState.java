@@ -16,7 +16,6 @@ public final class BridgeGameLogState {
     private record PendingPublishedOutgoingChat(String rendered, long publishAfterSyncEpoch) {
     }
 
-    private final Object unseenChatLock = new Object();
     private final List<String> unseenChat = new ArrayList<>();
     private final List<BridgePublishedLogEntry> publishedLog = new ArrayList<>();
     private final Set<Integer> publishedBridgeEventIndexes = new HashSet<>();
@@ -29,9 +28,7 @@ public final class BridgeGameLogState {
     private int lastPublishedBridgeEventIndex = -1;
 
     public void reset() {
-        synchronized (unseenChatLock) {
-            unseenChat.clear();
-        }
+        unseenChat.clear();
         publishedLog.clear();
         publishedBridgeEventIndexes.clear();
         pendingOutgoingChatEchoes.clear();
@@ -69,17 +66,13 @@ public final class BridgeGameLogState {
         }
         appendRenderedEntry("[Chat] " + user + ": " + msg);
         if (!user.equals(username)) {
-            synchronized (unseenChatLock) {
-                unseenChat.add(user + ": " + msg);
-            }
+            unseenChat.add(user + ": " + msg);
         }
     }
 
     public void addSystemMessage(String message) {
         appendRenderedEntry(message);
-        synchronized (unseenChatLock) {
-            unseenChat.add(message);
-        }
+        unseenChat.add(message);
     }
 
     public void attachUnseenChat(Map<String, Object> result, boolean playerDead, boolean gameOver) {
@@ -193,13 +186,11 @@ public final class BridgeGameLogState {
     }
 
     private List<String> drainUnseenChat() {
-        synchronized (unseenChatLock) {
-            if (unseenChat.isEmpty()) {
-                return null;
-            }
-            List<String> recentChat = new ArrayList<>(unseenChat);
-            unseenChat.clear();
-            return recentChat;
+        if (unseenChat.isEmpty()) {
+            return null;
         }
+        List<String> recentChat = new ArrayList<>(unseenChat);
+        unseenChat.clear();
+        return recentChat;
     }
 }

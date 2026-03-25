@@ -170,6 +170,9 @@ But the bridge is still transitional overall:
   - callback ingress failure handling
 - the live `Bridge*State` holders now sit under a single `BridgeProcessorState`
   owner instead of being flat fields on `BridgeCallbackHandler`
+- those processor-owned runtime state bags now use plain single-threaded
+  fields and collections instead of pretending to be shared-memory APIs with
+  `volatile`, `synchronized`, `ConcurrentHashMap`, or `CopyOnWriteArrayList`
 - the published MCP snapshot is now assembled from explicit processor-owned
   projections, but those projections still depend on mutable runtime state and
   helper services at their build points
@@ -212,6 +215,13 @@ And the bridge still relies on shared mutable state containers such as:
 
 Those are still being read outside the processor thread.
 So the model is still transitional rather than actor-pure.
+
+That said, the processor-owned runtime bags are now intentionally
+single-threaded internals. The remaining cross-thread coordination is mostly:
+
+- published snapshot visibility for MCP reads
+- lifecycle flow waiters/tickers
+- the async bridge-event refresh shim
 
 One more ownership improvement is now in place:
 
@@ -311,18 +321,17 @@ delete the transitional mechanisms that only exist to prop that model up:
 
 ## Expected Remaining PRs
 
-Realistically, expect **2-4 review-sized PRs** from here.
+Realistically, expect **2-3 review-sized PRs** from here.
 
 A plausible decomposition is:
 
 1. replace more of the published query builders with native processor
    projections so MCP reads stop depending on mutable runtime bags
 2. replace the bridge-event sync shim with authoritative processor log appends
-3. delete leftover shared-memory scaffolding and simplify barriers
-4. split either of the last two steps again if the review gets too large
+3. simplify the remaining snapshot/barrier scaffolding once the last mutable
+   read dependencies are gone
 
-Some of those could be combined, but only by making the review and failure
-surface much larger.
+Some of those could still be split again if the review gets too large.
 
 ## Definition Of Done
 

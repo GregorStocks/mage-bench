@@ -5,7 +5,7 @@ import mage.client.bridge.PendingAction;
 import java.util.Objects;
 
 public final class BridgeDecisionState {
-    private volatile PendingAction pendingAction = null;
+    private PendingAction pendingAction = null;
     private BridgeChooseActionFlow pendingChooseActionFlow = null;
     private BridgePassPriorityFlow pendingPassPriorityFlow = null;
     private Runnable pendingActionChangedListener = () -> {};

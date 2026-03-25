@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -383,7 +382,7 @@ public final class BridgeDecisionFlowService {
                             Object chosen = choiceBackings.get(resolvedIndex);
                             if (chosen instanceof UUID chosenUuid) {
                                 if (effectiveManaPlan != null) {
-                                    CopyOnWriteArrayList<BridgeManaPlanEntry> parsedPlan;
+                                    List<BridgeManaPlanEntry> parsedPlan;
                                     try {
                                         parsedPlan = parseManaPlan(effectiveManaPlan);
                                     } catch (IllegalArgumentException e) {
@@ -1498,8 +1497,8 @@ public final class BridgeDecisionFlowService {
         return orderedChoices;
     }
 
-    private CopyOnWriteArrayList<BridgeManaPlanEntry> parseManaPlan(String[] arr) {
-        var plan = new CopyOnWriteArrayList<BridgeManaPlanEntry>();
+    private List<BridgeManaPlanEntry> parseManaPlan(String[] arr) {
+        var plan = new ArrayList<BridgeManaPlanEntry>();
         for (String entry : arr) {
             if (isPoolColor(entry)) {
                 plan.add(new BridgeManaPlanEntry("pool", entry));
@@ -1552,7 +1551,7 @@ public final class BridgeDecisionFlowService {
         String messageText = message.getMessage();
         UUID payingForId = extractPayingForId(messageText);
 
-        CopyOnWriteArrayList<BridgeManaPlanEntry> plan = processorState.interactionState().manaPlan();
+        List<BridgeManaPlanEntry> plan = processorState.interactionState().manaPlan();
         if (plan != null && !plan.isEmpty()) {
             BridgeManaPlanEntry entry = plan.remove(0);
 
