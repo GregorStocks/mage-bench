@@ -146,8 +146,12 @@ The action/game-state slice is also closer to the intended model now:
   - published-state reads now use listener/processor sync barriers and then
     read the published immutable snapshot directly, instead of asking the
     processor thread to read the snapshot on MCP's behalf
-  - `get_my_decklist` and `get_oracle_text` now go through a processor-side
-    query command service instead of touching handler-owned helpers directly
+  - `get_my_decklist` now reads an immutable published decklist snapshot
+    instead of submitting a processor query command
+  - `get_oracle_text` now resolves object IDs from a processor-published
+    immutable oracle index instead of submitting a processor query command
+  - name-based oracle lookups are now pure reference-data reads on the MCP
+    side instead of processor round-trips
 
 That API should keep its semantics explicit:
 
@@ -201,6 +205,8 @@ There are still real actor-model violations or near-violations left:
 - `BridgePublishedQueryState` now consumes injected pending-action,
   projection-input, board-cursor, and published-log suppliers instead of
   reaching back into `processorState` / `BridgeGameLogRefresher` directly
+- processor-published query state now also owns the immutable oracle-object
+  lookup surface used by `get_oracle_text(object_id=...)`
 - but the helper stack still formats and rebuilds projections from mutable
   runtime bags rather than from native append-only processor projections
 - published game state and action choices are now explicit processor-side

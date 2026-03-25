@@ -5,6 +5,7 @@ import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
 import mage.choices.Choice;
+import mage.client.bridge.BridgeOracleTextService;
 import mage.client.bridge.BridgePromptFormatting;
 import mage.client.bridge.PendingAction;
 import mage.client.bridge.tools.ActionResult;
@@ -20,6 +21,7 @@ import mage.util.MultiAmountMessage;
 import mage.view.AbilityPickerView;
 import mage.view.CardView;
 import mage.view.CardsView;
+import mage.view.CommandObjectView;
 import mage.view.CombatGroupView;
 import mage.view.GameClientMessage;
 import mage.view.GameView;
@@ -181,6 +183,47 @@ public final class BridgePublishedQueryBuilder {
         );
     }
 
+    public BridgePublishedOracleIndex buildPublishedOracleIndex(GameView gameView) {
+        if (gameView == null) {
+            return BridgePublishedOracleIndex.empty();
+        }
+
+        var cardsByObjectId = new LinkedHashMap<String, Map<String, Object>>();
+
+        for (CardView card : gameView.getMyHand().values()) {
+            addOracleCard(cardsByObjectId, card, gameView);
+        }
+        for (CardView card : gameView.getStack().values()) {
+            addOracleCard(cardsByObjectId, card, gameView);
+        }
+        for (PlayerView player : gameView.getPlayers()) {
+            for (PermanentView permanent : player.getBattlefield().values()) {
+                addOracleCard(cardsByObjectId, permanent, gameView);
+            }
+            for (CardView card : player.getGraveyard().values()) {
+                addOracleCard(cardsByObjectId, card, gameView);
+            }
+            for (CardView card : player.getExile().values()) {
+                addOracleCard(cardsByObjectId, card, gameView);
+            }
+            for (CommandObjectView commandObject : player.getCommandObjectList()) {
+                if (commandObject instanceof CardView card) {
+                    addOracleCard(cardsByObjectId, card, gameView);
+                }
+            }
+        }
+        for (var exileZone : gameView.getExile()) {
+            for (CardView card : exileZone.values()) {
+                addOracleCard(cardsByObjectId, card, gameView);
+            }
+        }
+
+        return new BridgePublishedOracleIndex(
+            cardsByObjectId,
+            processorServices.shortIds().snapshotShortIds()
+        );
+    }
+
     BridgePublishedGameStateBuild buildPublishedGameState(
             GameView gameView,
             int currentRound,
@@ -232,6 +275,17 @@ public final class BridgePublishedQueryBuilder {
             BridgePublishedGameState state,
             String payload
     ) {
+    }
+
+    private void addOracleCard(
+            Map<String, Map<String, Object>> cardsByObjectId,
+            CardView card,
+            GameView gameView) {
+        if (card == null || card.getId() == null) {
+            return;
+        }
+        String objectId = processorServices.viewLocator().getStableShortId(card.getId(), card, gameView);
+        cardsByObjectId.putIfAbsent(objectId, BridgeOracleTextService.buildCardFieldsMap(card));
     }
 
     private List<Object> buildAskChoices(ActionResult result, PendingAction action, GameView gameView) {

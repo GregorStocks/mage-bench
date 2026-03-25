@@ -22,6 +22,7 @@ public final class BridgePublishedQueryState {
     private final boolean tracePublishedState = Boolean.getBoolean("xmage.bridge.tracePublishedState");
     private final boolean tracePublishedActionChoices = Boolean.getBoolean("xmage.bridge.tracePublishedActionChoices");
     private volatile BridgePublishedQuerySnapshot publishedSnapshot = BridgePublishedQuerySnapshot.empty();
+    private volatile BridgePublishedOracleIndex publishedOracleIndex = BridgePublishedOracleIndex.empty();
     private BridgePublishedActionChoices projectedActionChoices = BridgePublishedActionChoices.empty();
     private BridgePublishedGameState projectedGameState =
         BridgePublishedGameState.unavailable("No game state available yet");
@@ -88,6 +89,7 @@ public final class BridgePublishedQueryState {
         projectedGameState = built.state();
         projectedActionContext = queryBuilder.buildProjectedActionContext(gameView, built.state(), round);
         projectedGameView = gameView;
+        publishedOracleIndex = queryBuilder.buildPublishedOracleIndex(gameView);
         projectActionChoices(cause, projectionInputs);
         traceProjectedGameStateChange(cause, previous, built.state(), built.payload());
     }
@@ -101,6 +103,7 @@ public final class BridgePublishedQueryState {
         projectedGameState = next;
         projectedActionContext = BridgeProjectedActionContext.empty();
         projectedGameView = null;
+        publishedOracleIndex = BridgePublishedOracleIndex.empty();
         traceProjectedGameStateChange(
             cause,
             previous,
@@ -137,6 +140,10 @@ public final class BridgePublishedQueryState {
             throw new IllegalStateException("clearProjectedActionChoices must run on the bridge processor thread");
         }
         projectedActionChoices = BridgePublishedActionChoices.empty();
+    }
+
+    public BridgePublishedOracleIndex oracleIndex() {
+        return publishedOracleIndex;
     }
 
     private BridgePublishedQuerySnapshot buildPublishedSnapshot() {

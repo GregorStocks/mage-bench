@@ -7,7 +7,6 @@ import mage.client.bridge.processor.BridgePublishedLogEntry;
 import mage.client.bridge.processor.BridgePublishedQuerySnapshot;
 import mage.client.bridge.processor.BridgePublishedQueryState;
 import mage.client.bridge.processor.BridgeProcessor;
-import mage.client.bridge.processor.BridgeQueryCommandService;
 import mage.client.bridge.tools.ActionResult;
 import mage.client.bridge.tools.GetGameHistoryTool;
 import mage.client.bridge.tools.GetGameLogTool;
@@ -19,6 +18,7 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public final class BridgeMcpQueryApi {
     private final String username;
@@ -26,7 +26,7 @@ public final class BridgeMcpQueryApi {
     private final BridgeProcessor processor;
     private final BridgeGameLogRefresher gameLogRefresher;
     private final BridgePublishedQueryState publishedQueryState;
-    private final BridgeQueryCommandService queryCommandService;
+    private final Supplier<Map<String, Object>> decklistSnapshotSupplier;
     private final Runnable awaitPublishedReadBarrier;
     private final Runnable awaitProcessorReadBarrier;
 
@@ -36,7 +36,7 @@ public final class BridgeMcpQueryApi {
             BridgeProcessor processor,
             BridgeGameLogRefresher gameLogRefresher,
             BridgePublishedQueryState publishedQueryState,
-            BridgeQueryCommandService queryCommandService,
+            Supplier<Map<String, Object>> decklistSnapshotSupplier,
             Runnable awaitPublishedReadBarrier,
             Runnable awaitProcessorReadBarrier) {
         this.username = username;
@@ -44,7 +44,7 @@ public final class BridgeMcpQueryApi {
         this.processor = processor;
         this.gameLogRefresher = gameLogRefresher;
         this.publishedQueryState = publishedQueryState;
-        this.queryCommandService = queryCommandService;
+        this.decklistSnapshotSupplier = decklistSnapshotSupplier;
         this.awaitPublishedReadBarrier = awaitPublishedReadBarrier;
         this.awaitProcessorReadBarrier = awaitProcessorReadBarrier;
     }
@@ -179,7 +179,8 @@ public final class BridgeMcpQueryApi {
     }
 
     public Map<String, Object> getMyDecklist() {
-        return processor.submit(BridgeCommand.of(queryCommandService::getMyDecklist));
+        awaitPublishedReadBarrier.run();
+        return decklistSnapshotSupplier.get();
     }
 
     public GetOracleTextTool.Result getOracleText(
@@ -187,9 +188,14 @@ public final class BridgeMcpQueryApi {
             String objectId,
             String[] cardNames,
             String[] objectIds) {
-        return processor.submit(BridgeCommand.of(
-            () -> queryCommandService.getOracleText(cardName, objectId, cardNames, objectIds)
-        ));
+        awaitPublishedReadBarrier.run();
+        return BridgePublishedOracleQuery.getOracleText(
+            publishedQueryState.oracleIndex(),
+            cardName,
+            objectId,
+            cardNames,
+            objectIds
+        );
     }
 
     private BridgeGameLogSnapshot snapshotGameLog() {

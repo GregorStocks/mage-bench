@@ -3,6 +3,7 @@ package mage.util;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -97,6 +98,14 @@ public class ShortIdRegistry {
      */
     public UUID tryResolve(String shortId) {
         return shortToUuid.get(shortId);
+    }
+
+    /**
+     * Return an immutable snapshot of all currently known short IDs,
+     * including resolve-only aliases kept after server-ID replacement.
+     */
+    public Set<String> snapshotShortIds() {
+        return Set.copyOf(shortToUuid.keySet());
     }
 
     /**

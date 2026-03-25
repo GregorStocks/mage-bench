@@ -127,6 +127,18 @@ public final class BridgeOracleTextService {
         return result;
     }
 
+    public static Map<String, Object> buildCardFieldsMap(CardView cv) {
+        var entry = new HashMap<String, Object>();
+        extractOracleCardFields(cv).populate(entry);
+        return Map.copyOf(entry);
+    }
+
+    public static Map<String, Object> buildCardFieldsMap(CardInfo ci) {
+        var entry = new HashMap<String, Object>();
+        extractOracleCardFields(ci, true).populate(entry);
+        return Map.copyOf(entry);
+    }
+
     void populateCardFields(Map<String, Object> entry, CardView cv) {
         extractOracleCardFields(cv).populate(entry);
     }
