@@ -26,13 +26,13 @@ public final class BridgeCallbackDispatcher {
         Object data = event.data();
         boolean actionable = ACTIONABLE_CALLBACKS.contains(method);
         try {
-            if (event.bridgeEvents() != null && !event.bridgeEvents().isEmpty()) {
-                context.recordPushedBridgeEvents(event.bridgeEvents());
-            }
             String ignoreReason = context.nonCurrentGameCallbackIgnoreReason(objectId, method);
             context.logCallbackReceived(objectId, method, ignoreReason);
             if (context.shouldIgnoreNonCurrentGameCallback(objectId, method, ignoreReason)) {
                 return;
+            }
+            if (event.bridgeEvents() != null && !event.bridgeEvents().isEmpty()) {
+                context.recordPushedBridgeEvents(event.bridgeEvents());
             }
             context.recordCallbackArrival(method);
             BridgeActionableCallbackOutcome actionableOutcome =
