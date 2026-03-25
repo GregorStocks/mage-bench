@@ -8,6 +8,7 @@ import mage.constants.SubType;
 import mage.constants.SuperType;
 import mage.util.ShortIdRegistry;
 import mage.view.CardView;
+import mage.view.GameView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +27,13 @@ public final class BridgeOracleTextService {
         this.viewLocator = viewLocator;
     }
 
-    public GetOracleTextTool.Result getOracleText(String cardName, String objectId, String[] cardNames, String[] objectIds) {
+    public GetOracleTextTool.Result getOracleText(
+            String cardName,
+            String objectId,
+            String[] cardNames,
+            String[] objectIds,
+            GameView gameView
+    ) {
         var result = new GetOracleTextTool.Result();
 
         boolean hasCardName = cardName != null && !cardName.isEmpty();
@@ -55,7 +62,7 @@ public final class BridgeOracleTextService {
                     entry.put("object_id", oid);
                     try {
                         UUID uuid = shortIds.resolve(oid);
-                        CardView cardView = viewLocator.findCardViewById(uuid);
+                        CardView cardView = viewLocator.findCardViewById(uuid, gameView);
                         if (cardView != null) {
                             populateCardFields(entry, cardView);
                         } else {
@@ -93,7 +100,7 @@ public final class BridgeOracleTextService {
         if (hasObjectId) {
             try {
                 UUID uuid = shortIds.resolve(objectId);
-                CardView cardView = viewLocator.findCardViewById(uuid);
+                CardView cardView = viewLocator.findCardViewById(uuid, gameView);
                 if (cardView != null) {
                     result.success = true;
                     populateCardFields(result, cardView);

@@ -82,8 +82,9 @@ The actual target state has **not** been reached yet.
 This is also **not** in a "two PRs away" state anymore.
 
 In broad architectural milestones, a lot of the refactor is done.
-In review-sized PRs, the remaining work is still more like **4-6 PRs**,
-depending on how aggressively we bundle riskier ownership changes.
+In review-sized PRs, the remaining work is still more like **2-4 PRs**,
+depending on how aggressively we bundle the remaining projection and
+shared-state cleanup.
 
 Write-side MCP actions are much closer to the desired model now:
 
@@ -184,9 +185,11 @@ There are still real actor-model violations or near-violations left:
 - the helper stack (`BridgeViewLocator`, `BridgeCardFormatter`,
   `BridgeGameStateBuilder`, `BridgeOracleTextService`, `ShortIdRegistry`) now
   hangs off a processor-side `BridgeProcessorServices` owner instead of being
-  stored as separate fields on `BridgeCallbackHandler`, but those helpers still
-  use live-state suppliers and mutable runtime bags rather than native
-  processor projections
+  stored as separate fields on `BridgeCallbackHandler`
+- those helpers no longer carry hidden live-state suppliers; processor-owned
+  callers now thread explicit `GameView` / player context into them
+- but the helper stack still formats and rebuilds projections from mutable
+  runtime bags rather than from native append-only processor projections
 - published game state and action choices are now explicit processor-side
   projections, but the projection builders still depend on mutable runtime
   bags and helper services rather than a purely append-only projection model
@@ -267,8 +270,8 @@ The remaining work in this area is mostly:
 - shrinking or deleting query builder helpers that still exist only to rebuild
   projection records from mutable runtime bags
 - continuing to narrow `BridgeProcessorServices` so it becomes a thin
-  processor-private services/context layer instead of a bag of mutable-state
-  readers
+  processor-private services/context layer around projections and current-game
+  context, not a bag of mutable-state readers
 
 The remaining read-side cleanup should focus on:
 
@@ -299,13 +302,15 @@ delete the transitional mechanisms that only exist to prop that model up:
 
 ## Expected Remaining PRs
 
-Realistically, expect **2-3 review-sized PRs** from here, not 2.
+Realistically, expect **2-4 review-sized PRs** from here.
 
 A plausible decomposition is:
 
-1. replace the bridge-event sync shim with authoritative processor log appends
-2. delete leftover shared-memory scaffolding and simplify barriers
-3. split the shared-memory cleanup again if the review gets too large
+1. replace more of the published query builders with native processor
+   projections so MCP reads stop depending on mutable runtime bags
+2. replace the bridge-event sync shim with authoritative processor log appends
+3. delete leftover shared-memory scaffolding and simplify barriers
+4. split either of the last two steps again if the review gets too large
 
 Some of those could be combined, but only by making the review and failure
 surface much larger.

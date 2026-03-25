@@ -205,7 +205,7 @@ public class BridgeCallbackHandler {
         );
         this.queryCommandService = new BridgeQueryCommandService(
             () -> deckList,
-            processorServices::getOracleText
+            processorServices
         );
         this.mcpQueryApi = new BridgeMcpQueryApi(
             client.getUsername(),

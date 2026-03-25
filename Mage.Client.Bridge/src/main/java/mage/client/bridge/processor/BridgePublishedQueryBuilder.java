@@ -88,6 +88,7 @@ public final class BridgePublishedQueryBuilder {
         result.message = BridgePromptFormatting.stripHtml(action.message());
 
         if (gameView != null) {
+            UUID myPlayerId = resolveMyPlayerId(gameView);
             boolean isMyTurn = username.equals(gameView.getActivePlayerName());
             boolean isMainPhase = gameView.getPhase() != null && gameView.getPhase().isMain();
 
@@ -105,7 +106,7 @@ public final class BridgePublishedQueryBuilder {
             }
             result.context = ctx.toString();
 
-            List<Map<String, Object>> players = processorServices.gameStateBuilder().buildPlayersArray(gameView);
+            List<Map<String, Object>> players = processorServices.gameStateBuilder().buildPlayersArray(gameView, myPlayerId);
             result.board = players;
 
             PlayerView myPlayer = gameView.getMyPlayer();
@@ -124,7 +125,12 @@ public final class BridgePublishedQueryBuilder {
                 result.land_drops_used = myPlayer.getLandsPlayed();
             }
 
-            List<Map<String, Object>> stackSummary = processorServices.cardFormatter().buildStackItems(gameView, false, false);
+            List<Map<String, Object>> stackSummary = processorServices.cardFormatter().buildStackItems(
+                gameView,
+                myPlayerId,
+                false,
+                false
+            );
             if (!stackSummary.isEmpty()) {
                 result.stack = stackSummary;
             }
@@ -160,8 +166,13 @@ public final class BridgePublishedQueryBuilder {
     }
 
     BridgePublishedGameStateBuild buildPublishedGameState(GameView gameView, int currentRound) {
-        List<Map<String, Object>> players = freezeMapList(processorServices.gameStateBuilder().buildPlayersArray(gameView));
-        List<Map<String, Object>> stack = freezeMapList(processorServices.cardFormatter().buildStackItems(gameView, true, true));
+        UUID myPlayerId = resolveMyPlayerId(gameView);
+        List<Map<String, Object>> players = freezeMapList(
+            processorServices.gameStateBuilder().buildPlayersArray(gameView, myPlayerId)
+        );
+        List<Map<String, Object>> stack = freezeMapList(
+            processorServices.cardFormatter().buildStackItems(gameView, myPlayerId, true, true)
+        );
         List<Map<String, Object>> combat = freezeMapList(processorServices.gameStateBuilder().buildCombatGroups(gameView));
 
         var state = new GetGameStateTool.Result();
@@ -237,7 +248,8 @@ public final class BridgePublishedQueryBuilder {
                 return cardView != null ? processorServices.cardFormatter().safeDisplayName(cardView) : "";
             }).thenComparingInt(entry -> processorServices.viewLocator().getStableShortIdSequence(
                 entry.getKey(),
-                processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView)
+                processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView),
+                capturedGameView
             )));
 
             int idx = 0;
@@ -257,7 +269,7 @@ public final class BridgePublishedQueryBuilder {
                 CardView cardView = processorServices.viewLocator().findCardViewById(objectId, gameView);
                 var choiceEntry = new HashMap<String, Object>();
                 choiceEntry.put("index", idx);
-                choiceEntry.put("id", processorServices.viewLocator().getStableShortId(objectId, cardView));
+                choiceEntry.put("id", processorServices.viewLocator().getStableShortId(objectId, cardView, gameView));
 
                 boolean isOnBattlefield = cardView == null
                     || (gameView.getMyHand().get(objectId) == null && gameView.getStack().get(objectId) == null);
@@ -314,7 +326,7 @@ public final class BridgePublishedQueryBuilder {
                             for (CardView attacker : group.getAttackers().values()) {
                                 var attackerInfo = new HashMap<String, Object>();
                                 if (attacker.getId() != null) {
-                                    attackerInfo.put("id", processorServices.viewLocator().getStableShortId(attacker.getId(), attacker));
+                                    attackerInfo.put("id", processorServices.viewLocator().getStableShortId(attacker.getId(), attacker, gameView));
                                 }
                                 attackerInfo.put("name", processorServices.cardFormatter().safeDisplayName(attacker));
                                 if (attacker.getPower() != null) {
@@ -338,7 +350,7 @@ public final class BridgePublishedQueryBuilder {
 
                         var choiceEntry = new HashMap<String, Object>();
                         choiceEntry.put("index", idx);
-                        choiceEntry.put("id", processorServices.viewLocator().getStableShortId(attackerId, permanent));
+                        choiceEntry.put("id", processorServices.viewLocator().getStableShortId(attackerId, permanent, gameView));
                         choiceEntry.put("name", processorServices.cardFormatter().safeDisplayName(permanent));
                         if (permanent.getPower() != null) {
                             choiceEntry.put("power", permanent.getPower());
@@ -370,7 +382,7 @@ public final class BridgePublishedQueryBuilder {
                             for (CardView attacker : group.getAttackers().values()) {
                                 var attackerInfo = new HashMap<String, Object>();
                                 if (attacker.getId() != null) {
-                                    attackerInfo.put("id", processorServices.viewLocator().getStableShortId(attacker.getId(), attacker));
+                                    attackerInfo.put("id", processorServices.viewLocator().getStableShortId(attacker.getId(), attacker, gameView));
                                 }
                                 attackerInfo.put("name", attacker.getDisplayName());
                                 if (attacker.getPower() != null) {
@@ -394,7 +406,7 @@ public final class BridgePublishedQueryBuilder {
 
                         var choiceEntry = new HashMap<String, Object>();
                         choiceEntry.put("index", idx);
-                        choiceEntry.put("id", processorServices.viewLocator().getStableShortId(blockerId, permanent));
+                        choiceEntry.put("id", processorServices.viewLocator().getStableShortId(blockerId, permanent, gameView));
                         choiceEntry.put("name", processorServices.cardFormatter().safeDisplayName(permanent));
                         if (permanent.getPower() != null) {
                             choiceEntry.put("power", permanent.getPower());
@@ -442,7 +454,8 @@ public final class BridgePublishedQueryBuilder {
                 return cardView != null ? processorServices.cardFormatter().safeDisplayName(cardView) : "";
             }).thenComparingInt(entry -> processorServices.viewLocator().getStableShortIdSequence(
                 entry.getKey(),
-                processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView)
+                processorServices.viewLocator().findCardViewById(entry.getKey(), capturedGameView),
+                capturedGameView
             )));
 
             int idx = 0;
@@ -465,7 +478,7 @@ public final class BridgePublishedQueryBuilder {
                 for (String manaAbilityText : manaAbilities) {
                     var choiceEntry = new HashMap<String, Object>();
                     choiceEntry.put("index", idx);
-                    choiceEntry.put("id", processorServices.viewLocator().getStableShortId(manaObjectId, cardView));
+                    choiceEntry.put("id", processorServices.viewLocator().getStableShortId(manaObjectId, cardView, gameView));
                     choiceEntry.put("choice_type", manaAbilityText.contains("{T}") ? "tap_source" : "mana_source");
                     choiceEntry.put("name", cardName);
                     choiceEntry.put("ability", manaAbilityText);
@@ -521,8 +534,7 @@ public final class BridgePublishedQueryBuilder {
         if (targets != null) {
             CardsView cardsView = msg.getCardsView1();
             GameView targetGameView = msg.getGameView() != null ? msg.getGameView() : processorState.gameState().lastGameView();
-            UUID gameId = processorState.gameState().currentGameId();
-            UUID myPlayerId = gameId != null ? processorState.gameState().playerIdForGame(gameId) : null;
+            UUID myPlayerId = resolveMyPlayerId(targetGameView);
             var targetChoices = new ArrayList<TargetChoice>();
             for (UUID targetId : targets) {
                 var choiceEntry = new HashMap<String, Object>();
@@ -544,14 +556,18 @@ public final class BridgePublishedQueryBuilder {
                     return nameCmp;
                 }
                 return Integer.compare(
-                    processorServices.viewLocator().getStableShortIdSequence(left.targetId(), left.cardView()),
-                    processorServices.viewLocator().getStableShortIdSequence(right.targetId(), right.cardView())
+                    processorServices.viewLocator().getStableShortIdSequence(left.targetId(), left.cardView(), targetGameView),
+                    processorServices.viewLocator().getStableShortIdSequence(right.targetId(), right.cardView(), targetGameView)
                 );
             });
 
             int idx = 0;
             for (TargetChoice choice : targetChoices) {
-                choice.entry().put("id", processorServices.viewLocator().getStableShortId(choice.targetId(), choice.cardView()));
+                choice.entry().put("id", processorServices.viewLocator().getStableShortId(
+                    choice.targetId(),
+                    choice.cardView(),
+                    targetGameView
+                ));
                 choice.entry().put("index", idx);
                 choiceList.add(choice.entry());
                 indexToUuid.add(choice.targetId());
@@ -893,6 +909,17 @@ public final class BridgePublishedQueryBuilder {
         addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.GREEN);
         addPreferredPoolManaChoice(orderedChoices, manaPool, ManaType.COLORLESS);
         return orderedChoices;
+    }
+
+    private UUID resolveMyPlayerId(GameView gameView) {
+        if (gameView != null) {
+            PlayerView myPlayer = gameView.getMyPlayer();
+            if (myPlayer != null && myPlayer.getPlayerId() != null) {
+                return myPlayer.getPlayerId();
+            }
+        }
+        UUID gameId = processorState.gameState().currentGameId();
+        return gameId != null ? processorState.gameState().playerIdForGame(gameId) : null;
     }
 
     private Set<String> getDeckCreatureTypes(DeckCardLists deckList) {

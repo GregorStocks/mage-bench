@@ -128,7 +128,11 @@ public final class BridgeDecisionFlowService {
                 boolean required = targetMsg.isFlag();
                 Set<UUID> targets = findValidTargets(targetMsg);
                 if (required && targets != null && !targets.isEmpty()) {
-                    UUID firstTarget = selectDeterministicTarget(targets, null);
+                    UUID firstTarget = selectDeterministicTarget(
+                        targets,
+                        null,
+                        targetMsg.getGameView() != null ? targetMsg.getGameView() : processorState.gameState().lastGameView()
+                    );
                     sendUuidOrDie(gameId, firstTarget, "defaultAction:GAME_TARGET");
                     result.put("action_taken", "selected_first_target");
                 } else {
@@ -521,7 +525,11 @@ public final class BridgeDecisionFlowService {
 
                     Set<UUID> autoTargets = findValidTargets(targetMsg);
                     if (autoTargets != null && !autoTargets.isEmpty()) {
-                        UUID firstTarget = selectDeterministicTarget(autoTargets, choiceBackings);
+                        UUID firstTarget = selectDeterministicTarget(
+                            autoTargets,
+                            choiceBackings,
+                            targetMsg.getGameView() != null ? targetMsg.getGameView() : processorState.gameState().lastGameView()
+                        );
                         logger.warn("[" + username + "] choose_action: auto-selecting first target for required GAME_TARGET");
                         sendUuidOrDie(gameId, firstTarget, "chooseAction:GAME_TARGET_auto_select");
                         result.action_taken = "auto_selected_required_target";
@@ -1341,10 +1349,14 @@ public final class BridgeDecisionFlowService {
         if (targets == null || targets.size() != 1) {
             return null;
         }
-        return selectDeterministicTarget(targets, null);
+        return selectDeterministicTarget(
+            targets,
+            null,
+            message.getGameView() != null ? message.getGameView() : processorState.gameState().lastGameView()
+        );
     }
 
-    private UUID selectDeterministicTarget(Set<UUID> targets, List<Object> choices) {
+    private UUID selectDeterministicTarget(Set<UUID> targets, List<Object> choices, GameView gameView) {
         if (targets == null || targets.isEmpty()) {
             return null;
         }
@@ -1358,7 +1370,11 @@ public final class BridgeDecisionFlowService {
         UUID selected = null;
         int selectedSeq = Integer.MAX_VALUE;
         for (UUID candidate : targets) {
-            int seq = processorServices.viewLocator().getStableShortIdSequence(candidate);
+            int seq = processorServices.viewLocator().getStableShortIdSequence(
+                candidate,
+                processorServices.viewLocator().findCardViewById(candidate, gameView),
+                gameView
+            );
             if (selected == null || seq < selectedSeq) {
                 selected = candidate;
                 selectedSeq = seq;
@@ -1607,7 +1623,8 @@ public final class BridgeDecisionFlowService {
                 return cardView != null ? processorServices.cardFormatter().safeDisplayName(cardView) : "";
             }).thenComparingInt(entry -> processorServices.viewLocator().getStableShortIdSequence(
                 entry.getKey(),
-                processorServices.viewLocator().findCardViewById(entry.getKey(), gameView)
+                processorServices.viewLocator().findCardViewById(entry.getKey(), gameView),
+                gameView
             )));
 
             for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {

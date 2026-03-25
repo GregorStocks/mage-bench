@@ -1048,9 +1048,10 @@ class BridgeCallbackHandlerTest {
         CardsView stack = new CardsView();
         stack.put(stackObjectId, stackAbility);
         GameView view = gameView(7, List.of(playerView(playerId, "TestPlayer", "p2")), stack);
-        Map<String, Object> stackItem = cardFormatter(view, gameId, playerId).buildStackItem(
+        Map<String, Object> stackItem = cardFormatter().buildStackItem(
             stackAbility,
             view,
+            playerId,
             false,
             false
         );
@@ -4361,16 +4362,16 @@ class BridgeCallbackHandlerTest {
         return view;
     }
 
-    private static BridgeCardFormatter cardFormatter(GameView lastGameView, UUID currentGameId, UUID playerId) {
+    private static BridgeCardFormatter cardFormatter() {
         ShortIdRegistry shortIds = new ShortIdRegistry("l");
-        BridgeViewLocator viewLocator = new BridgeViewLocator(shortIds, () -> lastGameView, ignored -> {
+        BridgeViewLocator viewLocator = new BridgeViewLocator(shortIds, ignored -> {
         });
-        return new BridgeCardFormatter(viewLocator, () -> currentGameId, ignored -> playerId);
+        return new BridgeCardFormatter(viewLocator);
     }
 
     private static BridgeOracleTextService oracleTextService() {
         ShortIdRegistry shortIds = new ShortIdRegistry("l");
-        BridgeViewLocator viewLocator = new BridgeViewLocator(shortIds, () -> null, ignored -> {
+        BridgeViewLocator viewLocator = new BridgeViewLocator(shortIds, ignored -> {
         });
         return new BridgeOracleTextService(shortIds, viewLocator);
     }

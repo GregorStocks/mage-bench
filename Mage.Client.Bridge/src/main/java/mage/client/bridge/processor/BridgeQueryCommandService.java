@@ -2,7 +2,6 @@ package mage.client.bridge.processor;
 
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
-import mage.client.bridge.mcp.BridgeOracleTextLookup;
 import mage.client.bridge.tools.GetOracleTextTool;
 
 import java.util.HashMap;
@@ -12,13 +11,13 @@ import java.util.function.Supplier;
 
 public final class BridgeQueryCommandService {
     private final Supplier<DeckCardLists> deckListSupplier;
-    private final BridgeOracleTextLookup oracleTextLookup;
+    private final BridgeProcessorServices processorServices;
 
     public BridgeQueryCommandService(
             Supplier<DeckCardLists> deckListSupplier,
-            BridgeOracleTextLookup oracleTextLookup) {
+            BridgeProcessorServices processorServices) {
         this.deckListSupplier = deckListSupplier;
-        this.oracleTextLookup = oracleTextLookup;
+        this.processorServices = processorServices;
     }
 
     public Map<String, Object> getMyDecklist() {
@@ -41,7 +40,7 @@ public final class BridgeQueryCommandService {
             String objectId,
             String[] cardNames,
             String[] objectIds) {
-        return oracleTextLookup.getOracleText(cardName, objectId, cardNames, objectIds);
+        return processorServices.getOracleText(cardName, objectId, cardNames, objectIds);
     }
 
     private static String renderDeckSection(List<DeckCardInfo> cards) {

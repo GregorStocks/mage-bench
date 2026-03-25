@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public final class BridgeProcessorServices {
+    private final BridgeProcessorState processorState;
     private final ShortIdRegistry shortIds;
     private final BridgeViewLocator viewLocator;
     private final BridgeCardFormatter cardFormatter;
@@ -22,23 +23,11 @@ public final class BridgeProcessorServices {
             Consumer<String> errorLogger) {
         Objects.requireNonNull(processorState, "processorState");
         Objects.requireNonNull(errorLogger, "errorLogger");
+        this.processorState = processorState;
         this.shortIds = new ShortIdRegistry("l");
-        this.viewLocator = new BridgeViewLocator(
-            shortIds,
-            processorState.gameState()::lastGameView,
-            errorLogger
-        );
-        this.cardFormatter = new BridgeCardFormatter(
-            viewLocator,
-            processorState.gameState()::currentGameId,
-            processorState.gameState()::playerIdForGame
-        );
-        this.gameStateBuilder = new BridgeGameStateBuilder(
-            cardFormatter,
-            viewLocator,
-            processorState.gameState()::currentGameId,
-            processorState.gameState()::playerIdForGame
-        );
+        this.viewLocator = new BridgeViewLocator(shortIds, errorLogger);
+        this.cardFormatter = new BridgeCardFormatter(viewLocator);
+        this.gameStateBuilder = new BridgeGameStateBuilder(cardFormatter, viewLocator);
         this.oracleTextService = new BridgeOracleTextService(shortIds, viewLocator);
     }
 
@@ -67,6 +56,12 @@ public final class BridgeProcessorServices {
             String objectId,
             String[] cardNames,
             String[] objectIds) {
-        return oracleTextService.getOracleText(cardName, objectId, cardNames, objectIds);
+        return oracleTextService.getOracleText(
+            cardName,
+            objectId,
+            cardNames,
+            objectIds,
+            processorState.gameState().lastGameView()
+        );
     }
 }

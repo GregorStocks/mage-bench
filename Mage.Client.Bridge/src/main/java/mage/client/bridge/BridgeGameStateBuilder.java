@@ -18,31 +18,22 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public final class BridgeGameStateBuilder {
 
     private final BridgeCardFormatter cardFormatter;
     private final BridgeViewLocator viewLocator;
-    private final Supplier<UUID> currentGameIdSupplier;
-    private final Function<UUID, UUID> playerIdForGame;
 
     public BridgeGameStateBuilder(
             BridgeCardFormatter cardFormatter,
-            BridgeViewLocator viewLocator,
-            Supplier<UUID> currentGameIdSupplier,
-            Function<UUID, UUID> playerIdForGame
+            BridgeViewLocator viewLocator
     ) {
         this.cardFormatter = cardFormatter;
         this.viewLocator = viewLocator;
-        this.currentGameIdSupplier = currentGameIdSupplier;
-        this.playerIdForGame = playerIdForGame;
     }
 
-    public List<Map<String, Object>> buildPlayersArray(GameView gameView) {
+    public List<Map<String, Object>> buildPlayersArray(GameView gameView, UUID myPlayerId) {
         var players = new ArrayList<Map<String, Object>>();
-        UUID myPlayerId = playerIdForGame.apply(currentGameIdSupplier.get());
 
         for (PlayerView player : getStablePlayers(gameView, myPlayerId)) {
             var playerInfo = new HashMap<String, Object>();
@@ -61,11 +52,11 @@ public final class BridgeGameStateBuilder {
 
                 var sortedHand = new ArrayList<>(gameView.getMyHand().entrySet());
                 sortedHand.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> cardFormatter.safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> viewLocator.getStableShortIdSequence(e.getKey(), e.getValue())));
+                    .thenComparingInt(e -> viewLocator.getStableShortIdSequence(e.getKey(), e.getValue(), gameView)));
 
                 for (Map.Entry<UUID, CardView> handEntry : sortedHand) {
                     var cardInfo = cardFormatter.buildCardInfoMap(handEntry.getValue());
-                    cardInfo.put("id", viewLocator.getStableShortId(handEntry.getKey(), handEntry.getValue()));
+                    cardInfo.put("id", viewLocator.getStableShortId(handEntry.getKey(), handEntry.getValue(), gameView));
                     if (playable != null && playable.containsObject(handEntry.getKey())) {
                         cardInfo.put("playable", true);
                     }
@@ -78,10 +69,10 @@ public final class BridgeGameStateBuilder {
             if (player.getBattlefield() != null) {
                 var sortedBattlefield = new ArrayList<>(player.getBattlefield().values());
                 sortedBattlefield.sort(Comparator.<PermanentView, String>comparing(cardFormatter::safeDisplayName)
-                    .thenComparingInt(p -> viewLocator.getStableShortIdSequence(p.getId(), p)));
+                    .thenComparingInt(p -> viewLocator.getStableShortIdSequence(p.getId(), p, gameView)));
                 for (PermanentView perm : sortedBattlefield) {
                     var permInfo = new HashMap<String, Object>();
-                    permInfo.put("id", viewLocator.getStableShortId(perm.getId(), perm));
+                    permInfo.put("id", viewLocator.getStableShortId(perm.getId(), perm, gameView));
                     permInfo.put("name", cardFormatter.safeDisplayName(perm));
                     permInfo.put("tapped", perm.isTapped());
 
@@ -144,10 +135,10 @@ public final class BridgeGameStateBuilder {
             if (player.getGraveyard() != null) {
                 var sortedGraveyard = new ArrayList<>(player.getGraveyard().entrySet());
                 sortedGraveyard.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> cardFormatter.safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> viewLocator.getStableShortIdSequence(e.getKey(), e.getValue())));
+                    .thenComparingInt(e -> viewLocator.getStableShortIdSequence(e.getKey(), e.getValue(), gameView)));
                 for (Map.Entry<UUID, CardView> entry : sortedGraveyard) {
                     var cardInfo = new HashMap<String, Object>();
-                    cardInfo.put("id", viewLocator.getStableShortId(entry.getKey(), entry.getValue()));
+                    cardInfo.put("id", viewLocator.getStableShortId(entry.getKey(), entry.getValue(), gameView));
                     cardInfo.put("name", cardFormatter.safeDisplayName(entry.getValue()));
                     List<String> gyRules = BridgePromptFormatting.stripHtmlList(entry.getValue().getRules());
                     if (gyRules != null && !gyRules.isEmpty()) {
@@ -164,10 +155,10 @@ public final class BridgeGameStateBuilder {
             if (player.getExile() != null) {
                 var sortedExile = new ArrayList<>(player.getExile().entrySet());
                 sortedExile.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> cardFormatter.safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> viewLocator.getStableShortIdSequence(e.getKey(), e.getValue())));
+                    .thenComparingInt(e -> viewLocator.getStableShortIdSequence(e.getKey(), e.getValue(), gameView)));
                 for (Map.Entry<UUID, CardView> entry : sortedExile) {
                     var cardInfo = new HashMap<String, Object>();
-                    cardInfo.put("id", viewLocator.getStableShortId(entry.getKey(), entry.getValue()));
+                    cardInfo.put("id", viewLocator.getStableShortId(entry.getKey(), entry.getValue(), gameView));
                     cardInfo.put("name", cardFormatter.safeDisplayName(entry.getValue()));
                     List<String> exileRules = BridgePromptFormatting.stripHtmlList(entry.getValue().getRules());
                     if (exileRules != null && !exileRules.isEmpty()) {
@@ -240,7 +231,7 @@ public final class BridgeGameStateBuilder {
             for (CardView attacker : group.getAttackers().values()) {
                 var attackerInfo = new HashMap<String, Object>();
                 if (attacker.getId() != null) {
-                    attackerInfo.put("id", viewLocator.getStableShortId(attacker.getId(), attacker));
+                    attackerInfo.put("id", viewLocator.getStableShortId(attacker.getId(), attacker, gameView));
                 }
                 attackerInfo.put("name", cardFormatter.safeDisplayName(attacker));
                 if (attacker.getPower() != null) {
@@ -255,7 +246,7 @@ public final class BridgeGameStateBuilder {
             for (CardView blocker : group.getBlockers().values()) {
                 var blockerInfo = new HashMap<String, Object>();
                 if (blocker.getId() != null) {
-                    blockerInfo.put("id", viewLocator.getStableShortId(blocker.getId(), blocker));
+                    blockerInfo.put("id", viewLocator.getStableShortId(blocker.getId(), blocker, gameView));
                 }
                 blockerInfo.put("name", cardFormatter.safeDisplayName(blocker));
                 if (blocker.getPower() != null) {

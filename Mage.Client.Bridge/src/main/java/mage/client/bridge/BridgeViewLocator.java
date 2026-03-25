@@ -14,29 +14,21 @@ import mage.view.SimpleCardView;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public final class BridgeViewLocator {
 
     private final ShortIdRegistry shortIds;
-    private final Supplier<GameView> lastGameViewSupplier;
     private final Consumer<String> errorLogger;
 
     public BridgeViewLocator(
             ShortIdRegistry shortIds,
-            Supplier<GameView> lastGameViewSupplier,
             Consumer<String> errorLogger
     ) {
         this.shortIds = shortIds;
-        this.lastGameViewSupplier = lastGameViewSupplier;
         this.errorLogger = errorLogger;
     }
 
-    public CardView findCardViewById(UUID objectId) {
-        return findCardViewById(objectId, lastGameViewSupplier.get());
-    }
-
-    public String getStableShortId(UUID objectId, CardView cardView) {
+    public String getStableShortId(UUID objectId, CardView cardView, GameView gameView) {
         Objects.requireNonNull(objectId, "objectId");
         if (cardView != null) {
             String serverShortId = cardView.getShortId();
@@ -50,7 +42,7 @@ public final class BridgeViewLocator {
                 return serverShortId;
             }
         }
-        String found = findNonCardViewShortId(objectId, lastGameViewSupplier.get());
+        String found = findNonCardViewShortId(objectId, gameView);
         if (found != null) {
             shortIds.register(objectId, found);
             return found;
@@ -58,12 +50,8 @@ public final class BridgeViewLocator {
         return shortIds.getOrAssign(objectId);
     }
 
-    public int getStableShortIdSequence(UUID objectId) {
-        return getStableShortIdSequence(objectId, findCardViewById(objectId));
-    }
-
-    public int getStableShortIdSequence(UUID objectId, CardView cardView) {
-        return parseShortIdSequence(getStableShortId(objectId, cardView));
+    public int getStableShortIdSequence(UUID objectId, CardView cardView, GameView gameView) {
+        return parseShortIdSequence(getStableShortId(objectId, cardView, gameView));
     }
 
     public CardView findCardViewById(UUID objectId, GameView gameView) {

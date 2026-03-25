@@ -12,23 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public final class BridgeCardFormatter {
 
     private final BridgeViewLocator viewLocator;
-    private final Supplier<UUID> currentGameIdSupplier;
-    private final Function<UUID, UUID> playerIdForGame;
 
-    public BridgeCardFormatter(
-            BridgeViewLocator viewLocator,
-            Supplier<UUID> currentGameIdSupplier,
-            Function<UUID, UUID> playerIdForGame
-    ) {
+    public BridgeCardFormatter(BridgeViewLocator viewLocator) {
         this.viewLocator = viewLocator;
-        this.currentGameIdSupplier = currentGameIdSupplier;
-        this.playerIdForGame = playerIdForGame;
     }
 
     public String safeDisplayName(CardView cv) {
@@ -89,20 +79,19 @@ public final class BridgeCardFormatter {
         return sb.toString();
     }
 
-    String describeTarget(UUID targetId, CardsView cardsView, GameView gameView) {
+    String describeTarget(UUID targetId, CardsView cardsView, GameView gameView, UUID myPlayerId) {
         GameView view = gameView;
         if (cardsView != null) {
             CardView cv = cardsView.get(targetId);
             if (cv != null) {
-                return buildCardDescription(cv) + controllerSuffix(targetId, view);
+                return buildCardDescription(cv) + controllerSuffix(targetId, view, myPlayerId);
             }
         }
         CardView cv = viewLocator.findCardViewById(targetId, view);
         if (cv != null) {
-            return buildCardDescription(cv) + controllerSuffix(targetId, view);
+            return buildCardDescription(cv) + controllerSuffix(targetId, view, myPlayerId);
         }
         if (view != null) {
-            UUID myPlayerId = playerIdForGame.apply(currentGameIdSupplier.get());
             for (PlayerView player : view.getPlayers()) {
                 if (player.getPlayerId().equals(targetId)) {
                     String desc = player.getName();
@@ -173,21 +162,32 @@ public final class BridgeCardFormatter {
         return null;
     }
 
-    public List<Map<String, Object>> buildStackItems(GameView gameView, boolean includeIds, boolean includeRules) {
+    public List<Map<String, Object>> buildStackItems(
+            GameView gameView,
+            UUID myPlayerId,
+            boolean includeIds,
+            boolean includeRules
+    ) {
         var stack = new ArrayList<Map<String, Object>>();
         if (gameView == null || gameView.getStack() == null || gameView.getStack().isEmpty()) {
             return stack;
         }
         for (CardView card : gameView.getStack().values()) {
-            stack.add(buildStackItem(card, gameView, includeIds, includeRules));
+            stack.add(buildStackItem(card, gameView, myPlayerId, includeIds, includeRules));
         }
         return stack;
     }
 
-    Map<String, Object> buildStackItem(CardView card, GameView gameView, boolean includeId, boolean includeRules) {
+    Map<String, Object> buildStackItem(
+            CardView card,
+            GameView gameView,
+            UUID myPlayerId,
+            boolean includeId,
+            boolean includeRules
+    ) {
         var item = new HashMap<String, Object>();
         if (includeId && card.getId() != null) {
-            item.put("id", viewLocator.getStableShortId(card.getId(), card));
+            item.put("id", viewLocator.getStableShortId(card.getId(), card, gameView));
         }
         item.put("name", safeDisplayName(card));
         addStackAbilityContext(item, card);
@@ -204,8 +204,9 @@ public final class BridgeCardFormatter {
             var targets = new ArrayList<Map<String, Object>>();
             for (UUID targetId : card.getTargets()) {
                 var target = new HashMap<String, Object>();
-                target.put("id", viewLocator.getStableShortId(targetId, viewLocator.findCardViewById(targetId, gameView)));
-                target.put("name", describeTarget(targetId, null, gameView));
+                CardView targetCardView = viewLocator.findCardViewById(targetId, gameView);
+                target.put("id", viewLocator.getStableShortId(targetId, targetCardView, gameView));
+                target.put("name", describeTarget(targetId, null, gameView, myPlayerId));
                 targets.add(target);
             }
             item.put("targets", targets);
@@ -227,11 +228,10 @@ public final class BridgeCardFormatter {
         }
     }
 
-    private String controllerSuffix(UUID objectId, GameView gameView) {
-        if (gameView == null) {
+    private String controllerSuffix(UUID objectId, GameView gameView, UUID myPlayerId) {
+        if (gameView == null || myPlayerId == null) {
             return "";
         }
-        UUID myPlayerId = playerIdForGame.apply(currentGameIdSupplier.get());
         for (PlayerView player : gameView.getPlayers()) {
             if (player.getBattlefield().get(objectId) != null) {
                 if (player.getPlayerId().equals(myPlayerId)) {
