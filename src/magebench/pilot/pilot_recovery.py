@@ -64,6 +64,21 @@ def _handle_truncated_response(
     return True
 
 
+def _parse_game_ended_reason(result_text: str) -> str | None:
+    """Return 'game_over' or 'player_dead' if the tool result indicates the game ended."""
+    try:
+        data = json.loads(result_text)
+    except (json.JSONDecodeError, TypeError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    if data.get("game_over"):
+        return "game_over"
+    if data.get("player_dead"):
+        return "player_dead"
+    return None
+
+
 async def _recover_from_stall(
     session: ClientSession,
     state: PilotLoopState,
@@ -100,12 +115,8 @@ async def _recover_from_stall(
     try:
         result_text = await execute_tool(session, "pass_priority", {})
         logger.info("[pilot] Auto-passed stalled action")
-        try:
-            result_data = json.loads(result_text)
-        except (json.JSONDecodeError, TypeError):
-            result_data = {}
-        if result_data.get("game_over") or result_data.get("player_dead"):
-            reason = "game_over" if result_data.get("game_over") else "player_dead"
+        reason = _parse_game_ended_reason(result_text)
+        if reason:
             logger.info("[pilot] %s detected during stall recovery", reason)
             if game_log:
                 game_log.emit("auto_pilot_mode", reason=reason)
@@ -150,12 +161,8 @@ async def _handle_timeout(
         )
     try:
         result_text = await execute_tool(session, "pass_priority", {})
-        try:
-            result_data = json.loads(result_text)
-        except (json.JSONDecodeError, TypeError):
-            result_data = {}
-        if result_data.get("game_over") or result_data.get("player_dead"):
-            reason = "game_over" if result_data.get("game_over") else "player_dead"
+        reason = _parse_game_ended_reason(result_text)
+        if reason:
             logger.info("[pilot] %s detected during timeout recovery", reason)
             if game_log:
                 game_log.emit("auto_pilot_mode", reason=reason)
