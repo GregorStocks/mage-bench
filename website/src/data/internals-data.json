@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-26T01:51:44.445758+00:00",
+  "generatedAt": "2026-03-20T17:44:16.558377+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -19226,52 +19226,6 @@
           "otherErrors": 0,
           "contextResets": 0,
           "latencyP50": 1.2
-        }
-      ]
-    },
-    {
-      "id": "game_20260325_180738",
-      "ts": "2026-03-25T18:07:38",
-      "epoch": 60,
-      "format": "jumpstart",
-      "players": [
-        {
-          "key": "openai/gpt-oss-120b::medium",
-          "modelName": "GPT-OSS 120B (medium)",
-          "won": false,
-          "timedOut": false,
-          "costUsd": 0.0745,
-          "promptTokens": 1260948,
-          "completionTokens": 133176,
-          "cachedTokens": 323881,
-          "reasoningTokens": 128526,
-          "toolCallsOk": 119,
-          "toolCallsFailed": 13,
-          "thinkingTimeSecs": 1657.2,
-          "responses": 137,
-          "timeouts": 0,
-          "otherErrors": 0,
-          "contextResets": 0,
-          "latencyP50": 5.1
-        },
-        {
-          "key": "anthropic/claude-opus-4.6::medium",
-          "modelName": "Claude Opus 4.6 (medium)",
-          "won": false,
-          "timedOut": false,
-          "costUsd": 5.0185,
-          "promptTokens": 956097,
-          "completionTokens": 9521,
-          "cachedTokens": 155205,
-          "reasoningTokens": 14,
-          "toolCallsOk": 75,
-          "toolCallsFailed": 0,
-          "thinkingTimeSecs": 336.4,
-          "responses": 70,
-          "timeouts": 0,
-          "otherErrors": 0,
-          "contextResets": 0,
-          "latencyP50": 3.1
         }
       ]
     }
