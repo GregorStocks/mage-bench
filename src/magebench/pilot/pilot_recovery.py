@@ -72,7 +72,7 @@ def _parse_game_ended_reason(result_text: str) -> str | None:
         return None
     if not isinstance(data, dict):
         return None
-    if data.get("game_over"):
+    if data.get("game_over") or data.get("stop_reason") == "game_over":
         return "game_over"
     if data.get("player_dead"):
         return "player_dead"

@@ -86,6 +86,25 @@ async def test_handle_timeout_returns_false_on_normal_result():
 
 
 @pytest.mark.asyncio
+async def test_handle_timeout_detects_stop_reason_game_over():
+    session = _make_session(json.dumps({"stop_reason": "game_over", "action_pending": False}))
+    state = PilotLoopState(history=[])
+    game_log = MagicMock()
+
+    result = await _handle_timeout(
+        session,
+        state,
+        game_log,
+        logger=logger,
+        llm_request_timeout_secs=30,
+        max_consecutive_timeouts=3,
+    )
+
+    assert result is True
+    game_log.emit.assert_any_call("auto_pilot_mode", reason="game_over")
+
+
+@pytest.mark.asyncio
 async def test_handle_timeout_returns_false_on_tool_error():
     session = MagicMock()
     session.call_tool = AsyncMock(side_effect=RuntimeError("bridge died"))
