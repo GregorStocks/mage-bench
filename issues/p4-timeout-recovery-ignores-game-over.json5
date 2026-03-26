@@ -1,6 +1,11 @@
 {
   "title": "Timeout recovery doesn't check game_over after pass_priority",
-  "description": "When an LLM request times out, `_handle_timeout` in `pilot_recovery.py` calls `pass_priority` to keep the game moving but doesn't check the response for `game_over` or `player_dead`. If the game ends while the timeout is being handled, the pilot loop continues and tries to call `choose_action` on a dead bridge, causing a `ToolExecutionError` that propagates as an `ExceptionGroup` crash.\n\
+  "description": "When an LLM request times out, `_handle_timeout` in \
+`pilot_recovery.py` calls `pass_priority` to keep the game moving but \
+doesn't check the response for `game_over` or `player_dead`. If the \
+game ends while the timeout is being handled, the pilot loop continues \
+and tries to call `choose_action` on a dead bridge, causing a \
+`ToolExecutionError` that propagates as an `ExceptionGroup` crash.\n\
 \n\
 Evidence:\n\
 - ~/.mage-bench/logs/game_20260326_075453/MiMo Hist_pilot.log: line 708 \

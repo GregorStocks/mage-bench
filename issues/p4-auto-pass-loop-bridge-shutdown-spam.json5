@@ -1,6 +1,9 @@
 {
   "title": "Auto-pass loop retries 20x against dead bridge after game ends",
-  "description": "When the game ends and the bridge processor shuts down, the auto-pass loop in `auto_pass.py` catches `ToolExecutionError` but retries 20 times with 5s sleeps (~100s total) before hitting the `MAX_CONSECUTIVE_ERRORS` limit and exiting.\n\
+  "description": "When the game ends and the bridge processor shuts down, \
+the auto-pass loop in `auto_pass.py` catches `ToolExecutionError` but \
+retries 20 times with 5s sleeps (~100s total) before hitting the \
+`MAX_CONSECUTIVE_ERRORS` limit and exiting.\n\
 \n\
 The error message is always \"Bridge processor is shut down\" — this is an \
 unrecoverable error that should trigger an immediate exit rather than 20 \
