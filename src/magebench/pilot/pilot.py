@@ -153,9 +153,9 @@ async def _recover_from_stall(
     state: PilotLoopState,
     game_log: GameLogWriter | None,
     turn_tools_called: set[str],
-) -> None:
+) -> bool:
     """Auto-pass once, then reset conversation after a stalled turn sequence."""
-    await _recover_from_stall_impl(
+    return await _recover_from_stall_impl(
         session,
         state,
         game_log,
@@ -168,9 +168,9 @@ async def _handle_timeout(
     session: ClientSession,
     state: PilotLoopState,
     game_log: GameLogWriter | None,
-) -> None:
+) -> bool:
     """Keep the game moving across request timeouts and reset repeated failures."""
-    await _handle_timeout_impl(
+    return await _handle_timeout_impl(
         session,
         state,
         game_log,
@@ -705,16 +705,20 @@ async def run_pilot_loop(
                 )
 
             if state.turns_without_progress >= MAX_TURNS_WITHOUT_PROGRESS:
-                await _recover_from_stall(
+                if await _recover_from_stall(
                     session,
                     state,
                     game_log,
                     turn_tools_called,
-                )
+                ):
+                    await auto_pass_loop(session, "pilot")
+                    return
                 continue
 
         except TimeoutError:
-            await _handle_timeout(session, state, game_log)
+            if await _handle_timeout(session, state, game_log):
+                await auto_pass_loop(session, "pilot")
+                return
 
         except ToolExecutionError as exc:
             _record_tool_execution_failure(exc, username, game_dir, game_log)
