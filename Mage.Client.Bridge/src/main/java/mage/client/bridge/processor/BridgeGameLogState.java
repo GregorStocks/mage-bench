@@ -30,6 +30,7 @@ public final class BridgeGameLogState {
         pendingOutgoingChatEchoes.clear();
         lastChatMessage = null;
         lastChatTimeMs = 0;
+        nextPublishedCursor = 0;
         lastPublishedBridgeEventIndex = -1;
     }
 
@@ -101,6 +102,12 @@ public final class BridgeGameLogState {
     }
 
     public BridgePublishedGameLog publishedGameLog() {
+        int size = publishedLog.size();
+        if (size != nextPublishedCursor) {
+            throw new IllegalStateException(
+                "Published log size (" + size + ") != nextPublishedCursor (" + nextPublishedCursor + ")"
+            );
+        }
         return new BridgePublishedGameLog(List.copyOf(publishedLog), nextPublishedCursor);
     }
 
