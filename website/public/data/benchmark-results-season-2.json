@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-03-20T17:42:38.504630+00:00",
-  "totalGames": 2,
+  "generatedAt": "2026-03-26T15:44:13.187599+00:00",
+  "totalGames": 3,
   "models": [
     {
       "modelId": "openai/gpt-5.4-mini",
@@ -16,6 +16,22 @@
       "avgToolCallsFailed": 14.0,
       "avgThinkingTimeSecs": 828.6,
       "blunderScore": 0.9,
+      "reasoningEffort": "medium"
+    },
+    {
+      "modelId": "minimax/minimax-m2.5",
+      "modelName": "MiniMax M2.5 (medium)",
+      "provider": "Minimax",
+      "rating": 1616,
+      "gamesPlayed": 1,
+      "winRate": 1.0,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 0.19,
+      "avgToolCallsOk": 87.0,
+      "avgToolCallsFailed": 2.0,
+      "avgThinkingTimeSecs": 1509.0,
+      "blunderScore": 0.38,
       "reasoningEffort": "medium"
     },
     {
@@ -48,12 +64,28 @@
       "avgThinkingTimeSecs": 128.7,
       "blunderScore": 0.29,
       "reasoningEffort": "low"
+    },
+    {
+      "modelId": "xiaomi/mimo-v2-flash",
+      "modelName": "MiMo V2 Flash (medium)",
+      "provider": "Xiaomi",
+      "rating": 1584,
+      "gamesPlayed": 1,
+      "winRate": 0.0,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 0.2,
+      "avgToolCallsOk": 174.0,
+      "avgToolCallsFailed": 7.0,
+      "avgThinkingTimeSecs": 1270.2,
+      "blunderScore": 0.76,
+      "reasoningEffort": "medium"
     }
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-20T17:42:38.504569+00:00",
-      "totalGames": 2,
+      "generatedAt": "2026-03-26T15:44:13.187525+00:00",
+      "totalGames": 3,
       "models": [
         {
           "modelId": "openai/gpt-5.4-mini",
@@ -69,6 +101,22 @@
           "avgToolCallsFailed": 14.0,
           "avgThinkingTimeSecs": 828.6,
           "blunderScore": 0.9,
+          "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "minimax/minimax-m2.5",
+          "modelName": "MiniMax M2.5 (medium)",
+          "provider": "Minimax",
+          "rating": 1616,
+          "gamesPlayed": 1,
+          "winRate": 1.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.19,
+          "avgToolCallsOk": 87.0,
+          "avgToolCallsFailed": 2.0,
+          "avgThinkingTimeSecs": 1509.0,
+          "blunderScore": 0.38,
           "reasoningEffort": "medium"
         },
         {
@@ -101,33 +149,49 @@
           "avgThinkingTimeSecs": 128.7,
           "blunderScore": 0.29,
           "reasoningEffort": "low"
+        },
+        {
+          "modelId": "xiaomi/mimo-v2-flash",
+          "modelName": "MiMo V2 Flash (medium)",
+          "provider": "Xiaomi",
+          "rating": 1584,
+          "gamesPlayed": 1,
+          "winRate": 0.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.2,
+          "avgToolCallsOk": 174.0,
+          "avgToolCallsFailed": 7.0,
+          "avgThinkingTimeSecs": 1270.2,
+          "blunderScore": 0.76,
+          "reasoningEffort": "medium"
         }
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-20T17:42:38.504580+00:00",
+      "generatedAt": "2026-03-26T15:44:13.187537+00:00",
       "totalGames": 0,
       "models": []
     },
     "modern": {
-      "generatedAt": "2026-03-20T17:42:38.504583+00:00",
+      "generatedAt": "2026-03-26T15:44:13.187540+00:00",
       "totalGames": 0,
       "models": []
     },
     "legacy": {
-      "generatedAt": "2026-03-20T17:42:38.504586+00:00",
+      "generatedAt": "2026-03-26T15:44:13.187542+00:00",
       "totalGames": 0,
       "models": []
     },
     "commander": {
-      "generatedAt": "2026-03-20T17:42:38.504588+00:00",
+      "generatedAt": "2026-03-26T15:44:13.187544+00:00",
       "totalGames": 0,
       "exhibition": true,
       "models": []
     },
     "combined": {
-      "generatedAt": "2026-03-20T17:42:38.504630+00:00",
-      "totalGames": 2,
+      "generatedAt": "2026-03-26T15:44:13.187599+00:00",
+      "totalGames": 3,
       "models": [
         {
           "modelId": "openai/gpt-5.4-mini",
@@ -143,6 +207,22 @@
           "avgToolCallsFailed": 14.0,
           "avgThinkingTimeSecs": 828.6,
           "blunderScore": 0.9,
+          "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "minimax/minimax-m2.5",
+          "modelName": "MiniMax M2.5 (medium)",
+          "provider": "Minimax",
+          "rating": 1616,
+          "gamesPlayed": 1,
+          "winRate": 1.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.19,
+          "avgToolCallsOk": 87.0,
+          "avgToolCallsFailed": 2.0,
+          "avgThinkingTimeSecs": 1509.0,
+          "blunderScore": 0.38,
           "reasoningEffort": "medium"
         },
         {
@@ -175,6 +255,22 @@
           "avgThinkingTimeSecs": 128.7,
           "blunderScore": 0.29,
           "reasoningEffort": "low"
+        },
+        {
+          "modelId": "xiaomi/mimo-v2-flash",
+          "modelName": "MiMo V2 Flash (medium)",
+          "provider": "Xiaomi",
+          "rating": 1584,
+          "gamesPlayed": 1,
+          "winRate": 0.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.2,
+          "avgToolCallsOk": 174.0,
+          "avgToolCallsFailed": 7.0,
+          "avgThinkingTimeSecs": 1270.2,
+          "blunderScore": 0.76,
+          "reasoningEffort": "medium"
         }
       ]
     }

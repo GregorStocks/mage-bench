@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-20T17:44:16.558377+00:00",
+  "generatedAt": "2026-03-26T15:45:48.364181+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -19226,6 +19226,52 @@
           "otherErrors": 0,
           "contextResets": 0,
           "latencyP50": 1.2
+        }
+      ]
+    },
+    {
+      "id": "game_20260326_075453",
+      "ts": "2026-03-26T07:54:53",
+      "epoch": 60,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "xiaomi/mimo-v2-flash::medium",
+          "modelName": "MiMo V2 Flash (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.2013,
+          "promptTokens": 1986206,
+          "completionTokens": 77680,
+          "cachedTokens": 468944,
+          "reasoningTokens": 72846,
+          "toolCallsOk": 174,
+          "toolCallsFailed": 7,
+          "thinkingTimeSecs": 1270.2,
+          "responses": 181,
+          "timeouts": 2,
+          "otherErrors": 1,
+          "contextResets": 0,
+          "latencyP50": 2.1
+        },
+        {
+          "key": "minimax/minimax-m2.5::medium",
+          "modelName": "MiniMax M2.5 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.1876,
+          "promptTokens": 842576,
+          "completionTokens": 16277,
+          "cachedTokens": 100192,
+          "reasoningTokens": 14168,
+          "toolCallsOk": 87,
+          "toolCallsFailed": 2,
+          "thinkingTimeSecs": 1509.0,
+          "responses": 89,
+          "timeouts": 2,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 6.8
         }
       ]
     }
