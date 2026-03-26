@@ -2443,6 +2443,66 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void getOracleTextResolvesCardNameFromPublishedIndexWithoutCardRepository() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID tableId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID cardId = UUID.randomUUID();
+
+        CardView bolt = cardView(cardId, "p1", "Lightning Bolt");
+        setField(bolt, "manaCostLeftStr", List.of("{R}"));
+        setField(bolt, "manaCostRightStr", List.of());
+        setField(bolt, "rules", List.of("Lightning Bolt deals 3 damage to any target."));
+        setField(bolt, "cardTypes", List.of(CardType.INSTANT));
+
+        PlayerView player = playerView(playerId, "TestPlayer", "p9");
+        CardsView hand = new CardsView();
+        hand.put(cardId, bolt);
+        GameView initialView = gameView(12, List.of(player), new CardsView());
+        setField(initialView, "myPlayerId", playerId);
+        setField(initialView, "myHand", hand);
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                return switch (method.getName()) {
+                    case "joinGame" -> true;
+                    case "getGameChatId" -> Optional.empty();
+                    default -> defaultReturnValue(method.getReturnType());
+                };
+            }
+        ));
+
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.START_GAME,
+            gameId,
+            new TableClientMessage().withTable(tableId, null).withPlayer(playerId),
+            false
+        ));
+        handler.handleCallback(new ClientCallback(
+            ClientCallbackMethod.GAME_INIT,
+            gameId,
+            initialView,
+            false
+        ));
+        handler.awaitProcessorIdle();
+
+        // Name-based lookup should resolve from the published oracle index
+        // even without CardRepository being populated for this card
+        GetOracleTextTool.Result result = handler.getOracleText("Lightning Bolt", null, null, null);
+
+        assertThat(result.success).isTrue();
+        assertThat(result.name).isEqualTo("Lightning Bolt");
+        assertThat(result.mana_cost).isEqualTo("{R}");
+        assertThat(result.type).isEqualTo("Instant");
+        assertThat(result.rules).containsExactly("Lightning Bolt deals 3 damage to any target.");
+    }
+
+    @Test
     void getOracleTextSupportsPublishedSecondFaceObjectIds() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();

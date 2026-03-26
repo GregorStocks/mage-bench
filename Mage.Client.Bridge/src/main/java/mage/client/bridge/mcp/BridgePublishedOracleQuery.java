@@ -69,11 +69,16 @@ public final class BridgePublishedOracleQuery {
             for (String name : cardNames) {
                 var entry = new HashMap<String, Object>();
                 entry.put("name", name);
-                CardInfo cardInfo = CardRepository.instance.findCard(name);
-                if (cardInfo != null) {
-                    entry.putAll(BridgeOracleTextService.buildCardFieldsMap(cardInfo));
+                Map<String, Object> published = oracleIndex.cardByName(name);
+                if (published != null) {
+                    entry.putAll(published);
                 } else {
-                    entry.put("error", "not found");
+                    CardInfo cardInfo = CardRepository.instance.findCard(name);
+                    if (cardInfo != null) {
+                        entry.putAll(BridgeOracleTextService.buildCardFieldsMap(cardInfo));
+                    } else {
+                        entry.put("error", "not found");
+                    }
                 }
                 cards.add(Collections.unmodifiableMap(new LinkedHashMap<>(entry)));
             }
@@ -98,6 +103,12 @@ public final class BridgePublishedOracleQuery {
             return result;
         }
 
+        Map<String, Object> published = oracleIndex.cardByName(cardName);
+        if (published != null) {
+            populateResult(result, published);
+            result.success = true;
+            return result;
+        }
         CardInfo cardInfo = CardRepository.instance.findCard(cardName);
         if (cardInfo != null) {
             populateResult(result, BridgeOracleTextService.buildCardFieldsMap(cardInfo));
