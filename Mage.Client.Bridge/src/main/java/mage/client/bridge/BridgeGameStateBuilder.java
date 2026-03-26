@@ -81,7 +81,8 @@ public final class BridgeGameStateBuilder {
                         permInfo.put("toughness", perm.getToughness());
                     }
                     if (perm.isPlaneswalker()) {
-                        permInfo.put("loyalty", Integer.parseInt(perm.getLoyalty()));
+                        String loyalty = perm.getLoyalty();
+                        permInfo.put("loyalty", loyalty.isEmpty() ? 0 : Integer.parseInt(loyalty));
                     }
                     if (perm.getCounters() != null && !perm.getCounters().isEmpty()) {
                         var counters = new HashMap<String, Integer>();
