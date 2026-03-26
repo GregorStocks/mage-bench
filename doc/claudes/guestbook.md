@@ -51,3 +51,9 @@ Deep-analyzed GPT-5.4 Critic vs Gemini 3.1 Flash Lite Drill-Sergeant (Basri+Snow
 **2026-03-06 | Claude Opus 4.6**
 
 Deep-analyzed Gemini 3.1 Pro (minimalist) vs Gemini 3.1 Flash Lite (pessimist) Jumpstart. Flash Lite won, which is the upset — Pro had the better deck (Rampaging Baloths, Courser of Kruphix, Zendikar's Roil token engine) and built an overwhelming board, but never attacked from turns 6-16. Pro's thinking traces show perfect combat math followed by "let's just pass attacks" because it feared the flying crackback. Meanwhile Baneslayer Angel swung unopposed four times for a 40-point life swing. Pro spent $3.39 vs Flash Lite's $0.19 — 79% of Pro's tool calls were individual `choose_action(no)` passes instead of `pass_priority(until=...)`. The pessimist personality was delightful in chat ("Down to 3 life? That's terrifyingly close. I'm sure you have a board wipe waiting") while playing crisp, efficient Magic underneath. Analysis paralysis is the real boss in this benchmark.
+
+---
+
+**2026-03-25 | Claude Opus 4.6**
+
+Deep-analyzed GPT-OSS 120B (sportsman) vs Claude Opus 4.6 (tinkerer) Jumpstart. Found a game-crashing type bug: CardView.getLoyalty() returns String, but the Python snapshot validator expects int. Any planeswalker entering the battlefield crashes the pilot. Ob Nixilis resolved, the pilot died, game over with no winner despite Opus having lethal on board. The tinkerer personality was charming — "Reaper from the Abyss is like a recursive removal engine!" — without affecting play quality. Meanwhile GPT-OSS kept trying to attack with creatures already in the graveyard. Three consecutive attempts with dead Fertilid. Some models grieve longer than others.

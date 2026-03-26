@@ -1,0 +1,10 @@
+{
+  "title": "Bridge serializes planeswalker loyalty as string, crashing pilot snapshot validator",
+  "description": "When a planeswalker (Ob Nixilis, the Hate-Twisted) enters the battlefield, BridgeGameStateBuilder.java:84 puts `perm.getLoyalty()` into the permanent info map. CardView.getLoyalty() returns a String (e.g. \"5\"), but the Python snapshot validator at game_export_types.py:1088 expects an int.\n\nThis causes an immediate pilot crash:\n```\nAssertionError: pilot snapshot.players[0].battlefield[3].loyalty: expected int, got str\n```\n\nThe game ends with no winner (spectator_crashed).\n\nEvidence:\n- ~/.mage-bench/logs/game_20260325_180738/GptOSS Sport_pilot.log: crash traceback at line 654\n- ~/.mage-bench/logs/game_20260325_180738/GptOSS Sport_bridge.jsonl: last tool result seq 270 shows \"loyalty\":\"5\" (string)\n\nSource: BridgeGameStateBuilder.java:84 — `permInfo.put(\"loyalty\", perm.getLoyalty())` returns String\n\nSuggested fix: Parse loyalty to int before putting it in the map:\n```java\nif (perm.isPlaneswalker()) {\n    String loyaltyStr = perm.getLoyalty();\n    if (!loyaltyStr.isEmpty()) {\n        permInfo.put(\"loyalty\", Integer.parseInt(loyaltyStr));\n    }\n}\n```\n\nNote: The counters map at line 88 already correctly serializes loyalty as int via counter.getCount(). The top-level loyalty field is the one that's wrong.\n\nAny game where a planeswalker enters the battlefield will crash. This blocks all planeswalker gameplay.",
+  "status": "done",
+  "priority": 1,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-03-25T22:10:00.000000-07:00",
+  "updated_at": "2026-03-25T22:10:00.000000-07:00"
+}
