@@ -47,7 +47,13 @@ jobs:
       - name: Install agent-issues
         run: |
           git clone --depth 1 https://github.com/GregorStocks/agent-issues.git ~/code/agent-issues
-          echo "$HOME/code/agent-issues/bin" >> $GITHUB_PATH
+          mkdir -p "$HOME/.local/bin"
+          cat > "$HOME/.local/bin/issue-lint" <<'EOF'
+          #!/usr/bin/env bash
+          exec uv run --project "$HOME/code/agent-issues" python "$HOME/code/agent-issues/bin/issue-lint" "$@"
+          EOF
+          chmod +x "$HOME/.local/bin/issue-lint"
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - run: make lint
 
