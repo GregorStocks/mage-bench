@@ -60,10 +60,6 @@ async def auto_pass_loop(
             else:
                 consecutive_errors = 0
         except ToolExecutionError as pass_err:
-            consecutive_errors += 1
-            logger.warning("[%s] Auto-pass exception: %s", label, pass_err)
-            if consecutive_errors >= max_consecutive_errors:
-                logger.warning("[%s] Too many consecutive errors, exiting", label)
-                return
-            await asyncio.sleep(5)
+            logger.warning("[%s] MCP infrastructure error, exiting auto-pass loop: %s", label, pass_err)
+            return
     logger.warning("[%s] Auto-pass loop reached max iterations, exiting", label)

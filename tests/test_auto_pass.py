@@ -77,12 +77,12 @@ async def test_max_iterations_causes_exit():
 
 
 @pytest.mark.asyncio
-async def test_exception_counts_as_error():
-    max_errors = 2
+async def test_exception_exits_immediately():
+    """MCP infrastructure errors (ToolExecutionError) exit immediately, not after retries."""
     session = MagicMock()
     session.call_tool = AsyncMock(side_effect=RuntimeError("connection lost"))
-    await auto_pass_loop(session, "test", max_consecutive_errors=max_errors)
-    assert session.call_tool.call_count == max_errors
+    await auto_pass_loop(session, "test")
+    assert session.call_tool.call_count == 1
 
 
 @pytest.mark.asyncio
