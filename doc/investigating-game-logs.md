@@ -38,6 +38,19 @@ jq '.players[] | {name, tool_calls_failed}' website/public/games/GAME_ID.json
 uv run python -m magebench.cli.export_game GAME_ID
 ```
 
+Current exports are often JSON5 with trailing commas. For direct inspection,
+either use repo tools that already understand the format or parse with
+`pyjson5` instead of stdlib `json`:
+
+```bash
+uv run python - <<'PY'
+import pyjson5
+from pathlib import Path
+obj = pyjson5.decode(Path("website/public/games/GAME_ID.json5").read_text())
+print(obj["winner"], len(obj.get("errors", [])))
+PY
+```
+
 If a player summary still says `tool_calls_failed: 0` after an obvious mid-game
 crash, compare the tail of `*_llm.jsonl` and `*_pilot.log`. A final
 `llm_response` with no matching `tool_call` often means the MCP request died

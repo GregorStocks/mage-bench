@@ -43,11 +43,11 @@ Determine which game to analyze:
 
 Set `GAME_DIR=~/.mage-bench/logs/{game_id}`.
 
-If the full log directory doesn't exist but the game export exists in `website/public/games/` (`.json` or `.json.gz`), tell the user the full logs aren't available and offer to run a fast analysis from the export instead. Stop here unless the user wants the fast analysis.
+If the full log directory doesn't exist but the game export exists in `website/public/games/` (`.json`, `.json5`, `.json.gz`, or `.json5.gz`), tell the user the full logs aren't available and offer to run a fast analysis from the export instead. Stop here unless the user wants the fast analysis.
 
 ### Step 2: Bootstrap from gz (if available)
 
-If `website/public/games/${GAME_ID}.json` or `.json.gz` exists (either on the current branch or generatable from the logs), extract a quick overview before diving into raw logs:
+If `website/public/games/${GAME_ID}.json`, `.json5`, `.json.gz`, or `.json5.gz` exists (either on the current branch or generatable from the logs), extract a quick overview before diving into raw logs:
 
 ```bash
 uv run python -m magebench.cli.game_gz_bootstrap ${GAME_ID}
@@ -57,6 +57,8 @@ This gives you a roadmap — you'll know which players had errors, roughly when,
 
 Bootstrap caveat: `game_gz_bootstrap.py` currently overcounts failed tool calls because it substring-matches normal fields like `required`, and its auto-export fallback still checks `~/mage-bench-logs` instead of `~/.mage-bench/logs`. Treat its failure count as advisory and run `uv run python -m magebench.cli.export_game ${GAME_ID}` manually if the export is missing.
 
+JSON5 caveat: many current exports are `*.json5` with trailing commas, so ad-hoc `python -c 'import json; ...'` inspection will fail. Prefer repo tools (`extract_decisions.py`, `game_gz_bootstrap.py`) or parse directly with `pyjson5`.
+
 **Check the `errors` array first**: The export may contain an `errors` field with critical issues surfaced from the per-player error logs (loop detection, uncaught exceptions, short ID collisions). These are high-signal bug indicators — always check and call them out before diving into raw logs.
 
 **Check for existing annotations**: If the export has an `annotations` array, blunder analysis has already been run. Reference these annotations to guide your investigation — they identify specific decisions that were likely mistakes and explain why.
@@ -65,7 +67,7 @@ Retry caveat: if an annotation claims a timeout/default choice on `GAME_CHOOSE_C
 
 Crash-accounting caveat: if a player's export summary says `toolCallsFailed=0` but the game clearly ended on a bad tool call, compare the tail of `*_llm.jsonl` and `*_pilot.log`. A final `llm_response` with no matching `tool_call` usually means the MCP request crashed before it could be logged. Those pilot-only crashes currently do not surface into export `errors` unless they also hit `*_errors.log`.
 
-**Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. Pass the export path, not just the game ID (for example: `uv run python -m magebench.cli.analysis.extract_decisions website/public/games/${GAME_ID}.json`). This is often more useful than manually correlating events across log files.
+**Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. Pass the export path, not just the game ID (for example: `uv run python -m magebench.cli.analysis.extract_decisions website/public/games/${GAME_ID}.json5`). This is often more useful than manually correlating events across log files.
 
 ### Step 3: Read game metadata
 
@@ -170,6 +172,13 @@ Only analyze the game selected in step 1. Do not look at older games — each an
 ### Step 11: Present summary
 
 Present a summary of all issues created, grouped by priority. For model-only issues, mention them in the summary but note they don't need code fixes.
+
+Always end the summary with an explicit **dataset disposition** for the game:
+
+- **KEEP**: The game is still valid for ratings, leaderboard use, and future analysis. Use this for normal games, model-only mistakes, recoverable tool failures, or minor platform quirks that did not invalidate the overall result.
+- **DROP / JUNK**: The game should not stay in the analysis/rating set because the harness or platform broke badly enough to make the result non-comparable or misleading. Examples: bridge/pilot/harness failure that effectively decided the game, unrecovered timeout/cancellation corruption, major state desync, missing/partial logs that prevent trustworthy reconstruction, or a crash/cleanup bug that stopped normal gameplay halfway through.
+
+State the disposition explicitly in the final answer and in the deep-analysis log file from Step 14, with one short reason sentence.
 
 ### Step 12: Create reusable analysis scripts
 
