@@ -711,13 +711,11 @@ async def run_pilot_loop(
                     game_log,
                     turn_tools_called,
                 ):
-                    await auto_pass_loop(session, "pilot")
                     return
                 continue
 
         except TimeoutError:
             if await _handle_timeout(session, state, game_log):
-                await auto_pass_loop(session, "pilot")
                 return
 
         except ToolExecutionError as exc:
