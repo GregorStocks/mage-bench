@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-03-26T15:44:13.192092+00:00",
-  "totalGames": 211,
+  "generatedAt": "2026-03-27T03:44:45.783855+00:00",
+  "totalGames": 213,
   "models": [
     {
       "modelId": "anthropic/claude-opus-4.6",
       "modelName": "Claude Opus 4.6 (medium)",
       "provider": "Anthropic",
-      "rating": 1747,
-      "gamesPlayed": 16,
-      "winRate": 0.875,
+      "rating": 1752,
+      "gamesPlayed": 17,
+      "winRate": 0.8824,
       "timeoutLosses": 0,
       "timeoutLossRate": 0.0,
-      "avgApiCost": 8.93,
-      "avgToolCallsOk": 120.2,
-      "avgToolCallsFailed": 1.2,
-      "avgThinkingTimeSecs": 620.1,
-      "blunderScore": 0.49,
+      "avgApiCost": 8.72,
+      "avgToolCallsOk": 117.6,
+      "avgToolCallsFailed": 1.1,
+      "avgThinkingTimeSecs": 620.5,
+      "blunderScore": 0.48,
       "reasoningEffort": "medium"
     },
     {
@@ -290,21 +290,6 @@
       "reasoningEffort": "low"
     },
     {
-      "modelId": "qwen/qwen3-235b-a22b-2507",
-      "modelName": "Qwen3 235B",
-      "provider": "Qwen",
-      "rating": 1594,
-      "gamesPlayed": 11,
-      "winRate": 0.4545,
-      "timeoutLosses": 0,
-      "timeoutLossRate": 0.0,
-      "avgApiCost": 0.13,
-      "avgToolCallsOk": 117.5,
-      "avgToolCallsFailed": 9.3,
-      "avgThinkingTimeSecs": 1254.6,
-      "blunderScore": 1.4
-    },
-    {
       "modelId": "meta-llama/llama-4-maverick",
       "modelName": "Llama 4 Maverick",
       "provider": "Meta",
@@ -334,6 +319,21 @@
       "avgThinkingTimeSecs": 449.2,
       "blunderScore": 0.99,
       "reasoningEffort": "medium"
+    },
+    {
+      "modelId": "mistralai/mistral-medium-3.1",
+      "modelName": "Mistral Medium 3.1",
+      "provider": "Mistral AI",
+      "rating": 1586,
+      "gamesPlayed": 10,
+      "winRate": 0.4,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 0.39,
+      "avgToolCallsOk": 84.8,
+      "avgToolCallsFailed": 5.8,
+      "avgThinkingTimeSecs": 260.6,
+      "blunderScore": 0.85
     },
     {
       "modelId": "minimax/minimax-m2.1",
@@ -383,6 +383,21 @@
       "blunderScore": 0.57
     },
     {
+      "modelId": "qwen/qwen3-235b-a22b-2507",
+      "modelName": "Qwen3 235B",
+      "provider": "Qwen",
+      "rating": 1577,
+      "gamesPlayed": 12,
+      "winRate": 0.4167,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 0.13,
+      "avgToolCallsOk": 116.0,
+      "avgToolCallsFailed": 9.1,
+      "avgThinkingTimeSecs": 1178.7,
+      "blunderScore": 1.36
+    },
+    {
       "modelId": "google/gemini-2.5-flash",
       "modelName": "Gemini 2.5 Flash (medium)",
       "provider": "Google",
@@ -414,21 +429,6 @@
       "avgThinkingTimeSecs": 1035.6,
       "blunderScore": 0.91,
       "reasoningEffort": "medium"
-    },
-    {
-      "modelId": "mistralai/mistral-medium-3.1",
-      "modelName": "Mistral Medium 3.1",
-      "provider": "Mistral AI",
-      "rating": 1569,
-      "gamesPlayed": 9,
-      "winRate": 0.3333,
-      "timeoutLosses": 0,
-      "timeoutLossRate": 0.0,
-      "avgApiCost": 0.41,
-      "avgToolCallsOk": 86.8,
-      "avgToolCallsFailed": 5.8,
-      "avgThinkingTimeSecs": 263.5,
-      "blunderScore": 0.89
     },
     {
       "modelId": "moonshotai/kimi-k2-0905",
@@ -581,23 +581,23 @@
       "modelId": "x-ai/grok-4",
       "modelName": "Grok 4 (medium)",
       "provider": "xAI",
-      "rating": 1459,
-      "gamesPlayed": 13,
-      "winRate": 0.0769,
+      "rating": 1454,
+      "gamesPlayed": 14,
+      "winRate": 0.0714,
       "timeoutLosses": 7,
-      "timeoutLossRate": 0.5385,
-      "avgApiCost": 2.88,
-      "avgToolCallsOk": 85.4,
-      "avgToolCallsFailed": 1.2,
-      "avgThinkingTimeSecs": 2637.3,
-      "blunderScore": 0.41,
+      "timeoutLossRate": 0.5,
+      "avgApiCost": 3.06,
+      "avgToolCallsOk": 89.2,
+      "avgToolCallsFailed": 1.4,
+      "avgThinkingTimeSecs": 2709.6,
+      "blunderScore": 0.4,
       "reasoningEffort": "medium"
     }
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-26T15:44:13.189096+00:00",
-      "totalGames": 87,
+      "generatedAt": "2026-03-27T03:44:45.780519+00:00",
+      "totalGames": 89,
       "models": [
         {
           "modelId": "openai/gpt-5.2",
@@ -652,16 +652,16 @@
           "modelId": "anthropic/claude-opus-4.6",
           "modelName": "Claude Opus 4.6 (medium)",
           "provider": "Anthropic",
-          "rating": 1660,
-          "gamesPlayed": 4,
+          "rating": 1672,
+          "gamesPlayed": 5,
           "winRate": 1.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 7.56,
-          "avgToolCallsOk": 98.0,
-          "avgToolCallsFailed": 0.8,
-          "avgThinkingTimeSecs": 649.8,
-          "blunderScore": 0.5,
+          "avgApiCost": 7.14,
+          "avgToolCallsOk": 93.8,
+          "avgToolCallsFailed": 0.6,
+          "avgThinkingTimeSecs": 645.0,
+          "blunderScore": 0.47,
           "reasoningEffort": "medium"
         },
         {
@@ -904,21 +904,6 @@
           "reasoningEffort": "medium"
         },
         {
-          "modelId": "qwen/qwen3-235b-a22b-2507",
-          "modelName": "Qwen3 235B",
-          "provider": "Qwen",
-          "rating": 1587,
-          "gamesPlayed": 3,
-          "winRate": 0.3333,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.13,
-          "avgToolCallsOk": 124.0,
-          "avgToolCallsFailed": 9.3,
-          "avgThinkingTimeSecs": 1145.0,
-          "blunderScore": 0.53
-        },
-        {
           "modelId": "openai/gpt-4o-mini",
           "modelName": "GPT-4o-mini",
           "provider": "OpenAI",
@@ -983,6 +968,21 @@
           "avgThinkingTimeSecs": 1607.7,
           "blunderScore": 0.72,
           "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "mistralai/mistral-medium-3.1",
+          "modelName": "Mistral Medium 3.1",
+          "provider": "Mistral AI",
+          "rating": 1583,
+          "gamesPlayed": 10,
+          "winRate": 0.4,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.39,
+          "avgToolCallsOk": 84.8,
+          "avgToolCallsFailed": 5.8,
+          "avgThinkingTimeSecs": 260.6,
+          "blunderScore": 0.85
         },
         {
           "modelId": "openai/gpt-5.4-nano",
@@ -1063,6 +1063,21 @@
           "reasoningEffort": "medium"
         },
         {
+          "modelId": "qwen/qwen3-235b-a22b-2507",
+          "modelName": "Qwen3 235B",
+          "provider": "Qwen",
+          "rating": 1570,
+          "gamesPlayed": 4,
+          "winRate": 0.25,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.13,
+          "avgToolCallsOk": 117.8,
+          "avgToolCallsFailed": 8.8,
+          "avgThinkingTimeSecs": 944.6,
+          "blunderScore": 0.63
+        },
+        {
           "modelId": "xiaomi/mimo-v2-flash",
           "modelName": "MiMo V2 Flash (medium)",
           "provider": "Xiaomi",
@@ -1099,32 +1114,17 @@
           "modelId": "x-ai/grok-4",
           "modelName": "Grok 4 (medium)",
           "provider": "xAI",
-          "rating": 1569,
-          "gamesPlayed": 2,
+          "rating": 1557,
+          "gamesPlayed": 3,
           "winRate": 0.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 4.79,
-          "avgToolCallsOk": 115.0,
+          "avgApiCost": 4.97,
+          "avgToolCallsOk": 123.0,
           "avgToolCallsFailed": 3.0,
-          "avgThinkingTimeSecs": 2656.3,
-          "blunderScore": 1.0,
+          "avgThinkingTimeSecs": 2987.2,
+          "blunderScore": 0.79,
           "reasoningEffort": "medium"
-        },
-        {
-          "modelId": "mistralai/mistral-medium-3.1",
-          "modelName": "Mistral Medium 3.1",
-          "provider": "Mistral AI",
-          "rating": 1566,
-          "gamesPlayed": 9,
-          "winRate": 0.3333,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.41,
-          "avgToolCallsOk": 86.8,
-          "avgToolCallsFailed": 5.8,
-          "avgThinkingTimeSecs": 263.5,
-          "blunderScore": 0.89
         },
         {
           "modelId": "openai/gpt-5",
@@ -1176,7 +1176,7 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-26T15:44:13.189657+00:00",
+      "generatedAt": "2026-03-27T03:44:45.781103+00:00",
       "totalGames": 56,
       "models": [
         {
@@ -1569,7 +1569,7 @@
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-26T15:44:13.189897+00:00",
+      "generatedAt": "2026-03-27T03:44:45.781386+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -1866,7 +1866,7 @@
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-26T15:44:13.190136+00:00",
+      "generatedAt": "2026-03-27T03:44:45.781652+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -2177,7 +2177,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-26T15:44:13.190651+00:00",
+      "generatedAt": "2026-03-27T03:44:45.782197+00:00",
       "totalGames": 34,
       "exhibition": true,
       "models": [
@@ -2619,23 +2619,23 @@
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-26T15:44:13.192092+00:00",
-      "totalGames": 177,
+      "generatedAt": "2026-03-27T03:44:45.783855+00:00",
+      "totalGames": 179,
       "models": [
         {
           "modelId": "anthropic/claude-opus-4.6",
           "modelName": "Claude Opus 4.6 (medium)",
           "provider": "Anthropic",
-          "rating": 1747,
-          "gamesPlayed": 16,
-          "winRate": 0.875,
+          "rating": 1752,
+          "gamesPlayed": 17,
+          "winRate": 0.8824,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 8.93,
-          "avgToolCallsOk": 120.2,
-          "avgToolCallsFailed": 1.2,
-          "avgThinkingTimeSecs": 620.1,
-          "blunderScore": 0.49,
+          "avgApiCost": 8.72,
+          "avgToolCallsOk": 117.6,
+          "avgToolCallsFailed": 1.1,
+          "avgThinkingTimeSecs": 620.5,
+          "blunderScore": 0.48,
           "reasoningEffort": "medium"
         },
         {
@@ -2910,21 +2910,6 @@
           "reasoningEffort": "low"
         },
         {
-          "modelId": "qwen/qwen3-235b-a22b-2507",
-          "modelName": "Qwen3 235B",
-          "provider": "Qwen",
-          "rating": 1594,
-          "gamesPlayed": 11,
-          "winRate": 0.4545,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.13,
-          "avgToolCallsOk": 117.5,
-          "avgToolCallsFailed": 9.3,
-          "avgThinkingTimeSecs": 1254.6,
-          "blunderScore": 1.4
-        },
-        {
           "modelId": "meta-llama/llama-4-maverick",
           "modelName": "Llama 4 Maverick",
           "provider": "Meta",
@@ -2954,6 +2939,21 @@
           "avgThinkingTimeSecs": 449.2,
           "blunderScore": 0.99,
           "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "mistralai/mistral-medium-3.1",
+          "modelName": "Mistral Medium 3.1",
+          "provider": "Mistral AI",
+          "rating": 1586,
+          "gamesPlayed": 10,
+          "winRate": 0.4,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.39,
+          "avgToolCallsOk": 84.8,
+          "avgToolCallsFailed": 5.8,
+          "avgThinkingTimeSecs": 260.6,
+          "blunderScore": 0.85
         },
         {
           "modelId": "minimax/minimax-m2.1",
@@ -3003,6 +3003,21 @@
           "blunderScore": 0.57
         },
         {
+          "modelId": "qwen/qwen3-235b-a22b-2507",
+          "modelName": "Qwen3 235B",
+          "provider": "Qwen",
+          "rating": 1577,
+          "gamesPlayed": 12,
+          "winRate": 0.4167,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.13,
+          "avgToolCallsOk": 116.0,
+          "avgToolCallsFailed": 9.1,
+          "avgThinkingTimeSecs": 1178.7,
+          "blunderScore": 1.36
+        },
+        {
           "modelId": "google/gemini-2.5-flash",
           "modelName": "Gemini 2.5 Flash (medium)",
           "provider": "Google",
@@ -3034,21 +3049,6 @@
           "avgThinkingTimeSecs": 1035.6,
           "blunderScore": 0.91,
           "reasoningEffort": "medium"
-        },
-        {
-          "modelId": "mistralai/mistral-medium-3.1",
-          "modelName": "Mistral Medium 3.1",
-          "provider": "Mistral AI",
-          "rating": 1569,
-          "gamesPlayed": 9,
-          "winRate": 0.3333,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.41,
-          "avgToolCallsOk": 86.8,
-          "avgToolCallsFailed": 5.8,
-          "avgThinkingTimeSecs": 263.5,
-          "blunderScore": 0.89
         },
         {
           "modelId": "moonshotai/kimi-k2-0905",
@@ -3201,16 +3201,16 @@
           "modelId": "x-ai/grok-4",
           "modelName": "Grok 4 (medium)",
           "provider": "xAI",
-          "rating": 1459,
-          "gamesPlayed": 13,
-          "winRate": 0.0769,
+          "rating": 1454,
+          "gamesPlayed": 14,
+          "winRate": 0.0714,
           "timeoutLosses": 7,
-          "timeoutLossRate": 0.5385,
-          "avgApiCost": 2.88,
-          "avgToolCallsOk": 85.4,
-          "avgToolCallsFailed": 1.2,
-          "avgThinkingTimeSecs": 2637.3,
-          "blunderScore": 0.41,
+          "timeoutLossRate": 0.5,
+          "avgApiCost": 3.06,
+          "avgToolCallsOk": 89.2,
+          "avgToolCallsFailed": 1.4,
+          "avgThinkingTimeSecs": 2709.6,
+          "blunderScore": 0.4,
           "reasoningEffort": "medium"
         }
       ]
