@@ -47,7 +47,7 @@ If the full log directory doesn't exist but the game export exists in `website/p
 
 ### Step 2: Bootstrap from gz (if available)
 
-If `website/public/games/${GAME_ID}.json` or `.json.gz` exists (either on the current branch or generatable from the logs), extract a quick overview before diving into raw logs:
+If `website/public/games/${GAME_ID}.json5`, `.json5.gz`, `.json`, or `.json.gz` exists (either on the current branch or generatable from the logs), extract a quick overview before diving into raw logs:
 
 ```bash
 uv run python -m magebench.cli.game_gz_bootstrap ${GAME_ID}
@@ -57,7 +57,7 @@ This gives you a roadmap — you'll know which players had errors, roughly when,
 
 Bootstrap caveat: `game_gz_bootstrap.py` currently overcounts failed tool calls because it substring-matches normal fields like `required`, and its auto-export fallback still checks `~/mage-bench-logs` instead of `~/.mage-bench/logs`. Treat its failure count as advisory and run `uv run python -m magebench.cli.export_game ${GAME_ID}` manually if the export is missing.
 
-JSON5 caveat: many current exports are `*.json5` with trailing commas, so ad-hoc `python -c 'import json; ...'` inspection will fail. `game_gz_bootstrap.py` does not yet discover `*.json5` / `*.json5.gz`, so for JSON5-only exports use `extract_decisions.py` and/or parse directly with `pyjson5` instead of relying on the bootstrap CLI.
+JSON5 caveat: many current exports are `*.json5` with trailing commas, so ad-hoc `python -c 'import json; ...'` inspection will fail. Prefer repo tools (`extract_decisions.py`, `game_gz_bootstrap.py`) or parse directly with `pyjson5`.
 
 **Check the `errors` array first**: The export may contain an `errors` field with critical issues surfaced from the per-player error logs (loop detection, uncaught exceptions, short ID collisions). These are high-signal bug indicators — always check and call them out before diving into raw logs.
 
