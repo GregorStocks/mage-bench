@@ -170,18 +170,17 @@ async def _handle_timeout(
     except ToolExecutionError:
         await asyncio.sleep(5)
 
-    if state.consecutive_timeouts < max_consecutive_timeouts:
-        return False
-
-    logger.warning("[pilot] Repeated LLM timeouts, resetting conversation context")
-    if game_log:
-        game_log.emit("context_reset", reason="repeated_timeouts")
+    full_reset = state.consecutive_timeouts >= max_consecutive_timeouts
+    if full_reset:
+        logger.warning("[pilot] Repeated LLM timeouts, resetting conversation context")
+        if game_log:
+            game_log.emit("context_reset", reason="repeated_timeouts")
+        state.consecutive_timeouts = 0
     reset_context(
         state,
         "Continue playing. Call pass_priority.",
-        reset_board_context=True,
+        reset_board_context=full_reset,
     )
-    state.consecutive_timeouts = 0
     return False
 
 

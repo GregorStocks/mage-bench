@@ -71,7 +71,7 @@ async def test_handle_timeout_detects_player_dead():
 @pytest.mark.asyncio
 async def test_handle_timeout_returns_false_on_normal_result():
     session = _make_session(json.dumps({"action_pending": False}))
-    state = PilotLoopState(history=[])
+    state = PilotLoopState(history=[{"role": "user", "content": "stale context"}])
 
     result = await _handle_timeout(
         session,
@@ -83,6 +83,10 @@ async def test_handle_timeout_returns_false_on_normal_result():
     )
 
     assert result is False
+    # Context must be reset even after a single timeout so the next LLM call
+    # doesn't see stale game state from before the timeout recovery.
+    assert len(state.history) == 1
+    assert state.history[0]["content"] == "Continue playing. Call pass_priority."
 
 
 @pytest.mark.asyncio
@@ -108,7 +112,7 @@ async def test_handle_timeout_detects_stop_reason_game_over():
 async def test_handle_timeout_returns_false_on_tool_error():
     session = MagicMock()
     session.call_tool = AsyncMock(side_effect=RuntimeError("bridge died"))
-    state = PilotLoopState(history=[])
+    state = PilotLoopState(history=[{"role": "user", "content": "stale context"}])
 
     with pytest.MonkeyPatch.context() as mp:
         mp.setattr(asyncio, "sleep", AsyncMock())
@@ -122,6 +126,36 @@ async def test_handle_timeout_returns_false_on_tool_error():
         )
 
     assert result is False
+    assert len(state.history) == 1
+    assert state.history[0]["content"] == "Continue playing. Call pass_priority."
+
+
+@pytest.mark.asyncio
+async def test_handle_timeout_full_board_reset_after_max_consecutive():
+    """After max_consecutive_timeouts, reset includes board context."""
+    session = _make_session(json.dumps({"action_pending": False}))
+    state = PilotLoopState(history=[{"role": "user", "content": "stale context"}])
+    state.consecutive_timeouts = 2  # will become 3 inside _handle_timeout
+    state.board_tracker.cursor = 42
+    state.last_board = [{"zone": "battlefield"}]
+    game_log = MagicMock()
+
+    result = await _handle_timeout(
+        session,
+        state,
+        game_log,
+        logger=logger,
+        llm_request_timeout_secs=30,
+        max_consecutive_timeouts=3,
+    )
+
+    assert result is False
+    assert state.consecutive_timeouts == 0
+    assert len(state.history) == 1
+    # Full board reset clears board tracker and last_board
+    assert state.board_tracker.cursor is None
+    assert state.last_board is None
+    game_log.emit.assert_any_call("context_reset", reason="repeated_timeouts")
 
 
 # ---------------------------------------------------------------------------
