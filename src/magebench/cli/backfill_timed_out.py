@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Backfill timed_out field on player entries in existing game exports.
 
-Reads each .json/.json.gz in website/public/games/, scans actions for the
+Reads each .json5/.json5.gz in website/public/games/, scans actions for the
 "has run out of time, losing the match." message, and sets timed_out=true on
 matching players.
 

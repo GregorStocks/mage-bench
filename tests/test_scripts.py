@@ -1,5 +1,6 @@
 """Tests for migrated magebench CLI modules."""
 
+import gzip
 import importlib
 import json
 import sys
@@ -828,7 +829,7 @@ class TestGameGzBootstrap:
         games_dir = tmp_path / "website" / "public" / "games"
         logs_dir = tmp_path / ".mage-bench" / "logs"
         game_dir = logs_dir / game_id
-        export_path = games_dir / f"{game_id}.json"
+        export_path = games_dir / f"{game_id}.json5"
         export_data = {
             "version": 9,
             "id": game_id,
@@ -892,6 +893,70 @@ class TestGameGzBootstrap:
         mock_run.assert_called_once()
         out = capsys.readouterr().out
         assert f"Game: {game_id} | jumpstart | 7 turns | Winner: Alice" in out
+
+    def test_prefers_existing_json5_gz_export_without_reexport(
+        self,
+        tmp_path: Path,
+        capsys: pytest.CaptureFixture[str],
+    ) -> None:
+        game_id = "game_20260314_111422_g2"
+        games_dir = tmp_path / "website" / "public" / "games"
+        logs_dir = tmp_path / ".mage-bench" / "logs"
+        export_path = games_dir / f"{game_id}.json5.gz"
+        export_data = {
+            "version": 9,
+            "id": game_id,
+            "timestamp": "2026-03-14T11:14:22-07:00",
+            "game_type": "Two Player Duel",
+            "deck_type": "jumpstart",
+            "total_turns": 9,
+            "winner": "Bob",
+            "harness_epoch": 1,
+            "youtube_url": "",
+            "players": [
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "model-a",
+                    "total_cost_usd": 0.0,
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
+                },
+                {
+                    "name": "Bob",
+                    "type": "pilot",
+                    "model": "model-b",
+                    "total_cost_usd": 0.1,
+                    "tool_calls_ok": 0,
+                    "tool_calls_failed": 0,
+                    "thinking_time_secs": 0.0,
+                },
+            ],
+            "card_images": {},
+            "snapshots": [],
+            "actions": [],
+            "llm_events": [],
+            "game_over": None,
+            "annotations": [],
+            "blunder_script_version": 0,
+            "season": 1,
+            "tournament": None,
+        }
+        games_dir.mkdir(parents=True)
+        logs_dir.mkdir(parents=True)
+        export_path.write_bytes(gzip.compress(json.dumps(export_data).encode()))
+
+        with (
+            patch.object(game_gz_bootstrap, "GAMES_DIR", games_dir),
+            patch.object(game_gz_bootstrap, "LOGS_DIR", logs_dir),
+            patch.object(game_gz_bootstrap.subprocess, "run") as mock_run,
+        ):
+            game_gz_bootstrap.main(game_id)
+
+        mock_run.assert_not_called()
+        out = capsys.readouterr().out
+        assert f"Game: {game_id} | jumpstart | 9 turns | Winner: Bob" in out
 
     def test_failed_tool_call_detection_requires_explicit_errors(self) -> None:
         events = [

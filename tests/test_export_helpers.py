@@ -17,6 +17,7 @@ from magebench.game.game_export_types import (
     PilotContext,
 )
 from magebench.game.game_exports import (
+    find_game_export_path,
     glob_game_export_paths,
     load_raw_game_export,
     write_raw_game_export,
@@ -479,3 +480,15 @@ def test_glob_game_export_paths_prefers_gz_when_both_exist(tmp_path: Path) -> No
         "game_b.json5.gz",
         "game_c.json5.gz",
     ]
+
+
+def test_find_game_export_path_prefers_json5_gz_and_falls_back_to_json5(tmp_path: Path) -> None:
+    json5_path = tmp_path / "game_a.json5"
+    gz_path = tmp_path / "game_a.json5.gz"
+    json5_path.write_text("{}")
+    gz_path.write_bytes(gzip.compress(b"{}"))
+    (tmp_path / "game_b.json5").write_text("{}")
+
+    assert find_game_export_path("game_a", tmp_path) == gz_path
+    assert find_game_export_path("game_b", tmp_path) == tmp_path / "game_b.json5"
+    assert find_game_export_path("missing", tmp_path) is None

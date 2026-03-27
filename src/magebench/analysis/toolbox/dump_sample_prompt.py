@@ -12,16 +12,19 @@ from magebench.analysis.blunder.blunder_context import (
 )
 from magebench.analysis.blunder.blunder_eval_common import load_game
 from magebench.analysis.blunder.extract_decisions import extract_decisions
+from magebench.game.game_exports import find_game_export_path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"
 
 # Pick a game with enough turns
-gz_path = str(REPO_ROOT / "website/public/games/game_20260216_155314_g7.json.gz")
+GAME_ID = "game_20260216_155314_g7"
+game_path = find_game_export_path(GAME_ID)
+assert game_path is not None, f"Game export not found for {GAME_ID}"
 
-data = load_game(gz_path)
+data = load_game(game_path)
 
-decisions = extract_decisions(gz_path)
+decisions = extract_decisions(str(game_path))
 non_forced = [d for d in decisions if not d.is_forced]
 
 # Pick a mid-game decision (around the middle of the game)

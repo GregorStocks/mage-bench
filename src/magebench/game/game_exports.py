@@ -98,3 +98,13 @@ def glob_game_export_paths(games_dir: Path = GAMES_DIR) -> list[Path]:
     gz_stems = {path.name.removesuffix(".gz") for path in gz_files}
     json5_files = [path for path in games_dir.glob("game_*.json5") if path.name not in gz_stems]
     return sorted(gz_files | set(json5_files))
+
+
+def find_game_export_path(game_id: str, games_dir: Path = GAMES_DIR) -> Path | None:
+    """Resolve the preferred current export path for a game ID (.json5.gz or .json5)."""
+    assert isinstance(game_id, str) and game_id, f"game_id must be a non-empty string, got {game_id!r}"
+    for suffix in (".json5.gz", ".json5"):
+        path = games_dir / f"{game_id}{suffix}"
+        if path.exists():
+            return path
+    return None

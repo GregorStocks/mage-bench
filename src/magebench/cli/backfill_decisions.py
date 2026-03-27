@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Backfill canonical decisions on existing game exports.
 
-Reads each .json/.json.gz in website/public/games/, builds canonical decisions
+Reads each .json5/.json5.gz in website/public/games/, builds canonical decisions
 from the existing snapshots/actions/llm_events, and writes the file back.
 
 Usage:

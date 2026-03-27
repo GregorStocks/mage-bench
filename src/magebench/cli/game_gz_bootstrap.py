@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Bootstrap game analysis: export gz if needed, print quick overview.
+"""Bootstrap game analysis: export current game data if needed, print quick overview.
 
 Usage:
     game_gz_bootstrap.py <game_id>
 
-Looks for website/public/games/<game_id>.json.gz or .json. If neither exists
+Looks for website/public/games/<game_id>.json5.gz or .json5. If neither exists
 but raw logs are available at ~/.mage-bench/logs/<game_id>/game_events.jsonl,
 runs the export-game CLI to generate the export first.
 """
@@ -12,22 +12,11 @@ runs the export-game CLI to generate the export first.
 import json
 import subprocess
 import sys
-from pathlib import Path
 
 from magebench.analysis.blunder.blunder_eval_common import GAMES_DIR, load_game
 from magebench.game.export_game import LOGS_DIR
 from magebench.game.game_export_types import LlmEvent, ToolCallEvent
-
-_EXTENSIONS = (".json.gz", ".json")
-
-
-def _find_export(game_id: str) -> Path | None:
-    """Return the export path (.json.gz or .json), or None."""
-    for ext in _EXTENSIONS:
-        p = GAMES_DIR / f"{game_id}{ext}"
-        if p.exists():
-            return p
-    return None
+from magebench.game.game_exports import find_game_export_path
 
 
 def _parse_tool_result(event: ToolCallEvent) -> dict | None:
@@ -74,19 +63,19 @@ def main(game_id: str) -> None:
     game_dir = LOGS_DIR / game_id
     events_path = game_dir / "game_events.jsonl"
 
-    export_path = _find_export(game_id)
+    export_path = find_game_export_path(game_id, GAMES_DIR)
     if export_path is None and events_path.exists():
         subprocess.run(
             ["uv", "run", "python", "-m", "magebench.cli.export_game", game_id],
             check=True,
         )
-        # Export may create .json.gz or .json depending on file size
-        export_path = _find_export(game_id)
+        # Export may create .json5.gz or .json5 depending on file size
+        export_path = find_game_export_path(game_id, GAMES_DIR)
 
     if export_path is None:
         print(f"No export found for {game_id}", file=sys.stderr)
-        for ext in _EXTENSIONS:
-            print(f"  Checked: {GAMES_DIR / f'{game_id}{ext}'}", file=sys.stderr)
+        for suffix in (".json5.gz", ".json5"):
+            print(f"  Checked: {GAMES_DIR / f'{game_id}{suffix}'}", file=sys.stderr)
         print(
             f"  Raw logs: {'exist' if events_path.exists() else 'not found'}",
             file=sys.stderr,
