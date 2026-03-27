@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-03-27T03:44:45.778933+00:00",
-  "totalGames": 5,
+  "generatedAt": "2026-03-27T05:18:37.129546+00:00",
+  "totalGames": 4,
   "models": [
     {
       "modelId": "openai/gpt-5.4-mini",
@@ -16,22 +16,6 @@
       "avgToolCallsFailed": 14.0,
       "avgThinkingTimeSecs": 828.6,
       "blunderScore": 0.9,
-      "reasoningEffort": "medium"
-    },
-    {
-      "modelId": "anthropic/claude-opus-4.6",
-      "modelName": "Claude Opus 4.6 (medium)",
-      "provider": "Anthropic",
-      "rating": 1616,
-      "gamesPlayed": 1,
-      "winRate": 1.0,
-      "timeoutLosses": 0,
-      "timeoutLossRate": 0.0,
-      "avgApiCost": 5.46,
-      "avgToolCallsOk": 77.0,
-      "avgToolCallsFailed": 0.0,
-      "avgThinkingTimeSecs": 626.1,
-      "blunderScore": 0.31,
       "reasoningEffort": "medium"
     },
     {
@@ -112,22 +96,6 @@
       "blunderScore": 1.0
     },
     {
-      "modelId": "x-ai/grok-4",
-      "modelName": "Grok 4 (medium)",
-      "provider": "xAI",
-      "rating": 1584,
-      "gamesPlayed": 1,
-      "winRate": 0.0,
-      "timeoutLosses": 0,
-      "timeoutLossRate": 0.0,
-      "avgApiCost": 5.32,
-      "avgToolCallsOk": 139.0,
-      "avgToolCallsFailed": 3.0,
-      "avgThinkingTimeSecs": 3648.9,
-      "blunderScore": 0.31,
-      "reasoningEffort": "medium"
-    },
-    {
       "modelId": "xiaomi/mimo-v2-flash",
       "modelName": "MiMo V2 Flash (medium)",
       "provider": "Xiaomi",
@@ -146,8 +114,8 @@
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-27T03:44:45.778825+00:00",
-      "totalGames": 5,
+      "generatedAt": "2026-03-27T05:18:37.129458+00:00",
+      "totalGames": 4,
       "models": [
         {
           "modelId": "openai/gpt-5.4-mini",
@@ -163,22 +131,6 @@
           "avgToolCallsFailed": 14.0,
           "avgThinkingTimeSecs": 828.6,
           "blunderScore": 0.9,
-          "reasoningEffort": "medium"
-        },
-        {
-          "modelId": "anthropic/claude-opus-4.6",
-          "modelName": "Claude Opus 4.6 (medium)",
-          "provider": "Anthropic",
-          "rating": 1616,
-          "gamesPlayed": 1,
-          "winRate": 1.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 5.46,
-          "avgToolCallsOk": 77.0,
-          "avgToolCallsFailed": 0.0,
-          "avgThinkingTimeSecs": 626.1,
-          "blunderScore": 0.31,
           "reasoningEffort": "medium"
         },
         {
@@ -257,22 +209,6 @@
           "avgToolCallsFailed": 7.0,
           "avgThinkingTimeSecs": 343.3,
           "blunderScore": 1.0
-        },
-        {
-          "modelId": "x-ai/grok-4",
-          "modelName": "Grok 4 (medium)",
-          "provider": "xAI",
-          "rating": 1584,
-          "gamesPlayed": 1,
-          "winRate": 0.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 5.32,
-          "avgToolCallsOk": 139.0,
-          "avgToolCallsFailed": 3.0,
-          "avgThinkingTimeSecs": 3648.9,
-          "blunderScore": 0.31,
-          "reasoningEffort": "medium"
         },
         {
           "modelId": "xiaomi/mimo-v2-flash",
@@ -293,29 +229,29 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-27T03:44:45.778839+00:00",
+      "generatedAt": "2026-03-27T05:18:37.129469+00:00",
       "totalGames": 0,
       "models": []
     },
     "modern": {
-      "generatedAt": "2026-03-27T03:44:45.778842+00:00",
+      "generatedAt": "2026-03-27T05:18:37.129472+00:00",
       "totalGames": 0,
       "models": []
     },
     "legacy": {
-      "generatedAt": "2026-03-27T03:44:45.778845+00:00",
+      "generatedAt": "2026-03-27T05:18:37.129474+00:00",
       "totalGames": 0,
       "models": []
     },
     "commander": {
-      "generatedAt": "2026-03-27T03:44:45.778847+00:00",
+      "generatedAt": "2026-03-27T05:18:37.129476+00:00",
       "totalGames": 0,
       "exhibition": true,
       "models": []
     },
     "combined": {
-      "generatedAt": "2026-03-27T03:44:45.778933+00:00",
-      "totalGames": 5,
+      "generatedAt": "2026-03-27T05:18:37.129546+00:00",
+      "totalGames": 4,
       "models": [
         {
           "modelId": "openai/gpt-5.4-mini",
@@ -331,22 +267,6 @@
           "avgToolCallsFailed": 14.0,
           "avgThinkingTimeSecs": 828.6,
           "blunderScore": 0.9,
-          "reasoningEffort": "medium"
-        },
-        {
-          "modelId": "anthropic/claude-opus-4.6",
-          "modelName": "Claude Opus 4.6 (medium)",
-          "provider": "Anthropic",
-          "rating": 1616,
-          "gamesPlayed": 1,
-          "winRate": 1.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 5.46,
-          "avgToolCallsOk": 77.0,
-          "avgToolCallsFailed": 0.0,
-          "avgThinkingTimeSecs": 626.1,
-          "blunderScore": 0.31,
           "reasoningEffort": "medium"
         },
         {
@@ -425,22 +345,6 @@
           "avgToolCallsFailed": 7.0,
           "avgThinkingTimeSecs": 343.3,
           "blunderScore": 1.0
-        },
-        {
-          "modelId": "x-ai/grok-4",
-          "modelName": "Grok 4 (medium)",
-          "provider": "xAI",
-          "rating": 1584,
-          "gamesPlayed": 1,
-          "winRate": 0.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 5.32,
-          "avgToolCallsOk": 139.0,
-          "avgToolCallsFailed": 3.0,
-          "avgThinkingTimeSecs": 3648.9,
-          "blunderScore": 0.31,
-          "reasoningEffort": "medium"
         },
         {
           "modelId": "xiaomi/mimo-v2-flash",

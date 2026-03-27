@@ -361,12 +361,13 @@
       "id": "qwen/qwen3-235b-a22b-2507",
       "name": "Qwen3 235B",
       "name_part": "Qwen3L",
+      "skip_expressive_personalities": true,
       "_input_per_m": 0.071,
       "_output_per_m": 0.10,
       "_context_k": 262,
       "_thinking": false,
       "_tier": "dirt-cheap",
-      "_notes": "Large Qwen3 MoE (235B total, 22B active). Absurdly cheap. No reasoning mode. Non-thinking baseline."
+      "_notes": "Large Qwen3 MoE (235B total, 22B active). Absurdly cheap. No reasoning mode. Non-thinking baseline. Memoir personality in game_20260326_192635_g2 produced severe personality infection and repeated false platform-bug diagnoses, so expressive personalities are disabled."
     },
     {
       "id": "google/gemini-2.0-flash-001",

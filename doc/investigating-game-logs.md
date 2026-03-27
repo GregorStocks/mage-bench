@@ -55,6 +55,18 @@ Chat messages are the most human-readable signal. Always check them first.
 jq -r 'select(.type=="player_chat") | "\(.timestamp) \(.message)"' "$GAME_DIR/game_events.jsonl"
 ```
 
+If a pilot insists a trigger or discard choice belongs to the wrong player,
+verify controller ownership from the bridge chat log before filing a bridge bug:
+
+```bash
+# Who actually cast the suspicious spell or permanent?
+rg -n 'casts .*Rousing Read|puts .* from stack onto the Battlefield|Ability triggers' "$GAME_DIR"/*_bridge.jsonl
+```
+
+This is faster than reasoning from the pilot log alone, and it catches
+personality-infected models that confidently invent controller bugs after
+forgetting who cast the card.
+
 ## Error logs
 
 ```bash
@@ -211,6 +223,19 @@ rg -n '"incoming_attackers"|Combat Phase: blockers' website/public/games/GAME_ID
 
 If the JSON has `incoming_attackers` or other blocker metadata but the prompt
 only shows attacker names, suspect `decision_renderer.py` instead of the model.
+
+If an invalid-choice error lands right after `LLM request timed out after 120s`,
+check whether the bad ID was actually legal in the timed-out prompt:
+
+```bash
+# Compare timeout windows against the rendered prompt the model eventually answered
+jq -c 'select(.type=="llm_call") | {ts, request:(.request.messages[-1].content // .request.messages[-1])}' "$GAME_DIR"/*_llm_trace.jsonl
+```
+
+If the late `*_llm_trace.jsonl` request still offers that ID as a legal choice
+but the matching `*_llm.jsonl` tool call hits a newer `game_seq` with different
+choices, localize it to pilot timeout/cancellation handling rather than model
+hallucination.
 
 ## Stale state-bridge syntax
 

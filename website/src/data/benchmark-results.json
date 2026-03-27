@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-03-27T03:44:45.783855+00:00",
-  "totalGames": 213,
+  "generatedAt": "2026-03-27T05:18:37.134131+00:00",
+  "totalGames": 212,
   "models": [
     {
       "modelId": "anthropic/claude-opus-4.6",
       "modelName": "Claude Opus 4.6 (medium)",
       "provider": "Anthropic",
-      "rating": 1752,
-      "gamesPlayed": 17,
-      "winRate": 0.8824,
+      "rating": 1747,
+      "gamesPlayed": 16,
+      "winRate": 0.875,
       "timeoutLosses": 0,
       "timeoutLossRate": 0.0,
-      "avgApiCost": 8.72,
-      "avgToolCallsOk": 117.6,
-      "avgToolCallsFailed": 1.1,
-      "avgThinkingTimeSecs": 620.5,
-      "blunderScore": 0.48,
+      "avgApiCost": 8.93,
+      "avgToolCallsOk": 120.2,
+      "avgToolCallsFailed": 1.2,
+      "avgThinkingTimeSecs": 620.1,
+      "blunderScore": 0.49,
       "reasoningEffort": "medium"
     },
     {
@@ -581,23 +581,23 @@
       "modelId": "x-ai/grok-4",
       "modelName": "Grok 4 (medium)",
       "provider": "xAI",
-      "rating": 1454,
-      "gamesPlayed": 14,
-      "winRate": 0.0714,
+      "rating": 1459,
+      "gamesPlayed": 13,
+      "winRate": 0.0769,
       "timeoutLosses": 7,
-      "timeoutLossRate": 0.5,
-      "avgApiCost": 3.06,
-      "avgToolCallsOk": 89.2,
-      "avgToolCallsFailed": 1.4,
-      "avgThinkingTimeSecs": 2709.6,
-      "blunderScore": 0.4,
+      "timeoutLossRate": 0.5385,
+      "avgApiCost": 2.88,
+      "avgToolCallsOk": 85.4,
+      "avgToolCallsFailed": 1.2,
+      "avgThinkingTimeSecs": 2637.3,
+      "blunderScore": 0.41,
       "reasoningEffort": "medium"
     }
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-27T03:44:45.780519+00:00",
-      "totalGames": 89,
+      "generatedAt": "2026-03-27T05:18:37.131025+00:00",
+      "totalGames": 88,
       "models": [
         {
           "modelId": "openai/gpt-5.2",
@@ -652,16 +652,16 @@
           "modelId": "anthropic/claude-opus-4.6",
           "modelName": "Claude Opus 4.6 (medium)",
           "provider": "Anthropic",
-          "rating": 1672,
-          "gamesPlayed": 5,
+          "rating": 1660,
+          "gamesPlayed": 4,
           "winRate": 1.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 7.14,
-          "avgToolCallsOk": 93.8,
-          "avgToolCallsFailed": 0.6,
-          "avgThinkingTimeSecs": 645.0,
-          "blunderScore": 0.47,
+          "avgApiCost": 7.56,
+          "avgToolCallsOk": 98.0,
+          "avgToolCallsFailed": 0.8,
+          "avgThinkingTimeSecs": 649.8,
+          "blunderScore": 0.5,
           "reasoningEffort": "medium"
         },
         {
@@ -1114,16 +1114,16 @@
           "modelId": "x-ai/grok-4",
           "modelName": "Grok 4 (medium)",
           "provider": "xAI",
-          "rating": 1557,
-          "gamesPlayed": 3,
+          "rating": 1569,
+          "gamesPlayed": 2,
           "winRate": 0.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 4.97,
-          "avgToolCallsOk": 123.0,
+          "avgApiCost": 4.79,
+          "avgToolCallsOk": 115.0,
           "avgToolCallsFailed": 3.0,
-          "avgThinkingTimeSecs": 2987.2,
-          "blunderScore": 0.79,
+          "avgThinkingTimeSecs": 2656.3,
+          "blunderScore": 1.0,
           "reasoningEffort": "medium"
         },
         {
@@ -1176,7 +1176,7 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-27T03:44:45.781103+00:00",
+      "generatedAt": "2026-03-27T05:18:37.131614+00:00",
       "totalGames": 56,
       "models": [
         {
@@ -1569,7 +1569,7 @@
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-27T03:44:45.781386+00:00",
+      "generatedAt": "2026-03-27T05:18:37.131856+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -1866,7 +1866,7 @@
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-27T03:44:45.781652+00:00",
+      "generatedAt": "2026-03-27T05:18:37.132096+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -2177,7 +2177,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-27T03:44:45.782197+00:00",
+      "generatedAt": "2026-03-27T05:18:37.132651+00:00",
       "totalGames": 34,
       "exhibition": true,
       "models": [
@@ -2619,23 +2619,23 @@
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-27T03:44:45.783855+00:00",
-      "totalGames": 179,
+      "generatedAt": "2026-03-27T05:18:37.134131+00:00",
+      "totalGames": 178,
       "models": [
         {
           "modelId": "anthropic/claude-opus-4.6",
           "modelName": "Claude Opus 4.6 (medium)",
           "provider": "Anthropic",
-          "rating": 1752,
-          "gamesPlayed": 17,
-          "winRate": 0.8824,
+          "rating": 1747,
+          "gamesPlayed": 16,
+          "winRate": 0.875,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 8.72,
-          "avgToolCallsOk": 117.6,
-          "avgToolCallsFailed": 1.1,
-          "avgThinkingTimeSecs": 620.5,
-          "blunderScore": 0.48,
+          "avgApiCost": 8.93,
+          "avgToolCallsOk": 120.2,
+          "avgToolCallsFailed": 1.2,
+          "avgThinkingTimeSecs": 620.1,
+          "blunderScore": 0.49,
           "reasoningEffort": "medium"
         },
         {
@@ -3201,16 +3201,16 @@
           "modelId": "x-ai/grok-4",
           "modelName": "Grok 4 (medium)",
           "provider": "xAI",
-          "rating": 1454,
-          "gamesPlayed": 14,
-          "winRate": 0.0714,
+          "rating": 1459,
+          "gamesPlayed": 13,
+          "winRate": 0.0769,
           "timeoutLosses": 7,
-          "timeoutLossRate": 0.5,
-          "avgApiCost": 3.06,
-          "avgToolCallsOk": 89.2,
-          "avgToolCallsFailed": 1.4,
-          "avgThinkingTimeSecs": 2709.6,
-          "blunderScore": 0.4,
+          "timeoutLossRate": 0.5385,
+          "avgApiCost": 2.88,
+          "avgToolCallsOk": 85.4,
+          "avgToolCallsFailed": 1.2,
+          "avgThinkingTimeSecs": 2637.3,
+          "blunderScore": 0.41,
           "reasoningEffort": "medium"
         }
       ]

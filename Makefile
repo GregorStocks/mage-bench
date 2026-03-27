@@ -264,6 +264,14 @@ verify-mcp-tools:
 list-games-to-analyze:
 	uv run python -m magebench.cli.analysis.find_unanalyzed $(ARGS)
 
+# Claim exported games for analysis.
+# Usage: make claim-games TYPE=deep COUNT=1
+#        make claim-games TYPE=fast GAME_IDS="game_20260301_010203"
+.PHONY: claim-games
+claim-games:
+	@if [ -z "$(TYPE)" ]; then echo "ERROR: TYPE is required. Use TYPE=fast or TYPE=deep."; exit 2; fi
+	uv run python -m magebench.cli.analysis.claim_games --type $(TYPE) $(if $(COUNT),--count $(COUNT)) $(if $(MAX_STALENESS),--max-staleness $(MAX_STALENESS)) $(GAME_IDS) $(ARGS)
+
 .PHONY: blunder-eval
 blunder-eval:
 	uv run python -m magebench.cli.analysis.blunder_eval $(ARGS)

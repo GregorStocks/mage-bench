@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-27T03:46:26.423648+00:00",
+  "generatedAt": "2026-03-27T05:20:09.876926+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -19272,52 +19272,6 @@
           "otherErrors": 0,
           "contextResets": 0,
           "latencyP50": 6.8
-        }
-      ]
-    },
-    {
-      "id": "game_20260326_192635_g1",
-      "ts": "2026-03-26T19:26:35",
-      "epoch": 60,
-      "format": "jumpstart",
-      "players": [
-        {
-          "key": "x-ai/grok-4::medium",
-          "modelName": "Grok 4 (medium)",
-          "won": false,
-          "timedOut": false,
-          "costUsd": 5.3171,
-          "promptTokens": 1155645,
-          "completionTokens": 123341,
-          "cachedTokens": 409042,
-          "reasoningTokens": 119001,
-          "toolCallsOk": 139,
-          "toolCallsFailed": 3,
-          "thinkingTimeSecs": 3648.9,
-          "responses": 121,
-          "timeouts": 4,
-          "otherErrors": 1,
-          "contextResets": 0,
-          "latencyP50": 8.4
-        },
-        {
-          "key": "anthropic/claude-opus-4.6::medium",
-          "modelName": "Claude Opus 4.6 (medium)",
-          "won": true,
-          "timedOut": false,
-          "costUsd": 5.4578,
-          "promptTokens": 1039084,
-          "completionTokens": 10495,
-          "cachedTokens": 98871,
-          "reasoningTokens": 20,
-          "toolCallsOk": 77,
-          "toolCallsFailed": 0,
-          "thinkingTimeSecs": 626.1,
-          "responses": 77,
-          "timeouts": 2,
-          "otherErrors": 0,
-          "contextResets": 0,
-          "latencyP50": 4.2
         }
       ]
     },
