@@ -8,10 +8,13 @@
     "MD041": false
   },
   "globs": [
-    "**/*.md",
+    "*.md",
+    ".claude/**/*.md",
+    "doc/**/*.md",
     "!doc/claudes/analyses/**",
-    "!**/node_modules/**",
-    "!.venv/**",
-    "!**/.venv/**"
+    "puppeteer/**/*.md",
+    "src/**/*.md",
+    "tests/**/*.md",
+    "website/src/content/**/*.md"
   ]
 }
