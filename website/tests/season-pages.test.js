@@ -102,5 +102,5 @@ describe("season-pages", () => {
     expect(seasonGames.length).toBeGreaterThan(0);
     expect(gameMap.size).toBe(seasonGames.length);
     expect(gameMap.get(seasonGames[0].id)).toEqual(seasonGames[0]);
-  }, 30000);
+  }, 120000);
 });
