@@ -6,8 +6,8 @@ requires-python = ">=3.11"
 dependencies = [
     "psutil>=5.9.0",
     "mcp>=1.27.0",
-    "openai>=2.33.0",
-    "google-api-python-client>=2.194.0",
+    "openai>=2.35.0",
+    "google-api-python-client>=2.195.0",
     "google-auth-oauthlib>=1.0.0",
     "google-auth-httplib2>=0.2.0",
     "pyjson5>=2.0.0",
@@ -29,7 +29,7 @@ dev = [
     "pytest-asyncio>=0.24.0",
     "pytest-xdist>=3.5.0",
     "fastjsonschema>=2.21.0",
-    "google-api-python-client-stubs>=1.35.0",
+    "google-api-python-client-stubs>=1.36.0",
     "google-auth-stubs>=0.3.0",
 ]
 
