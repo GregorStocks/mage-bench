@@ -213,7 +213,7 @@
                 <plugin>
                     <groupId>com.ruleoftech</groupId>
                     <artifactId>markdown-page-generator-plugin</artifactId>
-                    <version>2.4.3</version>
+                    <version>2.5.2</version>
                     <executions>
                         <execution>
                             <phase>process-resources</phase>
@@ -275,7 +275,7 @@
             <!-- TODO: migrate log4j configs to logback xml (see properties to xml translation http://logback.qos.ch/translator/ -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-reload4j</artifactId>
-            <version>2.0.17</version>
+            <version>2.0.18</version>
         </dependency>
 
         <dependency>
@@ -327,7 +327,7 @@
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
                 <artifactId>jaxb-runtime</artifactId>
-                <version>4.0.7</version>
+                <version>4.0.8</version>
             </dependency>
             <dependency>
                 <!-- junit compatible dependencies (xmage uses junit 5 platform for all v4 and v5 tests) -->
@@ -341,7 +341,7 @@
                 <!-- json support -->
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
-                <version>2.13.2</version>
+                <version>2.14.0</version>
             </dependency>
             <dependency>
                 <!-- extended lib from google (collections, io, etc) -->
