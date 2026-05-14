@@ -4,27 +4,51 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       all:
+        applies-to: version-updates
+        patterns: ['*']
+      all-security:
+        applies-to: security-updates
         patterns: ['*']
   - package-ecosystem: 'maven'
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       all:
+        applies-to: version-updates
+        patterns: ['*']
+      all-security:
+        applies-to: security-updates
         patterns: ['*']
   - package-ecosystem: 'npm'
     directory: '/website'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       all:
+        applies-to: version-updates
+        patterns: ['*']
+      all-security:
+        applies-to: security-updates
         patterns: ['*']
   - package-ecosystem: 'uv'
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       all:
+        applies-to: version-updates
+        patterns: ['*']
+      all-security:
+        applies-to: security-updates
         patterns: ['*']
