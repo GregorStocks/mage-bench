@@ -15,21 +15,21 @@
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
-    "astro": "^6.1.6",
+    "astro": "^6.2.2",
     "chart.js": "^4.5.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/check": "^0.9.9",
     "@eslint/js": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
     "@typescript-eslint/parser": "^8.57.0",
-    "eslint": "^10.1.0",
-    "eslint-plugin-astro": "^1.6.0",
-    "globals": "^17.4.0",
-    "happy-dom": "^20.8.9",
+    "eslint": "^10.3.0",
+    "eslint-plugin-astro": "^1.7.0",
+    "globals": "^17.6.0",
+    "happy-dom": "^20.9.0",
     "json-schema-to-typescript": "^15.0.4",
-    "markdownlint-cli2": "^0.22.0",
-    "typescript": "^5.9.3",
-    "vitest": "^4.1.2"
+    "markdownlint-cli2": "^0.22.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
   }
 }
