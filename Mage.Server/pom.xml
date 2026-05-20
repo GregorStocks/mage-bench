@@ -234,7 +234,7 @@
             <!-- database support - sqlite db engine (additional db for game records and stats) -->
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.53.0.0</version>
+            <version>3.53.1.0</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -248,7 +248,7 @@
             <plugin>
                 <groupId>org.jvnet.jaxb</groupId>
                 <artifactId>jaxb-maven-plugin</artifactId>
-                <version>4.0.12</version>
+                <version>4.0.14</version>
                 <configuration>
                     <generatePackage>mage.server.util.config</generatePackage>
                     <schemaDirectory>./src/main/xml-resources/jaxb/Config/</schemaDirectory>
