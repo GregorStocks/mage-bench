@@ -12,7 +12,7 @@ jobs:
   java:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
         with:
           sparse-checkout: |
             /*
@@ -31,7 +31,7 @@ jobs:
           key: build-cache-${{ github.sha }}
           restore-keys: build-cache-
 
-      - uses: astral-sh/setup-uv@v7
+      - uses: astral-sh/setup-uv@v8.1.0
 
       - run: mvn install -q -DskipTests -T 1C
 
@@ -40,9 +40,9 @@ jobs:
   python:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
 
-      - uses: astral-sh/setup-uv@v7
+      - uses: astral-sh/setup-uv@v8.1.0
 
       - name: Install agent-issues
         run: |
@@ -165,7 +165,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
         with:
           sparse-checkout: |
             /*
@@ -184,7 +184,7 @@ jobs:
           key: build-cache-${{ github.sha }}
           restore-keys: build-cache-
 
-      - uses: astral-sh/setup-uv@v7
+      - uses: astral-sh/setup-uv@v8.1.0
 
       - run: sudo apt-get install -y xvfb
 
@@ -200,7 +200,7 @@ jobs:
   website:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
 
       - uses: actions/setup-node@v6
         with:
