@@ -123,7 +123,7 @@
                     <!-- test runner for maven, travis-ci (IDE uses own test runner) -->
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.5</version>
+                    <version>3.5.6</version>
                     <dependencies>
                         <!-- tree reporter deps -->
                         <dependency>
@@ -327,7 +327,7 @@
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
                 <artifactId>jaxb-runtime</artifactId>
-                <version>4.0.8</version>
+                <version>4.0.9</version>
             </dependency>
             <dependency>
                 <!-- junit compatible dependencies (xmage uses junit 5 platform for all v4 and v5 tests) -->
