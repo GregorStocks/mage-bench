@@ -248,7 +248,7 @@
             <plugin>
                 <groupId>org.jvnet.jaxb</groupId>
                 <artifactId>jaxb-maven-plugin</artifactId>
-                <version>4.0.14</version>
+                <version>4.0.15</version>
                 <configuration>
                     <generatePackage>mage.server.util.config</generatePackage>
                     <schemaDirectory>./src/main/xml-resources/jaxb/Config/</schemaDirectory>
