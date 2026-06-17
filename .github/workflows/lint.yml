@@ -19,7 +19,7 @@ jobs:
             !website/public/games
           sparse-checkout-cone-mode: false
 
-      - uses: actions/setup-java@v5
+      - uses: actions/setup-java@v5.2.0
         with:
           distribution: 'temurin'
           java-version: '21'
@@ -172,7 +172,7 @@ jobs:
             !website/public/games
           sparse-checkout-cone-mode: false
 
-      - uses: actions/setup-java@v5
+      - uses: actions/setup-java@v5.2.0
         with:
           distribution: 'temurin'
           java-version: '21'
