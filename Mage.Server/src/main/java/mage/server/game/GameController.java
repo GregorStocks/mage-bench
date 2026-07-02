@@ -459,31 +459,23 @@ public class GameController implements GameCallback {
     public WatchResult watch(UUID userId) {
         if (userPlayerMap.containsKey(userId)) {
             // You can't watch a game if you already a player in it
-            String reason = "watch failed: user " + userId + " is already a player in game " + game.getId();
-            logger.warn(reason);
-            return WatchResult.fail(reason);
+            return WatchResult.fail("user " + userId + " is already a player in game " + game.getId());
         }
         if (watchers.containsKey(userId)) {
             // You can't watch a game if you already watch it
-            String reason = "watch failed: user " + userId + " is already watching game " + game.getId();
-            logger.warn(reason);
-            return WatchResult.fail(reason);
+            return WatchResult.fail("user " + userId + " is already watching game " + game.getId());
         }
         if (!isAllowedToWatch(userId)) {
             // Dont want people on our ignore list to stalk us
-            String reason = "watch failed: user " + userId + " is banned from watching game " + game.getId();
-            logger.warn(reason);
             managerFactory.userManager().getUser(userId).ifPresent(user -> {
                 user.showUserMessage("Not allowed", "You are banned from watching this game");
                 managerFactory.chatManager().broadcast(chatId, user.getName(), " tried to join, but is banned", MessageColor.BLUE, true, game, ChatMessage.MessageType.STATUS, null);
             });
-            return WatchResult.fail(reason);
+            return WatchResult.fail("user " + userId + " is banned from watching game " + game.getId());
         }
         Optional<User> watchingUser = managerFactory.userManager().getUser(userId);
         if (!watchingUser.isPresent()) {
-            String reason = "watch failed: user " + userId + " not found for game " + game.getId();
-            logger.error(reason);
-            return WatchResult.fail(reason);
+            return WatchResult.fail("user " + userId + " not found for game " + game.getId());
         }
         User user = watchingUser.get();
         GameSessionWatcher gameWatcher = new GameSessionWatcher(managerFactory.userManager(), userId, game, false);

@@ -9,7 +9,6 @@ import mage.interfaces.WatchResult;
 import mage.server.managers.GameManager;
 import mage.server.managers.ManagerFactory;
 import mage.view.GameView;
-import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +25,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author BetaSteward_at_googlemail.com
  */
 public class GameManagerImpl implements GameManager {
-
-    private static final Logger logger = Logger.getLogger(GameManagerImpl.class);
 
     private final ManagerFactory managerFactory;
     private final ConcurrentMap<UUID, GameController> gameControllers = new ConcurrentHashMap<>();
@@ -140,10 +137,8 @@ public class GameManagerImpl implements GameManager {
     public WatchResult watchGame(UUID gameId, UUID userId) {
         GameController gameController = getGameControllerSafe(gameId);
         if (gameController == null) {
-            String reason = "watchGame failed: no GameController registered for game " + gameId
-                    + " (userId=" + userId + ")";
-            logger.error(reason);
-            return WatchResult.fail(reason);
+            return WatchResult.fail("no GameController registered for game " + gameId
+                    + " (userId=" + userId + ")");
         }
         return gameController.watch(userId);
     }

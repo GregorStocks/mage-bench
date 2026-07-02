@@ -1,11 +1,7 @@
 package mage.interfaces;
 
+import mage.utils.CompressUtil;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -39,7 +35,7 @@ public class WatchResultTest {
     }
 
     @Test
-    void survivesSerializationRoundTrip() throws Exception {
+    void survivesSerializationRoundTrip() {
         // WatchResult crosses the JBoss Remoting wire as an RPC return value
         assertThat(roundTrip(WatchResult.ok()).isSuccess()).isTrue();
 
@@ -48,13 +44,7 @@ public class WatchResultTest {
         assertThat(fail.getFailReason()).isEqualTo("user is banned");
     }
 
-    private WatchResult roundTrip(WatchResult original) throws Exception {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        try (ObjectOutputStream out = new ObjectOutputStream(bytes)) {
-            out.writeObject(original);
-        }
-        try (ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()))) {
-            return (WatchResult) in.readObject();
-        }
+    private WatchResult roundTrip(WatchResult original) {
+        return (WatchResult) CompressUtil.decompress(CompressUtil.compress(original));
     }
 }

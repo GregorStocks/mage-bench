@@ -289,12 +289,11 @@ public class TableManagerImpl implements TableManager {
 
     @Override
     public WatchResult watchTable(UUID userId, UUID tableId) {
-        if (controllers.containsKey(tableId)) {
-            return controllers.get(tableId).watchTable(userId);
+        TableController tableController = controllers.get(tableId);
+        if (tableController == null) {
+            return WatchResult.fail("no TableController for table " + tableId + " (userId=" + userId + ")");
         }
-        String reason = "watchTable failed: no TableController for table " + tableId + " (userId=" + userId + ")";
-        logger.error(reason);
-        return WatchResult.fail(reason);
+        return tableController.watchTable(userId);
     }
 
     @Override

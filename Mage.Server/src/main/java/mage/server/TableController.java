@@ -527,38 +527,27 @@ public class TableController {
         if (table.isTournament()) {
             managerFactory.userManager().getUser(userId).ifPresent(user -> user.ccShowTournament(table.getId(), table.getTournament().getId()));
             return WatchResult.ok();
-        } else {
-            if (table.isTournamentSubTable() && !table.getTournament().getOptions().isWatchingAllowed()) {
-                String reason = "watchTable failed: watching not allowed for tournament sub-table " + table.getId();
-                logger.warn(reason);
-                return WatchResult.fail(reason);
-            }
-            if (table.getState() != TableState.DUELING) {
-                String reason = "watchTable failed: table " + table.getId() + " is in state " + table.getState()
-                        + ", not DUELING (userId=" + userId + ")";
-                logger.warn(reason);
-                return WatchResult.fail(reason);
-            }
-            // you can't watch your own game
-            if (userPlayerMap.get(userId) != null) {
-                String reason = "watchTable failed: user " + userId + " is a player at table " + table.getId();
-                logger.warn(reason);
-                return WatchResult.fail(reason);
-            }
-            Optional<User> _user = managerFactory.userManager().getUser(userId);
-            if (!_user.isPresent()) {
-                String reason = "watchTable failed: user " + userId + " not found for table " + table.getId();
-                logger.error(reason);
-                return WatchResult.fail(reason);
-            }
-            if (!_user.get().ccWatchGame(table.getId(), table.getParentTableId(), match.getGame().getId())) {
-                String reason = "watchTable failed: could not send watchGame callback to user " + userId
-                        + " for table " + table.getId();
-                logger.error(reason);
-                return WatchResult.fail(reason);
-            }
-            return WatchResult.ok();
         }
+        if (table.isTournamentSubTable() && !table.getTournament().getOptions().isWatchingAllowed()) {
+            return WatchResult.fail("watching not allowed for tournament sub-table " + table.getId());
+        }
+        if (table.getState() != TableState.DUELING) {
+            return WatchResult.fail("table " + table.getId() + " is in state " + table.getState()
+                    + ", not DUELING (userId=" + userId + ")");
+        }
+        // you can't watch your own game
+        if (userPlayerMap.get(userId) != null) {
+            return WatchResult.fail("user " + userId + " is a player at table " + table.getId());
+        }
+        Optional<User> _user = managerFactory.userManager().getUser(userId);
+        if (!_user.isPresent()) {
+            return WatchResult.fail("user " + userId + " not found for table " + table.getId());
+        }
+        if (!_user.get().ccWatchGame(table.getId(), table.getParentTableId(), match.getGame().getId())) {
+            return WatchResult.fail("could not send watchGame callback to user " + userId
+                    + " for table " + table.getId());
+        }
+        return WatchResult.ok();
     }
 
     private Optional<Player> createPlayer(String name, PlayerType playerType, int skill) {

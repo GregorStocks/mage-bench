@@ -838,58 +838,46 @@ public class MageServerImpl implements MageServer {
 
     @Override
     public WatchResult roomWatchTable(final String sessionId, final UUID roomId, final UUID tableId) throws MageException {
-        return executeWithResult("setUserData", sessionId, new ActionWithResult<WatchResult>() {
+        WatchResult result = executeWithResult("roomWatchTable", sessionId, new ActionWithWatchResult() {
             @Override
             public WatchResult execute() throws MageException {
                 Optional<Session> session = managerFactory.sessionManager().getSession(sessionId);
                 if (!session.isPresent()) {
-                    String reason = "roomWatchTable failed: session not found: " + sessionId
-                            + " (tableId=" + tableId + ")";
-                    logger.error(reason);
-                    return WatchResult.fail(reason);
-                } else {
-                    UUID userId = session.get().getUserId();
-                    if (managerFactory.gamesRoomManager().getRoom(roomId).isPresent()) {
-                        return managerFactory.gamesRoomManager().getRoom(roomId).get().watchTable(userId, tableId);
-                    } else {
-                        String reason = "roomWatchTable failed: room not found: " + roomId
-                                + " (tableId=" + tableId + ", userId=" + userId + ")";
-                        logger.error(reason);
-                        return WatchResult.fail(reason);
-                    }
+                    return WatchResult.fail("session not found: " + sessionId);
                 }
-            }
-
-            @Override
-            public WatchResult negativeResult() {
-                return WatchResult.fail("roomWatchTable failed: server error during watch request");
+                UUID userId = session.get().getUserId();
+                Optional<GamesRoom> room = managerFactory.gamesRoomManager().getRoom(roomId);
+                if (!room.isPresent()) {
+                    return WatchResult.fail("room not found: " + roomId);
+                }
+                return room.get().watchTable(userId, tableId);
             }
         });
+        if (!result.isSuccess()) {
+            logger.warn("roomWatchTable refused (roomId=" + roomId + ", tableId=" + tableId + "): " + result.getFailReason());
+        }
+        return result;
     }
 
     @Override
     public boolean roomWatchTournament(final String sessionId, final UUID tableId) throws MageException {
-        return executeWithResult("setUserData", sessionId, new WatchTournamentTableAction(sessionId, tableId));
+        return executeWithResult("roomWatchTournament", sessionId, new WatchTournamentTableAction(sessionId, tableId));
     }
 
     @Override
     public WatchResult gameWatchStart(final UUID gameId, final String sessionId) throws MageException {
-        return executeWithResult("watchGame", sessionId, new ActionWithResult<WatchResult>() {
+        WatchResult result = executeWithResult("gameWatchStart", sessionId, new ActionWithWatchResult() {
             @Override
             public WatchResult execute() throws MageException {
                 return managerFactory.sessionManager().getSession(sessionId)
-                        .map(session -> {
-                            UUID userId = session.getUserId();
-                            return managerFactory.gameManager().watchGame(gameId, userId);
-                        }).orElseGet(() -> WatchResult.fail("gameWatchStart failed: session not found: " + sessionId
-                                + " (gameId=" + gameId + ")"));
-            }
-
-            @Override
-            public WatchResult negativeResult() {
-                return WatchResult.fail("gameWatchStart failed: server error during watch request");
+                        .map(session -> managerFactory.gameManager().watchGame(gameId, session.getUserId()))
+                        .orElseGet(() -> WatchResult.fail("session not found: " + sessionId));
             }
         });
+        if (!result.isSuccess()) {
+            logger.warn("gameWatchStart refused (gameId=" + gameId + "): " + result.getFailReason());
+        }
+        return result;
     }
 
     @Override
@@ -1270,10 +1258,14 @@ public class MageServerImpl implements MageServer {
             Optional<Session> session = managerFactory.sessionManager().getSession(sessionId);
             if (!session.isPresent()) {
                 return false;
-            } else {
-                UUID userId = session.get().getUserId();
-                return managerFactory.tableManager().watchTable(userId, tableId).isSuccess();
             }
+            UUID userId = session.get().getUserId();
+            WatchResult result = managerFactory.tableManager().watchTable(userId, tableId);
+            if (!result.isSuccess()) {
+                // this RPC still returns a bare boolean, so the reason is only logged here
+                logger.warn("roomWatchTournament refused (tableId=" + tableId + "): " + result.getFailReason());
+            }
+            return result.isSuccess();
         }
     }
 

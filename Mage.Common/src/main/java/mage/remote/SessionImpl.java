@@ -783,13 +783,13 @@ public class SessionImpl implements Session {
             if (isConnected()) {
                 return server.roomWatchTable(sessionId, roomId, tableId);
             }
-            return WatchResult.fail("watchTable failed: not connected to server");
+            return WatchResult.fail("not connected to server");
         } catch (MageException ex) {
             handleMageException(ex);
-            return WatchResult.fail("watchTable failed: " + ex);
+            return WatchResult.fail(ex.toString());
         } catch (Throwable t) {
             handleThrowable(t);
-            return WatchResult.fail("watchTable failed: " + t);
+            return WatchResult.fail(t.toString());
         }
     }
 
@@ -1192,13 +1192,13 @@ public class SessionImpl implements Session {
             if (isConnected()) {
                 return server.gameWatchStart(gameId, sessionId);
             }
-            return WatchResult.fail("watchGame failed: not connected to server");
+            return WatchResult.fail("not connected to server");
         } catch (MageException ex) {
             handleMageException(ex);
-            return WatchResult.fail("watchGame failed: " + ex);
+            return WatchResult.fail(ex.toString());
         } catch (Throwable t) {
             handleThrowable(t);
-            return WatchResult.fail("watchGame failed: " + t);
+            return WatchResult.fail(t.toString());
         }
     }
 
