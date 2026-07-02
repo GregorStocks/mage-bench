@@ -258,6 +258,12 @@ public class CallbackClientImpl implements CallbackClient {
                                 panel.init(callback.getMessageId(), (GameView) callback.getData(), true);
                             }
                             clearPendingGameView(callback.getObjectId(), callback.getMessageId());
+                        } else {
+                            // Not an error: GAME_INIT can arrive before WATCHGAME creates the
+                            // panel; rememberPendingGameView buffered it for application in
+                            // applyPendingGameViewIfNeeded once the panel exists.
+                            logger.info("GAME_INIT received for game " + callback.getObjectId()
+                                    + " before its panel exists — buffered for watch pane creation");
                         }
                         break;
                     }

@@ -606,7 +606,14 @@ public class SessionImpl implements Session {
         public void handleCallback(Callback callback) {
             // keep callbacks
             ClientCallback clientCallback = (ClientCallback) callback.getCallbackObject();
-            waitingCallbacks.add(clientCallback);
+            // The add must hold the same lock as the copy-and-clear below: callbacks
+            // arrive concurrently on multiple remoting threads, and an add landing
+            // between another thread's copy and clear was silently discarded
+            // (observed as a lost GAME_INIT — the spectator attached server-side but
+            // never received the initial game view, so wait-for-watching timed out).
+            synchronized (waitingCallbacks) {
+                waitingCallbacks.add(clientCallback);
+            }
 
             // wait for client ready
             // on connection client will receive all waiting callbacks from a server, e.g. started table, draft pick, etc
