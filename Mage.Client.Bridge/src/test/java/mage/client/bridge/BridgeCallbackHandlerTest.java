@@ -682,21 +682,23 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void getGameLogResetsStaleCursorToFirstPublishedEntry() throws Exception {
+    void getGameLogResetsStaleCursorFromLongerPriorGame() throws Exception {
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
         BridgeCallbackHandler handler = client.getCallbackHandler();
         setCachedBridgeEvents(handler, sampleBridgeLogEvents());
 
+        // reset() restarts the published cursor space at 0 for the next game,
+        // so a cursor carried over from the longer prior game is out of range.
         handler.reset();
         setCachedBridgeEvents(handler, List.of(
             bridgeLogEntry(9, "BEGIN_TURN", 4, "Alice", "Alice", null, null),
             bridgeLogEntry(10, "SPELL_CAST", 4, "Alice", "Alice", "Shock", "Bob")
         ));
 
-        var result = handler.getGameLogChunk(0, 0);
+        var result = handler.getGameLogChunk(0, 6);
 
         assertThat(result.cursor_reset).isTrue();
-        assertThat(result.cursor).isEqualTo(8);
+        assertThat(result.cursor).isEqualTo(2);
         assertThat(result.log).contains("Alice turn 1:");
         assertThat(result.log).contains("Alice cast Shock targeting Bob");
     }

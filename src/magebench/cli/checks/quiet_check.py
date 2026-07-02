@@ -56,8 +56,11 @@ RECURSIVE_MAKE_ENV_VARS = (
 # Prefix matches use startswith; suffix matches (starting with *) use endswith.
 TARGET_TRIGGERS: dict[str, list[str]] = {
     "lint": ["src/", "tests/", "issues/"],
+    # "Mage." covers the Mage.* modules; "Mage/" covers the root Mage module
+    # (prefix matching means "Mage." does not match "Mage/src/...").
     "lint-java": [
         "Mage.",
+        "Mage/",
         "pom.xml",
         "src/magebench/cli/mcp_tools_json5.py",
         "website/src/data/mcp-tools.json5",
@@ -78,12 +81,14 @@ TARGET_TRIGGERS: dict[str, list[str]] = {
         "Mage.Server/",
         "Mage/",
         "Mage.Common/",
+        "Mage.Sets/",
         "Mage.Client/",
+        "Mage.Client.Bridge/",
         "Mage.Client.Observer/",
         "pom.xml",
     ],
     "test-js": ["website/"],
-    "verify-decks": ["Mage.", "pom.xml"],
+    "verify-decks": ["Mage.", "Mage/", "pom.xml"],
     "verify-schema-types": ["src/magebench/game/", "website/src/types/"],
 }
 
