@@ -56,10 +56,16 @@ typecheck:
 test:
 	uv run pytest tests/ -n auto --dist=load
 
+# Java unit tests. Default modules are the ones make check covers; narrow to one
+# module or test class with PL= / TEST= (requires make build first for PL runs).
+# Usage: make test-java [PL=Mage.Client.Observer] [TEST=SomeTestClass]
+# TEST-filtered runs disable the build cache so a partial test run is never
+# cached (and later replayed) as the module's full test result.
+TEST_JAVA_MODULES = Mage.Server,Mage.Client.Observer
 .PHONY: test-java
 test-java:
-	mvn -q -pl Mage.Server -am -DskipTests install
-	mvn -q test -pl Mage.Server
+	mvn -q -pl $(or $(PL),$(TEST_JAVA_MODULES)) -am -DskipTests install
+	mvn -q test -pl $(or $(PL),$(TEST_JAVA_MODULES)) $(if $(TEST),-Dtest="$(TEST)" -Dmaven.build.cache.enabled=false,)
 
 .PHONY: test-js
 test-js: $(WEBSITE_NPM_STAMP)
@@ -211,12 +217,6 @@ screenshot:
 .PHONY: verify-decks
 verify-decks:
 	mvn test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks"
-
-# Run Java unit tests for one module (requires make build first)
-# Usage: make test-java PL=Mage.Client.Observer [TEST=SomeTestClass]
-.PHONY: test-java
-test-java:
-	mvn test -pl $(or $(PL),Mage.Client.Observer) $(if $(TEST),-Dtest="$(TEST)",)
 
 # Analyze a game for blunders using Opus 4.6 via OpenRouter
 # Usage: make blunders GAME=game_20260214_185313_g1

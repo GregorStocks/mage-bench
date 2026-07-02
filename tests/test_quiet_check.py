@@ -37,7 +37,11 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     ci_workflow = (project_root / ".github" / "workflows" / "lint.yml").read_text()
 
     assert ".PHONY: test-java" in makefile
-    assert "mvn -q test -pl Mage.Server" in makefile
+    # duplicate target definitions silently override each other (last one wins), which
+    # once pointed make check's test-java at the observer module instead of Mage.Server
+    assert makefile.count("\ntest-java:") == 1
+    assert "TEST_JAVA_MODULES = Mage.Server,Mage.Client.Observer" in makefile
+    assert "mvn -q test -pl $(or $(PL),$(TEST_JAVA_MODULES))" in makefile
     assert "make test-java" in ci_workflow
 
 
