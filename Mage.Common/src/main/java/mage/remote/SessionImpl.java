@@ -773,8 +773,7 @@ public class SessionImpl implements Session {
     public boolean watchTable(UUID roomId, UUID tableId) {
         try {
             if (isConnected()) {
-                server.roomWatchTable(sessionId, roomId, tableId);
-                return true;
+                return server.roomWatchTable(sessionId, roomId, tableId);
             }
         } catch (MageException ex) {
             handleMageException(ex);

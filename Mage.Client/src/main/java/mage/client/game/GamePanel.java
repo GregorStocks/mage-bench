@@ -917,14 +917,24 @@ public class GamePanel extends javax.swing.JPanel {
             if (SessionHandler.watchGame(requestedGameId)) {
                 return;
             }
+            logger.error("Watch request failed: gameWatchStart returned false for game " + requestedGameId);
+            onWatchGameFailed(requestedGameId);
             SwingUtilities.invokeLater(() -> {
                 if (requestedGameId.equals(this.gameId)) {
+                    logger.error("Closing game panel for game " + requestedGameId + " after failed watch request");
                     removeGame();
                 }
             });
         }, "Watch-Game-" + requestedGameId);
         watcher.setDaemon(true);
         watcher.start();
+    }
+
+    /**
+     * Hook for subclasses to react when the async watch request fails
+     * (gameWatchStart returned false and the panel is about to be removed).
+     */
+    protected void onWatchGameFailed(UUID requestedGameId) {
     }
 
     public synchronized void replayGame(UUID gameId) {

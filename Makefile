@@ -207,6 +207,12 @@ screenshot:
 verify-decks:
 	mvn test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks"
 
+# Run Java unit tests for one module (requires make build first)
+# Usage: make test-java PL=Mage.Client.Observer [TEST=SomeTestClass]
+.PHONY: test-java
+test-java:
+	mvn test -pl $(or $(PL),Mage.Client.Observer) $(if $(TEST),-Dtest="$(TEST)",)
+
 # Analyze a game for blunders using Opus 4.6 via OpenRouter
 # Usage: make blunders GAME=game_20260214_185313_g1
 #        make blunders GAME=website/public/games/game_20260214_185313_g1.json.gz

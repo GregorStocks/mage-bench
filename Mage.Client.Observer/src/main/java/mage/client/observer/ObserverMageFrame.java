@@ -401,7 +401,7 @@ public class ObserverMageFrame extends MageFrame {
         UUID tableId = createGameTable(roomId, config, gameDir, choosingPlayer, skipInitShuffling, winsNeeded);
 
         // Start watching for the game to begin
-        watchForGameStart(roomId, tableId);
+        watchForGameStart(roomId, tableId, gameDir);
     }
 
     /**
@@ -548,7 +548,7 @@ public class ObserverMageFrame extends MageFrame {
     /**
      * Poll for a game to start on the given table, then auto-watch it.
      */
-    private void watchForGameStart(UUID roomId, UUID tableId) {
+    private void watchForGameStart(UUID roomId, UUID tableId, String gameDir) {
         Thread watcher = new Thread(() -> {
             long deadline = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(600);
             while (System.currentTimeMillis() < deadline) {
@@ -559,7 +559,10 @@ public class ObserverMageFrame extends MageFrame {
                     }
                     if (TableState.DUELING.equals(tableView.getTableState())) {
                         LOGGER.info("keepAlive: auto-watching table " + tableId);
-                        SessionHandler.watchTable(roomId, tableId);
+                        if (!SessionHandler.watchTable(roomId, tableId)) {
+                            signalWatchFailed(gameDir, "watchTable returned false for table " + tableId
+                                    + " — the server refused the watch request");
+                        }
                         return;
                     }
                 }
@@ -570,9 +573,21 @@ public class ObserverMageFrame extends MageFrame {
                     return;
                 }
             }
-            LOGGER.warn("keepAlive: auto-watch timed out for table " + tableId);
+            signalWatchFailed(gameDir, "auto-watch timed out after 600s waiting for table " + tableId
+                    + " to reach DUELING");
         }, "KeepAlive-AutoWatch");
         watcher.setDaemon(true);
         watcher.start();
+    }
+
+    /**
+     * Log a watch-attach failure loudly and surface it through the health
+     * server so wait-for-watching fails fast instead of timing out.
+     */
+    private void signalWatchFailed(String gameDir, String reason) {
+        LOGGER.error("keepAlive: " + reason);
+        if (healthServer != null) {
+            healthServer.signalGameWatchFailed(gameDir, reason);
+        }
     }
 }

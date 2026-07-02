@@ -849,6 +849,8 @@ public class MageServerImpl implements MageServer {
                     if (managerFactory.gamesRoomManager().getRoom(roomId).isPresent()) {
                         return managerFactory.gamesRoomManager().getRoom(roomId).get().watchTable(userId, tableId);
                     } else {
+                        logger.error("roomWatchTable failed: room not found: " + roomId
+                                + " (tableId=" + tableId + ", userId=" + userId + ")");
                         return false;
                     }
                 }

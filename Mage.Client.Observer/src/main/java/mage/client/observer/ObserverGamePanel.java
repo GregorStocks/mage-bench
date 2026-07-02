@@ -90,6 +90,22 @@ public class ObserverGamePanel extends GamePanel {
         signalWatchingReady();
     }
 
+    /**
+     * Surface a failed gameWatchStart through the health server so the golden
+     * harness's wait-for-watching fails fast with a real error instead of
+     * timing out after the panel was silently removed.
+     */
+    @Override
+    protected void onWatchGameFailed(UUID requestedGameId) {
+        if (healthServer != null) {
+            healthServer.signalGameWatchFailed(
+                    requireConfiguredGameDirPath("onWatchGameFailed").toString(),
+                    "gameWatchStart returned false for game " + requestedGameId
+                            + " — the spectator panel was removed before attaching"
+            );
+        }
+    }
+
     @Override
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
         if (healthServer != null) {

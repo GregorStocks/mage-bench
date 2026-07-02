@@ -359,8 +359,8 @@ public final class SessionHandler {
         session.replayGame(id);
     }
 
-    public static void watchTable(UUID roomId, UUID tableId) {
-        session.watchTable(roomId, tableId);
+    public static boolean watchTable(UUID roomId, UUID tableId) {
+        return session.watchTable(roomId, tableId);
     }
 
     public static Collection<TableView> getTables(UUID roomId) {

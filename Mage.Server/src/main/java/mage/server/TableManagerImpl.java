@@ -291,6 +291,7 @@ public class TableManagerImpl implements TableManager {
         if (controllers.containsKey(tableId)) {
             return controllers.get(tableId).watchTable(userId);
         }
+        logger.error("watchTable failed: no TableController for table " + tableId + " (userId=" + userId + ")");
         return false;
     }
 

@@ -458,14 +458,17 @@ public class GameController implements GameCallback {
     public boolean watch(UUID userId) {
         if (userPlayerMap.containsKey(userId)) {
             // You can't watch a game if you already a player in it
+            logger.warn("watch failed: user " + userId + " is already a player in game " + game.getId());
             return false;
         }
         if (watchers.containsKey(userId)) {
             // You can't watch a game if you already watch it
+            logger.warn("watch failed: user " + userId + " is already watching game " + game.getId());
             return false;
         }
         if (!isAllowedToWatch(userId)) {
             // Dont want people on our ignore list to stalk us
+            logger.warn("watch failed: user " + userId + " is banned from watching game " + game.getId());
             managerFactory.userManager().getUser(userId).ifPresent(user -> {
                 user.showUserMessage("Not allowed", "You are banned from watching this game");
                 managerFactory.chatManager().broadcast(chatId, user.getName(), " tried to join, but is banned", MessageColor.BLUE, true, game, ChatMessage.MessageType.STATUS, null);

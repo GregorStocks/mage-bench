@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -91,6 +92,16 @@ public class ObserverHealthServer {
     public void signalGameWatching(String gameDir) {
         CompletableFuture<Void> future = gameWatchingFutures.computeIfAbsent(gameDir, k -> new CompletableFuture<>());
         future.complete(null);
+    }
+
+    /**
+     * Signal that the watch-attach chain failed for the given gameDir, so
+     * wait-for-watching returns the real failure reason instead of timing out.
+     * No-op if watching was already signaled for this gameDir.
+     */
+    public void signalGameWatchFailed(String gameDir, String reason) {
+        CompletableFuture<Void> future = gameWatchingFutures.computeIfAbsent(gameDir, k -> new CompletableFuture<>());
+        future.completeExceptionally(new IllegalStateException(reason));
     }
 
     /** Signal that event files for the given gameDir are fully written and closed. */
@@ -186,6 +197,13 @@ public class ObserverHealthServer {
             sendJson(exchange, 200, "{\"watching\":true}");
         } catch (TimeoutException e) {
             sendJson(exchange, 408, "{\"watching\":false,\"error\":\"timeout\"}");
+        } catch (ExecutionException e) {
+            // Watch-attach chain reported a hard failure via signalGameWatchFailed
+            String reason = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
+            JsonObject resp = new JsonObject();
+            resp.addProperty("watching", false);
+            resp.addProperty("error", reason);
+            sendJson(exchange, 502, gson.toJson(resp));
         } catch (Exception e) {
             sendJson(exchange, 500, "{\"watching\":false,\"error\":\"" + e.getMessage() + "\"}");
         } finally {

@@ -528,17 +528,22 @@ public class TableController {
             return true;
         } else {
             if (table.isTournamentSubTable() && !table.getTournament().getOptions().isWatchingAllowed()) {
+                logger.warn("watchTable failed: watching not allowed for tournament sub-table " + table.getId());
                 return false;
             }
             if (table.getState() != TableState.DUELING) {
+                logger.warn("watchTable failed: table " + table.getId() + " is in state " + table.getState()
+                        + ", not DUELING (userId=" + userId + ")");
                 return false;
             }
             // you can't watch your own game
             if (userPlayerMap.get(userId) != null) {
+                logger.warn("watchTable failed: user " + userId + " is a player at table " + table.getId());
                 return false;
             }
             Optional<User> _user = managerFactory.userManager().getUser(userId);
             if (!_user.isPresent()) {
+                logger.error("watchTable failed: user " + userId + " not found for table " + table.getId());
                 return false;
             }
             return _user.get().ccWatchGame(table.getId(), table.getParentTableId(), match.getGame().getId());
