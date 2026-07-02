@@ -60,10 +60,11 @@ test:
 # tests (Mage, Mage.Client, ...) are trusted to run in the upstream repo.
 # Usage: make test-java [PL=Mage.Client.Bridge] [TEST=SomeTestClass]
 TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer
+PL ?= $(TEST_JAVA_MODULES)
 .PHONY: test-java
 test-java:
-	mvn -q -pl $(or $(PL),$(TEST_JAVA_MODULES)) -am -DskipTests install
-	mvn -q test -pl $(or $(PL),$(TEST_JAVA_MODULES)) $(if $(TEST),-Dtest="$(TEST)",)
+	mvn -q -pl $(PL) -am -DskipTests -T 1C install
+	mvn -q test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)",)
 
 .PHONY: test-js
 test-js: $(WEBSITE_NPM_STAMP)
