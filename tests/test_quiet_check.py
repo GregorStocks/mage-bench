@@ -27,7 +27,7 @@ def test_make_check_routes_java_validation_through_lint_java() -> None:
     makefile = (project_root / "Makefile").read_text()
 
     assert ".PHONY: lint-java" in makefile
-    assert "mvn -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify" in makefile
+    assert "$(MVN_LOCKED) -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify" in makefile
     assert "$(MAKE) verify-mcp-tools" in makefile
 
 
@@ -41,7 +41,7 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     assert ".PHONY: test-java" in makefile
     assert "TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer" in makefile
     assert "PL ?= $(TEST_JAVA_MODULES)" in makefile
-    assert 'mvn -q test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)",)' in makefile
+    assert '$(MVN_LOCKED) -q test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)",)' in makefile
     assert "make test-java" in ci_workflow
 
 

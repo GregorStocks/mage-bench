@@ -23,4 +23,22 @@
             </excludes>
         </global>
     </input>
+    <executionControl>
+        <!-- On a cache hit the install goal is normally skipped, leaving
+             whatever jar was already in the local repository. Tests invoked
+             with `mvn test -pl <modules>` (no -am) resolve dependencies from
+             the local repository, so a stale jar there (e.g. restored from
+             CI's ~/.m2 cache saved before a signature change) breaks
+             compilation against current sources. Always install the
+             (restored) artifacts to keep the local repository fresh. -->
+        <runAlways>
+            <goalsLists>
+                <goalsList artifactId="maven-install-plugin">
+                    <goals>
+                        <goal>install</goal>
+                    </goals>
+                </goalsList>
+            </goalsLists>
+        </runAlways>
+    </executionControl>
 </cache>
