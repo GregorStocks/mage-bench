@@ -73,7 +73,8 @@ TARGET_TRIGGERS: dict[str, list[str]] = {
         "website/public/games/",
         "configs/",
     ],
-    "test-java": ["Mage.", "pom.xml"],
+    # only these modules' sources reach the Mage.Server test classpath
+    "test-java": ["Mage.Server/", "Mage/", "Mage.Common/", "pom.xml"],
     "test-js": ["website/"],
     "verify-decks": ["Mage.", "pom.xml"],
     "verify-schema-types": ["src/magebench/game/", "website/src/types/"],

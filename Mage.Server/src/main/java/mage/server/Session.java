@@ -21,8 +21,10 @@ import org.jboss.remoting.callback.InvokerCallbackHandler;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
@@ -87,8 +89,12 @@ public class Session {
         this.isAdmin = false;
         this.timeConnected = new Date();
         this.lock = new ReentrantLock();
-        this.callbackExecutor = Executors.newSingleThreadExecutor(
+        // single worker (preserves order), released after 30s idle so quiet sessions don't pin a thread
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 30, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(),
                 new XmageThreadFactory(ThreadUtils.THREAD_PREFIX_SESSION_CALLBACK + " " + sessionId));
+        executor.allowCoreThreadTimeOut(true);
+        this.callbackExecutor = executor;
     }
 
     public String registerUser(String userName, String password, String email) {
@@ -438,14 +444,14 @@ public class Session {
      */
     public void fireCallback(final ClientCallback call) {
         if (!valid) {
-            logger.warn("CALLBACK DROPPED (session invalid) - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
+            logDroppedCallback("session invalid", call);
             return;
         }
         try {
             callbackExecutor.execute(() -> sendCallback(call));
         } catch (RejectedExecutionException ex) {
             // session was shut down concurrently (disconnect)
-            logger.warn("CALLBACK DROPPED (session closed) - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
+            logDroppedCallback("session closed", call);
         }
     }
 
@@ -454,7 +460,7 @@ public class Session {
      */
     private void sendCallback(final ClientCallback call) {
         if (!valid) {
-            logger.warn("CALLBACK DROPPED (session invalid) - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
+            logDroppedCallback("session invalid", call);
             return;
         }
         lastCallbackInfo = call.getInfo();
@@ -464,22 +470,23 @@ public class Session {
             boolean sendAsync = SUPER_DUPER_BUGGY_AND_FASTEST_ASYNC_CONNECTION
                     && call.getMethod().getType().canComeInAnyOrder();
             callbackHandler.handleCallbackOneway(callback, sendAsync);
-        } catch (HandleCallbackException ex) {
-            // general error
-            // can raise on server freeze or normal connection problem from a client side
-            // no need to print a full stack log here
-            logger.warn("SESSION CALLBACK EXCEPTION - " + ThreadUtils.findRootException(ex) + ", userId " + userId + ", messageId: " + call.getMessageId());
-
-            // do not send data anymore (user must reconnect)
-            this.valid = false;
-            managerFactory.sessionManager().disconnect(sessionId, DisconnectReason.LostConnection, true);
         } catch (Throwable ex) {
-            logger.error("SESSION CALLBACK UNKNOWN EXCEPTION - " + ThreadUtils.findRootException(ex) + ", userId " + userId + ", messageId: " + call.getMessageId(), ex);
+            if (ex instanceof HandleCallbackException) {
+                // can raise on server freeze or normal connection problem from a client side
+                // no need to print a full stack log here
+                logger.warn("SESSION CALLBACK EXCEPTION - " + ThreadUtils.findRootException(ex) + ", userId " + userId + ", messageId: " + call.getMessageId());
+            } else {
+                logger.error("SESSION CALLBACK UNKNOWN EXCEPTION - " + ThreadUtils.findRootException(ex) + ", userId " + userId + ", messageId: " + call.getMessageId(), ex);
+            }
 
             // do not send data anymore (user must reconnect)
             this.valid = false;
             managerFactory.sessionManager().disconnect(sessionId, DisconnectReason.LostConnection, true);
         }
+    }
+
+    private void logDroppedCallback(String reason, ClientCallback call) {
+        logger.warn("CALLBACK DROPPED (" + reason + ") - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
     }
 
     /**
