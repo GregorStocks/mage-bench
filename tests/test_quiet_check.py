@@ -1,6 +1,7 @@
 """Tests for magebench.cli.checks.quiet_check."""
 
 import os
+import re
 import shlex
 import signal
 import subprocess
@@ -10,6 +11,7 @@ from magebench.cli.checks.quiet_check import (
     PARALLEL_TARGETS,
     RECURSIVE_MAKE_ENV_VARS,
     SERIAL_TARGETS,
+    TARGET_TRIGGERS,
     TARGETS,
     _make_env,
     _run_command_with_captured_output,
@@ -40,9 +42,16 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     # duplicate target definitions silently override each other (last one wins), which
     # once pointed make check's test-java at the observer module instead of Mage.Server
     assert makefile.count("\ntest-java:") == 1
-    assert "TEST_JAVA_MODULES = Mage.Server,Mage.Client.Observer" in makefile
-    assert "mvn -q test -pl $(or $(PL),$(TEST_JAVA_MODULES))" in makefile
+    assert "mvn -q test -pl $(TEST_JAVA_PL)" in makefile
     assert "make test-java" in ci_workflow
+
+    # every module test-java runs must trigger test-java when its sources change
+    modules_match = re.search(r"^TEST_JAVA_MODULES = (\S+)$", makefile, re.MULTILINE)
+    assert modules_match is not None
+    modules = modules_match.group(1).split(",")
+    assert "Mage.Server" in modules
+    for module in modules:
+        assert f"{module}/" in TARGET_TRIGGERS["test-java"]
 
 
 def test_make_lint_uses_root_ruff_config() -> None:

@@ -57,15 +57,17 @@ test:
 	uv run pytest tests/ -n auto --dist=load
 
 # Java unit tests. Default modules are the ones make check covers; narrow to one
-# module or test class with PL= / TEST= (requires make build first for PL runs).
+# module or test class with PL= / TEST= (requires make build first for such runs,
+# which skip the dependency-install step). TEST-filtered runs disable the build
+# cache so a partial test run is never cached (and later replayed) as the
+# module's full test result.
 # Usage: make test-java [PL=Mage.Client.Observer] [TEST=SomeTestClass]
-# TEST-filtered runs disable the build cache so a partial test run is never
-# cached (and later replayed) as the module's full test result.
 TEST_JAVA_MODULES = Mage.Server,Mage.Client.Observer
+TEST_JAVA_PL = $(or $(PL),$(TEST_JAVA_MODULES))
 .PHONY: test-java
 test-java:
-	mvn -q -pl $(or $(PL),$(TEST_JAVA_MODULES)) -am -DskipTests install
-	mvn -q test -pl $(or $(PL),$(TEST_JAVA_MODULES)) $(if $(TEST),-Dtest="$(TEST)" -Dmaven.build.cache.enabled=false,)
+	$(if $(or $(PL),$(TEST)),,mvn -q -pl $(TEST_JAVA_MODULES) -am -DskipTests install)
+	mvn -q test -pl $(TEST_JAVA_PL) $(if $(TEST),-Dtest="$(TEST)" -Dmaven.build.cache.enabled=false,)
 
 .PHONY: test-js
 test-js: $(WEBSITE_NPM_STAMP)

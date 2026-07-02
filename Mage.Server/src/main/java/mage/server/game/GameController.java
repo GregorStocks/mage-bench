@@ -74,9 +74,8 @@ public class GameController implements GameCallback {
     private final ConcurrentMap<UUID, UUID> userPlayerMap;
     private final UUID gameSessionId;
     private final Game game;
-    // Last game copy published by a game-thread view build; lets RPC threads build views
-    // without copying the live game (see GameSessionWatcher.buildGameView). Seeded in the
-    // constructor, before the game thread exists, so it is never null.
+    // Seeded in the constructor, before the game thread exists, so it is never null;
+    // see GameSessionWatcher.buildGameView for the read/publish protocol.
     private final AtomicReference<Game> lastStableGame;
     private final UUID chatId;
     private final UUID tableId;
