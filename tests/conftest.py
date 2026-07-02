@@ -49,6 +49,15 @@ _SET_CODE_RE = re.compile(r"\[([A-Z0-9]+):")
 _GOLDEN_FAILURE_GATE_KEY: pytest.StashKey[GoldenFailureGate] = pytest.StashKey()
 _SERVER_INFO_FILENAME = "shared_server.json"
 
+# Tests must never depend on live Scryfall responses (token searches order by
+# release date, so a new printing would change golden exports). Point the
+# scryfall module at the repo-committed fixture and forbid network fetches; a
+# cache miss raises with instructions for extending the fixture.
+_SCRYFALL_FIXTURE = Path(__file__).parent / "golden" / "scryfall-cache.json"
+assert _SCRYFALL_FIXTURE.exists(), f"Missing scryfall fixture: {_SCRYFALL_FIXTURE}"
+os.environ["MAGEBENCH_SCRYFALL_CACHE"] = str(_SCRYFALL_FIXTURE)
+os.environ.setdefault("MAGEBENCH_SCRYFALL_OFFLINE", "1")
+
 
 @dataclasses.dataclass(frozen=True)
 class _SharedXmageServerInfo:

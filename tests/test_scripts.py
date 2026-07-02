@@ -3,6 +3,7 @@
 import gzip
 import importlib
 import json
+import os
 import sys
 import urllib.request
 from contextlib import contextmanager
@@ -329,6 +330,9 @@ class TestImportDeck:
         fake_resp.__exit__ = MagicMock(return_value=False)
 
         with (
+            # This test exercises the fetch path with a mocked HTTP layer, so
+            # opt out of the suite-wide Scryfall offline mode.
+            patch.dict(os.environ, {"MAGEBENCH_SCRYFALL_OFFLINE": "0"}),
             patch.object(scryfall, "_cache", {}),
             patch.object(scryfall, "_save_cache"),
             patch.object(
@@ -369,6 +373,9 @@ class TestImportDeck:
             return json.dumps(named_response).encode()
 
         with (
+            # This test exercises the fetch path with a mocked HTTP layer, so
+            # opt out of the suite-wide Scryfall offline mode.
+            patch.dict(os.environ, {"MAGEBENCH_SCRYFALL_OFFLINE": "0"}),
             patch.object(scryfall, "_cache", {}),
             patch.object(scryfall, "_save_cache"),
             patch.object(http_utils, "fetch_https_bytes", side_effect=fake_fetch),
