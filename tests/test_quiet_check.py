@@ -1,6 +1,7 @@
 """Tests for magebench.cli.checks.quiet_check."""
 
 import os
+import re
 import shlex
 import signal
 import subprocess
@@ -37,8 +38,26 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     ci_workflow = (project_root / ".github" / "workflows" / "lint.yml").read_text()
 
     assert ".PHONY: test-java" in makefile
-    assert "mvn -q test -pl Mage.Server" in makefile
+    assert "TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer" in makefile
+    assert 'mvn -q test -pl $(or $(PL),$(TEST_JAVA_MODULES)) $(if $(TEST),-Dtest="$(TEST)",)' in makefile
     assert "make test-java" in ci_workflow
+
+
+def test_makefile_defines_each_target_only_once() -> None:
+    """GNU Make lets the last duplicate recipe silently win (only a warning),
+    which masked the Mage.Server test run when a second test-java target was
+    added. Duplicate target definitions must be a hard failure."""
+    project_root = Path(__file__).resolve().parent.parent
+    makefile = (project_root / "Makefile").read_text()
+
+    targets: list[str] = []
+    for line in makefile.splitlines():
+        match = re.match(r"([^\s:=#]+):(?!=)", line)
+        if match and match.group(1) != ".PHONY":
+            targets.append(match.group(1))
+
+    duplicates = sorted({target for target in targets if targets.count(target) > 1})
+    assert not duplicates, f"Makefile defines targets more than once (last recipe silently wins): {duplicates}"
 
 
 def test_make_lint_uses_root_ruff_config() -> None:

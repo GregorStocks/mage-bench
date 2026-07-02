@@ -56,10 +56,14 @@ typecheck:
 test:
 	uv run pytest tests/ -n auto --dist=load
 
+# Run Java unit tests for mage-bench's own modules. Upstream xmage module
+# tests (Mage, Mage.Client, ...) are trusted to run in the upstream repo.
+# Usage: make test-java [PL=Mage.Client.Bridge] [TEST=SomeTestClass]
+TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer
 .PHONY: test-java
 test-java:
-	mvn -q -pl Mage.Server -am -DskipTests install
-	mvn -q test -pl Mage.Server
+	mvn -q -pl $(or $(PL),$(TEST_JAVA_MODULES)) -am -DskipTests install
+	mvn -q test -pl $(or $(PL),$(TEST_JAVA_MODULES)) $(if $(TEST),-Dtest="$(TEST)",)
 
 .PHONY: test-js
 test-js: $(WEBSITE_NPM_STAMP)
@@ -211,12 +215,6 @@ screenshot:
 .PHONY: verify-decks
 verify-decks:
 	mvn test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks"
-
-# Run Java unit tests for one module (requires make build first)
-# Usage: make test-java PL=Mage.Client.Observer [TEST=SomeTestClass]
-.PHONY: test-java
-test-java:
-	mvn test -pl $(or $(PL),Mage.Client.Observer) $(if $(TEST),-Dtest="$(TEST)",)
 
 # Analyze a game for blunders using Opus 4.6 via OpenRouter
 # Usage: make blunders GAME=game_20260214_185313_g1
