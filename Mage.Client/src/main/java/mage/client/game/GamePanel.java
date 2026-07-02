@@ -29,6 +29,7 @@ import mage.client.util.gui.ArrowBuilder;
 import mage.client.util.gui.MageDialogState;
 import mage.constants.*;
 import mage.game.events.PlayerQueryEvent;
+import mage.interfaces.WatchResult;
 import mage.players.PlayableObjectStats;
 import mage.players.PlayableObjectsList;
 import mage.util.CardUtil;
@@ -914,11 +915,12 @@ public class GamePanel extends javax.swing.JPanel {
      */
     private void requestWatchGameAsync(UUID requestedGameId) {
         Thread watcher = new Thread(() -> {
-            if (SessionHandler.watchGame(requestedGameId)) {
+            WatchResult result = SessionHandler.watchGame(requestedGameId);
+            if (result.isSuccess()) {
                 return;
             }
-            logger.error("Watch request failed: gameWatchStart returned false for game " + requestedGameId);
-            onWatchGameFailed(requestedGameId);
+            logger.error("Watch request failed for game " + requestedGameId + ": " + result.getFailReason());
+            onWatchGameFailed(requestedGameId, result.getFailReason());
             SwingUtilities.invokeLater(() -> {
                 if (requestedGameId.equals(this.gameId)) {
                     logger.error("Closing game panel for game " + requestedGameId + " after failed watch request");
@@ -932,9 +934,9 @@ public class GamePanel extends javax.swing.JPanel {
 
     /**
      * Hook for subclasses to react when the async watch request fails
-     * (gameWatchStart returned false and the panel is about to be removed).
+     * (gameWatchStart failed and the panel is about to be removed).
      */
-    protected void onWatchGameFailed(UUID requestedGameId) {
+    protected void onWatchGameFailed(UUID requestedGameId, String failReason) {
     }
 
     public synchronized void replayGame(UUID gameId) {

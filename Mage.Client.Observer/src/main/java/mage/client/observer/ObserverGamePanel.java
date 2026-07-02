@@ -96,12 +96,12 @@ public class ObserverGamePanel extends GamePanel {
      * timing out after the panel was silently removed.
      */
     @Override
-    protected void onWatchGameFailed(UUID requestedGameId) {
+    protected void onWatchGameFailed(UUID requestedGameId, String failReason) {
         if (healthServer != null) {
             healthServer.signalGameWatchFailed(
                     requireConfiguredGameDirPath("onWatchGameFailed").toString(),
-                    "gameWatchStart returned false for game " + requestedGameId
-                            + " — the spectator panel was removed before attaching"
+                    "gameWatchStart failed for game " + requestedGameId
+                            + " — the spectator panel was removed before attaching: " + failReason
             );
         }
     }

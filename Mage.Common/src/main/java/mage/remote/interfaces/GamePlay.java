@@ -6,6 +6,7 @@ import java.util.UUID;
 import mage.cards.decks.DeckCardLists;
 import mage.constants.ManaType;
 import mage.constants.PlayerAction;
+import mage.interfaces.WatchResult;
 import mage.view.DraftPickView;
 
 /**
@@ -15,7 +16,7 @@ public interface GamePlay {
 
     boolean startMatch(UUID roomId, UUID tableId);
 
-    boolean watchGame(UUID gameId);
+    WatchResult watchGame(UUID gameId);
 
     boolean stopWatching(UUID gameId);
 
