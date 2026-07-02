@@ -5,6 +5,7 @@ import mage.constants.ManaType;
 import mage.constants.PlayerAction;
 import mage.game.Game;
 import mage.game.GameOptions;
+import mage.interfaces.WatchResult;
 import mage.server.game.GameController;
 import mage.view.GameView;
 
@@ -34,7 +35,7 @@ public interface GameManager {
 
     void sendPlayerAction(PlayerAction playerAction, UUID gameId, UUID userId, Object data);
 
-    boolean watchGame(UUID gameId, UUID userId);
+    WatchResult watchGame(UUID gameId, UUID userId);
 
     void stopWatching(UUID gameId, UUID userId);
 

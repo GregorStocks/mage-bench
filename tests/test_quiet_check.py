@@ -1,6 +1,7 @@
 """Tests for magebench.cli.checks.quiet_check."""
 
 import os
+import re
 import shlex
 import signal
 import subprocess
@@ -10,7 +11,9 @@ from magebench.cli.checks.quiet_check import (
     PARALLEL_TARGETS,
     RECURSIVE_MAKE_ENV_VARS,
     SERIAL_TARGETS,
+    TARGET_TRIGGERS,
     TARGETS,
+    _file_matches,
     _make_env,
     _run_command_with_captured_output,
     _run_make,
@@ -25,7 +28,7 @@ def test_make_check_routes_java_validation_through_lint_java() -> None:
     makefile = (project_root / "Makefile").read_text()
 
     assert ".PHONY: lint-java" in makefile
-    assert "mvn -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify" in makefile
+    assert "$(MVN_LOCKED) -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify" in makefile
     assert "$(MAKE) verify-mcp-tools" in makefile
 
 
@@ -36,9 +39,60 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     makefile = (project_root / "Makefile").read_text()
     ci_workflow = (project_root / ".github" / "workflows" / "lint.yml").read_text()
 
-    assert ".PHONY: test-java" in makefile
-    assert "mvn -q test -pl Mage.Server" in makefile
+    # Exactly one definition: a duplicate target silently shadows the first
+    # recipe, which is how Mage.Server unit tests once dropped out of CI.
+    assert makefile.count(".PHONY: test-java") == 1
+    assert makefile.count("\ntest-java:") == 1
+
+    assert "TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer" in makefile
+    assert "PL ?= $(TEST_JAVA_MODULES)" in makefile
+    # The install pass must build the dependency chain from the reactor (-am)
+    # so tests never compile against stale org.mage jars in the local repo.
+    assert "$(MVN_LOCKED) -q -pl $(PL) -am -DskipTests -T 1C install" in makefile
+    assert '$(MVN_LOCKED) test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)" -Dmaven.build.cache.enabled=false,)' in makefile
+
     assert "make test-java" in ci_workflow
+    # CI must not seed builds with locally-built jars from the pom-keyed
+    # setup-java dependency cache.
+    assert ci_workflow.count("rm -rf ~/.m2/repository/org/mage") == 2
+
+    # Cache-hit builds skip all mojos including install, so without this the
+    # purged repository never gets repopulated and single-module builds fail.
+    cache_config = (project_root / ".mvn" / "maven-build-cache-config.xml").read_text()
+    assert '<goalsList artifactId="maven-install-plugin">' in cache_config
+
+    # every module test-java runs must trigger test-java when its sources change
+    modules_match = re.search(r"^TEST_JAVA_MODULES := (\S+)$", makefile, re.MULTILINE)
+    assert modules_match is not None
+    modules = modules_match.group(1).split(",")
+    assert "Mage.Server" in modules
+    for module in modules:
+        assert f"{module}/" in TARGET_TRIGGERS["test-java"]
+
+
+def test_makefile_defines_each_target_only_once() -> None:
+    """GNU Make lets the last duplicate recipe silently win (only a warning),
+    which masked the Mage.Server test run when a second test-java target was
+    added. Surface make's own overriding-recipe warning as a hard failure."""
+    project_root = Path(__file__).resolve().parent.parent
+    result = subprocess.run(
+        ["make", "-n", "lint"],
+        capture_output=True,
+        text=True,
+        cwd=project_root,
+        env=_make_env(),
+    )
+    assert result.returncode == 0, result.stderr
+    assert "overriding recipe" not in result.stderr, result.stderr
+
+
+def test_java_triggers_cover_root_and_dotted_mage_modules() -> None:
+    """Triggers are prefix matches, so "Mage." alone misses the root Mage
+    module ("Mage/src/...") that all Java test classpaths depend on."""
+    for target in ("lint-java", "test-java", "verify-decks"):
+        triggers = TARGET_TRIGGERS[target]
+        assert _file_matches("Mage/src/mage/cards/Card.java", triggers), target
+        assert _file_matches("Mage.Client.Bridge/src/main/java/X.java", triggers), target
 
 
 def test_make_lint_uses_root_ruff_config() -> None:

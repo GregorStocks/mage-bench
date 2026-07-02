@@ -10,6 +10,7 @@ import mage.constants.ManaType;
 import mage.constants.PlayerAction;
 import mage.game.match.MatchOptions;
 import mage.game.tournament.TournamentOptions;
+import mage.interfaces.WatchResult;
 import mage.players.PlayerType;
 import mage.players.net.UserData;
 import mage.remote.Connection;
@@ -225,7 +226,7 @@ public final class SessionHandler {
         return session.getUserName();
     }
 
-    public static boolean watchGame(UUID gameId) {
+    public static WatchResult watchGame(UUID gameId) {
         return session.watchGame(gameId);
     }
 
@@ -359,7 +360,7 @@ public final class SessionHandler {
         session.replayGame(id);
     }
 
-    public static boolean watchTable(UUID roomId, UUID tableId) {
+    public static WatchResult watchTable(UUID roomId, UUID tableId) {
         return session.watchTable(roomId, tableId);
     }
 

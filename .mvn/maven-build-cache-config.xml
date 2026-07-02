@@ -23,4 +23,20 @@
             </excludes>
         </global>
     </input>
+    <executionControl>
+        <runAlways>
+            <!-- A cache hit skips all mojos, so restored artifacts never reach
+                 the local repository and later single-module builds (e.g.
+                 `mvn test -pl X`, `mvn dependency:build-classpath`) resolve
+                 whatever stale org.mage jars happen to be there. Always run
+                 install so the restored artifacts are installed. -->
+            <goalsLists>
+                <goalsList artifactId="maven-install-plugin">
+                    <goals>
+                        <goal>install</goal>
+                    </goals>
+                </goalsList>
+            </goalsLists>
+        </runAlways>
+    </executionControl>
 </cache>

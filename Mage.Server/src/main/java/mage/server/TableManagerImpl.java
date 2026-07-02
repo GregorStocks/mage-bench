@@ -12,6 +12,7 @@ import mage.game.match.MatchOptions;
 import mage.game.tournament.Tournament;
 import mage.game.tournament.TournamentOptions;
 import mage.game.tournament.TournamentPlayer;
+import mage.interfaces.WatchResult;
 import mage.players.PlayerType;
 import mage.server.game.GameController;
 import mage.server.managers.ManagerFactory;
@@ -287,12 +288,12 @@ public class TableManagerImpl implements TableManager {
     }
 
     @Override
-    public boolean watchTable(UUID userId, UUID tableId) {
-        if (controllers.containsKey(tableId)) {
-            return controllers.get(tableId).watchTable(userId);
+    public WatchResult watchTable(UUID userId, UUID tableId) {
+        TableController tableController = controllers.get(tableId);
+        if (tableController == null) {
+            return WatchResult.fail("no TableController for table " + tableId + " (userId=" + userId + ")");
         }
-        logger.error("watchTable failed: no TableController for table " + tableId + " (userId=" + userId + ")");
-        return false;
+        return tableController.watchTable(userId);
     }
 
     @Override

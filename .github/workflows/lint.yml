@@ -25,6 +25,13 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
+      # setup-java's pom-keyed cache snapshots all of ~/.m2/repository,
+      # including locally-built org.mage artifacts from whichever commit last
+      # changed a pom. Purge them so builds resolve reactor modules from this
+      # checkout instead of silently compiling against stale jars.
+      - name: Purge locally-built artifacts from Maven dependency cache
+        run: rm -rf ~/.m2/repository/org/mage
+
       - uses: actions/cache@v6.1.0
         with:
           path: ~/.m2/build-cache
@@ -179,6 +186,11 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
+
+      # See the java job: never resolve locally-built jars from the pom-keyed
+      # dependency cache. The golden fixtures install their own fresh modules.
+      - name: Purge locally-built artifacts from Maven dependency cache
+        run: rm -rf ~/.m2/repository/org/mage
 
       - uses: actions/cache@v6.1.0
         with:

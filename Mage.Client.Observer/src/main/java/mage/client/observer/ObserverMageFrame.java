@@ -14,6 +14,7 @@ import mage.client.util.AiPuppeteerConfig;
 import mage.client.util.IgnoreList;
 import mage.constants.*;
 import mage.game.match.MatchOptions;
+import mage.interfaces.WatchResult;
 import mage.players.PlayerType;
 import mage.remote.Connection;
 import mage.util.DeckUtil;
@@ -559,9 +560,10 @@ public class ObserverMageFrame extends MageFrame {
                     }
                     if (TableState.DUELING.equals(tableView.getTableState())) {
                         LOGGER.info("keepAlive: auto-watching table " + tableId);
-                        if (!SessionHandler.watchTable(roomId, tableId)) {
-                            signalWatchFailed(gameDir, "watchTable returned false for table " + tableId
-                                    + " — the server refused the watch request");
+                        WatchResult result = SessionHandler.watchTable(roomId, tableId);
+                        if (!result.isSuccess()) {
+                            signalWatchFailed(gameDir, "watchTable failed for table " + tableId
+                                    + ": " + result.getFailReason());
                         }
                         return;
                     }

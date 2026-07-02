@@ -20,6 +20,7 @@ import mage.game.match.MatchPlayer;
 import mage.game.permanent.Permanent;
 import mage.game.turn.Phase;
 import mage.interfaces.Action;
+import mage.interfaces.WatchResult;
 import mage.players.Player;
 import mage.server.Main;
 import mage.server.User;
@@ -38,6 +39,7 @@ import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -73,6 +75,9 @@ public class GameController implements GameCallback {
     private final ConcurrentMap<UUID, UUID> userPlayerMap;
     private final UUID gameSessionId;
     private final Game game;
+    // Seeded in the constructor, before the game thread exists, so it is never null;
+    // see GameSessionWatcher.buildGameView for the read/publish protocol.
+    private final AtomicReference<Game> lastStableGame;
     private final UUID chatId;
     private final UUID tableId;
     private final UUID choosingPlayerId;
@@ -93,6 +98,7 @@ public class GameController implements GameCallback {
         this.chatId = managerFactory.chatManager().createGameChatSession(game);
         this.userRequestingRollback = null;
         this.game = game;
+        this.lastStableGame = new AtomicReference<>(game.copy());
         this.game.setSaveGame(managerFactory.configSettings().isSaveGameActivated());
         this.tableId = tableId;
         this.choosingPlayerId = choosingPlayerId;
@@ -315,7 +321,7 @@ public class GameController implements GameCallback {
         GameSessionPlayer gameSession = gameSessions.get(playerId);
         String joinType;
         if (gameSession == null) {
-            gameSession = new GameSessionPlayer(managerFactory, game, userId, playerId);
+            gameSession = new GameSessionPlayer(managerFactory, game, userId, playerId, lastStableGame);
             final Lock w = gameSessionsLock.writeLock();
             w.lock();
             try {
@@ -455,63 +461,63 @@ public class GameController implements GameCallback {
         return true;
     }
 
-    public boolean watch(UUID userId) {
+    public WatchResult watch(UUID userId) {
         if (userPlayerMap.containsKey(userId)) {
             // You can't watch a game if you already a player in it
-            logger.warn("watch failed: user " + userId + " is already a player in game " + game.getId());
-            return false;
+            return WatchResult.fail("user " + userId + " is already a player in game " + game.getId());
         }
         if (watchers.containsKey(userId)) {
             // You can't watch a game if you already watch it
-            logger.warn("watch failed: user " + userId + " is already watching game " + game.getId());
-            return false;
+            return WatchResult.fail("user " + userId + " is already watching game " + game.getId());
         }
         if (!isAllowedToWatch(userId)) {
             // Dont want people on our ignore list to stalk us
-            logger.warn("watch failed: user " + userId + " is banned from watching game " + game.getId());
             managerFactory.userManager().getUser(userId).ifPresent(user -> {
                 user.showUserMessage("Not allowed", "You are banned from watching this game");
                 managerFactory.chatManager().broadcast(chatId, user.getName(), " tried to join, but is banned", MessageColor.BLUE, true, game, ChatMessage.MessageType.STATUS, null);
             });
-            return false;
+            return WatchResult.fail("user " + userId + " is banned from watching game " + game.getId());
         }
-        managerFactory.userManager().getUser(userId).ifPresent(user -> {
-            GameSessionWatcher gameWatcher = new GameSessionWatcher(managerFactory.userManager(), userId, game, false);
-            logger.info(String.format(
-                    "Watcher attach start: game=%s, watcherUserId=%s, watcherName=%s, watchersBefore=%d, turn=%s, step=%s, thread=%s",
-                    game.getId(),
-                    userId,
-                    user.getName(),
-                    watchers.size(),
-                    game.getTurnNum(),
-                    game.getTurnStepType(),
-                    Thread.currentThread().getName()
-            ));
-            final Lock w = gameWatchersLock.writeLock();
-            w.lock();
-            try {
-                watchers.put(userId, gameWatcher);
-            } finally {
-                w.unlock();
-            }
-            long initStartNanos = System.nanoTime();
-            gameWatcher.init();
-            long initMs = (System.nanoTime() - initStartNanos) / 1_000_000;
-            logger.info(String.format(
-                    "Watcher attach complete: game=%s, watcherUserId=%s, watcherName=%s, watchersAfter=%d, initMs=%d, turn=%s, step=%s, thread=%s",
-                    game.getId(),
-                    userId,
-                    user.getName(),
-                    watchers.size(),
-                    initMs,
-                    game.getTurnNum(),
-                    game.getTurnStepType(),
-                    Thread.currentThread().getName()
-            ));
-            user.addGameWatchInfo(game.getId());
-            managerFactory.chatManager().broadcast(chatId, user.getName(), " has started watching", MessageColor.BLUE, true, game, ChatMessage.MessageType.STATUS, null);
-        });
-        return true;
+        Optional<User> watchingUser = managerFactory.userManager().getUser(userId);
+        if (!watchingUser.isPresent()) {
+            return WatchResult.fail("user " + userId + " not found for game " + game.getId());
+        }
+        User user = watchingUser.get();
+        GameSessionWatcher gameWatcher = new GameSessionWatcher(managerFactory.userManager(), userId, game, lastStableGame, false);
+        logger.info(String.format(
+                "Watcher attach start: game=%s, watcherUserId=%s, watcherName=%s, watchersBefore=%d, turn=%s, step=%s, thread=%s",
+                game.getId(),
+                userId,
+                user.getName(),
+                watchers.size(),
+                game.getTurnNum(),
+                game.getTurnStepType(),
+                Thread.currentThread().getName()
+        ));
+        final Lock w = gameWatchersLock.writeLock();
+        w.lock();
+        try {
+            watchers.put(userId, gameWatcher);
+        } finally {
+            w.unlock();
+        }
+        long initStartNanos = System.nanoTime();
+        gameWatcher.init();
+        long initMs = (System.nanoTime() - initStartNanos) / 1_000_000;
+        logger.info(String.format(
+                "Watcher attach complete: game=%s, watcherUserId=%s, watcherName=%s, watchersAfter=%d, initMs=%d, turn=%s, step=%s, thread=%s",
+                game.getId(),
+                userId,
+                user.getName(),
+                watchers.size(),
+                initMs,
+                game.getTurnNum(),
+                game.getTurnStepType(),
+                Thread.currentThread().getName()
+        ));
+        user.addGameWatchInfo(game.getId());
+        managerFactory.chatManager().broadcast(chatId, user.getName(), " has started watching", MessageColor.BLUE, true, game, ChatMessage.MessageType.STATUS, null);
+        return WatchResult.ok();
     }
 
     public void stopWatching(UUID userId) {

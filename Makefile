@@ -8,6 +8,12 @@ TARGET_DIR ?= deploy/
 WEBSITE_NPM_STAMP := website/node_modules/.install-stamp
 GOLDEN_N ?= 2
 
+# make check runs the java targets in parallel, and concurrent mvn processes
+# race on module target/ directories (build-cache restores delete class files
+# mid-compile) and on local-repository installs. Serialize every mvn that
+# make check can run concurrently.
+MVN_LOCKED = mkdir -p $(CURDIR)/tmp && flock $(CURDIR)/tmp/mvn.lock mvn
+
 .PHONY: clean
 clean:
 	mvn clean
@@ -21,7 +27,7 @@ lint:
 
 .PHONY: lint-java
 lint-java:
-	mvn -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify
+	$(MVN_LOCKED) -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify
 	$(MAKE) verify-mcp-tools
 
 .PHONY: lint-fix
@@ -55,11 +61,6 @@ typecheck:
 .PHONY: test
 test:
 	uv run pytest tests/ -n auto --dist=load
-
-.PHONY: test-java
-test-java:
-	mvn -q -pl Mage.Server -am -DskipTests install
-	mvn -q test -pl Mage.Server
 
 .PHONY: test-js
 test-js: $(WEBSITE_NPM_STAMP)
@@ -210,14 +211,21 @@ screenshot:
 # Validate sample decks against the real card database (requires make build first)
 .PHONY: verify-decks
 verify-decks:
-	mvn test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks"
+	$(MVN_LOCKED) test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks"
 
-# Run Java unit tests for one module (requires make build first)
-# Usage: make test-java PL=Mage.Client.Observer [TEST=SomeTestClass]
+# Run Java unit tests for mage-bench's own modules. Upstream xmage module
+# tests (Mage, Mage.Client, ...) are trusted to run in the upstream repo.
+# Usage: make test-java [PL=Mage.Client.Bridge] [TEST=SomeTestClass]
+# The install pass builds the modules' dependency chains from the reactor so
+# tests never compile against stale org.mage jars from the local repository.
+# TEST-filtered runs disable the build cache so a partial test run is never
+# cached (and later replayed) as the module's full test result.
+TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer
+PL ?= $(TEST_JAVA_MODULES)
 .PHONY: test-java
 test-java:
-	mvn test -pl $(or $(PL),Mage.Client.Observer) $(if $(TEST),-Dtest="$(TEST)",)
-
+	$(MVN_LOCKED) -q -pl $(PL) -am -DskipTests -T 1C install
+	$(MVN_LOCKED) test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)" -Dmaven.build.cache.enabled=false,)
 # Analyze a game for blunders using Opus 4.6 via OpenRouter
 # Usage: make blunders GAME=game_20260214_185313_g1
 #        make blunders GAME=website/public/games/game_20260214_185313_g1.json.gz
@@ -265,8 +273,8 @@ verify-schema-types: $(WEBSITE_NPM_STAMP)
 # Verify mcp-tools.json5 is up to date with McpServer.java
 .PHONY: verify-mcp-tools
 verify-mcp-tools:
-	@mvn -q -pl Mage.Client.Bridge -am -DskipTests -Dmaven.build.cache.enabled=false install
-	@cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
+	@$(MVN_LOCKED) -q -pl Mage.Client.Bridge -am -DskipTests -Dmaven.build.cache.enabled=false install
+	@cd Mage.Client.Bridge && $(MVN_LOCKED) -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
 		| PYTHONPATH=../src:.. uv run --project .. python -m magebench.cli.mcp_tools_json5 \
 		| diff --unified - ../website/src/data/mcp-tools.json5 > /tmp/mcp-tools-diff.txt 2>&1 \
 		|| (echo "ERROR: website/src/data/mcp-tools.json5 is out of date. Run 'make regen-mcp-tools' to regenerate." && head -60 /tmp/mcp-tools-diff.txt && exit 1)
