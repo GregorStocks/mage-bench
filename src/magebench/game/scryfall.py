@@ -8,6 +8,7 @@ their API guidelines (https://scryfall.com/docs/api):
 """
 
 import json
+import os
 import time
 import urllib.error
 import urllib.parse
@@ -21,7 +22,13 @@ _HEADERS = {
 }
 _SCRYFALL_HOSTS = frozenset({"api.scryfall.com"})
 
-_CACHE_PATH = Path.home() / ".mage-bench" / "scryfall-cache.json"
+# Cache location override and offline mode. The golden test harness points
+# MAGEBENCH_SCRYFALL_CACHE at the repo-committed fixture and sets
+# MAGEBENCH_SCRYFALL_OFFLINE=1 so golden exports never depend on live
+# Scryfall responses (token searches order by release date, so new printings
+# would change golden output).
+_CACHE_ENV = "MAGEBENCH_SCRYFALL_CACHE"
+_OFFLINE_ENV = "MAGEBENCH_SCRYFALL_OFFLINE"
 
 # Track last request time for rate limiting
 _last_request_time: float = 0.0
@@ -49,13 +56,38 @@ def _rate_limit() -> None:
     _last_request_time = time.monotonic()
 
 
+def _cache_path() -> Path:
+    """Resolve the cache file path, honoring the MAGEBENCH_SCRYFALL_CACHE override."""
+    override = os.environ.get(_CACHE_ENV)
+    if override:
+        return Path(override)
+    return Path.home() / ".mage-bench" / "scryfall-cache.json"
+
+
+def _offline() -> bool:
+    return os.environ.get(_OFFLINE_ENV) == "1"
+
+
+def _require_online(missing_keys: list[str]) -> None:
+    """Fail fast on a cache miss in offline mode instead of hitting the network."""
+    if _offline():
+        raise AssertionError(
+            f"Scryfall cache miss in offline mode for {missing_keys!r} "
+            f"(cache: {_cache_path()}). Golden tests must not depend on live "
+            f"Scryfall responses. To add the missing entries to the fixture, run "
+            f"the failing test once with {_OFFLINE_ENV}=0 and {_CACHE_ENV} still "
+            f"pointing at the fixture, then commit the updated fixture."
+        )
+
+
 def _load_cache() -> dict[str, dict | str | None]:
     """Load cache from disk, or return empty dict."""
     global _cache
     if _cache is None:
-        if _CACHE_PATH.exists():
-            cached = json.loads(_CACHE_PATH.read_text())
-            assert isinstance(cached, dict), f"{_CACHE_PATH}: expected JSON object"
+        path = _cache_path()
+        if path.exists():
+            cached = json.loads(path.read_text())
+            assert isinstance(cached, dict), f"{path}: expected JSON object"
             _cache = cached
         else:
             _cache = {}
@@ -63,10 +95,11 @@ def _load_cache() -> dict[str, dict | str | None]:
 
 
 def _save_cache() -> None:
-    """Write cache to disk."""
+    """Write cache to disk (sorted and indented so committed fixtures diff cleanly)."""
     if _cache is not None:
-        _CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        _CACHE_PATH.write_text(json.dumps(_cache))
+        path = _cache_path()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(_cache, sort_keys=True, indent=1))
 
 
 def _fetch_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
@@ -119,6 +152,8 @@ def collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     if not uncached:
         return found, not_found
 
+    _require_online(uncached)
+
     # Fetch uncached names (already batched to <=75 by caller or by us)
     fetched_found, fetched_not_found = _fetch_collection(uncached)
     for card in fetched_found:
@@ -146,6 +181,8 @@ def named(name: str) -> dict | None:
             f"Scryfall card cache entry for {name!r} must be an object or null, got {cached!r}"
         )
         return cached
+
+    _require_online([name])
 
     _rate_limit()
     qs = urllib.parse.urlencode({"exact": name})
@@ -182,6 +219,8 @@ def search_token(token_name: str) -> str | None:
             f"Scryfall token cache entry for {cache_key!r} must be a string or null, got {cached!r}"
         )
         return cached
+
+    _require_online([cache_key])
 
     _rate_limit()
     query = f'!"{base_name}" t:token'
