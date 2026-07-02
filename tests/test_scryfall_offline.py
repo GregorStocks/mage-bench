@@ -30,9 +30,7 @@ def scryfall_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
 @pytest.mark.usefixtures("scryfall_cache")
 def test_offline_cache_hits() -> None:
-    assert scryfall.search_token("Rhino Token") == (
-        "https://cards.scryfall.io/small/front/2/1/rhino.jpg"
-    )
+    assert scryfall.search_token("Rhino Token") == ("https://cards.scryfall.io/small/front/2/1/rhino.jpg")
     assert scryfall.named("Lightning Bolt") == {"name": "Lightning Bolt"}
     assert scryfall.named("Not A Card") is None
     found, not_found = scryfall.collection(["Lightning Bolt", "Not A Card"])
