@@ -52,6 +52,11 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     # setup-java dependency cache.
     assert ci_workflow.count("rm -rf ~/.m2/repository/org/mage") == 2
 
+    # Cache-hit builds skip all mojos including install, so without this the
+    # purged repository never gets repopulated and single-module builds fail.
+    cache_config = (project_root / ".mvn" / "maven-build-cache-config.xml").read_text()
+    assert '<goalsList artifactId="maven-install-plugin">' in cache_config
+
 
 def test_make_lint_uses_root_ruff_config() -> None:
     project_root = Path(__file__).resolve().parent.parent
