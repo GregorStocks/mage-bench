@@ -38,15 +38,29 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     makefile = (project_root / "Makefile").read_text()
     ci_workflow = (project_root / ".github" / "workflows" / "lint.yml").read_text()
 
-    assert ".PHONY: test-java" in makefile
-    # duplicate target definitions silently override each other (last one wins), which
-    # once pointed make check's test-java at the observer module instead of Mage.Server
+    # Exactly one definition: a duplicate target silently shadows the first
+    # recipe, which is how Mage.Server unit tests once dropped out of CI.
+    assert makefile.count(".PHONY: test-java") == 1
     assert makefile.count("\ntest-java:") == 1
-    assert "mvn -q test -pl $(TEST_JAVA_PL)" in makefile
+
+    assert "TEST_JAVA_MODULES := Mage.Server,Mage.Client.Observer" in makefile
+    # The install pass must build the dependency chain from the reactor (-am)
+    # so tests never compile against stale org.mage jars in the local repo.
+    assert "mvn -q -pl $(or $(PL),$(TEST_JAVA_MODULES)) -am -DskipTests install" in makefile
+    assert "mvn test -pl $(or $(PL),$(TEST_JAVA_MODULES))" in makefile
+
     assert "make test-java" in ci_workflow
+    # CI must not seed builds with locally-built jars from the pom-keyed
+    # setup-java dependency cache.
+    assert ci_workflow.count("rm -rf ~/.m2/repository/org/mage") == 2
+
+    # Cache-hit builds skip all mojos including install, so without this the
+    # purged repository never gets repopulated and single-module builds fail.
+    cache_config = (project_root / ".mvn" / "maven-build-cache-config.xml").read_text()
+    assert '<goalsList artifactId="maven-install-plugin">' in cache_config
 
     # every module test-java runs must trigger test-java when its sources change
-    modules_match = re.search(r"^TEST_JAVA_MODULES = (\S+)$", makefile, re.MULTILINE)
+    modules_match = re.search(r"^TEST_JAVA_MODULES := (\S+)$", makefile, re.MULTILINE)
     assert modules_match is not None
     modules = modules_match.group(1).split(",")
     assert "Mage.Server" in modules
