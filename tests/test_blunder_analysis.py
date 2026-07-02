@@ -32,6 +32,7 @@ from magebench.game.game_export_types import (
     GameExport,
     Snapshot,
     SnapshotPlayer,
+    StackItem,
     ToolCallEvent,
     json_default,
 )
@@ -400,6 +401,38 @@ class TestCollectCardNames:
         names = collect_card_names(game)
         assert "Goblin Guide" in names
         assert "Wall of Omens" in names
+
+    def test_collects_source_card_for_structured_stack_ability(self) -> None:
+        game = GameExport.from_dict(_make_game())
+        snap = game.snapshots[0]
+        game.snapshots[0] = dataclasses.replace(
+            snap,
+            stack=[
+                StackItem(
+                    name="Ability",
+                    source_card="Dark Depths",
+                    ability_text=(
+                        "When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage."
+                    ),
+                )
+            ],
+        )
+        names = collect_card_names(game)
+        assert "Dark Depths" in names
+        assert "Ability" not in names
+
+    def test_skips_legacy_stack_ability_names(self) -> None:
+        game = GameExport.from_dict(_make_game())
+        snap = game.snapshots[0]
+        game.snapshots[0] = dataclasses.replace(
+            snap,
+            stack=[
+                "stack ability (When Dark Depths has no ice counters on it, sacrifice it. "
+                "If you do, create Marit Lage.)"
+            ],
+        )
+        names = collect_card_names(game)
+        assert not any(name.startswith("stack ability (When Dark Depths") for name in names)
 
     def test_collects_from_llm_event_combat(self) -> None:
         game = GameExport.from_dict(_make_game())

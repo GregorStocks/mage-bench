@@ -26,6 +26,7 @@ def _record_field(record: object, field: str) -> object | None:
 
 
 _SNAPSHOT_ZONES = frozenset({"hand", "battlefield", "graveyard", "exile", "commanders"})
+_LEGACY_STACK_ABILITY_NAME_RE = re.compile(r"^stack ability \(.+\)$")
 
 
 def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[str | Permanent] | None:
@@ -51,11 +52,15 @@ def collect_card_names(data: BuiltGameExport | GameExport) -> set[str]:
                             if isinstance(name, str) and name:
                                 names.add(name)
         for item in snap.stack:
-            if isinstance(item, str) and item:
+            if isinstance(item, str) and item and not _LEGACY_STACK_ABILITY_NAME_RE.match(item):
                 names.add(item)
             else:
+                source_card = _record_field(item, "source_card")
+                if isinstance(source_card, str) and source_card:
+                    names.add(source_card)
+                    continue
                 name = _record_field(item, "name")
-                if isinstance(name, str) and name:
+                if isinstance(name, str) and name and not _LEGACY_STACK_ABILITY_NAME_RE.match(name):
                     names.add(name)
         if snap.combat is not None:
             for group in snap.combat:
