@@ -1,6 +1,7 @@
 """Tests for scryfall cache override and offline mode."""
 
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -27,7 +28,8 @@ def scryfall_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     return cache_path
 
 
-def test_offline_cache_hits(scryfall_cache: Path) -> None:
+@pytest.mark.usefixtures("scryfall_cache")
+def test_offline_cache_hits() -> None:
     assert scryfall.search_token("Rhino Token") == (
         "https://cards.scryfall.io/small/front/2/1/rhino.jpg"
     )
@@ -38,18 +40,21 @@ def test_offline_cache_hits(scryfall_cache: Path) -> None:
     assert not_found == [{"name": "Not A Card"}]
 
 
-def test_offline_token_miss_raises(scryfall_cache: Path) -> None:
-    with pytest.raises(AssertionError, match="offline mode.*token:Wurm"):
+@pytest.mark.usefixtures("scryfall_cache")
+def test_offline_token_miss_raises() -> None:
+    with pytest.raises(AssertionError, match=r"offline mode.*token:Wurm"):
         scryfall.search_token("Wurm Token")
 
 
-def test_offline_named_miss_raises(scryfall_cache: Path) -> None:
-    with pytest.raises(AssertionError, match="offline mode.*Uncached Card"):
+@pytest.mark.usefixtures("scryfall_cache")
+def test_offline_named_miss_raises() -> None:
+    with pytest.raises(AssertionError, match=r"offline mode.*Uncached Card"):
         scryfall.named("Uncached Card")
 
 
-def test_offline_collection_miss_raises(scryfall_cache: Path) -> None:
-    with pytest.raises(AssertionError, match="offline mode.*Uncached Card"):
+@pytest.mark.usefixtures("scryfall_cache")
+def test_offline_collection_miss_raises() -> None:
+    with pytest.raises(AssertionError, match=r"offline mode.*Uncached Card"):
         scryfall.collection(["Lightning Bolt", "Uncached Card"])
 
 
@@ -59,8 +64,6 @@ def test_cache_path_env_override(scryfall_cache: Path) -> None:
 
 def test_conftest_pins_tests_to_fixture() -> None:
     """The test suite as a whole must run against the committed fixture."""
-    import os
-
     fixture = Path(__file__).parent / "golden" / "scryfall-cache.json"
     assert os.environ["MAGEBENCH_SCRYFALL_CACHE"] == str(fixture)
     assert os.environ["MAGEBENCH_SCRYFALL_OFFLINE"] == "1"
