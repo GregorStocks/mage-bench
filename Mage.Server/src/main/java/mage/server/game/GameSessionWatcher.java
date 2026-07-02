@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 
 /**
  * @author BetaSteward_at_googlemail.com
@@ -31,14 +33,18 @@ public class GameSessionWatcher {
     private final UserManager userManager;
     protected final UUID userId;
     protected final Game game;
+    // Last game copy published by a game-thread view build (owned by GameController,
+    // shared by all sessions of the game). Never null: seeded before the game starts.
+    private final AtomicReference<Game> lastStableGame;
     protected boolean killed = false;
     protected final boolean isPlayer;
     private int bridgeEventCursor = 0;
 
-    public GameSessionWatcher(UserManager userManager, UUID userId, Game game, boolean isPlayer) {
+    public GameSessionWatcher(UserManager userManager, UUID userId, Game game, AtomicReference<Game> lastStableGame, boolean isPlayer) {
         this.userManager = userManager;
         this.userId = userId;
         this.game = game;
+        this.lastStableGame = lastStableGame;
         this.isPlayer = isPlayer;
     }
 
@@ -46,8 +52,8 @@ public class GameSessionWatcher {
         if (!killed) {
             Optional<User> user = userManager.getUser(userId);
             if (user.isPresent()) {
-                // TODO: can be called outside of the game thread, e.g. user start watching already running game
-                //    possible fix: getGameView must use last cached value in non game thread call (split by sessions)
+                // can be called outside of the game thread, e.g. user starts watching an already
+                // running game — getGameView handles that by building from the last stable snapshot
                 long startNanos = System.nanoTime();
                 long viewStartNanos = startNanos;
                 boolean onGameThread = ThreadUtils.isRunGameThread();
@@ -143,13 +149,12 @@ public class GameSessionWatcher {
         long startNanos = System.nanoTime();
         boolean onGameThread = ThreadUtils.isRunGameThread();
 
-        // game view calculation can take some time and can be called from non-game thread,
-        // so use copy for thread save (protection from ConcurrentModificationException)
-        Game sourceGame = game.copy();
-
-        GameView gameView = new GameView(sourceGame.getState(), sourceGame, null, userId);
-        processWatchedHands(sourceGame, userId, gameView);
-        gameView.assignShortIdsToHands();
+        GameView gameView = buildGameView(sourceGame -> {
+            GameView view = new GameView(sourceGame.getState(), sourceGame, null, userId);
+            processWatchedHands(sourceGame, userId, view);
+            view.assignShortIdsToHands();
+            return view;
+        });
 
         long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000;
         if (!onGameThread || (!isPlayer && elapsedMs >= 250)) {
@@ -166,6 +171,27 @@ public class GameSessionWatcher {
             ));
         }
 
+        return gameView;
+    }
+
+    /**
+     * Runs viewBuilder against a game copy that is safe to read on the current thread.
+     *
+     * Copying the live game is only safe on the game thread: an RPC thread copying a game
+     * the game thread is concurrently mutating can throw ConcurrentModificationException or
+     * produce a corrupt view (issue watcher-getgameview-off-thread-copy). Off the game
+     * thread, copy the last stable snapshot published by a game-thread build instead.
+     * Snapshots are quiescent once published — nothing mutates them after the reference is
+     * set, so copying one off-thread is safe.
+     */
+    protected GameView buildGameView(Function<Game, GameView> viewBuilder) {
+        boolean onGameThread = ThreadUtils.isRunGameThread();
+        Game sourceGame = onGameThread ? game.copy() : lastStableGame.get().copy();
+        GameView gameView = viewBuilder.apply(sourceGame);
+        if (onGameThread) {
+            // publish only after the view is built, so the snapshot is never mutated again
+            lastStableGame.set(sourceGame);
+        }
         return gameView;
     }
 

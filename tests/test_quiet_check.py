@@ -1,6 +1,7 @@
 """Tests for magebench.cli.checks.quiet_check."""
 
 import os
+import re
 import shlex
 import signal
 import subprocess
@@ -48,7 +49,7 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     # The install pass must build the dependency chain from the reactor (-am)
     # so tests never compile against stale org.mage jars in the local repo.
     assert "$(MVN_LOCKED) -q -pl $(PL) -am -DskipTests -T 1C install" in makefile
-    assert '$(MVN_LOCKED) test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)",)' in makefile
+    assert '$(MVN_LOCKED) test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)" -Dmaven.build.cache.enabled=false,)' in makefile
 
     assert "make test-java" in ci_workflow
     # CI must not seed builds with locally-built jars from the pom-keyed
@@ -59,6 +60,14 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     # purged repository never gets repopulated and single-module builds fail.
     cache_config = (project_root / ".mvn" / "maven-build-cache-config.xml").read_text()
     assert '<goalsList artifactId="maven-install-plugin">' in cache_config
+
+    # every module test-java runs must trigger test-java when its sources change
+    modules_match = re.search(r"^TEST_JAVA_MODULES := (\S+)$", makefile, re.MULTILINE)
+    assert modules_match is not None
+    modules = modules_match.group(1).split(",")
+    assert "Mage.Server" in modules
+    for module in modules:
+        assert f"{module}/" in TARGET_TRIGGERS["test-java"]
 
 
 def test_makefile_defines_each_target_only_once() -> None:

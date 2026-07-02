@@ -1,0 +1,26 @@
+{
+  "title": "Filtered mvn test runs can poison the Maven build cache as full \
+results",
+  "description": "The Maven build-cache extension caches surefire:test results \
+keyed by source hash. A -Dtest=... filtered run saves a cache entry that a \
+later unfiltered `mvn test` on the same sources replays ('Skipping plugin \
+execution (cached): surefire:test'), silently skipping every test outside the \
+original filter. Observed while adding GameSessionWatcherThreadingTest: a \
+TEST=-filtered `make test-java` run was cached, and the follow-up full-suite \
+run replayed it without executing the other Mage.Server tests. test-java now \
+passes -Dmaven.build.cache.enabled=false for TEST-filtered runs, but `make \
+verify-decks` still runs `mvn test -pl Mage.Verify \
+-Dtest=\"VerifyCardDataTest#test_checkSampleDecks\"` without disabling the \
+cache, so it can cache a filtered result as Mage.Verify's test outcome for \
+that source hash. Audit remaining filtered mvn test invocations (Makefile and \
+CI) and disable the build cache for any run that doesn't execute the full \
+module suite.",
+  "status": "open",
+  "priority": 3,
+  "type": "bug",
+  "labels": [
+    "build",
+  ],
+  "created_at": "2026-07-02T06:05:00.000000-07:00",
+  "updated_at": "2026-07-02T06:05:00.000000-07:00",
+}

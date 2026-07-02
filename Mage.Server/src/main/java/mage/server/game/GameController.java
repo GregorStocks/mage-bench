@@ -39,6 +39,7 @@ import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -74,6 +75,9 @@ public class GameController implements GameCallback {
     private final ConcurrentMap<UUID, UUID> userPlayerMap;
     private final UUID gameSessionId;
     private final Game game;
+    // Seeded in the constructor, before the game thread exists, so it is never null;
+    // see GameSessionWatcher.buildGameView for the read/publish protocol.
+    private final AtomicReference<Game> lastStableGame;
     private final UUID chatId;
     private final UUID tableId;
     private final UUID choosingPlayerId;
@@ -94,6 +98,7 @@ public class GameController implements GameCallback {
         this.chatId = managerFactory.chatManager().createGameChatSession(game);
         this.userRequestingRollback = null;
         this.game = game;
+        this.lastStableGame = new AtomicReference<>(game.copy());
         this.game.setSaveGame(managerFactory.configSettings().isSaveGameActivated());
         this.tableId = tableId;
         this.choosingPlayerId = choosingPlayerId;
@@ -316,7 +321,7 @@ public class GameController implements GameCallback {
         GameSessionPlayer gameSession = gameSessions.get(playerId);
         String joinType;
         if (gameSession == null) {
-            gameSession = new GameSessionPlayer(managerFactory, game, userId, playerId);
+            gameSession = new GameSessionPlayer(managerFactory, game, userId, playerId, lastStableGame);
             final Lock w = gameSessionsLock.writeLock();
             w.lock();
             try {
@@ -478,7 +483,7 @@ public class GameController implements GameCallback {
             return WatchResult.fail("user " + userId + " not found for game " + game.getId());
         }
         User user = watchingUser.get();
-        GameSessionWatcher gameWatcher = new GameSessionWatcher(managerFactory.userManager(), userId, game, false);
+        GameSessionWatcher gameWatcher = new GameSessionWatcher(managerFactory.userManager(), userId, game, lastStableGame, false);
         logger.info(String.format(
                 "Watcher attach start: game=%s, watcherUserId=%s, watcherName=%s, watchersBefore=%d, turn=%s, step=%s, thread=%s",
                 game.getId(),

@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author BetaSteward_at_googlemail.com
@@ -34,8 +35,8 @@ public class GameSessionPlayer extends GameSessionWatcher {
 
     private final ExecutorService callExecutor;
 
-    public GameSessionPlayer(ManagerFactory managerFactory, Game game, UUID userId, UUID playerId) {
-        super(managerFactory.userManager(), userId, game, true);
+    public GameSessionPlayer(ManagerFactory managerFactory, Game game, UUID userId, UUID playerId, AtomicReference<Game> lastStableGame) {
+        super(managerFactory.userManager(), userId, game, lastStableGame, true);
         this.userManager = managerFactory.userManager();
         this.callExecutor = managerFactory.threadExecutor().getCallExecutor();
         this.playerId = playerId;
@@ -205,7 +206,7 @@ public class GameSessionPlayer extends GameSessionWatcher {
 
     @Override
     public GameView getGameView() {
-        return prepareGameView(game, playerId, userId);
+        return buildGameView(sourceGame -> prepareGameViewFromCopy(sourceGame, playerId, userId));
     }
 
     /**
@@ -217,9 +218,12 @@ public class GameSessionPlayer extends GameSessionWatcher {
      * @return
      */
     public static GameView prepareGameView(Game game, UUID playerId, UUID userId) {
-        // game view calculation can take some time and can be called from non-game thread,
-        // so use copy for thread save (protection from ConcurrentModificationException)
-        Game sourceGame = game.copy();
+        // copy so view building never races with a thread mutating the game (callers must
+        // ensure the game is not concurrently mutated; real games go through buildGameView)
+        return prepareGameViewFromCopy(game.copy(), playerId, userId);
+    }
+
+    private static GameView prepareGameViewFromCopy(Game sourceGame, UUID playerId, UUID userId) {
         GameView gameView = new GameView(sourceGame.getState(), sourceGame, playerId, null);
 
         // playable info (if opponent under control then show opponent's playable)
