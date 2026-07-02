@@ -863,6 +863,12 @@ public class GameController implements GameCallback {
 
     private synchronized void updateGame() {
         updatePriorityTimers();
+        // publish a pristine copy for off-thread view builds (see GameSessionWatcher
+        // .buildGameView). It must not be a copy a view was rendered from — GameView
+        // construction mutates its source. This runs before lookedAt/revealed are
+        // cleared (GameImpl.fireUpdatePlayersEvent clears them after this callback),
+        // so the snapshot matches the state the update below broadcasts to clients.
+        lastStableGame.set(GameSessionWatcher.GameSnapshot.of(game.copy()));
         for (final GameSessionPlayer gameSession : getGameSessions()) {
             gameSession.update();
         }

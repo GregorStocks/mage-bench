@@ -27,9 +27,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * watcher attach) copying a game the game thread is concurrently mutating can throw
  * ConcurrentModificationException or produce a corrupt view (issue
  * watcher-getgameview-off-thread-copy). Off the game thread, views are built from the
- * last stable snapshot published by a game-thread build, and report the game seq
- * captured when that snapshot was published — game copies share the live seq counter,
- * so reading it live would pair old board state with a newer seq (game_seq drift).
+ * last stable snapshot published by GameController, and report the game seq captured
+ * when that snapshot was published — game copies share the live seq counter, so
+ * reading it live would pair old board state with a newer seq (game_seq drift).
+ * Sessions never publish: their render copies are mutated by GameView construction.
  */
 public class GameSessionWatcherThreadingTest {
 
@@ -128,8 +129,8 @@ public class GameSessionWatcherThreadingTest {
     }
 
     @Test
-    @DisplayName("on the game thread, the watcher view is built from a live copy which becomes the new snapshot")
-    void onGameThreadCopiesLiveGameAndPublishesSnapshot() throws Exception {
+    @DisplayName("on the game thread, the watcher view is built from a live copy; sessions never publish snapshots")
+    void onGameThreadCopiesLiveGameWithoutPublishing() throws Exception {
         GameSessionWatcher watcher = new GameSessionWatcher(null, UUID.randomUUID(), liveGame, lastStableGame, false);
         GameSnapshot snapshotBefore = lastStableGame.get();
 
@@ -138,13 +139,14 @@ public class GameSessionWatcherThreadingTest {
         assertThat(view.getTurn()).as("view must reflect the live game").isEqualTo(7);
         assertThat(view.getGameSeq()).isEqualTo(liveGame.getGameSeq());
         assertThat(liveGame.copyThreads).hasSize(1);
-        assertThat(lastStableGame.get()).as("game-thread builds must republish the snapshot").isNotSameAs(snapshotBefore);
-        assertThat(lastStableGame.get().gameSeq()).isEqualTo(liveGame.getGameSeq());
+        // publishing is GameController's job (updateGame publishes a pristine copy) —
+        // render copies are mutated by GameView construction and must never be cached
+        assertThat(lastStableGame.get()).as("session view builds must not publish snapshots").isSameAs(snapshotBefore);
 
-        // a later off-thread build now sees the republished state and seq
+        // off-thread builds keep serving the last published snapshot
         GameView followUp = getGameViewOnThread(ThreadUtils.THREAD_PREFIX_CALL_REQUEST + "-test-2", watcher);
-        assertThat(followUp.getTurn()).isEqualTo(7);
-        assertThat(followUp.getGameSeq()).isEqualTo(liveGame.getGameSeq());
+        assertThat(followUp.getTurn()).isEqualTo(3);
+        assertThat(followUp.getGameSeq()).isEqualTo(snapshotSeq);
     }
 
     @Test
@@ -160,6 +162,8 @@ public class GameSessionWatcherThreadingTest {
         GameView onThreadView = getGameViewOnThread(ThreadUtils.THREAD_PREFIX_GAME + " test", player);
         assertThat(onThreadView.getTurn()).isEqualTo(7);
         assertThat(liveGame.copyThreads).hasSize(1);
-        assertThat(lastStableGame.get().game().getState().getTurnNum()).isEqualTo(7);
+        assertThat(lastStableGame.get().game().getState().getTurnNum())
+                .as("session view builds must not publish snapshots")
+                .isEqualTo(3);
     }
 }
