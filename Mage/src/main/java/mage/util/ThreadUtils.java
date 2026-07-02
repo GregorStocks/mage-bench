@@ -26,6 +26,9 @@ public final class ThreadUtils {
     // game
     public final static String THREAD_PREFIX_GAME_JOIN_WAITING = "XMAGE game join waiting";
 
+    // sessions
+    public final static String THREAD_PREFIX_SESSION_CALLBACK = "XMAGE session callback";
+
     // services
     public final static String THREAD_PREFIX_SERVICE_HEALTH = "XMAGE service health";
     public final static String THREAD_PREFIX_SERVICE_USERS_LIST_REFRESH = "XMAGE users list refresh";

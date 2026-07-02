@@ -131,6 +131,7 @@ public class SessionManagerImpl implements SessionManager {
         }
 
         sessions.remove(sessionId);
+        session.shutdown();
     }
 
     /**

@@ -4,7 +4,6 @@ import mage.MageException;
 import mage.constants.Constants;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
-import mage.interfaces.callback.ClientCallbackType;
 import mage.players.net.UserData;
 import mage.players.net.UserGroup;
 import mage.server.game.GamesRoom;
@@ -12,6 +11,7 @@ import mage.server.managers.ConfigSettings;
 import mage.server.managers.ManagerFactory;
 import mage.util.RandomUtil;
 import mage.util.ThreadUtils;
+import mage.util.XmageThreadFactory;
 import mage.utils.SystemUtil;
 import org.apache.log4j.Logger;
 import org.jboss.remoting.callback.AsynchInvokerCallbackHandler;
@@ -20,7 +20,9 @@ import org.jboss.remoting.callback.HandleCallbackException;
 import org.jboss.remoting.callback.InvokerCallbackHandler;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
@@ -70,10 +72,12 @@ public class Session {
     private final Date timeConnected;
     private boolean isAdmin = false;
     private final AsynchInvokerCallbackHandler callbackHandler;
-    private boolean valid = true;
+    private volatile boolean valid = true;
 
     private final ReentrantLock lock;
-    private final ReentrantLock callBackLock;
+    // Per-session send queue with a dedicated writer thread: fireCallback never blocks the
+    // caller, callbacks are never dropped under contention, and delivery order is preserved.
+    private final ExecutorService callbackExecutor;
     private String lastCallbackInfo = "";
 
     public Session(ManagerFactory managerFactory, String sessionId, InvokerCallbackHandler callbackHandler) {
@@ -83,7 +87,8 @@ public class Session {
         this.isAdmin = false;
         this.timeConnected = new Date();
         this.lock = new ReentrantLock();
-        this.callBackLock = new ReentrantLock();
+        this.callbackExecutor = Executors.newSingleThreadExecutor(
+                new XmageThreadFactory(ThreadUtils.THREAD_PREFIX_SESSION_CALLBACK + " " + sessionId));
     }
 
     public String registerUser(String userName, String password, String email) {
@@ -427,44 +432,38 @@ public class Session {
     }
 
     /**
-     * Send event/command to the client
+     * Send event/command to the client. Enqueues onto the per-session writer thread and
+     * returns immediately; queued callbacks are delivered in order and never dropped while
+     * the session is alive.
      */
     public void fireCallback(final ClientCallback call) {
-        boolean lockSet = false; // TODO: research about locks, why it here? 2023-12-06
-
-        // Game lifecycle callbacks (GAME_OVER, GAME_INIT, START_GAME, END_GAME_INFO) must not be
-        // silently dropped — use a longer lock timeout to survive contention with concurrent chat
-        // broadcasts during player disconnect processing.
-        long lockTimeoutMs = call.getMethod().getType() == ClientCallbackType.TABLE_CHANGE
-                || call.getMethod().getType() == ClientCallbackType.DIALOG
-                ? 5000 : 50;
-
+        if (!valid) {
+            logger.warn("CALLBACK DROPPED (session invalid) - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
+            return;
+        }
         try {
-            if (valid && callBackLock.tryLock(lockTimeoutMs, TimeUnit.MILLISECONDS)) {
-                lastCallbackInfo = call.getInfo();
-                call.setMessageId(messageId.incrementAndGet());
-                lockSet = true;
-                Callback callback = new Callback(call);
-                boolean sendAsync = SUPER_DUPER_BUGGY_AND_FASTEST_ASYNC_CONNECTION
-                        && call.getMethod().getType().canComeInAnyOrder();
-                callbackHandler.handleCallbackOneway(callback, sendAsync);
-            } else if (!valid) {
-                logger.warn("CALLBACK DROPPED (session invalid) - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
-            } else {
-                logger.warn("CALLBACK DROPPED (lock timeout " + lockTimeoutMs + "ms) - " + call.getMethod() + " - userId: " + userId
-                        + ", prev call: " + lastCallbackInfo + ", current call: " + call.getInfo());
-            }
-        } catch (InterruptedException ex) {
-            // already sending another command (connection problem?)
-            // TODO: un-support multiple games/drafts at the same time?!?!?!?!
-            if (call.getMethod().equals(ClientCallbackMethod.GAME_INIT)
-                    || call.getMethod().equals(ClientCallbackMethod.START_GAME)) {
-                // it's ok, possible use cases:
-                // - user has connection problem so can't send game init (see sendInfoAboutPlayersNotJoinedYetAndTryToFixIt)
-            } else {
-                logger.warn("SESSION LOCK, possible connection problem - fireCallback - userId: "
-                        + userId + ", prev call: " + lastCallbackInfo + ", current call: " + call.getInfo(), ex);
-            }
+            callbackExecutor.execute(() -> sendCallback(call));
+        } catch (RejectedExecutionException ex) {
+            // session was shut down concurrently (disconnect)
+            logger.warn("CALLBACK DROPPED (session closed) - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
+        }
+    }
+
+    /**
+     * Deliver a callback to the client. Runs only on the per-session writer thread.
+     */
+    private void sendCallback(final ClientCallback call) {
+        if (!valid) {
+            logger.warn("CALLBACK DROPPED (session invalid) - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
+            return;
+        }
+        lastCallbackInfo = call.getInfo();
+        call.setMessageId(messageId.incrementAndGet());
+        try {
+            Callback callback = new Callback(call);
+            boolean sendAsync = SUPER_DUPER_BUGGY_AND_FASTEST_ASYNC_CONNECTION
+                    && call.getMethod().getType().canComeInAnyOrder();
+            callbackHandler.handleCallbackOneway(callback, sendAsync);
         } catch (HandleCallbackException ex) {
             // general error
             // can raise on server freeze or normal connection problem from a client side
@@ -480,11 +479,15 @@ public class Session {
             // do not send data anymore (user must reconnect)
             this.valid = false;
             managerFactory.sessionManager().disconnect(sessionId, DisconnectReason.LostConnection, true);
-        } finally {
-            if (lockSet) {
-                callBackLock.unlock();
-            }
         }
+    }
+
+    /**
+     * Stop the callback writer once the session is removed. Already-queued callbacks still
+     * drain (so a final error message can reach the client); new ones are rejected.
+     */
+    void shutdown() {
+        callbackExecutor.shutdown();
     }
 
     public UUID getUserId() {
