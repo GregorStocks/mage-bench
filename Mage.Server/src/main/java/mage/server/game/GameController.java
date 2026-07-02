@@ -77,7 +77,7 @@ public class GameController implements GameCallback {
     private final Game game;
     // Seeded in the constructor, before the game thread exists, so it is never null;
     // see GameSessionWatcher.buildGameView for the read/publish protocol.
-    private final AtomicReference<Game> lastStableGame;
+    private final AtomicReference<GameSessionWatcher.GameSnapshot> lastStableGame;
     private final UUID chatId;
     private final UUID tableId;
     private final UUID choosingPlayerId;
@@ -98,7 +98,7 @@ public class GameController implements GameCallback {
         this.chatId = managerFactory.chatManager().createGameChatSession(game);
         this.userRequestingRollback = null;
         this.game = game;
-        this.lastStableGame = new AtomicReference<>(game.copy());
+        this.lastStableGame = new AtomicReference<>(GameSessionWatcher.GameSnapshot.of(game.copy()));
         this.game.setSaveGame(managerFactory.configSettings().isSaveGameActivated());
         this.tableId = tableId;
         this.choosingPlayerId = choosingPlayerId;
@@ -345,6 +345,11 @@ public class GameController implements GameCallback {
             for (Player player : game.getPlayers().values()) {
                 player.updateRange(game);
             }
+
+            // republish the snapshot so the init views below (built off the game thread)
+            // include the range workaround; safe here because the game thread that will
+            // mutate the game is only submitted further down
+            lastStableGame.set(GameSessionWatcher.GameSnapshot.of(game.copy()));
 
             // send first info to users
             for (GameSessionPlayer gameSessionPlayer : getGameSessions()) {

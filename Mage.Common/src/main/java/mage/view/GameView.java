@@ -573,4 +573,13 @@ public class GameView implements Serializable {
     public int getGameSeq() {
         return this.gameSeq;
     }
+
+    /**
+     * Game copies share the live game's seq counter, so a view built from an older
+     * snapshot reads a seq newer than the state it shows. Server-side snapshot view
+     * builds use this to restamp the seq captured when the snapshot was published.
+     */
+    public void setGameSeq(int gameSeq) {
+        this.gameSeq = gameSeq;
+    }
 }

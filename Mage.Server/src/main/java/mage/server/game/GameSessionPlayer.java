@@ -35,7 +35,7 @@ public class GameSessionPlayer extends GameSessionWatcher {
 
     private final ExecutorService callExecutor;
 
-    public GameSessionPlayer(ManagerFactory managerFactory, Game game, UUID userId, UUID playerId, AtomicReference<Game> lastStableGame) {
+    public GameSessionPlayer(ManagerFactory managerFactory, Game game, UUID userId, UUID playerId, AtomicReference<GameSnapshot> lastStableGame) {
         super(managerFactory.userManager(), userId, game, lastStableGame, true);
         this.userManager = managerFactory.userManager();
         this.callExecutor = managerFactory.threadExecutor().getCallExecutor();

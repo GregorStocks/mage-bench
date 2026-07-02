@@ -5,6 +5,7 @@ import mage.constants.RangeOfInfluence;
 import mage.game.Game;
 import mage.game.TwoPlayerDuel;
 import mage.game.mulligan.MulliganType;
+import mage.server.game.GameSessionWatcher.GameSnapshot;
 import mage.server.managers.ManagerFactory;
 import mage.server.managers.ThreadExecutor;
 import mage.util.ThreadUtils;
@@ -26,7 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * watcher attach) copying a game the game thread is concurrently mutating can throw
  * ConcurrentModificationException or produce a corrupt view (issue
  * watcher-getgameview-off-thread-copy). Off the game thread, views are built from the
- * last stable snapshot published by a game-thread build.
+ * last stable snapshot published by a game-thread build, and report the game seq
+ * captured when that snapshot was published — game copies share the live seq counter,
+ * so reading it live would pair old board state with a newer seq (game_seq drift).
  */
 public class GameSessionWatcherThreadingTest {
 
@@ -93,15 +96,18 @@ public class GameSessionWatcherThreadingTest {
     }
 
     private final CopyRecordingDuel liveGame = new CopyRecordingDuel();
-    private final AtomicReference<Game> lastStableGame;
+    private final AtomicReference<GameSnapshot> lastStableGame;
+    private final int snapshotSeq;
 
     public GameSessionWatcherThreadingTest() {
         // set before GameController snapshots the game in the real flow (TableController.startGame)
         liveGame.setGameOptions(new mage.game.GameOptions());
         liveGame.getState().setTurnNum(3);
-        lastStableGame = new AtomicReference<>(liveGame.copy());
+        lastStableGame = new AtomicReference<>(GameSnapshot.of(liveGame.copy()));
+        snapshotSeq = lastStableGame.get().gameSeq();
         // live game moves on after the snapshot was published
         liveGame.getState().setTurnNum(7);
+        liveGame.nextGameSeq();
         liveGame.copyThreads.clear();
     }
 
@@ -109,11 +115,14 @@ public class GameSessionWatcherThreadingTest {
     @DisplayName("off the game thread, the watcher view is built from the snapshot without copying the live game")
     void offGameThreadUsesSnapshot() throws Exception {
         GameSessionWatcher watcher = new GameSessionWatcher(null, UUID.randomUUID(), liveGame, lastStableGame, false);
-        Game snapshotBefore = lastStableGame.get();
+        GameSnapshot snapshotBefore = lastStableGame.get();
 
         GameView view = getGameViewOnThread(ThreadUtils.THREAD_PREFIX_CALL_REQUEST + "-test", watcher);
 
         assertThat(view.getTurn()).as("view must reflect the snapshot, not the live game").isEqualTo(3);
+        assertThat(view.getGameSeq())
+                .as("view must report the seq captured at snapshot publish, not the live counter")
+                .isEqualTo(snapshotSeq);
         assertThat(liveGame.copyThreads).as("live game must not be copied off the game thread").isEmpty();
         assertThat(lastStableGame.get()).as("off-thread builds must not republish the snapshot").isSameAs(snapshotBefore);
     }
@@ -122,17 +131,20 @@ public class GameSessionWatcherThreadingTest {
     @DisplayName("on the game thread, the watcher view is built from a live copy which becomes the new snapshot")
     void onGameThreadCopiesLiveGameAndPublishesSnapshot() throws Exception {
         GameSessionWatcher watcher = new GameSessionWatcher(null, UUID.randomUUID(), liveGame, lastStableGame, false);
-        Game snapshotBefore = lastStableGame.get();
+        GameSnapshot snapshotBefore = lastStableGame.get();
 
         GameView view = getGameViewOnThread(ThreadUtils.THREAD_PREFIX_GAME + " test", watcher);
 
         assertThat(view.getTurn()).as("view must reflect the live game").isEqualTo(7);
+        assertThat(view.getGameSeq()).isEqualTo(liveGame.getGameSeq());
         assertThat(liveGame.copyThreads).hasSize(1);
         assertThat(lastStableGame.get()).as("game-thread builds must republish the snapshot").isNotSameAs(snapshotBefore);
+        assertThat(lastStableGame.get().gameSeq()).isEqualTo(liveGame.getGameSeq());
 
-        // a later off-thread build now sees the republished state
+        // a later off-thread build now sees the republished state and seq
         GameView followUp = getGameViewOnThread(ThreadUtils.THREAD_PREFIX_CALL_REQUEST + "-test-2", watcher);
         assertThat(followUp.getTurn()).isEqualTo(7);
+        assertThat(followUp.getGameSeq()).isEqualTo(liveGame.getGameSeq());
     }
 
     @Test
@@ -142,11 +154,12 @@ public class GameSessionWatcherThreadingTest {
 
         GameView offThreadView = getGameViewOnThread(ThreadUtils.THREAD_PREFIX_CALL_REQUEST + "-test", player);
         assertThat(offThreadView.getTurn()).isEqualTo(3);
+        assertThat(offThreadView.getGameSeq()).isEqualTo(snapshotSeq);
         assertThat(liveGame.copyThreads).as("live game must not be copied off the game thread").isEmpty();
 
         GameView onThreadView = getGameViewOnThread(ThreadUtils.THREAD_PREFIX_GAME + " test", player);
         assertThat(onThreadView.getTurn()).isEqualTo(7);
         assertThat(liveGame.copyThreads).hasSize(1);
-        assertThat(lastStableGame.get().getState().getTurnNum()).isEqualTo(7);
+        assertThat(lastStableGame.get().game().getState().getTurnNum()).isEqualTo(7);
     }
 }
