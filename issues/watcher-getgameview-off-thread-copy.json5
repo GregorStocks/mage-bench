@@ -1,0 +1,27 @@
+{
+  "title": "GameSessionWatcher.getGameView() copies a live game off the game thread",
+  "description": "GameSessionWatcher.getGameView() calls game.copy() on whatever \
+thread the watcher attach RPC arrives on (its own comment admits 'can be called \
+outside of the game thread'). Copying an object graph that the game thread is \
+concurrently mutating can throw ConcurrentModificationException or produce a \
+corrupt view. An exception here propagates out of GameController.watch -> \
+gameWatchStart returns false -> the client silently drops the watch pane -> \
+wait-for-watching 408 (same signature as the DUELING-registration race, but a \
+separate hole). It is also slow (existing instrumentation logs elapsedMs; 168ms+ \
+observed), which holds Session.callBackLock longer and increases the chance that \
+concurrent GAME_UPDATE callbacks hit the 50ms tryLock timeout in \
+Session.fireCallback and get silently dropped. Fix direction: build the initial \
+watcher view via the game thread (or from the last authoritative cached view) \
+instead of copying a live game from an RPC thread. Found during the \
+wait-for-watching flake investigation; no direct CI failure attributed yet, so \
+verify it can actually fire before large refactors.",
+  "status": "open",
+  "priority": 3,
+  "type": "bug",
+  "labels": [
+    "golden-tests",
+    "server",
+  ],
+  "created_at": "2026-07-01T18:40:00.000000-07:00",
+  "updated_at": "2026-07-01T18:40:00.000000-07:00",
+}

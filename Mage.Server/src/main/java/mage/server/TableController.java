@@ -669,7 +669,6 @@ public class TableController {
     private void startGame(UUID choosingPlayerId) throws GameException {
         try {
             match.startGame();
-            table.initGame();
             GameOptions gameOptions = new GameOptions();
             gameOptions.rollbackTurnsAllowed = match.getOptions().isRollbackTurnsAllowed();
             gameOptions.bannedUsers = match.getOptions().getBannedUsers();
@@ -690,6 +689,11 @@ public class TableController {
             }
             match.getGame().setGameOptions(gameOptions);
             managerFactory.gameManager().createGameSession(match.getGame(), userPlayerMap, table.getId(), choosingPlayerId, gameOptions);
+            // Only flip the table to DUELING after the GameController is registered in
+            // GameManager. Watchers key off the DUELING state (TableController.watchTable),
+            // and their follow-up gameWatchStart RPC resolves the controller by gameId —
+            // advertising DUELING first opens a window where the watch silently fails.
+            table.initGame();
             String creator = null;
             StringBuilder opponent = new StringBuilder();
             for (Entry<UUID, UUID> entry : userPlayerMap.entrySet()) { // do only for no AI players
