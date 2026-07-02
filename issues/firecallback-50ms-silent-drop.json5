@@ -1,17 +1,19 @@
 {
-  "title": "Session.fireCallback silently drops callbacks after 50ms lock timeout",
-  "description": "Session.fireCallback uses callBackLock.tryLock with a 50ms timeout \
-for every callback type except TABLE_CHANGE/DIALOG (5000ms) and logs a warning + \
-drops the callback on timeout. GAME_UPDATE and MESSAGE callbacks to bridges and the \
-spectator can therefore vanish under transient contention (e.g. a slow watcher view \
-build holding the lock, concurrent chat broadcasts at game start). For the golden \
-harness a dropped GAME_UPDATE can change what the bridge auto-pass loop observes, \
-and a dropped update to the spectator loses event-log entries. The comment above the \
-timeout claims game lifecycle callbacks are protected, which is true, but the \
-50ms tier is still a silent-drop design. Direction: per-session send queue with a \
-dedicated writer (no drops, preserves order) or at minimum raise the short tier and \
-make drops fail loudly in harness mode. Flagged independently by code survey and \
-the wait-for-watching flake investigation.",
+  "title": "Session.fireCallback silently drops callbacks after 50ms lock \
+timeout",
+  "description": "Session.fireCallback uses callBackLock.tryLock with a 50ms \
+timeout for every callback type except TABLE_CHANGE/DIALOG (5000ms) and logs a \
+warning + drops the callback on timeout. GAME_UPDATE and MESSAGE callbacks to \
+bridges and the spectator can therefore vanish under transient contention \
+(e.g. a slow watcher view build holding the lock, concurrent chat broadcasts \
+at game start). For the golden harness a dropped GAME_UPDATE can change what \
+the bridge auto-pass loop observes, and a dropped update to the spectator \
+loses event-log entries. The comment above the timeout claims game lifecycle \
+callbacks are protected, which is true, but the 50ms tier is still a \
+silent-drop design. Direction: per-session send queue with a dedicated writer \
+(no drops, preserves order) or at minimum raise the short tier and make drops \
+fail loudly in harness mode. Flagged independently by code survey and the \
+wait-for-watching flake investigation.",
   "status": "open",
   "priority": 3,
   "type": "bug",
