@@ -4,13 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.HttpURLConnection;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -117,18 +114,10 @@ public class ObserverMainTest {
     }
 
     private HttpURLConnection openGet(String path) throws Exception {
-        URL url = new URL("http://127.0.0.1:" + healthServer.getPort() + path);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setConnectTimeout(1000);
-        conn.setReadTimeout(2000);
-        return conn;
+        return ObserverHttpTestSupport.openGet(healthServer.getPort(), path);
     }
 
     private static String readBody(HttpURLConnection conn) throws Exception {
-        InputStream stream = conn.getResponseCode() >= 400 ? conn.getErrorStream() : conn.getInputStream();
-        try (stream) {
-            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
-        }
+        return ObserverHttpTestSupport.readBody(conn);
     }
 }

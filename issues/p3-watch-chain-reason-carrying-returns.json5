@@ -1,0 +1,28 @@
+{
+  "title": "Carry watch-attach failure reasons through the RPC return values",
+  "description": "The spectator watch-attach chain now logs a reason at every \
+silent `return false` and surfaces client-detected failures through the \
+observer health server (502 from /wait-for-watching). But the server-side \
+reasons (table not DUELING, user is a player, banned, no GameController \
+registered, room not found, ...) still die at the RPC boundary because \
+`roomWatchTable` and `gameWatchStart` return bare booleans — the client can \
+only report 'the server refused the watch request'. The deeper fix: make the \
+failure reason first-class in the return type (enum or small result object) \
+for GameController.watch -> GameManagerImpl.watchGame -> gameWatchStart and \
+TableController.watchTable -> TableManagerImpl -> GamesRoomImpl -> \
+roomWatchTable, then surface the actual server reason in the health server's \
+502 body from a single client chokepoint (SessionImpl). Bounded scope: \
+roomWatchTable/gameWatchStart each have exactly one production caller \
+(SessionImpl); SessionHandler.watchTable's other callers (TablesPanel) can \
+ignore the richer result. Found during the watch-attach hardening \
+(p2-harden-observer-watch-attach-chain).",
+  "status": "open",
+  "priority": 3,
+  "type": "enhancement",
+  "labels": [
+    "observer",
+    "golden-tests",
+  ],
+  "created_at": "2026-07-01T23:40:00.000000-07:00",
+  "updated_at": "2026-07-01T23:40:00.000000-07:00",
+}

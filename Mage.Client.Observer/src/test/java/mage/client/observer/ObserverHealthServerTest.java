@@ -4,12 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
+import static mage.client.observer.ObserverHttpTestSupport.postJson;
+import static mage.client.observer.ObserverHttpTestSupport.readBody;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -67,24 +65,7 @@ public class ObserverHealthServerTest {
     }
 
     private HttpURLConnection postWaitForWatching(String gameDir, int timeoutSeconds) throws Exception {
-        URL url = new URL("http://127.0.0.1:" + healthServer.getPort() + "/wait-for-watching");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setDoOutput(true);
-        conn.setConnectTimeout(1000);
-        conn.setReadTimeout((timeoutSeconds + 5) * 1000);
-        byte[] body = ("{\"gameDir\":\"" + gameDir + "\",\"timeout\":" + timeoutSeconds + "}")
-                .getBytes(StandardCharsets.UTF_8);
-        try (OutputStream os = conn.getOutputStream()) {
-            os.write(body);
-        }
-        return conn;
-    }
-
-    private static String readBody(HttpURLConnection conn) throws Exception {
-        InputStream stream = conn.getResponseCode() >= 400 ? conn.getErrorStream() : conn.getInputStream();
-        try (stream) {
-            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
-        }
+        String body = "{\"gameDir\":\"" + gameDir + "\",\"timeout\":" + timeoutSeconds + "}";
+        return postJson(healthServer.getPort(), "/wait-for-watching", body, (timeoutSeconds + 5) * 1000);
     }
 }

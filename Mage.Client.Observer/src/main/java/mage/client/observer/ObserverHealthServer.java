@@ -198,12 +198,9 @@ public class ObserverHealthServer {
         } catch (TimeoutException e) {
             sendJson(exchange, 408, "{\"watching\":false,\"error\":\"timeout\"}");
         } catch (ExecutionException e) {
-            // Watch-attach chain reported a hard failure via signalGameWatchFailed
-            String reason = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
-            JsonObject resp = new JsonObject();
-            resp.addProperty("watching", false);
-            resp.addProperty("error", reason);
-            sendJson(exchange, 502, gson.toJson(resp));
+            // Watch-attach chain reported a hard failure via signalGameWatchFailed;
+            // gson.toJson escapes the reason string for JSON.
+            sendJson(exchange, 502, "{\"watching\":false,\"error\":" + gson.toJson(e.getCause().getMessage()) + "}");
         } catch (Exception e) {
             sendJson(exchange, 500, "{\"watching\":false,\"error\":\"" + e.getMessage() + "\"}");
         } finally {
