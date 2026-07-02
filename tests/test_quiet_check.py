@@ -10,7 +10,9 @@ from magebench.cli.checks.quiet_check import (
     PARALLEL_TARGETS,
     RECURSIVE_MAKE_ENV_VARS,
     SERIAL_TARGETS,
+    TARGET_TRIGGERS,
     TARGETS,
+    _file_matches,
     _make_env,
     _run_command_with_captured_output,
     _run_make,
@@ -57,6 +59,15 @@ def test_makefile_defines_each_target_only_once() -> None:
     )
     assert result.returncode == 0, result.stderr
     assert "overriding recipe" not in result.stderr, result.stderr
+
+
+def test_java_triggers_cover_root_and_dotted_mage_modules() -> None:
+    """Triggers are prefix matches, so "Mage." alone misses the root Mage
+    module ("Mage/src/...") that all Java test classpaths depend on."""
+    for target in ("lint-java", "test-java", "verify-decks"):
+        triggers = TARGET_TRIGGERS[target]
+        assert _file_matches("Mage/src/mage/cards/Card.java", triggers), target
+        assert _file_matches("Mage.Client.Bridge/src/main/java/X.java", triggers), target
 
 
 def test_make_lint_uses_root_ruff_config() -> None:
