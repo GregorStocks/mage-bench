@@ -36,9 +36,21 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     makefile = (project_root / "Makefile").read_text()
     ci_workflow = (project_root / ".github" / "workflows" / "lint.yml").read_text()
 
-    assert ".PHONY: test-java" in makefile
-    assert "mvn -q test -pl Mage.Server" in makefile
+    # Exactly one definition: a duplicate target silently shadows the first
+    # recipe, which is how Mage.Server unit tests once dropped out of CI.
+    assert makefile.count(".PHONY: test-java") == 1
+    assert makefile.count("\ntest-java:") == 1
+
+    assert "TEST_JAVA_MODULES := Mage.Server,Mage.Client.Observer" in makefile
+    # The install pass must build the dependency chain from the reactor (-am)
+    # so tests never compile against stale org.mage jars in the local repo.
+    assert "mvn -q -pl $(or $(PL),$(TEST_JAVA_MODULES)) -am -DskipTests install" in makefile
+    assert "mvn test -pl $(or $(PL),$(TEST_JAVA_MODULES))" in makefile
+
     assert "make test-java" in ci_workflow
+    # CI must not seed builds with locally-built jars from the pom-keyed
+    # setup-java dependency cache.
+    assert ci_workflow.count("rm -rf ~/.m2/repository/org/mage") == 2
 
 
 def test_make_lint_uses_root_ruff_config() -> None:
