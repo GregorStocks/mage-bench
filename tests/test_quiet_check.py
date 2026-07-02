@@ -38,11 +38,27 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
     makefile = (project_root / "Makefile").read_text()
     ci_workflow = (project_root / ".github" / "workflows" / "lint.yml").read_text()
 
-    assert ".PHONY: test-java" in makefile
+    # Exactly one definition: a duplicate target silently shadows the first
+    # recipe, which is how Mage.Server unit tests once dropped out of CI.
+    assert makefile.count(".PHONY: test-java") == 1
+    assert makefile.count("\ntest-java:") == 1
+
     assert "TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer" in makefile
     assert "PL ?= $(TEST_JAVA_MODULES)" in makefile
-    assert '$(MVN_LOCKED) -q test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)",)' in makefile
+    # The install pass must build the dependency chain from the reactor (-am)
+    # so tests never compile against stale org.mage jars in the local repo.
+    assert "$(MVN_LOCKED) -q -pl $(PL) -am -DskipTests -T 1C install" in makefile
+    assert '$(MVN_LOCKED) test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)",)' in makefile
+
     assert "make test-java" in ci_workflow
+    # CI must not seed builds with locally-built jars from the pom-keyed
+    # setup-java dependency cache.
+    assert ci_workflow.count("rm -rf ~/.m2/repository/org/mage") == 2
+
+    # Cache-hit builds skip all mojos including install, so without this the
+    # purged repository never gets repopulated and single-module builds fail.
+    cache_config = (project_root / ".mvn" / "maven-build-cache-config.xml").read_text()
+    assert '<goalsList artifactId="maven-install-plugin">' in cache_config
 
 
 def test_makefile_defines_each_target_only_once() -> None:

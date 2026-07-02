@@ -291,7 +291,7 @@ public class LoadTest {
             }
 
             if (!startToWatching && state == TableState.DUELING) {
-                Assert.assertTrue(monitor.session.watchGame(checkGame.getGames().iterator().next()));
+                Assert.assertTrue(monitor.session.watchGame(checkGame.getGames().iterator().next()).isSuccess());
                 startToWatching = true;
             }
 

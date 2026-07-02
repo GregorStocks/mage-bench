@@ -62,16 +62,6 @@ typecheck:
 test:
 	uv run pytest tests/ -n auto --dist=load
 
-# Run Java unit tests for mage-bench's own modules. Upstream xmage module
-# tests (Mage, Mage.Client, ...) are trusted to run in the upstream repo.
-# Usage: make test-java [PL=Mage.Client.Bridge] [TEST=SomeTestClass]
-TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer
-PL ?= $(TEST_JAVA_MODULES)
-.PHONY: test-java
-test-java:
-	$(MVN_LOCKED) -q -pl $(PL) -am -DskipTests -T 1C install
-	$(MVN_LOCKED) -q test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)",)
-
 .PHONY: test-js
 test-js: $(WEBSITE_NPM_STAMP)
 	cd website && npx vitest run
@@ -222,6 +212,18 @@ screenshot:
 .PHONY: verify-decks
 verify-decks:
 	$(MVN_LOCKED) test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks"
+
+# Run Java unit tests for mage-bench's own modules. Upstream xmage module
+# tests (Mage, Mage.Client, ...) are trusted to run in the upstream repo.
+# Usage: make test-java [PL=Mage.Client.Bridge] [TEST=SomeTestClass]
+# The install pass builds the modules' dependency chains from the reactor so
+# tests never compile against stale org.mage jars from the local repository.
+TEST_JAVA_MODULES := Mage.Server,Mage.Client.Bridge,Mage.Client.Observer
+PL ?= $(TEST_JAVA_MODULES)
+.PHONY: test-java
+test-java:
+	$(MVN_LOCKED) -q -pl $(PL) -am -DskipTests -T 1C install
+	$(MVN_LOCKED) test -pl $(PL) $(if $(TEST),-Dtest="$(TEST)",)
 
 # Analyze a game for blunders using Opus 4.6 via OpenRouter
 # Usage: make blunders GAME=game_20260214_185313_g1

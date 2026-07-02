@@ -7,6 +7,7 @@ import mage.game.GameException;
 import mage.game.Table;
 import mage.game.match.MatchOptions;
 import mage.game.tournament.TournamentOptions;
+import mage.interfaces.WatchResult;
 import mage.players.PlayerType;
 import mage.server.RoomImpl;
 import mage.server.User;
@@ -193,7 +194,7 @@ public class GamesRoomImpl extends RoomImpl implements GamesRoom, Serializable {
     }
 
     @Override
-    public boolean watchTable(UUID userId, UUID tableId) throws MageException {
+    public WatchResult watchTable(UUID userId, UUID tableId) throws MageException {
         return managerFactory.tableManager().watchTable(userId, tableId);
     }
 

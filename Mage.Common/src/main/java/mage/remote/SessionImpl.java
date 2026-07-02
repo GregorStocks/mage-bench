@@ -10,6 +10,7 @@ import mage.game.tournament.TournamentOptions;
 import mage.interfaces.MageClient;
 import mage.interfaces.MageServer;
 import mage.interfaces.ServerState;
+import mage.interfaces.WatchResult;
 import mage.interfaces.callback.ClientCallback;
 import mage.players.PlayerType;
 import mage.players.net.UserData;
@@ -777,17 +778,19 @@ public class SessionImpl implements Session {
     }
 
     @Override
-    public boolean watchTable(UUID roomId, UUID tableId) {
+    public WatchResult watchTable(UUID roomId, UUID tableId) {
         try {
             if (isConnected()) {
                 return server.roomWatchTable(sessionId, roomId, tableId);
             }
+            return WatchResult.fail("not connected to server");
         } catch (MageException ex) {
             handleMageException(ex);
+            return WatchResult.fail(ex.toString());
         } catch (Throwable t) {
             handleThrowable(t);
+            return WatchResult.fail(t.toString());
         }
-        return false;
     }
 
     @Override
@@ -1184,17 +1187,19 @@ public class SessionImpl implements Session {
     }
 
     @Override
-    public boolean watchGame(UUID gameId) {
+    public WatchResult watchGame(UUID gameId) {
         try {
             if (isConnected()) {
                 return server.gameWatchStart(gameId, sessionId);
             }
+            return WatchResult.fail("not connected to server");
         } catch (MageException ex) {
             handleMageException(ex);
+            return WatchResult.fail(ex.toString());
         } catch (Throwable t) {
             handleThrowable(t);
+            return WatchResult.fail(t.toString());
         }
-        return false;
     }
 
     @Override
