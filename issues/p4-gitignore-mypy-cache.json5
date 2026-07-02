@@ -1,7 +1,7 @@
 {
   "title": ".mypy_cache is not gitignored",
-  "description": "Running make check creates .mypy_cache/ at the repo root, but \
-.gitignore only covers __pycache__ (line ~85), not .mypy_cache. A careless \
+  "description": "Running make check creates .mypy_cache/ at the repo root, \
+but .gitignore only covers __pycache__ (line ~85), not .mypy_cache. A careless \
 `git add -A` will stage dozens of cache db files. Fix: add `.mypy_cache/` to \
 .gitignore (and consider `.ruff_cache/` / `.pytest_cache/` if they are not \
 already covered).",

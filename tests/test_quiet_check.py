@@ -29,6 +29,18 @@ def test_make_check_routes_java_validation_through_lint_java() -> None:
     assert "$(MAKE) verify-mcp-tools" in makefile
 
 
+def test_make_check_runs_java_unit_tests_through_test_java() -> None:
+    assert "test-java" in TARGETS
+
+    project_root = Path(__file__).resolve().parent.parent
+    makefile = (project_root / "Makefile").read_text()
+    ci_workflow = (project_root / ".github" / "workflows" / "lint.yml").read_text()
+
+    assert ".PHONY: test-java" in makefile
+    assert "mvn -q test -pl Mage.Server" in makefile
+    assert "make test-java" in ci_workflow
+
+
 def test_make_lint_uses_root_ruff_config() -> None:
     project_root = Path(__file__).resolve().parent.parent
     makefile = (project_root / "Makefile").read_text()

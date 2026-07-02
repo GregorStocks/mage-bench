@@ -37,6 +37,8 @@ jobs:
 
       - run: make lint-java
 
+      - run: make test-java
+
   python:
     runs-on: ubuntu-latest
     steps:
