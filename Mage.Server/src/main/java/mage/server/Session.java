@@ -448,7 +448,11 @@ public class Session {
             return;
         }
         try {
-            callbackExecutor.execute(() -> sendCallback(call));
+            // enqueue a private copy: broadcasts (e.g. ChatSession) pass one shared instance to
+            // every session, and each writer thread mutates its callback via setMessageId while
+            // another session's writer may be serializing the same object
+            final ClientCallback sessionCall = new ClientCallback(call);
+            callbackExecutor.execute(() -> sendCallback(sessionCall));
         } catch (RejectedExecutionException ex) {
             // session was shut down concurrently (disconnect)
             logDroppedCallback("session closed", call);

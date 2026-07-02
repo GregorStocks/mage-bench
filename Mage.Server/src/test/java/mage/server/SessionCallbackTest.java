@@ -139,6 +139,31 @@ public class SessionCallbackTest {
     }
 
     @Test
+    @DisplayName("a callback broadcast to several sessions is copied per session, not mutated shared")
+    void broadcastCallbackIsCopiedPerSession() throws InterruptedException {
+        RecordingCallbackHandler handlerA = new RecordingCallbackHandler();
+        RecordingCallbackHandler handlerB = new RecordingCallbackHandler();
+        Session sessionA = new Session(new StubManagerFactory().create(), "test-session-a", handlerA);
+        Session sessionB = new Session(new StubManagerFactory().create(), "test-session-b", handlerB);
+        try {
+            // like ChatSession: one shared instance fired at every session
+            ClientCallback shared = newCallback();
+            sessionA.fireCallback(shared);
+            sessionA.fireCallback(shared);
+            sessionB.fireCallback(shared);
+            awaitDelivered(handlerA, 2);
+            awaitDelivered(handlerB, 1);
+
+            assertThat(shared.getMessageId()).as("shared instance must not be mutated").isZero();
+            assertThat(handlerA.delivered).extracting(ClientCallback::getMessageId).containsExactly(1, 2);
+            assertThat(handlerB.delivered).extracting(ClientCallback::getMessageId).containsExactly(1);
+        } finally {
+            sessionA.shutdown();
+            sessionB.shutdown();
+        }
+    }
+
+    @Test
     @DisplayName("callbacks queued before shutdown still drain, callbacks after shutdown are rejected")
     void shutdownDrainsQueueAndRejectsNewCallbacks() throws InterruptedException {
         RecordingCallbackHandler handler = new RecordingCallbackHandler();

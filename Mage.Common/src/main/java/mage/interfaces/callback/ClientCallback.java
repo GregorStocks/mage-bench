@@ -44,6 +44,18 @@ public class ClientCallback implements Serializable {
         this.setData(data, useCompress);
     }
 
+    /**
+     * Copy for fan-out: broadcasts reuse one instance across sessions, but each session
+     * assigns its own messageId, so it must mutate a private copy (data is shared by
+     * reference and never re-compressed; messageId starts fresh).
+     */
+    public ClientCallback(ClientCallback other) {
+        this.method = other.method;
+        this.objectId = other.objectId;
+        this.data = other.data;
+        this.bridgeEvents = other.bridgeEvents;
+    }
+
     private void simulateBadConnection() {
         if (SIMULATE_BAD_CONNECTION) {
             ThreadUtils.sleep(100);
