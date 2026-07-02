@@ -7,6 +7,7 @@ import mage.cards.decks.DeckCardLists;
 import mage.game.GameException;
 import mage.game.match.MatchOptions;
 import mage.game.tournament.TournamentOptions;
+import mage.interfaces.WatchResult;
 import mage.players.PlayerType;
 import mage.server.Room;
 import mage.view.MatchView;
@@ -34,6 +35,6 @@ public interface GamesRoom extends Room {
     void removeTable(UUID tableId);
     Optional<TableView> getTable(UUID tableId);
     void leaveTable(UUID userId, UUID tableId);
-    boolean watchTable(UUID userId, UUID tableId) throws MageException;
+    WatchResult watchTable(UUID userId, UUID tableId) throws MageException;
 
 }
