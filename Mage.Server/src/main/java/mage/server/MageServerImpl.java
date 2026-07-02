@@ -17,6 +17,7 @@ import mage.interfaces.Action;
 import mage.interfaces.ActionWithResult;
 import mage.interfaces.MageServer;
 import mage.interfaces.ServerState;
+import mage.interfaces.WatchResult;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.players.PlayerType;
@@ -836,24 +837,32 @@ public class MageServerImpl implements MageServer {
     }
 
     @Override
-    public boolean roomWatchTable(final String sessionId, final UUID roomId, final UUID tableId) throws MageException {
-        return executeWithResult("setUserData", sessionId, new ActionWithBooleanResult() {
+    public WatchResult roomWatchTable(final String sessionId, final UUID roomId, final UUID tableId) throws MageException {
+        return executeWithResult("setUserData", sessionId, new ActionWithResult<WatchResult>() {
             @Override
-            public Boolean execute() throws MageException {
+            public WatchResult execute() throws MageException {
                 Optional<Session> session = managerFactory.sessionManager().getSession(sessionId);
                 if (!session.isPresent()) {
-                    logger.error("Session not found : " + sessionId);
-                    return false;
+                    String reason = "roomWatchTable failed: session not found: " + sessionId
+                            + " (tableId=" + tableId + ")";
+                    logger.error(reason);
+                    return WatchResult.fail(reason);
                 } else {
                     UUID userId = session.get().getUserId();
                     if (managerFactory.gamesRoomManager().getRoom(roomId).isPresent()) {
                         return managerFactory.gamesRoomManager().getRoom(roomId).get().watchTable(userId, tableId);
                     } else {
-                        logger.error("roomWatchTable failed: room not found: " + roomId
-                                + " (tableId=" + tableId + ", userId=" + userId + ")");
-                        return false;
+                        String reason = "roomWatchTable failed: room not found: " + roomId
+                                + " (tableId=" + tableId + ", userId=" + userId + ")";
+                        logger.error(reason);
+                        return WatchResult.fail(reason);
                     }
                 }
+            }
+
+            @Override
+            public WatchResult negativeResult() {
+                return WatchResult.fail("roomWatchTable failed: server error during watch request");
             }
         });
     }
@@ -864,20 +873,21 @@ public class MageServerImpl implements MageServer {
     }
 
     @Override
-    public boolean gameWatchStart(final UUID gameId, final String sessionId) throws MageException {
-        return executeWithResult("watchGame", sessionId, new ActionWithResult<Boolean>() {
+    public WatchResult gameWatchStart(final UUID gameId, final String sessionId) throws MageException {
+        return executeWithResult("watchGame", sessionId, new ActionWithResult<WatchResult>() {
             @Override
-            public Boolean execute() throws MageException {
+            public WatchResult execute() throws MageException {
                 return managerFactory.sessionManager().getSession(sessionId)
                         .map(session -> {
                             UUID userId = session.getUserId();
                             return managerFactory.gameManager().watchGame(gameId, userId);
-                        }).orElse(false);
+                        }).orElseGet(() -> WatchResult.fail("gameWatchStart failed: session not found: " + sessionId
+                                + " (gameId=" + gameId + ")"));
             }
 
             @Override
-            public Boolean negativeResult() {
-                return false;
+            public WatchResult negativeResult() {
+                return WatchResult.fail("gameWatchStart failed: server error during watch request");
             }
         });
     }
@@ -1262,7 +1272,7 @@ public class MageServerImpl implements MageServer {
                 return false;
             } else {
                 UUID userId = session.get().getUserId();
-                return managerFactory.tableManager().watchTable(userId, tableId);
+                return managerFactory.tableManager().watchTable(userId, tableId).isSuccess();
             }
         }
     }

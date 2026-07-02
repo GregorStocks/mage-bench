@@ -5,6 +5,7 @@ import mage.constants.ManaType;
 import mage.constants.PlayerAction;
 import mage.game.Game;
 import mage.game.GameOptions;
+import mage.interfaces.WatchResult;
 import mage.server.managers.GameManager;
 import mage.server.managers.ManagerFactory;
 import mage.view.GameView;
@@ -136,12 +137,13 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
-    public boolean watchGame(UUID gameId, UUID userId) {
+    public WatchResult watchGame(UUID gameId, UUID userId) {
         GameController gameController = getGameControllerSafe(gameId);
         if (gameController == null) {
-            logger.error("watchGame failed: no GameController registered for game " + gameId
-                    + " (userId=" + userId + ")");
-            return false;
+            String reason = "watchGame failed: no GameController registered for game " + gameId
+                    + " (userId=" + userId + ")";
+            logger.error(reason);
+            return WatchResult.fail(reason);
         }
         return gameController.watch(userId);
     }

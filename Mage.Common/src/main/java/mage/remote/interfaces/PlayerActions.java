@@ -4,6 +4,7 @@ package mage.remote.interfaces;
 import mage.cards.decks.DeckCardLists;
 import mage.game.match.MatchOptions;
 import mage.game.tournament.TournamentOptions;
+import mage.interfaces.WatchResult;
 import mage.players.PlayerType;
 import mage.remote.MageRemoteException;
 import mage.view.TableView;
@@ -41,7 +42,7 @@ public interface PlayerActions {
 
     boolean joinTournamentTable(UUID roomId, UUID tableId, String playerName, PlayerType playerType, int skill, DeckCardLists deckList, String password);
 
-    boolean watchTable(UUID roomId, UUID tableId);
+    WatchResult watchTable(UUID roomId, UUID tableId);
 
     boolean watchTournamentTable(UUID tableId);
 

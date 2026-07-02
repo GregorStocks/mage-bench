@@ -67,7 +67,7 @@ public interface MageServer {
 
     void deckSave(String sessionId, UUID tableId, DeckCardLists deckList) throws MageException, GameException;
 
-    boolean roomWatchTable(String sessionId, UUID roomId, UUID tableId) throws MageException;
+    WatchResult roomWatchTable(String sessionId, UUID roomId, UUID tableId) throws MageException;
 
     boolean roomWatchTournament(String sessionId, UUID tableId) throws MageException;
 
@@ -113,7 +113,7 @@ public interface MageServer {
     @Deprecated // TODO: implement GameView request on miss client side data, e.g. on reconnect (empty player panels bug)?
     GameView gameGetView(UUID gameId, String sessionId, UUID playerId) throws MageException;
 
-    boolean gameWatchStart(UUID gameId, String sessionId) throws MageException;
+    WatchResult gameWatchStart(UUID gameId, String sessionId) throws MageException;
 
     void gameWatchStop(UUID gameId, String sessionId) throws MageException;
 

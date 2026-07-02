@@ -10,6 +10,7 @@ import mage.game.match.MatchOptions;
 import mage.game.tournament.Tournament;
 import mage.game.tournament.TournamentOptions;
 import mage.game.tournament.TournamentPlayer;
+import mage.interfaces.WatchResult;
 import mage.players.PlayerType;
 import mage.server.TableController;
 
@@ -64,7 +65,7 @@ public interface TableManager {
 
     void startDraft(UUID tableId, Draft draft);
 
-    boolean watchTable(UUID userId, UUID tableId);
+    WatchResult watchTable(UUID userId, UUID tableId);
 
     void endGame(UUID tableId);
 
