@@ -173,7 +173,7 @@ public abstract class GameImpl implements Game {
     private final LinkedList<UUID> concedingPlayers = new LinkedList<>();
 
     // Server-side game event log: monotonic sequence counter and shared short ID registry.
-    // These are NOT deep-copied — copies share the same counter/registry (they are game-lifetime singletons).
+    // Copies keep the current seq value but must not share the mutable counter; short IDs are game-lifetime singletons.
     private transient AtomicInteger gameSeq;
     private transient ShortIdRegistry shortIdRegistry;
 
@@ -225,7 +225,7 @@ public abstract class GameImpl implements Game {
         this.gameIndex = game.gameIndex;
         this.tableId = game.tableId;
         this.totalErrorsCount.set(game.totalErrorsCount.get());
-        this.gameSeq = game.gameSeq;
+        this.gameSeq = new AtomicInteger(game.gameSeq.get());
         this.shortIdRegistry = game.shortIdRegistry;
         this.bridgeEventBuffer = null; // simulation copies don't record bridge events
 
