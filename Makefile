@@ -211,7 +211,7 @@ screenshot:
 # Validate sample decks against the real card database (requires make build first)
 .PHONY: verify-decks
 verify-decks:
-	$(MVN_LOCKED) test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks"
+	$(MVN_LOCKED) test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks" -Dmaven.build.cache.enabled=false
 
 # Run Java unit tests for mage-bench's own modules. Upstream xmage module
 # tests (Mage, Mage.Client, ...) are trusted to run in the upstream repo.

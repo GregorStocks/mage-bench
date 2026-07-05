@@ -70,6 +70,16 @@ def test_make_check_runs_java_unit_tests_through_test_java() -> None:
         assert f"{module}/" in TARGET_TRIGGERS["test-java"]
 
 
+def test_verify_decks_disables_build_cache_for_filtered_maven_run() -> None:
+    project_root = Path(__file__).resolve().parent.parent
+    makefile = (project_root / "Makefile").read_text()
+
+    assert (
+        '$(MVN_LOCKED) test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks" '
+        "-Dmaven.build.cache.enabled=false"
+    ) in makefile
+
+
 def test_makefile_defines_each_target_only_once() -> None:
     """GNU Make lets the last duplicate recipe silently win (only a warning),
     which masked the Mage.Server test run when a second test-java target was
