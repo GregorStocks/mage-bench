@@ -1,0 +1,25 @@
+{
+  "title": "Fail finalization when required game artifacts cannot be read or \
+written",
+  "description": "game_finalization silently ignores OSError while reading or \
+appending game_events.jsonl and while reading per-player error logs. \
+write_error_log can consequently write 'No errors detected.' even when an \
+error log was unreadable, and ensure_game_over_event can fabricate or fail to \
+persist a terminal event without surfacing the failure. These artifacts feed \
+exports, blunder analysis, and the leaderboard, so silent degradation can \
+publish misleading data. Define which finalization artifacts are required, \
+propagate failures with the affected path, and prevent website export when \
+they cannot be read or written. If any artifact is intentionally optional, \
+record an explicit structured finalization error rather than treating it as \
+absent. Add permission/read-error/write-error tests.",
+  "status": "open",
+  "priority": 2,
+  "type": "bug",
+  "labels": [
+    "orchestration",
+    "logging",
+    "data-integrity",
+  ],
+  "created_at": "2026-07-11T11:32:21.127-07:00",
+  "updated_at": "2026-07-11T11:32:21.127-07:00",
+}

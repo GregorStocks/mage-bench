@@ -1,0 +1,25 @@
+{
+  "title": "Fail fast on missing game configuration and remove dead metadata \
+resolver",
+  "description": "Config.load_config silently returns when no default \
+configuration is found or when config_file does not exist. The fallback list \
+references configs/dumb.json, which is not present, so invoking the CLI \
+without --config can leave an empty Config and fail later through unrelated \
+assertions. Require a real configuration path and raise a clear error naming \
+the attempted path before compilation or process startup. Decide on one valid \
+CLI default or make --config required; do not silently continue with an empty \
+configuration. While cleaning this area, remove Config.resolve_deck_metadata, \
+which has no callers and duplicates deck parsing and registry lookup code. Add \
+tests for an omitted config, a missing explicit path, and the selected valid \
+default behavior.",
+  "status": "open",
+  "priority": 2,
+  "type": "bug",
+  "labels": [
+    "configuration",
+    "cleanup",
+    "fail-fast",
+  ],
+  "created_at": "2026-07-11T11:32:21.127-07:00",
+  "updated_at": "2026-07-11T11:32:21.127-07:00",
+}

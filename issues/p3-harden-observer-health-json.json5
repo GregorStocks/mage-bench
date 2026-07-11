@@ -1,0 +1,24 @@
+{
+  "title": "Use structured JSON and request validation in the observer health \
+server",
+  "description": "ObserverHealthServer manually concatenates JSON responses \
+containing table IDs and exception messages in several handlers. Quotes, \
+backslashes, or newlines in a failure message can produce invalid JSON; only \
+one exception path currently uses Gson escaping. Request bodies and timeout \
+values are also accessed directly, so malformed JSON or missing fields do not \
+consistently produce a useful client error. Introduce small typed \
+response/request helpers serialized by Gson, validate required gameDir and \
+bounded positive timeouts, and return consistent 400/500 responses without \
+silent defaults. Add tests with quoted error messages, malformed bodies, \
+missing fields, and invalid timeout values.",
+  "status": "open",
+  "priority": 3,
+  "type": "bug",
+  "labels": [
+    "observer",
+    "http",
+    "cleanup",
+  ],
+  "created_at": "2026-07-11T11:32:21.127-07:00",
+  "updated_at": "2026-07-11T11:32:21.127-07:00",
+}

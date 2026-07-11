@@ -1,0 +1,24 @@
+{
+  "title": "Wait for failed batch spectators before finalizing logs",
+  "description": "When a pilot exits nonzero in wait_for_all_games, the code \
+calls spectator_proc.terminate(), kills remaining pilots, records result -1, \
+and immediately removes the session from the active set. The orchestrator can \
+then call finalize_game while the spectator is still running and flushing game \
+event files. This creates a race where merge_game_log, error aggregation, and \
+website export can read partial files. Terminate the spectator process tree, \
+wait with a bounded timeout, force-kill if necessary, and only mark the \
+session ready for finalization after process exit. Reuse one shutdown helper \
+for normal and failed paths where practical. Add a test proving finalization \
+cannot begin until the spectator has exited and a process-level test covering \
+final log writes after termination.",
+  "status": "open",
+  "priority": 1,
+  "type": "bug",
+  "labels": [
+    "orchestration",
+    "concurrency",
+    "logging",
+  ],
+  "created_at": "2026-07-11T11:32:21.127-07:00",
+  "updated_at": "2026-07-11T11:32:21.127-07:00",
+}

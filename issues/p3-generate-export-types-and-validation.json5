@@ -1,0 +1,26 @@
+{
+  "title": "Generate website export types and validation from the schema",
+  "description": "Game export v9 is represented independently by \
+game-export-v9.schema.json, the large Python parser/type module, \
+website/src/types/game-export.d.ts, normalize-game-export.ts, and an \
+additional validator in load-games.ts. The website declarations and validators \
+are manually maintained, while normalizeGameExport performs only shallow array \
+checks before casting unknown data to GameExportV9. Establish the JSON Schema \
+as the source of truth for generated TypeScript declarations and runtime \
+validation, or otherwise reduce the representations to one authoritative \
+validator per language. Ensure loadFullGame and loadAllGames use the same \
+validation guarantees. Add a regeneration/check command and CI test that fails \
+on generated drift. Do not weaken current fail-fast validation or add \
+compatibility fallbacks for malformed exports.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "schema",
+    "website",
+    "typing",
+    "cleanup",
+  ],
+  "created_at": "2026-07-11T11:32:21.127-07:00",
+  "updated_at": "2026-07-11T11:32:21.127-07:00",
+}

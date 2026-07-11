@@ -1,0 +1,25 @@
+{
+  "title": "Consolidate duplicated website timeline processing",
+  "description": "The game viewer, golden viewer helpers, and prerender \
+pipeline maintain separate implementations of timeline behavior. \
+mergeLlmEvents exists in game-log-helpers.ts, game-viewer.js, and \
+prerender-timeline.ts; the prerender copy already differs by tracking \
+maxGameSeq. Turn counting, phase labels, event rendering, and entity decoding \
+also have overlapping implementations. This makes browser, golden, and \
+prerendered views vulnerable to behavioral drift. Move pure event merging, \
+ordering, turn/phase calculation, and safe text decoding into a shared typed \
+module, leaving DOM construction in the consumers. Replace game-viewer.js's \
+detached innerHTML entity decoder with decodeHtmlEntitiesOnce. Add parity \
+tests that run representative events through prerender, replay, and golden \
+consumers and assert identical ordering and visibility boundaries.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": [
+    "website",
+    "cleanup",
+    "testing",
+  ],
+  "created_at": "2026-07-11T11:32:21.127-07:00",
+  "updated_at": "2026-07-11T11:32:21.127-07:00",
+}
