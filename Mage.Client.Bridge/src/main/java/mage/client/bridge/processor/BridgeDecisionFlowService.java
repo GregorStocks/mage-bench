@@ -1036,6 +1036,9 @@ public final class BridgeDecisionFlowService {
                 || action.method() == ClientCallbackMethod.GAME_PLAY_XMANA) {
             return maybeAutoHandlePendingManaAction(action, source);
         }
+        if (action.method() == ClientCallbackMethod.GAME_CHOOSE_CHOICE) {
+            return maybeAutoHandleManaColorChoice(action, source);
+        }
         if (action.method() != ClientCallbackMethod.GAME_TARGET
                 && action.method() != ClientCallbackMethod.GAME_CHOOSE_ABILITY) {
             return NonDecisionActionStatus.NOT_HANDLED;
@@ -1079,6 +1082,42 @@ public final class BridgeDecisionFlowService {
         return processorState.decisionState().pendingAction() != action
             ? NonDecisionActionStatus.CHANGED
             : NonDecisionActionStatus.NOT_HANDLED;
+    }
+
+    /**
+     * "Pick a mana color" from an any-colour source (Command Tower, Arcane Signet)
+     * mid-payment: answer it from the cost being paid instead of asking. Other
+     * GAME_CHOOSE_CHOICE prompts are left alone.
+     */
+    private NonDecisionActionStatus maybeAutoHandleManaColorChoice(PendingAction action, String source) {
+        if (!(action.data() instanceof GameClientMessage msg) || msg.getChoice() == null
+                || !msg.getChoice().isManaColorChoice() || msg.getChoice().isKeyChoice()) {
+            return NonDecisionActionStatus.NOT_HANDLED;
+        }
+        String paymentText = processorState.interactionState().lastManaPaymentText();
+        // What the other untapped sources can still make: the source being tapped
+        // has already paid its {T}, so it is no longer among the playable objects.
+        var otherAbilities = new ArrayList<String>();
+        GameView colorGameView = msg.getGameView();
+        PlayableObjectsList playableNow = colorGameView != null ? colorGameView.getCanPlayObjects() : null;
+        if (playableNow != null) {
+            for (PlayableObjectStats stats : playableNow.getObjects().values()) {
+                otherAbilities.addAll(stats.getAllManaAbilityNames());
+            }
+        }
+        String color = ManaColorChooser.pick(paymentText, msg.getChoice().getChoices(), ManaColorChooser.producible(otherAbilities));
+        if (color == null) {
+            return NonDecisionActionStatus.NOT_HANDLED;
+        }
+        if (!clearPendingActionIfCurrent(action)) {
+            return processorState.decisionState().pendingAction() != action
+                ? NonDecisionActionStatus.CHANGED
+                : NonDecisionActionStatus.NOT_HANDLED;
+        }
+        logger.info("[" + username + "] " + source + ": auto-picked mana color " + color
+            + " for \"" + (paymentText == null ? "?" : paymentText.split("<", 2)[0]) + "\"");
+        sendStringOrDie(action.gameId(), color, "auto mana color choice");
+        return NonDecisionActionStatus.AUTO_HANDLED;
     }
 
     private NonDecisionActionStatus maybeAutoHandlePendingManaAction(PendingAction action, String source) {
@@ -1550,6 +1589,8 @@ public final class BridgeDecisionFlowService {
 
         String messageText = message.getMessage();
         UUID payingForId = extractPayingForId(messageText);
+        // Remembered so a follow-up "Pick a mana color" can be answered from the cost.
+        processorState.interactionState().setLastManaPaymentText(messageText);
 
         List<BridgeManaPlanEntry> plan = processorState.interactionState().manaPlan();
         if (plan != null && !plan.isEmpty()) {

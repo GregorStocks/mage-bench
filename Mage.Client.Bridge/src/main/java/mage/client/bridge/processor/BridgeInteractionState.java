@@ -15,6 +15,7 @@ public final class BridgeInteractionState {
     private List<BridgeManaPlanEntry> manaPlan = null;
     private Integer manaPlanAbilityIndex = null;
     private boolean manaPlanAutoTapFallback = true;
+    private String lastManaPaymentText = null;
     private int lastTurnNumber = -1;
     private int interactionsThisTurn = 0;
     private int maxInteractionsPerTurn = 25;
@@ -97,6 +98,14 @@ public final class BridgeInteractionState {
         Integer abilityIndex = manaPlanAbilityIndex;
         manaPlanAbilityIndex = null;
         return abilityIndex;
+    }
+
+    public String lastManaPaymentText() {
+        return lastManaPaymentText;
+    }
+
+    public void setLastManaPaymentText(String text) {
+        this.lastManaPaymentText = text;
     }
 
     public boolean manaPlanAutoTapFallback() {
