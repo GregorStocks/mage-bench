@@ -400,15 +400,25 @@ public class Spell extends StackObjectImpl implements Card {
                 counter(null, /*this.getSpellAbility()*/ game);
                 return false;
             }
-        } else if (isCopy()) {
-            Token token = CopyTokenFunction.createTokenCopy(card, game, this);
-            // The token that a resolving copy of a spell becomes isn’t said to have been “created.” (2020-09-25)
-            token.putOntoBattlefield(1, game, ability, getControllerId(), false, false, null, null, false);
-            return true;
         } else {
-            MageObjectReference mor = new MageObjectReference(getSpellAbility());
-            game.storePermanentCostsTags(mor, getSpellAbility());
-            return controller.moveCards(card, Zone.BATTLEFIELD, ability, game, false, faceDown, false, null);
+            // Check if spell cast with mutate
+            if (SpellAbilityCastMode.MUTATE.equals(ability.getSpellAbilityCastMode())
+                    && ability.getTargets().stillLegal(ability, game)) {
+                Permanent permanentToMutate = game.getPermanent(ability.getFirstTarget());
+                if (permanentToMutate != null) {
+                    return permanentToMutate.mutate(card, this, game);
+                }
+            }
+            if (isCopy()) {
+                Token token = CopyTokenFunction.createTokenCopy(card, game, this);
+                // The token that a resolving copy of a spell becomes isn’t said to have been “created.” (2020-09-25)
+                token.putOntoBattlefield(1, game, ability, getControllerId(), false, false, null, null, false);
+                return true;
+            } else {
+                MageObjectReference mor = new MageObjectReference(getSpellAbility());
+                game.storePermanentCostsTags(mor, getSpellAbility());
+                return controller.moveCards(card, Zone.BATTLEFIELD, ability, game, false, faceDown, false, null);
+            }
         }
     }
 
@@ -663,24 +673,23 @@ public class Spell extends StackObjectImpl implements Card {
         this.manaCost = costs.copy();
     }
 
-    /**
-     * 202.3b When calculating the converted mana cost of an object with an {X}
-     * in its mana cost, X is treated as 0 while the object is not on the stack,
-     * and X is treated as the number chosen for it while the object is on the
-     * stack.
-     *
-     * @return
-     */
     @Override
     public int getManaValue() {
         int cmc = 0;
+
         if (faceDown) {
             return 0;
         }
+
+        // 202.3e
+        // When calculating the mana value of an object with an {X} in its mana cost, X is 
+        // treated as 0 while the object is not on the stack, and X is treated as the number 
+        // chosen for it while the object is on the stack.
         for (SpellAbility spellAbility : spellAbilities) {
             cmc += spellAbility.getConvertedXManaCost(getCard());
         }
         cmc += this.manaCost.manaValue();
+
         return cmc;
     }
 
@@ -848,7 +857,7 @@ public class Spell extends StackObjectImpl implements Card {
         Card copiedPart = (Card) mapOldToNew.get(this.card.getId());
 
         // copy spell
-        Spell spellCopy = new Spell(copiedPart, this.ability.copySpell(this.card, copiedPart), this.controllerId, this.fromZone, game, true);
+        Spell spellCopy = new Spell(copiedPart, this.ability.copySpell(this.card, copiedPart), this.controllerId, Zone.STACK, game, true);
         UUID copiedSourceId = spellCopy.ability.getSourceId();
 
         // non-fused spell:
@@ -1006,6 +1015,15 @@ public class Spell extends StackObjectImpl implements Card {
 
     public Zone getFromZone() {
         return this.fromZone;
+    }
+
+    // If fromZone is STACK, then spell was a copy created on stack, not cast
+    public boolean wasCast() {
+        return !this.fromZone.match(Zone.STACK);
+    }
+
+    public boolean wasCastFrom(Zone zone) {
+        return this.wasCast() && this.fromZone.match(zone);
     }
 
     @Override

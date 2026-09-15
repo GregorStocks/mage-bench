@@ -21,11 +21,13 @@ public class SecretLairPromo extends ExpansionSet {
         this.hasBasicLands = true;
 
         cards.add(new SetCardInfo("An Offer You Can't Refuse", 7, Rarity.RARE, mage.cards.a.AnOfferYouCantRefuse.class));
+        cards.add(new SetCardInfo("Ancient Stirrings", 50, Rarity.RARE, mage.cards.a.AncientStirrings.class));
         cards.add(new SetCardInfo("Brainstorm", 1, Rarity.RARE, mage.cards.b.Brainstorm.class));
         cards.add(new SetCardInfo("Dark Ritual", 16, Rarity.RARE, mage.cards.d.DarkRitual.class));
         cards.add(new SetCardInfo("Death's Shadow", 8, Rarity.RARE, mage.cards.d.DeathsShadow.class));
         cards.add(new SetCardInfo("Dragonlord Silumgar", 9, Rarity.MYTHIC, mage.cards.d.DragonlordSilumgar.class));
         cards.add(new SetCardInfo("Eldritch Evolution", 5, Rarity.RARE, mage.cards.e.EldritchEvolution.class));
+        cards.add(new SetCardInfo("Emberheart Challenger", 48, Rarity.RARE, mage.cards.e.EmberheartChallenger.class));
         cards.add(new SetCardInfo("Explore", 12, Rarity.RARE, mage.cards.e.Explore.class));
         cards.add(new SetCardInfo("Expressive Iteration", 13, Rarity.RARE, mage.cards.e.ExpressiveIteration.class));
         cards.add(new SetCardInfo("Fatal Push", 3, Rarity.RARE, mage.cards.f.FatalPush.class));
@@ -38,6 +40,7 @@ public class SecretLairPromo extends ExpansionSet {
         cards.add(new SetCardInfo("Innkeeper's Talent", 45, Rarity.RARE, mage.cards.i.InnkeepersTalent.class, FULL_ART));
         cards.add(new SetCardInfo("Island", 32, Rarity.LAND, mage.cards.basiclands.Island.class, FULL_ART_BFZ_VARIOUS));
         cards.add(new SetCardInfo("Karn Liberated", 36, Rarity.MYTHIC, mage.cards.k.KarnLiberated.class));
+        cards.add(new SetCardInfo("Kozilek's Command", 52, Rarity.RARE, mage.cards.k.KozileksCommand.class, FULL_ART));
         cards.add(new SetCardInfo("Laughing Jasper Flint", 44, Rarity.RARE, mage.cards.l.LaughingJasperFlint.class));
         cards.add(new SetCardInfo("Lightning Bolt", 21, Rarity.RARE, mage.cards.l.LightningBolt.class, NON_FULL_USE_VARIOUS));
         cards.add(new SetCardInfo("Lightning Bolt", 37, Rarity.RARE, mage.cards.l.LightningBolt.class, NON_FULL_USE_VARIOUS));
@@ -47,6 +50,7 @@ public class SecretLairPromo extends ExpansionSet {
         cards.add(new SetCardInfo("Mountain", 34, Rarity.LAND, mage.cards.basiclands.Mountain.class, FULL_ART_BFZ_VARIOUS));
         cards.add(new SetCardInfo("Murktide Regent", 17, Rarity.MYTHIC, mage.cards.m.MurktideRegent.class));
         cards.add(new SetCardInfo("Nexus of Fate", 27, Rarity.RARE, mage.cards.n.NexusOfFate.class, FULL_ART));
+        cards.add(new SetCardInfo("Pinnacle Starcage", 54, Rarity.RARE, mage.cards.p.PinnacleStarcage.class));
         cards.add(new SetCardInfo("Plains", 31, Rarity.LAND, mage.cards.basiclands.Plains.class, FULL_ART_BFZ_VARIOUS));
         cards.add(new SetCardInfo("Ponder", 19, Rarity.RARE, mage.cards.p.Ponder.class, FULL_ART));
         cards.add(new SetCardInfo("Prosperous Innkeeper", 40, Rarity.RARE, mage.cards.p.ProsperousInnkeeper.class, FULL_ART));
@@ -57,9 +61,11 @@ public class SecretLairPromo extends ExpansionSet {
         cards.add(new SetCardInfo("Seasoned Pyromancer", 24, Rarity.MYTHIC, mage.cards.s.SeasonedPyromancer.class));
         cards.add(new SetCardInfo("Shoot the Sheriff", 43, Rarity.RARE, mage.cards.s.ShootTheSheriff.class, FULL_ART));
         cards.add(new SetCardInfo("Sleight of Hand", 25, Rarity.RARE, mage.cards.s.SleightOfHand.class, FULL_ART));
+        cards.add(new SetCardInfo("Sowing Mycospawn", 51, Rarity.RARE, mage.cards.s.SowingMycospawn.class));
         cards.add(new SetCardInfo("Spell Pierce", 18, Rarity.RARE, mage.cards.s.SpellPierce.class));
         cards.add(new SetCardInfo("Springleaf Drum", 22, Rarity.RARE, mage.cards.s.SpringleafDrum.class));
         cards.add(new SetCardInfo("Sudden Edict", 39, Rarity.RARE, mage.cards.s.SuddenEdict.class, FULL_ART));
+        cards.add(new SetCardInfo("Sunpearl Kirin", 53, Rarity.RARE, mage.cards.s.SunpearlKirin.class));
         cards.add(new SetCardInfo("Supreme Verdict", 26, Rarity.RARE, mage.cards.s.SupremeVerdict.class, FULL_ART));
         cards.add(new SetCardInfo("Swamp", 33, Rarity.LAND, mage.cards.basiclands.Swamp.class, FULL_ART_BFZ_VARIOUS));
         cards.add(new SetCardInfo("Swords to Plowshares", 20, Rarity.RARE, mage.cards.s.SwordsToPlowshares.class));

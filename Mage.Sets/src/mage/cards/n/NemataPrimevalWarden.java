@@ -15,7 +15,6 @@ import mage.abilities.keyword.ReachAbility;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
 import mage.constants.*;
-import mage.filter.common.FilterControlledCreaturePermanent;
 import mage.filter.common.FilterControlledPermanent;
 import mage.game.Game;
 import mage.game.events.GameEvent;
@@ -113,7 +112,7 @@ class NemataPrimevalWardenEffect extends ReplacementEffectImpl {
     public boolean applies(GameEvent event, Ability source, Game game) {
         ZoneChangeEvent zEvent = (ZoneChangeEvent) event;
         return zEvent.isDiesEvent()
-                && zEvent.getTarget() != null
+                && zEvent.isPermanentMoved()
                 && zEvent.getTarget().isCreature(game)
                 && game.getOpponents(zEvent.getTarget().getControllerId()).contains(source.getControllerId());
     }
