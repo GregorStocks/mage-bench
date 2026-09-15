@@ -120,6 +120,25 @@ public final class BridgeActionCommandService {
         return null;
     }
 
+    /**
+     * Ask the server to roll the game back {@code turns} turns (0 = start of the
+     * current turn). XMage only honours the request while this player holds
+     * priority, and every other human-type player must grant permission (our
+     * bridges auto-grant, see handleUserRequestDialog). Returns null on success
+     * or a reason string.
+     */
+    public String requestRollback(int turns) {
+        var gameId = processorState.gameState().currentGameId();
+        if (gameId == null) {
+            return "no active game";
+        }
+        logger.info("[" + username + "] Requesting rollback of " + turns + " turn(s) in game " + gameId);
+        if (!sessionSupplier.get().sendPlayerAction(mage.constants.PlayerAction.ROLLBACK_TURNS, gameId, Integer.valueOf(turns))) {
+            return "server rejected the rollback request";
+        }
+        return null;
+    }
+
     public BridgeConcedeFlow startConcedeFlow() {
         return concedeFlowManager.startPendingFlow();
     }

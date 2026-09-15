@@ -379,6 +379,17 @@ public final class BridgeCallbackProcessorService
             );
             return;
         }
+        if (request.getButton1Action() == mage.constants.PlayerAction.ADD_PERMISSION_TO_ROLLBACK_TURN) {
+            // Undo is by the requesting seat, not by vote:
+            // every bridge (pilot or human) grants rollback requests.
+            logger.info("[" + username + "] Auto-granting rollback request from " + request.getRelatedUserName());
+            sessionSupplier.get().sendPlayerAction(
+                mage.constants.PlayerAction.ADD_PERMISSION_TO_ROLLBACK_TURN,
+                request.getGameId(),
+                null
+            );
+            return;
+        }
         logger.debug("[" + username + "] Ignoring user request dialog: " + request.getTitle());
     }
 

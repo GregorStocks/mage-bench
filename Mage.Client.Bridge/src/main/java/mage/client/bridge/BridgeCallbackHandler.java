@@ -650,6 +650,11 @@ public class BridgeCallbackHandler {
         return mcpActionApi.concede();
     }
 
+    /** Undo: roll the game back N turns (0 = to the start of the current turn). */
+    public String requestRollback(int turns) {
+        return mcpActionApi.requestRollback(turns);
+    }
+
     /**
      * Pass priority. Without until: passes once and returns. With until set to a
      * step name (upkeep, draw, etc.): client-side yield that auto-passes until

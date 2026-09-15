@@ -1636,5 +1636,47 @@
 }",
       }
     ],
+  },
+  {
+    "name": "rollback_turns",
+    "description": "Roll the game back to the start of a turn: 0 = the current turn, 1 = the previous turn (undo). Only works while you hold priority; other players must allow it (this bridge grants such requests automatically).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "turns": {
+          "type": "integer",
+          "description": "How many turns back: 0 = start of the current turn, 1 = previous turn, …",
+        }
+      },
+      "additionalProperties": false,
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "description": "Whether the rollback request was sent (the server applies it once every other player grants it)",
+        },
+        "error": {
+          "type": "string",
+          "description": "Why the request was not sent, when success is false",
+        }
+      },
+    },
+    "examples": [
+      {
+        "label": "Success",
+        "value": "{\n\
+  \"success\": true\n\
+}",
+      },
+      {
+        "label": "No game",
+        "value": "{\n\
+  \"success\": false,\n\
+  \"error\": \"no active game\"\n\
+}",
+      }
+    ],
   }
 ]

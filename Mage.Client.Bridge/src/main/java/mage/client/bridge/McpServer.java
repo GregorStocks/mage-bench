@@ -43,6 +43,7 @@ public class McpServer {
         GetActionChoicesTool.class,
         ChooseActionTool.class,
         ConcedeTool.class,
+        RollbackTurnsTool.class,
     };
 
     /** Additional tools only available in keepAlive (multi-game) mode. */

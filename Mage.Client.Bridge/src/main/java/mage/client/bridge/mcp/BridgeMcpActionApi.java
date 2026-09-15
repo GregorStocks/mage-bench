@@ -77,6 +77,10 @@ public final class BridgeMcpActionApi {
         return processor.submit(BridgeCommand.of(() -> actionCommandService.sendChatMessage(message)));
     }
 
+    public String requestRollback(int turns) {
+        return processor.submit(BridgeCommand.of(() -> actionCommandService.requestRollback(turns)));
+    }
+
     public boolean concede() {
         BridgeConcedeFlow flow = processor.submit(BridgeCommand.of(actionCommandService::startConcedeFlow));
         try {
