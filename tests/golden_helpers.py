@@ -921,7 +921,7 @@ def _run_replay_on_bridge(
 class _MCPToolDef:
     name: str
     description: str
-    inputSchema: dict | None
+    input_schema: dict | None
 
 
 def _pilot_script_from_replay_script(script: list[dict]) -> list[dict]:
@@ -951,7 +951,7 @@ def _build_openai_tools_for_pilot(bridge: BridgeSession) -> list[dict]:
         _MCPToolDef(
             name=tool["name"],
             description=tool.get("description", ""),
-            inputSchema=tool.get("inputSchema"),
+            input_schema=tool.get("inputSchema"),
         )
         for tool in bridge.list_tool_defs()
         if tool["name"] != "join_table"

@@ -21,6 +21,14 @@ make check          # Full lint + typecheck + tests
 - The quiet wrapper (`scripts/checks/quiet_check.py`) can stay silent for minutes while long subchecks run. If it looks hung, inspect the process tree (e.g. `pstree -ap <quiet_check_pid>`) to see which subcheck is active before assuming it's stuck.
 - If `make check` fails in website-related targets with `npm ERR! EEXIST` symlink errors, or `verify-schema-types` claims `website/src/types/game-export.d.ts` is stale on an otherwise clean tree, check whether parallel `npm install` runs are racing inside the website targets before assuming the generated types actually need regeneration.
 
+## Dependency Upgrades
+
+For Maven build-cache upgrades, verify that `dependency:build-classpath` preserves
+`target/classes` after compilation, then run the golden integration suite. In
+1.3.0, standalone-goal caching stages away and loses compiled outputs; the shared
+`.mvn/jvm.config` disables that feature while lifecycle caching stays enabled.
+Keep this setting out of `.mvn/maven.config`, which worktree setup generates.
+
 ## Post-Validation Cleanup
 
 Check `website/package-lock.json` before pushing. `make check` / website tooling can add incidental `"peer": true` lockfile churn even when you did not intentionally change website dependencies; drop unrelated lockfile noise so the PR stays scoped.

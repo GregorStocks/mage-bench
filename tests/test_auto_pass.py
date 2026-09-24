@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from mcp import MCPError
 from mcp.types import CallToolResult, TextContent
 
 from magebench.pilot.auto_pass import auto_pass_loop
@@ -102,3 +103,11 @@ async def test_logs_errors_as_warnings(tmp_path: Path, caplog):
     # Should appear in log output as warnings
     assert "Auto-pass error: broken" in caplog.text
     assert "Too many consecutive errors" in caplog.text
+
+
+async def test_mcp_protocol_error_exits_immediately(caplog):
+    session = MagicMock()
+    session.call_tool = AsyncMock(side_effect=MCPError(-32603, "bridge disconnected"))
+    await auto_pass_loop(session, "test")
+    assert session.call_tool.call_count == 1
+    assert "bridge disconnected" in caplog.text

@@ -8,7 +8,7 @@ from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from mcp.types import CallToolResult, TextContent
+from mcp.types import CallToolResult, TextContent, Tool
 from openai import OpenAIError
 
 from magebench.game.game_export_types import Decision, PilotContext
@@ -348,13 +348,15 @@ async def test_game_over_from_choose_action_triggers_auto_pass():
 # --- mcp_tools_to_openai tests ---
 
 
-def _make_mcp_tool(name: str) -> MagicMock:
-    """Create a mock MCP tool definition."""
-    tool = MagicMock()
-    tool.name = name
-    tool.description = f"Description for {name}"
-    tool.inputSchema = {"type": "object", "properties": {}}
-    return tool
+def _make_mcp_tool(name: str) -> Tool:
+    """Parse the bridge's wire-format tool with the installed MCP SDK."""
+    return Tool.model_validate(
+        {
+            "name": name,
+            "description": f"Description for {name}",
+            "inputSchema": {"type": "object", "properties": {"index": {"type": "integer"}}},
+        }
+    )
 
 
 def test_mcp_tools_to_openai_no_filter():
@@ -363,6 +365,7 @@ def test_mcp_tools_to_openai_no_filter():
     result = mcp_tools_to_openai(mcp_tools)
     names = {t["function"]["name"] for t in result}
     assert names == {"pass_priority", "choose_action", "wait_for_action"}
+    assert result[0]["function"]["parameters"]["properties"] == {"index": {"type": "integer"}}
 
 
 def test_mcp_tools_to_openai_custom_filter():

@@ -16,7 +16,7 @@ from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
-import httpx
+import httpx2
 from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
 from mcp.shared._httpx_utils import create_mcp_http_client
@@ -152,11 +152,11 @@ async def spawn_bridge_http(
         # default SSE read timeout is 300s — too short.  Use an unlimited
         # read timeout so the connection stays alive for the whole game.
         http_client = create_mcp_http_client(
-            timeout=httpx.Timeout(30.0, read=None),
+            timeout=httpx2.Timeout(30.0, read=None),
         )
         async with (
             http_client,
-            streamable_http_client(url, http_client=http_client) as (read, write, _),
+            streamable_http_client(url, http_client=http_client) as (read, write),
             ClientSession(read, write) as session,
         ):
             yield session

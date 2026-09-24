@@ -8,7 +8,7 @@ import sys
 import time
 from pathlib import Path
 
-from mcp import McpError
+from mcp import MCPError
 
 from magebench.common.log import get_logger, setup_logging
 from magebench.pilot.bridge_transport import build_bridge_launch_args, spawn_bridge_http
@@ -67,7 +67,7 @@ async def run_sleepwalker(
     ) as session:
         # Initialize MCP connection
         init_result = await session.initialize()
-        logger.debug("[sleepwalker] MCP initialized: %s", init_result.serverInfo)
+        logger.debug("[sleepwalker] MCP initialized: %s", init_result.server_info)
 
         # List available tools
         tools = await session.list_tools()
@@ -131,7 +131,7 @@ async def run_sleepwalker(
                 logger.info("[sleepwalker] Interrupted, shutting down...")
                 break
             except (
-                McpError,
+                MCPError,
                 OSError,
                 RuntimeError,
                 ToolExecutionError,

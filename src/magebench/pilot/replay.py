@@ -310,7 +310,7 @@ async def run_replay(
             log_file=game_dir / f"{username}_mcp.log" if game_dir else None,
         ) as session:
             result = await session.initialize()
-            logger.debug("[replay] MCP initialized: %s", result.serverInfo)
+            logger.debug("[replay] MCP initialized: %s", result.server_info)
 
             tools_result = await session.list_tools()
             tool_names = [t.name for t in tools_result.tools]

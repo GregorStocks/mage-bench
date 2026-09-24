@@ -835,7 +835,7 @@ async def run_pilot(
                 log_file=game_dir / f"{username}_mcp.log" if game_dir else None,
             ) as session:
                 result = await session.initialize()
-                logger.debug("[pilot] MCP initialized: %s", result.serverInfo)
+                logger.debug("[pilot] MCP initialized: %s", result.server_info)
 
                 tools_result = await session.list_tools()
                 if tools is not None:
