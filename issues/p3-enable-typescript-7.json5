@@ -1,0 +1,15 @@
+{
+  "title": "Upgrade TypeScript after Astro and typescript-eslint support version 7",
+  "description": "Dependabot PR #1541 requests TypeScript 6.0.3 to 7.0.2. npm ci fails with ERESOLVE because @astrojs/check 0.9.10 requires TypeScript ^5.0.0 || ^6.0.0. @typescript-eslint/parser and eslint-plugin 8.70.0 require >=4.8.4 <6.1.0 as well. \
+Keep TypeScript ^6.0.3 until these upstream peer dependencies and compiler API consumers support 7. \
+Then update the manifest and lockfile and run make check plus make test-e2e without force or legacy-peer-deps.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "website",
+    "dependencies",
+  ],
+  "created_at": "2026-09-24T06:09:50.211033+00:00",
+  "updated_at": "2026-09-24T06:09:50.211033+00:00",
+}

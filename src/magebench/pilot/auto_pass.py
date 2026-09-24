@@ -9,7 +9,7 @@ duplicate it.
 import asyncio
 import json
 
-from mcp import ClientSession, McpError
+from mcp import ClientSession, MCPError
 
 from magebench.common.log import get_logger
 from magebench.pilot.tool_error import ToolExecutionError, extract_text_content
@@ -23,7 +23,7 @@ MAX_CONSECUTIVE_ERRORS = 20  # 20 * 5s = ~100s of continuous failure
 async def _execute_tool(session: ClientSession, name: str, arguments: dict) -> str:
     try:
         result = await session.call_tool(name, arguments)
-    except (McpError, OSError, RuntimeError) as exc:
+    except (MCPError, OSError, RuntimeError) as exc:
         raise ToolExecutionError(f"MCP tool {name} failed: {exc}") from exc
     return extract_text_content(name, result)
 

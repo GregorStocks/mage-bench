@@ -427,8 +427,10 @@ class TestCollectCardNames:
         game.snapshots[0] = dataclasses.replace(
             snap,
             stack=[
-                "stack ability (When Dark Depths has no ice counters on it, sacrifice it. "
-                "If you do, create Marit Lage.)"
+                (
+                    "stack ability (When Dark Depths has no ice counters on it, sacrifice it. "
+                    "If you do, create Marit Lage.)"
+                )
             ],
         )
         names = collect_card_names(game)

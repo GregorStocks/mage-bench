@@ -153,7 +153,7 @@ def mcp_tools_to_openai(mcp_tools: Sequence[Tool], allowed_tools: set[str] | Non
             "function": {
                 "name": tool.name,
                 "description": tool.description,
-                "parameters": tool.inputSchema or {"type": "object", "properties": {}},
+                "parameters": tool.input_schema or {"type": "object", "properties": {}},
             },
         }
         for tool in mcp_tools

@@ -2,6 +2,9 @@
 <cache xmlns="http://maven.apache.org/BUILD-CACHE-CONFIG/1.0.0"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://maven.apache.org/BUILD-CACHE-CONFIG/1.0.0 https://maven.apache.org/xsd/build-cache-config-1.0.0.xsd">
+    <!-- jvm.config disables standalone-goal caching: build-cache 1.3.0
+         stages away target/classes during dependency:build-classpath and
+         discards them on restore. Lifecycle builds remain cached. -->
     <configuration>
         <enabled>true</enabled>
         <hashAlgorithm>SHA-256</hashAlgorithm>

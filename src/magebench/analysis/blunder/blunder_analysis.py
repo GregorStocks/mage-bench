@@ -69,8 +69,8 @@ from magebench.game.game_export_types import (
     json_default,
 )
 
-# Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
-logging.getLogger("httpx").setLevel(logging.WARNING)
+# Suppress httpx2's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
+logging.getLogger("httpx2").setLevel(logging.WARNING)
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 TMP_DIR = REPO_ROOT / "tmp"
