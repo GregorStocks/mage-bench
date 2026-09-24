@@ -160,6 +160,9 @@
 |EMBLEM:FIN|Emblem Sephiroth||SephirothOneWingedAngelEmblem|
 |EMBLEM:EOE|Emblem Tezzeret||TezzeretCruelCaptainEmblem|
 |EMBLEM:ECL|Emblem Oko||OkoShadowmoorScionEmblem|
+|EMBLEM:SOS|Emblem Dellian||ProfessorDellianFelEmblem|
+|EMBLEM:FRA|Emblem Ajani||AjaniResoluteEmblem|
+|EMBLEM:FRA|Emblem Chandra||ChandraChillOfComplianceEmblem|
 
 
 # ALL PLANES
@@ -367,7 +370,7 @@
 |TOK:C17|Cat Dragon||WasitoraCatDragonToken|
 |TOK:C17|Cat Warrior||CatWarriorToken|
 |TOK:C17|Dragon|1|DragonToken|
-|TOK:C17|Dragon|2|UtvaraHellkiteDragonToken|
+|TOK:C17|Dragon|2|Dragon66Token|
 |TOK:C17|Eldrazi Spawn||EldraziSpawnToken|
 |TOK:C17|Gold||GoldToken|
 |TOK:C17|Rat||DeathtouchRatToken|
@@ -914,7 +917,7 @@
 |TOK:RTR|Assassin||AssassinToken|
 |TOK:RTR|Bird||BirdToken|
 |TOK:RTR|Centaur||CentaurToken|
-|TOK:RTR|Dragon||UtvaraHellkiteDragonToken|
+|TOK:RTR|Dragon||Dragon66Token|
 |TOK:RTR|Elemental||GreenAndWhiteElementalToken|
 |TOK:RTR|Goblin||GoblinToken|
 |TOK:RTR|Knight||KnightToken|
@@ -1329,7 +1332,7 @@
 |TOK:STX|Elemental||Elemental44Token|
 |TOK:STX|Fractal||FractalToken|
 |TOK:STX|Inkling||InklingToken|
-|TOK:STX|Pest||Pest11GainLifeToken|
+|TOK:STX|Pest||PestBlackGreenDiesToken|
 |TOK:STX|Spirit||Spirit32Token|
 |TOK:STX|Treasure||TreasureToken|
 
@@ -1545,7 +1548,8 @@
 |TOK:SLD|Food|4|FoodToken|
 |TOK:SLD|Food|5|FoodToken|
 |TOK:SLD|Food|6|FoodToken|
-|TOK:SLD|Goblin||GoblinToken|
+|TOK:SLD|Goblin|1|GoblinToken|
+|TOK:SLD|Goblin|2|GoblinToken|
 |TOK:SLD|Hydra||ZaxaraTheExemplaryHydraToken|
 |TOK:SLD|Icingdeath, Frost Tongue||IcingdeathFrostTongueToken|
 |TOK:SLD|Marit Lage||MaritLageToken|
@@ -1795,7 +1799,7 @@
 |TOK:GK2|Bat||BatToken|
 |TOK:GK2|Bird||WhiteBlueBirdToken|
 |TOK:GK2|Cleric||DeathpactAngelToken|
-|TOK:GK2|Dragon||UtvaraHellkiteDragonToken|
+|TOK:GK2|Dragon||Dragon66Token|
 |TOK:GK2|Goblin||RakdosGuildmageGoblinToken|
 |TOK:GK2|Ooze||OozeToken|
 |TOK:GK2|Saproling||SaprolingToken|
@@ -2358,7 +2362,7 @@
 |TOK:RVR|Bird||BirdToken|
 |TOK:RVR|Bird Illusion||BirdIllusionToken|
 |TOK:RVR|Centaur||CentaurToken|
-|TOK:RVR|Dragon||UtvaraHellkiteDragonToken|
+|TOK:RVR|Dragon||Dragon66Token|
 |TOK:RVR|Elf Knight||ElfKnightToken|
 |TOK:RVR|Goblin|1|GoblinToken|
 |TOK:RVR|Goblin|2|RakdosGuildmageGoblinToken|
@@ -2483,7 +2487,7 @@
 |TOK:OTP|Human Cleric||OutlawsMerrimentClericToken|
 |TOK:OTP|Human Rogue||OutlawsMerrimentRogueToken|
 |TOK:OTP|Human Warrior||OutlawsMerrimentWarriorToken|
-|TOK:OTP|Pest||Pest11GainLifeToken|
+|TOK:OTP|Pest||PestBlackGreenDiesToken|
 
 # SCD
 |TOK:SCD|Beast||BeastToken|
@@ -2609,7 +2613,7 @@
 |TOK:BLC|Human Soldier||HumanSoldierToken|
 |TOK:BLC|Illusion||CustomIllusionToken|
 |TOK:BLC|Octopus||OctopusToken|
-|TOK:BLC|Pest||Pest11GainLifeToken|
+|TOK:BLC|Pest||PestBlackGreenDiesToken|
 |TOK:BLC|Phyrexian Golem||PhyrexianGolemToken|
 |TOK:BLC|Raccoon||RaccoonToken|
 |TOK:BLC|Rat||RatToken|
@@ -2882,7 +2886,7 @@
 |TOK:EOC|Golem|3|TitanForgeGolemToken|
 |TOK:EOC|Incubator||IncubatorToken|
 |TOK:EOC|Insect||XiraBlackInsectToken|
-|TOK:EOC|Pest||Pest11GainLifeToken|
+|TOK:EOC|Pest||PestBlackGreenDiesToken|
 |TOK:EOC|Phyrexian||Phyrexian00Token|
 |TOK:EOC|Shapeshifter||ShapeshifterDeathtouchToken|
 |TOK:EOC|Thopter||ThopterColorlessToken|
@@ -2947,7 +2951,142 @@
 |TOK:ECC|Zombie||ZombieToken|
 
 # TMT
+|TOK:TMT|Dinosaur Soldier||DinosaurSoldierToken|
+|TOK:TMT|Food||FoodToken|
+|TOK:TMT|Insect Warrior||InsectWarriorToken|
 |TOK:TMT|Mutagen||MutagenToken|
+|TOK:TMT|Mutant||RedMutantToken|
+|TOK:TMT|Ninja Turtle Spirit||NinjaTurtleSpiritToken|
+|TOK:TMT|Ninja||Ninja11Token|
+|TOK:TMT|Rat||RatToken|
+|TOK:TMT|Robot||Robot11Token|
+
+# TMC
+|TOK:TMC|Clue||ClueArtifactToken|
+|TOK:TMC|Ooze||BiogenicOozeToken|
+|TOK:TMC|Treasure||TreasureToken|
+
+# SOS
+|TOK:SOS|Elemental|1|Elemental33BlueRedToken|
+|TOK:SOS|Elemental|2|Elemental33BlueRedToken|
+|TOK:SOS|Fractal|1|FractalToken|
+|TOK:SOS|Fractal|2|FractalToken|
+|TOK:SOS|Inkling|1|Inkling11Token|
+|TOK:SOS|Inkling|2|Inkling11Token|
+|TOK:SOS|Pest|1|PestBlackGreenAttacksToken|
+|TOK:SOS|Pest|2|PestBlackGreenAttacksToken|
+|TOK:SOS|Spirit|1|Spirit22RedWhiteToken|
+|TOK:SOS|Spirit|2|Spirit22RedWhiteToken|
+|TOK:SOS|Treasure||TreasureToken|
+
+# SOC
+|TOK:SOC|Beast||BeastToken|
+|TOK:SOC|Boar||Boar2Token|
+|TOK:SOC|Cat||CatToken|
+|TOK:SOC|Contract||ContractToken|
+|TOK:SOC|Dragon Illusion||DragonIllusionToken|
+|TOK:SOC|Eldrazi Spawn||EldraziSpawnToken|
+|TOK:SOC|Elemental|1|ElementalXXFlyingHasteToken|
+|TOK:SOC|Elemental|2|Elemental44Token|
+|TOK:SOC|Elemental|3|Elemental11BlueRedToken|
+|TOK:SOC|Food||FoodToken|
+|TOK:SOC|Frog Lizard||FrogLizardToken|
+|TOK:SOC|Fungus Beast||FungusBeastToken|
+|TOK:SOC|Goat||GoatToken|
+|TOK:SOC|Illusion||CustomIllusionToken|
+|TOK:SOC|Inkling||InklingToken|
+|TOK:SOC|Pegasus||Pegasus22Token|
+|TOK:SOC|Pest||PestBlackGreenDiesToken|
+|TOK:SOC|Phyrexian Germ||PhyrexianGermToken|
+|TOK:SOC|Phyrexian Myr||BrudicladTelchorMyrToken|
+|TOK:SOC|Primo, the Indivisible||PrimoTheIndivisibleToken|
+|TOK:SOC|Rogue||RogueToken|
+|TOK:SOC|Saproling||SaprolingToken|
+|TOK:SOC|Snake||OphiomancerSnakeToken|
+|TOK:SOC|Spirit||Spirit32Token|
+|TOK:SOC|Spirit||SpiritWhiteToken|
+|TOK:SOC|Thopter||ThopterColorlessToken|
+|TOK:SOC|Worm||BlackGreenWormToken|
+|TOK:SOC|Zombie||ZombieDecayedToken|
+
+# MSH
+|TOK:MSH|Alien||AlienHasteToken|
+|TOK:MSH|Clue||ClueArtifactToken|
+|TOK:MSH|Doombot||DoombotToken|
+|TOK:MSH|Food||FoodToken|
+|TOK:MSH|Galactus||GalactusToken|
+|TOK:MSH|Hero||Hero32Token|
+|TOK:MSH|Insect||InsectToken|
+|TOK:MSH|Leviathan||LeviathanToken|
+|TOK:MSH|Merfolk|1|MerfolkToken|
+|TOK:MSH|Merfolk|2|MerfolkToken|
+|TOK:MSH|Moloid||MoloidToken|
+|TOK:MSH|Redwing||RedwingToken|
+|TOK:MSH|Robot Villain|1|RobotVillainToken|
+|TOK:MSH|Robot Villain|2|RobotVillainToken|
+|TOK:MSH|Soldier|1|SoldierToken|
+|TOK:MSH|Soldier|2|SoldierToken|
+|TOK:MSH|Soldier|3|SoldierToken|
+|TOK:MSH|Squirrel||SquirrelToken|
+|TOK:MSH|Sturdy Shield||SturdyShieldToken|
+|TOK:MSH|The Tiger God||TigerGodToken|
+|TOK:MSH|The Void||TheVoidToken|
+|TOK:MSH|Treasure|1|TreasureToken|
+|TOK:MSH|Treasure|2|TreasureToken|
+|TOK:MSH|Villain|1|VillainToken|
+|TOK:MSH|Villain|2|VillainToken|
+|TOK:MSH|Wall||WallColorlessToken|
+|TOK:MSH|Zabu||ZabuToken|
+
+# MSC
+|TOK:MSC|Angel|1|AngelVigilanceToken|
+|TOK:MSC|Angel|2|AngelVigilanceToken|
+|TOK:MSC|Ape Villain|1|ApeVillainToken|
+|TOK:MSC|Ape Villain|2|ApeVillainToken|
+|TOK:MSC|Beast|1|BeastToken|
+|TOK:MSC|Beast|2|BeastToken|
+|TOK:MSC|Bird|1|BirdToken|
+|TOK:MSC|Bird|2|BirdToken|
+|TOK:MSC|Construct|1|FantasticarConstructToken|
+|TOK:MSC|Construct|2|FantasticarConstructToken|
+#|TOK:MSC|Council of Reeds|1|CouncilofReedsToken|
+#|TOK:MSC|Council of Reeds|2|CouncilofReedsToken|
+|TOK:MSC|Elephant|1|ElephantToken|
+|TOK:MSC|Elephant|2|ElephantToken|
+|TOK:MSC|Goat|1|GoatToken|
+|TOK:MSC|Goat|2|GoatToken|
+|TOK:MSC|Ox|1|Ox22Token|
+|TOK:MSC|Ox|2|Ox22Token|
+|TOK:MSC|Rhino|1|RhinoToken|
+|TOK:MSC|Rhino|2|RhinoToken|
+|TOK:MSC|Robot Hero||RobotHeroToken|
+|TOK:MSC|Rogue|1|RogueToken|
+|TOK:MSC|Rogue|2|RogueToken|
+|TOK:MSC|Shapeshifter|1|Shapeshifter32Token|
+|TOK:MSC|Shapeshifter|2|Shapeshifter32Token|
+|TOK:MSC|Vibranium|1|VibraniumToken|
+|TOK:MSC|Vibranium|2|VibraniumToken|
+|TOK:MSC|Wall|1|WallColorlessReachToken|
+|TOK:MSC|Wall|2|WallColorlessReachToken|
+
+# HOB
+|TOK:HOB|Axe||AxeToken|
+|TOK:HOB|Bear||BearToken|
+|TOK:HOB|Bird Soldier||BirdSoldierToken|
+|TOK:HOB|Human Soldier||HumanSoldierToken|
+|TOK:HOB|Dragon||Dragon66Token|
+|TOK:HOB|Dwarf||Dwarf22Token|
+|TOK:HOB|Elf||GreenElfToken|
+|TOK:HOB|Goblin Army|1|GoblinArmyToken|
+|TOK:HOB|Goblin Army|2|GoblinArmyToken|
+|TOK:HOB|Stone Boulder||StoneBoulderToken|
+|TOK:HOB|Treasure|1|TreasureToken|
+|TOK:HOB|Treasure|2|TreasureToken|
+|TOK:HOB|Wolf||WolfToken|
+
+
+# TRK
+|TOK:TRK|Human||Human01Token|
 
 # JVC
 |TOK:JVC|Elemental Shaman||ElementalShamanToken|

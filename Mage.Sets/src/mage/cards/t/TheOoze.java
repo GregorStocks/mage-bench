@@ -1,7 +1,7 @@
 package mage.cards.t;
 
 import mage.abilities.Ability;
-import mage.abilities.common.DiesCreatureTriggeredAbility;
+import mage.abilities.common.LeavesBattlefieldAllTriggeredAbility;
 import mage.abilities.common.SimpleActivatedAbility;
 import mage.abilities.costs.common.TapSourceCost;
 import mage.abilities.dynamicvalue.DynamicValue;
@@ -33,9 +33,9 @@ public final class TheOoze extends CardImpl {
         this.supertype.add(SuperType.LEGENDARY);
 
         // Whenever a creature you control with a +1/+1 counter on it leaves the battlefield, create a Mutagen token for each +1/+1 counter on it.
-        this.addAbility(new DiesCreatureTriggeredAbility(
+        this.addAbility(new LeavesBattlefieldAllTriggeredAbility(
                 new CreateTokenEffect(new MutagenToken(), TheOozeValue.instance),
-                false, StaticFilters.FILTER_A_CONTROLLED_CREATURE_P1P1
+                StaticFilters.FILTER_A_CONTROLLED_CREATURE_P1P1, false
         ));
 
         // {T}: Exile target card from a graveyard. Create a Mutagen token.
@@ -61,7 +61,7 @@ enum TheOozeValue implements DynamicValue {
     @Override
     public int calculate(Game game, Ability sourceAbility, Effect effect) {
         return Optional
-                .ofNullable((Permanent) effect.getValue("creatureDied"))
+                .ofNullable((Permanent) effect.getValue("permanentLeftBattlefield"))
                 .map(permanent -> permanent.getCounters(game).getCount(CounterType.P1P1))
                 .orElse(0);
     }

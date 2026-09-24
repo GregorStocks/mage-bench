@@ -356,7 +356,7 @@ public interface Ability extends Controllable, Serializable {
     /**
      * Add watcher blueprint (real watcher will be created on card/ability init)
      */
-    void addWatcher(Watcher watcher);
+    Ability addWatcher(Watcher watcher);
 
     /**
      * Allow to control ability/trigger's lifecycle
@@ -544,6 +544,11 @@ public interface Ability extends Controllable, Serializable {
      * Returns source permanent info (actual if it exists, otherwise from LKI)
      */
     Permanent getSourcePermanentOrLKI(Game game);
+
+    /**
+     * Finds the Permanent the source permanent is attached to as long as zcc matches
+     */
+    Permanent getPermanentSourceAttachedToIfItStillExists(Game game);
 
     void setSourcePermanentTransformCount(Game game);
 
