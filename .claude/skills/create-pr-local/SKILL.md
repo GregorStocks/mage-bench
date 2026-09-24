@@ -17,6 +17,9 @@ If the diff changes prompt rendering, bridge responses, MCP tool output, replay 
 make check          # Full lint + typecheck + tests
 ```
 
+- Match CI's Java 21 when validating. A newer host default (such as Java 27)
+  can make PMD fail with `Unsupported class file major version`; set `JAVA_HOME`
+  and prepend its `bin` directory to `PATH` for `make check`.
 - If you need live progress or a concrete failing sub-target, prefer `make check VERBOSE=1` over launching a second blind `make check`.
 - The quiet wrapper (`scripts/checks/quiet_check.py`) can stay silent for minutes while long subchecks run. If it looks hung, inspect the process tree (e.g. `pstree -ap <quiet_check_pid>`) to see which subcheck is active before assuming it's stuck.
 - If `make check` fails in website-related targets with `npm ERR! EEXIST` symlink errors, or `verify-schema-types` claims `website/src/types/game-export.d.ts` is stale on an otherwise clean tree, check whether parallel `npm install` runs are racing inside the website targets before assuming the generated types actually need regeneration.
