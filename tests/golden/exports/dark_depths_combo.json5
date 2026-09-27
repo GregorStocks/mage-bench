@@ -139,7 +139,7 @@
       "seq": 55,
     },
     {
-      "message": "Dark Depths is put into graveyard from battlefield",
+      "message": "Dark Depths is put into graveyard from battlefield (SBA: legendary rule to keep only one)",
       "seq": 59,
     },
     {
@@ -231,8 +231,12 @@
       "type": "phase_change",
     },
     {
-      "message": "Opponent has lost the game.",
+      "message": "Opponent lost the game due life is 0 or less",
       "seq": 95,
+    },
+    {
+      "message": "Opponent has lost the game.",
+      "seq": 96,
     }
   ],
   "card_data": {
@@ -2522,6 +2526,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
       "subsequent_actions": [
         "Attacker: Marit Lage (20/20) unblocked",
         "Opponent loses 20 life at combat from Marit Lage",
+        "Opponent lost the game due life is 0 or less",
         "Opponent has lost the game.",
       ],
       "turn": 5,
@@ -2530,7 +2535,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
   "deck_type": "Constructed - Legacy",
   "game_over": {
     "message": "TestPlayer",
-    "seq": 96,
+    "seq": 97,
   },
   "game_type": "Two Player Duel",
   "harness_epoch": 60,
@@ -13173,7 +13178,7 @@ When Dark Depths has no ice counters on it, sacrifice it. If you do, create Mari
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 96,
+      "seq": 97,
       "stack": [],
       "step": "COMBAT_DAMAGE",
       "turn": 5,
