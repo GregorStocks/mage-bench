@@ -38,7 +38,7 @@ public final class ShrivelingRot extends CardImpl {
 
         // Until end of turn, whenever a creature dies, that creature's controller loses life equal to its toughness.
         Mode mode = new Mode(new CreateDelayedTriggeredAbilityEffect(new ShrivelingRotLoseLifeTriggeredAbility()));
-        this.getSpellAbility().getModes().addMode(mode);
+        this.getSpellAbility().addMode(mode);
 
         // Entwine {2}{B}
         this.addAbility(new EntwineAbility("{2}{B}"));
@@ -114,7 +114,7 @@ class ShrivelingRotLoseLifeTriggeredAbility extends DelayedTriggeredAbility {
     public boolean checkTrigger(GameEvent event, Game game) {
         ZoneChangeEvent zEvent = (ZoneChangeEvent) event;
         if (zEvent.isDiesEvent()) {
-            if (zEvent.getTarget().isCreature(game)) {
+            if (zEvent.isPermanentMoved() && zEvent.getTarget().isCreature(game)) {
                 Effect effect = this.getEffects().get(0);
                 effect.setTargetPointer(new FixedTarget(event.getTargetId()));
                 return true;

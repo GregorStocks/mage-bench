@@ -15,15 +15,13 @@ use Text::Template;
 use strict;
 use File::Path qw(make_path);
 
-my $authorFile = 'author.txt';
+my $authorFile = 'data/author.txt';
 my $dataFile = 'mtg-cards-data.txt';
 my $setsFile = 'mtg-sets-data.txt';
-my $knownSetsFile = 'known-sets.txt';
 my $keywordsFile = 'keywords.txt';
 
 my %cards;
 my %sets;
-my %knownSets;
 my %keywords;
 
 sub toCamelCase {
@@ -183,13 +181,6 @@ while (my $line = <DATA>) {
 }
 close(DATA);
 
-open(DATA, $knownSetsFile) || die "can't open $knownSetsFile : $!";
-while (my $line = <DATA>) {
-    my @data = split('\\|', $line);
-    $knownSets{$data[0]} = $data[1];
-}
-close(DATA);
-
 open(DATA, $keywordsFile) || die "can't open $keywordsFile : $!";
 while (my $line = <DATA>) {
     my @data = split('\\|', $line);
@@ -238,8 +229,8 @@ if (!exists $cards{$mainCardName}) {
     die "Card name doesn't exist: $mainCardName\n";
 }
 
-my $cardTemplate = 'cardTest.tmpl';
-my $cardInfoTemplate = 'cardInfo.tmpl';
+my $cardTemplate = 'templates/cardTest.tmpl';
+my $cardInfoTemplate = 'templates/cardInfo.tmpl';
 my $originalName = $mainCardName;
 my $setCode;
 

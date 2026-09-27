@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  */
 public final class RatKingVerminister extends CardImpl {
 
-    private static final FilterPermanent filter = new FilterPermanent(SubType.RAT);
+    private static final FilterPermanent filter = new FilterPermanent(SubType.RAT, "Rats");
 
     public RatKingVerminister(UUID ownerId, CardSetInfo setInfo) {
         super(ownerId, setInfo, new CardType[]{CardType.CREATURE}, "{1}{B}");
@@ -48,7 +48,7 @@ public final class RatKingVerminister extends CardImpl {
         Ability ability = new BeginningOfEndStepTriggeredAbility(new CreateTokenEffect(new RatToken()))
                 .withInterveningIf(RevoltCondition.instance);
         ability.addEffect(new AddCountersSourceEffect(CounterType.P1P1.createInstance()).concatBy("and"));
-        this.addAbility(ability.addHint(RevoltCondition.getHint()).withFlavorWord("Disappear"), new RevoltWatcher());
+        this.addAbility(ability.addHint(RevoltCondition.getHint()).setAbilityWord(AbilityWord.DISAPPEAR), new RevoltWatcher());
 
         // {T}, Sacrifice three Rats: Return target creature card and all other cards with the same name as that card from your graveyard to the battlefield tapped.
         ability = new SimpleActivatedAbility(new RatKingVerministerEffect(), new TapSourceCost());

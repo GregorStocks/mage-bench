@@ -43,7 +43,7 @@ public final class SyrVondamSunstarExemplar extends CardImpl {
         this.addAbility(VigilanceAbility.getInstance());
 
         // Menace
-        this.addAbility(new MenaceAbility());
+        this.addAbility(new MenaceAbility(false));
 
         // Whenever another creature you control dies or is put into exile, put a +1/+1 counter on Syr Vondam and you gain 1 life.
         this.addAbility(new SyrVondamSunstarExemplarFirstTriggeredAbility());
@@ -137,10 +137,5 @@ class SyrVondamSunstarExemplarSecondTriggeredAbility extends TriggeredAbilityImp
                 .map(MageItem::getId)
                 .filter(getSourceId()::equals)
                 .isPresent();
-    }
-
-    @Override
-    public boolean isInUseableZone(Game game, MageObject sourceObject, GameEvent event) {
-        return TriggeredAbilityImpl.isInUseableZoneDiesTrigger(this, sourceObject, event, game);
     }
 }

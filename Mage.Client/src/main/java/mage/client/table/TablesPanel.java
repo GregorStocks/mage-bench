@@ -269,8 +269,11 @@ public class TablesPanel extends javax.swing.JPanel {
     };
 
     private int[] parseSeatsInfo(String info) {
-        String[] valsList = info.split("/");
         int[] res = {0, 0};
+        if (info == null) {
+            return res;
+        }
+        String[] valsList = info.split("/");
         if (valsList.length == 2) {
             res[0] = Integer.parseInt(valsList[0]);
             res[1] = Integer.parseInt(valsList[1]);
@@ -1943,6 +1946,7 @@ public class TablesPanel extends javax.swing.JPanel {
             }
             String serverAddress = SessionHandler.getSession().getServerHost();
             options.setBannedUsers(IgnoreList.getIgnoredUsers(serverAddress));
+            options.setSpectatorsAllowed(true);
             table = SessionHandler.createTable(roomId, options);
 
             if (includeHuman) {
@@ -2234,7 +2238,7 @@ class UpdateMatchesTask extends SwingWorker<Void, Collection<MatchView>> {
     private final UUID roomId;
     private final TablesPanel panel;
 
-    private static final Logger logger = Logger.getLogger(UpdateTablesTask.class);
+    private static final Logger logger = Logger.getLogger(UpdateMatchesTask.class);
 
     UpdateMatchesTask(UUID roomId, TablesPanel panel) {
         this.roomId = roomId;

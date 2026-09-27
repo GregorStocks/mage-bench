@@ -10,6 +10,7 @@ import mage.abilities.common.*;
 import mage.abilities.condition.Condition;
 import mage.abilities.costs.Cost;
 import mage.abilities.dynamicvalue.DynamicValue;
+import mage.abilities.dynamicvalue.common.ColorsOfManaSpentToCastCount;
 import mage.abilities.effects.Effect;
 import mage.abilities.effects.common.ExileUntilSourceLeavesEffect;
 import mage.abilities.effects.common.FightTargetsEffect;
@@ -20,6 +21,7 @@ import mage.abilities.hint.common.CitysBlessingHint;
 import mage.abilities.hint.common.CurrentDungeonHint;
 import mage.abilities.hint.common.InitiativeHint;
 import mage.abilities.hint.common.MonarchHint;
+import mage.abilities.hint.common.PlayersLeftRightHint;
 import mage.abilities.keyword.*;
 import mage.cards.*;
 import mage.cards.decks.CardNameUtil;
@@ -57,6 +59,7 @@ import mage.verify.mtgjson.MtgJsonSet;
 import mage.verify.mtgjson.SpellBookCardsPage;
 import mage.watchers.Watcher;
 import net.java.truevfs.access.TFile;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -179,7 +182,7 @@ public class VerifyCardDataTest {
         skipListAddName(SKIP_LIST_SUBTYPE, "UGL", "Miss Demeanor"); // uses multiple types as a joke card: Lady, of, Proper, Etiquette
         skipListAddName(SKIP_LIST_SUBTYPE, "UGL", "Elvish Impersonators"); // subtype is "Elves" pun
         skipListAddName(SKIP_LIST_SUBTYPE, "UND", "Elvish Impersonators");
-        subtypesToIgnore.add("Sorcerer"); // temporary
+        subtypesToIgnore.add("Book"); // temporary
 
         // number
         // skipListAddName(SKIP_LIST_NUMBER, set, cardName);
@@ -187,7 +190,6 @@ public class VerifyCardDataTest {
         // rarity
         // skipListAddName(SKIP_LIST_RARITY, set, cardName);
         skipListAddName(SKIP_LIST_RARITY, "CMR", "The Prismatic Piper"); // Collation is not yet set up for CMR https://www.lethe.xyz/mtg/collation/cmr.html
-        skipListAddName(SKIP_LIST_RARITY, "TLE", "Teferi's Protection"); // temporary
 
         // missing abilities
         // skipListAddName(SKIP_LIST_MISSING_ABILITIES, set, cardName);
@@ -408,6 +410,33 @@ public class VerifyCardDataTest {
 
         if (doubleErrors.size() > 0) {
             Assert.fail("DB has duplicated card numbers, found errors: " + doubleErrors.size());
+        }
+    }
+
+    @Test
+    public void test_findNonDidgitCardNumbers() {
+        // info only
+        // find all cards with bad non-didgit numbers, see #11157
+        // see parseCardNumberAsInt for supported formats
+        for (Map.Entry<String, MtgJsonSet> refEntry : MtgJsonService.sets().entrySet()) {
+            MtgJsonSet refSet = refEntry.getValue();
+            for (MtgJsonCard refCard : refSet.cards) {
+                String cleanNumber = refCard.number.replaceAll("[\\D]", "");
+                if (cleanNumber.isEmpty()) {
+                    System.out.println("Found non-digit card number: "
+                        + refSet.code + " - "
+                        + refCard.getNameAsASCII() + " - "
+                        + refCard.number
+                    );
+                }
+                if (cleanNumber.equals("0")) {
+                    System.out.println("Found zero card number: "
+                        + refSet.code + " - "
+                        + refCard.getNameAsASCII() + " - "
+                        + refCard.number
+                    );
+                }
+            }
         }
     }
 
@@ -985,8 +1014,13 @@ public class VerifyCardDataTest {
         ignoreBoosterSets.add("Unhinged");
         ignoreBoosterSets.add("Unstable");
         ignoreBoosterSets.add("Unfinity");
+        // spellbook boosters, not for draft
+        ignoreBoosterSets.add("Signature Spellbook: Jace");
+        ignoreBoosterSets.add("Signature Spellbook: Gideon");
+        ignoreBoosterSets.add("Signature Spellbook: Chandra");
         // other
         ignoreBoosterSets.add("Secret Lair Drop"); // cards shop
+        ignoreBoosterSets.add("Ugin's Fate"); // promo, not draftable
         ignoreBoosterSets.add("Zendikar Rising Expeditions"); // box toppers
         ignoreBoosterSets.add("March of the Machine: The Aftermath"); // epilogue boosters aren't for draft
         ignoreBoosterSets.add("Mystery Booster"); // temporary
@@ -1158,10 +1192,10 @@ public class VerifyCardDataTest {
                 if (ignoreBoosterSets.contains(set.getName())) {
                     continue;
                 }
-                // error example: wrong booster settings (set MUST HAVE booster, but haven't) - 2020 - J22 - Jumpstart 2022 - boosters: [jumpstart]
-                errorsList.add(String.format("Error: wrong booster settings (set %s booster, but %s) - %s%s",
-                        (needBooster ? "MUST HAVE" : "MUST HAVEN'T"),
-                        (set.hasBoosters() ? "have" : "haven't"),
+                // error example: wrong booster settings (set must have boosters, but it does not) - 2020 - J22 - Jumpstart 2022 - boosters: [jumpstart]
+                errorsList.add(String.format("Error: wrong booster settings (set %s have boosters, but it %s) - %s%s",
+                    (needBooster ? "must" : "must not"),
+                    (set.hasBoosters() ? "does" : "does not"),
                         set.getReleaseYear() + " - " + set.getCode() + " - " + set.getName(),
                         (jsonSet.booster == null ? "" : " - boosters: " + jsonSet.booster.keySet())
                 ));
@@ -1172,6 +1206,15 @@ public class VerifyCardDataTest {
         Set<String> implementedSets = sets.stream().map(ExpansionSet::getCode).collect(Collectors.toSet());
         MtgJsonService.sets().values().forEach(jsonSet -> {
             if (jsonSet.booster != null && !jsonSet.booster.isEmpty() && !implementedSets.contains(jsonSet.code)) {
+                if (jsonSet.code.equals("HBG")) {
+                    // TODO: remove after implement dozens A-cards, see HBG - Alchemy Horizons: Baldur's Gate
+                    return;
+                }
+                if (jsonSet.code.equals("OM1")) {
+                    // TODO: Determine how to model this set, if at all.
+                    // Wizards released this in lieu of SPM due to licensing issues. Almost mechannically identical, but with unique card names/art.
+                    return;
+                }
                 // how-to fix: it's miss promo sets with boosters, so just add/generate it in most use cases
                 errorsList.add(String.format("Error: missing set implementation (important for draft format) - %s - %s - boosters: %s",
                         jsonSet.code,
@@ -1941,7 +1984,7 @@ public class VerifyCardDataTest {
 
     // "copy" fails means that the copy constructor are not correct inside a card.
     // To fix those, try to find the class that did trigger the copy failure, and check
-    // that copy() exists, a copy constructor exists, and the copy constructor is right. 
+    // that copy() exists, a copy constructor exists, and the copy constructor is right.
     private void checkCardCanBeCopied(Card card1) {
         Card card2;
         try {
@@ -2209,7 +2252,7 @@ public class VerifyCardDataTest {
     // FIN added equip abilities with flavor words, allow for those. There are also cards that affect equip costs or equip abilities, exclude those
     // Technically Enchant should be in this list, but that's added to the SpellAbility in XMage
     // Earthbend is an action word and thus can be anywhere, the rest are keywords that are always first in the line
-    Pattern targetKeywordRegexPattern = Pattern.compile("earthbend |^((.*— )?equip(?! cost| abilit)|bestow|partner with|modular|backup)\\b", Pattern.MULTILINE);
+    Pattern targetKeywordRegexPattern = Pattern.compile("earthbend |^((<i>[a-z ]+<\\/i> &mdash; )?equip(?! cost| abilit)|bestow|partner with|modular|backup)\\b", Pattern.MULTILINE);
 
     // Checks for targeted reflexive or delayed triggered abilities, ones that only can trigger as a result of another ability
     // and thus have their "when" located after a previous statement (detected by a period or comma followed by a space) instead of the start.
@@ -2401,13 +2444,6 @@ public class VerifyCardDataTest {
             fail(card, "abilities", "legendary nonpermanent cards need to have LegendarySpellAbility");
         }
 
-        // special check: mutate is not supported yet, so must be removed from sets
-        if (card.getAbilities().containsClass(MutateAbility.class)) {
-            // how-to fix: add that code at the end of the set
-            // cards.removeIf(card -> HIDE_MUTATE_CARDS && MUTATE_CARD_NAMES.contains(card.getName()));
-            fail(card, "abilities", "mutate cards aren't implemented and shouldn't be available");
-        }
-
         // special check: some new creature's ETB must use When this creature enters instead When {this} enters
         if (EntersBattlefieldTriggeredAbility.ENABLE_TRIGGER_PHRASE_AUTO_FIX) {
             if (etbTriggerPhrases.isEmpty()) {
@@ -2575,9 +2611,11 @@ public class VerifyCardDataTest {
         cardHints.put(MonarchHint.class, "the monarch");
         cardHints.put(InitiativeHint.class, "the initiative");
         cardHints.put(CurrentDungeonHint.class, "venture into");
+        cardHints.put(ColorsOfManaSpentToCastCount.getHint().getClass(), "Converge —");
+        cardHints.put(PlayersLeftRightHint.class, "choose left or right");
         for (Class hintClass : cardHints.keySet()) {
             String lookupText = cardHints.get(hintClass);
-            boolean needHint = ref.text.contains(lookupText);
+            boolean needHint = StringUtils.containsIgnoreCase(ref.text, lookupText);
             if (needHint) {
                 boolean haveHint = card.getAbilities()
                         .stream()
@@ -2623,6 +2661,13 @@ public class VerifyCardDataTest {
 
         // spells have only 1 ability
         if (card.isInstantOrSorcery()) {
+            return;
+        }
+
+        // lands on back of NDFCs *may* have only one ability
+        if (card instanceof TransformingDoubleFacedCardHalf
+            && ((DoubleFacedCardHalf)card).isBackSide()
+            && card.isLand()) {
             return;
         }
 
@@ -3543,7 +3588,7 @@ public class VerifyCardDataTest {
                 if (jsonCard.isUseUnicodeName()) {
                     String inName = jsonCard.getNameAsUnicode();
                     String outName = CardNameUtil.normalizeCardName(inName);
-                    String needOutName = jsonCard.getNameAsFace();
+                    String needOutName = jsonCard.getNameAsASCII();
                     if (!outName.equals(needOutName)) {
                         // how-to fix: add new unicode symbol in CardNameUtil.normalizeCardName
                         errorsList.add(String.format("error, found unsupported unicode symbol in %s - %s", inName, jsonSet.code));

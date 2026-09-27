@@ -109,9 +109,7 @@ class CelestialReunionAbility extends StaticAbility implements OptionalAdditiona
         }
 
         additionalCost.activate();
-        for (Cost cost : ((Costs<Cost>) additionalCost)) {
-            ability.getCosts().add(cost.copy());
-        }
+        ability.addCost(additionalCost.copy());
         ability.setCostsTag(CELESTIAL_REUNION_ACTIVATION_VALUE_KEY, null);
     }
 
@@ -170,7 +168,7 @@ class CelestialReunionCost extends CostImpl {
         }
         ChoiceCreatureType choice = new ChoiceCreatureType(game, source);
         player.choose(Outcome.Benefit, choice, game);
-        SubType subType = SubType.fromString(choice.getChoice());
+        SubType subType = SubType.byDescription(choice.getChoiceKey());
         if (subType == null) {
             paid = false;
             return paid;

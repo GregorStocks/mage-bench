@@ -8,11 +8,8 @@ use strict;
 
 my $dataFile = "mtg-cards-data.txt";
 my $setsFile = "mtg-sets-data.txt";
-my $knownSetsFile = "known-sets.txt";
-
 
 my %cards;
-my %sets;
 my %knownSets;
 
 my @setCards;
@@ -33,6 +30,17 @@ sub toCamelCase {
     $string;
 }
 
+sub toSetClassName {
+    my $string = $_[0];
+    $string =~ s/&/ And /g;
+    $string =~ s/^(\d+)/The$1/g;
+    $string =~ s/-/ /g;
+    $string =~ s/[.+\/:"']//g;
+
+    my @words = ($string =~ /([A-Za-z0-9]+)/g);
+    return join('', map { ucfirst($_) } @words);
+}
+
 my $cardsFound = 0;
 my %all_sets;
 
@@ -46,7 +54,7 @@ while(my $line = <DATA>) {
         my $cardInfo = "$data[0],,,$data[2]";
 
         push(@setCards, $cardInfo);
-    } else { 
+    } else {
         $all_sets {$data[1]} = 1;
     }
 }
@@ -56,7 +64,7 @@ my $potentialSideA;
 my @tempSetCards;
 
 foreach $potentialSideA (sort @setCards) {
-    #print (">>$potentialSideA\n"); 
+    #print (">>$potentialSideA\n");
     if ($potentialSideA =~ m/.*,,,(\d+)(a)$/) {
         my $cardNumSideB = $1 . "b";
         my $val;
@@ -113,24 +121,16 @@ if ($cardsFound == 0) {
     if (!$foundPossibleSet) {
         print ("Couldn't find any matching set for '$setName'. \n");
     }
-    
+
     print "(Note: Looked at $numPossibleSets sets in total).\nPress the enter key to exit.";
     $setName = <STDIN>;
     exit;
 }
 
 open (DATA, $setsFile) || die "can't open $setsFile";
-
 while(my $line = <DATA>) {
     my @data = split('\\|', $line);
-    $sets{$data[0]}= $data[1];
-}
-close(DATA);
-
-open (DATA, $knownSetsFile) || die "can't open $knownSetsFile";
-while(my $line = <DATA>) {
-    my @data = split('\\|', $line);
-    $knownSets{$data[0]}= $data[1];
+    $knownSets{$data[0]} = toSetClassName($data[0]);
 }
 close(DATA);
 
@@ -156,7 +156,7 @@ foreach $name_collectorid (sort @setCards)
 {
     my $cardName;
     my $cardNr;
-    $name_collectorid =~ m/^(.*),,,(.*)$/; 
+    $name_collectorid =~ m/^(.*),,,(.*)$/;
     $cardName = $1;
     $cardNr = $2;
     {

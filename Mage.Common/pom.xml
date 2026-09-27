@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.mage</groupId>
         <artifactId>mage-root</artifactId>
-        <version>1.4.58</version>
+        <version>1.4.61</version>
     </parent>
 
     <artifactId>mage-common</artifactId>
@@ -78,7 +78,6 @@
     </repositories>
     
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -95,8 +94,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
         </plugins>
-
-        <finalName>mage-common</finalName>
     </build>
 
     <properties>

@@ -7,6 +7,8 @@ import mage.game.Game;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
+
 public enum SubType {
     //205.3k Instants and sorceries share their lists of subtypes; these subtypes are called spell types.
     ADVENTURE("Adventure", SubTypeSet.SpellType),
@@ -57,6 +59,7 @@ public enum SubType {
     ATTRACTION("Attraction", SubTypeSet.ArtifactType),
     BLOOD("Blood", SubTypeSet.ArtifactType),
     BOBBLEHEAD("Bobblehead", SubTypeSet.ArtifactType),
+    BOOK("Book", SubTypeSet.ArtifactType),
     CLUE("Clue", SubTypeSet.ArtifactType),
     CONTRAPTION("Contraption", SubTypeSet.ArtifactType),
     EQUIPMENT("Equipment", SubTypeSet.ArtifactType),
@@ -74,6 +77,7 @@ public enum SubType {
     STONE("Stone", SubTypeSet.ArtifactType),
     TREASURE("Treasure", SubTypeSet.ArtifactType),
     VEHICLE("Vehicle", SubTypeSet.ArtifactType),
+    VIBRANIUM("Vibranium", SubTypeSet.ArtifactType),
 
     // 205.3m : Creatures and kindreds share their lists of subtypes; these subtypes are called creature types.
     // A
@@ -81,6 +85,7 @@ public enum SubType {
     AETHERBORN("Aetherborn", SubTypeSet.CreatureType),
     ALIEN("Alien", SubTypeSet.CreatureType),
     ALLY("Ally", SubTypeSet.CreatureType),
+    ANDORIAN("Andorian", SubTypeSet.CreatureType),
     ANGEL("Angel", SubTypeSet.CreatureType),
     ANTELOPE("Antelope", SubTypeSet.CreatureType),
     ANZELLAN("Anzellan", SubTypeSet.CreatureType, true), // Star Wars
@@ -95,7 +100,8 @@ public enum SubType {
     ASSASSIN("Assassin", SubTypeSet.CreatureType),
     ASSEMBLY_WORKER("Assembly-Worker", SubTypeSet.CreatureType),
     ASTARTES("Astartes", SubTypeSet.CreatureType),
-    ATAT("AT-AT", SubTypeSet.CreatureType, true),
+    ATAT("AT-AT", SubTypeSet.CreatureType, true), // Star Wars
+    ATHLETE("Athlete", SubTypeSet.CreatureType, true), // Unknown Event
     ATOG("Atog", SubTypeSet.CreatureType),
     AUROCHS("Aurochs", SubTypeSet.CreatureType),
     AUTOBOT("Autobot", SubTypeSet.CreatureType, true), // H17, Grimlock
@@ -120,11 +126,13 @@ public enum SubType {
     BITH("Bith", SubTypeSet.CreatureType, true), // Star Wars
     BLINKMOTH("Blinkmoth", SubTypeSet.CreatureType),
     BOAR("Boar", SubTypeSet.CreatureType),
+    BORG("Borg", SubTypeSet.CreatureType),
     BRAINIAC("Brainiac", SubTypeSet.CreatureType, true), // Unstable
     BRINGER("Bringer", SubTypeSet.CreatureType),
     BRUSHWAGG("Brushwagg", SubTypeSet.CreatureType),
     // C
     CTAN("C'tan", SubTypeSet.CreatureType),
+    CAITIAN("Caitian", SubTypeSet.CreatureType),
     CALAMARI("Calamari", SubTypeSet.CreatureType, true), // Star Wars
     CAMARID("Camarid", SubTypeSet.CreatureType),
     CAMEL("Camel", SubTypeSet.CreatureType),
@@ -207,6 +215,7 @@ public enum SubType {
     GARGOYLE("Gargoyle", SubTypeSet.CreatureType),
     GERM("Germ", SubTypeSet.CreatureType),
     GIANT("Giant", SubTypeSet.CreatureType),
+    GIRAFFE("Giraffe", SubTypeSet.CreatureType),
     GITH("Gith", SubTypeSet.CreatureType),
     GLIMMER("Glimmer", SubTypeSet.CreatureType),
     GNOLL("Gnoll", SubTypeSet.CreatureType),
@@ -216,6 +225,7 @@ public enum SubType {
     GOD("God", SubTypeSet.CreatureType),
     GOLEM("Golem", SubTypeSet.CreatureType),
     GORGON("Gorgon", SubTypeSet.CreatureType),
+    GORN("Gorn", SubTypeSet.CreatureType),
     GRAVEBORN("Graveborn", SubTypeSet.CreatureType),
     GREMLIN("Gremlin", SubTypeSet.CreatureType),
     GRIFFIN("Griffin", SubTypeSet.CreatureType),
@@ -244,6 +254,7 @@ public enum SubType {
     ILLUSION("Illusion", SubTypeSet.CreatureType),
     IMP("Imp", SubTypeSet.CreatureType),
     INCARNATION("Incarnation", SubTypeSet.CreatureType),
+    INHUMAN("Inhuman", SubTypeSet.CreatureType),
     INKLING("Inkling", SubTypeSet.CreatureType),
     INQUISITOR("Inquisitor", SubTypeSet.CreatureType),
     INSECT("Insect", SubTypeSet.CreatureType),
@@ -259,18 +270,22 @@ public enum SubType {
     KANGAROO("Kangaroo", SubTypeSet.CreatureType),
     KAVU("Kavu", SubTypeSet.CreatureType),
     KELDOR("KelDor", SubTypeSet.CreatureType, true),
+    KELPIEN("Kelpien", SubTypeSet.CreatureType),
     KILLBOT("Killbot", SubTypeSet.CreatureType, true), // Unstable
     KIRIN("Kirin", SubTypeSet.CreatureType),
     KITHKIN("Kithkin", SubTypeSet.CreatureType),
+    KLINGON("Klingon", SubTypeSet.CreatureType),
     KNIGHT("Knight", SubTypeSet.CreatureType),
     KOBOLD("Kobold", SubTypeSet.CreatureType),
     KOORIVAR("Koorivar", SubTypeSet.CreatureType, true),
     KOR("Kor", SubTypeSet.CreatureType),
     KRAKEN("Kraken", SubTypeSet.CreatureType),
+    KREE("Kree", SubTypeSet.CreatureType),
     // L
     LADYOFPROPERETIQUETTE("Lady of Proper Etiquette", SubTypeSet.CreatureType, true), // Unglued
     LAMIA("Lamia", SubTypeSet.CreatureType),
     LAMMASU("Lammasu", SubTypeSet.CreatureType),
+    LANTHANITE("Lanthanite", SubTypeSet.CreatureType),
     LEECH("Leech", SubTypeSet.CreatureType),
     LEMUR("Lemur", SubTypeSet.CreatureType),
     LEVIATHAN("Leviathan", SubTypeSet.CreatureType),
@@ -317,11 +332,13 @@ public enum SubType {
     NYMPH("Nymph", SubTypeSet.CreatureType),
     // O
     OCTOPUS("Octopus", SubTypeSet.CreatureType),
+    OFFICER("Officer", SubTypeSet.CreatureType),
     OGRE("Ogre", SubTypeSet.CreatureType),
     OOZE("Ooze", SubTypeSet.CreatureType),
     ORB("Orb", SubTypeSet.CreatureType),
     ORC("Orc", SubTypeSet.CreatureType),
     ORGG("Orgg", SubTypeSet.CreatureType),
+    ORION("Orion", SubTypeSet.CreatureType),
     ORTOLAN("Ortolan", SubTypeSet.CreatureType, true),
     OTTER("Otter", SubTypeSet.CreatureType),
     OUPHE("Ouphe", SubTypeSet.CreatureType),
@@ -350,6 +367,7 @@ public enum SubType {
     PROCESSOR("Processor", SubTypeSet.CreatureType),
     PUREBLOOD("Pureblood", SubTypeSet.CreatureType, true),
     // Q
+    Q("Q", SubTypeSet.CreatureType),
     QU("Qu", SubTypeSet.CreatureType),
     QUARREN("Quarren", SubTypeSet.CreatureType, true), // Star Wars
     // R
@@ -365,6 +383,7 @@ public enum SubType {
     ROBOT("Robot", SubTypeSet.CreatureType),
     RODIAN("Rodian", SubTypeSet.CreatureType, true), // Star Wars
     ROGUE("Rogue", SubTypeSet.CreatureType),
+    ROMULAN("Romulan", SubTypeSet.CreatureType),
     // S
     SABLE("Sable", SubTypeSet.CreatureType),
     SALAMANDER("Salamander", SubTypeSet.CreatureType),
@@ -387,6 +406,7 @@ public enum SubType {
     SHAPESHIFTER("Shapeshifter", SubTypeSet.CreatureType),
     SHARK("Shark", SubTypeSet.CreatureType),
     SHEEP("Sheep", SubTypeSet.CreatureType),
+    SHIAR("Shi'ar", SubTypeSet.CreatureType),
     SIREN("Siren", SubTypeSet.CreatureType),
     SITH("Sith", SubTypeSet.CreatureType),
     SKELETON("Skeleton", SubTypeSet.CreatureType),
@@ -411,6 +431,7 @@ public enum SubType {
     SPLINTER("Splinter", SubTypeSet.CreatureType),
     SPLITTER("Splitter", SubTypeSet.CreatureType),
     SPONGE("Sponge", SubTypeSet.CreatureType),
+    SPY("Spy", SubTypeSet.CreatureType),
     SQUID("Squid", SubTypeSet.CreatureType),
     SQUIRREL("Squirrel", SubTypeSet.CreatureType),
     STARFISH("Starfish", SubTypeSet.CreatureType),
@@ -421,13 +442,17 @@ public enum SubType {
     SYMBIOTE("Symbiote", SubTypeSet.CreatureType),
     SYNTH("Synth", SubTypeSet.CreatureType),
     // T
+    TALOSIAN("Talosian", SubTypeSet.CreatureType),
+    TELLARITE("Tellarite", SubTypeSet.CreatureType),
     TENTACLE("Tentacle", SubTypeSet.CreatureType),
     TETRAVITE("Tetravite", SubTypeSet.CreatureType),
     THALAKOS("Thalakos", SubTypeSet.CreatureType),
+    THOLIAN("Tholian", SubTypeSet.CreatureType),
     THOPTER("Thopter", SubTypeSet.CreatureType),
     THRULL("Thrull", SubTypeSet.CreatureType),
     TIEFLING("Tiefling", SubTypeSet.CreatureType),
     TIME_LORD("Time Lord", SubTypeSet.CreatureType),
+    TOSK("Tosk", SubTypeSet.CreatureType),
     TOY("Toy", SubTypeSet.CreatureType),
     TRANDOSHAN("Trandoshan", SubTypeSet.CreatureType, true), // Star Wars
     TREEFOLK("Treefolk", SubTypeSet.CreatureType),
@@ -449,6 +474,8 @@ public enum SubType {
     VEDALKEN("Vedalken", SubTypeSet.CreatureType),
     VILLAIN("Villain", SubTypeSet.CreatureType),
     VOLVER("Volver", SubTypeSet.CreatureType),
+    VORTA("Vorta", SubTypeSet.CreatureType),
+    VULCAN("Vulcan", SubTypeSet.CreatureType),
     // W
     WALL("Wall", SubTypeSet.CreatureType),
     WALRUS("Walrus", SubTypeSet.CreatureType),
@@ -467,6 +494,8 @@ public enum SubType {
     WORM("Worm", SubTypeSet.CreatureType),
     WRAITH("Wraith", SubTypeSet.CreatureType),
     WURM("Wurm", SubTypeSet.CreatureType),
+    // X
+    XINDI("Xindi", SubTypeSet.CreatureType),
     // Y
     YETI("Yeti", SubTypeSet.CreatureType),
     // Z
@@ -479,6 +508,7 @@ public enum SubType {
     AMINATOU("Aminatou", SubTypeSet.PlaneswalkerType),
     ANGRATH("Angrath", SubTypeSet.PlaneswalkerType),
     ARLINN("Arlinn", SubTypeSet.PlaneswalkerType),
+    ARZAKON("Arzakon", SubTypeSet.PlaneswalkerType),
     ASHIOK("Ashiok", SubTypeSet.PlaneswalkerType),
     AURRA("Aurra", SubTypeSet.PlaneswalkerType, true), // Star Wars
     BAHAMUT("Bahamut", SubTypeSet.PlaneswalkerType),
@@ -491,10 +521,12 @@ public enum SubType {
     DAKKON("Dakkon", SubTypeSet.PlaneswalkerType),
     DARETTI("Daretti", SubTypeSet.PlaneswalkerType),
     DAVRIEL("Davriel", SubTypeSet.PlaneswalkerType),
+    DELLIAN("Dellian", SubTypeSet.PlaneswalkerType),
     DIHADA("Dihada", SubTypeSet.PlaneswalkerType),
     DOMRI("Domri", SubTypeSet.PlaneswalkerType),
     DOOKU("Dooku", SubTypeSet.PlaneswalkerType, true), // Star Wars
     DOVIN("Dovin", SubTypeSet.PlaneswalkerType),
+    DYFED("Dyfed", SubTypeSet.PlaneswalkerType),
     ELLYWICK("Ellywick", SubTypeSet.PlaneswalkerType),
     ELMINSTER("Elminster", SubTypeSet.PlaneswalkerType),
     ELSPETH("Elspeth", SubTypeSet.PlaneswalkerType),
@@ -563,6 +595,8 @@ public enum SubType {
     YANLING("Yanling", SubTypeSet.PlaneswalkerType),
     YODA("Yoda", SubTypeSet.PlaneswalkerType, true),  // Star Wars,
     ZARIEL("Zariel", SubTypeSet.PlaneswalkerType);
+
+    private static final Logger LOGGER = Logger.getLogger(SubType.class);
 
     public static class SubTypePredicate implements Predicate<MageObject> {
 
@@ -661,17 +695,21 @@ public enum SubType {
             }
         }
 
-        throw new IllegalArgumentException("Can''t find subtype enum value: " + value);
+        throw new IllegalArgumentException("Can''t find subtype enum value in fromString: " + value);
     }
 
     public static SubType byDescription(String subType) {
+        if (subType == null) {
+            return null;
+        }
+
         for (SubType s : values()) {
             if (s.getDescription().equals(subType)) {
                 return s;
             }
         }
-        org.apache.log4j.Logger.getLogger(SubType.class).error("no subtype for " + subType + " exists");
-        return null;
+
+        throw new IllegalArgumentException("Can't find subtype enum value in byDescription: " + subType);
     }
 
     public SubTypeSet getSubTypeSet() {

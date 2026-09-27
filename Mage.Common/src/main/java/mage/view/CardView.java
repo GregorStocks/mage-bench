@@ -488,7 +488,7 @@ public class CardView extends SimpleCardView {
                         counters.add(new CounterView(counter));
                     }
                 }
-                this.pairedCard = permanent.getPairedCard() != null ? permanent.getPairedCard().getSourceId() : null;
+                this.pairedCard = permanent.getPairedMOR() != null ? permanent.getPairedMOR().getSourceId() : null;
                 this.bandedCards = new ArrayList<>();
                 for (UUID bandedCard : permanent.getBandedCards()) {
                     bandedCards.add(bandedCard);
@@ -1628,5 +1628,13 @@ public class CardView extends SimpleCardView {
 
     public String getIdName() {
         return getName() + " [" + getId().toString().substring(0, 3) + ']';
+    }
+
+    public boolean isSameCardVersion(CardView card) {
+        return card != null 
+            && Objects.equals(card.getExpansionSetCode(), this.getExpansionSetCode())
+            && Objects.equals(card.getName(), this.getName())
+            && Objects.equals(card.getCardNumber(), this.getCardNumber())
+            && Objects.equals(card.getImageNumber(), this.getImageNumber());
     }
 }

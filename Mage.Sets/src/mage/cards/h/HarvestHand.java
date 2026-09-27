@@ -52,7 +52,7 @@ public final class HarvestHand extends TransformingDoubleFacedCard {
         )));
 
         // Equip {2}
-        this.getRightHalfCard().addAbility(new EquipAbility(2, false));
+        this.getRightHalfCard().addAbility(new EquipAbility(2));
     }
 
     private HarvestHand(final HarvestHand card) {
@@ -88,7 +88,7 @@ class HarvestHandReturnTransformedEffect extends OneShotEffect {
         if (controller == null || card == null) {
             return false;
         }
-        game.getState().setValue(TransformingDoubleFacedCard.VALUE_KEY_ENTER_TRANSFORMED + source.getSourceId(), Boolean.TRUE);
+        game.getState().setValue(TransformingDoubleFacedCard.VALUE_KEY_ENTER_TRANSFORMED + source.getSourceId() + card.getZoneChangeCounter(game), Boolean.TRUE);
         controller.moveCards(card, Zone.BATTLEFIELD, source, game);
         return true;
     }

@@ -5,10 +5,9 @@
 use Text::Template;
 use strict;
 
-my $authorFile = 'author.txt';
+my $authorFile = 'data/author.txt';
 my $dataFile = 'mtg-cards-data.txt';
 my $setsFile = 'mtg-sets-data.txt';
-my $knownSetsFile = 'known-sets.txt';
 my $keywordsFile = 'keywords.txt';
 
 my %cards;
@@ -16,12 +15,40 @@ my %sets;
 my %knownSets;
 my %keywords;
 
+sub parseCardDataLine {
+    my ($line, $lineNumber) = @_;
+    chomp $line;
+    my @data = split('\|', $line, -1);
+
+    if (@data == 10 && $data[9] eq '') {
+        pop @data;
+    }
+
+    if (@data != 9) {
+        die "$dataFile line $lineNumber has " . scalar(@data)
+            . " pipe-separated fields; expected 9: $line\n";
+    }
+
+    return @data;
+}
+
 sub toCamelCase {
     my $string = $_[0];
     $string =~ s/\b([\w']+)\b/ucfirst($1)/ge;
-    $string =~ s/[-,\s\':.!\/]//g;
+    $string =~ s/[-,\s\':.!?\/]//g;
     $string =~ s/\&/And/g;
     $string;
+}
+
+sub toSetClassName {
+    my $string = $_[0];
+    $string =~ s/&/ And /g;
+    $string =~ s/^(\d+)/The$1/g;
+    $string =~ s/-/ /g;
+    $string =~ s/[.+\/:"']//g;
+
+    my @words = ($string =~ /([A-Za-z0-9]+)/g);
+    return join('', map { ucfirst($_) } @words);
 }
 
 sub fixCost {
@@ -43,7 +70,11 @@ if (-e $authorFile) {
 open(DATA, $dataFile) || die "can't open $dataFile : $!";
 while (my $line = <DATA>) {
     my @data = split('\\|', $line);
-    $cards{$data[0]}{$data[1]}{$data[2]} = \@data;
+    $cards{$data[0]}{$data[1]}{$data[2]} = {
+        data => [@data],
+        line => $line,
+        lineNumber => $.
+    };
 }
 close(DATA);
 
@@ -51,14 +82,7 @@ open(DATA, $setsFile) || die "can't open $setsFile : $!";
 while (my $line = <DATA>) {
     my @data = split('\\|', $line);
     $sets{$data[0]} = $data[1];
-    #print "$data[0]--$data[1]\n"
-}
-close(DATA);
-
-open(DATA, $knownSetsFile) || die "can't open $knownSetsFile : $!";
-while (my $line = <DATA>) {
-    my @data = split('\\|', $line);
-    $knownSets{$data[0]} = $data[1];
+    $knownSets{$data[0]} = toSetClassName($data[0]);
 }
 close(DATA);
 
@@ -107,7 +131,7 @@ if (!exists $cards{$cardName}) {
     die "Card name doesn't exist: $cardName\n";
 }
 
-my $cardTemplate = 'cardClass.tmpl';
+my $cardTemplate = 'templates/cardClass.tmpl';
 my $splitDelimiter = '//';
 my $empty = '';
 my $splitSpell = 'false';
@@ -116,16 +140,14 @@ my $originalName = $cardName;
 # Remove the // from name of split cards
 if (index($cardName, $splitDelimiter) != -1) {
     $cardName =~ s/$splitDelimiter/$empty/g;
-    $cardTemplate = 'cardSplitClass.tmpl';
+    $cardTemplate = 'templates/cardSplitClass.tmpl';
     $splitSpell = 'true';
 }
 
 
 # Check if card is already implemented
 my $fileName = "../Mage.Sets/src/mage/cards/" . lc(substr($cardName, 0, 1)) . "/" . toCamelCase($cardName) . ".java";
-if (-e $fileName) {
-    die "$cardName is already implemented.\n$fileName\n";
-}
+my $cardAlreadyImplemented = -e $fileName;
 
 # Generate lines to corresponding sets
 my %vars;
@@ -143,7 +165,8 @@ foreach my $setName (keys %{$cards{$originalName}}) {
     }
     foreach my $cardNumber (sort keys %{$cards{$originalName}{$setName}}) {
         my $setFileName = "../Mage.Sets/src/mage/sets/" . $knownSets{$setName} . ".java";
-        @card = @{${cards {$originalName}{ $setName }{$cardNumber}}};
+        my $cardData = $cards{$originalName}{$setName}{$cardNumber};
+        @card = parseCardDataLine($cardData->{line}, $cardData->{lineNumber});
         my $line = "        cards.add(new SetCardInfo(\"" . $card[0] . "\", " . $card[2] . ", Rarity." . $raritiesConversion{$card[3]} . ", mage.cards." . $vars{'cardNameFirstLetter'} . "." . $vars{'className'} . ".class" . $printingString . "));\n";
         @ARGV = ($setFileName);
         $^I = '.bak';
@@ -182,6 +205,10 @@ foreach my $setName (keys %{$cards{$originalName}}) {
         unlink $setFileName . ".bak";
         print "$setFileName\n";
     }
+}
+
+if ($cardAlreadyImplemented) {
+    die "$cardName is already implemented.\n$fileName\n";
 }
 
 # Generate the card

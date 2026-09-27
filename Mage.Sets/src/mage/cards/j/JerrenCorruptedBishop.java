@@ -22,7 +22,6 @@ import mage.filter.common.FilterControlledPermanent;
 import mage.game.Game;
 import mage.game.events.GameEvent;
 import mage.game.events.ZoneChangeEvent;
-import mage.game.permanent.PermanentToken;
 import mage.game.permanent.token.HumanToken;
 import mage.players.Player;
 import mage.target.TargetPermanent;
@@ -129,10 +128,10 @@ class JerrenCorruptedBishopTriggeredAbility extends TriggeredAbilityImpl {
             case ZONE_CHANGE:
                 ZoneChangeEvent zEvent = (ZoneChangeEvent) event;
                 return zEvent.isDiesEvent()
-                        && zEvent.getTarget() != null
+                        && zEvent.isPermanentMoved()
                         && !zEvent.getTarget().getId().equals(getSourceId())
                         && zEvent.getTarget().isControlledBy(getControllerId())
-                        && !(zEvent.getTarget() instanceof PermanentToken)
+                        && !zEvent.getTarget().isToken()
                         && zEvent.getTarget().hasSubtype(SubType.HUMAN, game);
             default:
                 return false;

@@ -1,6 +1,14 @@
 package mage.players;
 
+import java.io.Serializable;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+import org.apache.log4j.Logger;
+
 import com.google.common.collect.ImmutableMap;
+
 import mage.*;
 import mage.abilities.*;
 import mage.abilities.ActivatedAbility.ActivationStatus;
@@ -60,12 +68,6 @@ import mage.target.common.TargetDiscard;
 import mage.util.CardUtil;
 import mage.util.GameLog;
 import mage.util.RandomUtil;
-import org.apache.log4j.Logger;
-
-import java.io.Serializable;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 /**
  * Server: basic player implementation, shared for human and AI
@@ -1012,10 +1014,10 @@ public abstract class PlayerImpl implements Player, Serializable {
             }
 
         }
-        if (permanent.getPairedCard() != null) {
-            Permanent pairedCard = permanent.getPairedCard().getPermanent(game);
+        if (permanent.getPairedMOR() != null) {
+            Permanent pairedCard = permanent.getPairedMOR().getPermanent(game);
             if (pairedCard != null) {
-                pairedCard.clearPairedCard();
+                pairedCard.setUnpaired();
             }
         }
         if (permanent.getBandedCards() != null && !permanent.getBandedCards().isEmpty()) {
@@ -1132,6 +1134,53 @@ public abstract class PlayerImpl implements Player, Serializable {
             }
         } else {
             return game.getPlayer(card.getOwnerId()).putCardOnTopXOfLibrary(card, game, source, xFromTheTop, withName);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean putCardsOnTopXOfLibrary(Cards cards, Game game, Ability source, int xFromTheTop, boolean withName) {
+        if (cards.isEmpty()) {
+            return false;
+        }
+        Map<UUID, Cards> playerMap = new HashMap<>();
+        for (Card card : cards.getCards(game)) {
+            playerMap.computeIfAbsent(card.getOwnerId(), k -> new CardsImpl()).add(card);
+        }
+        for (UUID playerId : game.getState().getPlayersInRange(this.getId(), game)) {
+            Player owner = game.getPlayer(playerId);
+            Cards ownedCards = playerMap.getOrDefault(playerId, new CardsImpl());
+            if (owner != null && !ownedCards.isEmpty()) {
+                if (owner.getLibrary().size() + 1 < xFromTheTop) {
+                    owner.putCardsOnBottomOfLibrary(ownedCards, game, source, true);
+                    continue;
+                }
+                if (ownedCards.size() == 1) {
+                    owner.putCardOnTopXOfLibrary(ownedCards.getRandom(game), game, source, xFromTheTop, withName);
+                    continue;
+                }
+                // 401.4. If an effect puts two or more cards in a specific position in a library at the same time,
+                // the owner of those cards may arrange them in any order.
+                // That library's owner doesn't reveal the order in which the cards go into the library.
+                TargetCard target = new TargetCard(Zone.ALL,
+                        new FilterCard("card ORDER to put " + CardUtil.numberToOrdinalText(xFromTheTop) +
+                                " from the TOP of your library (last one chosen will be topmost)"));
+                target.setRequired(true);
+                while (ownedCards.size() > 1
+                        && owner.canRespond()
+                        && owner.choose(Outcome.Neutral, ownedCards, target, source, game)) {
+                    UUID targetObjectId = target.getFirstTarget();
+                    if (targetObjectId == null) {
+                        break;
+                    }
+                    ownedCards.remove(targetObjectId);
+                    owner.putCardOnTopXOfLibrary(game.getCard((targetObjectId)), game, source, xFromTheTop, false);
+                    target.clearChosen();
+                }
+                for (UUID c : ownedCards) {
+                    owner.putCardOnTopXOfLibrary(game.getCard((c)), game, source, xFromTheTop, false);
+                }
+            }
         }
         return true;
     }
@@ -1517,6 +1566,11 @@ public abstract class PlayerImpl implements Player, Serializable {
 
     protected boolean playManaAbility(ActivatedManaAbilityImpl ability, Game game) {
         int bookmark = game.bookmarkState();
+        // 20260116 - 109.4a
+        // The controller of a mana ability is determined as though it were on the stack.
+        // Don't generate a new id because it's not necessary and breaks mana events, see #14822
+        // ability.newId();
+        ability.setControllerId(playerId);
         if (ability.activate(game, false) && ability.resolve(game)) {
             if (ability.isUndoPossible()) {
                 if (storedBookmark == -1 || storedBookmark > bookmark) { // e.g. useful for undo Nykthos, Shrine to Nyx
@@ -1569,6 +1623,7 @@ public abstract class PlayerImpl implements Player, Serializable {
         if (!game.replaceEvent(GameEvent.getEvent(GameEvent.EventType.TAKE_SPECIAL_ACTION,
                 action.getId(), action, getId()))) {
             int bookmark = game.bookmarkState();
+            action.setControllerId(playerId); // for Volrath's Curse / Lost in Thought
             if (action.activate(game, false)) {
                 game.fireEvent(GameEvent.getEvent(GameEvent.EventType.TAKEN_SPECIAL_ACTION,
                         action.getId(), action, getId()));
@@ -1591,6 +1646,7 @@ public abstract class PlayerImpl implements Player, Serializable {
         if (!game.replaceEvent(GameEvent.getEvent(GameEvent.EventType.TAKE_SPECIAL_MANA_PAYMENT,
                 action.getId(), action, getId()))) {
             int bookmark = game.bookmarkState();
+            action.setControllerId(playerId);
             if (action.activate(game, false)) {
                 game.fireEvent(GameEvent.getEvent(GameEvent.EventType.TAKEN_SPECIAL_MANA_PAYMENT,
                         action.getId(), action, getId()));
@@ -4516,6 +4572,7 @@ public abstract class PlayerImpl implements Player, Serializable {
     public List<Ability> getPlayableOptions(Ability ability, Game game) {
         List<Ability> options = new ArrayList<>();
         if (ability.isModal()) {
+            ability.getModes().clearSelectedModes(); // clear default first mode too
             addModeOptions(options, ability, game);
         } else if (ability.getTargets().getNextUnchosen(game) != null) {
             // TODO: Handle other variable costs than mana costs
@@ -4534,23 +4591,63 @@ public abstract class PlayerImpl implements Player, Serializable {
      * AI related code
      */
     private void addModeOptions(List<Ability> options, Ability option, Game game) {
-        // TODO: support modal spells with more than one selectable mode (also must use max modes filter)
-        for (Mode mode : option.getModes().values()) {
+        // there are possible ifinite modes to select due isMayChooseSameModeMoreThanOnce
+        // so used protection logic:
+        // - fill modes one by one until reach required conditionals or game engine limit
+        // - also must put any valid up to options
+
+        Modes modes = option.getModes();
+        boolean isValidSelection =
+            (modes.getMaxPawPrints() == 0 && modes.getSelectedModes().size() >= modes.getMinModes())
+            || (modes.getMaxPawPrints() > 0 && modes.getSelectedPawPrints() <= modes.getMaxPawPrints())
+            || (modes.isMayChooseNone() && modes.getSelectedModes().isEmpty());
+        if (isValidSelection) {
+            // add valid option and continue to generate new ones (it already prepared targets in parent call)
+            // see tests paw prints like Galadriel, Light of Valinor, etc.
+            // it can be 0 of 5, 3 of 5, etc
+            Ability finalizedOption = option.copy();
+            finalizedOption.getModes().setPreselected(true);
+            options.add(finalizedOption);
+        }
+
+        List<Mode> availableModes = modes.getAvailableModes(option, game).stream()
+                .filter(mode -> !option.getModes().getSelectedModes().contains(mode.getId()) || option.getModes().isMayChooseSameModeMoreThanOnce())
+                .filter(mode -> mode.getTargets().canChoose(option.getControllerId(), option, game))
+                .collect(Collectors.toList());
+        if (availableModes.isEmpty()) {
+            // all modes selected, nothing to do here
+            return;
+        }
+
+        // continue to adding more modes
+        for (Mode mode : availableModes) {
             Ability newOption = option.copy();
-            // TODO: bugged? Research option.getModes().isMayChooseSameModeMoreThanOnce() - is it affected here
-            newOption.getModes().clearSelectedModes();
             newOption.getModes().addSelectedMode(mode.getId());
             newOption.getModes().setActiveMode(mode);
+
+            // fill each mode with completed targets
+            List<Ability> withTargetsFilled = new ArrayList<>();
             if (newOption.getTargets().getNextUnchosen(game) != null) {
+                // 1
                 if (!newOption.getManaCosts().getVariableCosts().isEmpty()) {
-                    addVariableXOptions(options, newOption, 0, game);
+                    // 1.1
+                    addVariableXOptions(withTargetsFilled, newOption, 0, game);
                 } else {
-                    addTargetOptions(options, newOption, 0, game);
+                    // 1.2
+                    addTargetOptions(withTargetsFilled, newOption, 0, game);
                 }
             } else if (newOption.getCosts().getTargets().getNextUnchosen(game) != null) {
-                addCostTargetOptions(options, newOption, 0, game);
+                // 2
+                addCostTargetOptions(withTargetsFilled, newOption, 0, game);
             } else {
-                options.add(newOption);
+                // 3
+                withTargetsFilled.add(newOption);
+            }
+
+            // now we have added mode with combination of filled targets
+            // add it recursively with additional modes
+            for (Ability filled : withTargetsFilled) {
+                addModeOptions(options, filled, game);
             }
         }
     }
@@ -4602,6 +4699,7 @@ public abstract class PlayerImpl implements Player, Serializable {
                 addCostTargetOptions(options, newOption, 0, game);
             } else {
                 // all filled, ability ready with all targets and costs
+                newOption.getModes().setPreselected(true);
                 options.add(newOption);
             }
         }
@@ -4617,6 +4715,7 @@ public abstract class PlayerImpl implements Player, Serializable {
             if (targetNum < option.getCosts().getTargets().size() - 1) {
                 addCostTargetOptions(options, newOption, targetNum + 1, game);
             } else {
+                newOption.getModes().setPreselected(true);
                 options.add(newOption);
             }
         }
@@ -5080,7 +5179,7 @@ public abstract class PlayerImpl implements Player, Serializable {
     }
 
     @Override
-    public boolean moveCardsToExile(Set<Card> cards, Ability source, Game game, boolean withName, UUID exileId, String exileZoneName) {
+    public boolean moveCardsToExile(Set<? extends Card> cards, Ability source, Game game, boolean withName, UUID exileId, String exileZoneName) {
         if (cards.isEmpty()) {
             return true;
         }
@@ -5290,6 +5389,11 @@ public abstract class PlayerImpl implements Player, Serializable {
         }
         boolean result = false;
         if (card.moveToExile(exileId, exileName, source, game)) {
+            if (card instanceof Permanent)
+                ((Permanent) card).getMutateObjects().stream()
+                        .map(game::getCard)
+                        .filter(Objects::nonNull)
+                        .forEach(c -> c.moveToExile(exileId, exileName, source, game));
             if (!game.isSimulation()) {
                 if (card instanceof PermanentCard) {
                     // in case it's face down or name was changed by copying from other permanent
@@ -5306,7 +5410,7 @@ public abstract class PlayerImpl implements Player, Serializable {
                 }
                 if (Zone.EXILED.equals(game.getState().getZone(card.getId()))) { // only if target zone was not replaced
                     String visibleName;
-                    if (withName) {
+                    if (withName && !(card instanceof PermanentToken)) {
                         // warning, withName param used to forced name show of the face down card (see 708.9.)
                         if (card.getName().isEmpty()) {
                             throw new IllegalStateException("Wrong code usage: method must find real card name, but found nothing", new Throwable());
