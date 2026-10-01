@@ -32,6 +32,11 @@ updates:
       interval: 'weekly'
     cooldown:
       default-days: 7
+    ignore:
+      # TypeScript 7 is unsupported by `astro check` and typescript-eslint
+      # (peer `typescript <6.1.0`). Drop this once both support it.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     groups:
       all:
         applies-to: version-updates
